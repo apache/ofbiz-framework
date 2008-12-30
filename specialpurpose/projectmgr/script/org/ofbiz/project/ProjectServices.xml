@@ -317,8 +317,8 @@
                         <number value="-1"/>
                     </calculate>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="startDate">
-                        <field field-name="startDate"/>
-                        <field field-name="taskDays"/>
+                        <field field="startDate"/>
+                        <field field="taskDays"/>
                     </call-class-method>
                     <else>
                         <entity-one entity-name="WorkEffort" value-field="workEffort">
@@ -352,8 +352,8 @@
                             <now-timestamp field="upd.estimatedStartDate"/>
                             <now-timestamp field="currentDate"/>
                             <call-class-method class-name="org.ofbiz.project.Various" method-name="calculateCompletionDate" ret-field="upd.estimatedCompletionDate">
-                                <field field-name="task" type="org.ofbiz.entity.GenericValue"/>
-                                <field field-name="currentDate" type="java.sql.Timestamp"/>
+                                <field field="task" type="org.ofbiz.entity.GenericValue"/>
+                                <field field="currentDate" type="java.sql.Timestamp"/>
                             </call-class-method>
                             <set field="upd.workEffortId" from-field="task.workEffortId"/>
                             <call-service service-name="updateWorkEffort" in-map-name="upd"/>
@@ -361,7 +361,7 @@
                                 <field-map field-name="workEffortId" from-field="task.workEffortId"/>
                             </entity-one>
                             <call-class-method class-name="org.ofbiz.project.Various" method-name="setDatesFollowingTasks">
-                                <field field-name="newTask" type="org.ofbiz.entity.GenericValue"/>
+                                <field field="newTask" type="org.ofbiz.entity.GenericValue"/>
                             </call-class-method>
                         </if-empty>
                     </iterate>
@@ -422,8 +422,8 @@
                             <else>
                                 <!-- translate the date into the daynumber -->
                                 <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field="dayNumber">
-                                    <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
-                                    <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
+                                    <field field="timesheet.fromDate" type="java.sql.Timestamp"/>
+                                    <field field="timeEntry.fromDate" type="java.sql.Timestamp"/>
                                 </call-class-method>
                                 <!-- get the related field -->
                                 <if-not-empty field="parameters.hoursDay${dayNumber}">
@@ -447,8 +447,8 @@
                 <if-compare field="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
                     <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="fromDate">
-                        <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
-                        <field field-name="dayNr" type="int"/>
+                        <field field="timesheet.fromDate" type="java.sql.Timestamp"/>
+                        <field field="dayNr" type="int"/>
                     </call-class-method>
                     <call-simple-method method-name="updateTimeEntry"/>                        
                 </if-compare>

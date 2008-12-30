@@ -587,8 +587,8 @@ under the License.
         -->
 
         <!-- this is not normally needed...
-        <log level="info"><string value="Getting inventory available to promise count; parameters are: "/><field field-name="parameters"/></log>
-        <log level="info" message="foo foo: "><string value="Getting inventory available to promise count; productId is: "/><field field-name="productId" map-name="parameters"/></log>
+        <log level="info"><string value="Getting inventory available to promise count; parameters are: "/><field field="parameters"/></log>
+        <log level="info" message="foo foo: "><string value="Getting inventory available to promise count; productId is: "/><field field="productId" map-name="parameters"/></log>
         -->
 
         <set from-field="parameters.inventoryItemId" field="lookupFieldMap.inventoryItemId"/>

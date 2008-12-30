@@ -334,7 +334,7 @@ under the License.
     <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
         <entity-one entity-name="Product" value-field="product"/>
         <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
-            <field field-name="product" type="org.ofbiz.entity.GenericValue"/>
+            <field field="product" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
     <simple-method method-name="deleteProductKeywords" short-description="delete all the keywords of a product">
@@ -362,7 +362,7 @@ under the License.
             </condition>
             <then>
                 <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="indexKeywords">
-                    <field field-name="productInstance" type="org.ofbiz.entity.GenericValue"/>
+                    <field field="productInstance" type="org.ofbiz.entity.GenericValue"/>
                 </call-class-method>
             </then>
         </if>
@@ -416,7 +416,7 @@ under the License.
         <!-- do the same for the virtual product... -->
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
-            <field field-name="product" type="GenericValue"/>
+            <field field="product" type="GenericValue"/>
         </call-class-method>
         <if-not-empty field="virtualProductId">
             <set from-field="virtualProductId" field="callSubMap.productId"/>
@@ -444,7 +444,7 @@ under the License.
         <!-- do the same for the virtual product... -->
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
-            <field field-name="product" type="GenericValue"/>
+            <field field="product" type="GenericValue"/>
         </call-class-method>
         <if-not-empty field="virtualProductId">
             <set from-field="virtualProductId" field="callSubMap.productId"/>
@@ -577,8 +577,8 @@ under the License.
     <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg">
         <!-- this method is meant to be called in-line and depends in a productId parameter -->
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
-            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
-            <field field-name="productId" type="java.lang.String"/>
+            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="productId" type="java.lang.String"/>
         </call-class-method>
         <log level="info" message="Got new average customer rating ${averageCustomerRating}"/>
         <if-compare field="averageCustomerRating" operator="equals" value="0" type="Double">

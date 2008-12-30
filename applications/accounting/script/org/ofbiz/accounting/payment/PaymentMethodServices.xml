@@ -81,7 +81,7 @@ under the License.
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
         <iterate entry="creditCard" list="creditCards">
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isNotExpired">
-                <field field-name="creditCard.expireDate"/>
+                <field field="creditCard.expireDate"/>
             </call-class-method>
             <if-compare field="isNotExpired" operator="equals" type="Boolean" value="true">
                 <set-service-fields service-name="updateCreditCard" map="creditCard" to-map="uccMap"/>

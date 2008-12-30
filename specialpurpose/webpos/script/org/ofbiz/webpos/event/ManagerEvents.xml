@@ -22,8 +22,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
@@ -38,11 +38,11 @@ under the License.
                         <set field="minDecimal" value="0" type="Integer"/>
                         <set field="maxDecimal" value="3" type="Integer"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="startingDrawerAmount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="startingDrawerAmount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-field="terminalState" entity-name="PosTerminalState"/>
@@ -81,8 +81,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
@@ -97,11 +97,11 @@ under the License.
                         <set field="minDecimal" value="0" type="Integer"/>
                         <set field="maxDecimal" value="3" type="Integer"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="false">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCashAmountNotValid"/></add-error>
@@ -109,11 +109,11 @@ under the License.
                         </if-compare>
                         <set field="amount" from-field="parameters.endingDrawerCheckAmount" type="String"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="false">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCheckAmountNotValid"/></add-error>
@@ -121,11 +121,11 @@ under the License.
                         </if-compare>
                         <set field="amount" from-field="parameters.endingDrawerCcAmount" type="String"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="false">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCcAmountNotValid"/></add-error>
@@ -133,11 +133,11 @@ under the License.
                         </if-compare>
                         <set field="amount" from-field="parameters.endingDrawerGcAmount" type="String"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="false">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalGcAmounNotValidt"/></add-error>
@@ -145,11 +145,11 @@ under the License.
                         </if-compare>
                         <set field="amount" from-field="parameters.endingDrawerOtherAmount" type="String"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="false">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/></add-error>
@@ -188,8 +188,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
@@ -200,7 +200,7 @@ under the License.
                     <if-not-empty field="terminalState">
                         <set field="fieldName" value="openedDate" type="String"/>
                         <call-object-method obj-field-name="terminalState" method-name="getTimestamp" ret-field="openDate">
-                            <field field-name="fieldName" type="String"/>
+                            <field field="fieldName" type="String"/>
                         </call-object-method>
                         <entity-one entity-name="OrderHeader" value-field="orderHeader">
                             <field-map field-name="orderId" from-field="parameters.orderId"/>
@@ -208,10 +208,10 @@ under the License.
                         <if-not-empty field="orderHeader">
                             <set field="fieldName" value="orderDate" type="String"/>
                             <call-object-method obj-field-name="orderHeader" method-name="getTimestamp" ret-field="orderDate">
-                                <field field-name="fieldName" type="String"/>
+                                <field field="fieldName" type="String"/>
                             </call-object-method>
                             <call-object-method obj-field-name="orderDate" method-name="after" ret-field="isAfter">
-                                <field field-name="openDate" type="Timestamp"/>
+                                <field field="openDate" type="Timestamp"/>
                             </call-object-method>
                             <if-compare field="isAfter" operator="equals" value="true">
                                 <call-object-method obj-field-name="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
@@ -220,8 +220,8 @@ under the License.
                                 <call-object-method obj-field-name="webPosSession" method-name="getUserLogin" ret-field="returnOrder.userLogin"/>
                                 <set field="serviceName" value="quickReturnOrder"/>
                                 <call-object-method obj-field-name="dispatcher" method-name="runSync" ret-field="returnResp">
-                                    <field field-name="serviceName" type="String"/>
-                                    <field field-name="returnOrder" type="java.util.Map"/>
+                                    <field field="serviceName" type="String"/>
+                                    <field field="returnOrder" type="java.util.Map"/>
                                 </call-object-method>
                                 <check-errors/>
                                 <log level="info" message="Void order ${returnResp}"/>
@@ -257,8 +257,8 @@ under the License.
     <simple-method method-name="shutdown" short-description="Shutdown" login-required="true">
         <set field="posTerminalId" value="null"/>
         <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field-name="posTerminalId" type="String"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
         </call-class-method>
         <if-not-empty field="webPosSession">
             <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
@@ -281,8 +281,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
@@ -298,11 +298,11 @@ under the License.
                         <set field="minDecimal" value="0" type="Integer"/>
                         <set field="maxDecimal" value="3" type="Integer"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                            <field field-name="amount" type="String"/>
-                            <field field-name="allowNegative" type="boolean"/>
-                            <field field-name="allowPositive" type="boolean"/>
-                            <field field-name="minDecimal" type="int"/>
-                            <field field-name="maxDecimal" type="int"/>
+                            <field field="amount" type="String"/>
+                            <field field="allowNegative" type="boolean"/>
+                            <field field="allowPositive" type="boolean"/>
+                            <field field="minDecimal" type="int"/>
+                            <field field="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
@@ -313,7 +313,7 @@ under the License.
 						    <create-value value-field="internTx"/>
 						    <set from-field="parameters.type" field="paidInOut"/>
 						    <call-object-method obj-field-name="webPosTransaction" method-name="paidInOut">
-						        <field field-name="paidInOut" type="String"/>
+						        <field field="paidInOut" type="String"/>
 						    </call-object-method>
                         <else>
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/></add-error>
@@ -342,8 +342,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
@@ -354,18 +354,18 @@ under the License.
                 <set field="minDecimal" value="0" type="Integer"/>
                 <set field="maxDecimal" value="3" type="Integer"/>
                 <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
-                    <field field-name="amount" type="String"/>
-                    <field field-name="allowNegative" type="boolean"/>
-                    <field field-name="allowPositive" type="boolean"/>
-                    <field field-name="minDecimal" type="int"/>
-                    <field field-name="maxDecimal" type="int"/>
+                    <field field="amount" type="String"/>
+                    <field field="allowNegative" type="boolean"/>
+                    <field field="allowPositive" type="boolean"/>
+                    <field field="minDecimal" type="int"/>
+                    <field field="maxDecimal" type="int"/>
                 </call-class-method>
                 <if-compare field="isDouble" operator="equals" value="true">
                     <set from-field="parameters.sku" field="sku" type="String"/>
                     <set from-field="parameters.price" field="price" type="Double"/>
                     <call-object-method obj-field-name="webPosTransaction" method-name="modifyPrice">
-                        <field field-name="sku" type="String"/>
-                        <field field-name="price" type="double"/>
+                        <field field="sku" type="String"/>
+                        <field field="price" type="double"/>
                     </call-object-method>
                     <check-errors/>
                     <call-object-method obj-field-name="webPosTransaction" method-name="calcTax"/>

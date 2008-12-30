@@ -105,7 +105,7 @@
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
             ret-field="formInput">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="dataResourceName"/>
         </call-class-method>
         
@@ -151,7 +151,7 @@
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
             ret-field="formInput">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="dataResourceName"/>
         </call-class-method>
         <entity-one entity-name="Content" value-field="content">

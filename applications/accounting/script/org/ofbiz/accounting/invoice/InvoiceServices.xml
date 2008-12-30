@@ -64,10 +64,10 @@ under the License.
                             <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
                             <calculate field="zeroLong" type="Long"><number value="0"/></calculate>
                             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="curYearFiscalStartDate">
-                                <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
-                                <field field-name="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
-                                <field field-name="partyAcctgPreference.fiscalYearStartMonth" type="java.lang.Number"/>
-                                <field field-name="zeroLong" type="java.lang.Number"/>
+                                <field field="nowTimestamp" type="java.sql.Timestamp"/>
+                                <field field="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
+                                <field field="partyAcctgPreference.fiscalYearStartMonth" type="java.lang.Number"/>
+                                <field field="zeroLong" type="java.lang.Number"/>
                             </call-class-method>
                             <if>
                                 <condition>

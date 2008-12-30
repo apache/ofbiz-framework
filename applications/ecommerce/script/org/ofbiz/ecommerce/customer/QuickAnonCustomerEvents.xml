@@ -526,7 +526,7 @@ under the License.
                     <field-to-session field-name="userLogin" session-name="userLogin" />
                     <if-not-empty field="cart">
                         <call-object-method obj-field-name="cart" method-name="setOrderPartyId">
-                            <field field-name="partyId"/>
+                            <field field="partyId"/>
                         </call-object-method>
                         <call-bsh><![CDATA[
                             // clear out the login fields from the cart
@@ -545,10 +545,10 @@ under the License.
         <if-not-empty field="cart">
             <call-object-method obj-field-name="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
-                <field field-name="parameters.shippingContactMechId"/>
+                <field field="parameters.shippingContactMechId"/>
             </call-object-method>
             <call-object-method obj-field-name="cart" method-name="setShippingContactMechId">
-                <field field-name="parameters.shippingContactMechId"/>
+                <field field="parameters.shippingContactMechId"/>
             </call-object-method>
         </if-not-empty>
         
@@ -578,42 +578,42 @@ under the License.
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
            <call-object-method obj-field-name="cart" method-name="setShipmentMethodTypeId">
-               <field field-name="shipmentMethodTypeId"/>
+               <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
            <set field="carrierPartyId" from-field="parameters.carrierPartyId" />
            <call-object-method obj-field-name="cart" method-name="setCarrierPartyId">
-               <field field-name="carrierPartyId"/>
+               <field field="carrierPartyId"/>
            </call-object-method>
 
            <set field="maySplit" from-field="parameters.may_split" type="Boolean" default-value="false"/>
            <call-object-method obj-field-name="cart" method-name="setMaySplit">
-               <field field-name="maySplit" type="Boolean"/>
+               <field field="maySplit" type="Boolean"/>
            </call-object-method>
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field="shippingInstruction">
            <call-object-method obj-field-name="cart" method-name="setShippingInstructions">
-               <field field-name="shippingInstruction" type="String"/>
+               <field field="shippingInstruction" type="String"/>
            </call-object-method>
            </if-not-empty>
 
            <set field="correspondingPoId" from-field="parameters.correspondingPoId" type="String"/>
            <if-not-empty field="correspondingPoId">
            <call-object-method obj-field-name="cart" method-name="setPoNumber">
-               <field field-name="correspondingPoId" type="String"/>
+               <field field="correspondingPoId" type="String"/>
            </call-object-method>
            </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false" />
            <call-object-method obj-field-name="cart" method-name="setIsGift">
-               <field field-name="isGift" type="Boolean"/>
+               <field field="isGift" type="Boolean"/>
            </call-object-method>
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field="giftMessage">
            <call-object-method obj-field-name="cart" method-name="setGiftMessage">
-               <field field-name="giftMessage" type="String"/>
+               <field field="giftMessage" type="String"/>
            </call-object-method>
            </if-not-empty>
        </if-not-empty>

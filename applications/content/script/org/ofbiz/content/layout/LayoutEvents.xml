@@ -141,8 +141,8 @@ under the License.
         <log level="always" message="contentId: ${contentId}"/>
         <log level="always" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>
@@ -176,12 +176,12 @@ under the License.
         <log level="always" message="in createLayoutImage."/>
 
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="imageData"/>
         </call-class-method>
 
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="returnByteBuffer" ret-field="byteWrap">
-            <field field-name="formInput" type="java.util.Map"/>
+            <field field="formInput" type="java.util.Map"/>
         </call-class-method>
 
         <clear-field map-name="formInput" field="imageData"/>
@@ -237,8 +237,8 @@ under the License.
         <log level="always" message="contentId: ${contentId}"/>
         <log level="always" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>
@@ -295,8 +295,8 @@ under the License.
         <log level="always" message="contentId: ${contentId}"/>
         <log level="always" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>

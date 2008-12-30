@@ -189,7 +189,7 @@ under the License.
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
         <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
@@ -281,7 +281,7 @@ under the License.
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="partyId"/>
         </call-class-method>
 

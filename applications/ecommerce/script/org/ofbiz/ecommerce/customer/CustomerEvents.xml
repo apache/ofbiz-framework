@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
         <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
-            <field field-name="request" type="javax.servlet.ServletRequest"/>
+            <field field="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
 
         <set from-field="productStore.allowPassword" field="allowPassword"/>
@@ -479,7 +479,7 @@ under the License.
                     <field-to-session field-name="userLogin" session-name="userLogin" />
                     <if-not-empty field="cart">
                         <call-object-method obj-field-name="cart" method-name="setOrderPartyId">
-                            <field field-name="partyId"/>
+                            <field field="partyId"/>
                         </call-object-method>
                         <call-bsh><![CDATA[
                             // clear out the login fields from the cart
@@ -490,8 +490,8 @@ under the License.
                             }
                         ]]></call-bsh>
                         <!-- call-object-method obj-field-name="cart"  method-name="setUserLogin">
-                            <field field-name="userLogin"  type="org.ofbiz.entity.GenericValue"/>
-                            <field field-name="dispatcher" map-name="request" type="org.ofbiz.service.LocalDispatcher"/>
+                            <field field="userLogin"  type="org.ofbiz.entity.GenericValue"/>
+                            <field field="dispatcher" map-name="request" type="org.ofbiz.service.LocalDispatcher"/>
                         </call-object-method -->
                     </if-not-empty>
                 </if-not-empty>
@@ -784,10 +784,10 @@ under the License.
         <if-not-empty field="cart">
             <call-object-method obj-field-name="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
-                <field field-name="addressContext.contactMechId"/>
+                <field field="addressContext.contactMechId"/>
             </call-object-method>
             <call-object-method obj-field-name="cart" method-name="setShippingContactMechId">
-                <field field-name="addressContext.contactMechId"/>
+                <field field="addressContext.contactMechId"/>
             </call-object-method>
         </if-not-empty>
     </simple-method>
@@ -804,46 +804,46 @@ under the License.
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
            <call-object-method obj-field-name="cart" method-name="setShipmentMethodTypeId">
-               <field field-name="shipmentMethodTypeId"/>
+               <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
            <set field="carrierPartyId" from-field="parameters.carrierPartyId" />
            <call-object-method obj-field-name="cart" method-name="setCarrierPartyId">
-               <field field-name="carrierPartyId"/>
+               <field field="carrierPartyId"/>
            </call-object-method>
 
            <set field="maySplit" from-field="parameters.may_split" type="Boolean"/>
            <if-not-empty field="maySplit">
                <call-object-method obj-field-name="cart" method-name="setMaySplit">
-                   <field field-name="maySplit" type="Boolean"/>
+                   <field field="maySplit" type="Boolean"/>
                </call-object-method>
            </if-not-empty>
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field="shippingInstruction">
            <call-object-method obj-field-name="cart" method-name="setShippingInstructions">
-               <field field-name="shippingInstruction" type="String"/>
+               <field field="shippingInstruction" type="String"/>
            </call-object-method>
            </if-not-empty>
 
            <set field="correspondingPoId" from-field="parameters.correspondingPoId"/>
            <if-not-empty field="correspondingPoId">
            	   <call-object-method obj-field-name="cart" method-name="setPoNumber">
-                   <field field-name="correspondingPoId" type="String"/>
+                   <field field="correspondingPoId" type="String"/>
                </call-object-method>
            </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean"/>
            <if-not-empty field="isGift">
                <call-object-method obj-field-name="cart" method-name="setIsGift">
-                   <field field-name="isGift" type="Boolean"/>
+                   <field field="isGift" type="Boolean"/>
                </call-object-method>
            </if-not-empty>
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field="giftMessage">
            <call-object-method obj-field-name="cart" method-name="setGiftMessage">
-               <field field-name="giftMessage" type="String"/>
+               <field field="giftMessage" type="String"/>
            </call-object-method>
            </if-not-empty>
        </if-not-empty>
@@ -930,19 +930,19 @@ under the License.
         
         <!-- Set partyId, in shoppingCart -->
         <call-object-method obj-field-name="shoppingCart" method-name="setUserLogin">
-            <field field-name="userLogin" type="org.ofbiz.entity.GenericValue"/>
-            <field field-name="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="addContactMech">
             <string value="SHIPPING_LOCATION"/>
-            <field field-name="parameters.shipToContactMechId"/>
+            <field field="parameters.shipToContactMechId"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setShippingContactMechId">
-            <field field-name="parameters.shipToContactMechId"/>
+            <field field="parameters.shipToContactMechId"/>
         </call-object-method>
         <log level="info" message="updated shopping cart shipToContactMechId ${parameters.shipToContactMechId}"/>
         <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
-            <field field-name="partyId"/>
+            <field field="partyId"/>
         </call-object-method>
     </simple-method>
     
@@ -1054,7 +1054,7 @@ under the License.
         </if-not-empty>
         <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
             <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingEstimate" ret-field="shippingEst">
-                <field field-name="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
+                <field field="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
             </call-object-method>
             <if-empty field="shippingEst">
                 <set field="shippingEst" value="-1" type="Integer"/>
@@ -1115,13 +1115,13 @@ under the License.
             <session-to-field field-name="shoppingCart"/>
         </if-empty>
         <call-object-method obj-field-name="shoppingCart" method-name="setShipmentMethodTypeId">
-            <field field-name="shipmentMethodTypeId"/>
+            <field field="shipmentMethodTypeId"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setCarrierPartyId">
-            <field field-name="carrierPartyId"/>
+            <field field="carrierPartyId"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setProductStoreShipMethId">
-            <field field-name="productStoreShipMethId"/>
+            <field field="productStoreShipMethId"/>
         </call-object-method>
         <call-object-method  obj-field-name="shoppingCart" method-name="getCurrency" ret-field="isoCode"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
@@ -1326,7 +1326,7 @@ under the License.
     
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
         <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
-            <field field-name="request" type="javax.servlet.ServletRequest"/>
+            <field field="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
     
         <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonCtx"/>
