@@ -487,7 +487,7 @@ under the License.
       
         <!-- reserve the order item -->
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>           
         <if-compare value="Y" operator="equals" field="productStore.isImmediatelyFulfilled">
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is immediatly fulfilled. Not reserving inventory"/>
@@ -510,8 +510,8 @@ under the License.
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
         <entity-and entity-name="ReturnItemShipment" list-name="returnItemShipments">
-          <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
-          <field-map field-name="shipmentItemSeqId" env-name="parameters.shipmentItemSeqId"/>
+          <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
+          <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         </entity-and>
         <first-from-list list-name="returnItemShipments" entry-name="returnItemShipment"/>
         <calculate field-name="quantityNotIssued">

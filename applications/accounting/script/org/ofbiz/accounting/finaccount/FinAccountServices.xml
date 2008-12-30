@@ -55,7 +55,7 @@ under the License.
         <!-- set the refundable flag from the type; if not set -->
         <if-empty field="newEntity.isRefundable">
             <entity-one entity-name="FinAccountType" value-name="finAccountType">
-                <field-map field-name="finAccountTypeId" env-name="parameters.finAccountTypeId"/>
+                <field-map field-name="finAccountTypeId" from-field="parameters.finAccountTypeId"/>
             </entity-one>
             <if>
                 <condition>
@@ -104,8 +104,8 @@ under the License.
                 <if-not-empty field="lookedUpValue.statusId">
                     <!-- if statusId change is not in the StatusValidChange list, complain... -->
                     <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
-                        <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
-                        <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                        <field-map field-name="statusId" from-field="lookedUpValue.statusId"/>
+                        <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
                     </entity-one>
                     <if-empty field="statusValidChange">
                         <!-- no valid change record found? return an error... -->
@@ -142,7 +142,7 @@ under the License.
         
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="FinAccountStatus" list-name="oldFinAccountStatusList">
-            <field-map field-name="finAccountId" env-name="parameters.finAccountId"/>
+            <field-map field-name="finAccountId" from-field="parameters.finAccountId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>
         <first-from-list entry-name="oldFinAccountStatus" list-name="oldFinAccountStatusList"/>

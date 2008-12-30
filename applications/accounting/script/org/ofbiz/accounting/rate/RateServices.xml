@@ -45,12 +45,12 @@ under the License.
         
         <!-- try to find existing value -->
         <entity-and entity-name="RateAmount" list-name="rateAmounts" filter-by-date="true">
-            <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-            <field-map field-name="rateCurrencyUomId" env-name="parameters.rateCurrencyUomId"/>
-            <field-map field-name="emplPositionTypeId" env-name="parameters.emplPositionTypeId"/>
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
-            <field-map field-name="periodTypeId" env-name="parameters.periodTypeId"/>
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+            <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
         </entity-and>
 
         <!-- end existing value -->
@@ -135,8 +135,8 @@ under the License.
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                    <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
                     <first-from-list entry-name="amount" list-name="amounts"/>
@@ -157,8 +157,8 @@ under the License.
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
                     <first-from-list entry-name="amount" list-name="amounts"/>
@@ -179,8 +179,8 @@ under the License.
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                    <field-map field-name="emplPositionTypeId" env-name="parameters.emplPositionTypeId"/>
+                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                    <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
                     <first-from-list entry-name="amount" list-name="amounts"/>
@@ -193,7 +193,7 @@ under the License.
         
         <if-empty field="level">
             <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             </entity-and>
             <set field="level" value="rateType"/>
         </if-empty>
@@ -204,15 +204,15 @@ under the License.
         </if-empty>
         <if-compare field="level" value="workEffort" operator="equals">
             <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
-                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-                <field-map field-name="periodTypeId" env-name="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" env-name="parameters.rateCurrencyUomId"/>
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
                 <entity-one entity-name="Uom" value-name="currencyUomId">
-                    <field-map field-name="uomId" env-name="parameters.rateCurrencyUomId"/>
+                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
                 <entity-one entity-name="PeriodType" value-name="periodType"/>
                 <entity-one entity-name="RateType" value-name="rateType"/>
@@ -224,14 +224,14 @@ under the License.
         
         <if-compare field="level" value="party" operator="equals">
             <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
-                <field-map field-name="periodTypeId" env-name="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" env-name="parameters.rateCurrencyUomId"/>
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
                 <entity-one entity-name="Uom" value-name="currencyUomId">
-                    <field-map field-name="uomId" env-name="parameters.rateCurrencyUomId"/>
+                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
                 <entity-one entity-name="PeriodType" value-name="periodType"/>
                 <entity-one entity-name="RateType" value-name="rateType"/>
@@ -242,14 +242,14 @@ under the License.
         
         <if-compare field="level" value="emplPositionType" operator="equals">
             <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                <field-map field-name="emplPositionTypeId" env-name="parameters.emplPositionTypeId"/>
-                <field-map field-name="periodTypeId" env-name="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" env-name="parameters.rateCurrencyUomId"/>
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
                 <entity-one entity-name="Uom" value-name="currencyUomId">
-                    <field-map field-name="uomId" env-name="parameters.rateCurrencyUomId"/>
+                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
                 <entity-one entity-name="PeriodType" value-name="periodType"/>
                 <entity-one entity-name="RateType" value-name="rateType"/>
@@ -261,13 +261,13 @@ under the License.
         
         <if-compare field="level" value="rateType" operator="equals">
             <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
-                <field-map field-name="periodTypeId" env-name="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" env-name="parameters.rateCurrencyUomId"/>
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
                 <entity-one entity-name="Uom" value-name="currencyUomId">
-                    <field-map field-name="uomId" env-name="parameters.rateCurrencyUomId"/>
+                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
                 <entity-one entity-name="PeriodType" value-name="periodType"/>
                 <entity-one entity-name="RateType" value-name="rateType"/>
@@ -298,8 +298,8 @@ under the License.
         
         <!-- check if already exist is so expire current record -->
         <entity-and entity-name="PartyRate" list-name="partyRates" filter-by-date="true">
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
-            <field-map field-name="rateTypeId" env-name="parameters.rateTypeId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
         <if-not-empty field="partyRates">
             <first-from-list entry-name="partyRate" list-name="partyRates"/>
@@ -326,7 +326,7 @@ under the License.
         <check-errors/>
         <if-compare field="newEntity.defaultRate" value="Y" operator="equals">
             <entity-and entity-name="PartyRate" list-name="rates" filter-by-date="true">
-                <field-map field-name="partyId" env-name="newEntity.partyId"/>
+                <field-map field-name="partyId" from-field="newEntity.partyId"/>
                 <field-map field-name="defaultRate" value="Y"/>
             </entity-and>
             <if-not-empty field="rates">

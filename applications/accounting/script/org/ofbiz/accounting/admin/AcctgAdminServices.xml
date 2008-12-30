@@ -58,7 +58,7 @@ under the License.
                 <clear-field field-name="entityKey"/>
                 <clear-field field-name="entityValue"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="currentPartyAcctgPref">
-                    <field-map field-name="partyId" env-name="currentOrganizationPartyId"/>
+                    <field-map field-name="partyId" from-field="currentOrganizationPartyId"/>
                 </entity-one>
                 <set field="containsEmptyFields" type="Boolean" value="false"/>
                 
@@ -79,7 +79,7 @@ under the License.
                 </if-not-empty>
                 
                 <entity-and entity-name="PartyRelationship" list-name="parentPartyRelationships" filter-by-date="true">
-                    <field-map field-name="partyIdTo" env-name="currentOrganizationPartyId"/>
+                    <field-map field-name="partyIdTo" from-field="currentOrganizationPartyId"/>
                     <field-map field-name="partyRelationshipTypeId" value="GROUP_ROLLUP"/>
                     <field-map field-name="roleTypeIdFrom" value="_NA_"/>
                     <field-map field-name="roleTypeIdTo" value="_NA_"/>

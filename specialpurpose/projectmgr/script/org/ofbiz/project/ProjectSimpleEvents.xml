@@ -78,7 +78,7 @@
         </if-compare>
         <check-errors/>
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
-            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-and>
         <!-- if all assigns are complete the task will be set to complete -->
         <if-not-empty field="assigns">
@@ -155,7 +155,7 @@
             <string value="dataResourceName"/>
         </call-class-method>
         <entity-one entity-name="Content" value-name="content">
-            <field-map field-name="contentId" env-name="formInput.formInput.contentId"/>
+            <field-map field-name="contentId" from-field="formInput.formInput.contentId"/>
         </entity-one>
         <set-service-fields service-name="updateContentAndUploadedFile" map-name="formInput.formInput" to-map-name="inMap"/>
         <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>

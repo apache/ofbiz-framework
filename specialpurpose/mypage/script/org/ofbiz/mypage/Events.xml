@@ -100,9 +100,9 @@ under the License.
         <set field="found" value="false"/>
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
             <entity-and list="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
-                <field-map field-name="partyIdFrom" env-name="userLogin.partyId" />
+                <field-map field-name="partyIdFrom" from-field="userLogin.partyId" />
                 <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
-                <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
+                <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
             </entity-and>
             <if-not-empty field="emailOwners">
                 <set field="found" value="true"/>

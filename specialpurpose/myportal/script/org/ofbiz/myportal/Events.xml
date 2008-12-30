@@ -317,8 +317,8 @@ under the License.
     <simple-method method-name="getPortalPageId" short-description="">
         <set field="mainPortalPageId" value="MAINMYPORTAL"/>
         <entity-and entity-name="PortalPage" list-name="getMainPage">
-            <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-            <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+            <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
+            <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
         </entity-and>
         <first-from-list entry-name="getMyportal" list-name="getMainPage"/>
         <if-empty field="getMainPage">

@@ -152,19 +152,19 @@
             <set field="isMember" value="true" type="Boolean"/>
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
             <entity-and list="custRequests" entity-name="WorkEffortCustRequestView">
-                <field-map field-name="workEffortId" env-name="taskId"/>
+                <field-map field-name="workEffortId" from-field="taskId"/>
             </entity-and>
             <first-from-list list-name="custRequests" entry-name="custRequest"/>
             <entity-and entity-name="PartyRelationship" list-name="accounts">
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
-                <field-map field-name="partyIdTo" env-name="custRequest.fromPartyId"/>
+                <field-map field-name="partyIdTo" from-field="custRequest.fromPartyId"/>
             </entity-and>
             <first-from-list list-name="accounts" entry-name="accountCustReq"/> 
             <entity-and entity-name="PartyRelationship" list-name="accounts">
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
-                <field-map field-name="partyIdTo" env-name="parameters.userLogin.partyId"/>
+                <field-map field-name="partyIdTo" from-field="parameters.userLogin.partyId"/>
             </entity-and>
             <first-from-list list-name="accounts" entry-name="accountLogin"/> 
             <if>
@@ -346,7 +346,7 @@
                     <return/>
                     <else>
                         <entity-one entity-name="WorkEffort" value-name="task" use-cache="true" >
-                            <field-map field-name="workEffortId" env-name="taskId"/>
+                            <field-map field-name="workEffortId" from-field="taskId"/>
                         </entity-one>
                         <set field="phaseId" from-field="task.workEffortParentId"/>
                     </else>
@@ -355,14 +355,14 @@
         </if-empty>
         <if-empty field="projectId">
             <entity-one entity-name="WorkEffort" value-name="phase" use-cache="true">
-                <field-map field-name="workEffortId" env-name="phaseId"/>
+                <field-map field-name="workEffortId" from-field="phaseId"/>
             </entity-one>
             <set field="projectId" from-field="phase.workEffortParentId"/>
         </if-empty>
         <if-not-empty field="projectId">
             <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true" use-cache="true">
-                <field-map field-name="workEffortId" env-name="projectId"/>
-                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="workEffortId" from-field="projectId"/>
+                <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>
             <if-not-empty field="projectAssigns">
                 <set field="isMember" value="true" type="Boolean"/>

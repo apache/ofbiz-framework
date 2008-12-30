@@ -434,7 +434,7 @@ under the License.
                 </if-compare>
             <else>
                 <entity-and entity-name="ProductStoreFacility" list-name="productStoreFacilities" use-cache="true">
-                    <field-map env-name="productStore.productStoreId" field-name="productStoreId"/>
+                    <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
@@ -474,8 +474,8 @@ under the License.
             </if-compare>
         <else>
             <entity-and entity-name="ProductStoreFacility" list-name="productStoreFacilities" use-cache="true">
-                <field-map env-name="productStore.productStoreId" field-name="productStoreId"/>
-                <field-map env-name="facilityId" field-name="facilityId"/>                
+                <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
+                <field-map from-field="facilityId" field-name="facilityId"/>                
                 <order-by field-name="sequenceNum"/>
             </entity-and>
             <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
@@ -610,7 +610,7 @@ under the License.
             </if-compare-field>
         <else>
             <entity-and entity-name="ProductStoreFacility" list-name="productStoreFacilities" use-cache="true">
-                <field-map env-name="productStore.productStoreId" field-name="productStoreId"/>
+                <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-and>
 

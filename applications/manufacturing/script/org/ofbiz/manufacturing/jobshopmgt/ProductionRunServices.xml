@@ -61,9 +61,9 @@ under the License.
             <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="Double"/>
         <else>
             <entity-one entity-name="WorkEffortGoodStandard" value-name="workEffortGoodStandard" auto-field-map="false">
-                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-                <field-map field-name="productId" env-name="parameters.productId"/>
-                <field-map field-name="fromDate" env-name="parameters.fromDate"/>
+                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="fromDate" from-field="parameters.fromDate"/>
                 <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
             </entity-one>
             <set from-field="workEffortGoodStandard.productId" field="productId"/>
@@ -223,8 +223,8 @@ under the License.
             </if-compare>
             <if-not-empty field="workEffortGoodStandard">
                 <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
-                    <field-map field-name="workEffortId" env-name="workEffortGoodStandard.workEffortId"/>
-                    <field-map field-name="productId" env-name="workEffortGoodStandard.productId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortGoodStandard.workEffortId"/>
+                    <field-map field-name="productId" from-field="workEffortGoodStandard.productId"/>
                 </entity-and>
                 <iterate list-name="issuances" entry-name="issuance">
                     <calculate field-name="totalIssuance">

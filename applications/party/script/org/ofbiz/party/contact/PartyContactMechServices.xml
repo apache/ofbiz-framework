@@ -29,11 +29,11 @@ under the License.
         
         <!-- check if the contact mech infostring is already existing if so, do not create a new one-->
         <entity-and list="partyAndContactMechs" entity-name="PartyAndContactMech" filter-by-date="true">
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
         <iterate entry="partyAndContactMech" list-name="partyAndContactMechs">
             <entity-one entity-name="ContactMechType" value-name="contactMechType">
-                <field-map field-name="contactMechTypeId" env-name="partyAndContactMech.contactMechTypeId"/>
+                <field-map field-name="contactMechTypeId" from-field="partyAndContactMech.contactMechTypeId"/>
             </entity-one>
             <if>
                 <condition>
@@ -337,7 +337,7 @@ under the License.
                 <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                 <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
-                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
@@ -356,7 +356,7 @@ under the License.
                 </if-compare>
                 <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
-                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
@@ -378,8 +378,8 @@ under the License.
 
     <simple-method method-name="updatePostalAddressAndPurposes" short-description="Update postal address, purposes and set them defaults" login-required="false">
         <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault">
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
-            <field-map field-name="productStoreId" env-name="parameters.productStoreId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if>
             <condition>
@@ -432,8 +432,8 @@ under the License.
             <then>
                 <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
-                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
-                        <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                        <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <!-- If purpose is not exists then create -->
@@ -442,7 +442,7 @@ under the License.
                         <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
                         <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
-                            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                            <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">
@@ -464,8 +464,8 @@ under the License.
                 </if-compare>
                 <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
-                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
-                        <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                        <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <!-- If purpose is not exists then create -->
@@ -474,7 +474,7 @@ under the License.
                         <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
                         <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
-                            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                            <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">

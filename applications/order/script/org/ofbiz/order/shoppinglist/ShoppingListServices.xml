@@ -212,13 +212,13 @@ under the License.
         <set from-field="parameters.autoUserLogin" field="calcPriceInBaseMap.autoUserLogin"/>
 
         <entity-and entity-name="ShoppingListItem" list-name="shoppingListItems" use-cache="true">
-            <field-map field-name="shoppingListId" env-name="parameters.shoppingListId"/>
+            <field-map field-name="shoppingListId" from-field="parameters.shoppingListId"/>
         </entity-and>
 
         <set field="totalPrice" type="Double" value="0.0"/>
         <iterate entry="shoppingListItem" list-name="shoppingListItems">
             <entity-one entity-name="Product" value-name="product" use-cache="true" auto-field-map="false">
-                <field-map field-name="productId" env-name="shoppingListItem.productId"/>
+                <field-map field-name="productId" from-field="shoppingListItem.productId"/>
             </entity-one>
             
             <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcPriceInMap"/>
@@ -238,8 +238,8 @@ under the License.
         </iterate>
 
         <entity-and entity-name="ShoppingList" list-name="childshoppingLists" use-cache="true">
-            <field-map field-name="parentShoppingListId" env-name="parameters.shoppingListId"/>
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="parentShoppingListId" from-field="parameters.shoppingListId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         <iterate entry="childshoppingList" list-name="childshoppingLists">
             <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcChildPriceInMap"/>
@@ -290,7 +290,7 @@ under the License.
         <if-empty field="orderHeader.productStoreId"><return/></if-empty>
         
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
         <if-compare field="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
         
@@ -341,7 +341,7 @@ under the License.
                     <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
                 </iterate>
                 <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
-                    <field-map field-name="productId" env-name="orderItem.productId" />
+                    <field-map field-name="productId" from-field="orderItem.productId" />
                 </entity-one>
                 <if-compare field="product.isVariant" operator="equals" value="Y">
                     <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">

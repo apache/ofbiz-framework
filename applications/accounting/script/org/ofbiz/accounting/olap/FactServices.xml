@@ -57,8 +57,8 @@ under the License.
 
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-field-map="false">
-                <field-map field-name="invoiceId" env-name="invoiceItem.invoiceId"/>
-                <field-map field-name="invoiceItemSeqId" env-name="invoiceItem.invoiceItemSeqId"/>
+                <field-map field-name="invoiceId" from-field="invoiceItem.invoiceId"/>
+                <field-map field-name="invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
             </entity-one>
             <!-- key handling -->
             <if-empty field="fact">

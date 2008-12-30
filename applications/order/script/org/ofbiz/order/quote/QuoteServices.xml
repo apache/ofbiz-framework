@@ -135,8 +135,8 @@ under the License.
         <if-compare-field field="quote.statusId" to-field="parameters.statusId" operator="not-equals">
             <!-- check if the status change is a valid change -->
             <entity-and entity-name="StatusValidChange" list-name="validChange">
-                <field-map field-name="statusId" env-name="quote.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="quote.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-and>
                     
             <if-empty field="validChange">

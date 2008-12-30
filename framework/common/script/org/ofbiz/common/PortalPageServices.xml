@@ -52,8 +52,8 @@ under the License.
 
         <if-not-empty field="column">
             <entity-and entity-name="PortalPagePortlet" list-name="portalPortletList">
-                <field-map field-name="portalPageId" env-name="column.portalPageId"/>
-                <field-map field-name="columnSeqId"  env-name="column.columnSeqId"/>
+                <field-map field-name="portalPageId" from-field="column.portalPageId"/>
+                <field-map field-name="columnSeqId"  from-field="column.columnSeqId"/>
             </entity-and>
 
             <iterate list-name="portalPortletList" entry-name="portalPortlet">
@@ -94,9 +94,9 @@ under the License.
     
     <simple-method method-name="getPortletAttributes" short-description="Get all attributes of a Portlet" login-required="true">
         <entity-and entity-name="PortletAttribute" list-name="attributeList">
-            <field-map field-name="portalPageId" env-name="parameters.portalPageId"/>
-            <field-map field-name="portalPortletId" env-name="parameters.portalPortletId"/>
-            <field-map field-name="portletSeqId" env-name="parameters.portletSeqId"/>
+            <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+            <field-map field-name="portalPortletId" from-field="parameters.portalPortletId"/>
+            <field-map field-name="portletSeqId" from-field="parameters.portletSeqId"/>
         </entity-and>
         <iterate list-name="attributeList" entry-name="attributeRecord">
             <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
@@ -127,7 +127,7 @@ under the License.
         
                 <if-not-empty field="portalPage">
                     <entity-and entity-name="PortalPageColumn" list-name="portalPageColumnList">
-                        <field-map field-name="portalPageId" env-name="portalPage.portalPageId"/>
+                        <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
                     </entity-and>
             
                     <iterate list-name="portalPageColumnList" entry-name="portalPageColumn">
@@ -146,8 +146,8 @@ under the License.
         <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
         
         <entity-and entity-name="PortalPage" list-name="getMainPage">
-            <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-            <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+            <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
+            <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
         </entity-and>
         
         <if-empty field="getMainPage">

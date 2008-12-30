@@ -31,8 +31,8 @@ under the License.
             <set field="facilityParty.roleTypeId" from-field="oldFacilityRole.roleTypeId"/>
             <set field="facilityParty.fromDate" from-field="fromDate"/>
             <entity-one entity-name="PartyRole" value-name="partyRole" auto-field-map="false">
-                <field-map field-name="partyId" env-name="facilityParty.partyId"/>
-                <field-map field-name="roleTypeId" env-name="facilityParty.roleTypeId"/>
+                <field-map field-name="partyId" from-field="facilityParty.partyId"/>
+                <field-map field-name="roleTypeId" from-field="facilityParty.roleTypeId"/>
             </entity-one>
             <if-empty field="partyRole">
                 <make-value entity-name="PartyRole" value-name="partyRole"/>

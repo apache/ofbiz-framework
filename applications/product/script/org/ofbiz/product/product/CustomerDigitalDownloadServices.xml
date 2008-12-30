@@ -96,7 +96,7 @@ under the License.
         <!-- update price -->        
         <if-not-empty field="parameters.price">
             <entity-and entity-name="ProductPrice" list-name="productPriceList">
-                <field-map field-name="productId" env-name="parameters.productId"/>
+                <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
                 <field-map field-name="productPricePurposeId" value="PURCHASE"/>
                 <field-map field-name="productStoreGroupId" value="_NA_"/>
@@ -112,8 +112,8 @@ under the License.
 
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
-            <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         
         <if-empty field="supplierProductList">
@@ -141,8 +141,8 @@ under the License.
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
-            <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         <if-empty field="supplierProductList">
             <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
@@ -150,8 +150,8 @@ under the License.
         
         <!-- make sure there is a ContentRole for userLogin.partyId and parameters.contentId and roleTypeId=OWNER -->
         <entity-and entity-name="ContentRole" list-name="contentRoleList">
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
-            <field-map field-name="contentId" env-name="parameters.contentId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="roleTypeId" value="OWNER"/>
         </entity-and>
         <if-empty field="contentRoleList">
@@ -172,8 +172,8 @@ under the License.
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
-            <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         
         <if-empty field="supplierProductList">

@@ -980,7 +980,7 @@ under the License.
             
             <call-service service-name="createUserLogin" in-map-name="userLoginCtx"/>
             <entity-one entity-name="UserLogin" value-name="userLogin">
-                <field-map field-name="userLoginId" env-name="userLoginMap.userLoginId"/>
+                <field-map field-name="userLoginId" from-field="userLoginMap.userLoginId"/>
             </entity-one>
 
             <!-- now finished, log in the user and set the cart's partyId -->
@@ -1104,8 +1104,8 @@ under the License.
         <log level="info" message=" productStoreShipMethId is ${productStoreShipMethId}"/>
         
         <entity-one entity-name="CarrierAndShipmentMethod" value-name="shipmentMethod">
-            <field-map field-name="shipmentMethodTypeId" env-name="shipmentMethodTypeId"/>
-            <field-map field-name="partyId" env-name="carrierPartyId"/>
+            <field-map field-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+            <field-map field-name="partyId" from-field="carrierPartyId"/>
             <field-map field-name="roleTypeId" value="CARRIER"/>
         </entity-one>
         <field-to-request field-name="shipmentMethod.description" request-name="shippingDescription"/>

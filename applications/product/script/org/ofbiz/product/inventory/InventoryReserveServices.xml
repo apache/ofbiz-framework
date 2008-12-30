@@ -220,7 +220,7 @@ under the License.
                                 <result-to-field result-name="inventoryItemId" field-name="createInventoryItemOutMap.inventoryItemId"/>
                             </call-service>
                             <entity-one entity-name="InventoryItem" value-name="newNonSerInventoryItem">
-                                <field-map field-name="inventoryItemId" env-name="createInventoryItemOutMap.inventoryItemId"/>
+                                <field-map field-name="inventoryItemId" from-field="createInventoryItemOutMap.inventoryItemId"/>
                             </entity-one>
 
                             <!-- also create a detail record with the quantities -->
@@ -305,9 +305,9 @@ under the License.
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
         <!-- Lets find the inventory to reserve -->
         <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
-            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
-            <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
+            <field-map field-name="serialNumber" from-field="parameters.serialNumber"/>
         </entity-and>
         <clear-field field-name="inventoryItem"/>
         <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>

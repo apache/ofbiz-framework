@@ -35,8 +35,8 @@ under the License.
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <if-not-empty field="parameters.parentCommEventId">
             <entity-and list="roles" entity-name="CommunicationEventRole">
-                <field-map field-name="communicationEventId" env-name="parameters.parentCommEventId"/>
-                <field-map field-name="partyId" env-name="parameters.partyIdFrom"/>
+                <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
             </entity-and>
             <if-not-empty field="roles">
                 <first-from-list list-name="roles" entry-name="role"/>
@@ -67,7 +67,7 @@ under the License.
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
                 <entity-and entity-name="PartyAndContactMech" list-name="partyContactMechs" filter-by-date="true">
-                    <field-map field-name="contactMechId" env-name="parameters.contactMechIdTo"/>
+                    <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
                 <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>
@@ -143,8 +143,8 @@ under the License.
             <if-compare operator="not-equals" value="parameters.partIdFrom" field="event.partyIdFrom">
                 <!-- check if role exist then delete old role -->
                 <entity-one entity-name="CommunicationEventRole" value-name="roleFrom">
-                    <field-map field-name="communicationEventId" env-name="event.communicationEventId" />
-                    <field-map field-name="partyId" env-name="parameters.partyIdFrom" />
+                    <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
+                    <field-map field-name="partyId" from-field="parameters.partyIdFrom" />
                     <field-map field-name="roleTypeId" value="ORIGINATOR" />
                 </entity-one>
                 <if-not-empty field="roleFrom">
@@ -162,7 +162,7 @@ under the License.
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
                 <entity-and entity-name="PartyAndContactMech" list-name="partyContactMechs" filter-by-date="true">
-                    <field-map field-name="contactMechId" env-name="parameters.contactMechIdTo"/>
+                    <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
                 <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>                
@@ -175,8 +175,8 @@ under the License.
                 field="event.partyIdTo">
                 <!-- check if role exist then delete old role -->
                 <entity-one entity-name="CommunicationEventRole" value-name="roleTo">
-                    <field-map field-name="communicationEventId" env-name="event.communicationEventId" />
-                    <field-map field-name="partyId" env-name="event.partyIdTo" />
+                    <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
+                    <field-map field-name="partyId" from-field="event.partyIdTo" />
                     <field-map field-name="roleTypeId" value="ADDRESSEE" />
                 </entity-one>
                 <if-not-empty field="roleTo">
@@ -300,7 +300,7 @@ under the License.
             <remove-value value-name="eventRole"/>
             <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
                 <entity-and list="roles" entity-name="CommunicationEventRole">
-                    <field-map field-name="communicationEventId" env-name="eventRole.communicationEventId"/>
+                    <field-map field-name="communicationEventId" from-field="eventRole.communicationEventId"/>
                 </entity-and>
                 <if-empty field="roles">
                     <set-service-fields service-name="deleteCommunicationEvent" map-name="parameters" to-map-name="inMapDel"/>
@@ -434,8 +434,8 @@ under the License.
         <field-to-result field-name="communicationEvent.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEvent.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange">
-                <field-map field-name="statusId" env-name="communicationEvent.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="communicationEvent.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
@@ -461,8 +461,8 @@ under the License.
         <field-to-result field-name="communicationEventRole.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEventRole.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange">
-                <field-map field-name="statusId" env-name="communicationEventRole.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="communicationEventRole.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>

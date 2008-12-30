@@ -41,7 +41,7 @@ under the License.
             <else>
                 <entity-one entity-name="FinAccountTypeGlAccount" value-name="finAccountTypeGlAccount" auto-field-map="false">
                     <field-map field-name="organizationPartyId"/>
-                    <field-map field-name="finAccountTypeId" env-name="finAccount.finAccountTypeId"/>
+                    <field-map field-name="finAccountTypeId" from-field="finAccount.finAccountTypeId"/>
                 </entity-one>
                 <if-not-empty field="finAccountTypeGlAccount">
                     <set field="glAccountId" from-field="finAccountTypeGlAccount.glAccountId"/>

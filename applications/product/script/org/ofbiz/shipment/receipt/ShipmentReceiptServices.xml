@@ -42,8 +42,8 @@ under the License.
 
         <if-not-empty field="parameters.inventoryItemDetailSeqId">
             <entity-one entity-name="InventoryItemDetail" value-name="invDet">
-                <field-map field-name="inventoryItemDetailSeqId" env-name="parameters.inventoryItemDetailSeqId"/>
-                <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
+                <field-map field-name="inventoryItemDetailSeqId" from-field="parameters.inventoryItemDetailSeqId"/>
+                <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             </entity-one>
             <set field="invDet.receiptId" from-field="receiptId"/>
             <store-value value-name="invDet"/>
@@ -192,7 +192,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ReturnHeader" value-name="returnHeader">
-            <field-map field-name="returnId" env-name="parameters.returnId"/>
+            <field-map field-name="returnId" from-field="parameters.returnId"/>
         </entity-one>
 
         <if-compare field="returnHeader.needsInventoryReceive" operator="equals" value="Y">
