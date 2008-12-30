@@ -72,7 +72,7 @@ under the License.
                 <condition-list combine="and">
                     <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
                     <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
-                    <condition-expr field-name="isRushOrder" env-name="parameters.isRushOrder" ignore-if-empty="true"/>
+                    <condition-expr field-name="isRushOrder" from-field="parameters.isRushOrder" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="+orderDate"/><!-- oldest first -->
             </entity-condition>
@@ -144,10 +144,10 @@ under the License.
                                     We are using entity-condition instead of get-related because we want to exclude some picklists by status -->
                                 <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                                     <condition-list combine="and">
-                                        <condition-expr field-name="orderId" env-name="orderItemShipGrpInvRes.orderId"/>
-                                        <condition-expr field-name="shipGroupSeqId" env-name="orderItemShipGrpInvRes.shipGroupSeqId"/>
-                                        <condition-expr field-name="orderItemSeqId" env-name="orderItemShipGrpInvRes.orderItemSeqId"/>
-                                        <condition-expr field-name="inventoryItemId" env-name="orderItemShipGrpInvRes.inventoryItemId"/>
+                                        <condition-expr field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
+                                        <condition-expr field-name="shipGroupSeqId" from-field="orderItemShipGrpInvRes.shipGroupSeqId"/>
+                                        <condition-expr field-name="orderItemSeqId" from-field="orderItemShipGrpInvRes.orderItemSeqId"/>
+                                        <condition-expr field-name="inventoryItemId" from-field="orderItemShipGrpInvRes.inventoryItemId"/>
                                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                                         <condition-expr field-name="itemStatusId" operator="not-equals" value="PICKITEM_CANCELLED"/>
                                     </condition-list>
@@ -814,7 +814,7 @@ under the License.
 
         <entity-condition entity-name="Picklist" list="picklistList">
             <condition-list combine="and">
-                <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>

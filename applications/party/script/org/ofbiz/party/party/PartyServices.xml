@@ -537,15 +537,15 @@ under the License.
                     <clear-field field="_inline_PartyRelationshipList"/>
                     <entity-condition entity-name="PartyRelationship" list="_inline_PartyRelationshipList" use-cache="${useCache}">
                         <condition-list combine="and">
-                            <condition-expr field-name="partyIdFrom" env-name="relatedPartyId"/>
-                            <condition-expr field-name="roleTypeIdFrom" operator="in" env-name="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
-                            <condition-expr field-name="roleTypeIdTo" operator="in" env-name="_inline_roleTypeIdToList" ignore-if-empty="true"/>
-                            <condition-expr field-name="partyRelationshipTypeId" env-name="partyRelationshipTypeId" ignore-if-empty="true"/>
+                            <condition-expr field-name="partyIdFrom" from-field="relatedPartyId"/>
+                            <condition-expr field-name="roleTypeIdFrom" operator="in" from-field="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
+                            <condition-expr field-name="roleTypeIdTo" operator="in" from-field="_inline_roleTypeIdToList" ignore-if-empty="true"/>
+                            <condition-expr field-name="partyRelationshipTypeId" from-field="partyRelationshipTypeId" ignore-if-empty="true"/>
             
-                            <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                            <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                             <condition-list combine="or">
-                                <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
-                                <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                                <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                                <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                             </condition-list>
                         </condition-list>
                         
@@ -570,15 +570,15 @@ under the License.
                         <clear-field field="_inline_PartyRelationshipList"/>
                         <entity-condition entity-name="PartyRelationship" list="_inline_PartyRelationshipList" use-cache="${useCache}">
                             <condition-list combine="and">
-                                <condition-expr field-name="partyIdTo" env-name="relatedPartyId"/>
-                                <condition-expr field-name="roleTypeIdTo" operator="in" env-name="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
-                                <condition-expr field-name="roleTypeIdFrom" operator="in" env-name="_inline_roleTypeIdToList" ignore-if-empty="true"/>
-                                <condition-expr field-name="partyRelationshipTypeId" env-name="partyRelationshipTypeId" ignore-if-empty="true"/>
+                                <condition-expr field-name="partyIdTo" from-field="relatedPartyId"/>
+                                <condition-expr field-name="roleTypeIdTo" operator="in" from-field="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
+                                <condition-expr field-name="roleTypeIdFrom" operator="in" from-field="_inline_roleTypeIdToList" ignore-if-empty="true"/>
+                                <condition-expr field-name="partyRelationshipTypeId" from-field="partyRelationshipTypeId" ignore-if-empty="true"/>
                 
-                                <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                                <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                                 <condition-list combine="or">
-                                    <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
-                                    <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                                    <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                                 </condition-list>
                             </condition-list>
                             
@@ -630,7 +630,7 @@ under the License.
                     
                     <clear-field field="_inline_RoleTypeList"/>
                     <entity-condition entity-name="RoleType" list="_inline_RoleTypeList" use-cache="true">
-                        <condition-expr field-name="parentTypeId" operator="equals" env-name="roleTypeId"/>
+                        <condition-expr field-name="parentTypeId" operator="equals" from-field="roleTypeId"/>
                     </entity-condition>
                     <iterate entry="newRoleType" list="_inline_RoleTypeList">
                         <if>
@@ -867,7 +867,7 @@ under the License.
             <entity-condition entity-name="PartyContactDetailByPurpose" list="partyContactDetailByPurposes" filter-by-date="true">
                 <condition-list>
                     <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
-                    <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>
+                    <condition-expr field-name="partyId" operator="equals"  from-field="partyId"/>
                 </condition-list>
             </entity-condition>
             <first-from-list entry="partyContactDetailByPurpose" list="partyContactDetailByPurposes"/>

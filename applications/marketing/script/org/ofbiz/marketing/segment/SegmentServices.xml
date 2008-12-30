@@ -163,22 +163,22 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <entity-condition entity-name="SegmentGroupViewRelatedParties" list="segmentGroupViewRelatedPartiesList">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" env-name="parameters.partyId"/>
-                <condition-expr field-name="roleTypeId" env-name="parameters.roleTypeId" ignore-if-empty="true"/>
-                <condition-expr field-name="toPartyId" env-name="parameters.toPartyId"/>
-                <condition-expr field-name="toRoleTypeId" env-name="parameters.toRoleTypeId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="roleTypeId" from-field="parameters.roleTypeId" ignore-if-empty="true"/>
+                <condition-expr field-name="toPartyId" from-field="parameters.toPartyId"/>
+                <condition-expr field-name="toRoleTypeId" from-field="parameters.toRoleTypeId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>
         <!--
         <entity-condition entity-name="SegmentGroupViewRelatedPartiesClass" list="segmentGroupViewRelatedPartiesClassList">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" env-name="parameters.partyId"/>
-                <condition-expr field-name="roleTypeId" env-name="parameters.roleTypeId" ignore-if-empty="true"/>
-                <condition-expr field-name="toPartyId" env-name="parameters.toPartyId"/>
-                <condition-expr field-name="toFromDate" operator="less-equals" env-name="nowTimestamp"/>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="roleTypeId" from-field="parameters.roleTypeId" ignore-if-empty="true"/>
+                <condition-expr field-name="toPartyId" from-field="parameters.toPartyId"/>
+                <condition-expr field-name="toFromDate" operator="less-equals" from-field="nowTimestamp"/>
                 <condition-list combine="or">
-                    <condition-expr field-name="toThruDate" operator="equals" env-name="nullField"/>
-                    <condition-expr field-name="toThruDate" operator="greater-equals" env-name="nowTimestamp"/>
+                    <condition-expr field-name="toThruDate" operator="equals" from-field="nullField"/>
+                    <condition-expr field-name="toThruDate" operator="greater-equals" from-field="nowTimestamp"/>
                 </condition-list>
             </condition-list>
         </entity-condition>

@@ -191,9 +191,9 @@ under the License.
                 <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
                 <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
                     <condition-list combine="and">
-                        <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
-                        <condition-expr field-name="partyId" env-name="parameters.partyId"/>
-                        <condition-expr field-name="fromDate" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="contactListId" from-field="parameters.contactListId"/>
+                        <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                        <condition-expr field-name="fromDate" from-field="parameters.fromDate"/>
                         <condition-expr field-name="statusId" value="CLPT_PENDING"/>
                     </condition-list>
                     <order-by field-name="-statusDate"/>
@@ -250,9 +250,9 @@ under the License.
                 <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
                 <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
                     <condition-list combine="and">
-                        <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
-                        <condition-expr field-name="partyId" env-name="parameters.partyId"/>
-                        <condition-expr field-name="fromDate" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="contactListId" from-field="parameters.contactListId"/>
+                        <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                        <condition-expr field-name="fromDate" from-field="parameters.fromDate"/>
                         <condition-expr field-name="statusId" value="CLPT_PENDING"/>
                     </condition-list>
                     <order-by field-name="-statusDate"/>

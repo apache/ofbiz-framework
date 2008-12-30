@@ -39,8 +39,8 @@ under the License.
         <entity-condition entity-name="Invoice" list="invoices">
             <condition-list>
                 <condition-expr field-name="invoiceTypeId" value="SALES_INVOICE"/>
-                <condition-expr field-name="invoiceDate" operator="greater-equals" env-name="parameters.fromDate"/>
-                <condition-expr field-name="invoiceDate" operator="less-equals" env-name="parameters.thruDate"/>
+                <condition-expr field-name="invoiceDate" operator="greater-equals" from-field="parameters.fromDate"/>
+                <condition-expr field-name="invoiceDate" operator="less-equals" from-field="parameters.thruDate"/>
             </condition-list>
         </entity-condition>
         <iterate list="invoices" entry="invoice">

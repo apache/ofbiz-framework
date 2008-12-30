@@ -286,7 +286,7 @@ under the License.
                         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
                         <check-errors/>
                         <entity-condition list="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
-                            <condition-expr field-name="workEffortId" env-name="workEffortId" operator="equals"/>
+                            <condition-expr field-name="workEffortId" from-field="workEffortId" operator="equals"/>
                         </entity-condition>
                         <iterate list="wepas" entry="wepa">
                             <set field="wepa.thruDate" from-field="nowTimestamp"/>
@@ -341,9 +341,9 @@ under the License.
             <set field="repeatCount" from-field="productMaintValue.repeatCount" default-value="0" type="Long"/>
             <entity-condition list="maintList" entity-name="FixedAssetMaint">
                 <condition-list combine="and">
-                    <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAssetValue.fixedAssetId"/>
-                    <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaintValue.productMaintTypeId"/>
-                    <condition-expr field-name="intervalMeterTypeId" operator="equals" env-name="productMaintValue.intervalMeterTypeId"/>
+                    <condition-expr field-name="fixedAssetId" operator="equals" from-field="fixedAssetValue.fixedAssetId"/>
+                    <condition-expr field-name="productMaintTypeId" operator="equals" from-field="productMaintValue.productMaintTypeId"/>
+                    <condition-expr field-name="intervalMeterTypeId" operator="equals" from-field="productMaintValue.intervalMeterTypeId"/>
                     <condition-expr field-name="statusId" operator="not-equals" value="FAM_CANCELLED"/>
                 </condition-list>
             </entity-condition>
@@ -383,14 +383,14 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <entity-condition list="fixedAssets" entity-name="FixedAsset">
             <condition-list combine="and">
-                <condition-expr field-name="instanceOfProductId" operator="not-equals" env-name="null"/>
-                <condition-expr field-name="actualEndOfLife" operator="equals" env-name="null"/>
+                <condition-expr field-name="instanceOfProductId" operator="not-equals" from-field="null"/>
+                <condition-expr field-name="actualEndOfLife" operator="equals" from-field="null"/>
             </condition-list>
         </entity-condition>
         <iterate list="fixedAssets" entry="fixedAsset">
             <entity-condition list="productMaints" entity-name="ProductMaint">
                 <condition-list combine="and">
-                    <condition-expr field-name="productId" env-name="fixedAsset.instanceOfProductId"/>
+                    <condition-expr field-name="productId" from-field="fixedAsset.instanceOfProductId"/>
                     <condition-expr field-name="intervalUomId" operator="like" value="TF_%"/>
                 </condition-list>
             </entity-condition>
@@ -398,9 +398,9 @@ under the License.
                 <set field="repeatCount" from-field="productMaint.repeatCount" default-value="0" type="Long"/>
                 <entity-condition list="maintList" entity-name="FixedAssetMaintWorkEffort">
                     <condition-list combine="and">
-                        <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAsset.fixedAssetId"/>
-                        <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaint.productMaintTypeId"/>
-                        <condition-expr field-name="intervalUomId" operator="equals" env-name="productMaint.intervalUomId"/>
+                        <condition-expr field-name="fixedAssetId" operator="equals" from-field="fixedAsset.fixedAssetId"/>
+                        <condition-expr field-name="productMaintTypeId" operator="equals" from-field="productMaint.productMaintTypeId"/>
+                        <condition-expr field-name="intervalUomId" operator="equals" from-field="productMaint.intervalUomId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="FAM_CANCELLED"/>
                     </condition-list>
                     <order-by field-name="maintHistSeqId"/>

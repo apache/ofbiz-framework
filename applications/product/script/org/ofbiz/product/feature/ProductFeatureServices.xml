@@ -332,8 +332,8 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <entity-condition entity-name="ProductFeatureAppl" list="productFeatureAppls" filter-by-date="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="productId" env-name="newEntity.productId"/>
-                    <condition-expr field-name="productFeatureId" env-name="newEntity.productFeatureId"/>
+                    <condition-expr field-name="productId" from-field="newEntity.productId"/>
+                    <condition-expr field-name="productFeatureId" from-field="newEntity.productFeatureId"/>
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>

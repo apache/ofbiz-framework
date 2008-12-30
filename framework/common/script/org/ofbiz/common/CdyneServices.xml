@@ -44,12 +44,12 @@ under the License.
                     <condition-list combine="and">
                         <!-- Make sure that we find the county within the proper state to avoid name conflicts -->
                         <!-- In the USA the 2 letter state abbreviation is the geoId -->
-                        <condition-expr field-name="geoIdFrom" env-name="cdyneResultMap.StateAbbrev"/>
+                        <condition-expr field-name="geoIdFrom" from-field="cdyneResultMap.StateAbbrev"/>
                         <condition-expr field-name="geoAssocTypeId" value="REGIONS"/>
                         <condition-expr field-name="geoTypeId" value="COUNTY"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="abbreviation" env-name="cdyneResultMap.County"/>
-                            <condition-expr field-name="geoName" env-name="cdyneResultMap.County" ignore-case="true"/>
+                            <condition-expr field-name="abbreviation" from-field="cdyneResultMap.County"/>
+                            <condition-expr field-name="geoName" from-field="cdyneResultMap.County" ignore-case="true"/>
                         </condition-list>
                     </condition-list>
                 </entity-condition>

@@ -167,7 +167,7 @@
         <log level="info" message="parameters: ${parameters}"/>
         <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="unfilteredList">
             <condition-list combine="and">
-                <condition-expr field-name="contentIdStart" operator="equals" env-name="parameters.contentId"/>
+                <condition-expr field-name="contentIdStart" operator="equals" from-field="parameters.contentId"/>
                 <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
                 <condition-expr field-name="caThruDate" operator="equals" value=""/>
             </condition-list>
