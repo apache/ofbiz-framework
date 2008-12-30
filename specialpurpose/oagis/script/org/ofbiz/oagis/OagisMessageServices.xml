@@ -36,7 +36,7 @@ under the License.
         <create-value value-field="newEntity"/>
         <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
             <set-service-fields to-map="oagisMessageErrorInfoMap" service-name="createOagisMessageErrorInfo" map="parameters"/>
-            <call-service service-name="createOagisMessageErrorInfo" in-map-name="oagisMessageErrorInfoMap"/>
+            <call-service service-name="createOagisMessageErrorInfo" in-map="oagisMessageErrorInfoMap"/>
         </if-compare-->
     </simple-method>
         

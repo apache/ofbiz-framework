@@ -304,7 +304,7 @@ under the License.
                 </entity-and>
                 <if-empty field="roles">
                     <set-service-fields service-name="deleteCommunicationEvent" map="parameters" to-map="inMapDel"/>
-                    <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
+                    <call-service service-name="deleteCommunicationEvent" in-map="inMapDel"/>
                 </if-empty>
             </if-compare>
         </if-not-empty>        
@@ -358,7 +358,7 @@ under the License.
         </entity-condition>
         <iterate entry="communicationEvent" list="communicationEvents">
             <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
-            <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true"/>
+            <call-service service-name="sendCommEventAsEmail" in-map="inMap" require-new-transaction="true"/>
         </iterate>
     </simple-method>
 
@@ -389,7 +389,7 @@ under the License.
         <!-- create partyId if not provided -->
         <if-empty field="parameters.partyId">
             <set-service-fields service-name="createPerson" map="parameters" to-map="newParty"/>
-            <call-service service-name="createPerson" in-map-name="newParty">
+            <call-service service-name="createPerson" in-map="newParty">
                 <result-to-field result-name="partyId" field-name="parameters.partyId"/>
             </call-service>
         </if-empty>

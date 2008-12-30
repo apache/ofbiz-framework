@@ -477,7 +477,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
-        <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
+        <call-service service-name="findOrdersToPickMove" in-map="findOrdersToPickMoveMap">
             <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
         </call-service>
         <!-- <log level="info" message="pickMoveByShipmentMethodInfoList=${pickMoveByShipmentMethodInfoList}"/> -->
@@ -1116,7 +1116,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
-        <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
+        <call-service service-name="findOrdersToPickMove" in-map="findOrdersToPickMoveMap">
             <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
         </call-service>
 

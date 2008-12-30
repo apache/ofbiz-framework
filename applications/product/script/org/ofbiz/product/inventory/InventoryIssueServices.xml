@@ -198,7 +198,7 @@ under the License.
                     <!-- change status on inventoryItem -->
                     <set field="inventoryItem.statusId" value="INV_DELIVERED" />
                     <set-service-fields service-name="updateInventoryItem"  map="inventoryItem" to-map="inventoryItemMap"/>
-                    <call-service service-name="updateInventoryItem" in-map-name="inventoryItemMap"/>
+                    <call-service service-name="updateInventoryItem" in-map="inventoryItemMap"/>
 
                     <!-- create ItemIssuance record -->
                     <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>

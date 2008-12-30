@@ -70,7 +70,7 @@ under the License.
         <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>
         <set-service-fields service-name="createAgreement" to-map="createAgreementInMap" map="agreement"/>
-        <call-service service-name="createAgreement" in-map-name="createAgreementInMap">
+        <call-service service-name="createAgreement" in-map="createAgreementInMap">
             <result-to-field result-name="agreementId" field-name="agreementIdTo"/>
         </call-service>
 

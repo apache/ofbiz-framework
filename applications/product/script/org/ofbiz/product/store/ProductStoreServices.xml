@@ -690,7 +690,7 @@ under the License.
             <field-to-result field="availableOrNotRequired"/>
         <else>
             <set-service-fields map="parameters" to-map="callServiceMap" service-name="isStoreInventoryAvailable"/>
-            <call-service service-name="isStoreInventoryAvailable" in-map-name="callServiceMap">
+            <call-service service-name="isStoreInventoryAvailable" in-map="callServiceMap">
                 <result-to-result result-name="available" service-result-name="availableOrNotRequired"/>
             </call-service>
         </else>

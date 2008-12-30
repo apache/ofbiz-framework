@@ -198,7 +198,7 @@
         <create-value value-field="newEntity"/>
         
         <set-service-fields service-name="createPayHistory" map="newEntity" to-map="createPayHistoryMap"/>
-        <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
+        <call-service service-name="createPayHistory" in-map="createPayHistoryMap"/>
     </simple-method>
     
     <simple-method method-name="updateEmployment" short-description="Update Employment">
@@ -626,7 +626,7 @@
         
         <if-not-empty field="parameters.rateAmount">
             <set-service-fields service-name="updateRateAmount" map="parameters" to-map="updRate"/>
-            <call-service service-name="updateRateAmount" in-map-name="updRate"/>
+            <call-service service-name="updateRateAmount" in-map="updRate"/>
         </if-not-empty>
     </simple-method>
     

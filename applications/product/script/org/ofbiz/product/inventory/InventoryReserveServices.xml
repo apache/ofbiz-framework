@@ -330,7 +330,7 @@ under the License.
         <first-from-list entry="inventoryItemReservation" list="invReservations"/>
         <if-not-empty field="inventoryItemReservation"> 
             <set-service-fields map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
-            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map="cancelOrderItemShipGrpInvResMap"/>
             <!-- Hold our inventoryItem -->
             <refresh-value value-name="inventoryItem"/>
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>

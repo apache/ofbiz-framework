@@ -58,7 +58,7 @@ under the License.
 
             <iterate list="portalPortletList" entry="portalPortlet">
                 <set-service-fields service-name="deletePortalPagePortlet" to-map="deletePortalPagePortletInMap" map="portalPortlet"/>
-                <call-service service-name="deletePortalPagePortlet" in-map-name="deletePortalPagePortletInMap"/>
+                <call-service service-name="deletePortalPagePortlet" in-map="deletePortalPagePortletInMap"/>
             </iterate>
            
             <remove-value value-name="column"/>
@@ -132,7 +132,7 @@ under the License.
             
                     <iterate list="portalPageColumnList" entry="portalPageColumn">
                         <set-service-fields service-name="deletePortalPageColumn" to-map="deletePortalPageColumnInMap" map="portalPageColumn"/>
-                        <call-service service-name="deletePortalPageColumn" in-map-name="deletePortalPageColumnInMap"/>
+                        <call-service service-name="deletePortalPageColumn" in-map="deletePortalPageColumnInMap"/>
                     </iterate>
             
                     <remove-value value-name="portalPage"/>

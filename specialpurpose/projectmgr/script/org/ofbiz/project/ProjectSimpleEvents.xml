@@ -21,7 +21,7 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="CreateCustRequestAndAssignTaskToPerson" short-description="">
         <set-service-fields service-name="createCustRequest" map="parameters" to-map="createCust"/>
-        <call-service service-name="createCustRequest" in-map-name="createCust">
+        <call-service service-name="createCustRequest" in-map="createCust">
             <result-to-field result-name="custRequestId" field-name="custRequestId"/>
         </call-service>
         <if-not-empty field="parameters.workEffortParentId"> 
@@ -66,7 +66,7 @@
         <set field="updCust.custRequestId" from-field="parameters.custRequestId"/>
         <call-service service-name="updateCustRequest" in-map-name="updCust"/>
         <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="connectMap"/>
-        <call-service service-name="createWorkEffortRequest" in-map-name="connectMap"/>
+        <call-service service-name="createWorkEffortRequest" in-map="connectMap"/>
     </simple-method>
     <simple-method method-name="setTaskStatusToComplete" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
@@ -96,7 +96,7 @@
     </simple-method>
     <simple-method method-name="addProjectMgrResource" short-description="make parties available in the project manager.">
         <set-service-fields service-name="createPartyRole" map="parameters" to-map="roleData"/>
-        <call-service service-name="createPartyRole" in-map-name="roleData"/>
+        <call-service service-name="createPartyRole" in-map="roleData"/>
         <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
         <call-service service-name="createPartyRole" in-map-name="roleData"/>
     </simple-method>

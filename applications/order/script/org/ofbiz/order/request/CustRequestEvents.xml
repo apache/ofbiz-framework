@@ -57,7 +57,7 @@
                     <then>
                         <!-- Create new content from upload file -->
                         <set-service-fields service-name="createContentFromUploadedFile"
-                            map-name="formInput.formInput" to-map-name="inMap"/>
+                            map="formInput.formInput" to-map="inMap"/>
                         <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
                         <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
                         <set field="inMap._uploadedFile_contentType" from-field="formInput.uploadMimeType"/>

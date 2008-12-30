@@ -185,7 +185,7 @@ under the License.
     <simple-method method-name="checkImageUrlForAllCategories" short-description="Check for image url exists or not for All categories" login-required="false">                  
         <!-- Get all the categories from top category -->
         <set-service-fields to-map="categoryFindContext" service-name="getAllCategories" map="parameters"/>
-        <call-service service-name="getAllCategories" in-map-name="categoryFindContext">
+        <call-service service-name="getAllCategories" in-map="categoryFindContext">
             <result-to-field result-name="categories" field-name="categories"/>
         </call-service>
         <!-- Get the category from categories-->
@@ -206,7 +206,7 @@ under the License.
     <simple-method method-name="checkImageUrlForCategoryAndProduct" short-description="Check for image url exists or not for category and product " login-required="false">                  
         <!--set from-field="parameters.categoryId" field="productCategoryContext.categoryId"/ -->        
         <set-service-fields to-map="productCategoryContext" service-name="getProductCategoryMembers" map="parameters"/>
-        <call-service service-name="getProductCategoryMembers" in-map-name="productCategoryContext" >
+        <call-service service-name="getProductCategoryMembers" in-map="productCategoryContext" >
             <result-to-field result-name="categoryMembers" field-name="categoryMembers"/>
             <result-to-field result-name="category" field-name="category"/>            
         </call-service>  
