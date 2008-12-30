@@ -49,7 +49,7 @@ under the License.
     <simple-method method-name="createOagisMessageErrorInfo" short-description="Create MessageErrorInfo">
         <make-value entity-name="OagisMessageErrorInfo" value-field="newEntity"/>
         <set-pk-fields  map="parameters" value-field="newEntity" />
-        <make-next-seq-id value-name="newEntity" seq-field-name="errorSeqId"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="errorSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>

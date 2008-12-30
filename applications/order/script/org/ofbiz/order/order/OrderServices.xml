@@ -625,7 +625,7 @@ under the License.
                 <if-empty field="newOrderItem.statusId">
                     <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
                 </if-empty>
-                <make-next-seq-id value-name="newOrderItem" seq-field-name="orderItemSeqId"/>
+                <make-next-seq-id value-field="newOrderItem" seq-field-name="orderItemSeqId"/>
                 <create-value value-field="newOrderItem"/>
                 <!-- and the orderItemSeqId is assigned to the shopping cart item-->
                 <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
