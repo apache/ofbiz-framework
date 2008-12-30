@@ -111,7 +111,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="Shipment"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
 
         <!-- put the type in return map so that service consumer knows what type of shipment was updated -->
         <field-to-result field-name="lookedUpValue.shipmentTypeId" result-name="shipmentTypeId"/>
@@ -179,7 +179,7 @@ under the License.
             </condition>
             <then>
                 <set from-field="lookedUpValue.estimatedArrivalWorkEffId" field="estimatedArrivalWorkEffortMap.workEffortId"/>
-                <find-by-primary-key entity-name="WorkEffort" map-name="estimatedArrivalWorkEffortMap" value-name="estimatedArrivalWorkEffort"/>
+                <find-by-primary-key entity-name="WorkEffort" map-name="estimatedArrivalWorkEffortMap" value-field="estimatedArrivalWorkEffort"/>
                 <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedStartDate"/>
                 <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedCompletionDate"/>
                 <set from-field="parameters.destinationFacilityId" field="estimatedArrivalWorkEffort.facilityId"/>
@@ -804,7 +804,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -818,7 +818,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -941,7 +941,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackage"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackage" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentPackage" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
@@ -1008,7 +1008,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1022,7 +1022,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="addShipmentContentToPackage" short-description="Add Shipment Content To Package">
@@ -1034,7 +1034,7 @@ under the License.
         <check-errors/>        
         <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <find-by-primary-key value-name="shipmentPackageContent" map-name="newEntity"/>
+        <find-by-primary-key value-field="shipmentPackageContent" map-name="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
         <if-empty field="shipmentPackageContent">            
             <set-service-fields service-name="createShipmentPackageContent" map-name="parameters" to-map-name="createSPCMap"/>
@@ -1075,7 +1075,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1089,7 +1089,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -1114,7 +1114,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1128,7 +1128,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -1474,7 +1474,7 @@ under the License.
                 <call-service service-name="createShipment" in-map-name="shipmentContext">
                     <result-to-field result-name="shipmentId" field-name="shipmentLookupMap.shipmentId"/>
                 </call-service>
-                <find-by-primary-key entity-name="Shipment" map-name="shipmentLookupMap" value-name="shipment"/>
+                <find-by-primary-key entity-name="Shipment" map-name="shipmentLookupMap" value-field="shipment"/>
 
                 <if><condition><if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER"/></condition>
                   <then>
@@ -1619,7 +1619,7 @@ under the License.
         <if-not-empty field="parameters.serialNumber">                 
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>                
         <set-pk-fields value-name="orderItemShipGrpInvResLookupPk" map-name="parameters"/>
-        <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>       
+        <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>       
         <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>        
         <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">            
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
@@ -1654,7 +1654,7 @@ under the License.
         <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
         <make-value entity-name="ShipmentPackage" value-field="shipmentPackageLookupPk"/>                
         <set-pk-fields value-name="shipmentPackageLookupPk" map-name="parameters"/>
-        <find-by-primary-key entity-name="ShipmentPackage" map-name="shipmentPackageLookupPk" value-name="shipmentPackage"/>
+        <find-by-primary-key entity-name="ShipmentPackage" map-name="shipmentPackageLookupPk" value-field="shipmentPackage"/>
         <if-empty field="shipmentPackage">
             <set from-field="itemIssuance.shipmentId" field="shipPackageContext.shipmentId"/>
             <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>  
@@ -1673,7 +1673,7 @@ under the License.
             <set from-field="itemIssuance.shipmentId" field="routeSegLookup.shipmentId"/>
             <!-- quick ship orders should only have one route segment -->
             <set value="00001" field="routeSegLookup.shipmentRouteSegmentId"/>
-            <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="routeSegLookup" value-name="packageRouteSegment"/>
+            <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="routeSegLookup" value-field="packageRouteSegment"/>
             <if-not-empty field="packageRouteSegment">
                 <set from-field="parameters.trackingNum" field="packageRouteSegment.trackingCode"/>
                 <store-value value-name="packageRouteSegment"/>
@@ -1757,7 +1757,7 @@ under the License.
         <call-service service-name="createShipment" in-map-name="shipmentContext">
             <result-to-field result-name="shipmentId" field-name="shipmentLookupMap.shipmentId"/>
         </call-service>
-        <find-by-primary-key entity-name="Shipment" map-name="shipmentLookupMap" value-name="shipment"/>
+        <find-by-primary-key entity-name="Shipment" map-name="shipmentLookupMap" value-field="shipment"/>
 
         <!-- issue the passed in order items -->
         <log level="verbose" message="ShipMap List : ${itemMapList}  /  ${parameters.itemShipList}"/>
@@ -1802,7 +1802,7 @@ under the License.
                 <set from-field="itemIssuance.shipmentId" field="routeSegLookup.shipmentId"/>
                 <!-- quick ship orders should only have one route segment -->
                 <set value="00001" field="routeSegLookup.shipmentRouteSegmentId"/>
-                <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="routeSegLookup" value-name="packageRouteSegment"/>
+                <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="routeSegLookup" value-field="packageRouteSegment"/>
 
                 <if-not-empty field="packageRouteSegment">
                     <set from-field="itemMap.trackingNum" field="packageRouteSegment.trackingCode"/>
@@ -1842,11 +1842,11 @@ under the License.
         </check-permission>
         <make-value entity-name="OrderShipment" value-field="lookupPk"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
-        <find-by-primary-key entity-name="OrderShipment" map-name="lookupPk" value-name="orderShipment"/>
+        <find-by-primary-key entity-name="OrderShipment" map-name="lookupPk" value-field="orderShipment"/>
         <clear-field field-name="lookupPk"/>
         <make-value entity-name="ShipmentItem" value-field="lookupPk"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
-        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPk" value-name="shipmentItem"/>
+        <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPk" value-field="shipmentItem"/>
 
         <set from-field="parameters.userLogin" field="inMap.userLogin"/>
         <set from-field="parameters.shipmentId" field="inMap.shipmentId"/>
@@ -1893,7 +1893,7 @@ under the License.
             <!-- get orderHeader -->
             <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
             <set-pk-fields value-name="orderHeaderLookupPk" map-name="parameters"/>
-            <find-by-primary-key map-name="orderHeaderLookupPk" value-name="orderHeader"/>
+            <find-by-primary-key map-name="orderHeaderLookupPk" value-field="orderHeader"/>
 
             <!-- make sure the order is of orderTypeId: SALES_ORDER -->
             <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
@@ -1903,7 +1903,7 @@ under the License.
             <!-- get orderItem -->
             <make-value entity-name="OrderItem" value-field="orderItemLookupPk"/>
             <set-pk-fields value-name="orderItemLookupPk" map-name="parameters"/>
-            <find-by-primary-key map-name="orderItemLookupPk" value-name="orderItem"/>
+            <find-by-primary-key map-name="orderItemLookupPk" value-field="orderItem"/>
 
             <!-- make sure the orderItem is not already present in this shipment -->
             <make-value entity-name="OrderShipment" value-field="orderShipmentLookup"/>
@@ -1945,7 +1945,7 @@ under the License.
         <!-- get orderItem -->
         <make-value entity-name="OrderItem" value-field="orderItemLookupPk"/>
         <set-pk-fields value-name="orderItemLookupPk" map-name="parameters"/>
-        <find-by-primary-key map-name="orderItemLookupPk" value-name="orderItem"/>
+        <find-by-primary-key map-name="orderItemLookupPk" value-field="orderItem"/>
 
         <set from-field="parameters.orderId" field="orderShipmentLookup.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="orderShipmentLookup.orderItemSeqId"/>

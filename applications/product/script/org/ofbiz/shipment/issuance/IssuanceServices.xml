@@ -143,13 +143,13 @@ under the License.
         <!-- get orderItemShipGrpInvRes -->
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="OrderItemShipGrpInvResLookupPk"/>
         <set-pk-fields value-name="OrderItemShipGrpInvResLookupPk" map-name="parameters"/>
-        <find-by-primary-key map-name="OrderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>
+        <find-by-primary-key map-name="OrderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>
         <log level="info" message="order item ship grp inv res info: ${orderItemShipGrpInvRes}"/>
 
         <!-- get orderHeader -->
         <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
         <set-pk-fields value-name="orderHeaderLookupPk" map-name="parameters"/>
-        <find-by-primary-key map-name="orderHeaderLookupPk" value-name="orderHeader"/>
+        <find-by-primary-key map-name="orderHeaderLookupPk" value-field="orderHeader"/>
 
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
         <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
@@ -201,7 +201,7 @@ under the License.
                 <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
                 <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
                 <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
-                <find-by-primary-key map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
+                <find-by-primary-key map-name="shipmentItemLookupPk" value-field="shipmentItem"/>
                 <remove-value value-name="orderShipment"/>
             </if-not-empty>
             <if-compare value="0" operator="not-equals" field="qtyForShipmentItem" type="Double">
@@ -223,7 +223,7 @@ under the License.
             <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
             <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
             <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
-            <find-by-primary-key map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
+            <find-by-primary-key map-name="shipmentItemLookupPk" value-field="shipmentItem"/>
         </else>
         </if-compare>
 
@@ -294,7 +294,7 @@ under the License.
                 <result-to-field result-name="shipmentItemSeqId" map-name="shipmentItemLookupPk"/>
             </call-service>
             <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
-            <find-by-primary-key entity-name="ShipmentItem" map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
+            <find-by-primary-key entity-name="ShipmentItem" map-name="shipmentItemLookupPk" value-field="shipmentItem"/>
         <else>
             <calculate field-name="quantity" map-name="shipmentItem">
                 <calcop operator="add" field-name="quantity" map-name="shipmentItem">
@@ -335,7 +335,7 @@ under the License.
         <make-value entity-name="PartyRole" value-field="partyRole"/>
         <set field="partyRole.partyId" from-field="userLogin.partyId"/>
         <set field="partyRole.roleTypeId" value="PACKER"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="partyRole" value-name="checkPartyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="partyRole" value-field="checkPartyRole"/>
         <if-empty field="checkPartyRole">
             <create-value value-name="partyRole"/>
         </if-empty>

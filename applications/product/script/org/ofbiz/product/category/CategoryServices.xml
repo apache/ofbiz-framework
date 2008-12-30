@@ -185,7 +185,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -208,7 +208,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -240,7 +240,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -252,7 +252,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -330,7 +330,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -344,7 +344,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -646,7 +646,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
+        <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map-name="parameters" value-name="ProductCategoryAttributeInstance"/>
         <store-value value-name="ProductCategoryAttributeInstance"/>
     </simple-method>
@@ -659,7 +659,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
+        <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <remove-value value-name="ProductCategoryAttributeInstance"/>
     </simple-method>
     

@@ -236,7 +236,7 @@ under the License.
         <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
         <if-empty field="userLogin">
             <set field="ulLookup.userLoginId" value="anonymous"/>
-            <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-name="userLogin"/>
+            <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-field="userLogin"/>
             <set field="userLogin.partyId" from-field="tempMap.partyId"/>
             <set-current-user-login value-name="userLogin"/>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->

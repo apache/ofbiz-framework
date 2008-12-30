@@ -62,7 +62,7 @@ under the License.
         </call-map-processor>
         <if-not-empty field="userLoginContext.userLoginId">
             <set field="userLoginExistsMap.userLoginId" from-field="userLoginContext.userLoginId" />
-            <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-name="existingUserLogin"/>
+            <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-field="existingUserLogin"/>
             <if-not-empty field="existingUserLogin">
                 <set field="tempErrorMessage" value="Username in use, please choose another." />
                 <field-to-list field-name="tempErrorMessage" list-name="error_list"/>

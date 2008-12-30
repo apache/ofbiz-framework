@@ -604,7 +604,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
 
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
@@ -647,7 +647,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -673,7 +673,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <store-value value-name="lookedUpValue"/>
@@ -686,7 +686,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -714,7 +714,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
 
         <if-not-empty field="parameters.itemStatusId">
             <if-compare-field field="parameters.itemStatusId" to-field="lookedUpValue.itemStatusId" operator="not-equals">
@@ -749,7 +749,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="setPicklistItemToComplete" short-description="Set the status of a pick list item to completed">
@@ -786,7 +786,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <store-value value-name="lookedUpValue"/>
@@ -799,7 +799,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -1238,12 +1238,12 @@ under the License.
         <!-- find the picklist bin -->
         <make-value value-field="binLookup" entity-name="PicklistBin"/>
         <set-pk-fields map-name="parameters" value-name="binLookup"/>
-        <find-by-primary-key map-name="binLookup" value-name="picklistBin"/>
+        <find-by-primary-key map-name="binLookup" value-field="picklistBin"/>
 
         <!-- find the pick list -->
         <make-value value-field="plLookup" entity-name="Picklist"/>
         <set-pk-fields map-name="picklistBin" value-name="plLookup"/>
-        <find-by-primary-key map-name="plLookup" value-name="picklist"/>
+        <find-by-primary-key map-name="plLookup" value-field="picklist"/>
 
         <!-- find all related picklist items -->
         <entity-and entity-name="PicklistItemAndBin" list-name="picklistItem">

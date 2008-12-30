@@ -88,7 +88,7 @@ under the License.
         <if-not-empty field="routingGS">
             <clear-field field-name="lookupRouting"/>
             <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
-            <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+            <find-by-primary-key entity-name="WorkEffort" value-field="routing" map-name="lookupRouting"/>
             <else>
                 <!-- The default routing is used when no explicit routing is associated to the product 
                      and the ignoreDefaultRouting is not equals to Y -->
@@ -102,7 +102,7 @@ under the License.
                     <then>
                         <clear-field field-name="lookupRouting"/>
                         <set value="DEFAULT_ROUTING" field="lookupRouting.workEffortId"/>
-                        <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+                        <find-by-primary-key entity-name="WorkEffort" value-field="routing" map-name="lookupRouting"/>
                     </then>
                 </if>
             </else>

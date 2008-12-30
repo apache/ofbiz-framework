@@ -54,7 +54,7 @@ under the License.
         <!-- Lookup the existing schedule to modify -->
         <make-value entity-name="OrderDeliverySchedule" value-field="lookupPkMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPkMap"/>
-        <find-by-primary-key entity-name="OrderDeliverySchedule" map-name="lookupPkMap" value-name="schedule"/>
+        <find-by-primary-key entity-name="OrderDeliverySchedule" map-name="lookupPkMap" value-field="schedule"/>
 
         <!-- only set statusId if hasScheduleAdminRelatedPermission -->
         <set from-field="schedule.statusId" field="saveStatusId"/>
@@ -81,7 +81,7 @@ under the License.
         
         <make-value entity-name="OrderDeliverySchedule" value-field="orderDeliverySchedule"/>
         <set-pk-fields value-name="orderDeliverySchedule" map-name="parameters"/>
-        <find-by-primary-key map-name="orderDeliverySchedule" value-name="orderDeliverySchedule"/>
+        <find-by-primary-key map-name="orderDeliverySchedule" value-field="orderDeliverySchedule"/>
         
         <!-- find email address for currently logged in user, set as sendFrom -->
         <set field="curUserPcmFindMap.partyId" from-field="userLogin.partyId"/>
@@ -161,7 +161,7 @@ under the License.
                 <set from-field="parameters.orderId" field="lookupOrderRoleMap.orderId"/>
                 <set from-field="userLogin.partyId" field="lookupOrderRoleMap.partyId"/>
                 <set value="SUPPLIER_AGENT" field="lookupOrderRoleMap.roleTypeId"/>
-                <find-by-primary-key entity-name="OrderRole" map-name="lookupOrderRoleMap" value-name="permOrderRole"/>
+                <find-by-primary-key entity-name="OrderRole" map-name="lookupOrderRoleMap" value-field="permOrderRole"/>
                 <if>
                     <condition>
                         <if-empty field="permOrderRole"/>
