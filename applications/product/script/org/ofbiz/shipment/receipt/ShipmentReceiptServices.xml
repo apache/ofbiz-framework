@@ -67,7 +67,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentReceiptRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ShipmentReceiptRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>   
     

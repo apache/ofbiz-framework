@@ -37,7 +37,7 @@ under the License.
     <simple-method method-name="removeWebSite" short-description="Remove a WebSite">
         <make-value value-field="lookupKeyValue" entity-name="WebSite"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="WebSite" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSite" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -56,14 +56,14 @@ under the License.
     <simple-method method-name="updateWebSiteContent" short-description="Update WebSite Content">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWebSiteContent" short-description="Remove WebSite Content">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -81,14 +81,14 @@ under the License.
     <simple-method method-name="updateWebSiteContentType" short-description="Update WebSite Content Type">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContentType"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteContentType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteContentType" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWebSiteContentType" short-description="Remove WebSite Content Type">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContentType"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteContentType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteContentType" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>        
     </simple-method>
 
@@ -102,20 +102,20 @@ under the License.
     <simple-method method-name="updateWebSitePathAlias" short-description="Update WebSite Path Alias">
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSitePathAlias" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWebSitePathAlias" short-description="Remove WebSite Path Alias">
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSitePathAlias" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getWebSitePathAlias" short-description="Returns a WebSite Path Alias">
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSitePathAlias" map-name="lookupPKMap" value-field="alias" use-cache="true"/>
+        <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="alias" use-cache="true"/>
         <field-to-result field-name="alias.pathTo" result-name="pathTo"/>
     </simple-method>
 
@@ -135,14 +135,14 @@ under the License.
     <simple-method method-name="updateWebSiteRole" short-description="Update WebSite Role">
         <make-value value-field="lookupPKMap" entity-name="WebSiteRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWebSiteRole" short-description="Remove WebSite Role">
         <make-value value-field="lookupPKMap" entity-name="WebSiteRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 

@@ -39,7 +39,7 @@ under the License.
     <simple-method method-name="updateBillingAccount" short-description="Update Billing Account">
         <make-value value-field="lookupPKMap" entity-name="BillingAccount"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
-        <find-by-primary-key entity-name="BillingAccount" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="BillingAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -56,14 +56,14 @@ under the License.
     <simple-method method-name="updateBillingAccountRole" short-description="Update Billing Account Role">
         <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
-        <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="BillingAccountRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountRole" short-description="Remove Billing Account Role">
         <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
-        <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="BillingAccountRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountTerm" short-description="Create Billing Account Term">
@@ -80,14 +80,14 @@ under the License.
     <simple-method method-name="updateBillingAccountTerm" short-description="Update Billing Account Term">
         <make-value value-field="lookupPKMap" entity-name="BillingAccountTerm"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="BillingAccountTerm" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountTerm" short-description="Remove Billing Account Term">
         <make-value entity-name="BillingAccountTerm" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="BillingAccountTerm" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>        
 </simple-methods>

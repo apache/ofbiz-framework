@@ -38,7 +38,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         
-        <find-by-primary-key entity-name="SupplierProduct" map-name="lookupPKMap" value-field="sprod"/>
+        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
         <set-nonpk-fields map-name="parameters" value-name="sprod"/>
         <store-value value-name="sprod"/>
     </simple-method>
@@ -50,7 +50,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         
-        <find-by-primary-key entity-name="SupplierProduct" map-name="lookupPKMap" value-field="sprod"/>                
+        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>                
         <remove-value value-name="sprod"/>
     </simple-method>
 

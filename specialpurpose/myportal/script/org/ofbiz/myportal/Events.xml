@@ -204,7 +204,7 @@ under the License.
 
         <!-- Get mime type from FileExtention -->
         <set field="fileMap.fileExtensionId" value="${parameters.mimeType}"/>
-        <find-by-primary-key map-name="fileMap" value-field="mimeType" entity-name="FileExtension"/>
+        <find-by-primary-key map="fileMap" value-field="mimeType" entity-name="FileExtension"/>
 
         <!-- Create Data Resource -->
         <set-service-fields service-name="createContentFromUploadedFile"

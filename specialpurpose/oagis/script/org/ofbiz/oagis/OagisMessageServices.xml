@@ -26,7 +26,7 @@ under the License.
         <set-pk-fields  map-name="parameters" value-name="newEntity" />
         
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
-        <find-by-primary-key map-name="newEntity" value-field="currentOagisMessageInfo"/>
+        <find-by-primary-key map="newEntity" value-field="currentOagisMessageInfo"/>
         <if-not-empty field="currentOagisMessageInfo">
             <add-error><fail-message message="This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}"/></add-error>
             <check-errors/>

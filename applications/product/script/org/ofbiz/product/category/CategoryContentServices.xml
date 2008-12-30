@@ -43,7 +43,7 @@ under the License.
     <simple-method method-name="updateCategoryContent" short-description="Update Content For Category">
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
@@ -53,7 +53,7 @@ under the License.
     <simple-method method-name="removeCategoryContent" short-description="Remove Content From Category">
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryContent" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductCategoryContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createSimpleTextContentForCategory" short-description="Create Simple Text Content For Product Category">

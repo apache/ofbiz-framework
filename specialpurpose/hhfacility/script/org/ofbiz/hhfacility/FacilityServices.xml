@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="tc_ProductExists" short-description="Check Product Exists" login-required="false">
         <set from-field="parameters.productId" field="productIdMap.productId"/>
-        <find-by-primary-key entity-name="Product" map-name="productIdMap" value-field="product"/>       
+        <find-by-primary-key entity-name="Product" map="productIdMap" value-field="product"/>       
         <if-not-empty field="product.productId">
             <log level="info" message="Found product ID ${parameters.productId}, "/>
             <!-- <log level="info"><string value="Product Details are: "/><field field-name="product"/></log> -->

@@ -322,7 +322,7 @@ under the License.
             <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx">
                 <result-to-field result-name="inventoryItemId" field-name="inventoryItemLookupPk.inventoryItemId"/>
             </call-service>
-            <find-by-primary-key entity-name="InventoryItem" map-name="inventoryItemLookupPk" value-field="inventoryItem"/>    
+            <find-by-primary-key entity-name="InventoryItem" map="inventoryItemLookupPk" value-field="inventoryItem"/>    
         </if-empty>
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>

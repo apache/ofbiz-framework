@@ -66,7 +66,7 @@
     <simple-method method-name="removeContent" short-description="Remove a Content Record">
         <make-value entity-name="Content" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="Content" map-name="lookupKeyValue" value-field="content"/>
+        <find-by-primary-key entity-name="Content" map="lookupKeyValue" value-field="content"/>
 
         <remove-value value-name="content"/>
     </simple-method>
@@ -106,7 +106,7 @@
     <simple-method method-name="removeContentAssoc" short-description="Remove a Content Assoc Record">
         <make-value entity-name="ContentAssoc" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAssoc" map-name="lookupKeyValue" value-field="assoc"/>
+        <find-by-primary-key entity-name="ContentAssoc" map="lookupKeyValue" value-field="assoc"/>
 
         <remove-value value-name="assoc"/>
     </simple-method>
@@ -199,8 +199,8 @@
         <set from-field="currentContent" field="context.currentContent"/>
         <set from-field="parameters.contentIdFrom" field="pk.contentId"/>
         <set from-field="parameters.userLogin" field="context.userLogin"/>
-        <find-by-primary-key value-field="currentContent" entity-name="Content" map-name="pk" />
-        <find-by-primary-key value-field="fromContent" entity-name="Content" map-name="pk" />
+        <find-by-primary-key value-field="currentContent" entity-name="Content" map="pk" />
+        <find-by-primary-key value-field="fromContent" entity-name="Content" map="pk" />
 
         <if-compare field="permissionStatus" operator="equals" type="String" value="granted">
             <make-value entity-name="ContentAssoc" value-field="newContentAssoc"/>
@@ -235,14 +235,14 @@
     <simple-method method-name="updateContentMetaData" short-description="Update Content Meta Data">
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentMetaData" short-description="Remove Content Meta Data">        
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>    
     
@@ -253,7 +253,7 @@
         </if-empty>
         <make-value value-field="partyRolePK" entity-name="PartyRole"/>
         <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-field="partyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
         <if-empty field="partyRole">
             <make-value entity-name="PartyRole" map-name="partyRolePK" value-field="partyRole"/>
             <create-value value-name="partyRole"/>
@@ -262,7 +262,7 @@
 
         <make-value entity-name="ContentRole" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <find-by-primary-key entity-name="ContentRole" map-name="newEntity" value-field="contentRole"/>
+        <find-by-primary-key entity-name="ContentRole" map="newEntity" value-field="contentRole"/>
         <if-empty field="contentRole">
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
@@ -272,7 +272,7 @@
     <simple-method method-name="updateContentRole" short-description="Update Content Role">
         <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRole" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRole" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -291,7 +291,7 @@
     <simple-method method-name="removeContentRole" short-description="Remove Content Role">        
         <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRole" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRole" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -307,14 +307,14 @@
     <simple-method method-name="updateContentType" short-description="Update Content Type">
         <make-value entity-name="ContentType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentType" short-description="Remove Content Type">
         <make-value entity-name="ContentType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -328,7 +328,7 @@
     <simple-method method-name="removeContentTypeAttr" short-description="Remove Content TypeAttr">
         <make-value entity-name="ContentTypeAttr" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentTypeAttr" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentTypeAttr" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -343,14 +343,14 @@
     <simple-method method-name="updateContentAssocType" short-description="Update Content AssocType">
         <make-value entity-name="ContentAssocType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAssocType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAssocType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentAssocType" short-description="Remove Content AssocType">
         <make-value entity-name="ContentAssocType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAssocType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAssocType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -368,14 +368,14 @@
     <simple-method method-name="updateContentPurposeType" short-description="Update Content PurposeType">
         <make-value entity-name="ContentPurposeType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentPurposeType" short-description="Remove Content PurposeType">
         <make-value entity-name="ContentPurposeType" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeType" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -390,14 +390,14 @@
     <simple-method method-name="updateContentAssocPredicate" short-description="Update Content AssocPredicate">
         <make-value entity-name="ContentAssocPredicate" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAssocPredicate" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAssocPredicate" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentAssocPredicate" short-description="Remove Content AssocPredicate">
         <make-value entity-name="ContentAssocPredicate" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAssocPredicate" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAssocPredicate" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -411,14 +411,14 @@
     <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentPurposeOperation" short-description="Remove Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -432,14 +432,14 @@
     <simple-method method-name="updateContentPurpose" short-description="Update Content Purpose">
         <make-value entity-name="ContentPurpose" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurpose" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentPurpose" short-description="Remove Content Purpose">
         <make-value entity-name="ContentPurpose" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurpose" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
@@ -458,14 +458,14 @@
     <simple-method method-name="updateContentOperation" short-description="Update Content Operation">
         <make-value entity-name="ContentOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentOperation" short-description="Remove Content Operation">
         <make-value entity-name="ContentOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -479,14 +479,14 @@
     <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentPurposeOperation" short-description="Remove Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -500,14 +500,14 @@
     <simple-method method-name="updateContentAttribute" short-description="Update Content Attribute">
         <make-value entity-name="ContentAttribute" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAttribute" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentAttribute" short-description="Remove Content Attribute">        
         <make-value entity-name="ContentAttribute" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentAttribute" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -521,7 +521,7 @@
     <simple-method method-name="updateContentMetaData" short-description="Update Content MetaData">
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -529,7 +529,7 @@
         <check-errors/>
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -855,7 +855,7 @@
     <simple-method method-name="updateCommEventContentAssoc" short-description="Create CommEventContentAssoc">
 		<make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc" />
 		<set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
-		<find-by-primary-key value-field="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+		<find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
 		<if-empty field="commEventContentAssoc">
 			<add-error>
 				<fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
@@ -868,7 +868,7 @@
     <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc" />
         <set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
-        <find-by-primary-key value-field="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+        <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
         <if-empty field="commEventContentAssoc">
             <add-error>
                 <fail-message message="CommEventContentAssoc entity not found for removal, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>

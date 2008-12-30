@@ -43,7 +43,7 @@ under the License.
     <simple-method method-name="updateProductConfigItemContent" short-description="Update Content For ProductConfigItem">
         <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
@@ -53,7 +53,7 @@ under the License.
     <simple-method method-name="removeProductConfigItemContent" short-description="Remove Content From ProductConfigItem">
         <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
