@@ -38,7 +38,7 @@ under the License.
 
     <simple-method method-name="loadProductInProductDimension" short-description="">
         <set-service-fields service-name="prepareProductDimensionData" map="parameters" to-map="inMap"/>
-        <call-service service-name="prepareProductDimensionData" in-map="inMap">
+        <call-service service-name="prepareProductDimensionData" in-map-name="inMap">
             <result-to-field result-name="productDimension"/>
         </call-service>
         <clear-field field="inMap"/>

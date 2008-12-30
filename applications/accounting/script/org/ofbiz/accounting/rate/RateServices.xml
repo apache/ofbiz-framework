@@ -58,7 +58,7 @@ under the License.
             <first-from-list entry="rateAmount" list="rateAmounts"/>
             <if-compare-field field="rateAmount.rateAmount" operator="not-equals" to-field="parameters.rateAmount">
                 <set-service-fields service-name="deleteRateAmount" map="rateAmount" to-map="delRateAmount"/>
-                <call-service service-name="deleteRateAmount" in-map="delRateAmount"/>
+                <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
             </if-compare-field>
         </if-not-empty>
 
@@ -316,7 +316,7 @@ under the License.
         
         <if-not-empty field="parameters.rateAmount">
             <set-service-fields service-name="updateRateAmount" map="parameters" to-map="updRate"/>
-            <call-service service-name="updateRateAmount" in-map="updRate"/>
+            <call-service service-name="updateRateAmount" in-map-name="updRate"/>
         </if-not-empty>
     </simple-method>
 

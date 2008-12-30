@@ -45,7 +45,7 @@
     
     <simple-method method-name="updateProject" short-description="Update a project">
         <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updWorkEffort"/>
-        <call-service service-name="updateWorkEffort" in-map="updWorkEffort"/>
+        <call-service service-name="updateWorkEffort" in-map-name="updWorkEffort"/>
         <if-not-empty field="parameters.organizationPartyId">
             <set field="updProjectRole.newPartyId" from-field="parameters.organizationPartyId"/>
             <set field="updProjectRole.roleTypeId" value="INTERNAL_ORGANIZATIO"/>

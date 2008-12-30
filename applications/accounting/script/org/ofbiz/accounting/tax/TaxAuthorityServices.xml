@@ -246,6 +246,6 @@ under the License.
             parameters.put("taxAuthGeoId", taxAuthPartyGeoIds.substring(taxAuthPartyGeoIds.indexOf("::") + 2));
         ]]></call-bsh>
         <set-service-fields service-name="createPartyTaxAuthInfo" map="parameters" to-map="createPartyTaxAuthInfoMap"/>
-        <call-service service-name="createPartyTaxAuthInfo" in-map="createPartyTaxAuthInfoMap" include-user-login="true"/>
+        <call-service service-name="createPartyTaxAuthInfo" in-map-name="createPartyTaxAuthInfoMap" include-user-login="true"/>
     </simple-method>   
 </simple-methods>

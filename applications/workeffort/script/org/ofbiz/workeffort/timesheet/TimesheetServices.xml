@@ -78,7 +78,7 @@ under the License.
        <iterate list="parameters.partyIdList" entry="partyId">
            <set field="parameters.partyId" from-field="partyId"/>
            <set-service-fields to-map="createParams" service-name="createTimesheet" map="parameters"/>
-           <call-service service-name="createTimesheet" in-map="createParams"/>
+           <call-service service-name="createTimesheet" in-map-name="createParams"/>
        </iterate>
     </simple-method>
     <simple-method method-name="addTimesheetToInvoice" short-description="Add Timesheet to Invoice">

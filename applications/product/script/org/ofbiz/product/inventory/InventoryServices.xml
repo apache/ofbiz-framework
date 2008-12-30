@@ -515,12 +515,12 @@ under the License.
     </simple-method>
     <simple-method method-name="createPhysicalInventoryAndVariance" short-description="Create a PhysicalInventory and an InventoryItemVariance">
         <set-service-fields service-name="createPhysicalInventory" map="parameters" to-map="createPhysicalInventoryMap"/>
-        <call-service service-name="createPhysicalInventory" in-map="createPhysicalInventoryMap">
+        <call-service service-name="createPhysicalInventory" in-map-name="createPhysicalInventoryMap">
             <result-to-field result-name="physicalInventoryId" field="parameters.physicalInventoryId"/>
             <result-to-result result-name="physicalInventoryId" service-result-name="physicalInventoryId"/>
         </call-service>
         <set-service-fields service-name="createInventoryItemVariance" map="parameters" to-map="createInventoryItemVarianceMap"/>
-        <call-service service-name="createInventoryItemVariance" in-map="createInventoryItemVarianceMap"/>
+        <call-service service-name="createInventoryItemVariance" in-map-name="createInventoryItemVarianceMap"/>
     </simple-method>
 
     <!-- ProductFacility methods -->
@@ -794,7 +794,7 @@ under the License.
         <!-- FIRST, cancel all the reservations -->
         <iterate list="allReservations" entry="oisgir">
             <set-service-fields service-name="cancelOrderItemShipGrpInvRes" to-map="cancelOisgirMap" map="oisgir"/>
-            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map="cancelOisgirMap"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
         </iterate>
 
         <!-- THEN, re-reserve the cancelled items -->
