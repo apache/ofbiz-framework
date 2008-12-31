@@ -125,7 +125,7 @@ under the License.
         </if-empty>
         <make-value value-field="newEntity" entity-name="ShoppingListItem"/>
         <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <field-to-result field="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>

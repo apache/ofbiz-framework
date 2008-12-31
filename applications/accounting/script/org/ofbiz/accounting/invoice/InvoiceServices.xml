@@ -252,7 +252,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.invoiceItemSeqId">
-            <make-next-seq-id value-name="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <make-next-seq-id value-field="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
             <field-to-result field="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
         </if-empty>
         <!-- if there is no amount and a productItem is supplied fill the amount(price) and description from the product record

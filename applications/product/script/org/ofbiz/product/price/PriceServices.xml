@@ -181,7 +181,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
         <field-to-result field="productPriceCondSeqId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
@@ -217,7 +217,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
         <field-to-result field="productPriceActionSeqId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>

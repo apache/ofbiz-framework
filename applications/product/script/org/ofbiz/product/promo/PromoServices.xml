@@ -83,7 +83,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPromoAction"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productPromoActionSeqId" numeric-padding="2"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="productPromoActionSeqId" numeric-padding="2"/>
         <field-to-result field="productPromoActionSeqId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
@@ -252,7 +252,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPromoCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
         <field-to-result field="productPromoCondSeqId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
@@ -322,7 +322,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPromoRule"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productPromoRuleId" numeric-padding="2"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="productPromoRuleId" numeric-padding="2"/>
         <field-to-result field="productPromoRuleId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
