@@ -166,7 +166,7 @@ under the License.
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field="telecomNumber"/>
-        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
+        <get-related-one  value-field="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
         <assert>
             <not><if-empty field="telecomNumber"/></not>
             <if-compare-field field="telecomNumber.areaCode" to-field="serviceCtx.areaCode" operator="equals"/>
@@ -190,7 +190,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
-        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
+        <get-related-one  value-field="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
         <assert>
             <not><if-empty field="telecomNumber"/></not>
             <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
@@ -235,7 +235,7 @@ under the License.
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field="postalAddress"/>
-        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
+        <get-related-one  value-field="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
         <assert>
             <not><if-empty field="postalAddress"/></not>
             <if-compare-field field="postalAddress.address1" to-field="serviceCtx.address1" operator="equals"/>
@@ -261,7 +261,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
-        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
+        <get-related-one  value-field="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
         <assert>
             <not><if-empty field="postalAddress"/></not>
             <if-compare-field field="postalAddress.stateProvinceGeoId" to-field="serviceCtx.stateProvinceGeoId" operator="equals"/>

@@ -187,7 +187,7 @@ under the License.
         <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
         <find-by-and entity-name="PostalAddressBoundary" map="postalAddressBoundaryLookupMap" list="postalAddressBoundaries"/>
         <iterate list="postalAddressBoundaries" entry="postalAddressBoundary">
-            <get-related-one value-name="postalAddressBoundary" to-value-field="geo" relation-name="Geo"/>
+            <get-related-one value-field="postalAddressBoundary" to-value-field="geo" relation-name="Geo"/>
             <field-to-list field="geo" list="geos"/>
         </iterate>
         <field-to-result field="geos"/>
@@ -450,7 +450,7 @@ under the License.
         
         <find-by-and entity-name="PartyRelationship" map="lookupMap" list="partyRelationships"/>
         <iterate list="partyRelationships" entry="partyRelationship">
-            <get-related-one value-name="partyRelationship" relation-name="ToParty" to-value-field="party"/>
+            <get-related-one value-field="partyRelationship" relation-name="ToParty" to-value-field="party"/>
             <field-to-list field="party" list="parties"/>
         </iterate>
         <if-not-empty field="parties">   

@@ -1257,7 +1257,7 @@ under the License.
                 </or>
             </condition>
             <then>
-                <get-related-one relation-name="StatusItem" value-name="testShipment" to-value-field="testShipmentStatus"/>
+                <get-related-one relation-name="StatusItem" value-field="testShipment" to-value-field="testShipmentStatus"/>
                 <string-to-list string="Cannot perform operation ${operationName} when the shipment is in the ${testShipmentStatus.description} [${testShipment.statusId}] status." list="error_list"/>
             </then>
         </if>
@@ -1382,7 +1382,7 @@ under the License.
             <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
         </entity-and>
         <iterate entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs">
-            <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-field="orderItem"/>
+            <get-related-one relation-name="OrderItem" value-field="orderItemShipGroupAssoc" to-value-field="orderItem"/>
 
             <!-- Set the item status to completed -->
             <set field="itemStatusContext.orderId" from-field="parameters.orderId"/>
@@ -1593,7 +1593,7 @@ under the License.
                 
                 <!-- make sure the OrderItem is for a Product that has a ProductType with isPhysical=Y -->
                 <if-not-empty field="itemProduct">
-                    <get-related-one value-name="itemProduct" relation-name="ProductType" to-value-field="itemProductType" use-cache="true"/>
+                    <get-related-one value-field="itemProduct" relation-name="ProductType" to-value-field="itemProductType" use-cache="true"/>
                     <if-compare field="itemProductType.isPhysical" operator="equals" value="Y">
                         <!-- Create shipment item -->
                         <clear-field field="addOrderShipmentToShipmentCtx"/>
@@ -1620,7 +1620,7 @@ under the License.
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>                
         <set-pk-fields value-field="orderItemShipGrpInvResLookupPk" map="parameters"/>
         <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>       
-        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>        
+        <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>        
         <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">            
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
             <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
