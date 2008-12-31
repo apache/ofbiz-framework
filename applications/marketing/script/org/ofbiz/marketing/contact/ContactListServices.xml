@@ -42,7 +42,7 @@ under the License.
 
         <entity-one entity-name="ContactList" value-field="lookedUpValue" auto-field-map="true"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactList" short-description="Delete an ContactList">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactList you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
@@ -140,7 +140,7 @@ under the License.
             </if-compare-field>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>       
@@ -148,7 +148,7 @@ under the License.
         <iterate entry="contactlistparty" list="ContactListParties">
         <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
         <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>        
-        <store-value value-name="contactlistparty"/>
+        <store-value value-field="contactlistparty"/>
         </iterate>         
     </simple-method>    
     <simple-method method-name="deleteContactListParty" short-description="Remove Party from ContactList">

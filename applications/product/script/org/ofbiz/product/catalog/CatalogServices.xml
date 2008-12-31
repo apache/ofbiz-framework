@@ -39,7 +39,7 @@ under the License.
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
         <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
         <set-nonpk-fields map="parameters" value-field="prodCatalog"/>
-        <store-value value-name="prodCatalog"/>
+        <store-value value-field="prodCatalog"/>
     </simple-method>
     <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
         <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
@@ -71,7 +71,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
         <set-nonpk-fields map="parameters" value-field="prodCatalogCategory"/>
-        <store-value value-name="prodCatalogCategory"/>
+        <store-value value-field="prodCatalogCategory"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
 
@@ -98,7 +98,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
@@ -111,7 +111,7 @@ under the License.
         <if-not-empty field="parameters.topCategory">
             <set field="defaultTopCategoryId" from-field="parameters.topCategory"/>            
         <else>
-            <property-to-field property="top.category.default" field-name="defaultTopCategoryId" resource="catalog"/>
+            <property-to-field property="top.category.default" field="defaultTopCategoryId" resource="catalog"/>
         </else>                
         </if-not-empty>
         <!--  set field="productCategoryContext.productCategoryId"  from-field="defaultTopCategoryId"/>        
@@ -396,7 +396,7 @@ under the License.
             </if-not-empty>
             <!-- set-service-fields service-name="updateProductCategory" map-name="category" to-map-name="updateProductCategoryContext"/>
             <call-service service-name="updateProductCategory" in-map-name="updateProductCategoryContext" / -->
-            <store-value value-name="category"/>
+            <store-value value-field="category"/>
             <field-to-result field="filesImageMap" result-name="filesImageMap"/>                        
         </if-not-empty>    
     </simple-method>
@@ -461,7 +461,7 @@ under the License.
                 </if-compare>
             </if-not-empty>
             <field-to-result field="filesImageMap" result-name="filesImageMap"/>
-            <store-value value-name="product"/>
+            <store-value value-field="product"/>
             <!-- set-service-fields service-name="updateProduct" map-name="product" to-map-name="updateProductContext"/>
             <call-service service-name="updateProduct" in-map-name="updateProductContext" / --> 
             </if-not-empty>    

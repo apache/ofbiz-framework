@@ -42,7 +42,7 @@ under the License.
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/> 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deleteRequirement" short-description="Delete a requirement">
@@ -126,7 +126,7 @@ under the License.
         <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="requirementRole"/>
-        <store-value value-name="requirementRole"/>
+        <store-value value-field="requirementRole"/>
         <check-errors/>
     </simple-method>
 

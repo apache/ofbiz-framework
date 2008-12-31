@@ -257,7 +257,7 @@ under the License.
     <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
         <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
         <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>

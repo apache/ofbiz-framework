@@ -242,7 +242,7 @@ under the License.
         <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <field-to-result field="lookedUpValue.shipmentId" result-name="shipmentId"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipment" short-description="Delete Shipment">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -772,7 +772,7 @@ under the License.
                 </calculate>
             </iterate>
             <set field="issuance.quantity" from-field="issuanceQuantity"/>
-            <store-value value-name="issuance"/>
+            <store-value value-field="issuance"/>
             <clear-field field="issuanceQuantity"/>
         </iterate>
     </simple-method>
@@ -806,7 +806,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentItem" short-description="Delete ShipmentItem">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -943,7 +943,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
         <set from-field="lookedUpValue.shipmentPackageSeqId" field="shipmentPackageSeqId"/>
@@ -1010,7 +1010,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageContent" short-description="Delete ShipmentPackageContent">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -1077,7 +1077,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageRouteSeg" short-description="Delete ShipmentPackageRouteSeg">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -1116,7 +1116,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentContactMech" short-description="Delete ShipmentContactMech">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -1177,7 +1177,7 @@ under the License.
 
         <set from-field="userLogin.userLoginId" field="lookedUpValue.updatedByUserLoginId"/>
         <now-timestamp field="lookedUpValue.lastUpdatedDate"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
         <set from-field="lookedUpValue.shipmentRouteSegmentId" field="shipmentRouteSegmentId"/>
@@ -1273,7 +1273,7 @@ under the License.
     <simple-method method-name="updateCarrierShipmentMethod" short-description="Updates a CarrierShipmentMethod">
         <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
         <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
-        <store-value value-name="carrierShipmentMethod"/>
+        <store-value value-field="carrierShipmentMethod"/>
     </simple-method>
     <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
         <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
@@ -1289,7 +1289,7 @@ under the License.
     <simple-method method-name="updateShipmentMethodType" short-description="Updates a ShipmentMethodType">
         <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
         <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
-        <store-value value-name="shipmentMethodType"/>
+        <store-value value-field="shipmentMethodType"/>
     </simple-method>
     <simple-method method-name="deleteShipmentMethodType" short-description="Deletes a ShipmentMethodType">
         <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
@@ -1676,7 +1676,7 @@ under the License.
             <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="routeSegLookup" value-field="packageRouteSegment"/>
             <if-not-empty field="packageRouteSegment">
                 <set from-field="parameters.trackingNum" field="packageRouteSegment.trackingCode"/>
-                <store-value value-name="packageRouteSegment"/>
+                <store-value value-field="packageRouteSegment"/>
             </if-not-empty>
             <if-empty field="packageRouteSegment">
                 <log level="warning" message="No route segment found : ${routeSegLookup}"/>
@@ -1806,7 +1806,7 @@ under the License.
 
                 <if-not-empty field="packageRouteSegment">
                     <set from-field="itemMap.trackingNum" field="packageRouteSegment.trackingCode"/>
-                    <store-value value-name="packageRouteSegment"/>
+                    <store-value value-field="packageRouteSegment"/>
                 </if-not-empty>
                 <if-empty field="packageRouteSegment">
                     <log level="warning" message="No route segment found : ${routeSegLookup}"/>
@@ -2029,7 +2029,7 @@ under the License.
         <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
-        <store-value value-name="quantityBreak"/>
+        <store-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>
 

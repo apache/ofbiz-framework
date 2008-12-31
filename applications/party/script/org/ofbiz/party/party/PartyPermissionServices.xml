@@ -48,9 +48,9 @@ under the License.
             <else>
                 <set field="resourceDescription" from-field="parameters.resourceDescription"/>
                 <if-empty field="resourceDescription">
-                    <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+                    <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
                 </if-empty>
-                <property-to-field resource="PartyUiLabels" property="PartyPermissionErrorPartyId" field-name="failMessage"/>
+                <property-to-field resource="PartyUiLabels" property="PartyPermissionErrorPartyId" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="failMessage"/>
             </else>
@@ -176,7 +176,7 @@ under the License.
             <check-errors/>
         </if-compare>
         <if-compare field="hasPermission" operator="not-equals" value="true">
-            <property-to-field property="PartyInvitationAccAndDecPermissionError" field-name="failMessage" resource="PartyUiLabels"/>
+            <property-to-field property="PartyInvitationAccAndDecPermissionError" field="failMessage" resource="PartyUiLabels"/>
             <field-to-result field="hasPermission"/>
             <field-to-result field="failMessage"/>
         </if-compare>
@@ -230,7 +230,7 @@ under the License.
             </if-compare>
         </if-compare>
         <if-compare field="hasPermission" operator="not-equals" value="true">
-            <property-to-field property="PartyInvitationCancelPermissionError" field-name="failMessage" resource="PartyUiLabels"/>
+            <property-to-field property="PartyInvitationCancelPermissionError" field="failMessage" resource="PartyUiLabels"/>
             <field-to-result field="hasPermission"/>
             <field-to-result field="failMessage"/>
         </if-compare>

@@ -73,7 +73,7 @@ under the License.
             <check-errors/>
         </if-compare>
 
-        <store-value value-name="store"/>
+        <store-value value-field="store"/>
 
         <!-- update the ProductStoreFacility record -->
         <now-timestamp field="nowTimestamp"/>
@@ -85,7 +85,7 @@ under the License.
                 <filter-list-by-date list-name="storeFacilities"/>
                 <iterate list="storeFacilities" entry="facility">
                     <set from-field="nowTimestamp" field="facility.thruDate"/>
-                    <store-value value-name="facility"/>
+                    <store-value value-field="facility"/>
                 </iterate>
             </if-compare>
             <!-- create the new entry -->
@@ -121,7 +121,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreCatalog" short-description="Delete ProductStoreCatalog">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -151,7 +151,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map="lookupPKMap" value-field="setting"/>
         <set-nonpk-fields map="parameters" value-field="setting"/>
-        <store-value value-name="setting"/>
+        <store-value value-field="setting"/>
     </simple-method>
     <simple-method method-name="deleteProductStorePaymentSetting" short-description="Delete a Product Store Payment Setting">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStorePaymentSetting you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -187,7 +187,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreEmailSetting" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductStoreEmail" short-description="Remove Product Store Email Setting">
         <check-permission permission="CATALOG" action="_DELETE">
@@ -242,7 +242,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreShipmentMeth" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductStoreShipMeth" short-description="Remove Product Store Carrier Shipment Method">
         <check-permission permission="CATALOG" action="_DELETE">
@@ -285,7 +285,7 @@ under the License.
             <now-timestamp field="nowTimestamp"/>
             <set from-field="nowTimestamp" field="lookedUpValue.thruDate"/>
         </if-empty>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Product Store Keyword Override Services -->
@@ -315,7 +315,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreKeywordOvrd" short-description="Delete a ProductStoreKeywordOvrd">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreKeywordOvrd you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -358,7 +358,7 @@ under the License.
             <now-timestamp field="nowTimestamp"/>
             <set from-field="nowTimestamp" field="lookedUpValue.thruDate"/>
         </if-empty>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Product Store FinAccount Settings -->
@@ -380,7 +380,7 @@ under the License.
         <find-by-primary-key map="lookupPk" value-field="finAccountSetting"/>
 
         <set-nonpk-fields value-field="finAccountSetting" map="parameters"/>
-        <store-value value-name="finAccountSetting"/>
+        <store-value value-field="finAccountSetting"/>
     </simple-method>
     <simple-method method-name="removeProductStoreFinActSetting" short-description="Remove a ProductStoreFinActSetting">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreFinActSetting you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>

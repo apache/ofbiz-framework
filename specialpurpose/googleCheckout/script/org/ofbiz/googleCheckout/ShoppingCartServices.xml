@@ -45,9 +45,9 @@
 
     </simple-method>
     <simple-method method-name="createCheckoutFlowSupport" short-description="">
-        <property-to-field resource="googleCheckout" property="editCartUrl" field-name="editCartUrl" map-name="flowSupport"/>
-        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field-name="continueShoppingUrl" map-name="flowSupport"/>
-        <property-to-field resource="googleCheckout" property="requestPhone" field-name="requestPhone" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="editCartUrl" field="editCartUrl" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field="continueShoppingUrl" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="requestPhone" field="requestPhone" map-name="flowSupport"/>
 
         <call-simple-method method-name="getTaxTables"/>
         <set field="flowSupport.taxTables" from-field="taxTables"/>

@@ -54,7 +54,7 @@ under the License.
 
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfig" short-description="Delete an ProductConfig">
         <set field="callingMethodName" value="deleteProductConfig" />
@@ -91,7 +91,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigItem" short-description="Delete a Config Item">
         <check-permission action="_DELETE" permission="CATALOG">
@@ -126,7 +126,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigOption" short-description="Delete a Config Option">
         <check-permission action="_DELETE" permission="CATALOG">
@@ -158,7 +158,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigProduct" short-description="Delete a ProductConfigProduct">
         <check-permission action="_DELETE" permission="CATALOG">

@@ -43,7 +43,7 @@ under the License.
 
         <entity-one entity-name="SegmentGroup" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroup" short-description="deleteSegmentGroup">
         <check-permission permission="MARKETING" action="_DELETE">
@@ -70,7 +70,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="SegmentGroupClassification" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupClassification" short-description="delete a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupClassificationPermissionError"/></check-permission>
@@ -93,7 +93,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="SegmentGroupGeo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupGeo" short-description="delete a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupGeoPermissionError"/></check-permission>
@@ -116,7 +116,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="SegmentGroupRole" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupRole" short-description="delete a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupRolePermissionError"/></check-permission>

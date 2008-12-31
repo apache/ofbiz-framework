@@ -39,7 +39,7 @@ under the License.
         
         <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthority" short-description="delete a TaxAuthority">
         <set value="_DELETE" field="securityAction"/>
@@ -69,7 +69,7 @@ under the License.
         
         <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityAssoc" short-description="delete a TaxAuthorityAssoc">
         <set value="_DELETE" field="securityAction"/>
@@ -98,7 +98,7 @@ under the License.
         
         <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityCategory" short-description="delete a TaxAuthorityCategory">
         <set value="_DELETE" field="securityAction"/>
@@ -139,7 +139,7 @@ under the License.
         
         <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityGlAccount" short-description="delete a TaxAuthorityGlAccount">
         <set value="_DELETE" field="securityAction"/>
@@ -170,7 +170,7 @@ under the License.
         
         <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityRateProduct" short-description="delete a TaxAuthorityRateProduct">
         <set value="_DELETE" field="securityAction"/>
@@ -210,7 +210,7 @@ under the License.
         
         <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="validatePartyTaxIdInline" short-description="validatePartyTaxIdInline">
         <!-- validate the partyTaxId based on TaxAuthority.taxIdFormatPattern if not empty -->

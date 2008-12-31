@@ -980,7 +980,7 @@
         <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>   
         <call-object-method method-name="length" obj-field-name="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
-        <property-to-field resource="forum" property="descriptLen" field-name="descriptLen" />
+        <property-to-field resource="forum" property="descriptLen" field="descriptLen" />
         <log level="info" message="descriptLen:${descriptLen}"/>
         <set field="dblTextDataLen" from-field="textDataLen" type="Double"/>
         <set field="dblDescriptLen" from-field="descriptLen" type="Double"/>

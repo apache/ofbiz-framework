@@ -27,8 +27,8 @@ under the License.
     
     <simple-method method-name="createUpdateUser" short-description="Create or Update User" login-required="false">
 
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp field="nowStamp"/>
 
@@ -233,13 +233,13 @@ under the License.
             </call-map-processor>
             <if-compare value="USA" operator="equals" field="parameters.shipToCountryGeoId">
                 <if-empty field="parameters.shipToStateProvinceGeoId">
-                    <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                    <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                     <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-empty>
             </if-compare>
             <if-compare value="CAN" operator="equals" field="parameters.shipToCountryGeoId">
                 <if-empty field="parameters.shipToStateProvinceGeoId">
-                    <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
+                    <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
                     <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-empty>
             </if-compare>
@@ -267,13 +267,13 @@ under the License.
                 </call-map-processor>
                 <if-compare value="USA" operator="equals" field="parameters.billToCountryGeoId">
                     <if-empty field="parameters.billToStateProvinceGeoId">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.billToCountryGeoId">
                     <if-empty field="parameters.billToStateProvinceGeoId">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>

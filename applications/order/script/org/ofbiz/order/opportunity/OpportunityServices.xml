@@ -56,7 +56,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
         
         <!-- store the value -->
-        <store-value value-name="salesForecast"/>
+        <store-value value-field="salesForecast"/>
 
         <!-- save a copy to history -->
         <call-simple-method method-name="saveSalesForecastHistory"/>
@@ -94,7 +94,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="updateSalesForecastDetail" short-description="Updates a sales forecast detail">
         <entity-one entity-name="SalesForecastDetail" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSalesForecastDetail" short-description="Delete a Sales Forecast Detail">
         <entity-one entity-name="SalesForecastDetail" value-field="lookedUpValue"/>

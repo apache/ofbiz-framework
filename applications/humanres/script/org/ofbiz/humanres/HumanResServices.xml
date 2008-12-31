@@ -40,7 +40,7 @@
      <simple-method method-name="updatePartyQual" short-description="Update Qualification of a Party">        
         <entity-one entity-name="PartyQual" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>        
     
     <simple-method method-name="deletePartyQual" short-description="Delete Qualification of a Party">
@@ -59,7 +59,7 @@
     <simple-method method-name="updatePartyResume" short-description="Update a Resume of a Party">        
         <entity-one entity-name="PartyResume" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>        
     
     <simple-method method-name="deletePartyResume" short-description="Delete a Resume of a Party">
@@ -94,7 +94,7 @@
     <simple-method method-name="updatePartySkill" short-description="Update Party Skills">        
         <entity-one entity-name="PartySkill" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deletePartySkill" short-description="Delete a Skill of Party">
@@ -114,7 +114,7 @@
     <simple-method method-name="updatePerfReview" short-description="Update Performance Review">
         <entity-one entity-name="PerfReview" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
        
     <simple-method method-name="deletePerfReview" short-description="Delete Performance Review">
@@ -134,7 +134,7 @@
     <simple-method method-name="updatePerfReviewItem" short-description="Update Performance Review Items">        
         <entity-one entity-name="PerfReviewItem" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deletePerfReviewItem" short-description="Delete Performance Review Items">
@@ -156,7 +156,7 @@
     <simple-method method-name="updatePerformanceNote" short-description="Update Performance Note">
         <entity-one entity-name="PerformanceNote" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deletePerformanceNote" short-description="Delete Performance Note">
@@ -178,7 +178,7 @@
     <simple-method method-name="updatePersonTraining" short-description="Update a Person Training">       
         <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
          
     <simple-method method-name="deletePersonTraining" short-description="Delete a Person Training">
@@ -204,7 +204,7 @@
     <simple-method method-name="updateEmployment" short-description="Update Employment">
         <entity-one entity-name="Employment" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deleteEmployment" short-description="Delete Employment">
@@ -223,7 +223,7 @@
     <simple-method method-name="updateEmploymentApp" short-description="Update EmploymentApp">
         <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deleteEmploymentApp" short-description="Delete EmploymentApp">
@@ -245,14 +245,14 @@
     <simple-method method-name="updatePartyBenefit" short-description="Update Party Benefit">
         <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deletePartyBenefit" short-description="Delete Party Benefit">
         <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>        
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
@@ -272,7 +272,7 @@
     <simple-method method-name="updatePayGrade" short-description="Update Pay Grade">
         <entity-one entity-name="PayGrade" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deletePayGrade" short-description="Delete Pay Grade">
@@ -294,14 +294,14 @@
     <simple-method method-name="updatePayHistory" short-description="Update Pay History">
         <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="deletePayHistory" short-description="Delete Pay History">
         <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
@@ -317,7 +317,7 @@
     <simple-method method-name="updatePayrollPreference" short-description="Update Payroll Preference">
         <entity-one entity-name="PayrollPreference" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
        
     <simple-method method-name="deletePayrollPreference" short-description="Delete Payroll Preference">
@@ -337,7 +337,7 @@
     <simple-method method-name="updateSalaryStep" short-description="Update Salary Step">
         <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteSalaryStep" short-description="Delete Salary Step">
@@ -356,7 +356,7 @@
     <simple-method method-name="updateTerminationReason" short-description="Update Termination Reason">
         <entity-one entity-name="TerminationReason" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteTerminationReason" short-description="Delete Termination Reason">
@@ -375,14 +375,14 @@
     <simple-method method-name="updateUnemploymentClaim" short-description="Update Unemployment Claim">
         <entity-one entity-name="UnemploymentClaim" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteUnemploymentClaim" short-description="Delete Unemployment Claim">
         <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="UnemploymentClaim" value-field="lookedUpValue"/>   
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Employee Position Group -->
@@ -397,7 +397,7 @@
     <simple-method method-name="updateEmplPosition" short-description="Update Employee Position">
         <entity-one entity-name="EmplPosition" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteEmplPosition" short-description="Delete Employee Position">
@@ -419,7 +419,7 @@
     <simple-method method-name="updateEmplPositionFulfillment" short-description="Update Employee Position Fulfillment">
         <entity-one entity-name="EmplPositionFulfillment" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteEmplPositionFulfillment" short-description="Delete Employee Position Fulfillment">
@@ -454,7 +454,7 @@
     <simple-method method-name="updateEmplPositionReportingStruct" short-description="Update Employee Position Reporting Structure">
         <entity-one entity-name="EmplPositionReportingStruct" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deleteEmplPositionReportingStruct" short-description="Delete Employee Position Reporting Structure">
@@ -476,7 +476,7 @@
     <simple-method method-name="updateEmplPositionResponsibility" short-description="Update Employee Position Responsibility">
         <entity-one entity-name="EmplPositionResponsibility" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteEmplPositionResponsibility" short-description="Delete Employee Position Responsibility">
@@ -498,7 +498,7 @@
     <simple-method method-name="updateValidResponsibility" short-description="Update Valid Responsibility">
         <entity-one entity-name="ValidResponsibility" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteValidResponsibility" short-description="Delete Valid Responsibility">
@@ -517,7 +517,7 @@
     <simple-method method-name="updateSkillType" short-description="Update SkillType">
         <entity-one entity-name="SkillType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteSkillType" short-description="Delete SkillType">
@@ -560,7 +560,7 @@
     <simple-method method-name="updateResponsibilityType" short-description="Update ResponsibilityType">
         <entity-one entity-name="ResponsibilityType" value-field="lookedUpValue"/>
         <set-nonpk-fields  map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteResponsibilityType" short-description="Delete ResponsibilityType">
@@ -581,7 +581,7 @@
     <simple-method method-name="updateTerminationType" short-description="Update TerminationType">
         <entity-one entity-name="TerminationType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteTerminationType" short-description="Delete TerminationType">
@@ -602,7 +602,7 @@
     <simple-method method-name="updateEmplPositionType" short-description="Update PositionType">
         <entity-one entity-name="EmplPositionType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="updateEmplPositionTypeRate" short-description="Update/create EmplPositionTypeRate">
@@ -615,7 +615,7 @@
         <if-not-empty field="emplPositionTypeRates">
             <first-from-list entry="emplPositionTypeRate" list="emplPositionTypeRates"/>
             <now-timestamp field="emplPositionTypeRate.thruDate"/>
-            <store-value value-name="emplPositionTypeRate"/>
+            <store-value value-field="emplPositionTypeRate"/>
         </if-not-empty>
         
         <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
@@ -633,7 +633,7 @@
     <simple-method method-name="deleteEmplPositionTypeRate" short-description="Delete EmplPositionTypeRate">
         <entity-one entity-name="EmplPositionTypeRate" value-field="lookedUpValue"/>
         <now-timestamp field="lookedUpValue.thruDate"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         
         <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
@@ -651,7 +651,7 @@
     <simple-method method-name="updateAgreementEmploymentAppl" short-description="update an Agreement Employment Appl">
         <entity-one entity-name="AgreementEmploymentAppl" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteAgreementEmploymentAppl" short-description="Delete Agreement Employment Appl">
@@ -669,7 +669,7 @@
     <simple-method method-name="updateEmplLeave" short-description="Update Employee Leave">
         <entity-one entity-name="EmplLeave" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
@@ -686,7 +686,7 @@
     <simple-method method-name="updateEmplLeaveType" short-description="Update leaveType">
         <entity-one entity-name="EmplLeaveType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteEmplLeaveType" short-description="Delete leaveType">

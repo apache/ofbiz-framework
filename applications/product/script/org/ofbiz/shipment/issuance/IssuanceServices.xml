@@ -57,7 +57,7 @@ under the License.
 
         <entity-one entity-name="ItemIssuance" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteItemIssuance" short-description="Delete ItemIssuance">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -218,7 +218,7 @@ under the License.
                     <calcop operator="get" field="parameters.quantity"/>
                 </calcop>
             </calculate>
-            <store-value value-name="orderShipment"/>
+            <store-value value-field="orderShipment"/>
             <field-to-result field="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
             <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
             <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
@@ -250,7 +250,7 @@ under the License.
                 <call-service service-name="changeOrderItemStatus" in-map-name="changeOrderItemStatusMap"/>
             </if-empty>
         <else>
-            <store-value value-name="orderItemShipGrpInvRes"/>
+            <store-value value-field="orderItemShipGrpInvRes"/>
         </else>
         </if-compare>
 
@@ -301,7 +301,7 @@ under the License.
                     <calcop operator="get" field="quantity" map-name="parameters"/>
                 </calcop>
             </calculate>
-            <store-value value-name="shipmentItem"/>
+            <store-value value-field="shipmentItem"/>
         </else>
         </if-empty>
         <field-to-result field="shipmentItemSeqId" map-name="shipmentItem" result-name="shipmentItemSeqId"/>

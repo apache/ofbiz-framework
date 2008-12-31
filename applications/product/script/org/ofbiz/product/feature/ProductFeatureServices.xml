@@ -38,7 +38,7 @@ under the License.
 
         <entity-one entity-name="ProductFeatureCategory" value-field="productFeatureCategory"/>
         <set-nonpk-fields value-field="productFeatureCategory" map="parameters"/>
-        <store-value value-name="productFeatureCategory"/>
+        <store-value value-field="productFeatureCategory"/>
     </simple-method>
 
     <simple-method method-name="createProductFeature" short-description="Create Product Feature">
@@ -63,7 +63,7 @@ under the License.
         
         <entity-one entity-name="ProductFeature" value-field="productFeature"/>
         <set-nonpk-fields map="parameters" value-field="productFeature"/>
-        <store-value value-name="productFeature"/>
+        <store-value value-field="productFeature"/>
     </simple-method>
 
     <simple-method method-name="applyFeatureToProduct" short-description="Apply Feature to Product">
@@ -88,7 +88,7 @@ under the License.
         
         <entity-one entity-name="ProductFeatureAppl" value-field="productFeatureAppl"/>
         <set-nonpk-fields map="parameters" value-field="productFeatureAppl"/>
-        <store-value value-name="productFeatureAppl"/>
+        <store-value value-field="productFeatureAppl"/>
     </simple-method>
     <simple-method method-name="removeFeatureFromProduct" short-description="Remove Feature from Product">
         <set field="callingMethodName" value="removeFeatureFromProduct"/>
@@ -103,7 +103,7 @@ under the License.
             <env-to-field env-name="nowStamp" field-name="thruDate" map-name="parameters"/>
         </if-empty>
         <field-to-field field-name="thruDate" map-name="parameters" to-map-name="productFeatureAppl"/>
-        <store-value value-name="productFeatureAppl"/>
+        <store-value value-field="productFeatureAppl"/>
         -->
         <remove-value value-field="productFeatureAppl"/>
     </simple-method>
@@ -155,7 +155,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureCategoryAppl" short-description="Remove a Product Feature Category Application">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCategoryAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -190,7 +190,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureCatGrpAppl" short-description="Remove a ProductFeatureGroup to ProductCategory Application">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCatGrpAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -221,7 +221,7 @@ under the License.
 
         <entity-one entity-name="ProductFeatureGroup" value-field="productFeatureGroup"/>
         <set-nonpk-fields map="parameters" value-field="productFeatureGroup"/>
-        <store-value value-name="productFeatureGroup"/>
+        <store-value value-field="productFeatureGroup"/>
     </simple-method>
     <simple-method method-name="createProductFeatureGroupAppl" short-description="Create an Product Feature Group Application">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroupAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
@@ -245,7 +245,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureGroupAppl" short-description="Remove a Product Feature Group Application">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureGroupAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -308,7 +308,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureType" short-description="Remove a Product Feature Type">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureType you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -353,7 +353,7 @@ under the License.
         <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="productFeatureApplAttr"/>
-        <store-value value-name="productFeatureApplAttr"/>
+        <store-value value-field="productFeatureApplAttr"/>
         <check-errors/>
     </simple-method>
 
@@ -401,7 +401,7 @@ under the License.
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
         
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFeaturePrice" short-description="Delete a feature price">
         <make-value entity-name="ProductFeaturePrice" value-field="lookupPKMap"/>
