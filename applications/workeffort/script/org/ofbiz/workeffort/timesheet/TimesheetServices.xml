@@ -24,7 +24,7 @@ under the License.
     <!-- Timesheet Services -->
     <simple-method method-name="createTimesheet" short-description="Create Timesheet">
         <make-value value-field="newEntity" entity-name="Timesheet"/>
-        <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
+        <sequenced-id sequence-name="Timesheet" field="newEntity.timesheetId"/>
         <field-to-result field="newEntity.timesheetId" result-name="timesheetId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -49,7 +49,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week of no date provided, otherwise for a specific week">
         <if-empty field="parameters.requiredDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <else>
                 <set field="nowTimestamp" from-field="parameters.requiredDate"/>
             </else>            
@@ -134,7 +134,7 @@ under the License.
         </entity-one>
         <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
-        <now-timestamp-to-env env-name="updateInvoiceMap.invoiceDate"/>
+        <now-timestamp field="updateInvoiceMap.invoiceDate"/>
         <if-empty field="updateInvoiceMap.currencyUomId">
             <property-to-field field="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </if-empty>                
@@ -296,10 +296,10 @@ under the License.
     <!-- TimeEntry Services -->
     <simple-method method-name="createTimeEntry" short-description="Create TimeEntry">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <make-value value-field="newEntity" entity-name="TimeEntry"/>
-        <sequenced-id-to-env sequence-name="TimeEntry" env-name="newEntity.timeEntryId"/>
+        <sequenced-id sequence-name="TimeEntry" field="newEntity.timeEntryId"/>
         <field-to-result field="newEntity.timeEntryId" result-name="timeEntryId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

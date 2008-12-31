@@ -28,7 +28,7 @@ under the License.
         <if-not-empty field="parameters.applicableDate">
                 <set from-field="parameters.applicableDate" field="filterDate"/>
             <else>
-                <now-timestamp-to-env env-name="filterDate"/>
+                <now-timestamp field="filterDate"/>
             </else>
         </if-not-empty>
         <!-- If a workEffortId has been passed, use it to look up the desired routing-->

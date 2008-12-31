@@ -49,7 +49,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="rootInstanceContent"/>
         <if-empty field="parameters.rootInstanceContentId">
-            <sequenced-id-to-env sequence-name="Content" env-name="rootInstanceContent.contentId"/>
+            <sequenced-id sequence-name="Content" field="rootInstanceContent.contentId"/>
             <log level="info" message="genCompDocInstance 2> rootInstanceContent: ${rootInstanceContent}"/>
             <else>
                 <!--  check to see if it already exists, error if so -->
@@ -68,7 +68,7 @@ under the License.
 
         <!--  populate fields -->
         <set from-field="parameters.contentName" field="rootInstanceContent.contentName" default-value="${rootTemplateContent.contentName}"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set from-field="parameters.instanceOfContentId" field="rootInstanceContent.instanceOfContentId"/>
         <set from-field="nowTimestamp" field="rootInstanceContent.createdDate"/>
         <set from-field="nowTimestamp" field="rootInstanceContent.lastModifiedDate"/>
@@ -124,7 +124,7 @@ under the License.
         <iterate list="contentAssocList" entry="templateContentAssoc">
             <clone-value value-name="templateContent" new-value-name="instanceContent"/>
 
-            <sequenced-id-to-env sequence-name="Content" env-name="instanceContent.contentId"/>
+            <sequenced-id sequence-name="Content" field="instanceContent.contentId"/>
 
             <set value="TEMPLATE" field="instanceContent.contentTypeId"/>
             <create-value value-field="instanceContent"/>
@@ -494,7 +494,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.contentApprovalId">
-            <sequenced-id-to-env sequence-name="ContentApproval" env-name="newEntity.contentApprovalId"/>
+            <sequenced-id sequence-name="ContentApproval" field="newEntity.contentApprovalId"/>
         </if-empty>
         <create-value value-field="newEntity"/>
         <check-errors/>
@@ -597,7 +597,7 @@ under the License.
             <set from-field="parameters.contentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
             <set from-field="parameters.contentId" field="contentApproval.contentId"/>
 
-            <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+            <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
             <clear-field field="contentApproval.approvalStatusId"/>
             <log level="info" message="contentApproval 2b: ${contentApproval}"/>
             <create-value value-field="contentApproval"/>
@@ -611,7 +611,7 @@ under the License.
         <set from-field="parameters.contentRevisionSeqId" field="thisContentRevisionSeqId"/>
         <log level="info" message="cloneContentApprovals(0)- thisContentRevisionSeqId : ${thisContentRevisionSeqId}"/>
         <log level="info" message="cloneContentApprovals(0b)- parameters : ${parameters} "/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <!--  get previous list of ContentApproval -->
         <entity-condition entity-name="MaxContentApprovalView" list="maxContentApprovalList">
             <condition-list combine="and">
@@ -651,7 +651,7 @@ under the License.
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                     <set from-field="thisContentId" field="contentApproval.contentId"/>
 
-                    <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                    <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                     <set value="CNTAP_READY" field="contentApproval.approvalStatusId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
                     <log level="info" message="contentApproval 2b: ${contentApproval}"/>
@@ -673,7 +673,7 @@ under the License.
                     <clone-value value-name="existingContentApproval" new-value-name="contentApproval"/>
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
 
-                    <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                    <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
                     <if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE">
                         <if>
@@ -753,7 +753,7 @@ under the License.
                         <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                         <set field="contentApproval.contentId" from-field="thisContentId"/>
 
-                        <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                        <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                         <set field="contentApproval.approvalStatusId" value="CNTAP_READY"/>
                         <log level="info" message="contentApproval 2b: ${contentApproval}"/>
                         <create-value value-field="contentApproval"/>
@@ -776,7 +776,7 @@ under the License.
             <return/>
         </if-compare>
         <if-not-empty field="contentApproval.roleTypeId">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <entity-condition entity-name="ContentRole" list="contentRoleList">
                 <condition-list combine="and">
                     <condition-expr field-name="contentId" from-field="contentId" operator="equals"/>

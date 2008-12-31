@@ -25,7 +25,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="Facility"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="Facility" env-name="facilityId"/>
+        <sequenced-id sequence-name="Facility" field="facilityId"/>
         <to-string field-name="facilityId"/>
         <set field="newEntity.facilityId" from-field="facilityId" />
         <field-to-result field="facilityId" result-name="facilityId"/>
@@ -81,7 +81,7 @@ under the License.
         </if-not-empty>
 
         <if-empty field="locationSeqId">
-            <sequenced-id-to-env sequence-name="FacilityLocation" env-name="locationSeqId"/>
+            <sequenced-id sequence-name="FacilityLocation" field="locationSeqId"/>
             <to-string field-name="locationSeqId"/>
         </if-empty>
         <set field="newEntity.locationSeqId" from-field="locationSeqId" />
@@ -108,7 +108,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="FacilityGroup"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="FacilityGroup" env-name="facilityGroupId"/>
+        <sequenced-id sequence-name="FacilityGroup" field="facilityGroupId"/>
         <to-string field-name="facilityGroupId"/>
         <set field="newEntity.facilityGroupId" from-field="facilityGroupId" />
         <field-to-result field="facilityGroupId" result-name="facilityGroupId"/>
@@ -134,7 +134,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
@@ -161,7 +161,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
@@ -195,7 +195,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
              <if-empty field="newEntity.fromDate">
-                 <now-timestamp-to-env env-name="newEntity.fromDate"/>
+                 <now-timestamp field="newEntity.fromDate"/>
              </if-empty>             
         <create-value value-field="newEntity"/>
     </simple-method> 
@@ -209,7 +209,7 @@ under the License.
     
     <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">
         <entity-one entity-name="FacilityParty" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="thruDate"/>
+        <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>        

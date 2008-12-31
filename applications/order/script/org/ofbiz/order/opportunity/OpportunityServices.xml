@@ -29,7 +29,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
 
         <!-- make the value and set the fields from the parameters -->
         <make-value value-field="salesForecast" entity-name="SalesForecast"/>
-        <sequenced-id-to-env sequence-name="SalesForecast" env-name="salesForecastId"/>
+        <sequenced-id sequence-name="SalesForecast" field="salesForecastId"/>
         <set field="salesForecast.salesForecastId" from-field="salesForecastId"/> 
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
         
@@ -66,7 +66,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
 
         <!-- make the value and set the fields from the salesForecast map -->
         <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
-        <sequenced-id-to-env sequence-name="SalesForecastHistory" env-name="salesForecastHistoryId"/>
+        <sequenced-id sequence-name="SalesForecastHistory" field="salesForecastHistoryId"/>
         <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/> 
         <set-nonpk-fields value-field="salesForecastHistory" map="salesForecast"/>
 
@@ -74,7 +74,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <set field="salesForecastHistory.changeNote" from-field="parameters.changeNote"/>
 
         <!-- set the modified info -->
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="salesForecastHistory.modifiedTimestamp" from-field="nowTimestamp"/>
         <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
 
@@ -85,7 +85,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <!-- Sales Forecast Detail --> 
     <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
         <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
+        <sequenced-id sequence-name="SalesForecastDetail" field="newEntity.salesForecastDetailId"/>
         <field-to-result field="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
         <set-pk-fields map="parameters" value-field="newEntity"/> 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

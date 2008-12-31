@@ -154,7 +154,7 @@ under the License.
     </simple-method>
    
     <simple-method method-name="testReceiveInventoryNonSerialized" short-description="Test Receive Non-Serialized Inventory" login-required="false">
-        <now-timestamp-to-env env-name="nowTimeStamp"/>
+        <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>

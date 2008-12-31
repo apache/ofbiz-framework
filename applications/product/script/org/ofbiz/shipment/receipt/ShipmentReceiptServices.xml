@@ -27,13 +27,13 @@ under the License.
         <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="ShipmentReceipt" env-name="receiptId"/>
+        <sequenced-id sequence-name="ShipmentReceipt" field="receiptId"/>
         <to-string field-name="receiptId"/>
         <set field="newEntity.receiptId" from-field="receiptId"/>       
         <field-to-result field="receiptId" result-name="receiptId"/>
         
         <if-empty field="newEntity.datetimeReceived">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.datetimeReceived" from-field="nowTimestamp"/>
         </if-empty>
 
@@ -219,7 +219,7 @@ under the License.
                     <set from-field="facility.defaultInventoryItemTypeId" field="parameters.inventoryItemTypeId"/>
                 </if-empty>
 
-                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <now-timestamp field="nowTimestamp"/>
 
                 <entity-count entity-name="ReturnItem" count-name="returnItemCount">
                     <condition-expr field-name="returnId" operator="equals" from-field="returnHeader.returnId"/>

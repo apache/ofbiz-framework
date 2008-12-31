@@ -21,10 +21,10 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCustomerDigitalDownloadProduct" short-description="createCustomerDigitalDownloadProduct">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <make-value value-field="createProductMap" entity-name="Product"/>
-        <sequenced-id-to-env sequence-name="Product" env-name="createProductMap.productId"/>
+        <sequenced-id sequence-name="Product" field="createProductMap.productId"/>
         <set field="productId" from-field="createProductMap.productId"/>
 
         <set field="createProductMap.productName" from-field="parameters.productName"/>
@@ -66,7 +66,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateCustomerDigitalDownloadProduct" short-description="updateCustomerDigitalDownloadProduct">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <set field="parameters.partyId" from-field="userLogin.partyId"/>
@@ -108,7 +108,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="deleteCustomerDigitalDownloadProduct" short-description="deleteCustomerDigitalDownloadProduct">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list="supplierProductList">
@@ -137,7 +137,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="addCustomerDigitalDownloadProductFile" short-description="addCustomerDigitalDownloadProductFile">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list="supplierProductList">
@@ -168,7 +168,7 @@ under the License.
         <create-value value-field="productContent"/>
     </simple-method>
     <simple-method method-name="removeCustomerDigitalDownloadProductFile" short-description="removeCustomerDigitalDownloadProductFile">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list="supplierProductList">

@@ -40,7 +40,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.finAccountId">
-            <sequenced-id-to-env sequence-name="FinAccount" env-name="finAccountId"/>
+            <sequenced-id sequence-name="FinAccount" field="finAccountId"/>
             <to-string field-name="finAccountId"/>
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
         </if-empty>
@@ -138,7 +138,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="FinAccountStatus" list="oldFinAccountStatusList">
@@ -164,9 +164,9 @@ under the License.
         
         <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="newEntity.finAccountTransId"/>
+        <sequenced-id sequence-name="FinAccountTrans" field="newEntity.finAccountTransId"/>
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.transactionDate">
             <set from-field="nowTimestamp" field="newEntity.transactionDate"/>
         </if-empty>
@@ -196,7 +196,7 @@ under the License.
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -218,9 +218,9 @@ under the License.
         <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
-        <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="newEntity.finAccountAuthId"/>
+        <sequenced-id sequence-name="FinAccountAuth" field="newEntity.finAccountAuthId"/>
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.authorizationDate">
             <set from-field="nowTimestamp" field="newEntity.authorizationDate"/>
         </if-empty>
@@ -243,7 +243,7 @@ under the License.
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
         <entity-one entity-name="FinAccountAuth" value-field="finAccountAuth"/>
         <if-empty field="parameters.expireDateTime">
-            <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
+            <now-timestamp field="finAccountAuth.thruDate"/>
         <else>
             <set from-field="parameters.expireDatetime" field="finAccountAuth.thruDate"/>
         </else>

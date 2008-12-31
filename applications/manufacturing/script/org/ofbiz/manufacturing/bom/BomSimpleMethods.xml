@@ -23,7 +23,7 @@ under the License.
     <!-- ProductAssoc -->
     <simple-method method-name="createBOMAssoc" short-description="Create Product to Product Association">
         <if-empty field="parameters.fromDate">
-            <now-timestamp-to-env env-name="parameters.fromDate"/>
+            <now-timestamp field="parameters.fromDate"/>
         </if-empty>
         <set field="" from-field=""/>
 
@@ -129,7 +129,7 @@ under the License.
         <else>
             <make-value value-name="newEntity" entity-name="ProductManufacturingRule"/>
             <if-empty field="parameters.ruleId">
-                <sequenced-id-to-env sequence-name="ProductManufacturingRule" env-name="parameters.ruleId"/>
+                <sequenced-id sequence-name="ProductManufacturingRule" field="parameters.ruleId"/>
             </if-empty>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>

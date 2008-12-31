@@ -30,10 +30,10 @@ under the License.
         <make-value entity-name="OrderAdjustment" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="OrderAdjustment" env-name="newEntity.orderAdjustmentId"/>
+        <sequenced-id sequence-name="OrderAdjustment" field="newEntity.orderAdjustmentId"/>
         <field-to-result field-name="newEntity.orderAdjustmentId" result-name="orderAdjustmentId"/>
 
-        <now-timestamp-to-env env-name="newEntity.createdDate"/>
+        <now-timestamp field="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
         <create-value value-name="newEntity"/>
@@ -68,11 +68,11 @@ under the License.
 
     <simple-method method-name="createNotificationLog" short-description="Log an order notification" login-required="false">
         <make-value entity-name="OrderNotification" value-name="orderNotification"/>
-        <sequenced-id-to-env sequence-name="OrderNotification" env-name="orderNotification.orderNotificationId"/>
+        <sequenced-id sequence-name="OrderNotification" field="orderNotification.orderNotificationId"/>
         <set from-field="parameters.orderId" field="orderNotification.orderId"/>
         <set from-field="parameters.emailType" field="orderNotification.emailType"/>
         <set from-field="parameters.comments" field="orderNotification.comments"/>
-        <now-timestamp-to-env env-name="orderNotification.notificationDate"/>
+        <now-timestamp field="orderNotification.notificationDate"/>
         <create-value value-name="orderNotification"/>
     </simple-method>
 
@@ -104,12 +104,12 @@ under the License.
                     <store-value value-name="orderItem"/>
                     <!-- create status change history -->
                     <make-value entity-name="OrderStatus" value-name="newValue"/>
-                    <sequenced-id-to-env sequence-name="OrderStatus" env-name="newValue.orderStatusId"/>
+                    <sequenced-id sequence-name="OrderStatus" field="newValue.orderStatusId"/>
                     <set from-field="orderItem.orderItemSeqId" field="newValue.orderItemSeqId"/>
                     <set from-field="orderItem.orderId" field="newValue.orderId"/>
                     <set from-field="orderItem.statusId" field="newValue.statusId"/>
                     <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
-                    <now-timestamp-to-env env-name="newValue.statusDatetime"/>
+                    <now-timestamp field="newValue.statusDatetime"/>
                     
                     <create-value value-name="newValue"/>
                 </if-compare-field>
@@ -133,12 +133,12 @@ under the License.
             <store-value value-name="orderHeader"/>
             <!-- create the status history -->
             <make-value entity-name="OrderStatus" value-name="newValue"/>
-            <sequenced-id-to-env sequence-name="OrderStatus" env-name="newValue.orderStatusId"/>
+            <sequenced-id sequence-name="OrderStatus" field="newValue.orderStatusId"/>
             
             <set from-field="orderHeader.orderId" field="newValue.orderId"/>
             <set from-field="orderHeader.statusId" field="newValue.statusId"/>
             <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
-            <now-timestamp-to-env env-name="newValue.statusDatetime"/>
+            <now-timestamp field="newValue.statusDatetime"/>
             
             <create-value value-name="newValue"/>
         </if-compare>
