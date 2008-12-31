@@ -242,7 +242,7 @@ under the License.
         <set field="emailParams.bodyParameters.userLogin" from-field="parameters.userLogin"/>
         <set field="emailParams.bodyParameters.other" from-field="parameters.other"/><!-- to to print in 'other currency' -->
         <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams"/>
-        <property-to-field resource="AccountingUiLabels" property="AccountingEmailScheduledToSend" field-name="successMessage"/>
+        <property-to-field resource="AccountingUiLabels" property="AccountingEmailScheduledToSend" field="successMessage"/>
     </simple-method>
 
     <simple-method method-name="createInvoiceItem" short-description="Create a new Invoice Item">
@@ -377,12 +377,12 @@ under the License.
             </if-compare>
             <check-errors/>
             <field-to-result field="paymentApplication.invoiceId" result-name="invoiceId"/>
-            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToInvoice" field-name="toMessage"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToInvoice" field="toMessage"/>
         </if-not-empty>
         <!-- invoice item -->
         <if-not-empty field="paymentApplication.invoiceItemSeqId">
             <field-to-result field="paymentApplication.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
-            <property-to-field resource="AccountingUiLabels" property="AccountingApplicationToInvoiceItem" field-name="toMessage"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingApplicationToInvoiceItem" field="toMessage"/>
         </if-not-empty>
         <!-- toPayment -->
         <if-not-empty field="paymentApplication.toPaymentId">
@@ -395,13 +395,13 @@ under the License.
                 </if-compare>
                 <check-errors/>
             </if-not-empty>
-            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToPayment" field-name="toMessage"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToPayment" field="toMessage"/>
             <field-to-result field="paymentApplication.toPaymentId" result-name="toPaymentId"/>
         </if-not-empty>
         <!-- billing account -->
         <if-not-empty field="paymentApplication.billingAccountId">
             <field-to-result field="paymentApplication.billingAccountId" result-name="billingAccountId"/>
-            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field="toMessage"/>
             <entity-one entity-name="BillingAccount" value-field="billingAccount">
                 <field-map field-name="billingAccountId" from-field="paymentApplication.billingAccountId"/>
             </entity-one>
@@ -410,10 +410,10 @@ under the License.
         <!-- tax authority -->
         <if-not-empty field="paymentApplication.taxAuthGeoId">
             <field-to-result field="paymentApplication.taxAuthGeoId" result-name="taxAuthGeoId"/>
-            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToTaxAuth" field-name="toMessage"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToTaxAuth" field="toMessage"/>
         </if-not-empty>
         <!-- finally delete application -->
-        <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
+        <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field="successMessage"/>
         <string-append field-name="successMessage" string=" ${toMessage}"/>
         <remove-value value-field="paymentApplication"/>
     </simple-method>

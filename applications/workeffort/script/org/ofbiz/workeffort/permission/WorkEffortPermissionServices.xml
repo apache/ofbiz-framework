@@ -157,7 +157,7 @@ under the License.
 
                     <else>
                         <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
-                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
+                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field="failMessage"/>
                         <set field="hasPermission" type="Boolean" value="false"/>
                         <field-to-result field="hasPermission"/>
                         <field-to-result field="failMessage"/>
@@ -198,7 +198,7 @@ under the License.
 
                     <else>
                         <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
-                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
+                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field="failMessage"/>
                         <set field="hasPermission" type="Boolean" value="false"/>
                         <field-to-result field="hasPermission"/>
                         <field-to-result field="failMessage"/>
@@ -222,7 +222,7 @@ under the License.
         <call-simple-method method-name="workEffortGenericPermission"/>
         <check-errors/>
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
-            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
+            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field="failMessage"/>
             <set field="hasPermission" type="Boolean" value="false"/>
             <field-to-result field="hasPermission"/>
             <field-to-result field="failMessage"/>
@@ -233,7 +233,7 @@ under the License.
             <find-by-and entity-name="WorkEffortPartyAssignByRole" map="lookupRoleWorkEffortMap" list="roleParties"/>                    
             <filter-list-by-date list-name="roleParties"/>
             <if-empty field="roleParties">
-                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
+                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>
@@ -286,7 +286,7 @@ under the License.
                     <clear-field field="workEffortId"/>
                 <else>
                     <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
-                    <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
+                    <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field="failMessage"/>
                     <set field="hasPermission" type="Boolean" value="false"/>
                     <field-to-result field="hasPermission"/>
                     <field-to-result field="failMessage"/>

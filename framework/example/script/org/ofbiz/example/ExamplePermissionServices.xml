@@ -31,7 +31,7 @@ under the License.
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
             <else>
-                <property-to-field resource="ExampleUiLabels" property="ExamplePermissionError" field-name="failMessage"/>
+                <property-to-field resource="ExampleUiLabels" property="ExamplePermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>

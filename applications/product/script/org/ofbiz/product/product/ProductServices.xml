@@ -100,7 +100,7 @@ under the License.
         <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
         <!-- THIS IS REMOVED BECAUSE IT CAUSES PROBLEMS FOR WORKING ON PRODUCTION SITES
@@ -132,7 +132,7 @@ under the License.
         <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <if-compare field="lookedUpValue.isVirtual" operator="equals" value="Y">
             <!-- get all variant products, to update their productNames -->
@@ -151,7 +151,7 @@ under the License.
                 <set from-field="parameters.productName" field="variantProduct.productName"/>
                 <now-timestamp field="variantProduct.lastModifiedDate"/>
                 <set from-field="userLogin.userLoginId" field="variantProduct.lastModifiedByUserLogin"/>
-                <store-value value-name="variantProduct"/>
+                <store-value value-field="variantProduct"/>
             </iterate>
         </if-compare>
     </simple-method>
@@ -325,7 +325,7 @@ under the License.
     <simple-method method-name="updateProductKeyword" short-description="update a ProductKeyword">
         <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductKeyword" short-description="delete a ProductKeyword">
         <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
@@ -373,13 +373,13 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
         <entity-one entity-name="Product" value-field="product"/>
         <set from-field="nowTimestamp" field="product.salesDiscontinuationDate"/>
-        <store-value value-name="product"/>
+        <store-value value-field="product"/>
         <!-- expire product from all categories -->
         <get-related value-field="product" relation-name="ProductCategoryMember" list="productCategoryMembers"/>
         <iterate entry="productCategoryMember" list="productCategoryMembers">
             <if-empty field="productCategoryMember.thruDate">
                 <set from-field="nowTimestamp" field="productCategoryMember.thruDate"/>
-                <store-value value-name="productCategoryMember"/>
+                <store-value value-field="productCategoryMember"/>
             </if-empty>
         </iterate>
         <!-- expire product from all associations going to it -->
@@ -387,7 +387,7 @@ under the License.
         <iterate entry="assocProductAssoc" list="assocProductAssocs">
             <if-empty field="assocProductAssoc.thruDate">
                 <set from-field="nowTimestamp" field="assocProductAssoc.thruDate"/>
-                <store-value value-name="assocProductAssoc"/>
+                <store-value value-field="assocProductAssoc"/>
             </if-empty>
         </iterate>
     </simple-method>
@@ -409,7 +409,7 @@ under the License.
                     <calcop field="parameters.weight" operator="get"></calcop>
                 </calcop>
             </calculate>
-            <store-value value-name="productCalculatedInfo"/>
+            <store-value value-field="productCalculatedInfo"/>
         </else>
         </if-empty>
 
@@ -437,7 +437,7 @@ under the License.
             <create-value value-field="productCalculatedInfo"/>
         <else>
             <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}"  type="BigDecimal"/>
-            <store-value value-name="productCalculatedInfo"/>
+            <store-value value-field="productCalculatedInfo"/>
         </else>
         </if-empty>
 
@@ -475,7 +475,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGoodIdentification" short-description="Delete an GoodIdentification">
         <set value="deleteGoodIdentification" field="callingMethodName"/>
@@ -511,7 +511,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductGlAccount" short-description="Delete an ProductGlAccount">
         <set value="deleteProductGlAccount" field="callingMethodName"/>
@@ -556,7 +556,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <set from-field="newEntity.productId" field="productId"/>
-        <property-to-field resource="ProductUiLabels" property="ProductCreateProductReviewSuccess" field-name="successMessage"/>
+        <property-to-field resource="ProductUiLabels" property="ProductCreateProductReviewSuccess" field="successMessage"/>
         <call-simple-method method-name="updateProductWithReviewRatingAvg"/>
     </simple-method>
     <simple-method method-name="updateProductReview" short-description="Update ProductReview">
@@ -569,7 +569,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.productId" field="productId"/>
         <call-simple-method method-name="updateProductWithReviewRatingAvg"/>
@@ -594,7 +594,7 @@ under the License.
             <create-value value-field="productCalculatedInfo"/>
         <else>
             <set from-field="averageCustomerRating" field="productCalculatedInfo.averageCustomerRating"/>
-            <store-value value-name="productCalculatedInfo"/>
+            <store-value value-field="productCalculatedInfo"/>
         </else>
         </if-empty>
     </simple-method>
@@ -740,7 +740,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
         <set-nonpk-fields map="parameters" value-field="productAssocInstance"/>
-        <store-value value-name="productAssocInstance"/>
+        <store-value value-field="productAssocInstance"/>
     </simple-method>
     <simple-method method-name="deleteProductAssoc" short-description="Delete an association between two products">
         <set value="deleteProductAssoc" field="callingMethodName"/>
@@ -776,7 +776,7 @@ under the License.
 
         <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductMaint" short-description="Delete Product Maint from PRODUCT_MAINT">
         <set value="deleteProductMaint" field="callingMethodName"/>
@@ -807,7 +807,7 @@ under the License.
 
         <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductMeter" short-description="Delete an existing Product Meter">
         <set value="deleteProductMeter" field="callingMethodName"/>
@@ -829,7 +829,7 @@ under the License.
     <simple-method method-name="updateProductGeo" short-description="Update an existing Product Geo">
         <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductGeo" short-description="Delete an existing Product Geo">
         <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
@@ -897,7 +897,7 @@ under the License.
             <field-to-result field="hasPermission"/>
 
             <else>
-                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field-name="failMessage"/>
+                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>
@@ -914,7 +914,7 @@ under the License.
     <simple-method method-name="updateProductAttribute" short-description="update a ProductAttribute">
         <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductAttribute" short-description="delete a ProductAttribute">
         <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
@@ -951,7 +951,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyFromProduct" short-description="Remove Party From Product">
         <set value="removePartyFromProduct" field="callingMethodName"/>
@@ -998,7 +998,7 @@ under the License.
 
         <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteProductCategoryGlAccount" short-description="Delete an ProductCategoryGlAccount">

@@ -31,6 +31,6 @@
     <simple-method method-name="updateEnumeration" short-description="update a Enumeration">
         <entity-one entity-name="Enumeration" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

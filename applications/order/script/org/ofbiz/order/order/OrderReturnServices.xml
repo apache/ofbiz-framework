@@ -247,7 +247,7 @@ under the License.
 
         <field-to-result field="returnHeader.statusId" result-name="currentStatusId"/>
         <set-nonpk-fields map="parameters" value-field="returnHeader"/>
-        <store-value value-name="returnHeader"/>
+        <store-value value-field="returnHeader"/>
     </simple-method>
 
     <simple-method method-name="createReturnItem" short-description="Create Return Item">
@@ -439,7 +439,7 @@ under the License.
         <field-to-result field="returnItem.statusId" result-name="currentStatusId"/>
 
         <set-nonpk-fields map="parameters" value-field="returnItem"/>
-        <store-value value-name="returnItem"/>
+        <store-value value-field="returnItem"/>
         <refresh-value value-name="returnItem"/>
 
         <!-- now update all return adjustments associated with this return item -->
@@ -559,7 +559,7 @@ under the License.
             <if-compare-field field="totalsMap.${receipt.returnItemSeqId}" to-field="returnItem.returnQuantity" operator="greater-equals" type="Double">
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
-                <store-value value-name="returnItem"/>
+                <store-value value-field="returnItem"/>
                 
                 <!-- create status change history -->
                 <!-- TODO: this should be done with a createReturnStatus service call -->
@@ -576,7 +576,7 @@ under the License.
             </if-compare-field>
 
             <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
-            <store-value value-name="returnItem"/>
+            <store-value value-field="returnItem"/>
         </iterate>
         
         <!-- check to see if all items have been received -->

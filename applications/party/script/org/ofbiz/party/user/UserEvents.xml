@@ -35,8 +35,8 @@ under the License.
         <set field="require_login" value="false" />
         <set field="create_allow_password" value="true" />
 
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="PROSPECT" />
@@ -49,8 +49,8 @@ under the License.
         <set field="require_login" value="true" />
         <set field="create_allow_password" value="true" />
 
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="EMPLOYEE" />
@@ -58,8 +58,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUser" short-description="Create User" login-required="false">
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp field="nowStamp"/>
 
@@ -161,13 +161,13 @@ under the License.
                 </call-map-processor>
                 <if-compare value="USA" operator="equals" field="parameters.USER_COUNTRY">
                     <if-empty field="parameters.USER_STATE">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.USER_COUNTRY">
                     <if-empty field="parameters.USER_STATE">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>

@@ -45,7 +45,7 @@ under the License.
         
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteAcctgTrans" short-description="Delete an AcctgTrans">
         <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
@@ -59,7 +59,7 @@ under the License.
         <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->
         <entity-one entity-name="AcctgTrans" value-field="lookedUpACTX"/>
         <set from-field="userLogin.userLoginId" field="lookedUpACTX.lastModifiedByUserLogin"/>
-        <store-value value-name="lookedUpACTX"/>
+        <store-value value-field="lookedUpACTX"/>
     </simple-method>
     
     <!-- ========= AcctgTransEntry methods ========= -->
@@ -126,7 +126,7 @@ under the License.
         </if-compare>
         <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <!-- when changing entries, also update the last modified info for the AcctgTrans -->
         <call-simple-method method-name="updateAcctgTransLastModified"/>
@@ -146,8 +146,8 @@ under the License.
 
     <!-- AcctgTrans Trial Balance and Post routines -->
     <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">       
-        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
  
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
 
@@ -303,7 +303,7 @@ under the License.
                     <else>
                         <!-- assign the transaction to the error journal -->
                         <set field="acctgTrans.glJournalId" from-field="partyAcctgPreference.errorGlJournalId"/>
-                        <store-value value-name="acctgTrans"/>
+                        <store-value value-field="acctgTrans"/>
                         <set field="warningMessage[]" value="The accounting transaction [${acctgTrans.acctgTransId}] has been posted to the Error Journal [${partyAcctgPreference.errorGlJournalId}]."/>
                         <field-to-result field="warningMessage" result-name="successMessageList"/>
                         <return/>
@@ -422,7 +422,7 @@ under the License.
                         </if-compare>    
                     </else>
                     </if-compare>
-                    <store-value value-name="glAccountHistory"/>
+                    <store-value value-field="glAccountHistory"/>
                 </iterate>
             </iterate>
 

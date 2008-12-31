@@ -51,7 +51,7 @@ under the License.
     <simple-method method-name="updateSubscription" short-description="Update a Subscription">
         <entity-one entity-name="Subscription" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="isSubscribed" short-description="check if a party has a subscription">
@@ -93,7 +93,7 @@ under the License.
     <simple-method method-name="updateSubscriptionResource" short-description="Update a SubscriptionResource">
         <entity-one entity-name="SubscriptionResource" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createProductSubscriptionResource" short-description="Create a ProductSubscriptionResource">
@@ -106,7 +106,7 @@ under the License.
     <simple-method method-name="updateProductSubscriptionResource" short-description="Update a ProductSubscriptionResource">
         <entity-one entity-name="ProductSubscriptionResource" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductSubscriptionResource" short-description="Delete a ProductSubscriptionResource">
         <entity-one entity-name="ProductSubscriptionResource" value-field="lookedUpValue"/>
@@ -122,7 +122,7 @@ under the License.
             <create-value value-field="newEntity"/>
             <else>
                 <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-                <store-value value-name="lookedUpValue"/>
+                <store-value value-field="lookedUpValue"/>
             </else>
         </if-empty>
     </simple-method>

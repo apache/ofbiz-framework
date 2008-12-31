@@ -39,10 +39,10 @@ under the License.
         <if-not-empty field="badOrders">
             <string-to-field string="mail.smtp.host" field-name="sendType" map-name="emailParams" />
 
-            <property-to-field resource="payment" property="mailhost" field-name="sendVia" map-name="emailParams"/>
-            <property-to-field resource="payment" property="sendTo" field-name="sendTo" map-name="emailParams"/>
-            <property-to-field resource="payment" property="sendFrom" field-name="sendFrom" map-name="emailParams"/>
-            <property-to-field resource="payment" property="subject" field-name="subject" map-name="emailParams"/>
+            <property-to-field resource="payment" property="mailhost" field="sendVia" map-name="emailParams"/>
+            <property-to-field resource="payment" property="sendTo" field="sendTo" map-name="emailParams"/>
+            <property-to-field resource="payment" property="sendFrom" field="sendFrom" map-name="emailParams"/>
+            <property-to-field resource="payment" property="subject" field="subject" map-name="emailParams"/>
             <call-bsh><![CDATA[
             String body = "Bad orders: " + org.ofbiz.base.util.StringUtils.join(badOrders, ", ");
             emailParams.put("body", body);

@@ -67,7 +67,7 @@ under the License.
             <field-to-result field="hasPermission"/>
 
             <else>
-                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field-name="failMessage"/>
+                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>
@@ -84,7 +84,7 @@ under the License.
         <check-errors/>
         <set field="resourceDescription" from-field="parameters.resourceDescription"/>
         <if-empty field="resourceDescription">
-            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         </if-empty>
         <set field="callingMethodName" from-field="resourceDescription" />
         <set field="checkAction" from-field="mainAction" />
@@ -95,7 +95,7 @@ under the License.
             <field-to-result field="hasPermission"/>
             
             <else>
-                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field-name="failMessage"/>
+                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>
@@ -180,7 +180,7 @@ under the License.
             </call-service>
             <set field="inventoryItem.currencyUomId" from-field="accPref.baseCurrencyUomId"/>
             <if-empty field="inventoryItem.currencyUomId">
-                <property-to-field resource="general" property="currency.uom.id.default" field-name="inventoryItem.currencyUomId"/>
+                <property-to-field resource="general" property="currency.uom.id.default" field="inventoryItem.currencyUomId"/>
             </if-empty>
             <!-- if inventoryItem's currencyUomId is still empty, return an error message -->
             <if-empty field="inventoryItem.currencyUomId">
@@ -218,7 +218,7 @@ under the License.
         </if-compare>
         <check-errors/>
         <if-not-empty field="updateInventoryItem">
-            <store-value value-name="inventoryItem"/>
+            <store-value value-field="inventoryItem"/>
         </if-not-empty>
     </simple-method>
 
@@ -242,7 +242,7 @@ under the License.
         </if-not-empty>
         <set field="oldUnitCost" from-field="lookedUpValue.unitCost"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <!-- if the unit cost is changed create an InventoryItemDetail to keep track of unit cost history -->
         <if-not-empty field="parameters.unitCost">
             <if-compare-field field="parameters.unitCost" to-field="oldUnitCost" operator="not-equals">
@@ -264,7 +264,7 @@ under the License.
         <first-from-list entry="oldInventoryItemStatus" list="oldInventoryItemStatusList"/>
         <if-not-empty field="oldInventoryItemStatus">
             <set field="oldInventoryItemStatus.statusEndDatetime" from-field="nowTimestamp"/>
-            <store-value value-name="oldInventoryItemStatus"/>
+            <store-value value-field="oldInventoryItemStatus"/>
         </if-not-empty>
         
         <make-value value-field="inventoryItemStatus" entity-name="InventoryItemStatus"/>
@@ -312,7 +312,7 @@ under the License.
 
         <set field="inventoryItem.availableToPromiseTotal" from-field="inventoryItemDetailSummary.availableToPromiseTotal"/>
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
-        <store-value value-name="inventoryItem"/>
+        <store-value value-field="inventoryItem"/>
     </simple-method>
 
     <simple-method method-name="updateSerializedInventoryTotals" short-description="Update the totals on serialized inventory">
@@ -333,7 +333,7 @@ under the License.
                     <set field="inventoryItem.availableToPromiseTotal" value="1" type="Double"/>
                     <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
                     <log level="always" message="In updateSerializedInventoryTotals Storing totals for item [${inventoryItem.inventoryItemId}] INV_AVAIABLE [1/1]"/>
-                    <store-value value-name="inventoryItem"/>
+                    <store-value value-field="inventoryItem"/>
                 </then>
 
                 <!-- delivered -->
@@ -351,7 +351,7 @@ under the License.
                         <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
                         <set field="inventoryItem.quantityOnHandTotal" value="0" type="Double"/>
                         <log level="always" message="In updateSerializedInventoryTotals Storing totals [${inventoryItem.inventoryItemId}] for INV_DELIVERED [0/0]"/>
-                        <store-value value-name="inventoryItem"/>
+                        <store-value value-field="inventoryItem"/>
                     </then>
                 </else-if>
 
@@ -371,7 +371,7 @@ under the License.
                         <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
                         <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
                         <log level="always" message="In updateSerializedInventoryTotals Storing totals [${inventoryItem.inventoryItemId}] for other status [0/1]"/>
-                        <store-value value-name="inventoryItem"/>
+                        <store-value value-field="inventoryItem"/>
                     </then>
                 </else-if>
             </if>
@@ -401,7 +401,7 @@ under the License.
 
         <clear-field field="parameters.inventoryItem.oldAvailableToPromise"/>
         <clear-field field="parameters.inventoryItem.oldQuantityOnHand"/>
-        <store-value value-name="parameters.inventoryItem"/>
+        <store-value value-field="parameters.inventoryItem"/>
     </simple-method>
 
     <simple-method method-name="checkProductInventoryDiscontinuation" short-description="Check Product Inventory Discontinuation" login-required="false">
@@ -537,7 +537,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductFacility" short-description="Delete a ProductFacility">
 
@@ -561,7 +561,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductFacilityLocation" short-description="Delete a ProductFacilityLocation">
 
@@ -1012,7 +1012,7 @@ under the License.
         </if-not-empty>
 
         <set-nonpk-fields map="parameters" value-field="inventoryTransfer"/>
-        <store-value value-name="inventoryTransfer"/>
+        <store-value value-field="inventoryTransfer"/>
     </simple-method>
 
     <simple-method method-name="createInventoryTransfersForProduct" short-description="Create inventory transfers for the given product and quantity. Return the units not available for transfers.">
@@ -1195,7 +1195,7 @@ under the License.
     <simple-method method-name="updateInventoryItemLabelType" short-description="Update an InventoryItemLabelType">
         <entity-one entity-name="InventoryItemLabelType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteInventoryItemLabelType" short-description="Delete an InventoryItemLabelType">
         <entity-one entity-name="InventoryItemLabelType" value-field="lookedUpValue"/>
@@ -1210,7 +1210,7 @@ under the License.
     <simple-method method-name="updateInventoryItemLabel" short-description="Update an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabel" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteInventoryItemLabel" short-description="Delete an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabel" value-field="lookedUpValue"/>
@@ -1227,7 +1227,7 @@ under the License.
     <simple-method method-name="updateInventoryItemLabelAppl" short-description="Update an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteInventoryItemLabelAppl" short-description="Delete an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>

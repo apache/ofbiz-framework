@@ -136,7 +136,7 @@ under the License.
         <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
         <now-timestamp field="updateInvoiceMap.invoiceDate"/>
         <if-empty field="updateInvoiceMap.currencyUomId">
-            <property-to-field field-name="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <property-to-field field="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </if-empty>                
         <call-service service-name="updateInvoice" in-map-name="updateInvoiceMap"/>
         <entity-one entity-name="Invoice" value-field="invoice"/>

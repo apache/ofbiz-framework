@@ -32,7 +32,7 @@ under the License.
     <simple-method method-name="updateCostComponentCalc" short-description="Update a CostComponentCalc entry">
         <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
         <set-nonpk-fields map="parameters" value-field="costComponentCalc"/>
-        <store-value value-name="costComponentCalc"/>
+        <store-value value-field="costComponentCalc"/>
     </simple-method>
     <simple-method method-name="removeCostComponentCalc" short-description="Remove a CostComponentCalc entry">
         <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>

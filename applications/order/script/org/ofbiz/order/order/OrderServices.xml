@@ -108,7 +108,7 @@ under the License.
 
         <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteOrderShipment" short-description="Delete OrderShipment">
         <set value="Delete OrderShipment" field="operationName"/>
@@ -490,7 +490,7 @@ under the License.
                         <calculate field="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
                     </else>
                 </if-not-empty>
-                <store-value value-name="partyAcctgPreference"/>
+                <store-value value-field="partyAcctgPreference"/>
                 <set from-field="partyAcctgPreference.lastOrderNumber" field="orderIdTemp"/>
             </then>
             <else>
@@ -549,7 +549,7 @@ under the License.
         </if-empty>
         <check-errors/>
         <set-nonpk-fields value-field="orderHeader" map="parameters"/>
-        <store-value value-name="orderHeader"/>  
+        <store-value value-field="orderHeader"/>  
     </simple-method>
 
     <simple-method method-name="recreateOrderAdjustments" short-description="Auto create OrderAdjustments">
@@ -712,7 +712,7 @@ under the License.
             <set-service-fields service-name="removeOrderContactMech" map="orderContactMechLookupMap" to-map="removeOrderContactMechMap"/>
             <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
         </if-empty>    
-        <store-value value-name="orderContactMechMap"/>
+        <store-value value-field="orderContactMechMap"/>
         </else>         
         </if-compare>     
      </simple-method>
@@ -747,7 +747,7 @@ under the License.
             <set-service-fields service-name="createOrderContactMech" map="parameters" to-map="createOrderContactMechMap"/>
             <call-service service-name="createOrderContactMech" in-map-name="createOrderContactMechMap" include-user-login="true"/>
         </if-empty>    
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <!-- Remove the old values from OrderContactMech entity with the help of oldContactMechId -->
         <set from-field="parameters.orderId" field="shipGroupLookupMap.orderId"/>
         <set from-field="parameters.oldContactMechId" field="shipGroupLookupMap.contactMechId"/>
@@ -801,7 +801,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="OrderHeaderNote" value-field="orderHeaderNote"/>
         <set-nonpk-fields value-field="orderHeaderNote" map="parameters"/>
-        <store-value value-name="orderHeaderNote"/>  
+        <store-value value-field="orderHeaderNote"/>  
     </simple-method>
         
     <simple-method method-name="createOrderTerm" short-description="Create an OrderTerm">
@@ -825,7 +825,7 @@ under the License.
 
         <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeOrderTerm" short-description="Remove OrderTerm">
         <check-permission permission="ORDERMGR" action="_DELETE">

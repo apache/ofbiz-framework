@@ -26,8 +26,8 @@ under the License.
         <set field="create_allow_password" value="false" />
         <set field="default_customer_password" value="ungssblepsswd" />
 
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="CUSTOMER" />
@@ -122,13 +122,13 @@ under the License.
                 </call-map-processor>
                 <if-compare value="USA" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
-                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
                         <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>

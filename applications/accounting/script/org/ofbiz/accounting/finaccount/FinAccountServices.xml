@@ -22,8 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="getArithmeticSettingsInline" short-description="getArithmeticSettingsInline">
-        <property-to-field resource="arithmetic" property="finaccount.decimals" field-name="roundingDecimals" default="2"/>
-        <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field-name="roundingMode" default="HalfUp"/>
+        <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
+        <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
         <log level="info" message="Got settings from arithmetic.properties: roundingDecimals=${roundingDecimals}, roundingMode=${roundingMode}"/>
     </simple-method>
 
@@ -48,7 +48,7 @@ under the License.
         <!-- set the currency if none is already set -->
         <if-empty field="newEntity.currencyUomId">
             
-            <property-to-field resource="general" property="currency.uom.id.default" field-name="defaultCurrency"/>
+            <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrency"/>
             <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>  
         </if-empty>
 

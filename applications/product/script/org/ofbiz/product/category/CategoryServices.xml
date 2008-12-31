@@ -85,7 +85,7 @@ under the License.
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
 
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
         <!-- NOTE: this is commented out to disable because it is dangerous to add category rollups on a live site without being able to specify a fromDate
@@ -187,7 +187,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFromCategory" short-description="Remove Product From Category">
         <!-- note that the security semantics require the user to have the general admin permission,
@@ -203,7 +203,7 @@ under the License.
         <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
         <if-compare-field field="product.primaryProductCategoryId" to-field="parameters.productCategoryId" operator="equals">
             <clear-field field="product.primaryProductCategoryId"/>
-            <store-value value-name="product"/>
+            <store-value value-field="product"/>
         </if-compare-field>
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
@@ -242,7 +242,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyFromCategory" short-description="Remove Party From Category">
         <set value="removePartyFromCategory" field="callingMethodName"/>
@@ -332,7 +332,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromCategory" short-description="Remove ProductCategory From Category">
         <set value="removeProductCategoryFromCategory" field="callingMethodName"/>
@@ -449,7 +449,7 @@ under the License.
 
         <iterate entry="productCategoryMember" list="productCategoryMembers">
             <set field="productCategoryMember.thruDate" from-field="expireTimestamp"/>
-            <store-value value-name="productCategoryMember"/>
+            <store-value value-field="productCategoryMember"/>
         </iterate>
     </simple-method>
     <simple-method method-name="removeExpiredCategoryProductMembers" short-description="Remove ProductCategory From Category">
@@ -547,7 +547,7 @@ under the License.
         <if-compare field="hasSelectableFeatures" operator="equals" value="Y">
             <entity-one entity-name="Product" value-field="newProduct"/>
             <set field="newProduct.isVirtual" value="Y"/>
-            <store-value value-name="newProduct"/>
+            <store-value value-field="newProduct"/>
         </if-compare>
     </simple-method>
 
@@ -648,7 +648,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map="parameters" value-field="ProductCategoryAttributeInstance"/>
-        <store-value value-name="ProductCategoryAttributeInstance"/>
+        <store-value value-field="ProductCategoryAttributeInstance"/>
     </simple-method>
     <simple-method method-name="deleteProductCategoryAttribute" 
         short-description="Delete an association between two product categories">
@@ -688,7 +688,7 @@ under the License.
     <simple-method method-name="updateProductCategoryLink" short-description="update a ProductCategoryLink">
         <entity-one entity-name="ProductCategoryLink" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteProductCategoryLink" short-description="delete a ProductCategoryLink">        
@@ -766,7 +766,7 @@ under the License.
             <field-to-result field="hasPermission"/>
             
             <else>
-                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field-name="failMessage"/>
+                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>

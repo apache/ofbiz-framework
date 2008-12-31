@@ -91,7 +91,7 @@
                     <return/>
                 </then>
                 <else>
-                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field="failMessage"/>
                     <field-to-result field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <return/>
@@ -133,7 +133,7 @@
                     <return/>
                 </then>
                 <else>
-                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field="failMessage"/>
                     <field-to-result field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <return/>
@@ -218,7 +218,7 @@
                     <return/>
                 </then>
                 <else>
-                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTask" field-name="failMessage"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTask" field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <field-to-result field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
@@ -265,7 +265,7 @@
                     <return/>
                 </then>
                 <else>
-                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <field-to-result field="failMessage"/>
                     <return/>
@@ -322,7 +322,7 @@
                     <return/>
                 </then>
                 <else>
-                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field="failMessage"/>
                     <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <field-to-result field="failMessage"/>
                     <return/>
@@ -332,7 +332,7 @@
 
         <!-- should never arrive here..... -->
         <log level="error" message="======ProjectMGR Security UNCHECKED ACTION=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.projectId}${parameters.workEffortId}${parameters.taskId}${parameters.timesheetId}${parameters.timeEntryId} resourceDescription: ${parameters.resourceDescription}"/>
-        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         <field-to-result field="failMessage"/>
         <field-to-result field="hasNoPermission" result-name="hasPermission"/>
     </simple-method>

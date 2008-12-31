@@ -204,7 +204,7 @@ under the License.
     <simple-method method-name="updatePartyClassification" short-description="update a PartyClassification">
         <entity-one entity-name="PartyClassification" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassification" short-description="delete a PartyClassification">
         <entity-one entity-name="PartyClassification" value-field="lookedUpValue"/>
@@ -223,7 +223,7 @@ under the License.
     <simple-method method-name="updatePartyClassificationGroup" short-description="update a PartyClassificationGroup">
         <entity-one entity-name="PartyClassificationGroup" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassificationGroup" short-description="delete a PartyClassificationGroup">
         <entity-one entity-name="PartyClassificationGroup" value-field="lookedUpValue"/>
@@ -240,7 +240,7 @@ under the License.
     <simple-method method-name="updateVendor" short-description="updateVendor">
         <entity-one entity-name="Vendor" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteVendor" short-description="deleteVendor">
         <entity-one entity-name="Vendor" value-field="lookedUpValue"/>
@@ -257,7 +257,7 @@ under the License.
     <simple-method method-name="updatePartyAttribute" short-description="updatePartyAttribute">
         <entity-one entity-name="PartyAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyAttribute" short-description="removePartyAttribute">
         <entity-one entity-name="PartyAttribute" value-field="lookedUpValue"/>
@@ -280,7 +280,7 @@ under the License.
 
         <!-- update the fields -->
         <set-nonpk-fields value-field="partyProfileDefault" map="parameters" set-if-null="false"/>
-        <store-value value-name="partyProfileDefault"/>
+        <store-value value-field="partyProfileDefault"/>
     </simple-method>
     
     <!-- create party content -->
@@ -786,7 +786,7 @@ under the License.
         
         <entity-one entity-name="PartyRelationship" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyRelationship" short-description="deletePartyRelationship">
         <if-empty field="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
@@ -810,7 +810,7 @@ under the License.
      <simple-method method-name="updatePartyCarrierAccount" short-description="Update a PartyCarrierAccount">        
         <entity-one entity-name="PartyCarrierAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>        
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method> 
     
     <!-- send party creation email notification -->

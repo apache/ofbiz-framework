@@ -60,7 +60,7 @@ under the License.
         <set from-field="nowTimestamp" field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromo" short-description="Delete a ProductPromo">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromo you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -97,7 +97,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoAction" short-description="Delete an ProductPromoAction">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoAction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -131,7 +131,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCategory" short-description="Delete an ProductPromoCategory">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCategory you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -184,7 +184,7 @@ under the License.
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCode" short-description="Delete an ProductPromoCode">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCode you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -266,7 +266,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoCond" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCond" short-description="Delete an ProductPromoCond">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCond you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -300,7 +300,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoProduct" short-description="Delete an ProductPromoProduct">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoProduct you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -336,7 +336,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoRule" short-description="Delete a ProductPromoRule">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoRule you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -375,7 +375,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStorePromoAppl" short-description="Delete ProductStorePromoAppl">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStorePromoAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
