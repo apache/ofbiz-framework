@@ -199,7 +199,7 @@ under the License.
                 <set field="categoryId" from-field="category.productCategoryId"/>
                 <set field="categoriesMap.${categoryId}" from-field="fileStatusMap" />
             </iterate>
-            <field-to-result field="categoriesMap" result-name="categoriesMap"/>
+            <field-to-result field="categoriesresult-name" result-name="categoriesresult-name"/>
         </if-not-empty>        
     </simple-method>    
     
@@ -397,7 +397,7 @@ under the License.
             <!-- set-service-fields service-name="updateProductCategory" map-name="category" to-map-name="updateProductCategoryContext"/>
             <call-service service-name="updateProductCategory" in-map-name="updateProductCategoryContext" / -->
             <store-value value-field="category"/>
-            <field-to-result field="filesImageMap" result-name="filesImageMap"/>                        
+            <field-to-result field="filesImageresult-name" result-name="filesImageresult-name"/>                        
         </if-not-empty>    
     </simple-method>
     <simple-method method-name="checkImageUrlForProduct" short-description="Check for image url exists or not for product" login-required="false">
@@ -460,7 +460,7 @@ under the License.
                     <clear-field field="detailImageUrl" map-name="product"></clear-field>
                 </if-compare>
             </if-not-empty>
-            <field-to-result field="filesImageMap" result-name="filesImageMap"/>
+            <field-to-result field="filesImageresult-name" result-name="filesImageresult-name"/>
             <store-value value-field="product"/>
             <!-- set-service-fields service-name="updateProduct" map-name="product" to-map-name="updateProductContext"/>
             <call-service service-name="updateProduct" in-map-name="updateProductContext" / --> 

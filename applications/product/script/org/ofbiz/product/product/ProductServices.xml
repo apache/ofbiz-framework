@@ -38,7 +38,7 @@ under the License.
             <check-errors/>
         </else>
         </if-empty>
-        <field-to-result field="productId" map-name="newEntity" result-name="productId"/>
+        <field-to-result field="productId" result-name="newEntity" result-name="productId"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>

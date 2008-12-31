@@ -36,6 +36,6 @@ under the License.
                 <number value="10"/>
             </calcop>
         </calculate>
-        <field-to-result field-name="totalTime" result-name="totalTime"/>
+        <field-to-result field="totalTime" result-name="totalTime"/>
     </simple-method>
 </simple-methods>

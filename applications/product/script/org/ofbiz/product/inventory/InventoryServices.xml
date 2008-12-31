@@ -672,8 +672,8 @@ under the License.
             </if-compare>
         </iterate>
 
-        <field-to-result field="availableToPromiseTotal" map-name="parameters"/>
-        <field-to-result field="quantityOnHandTotal" map-name="parameters"/>
+        <field-to-result field="availableToPromiseTotal" result-name="parameters"/>
+        <field-to-result field="quantityOnHandTotal" result-name="parameters"/>
     </simple-method>
 
     <simple-method method-name="getMktgPackagesAvailable" short-description="Get Marketing Packages Available From Components In Inventory" login-required="false" use-transaction="false">

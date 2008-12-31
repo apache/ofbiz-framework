@@ -346,7 +346,7 @@ under the License.
                 <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                 <calculate field="issuanceCreateMap.quantity" ><number value="1"/></calculate>
                 <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
-                <field-to-result field="issuanceCreateMap.quantity" result-name="quantityIssued"/>
+                <field-to-result field="issuanceCreateresult-name.quantity" result-name="quantityIssued"/>
             </if-compare>
         </if-compare>
         <if>

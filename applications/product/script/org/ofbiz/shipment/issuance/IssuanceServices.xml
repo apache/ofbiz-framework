@@ -31,7 +31,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ItemIssuance"/>
         <sequenced-id sequence-name="ItemIssuance" field="newEntity.itemIssuanceId"/>
-        <field-to-result field="itemIssuanceId" map-name="newEntity"/>
+        <field-to-result field="itemIssuanceId" result-name="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp field="newEntity.issuedDateTime"/>
 
@@ -291,7 +291,7 @@ under the License.
             <set from-field="parameters.shipmentId" field="shipmentItemCreate.shipmentId"/>
             <set from-field="parameters.quantity" field="shipmentItemCreate.quantity"/>
             <call-service service-name="createShipmentItem" in-map-name="shipmentItemCreate">
-                <result-to-field result-name="shipmentItemSeqId" map="shipmentItemLookupPk"/>
+                <result-to-field result-name="shipmentItemSeqId" field="shipmentItemLookupPk"/>
             </call-service>
             <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
             <find-by-primary-key entity-name="ShipmentItem" map="shipmentItemLookupPk" value-field="shipmentItem"/>
@@ -304,7 +304,7 @@ under the License.
             <store-value value-field="shipmentItem"/>
         </else>
         </if-empty>
-        <field-to-result field="shipmentItemSeqId" map-name="shipmentItem" result-name="shipmentItemSeqId"/>
+        <field-to-result field="shipmentItemSeqId" result-name="shipmentItem" result-name="shipmentItemSeqId"/>
     </simple-method>
     <simple-method method-name="callCreateItemIssuance" short-description="Call Create ItemIssuance - meant to be called in-line">
         <!-- create the ItemIssuance -->
