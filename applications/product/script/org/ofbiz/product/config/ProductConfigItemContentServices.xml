@@ -62,7 +62,7 @@ under the License.
         <set-service-fields service-name="createProductConfigItemContent" map="parameters" to-map="createProductConfigItemContent"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleText"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleText" break-on-error="true" >
-            <result-to-field result-name="contentId" map-name="createProductConfigItemContent" />
+            <result-to-field result-name="contentId" map="createProductConfigItemContent" />
         </call-service>
         <call-service service-name="createProductConfigItemContent" in-map-name="createProductConfigItemContent"/>
     </simple-method>

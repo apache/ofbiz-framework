@@ -72,7 +72,7 @@ under the License.
             <set field="context.infoString" from-field="parameters.infoString"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message resource="PartyUiLabels" property="${successMessageProperty}"/>
-                <result-to-field result-name="contactMechId" map-name="newValue"/>
+                <result-to-field result-name="contactMechId" map="newValue"/>
             </call-service>                                        
             <field-to-result map-name="newValue" field="contactMechId"/>
             <field-to-request map-name="newValue" field-name="contactMechId"/> 
@@ -104,7 +104,7 @@ under the License.
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
-            <result-to-field result-name="contactMechId" map-name="newValue"/>
+            <result-to-field result-name="contactMechId" map="newValue"/>
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-field="newValue"/>   
@@ -139,14 +139,14 @@ under the License.
             <log level="info" message="Postal address need updating"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
-                <result-to-field result-name="contactMechId" map-name="newValue"/>
+                <result-to-field result-name="contactMechId" map="newValue"/>
             </call-service>
             <create-value value-field="newValue"/>
             <else>
                 <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
                     <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
-                    <result-to-field result-name="contactMechId" map-name="newValue"/>
+                    <result-to-field result-name="contactMechId" map="newValue"/>
                 </call-service>
                 <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Postal address need updating, contact mech changed"/>
@@ -167,7 +167,7 @@ under the License.
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
-            <result-to-field result-name="contactMechId" map-name="newValue"/>
+            <result-to-field result-name="contactMechId" map="newValue"/>
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-field="newValue"/>   
@@ -186,14 +186,14 @@ under the License.
             <log level="info" message="Telecom number needs updating"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
-                <result-to-field result-name="contactMechId" map-name="newValue"/>
+                <result-to-field result-name="contactMechId" map="newValue"/>
             </call-service>
             <create-value value-field="newValue"/>
             <else>
                 <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
                     <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
-                    <result-to-field result-name="contactMechId" map-name="newValue"/>
+                    <result-to-field result-name="contactMechId" map="newValue"/>
                 </call-service>
                 <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Telecom Number need updating, contact mech changed"/>

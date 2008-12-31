@@ -592,19 +592,19 @@
         <set-service-fields service-name="createContent" map="parameters" to-map="createSubjectContent"/>
         <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
-            <result-to-field result-name="dataResourceId" map-name="createSubjectContent"/>
+            <result-to-field result-name="dataResourceId" map="createSubjectContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createSubjectContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc"/>
+            <result-to-field result-name="contentId" map="createBodyAssoc"/>
         </call-service>
 
         <!-- Create plain body -->
         <set from-field="parameters.plainBody" field="createPlainBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createPlainBodyEtext">
-            <result-to-field result-name="dataResourceId" map-name="createPlainBodyContent"/>
+            <result-to-field result-name="dataResourceId" map="createPlainBodyContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createPlainBodyContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc" field="contentIdTo"/>
+            <result-to-field result-name="contentId" map="createBodyAssoc" field="contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and plain body -->
         <set value="TREE_CHILD" field="createBodyAssoc.contentAssocTypeId"/>
@@ -614,10 +614,10 @@
         <!-- Create HTML body -->
         <set from-field="parameters.htmlBody" field="createHtmlBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createHtmlBodyEtext">
-            <result-to-field result-name="dataResourceId" map-name="createHtmlBodyContent"/>
+            <result-to-field result-name="dataResourceId" map="createHtmlBodyContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createHtmlBodyContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc" field="contentIdTo"/>
+            <result-to-field result-name="contentId" map="createBodyAssoc" field="contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and html body -->
         <set value="htmlBody" field="createBodyAssoc.mapKey"/>
@@ -657,7 +657,7 @@
         <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
         <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
         <call-service service-name="createOtherDataResource" in-map-name="createDownload">
-            <result-to-field result-name="dataResourceId" map-name="createDownloadContent"/>
+            <result-to-field result-name="dataResourceId" map="createDownloadContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createDownloadContent">
             <result-to-result result-name="contentId"/>
@@ -692,8 +692,8 @@
         <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
         
         <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
-            <result-to-field result-name="dataResourceId" map-name="createSimpleText"/>
-            <result-to-field result-name="dataResourceId" map-name="createSimpleTextContent"/>
+            <result-to-field result-name="dataResourceId" map="createSimpleText"/>
+            <result-to-field result-name="dataResourceId" map="createSimpleTextContent"/>
         </call-service>
         
         <call-service service-name="createElectronicText" in-map-name="createSimpleText"/>
