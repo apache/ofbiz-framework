@@ -192,7 +192,7 @@ under the License.
         
         <entity-one entity-name="WorkEffort" value-field="task"/>
         <if-not-empty field="task">
-            <get-related-one value-name="task" relation-name="FixedAsset" to-value-field="fixedAsset"/>
+            <get-related-one value-field="task" relation-name="FixedAsset" to-value-field="fixedAsset"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.amountUomId"/>
             <set value="SETUP_COST" field="costsAndMap.fixedAssetStdCostTypeId"/>
             <get-related value-field="fixedAsset" relation-name="FixedAssetStdCost" map-name="costsAndMap" list="setupCosts"/>
