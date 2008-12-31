@@ -138,7 +138,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="rollups">
             <iterate list="rollups" entry="parent">
-                <get-related-one relation-name="CurrentProductCategory" value-field="parent" to-value-field="currentProductCategory"/>                     
+                <get-related-one relation-name="CurrentProductCategory" value-name="parent" to-value-field="currentProductCategory"/>                     
                 <field-to-list list="subCategories" field="currentProductCategory"/>                        
             </iterate>        
             <if-not-empty field="subCategories">
@@ -286,7 +286,7 @@ under the License.
                 </if-not-empty>
                 <!--  Case For virtual Product -->
                 <!--  get related assoc product -->
-                <get-related-one relation-name="Product" value-field="productCategoryMember" to-value-field="product"/>
+                <get-related-one relation-name="Product" value-name="productCategoryMember" to-value-field="product"/>
                 <if-compare operator="equals" field="product.isVirtual" value="Y">                
                     <!-- log level="info" message = "Virtual product =====${productCategoryMember.productId}"/ -->
                     <set field="virtualProductContext.productId" from-field="product.productId"/>

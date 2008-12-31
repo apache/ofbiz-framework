@@ -38,7 +38,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <!-- if the InventoryItem issued is serialized, then change its status to DELIVERED -->
-        <get-related-one value-field="newEntity" relation-name="InventoryItem" to-value-field="inventoryItem"/>
+        <get-related-one value-name="newEntity" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <if-not-empty field="inventoryItem">
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
                 <set field="updateContext.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
@@ -296,8 +296,8 @@ under the License.
             <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
             <find-by-primary-key entity-name="ShipmentItem" map="shipmentItemLookupPk" value-field="shipmentItem"/>
         <else>
-            <calculate field="shipmentItem.quantity" >
-                <calcop operator="add" field="shipmentItem.quantity" >
+            <calculate field="quantity" map-name="shipmentItem">
+                <calcop operator="add" field="quantity" map-name="shipmentItem">
                     <calcop operator="get" field="quantity" map-name="parameters"/>
                 </calcop>
             </calculate>
@@ -420,7 +420,7 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="OrderHeader" to-value-field="orderHeader"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
-        <get-related-one value-field="itemIssuance" relation-name="Shipment" to-value-field="shipment"/>        
+        <get-related-one value-name="itemIssuance" relation-name="Shipment" to-value-field="shipment"/>        
         
         <!-- issuance can be canceled only if the sales shipment is not packed -->
  

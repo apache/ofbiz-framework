@@ -149,7 +149,7 @@ under the License.
             <get-related list="returnItems" relation-name="ReturnItem" value-field="returnHeader"/>
             <log level="info" message="Return items lists are : ${returnItems}"/> 
             <iterate list="returnItems" entry="returnItem">
-                <get-related-one relation-name="OrderHeader" value-field="returnItem" to-value-field="orderHeader"/>    
+                <get-related-one relation-name="OrderHeader" value-name="returnItem" to-value-field="orderHeader"/>    
                 <set field="trackingCodeOrderFindContext.orderId" from-field="orderHeader.orderId"/>
                 <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
                 <!-- get the siteId ,trackingCodeId from TrackingCodeOrder -->

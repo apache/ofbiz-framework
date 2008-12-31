@@ -186,7 +186,7 @@ under the License.
                 </else>
                 </if-not-empty>
 
-                <calculate field="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
+                <calculate field="parameters.quantityNotIssued" ><number value="0"/></calculate>
             </if-compare>
         </if-not-empty>
     </simple-method>
@@ -204,7 +204,7 @@ under the License.
                     <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>
                     <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>                    
                     <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>                    
-                    <calculate field="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                    <calculate field="issuanceCreateMap.quantity" ><number value="1"/></calculate>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap"/>
                     <clear-field field="issuanceCreateMap"/>
 
@@ -258,7 +258,7 @@ under the License.
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>
                         
-                        <calculate field="quantityNotIssued" map-name="parameters">
+                        <calculate field="parameters.quantityNotIssued" >
                             <calcop operator="subtract" field="parameters.quantityNotIssued">
                                 <calcop operator="get" field="parameters.deductAmount"/>
                             </calcop>

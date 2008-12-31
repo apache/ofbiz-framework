@@ -218,7 +218,7 @@ under the License.
                                         <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
                                         <if-not-empty field="custRequestWorkEfforts">
                                             <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
-                                            <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
+                                            <get-related-one value-name="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
                                             <if-not-empty field="custRequest">
                                                 <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
                                             </if-not-empty>
@@ -346,7 +346,7 @@ under the License.
         <set field="getRate.rateCurrencyUomId" from-field="parameters.currencyUomId"/>
         <set field="getRate.rateTypeId" from-field="timeEntry.rateTypeId"/>
         <if-empty field="timeEntry.partyId">
-            <get-related-one value-field="timeEntry" relation-name="Timesheet" to-value-field="timesheet"/>
+            <get-related-one value-name="timeEntry" relation-name="Timesheet" to-value-field="timesheet"/>
             <if-not-empty field="timesheet">
                 <set field="getRate.partyId" from-field="timesheet.partyId"/>
             </if-not-empty>
@@ -380,7 +380,7 @@ under the License.
                 </if-empty>
                 <!-- check if the status is in progress... -->
                 <if-compare field="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="not-equals">
-                    <get-related-one value-field="timesheet" relation-name="StatusItem" to-value-field="statusItem"/>
+                    <get-related-one value-name="timesheet" relation-name="StatusItem" to-value-field="statusItem"/>
                     <add-error><fail-message message="Can only update Timesheet, when status is in-process...current status: ${statusItem.description}"/></add-error>
                     <log level="info" message="Can only update Timesheet, when status is in-process...is now: ${timesheet.statusId}"/>
                 </if-compare>

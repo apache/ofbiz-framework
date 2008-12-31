@@ -484,7 +484,7 @@
                 <field-map field-name="workEffortId" from-field="parameters.taskId"/>
             </entity-one>
             <if-not-empty field="task">
-                <get-related-one value-field="task" relation-name="ParentWorkEffort" to-value-field="phase"/>
+                <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-field="phase"/>
                 <else>
                     <return/>
                 </else>
@@ -495,7 +495,7 @@
                 </entity-one>
             </else>
         </if-not-empty>
-        <get-related-one value-field="phase" relation-name="ParentWorkEffort" to-value-field="project"/>
+        <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-field="project"/>
         <field-to-result field="project.workEffortId" result-name="projectId"/>
         <field-to-result field="project.workEffortName" result-name="projectName"/>
         <field-to-result field="phase.workEffortId" result-name="phaseId"/>
@@ -890,7 +890,7 @@
                 <!-- get the planned hours -->
                 <set field="lowInfo" from-field="task"/>
                 <set field="hoursPartyId" from-field="task.partyId"/>
-                <get-related-one value-field="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
+                <get-related-one value-name="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
                 <call-simple-method method-name="getHours"/>
                 <set field="taskParty.plannedHours" from-field="highInfo.plannedHours"/>                    
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    
@@ -1034,7 +1034,7 @@
         <if-not-empty field="actuals">
             <iterate entry="actual" list="actuals">
                 <if-not-empty field="actual.hours">
-                    <get-related-one value-field="actual" relation-name="Timesheet" to-value-field="timesheet"/>
+                    <get-related-one value-name="actual" relation-name="Timesheet" to-value-field="timesheet"/>
 
                     <!-- check if only a part of the registered hours need to be taken into account -->
                     <set field="originalActualHours" from-field="actual.hours"/>
