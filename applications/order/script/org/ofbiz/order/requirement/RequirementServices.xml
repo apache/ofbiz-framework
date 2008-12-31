@@ -22,14 +22,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
         <make-value value-field="newEntity" entity-name="Requirement"/>
-        <sequenced-id sequence-name="Requirement" field="requirementId"/>
+        <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>
         <to-string field-name="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.statusId">
             <set value="REQ_CREATED" field="newEntity.statusId"/>
         </if-empty>
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="requirementId" result-name="requirementId"/>
@@ -85,7 +85,7 @@ under the License.
                     <set field="requirementSupplier.requirementId" from-field="requirement.requirementId"/>
                     <set field="requirementSupplier.partyId" from-field="supplierProduct.partyId"/>
                     <set field="requirementSupplier.roleTypeId" value="SUPPLIER"/>
-                    <now-timestamp field="requirementSupplier.fromDate"/>
+                    <now-timestamp-to-env env-name="requirementSupplier.fromDate"/>
                     <create-value value-field="requirementSupplier"/>
                 </if-not-empty>
             </if-not-empty>
@@ -111,7 +111,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
         <check-errors/>

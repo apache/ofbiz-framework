@@ -113,7 +113,7 @@ under the License.
         <call-simple-method method-name="inventoryItemCheckSetDefaultValues"/>
         <check-errors/>
 
-        <sequenced-id sequence-name="InventoryItem" field="inventoryItem.inventoryItemId"/>
+        <sequenced-id-to-env sequence-name="InventoryItem" env-name="inventoryItem.inventoryItemId"/>
         <create-value value-field="inventoryItem"/>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
@@ -254,7 +254,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
         <entity-and entity-name="InventoryItemStatus" list="oldInventoryItemStatusList">
@@ -286,7 +286,7 @@ under the License.
 
         <set from-field="parameters.inventoryItemId" field="newEntity.inventoryItemId"/>
         <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-field="newEntity" increment-by="1" numeric-padding="4"/> -->
-        <sequenced-id sequence-name="InventoryItemDetail" field="newEntity.inventoryItemDetailSeqId"/>
+        <sequenced-id-to-env sequence-name="InventoryItemDetail" env-name="newEntity.inventoryItemDetailSeqId"/>
         <field-to-result field="newEntity.inventoryItemDetailSeqId" result-name="inventoryItemDetailSeqId"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -296,7 +296,7 @@ under the License.
             <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
             <set field="newEntity.effectiveDate" from-field="itemIssuance.issuedDateTime"/>
             <else>
-                <now-timestamp field="newEntity.effectiveDate"/>
+                <now-timestamp-to-env env-name="newEntity.effectiveDate"/>
             </else>
         </if-not-empty>
 
@@ -407,7 +407,7 @@ under the License.
     <simple-method method-name="checkProductInventoryDiscontinuation" short-description="Check Product Inventory Discontinuation" login-required="false">
         <set from-field="parameters.productId" field="productIdMap.productId"/>
         <find-by-primary-key entity-name="Product" map="productIdMap" value-field="product"/>
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- if discontinueProductSales field is empty and the product is a variant, get the fieldcontent from the virtual product -->
         <if-not-empty field="product">
@@ -501,13 +501,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.physicalInventoryDate">
-            <now-timestamp field="newEntity.physicalInventoryDate"/>
+            <now-timestamp-to-env env-name="newEntity.physicalInventoryDate"/>
         </if-empty>
         <if-empty field="newEntity.partyId">
             <set from-field="userLogin.partyId" field="newEntity.partyId"/>
         </if-empty>
 
-        <sequenced-id sequence-name="PhysicalInventory" field="physicalInventoryId"/>
+        <sequenced-id-to-env sequence-name="PhysicalInventory" env-name="physicalInventoryId"/>
         <set from-field="physicalInventoryId" field="newEntity.physicalInventoryId"/>
         <field-to-result field="physicalInventoryId" result-name="physicalInventoryId"/>
 
@@ -964,7 +964,7 @@ under the License.
             <iterate list="oisgirais" entry="oisgir">
                 <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
             </iterate>
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <iterate-map key="orderItemSeqId" value="oisgir" map="orderItems">
                 <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
                 <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
@@ -987,7 +987,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="InventoryTransfer"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="InventoryTransfer" field="newEntity.inventoryTransferId"/>
+        <sequenced-id-to-env sequence-name="InventoryTransfer" env-name="newEntity.inventoryTransferId"/>
         <field-to-result field="newEntity.inventoryTransferId" result-name="inventoryTransferId"/>
 
         <create-value value-field="newEntity"/>
@@ -1020,7 +1020,7 @@ under the License.
         <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>

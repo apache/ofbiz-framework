@@ -33,15 +33,15 @@ under the License.
         <if-not-empty field="parameters.shipmentId">
             <set-pk-fields map="parameters" value-field="newEntity"/>
         <else>        
-            <sequenced-id sequence-name="Shipment" field="newEntity.shipmentId"/>
+            <sequenced-id-to-env sequence-name="Shipment" env-name="newEntity.shipmentId"/>
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.shipmentId" result-name="shipmentId"/>
 
         <!-- set the created and lastModified info -->
-        <now-timestamp field="newEntity.createdDate"/>
+        <now-timestamp-to-env env-name="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-        <now-timestamp field="newEntity.lastModifiedDate"/>
+        <now-timestamp-to-env env-name="newEntity.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
         <!-- if needed create some WorkEfforts and remember their IDs:
@@ -98,7 +98,7 @@ under the License.
             <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
             <set from-field="newEntity.statusId" field="newStatusValue.statusId"/>
             <set from-field="newEntity.shipmentId" field="newStatusValue.shipmentId"/>
-            <now-timestamp field="newStatusValue.statusDate"/>
+            <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
             <create-value value-field="newStatusValue"/>
         </if-not-empty>
     </simple-method>
@@ -130,7 +130,7 @@ under the License.
                 <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
                 <set from-field="parameters.statusId" field="newStatusValue.statusId"/>
                 <set from-field="parameters.shipmentId" field="newStatusValue.shipmentId"/>
-                <now-timestamp field="newStatusValue.statusDate"/>
+                <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
                 <create-value value-field="newStatusValue"/>
             </if-compare-field>
         </if-not-empty>
@@ -239,7 +239,7 @@ under the License.
 
         <!-- now that all changes have been checked, set the nonpks -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <now-timestamp field="lookedUpValue.lastModifiedDate"/>
+        <now-timestamp-to-env env-name="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <field-to-result field="lookedUpValue.shipmentId" result-name="shipmentId"/>
         <store-value value-field="lookedUpValue"/>
@@ -923,7 +923,7 @@ under the License.
         <make-next-seq-id value-field="newEntity" seq-field-name="shipmentPackageSeqId"/>
         <field-to-result field="shipmentPackageSeqId" map-name="newEntity" result-name="shipmentPackageSeqId"/>
 
-        <now-timestamp field="newEntity.dateCreated"/>
+        <now-timestamp-to-env env-name="newEntity.dateCreated"/>
 
         <create-value value-field="newEntity"/>
 
@@ -1176,7 +1176,7 @@ under the License.
 
 
         <set from-field="userLogin.userLoginId" field="lookedUpValue.updatedByUserLoginId"/>
-        <now-timestamp field="lookedUpValue.lastUpdatedDate"/>
+        <now-timestamp-to-env env-name="lookedUpValue.lastUpdatedDate"/>
         <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
@@ -2015,7 +2015,7 @@ under the License.
         <check-errors/>
         <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
-        <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
+        <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
         <create-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>

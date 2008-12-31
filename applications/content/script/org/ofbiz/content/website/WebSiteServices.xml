@@ -73,7 +73,7 @@ under the License.
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.webSiteContentTypeId">
-            <sequenced-id sequence-name="WebSiteContentTypeId" field="webSiteContentTypeId"/>
+            <sequenced-id-to-env sequence-name="WebSiteContentTypeId" env-name="webSiteContentTypeId"/>
             <set field="newEntity.webSiteContentTypeId" from-field="webSiteContentTypeId"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -126,7 +126,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
@@ -151,7 +151,7 @@ under the License.
         <entity-one entity-name="WebSite" value-field="webSite">
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
         </entity-one>
-        <now-timestamp field="now"/>
+        <now-timestamp-to-env env-name="now"/>
         <log level="always" message="Parameters: ${parameters}"/>
         
         <if-instance-of field-name="parameters.webSiteContentTypeId" class="String">

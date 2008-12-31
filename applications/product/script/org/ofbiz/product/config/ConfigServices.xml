@@ -32,7 +32,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
@@ -77,7 +77,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="newEntity"/>
-        <sequenced-id sequence-name="ProductConfigItem" field="newEntity.configItemId"/>
+        <sequenced-id-to-env sequence-name="ProductConfigItem" env-name="newEntity.configItemId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="configItemId" map-name="newEntity"/>
@@ -112,7 +112,7 @@ under the License.
         <make-value entity-name="ProductConfigOption" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="ProductConfigOption" field="newEntity.configOptionId"/>
+        <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.configItemId" result-name="configItemId"/>
         <field-to-result field="newEntity.configOptionId" result-name="configOptionId"/>

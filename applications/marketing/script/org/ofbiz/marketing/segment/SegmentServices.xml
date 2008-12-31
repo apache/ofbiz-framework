@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SegmentGroup"/>
-        <sequenced-id sequence-name="SegmentGroup" field="newEntity.segmentGroupId"/>
+        <sequenced-id-to-env sequence-name="SegmentGroup" env-name="newEntity.segmentGroupId"/>
         <field-to-result field="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
@@ -160,7 +160,7 @@ under the License.
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <entity-condition entity-name="SegmentGroupViewRelatedParties" list="segmentGroupViewRelatedPartiesList">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" from-field="parameters.partyId"/>

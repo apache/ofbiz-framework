@@ -23,7 +23,7 @@ under the License.
         
     <simple-method method-name="validateCustomerInfo" short-description="validateCustomerInfo" login-required="false">
         <!-- timestamp to be used -->
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <!-- setup the party/person -->
         <call-map-processor in-map-name="parameters" out-map-name="personMap">

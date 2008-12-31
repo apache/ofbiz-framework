@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ExampleStatus methods -->
     <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="ExampleStatus" list="oldExampleStatusList">

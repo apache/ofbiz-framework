@@ -32,13 +32,12 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID -->
-        <sequenced-id sequence-name="" field=""/>
-        <sequenced-id sequence-name="Agreement" field="agreementId"/>
+        <sequenced-id-to-env sequence-name="Agreement" env-name="agreementId"/>
         <set from-field="agreementId" field="newEntity.agreementId"/>
         <field-to-result field="agreementId" result-name="agreementId"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -60,7 +59,7 @@ under the License.
     <simple-method method-name="cancelAgreement" short-description="Cancel an existing Agreement">
         <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>        
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="agreement.thruDate"/>
         <store-value value-field="agreement"/>
         <check-errors/>
@@ -158,7 +157,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID -->
-        <sequenced-id sequence-name="AgreementTerm" field="agreementTermId"/>
+        <sequenced-id-to-env sequence-name="AgreementTerm" env-name="agreementTermId"/>
         <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
         <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
         <set from-field="agreementTermId" field="newEntity.agreementTermId"/>

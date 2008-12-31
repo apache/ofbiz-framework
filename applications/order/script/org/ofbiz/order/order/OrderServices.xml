@@ -35,7 +35,7 @@ under the License.
         <check-errors/>
         
         <if-not-empty field="monthsToInclude">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <call-bsh><![CDATA[
                 calendar = java.util.Calendar.getInstance();
                 calendar.setTimeInMillis(nowTimestamp.getTime());
@@ -498,7 +498,7 @@ under the License.
                 <!-- default to the default sequencing: ODRSQ_STANDARD -->
                 <set from-field="parameters.orderId" field="orderIdTemp"/>
                 <if-empty field="orderIdTemp">
-                    <sequenced-id sequence-name="OrderHeader" field="orderIdTemp"/>
+                    <sequenced-id-to-env sequence-name="OrderHeader" env-name="orderIdTemp"/>
                     <else>
                         <!-- check the provided ID --> 
                         <check-id field-name="orderIdTemp"/>
@@ -528,7 +528,7 @@ under the License.
         <if-not-empty field="parameters.orderId">        
             <set field="newEntity.orderId" from-field="parameters.orderId"/>
         <else>
-            <sequenced-id sequence-name="OrderHeader" field="newEntity.orderId"/>
+            <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.orderId" result-name="orderId"/>
@@ -887,13 +887,13 @@ under the License.
         <make-value value-field="newEntity" entity-name="OrderItemChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.changeDatetime">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.changeDatetime" from-field="nowTimestamp"/>
         </if-empty>
         <if-empty field="parameters.changeUserLogin">
             <set field="newEntity.changeUserLogin" from-field="userLogin.userLoginId"/>
         </if-empty>
-        <sequenced-id sequence-name="OrderItemChange" field="newEntity.orderItemChangeId"/>
+        <sequenced-id-to-env sequence-name="OrderItemChange" env-name="newEntity.orderItemChangeId"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.orderItemChangeId" result-name="orderItemChangeId"/>                    
     </simple-method>    

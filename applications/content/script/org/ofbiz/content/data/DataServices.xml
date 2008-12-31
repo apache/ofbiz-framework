@@ -27,11 +27,11 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.dataResourceId">
-            <sequenced-id sequence-name="DataResource" field="dataResourceId"/>
+            <sequenced-id-to-env sequence-name="DataResource" env-name="dataResourceId"/>
             <set field="newEntity.dataResourceId" from-field="dataResourceId"/>
         </if-empty>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
@@ -63,7 +63,7 @@ under the License.
         <to-string map-name="parameters" field-name="locale" />
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>
 
@@ -168,7 +168,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         

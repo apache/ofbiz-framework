@@ -27,7 +27,7 @@ under the License.
         <make-value entity-name="ProductFeatureCategory" value-field="newEntity"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
-        <sequenced-id sequence-name="ProductFeatureCategory" field="newEntity.productFeatureCategoryId"/>
+        <sequenced-id-to-env sequence-name="ProductFeatureCategory" env-name="newEntity.productFeatureCategoryId"/>
         <field-to-result field="newEntity.productFeatureCategoryId" result-name="productFeatureCategoryId"/>
 
         <create-value value-field="newEntity"/>
@@ -48,7 +48,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeature"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.productFeatureId">
-            <sequenced-id sequence-name="ProductFeature" field="newEntity.productFeatureId"/>
+            <sequenced-id-to-env sequence-name="ProductFeature" env-name="newEntity.productFeatureId"/>
         <else>
             <set field="newEntity.productFeatureId" from-field="parameters.productFeatureId"/>
         </else>    
@@ -73,7 +73,7 @@ under the License.
         <check-errors/>
         
         <if-empty field="parameters.fromDate">
-            <now-timestamp field="parameters.fromDate"/>
+            <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <make-value value-field="newEntity" entity-name="ProductFeatureAppl"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -99,7 +99,7 @@ under the License.
         <entity-one entity-name="ProductFeatureAppl" value-field="productFeatureAppl"/>
         <!-- This is old code that just sets the thru date; the current codes actually removes the db row
         <if-empty field="parameters.thruDate">
-            <now-timestamp field="nowStamp"/>
+            <now-timestamp-to-env env-name="nowStamp"/>
             <env-to-field env-name="nowStamp" field-name="thruDate" map-name="parameters"/>
         </if-empty>
         <field-to-field field-name="thruDate" map-name="parameters" to-map-name="productFeatureAppl"/>
@@ -142,7 +142,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>
@@ -177,7 +177,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>
@@ -210,7 +210,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeatureGroup"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id sequence-name="ProductFeatureGroup" field="newEntity.productFeatureGroupId"/>
+        <sequenced-id-to-env sequence-name="ProductFeatureGroup" env-name="newEntity.productFeatureGroupId"/>
         <field-to-result field="newEntity.productFeatureGroupId" result-name="productFeatureGroupId"/>
 
         <create-value value-field="newEntity"/>
@@ -232,7 +232,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -373,12 +373,12 @@ under the License.
     <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
         <make-value value-field="newEntity" entity-name="ProductFeaturePrice"/>
         <if-empty field="parameters.productFeatureId">
-            <sequenced-id sequence-name="ProductFeaturePrice" field="parameters.productFeatureId"/>
+            <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
@@ -397,7 +397,7 @@ under the License.
         
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
         

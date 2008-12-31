@@ -33,7 +33,7 @@ under the License.
 
         <!-- create a non existing ID if not supplied -->
         <if-empty field="parameters.fixedAssetId">
-            <sequenced-id sequence-name="FixedAsset" field="newEntity.fixedAssetId"/>
+            <sequenced-id-to-env sequence-name="FixedAsset" env-name="newEntity.fixedAssetId"/>
         <else>
             <!-- check the Duplicate ID> -->
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
@@ -69,7 +69,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>
@@ -142,7 +142,7 @@ under the License.
     <!-- cancel an existing Agreement -->
     <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <now-timestamp field="fixedAssetStdCost.thruDate"/>
+        <now-timestamp-to-env env-name="fixedAssetStdCost.thruDate"/>
         <store-value value-field="fixedAssetStdCost"/>
     </simple-method>
 
@@ -169,7 +169,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -208,7 +208,7 @@ under the License.
         <if-not-empty field="maintTemplateWorkEffortId">
             
             <set field="duplicateTemplateWorkEffortMap.oldWorkEffortId" from-field="maintTemplateWorkEffortId"/>
-            <sequenced-id sequence-name="WorkEffort" field="duplicateTemplateWorkEffortMap.workEffortId"/>
+            <sequenced-id-to-env sequence-name="WorkEffort" env-name="duplicateTemplateWorkEffortMap.workEffortId"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortAssocs" value="Y"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortNotes" value="Y"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortContents" value="Y"/>
@@ -276,7 +276,7 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <now-timestamp field="nowTimestamp"/>
+                        <now-timestamp-to-env env-name="nowTimestamp"/>
                         <set field="updateWorkEffortCtx.workEffortId" from-field="workEffortId"/>
                         <set field="updateWorkEffortCtx.currentStatusId" value="CAL_ACCEPTED"/>
                         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
@@ -380,7 +380,7 @@ under the License.
         </iterate>
     </simple-method>
     <simple-method method-name="createMaintsFromTimeInterval" short-description="Create Fixed Asset Maintenances From A Product Maint Time Interval">
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <entity-condition list="fixedAssets" entity-name="FixedAsset">
             <condition-list combine="and">
                 <condition-expr field-name="instanceOfProductId" operator="not-equals" from-field="null"/>
@@ -521,7 +521,7 @@ under the License.
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -694,7 +694,7 @@ under the License.
         </if-empty>
 
         <!-- Get running year -->
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <to-string field="nowTimestamp"/>
         <call-object-method method-name="substring" obj-field="nowTimestamp" ret-field="currentYear">
             <field field="startIndex" type="int"/>
