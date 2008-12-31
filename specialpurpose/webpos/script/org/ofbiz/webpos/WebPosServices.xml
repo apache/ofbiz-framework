@@ -28,9 +28,9 @@ under the License.
             </entity-condition>
             <iterate list="products" entry="product">
                 <set field="productName" type="String" value="${product.productName} (${product.productId})"/>
-                <field-to-list field-name="productName" list-name="productsList"/>
+                <field-to-list field="productName" list="productsList"/>
                 <set field="productId" type="String" value="${product.productId}"/>
-                <field-to-list field-name="productId" list-name="productsId"/>
+                <field-to-list field="productId" list="productsId"/>
             </iterate>
             <field-to-result field="productsList" result-name="productsList"/>
             <field-to-result field="productsId" result-name="productsId"/>
@@ -44,9 +44,9 @@ under the License.
                 </entity-condition>
                 <iterate list="products" entry="product">
                     <set field="description" type="String" value="${product.description} (${product.productId})"/>
-                    <field-to-list field-name="description" list-name="productsList"/>
+                    <field-to-list field="description" list="productsList"/>
                     <set field="productId" type="String" value="${product.productId}"/>
-                    <field-to-list field-name="productId" list-name="productsId"/>
+                    <field-to-list field="productId" list="productsId"/>
                 </iterate>
                 <field-to-result field="productsList" result-name="productsList"/>
                 <field-to-result field="productsId" result-name="productsId"/>
@@ -64,9 +64,9 @@ under the License.
         </entity-condition>
         <iterate list="products" entry="product">
             <set field="idValue" type="String" value="${product.idValue} ${product.productName} (${product.productId})"/>
-            <field-to-list field-name="idValue" list-name="productsList"/>
+            <field-to-list field="idValue" list="productsList"/>
             <set field="productId" type="String" value="${product.productId}"/>
-            <field-to-list field-name="productId" list-name="productsId"/>
+            <field-to-list field="productId" list="productsId"/>
         </iterate>
         <field-to-result field="productsList" result-name="productsList"/>
         <field-to-result field="productsId" result-name="productsId"/>
