@@ -36,9 +36,9 @@ under the License.
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
 
-        <field-to-result map-name="newEntity" field="contentId"/>
-        <field-to-result map-name="newEntity" field="configItemId"/>
-        <field-to-result map-name="newEntity" field="confItemContentTypeId"/>
+        <field-to-result result-name="newEntity" field="contentId"/>
+        <field-to-result result-name="newEntity" field="configItemId"/>
+        <field-to-result result-name="newEntity" field="confItemContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateProductConfigItemContent" short-description="Update Content For ProductConfigItem">
         <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
@@ -62,7 +62,7 @@ under the License.
         <set-service-fields service-name="createProductConfigItemContent" map="parameters" to-map="createProductConfigItemContent"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleText"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleText" break-on-error="true" >
-            <result-to-field result-name="contentId" map="createProductConfigItemContent" />
+            <result-to-field result-name="contentId" field="createProductConfigItemContent" />
         </call-service>
         <call-service service-name="createProductConfigItemContent" in-map-name="createProductConfigItemContent"/>
     </simple-method>

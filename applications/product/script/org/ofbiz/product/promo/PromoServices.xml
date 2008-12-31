@@ -29,7 +29,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPromo"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="ProductPromo" field="newEntity.productPromoId"/>
-        <field-to-result field="productPromoId" map-name="newEntity"/>
+        <field-to-result field="productPromoId" result-name="newEntity"/>
 
         <if-empty field="newEntity.userEntered">
             <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
@@ -84,7 +84,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="productPromoActionSeqId" numeric-padding="2"/>
-        <field-to-result field="productPromoActionSeqId" map-name="newEntity"/>
+        <field-to-result field="productPromoActionSeqId" result-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -157,7 +157,7 @@ under the License.
             <sequenced-id sequence-name="ProductPromoCode" field="newEntity.productPromoCodeId" stagger-max="100"/>
         </if-empty>
         
-        <field-to-result field="productPromoCodeId" map-name="newEntity"/>
+        <field-to-result field="productPromoCodeId" result-name="newEntity"/>
 
         <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.fromDate">
@@ -253,7 +253,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
-        <field-to-result field="productPromoCondSeqId" map-name="newEntity"/>
+        <field-to-result field="productPromoCondSeqId" result-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -323,7 +323,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="productPromoRuleId" numeric-padding="2"/>
-        <field-to-result field="productPromoRuleId" map-name="newEntity"/>
+        <field-to-result field="productPromoRuleId" result-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>

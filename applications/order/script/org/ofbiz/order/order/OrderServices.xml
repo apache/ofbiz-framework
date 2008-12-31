@@ -862,7 +862,7 @@ under the License.
             <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
             <check-errors/>
         </if-empty>
-        <field-to-result field="statusId" map-name="order" result-name="statusId"/>
+        <field-to-result field="statusId" result-name="order" result-name="statusId"/>
     </simple-method>
     
     <simple-method method-name="checkOrderIsOnBackOrder" short-description="Check if an Order is on Back Order" login-required="false">

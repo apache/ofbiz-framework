@@ -70,7 +70,7 @@ under the License.
         <to-string field-name="custRequestId"/>
         <set from-field="custRequestId" field="newEntity.custRequestId"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="custRequestId" map-name="newEntity"/>
+        <field-to-result field="custRequestId" result-name="newEntity"/>
 
         <!-- jacopoc: Commented out the following code because it is too specific and not valid as a
                       general rule: a user may enter the request from a customer even if he will not work
@@ -252,7 +252,7 @@ under the License.
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.noteInfo" field="newNoteMap.note"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
-            <result-to-field result-name="noteId" map="newEntity"/>
+            <result-to-field result-name="noteId" field="newEntity"/>
         </call-service>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
@@ -271,7 +271,7 @@ under the License.
         <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
         <set from-field="parameters.note" field="newNoteMap.note"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
-            <result-to-field result-name="noteId" map="newEntity"/>
+            <result-to-field result-name="noteId" field="newEntity"/>
         </call-service>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>

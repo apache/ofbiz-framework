@@ -464,7 +464,7 @@ under the License.
                 <!-- now that targetInventoryItem is populated with initial values, call createInventoryItem service -->
                 <set-service-fields map="targetInventoryItem" service-name="createInventoryItem" to-map="createInventoryItemMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
-                    <result-to-field result-name="inventoryItemId" map="targetInventoryItem"/>
+                    <result-to-field result-name="inventoryItemId" field="targetInventoryItem"/>
                 </call-service>
                 <!-- refresh the value object now that the create has been done -->
                 <refresh-value value-name="targetInventoryItem"/>

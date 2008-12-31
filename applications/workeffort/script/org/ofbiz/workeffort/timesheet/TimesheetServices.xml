@@ -332,7 +332,7 @@ under the License.
     </simple-method>
     <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
-        <field-to-result field="invoiceId" map-name="lookedUpValue"/>
+        <field-to-result field="invoiceId" result-name="lookedUpValue"/>
         <clear-field field="lookedUpValue.invoiceId"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>

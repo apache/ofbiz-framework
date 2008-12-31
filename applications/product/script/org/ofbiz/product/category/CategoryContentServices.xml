@@ -36,9 +36,9 @@ under the License.
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
 
-        <field-to-result map-name="newEntity" field="contentId"/>
-        <field-to-result map-name="newEntity" field="productCategoryId"/>
-        <field-to-result map-name="newEntity" field="prodCatContentTypeId"/>
+        <field-to-result result-name="newEntity" field="contentId"/>
+        <field-to-result result-name="newEntity" field="productCategoryId"/>
+        <field-to-result result-name="newEntity" field="prodCatContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateCategoryContent" short-description="Update Content For Category">
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
@@ -60,7 +60,7 @@ under the License.
         <set-service-fields service-name="createCategoryContent" map="parameters" to-map="createCategoryContentMap"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
-            <result-to-field result-name="contentId" map="createCategoryContentMap" />
+            <result-to-field result-name="contentId" field="createCategoryContentMap" />
         </call-service>
         <call-service service-name="createCategoryContent" in-map-name="createCategoryContentMap"/>
     </simple-method>

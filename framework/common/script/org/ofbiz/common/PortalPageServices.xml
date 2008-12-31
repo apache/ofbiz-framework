@@ -101,7 +101,7 @@ under the License.
         <iterate list="attributeList" entry="attributeRecord">
             <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
         </iterate>
-        <field-to-result field="attributeMap" result-name="attributeMap"/>
+        <field-to-result field="attributeresult-name" result-name="attributeresult-name"/>
     </simple-method>
     
     <simple-method method-name="createPortalPage" short-description="Create a new Portal Page">
