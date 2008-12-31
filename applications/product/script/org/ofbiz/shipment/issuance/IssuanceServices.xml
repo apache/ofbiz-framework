@@ -291,7 +291,7 @@ under the License.
             <set from-field="parameters.shipmentId" field="shipmentItemCreate.shipmentId"/>
             <set from-field="parameters.quantity" field="shipmentItemCreate.quantity"/>
             <call-service service-name="createShipmentItem" in-map-name="shipmentItemCreate">
-                <result-to-field result-name="shipmentItemSeqId" map-name="shipmentItemLookupPk"/>
+                <result-to-field result-name="shipmentItemSeqId" map="shipmentItemLookupPk"/>
             </call-service>
             <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
             <find-by-primary-key entity-name="ShipmentItem" map="shipmentItemLookupPk" value-field="shipmentItem"/>

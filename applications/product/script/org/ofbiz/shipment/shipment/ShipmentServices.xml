@@ -1666,7 +1666,7 @@ under the License.
         <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
         <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
             <result-to-field result-name="shipmentPackageSeqId" field="packageMap.${parameters.trackingNum}"/>
-            <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
+            <result-to-field result-name="shipmentPackageSeqId" map="routeSegLookup"/>
         </call-service>
         
         <if-not-empty field="routeSegLookup.shipmentPackageSeqId">
@@ -1795,7 +1795,7 @@ under the License.
             <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
             <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
                 <result-to-field result-name="shipmentPackageSeqId" field="packageMap.${itemMap.trackingNum}"/>
-                <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
+                <result-to-field result-name="shipmentPackageSeqId" map="routeSegLookup"/>
             </call-service>
 
             <if-not-empty field="routeSegLookup.shipmentPackageSeqId">
