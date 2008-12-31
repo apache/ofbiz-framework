@@ -38,7 +38,7 @@ under the License.
     
     <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
         <entity-condition entity-name="OldCustRequestRole" list="oldCustRequestRoles"/>
-        <now-timestamp-to-env env-name="fromDate"/>
+        <now-timestamp field="fromDate"/>
         <iterate list="oldCustRequestRoles" entry="oldCustRequestRole">
             <make-value entity-name="CustRequestParty" value-field="custRequestParty"/>
             <set field="custRequestParty.custRequestId" from-field="oldCustRequestRole.custRequestId"/>

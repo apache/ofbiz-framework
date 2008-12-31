@@ -27,7 +27,7 @@ under the License.
         <set field="newEntity.isPosted" value="N"/>
 
         <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->        
-        <sequenced-id-to-env sequence-name="AcctgTrans" env-name="newEntity.acctgTransId"/>
+        <sequenced-id sequence-name="AcctgTrans" field="newEntity.acctgTransId"/>
         <field-to-result field="newEntity.acctgTransId" result-name="acctgTransId"/>
         
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
@@ -431,7 +431,7 @@ under the License.
 
             <!-- for AcctgTrans: set isPosted to Y, postedDate to now -->
             <set from-field="acctgTrans.acctgTransId" field="updateAcctgTransParams.acctgTransId"/>
-            <now-timestamp-to-env env-name="updateAcctgTransParams.postedDate"/>
+            <now-timestamp field="updateAcctgTransParams.postedDate"/>
             <set value="Y" field="updateAcctgTransParams.isPosted"/>
 
             <call-service service-name="updateAcctgTrans" in-map-name="updateAcctgTransParams" include-user-login="true"/>

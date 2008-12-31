@@ -30,7 +30,7 @@ under the License.
         <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
-        <now-timestamp-to-env env-name="nowStamp"/>
+        <now-timestamp field="nowStamp"/>
 
         <if-compare field="create_allow_password" operator="not-equals" value="true">
             <set field="parameters.password" from-field="default_user_password" />

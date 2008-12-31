@@ -67,7 +67,7 @@ under the License.
         </if-compare-field>
 
         <if-empty field="parameters.asOfDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="asOfDate" from-field="nowTimestamp"/>
             <else>
                 <set field="asOfDate" from-field="parameters.asOfDate"/>

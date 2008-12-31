@@ -69,7 +69,7 @@
         <if-not-empty field="workEffortPartyAssignments">
             <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignments"/>
             <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId">
-                <now-timestamp-to-env env-name="workEffortPartyAssignment.thruDate"/>
+                <now-timestamp field="workEffortPartyAssignment.thruDate"/>
                 <store-value value-field="workEffortPartyAssignment"/>
             </if-compare-field>
         </if-not-empty>
@@ -89,7 +89,7 @@
                 <set field="workEffortPartyAssignment.workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortPartyAssignment.partyId" from-field="updProjectRole.newPartyId"/>
                 <set field="workEffortPartyAssignment.roleTypeId" from-field="updProjectRole.roleTypeId"/>
-                <now-timestamp-to-env env-name="workEffortPartyAssignment.fromDate"/>
+                <now-timestamp field="workEffortPartyAssignment.fromDate"/>
                 <create-value value-field="workEffortPartyAssignment"/>
             </then>
         </if>
@@ -197,7 +197,7 @@
             </iterate>
         </if-not-empty>
         <if-empty field="status">
-            <now-timestamp-to-env env-name="parameters.actualCompletionDate"/>
+            <now-timestamp field="parameters.actualCompletionDate"/>
             <set field="parameters.currentStatusId" value="PTS_COMPLETED"/>
             <call-simple-method method-name="updateWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             <!-- check for related customer request, set these too to completed -->
@@ -349,8 +349,8 @@
                         <get-related value-field="task" relation-name="ToWorkEffortAssoc" list="t.prevTasks"/>
                         <if-empty field="t.prevTasks">
                             <!-- no predecessors so i can set the dates -->
-                            <now-timestamp-to-env env-name="upd.estimatedStartDate"/>
-                            <now-timestamp-to-env env-name="currentDate"/>
+                            <now-timestamp field="upd.estimatedStartDate"/>
+                            <now-timestamp field="currentDate"/>
                             <call-class-method class-name="org.ofbiz.project.Various" method-name="calculateCompletionDate" ret-field="upd.estimatedCompletionDate">
                                 <field field="task" type="org.ofbiz.entity.GenericValue"/>
                                 <field field="currentDate" type="java.sql.Timestamp"/>
@@ -405,7 +405,7 @@
         <!-- check if the actual start date is set, when not set it to todays date -->
         <if-empty field="project.actualStartDate">
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-            <now-timestamp-to-env env-name="workEffort.actualStartDate"/>
+            <now-timestamp field="workEffort.actualStartDate"/>
             <store-value value-field="workEffort"/>
         </if-empty>
         

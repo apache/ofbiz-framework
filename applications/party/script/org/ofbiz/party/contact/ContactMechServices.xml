@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
         <make-value value-field="newValue" entity-name="ContactMech"/>
         <if-empty field="parameters.contactMechId">
-            <sequenced-id-to-env sequence-name="ContactMech" env-name="newValue.contactMechId"/>
+            <sequenced-id sequence-name="ContactMech" field="newValue.contactMechId"/>
             <else>
                 <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
             </else>
@@ -299,7 +299,7 @@ under the License.
         
         <first-from-list list="emailAddressVerifications" entry="emailAddressVerification"/>
         <if-not-empty field="emailAddressVerification">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">
                  <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressVerificationExpired"/></add-error>
             </if-compare-field>

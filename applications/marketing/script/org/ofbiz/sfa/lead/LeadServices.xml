@@ -100,7 +100,7 @@
         <log level="verbose" message=" ${partyGroupPartyId}"></log>
         <if-not-empty field="parameters.leadSource">
             <make-value entity-name="DataSource" value-field="dataSource"/>
-            <sequenced-id-to-env sequence-name="DataSource" env-name="dataSourceId"/>
+            <sequenced-id sequence-name="DataSource" field="dataSourceId"/>
             <set field="dataSource.dataSourceId" from-field="dataSourceId"/>
             <set field="dataSource.dataSourceTypeId" value="LEAD_SOURCE"/>
             <set field="dataSource.description" from-field="parameters.leadSource"/>
@@ -109,7 +109,7 @@
             <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
             <set field="partyDataSource.partyId" from-field="partyId"/>
             <set field="partyDataSource.dataSourceId" from-field="dataSourceId"/>
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="partyDataSource.fromDate" from-field="nowTimestamp"/>
             <set field="partyDataSource.isCreate" value="Y"/>
             <create-value value-field="partyDataSource"/>

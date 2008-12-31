@@ -38,7 +38,7 @@ under the License.
 
     <simple-method method-name="tc_ReceiveProductQty" short-description="Receive Product to Facility" login-required="false">
         <log level="info" message="Receive product ${parameters.productId} qty ${parameters.qty} to location ${parameters.location} in facility ${parameters.facilityId} "/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <clear-field field="receiveCtx"/>
         <set from-field="parameters.facilityId" field="receiveCtx.facilityId"/>
         <set from-field="parameters.productId" field="receiveCtx.productId"/>
