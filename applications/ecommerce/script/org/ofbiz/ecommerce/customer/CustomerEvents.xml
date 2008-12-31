@@ -412,7 +412,7 @@ under the License.
             <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
             <if-not-empty field="storeEmail.bodyScreenLocation">
                 <!-- prepare the email context -->
-                <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="personObj"/>
+                <get-related-one value-name="createdUserLogin" relation-name="Person" to-value-field="personObj"/>
                 <set from-field="createdUserLogin" field="emailCtx.userLogin"/>
                 <set from-field="personObj" field="emailCtx.person"/>
                 <!-- prepare the notification service context -->

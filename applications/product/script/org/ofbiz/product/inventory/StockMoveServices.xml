@@ -89,7 +89,7 @@ under the License.
                 <else>
                     <!-- should generally only be one pick/primary location, just choose the first... -->
                     <first-from-list entry="productFacilityLocationView" list="productFacilityLocationViewList"/>
-                    <get-related-one value-field="productFacilityLocationView" relation-name="FacilityLocation" to-value-field="moveInfo.facilityLocationTo"/>
+                    <get-related-one value-name="productFacilityLocationView" relation-name="FacilityLocation" to-value-field="moveInfo.facilityLocationTo"/>
                     <get-related-one value-field="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-field="moveInfo.targetProductFacilityLocation"/>
 
                     <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
@@ -251,10 +251,10 @@ under the License.
                         </condition>
                         <then>
                             <if-compare-field field="productFacilityLocationQuantityTest.productId" to-field="productSave.productId" operator="not-equals">
-                                <get-related-one value-field="productFacilityLocationQuantityTest" relation-name="Product" to-value-field="productSave"/>
+                                <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="Product" to-value-field="productSave"/>
                                  <clear-field field="fromLocationTotalAvailableToPromise"/>
                             </if-compare-field>
-                            <get-related-one value-field="productFacilityLocationQuantityTest" relation-name="FacilityLocation" to-value-field="targetFacilityLocationSave"/>
+                            <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="FacilityLocation" to-value-field="targetFacilityLocationSave"/>
 
                             <!-- create a moveInfo for each from location with a corresponding quantity -->
                             <entity-and entity-name="InventoryItemAndLocation" list="inventoryItemAndLocationList">
@@ -302,7 +302,7 @@ under the License.
                                         <set from-field="productSave" field="moveInfo.product"/>
                                         <set from-field="targetFacilityLocationSave" field="moveInfo.facilityLocationTo"/>
                                         <first-from-list entry="InventoryItemAndLocation" list="perLocationInventoryItemAndLocList"/>
-                                        <get-related-one value-field="InventoryItemAndLocation" relation-name="FacilityLocation" to-value-field="moveInfo.facilityLocationFrom"/>
+                                        <get-related-one value-name="InventoryItemAndLocation" relation-name="FacilityLocation" to-value-field="moveInfo.facilityLocationFrom"/>
                                         <get-related-one value-field="productFacilityLocationQuantityTest" relation-name="ProductFacilityLocation" to-value-field="moveInfo.targetProductFacilityLocation"/>
                                         <set from-field="productFacilityLocationQuantityTest.availableToPromiseTotal" field="moveInfo.availableToPromiseTotalTo"/>
                                         <set from-field="productFacilityLocationQuantityTest.quantityOnHandTotal" field="moveInfo.quantityOnHandTotalTo"/>
@@ -480,7 +480,7 @@ under the License.
                 -->
                 <set from-field="inventoryItem.quantityOnHandTotal" field="remainingQuantityOnHand"/>
                 <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
-                    <get-related-one value-field="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-field="orderItemShipGrpInvRes"/>
+                    <get-related-one value-name="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-field="orderItemShipGrpInvRes"/>
                     
                     <!-- see if there is enough physically moved over to move this reservation -->
                     <!-- note that we need to check this because if there was a reservation against an 

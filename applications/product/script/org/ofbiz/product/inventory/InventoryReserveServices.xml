@@ -170,7 +170,7 @@ under the License.
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
-                            <get-related-one value-field="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
+                            <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
                             <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
@@ -235,7 +235,7 @@ under the License.
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
-                            <get-related-one value-field="newNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
+                            <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
                             <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
@@ -450,8 +450,8 @@ under the License.
                         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                         <clear-field field="reserveOisgirMap"/>
 
-                        <calculate field="parameters.quantityNotReserved" >
-                            <calcop operator="subtract" field="parameters.quantityNotReserved" >
+                        <calculate field="quantityNotReserved" map-name="parameters">
+                            <calcop operator="subtract" field="quantityNotReserved" map-name="parameters">
                                 <calcop operator="get" field="deductAmount" map-name="parameters"/>
                             </calcop>
                         </calculate>
@@ -466,7 +466,7 @@ under the License.
     
     <simple-method method-name="getPromisedDateTime" short-description="Get Inventory Promised Date/Time">
         <!-- get the promiseDatetime -->
-        <get-related-one value-field="inventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
+        <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
         <set field="daysToShip" from-field="productFacility.daysToShip"/>
         <if-empty field="daysToShip">
             <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
