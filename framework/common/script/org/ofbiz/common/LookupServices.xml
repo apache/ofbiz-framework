@@ -31,12 +31,12 @@ under the License.
         <iterate entry="party" list="parties">
         	<set from-field="party.firstName" field="resultEntry.label"/>
         	<set from-field="party.partyId" field="resultEntry.value"/>
-        	<field-to-list field-name="resultEntry" list-name="lookupResult"/>
+        	<field-to-list field="resultEntry" list="lookupResult"/>
         </iterate>
         <if-empty field="parties">
         	<set value="No match" field="resultEntry.label"/>
         	<set value="" field="resultEntry.value"/>
-        	<field-to-list field-name="resultEntry" list-name="lookupResult"/>
+        	<field-to-list field="resultEntry" list="lookupResult"/>
         </if-empty>
         <field-to-result field="lookupResult"/>    
     </simple-method>       

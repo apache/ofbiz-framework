@@ -1331,7 +1331,7 @@ under the License.
         <iterate list="orderItemAndShipGrpInvResAndItemList" entry="orderItemAndShipGrpInvResAndItem">
             <if>
                 <condition><not><if-compare-field field="orderItemShipGrpInvResFacilityIds" to-field="orderItemAndShipGrpInvResAndItem.facilityId" operator="contains"/></not></condition>
-                <then><field-to-list field-name="orderItemAndShipGrpInvResAndItem.facilityId" list-name="orderItemShipGrpInvResFacilityIds"/></then>
+                <then><field-to-list field="orderItemAndShipGrpInvResAndItem.facilityId" list="orderItemShipGrpInvResFacilityIds"/></then>
             </if>
         </iterate>
 
@@ -1435,7 +1435,7 @@ under the License.
         <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values 
              This Map is actually used only for sales orders' shipments right now.  -->
         <iterate list="orderItemAndShipGroupAssocList" entry="orderItemAndShipGroupAssoc">
-            <field-to-list field-name="orderItemAndShipGroupAssoc" list-name="orderItemListByShGrpMap.${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
+            <field-to-list field="orderItemAndShipGroupAssoc" list="orderItemListByShGrpMap.${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
         </iterate>
     </simple-method>
 
@@ -1550,7 +1550,7 @@ under the License.
                 <set from-field="shipment.shipmentId" field="shipmentShipGroupFacility.shipmentId"/>
                 <set from-field="facility.facilityId" field="shipmentShipGroupFacility.facilityId"/>
                 <set from-field="orderItemShipGroup.shipGroupSeqId" field="shipmentShipGroupFacility.shipGroupSeqId"/>
-                <field-to-list field-name="shipmentShipGroupFacility" list-name="shipmentShipGroupFacilityList"/>
+                <field-to-list field="shipmentShipGroupFacility" list="shipmentShipGroupFacilityList"/>
                 <string-to-list string="Created shipment with ID [${shipmentShipGroupFacility.shipmentId}] for ship group ID [${shipmentShipGroupFacility.shipGroupSeqId}] for facility ID [${shipmentShipGroupFacility.facilityId}]" list-name="successMessageList"/>
                 <clear-field field="shipmentShipGroupFacility"/>
             </else>

@@ -82,7 +82,7 @@
             <call-simple-method method-name="getMerchantPrivateItemData"/>
             <!-- tax table for item-->
             <call-simple-method method-name="getItemTaxTable"/>
-            <field-to-list field-name="thisItem" list-name="items"/>
+            <field-to-list field="thisItem" list="items"/>
             <clear-field field="thisItem"/>
         </iterate>
     </simple-method>
@@ -131,12 +131,12 @@
 
         <iterate entry="" list="">
 
-            <field-to-list field-name="" list-name="shippingMethods"/>
+            <field-to-list field="" list="shippingMethods"/>
         </iterate>
     </simple-method>
     <simple-method method-name="getDefaultTaxRules" short-description="">
 
-        <field-to-list field-name="" list-name="defaultRules"/>
+        <field-to-list field="" list="defaultRules"/>
     </simple-method>
     <simple-method method-name="isMerchantCalculated"
             short-description="">

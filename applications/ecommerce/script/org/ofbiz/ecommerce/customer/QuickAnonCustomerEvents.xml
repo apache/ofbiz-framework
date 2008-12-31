@@ -66,7 +66,7 @@ under the License.
                 <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
                 <if-not-empty field="existingUserLogin">
                     <set field="tempErrorMessage" value="Username in use, please choose another." />
-                    <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                    <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-not-empty>
             </if-not-empty>
 
@@ -234,13 +234,13 @@ under the License.
             <if-compare value="USA" operator="equals" field="parameters.shipToCountryGeoId">
                 <if-empty field="parameters.shipToStateProvinceGeoId">
                     <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                    <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                    <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-empty>
             </if-compare>
             <if-compare value="CAN" operator="equals" field="parameters.shipToCountryGeoId">
                 <if-empty field="parameters.shipToStateProvinceGeoId">
                     <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                    <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                    <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-empty>
             </if-compare>
         </if-compare>
@@ -268,13 +268,13 @@ under the License.
                 <if-compare value="USA" operator="equals" field="parameters.billToCountryGeoId">
                     <if-empty field="parameters.billToStateProvinceGeoId">
                         <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                        <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                        <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.billToCountryGeoId">
                     <if-empty field="parameters.billToStateProvinceGeoId">
                         <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                        <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                        <field-to-list field="tempErrorMessage" list="error_list"/>
                     </if-empty>
                 </if-compare>
             </if-compare>

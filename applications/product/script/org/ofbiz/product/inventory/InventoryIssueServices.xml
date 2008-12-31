@@ -108,7 +108,7 @@ under the License.
                 </if-compare>
             </else>
             </if-compare>
-            <field-to-list field-name="orderByString" list-name="orderByList"/>
+            <field-to-list field="orderByString" list="orderByList"/>
             <set field="lookupFieldMap.productId" from-field="orderItem.productId" />
             <set field="lookupFieldMap.facilityId" from-field="orderHeader.originFacilityId" />            
             <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list-name="inventoryItemList" order-by-list="orderByList"/>

@@ -732,7 +732,7 @@
                 </then>
             </if>
             
-            <field-to-list field-name="highInfo" list-name="phaseList"/>
+            <field-to-list field="highInfo" list="phaseList"/>
         </iterate>
         </if-not-empty>
         
@@ -760,7 +760,7 @@
                 <call-simple-method method-name="getHours"/>
                 <set field="highInfo.workEffortId" from-field="lowInfo.workEffortId"/>
                 <set field="highInfo.workEffortName" from-field="lowInfo.workEffortName"/>
-                <field-to-list field-name="highInfo" list-name="taskList"/>
+                <field-to-list field="highInfo" list="taskList"/>
                 <clear-field field="highInfo"/>
             </iterate>
         </if-not-empty>
@@ -804,7 +804,7 @@
                         </and>
                     </condition>
                     <then>
-                        <field-to-list field-name="projectParty" list-name="projectParties"/>
+                        <field-to-list field="projectParty" list="projectParties"/>
                         <clear-field field="projectParty"/>
                         <clear-field field="highInfo"/>
                     </then>
@@ -832,7 +832,7 @@
                 
             </iterate>
             <if-not-empty field="projectParty">
-                <field-to-list field-name="projectParty" list-name="projectParties"/>
+                <field-to-list field="projectParty" list="projectParties"/>
             </if-not-empty>
             <if-not-empty field="projectParties">
                 <field-to-result field="projectParties"/>                                                                                       
@@ -868,7 +868,7 @@
                         </and>
                     </condition>
                     <then>
-                        <field-to-list field-name="taskParty" list-name="taskParties"/>
+                        <field-to-list field="taskParty" list="taskParties"/>
                         <clear-field field="taskParty"/>
                     </then>
                 </if>
@@ -897,7 +897,7 @@
                 
             </iterate>
             <if-not-empty field="taskParty">
-                <field-to-list field-name="taskParty" list-name="taskParties"/>
+                <field-to-list field="taskParty" list="taskParties"/>
             </if-not-empty>
             <if-not-empty field="taskParties">
                 <field-to-result field="taskParties"/>                                                                                       
