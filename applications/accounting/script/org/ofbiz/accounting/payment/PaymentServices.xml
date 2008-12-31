@@ -202,7 +202,7 @@ under the License.
                             <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationMap"/>
                         </iterate>
                         <!-- if new status is cancelled and the payment is associated to an OrderPaymentPreference, update the status of that record too. -->
-                        <get-related-one value-name="payment" relation-name="OrderPaymentPreference" to-value-field="orderPaymentPreference"/>
+                        <get-related-one value-field="payment" relation-name="OrderPaymentPreference" to-value-field="orderPaymentPreference"/>
                         <if-not-empty field="orderPaymentPreference">
                             <set field="updateOrderPaymentPreferenceMap.orderPaymentPreferenceId" from-field="orderPaymentPreference.orderPaymentPreferenceId"/>
                             <set field="updateOrderPaymentPreferenceMap.cancelThis" value="true"/>
@@ -260,7 +260,7 @@ under the License.
         <set field="remainingAppliedAmount" from-field="invoiceTotalAmountPaid" type="BigDecimal"/>
         <set field="computedTotalAmount" value="0.0" type="BigDecimal"/>
         <iterate list="invoiceTerms" entry="invoiceTerm">
-            <get-related-one relation-name="TermType" value-name="invoiceTerm" to-value-field="termType" use-cache="true"/>
+            <get-related-one relation-name="TermType" value-field="invoiceTerm" to-value-field="termType" use-cache="true"/>
             <if-compare field="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
                 <clear-field field="invoicePaymentInfo"/>
                 <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>

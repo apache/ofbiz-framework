@@ -598,7 +598,7 @@ under the License.
                 This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
                 the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
             <iterate list="shipmentReceipts" entry="receipt">
-                <get-related-one relation-name="Shipment" value-name="receipt" to-value-field="shipment"/>
+                <get-related-one relation-name="Shipment" value-field="receipt" to-value-field="shipment"/>
                 <if-not-empty field="shipment.shipmentId">
                     <if-compare field="shipment.statusId" operator="not-equals" value="RETURN_RECEIVED">
                         <set field="serviceInput.shipmentId" from-field="shipment.shipmentId"/>
@@ -675,7 +675,7 @@ under the License.
         <set from-field="returnHeaderTypeId" field="createHeaderCtx.returnHeaderTypeId"/>
         
         <!-- get the return to party for customer return and return from party for vendor return from the product store -->
-        <get-related-one relation-name="ProductStore" value-name="orderHeader" to-value-field="productStore"/>
+        <get-related-one relation-name="ProductStore" value-field="orderHeader" to-value-field="productStore"/>
         <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <set field="createHeaderCtx.fromPartyId" from-field="orderRole.partyId"/>
             <set field="createHeaderCtx.toPartyId" from-field="productStore.payToPartyId"/>
@@ -897,7 +897,7 @@ under the License.
             </condition>
             <then>
                 <!-- get the returned order item -->
-                <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-field="orderItem"/>
+                <get-related-one value-field="returnItem" relation-name="OrderItem" to-value-field="orderItem"/>
                 <!-- get the order items of the replacement order associated to the returned item  -->
                 <set field="oiaMap.orderItemAssocTypeId" value="REPLACEMENT"/>
                 <get-related value-field="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list="replacementOrderItems"/>

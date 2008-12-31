@@ -30,7 +30,7 @@ under the License.
         <make-value value-field="productDimension" entity-name="ProductDimension"/>
         <set-nonpk-fields map="product" value-field="productDimension"/>
 
-        <get-related-one value-name="product" relation-name="ProductType" to-value-field="productType"/>
+        <get-related-one value-field="product" relation-name="ProductType" to-value-field="productType"/>
         <set field="productDimension.productType" from-field="productType.description"/>
 
         <field-to-result field="productDimension"/>
