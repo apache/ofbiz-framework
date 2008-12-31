@@ -54,7 +54,7 @@ under the License.
                 <!-- default to the default sequencing: QTESQ_STANDARD -->
                 <set from-field="parameters.quoteId" field="quoteIdTemp"/>
                 <if-empty field="quoteIdTemp">
-                    <sequenced-id sequence-name="Quote" field="quoteIdTemp"/>
+                    <sequenced-id-to-env sequence-name="Quote" env-name="quoteIdTemp"/>
                     <else>
                         <!-- check the provided ID --> 
                         <check-id field-name="quoteIdTemp"/>
@@ -99,7 +99,7 @@ under the License.
                 <result-to-field result-name="quoteId" field="newEntity.quoteId"/>
             </call-service>
         <else>
-            <sequenced-id sequence-name="Quote" field="newEntity.quoteId"/>
+            <sequenced-id-to-env sequence-name="Quote" env-name="newEntity.quoteId"/>
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.quoteId" result-name="quoteId"/>
@@ -510,7 +510,7 @@ under the License.
         <set value="PROPOSAL" field="newQuote.quoteTypeId"/>
 
         <!-- create a non existing ID -->
-        <sequenced-id sequence-name="Quote" field="quoteId"/>
+        <sequenced-id-to-env sequence-name="Quote" env-name="quoteId"/>
         <set from-field="quoteId" field="newQuote.quoteId"/>
         <set from-field="quoteId" field="newQuoteItem.quoteId"/>
         <make-next-seq-id value-field="newQuoteItem" seq-field-name="quoteItemSeqId"/>
@@ -647,7 +647,7 @@ under the License.
 
         <iterate list="adjustments" entry="adjustment">
             <set from-field="parameters.quoteId" field="adjustment.quoteId"/>
-            <sequenced-id sequence-name="QuoteAdjustment" field="adjustment.quoteAdjustmentId"/>
+            <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
             <create-value value-field="adjustment"/>
         </iterate>
     </simple-method>
@@ -660,8 +660,8 @@ under the License.
         <make-value value-field="newEntity" entity-name="QuoteAdjustment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id sequence-name="QuoteAdjustment" field="quoteAdjustmentId"/>
-        <now-timestamp field="newEntity.createdDate"/>
+        <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="quoteAdjustmentId"/>
+        <now-timestamp-to-env env-name="newEntity.createdDate"/>
         <set from-field="quoteAdjustmentId" field="newEntity.quoteAdjustmentId"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field="quoteAdjustmentId" result-name="quoteAdjustmentId"/>
@@ -767,7 +767,7 @@ under the License.
                 <call-object-method obj-field-name="parameters.cart" method-name="makeAllQuoteAdjustments" ret-field="adjustments"/>
                 <iterate list="adjustments" entry="adjustment">
                     <set from-field="quote.quoteId" field="adjustment.quoteId"/>
-                    <sequenced-id sequence-name="QuoteAdjustment" field="adjustment.quoteAdjustmentId"/>
+                    <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
                     <create-value value-field="adjustment"/>
                 </iterate>
             </then>

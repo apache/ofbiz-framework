@@ -64,7 +64,7 @@ under the License.
             </if-compare>
         </if-empty>
 
-        <sequenced-id sequence-name="ShoppingList" field="newEntity.shoppingListId"/>
+        <sequenced-id-to-env sequence-name="ShoppingList" env-name="newEntity.shoppingListId"/>
         <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -133,7 +133,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp field="shoppingList.lastAdminModified"/>
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-field="shoppingList"/>
         </if-compare-field>
     </simple-method>
@@ -159,7 +159,7 @@ under the License.
         </if-compare>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp field="shoppingList.lastAdminModified"/>
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-field="shoppingList"/>
         </if-compare-field>
     </simple-method>
@@ -175,7 +175,7 @@ under the License.
         <remove-value value-field="shoppingListItem"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp field="shoppingList.lastAdminModified"/>
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-field="shoppingList"/>
         </if-compare-field>
     </simple-method>

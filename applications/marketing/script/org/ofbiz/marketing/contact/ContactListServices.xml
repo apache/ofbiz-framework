@@ -27,7 +27,7 @@ under the License.
 
         <make-value entity-name="ContactList" value-field="newEntity"/>
         <if-empty field="parameters.contactListId">
-            <sequenced-id sequence-name="ContactList" field="newEntity.contactListId"/>
+            <sequenced-id-to-env sequence-name="ContactList" env-name="newEntity.contactListId"/>
             <else>
                 <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
             </else>            
@@ -107,7 +107,7 @@ under the License.
         <make-value entity-name="ContactListParty" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         
         <create-value value-field="newEntity"/>
         
@@ -176,7 +176,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <now-timestamp field="newEntity.statusDate"/>
+        <now-timestamp-to-env env-name="newEntity.statusDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.setByUserLoginId"/>
         
         <!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING -->

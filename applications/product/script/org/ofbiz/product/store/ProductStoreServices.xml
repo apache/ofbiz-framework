@@ -37,14 +37,14 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id sequence-name="ProductStore" field="productStoreId" />
+        <sequenced-id-to-env sequence-name="ProductStore" env-name="productStoreId" />
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
 
         <field-to-result field="productStoreId" result-name="productStoreId"/>
         <create-value value-field="newEntity"/>
 
         <!-- create the ProductStoreFacility record -->
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if-not-empty field="newEntity.inventoryFacilityId">
             <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
@@ -76,7 +76,7 @@ under the License.
         <store-value value-field="store"/>
 
         <!-- update the ProductStoreFacility record -->
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <if-compare-field field="store.inventoryFacilityId" to-field="oldFacilityId" operator="not-equals">
             <if-compare field="store.oneInventoryFacility" operator="equals" value="Y">
                 <!-- expire all the facilities -->
@@ -107,7 +107,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -228,7 +228,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStoreShipmentMeth"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="ProductStoreShipmentMeth" field="newEntity.productStoreShipMethId"/>
+        <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -266,7 +266,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -282,7 +282,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="lookedUpValue.thruDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="lookedUpValue.thruDate"/>
         </if-empty>
         <store-value value-field="lookedUpValue"/>
@@ -298,7 +298,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -333,13 +333,13 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductStoreSurveyAppl"/>
-        <sequenced-id sequence-name="ProductStoreSurveyAppl" field="productStoreSurveyId"/>
+        <sequenced-id-to-env sequence-name="ProductStoreSurveyAppl" env-name="productStoreSurveyId"/>
         <set from-field="productStoreSurveyId" field="newEntity.productStoreSurveyId"/>
         <field-to-result field="productStoreSurveyId" result-name="productStoreSurveyId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -355,7 +355,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="lookedUpValue.thruDate">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="lookedUpValue.thruDate"/>
         </if-empty>
         <store-value value-field="lookedUpValue"/>

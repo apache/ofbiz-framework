@@ -105,7 +105,7 @@ under the License.
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->
         <if-empty field="parameters.asOfTimestamp">
-            <now-timestamp field="nowTimestamp"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
         <else>
             <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>  
         </else>            

@@ -27,7 +27,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="EntitySync"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id sequence-name="EntitySync" field="entitySyncId"/>
+        <sequenced-id-to-env sequence-name="EntitySync" env-name="entitySyncId"/>
         <set field="newEntity.entitySyncId" from-field="entitySyncId"/>
         <field-to-result field="entitySyncId" result-name="entitySyncId"/>
 
@@ -62,7 +62,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp field="newEntity.startDate"/>
+        <now-timestamp-to-env env-name="newEntity.startDate"/>
         <field-to-result field="newEntity.startDate" result-name="startDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

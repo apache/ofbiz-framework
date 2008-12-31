@@ -34,7 +34,7 @@ under the License.
             </call-service>
         </if-compare>
         <if-empty field="parameters.fromDate">
-            <now-timestamp field="parameters.fromDate"/>
+            <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>    
         <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context1"/>

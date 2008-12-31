@@ -32,12 +32,12 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <make-value value-field="newEntity" entity-name="ProductCategory"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="parameters.productCategoryId">
-            <sequenced-id sequence-name="ProductCategory" field="newEntity.productCategoryId"/>
+            <sequenced-id-to-env sequence-name="ProductCategory" env-name="newEntity.productCategoryId"/>
         <else>
             <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
             <check-id field-name="newEntity.productCategoryId"/>
@@ -94,7 +94,7 @@ under the License.
                 <make-value entity-name="ProductCategoryRollup" value-field="newRollup"/>
                 <field-to-field field-name="productCategoryId" map-name="lookedUpValue" to-field-name="productCategoryId" to-map-name="newRollup"/>
                 <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-field-name="parentProductCategoryId" to-map-name="newRollup"/>
-                <now-timestamp field="nowTimestamp"/>
+                <now-timestamp-to-env env-name="nowTimestamp"/>
                 <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newRollup"/>
                 <create-value value-field="newRollup"/>
             </if-compare-field>
@@ -120,7 +120,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -145,7 +145,7 @@ under the License.
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-field="newEntity"/>
@@ -165,7 +165,7 @@ under the License.
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-field="newEntity"/>
@@ -227,7 +227,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -273,7 +273,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -294,7 +294,7 @@ under the License.
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-field="newEntity"/>
@@ -313,7 +313,7 @@ under the License.
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-field="newEntity"/>
@@ -439,7 +439,7 @@ under the License.
         <if-not-empty field="parameters.thruDate">
             <set field="expireTimestamp" from-field="parameters.thruDate"/>
             <else>
-                <now-timestamp field="expireTimestamp"/>
+                <now-timestamp-to-env env-name="expireTimestamp"/>
             </else>
         </if-not-empty>
 
@@ -461,7 +461,7 @@ under the License.
         <if-not-empty field="parameters.validDate">
             <set field="expireTimestamp" from-field="parameters.validDate"/>
             <else>
-                <now-timestamp field="expireTimestamp"/>
+                <now-timestamp-to-env env-name="expireTimestamp"/>
             </else>
         </if-not-empty>
 
@@ -678,7 +678,7 @@ under the License.
         <!-- now set the rest of the PK fields (should just be fromDate now; unless linkSeqId is not empty -->
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createReturnHeader" short-description="Create a ReturnHeader">
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if>
             <condition>
@@ -92,7 +92,7 @@ under the License.
             </call-service>
 
             <else>
-                <sequenced-id sequence-name="ReturnHeader" field="newEntity.returnId"/>
+                <sequenced-id-to-env sequence-name="ReturnHeader" env-name="newEntity.returnId"/>
             </else>
         </if-compare>
         <field-to-result field="newEntity.returnId" result-name="returnId"/>
@@ -513,7 +513,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ReturnAdjustment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="ReturnAdjustment" field="newEntity.returnAdjustmentId"/>
+        <sequenced-id-to-env sequence-name="ReturnAdjustment" env-name="newEntity.returnAdjustmentId"/>
         <field-to-result field="newEntity.returnAdjustmentId" result-name="returnAdjustmentId"/>
         <create-value value-field="newEntity"/>
         <set field="responseMessage" value="Return Adjustment #${newEntity.returnAdjustmentId} was created successfully."/>
@@ -564,13 +564,13 @@ under the License.
                 <!-- create status change history -->
                 <!-- TODO: this should be done with a createReturnStatus service call -->
                 <make-value entity-name="ReturnStatus" value-field="newReturnStatus"/>
-                <sequenced-id sequence-name="ReturnStatus" field="newReturnStatus.returnStatusId"/>
+                <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newReturnStatus.returnStatusId"/>
                 
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnItemSeqId"/>
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnId"/>
                 <set field="newReturnStatus.statusId" from-field="returnItem.statusId"/>
                 
-                <now-timestamp field="newReturnStatus.statusDatetime"/>
+                <now-timestamp-to-env env-name="newReturnStatus.statusDatetime"/>
                 
                 <create-value value-field="newReturnStatus"/>
             </if-compare-field>
@@ -614,12 +614,12 @@ under the License.
             <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
             <!-- create the status history -->
             <make-value entity-name="ReturnStatus" value-field="newValue"/>
-            <sequenced-id sequence-name="ReturnStatus" field="newValue.returnStatusId"/>
+            <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newValue.returnStatusId"/>
             
             <set field="newValue.returnId" from-field="returnHeader.returnId"/>
             <set field="newValue.statusId" value="RETURN_RECEIVED"/>
             
-            <now-timestamp field="newValue.statusDatetime"/>
+            <now-timestamp-to-env env-name="newValue.statusDatetime"/>
             
             <create-value value-field="newValue"/>
         </if-compare>
@@ -629,7 +629,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createReturnItemResponse" short-description="Create a ReturnItemResponse">
         <make-value value-field="newEntity" entity-name="ReturnItemResponse"/>
-        <sequenced-id sequence-name="ReturnItemResponse" field="newEntity.returnItemResponseId"/>
+        <sequenced-id-to-env sequence-name="ReturnItemResponse" env-name="newEntity.returnItemResponseId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.returnItemResponseId" result-name="returnItemResponseId"/>

@@ -25,7 +25,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCode you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value value-field="newEntity" entity-name="TrackingCode"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -43,7 +43,7 @@ under the License.
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCode you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -70,7 +70,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCodeType you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value value-field="newEntity" entity-name="TrackingCodeType"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -85,7 +85,7 @@ under the License.
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCodeType you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -105,7 +105,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         <make-value value-field="newEntity" entity-name="TrackingCodeOrder"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -116,7 +116,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCodeOrder" short-description="Update an TrackingCodeOrder">
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -131,7 +131,7 @@ under the License.
 
     <!-- add service for tracking code return -->
     <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         <make-value value-field="newEntity" entity-name="TrackingCodeOrderReturn"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -170,7 +170,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateTrackingCodeOrderReturn" short-description="update an TrackingCodeOrderReturn">
-        <now-timestamp field="nowStamp"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>

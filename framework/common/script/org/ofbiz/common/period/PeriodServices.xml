@@ -28,7 +28,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CustomTimePeriod"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id sequence-name="CustomTimePeriod" field="customTimePeriodId"/>
+        <sequenced-id-to-env sequence-name="CustomTimePeriod" env-name="customTimePeriodId"/>
         <set from-field="customTimePeriodId" field="newEntity.customTimePeriodId"/>
         <field-to-result field="customTimePeriodId" result-name="customTimePeriodId"/>
         
