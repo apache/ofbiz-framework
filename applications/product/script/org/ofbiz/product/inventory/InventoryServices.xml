@@ -769,10 +769,10 @@ under the License.
                             </and>
                         </condition>
                         <then>
-                            <field-to-list field-name="item" list-name="privilegedReservations"/>
+                            <field-to-list field="item" list="privilegedReservations"/>
                         </then>
                         <else>
-                            <field-to-list field-name="item" list-name="reservations"/>
+                            <field-to-list field="item" list="reservations"/>
                         </else>
                     </if>
                     <set field="reserveQtyAccum" value="${reserveQtyAccum + item.quantity}" type="BigDecimal"/>
@@ -788,7 +788,7 @@ under the License.
             <!-- if the new item is serialized, i.e. qoh is 1, we just need the first reservation -->
             <first-from-list entry="inventoryReservation" list="allReservations"/>
             <clear-field field="allReservations"/>
-            <field-to-list field-name="inventoryReservation" list-name="allReservations"/>
+            <field-to-list field="inventoryReservation" list="allReservations"/>
         </if-compare>
 
         <!-- FIRST, cancel all the reservations -->
@@ -884,10 +884,10 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <field-to-list field-name="oneRelatedRes" list-name="privilegedReservations"/>
+                        <field-to-list field="oneRelatedRes" list="privilegedReservations"/>
                     </then>
                     <else>
-                        <field-to-list field-name="oneRelatedRes" list-name="reservations"/>
+                        <field-to-list field="oneRelatedRes" list="reservations"/>
                     </else>
                 </if>
             </if-empty>

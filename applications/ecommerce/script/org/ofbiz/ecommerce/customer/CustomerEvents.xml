@@ -1073,7 +1073,7 @@ under the License.
             <if-not-empty field="carrierShipmentMethod.productStoreShipMethId">
                 <set field="shippingOptionMap.productStoreShipMethId" from-field="carrierShipmentMethod.productStoreShipMethId"/>
             </if-not-empty>
-            <field-to-list field-name="shippingOptionMap" list-name="shippingOptions"/>
+            <field-to-list field="shippingOptionMap" list="shippingOptions"/>
             <clear-field field="shippingOptionMap"/>
         </iterate>
          <set field="parameters.shippingOptions" from-field="shippingOptions"/>

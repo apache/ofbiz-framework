@@ -54,7 +54,7 @@ under the License.
         -->
         <!-- start by making a Map where the locationSeqId is the key and the value is a List of orderItemShipGrpInvResAndItemLocation -->
         <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
-            <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByLocMap.${orderItemShipGrpInvResAndItemLocation.locationSeqId}"/>
+            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByLocMap.${orderItemShipGrpInvResAndItemLocation.locationSeqId}"/>
         </iterate>
 
         <!-- now get all info for each origin location -->
@@ -62,7 +62,7 @@ under the License.
             <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
             <clear-field field="oiirailByProdMap"/>
             <iterate entry="orderItemShipGrpInvResAndItemLocation" list="perLocationOiirailList">
-                <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByProdMap[orderItemShipGrpInvResAndItemLocation.productId]"/>
+                <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByProdMap[orderItemShipGrpInvResAndItemLocation.productId]"/>
             </iterate>
 
             <clear-field field="perProductOiirailList"/>
@@ -178,7 +178,7 @@ under the License.
                     </if-compare-field>
 
                     <!-- add the moveInfo to the master list -->
-                    <field-to-list field-name="moveInfo" list-name="moveByOisgirInfoList"/>
+                    <field-to-list field="moveInfo" list="moveByOisgirInfoList"/>
                     <clear-field field="moveInfo"/>
                 </else>
                 </if-empty>
@@ -270,7 +270,7 @@ under the License.
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
                                 <clear-field field="InventoryItemAndLocationByLocMap"/>
                                 <iterate entry="InventoryItemAndLocation" list="inventoryItemAndLocationList">
-                                    <field-to-list field-name="InventoryItemAndLocation" list-name="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
+                                    <field-to-list field="InventoryItemAndLocation" list="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
                                 </iterate>
                                 <clear-field field="locationSeqId"/>
                                 <clear-field field="perLocationInventoryItemAndLocList"/>
@@ -328,7 +328,7 @@ under the License.
                                         </if-compare-field>
                                     
                                         <!-- add the moveInfo to the master list -->
-                                        <field-to-list field-name="moveInfo" list-name="moveByPflInfoList"/>
+                                        <field-to-list field="moveInfo" list="moveByPflInfoList"/>
                                         <clear-field field="moveInfo"/>
                                     </then>    
                                     </if>
@@ -441,7 +441,7 @@ under the License.
         <clear-field field="oiirailByInvItemMap"/>
         <log level="info" message="In processOisgirMoveByStatusInline orderItemShipGrpInvResAndItemLocationList=${orderItemShipGrpInvResAndItemLocationList}"/>
         <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
-            <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
+            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
         </iterate>
 
         <iterate-map key="inventoryItemId" value="orderItemShipGrpInvResAndItemLocationList" map="oiirailByInvItemMap">

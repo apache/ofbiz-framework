@@ -33,7 +33,7 @@ under the License.
                 <result-to-field map-name="captureResult" result-name="responseMessage" />
             </call-service>
             <if-compare operator="equals" field="captureResult.responseMessage" value="error">
-                <field-to-list map-name="orderHeaderAndPaymentPref" field-name="orderId" list-name="badOrders" />
+                <field-to-list map-name="orderHeaderAndPaymentPref" field="orderId" list="badOrders" />
             </if-compare>
         </iterate>
         <if-not-empty field="badOrders">

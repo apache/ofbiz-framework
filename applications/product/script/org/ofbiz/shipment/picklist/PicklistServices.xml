@@ -210,7 +210,7 @@ under the License.
                                             <set from-field="orderItemShipGrpInvRes" field="orderItemShipGrpInvResInfo.orderItemShipGrpInvRes"/>
                                             <set from-field="inventoryItem" field="orderItemShipGrpInvResInfo.inventoryItem"/>
                                             <set from-field="facilityLocation" field="orderItemShipGrpInvResInfo.facilityLocation"/>
-                                            <field-to-list field-name="orderItemShipGrpInvResInfo" list-name="orderItemShipGrpInvResInfoList"/>
+                                            <field-to-list field="orderItemShipGrpInvResInfo" list="orderItemShipGrpInvResInfoList"/>
                                             <clear-field field="orderItemShipGrpInvResInfo"/>
                                         </else>
                                     </if>
@@ -261,14 +261,14 @@ under the License.
                                     <get-related-one value-name="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.shipmentMethodType"/>
                                 </if-empty>
                                 <if-compare field="needsStockMove" operator="equals" value="Y">
-                                    <field-to-list field-name="orderHeaderInfo" list-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderNeedsStockMoveInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderNeedsStockMoveInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
-                                        <field-to-list field-name="orderHeaderInfo" list-name="rushOrderInfo.orderNeedsStockMoveInfoList"/>
+                                        <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderNeedsStockMoveInfoList"/>
                                     </if-compare>
                                 <else>
-                                    <field-to-list field-name="orderHeaderInfo" list-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderReadyToPickInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderReadyToPickInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
-                                        <field-to-list field-name="orderHeaderInfo" list-name="rushOrderInfo.orderReadyToPickInfoList"/>
+                                        <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderReadyToPickInfoList"/>
                                     </if-compare>
                                 </else>
                                 </if-compare>
@@ -304,7 +304,7 @@ under the License.
 
         <iterate entry="shipmentMethodType" list="shipmentMethodTypeList">
             <if-not-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}">
-                <field-to-list field-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}" list-name="pickMoveByShipmentMethodInfoList"/>
+                <field-to-list field="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}" list="pickMoveByShipmentMethodInfoList"/>
             </if-not-empty>
         </iterate>
 
@@ -328,7 +328,7 @@ under the License.
                     </or>
                 </condition>
                 <then>
-                    <field-to-list field-name="pickMoveByShipmentMethodInfo" list-name="limitedPickMoveByShipmentMethodInfoList"/>
+                    <field-to-list field="pickMoveByShipmentMethodInfo" list="limitedPickMoveByShipmentMethodInfoList"/>
                 </then>
             </if>
 
@@ -823,7 +823,7 @@ under the License.
 
         <iterate entry="picklist" list="picklistList">
             <call-simple-method method-name="getPicklistSingleInfoInline"/>
-            <field-to-list field-name="picklistInfo" list-name="picklistInfoList"/>
+            <field-to-list field="picklistInfo" list="picklistInfoList"/>
         </iterate>
 
         <field-to-result field="picklistInfoList"/>
@@ -1031,7 +1031,7 @@ under the License.
             <get-related-one value-name="picklistRole" relation-name="PartyNameView" to-value-field="picklistRoleInfo.partyNameView" use-cache="true"/>
             <get-related-one value-field="picklistRole" relation-name="RoleType" to-value-field="picklistRoleInfo.roleType" use-cache="true"/>
             <set from-field="picklistRole" field="picklistRoleInfo.picklistRole"/>
-            <field-to-list field-name="picklistRoleInfo" list-name="picklistRoleInfoList"/>
+            <field-to-list field="picklistRoleInfo" list="picklistRoleInfoList"/>
         </iterate>
 
         <clear-field field="picklistStatusHistoryInfoList"/>
@@ -1041,7 +1041,7 @@ under the License.
             <get-related-one value-name="picklistStatusHistory" relation-name="StatusItem" to-value-field="picklistStatusHistoryInfo.statusItem" use-cache="true"/>
             <get-related-one value-field="picklistStatusHistory" relation-name="ToStatusItem" to-value-field="picklistStatusHistoryInfo.statusItemTo" use-cache="true"/>
             <set from-field="picklistStatusHistory" field="picklistStatusHistoryInfo.picklistStatusHistory"/>
-            <field-to-list field-name="picklistStatusHistoryInfo" list-name="picklistStatusHistoryInfoList"/>
+            <field-to-list field="picklistStatusHistoryInfo" list="picklistStatusHistoryInfoList"/>
         </iterate>
 
         <clear-field field="picklistBinOrderList"/>
@@ -1065,12 +1065,12 @@ under the License.
                 <get-related value-field="picklistItem" relation-name="ItemIssuance" list="picklistItemInfo.itemIssuanceList"/>
                 <set from-field="picklistItem" field="picklistItemInfo.picklistItem"/>
                 <set from-field="picklistBin" field="picklistItemInfo.picklistBin"/>
-                <field-to-list field-name="picklistItemInfo" list-name="picklistItemInfoList"/>
+                <field-to-list field="picklistItemInfo" list="picklistItemInfoList"/>
             </iterate>
             <set from-field="picklistItemInfoList" field="picklistBinInfo.picklistItemInfoList"/>
 
             <set from-field="picklistBin" field="picklistBinInfo.picklistBin"/>
-            <field-to-list field-name="picklistBinInfo" list-name="picklistBinInfoList"/>
+            <field-to-list field="picklistBinInfo" list="picklistBinInfoList"/>
         </iterate>
 
         <clear-field field="picklistInfo"/>
@@ -1187,7 +1187,7 @@ under the License.
                 <get-related-one value-name="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
                 <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="StatusItem" to-value-field="inventoryItemInfo.statusItem"/>
 
-                <field-to-list field-name="inventoryItemInfo" list-name="inventoryItemInfoList"/>
+                <field-to-list field="inventoryItemInfo" list="inventoryItemInfoList"/>
 
                 <!-- before destroying inventoryItemInfo, add info to the productInfoMap -->
                 <set from-field="inventoryItemInfo.product" field="productInfoMap.${inventoryItemInfo.product.productId}.product"/>

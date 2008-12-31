@@ -528,7 +528,7 @@ under the License.
             <make-value value-field="newPartyRole" entity-name="PartyRole"/>
             <set from-field="parameters.quickAssignPartyId" field="newPartyRole.partyId"/>
             <set value="CAL_OWNER" field="newPartyRole.roleTypeId"/>
-            <field-to-list field-name="newPartyRole" list-name="newPartyRoleList"/>
+            <field-to-list field="newPartyRole" list="newPartyRoleList"/>
             <store-list list="newPartyRoleList"/>
             
             <make-value value-field="newWorkEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>

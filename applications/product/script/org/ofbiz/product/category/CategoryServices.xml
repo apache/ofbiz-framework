@@ -373,7 +373,7 @@ under the License.
         <iterate entry="productCategoryMember" list="productCategoryMembers">
             <clone-value value-name="productCategoryMember" new-value-name="newProductCategoryMember"/>
             <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
-            <field-to-list field-name="newProductCategoryMember" list-name="pcmsToStore"/>
+            <field-to-list field="newProductCategoryMember" list="pcmsToStore"/>
         </iterate>
         <store-list list="pcmsToStore"/>
 
@@ -425,7 +425,7 @@ under the License.
         <iterate entry="categoryEntity" list="categoryEntities">
             <clone-value value-name="categoryEntity" new-value-name="newCategoryEntity"/>
             <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
-            <field-to-list field-name="newCategoryEntity" list-name="entitiesToStore"/>
+            <field-to-list field="newCategoryEntity" list="entitiesToStore"/>
         </iterate>
         <store-list list="entitiesToStore"/>
       </simple-method>

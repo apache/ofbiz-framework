@@ -559,13 +559,13 @@
     <simple-method method-name="findAssocContent" short-description="Find associated content">
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
         <set field="mapKeys" from-field="parameters.mapKeys" />
-        <field-to-list field-name="mapKey" list-name="mapKeys"/>
+        <field-to-list field="mapKey" list="mapKeys"/>
         <iterate entry="mapKey" list="mapKeys">
             <set from-field="mapKey" field="queryMap.mapKey"/>
             <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
             <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
             <iterate entry="contentAssoc" list="validContent">
-                <field-to-list field-name="contentAssoc" list-name="result"/>
+                <field-to-list field="contentAssoc" list="result"/>
             </iterate>
         </iterate>
         <if>
