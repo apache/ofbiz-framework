@@ -332,7 +332,7 @@ under the License.
                 <!-- we do this by first calculating a postingAmount (positive or negative) then adding to the postingBalance -->
                 <clear-field field="postingAmount"/>
                 <!-- use the parent of the GlAccountClass, which should either be DEBIT or CREDIT -->
-                <get-related-one relation-name="GlAccountClass" value-name="glAccount" to-value-field="glAccountClass"/>
+                <get-related-one relation-name="GlAccountClass" value-field="glAccount" to-value-field="glAccountClass"/>
                 <get-related-one relation-name="ParentGlAccountClass" value-field="glAccountClass" to-value-field="parentGlAccountClass"/>
                 <!-- test if the account is a DEBIT account -->
                 <set field="isDebit" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
@@ -402,7 +402,7 @@ under the License.
 
                     <!-- update GlAccountHistory's debit and credit totals -->
                     <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                        <calculate field="glAccountHistory" type="BigDecimal.postedDebits" >
+                        <calculate field="postedDebits" map-name="glAccountHistory" type="BigDecimal">
                             <calcop operator="add">
                                 <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
                                 <calcop operator="get" field="postedDebits" map-name="glAccountHistory"/>

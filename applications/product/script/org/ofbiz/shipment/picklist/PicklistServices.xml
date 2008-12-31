@@ -129,13 +129,13 @@ under the License.
                         <set value="Y" field="allPickStarted"/>
                         <set value="N" field="hasStockToPick"/>
                         <iterate entry="orderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
-                            <get-related-one value-name="orderItemShipGrpInvRes" relation-name="OrderItem" to-value-field="orderItem"/>
+                            <get-related-one value-field="orderItemShipGrpInvRes" relation-name="OrderItem" to-value-field="orderItem"/>
                             <if-compare field="orderItem.statusId" value="ITEM_APPROVED" operator="not-equals">
                                 <set value="N" field="pickThisOrder"/>
                             </if-compare>
 
                             <if-compare field="pickThisOrder" operator="equals" value="Y">
-                                <get-related-one value-name="orderItemShipGrpInvRes" relation-name="InventoryItem" to-value-field="inventoryItem"/>
+                                <get-related-one value-field="orderItemShipGrpInvRes" relation-name="InventoryItem" to-value-field="inventoryItem"/>
                                 <!-- Look for other picklists which might include this order item ship group inventory reservation.  If it is on another picklist, then
                                     we should not include it again.  We screen out picklists which are either cancelled or already picked or packed, so that we can re-pick items if
                                     (1) the previous picklist was cancelled, or
@@ -199,7 +199,7 @@ under the License.
                                            </if>
 
                                             <!-- check InventoryItem->FacilityLocation (if exists), if it is of type FLT_BULK set needs stock move to true -->
-                                            <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-field="facilityLocation"/>
+                                            <get-related-one value-field="inventoryItem" relation-name="FacilityLocation" to-value-field="facilityLocation"/>
                                             <if-not-empty field="facilityLocation">
                                                 <if-compare field="facilityLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
                                                     <set value="Y" field="needsStockMove"/>
@@ -258,7 +258,7 @@ under the License.
                                 <!-- put in pick or move lists for the given shipmentMethodTypeId -->
                                 <set from-field="orderItemShipGroup.shipmentMethodTypeId" field="shipmentMethodTypeId"/>
                                 <if-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}">
-                                    <get-related-one value-name="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.shipmentMethodType"/>
+                                    <get-related-one value-field="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.shipmentMethodType"/>
                                 </if-empty>
                                 <if-compare field="needsStockMove" operator="equals" value="Y">
                                     <field-to-list field="orderHeaderInfo" list="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderNeedsStockMoveInfoList"/>
@@ -386,7 +386,7 @@ under the License.
                             <clear-field field="orderItemInfo"/>
                             <set field="orderItemInfo.orderItemAndShipGroupAssoc" from-field="orderItemAndShipGroupAssoc"/>
                             <set field="orderItemInfo.orderItemShipGrpInvResList" from-field="perItemResListValid"/>
-                            <get-related-one value-name="orderItemAndShipGroupAssoc" relation-name="Product" to-value-field="orderItemInfo.product" use-cache="true"/>
+                            <get-related-one value-field="orderItemAndShipGroupAssoc" relation-name="Product" to-value-field="orderItemInfo.product" use-cache="true"/>
                             <set field="orderItemInfoList[]" from-field="orderItemInfo"/>
                         </if-not-empty>
                         <clear-field field="perItemResListValid"/>
@@ -1028,7 +1028,7 @@ under the License.
         <get-related value-field="picklist" relation-name="PicklistRole" list="picklistRoleList"/>
         <iterate entry="picklistRole" list="picklistRoleList">
             <clear-field field="picklistRoleInfo"/>
-            <get-related-one value-name="picklistRole" relation-name="PartyNameView" to-value-field="picklistRoleInfo.partyNameView" use-cache="true"/>
+            <get-related-one value-field="picklistRole" relation-name="PartyNameView" to-value-field="picklistRoleInfo.partyNameView" use-cache="true"/>
             <get-related-one value-field="picklistRole" relation-name="RoleType" to-value-field="picklistRoleInfo.roleType" use-cache="true"/>
             <set from-field="picklistRole" field="picklistRoleInfo.picklistRole"/>
             <field-to-list field="picklistRoleInfo" list="picklistRoleInfoList"/>
@@ -1038,7 +1038,7 @@ under the License.
         <get-related value-field="picklist" relation-name="PicklistStatusHistory" list="picklistStatusHistoryList"/>
         <iterate entry="picklistStatusHistory" list="picklistStatusHistoryList">
             <clear-field field="picklistStatusHistoryInfo"/>
-            <get-related-one value-name="picklistStatusHistory" relation-name="StatusItem" to-value-field="picklistStatusHistoryInfo.statusItem" use-cache="true"/>
+            <get-related-one value-field="picklistStatusHistory" relation-name="StatusItem" to-value-field="picklistStatusHistoryInfo.statusItem" use-cache="true"/>
             <get-related-one value-field="picklistStatusHistory" relation-name="ToStatusItem" to-value-field="picklistStatusHistoryInfo.statusItemTo" use-cache="true"/>
             <set from-field="picklistStatusHistory" field="picklistStatusHistoryInfo.picklistStatusHistory"/>
             <field-to-list field="picklistStatusHistoryInfo" list="picklistStatusHistoryInfoList"/>
@@ -1051,16 +1051,16 @@ under the License.
         <get-related value-field="picklist" relation-name="PicklistBin" list-name="picklistBinList" order-by-list="picklistBinOrderList"/>
         <iterate entry="picklistBin" list="picklistBinList">
             <clear-field field="picklistBinInfo"/>
-            <get-related-one value-name="picklistBin" relation-name="PrimaryOrderHeader" to-value-field="picklistBinInfo.primaryOrderHeader"/>
+            <get-related-one value-field="picklistBin" relation-name="PrimaryOrderHeader" to-value-field="picklistBinInfo.primaryOrderHeader"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderItemShipGroup" to-value-field="picklistBinInfo.primaryOrderItemShipGroup"/>
 
             <clear-field field="picklistItemInfoList"/>
             <get-related value-field="picklistBin" relation-name="PicklistItem" list="picklistItemList" use-cache="true"/>
             <iterate entry="picklistItem" list="picklistItemList">
                 <clear-field field="picklistItemInfo"/>
-                <get-related-one value-name="picklistItem" relation-name="OrderItem" to-value-field="picklistItemInfo.orderItem"/>
+                <get-related-one value-field="picklistItem" relation-name="OrderItem" to-value-field="picklistItemInfo.orderItem"/>
                 <get-related-one value-field="picklistItemInfo.orderItem" relation-name="Product" to-value-field="picklistItemInfo.product"/>
-                <get-related-one value-name="picklistItem" relation-name="InventoryItemAndLocation" to-value-field="picklistItemInfo.inventoryItemAndLocation"/>
+                <get-related-one value-field="picklistItem" relation-name="InventoryItemAndLocation" to-value-field="picklistItemInfo.inventoryItemAndLocation"/>
                 <get-related-one value-field="picklistItem" relation-name="OrderItemShipGrpInvRes" to-value-field="picklistItemInfo.orderItemShipGrpInvRes"/>
                 <get-related value-field="picklistItem" relation-name="ItemIssuance" list="picklistItemInfo.itemIssuanceList"/>
                 <set from-field="picklistItem" field="picklistItemInfo.picklistItem"/>
@@ -1079,9 +1079,9 @@ under the License.
         <set from-field="picklistStatusHistoryInfoList" field="picklistInfo.picklistStatusHistoryInfoList"/>
         <set from-field="picklistBinInfoList" field="picklistInfo.picklistBinInfoList"/>
         <string-to-list string="sequenceId" list-name="orderBy"/>
-        <get-related-one value-name="picklist" relation-name="StatusItem" to-value-field="picklistInfo.statusItem" use-cache="true"/>
+        <get-related-one value-field="picklist" relation-name="StatusItem" to-value-field="picklistInfo.statusItem" use-cache="true"/>
         <get-related-one value-field="picklist" relation-name="Facility" to-value-field="picklistInfo.facility" use-cache="true"/>
-        <get-related-one value-name="picklist" relation-name="ShipmentMethodType" to-value-field="picklistInfo.shipmentMethodType" use-cache="true"/>
+        <get-related-one value-field="picklist" relation-name="ShipmentMethodType" to-value-field="picklistInfo.shipmentMethodType" use-cache="true"/>
         <get-related value-field="picklist" relation-name="StatusValidChangeToDetail" order-by-list="orderBy" list="picklistInfo.statusValidChangeToDetailList"/>
     </simple-method>
 
@@ -1143,7 +1143,7 @@ under the License.
 
             <!-- create a list of locations, then sort it, will have to create a reverse Map to go from location to inventory item -->
             <clear-field field="facilityLocation"/>
-            <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-field="facilityLocation"/>
+            <get-related-one value-field="inventoryItem" relation-name="FacilityLocation" to-value-field="facilityLocation"/>
             <if-not-empty field="facilityLocation">
                 <set from-field="facilityLocation" field="facilityLocationMap.${facilityLocation.locationSeqId}"/>
                 <!-- support multiple invnetoryItemIds per facilityLocation.locationSeqId -->
@@ -1184,7 +1184,7 @@ under the License.
                 <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItemInfo.inventoryItem"/>
                 <set from-field="inventoryItemOrderItems.${inventoryItemId}" field="inventoryItemInfo.orderItems"/>
                 <set from-field="inventoryItemQuantities.${inventoryItemId}" field="inventoryItemInfo.quantity"/>
-                <get-related-one value-name="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
+                <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
                 <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="StatusItem" to-value-field="inventoryItemInfo.statusItem"/>
 
                 <field-to-list field="inventoryItemInfo" list="inventoryItemInfoList"/>
@@ -1221,7 +1221,7 @@ under the License.
             <set from-field="inventoryItems${inventoryItemId}" field="inventoryItemInfo.inventoryItem"/>
             <set from-field="inventoryItemOrderItems.${inventoryItemId}" field="inventoryItemInfo.orderItems"/>
             <set from-field="inventoryItemQuantities.${inventoryItemId}" field="inventoryItemInfo.quantity"/>
-            <get-related-one value-name="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
+            <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
             <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="StatusItem" to-value-field="inventoryItemInfo.statusItem"/>
 
             <set from-field="inventoryItemInfo" field="inventoryItemInfoList[]"/>
