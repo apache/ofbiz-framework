@@ -285,7 +285,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="InventoryItemDetail"/>
 
         <set from-field="parameters.inventoryItemId" field="newEntity.inventoryItemId"/>
-        <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-name="newEntity" increment-by="1" numeric-padding="4"/> -->
+        <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-field="newEntity" increment-by="1" numeric-padding="4"/> -->
         <sequenced-id sequence-name="InventoryItemDetail" field="newEntity.inventoryItemDetailSeqId"/>
         <field-to-result field="newEntity.inventoryItemDetailSeqId" result-name="inventoryItemDetailSeqId"/>
 

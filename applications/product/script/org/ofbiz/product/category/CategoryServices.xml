@@ -671,7 +671,7 @@ under the License.
 
         <!-- don't set the fromDate yet; let's get the seq ID first -->
         <if-empty field="parameters.linkSeqId">
-            <make-next-seq-id value-name="newEntity" seq-field-name="linkSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <make-next-seq-id value-field="newEntity" seq-field-name="linkSeqId"/> <!-- this finds the next sub-sequence ID -->
             <set from-field="linkSeqId" field="newEntity.linkSeqId"/>
         </if-empty>
 

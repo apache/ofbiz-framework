@@ -764,7 +764,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductMaint"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="productMaintSeqId"/> <!-- this finds the next sub-sequence ID -->
+        <make-next-seq-id value-field="newEntity" seq-field-name="productMaintSeqId"/> <!-- this finds the next sub-sequence ID -->
         <field-to-result field="newEntity.productMaintSeqId" result-name="productMaintSeqId"/>
         <create-value value-field="newEntity"/>
     </simple-method>

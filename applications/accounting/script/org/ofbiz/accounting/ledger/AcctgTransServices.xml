@@ -72,7 +72,7 @@ under the License.
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
         </if-compare>
-        <make-next-seq-id value-name="newEntity" seq-field-name="acctgTransEntrySeqId" numeric-padding="5"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="acctgTransEntrySeqId" numeric-padding="5"/>
         <field-to-result field="newEntity.acctgTransEntrySeqId" result-name="acctgTransEntrySeqId"/>
 
         <!-- if not explicitly provided in the parameters, set the currency of the entry from PartyAcctgPreference -->

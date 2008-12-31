@@ -360,7 +360,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 		<if-empty field="newEntity.contentPurposeTypeId">
-			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-name="newEntity"/>
+			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-field="newEntity"/>
 		</if-empty>
         <create-value value-field="newEntity"/>
         <field-to-result map-name="newEntity" field="contentPurposeTypeId" />

@@ -290,7 +290,7 @@ under the License.
         <set from-field="parameters.quoteItemSeqId" field="newEntity.quoteItemSeqId"/>
         <if-empty field="newEntity.quoteItemSeqId">
             <!-- create a non existing ID -->
-            <make-next-seq-id value-name="newEntity" seq-field-name="quoteItemSeqId"/>
+            <make-next-seq-id value-field="newEntity" seq-field-name="quoteItemSeqId"/>
             <set from-field="quoteItemSeqId" field="newEntity.quoteItemSeqId"/>
         </if-empty>
         <field-to-result field="newEntity.quoteId" result-name="quoteId"/>
@@ -513,7 +513,7 @@ under the License.
         <sequenced-id sequence-name="Quote" field="quoteId"/>
         <set from-field="quoteId" field="newQuote.quoteId"/>
         <set from-field="quoteId" field="newQuoteItem.quoteId"/>
-        <make-next-seq-id value-name="newQuoteItem" seq-field-name="quoteItemSeqId"/>
+        <make-next-seq-id value-field="newQuoteItem" seq-field-name="quoteItemSeqId"/>
         <field-to-result field="quoteId" result-name="quoteId"/>
         <field-to-result field="newQuoteItem.quoteItemSeqId" result-name="quoteItemSeqId"/>
         

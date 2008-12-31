@@ -24,7 +24,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <if-empty field="currentContent.contentId">
-            <make-next-seq-id seq-field-name="contentId" value-name="currentContent"/>
+            <make-next-seq-id seq-field-name="contentId" value-field="currentContent"/>
             <sequenced-id field="id" sequence-name="Content"/>
             <set field="currentContent.contentId" from-field="id"/>
         </if-empty>
