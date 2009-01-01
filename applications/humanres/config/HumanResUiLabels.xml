@@ -42,12 +42,6 @@
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">ถึงวันตามความเป็นจริง</value>
     </property>
-    <property key="FormFieldTitle_amount">
-        <value xml:lang="en">Amount</value>
-        <value xml:lang="fr">Montant</value>
-        <value xml:lang="it">Importo</value>
-        <value xml:lang="th">จำนวน</value>
-    </property>
     <property key="FormFieldTitle_applicationDate">
         <value xml:lang="en">Application Date</value>
         <value xml:lang="fr">Date de demande d'emploi</value>
@@ -226,24 +220,6 @@
         <value xml:lang="it">Tipo Ruolo Manager</value>
         <value xml:lang="th">การจัดการประเภทสถานะ</value>
     </property>
-    <property key="FormFieldTitle_partyId">
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur</value>
-        <value xml:lang="it">Soggetto</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="FormFieldTitle_partyIdFrom">
-        <value xml:lang="en">Party Id From</value>
-        <value xml:lang="fr">Réf. d'acteur depuis</value>
-        <value xml:lang="it">Codice Soggetto Da</value>
-        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="FormFieldTitle_partyIdTo">
-        <value xml:lang="en">Party Id To</value>
-        <value xml:lang="fr">Réf. d'acteur vers</value>
-        <value xml:lang="it">Codice Soggetto A</value>
-        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
-    </property>
     <property key="FormFieldTitle_payGradeId">
         <value xml:lang="en">Pay Grade Id</value>
         <value xml:lang="fr">Réf. de catégorie de salaire</value>
@@ -285,24 +261,6 @@
         <value xml:lang="fr">Réf. de type de rôle vers</value>
         <value xml:lang="it">Storia Tipo Ruolo Pagamento A</value>
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลถึง</value>
-    </property>
-    <property key="FormFieldTitle_paymentId">
-        <value xml:lang="en">Payment Id</value>
-        <value xml:lang="fr">Réf. de paiement</value>
-        <value xml:lang="it">Pagamento</value>
-        <value xml:lang="th">รหัสการชำรเงิน</value>
-    </property>
-    <property key="FormFieldTitle_paymentMethodTypeId">
-        <value xml:lang="en">Payment Method Type Id</value>
-        <value xml:lang="fr">Réf. de type de méthode de paiement</value>
-        <value xml:lang="it">Tipo Metodo di Pagamento</value>
-        <value xml:lang="th">รหัสประเภทวิธีการชำระเงิน</value>
-    </property>
-    <property key="FormFieldTitle_percentage">
-        <value xml:lang="en">Percentage</value>
-        <value xml:lang="fr">Pourcentage</value>
-        <value xml:lang="it">Percentuale</value>
-        <value xml:lang="th">อัตราร้อยละ</value>
     </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
@@ -367,18 +325,6 @@
         <value xml:lang="en">Resume Text</value>
         <value xml:lang="fr">Texte de CV</value>
     </property>    
-    <property key="FormFieldTitle_roleTypeIdFrom">
-        <value xml:lang="en">Role Type Id From</value>
-        <value xml:lang="fr">Réf. de type de rôle depuis</value>
-        <value xml:lang="it">Tipo Ruolo Da</value>
-        <value xml:lang="th">จากรหัสประเภทสถานะ</value>
-    </property>
-    <property key="FormFieldTitle_roleTypeIdTo">
-        <value xml:lang="en">Role Type Id To</value>
-        <value xml:lang="fr">Réf. de type de rôle vers</value>
-        <value xml:lang="it">Tipo Ruolo A</value>
-        <value xml:lang="th">ถึงรหัสประเภทสถานะ</value>
-    </property>
     <property key="FormFieldTitle_routingNumber">
         <value xml:lang="en">Routing Number</value>
         <value xml:lang="fr">N° de routage</value>
@@ -409,12 +355,6 @@
         <value xml:lang="fr">Débutant depuis</value>
         <value xml:lang="it">Data di Inizio Usata</value>
         <value xml:lang="th">เริ่มใช้วันที่</value>
-    </property>
-    <property key="FormFieldTitle_statusId">
-        <value xml:lang="en">Status Id</value>
-        <value xml:lang="fr">Réf. de statut</value>
-        <value xml:lang="it">Stato</value>
-        <value xml:lang="th">รหัสสถานะ</value>
     </property>
     <property key="FormFieldTitle_temporaryFlag">
         <value xml:lang="en">Temporary Flag</value>

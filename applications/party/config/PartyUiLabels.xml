@@ -19,162 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AccountingBillingAccount">
-        <value xml:lang="de">Rechnungskonto</value>
-        <value xml:lang="en">Billing Account</value>
-        <value xml:lang="es">Cuentas de facturación</value>
-        <value xml:lang="fr">Comptes de facturation</value>
-        <value xml:lang="it">Conti Fatturazione</value>
-        <value xml:lang="nl">Factuurrekening</value>
-        <value xml:lang="pt_PT">Contas Para Pagamento</value>
-        <value xml:lang="ro">Conturi Facturare</value>
-        <value xml:lang="ru">Платежная учетная запись</value>
-        <value xml:lang="th">ยอดรวมของบัญชี</value>
-        <value xml:lang="zh">账单账户</value>
-    </property>
-    <property key="AccountingCardInfoNotBelongToYou">
-        <value xml:lang="de">Die Karte gehört nicht zu Ihnen</value>
-        <value xml:lang="en">Card Info Not Belong To You</value>
-        <value xml:lang="es">La información de la tarjeta no le pertenece</value>
-        <value xml:lang="fr">Cette carte ne vous est pas associée</value>
-        <value xml:lang="it">Informazioni Carta Non Corrispondono a Te</value>
-        <value xml:lang="nl">Deze kaart is niet voor u bestemd</value>
-        <value xml:lang="ro">Informatile Card-ului Nu iti Corespund</value>
-        <value xml:lang="ru">Информация о карте вам не принадлежит</value>
-        <value xml:lang="th">ข้อมูลบัตรที่ไม่อยู่ในส่วนของคุณ</value>
-        <value xml:lang="zh">卡信息不属于你</value>
-    </property>
-    <property key="AccountingCardNumber">
-        <value xml:lang="de">Kartennummer</value>
-        <value xml:lang="en">Card Number</value>
-        <value xml:lang="es">Número de tarjeta</value>
-        <value xml:lang="fr">N° de carte</value>
-        <value xml:lang="it">Numero Carta</value>
-        <value xml:lang="nl">Kaartnummer</value>
-        <value xml:lang="ro">Numar Card</value>
-        <value xml:lang="ru">Номер карты</value>
-        <value xml:lang="th">หมายเลขบัตร</value>
-        <value xml:lang="zh">卡号码</value>
-    </property>
-    <property key="AccountingCreateNewCreditCard">
-        <value xml:lang="de">Neue Kreditkarte erstellen</value>
-        <value xml:lang="en">Create New Credit Card</value>
-        <value xml:lang="es">Crear nueva tarjeta de crédito</value>
-        <value xml:lang="fr">Enrg. nouv. carte de crédit</value>
-        <value xml:lang="it">Creare Nuova Carta Credito</value>
-        <value xml:lang="nl">Nieuwe kredietkaart aanmaken</value>
-        <value xml:lang="pt_PT">Criar Novo Cartão De Crédito</value>
-        <value xml:lang="ro">Creare Noua Carte de Credit</value>
-        <value xml:lang="ru">Создать новую кредитную карту</value>
-        <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
-        <value xml:lang="zh">新建信用卡</value>
-    </property>
-    <property key="AccountingCreateNewEftAccount">
-        <value xml:lang="de">Neue Bankverbindung erstellen</value>
-        <value xml:lang="en">Create New EFT Account</value>
-        <value xml:lang="es">Crear nueva cuenta EFT</value>
-        <value xml:lang="fr">Créer un compte de virement électronique</value>
-        <value xml:lang="it">Creare Nuovo Conto EFT</value>
-        <value xml:lang="nl">Nieuw bankrekening nummer</value>
-        <value xml:lang="pt_PT">Criar Nova Conta EFT</value>
-        <value xml:lang="ro">Creare Noul Cont EFT</value>
-        <value xml:lang="ru">Создать новый банковский счет</value>
-        <value xml:lang="th">สร้างบัญชีธนาคารใหม่</value>
-        <value xml:lang="zh">新建电子资金转账账户</value>
-    </property>
-    <property key="AccountingCreateNewGiftCard">
-        <value xml:lang="de">Neuen Gutschein erstellen</value>
-        <value xml:lang="en">Create New Gift Card</value>
-        <value xml:lang="es">Crear nuevo certificado de regalo</value>
-        <value xml:lang="fr">Créer nouv. carte cadeau</value>
-        <value xml:lang="it">Creare Nuova Carta Omaggio</value>
-        <value xml:lang="nl">Nieuwe cadeaubon aanmaken</value>
-        <value xml:lang="ro">Creare Noua Carte Omagiu</value>
-        <value xml:lang="ru">Создать новую дисконтную карту</value>
-        <value xml:lang="th">สร้างบัตรของขวัญใหม่</value>
-        <value xml:lang="zh">新建礼品卡</value>
-    </property>
-    <property key="AccountingCreditCard">
-        <value xml:lang="de">Kreditkarte</value>
-        <value xml:lang="en">Credit Card</value>
-        <value xml:lang="es">Tarjeta de crédito</value>
-        <value xml:lang="fr">Carte de crédit</value>
-        <value xml:lang="it">Carta Credito</value>
-        <value xml:lang="nl">Kredietkaart</value>
-        <value xml:lang="pt_PT">Cartão de Crédito</value>
-        <value xml:lang="ro">Carte Credit</value>
-        <value xml:lang="ru">Кредитная карта</value>
-        <value xml:lang="th">บัตรเครดิต</value>
-        <value xml:lang="zh">信用卡</value>
-    </property>
-    <property key="AccountingEditCreditCard">
-        <value xml:lang="de">Kreditkarte bearbeiten</value>
-        <value xml:lang="en">Edit Credit Card</value>
-        <value xml:lang="es">Editar tarjeta de crédito</value>
-        <value xml:lang="fr">Modifier la carte de crédit</value>
-        <value xml:lang="nl">Kredietkaart wijzigen</value>
-        <value xml:lang="th">แก้ไขบัตรเครดิต</value>
-    </property>
-    <property key="AccountingEditGiftCard">
-        <value xml:lang="de">Gutschein bearbeiten</value>
-        <value xml:lang="en">Edit Gift Card</value>
-        <value xml:lang="es">Editar certificado de regalo</value>
-        <value xml:lang="fr">Modifier la carte cadeau</value>
-        <value xml:lang="it">Aggiorna Carta Omaggio</value>
-        <value xml:lang="nl">Cadeaubon wijzigen</value>
-        <value xml:lang="ro">Actualizare Carte Omagiu</value>
-        <value xml:lang="ru">Изменить дисконтную карту</value>
-        <value xml:lang="th">แก้ไขบัตรของขวัญ</value>
-        <value xml:lang="zh">编辑礼品卡</value>
-    </property>
-    <property key="AccountingGiftCard">
-        <value xml:lang="de">Gutschein</value>
-        <value xml:lang="en">Gift Card</value>
-        <value xml:lang="es">Certificado de regalo</value>
-        <value xml:lang="fr">Carte cadeau</value>
-        <value xml:lang="it">Carta Omaggio</value>
-        <value xml:lang="nl">Cadeaubon</value>
-        <value xml:lang="ro">Carte Omagiu</value>
-        <value xml:lang="ru">Дисконтная карта</value>
-        <value xml:lang="th">บัตรของขวัญ</value>
-        <value xml:lang="zh">礼品卡</value>
-    </property>
-    <property key="AccountingPaymentsReceived">
-        <value xml:lang="de">Zahlungen erhalten</value>
-        <value xml:lang="en">Payments Received</value>
-        <value xml:lang="es">Pagos recibidos</value>
-        <value xml:lang="fr">Règlements reçus</value>
-        <value xml:lang="it">Pagamenti Ricevuti</value>
-        <value xml:lang="nl">Ontvang betalingen</value>
-        <value xml:lang="ro">Plati Primite</value>
-        <value xml:lang="ru">Полученные платежи</value>
-        <value xml:lang="th">รับการชำระเงิน</value>
-        <value xml:lang="zh">已收到的支付</value>
-    </property>
-    <property key="AccountingPaymentsSent">
-        <value xml:lang="de">Zahlungen übermittelt</value>
-        <value xml:lang="en">Payments Sent</value>
-        <value xml:lang="es">Pagos emitidos</value>
-        <value xml:lang="fr">Règlements envoyés</value>
-        <value xml:lang="it">Pagamenti Inviati</value>
-        <value xml:lang="nl">Verzonden betalingen</value>
-        <value xml:lang="ro">Plati Trimise</value>
-        <value xml:lang="ru">Отосланные платежи</value>
-        <value xml:lang="th">ส่งการชำระเงิน</value>
-        <value xml:lang="zh">已发送的支付</value>
-    </property>
-    <property key="AccountingPinNumber">
-        <value xml:lang="de">Pin</value>
-        <value xml:lang="en">Pin Number</value>
-        <value xml:lang="es">Número PIN</value>
-        <value xml:lang="fr">N° d'accès (PIN)</value>
-        <value xml:lang="it">Numero Pin</value>
-        <value xml:lang="nl">Pincode</value>
-        <value xml:lang="ro">Numar Pin</value>
-        <value xml:lang="ru">ПИН</value>
-        <value xml:lang="th">รหัสส่วนตัว</value>
-        <value xml:lang="zh">密码</value>
-    </property>
     <property key="AddRelatedAccount">
         <value xml:lang="en">Add Related Account</value>
         <value xml:lang="fr">Ajouter un compte associé</value>
@@ -375,13 +219,17 @@
         <value xml:lang="zh">联系列表类型标识</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
+        <value xml:lang="ar">دليل مكانزمة الصلة</value>
         <value xml:lang="de">Kontaktmechanismus ID</value>
         <value xml:lang="en">Contact Mech Id</value>
         <value xml:lang="es">Código Mecanismo de contacto</value>
         <value xml:lang="fr">Réf. des coordonées</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="nl">ID contactmech</value>
+        <value xml:lang="ro">Cod Contract</value>
+        <value xml:lang="ru">Код способа контакта</value>
         <value xml:lang="th">รหัสการติดต่อการทำงาน</value>
+        <value xml:lang="zh">联系方法标识</value>
     </property>
     <property key="FormFieldTitle_contactMechTypeId">
         <value xml:lang="de">Kontaktmechanismus Typ ID</value>
@@ -1049,6 +897,43 @@
         <value xml:lang="th">รหัสการจัดแบ่งประเภทกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员分类类型标识</value>
     </property>
+    <property key="FormFieldTitle_partyId">
+        <value xml:lang="ar">تعريف الطرف</value>
+        <value xml:lang="de">Akteur ID</value>
+        <value xml:lang="en">Party Id</value>
+        <value xml:lang="es">Id Grupo</value>
+        <value xml:lang="fr">Réf. acteur</value>
+        <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="nl">Relatie-ID</value>
+        <value xml:lang="ro">Cod Subiect</value>
+        <value xml:lang="ru">Код участника</value>
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员标识</value>
+    </property>
+    <property key="FormFieldTitle_partyIdFrom">
+        <value xml:lang="de">Akteur ID von</value>
+        <value xml:lang="en">From Party ID</value>
+        <value xml:lang="es">Id Grupo Origen</value>
+        <value xml:lang="fr">De l'acteur</value>
+        <value xml:lang="it">Soggetto Da</value>
+        <value xml:lang="nl">Van relatie</value>
+        <value xml:lang="ro">De La Cod Subiect</value>
+        <value xml:lang="ru">От участника</value>
+        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">自会员标识</value>
+    </property>
+    <property key="FormFieldTitle_partyIdTo">
+        <value xml:lang="de">Akteur ID zu</value>
+        <value xml:lang="en">To Party ID</value>
+        <value xml:lang="es">Id Grupo Destino</value>
+        <value xml:lang="fr">Vers l'acteur</value>
+        <value xml:lang="it">Soggetto A</value>
+        <value xml:lang="nl">Naar relatie</value>
+        <value xml:lang="ro">LA Cod Subiect</value>
+        <value xml:lang="ru">На участника</value>
+        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">到会员标识</value>
+    </property>
     <property key="FormFieldTitle_partyInvitationId">
         <value xml:lang="de">Akteur Einladung ID</value>
         <value xml:lang="en">Party Invitation Id</value>
@@ -1202,6 +1087,7 @@
         <value xml:lang="zh">居住状态枚举类型</value>
     </property>
     <property key="FormFieldTitle_roleTypeId">
+        <value xml:lang="ar">تعريف نوع الدور</value>
         <value xml:lang="de">Rolle Typ ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="es">Codigo Tipo de rol</value>

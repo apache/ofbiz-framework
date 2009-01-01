@@ -165,7 +165,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="add-fixedasset-product" title="${uiLabelMap.AccountingFixedAssetProductNew}" collapsible="true">
+                        <screenlet id="add-fixedasset-product" title="${uiLabelMap.AccountingFixedAssetProductAdd}" collapsible="true">
                             <include-form name="AddFixedAssetProduct" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                         </screenlet>
                         <include-form name="ListFixedAssetProducts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
