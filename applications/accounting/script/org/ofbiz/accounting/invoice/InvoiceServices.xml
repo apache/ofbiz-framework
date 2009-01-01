@@ -414,7 +414,7 @@ under the License.
         </if-not-empty>
         <!-- finally delete application -->
         <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field="successMessage"/>
-        <string-append field-name="successMessage" string=" ${toMessage}"/>
+        <string-append field="successMessage" string=" ${toMessage}"/>
         <remove-value value-field="paymentApplication"/>
     </simple-method>
 

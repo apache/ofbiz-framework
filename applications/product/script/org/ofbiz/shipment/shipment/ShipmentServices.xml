@@ -694,7 +694,7 @@ under the License.
         </entity-and>
         
         <first-from-list entry="curUserPartyAndContactMech" list="curUserPartyAndContactMechs"/>
-        <string-append field-name="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
+        <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
 
         <!-- find email addresses of partyIdFrom, set as sendTo -->
         <set from-field="shipment.partyIdFrom" field="sendToPartyIdMap.${shipment.partyIdFrom}"/>
@@ -717,7 +717,7 @@ under the License.
             </entity-and>
             
             <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
-                <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
+                <string-append field="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>
 
