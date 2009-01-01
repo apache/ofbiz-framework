@@ -781,8 +781,8 @@ under the License.
             </if>
         </iterate>
 
-        <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
-        <list-to-list list-name="reservations" to-list-name="allReservations"/>
+        <list-to-list list="privilegedReservations" to-list="allReservations"/>
+        <list-to-list list="reservations" to-list="allReservations"/>
 
         <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
             <!-- if the new item is serialized, i.e. qoh is 1, we just need the first reservation -->
@@ -893,8 +893,8 @@ under the License.
             </if-empty>
         </iterate>
 
-        <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
-        <list-to-list list-name="reservations" to-list-name="allReservations"/>
+        <list-to-list list="privilegedReservations" to-list="allReservations"/>
+        <list-to-list list="reservations" to-list="allReservations"/>
 
         <!-- FIRST, cancel all the reservations -->
         <iterate list="allReservations" entry="oisgir">

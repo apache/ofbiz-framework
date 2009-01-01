@@ -77,7 +77,7 @@ under the License.
                         <condition-expr field-name="periodTypeId" operator="in" from-field="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
                     </condition-list>
                 </entity-condition>
-                <list-to-list list-name="orgTimePeriodList" to-list-name="listSoFar"/>
+                <list-to-list list="orgTimePeriodList" to-list="listSoFar"/>
             </iterate>
         </if-not-empty>
         
@@ -96,7 +96,7 @@ under the License.
                     <condition-expr field-name="periodTypeId" operator="in" from-field="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
                 </condition-list>
             </entity-condition>
-            <list-to-list list-name="generalCustomTimePeriodList" to-list-name="listSoFar"/>
+            <list-to-list list="generalCustomTimePeriodList" to-list="listSoFar"/>
         </if-compare>
         
         <!--

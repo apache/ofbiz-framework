@@ -605,7 +605,7 @@ under the License.
         
         <!-- if we found new ones, add them to the master list and if recurse=Y then recurse -->
         <if-not-empty field="_inline_NewRelatedPartyIdList">
-            <list-to-list list-name="_inline_NewRelatedPartyIdList" to-list-name="relatedPartyIdList"/>
+            <list-to-list list="_inline_NewRelatedPartyIdList" to-list="relatedPartyIdList"/>
             <if-compare field="recurse" operator="equals" value="Y">
                 <log level="verbose" message="Recursively calling followPartyRelationshipsInlineRecurse _inline_NewRelatedPartyIdList=${_inline_NewRelatedPartyIdList}"/>
                 <call-simple-method method-name="followPartyRelationshipsInlineRecurse"/>
@@ -651,7 +651,7 @@ under the License.
         
         <!-- if we found some new types, add them to the main list -->
         <if-not-empty field="_inline_NewRoleTypeIdList">
-            <list-to-list list-name="_inline_NewRoleTypeIdList" to-list-name="${roleTypeIdListName}"/>
+            <list-to-list list="_inline_NewRoleTypeIdList" to-list="${roleTypeIdListName}"/>
             <log level="verbose" message="Recursively calling getChildRoleTypesInline roleTypeIdListName=${roleTypeIdListName}, _inline_NewRoleTypeIdList=${_inline_NewRoleTypeIdList}"/>
             <call-simple-method method-name="getChildRoleTypesInline"/>
         </if-not-empty>
