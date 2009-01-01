@@ -291,7 +291,7 @@ under the License.
                                 <!-- test expiration date -->
                                 <if-not-empty field="parameters.expMonth">
                                     <set field="cardExp" from-field="parameters.expMonth"/>
-                                    <string-append string="${parameters.expYear}" field-name="cardExp"/>
+                                    <string-append string="${parameters.expYear}" field="cardExp"/>
                                     <call-object-method obj-field-name="cardExp" method-name="length" ret-field="length"/>
                                     <if-compare field="length" operator="not-equals" value="6">
                                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardInvalidExpiringDate"/></add-error>

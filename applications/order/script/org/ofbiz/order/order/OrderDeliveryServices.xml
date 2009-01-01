@@ -110,7 +110,7 @@ under the License.
         <!-- set subject, contentType, templateName, templateData -->
         <set field="sendEmailMap.subject" value="Delivery Information Updated for Order #${orderDeliverySchedule.orderId}"/>
         <if-compare field="orderDeliverySchedule.orderItemSeqId" operator="not-equals" value="_NA_">
-            <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field-name="subject" map-name="sendEmailMap"/>
+            <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field="subject" map-name="sendEmailMap"/>
         </if-compare>
         <set field="sendEmailMap.contentType" value="text/html"/>
         <set field="sendEmailMap.templateName" value="default/OrderDeliveryUpdatedNotice.ftl"/>
