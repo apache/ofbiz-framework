@@ -345,7 +345,7 @@ under the License.
                         <calculate field="reservedQuantity" type="Double"><number value="0"/></calculate>
 
                         <set from-field="orderItemAndShipGroupAssoc.orderItemSeqId" field="itemFilterMap.orderItemSeqId"/>
-                        <filter-list-by-and map-name="itemFilterMap" list-name="orderReadyToPickInfo.orderItemShipGrpInvResList" to-list-name="perItemResList"/>
+                        <filter-list-by-and map="itemFilterMap" list="orderReadyToPickInfo.orderItemShipGrpInvResList" to-list="perItemResList"/>
                         <iterate entry="orderItemShipGrpInvRes" list="perItemResList">
                             <set from-field="orderItemShipGrpInvRes.inventoryItemId" field="inventoryItemId"/>
                             <!-- update reserved quantity per inventoryItem, keep track of orderItems this came from -->
