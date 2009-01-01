@@ -243,15 +243,6 @@
         <value xml:lang="th">ข้อมูล Url</value>
         <value xml:lang="zh">信息链接</value>
     </property>
-    <property key="FormFieldTitle_invoiceId">
-        <value xml:lang="en">Invoice Id</value>
-        <value xml:lang="fr">Réf. de facture </value>
-        <value xml:lang="it">Numero Fattura</value>
-        <value xml:lang="nl">Faktuur Id</value>
-        <value xml:lang="ro">Numar Factura</value>
-        <value xml:lang="th">รหัสใบส่งของ</value>
-        <value xml:lang="zh">发票标识</value>
-    </property>
     <property key="FormFieldTitle_invoiceInfo">
         <value xml:lang="en">Invoice Info</value>
         <value xml:lang="fr">Information de facture</value>
@@ -260,15 +251,6 @@
         <value xml:lang="ro">Informatii Factura</value>
         <value xml:lang="th">ข้อมูลใบส่งของ</value>
         <value xml:lang="zh">发票信息</value>
-    </property>
-    <property key="FormFieldTitle_invoiceItemSeqId">
-        <value xml:lang="en">Invoice Item Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de ligne de facture</value>
-        <value xml:lang="it">Numero Sequenza Riga Fattura</value>
-        <value xml:lang="nl">Faktuur item volgorde Id</value>
-        <value xml:lang="ro">Numar Secventa linie Factura </value>
-        <value xml:lang="th">รหัสรายการใบส่งของ</value>
-        <value xml:lang="zh">发票明细序号标识</value>
     </property>
     <property key="FormFieldTitle_isPrintable">
         <value xml:lang="en">isPrintable</value>
@@ -365,15 +347,6 @@
         <value xml:lang="ro">Descriere Tip Comanda</value>
         <value xml:lang="th">รายละเอียดประเภทรายการสั่งซื้อ</value>
         <value xml:lang="zh">订单类型描述</value>
-    </property>
-    <property key="FormFieldTitle_partyId">
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="nl">Relatie Id</value>
-        <value xml:lang="ro">Cod Subiect </value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
     </property>
     <property key="FormFieldTitle_percentComplete">
         <value xml:lang="en">Percent Complete</value>
@@ -602,15 +575,6 @@
         <value xml:lang="th">สถานะวันเวลา</value>
         <value xml:lang="zh">状态日期时间</value>
     </property>
-    <property key="FormFieldTitle_statusId">
-        <value xml:lang="en">Status</value>
-        <value xml:lang="fr">Statut</value>
-        <value xml:lang="it">Stato</value>
-        <value xml:lang="nl">Status</value>
-        <value xml:lang="ro">Stare</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">状态</value>
-    </property>
     <property key="FormFieldTitle_statusItemDescription">
         <value xml:lang="en">Status</value>
         <value xml:lang="fr">Statut</value>
@@ -681,12 +645,14 @@
         <value xml:lang="th">รหัสประเภทหัวข้องาน</value>
     </property>
     <property key="FormFieldTitle_workEffortId">
+        <value xml:lang="de">Arbeitseinsatz ID</value>
         <value xml:lang="en">Work Effort Id</value>
         <value xml:lang="es">Código del esfuerzo de trabajo</value>
         <value xml:lang="fr">Réf. de tâche</value>
-        <value xml:lang="it">Numero Impegno di Lavoro</value>
+        <value xml:lang="it">Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
+        <value xml:lang="ru">Код задачи</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
     </property>

@@ -66,6 +66,7 @@
     <property key="AcctgTransType.description.DISBURSEMENT">
         <value xml:lang="en">Disbursement</value>
         <value xml:lang="fr">Débours</value>
+        <value xml:lang="it">Esborso</value>
         <value xml:lang="th">การชำระเงิน</value>
     </property>
     <property key="AcctgTransType.description.DISBURSEMENT_ACCTG_T">
@@ -134,6 +135,7 @@
     <property key="AcctgTransType.description.OTHER_INTERNAL">
         <value xml:lang="en">Other Internal</value>
         <value xml:lang="fr">Autre interne</value>
+        <value xml:lang="it">Altri Interni</value>
         <value xml:lang="th">ภายในอื่น ๆ</value>
     </property>
     <property key="AcctgTransType.description.OTHER_INTERNAL_ACCTG">
@@ -175,6 +177,7 @@
     <property key="AcctgTransType.description.RECEIPT">
         <value xml:lang="en">Receipt</value>
         <value xml:lang="fr">Reçu</value>
+        <value xml:lang="it">Ricevute</value>
         <value xml:lang="th">ใบเสร็จรับเงิน</value>
     </property>
     <property key="AcctgTransType.description.RECEIPT_ACCTG_TRANS">
@@ -189,6 +192,7 @@
     <property key="AcctgTransType.description.SALES">
         <value xml:lang="en">Sales</value>
         <value xml:lang="fr">Ventes</value>
+        <value xml:lang="it">Vendite</value>
         <value xml:lang="th">การขาย</value>
     </property>
     <property key="AcctgTransType.description.SALES_ACCTG_TRANS">

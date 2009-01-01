@@ -1952,16 +1952,6 @@
         <value xml:lang="th">รหัสประเภทผู้ปกครอง</value>
         <value xml:lang="zh">上级类型标识</value>
     </property>
-    <property key="FormFieldTitle_partyId">
-        <value xml:lang="ar">تعريف الطرف</value>
-        <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="ro">Cod Partener</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
     <property key="FormFieldTitle_pasteContent">
         <value xml:lang="de">Inhalt einfügen</value>
         <value xml:lang="en">Paste Content</value>
@@ -1988,16 +1978,6 @@
         <value xml:lang="ro">Enumerare Privilegiu</value>
         <value xml:lang="th">รหัสสิทธิพิเศษ</value>
         <value xml:lang="zh">特权枚举标识</value>
-    </property>
-    <property key="FormFieldTitle_productFeatureId">
-        <value xml:lang="ar">تعريف خاصية المنتوج</value>
-        <value xml:lang="de">Produktmerkmal ID</value>
-        <value xml:lang="en">Product Feature Id</value>
-        <value xml:lang="fr">Réf. de caractéristique de produit</value>
-        <value xml:lang="it">Caratteristica Prodotto</value>
-        <value xml:lang="ro">Caracteristica Produs</value>
-        <value xml:lang="th">รหัสลักษณะสินค้า</value>
-        <value xml:lang="zh">产品特征标识</value>
     </property>
     <property key="FormFieldTitle_productStoreId">
         <value xml:lang="ar">تعريف المتجر</value>
@@ -2092,26 +2072,6 @@
         <value xml:lang="ro">Serviciu Raspuns</value>
         <value xml:lang="th">บริการ</value>
         <value xml:lang="zh">回答服务</value>
-    </property>
-    <property key="FormFieldTitle_roleTypeId">
-        <value xml:lang="ar">تعريف نوع الدور</value>
-        <value xml:lang="de">Rollentyp ID</value>
-        <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="fr">Réf. de type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="ro">Tip Drepturi</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
-    <property key="FormFieldTitle_roleTypeList">
-        <value xml:lang="ar">قائمة نوع الدور</value>
-        <value xml:lang="de">Liste Rollentyp</value>
-        <value xml:lang="en">Role Type List</value>
-        <value xml:lang="fr">liste de type de rôle</value>
-        <value xml:lang="it">Lista Tipo Ruolo</value>
-        <value xml:lang="ro">Lista Tip Drept</value>
-        <value xml:lang="th">รายการประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型列表</value>
     </property>
     <property key="FormFieldTitle_roles">
         <value xml:lang="ar">الأدوار</value>
@@ -2314,9 +2274,12 @@
         <value xml:lang="ar">نص</value>
         <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
+        <value xml:lang="es">Dato Texto</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="nl">Datum tekst</value>
         <value xml:lang="ro">Text</value>
+        <value xml:lang="ru">Текстовые данные</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
     </property>

@@ -58,6 +58,7 @@ import org.ofbiz.service.LocalDispatcher;
 public class PayPalEvents {
     
     public static final String resource = "AccountingUiLabels";
+    public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String commonResource = "CommonUiLabels";
     public static final String module = PayPalEvents.class.getName();
     
@@ -76,7 +77,7 @@ public class PayPalEvents {
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingOrderHeader", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
         
@@ -88,7 +89,7 @@ public class PayPalEvents {
 
         if (productStore == null) {
             Debug.logError("ProductStore is null", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
         
@@ -136,7 +137,7 @@ public class PayPalEvents {
             || UtilValidate.isEmpty(imageUrl)
             || UtilValidate.isEmpty(payPalAccount) ) {
             Debug.logError("Payment properties is not configured properly, some notify URL from PayPal is not correctly defined!", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
         
@@ -167,7 +168,7 @@ public class PayPalEvents {
             response.sendRedirect(redirectString);
         } catch (IOException e) {
             Debug.logError(e, "Problems redirecting to PayPal", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsConnectingWithPayPal", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsConnectingWithPayPal", locale));
             return "error";
         }
         
@@ -184,7 +185,7 @@ public class PayPalEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore == null) {
             Debug.logError("ProductStore is null", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
         
@@ -208,7 +209,7 @@ public class PayPalEvents {
                
         if (confirmUrl == null || redirectUrl == null) {
             Debug.logError("Payment properties is not configured properly, no confirm URL defined!", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
                 
@@ -260,7 +261,7 @@ public class PayPalEvents {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingAuthenticationUser", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingAuthenticationUser", locale));
             return "error";
         }
                                
@@ -274,18 +275,18 @@ public class PayPalEvents {
                 orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingOrderHeader", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
                 return "error";
             }
         } else {
             Debug.logError("PayPal did not callback with a valid orderId!", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.noValidOrderIdReturned", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.noValidOrderIdReturned", locale));
             return "error";
         }
 
         if (orderHeader == null) {
             Debug.logError("Cannot get the order header for order: " + orderId, module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.problemsGettingOrderHeader", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
 
@@ -394,7 +395,7 @@ public class PayPalEvents {
         if (okay) 
             OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);  
             
-        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.previousPayPalOrderHasBeenCancelled", locale));
+        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.previousPayPalOrderHasBeenCancelled", locale));
         return "success";        
     }    
     
@@ -490,7 +491,7 @@ public class PayPalEvents {
                     "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "comments", comment));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "payPalEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
             return false;
         }
 

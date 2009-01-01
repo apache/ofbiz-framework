@@ -171,14 +171,6 @@
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产标识</value>
     </property>
-    <property key="FormFieldTitle_fixedAssetTypeId">
-        <value xml:lang="de">Anlagen-Art</value>
-        <value xml:lang="en">Fixed Asset Type Id</value>
-        <value xml:lang="es">Tipo de recurso</value>
-        <value xml:lang="fr">Réf. de type de machine</value>
-        <value xml:lang="it">Tipo Cespite</value>
-        <value xml:lang="th">รหัสประเภทการเปลี่ยนแปลงทรัพย์สิน</value>
-    </property>
     <property key="FormFieldTitle_fixedCost">
         <value xml:lang="de">Fixkosten</value>
         <value xml:lang="en">Fixed Cost</value>
@@ -294,16 +286,6 @@
         <value xml:lang="ro">Caratteristica Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
         <value xml:lang="zh">产品特性</value>
-    </property>
-    <property key="FormFieldTitle_productId">
-        <value xml:lang="de">Produkt-Nr.</value>
-        <value xml:lang="en">Product Id</value>
-        <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Réf. de l'article</value>
-        <value xml:lang="it">Codice Prodotto</value>
-        <value xml:lang="ro">Cod Produs</value>
-        <value xml:lang="th">รหัสสินค้า</value>
-        <value xml:lang="zh">产品标识</value>
     </property>
     <property key="FormFieldTitle_productIdFor">
         <value xml:lang="de">Produkt-Nr. für</value>
@@ -445,16 +427,6 @@
         <value xml:lang="fr">Ref. séq. d'emplacement secondaire</value>
         <value xml:lang="it">Locazione Secondaria</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
-    </property>
-    <property key="FormFieldTitle_shipmentId">
-        <value xml:lang="de">Versand-Nr.</value>
-        <value xml:lang="en">Shipment Id</value>
-        <value xml:lang="es">Código de envío</value>
-        <value xml:lang="fr">Réf. d'expédition</value>
-        <value xml:lang="it">Numero Spedizione</value>
-        <value xml:lang="ro">Numar Expediere</value>
-        <value xml:lang="th">รหัสการขนส่ง</value>
-        <value xml:lang="zh">货运标识</value>
     </property>
     <property key="FormFieldTitle_startDateTime">
         <value xml:lang="de">Startzeit</value>

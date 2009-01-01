@@ -19,149 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AccountingBillingAcc">
-        <value xml:lang="de">Rechnungskonto</value>
-        <value xml:lang="en">Billing Accounts</value>
-        <value xml:lang="es">Cuentas de Facturación</value>
-        <value xml:lang="fr">Comptes de facturation</value>
-        <value xml:lang="it">Contabilità Fatture</value>
-        <value xml:lang="ro">Contabilitate Facturi</value>
-        <value xml:lang="ru">Кредитные счета</value>
-        <value xml:lang="th">ยอดรวมของบัญชี</value>
-        <value xml:lang="zh">账单账户</value>
-    </property>
-    <property key="AccountingFixedAsset">
-        <value xml:lang="de">Anlage</value>
-        <value xml:lang="en">Fixed Asset</value>
-        <value xml:lang="es">Activo Fijo</value>
-        <value xml:lang="fr">immobilisation</value>
-        <value xml:lang="it">Cespite</value>
-        <value xml:lang="ro">Mijloace Fixe</value>
-        <value xml:lang="ru">Объект основных фондов</value>
-        <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产</value>
-    </property>
-    <property key="AccountingFixedAssetId">
-        <value xml:lang="de">Anlage ID</value>
-        <value xml:lang="en">Asset Id</value>
-        <value xml:lang="es">Código de Activo</value>
-        <value xml:lang="fr">Réf. immobilisation</value>
-        <value xml:lang="it">Codice Cespite</value>
-        <value xml:lang="ro">Cod Mijloace Fixe</value>
-        <value xml:lang="ru">Код ОС</value>
-        <value xml:lang="th">รหัสทรัพย์สิน</value>
-        <value xml:lang="zh">资产标识</value>
-    </property>
-    <property key="AccountingFixedAssetNew">
-        <value xml:lang="de">Link zu Anlage hinzufügen</value>
-        <value xml:lang="en">Add link to Fixed Asset</value>
-        <value xml:lang="es">Añadir enlace a Activo Fijo</value>
-        <value xml:lang="fr">Ajoutez un lien vers immobilisation</value>
-        <value xml:lang="it">Nuovo cespite</value>
-        <value xml:lang="ro">Nou Mijloc Fix</value>
-        <value xml:lang="ru">Добавить ссылку к ОС</value>
-        <value xml:lang="th">เพิ่มการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">添加到固定资产的链接</value>
-    </property>
-    <property key="AccountingFixedAssetProductAdd">
-        <value xml:lang="de">Einen Link zu einer Anlage hinzufügen</value>
-        <value xml:lang="en">Add a link to a fixed Asset</value>
-        <value xml:lang="es">Añadir un enlace a un Activo Fijo</value>
-        <value xml:lang="fr">Ajoutez un lien vers une immobilisation</value>
-        <value xml:lang="it">Aggiungi un link al cespite</value>
-        <value xml:lang="ro">Adauga un link la Mijlocul Fix</value>
-        <value xml:lang="ru">Добавить ссылку к ОС</value>
-        <value xml:lang="th">เพิ่มการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">添加到固定资产的链接</value>
-    </property>
-    <property key="AccountingFixedAssetProductType">
-        <value xml:lang="de">Verwendungszweck</value>
-        <value xml:lang="en">Usage Type</value>
-        <value xml:lang="es">Tipo de uso</value>
-        <value xml:lang="fr">Type d'utilisation</value>
-        <value xml:lang="it">Tipo Uso</value>
-        <value xml:lang="ro">Tip Uz</value>
-        <value xml:lang="ru">Тип использования</value>
-        <value xml:lang="th">ประเภทการใช้</value>
-        <value xml:lang="zh">用途类型</value>
-    </property>
-    <property key="AccountingFixedAssetProductUpd">
-        <value xml:lang="de">Link zu einer Anlage aktualisieren</value>
-        <value xml:lang="en">Update a link to a fixed Asset</value>
-        <value xml:lang="es">Actualizar un enlace a un activo fijo</value>
-        <value xml:lang="fr">Mettre à jour un lien vers une immobilisation</value>
-        <value xml:lang="it">Aggiorna un link ad un Cespite</value>
-        <value xml:lang="ro">Actualizeaza un link la un Mijloc Fix</value>
-        <value xml:lang="ru">Обновить ссылку к ОС</value>
-        <value xml:lang="th">อัพเดทการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">更新到固定资产的链接</value>
-    </property>
-    <property key="AccountingFixedAssets">
-        <value xml:lang="de">Anlagen</value>
-        <value xml:lang="en">Fixed Assets</value>
-        <value xml:lang="es">Activos Fijos</value>
-        <value xml:lang="fr">Immobilisations</value>
-        <value xml:lang="it">Cespiti</value>
-        <value xml:lang="ro">Mijloace Fixe</value>
-        <value xml:lang="ru">Основные средства</value>
-        <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产</value>
-    </property>
-    <property key="AccountingPaymentMethod">
-        <value xml:lang="de">Zahlungsmethode</value>
-        <value xml:lang="en">Payment Method</value>
-        <value xml:lang="es">Método de Pago</value>
-        <value xml:lang="fr">Mode de paiement</value>
-        <value xml:lang="it">Metodo Pagamento</value>
-        <value xml:lang="ro">Metode de Plata</value>
-        <value xml:lang="ru">Метод платежа</value>
-        <value xml:lang="th">วิธีการชำระเงิน</value>
-        <value xml:lang="zh">支付方式</value>
-    </property>
-    <property key="AccountingPaymentMethodType">
-        <value xml:lang="de">Zahlungsmethode Typ</value>
-        <value xml:lang="en">Payment Method Type</value>
-        <value xml:lang="es">Tipo de Método de Pago</value>
-        <value xml:lang="fr">Type de mode de paiement</value>
-        <value xml:lang="it">Tipo Metodo Pagamento</value>
-        <value xml:lang="ro">Tip Metode de Plata</value>
-        <value xml:lang="ru">Тип метода платежа</value>
-        <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
-        <value xml:lang="zh">支付方式类型</value>
-    </property>
-    <property key="AccountingPaymentProperties">
-        <value xml:lang="de">Zahlung Einstellungen</value>
-        <value xml:lang="en">Payment Properties</value>
-        <value xml:lang="es">Propiedades de Pago</value>
-        <value xml:lang="fr">Propriétés du paiement</value>
-        <value xml:lang="it">Proprietà Pagamento</value>
-        <value xml:lang="ro">Proprietate Plata</value>
-        <value xml:lang="ru">Свойства платежа</value>
-        <value xml:lang="th">รูปแบบการชำระเงิน</value>
-        <value xml:lang="zh">支付参数</value>
-    </property>
-    <property key="AccountingPaymentProps">
-        <value xml:lang="de">Zahlung Einstellungen</value>
-        <value xml:lang="en">Payment Props</value>
-        <value xml:lang="es">Propiedades de Pago</value>
-        <value xml:lang="fr">Propriétés du paiement</value>
-        <value xml:lang="it">Prop. Pagamento</value>
-        <value xml:lang="ro">Prop. Plata</value>
-        <value xml:lang="ru">Свойства платежа</value>
-        <value xml:lang="th">รูปแบบการชำระเงิน</value>
-        <value xml:lang="zh">支付参数</value>
-    </property>
-    <property key="AccountingPayments">
-        <value xml:lang="de">Zahlungen</value>
-        <value xml:lang="en">Payments</value>
-        <value xml:lang="es">Pagos</value>
-        <value xml:lang="fr">Paiements</value>
-        <value xml:lang="it">Pagamenti</value>
-        <value xml:lang="ro">Plati</value>
-        <value xml:lang="ru">Платежи</value>
-        <value xml:lang="th">การชำระเงิน</value>
-        <value xml:lang="zh">支付</value>
-    </property>
     <property key="AddFeatureType">
         <value xml:lang="de">Merkmal Typ hinzufügen</value>
         <value xml:lang="en">Add Feature Type</value>
@@ -645,15 +502,6 @@
         <value xml:lang="it">Descrizione Ricarico Aggiuntivo Spedizione</value>
         <value xml:lang="th">อธิบายการเพิ่มค่าธรรมเนียมการขนส่งสินค้า</value>
     </property>
-    <property key="FormFieldTitle_agreementId">
-        <value xml:lang="de">Vereinbarung ID</value>
-        <value xml:lang="en">Agreement Id</value>
-        <value xml:lang="es">Código de acuerdo</value>
-        <value xml:lang="fr">Réf. d'accord</value>
-        <value xml:lang="it">Accordo</value>
-        <value xml:lang="ru">Код договора</value>
-        <value xml:lang="th">รหัสสัญญา</value>
-    </property>
     <property key="FormFieldTitle_agreementItemSeqId">
         <value xml:lang="de">Vereinbarungsselement Seq. ID</value>
         <value xml:lang="en">Agreement Item Seq Id</value>
@@ -661,15 +509,6 @@
         <value xml:lang="fr">Réf. séq. d'un point d'accord</value>
         <value xml:lang="it">N.Seq. Riga Accordo</value>
         <value xml:lang="th">รหัสรายการหัวข้อสัญญา</value>
-    </property>
-    <property key="FormFieldTitle_agreementText">
-        <value xml:lang="de">Vereinbarungstext</value>
-        <value xml:lang="en">Agreement Text</value>
-        <value xml:lang="es">Texto del acuerdo</value>
-        <value xml:lang="fr">Texte d'accord</value>
-        <value xml:lang="it">Testo Accordo</value>
-        <value xml:lang="ru">Текст договора</value>
-        <value xml:lang="th">ข้อความสัญญา</value>
     </property>
     <property key="FormFieldTitle_aisleId">
         <value xml:lang="de">Gang ID</value>
@@ -1444,14 +1283,6 @@
         <value xml:lang="it">Tipo Carta di Credito</value>
         <value xml:lang="th">รหัสการระบุบัตรเครดิต</value>
     </property>
-    <property key="FormFieldTitle_currencyUomId">
-        <value xml:lang="de">Währung</value>
-        <value xml:lang="en">Currency</value>
-        <value xml:lang="es">Moneda</value>
-        <value xml:lang="fr">Monnaie</value>
-        <value xml:lang="it">Valuta</value>
-        <value xml:lang="th">สกุลเงิน</value>
-    </property>
     <property key="FormFieldTitle_currentPromisedDate">
         <value xml:lang="de">Aktuell geschätzter Termin</value>
         <value xml:lang="en">Current Promised Date</value>
@@ -1800,14 +1631,6 @@
         <value xml:lang="fr">Modifier la ressource de donnée</value>
         <value xml:lang="it">Aggiorna Risorsa Dati</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูล</value>
-    </property>
-    <property key="FormFieldTitle_effectiveDate">
-        <value xml:lang="de">Effektives Datum</value>
-        <value xml:lang="en">Effective Date</value>
-        <value xml:lang="es">Fecha efectiva</value>
-        <value xml:lang="fr">Date effective</value>
-        <value xml:lang="it">Data Effettiva</value>
-        <value xml:lang="th">วันที่มีผล</value>
     </property>
     <property key="FormFieldTitle_enableAutoSuggestionList">
         <value xml:lang="de">Automatische Vorschlagsliste einschalten</value>
@@ -2339,14 +2162,16 @@
         <value xml:lang="th">รหัสรายการรายละเอียดสินค้าคงเหลือ</value>
     </property>
     <property key="FormFieldTitle_inventoryItemId">
+        <value xml:lang="ar">دليل بند الجرد</value>
         <value xml:lang="de">Bestandsposition ID</value>
         <value xml:lang="en">Inventory Item Id</value>
-        <value xml:lang="es">Código Ítem de inventario</value>
-        <value xml:lang="fr">Réf. de ligne de stock</value>
+        <value xml:lang="es">Id Elemento de Inventario</value>
+        <value xml:lang="fr">Réf. de la ligne de stock</value>
         <value xml:lang="it">Numero Riga Inventario</value>
-        <value xml:lang="ro">Numar Linie Inventar</value>
-        <value xml:lang="ru">Код складской позиции</value>
-        <value xml:lang="th">รหัสสินค้าคงเหลือ</value>
+        <value xml:lang="nl">ID inventarisregel</value>
+        <value xml:lang="ro">Nr.Inventar</value>
+        <value xml:lang="ru">Код поз. ТМЦ</value>
+        <value xml:lang="th">รหัสสินค้าคงหลือ</value>
         <value xml:lang="zh">库存明细标识</value>
     </property>
     <property key="FormFieldTitle_inventoryItemLabelId">
@@ -2892,17 +2717,6 @@
         <value xml:lang="th">หนึ่งคลังสินค้าสินค้าคงเหลือ</value>
         <value xml:lang="zh">一个库存场所</value>
     </property>
-    <property key="FormFieldTitle_orderDate">
-        <value xml:lang="de">Auftragsdatum</value>
-        <value xml:lang="en">Order Date</value>
-        <value xml:lang="es">Fecha de pedido</value>
-        <value xml:lang="fr">Date de commande</value>
-        <value xml:lang="it">Data ordine</value>
-        <value xml:lang="ro">Data Comanda</value>
-        <value xml:lang="ru">Дата заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อวันที่</value>
-        <value xml:lang="zh">订单日期</value>
-    </property>
     <property key="FormFieldTitle_orderFlatPrice">
         <value xml:lang="de">Auftrag Pauschalpreis</value>
         <value xml:lang="en">Order Flat Price</value>
@@ -3055,35 +2869,6 @@
         <value xml:lang="it">Tipo Padre</value>
         <value xml:lang="th">รหัสประเภทกลุ่มการทำงาน</value>
     </property>
-    <property key="FormFieldTitle_partyId">
-        <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. d'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="ro">Cod Subiect</value>
-        <value xml:lang="ru">Участник</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="FormFieldTitle_partyIdFrom">
-        <value xml:lang="de">Akteur ID von</value>
-        <value xml:lang="en">Party Id From</value>
-        <value xml:lang="es">Código Participante emisor</value>
-        <value xml:lang="fr">Réf. de l'acteur depuis qui</value>
-        <value xml:lang="it">Soggetto Da</value>
-        <value xml:lang="ru">От участника</value>
-        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="FormFieldTitle_partyIdTo">
-        <value xml:lang="de">Akteur ID zu</value>
-        <value xml:lang="en">Party Id To</value>
-        <value xml:lang="es">Código Participante receptor</value>
-        <value xml:lang="fr">Réf. de l'acteur vers qui</value>
-        <value xml:lang="it">Soggetto A</value>
-        <value xml:lang="ru">К участнику</value>
-        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
-    </property>
     <property key="FormFieldTitle_partyNeedId">
         <value xml:lang="de">Akteur Bedarf ID</value>
         <value xml:lang="en">Party Need Id</value>
@@ -3103,17 +2888,6 @@
         <value xml:lang="ru">Оплата на контрагента</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้ที่ต้องชำระเงิน</value>
         <value xml:lang="zh">支付给会员标识</value>
-    </property>
-    <property key="FormFieldTitle_paymentMethodTypeId">
-        <value xml:lang="de">Zahlungsmethode Typ ID</value>
-        <value xml:lang="en">Payment Method Type</value>
-        <value xml:lang="es">Código Método de pago</value>
-        <value xml:lang="fr">Réf. de types de paiements</value>
-        <value xml:lang="it">Tipo Metodo Pagamento</value>
-        <value xml:lang="ro">Tip Metoda Plata</value>
-        <value xml:lang="ru">Тип способа оплаты</value>
-        <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
-        <value xml:lang="zh">支付方式类型</value>
     </property>
     <property key="FormFieldTitle_paymentTypes">
         <value xml:lang="de">Zahlungstypen</value>
@@ -3143,6 +2917,7 @@
         <value xml:lang="es">Código inventario físico</value>
         <value xml:lang="fr">Réf. d'inventaire physique</value>
         <value xml:lang="it">Numero Inventario Fisico</value>
+        <value xml:lang="nl">ID fysieke inventaris</value>
         <value xml:lang="ro">Numar Inventar Fizic</value>
         <value xml:lang="ru">Код инвентаризации</value>
         <value xml:lang="th">รหัสสินค้าทั่วไปคงเหลือ</value>
@@ -3342,11 +3117,13 @@
         </value>
     </property>
     <property key="FormFieldTitle_productFeatureId">
+        <value xml:lang="ar">تعريف خاصية المنتوج</value>
         <value xml:lang="de">Produktmerkmal ID</value>
         <value xml:lang="en">Product Feature Id</value>
         <value xml:lang="es">Código Característica de producto</value>
         <value xml:lang="fr">Réf. de caractéristique d'article</value>
         <value xml:lang="it">Codice Caratteristica Prodotto</value>
+        <value xml:lang="nl">ID productkenmerk</value>
         <value xml:lang="ro">Cod Caracteristica Produs</value>
         <value xml:lang="ru">Особенность продукта</value>
         <value xml:lang="th">รหัสลักษณะสินค้า</value>
@@ -3383,6 +3160,7 @@
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Réf. produit</value>
         <value xml:lang="it">Codice Prodotto</value>
+        <value xml:lang="nl">Product ID</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="ru">Код продукта</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -3448,6 +3226,7 @@
         <value xml:lang="en">Product Promo Id</value>
         <value xml:lang="es">Código Promoción de producto</value>
         <value xml:lang="fr">Réf. de promotion</value>
+        <value xml:lang="nl">ID product-promo</value>
         <value xml:lang="it">Codice Promozione Prodotto</value>
         <value xml:lang="ro">Cod Promotie Produs</value>
         <value xml:lang="ru">Код акции</value>
@@ -3916,35 +3695,6 @@
         <value xml:lang="it">Numero Riga Reso</value>
         <value xml:lang="th">รหัสรายการหัวข้อผลตอบแทน</value>
     </property>
-    <property key="FormFieldTitle_roleTypeId">
-        <value xml:lang="de">Rollentyp ID</value>
-        <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="es">Código Tipo de rol</value>
-        <value xml:lang="fr">Réf. de type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="ro">Tip Rol</value>
-        <value xml:lang="ru">Код типа роли</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
-    <property key="FormFieldTitle_roleTypeIdFrom">
-        <value xml:lang="de">Rollentyp ID von</value>
-        <value xml:lang="en">Role Type Id From</value>
-        <value xml:lang="es">Desde Código Tipo de rol</value>
-        <value xml:lang="fr">Réf. de type de rôle de départ</value>
-        <value xml:lang="it">Tipo Ruolo Da</value>
-        <value xml:lang="ru">Тип роли от</value>
-        <value xml:lang="th">จากรหัสประเภทสถานะ</value>
-    </property>
-    <property key="FormFieldTitle_roleTypeIdTo">
-        <value xml:lang="de">Rollentyp ID zu</value>
-        <value xml:lang="en">Role Type Id To</value>
-        <value xml:lang="es">Hasta Código Tipo de rol</value>
-        <value xml:lang="fr">réf. de type de rôle d'arrivée</value>
-        <value xml:lang="it">Tipo Ruolo A</value>
-        <value xml:lang="ru">Тип роли кому</value>
-        <value xml:lang="th">ถึงรหัสประเภทสถานะ</value>
-    </property>
     <property key="FormFieldTitle_scrapFactor">
         <value xml:lang="de">Altmaterial Faktor</value>
         <value xml:lang="en">Scrap Factor</value>
@@ -4050,6 +3800,7 @@
         <value xml:lang="es">Nº de serie</value>
         <value xml:lang="fr">N° de série</value>
         <value xml:lang="it">Numero di Serie</value>
+        <value xml:lang="nl">Serienummer</value>
         <value xml:lang="ro">Numar de Serie</value>
         <value xml:lang="ru">Серийный номер</value>
         <value xml:lang="th">หมายเลขลำดับ</value>
@@ -4701,17 +4452,6 @@
         <value xml:lang="it">Tipo Standard Impegno di Lavoro</value>
         <value xml:lang="ru">Код типа задачи стандартного товара</value>
         <value xml:lang="th">รหัสประเภทมาตรฐานงานที่เหมาะสม</value>
-    </property>
-    <property key="FormFieldTitle_workEffortId">
-        <value xml:lang="de">Arbeitseinsatz ID</value>
-        <value xml:lang="en">Work Effort Id</value>
-        <value xml:lang="es">Código del esfuerzo de trabajo</value>
-        <value xml:lang="fr">Réf. d'activité</value>
-        <value xml:lang="it">Numero Impegno di Lavoro</value>
-        <value xml:lang="ro">Numar Sarcina de Lucru</value>
-        <value xml:lang="ru">Код работы</value>
-        <value xml:lang="th">รหัสความพยายามในการทำงาน</value>
-        <value xml:lang="zh">人工服务标识</value>
     </property>
     <property key="GeneralCatalogPermissionError">
         <value xml:lang="de">Sie haben nicht die Berechtigung um ${methodShortDescription} auszuführen. ("CATALOG${securityAction}" oder "CATALOG_ADMIN" benötigt)</value>

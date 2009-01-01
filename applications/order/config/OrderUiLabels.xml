@@ -46,18 +46,6 @@
         <value xml:lang="th">ใบเสร็จถึงรหัสกลุ่มลูกค้า</value>
         <value xml:lang="zh">账单记入客户会员标识</value>
     </property>
-    <property key="FormFieldTitle_billingAccountId">
-        <value xml:lang="de">Rechnungskonto ID</value>
-        <value xml:lang="en">Billing Account Id</value>
-        <value xml:lang="es">Código Cuenta de facturación</value>
-        <value xml:lang="fr">Réf. de compte de facturation</value>
-        <value xml:lang="it">Codice Conto Fatturazione</value>
-        <value xml:lang="nl">Bankrekening Id</value>
-        <value xml:lang="ro">Cod Cont Facturare</value>
-        <value xml:lang="ru">Код учетной записи для оплаты</value>
-        <value xml:lang="th">หมายเลขบัญชี</value>
-        <value xml:lang="zh">账单账户标识</value>
-    </property>
     <property key="FormFieldTitle_carrierPartyId">
         <value xml:lang="de">Spediteur Akteur ID</value>
         <value xml:lang="en">Carrier Party Id</value>
@@ -388,13 +376,15 @@
         <value xml:lang="zh">内部代码</value>
     </property>
     <property key="FormFieldTitle_internalName">
+        <value xml:lang="ar">الإسم الداخلي</value>
         <value xml:lang="de">Interner Name</value>
-        <value xml:lang="en">internal Name</value>
-        <value xml:lang="es">Nombre interno</value>
+        <value xml:lang="en">Internal Name</value>
+        <value xml:lang="es">Nombre Interno</value>
         <value xml:lang="fr">Nom interne</value>
-        <value xml:lang="it">Nome interno</value>
-        <value xml:lang="ro">Nume intern</value>
-        <value xml:lang="ru">внутреннее имя</value>
+        <value xml:lang="it">Nome Interno</value>
+        <value xml:lang="nl">Interne naam</value>
+        <value xml:lang="ro">Nume Intern</value>
+        <value xml:lang="ru">Внутреннее имя</value>
         <value xml:lang="th">ชื่อภายใน</value>
         <value xml:lang="zh">内部名称</value>
     </property>
@@ -658,30 +648,6 @@
         <value xml:lang="th">รหัสกลุ่มรายการซื้อสินค้า</value>
         <value xml:lang="zh">上级购物列表标识</value>
     </property>
-    <property key="FormFieldTitle_partyId">
-        <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. d'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="nl">Organisatie Id</value>
-        <value xml:lang="ro">Cod Subiect</value>
-        <value xml:lang="ru">Код контрагента</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="FormFieldTitle_paymentMethodId">
-        <value xml:lang="de">Zahlungsmethode ID</value>
-        <value xml:lang="en">Payment Method Id</value>
-        <value xml:lang="es">Código de método de pago</value>
-        <value xml:lang="fr">Réf. de moyen de paiement</value>
-        <value xml:lang="it">Metodo Pagamento</value>
-        <value xml:lang="nl">Betaal methode Id</value>
-        <value xml:lang="ro">Metoda Plata</value>
-        <value xml:lang="ru">Код способа оплаты</value>
-        <value xml:lang="th">รหัสวิธีการชำระเงิน</value>
-        <value xml:lang="zh">支付方法标识</value>
-    </property>
     <property key="FormFieldTitle_postalCode">
         <value xml:lang="de">Postleitzahl</value>
         <value xml:lang="en">Postal Code</value>
@@ -705,30 +671,6 @@
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
-    </property>
-    <property key="FormFieldTitle_productFeatureId">
-        <value xml:lang="de">Produktmerkmal ID</value>
-        <value xml:lang="en">Product Feature Id</value>
-        <value xml:lang="es">Código Característica de producto</value>
-        <value xml:lang="fr">Réf. de caractéristique de produit</value>
-        <value xml:lang="it">Codice Caratteristica Prodotto</value>
-        <value xml:lang="nl">Produkt Functie Id</value>
-        <value xml:lang="ro">Cod Caracteristica Produs</value>
-        <value xml:lang="ru">Код возможности продукта</value>
-        <value xml:lang="th">รหัสลักษณะสินค้า</value>
-        <value xml:lang="zh">产品特征标识</value>
-    </property>
-    <property key="FormFieldTitle_productId">
-        <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
-        <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Réf. du produit</value>
-        <value xml:lang="it">Codice Prodotto</value>
-        <value xml:lang="nl">Product Id</value>
-        <value xml:lang="ro">Cod Produs</value>
-        <value xml:lang="ru">Код продукта</value>
-        <value xml:lang="th">รหัสสินค้า</value>
-        <value xml:lang="zh">产品标识</value>
     </property>
     <property key="FormFieldTitle_productPromoCodeId">
         <value xml:lang="de">Produktaktion Code ID</value>
@@ -913,18 +855,6 @@
         <value xml:lang="th">วันที่ตอบคำร้อง</value>
         <value xml:lang="zh">回答需求日期</value>
     </property>
-    <property key="FormFieldTitle_roleTypeId">
-        <value xml:lang="de">Rollentyp ID</value>
-        <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="es">Código Tipo de rol</value>
-        <value xml:lang="fr">Réf. de type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="nl">Rol Type Id</value>
-        <value xml:lang="ro">Tip Rol</value>
-        <value xml:lang="ru">Код типа роли</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="de">Verkaufskanal Seq. ID</value>
         <value xml:lang="en">Sales Channel Enum Id</value>
@@ -1063,18 +993,6 @@
         <value xml:lang="ru">Код области</value>
         <value xml:lang="th">State Province Geo Id</value>
         <value xml:lang="zh">省地理标识</value>
-    </property>
-    <property key="FormFieldTitle_statusId">
-        <value xml:lang="de">Status ID</value>
-        <value xml:lang="en">Status Id</value>
-        <value xml:lang="es">Código de estado</value>
-        <value xml:lang="fr">Statut</value>
-        <value xml:lang="it">Stato</value>
-        <value xml:lang="nl">Status Id</value>
-        <value xml:lang="ro">Stat</value>
-        <value xml:lang="ru">Код статуса</value>
-        <value xml:lang="th">รหัสสถานะ</value>
-        <value xml:lang="zh">状态标识</value>
     </property>
     <property key="FormFieldTitle_story">
         <value xml:lang="de">Geschichte</value>
