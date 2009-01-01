@@ -86,7 +86,7 @@ under the License.
             <set field="newEntity.portalPageId" from-field="portlet.portalPageId"/>
             <set field="newEntity.portalPortletId" from-field="portlet.portalPortletId"/>
             <set field="newEntity.portletSeqId" from-field="portlet.portletSeqId"/>
-            <remove-by-and entity-name="PortletAttribute" map-name="newEntity"/>
+            <remove-by-and entity-name="PortletAttribute" map="newEntity"/>
             
             <remove-value value-field="portlet"/>
         </if-not-empty>
