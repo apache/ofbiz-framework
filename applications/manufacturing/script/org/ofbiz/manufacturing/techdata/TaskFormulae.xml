@@ -24,13 +24,13 @@ under the License.
     <simple-method method-name="exampleTaskFormula" short-description="Example task formula" login-required="false">
         <set field="arguments" from-field="parameters.arguments"/>
         <set field="task" from-field="arguments.workEffort"/>
-        <calculate field-name="taskTime">
+        <calculate field="taskTime">
             <calcop operator="multiply">
                 <calcop operator="get" field="task.estimatedMilliSeconds"/>
                 <calcop operator="get" field="arguments.quantity"/>
             </calcop>
         </calculate>
-        <calculate field-name="totalTime">
+        <calculate field="totalTime">
             <calcop operator="multiply">
                 <calcop operator="get" field="taskTime"/>
                 <number value="10"/>

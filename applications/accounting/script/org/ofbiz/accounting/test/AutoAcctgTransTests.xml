@@ -114,12 +114,12 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
                 </assert>
-                <calculate field-name="creditTotal">
+                <calculate field="creditTotal">
                     <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             <else>
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                    <calculate field-name="debitTotal">
+                    <calculate field="debitTotal">
                         <calcop operator="add" field="acctgTransEntry.origAmount"/>
                     </calculate>
                 </if-compare>
@@ -336,7 +336,7 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
                 </assert>-->
-                <calculate field-name="creditTotal">
+                <calculate field="creditTotal">
                     <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             </if-compare>
@@ -345,7 +345,7 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="UNDEPOSITED_RECEIPTS"/>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
                 </assert>-->
-                <calculate field-name="debitTotal">
+                <calculate field="debitTotal">
                     <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             </if-compare>
@@ -393,7 +393,7 @@ under the License.
         <set field="totalIssuedQty_MAT_B_COST" value="0.0" type="Double"/>
         <iterate list-name="workEffortAndInventoryAssigns" entry-name="workEffortAndInventoryAssign">
             <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
-                <calculate field-name="totalIssuedQty_MAT_A_COST">
+                <calculate field="totalIssuedQty_MAT_A_COST">
                     <calcop operator="add">
                         <calcop operator="get" field="workEffortAndInventoryAssign.quantity"/>
                         <calcop operator="get" field="totalIssuedQty_MAT_A_COST"/>
@@ -401,7 +401,7 @@ under the License.
                 </calculate>
             <else>
                 <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
-                    <calculate field-name="totalIssuedQty_MAT_B_COST">
+                    <calculate field="totalIssuedQty_MAT_B_COST">
                         <calcop operator="add">
                             <calcop operator="get" field="workEffortAndInventoryAssign.quantity" />
                             <calcop operator="get" field="totalIssuedQty_MAT_B_COST"/>

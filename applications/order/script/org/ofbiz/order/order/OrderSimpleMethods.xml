@@ -88,7 +88,7 @@ under the License.
             <if-empty field="totalsMap.${receipt.orderItemSeqId}">
                 <set field="totalsMap.${receipt.orderItemSeqId}" value="0" type="Double"/>
             </if-empty>
-            <calculate field-name="${receipt.orderItemSeqId}" map-name="totalsMap" type="Double">
+            <calculate field="${receipt.orderItemSeqId}" map-name="totalsMap" type="Double">
                 <calcop field="${receipt.orderItemSeqId}" map-name="totalsMap" operator="add">
                     <calcop field="quantityAccepted" map-name="receipt" operator="get"/>
                     <calcop field="quantityRejected" map-name="receipt" operator="get"/>
