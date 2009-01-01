@@ -281,10 +281,10 @@ under the License.
         <set from-field="userLogin.partyId" field="lookupMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupMap.roleTypeId"/>
         
-        <string-to-list string="priority" list-name="orderByList"/>
-        <string-to-list string="-responseRequiredDate" list-name="orderByList"/>
-        <string-to-list string="-custRequestDate" list-name="orderByList"/>
-        <string-to-list string="-createdDate" list-name="orderByList"/>
+        <string-to-list string="priority" list="orderByList"/>
+        <string-to-list string="-responseRequiredDate" list="orderByList"/>
+        <string-to-list string="-custRequestDate" list="orderByList"/>
+        <string-to-list string="-createdDate" list="orderByList"/>
         
         <find-by-and entity-name="CustRequestAndRole" list="custRequestAndRoles" map="lookupMap" order-by-list="orderByList"/>
         <field-to-result field="custRequestAndRoles" result-name="custRequestAndRoles"/>

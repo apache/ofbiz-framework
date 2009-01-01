@@ -168,7 +168,7 @@ under the License.
                     </condition>
                     <then>
                         <set field="hasSupplierRelatedPermission" value="false"/>
-                        <string-to-list list-name="error_list" string="ERROR: You do not have permission to ${checkAction} Delivery Schedule Information; you must be associated with this order as a Supplier Agent or have the ORDERMGR_${checkAction} permission."/>
+                        <string-to-list list="error_list" string="ERROR: You do not have permission to ${checkAction} Delivery Schedule Information; you must be associated with this order as a Supplier Agent or have the ORDERMGR_${checkAction} permission."/>
                     </then>
                     <else>
                         <set field="hasSupplierRelatedPermission" value="true"/>

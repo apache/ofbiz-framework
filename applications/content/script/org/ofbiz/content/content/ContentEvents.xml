@@ -47,7 +47,7 @@ under the License.
         <log level="always" message="context: ${context}"/>
 
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-        <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+        <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
 
@@ -109,7 +109,7 @@ under the License.
         <map-to-map map-name="currentContent" to-map-name="context"/>
         <get-related value-field="currentContent" relation-name="ContentPurpose" list="contentPurposeList"/>
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
-        <string-to-list list-name="targetOperationList" string="CONTENT_UPDATE"/>
+        <string-to-list list="targetOperationList" string="CONTENT_UPDATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="updateContent">
@@ -127,9 +127,9 @@ under the License.
         <set field="context3.contentIdFrom" from-field="parameters.contentId"/>
         <set field="context3.contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <session-to-field field-name="userLogin" map-name="context3" session-name="userLogin"/>
-        <string-to-list list-name="contentPurposeList" string="_NA_"/>
+        <string-to-list list="contentPurposeList" string="_NA_"/>
         <set field="context3.contentPurposeList" from-field="contentPurposeList"/>
-        <string-to-list list-name="targetOperationList" string="ASSOC_CONTENT"/>
+        <string-to-list list="targetOperationList" string="ASSOC_CONTENT"/>
         <set field="context3.targetOperationList" from-field="targetOperationList"/>
         <call-service in-map-name="context3" service-name="assocContent"></call-service>
 
