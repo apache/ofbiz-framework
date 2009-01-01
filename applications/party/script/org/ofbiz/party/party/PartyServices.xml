@@ -434,7 +434,7 @@ under the License.
           <set from-field="dataResourceMap" field="fileCtx.dataResource"/>
           <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
       </if-not-empty> 
-      <field-to-result result-name="parameters" field="contentId" result-name="contentId" />  
+        <field-to-result  field="parameters.contentId" result-name="contentId" />  
     </simple-method>       
     
     <!-- get parties based on PartyRelationship -->
@@ -698,18 +698,18 @@ under the License.
                         <if-compare-field field="telephone.contactMechPurposeTypeId" to-field="type" operator="equals">
                             <set field="found" value="notImportant"/>
                             <if-not-empty field="telephone.countryCode">
-                                <field-to-result result-name="telephone" field="countryCode"/>
+                                <field-to-result map-name="telephone" field="countryCode"/>
                             </if-not-empty>
                             <if-not-empty field="telephone.areaCode">
-                                <field-to-result result-name="telephone" field="areaCode"/>
+                                <field-to-result map-name="telephone" field="areaCode"/>
                             </if-not-empty>
                             <if-not-empty field="telephone.contactNumber">
-                                <field-to-result result-name="telephone" field="contactNumber"/>
+                                <field-to-result map-name="telephone" field="contactNumber"/>
                             </if-not-empty>
                             <if-not-empty field="telephone.extension">
-                                <field-to-result result-name="telephone" field="extension"/>
+                                <field-to-result map-name="telephone" field="extension"/>
                             </if-not-empty>
-                            <field-to-result result-name="telephone" field="contactMechPurposeTypeId"/>
+                            <field-to-result map-name="telephone" field="contactMechPurposeTypeId"/>
                         </if-compare-field>
                     </if-empty>
                 </iterate>
@@ -719,16 +719,16 @@ under the License.
                 <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
                 <first-from-list entry="telephone" list="telephoneAll2"/>
                 <if-not-empty field="telephone.tnCountryCode">
-                    <field-to-result result-name="telephone" field="tnCountryCode" result-name="countryCode"/>
+                    <field-to-result field="telephone.tnCountryCode" result-name="countryCode"/>
                 </if-not-empty>
                 <if-not-empty field="telephone.tnAreaCode">
-                    <field-to-result result-name="telephone" field="tnAreaCode" result-name="areaCode"/>
+                    <field-to-result field="telephone.tnAreaCode" result-name="areaCode"/>
                 </if-not-empty>
                 <if-not-empty field="telephone.tnContactNumber">
-                    <field-to-result result-name="telephone" field="tnContactNumber" result-name="contactNumber"/>
+                    <field-to-result field="telephone.tnContactNumber" result-name="contactNumber"/>
                 </if-not-empty>
                 <if-not-empty field="telephone.extension">
-                    <field-to-result result-name="telephone" field="extension"/>
+                    <field-to-result map-name="telephone" field="extension"/>
                 </if-not-empty>
             </else>
         </if-not-empty>

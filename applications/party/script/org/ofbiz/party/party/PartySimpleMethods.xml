@@ -77,7 +77,7 @@ under the License.
 
         <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="createPersonCtx"/>
         <call-service service-name="createPerson" in-map-name="createPersonCtx">
-            <result-to-field result-name="partyId" field="createUlInMap"/>
+            <result-to-field result-name="partyId" map="createUlInMap"/>
         </call-service>
 
         <!-- call the service with the system account to get around security constraints for this special create -->
@@ -88,8 +88,8 @@ under the License.
         <call-service service-name="createUserLogin" in-map-name="createUlInMap"/>
         <entity-one entity-name="UserLogin" value-name="newUserLogin"/>
 
-        <field-to-result field="newUserLogin"/>
-        <field-to-result field="createUlInresult-name.partyId" result-name="partyId"/>
+        <field-to-result field-name="newUserLogin"/>
+        <field-to-result field-name="createUlInMap.partyId" result-name="partyId"/>
     </simple-method>
  
     <!-- Simple method to create a person, its role and basic contact mechs -->
@@ -186,7 +186,7 @@ under the License.
         <set field="postalAddressContext.partyId" from-field="partyId"/>
         <set field="postalAddressContext.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
         <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext">
-            <result-to-field result-name="contactMechId" field="postalAddressContext"/>
+            <result-to-field result-name="contactMechId" map="postalAddressContext"/>
         </call-service>
      
         <if-not-empty field="postalAddContactMechPurpTypeId">

@@ -278,7 +278,7 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result field="quantityNotReserved" result-name="parameters"/>
+        <field-to-result field="quantityNotReserved" map-name="parameters"/>
     </simple-method>
     
     <simple-method method-name="reserveAnInventoryItem" short-description="Reserve a Specific Serialized InventoryItem">
@@ -372,7 +372,7 @@ under the License.
         <!-- store OrderItemShipGrpInvRes record -->
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
         <clear-field field="reserveOisgirMap"/>        
-        <field-to-result field="inventoryItemId" result-name="inventoryItem"/>
+        <field-to-result field="inventoryItemId" map-name="inventoryItem"/>
     </simple-method>
 
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">

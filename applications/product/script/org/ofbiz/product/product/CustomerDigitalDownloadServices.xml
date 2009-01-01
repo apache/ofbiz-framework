@@ -52,9 +52,9 @@ under the License.
         <create-value value-field="createProductSupplierMap"/>
 
         <field-to-result field="productId"/>
-        <field-to-result field="createProductSupplierresult-name.currencyUomId" result-name="currencyUomId"/>
-        <field-to-result field="createProductSupplierresult-name.minimumOrderQuantity" result-name="minimumOrderQuantity"/>
-        <field-to-result field="createProductSupplierresult-name.availableFromDate" result-name="availableFromDate"/>
+        <field-to-result field="createProductSupplierMap.currencyUomId" result-name="currencyUomId"/>
+        <field-to-result field="createProductSupplierMap.minimumOrderQuantity" result-name="minimumOrderQuantity"/>
+        <field-to-result field="createProductSupplierMap.availableFromDate" result-name="availableFromDate"/>
         
         <!-- create association with ProductStore.digProdUploadCategoryId -->
         <entity-one entity-name="ProductStore" value-field="productStore"/>

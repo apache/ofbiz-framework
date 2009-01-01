@@ -25,7 +25,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
-        <field-to-result field="costComponentId" result-name="newEntity"/>
+        <field-to-result field="costComponentId" map-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
