@@ -144,7 +144,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
         <set field="orderBy[]" value="rateTypeId"/>
-        <get-related value-field="workEffort" relation-name="TimeEntry" list-name="timeEntryList" order-by-list="orderBy"/>
+        <get-related value-field="workEffort" relation-name="TimeEntry" list="timeEntryList" order-by-list="orderBy"/>
         <set field="invoiceItemMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="invoiceItemMap.taxableFlag" value="N"/>
         <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>

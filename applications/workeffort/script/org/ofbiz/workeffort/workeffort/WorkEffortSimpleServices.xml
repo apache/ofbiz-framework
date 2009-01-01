@@ -306,7 +306,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
         <set-service-fields service-name="updatePartyToWorkEffortAssignment" map="parameters" to-map="del"/>
-        <now-date-to-env env-name="del.thruDate"/>
+        <now-date-to-env field="del.thruDate"/>
         <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>       
     </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
@@ -1098,7 +1098,7 @@ under the License.
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
         <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
         <if-not-empty field="workEffortInstance.workEffortId">            
-        <remove-related relation-name="WorkEffortKeyword" value-name="workEffortInstance"></remove-related>            
+        <remove-related relation-name="WorkEffortKeyword" value-field="workEffortInstance"/>            
         </if-not-empty>
         <check-errors/>
     </simple-method>

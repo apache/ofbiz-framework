@@ -770,7 +770,7 @@ under the License.
             <set field="orderByList[]" value="-promisedDatetime"/>
         </else>
         </if-compare>
-        <get-related value-field="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list="orderByList"/>
+        <get-related value-field="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list="orderItemShipGroupInvResList" order-by-list="orderByList"/>
         <first-from-list entry="orderItemShipGroupInvRes" list="orderItemShipGroupInvResList"/>
         <field-to-result field="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
