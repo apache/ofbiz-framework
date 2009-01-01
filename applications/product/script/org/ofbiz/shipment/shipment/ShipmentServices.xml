@@ -1044,7 +1044,7 @@ under the License.
         <else>
             <!-- add the quantities and store it -->            
             <calculate field="shipmentPackageContent.quantity" type="Double">
-                <calcop field-name="shipmentPackageContent.quantity" operator="add"><calcop field="parameters.quantity" operator="get"/></calcop>
+                <calcop field="shipmentPackageContent.quantity" operator="add"><calcop field="parameters.quantity" operator="get"/></calcop>
             </calculate>
             <set-service-fields service-name="updateShipmentPackageContent" map="shipmentPackageContent" to-map="updateSPCMap"/>
             <call-service service-name="updateShipmentPackageContent" in-map-name="updateSPCMap"/>
@@ -1482,7 +1482,7 @@ under the License.
                       <!-- just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group, since that is what this shipment is for -->
                       <clear-field field="itemResFindMap"/>
                       <set from-field="orderItemShipGrpInvResFacilityId" field="itemResFindMap.facilityId"/>
-                      <get-related value-field="orderItemAndShipGroupAssoc" relation-name="OrderItemShipGrpInvResAndItem" map-name="itemResFindMap" list="itemResList"/>
+                      <get-related value-field="orderItemAndShipGroupAssoc" relation-name="OrderItemShipGrpInvResAndItem" map="itemResFindMap" list="itemResList"/>
                       <iterate list="itemResList" entry="itemRes">
                         <set from-field="shipment.shipmentId" field="issueContext.shipmentId"/>
                         <set from-field="itemRes.orderId" field="issueContext.orderId"/>

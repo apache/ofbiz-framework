@@ -900,7 +900,7 @@ under the License.
                 <get-related-one value-field="returnItem" relation-name="OrderItem" to-value-field="orderItem"/>
                 <!-- get the order items of the replacement order associated to the returned item  -->
                 <set field="oiaMap.orderItemAssocTypeId" value="REPLACEMENT"/>
-                <get-related value-field="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list="replacementOrderItems"/>
+                <get-related value-field="orderItem" relation-name="FromOrderItemAssoc" map="oiaMap" list="replacementOrderItems"/>
                 <iterate list="replacementOrderItems" entry="replacementOrderItem">
                     <set field="orderItemMap.orderId" from-field="replacementOrderItem.toOrderId"/>
                     <set field="orderItemMap.orderItemSeqId" from-field="replacementOrderItem.toOrderItemSeqId"/>

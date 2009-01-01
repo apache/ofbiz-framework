@@ -195,12 +195,12 @@ under the License.
             <get-related-one value-field="task" relation-name="FixedAsset" to-value-field="fixedAsset"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.amountUomId"/>
             <set value="SETUP_COST" field="costsAndMap.fixedAssetStdCostTypeId"/>
-            <get-related value-field="fixedAsset" relation-name="FixedAssetStdCost" map-name="costsAndMap" list="setupCosts"/>
+            <get-related value-field="fixedAsset" relation-name="FixedAssetStdCost" map="costsAndMap" list="setupCosts"/>
             <filter-list-by-date list="setupCosts"/>
             <!--<filter-list-by-and list-name="costs" map-name="costsAndMap"/>-->
             <first-from-list list="setupCosts" entry="setupCost"/>
             <set value="USAGE_COST" field="costsAndMap.fixedAssetStdCostTypeId"/>
-            <get-related value-field="fixedAsset" relation-name="FixedAssetStdCost" map-name="costsAndMap" list="usageCosts"/>
+            <get-related value-field="fixedAsset" relation-name="FixedAssetStdCost" map="costsAndMap" list="usageCosts"/>
             <filter-list-by-date list="usageCosts"/>
             <first-from-list list="usageCosts" entry="usageCost"/>
         </if-not-empty>

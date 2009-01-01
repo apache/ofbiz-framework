@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
-            <get-related relation-name="InvoiceItem" value-field="invoice" list="invoiceItems" map-name="andConditions"/>
+            <get-related relation-name="InvoiceItem" value-field="invoice" list="invoiceItems" map="andConditions"/>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <clear-field field="inMap"/>
                 <set field="inMap.invoice" from-field="invoice"/>
@@ -131,7 +131,7 @@ under the License.
             <!-- taxes -->
             <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
-            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="taxes" map-name="andConditions"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="taxes" map="andConditions"/>
             <iterate list="taxes" entry="tax">
                 <calculate field="fact.extTaxAmount" type="BigDecimal">
                     <calcop field="fact.extTaxAmount" operator="add">
@@ -142,7 +142,7 @@ under the License.
             <!-- discounts -->
             <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
-            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="discounts" map-name="andConditions"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="discounts" map="andConditions"/>
             <iterate list="discounts" entry="discount">
                 <calculate field="fact.extDiscountAmount" type="BigDecimal">
                     <calcop field="fact.extDiscountAmount" operator="add">
