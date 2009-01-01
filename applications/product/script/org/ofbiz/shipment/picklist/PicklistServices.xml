@@ -1048,7 +1048,7 @@ under the License.
         <clear-field field="picklistBinInfoList"/>
 
         <set value="+binLocationNumber" field="picklistBinOrderList[]"/>
-        <get-related value-field="picklist" relation-name="PicklistBin" list-name="picklistBinList" order-by-list="picklistBinOrderList"/>
+        <get-related value-field="picklist" relation-name="PicklistBin" list="picklistBinList" order-by-list="picklistBinOrderList"/>
         <iterate entry="picklistBin" list="picklistBinList">
             <clear-field field="picklistBinInfo"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderHeader" to-value-field="picklistBinInfo.primaryOrderHeader"/>
