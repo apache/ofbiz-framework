@@ -571,8 +571,8 @@ under the License.
                <set field="updateInvoiceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
            </if-compare>
            <clear-field field="invoice"/>
-           <clear-field field="invoiceIdToCopyFrom" map-name="parameters"/>
-           <clear-field field="recurrenceInfoId" map-name="updateInvoiceCtx"/>
+           <clear-field field="parameters.invoiceIdToCopyFrom"/>
+           <clear-field field="updateInvoiceCtx.recurrenceInfoId"/>
            <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
        </iterate>
    </simple-method>
