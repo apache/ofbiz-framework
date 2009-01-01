@@ -40,7 +40,7 @@ under the License.
             <sequenced-id sequence-name="ProductCategory" field="newEntity.productCategoryId"/>
         <else>
             <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
-            <check-id field-name="newEntity.productCategoryId"/>
+            <check-id field="newEntity.productCategoryId"/>
             <check-errors/>
         </else>
         </if-empty>

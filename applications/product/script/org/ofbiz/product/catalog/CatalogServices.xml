@@ -28,7 +28,7 @@ under the License.
             <sequenced-id sequence-name="ProdCatalog" field="newEntity.prodCatalogId"/>
         <else>
             <set field="newEntity.prodCatalogId" from-field="parameters.prodCatalogId"/>
-            <check-id field-name="newEntity.prodCatalogId"/>
+            <check-id field="newEntity.prodCatalogId"/>
             <check-errors/>
         </else>
         </if-empty>
