@@ -181,16 +181,16 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="lookedUpValue"/>
 
         <!-- Remove associated/dependent entries from other entities here -->
-        <remove-related value-name="lookedUpValue" relation-name="WorkEffortKeyword"/>
-        <remove-related value-name="lookedUpValue" relation-name="WorkEffortAttribute"/>
-        <remove-related value-name="lookedUpValue" relation-name="WorkOrderItemFulfillment"/>
-        <remove-related value-name="lookedUpValue" relation-name="FromWorkEffortAssoc"/>
-        <remove-related value-name="lookedUpValue" relation-name="ToWorkEffortAssoc"/>
-        <remove-related value-name="lookedUpValue" relation-name="NoteData"/>
-        <remove-related value-name="lookedUpValue" relation-name="RecurrenceInfo"/>
-        <remove-related value-name="lookedUpValue" relation-name="RuntimeData"/>
-        <remove-related value-name="lookedUpValue" relation-name="WorkEffortPartyAssignment"/>
-        <remove-related value-name="lookedUpValue" relation-name="WorkEffortStatus"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkEffortKeyword"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkEffortAttribute"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkOrderItemFulfillment"/>
+        <remove-related value-field="lookedUpValue" relation-name="FromWorkEffortAssoc"/>
+        <remove-related value-field="lookedUpValue" relation-name="ToWorkEffortAssoc"/>
+        <remove-related value-field="lookedUpValue" relation-name="NoteData"/>
+        <remove-related value-field="lookedUpValue" relation-name="RecurrenceInfo"/>
+        <remove-related value-field="lookedUpValue" relation-name="RuntimeData"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkEffortPartyAssignment"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkEffortStatus"/>
 
         <!-- Delete actual main entity last -->
         <remove-value value-field="lookedUpValue"/>
