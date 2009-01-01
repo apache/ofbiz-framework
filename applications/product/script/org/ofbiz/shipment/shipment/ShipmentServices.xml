@@ -724,7 +724,7 @@ under the License.
         <!-- set subject, contentType, templateName, templateData -->
         <set value="Scheduled Notification for Shipment ${shipment.shipmentId}" field="sendEmailMap.subject"/>
         <if-not-empty field="shipment.primaryOrderId">
-            <string-append string=" for Primary Order ${shipment.primaryOrderId}" field-name="sendEmailMap.subject"/>
+            <string-append string=" for Primary Order ${shipment.primaryOrderId}" field="sendEmailMap.subject"/>
         </if-not-empty>
         <set value="text/html" field="sendEmailMap.contentType"/>
         <set value="org/ofbiz/shipment/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
