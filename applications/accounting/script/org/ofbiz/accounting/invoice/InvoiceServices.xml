@@ -209,7 +209,7 @@ under the License.
 
         <!-- only try to update content if the status is in process.... -->
         <if-compare field="lookedUpValue.statusId" operator="equals" value="INVOICE_IN_PROCESS">
-            <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+            <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
             <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
             <!-- only save if something has changed, do not update status here -->
@@ -286,7 +286,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
 
         <find-by-primary-key entity-name="InvoiceItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+        <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
 
         <!-- set all parameters -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

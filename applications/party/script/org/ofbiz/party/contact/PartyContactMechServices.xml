@@ -86,7 +86,7 @@ under the License.
 
         <check-errors/>
         
-        <clone-value value-name="partyContactMech" new-value-name="newPartyContactMech"/>
+        <clone-value value-field="partyContactMech" new-value-field="newPartyContactMech"/>
         
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">                
@@ -111,7 +111,7 @@ under the License.
         <if-compare-field to-field="newPartyContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-field="partyContactMech" relation-name="PartyContactMechPurpose" list="partyContactMechPurposes"/>   
             <iterate entry="partyContactMechPurposeOld" list="partyContactMechPurposes">
-                <clone-value value-name="partyContactMechPurposeOld" new-value-name="partyContactMechPurpose"/>
+                <clone-value value-field="partyContactMechPurposeOld" new-value-field="partyContactMechPurpose"/>
                 <now-timestamp field="partyContactMechPurposeOld.thruDate"/>
                 <store-value value-field="partyContactMechPurposeOld"/>
 

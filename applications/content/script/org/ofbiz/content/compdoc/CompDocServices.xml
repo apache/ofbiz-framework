@@ -122,7 +122,7 @@ under the License.
         <log message="genInstanceChildCompDocs 1> contentAssocList: ${contentAssocList}" level="info"/>
 
         <iterate list="contentAssocList" entry="templateContentAssoc">
-            <clone-value value-name="templateContent" new-value-name="instanceContent"/>
+            <clone-value value-field="templateContent" new-value-field="instanceContent"/>
 
             <sequenced-id sequence-name="Content" field="instanceContent.contentId"/>
 
@@ -593,7 +593,7 @@ under the License.
         </entity-and>
         <log level="info" message="templateContentApprovalList 0aa: ${templateContentApprovalList}"/>
         <iterate list="templateContentApprovalList" entry="templateContentApproval">
-            <clone-value value-name="templateContentApproval" new-value-name="contentApproval"/>
+            <clone-value value-field="templateContentApproval" new-value-field="contentApproval"/>
             <set from-field="parameters.contentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
             <set from-field="parameters.contentId" field="contentApproval.contentId"/>
 
@@ -647,7 +647,7 @@ under the License.
                 </entity-and>
                 <log level="info" message="templateContentApprovalList 0aa: ${templateContentApprovalList}"/>
                 <iterate list="templateContentApprovalList" entry="templateContentApproval">
-                    <clone-value value-name="templateContentApproval" new-value-name="contentApproval"/>
+                    <clone-value value-field="templateContentApproval" new-value-field="contentApproval"/>
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                     <set from-field="thisContentId" field="contentApproval.contentId"/>
 
@@ -670,7 +670,7 @@ under the License.
                 <log level="info" message="cloneContentApprovals(2b)- contentApprovalList : ${contentApprovalList} "/>
                 <!--  conditionally set the contentApprovalId status of each entity -->
                 <iterate list="contentApprovalList" entry="existingContentApproval">
-                    <clone-value value-name="existingContentApproval" new-value-name="contentApproval"/>
+                    <clone-value value-field="existingContentApproval" new-value-field="contentApproval"/>
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
 
                     <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
@@ -749,7 +749,7 @@ under the License.
                         </condition-list>
                     </entity-condition>
                     <if-empty field="newContentApprovalList">
-                        <clone-value value-name="templateContentApproval" new-value-name="contentApproval"/>
+                        <clone-value value-field="templateContentApproval" new-value-field="contentApproval"/>
                         <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                         <set field="contentApproval.contentId" from-field="thisContentId"/>
 

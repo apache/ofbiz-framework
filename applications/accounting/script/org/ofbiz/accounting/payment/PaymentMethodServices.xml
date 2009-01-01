@@ -58,7 +58,7 @@ under the License.
         <find-by-primary-key entity-name="PaymentMethod" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
             <find-by-primary-key entity-name="CreditCard" map="lookupPKMap" value-field="mainValue"/>
-            <clone-value value-name="mainValue" new-value-name="savedValue"/>
+            <clone-value value-field="mainValue" new-value-field="savedValue"/>
             <set-nonpk-fields map="parameters" value-field="mainValue"/>
             <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
                 <store-value value-field="mainValue"/>
@@ -66,7 +66,7 @@ under the License.
         </if-compare>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="EFT_ACCOUNT">
             <find-by-primary-key entity-name="CreditCard" map="lookupPKMap" value-field="mainValue"/>
-            <clone-value value-name="mainValue" new-value-name="savedValue"/>
+            <clone-value value-field="mainValue" new-value-field="savedValue"/>
             <set-nonpk-fields map="parameters" value-field="mainValue"/>
             <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
                 <store-value value-field="mainValue"/>
