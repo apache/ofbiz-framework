@@ -1248,7 +1248,7 @@
                    <store-value value-field="timeEntry"/>
             </iterate>
             <set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
-            <remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
+            <remove-by-and entity-name="InvoiceItem" map="removeItems"/>
             <set field="notFirst" value="Y"/><!-- do not create, only add -->
         </if-compare>
         <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="tasks">

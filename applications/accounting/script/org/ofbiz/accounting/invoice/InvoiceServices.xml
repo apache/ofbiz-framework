@@ -321,7 +321,7 @@ under the License.
         <set field="paymentApplicationMap.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
         <if-not-empty field="parameters.invoiceItemSeqId">
             <!-- check if there are specific item paymentApplications when yes remove those -->
-            <remove-by-and entity-name="PaymentApplication" map-name="paymentApplicationMap"/>
+            <remove-by-and entity-name="PaymentApplication" map="paymentApplicationMap"/>
             <else><!-- update global application with a null sequence number -->
                 <!-- TODO: reduce amount on global paymentApplication record -->
             </else>
@@ -485,7 +485,7 @@ under the License.
                 <!-- if new status is cancelled remove existing payment applications and time entries. -->
                 <if-compare field="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
                     <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
-                    <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
+                    <remove-by-and entity-name="PaymentApplication" map="removePaymentApplicationMap"/>
                     <entity-and entity-name="TimeEntry" list="entries">
                         <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>

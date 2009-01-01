@@ -1173,18 +1173,18 @@ under the License.
         </if-not-empty>
 
         <if-not-empty field="parameters.removeWorkEffortAssocs">
-            <remove-by-and entity-name="WorkEffortAssoc" map-name="workEffortAssocFindContext"/>            
+            <remove-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext"/>            
             <!-- small difference here, also do the reverse assocs... -->
-            <remove-by-and entity-name="WorkEffortAssoc" map-name="reverseWorkEffortFindContext"/>
+            <remove-by-and entity-name="WorkEffortAssoc" map="reverseWorkEffortFindContext"/>
         </if-not-empty>
         <if-not-empty field="parameters.removeWorkEffortContents">
-            <remove-by-and entity-name="WorkEffortContent" map-name="workEffortFindContext"/>
+            <remove-by-and entity-name="WorkEffortContent" map="workEffortFindContext"/>
         </if-not-empty>
         <if-not-empty field="parameters.removeWorkEffortNotes">
-            <remove-by-and entity-name="WorkEffortNote" map-name="workEffortFindContext"/>
+            <remove-by-and entity-name="WorkEffortNote" map="workEffortFindContext"/>
         </if-not-empty>
         <if-not-empty field="parameters.removeWorkEffortAssignmentRates">
-            <remove-by-and entity-name="RateAmount" map-name="workEffortFindContext"/>
+            <remove-by-and entity-name="RateAmount" map="workEffortFindContext"/>
         </if-not-empty>
     </simple-method>
     
