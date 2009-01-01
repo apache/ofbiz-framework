@@ -286,7 +286,7 @@ under the License.
         <string-to-list string="-custRequestDate" list-name="orderByList"/>
         <string-to-list string="-createdDate" list-name="orderByList"/>
         
-        <find-by-and entity-name="CustRequestAndRole" list-name="custRequestAndRoles" map="lookupMap" order-by-list="orderByList"/>
+        <find-by-and entity-name="CustRequestAndRole" list="custRequestAndRoles" map="lookupMap" order-by-list="orderByList"/>
         <field-to-result field="custRequestAndRoles" result-name="custRequestAndRoles"/>
     </simple-method>
 

@@ -109,13 +109,13 @@ under the License.
             <if-not-empty field="parameters.locationSeqId">
                 <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
             </if-not-empty>
-            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list-name="primaryInventoryItemList" order-by-list="orderByList"/>
+            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="primaryInventoryItemList" order-by-list="orderByList"/>
             <set from-field="primaryInventoryItemList" field="inventoryItemList"/>
             <!-- if secondaryLocationSeqId is also passed, then also the inventory items in the secondary location are considered, after the ones in the main location -->
             <if-not-empty field="parameters.locationSeqId">
                 <if-not-empty field="parameters.secondaryLocationSeqId">
                     <set from-field="parameters.secondaryLocationSeqId" field="lookupFieldMap.locationSeqId"/>
-                    <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list-name="secondaryInventoryItemList" order-by-list="orderByList"/>
+                    <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="secondaryInventoryItemList" order-by-list="orderByList"/>
                     <list-to-list list-name="secondaryInventoryItemList" to-list-name="inventoryItemList"/>
                 </if-not-empty>
             </if-not-empty>

@@ -132,7 +132,7 @@ under the License.
         <field-to-list list="orderByStringList" field="orderByString"/>
         <set field="productCategoryRollUpContext.parentProductCategoryId" from-field="parameters.parentProductCategoryId" />
         <!--set field="categories" from-field="parameters.categories" / -->        
-        <find-by-and entity-name="ProductCategoryRollup" list-name="rollups" map="productCategoryRollUpContext" order-by-list="orderByStringList"/>
+        <find-by-and entity-name="ProductCategoryRollup" list="rollups" map="productCategoryRollUpContext" order-by-list="orderByStringList"/>
         <if-not-empty field="parameters.categories">
             <list-to-list list-name="parameters.categories" to-list-name="categories"/>
         </if-not-empty>
