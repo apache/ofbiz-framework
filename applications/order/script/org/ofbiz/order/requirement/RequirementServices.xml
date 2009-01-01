@@ -39,7 +39,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="Requirement"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="Requirement" map="lookupPKMap" value-field="lookedUpValue"/>
-        <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+        <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/> 
         <store-value value-field="lookedUpValue"/>

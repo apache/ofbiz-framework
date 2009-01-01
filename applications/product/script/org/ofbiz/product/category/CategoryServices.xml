@@ -371,7 +371,7 @@ under the License.
 
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
         <iterate entry="productCategoryMember" list="productCategoryMembers">
-            <clone-value value-name="productCategoryMember" new-value-name="newProductCategoryMember"/>
+            <clone-value value-field="productCategoryMember" new-value-field="newProductCategoryMember"/>
             <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
             <field-to-list field="newProductCategoryMember" list="pcmsToStore"/>
         </iterate>
@@ -423,7 +423,7 @@ under the License.
         
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
         <iterate entry="categoryEntity" list="categoryEntities">
-            <clone-value value-name="categoryEntity" new-value-name="newCategoryEntity"/>
+            <clone-value value-field="categoryEntity" new-value-field="newCategoryEntity"/>
             <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
             <field-to-list field="newCategoryEntity" list="entitiesToStore"/>
         </iterate>
@@ -563,7 +563,7 @@ under the License.
         <entity-one entity-name="ProductCategory" value-field="oldCategory">
             <field-map field-name="productCategoryId" from-field="parameters.oldProductCategoryId"/>
         </entity-one>
-        <clone-value value-name="oldCategory" new-value-name="newCategory"/>
+        <clone-value value-field="oldCategory" new-value-field="newCategory"/>
 
         <!-- set the new product category id, and write it to the datasource -->
         <set field="newCategory.productCategoryId" from-field="parameters.productCategoryId"/>
@@ -603,7 +603,7 @@ under the License.
         <if-not-empty field="parameters.duplicateParentRollup">
             <find-by-and entity-name="ProductCategoryRollup" map="categoryFindContext" list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set field="newTempValue.productCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-field="newTempValue"/>
             </iterate>
@@ -613,7 +613,7 @@ under the License.
                 <field-map field-name="parentProductCategoryId" from-field="parameters.oldProductCategoryId"/>
             </entity-and>
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set field="newTempValue.parentProductCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-field="newTempValue"/>
             </iterate>

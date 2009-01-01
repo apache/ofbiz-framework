@@ -624,7 +624,7 @@ under the License.
 
         <entity-one entity-name="Shipment" value-field="shipment"/>
 
-        <clone-value value-name="shipment" new-value-name="shipmentCopy"/>
+        <clone-value value-field="shipment" new-value-field="shipmentCopy"/>
 
         <string-to-list string="-fromDate" list-name="descendingFromDateOrder"/>
         <if-not-empty field="shipment.originFacilityId">

@@ -66,7 +66,7 @@ under the License.
         <find-by-primary-key entity-name="ContactMech" map="ContactMechMap" value-field="oldValue" /> 
         <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
              <log level="info" message="Contact mech need updating"/> 
-            <clone-value value-name="oldValue" new-value-name="newValue"/>
+            <clone-value value-field="oldValue" new-value-field="newValue"/>
             <set-nonpk-fields map="parameters" value-field="newValue" set-if-null="false"/>
             <set field="context.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <set field="context.infoString" from-field="parameters.infoString"/>
