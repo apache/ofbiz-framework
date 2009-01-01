@@ -538,7 +538,7 @@
         
         <!-- copy assigned parties -->
         <get-related value-field="project" relation-name="WorkEffortPartyAssignment" list="partiesAll"/>
-        <filter-list-by-date list-name="partiesAll" to-list="parties"/>
+        <filter-list-by-date list="partiesAll" to-list="parties"/>
         <if-not-empty field="parties">
             <iterate entry="party" list="parties">
                 <set field="parameters.workEffortId" from-field="newProjectId"/>            
@@ -967,7 +967,7 @@
         <if-compare field="lowInfo.workEffortTypeId" value="TASK" operator="equals">
             <if-compare field="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
                 <get-related value-field="lowInfo" relation-name="WorkEffortPartyAssignment" list="assignsAll"/>
-                <filter-list-by-date list-name="assignsAll" to-list="assigns"/>
+                <filter-list-by-date list="assignsAll" to-list="assigns"/>
                 <if-not-empty field="assigns">
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_AS"/><!-- task is assigned -->
                 </if-not-empty>

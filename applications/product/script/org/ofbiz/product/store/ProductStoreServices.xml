@@ -82,7 +82,7 @@ under the License.
                 <!-- expire all the facilities -->
                 <set from-field="store.productStoreId" field="lookupPFMap.productStoreId"/>
                 <find-by-and entity-name="ProductStoreFacility" map="lookupPFMap" list="storeFacilities"/>
-                <filter-list-by-date list-name="storeFacilities"/>
+                <filter-list-by-date list="storeFacilities"/>
                 <iterate list="storeFacilities" entry="facility">
                     <set from-field="nowTimestamp" field="facility.thruDate"/>
                     <store-value value-field="facility"/>

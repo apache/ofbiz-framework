@@ -563,7 +563,7 @@
         <iterate entry="mapKey" list="mapKeys">
             <set from-field="mapKey" field="queryMap.mapKey"/>
             <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
-            <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
+            <filter-list-by-date list="resultMap" to-list="validContent"/>
             <iterate entry="contentAssoc" list="validContent">
                 <field-to-list field="contentAssoc" list="result"/>
             </iterate>
