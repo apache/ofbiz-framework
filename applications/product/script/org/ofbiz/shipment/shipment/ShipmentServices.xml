@@ -437,7 +437,7 @@ under the License.
         <!-- From: SHIP_FROM_VENDOR -->
         <if-empty field="shipment.partyIdFrom">
             <set value="SHIP_FROM_VENDOR" field="limitRoleMap.roleTypeId"/>
-            <filter-list-by-and list-name="orderRoles" map-name="limitRoleMap" to-list-name="limitOrderRoles"/>
+            <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
             <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdFrom"/>
@@ -447,7 +447,7 @@ under the License.
         <!-- From: VENDOR -->
         <if-empty field="shipment.partyIdFrom">
             <set value="VENDOR" field="limitRoleMap.roleTypeId"/>
-            <filter-list-by-and list-name="orderRoles" map-name="limitRoleMap" to-list-name="limitOrderRoles"/>
+            <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
             <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdFrom"/>
@@ -458,7 +458,7 @@ under the License.
         <!-- To: SHIP_TO_CUSTOMER -->
         <if-empty field="shipment.partyIdTo">
             <set value="SHIP_TO_CUSTOMER" field="limitRoleMap.roleTypeId"/>
-            <filter-list-by-and list-name="orderRoles" map-name="limitRoleMap" to-list-name="limitOrderRoles"/>
+            <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
             <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdTo"/>
@@ -468,7 +468,7 @@ under the License.
         <!-- To: CUSTOMER -->
         <if-empty field="shipment.partyIdTo">
             <set value="CUSTOMER" field="limitRoleMap.roleTypeId"/>
-            <filter-list-by-and list-name="orderRoles" map-name="limitRoleMap" to-list-name="limitOrderRoles"/>
+            <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
             <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdTo"/>
@@ -483,7 +483,7 @@ under the License.
         <if-empty field="shipment.destinationContactMechId">
             <!-- first try from orderContactMechs -->
             <set value="SHIPPING_LOCATION" field="destinationContactMap.contactMechPurposeTypeId"/>
-            <filter-list-by-and list-name="orderContactMechs" map-name="destinationContactMap" to-list-name="destinationOrderContactMechs"/>
+            <filter-list-by-and list="orderContactMechs" map="destinationContactMap" to-list="destinationOrderContactMechs"/>
             <first-from-list entry="destinationOrderContactMech" list="destinationOrderContactMechs"/>
             <if-not-empty field="destinationOrderContactMech">
                 <set from-field="destinationOrderContactMech.contactMechId" field="shipment.destinationContactMechId"/>
@@ -496,7 +496,7 @@ under the License.
         <if-compare field="shipment.shipmentTypeId" operator="not-equals" value="PURCHASE_SHIPMENT">
             <if-empty field="shipment.originContactMechId">
                 <set value="SHIP_ORIG_LOCATION" field="originContactMap.contactMechPurposeTypeId"/>
-                <filter-list-by-and list-name="orderContactMechs" map-name="originContactMap" to-list-name="originOrderContactMechs"/>
+                <filter-list-by-and list="orderContactMechs" map="originContactMap" to-list="originOrderContactMechs"/>
                 <first-from-list entry="originOrderContactMech" list="originOrderContactMechs"/>
                 <if-not-empty field="originOrderContactMech">
                     <set from-field="originOrderContactMech.contactMechId" field="shipment.originContactMechId"/>
@@ -510,7 +510,7 @@ under the License.
         <!-- destinationTelecomNumberId -->
         <if-empty field="shipment.destinationTelecomNumberId">
             <set value="PHONE_SHIPPING" field="destTelecomOrderContactMechMap.contactMechPurposeTypeId"/>
-            <filter-list-by-and list-name="orderContactMechs" map-name="destTelecomOrderContactMechMap" to-list-name="destTelecomOrderContactMechs"/>
+            <filter-list-by-and list="orderContactMechs" map="destTelecomOrderContactMechMap" to-list="destTelecomOrderContactMechs"/>
             <first-from-list entry="destTelecomOrderContactMech" list="destTelecomOrderContactMechs"/>
             <if-not-empty field="destTelecomOrderContactMech">
                 <set from-field="destTelecomOrderContactMech.contactMechId" field="shipment.destinationTelecomNumberId"/>
@@ -532,7 +532,7 @@ under the License.
         <!-- originTelecomNumberId -->
         <if-empty field="shipment.originTelecomNumberId">
             <set value="PHONE_SHIP_ORIG" field="originTelecomOrderContactMechMap.contactMechPurposeTypeId"/>
-            <filter-list-by-and list-name="orderContactMechs" map-name="originTelecomOrderContactMechMap" to-list-name="originTelecomOrderContactMechs"/>
+            <filter-list-by-and list="orderContactMechs" map="originTelecomOrderContactMechMap" to-list="originTelecomOrderContactMechs"/>
             <first-from-list entry="originTelecomOrderContactMech" list="originTelecomOrderContactMechs"/>
             <if-not-empty field="originTelecomOrderContactMech">
                 <set from-field="originTelecomOrderContactMech.contactMechId" field="shipment.originTelecomNumberId"/>
