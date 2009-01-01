@@ -293,7 +293,7 @@ under the License.
         <check-errors/>
 
         <call-service service-name="createPerson" in-map-name="personContext">
-            <result-to-field result-name="partyId" field="tempMap"/>
+            <result-to-field result-name="partyId" map="tempMap"/>
         </call-service>
 
         <!-- now that we have the partyId, put it where it needs to go... -->
@@ -329,7 +329,7 @@ under the License.
             <!-- address not used, do nothing -->
             <else>
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
-                    <result-to-field result-name="contactMechId" field="addressPurposeContext"/>
+                    <result-to-field result-name="contactMechId" map="addressPurposeContext"/>
                 </call-service>
                 <set field="addressPurposeContext.partyId" from-field="tempMap.partyId" />
                 <!-- create the shipping location -->
@@ -344,7 +344,7 @@ under the License.
         <!-- home phone -->
         <if-not-empty field="parameters.USER_HOME_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
-                <result-to-field result-name="contactMechId" field="homePhonePurposeContext"/>
+                <result-to-field result-name="contactMechId" map="homePhonePurposeContext"/>
             </call-service>
             <set field="homePhonePurposeContext.partyId" from-field="tempMap.partyId" />
             <set field="homePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_HOME" />
@@ -354,7 +354,7 @@ under the License.
         <!-- work phone -->
         <if-not-empty field="parameters.USER_WORK_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
-                <result-to-field result-name="contactMechId" field="workPhonePurposeContext"/>
+                <result-to-field result-name="contactMechId" map="workPhonePurposeContext"/>
             </call-service>
             <set field="workPhonePurposeContext.partyId" from-field="tempMap.partyId" />
             <set field="workPhonePurposeContext.contactMechPurposeTypeId" value="PHONE_WORK" />
@@ -364,7 +364,7 @@ under the License.
         <!-- fax phone -->
         <if-not-empty field="parameters.USER_FAX_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
-                <result-to-field result-name="contactMechId" field="faxPhonePurposeContext"/>
+                <result-to-field result-name="contactMechId" map="faxPhonePurposeContext"/>
             </call-service>
             <set field="faxPhonePurposeContext.partyId" from-field="tempMap.partyId" />
             <set field="faxPhonePurposeContext.contactMechPurposeTypeId" value="FAX_NUMBER" />
@@ -374,7 +374,7 @@ under the License.
         <!-- mobile phone -->
         <if-not-empty field="parameters.USER_MOBILE_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
-                <result-to-field result-name="contactMechId" field="mobilePhonePurposeContext"/>
+                <result-to-field result-name="contactMechId" map="mobilePhonePurposeContext"/>
             </call-service>
             <set field="mobilePhonePurposeContext.partyId" from-field="tempMap.partyId" />
             <set field="mobilePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_MOBILE" />
@@ -384,14 +384,14 @@ under the License.
         <!-- email address -->
         <if-not-empty field="parameters.USER_EMAIL">
             <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
-                <result-to-field result-name="contactMechId" field="emailPurposeContext"/>
+                <result-to-field result-name="contactMechId" map="emailPurposeContext"/>
             </call-service>
             <set field="emailPurposeContext.partyId" from-field="tempMap.partyId" />
             <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
         <!-- set the partyId in the request -->
-        <field-to-request field="partyId" request-name="tempMap" request-name="partyId"/>
+        <field-to-request field="partyId" map-name="tempMap" request-name="partyId"/>
 
         <!--send New User Email Notification-->
         <set field="emailContext.partyId" from-field="partyId"/>

@@ -151,6 +151,6 @@ under the License.
                 <calcop operator="get" field-name="productFactor"/>
             </calcop>
         </calculate>
-        <field-to-result field="totQuantity" result-name="convertedValue"/>
+        <field-to-result field-name="totQuantity" result-name="convertedValue"/>
     </simple-method>
 </simple-methods>

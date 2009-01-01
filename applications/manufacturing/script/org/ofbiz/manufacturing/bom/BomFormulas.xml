@@ -30,7 +30,7 @@ under the License.
                 <number value="10"/>
             </calcop>
         </calculate>
-        <field-to-result field="totQuantity" result-name="quantity"/>
+        <field-to-result field-name="totQuantity" result-name="quantity"/>
     </simple-method>
     
     <simple-method method-name="linearComponentConsumptionFormula" short-description="Formula that the number of linear components in bom">
@@ -69,6 +69,6 @@ under the License.
             </calculate>
         </else>
         </if-compare-field>
-        <field-to-result field="quantity" result-name="quantity"/>
+        <field-to-result field-name="quantity" result-name="quantity"/>
     </simple-method>
 </simple-methods>

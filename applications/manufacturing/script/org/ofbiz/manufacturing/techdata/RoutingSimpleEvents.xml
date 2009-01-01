@@ -30,7 +30,7 @@ under the License.
                 processor-name="copyRoutingTask" in-map-name="lookedUpValue" out-map-name="context"/>
             <call-service service-name="createWorkEffort" in-map-name="context">
                 <default-message resource="ManufacturingUiLabels" property="ManufacturingRoutingTaskCopiedSuccessfully"/>
-                <result-to-field result-name="workEffortId" field="parameters" field="workEffortIdTo"/>
+                <result-to-field result-name="workEffortId" map="parameters" field="workEffortIdTo"/>
             </call-service>
         </if-compare>
         <if-empty field="parameters.fromDate">

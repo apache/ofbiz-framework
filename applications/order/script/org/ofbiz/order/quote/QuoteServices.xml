@@ -875,8 +875,8 @@ under the License.
         <if-empty field="quoteWorkEffort.quoteId">
             <set-nonpk-fields map="parameters" value-field="lookupMap"/>
             <create-value value-field="lookupMap"/>
-            <field-to-result field="quoteId" result-name="lookupresult-name"/>
-            <field-to-result field="workEffortId" result-name="lookupresult-name"/>
+            <field-to-result field="quoteId" map-name="lookupMap"/>
+            <field-to-result field="workEffortId" map-name="lookupMap"/>
         </if-empty>
     </simple-method>
     <simple-method method-name="deleteQuoteWorkEffort" short-description="Delete a QuoteWorkEffort">

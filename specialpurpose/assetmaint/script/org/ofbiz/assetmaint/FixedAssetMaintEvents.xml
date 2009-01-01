@@ -25,7 +25,7 @@
         short-description="Create FixedAssetMaint and Update Schedule information in WorkEffort">
         <set-service-fields map="parameters" service-name="createFixedAssetMaint" to-map="createFixedAssetMaintCtx"/>
         <call-service service-name="createFixedAssetMaint" in-map-name="createFixedAssetMaintCtx">
-            <result-to-field result-name="maintHistSeqId" field="findAssetMaintLookup" field="maintHistSeqId"/>
+            <result-to-field result-name="maintHistSeqId" map="findAssetMaintLookup" field="maintHistSeqId"/>
             <result-to-request result-name="maintHistSeqId"/>
         </call-service>
         <check-errors/>
