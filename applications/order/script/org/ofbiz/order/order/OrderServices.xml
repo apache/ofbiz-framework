@@ -501,7 +501,7 @@ under the License.
                     <sequenced-id sequence-name="OrderHeader" field="orderIdTemp"/>
                     <else>
                         <!-- check the provided ID --> 
-                        <check-id field-name="orderIdTemp"/>
+                        <check-id field="orderIdTemp"/>
                         <check-errors/>
                     </else>
                 </if-empty>

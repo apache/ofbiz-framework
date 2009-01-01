@@ -106,7 +106,7 @@ under the License.
                     <sequenced-id sequence-name="Invoice" field="invoiceIdTemp"/>
                     <else>
                         <!-- check the provided ID -->
-                        <check-id field-name="invoiceIdTemp"/>
+                        <check-id field="invoiceIdTemp"/>
                         <check-errors/>
                     </else>
                 </if-empty>

@@ -57,7 +57,7 @@ under the License.
                     <sequenced-id sequence-name="Quote" field="quoteIdTemp"/>
                     <else>
                         <!-- check the provided ID --> 
-                        <check-id field-name="quoteIdTemp"/>
+                        <check-id field="quoteIdTemp"/>
                         <check-errors/>
                     </else>
                 </if-empty>
