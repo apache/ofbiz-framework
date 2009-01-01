@@ -402,7 +402,7 @@ under the License.
         <field-to-result field="newEntity.returnItemSeqId" result-name="returnItemSeqId"/>
         <log level="info" message="Return Item Seq ID: ${newEntity.returnItemSeqId}"/>
         <create-value value-field="newEntity"/>
-        <refresh-value value-name="newEntity"/>
+        <refresh-value value-field="newEntity"/>
 
         <if>
             <condition>
@@ -440,7 +440,7 @@ under the License.
 
         <set-nonpk-fields map="parameters" value-field="returnItem"/>
         <store-value value-field="returnItem"/>
-        <refresh-value value-name="returnItem"/>
+        <refresh-value value-field="returnItem"/>
 
         <!-- now update all return adjustments associated with this return item -->
         <entity-and entity-name="ReturnAdjustment" list="returnAdjustments">
