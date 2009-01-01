@@ -38,7 +38,7 @@ under the License.
                 <set field="lookupComponentsMap.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
 
                 <find-by-and entity-name="WorkEffortGoodStandard" list="components" map="lookupComponentsMap"/>
-                <filter-list-by-date list-name="components"/>
+                <filter-list-by-date list="components"/>
                 <!-- now go through each work effort good standard and call a service to issue the inventory -->
                 <iterate list="components" entry="component">
                     <if-not-empty field="component.productId">

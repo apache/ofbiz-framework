@@ -202,7 +202,7 @@ under the License.
                 <set field="assignPartyToWorkEffortShip.workEffortId" from-field="lookedUpValue.estimatedShipWorkEffId"/>
                 <set field="assignPartyToWorkEffortShip.partyId" from-field="parameters.partyIdFrom"/>
                 <find-by-and entity-name="WorkEffortPartyAssignment" list="existingShipWepas" map="assignPartyToWorkEffortShip"/>
-                <filter-list-by-date list-name="existingShipWepas"/>
+                <filter-list-by-date list="existingShipWepas"/>
                 <if-empty field="existingShipWepas">
                     <set field="assignPartyToWorkEffortShip.roleTypeId" value="CAL_ATTENDEE"/>
                     <set field="assignPartyToWorkEffortShip.statusId" value="CAL_SENT"/>
@@ -222,7 +222,7 @@ under the License.
                 <set field="assignPartyToWorkEffortArrival.workEffortId" from-field="lookedUpValue.estimatedArrivalWorkEffId"/>
                 <set field="assignPartyToWorkEffortArrival.partyId" from-field="parameters.partyIdTo"/>
                 <find-by-and entity-name="WorkEffortPartyAssignment" list="existingArrivalWepas" map="assignPartyToWorkEffortArrival"/>
-                <filter-list-by-date list-name="existingArrivalWepas"/>
+                <filter-list-by-date list="existingArrivalWepas"/>
                 <if-empty field="existingArrivalWepas">
                     <set field="assignPartyToWorkEffortArrival.roleTypeId" value="CAL_ATTENDEE"/>
                     <set field="assignPartyToWorkEffortArrival.statusId" value="CAL_SENT"/>

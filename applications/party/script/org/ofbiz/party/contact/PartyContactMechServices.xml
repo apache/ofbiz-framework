@@ -78,7 +78,7 @@ under the License.
         <make-value entity-name="PartyContactMech" value-field="partyContactMechMap"/>
         <set-pk-fields value-field="partyContactMechMap" map="parameters"/>
         <find-by-and entity-name="PartyContactMech" list="partyContactMechs" map="partyContactMechMap"/>
-        <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
+        <filter-list-by-date list="partyContactMechs" to-list="validPartyContactMechs"/>
         <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
         <if-empty field="partyContactMech">
             <add-error><fail-property resource="PartyUiLabels" property="PartyCannotUpdateContactBecauseNotWithSpecifiedParty"/></add-error>
@@ -141,7 +141,7 @@ under the License.
         <make-value entity-name="PartyContactMech" value-field="partyContactMechMap"/>
         <set-pk-fields value-field="partyContactMechMap" map="parameters"/>
         <find-by-and entity-name="PartyContactMech" list="partyContactMechs" map="partyContactMechMap"/>
-        <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
+        <filter-list-by-date list="partyContactMechs" to-list="validPartyContactMechs"/>
         <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
         <if-empty field="partyContactMech">
             <add-error>

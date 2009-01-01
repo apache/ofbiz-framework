@@ -292,7 +292,7 @@ under the License.
                     <set field="virtualProductContext.productId" from-field="product.productId"/>
                     <set field="virtualProductContext.productAssocTypeId" value="PRODUCT_VARIANT"/>                
                     <find-by-and entity-name="ProductAssoc" map="virtualProductContext" list="variantProducts"/>   
-                    <filter-list-by-date list-name="variantProducts"/>
+                    <filter-list-by-date list="variantProducts"/>
                     <if-not-empty field="variantProducts">
                         <iterate entry="variantProduct" list="variantProducts">
                             <!-- log level="info" message = "Variant product =====${variantProduct.productIdTo}"/ -->

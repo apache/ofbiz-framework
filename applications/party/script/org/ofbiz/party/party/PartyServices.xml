@@ -666,7 +666,7 @@ under the License.
             <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
         </if-empty>
         <now-date-to-env env-name="fromDate"/>
-        <filter-list-by-date list-name="emailAddressesAll" from-field-name="fromDate" to-list-name="emailAddresses"/>
+        <filter-list-by-date list="emailAddressesAll" from-field-name="fromDate" to-list="emailAddresses"/>
         <first-from-list entry="emailAddress" list="emailAddresses"/>
         <field-to-result field="emailAddress.infoString" result-name="emailAddress"/>
     </simple-method>
@@ -689,8 +689,8 @@ under the License.
         </if-empty>
         <set field="findMap.contactMechTypeId" value="TELECOM_NUMBER"/>
         <find-by-and entity-name="PartyContactDetailByPurpose" map="findMap" list="telephoneAll1"></find-by-and>
-        <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
-        <filter-list-by-date list-name="telephoneAll2" to-list-name="telephoneAll3"/>
+        <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+        <filter-list-by-date list="telephoneAll2" to-list="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
             <iterate entry="type" list="types">
                 <iterate entry="telephone" list="telephoneAll3">
@@ -716,7 +716,7 @@ under the License.
             </iterate>
             <else>
                 <find-by-and entity-name="PartyAndContactMech" map="findMap" list="telephoneAll1"/>
-                <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
+                <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2"/>
                 <first-from-list entry="telephone" list="telephoneAll2"/>
                 <if-not-empty field="telephone.tnCountryCode">
                     <field-to-result field="telephone.tnCountryCode" result-name="countryCode"/>

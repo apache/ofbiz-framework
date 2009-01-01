@@ -60,7 +60,7 @@ under the License.
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
-        <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
+        <filter-list-by-date list="facilityContactMechs" to-list="validFacilityContactMechs"/>
         <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
         <if-empty field="facilityContactMech">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified facility"/></add-error>
@@ -127,7 +127,7 @@ under the License.
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
-        <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
+        <filter-list-by-date list="facilityContactMechs" to-list="validFacilityContactMechs"/>
 
         <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
         <if-empty field="facilityContactMech">
@@ -287,7 +287,7 @@ under the License.
         <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId" />
         <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
         <find-by-and entity-name="FacilityContactMechPurpose" map="lookUpMap" list="purposeList"/>
-        <filter-list-by-date list-name="purposeList"/>
+        <filter-list-by-date list="purposeList"/>
 
         <if-not-empty field="purposeList">
             <add-error><fail-message message="Could not create new purpose, a purpose with that type already exists"/></add-error>

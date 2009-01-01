@@ -139,7 +139,7 @@ under the License.
                 <log level="always" message="Running find-by-and: ${lookupRoleWorkEffortMap}"/>
                 
                 <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupRoleWorkEffortMap" list="roleParties"/>
-                <filter-list-by-date list-name="roleParties"/>
+                <filter-list-by-date list="roleParties"/>
                 <log level="always" message="Found role parties: ${roleParties}"/>
                 
                 <if-empty field="roleParties">
@@ -147,7 +147,7 @@ under the License.
                     <set value="CAL_DELEGATE" field="lookupRoleWorkEffortMap.roleTypeId"/>
                     <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupRoleWorkEffortMap" list="roleParties"/>
                 </if-empty>
-                <filter-list-by-date list-name="roleParties"/>
+                <filter-list-by-date list="roleParties"/>
 
                 <if-not-empty field="roleParties">
                     <set field="hasPermission" type="Boolean" value="true"/>
@@ -188,7 +188,7 @@ under the License.
                 <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
                 <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
                 <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupRoleWorkEffortMap" list="roleParties"/>
-                <filter-list-by-date list-name="roleParties"/>
+                <filter-list-by-date list="roleParties"/>
 
                 <if-not-empty field="roleParties">
                     <set field="hasPermission" type="Boolean" value="true"/>
@@ -231,7 +231,7 @@ under the License.
             <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
             <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
             <find-by-and entity-name="WorkEffortPartyAssignByRole" map="lookupRoleWorkEffortMap" list="roleParties"/>                    
-            <filter-list-by-date list-name="roleParties"/>
+            <filter-list-by-date list="roleParties"/>
             <if-empty field="roleParties">
                 <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
@@ -257,7 +257,7 @@ under the License.
                 <log level="info" message="Running find-by-and: ${lookupPartyRoleWorkEffortMap}"/>
    
                 <find-by-and entity-name="WorkEffortPartyAssignView" map="lookupPartyRoleWorkEffortMap" list="rolePartyGroups"/>
-                <filter-list-by-date list-name="rolePartyGroups"/>
+                <filter-list-by-date list="rolePartyGroups"/>
                 <log level="always" message="Found role parties Group: ${rolePartyGroups}"/>
                 
                 <if-empty field="rolePartyGroups">
@@ -265,7 +265,7 @@ under the License.
                     <set value="CAL_DELEGATE" field="lookupRoleWorkEffortMap.roleTypeId"/>
                     <find-by-and entity-name="WorkEffortPartyAssignView" map="lookupRoleWorkEffortMap" list="rolePartyGroups"/>
                 </if-empty>
-                <filter-list-by-date list-name="rolePartyGroups"/>
+                <filter-list-by-date list="rolePartyGroups"/>
                 <if-not-empty field="rolePartyGroups">
                     <!-- Check to see if User is member of any of these Party groups -->
                     <iterate entry="rolePartyGroup" list="rolePartyGroups">

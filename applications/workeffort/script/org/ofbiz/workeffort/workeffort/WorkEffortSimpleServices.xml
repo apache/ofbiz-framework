@@ -838,7 +838,7 @@ under the License.
         <set from-field="workEffort.workEffortId" field="findMap.workEffortId"/>
         <set from-field="workEffort.fixedAssetId" field="findMap.fixedAssetId"/>
         <find-by-and entity-name="WorkEffortFixedAssetAssign" map="findMap" list="existingAssignments"/>
-        <filter-list-by-date list-name="existingAssignments"/>
+        <filter-list-by-date list="existingAssignments"/>
         <iterate list="existingAssignments" entry="existingAssignment">
             <remove-value value-field="existingAssignment"/>
         </iterate>
@@ -1164,7 +1164,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortAssignmentRates">
             <find-by-and entity-name="RateAmount" map="workEffortFindContext" list="foundValuesAll"/>
-            <filter-list-by-date list-name="foundValuesAll" to-list-name="foundValues"/>
+            <filter-list-by-date list="foundValuesAll" to-list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
