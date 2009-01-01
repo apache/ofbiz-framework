@@ -332,7 +332,7 @@ under the License.
             <set-service-fields map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
             <!-- Hold our inventoryItem -->
-            <refresh-value value-name="inventoryItem"/>
+            <refresh-value value-field="inventoryItem"/>
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>
             <store-value value-field="inventoryItem"/>
             <!-- get something else for other order -->

@@ -297,7 +297,7 @@ under the License.
                 </iterate>
 
                 <!-- now that the receive is done; set the need flag to N -->
-                <refresh-value value-name="returnHeader"/>
+                <refresh-value value-field="returnHeader"/>
                 <set field="returnHeader.needsInventoryReceive" value="N"/>
                 <store-value value-field="returnHeader"/>
                 

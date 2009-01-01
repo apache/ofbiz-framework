@@ -415,7 +415,7 @@ under the License.
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createNonOisgirDetailMap"/>
 
-                        <refresh-value value-name="targetInventoryItem"/>
+                        <refresh-value value-field="targetInventoryItem"/>
                         <log level="info" message="Just created new targetInventoryItem from non-OISGIR (ie location level based) [${targetInventoryItem}]"/>
                     </if-compare>
                 </if-compare>
@@ -467,7 +467,7 @@ under the License.
                     <result-to-field result-name="inventoryItemId" map-name="targetInventoryItem"/>
                 </call-service>
                 <!-- refresh the value object now that the create has been done -->
-                <refresh-value value-name="targetInventoryItem"/>
+                <refresh-value value-field="targetInventoryItem"/>
                 
                 <!-- if we don't end up setting any detail for this inventory item, then we'll delete it after -->
                 <set value="N" field="haveSetIiDetail"/>
@@ -596,7 +596,7 @@ under the License.
                         <calcop field="remainingQuantityOnHand" operator="subtract"/>
                         <calcop field="currentQuantityToMove" operator="negative"/>
                     </calculate>
-                    <!-- part of the following log data prep: <refresh-value value-name="targetInventoryItem"/> -->
+                    <!-- part of the following log data prep: <refresh-value value-field="targetInventoryItem"/> -->
                     <!-- <log level="info" message="Just update targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
                 </iterate>
                 
