@@ -115,12 +115,12 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
                 </assert>
                 <calculate field-name="creditTotal">
-                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             <else>
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <calculate field-name="debitTotal">
-                        <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                        <calcop operator="add" field="acctgTransEntry.origAmount"/>
                     </calculate>
                 </if-compare>
             </else>    
@@ -337,7 +337,7 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
                 </assert>-->
                 <calculate field-name="creditTotal">
-                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             </if-compare>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
@@ -346,7 +346,7 @@ under the License.
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
                 </assert>-->
                 <calculate field-name="debitTotal">
-                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
                 </calculate>
             </if-compare>
         </iterate>
@@ -395,16 +395,16 @@ under the License.
             <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
                 <calculate field-name="totalIssuedQty_MAT_A_COST">
                     <calcop operator="add">
-                        <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity"/>
-                        <calcop operator="get" field-name="totalIssuedQty_MAT_A_COST"/>
+                        <calcop operator="get" field="workEffortAndInventoryAssign.quantity"/>
+                        <calcop operator="get" field="totalIssuedQty_MAT_A_COST"/>
                     </calcop>
                 </calculate>
             <else>
                 <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
                     <calculate field-name="totalIssuedQty_MAT_B_COST">
                         <calcop operator="add">
-                            <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity" />
-                            <calcop operator="get" field-name="totalIssuedQty_MAT_B_COST"/>
+                            <calcop operator="get" field="workEffortAndInventoryAssign.quantity" />
+                            <calcop operator="get" field="totalIssuedQty_MAT_B_COST"/>
                         </calcop>
                     </calculate>
                 </if-compare> 
