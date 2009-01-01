@@ -23,7 +23,7 @@ under the License.
         
     <simple-method method-name="exampleComponentFormula" short-description="Formula that the number of linear components in bom">
         <set field="arguments" from-field="parameters.arguments"/>
-        <calculate field-name="totQuantity">
+        <calculate field="totQuantity">
             <calcop operator="multiply">
                 <calcop operator="get" field="arguments.neededQuantity"/>
                 <!-- This is the multiplier (k) -->
@@ -35,33 +35,33 @@ under the License.
     
     <simple-method method-name="linearComponentConsumptionFormula" short-description="Formula that the number of linear components in bom">
         <set field="arguments" from-field="parameters.arguments"/>
-        <calculate field-name="totQuantity">
+        <calculate field="totQuantity">
             <calcop operator="multiply">
                 <calcop operator="get" field="arguments.neededQuantity"/>
                 <calcop operator="get" field="arguments.amount"/>
             </calcop>
         </calculate>
-        <calculate field-name="quantityInt" type="Integer">
+        <calculate field="quantityInt" type="Integer">
             <calcop operator="divide">
                 <calcop operator="get" field="totQuantity"/>
                 <calcop operator="get" field="arguments.width"/>
             </calcop>
         </calculate>
-        <calculate field-name="quantityDou">
+        <calculate field="quantityDou">
             <calcop operator="divide">
                 <calcop operator="get" field="totQuantity"/>
                 <calcop operator="get" field="arguments.width"/>
             </calcop>
         </calculate>
         <if-compare-field field="quantityInt" to-field="quantityDou" operator="less">
-            <calculate field-name="quantity">
+            <calculate field="quantity">
                 <calcop operator="add">
                     <calcop operator="get" field="quantityInt"/>
                     <number value="1"/>
                 </calcop>
             </calculate>
         <else>
-            <calculate field-name="quantity">
+            <calculate field="quantity">
                 <calcop operator="add">
                     <calcop operator="get" field="quantityInt"/>
                     <number value="0"/>
