@@ -113,10 +113,10 @@ under the License.
         <set field="context.contentTypeId" value="DOCUMENT"/>
 
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
-            <result-to-field map-name="context2" field="activeContentId" result-name="contentId"/>
+            <result-to-field field="context2.activeContentId" result-name="contentId"/>
             <result-to-field field="dataResourceId" result-name="dataResourceId"/>
-            <result-to-field map-name="context2" field="contentAssocTypeId" result-name="contentAssocTypeId"/>
-            <result-to-field map-name="context2" field="fromDate" result-name="fromDate"/>
+            <result-to-field field="context2.contentAssocTypeId" result-name="contentAssocTypeId"/>
+            <result-to-field field="context2.fromDate" result-name="fromDate"/>
         </call-service>
         <check-errors/>
 
@@ -209,10 +209,10 @@ under the License.
         <set field="context.contentTypeId" value="DOCUMENT"/>
 
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
-            <result-to-field map-name="context2" field="activeContentId" result-name="contentId"/>
+            <result-to-field field="context2.activeContentId" result-name="contentId"/>
             <result-to-field field="dataResourceId" result-name="dataResourceId"/>
-            <result-to-field map-name="context2" field="contentAssocTypeId" result-name="contentAssocTypeId"/>
-            <result-to-field map-name="context2" field="fromDate" result-name="fromDate"/>
+            <result-to-field field="context2.contentAssocTypeId" result-name="contentAssocTypeId"/>
+            <result-to-field field="context2.fromDate" result-name="fromDate"/>
         </call-service>
         <check-errors/>
 
@@ -267,10 +267,10 @@ under the License.
         <set field="context.contentTypeId" value="DOCUMENT"/>
 
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
-            <result-to-field map-name="context2" field="activeContentId" result-name="contentId"/>
+            <result-to-field field="context2.activeContentId" result-name="contentId"/>
             <result-to-field field="dataResourceId" result-name="dataResourceId"/>
-            <result-to-field map-name="context2" field="contentAssocTypeId" result-name="contentAssocTypeId"/>
-            <result-to-field map-name="context2" field="fromDate" result-name="fromDate"/>
+            <result-to-field field="context2.contentAssocTypeId" result-name="contentAssocTypeId"/>
+            <result-to-field field="context2.fromDate" result-name="fromDate"/>
         </call-service>
         <check-errors/>
 

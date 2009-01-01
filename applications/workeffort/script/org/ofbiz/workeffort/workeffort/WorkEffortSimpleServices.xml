@@ -431,7 +431,7 @@ under the License.
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>        
         <call-service in-map-name="context" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newValue" field="contactMechId" />             
+            <result-to-field result-name="contactMechId" field="newValue.contactMechId" />             
         </call-service>
         <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>  
@@ -482,7 +482,7 @@ under the License.
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>        
         <call-service in-map-name="context" service-name="updateTelecomNumber">
             <default-message>Telecom Number successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newValue" field="contactMechId" />             
+            <result-to-field result-name="contactMechId" field="newValue.contactMechId" />             
         </call-service>
         
         <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
