@@ -111,7 +111,7 @@ under the License.
             <field-to-list field="orderByString" list="orderByList"/>
             <set field="lookupFieldMap.productId" from-field="orderItem.productId" />
             <set field="lookupFieldMap.facilityId" from-field="orderHeader.originFacilityId" />            
-            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list-name="inventoryItemList" order-by-list="orderByList"/>
+            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItemList" order-by-list="orderByList"/>
     
             <set field="parameters.quantityNotIssued" from-field="orderItem.quantity" />
 

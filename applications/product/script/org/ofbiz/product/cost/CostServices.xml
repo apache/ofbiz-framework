@@ -131,7 +131,7 @@ under the License.
             <clear-field field="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
-            <find-by-and entity-name="SupplierProduct" map="costsAndMap" list-name="priceCosts" order-by-list="orderByList"/>
+            <find-by-and entity-name="SupplierProduct" map="costsAndMap" list="priceCosts" order-by-list="orderByList"/>
             <filter-list-by-date list="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
             <first-from-list list="priceCosts" entry="priceCost"/>
             <if-not-empty field="priceCost.lastPrice">
@@ -144,7 +144,7 @@ under the License.
                 <clear-field field="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
-                <find-by-and entity-name="SupplierProduct" map="costsAndMap" list-name="priceCosts" order-by-list="orderByList"/>
+                <find-by-and entity-name="SupplierProduct" map="costsAndMap" list="priceCosts" order-by-list="orderByList"/>
                 <filter-list-by-date list="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list="priceCosts" entry="priceCost"/>
                 <if-not-empty field="priceCost.lastPrice">

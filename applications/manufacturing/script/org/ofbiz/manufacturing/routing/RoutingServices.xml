@@ -111,7 +111,7 @@ under the License.
             <set from-field="routing.workEffortId" field="lookupTasks.workEffortIdFrom"/>
             <string-to-list string="sequenceNum" list-name="tasksOrder"/>
             <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
-            <find-by-and entity-name="WorkEffortAssoc" list-name="tasks" map="lookupTasks" order-by-list="tasksOrder"/>
+            <find-by-and entity-name="WorkEffortAssoc" list="tasks" map="lookupTasks" order-by-list="tasksOrder"/>
             <filter-list-by-date list="tasks"/>
         </if-not-empty>
 
@@ -122,7 +122,7 @@ under the License.
         <set from-field="parameters.workEffortId" field="lookupTasks.workEffortIdFrom"/>
         <string-to-list string="sequenceNum" list-name="tasksOrder"/>
         <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
-        <find-by-and entity-name="WorkEffortAssoc" list-name="routingTaskAssocs" map="lookupTasks" order-by-list="tasksOrder"/>
+        <find-by-and entity-name="WorkEffortAssoc" list="routingTaskAssocs" map="lookupTasks" order-by-list="tasksOrder"/>
         <filter-list-by-date list="routingTaskAssocs"/>
         <field-to-result field="routingTaskAssocs"/>
     </simple-method>

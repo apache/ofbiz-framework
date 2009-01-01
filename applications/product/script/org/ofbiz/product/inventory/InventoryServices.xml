@@ -1066,7 +1066,7 @@ under the License.
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
 
                 <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-                <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
+                <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
                 <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                     <if>
                         <condition>
@@ -1104,7 +1104,7 @@ under the License.
 
                 <!-- still some left? try the FLT_BULK locations -->
                 <if-compare field="quantityNotTransferred" operator="greater" value="0" type="Double">
-                    <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
+                    <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
                     <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                         <if>
                             <condition>
@@ -1143,7 +1143,7 @@ under the License.
 
                 <!-- last of all transfer InventoryItems that have no locationSeqId, ie are not in any particular location -->
                 <if-compare field="quantityNotTransferred" operator="greater" value="0" type="Double">
-                    <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list="orderByList"/>
+                    <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" order-by-list="orderByList"/>
                     <iterate entry="inventoryItem" list="inventoryItems">
                         <if>
                             <condition>
