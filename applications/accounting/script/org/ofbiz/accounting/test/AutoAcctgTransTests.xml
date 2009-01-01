@@ -100,9 +100,9 @@ under the License.
         <entity-one entity-name="Invoice" value-name="invoice">
             <field-map field-name="invoiceId" env-name="invoiceId"/>
         </entity-one>
-        <get-related value-name="invoice" relation-name="AcctgTrans" list-name="acctgTransList"/> 
+        <get-related value-field="invoice" relation-name="AcctgTrans" list-name="acctgTransList"/> 
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
-        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
         
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
@@ -154,9 +154,9 @@ under the License.
         <entity-one entity-name="Payment" value-name="payment">
             <field-map field-name="paymentId" env-name="paymentId"/>
         </entity-one>
-        <get-related value-name="payment" relation-name="AcctgTrans" list-name="acctgTransList"/> 
+        <get-related value-field="payment" relation-name="AcctgTrans" list-name="acctgTransList"/> 
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
-        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
 
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
@@ -274,9 +274,9 @@ under the License.
         <entity-one entity-name="Invoice" value-name="invoice">
             <field-map field-name="invoiceId" env-name="invoiceId"/>
         </entity-one>
-        <get-related value-name="invoice" relation-name="AcctgTrans" list-name="acctgTransList"/>
+        <get-related value-field="invoice" relation-name="AcctgTrans" list-name="acctgTransList"/>
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
-        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
 
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
@@ -323,9 +323,9 @@ under the License.
         <entity-one entity-name="Payment" value-name="payment">
             <field-map field-name="paymentId" env-name="paymentId"/>
         </entity-one>
-        <get-related value-name="payment" relation-name="AcctgTrans" list-name="acctgTransList"/>
+        <get-related value-field="payment" relation-name="AcctgTrans" list-name="acctgTransList"/>
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
-        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
 
@@ -421,7 +421,7 @@ under the License.
         <assert><not><if-empty field="acctgTransList"/></not></assert>
 
         <iterate list-name="acctgTransList" entry-name="acctgTrans">
-            <get-related list-name="acctgTransEntryList" relation-name="AcctgTransEntry" value-name="acctgTrans"/>
+            <get-related list-name="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
             <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
             <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -470,10 +470,10 @@ under the License.
         <entity-one entity-name="WorkEffort" value-name="workEffort">
             <field-map field-name="workEffortId" env-name="workEffortId"/>
         </entity-one>
-        <get-related  value-name="workEffort" relation-name="AcctgTrans" list-name="acctgTransList"/>
+        <get-related value-field="workEffort" relation-name="AcctgTrans" list-name="acctgTransList"/>
         <assert><not><if-empty field="acctgTransList"></if-empty></not></assert>
         <iterate list-name="acctgTransList" entry-name="acctgTrans">
-            <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntryList"/>
+            <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntryList"/>
             <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                     <assert>

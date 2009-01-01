@@ -604,7 +604,7 @@
             <result-to-field result-name="dataResourceId" map-name="createPlainBodyContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createPlainBodyContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc" field="contentIdTo"/>
+            <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and plain body -->
         <set value="TREE_CHILD" field="createBodyAssoc.contentAssocTypeId"/>
@@ -617,7 +617,7 @@
             <result-to-field result-name="dataResourceId" map-name="createHtmlBodyContent"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createHtmlBodyContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc" field="contentIdTo"/>
+            <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and html body -->
         <set value="htmlBody" field="createBodyAssoc.mapKey"/>
