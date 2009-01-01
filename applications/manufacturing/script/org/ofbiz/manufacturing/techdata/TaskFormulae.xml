@@ -26,13 +26,13 @@ under the License.
         <set field="task" from-field="arguments.workEffort"/>
         <calculate field-name="taskTime">
             <calcop operator="multiply">
-                <calcop operator="get" field-name="task.estimatedMilliSeconds"/>
-                <calcop operator="get" field-name="arguments.quantity"/>
+                <calcop operator="get" field="task.estimatedMilliSeconds"/>
+                <calcop operator="get" field="arguments.quantity"/>
             </calcop>
         </calculate>
         <calculate field-name="totalTime">
             <calcop operator="multiply">
-                <calcop operator="get" field-name="taskTime"/>
+                <calcop operator="get" field="taskTime"/>
                 <number value="10"/>
             </calcop>
         </calculate>

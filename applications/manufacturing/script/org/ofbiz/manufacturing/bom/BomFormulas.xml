@@ -25,7 +25,7 @@ under the License.
         <set field="arguments" from-field="parameters.arguments"/>
         <calculate field-name="totQuantity">
             <calcop operator="multiply">
-                <calcop operator="get" field-name="arguments.neededQuantity"/>
+                <calcop operator="get" field="arguments.neededQuantity"/>
                 <!-- This is the multiplier (k) -->
                 <number value="10"/>
             </calcop>
@@ -37,33 +37,33 @@ under the License.
         <set field="arguments" from-field="parameters.arguments"/>
         <calculate field-name="totQuantity">
             <calcop operator="multiply">
-                <calcop operator="get" field-name="arguments.neededQuantity"/>
-                <calcop operator="get" field-name="arguments.amount"/>
+                <calcop operator="get" field="arguments.neededQuantity"/>
+                <calcop operator="get" field="arguments.amount"/>
             </calcop>
         </calculate>
         <calculate field-name="quantityInt" type="Integer">
             <calcop operator="divide">
-                <calcop operator="get" field-name="totQuantity"/>
-                <calcop operator="get" field-name="arguments.width"/>
+                <calcop operator="get" field="totQuantity"/>
+                <calcop operator="get" field="arguments.width"/>
             </calcop>
         </calculate>
         <calculate field-name="quantityDou">
             <calcop operator="divide">
-                <calcop operator="get" field-name="totQuantity"/>
-                <calcop operator="get" field-name="arguments.width"/>
+                <calcop operator="get" field="totQuantity"/>
+                <calcop operator="get" field="arguments.width"/>
             </calcop>
         </calculate>
         <if-compare-field field="quantityInt" to-field="quantityDou" operator="less">
             <calculate field-name="quantity">
                 <calcop operator="add">
-                    <calcop operator="get" field-name="quantityInt"/>
+                    <calcop operator="get" field="quantityInt"/>
                     <number value="1"/>
                 </calcop>
             </calculate>
         <else>
             <calculate field-name="quantity">
                 <calcop operator="add">
-                    <calcop operator="get" field-name="quantityInt"/>
+                    <calcop operator="get" field="quantityInt"/>
                     <number value="0"/>
                 </calcop>
             </calculate>
