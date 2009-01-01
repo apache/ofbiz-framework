@@ -665,7 +665,7 @@ under the License.
             <set field="findMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
         </if-empty>
-        <now-date-to-env env-name="fromDate"/>
+        <now-date-to-env field="fromDate"/>
         <filter-list-by-date list="emailAddressesAll" from-field-name="fromDate" to-list="emailAddresses"/>
         <first-from-list entry="emailAddress" list="emailAddresses"/>
         <field-to-result field="emailAddress.infoString" result-name="emailAddress"/>

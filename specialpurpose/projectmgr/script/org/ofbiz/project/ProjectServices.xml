@@ -143,7 +143,7 @@
                 <set field="workEffortPartyAssignment.delegateReasonEnumId" from-field="parameters.delegateReasonEnumId"/>
                 <set field="workEffortPartyAssignment.comments" from-field="parameters.comments"/>
                 <set field="workEffortPartyAssignment.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
-                <now-date-to-env env-name="workEffortPartyAssignment.thruDate"/>
+                <now-date-to-env field="workEffortPartyAssignment.thruDate"/>
                 <store-value value-field="workEffortPartyAssignment"/>
                 <!-- create a new one -->
                 <make-value value-field="newAssign" entity-name="WorkEffortPartyAssignment"/>
@@ -151,7 +151,7 @@
                 <set field="newAssign.partyId" from-field="parameters.newPartyId"/>
                 <set field="newAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
                 <set field="newAssign.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
-                <now-date-to-env env-name="newAssign.fromDate"/>
+                <now-date-to-env field="newAssign.fromDate"/>
                 <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
                 <create-value value-field="newAssign"/>
             </then>
@@ -166,7 +166,7 @@
                     </entity-one>
                     <if-compare field="parameters.statusId" value="PAS_ENDED" operator="equals">
                         <!-- special case to indicate end of assignment -->
-                        <now-date-to-env env-name="assignment.thruDate"/>
+                        <now-date-to-env field="assignment.thruDate"/>
                         <clear-field field="parameters.statusId"/>
                     </if-compare>
                     <set-nonpk-fields value-field="assignment" map="parameters"/>
@@ -258,7 +258,7 @@
             <set field="startDate" from-field="task.actualStartDate"/>
             <set field="taskId" from-field="task.workEffortId"/>
             <else>
-                <now-date-to-env env-name="generalStartDate"/>
+                <now-date-to-env field="generalStartDate"/>
             </else>
         </if-not-empty>
         <while>
@@ -1336,7 +1336,7 @@
 	                <set field="newAssign.partyId" from-field="assign.partyId"/>
 	                <set field="newAssign.roleTypeId" from-field="assign.roleTypeId"/>
 	                <set field="newAssign.assignedByUserLoginId" value="system"/>
-	                <now-date-to-env env-name="newAssign.fromDate"/>
+	                <now-date-to-env field="newAssign.fromDate"/>
 	                <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
 	                <create-value value-field="newAssign"/>
 	            </iterate>            
