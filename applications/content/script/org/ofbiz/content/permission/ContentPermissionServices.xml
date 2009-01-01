@@ -472,7 +472,7 @@
                         </condition-list>
                         <order-by field-name="contentPurposeTypeId"/>
                     </entity-condition>
-                    <list-to-list list-name="currentOperations" to-list-name="operations"/>
+                    <list-to-list list="currentOperations" to-list="operations"/>
                 </iterate>
 
                 <!-- check the _NA_ purpose but only if no other purposes were found -->

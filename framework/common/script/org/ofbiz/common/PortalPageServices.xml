@@ -178,7 +178,7 @@ under the License.
                 <order-by field-name="createdStamp"/>
             </entity-condition>
         </if-not-empty> 
-        <list-to-list list-name="PortalPageList" to-list-name="result"/>
+        <list-to-list list="PortalPageList" to-list="result"/>
         <field-to-result field="result" result-name="listIt"/>
     </simple-method>  
 </simple-methods>

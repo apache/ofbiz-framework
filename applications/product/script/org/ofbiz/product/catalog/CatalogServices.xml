@@ -134,7 +134,7 @@ under the License.
         <!--set field="categories" from-field="parameters.categories" / -->        
         <find-by-and entity-name="ProductCategoryRollup" list="rollups" map="productCategoryRollUpContext" order-by-list="orderByStringList"/>
         <if-not-empty field="parameters.categories">
-            <list-to-list list-name="parameters.categories" to-list-name="categories"/>
+            <list-to-list list="parameters.categories" to-list="categories"/>
         </if-not-empty>
         <if-not-empty field="rollups">
             <iterate list="rollups" entry="parent">
@@ -159,7 +159,7 @@ under the License.
                             </if-compare>
                            </iterate>
                         <else>
-                            <list-to-list list-name="relCategories" to-list-name="categories"/>
+                            <list-to-list list="relCategories" to-list="categories"/>
                         </else>                                    
                         </if-not-empty>
                         <field-to-result field="categories" result-name="categories"/>
