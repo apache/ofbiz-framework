@@ -31,7 +31,7 @@ under the License.
         <map-to-map map-name="currentContent" to-map-name="context"/>
         <log level="always" message="context: ${context}"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-        <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+        <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
         <set field="context.objectInfo" from-field="parameters.drObjectInfo"/>
@@ -60,7 +60,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <set field="context.currentContent" from-field="currentContent"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-        <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+        <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="checkContentPermission">

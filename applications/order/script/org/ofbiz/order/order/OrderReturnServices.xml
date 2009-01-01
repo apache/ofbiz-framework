@@ -382,7 +382,7 @@ under the License.
              and add 1 to returnItemSeqId to get the new returnItemSeqId -->
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
         <set from-field="parameters.returnId" field="lookupMap.returnId"/>
-        <string-to-list string="-returnItemSeqId" list-name="orderBy"/>
+        <string-to-list string="-returnItemSeqId" list="orderBy"/>
         <find-by-and entity-name="ReturnItem" list="currentItems" map="lookupMap" order-by-list="orderBy"></find-by-and>
         <if-empty field="currentItems">
             <set value="1" field="newEntity.returnItemSeqId"/>

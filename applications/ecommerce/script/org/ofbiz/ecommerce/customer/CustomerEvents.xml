@@ -77,7 +77,7 @@ under the License.
             <set from-field="userLoginContext.userLoginId" field="userLoginExistsMap.userLoginId"/>
             <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
             <if-not-empty field="existingUserLogin">
-                <string-to-list string="Username in use, please choose another." message-field-name="USERNAME" list-name="error_list"/>
+                <string-to-list string="Username in use, please choose another." message-field-name="USERNAME" list="error_list"/>
             </if-not-empty>
         </if-not-empty>
 
@@ -157,13 +157,13 @@ under the License.
                 <if-compare value="USA" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
                         <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
                         <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
                     </if-empty>
                 </if-compare>
             </else>
@@ -742,13 +742,13 @@ under the License.
         <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
             <if-empty field="parameters.stateProvinceGeoId">
                 <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
             </if-empty>
         </if-compare>
         <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
             <if-empty field="parameters.stateProvinceGeoId">
                 <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
             </if-empty>
         </if-compare>
         <check-errors/>

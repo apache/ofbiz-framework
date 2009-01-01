@@ -474,7 +474,7 @@ under the License.
         <find-by-primary-key map="inventoryItemLookup" value-field="inventoryItem"/>
 
         <if-compare field="inventoryItem.inventoryItemTypeId" operator="not-equals" value="NON_SERIAL_INV_ITEM">
-            <string-to-list string="Can only create an InventoryItemVariance for a Non-Serialized Inventory Item" list-name="error_list"/>
+            <string-to-list string="Can only create an InventoryItemVariance for a Non-Serialized Inventory Item" list="error_list"/>
         </if-compare>
         <check-errors/>
 

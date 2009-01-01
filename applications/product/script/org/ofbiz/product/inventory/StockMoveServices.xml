@@ -85,7 +85,7 @@ under the License.
                 </entity-and>
 
                 <if-empty field="productFacilityLocationViewList">
-                    <string-to-list string="Error in stock move, could not find a pick/primary location for facility [${parameters.facilityId}] and product [${productId}]" list-name="warningMessageList"/>
+                    <string-to-list string="Error in stock move, could not find a pick/primary location for facility [${parameters.facilityId}] and product [${productId}]" list="warningMessageList"/>
                 <else>
                     <!-- should generally only be one pick/primary location, just choose the first... -->
                     <first-from-list entry="productFacilityLocationView" list="productFacilityLocationViewList"/>
@@ -121,7 +121,7 @@ under the License.
                     <set from-field="totalAvailableToPromise" field="moveInfo.availableToPromiseTotalFrom"/>
                     <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="Double">
                         <!-- not enough on hand for move: add warning message, set moveInfo.totalQuantity to totalQuantityOnHand, and don't even bother looking for pre-emptive replenishment needs for this location right now -->
-                        <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${moveInfo.targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list-name="warningMessageList"/>
+                        <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${moveInfo.targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list="warningMessageList"/>
                         <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
                     <else>
                         <!-- check ProductFacilityLocation for where this is going and see if we should do a pre-emptive transfer too... -->
@@ -264,7 +264,7 @@ under the License.
                             </entity-and>
 
                             <if-empty field="inventoryItemAndLocationList">
-                                <string-to-list string="Error in stock move, could not find a bulk location for facility [${productFacilityLocationQuantityTest.facilityId}] and product [${productFacilityLocationQuantityTest.productId}]" list-name="warningMessageList"/>
+                                <string-to-list string="Error in stock move, could not find a bulk location for facility [${productFacilityLocationQuantityTest.facilityId}] and product [${productFacilityLocationQuantityTest.productId}]" list="warningMessageList"/>
                             <else>
                                 <set from-field="productFacilityLocationQuantityTest.moveQuantity" field="targetLocationMoveQuantity"/>
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
@@ -424,7 +424,7 @@ under the License.
 
         <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
             <!-- this really isn't good, that means more was moved than we found to move, how did that happen? -->
-            <string-to-list string="ERROR: Not enough available inventory found in location [${parameters.locationSeqId}] in facility [${parameters.facilityId}], did not reallocate ${quantityLeftToProcess} of the ${parameters.quantityMoved} reported as physically moved." list-name="warningMessageList"/>
+            <string-to-list string="ERROR: Not enough available inventory found in location [${parameters.locationSeqId}] in facility [${parameters.facilityId}], did not reallocate ${quantityLeftToProcess} of the ${parameters.quantityMoved} reported as physically moved." list="warningMessageList"/>
         </if-compare>
 
         <field-to-result field="warningMessageList"/>

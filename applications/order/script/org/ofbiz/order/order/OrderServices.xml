@@ -29,7 +29,7 @@ under the License.
                 </and>
             </condition>
             <then>
-                <string-to-list string="To get order summary information you must have the ORDERMGR_VIEW permission, or be logged in as the party to get the summary information for." list-name="error_list"/>
+                <string-to-list string="To get order summary information you must have the ORDERMGR_VIEW permission, or be logged in as the party to get the summary information for." list="error_list"/>
             </then>
         </if>
         <check-errors/>

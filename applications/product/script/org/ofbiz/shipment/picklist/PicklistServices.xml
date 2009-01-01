@@ -1078,7 +1078,7 @@ under the License.
         <set from-field="picklistRoleInfoList" field="picklistInfo.picklistRoleInfoList"/>
         <set from-field="picklistStatusHistoryInfoList" field="picklistInfo.picklistStatusHistoryInfoList"/>
         <set from-field="picklistBinInfoList" field="picklistInfo.picklistBinInfoList"/>
-        <string-to-list string="sequenceId" list-name="orderBy"/>
+        <string-to-list string="sequenceId" list="orderBy"/>
         <get-related-one value-field="picklist" relation-name="StatusItem" to-value-field="picklistInfo.statusItem" use-cache="true"/>
         <get-related-one value-field="picklist" relation-name="Facility" to-value-field="picklistInfo.facility" use-cache="true"/>
         <get-related-one value-field="picklist" relation-name="ShipmentMethodType" to-value-field="picklistInfo.shipmentMethodType" use-cache="true"/>

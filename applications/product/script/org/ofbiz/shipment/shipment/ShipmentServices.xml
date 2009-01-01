@@ -124,7 +124,7 @@ under the License.
                     <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
-                    <string-to-list string="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." list-name="error_list"/>
+                    <string-to-list string="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." list="error_list"/>
                 </if-empty>
 
                 <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
@@ -626,7 +626,7 @@ under the License.
 
         <clone-value value-field="shipment" new-value-field="shipmentCopy"/>
 
-        <string-to-list string="-fromDate" list-name="descendingFromDateOrder"/>
+        <string-to-list string="-fromDate" list="descendingFromDateOrder"/>
         <if-not-empty field="shipment.originFacilityId">
             <if-empty field="shipment.originContactMechId">
                 <call-bsh><![CDATA[ 
@@ -1454,7 +1454,7 @@ under the License.
 
             <!-- make sure we have something to ship -->
             <if-empty field="perShipGroupItemList">
-                <string-to-list string="No items available to ship at this time for ship group ID [${orderItemShipGroup.shipGroupSeqId}]" list-name="successMessageList"/>
+                <string-to-list string="No items available to ship at this time for ship group ID [${orderItemShipGroup.shipGroupSeqId}]" list="successMessageList"/>
             <else>
                 <!-- create the shipment for this facility and ship group combination -->
                 <set from-field="orderHeader.orderId" field="shipmentContext.primaryOrderId"/>
@@ -1551,7 +1551,7 @@ under the License.
                 <set from-field="facility.facilityId" field="shipmentShipGroupFacility.facilityId"/>
                 <set from-field="orderItemShipGroup.shipGroupSeqId" field="shipmentShipGroupFacility.shipGroupSeqId"/>
                 <field-to-list field="shipmentShipGroupFacility" list="shipmentShipGroupFacilityList"/>
-                <string-to-list string="Created shipment with ID [${shipmentShipGroupFacility.shipmentId}] for ship group ID [${shipmentShipGroupFacility.shipGroupSeqId}] for facility ID [${shipmentShipGroupFacility.facilityId}]" list-name="successMessageList"/>
+                <string-to-list string="Created shipment with ID [${shipmentShipGroupFacility.shipmentId}] for ship group ID [${shipmentShipGroupFacility.shipGroupSeqId}] for facility ID [${shipmentShipGroupFacility.facilityId}]" list="successMessageList"/>
                 <clear-field field="shipmentShipGroupFacility"/>
             </else>
             </if-empty>
@@ -1897,7 +1897,7 @@ under the License.
 
             <!-- make sure the order is of orderTypeId: SALES_ORDER -->
             <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
-                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order is not a Sales Order for order [${parameters.orderId}] order item [${parameters.orderItemSeqId}]" list-name="error_list"/>
+                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order is not a Sales Order for order [${parameters.orderId}] order item [${parameters.orderItemSeqId}]" list="error_list"/>
             </if-compare>
 
             <!-- get orderItem -->
@@ -1910,7 +1910,7 @@ under the License.
             <set-pk-fields value-field="orderShipmentLookup" map="parameters"/>
             <find-by-and entity-name="OrderShipment" map="orderShipmentLookup" list="existingOrderShipments"/>
             <if-not-empty field="existingOrderShipments">
-                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order item is already in the shipment (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])" list-name="error_list"/>
+                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order item is already in the shipment (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])" list="error_list"/>
             </if-not-empty>
 
             <set from-field="parameters.orderId" field="inputMap.orderId"/>
@@ -1920,7 +1920,7 @@ under the License.
             </call-service>
 
             <if-compare-field field="parameters.quantity" to-field="remainingQuantity" operator="greater" type="Double">
-                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the quantity is greater than the remaining quantity (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])" list-name="error_list"/>
+                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the quantity is greater than the remaining quantity (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])" list="error_list"/>
             </if-compare-field>
             <check-errors/>
             <clear-field field="inputMap"/>
