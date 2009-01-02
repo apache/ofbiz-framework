@@ -49,14 +49,14 @@
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems getting authentication user.</value>
-        <value xml:lang="fr">Problèmes d'obtention  d'authentification utilisateur</value>
+        <value xml:lang="fr">Problèmes d'obtention d'authentification utilisateur</value>
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="nl">Problemen met authenticatie gebruiker.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
-        <value xml:lang="fr">Problèmes d'obtention de la configuration du vendeur, svp entrer en contact avec le service clientèle.</value>
+        <value xml:lang="fr">Problèmes d'obtention de la configuration du vendeur, svp entrez en contact avec le service clientèle.</value>
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen verkrijgen Handelaarsconfiguratie. Neem contact op met de customer service.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
