@@ -218,19 +218,6 @@
         <value xml:lang="th">รหัสประเภทรายการติดต่อ</value>
         <value xml:lang="zh">联系列表类型标识</value>
     </property>
-    <property key="FormFieldTitle_contactMechId">
-        <value xml:lang="ar">دليل مكانزمة الصلة</value>
-        <value xml:lang="de">Kontaktmechanismus ID</value>
-        <value xml:lang="en">Contact Mech Id</value>
-        <value xml:lang="es">Código Mecanismo de contacto</value>
-        <value xml:lang="fr">Réf. des coordonées</value>
-        <value xml:lang="it">Contatto</value>
-        <value xml:lang="nl">ID contactmech</value>
-        <value xml:lang="ro">Cod Contract</value>
-        <value xml:lang="ru">Код способа контакта</value>
-        <value xml:lang="th">รหัสการติดต่อการทำงาน</value>
-        <value xml:lang="zh">联系方法标识</value>
-    </property>
     <property key="FormFieldTitle_contactMechTypeId">
         <value xml:lang="de">Kontaktmechanismus Typ ID</value>
         <value xml:lang="en">Contact Mech Type Id</value>

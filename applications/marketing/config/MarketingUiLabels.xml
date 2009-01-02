@@ -276,15 +276,6 @@
         <value xml:lang="th">รหัสรายการติดต่อ</value>
         <value xml:lang="zh">联系列表标识</value>
     </property>
-    <property key="FormFieldTitle_contactMechId">
-        <value xml:lang="en">Contact Mech Id</value>
-        <value xml:lang="es">Contacto</value>
-        <value xml:lang="fr">Réf. des coordonnées</value>
-        <value xml:lang="it">Contatto</value>
-        <value xml:lang="ro">Contact</value>
-        <value xml:lang="th">รหัสวิธีการติดต่อ</value>
-        <value xml:lang="zh">联系方式标识</value>
-    </property>
     <property key="FormFieldTitle_custReqestId">
         <value xml:lang="en">Cust Reqest Id</value>
         <value xml:lang="fr">Réf. de requête de client</value>

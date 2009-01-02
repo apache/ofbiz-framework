@@ -7389,7 +7389,7 @@
         <value xml:lang="de">Vereinbarung ID</value>
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id Acuerdo</value>
-        <value xml:lang="fr">Réf. accord</value>
+        <value xml:lang="fr">Réf. d'accord</value>
         <value xml:lang="it">Codice Contratto</value>
         <value xml:lang="nl">Overeenkomst ID</value>
         <value xml:lang="ro">Cod Contract</value>
@@ -7533,7 +7533,7 @@
         <value xml:lang="de">Rechnungskonto ID</value>
         <value xml:lang="en">Billing Account ID</value>
         <value xml:lang="es">Id cuenta de facturación</value>
-        <value xml:lang="fr">Compte de facturation</value>
+        <value xml:lang="fr">Réf. de compte de facturation</value>
         <value xml:lang="it">Numero Conto Fatturazione</value>
         <value xml:lang="nl">factuurrekening ID</value>
         <value xml:lang="ro">Nr.Cont Facturare</value>
