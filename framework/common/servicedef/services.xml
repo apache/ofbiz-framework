@@ -433,7 +433,7 @@ under the License.
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
         <description>Gets a single user preference.</description>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefGroupTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefMap" type="Map" mode="OUT" optional="true"/>
         <attribute name="userPrefValue" type="Object" mode="OUT" optional="true"/>
