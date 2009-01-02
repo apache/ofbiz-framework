@@ -185,12 +185,14 @@
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="en">Add Category GL Account</value>
         <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
+        <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
         <value xml:lang="nl">Voeg categorie van GB-rekening toe</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
         <value xml:lang="fr">Ajouter le type de compte financier au GL</value>
+        <value xml:lang="it">Aggiungi Tipo Conto Finanziario Gl</value>
         <value xml:lang="nl">Voeg Fin. rekening type GB-rekening toe</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -308,12 +310,14 @@
     <property key="AccountingAddPartyGlAccount">
         <value xml:lang="en">Add Party Gl Account</value>
         <value xml:lang="fr">Ajouter le compte de tiers au GL</value>
+        <value xml:lang="it">Aggiungi Conto Gl Soggetto</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van relatie toe</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
         <value xml:lang="en">Add TaxAuthority GL Account</value>
         <value xml:lang="fr">Ajouter le compte de taxe au GL</value>
+        <value xml:lang="it">Aggiungi Conto Gl Autorità Tasse</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van belastinginstantie toe</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -517,6 +521,7 @@
     </property>
     <property key="AccountingAgreementWorkEffortAppls">
         <value xml:lang="en">Agreement Work Effort Appls</value>
+        <value xml:lang="it">Applicazioni Impegni di Lavoro</value>
         <value xml:lang="fr">Applications d'accords commerciaux de service</value>
         <value xml:lang="nl">Applicaties overeenkomst Werkitem</value>
     </property>
@@ -835,6 +840,7 @@
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
+        <value xml:lang="it">Assegna Tipo Fattura Acquisto al Numero Conto Profitti Gl</value>
         <value xml:lang="nl">wijs inkoopfactuurtype toe aan GB-rekeningnr</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
     </property>
@@ -1533,6 +1539,7 @@
     <property key="AccountingComparativeBalanceSheet">
         <value xml:lang="en">Comparative Balance Sheet</value>
         <value xml:lang="fr">Bilan comparatif</value>
+        <value xml:lang="it">Bilancio Comparativo</value>
         <value xml:lang="nl">Vergelijkingsbalans</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
     </property>
@@ -1824,6 +1831,7 @@
     <property key="AccountingCreditCardTypeGlAccount">
         <value xml:lang="en">Credit Card Type GlAccount</value>
         <value xml:lang="fr">Compte de carte de crédit</value>
+        <value xml:lang="it">Conto Gl Tipo Carta di Credito</value>
         <value xml:lang="nl">Kredietkaarttype GB-rekening</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2362,6 +2370,7 @@
     <property key="AccountingFinAccountTypeGlAccount">
         <value xml:lang="en">FinAccount Type Gl Account</value>
         <value xml:lang="fr">Compte financier</value>
+        <value xml:lang="it">Conto Gl Tipo Conto Finanaziario</value>
         <value xml:lang="nl">Financiele rekening type GB-rekening</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -3793,8 +3802,11 @@
         <value xml:lang="ro">Nu gaseste Record Factura [${invoiceId}]</value>
         <value xml:lang="ru">Накладная [${invoiceId}]: запись не найдена</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ไม่พบเรคคอร์ด</value>
-        <value xml:lang="zh">没有找到发票[${invoiceId}]的记录
-</value>
+        <value xml:lang="zh">没有找到发票[${invoiceId}]的记录</value>
+    </property>
+    <property key="AccountingInvoiceOverrideExpenseGlAccountId">
+        <value xml:lang="en">Invoice Override Expense Gl Account Id</value>
+        <value xml:lang="it">Sovrapponi Conto Spese GL Fattura</value>
     </property>
     <property key="AccountingInvoiceOverview">
         <value xml:lang="ar">نبذة</value>
@@ -3868,6 +3880,10 @@
         <value xml:lang="ru">Приходная накладная</value>
         <value xml:lang="th">ใบกำกับการสั่งซื้อ</value>
         <value xml:lang="zh">购物发票</value>
+    </property>
+    <property key="AccountingInvoicePurchaseItemType">
+        <value xml:lang="en">Invoice Purchase Item Type</value>
+        <value xml:lang="it">Tipo Riga Fattura Acquisto</value>
     </property>
     <property key="AccountingInvoiceRoles">
         <value xml:lang="ar">الأدوار</value>
@@ -4485,6 +4501,7 @@
     <property key="AccountingNewAgreementRole">
         <value xml:lang="en">Create New Agreement Role</value>
         <value xml:lang="fr">Créez le nouveau rôle d'accord commercial</value>
+        <value xml:lang="it">Creare Nuovo Ruolo Contratto</value>
         <value xml:lang="nl">Nieuwe rol aanmaken</value>
     </property>
     <property key="AccountingNewAgreementTerm">
@@ -5120,6 +5137,7 @@
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
         <value xml:lang="fr">Comptes de tiers</value>
+        <value xml:lang="it">Conti Gl Soggetto</value>
         <value xml:lang="nl">GB-rekeningen relatie</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -5730,6 +5748,14 @@
         <value xml:lang="th">ประเภทการชำระเงิน</value>
         <value xml:lang="zh">支付类型</value>
     </property>
+    <property key="AccountingPaymentTypeAssignAccountType">
+        <value xml:lang="en">Payment Type Assign Account Type</value>
+        <value xml:lang="it">Assegna Tipo Pagamento a Tipo Conto Gl</value>
+    </property>
+    <property key="AccountingPaymentMethodAssignAccountType">
+        <value xml:lang="en">Payment Method Assign Account Type</value>
+        <value xml:lang="it">Assegna Metodo Pagamento a Tipo Conto Gl</value>
+    </property>
     <property key="AccountingPaymentVia">
         <value xml:lang="cs">Platba prostřednictvím</value>
         <value xml:lang="de">Bezahlung per</value>
@@ -6043,12 +6069,14 @@
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
         <value xml:lang="fr">Compte de catégorie de produit</value>
+        <value xml:lang="it">Conto Gl Categoria Prodotto</value>
         <value xml:lang="nl">GB-rekening Productcategorie</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
         <value xml:lang="fr">Comptes de produit</value>
+        <value xml:lang="it">Conti Gl Prodotto</value>
         <value xml:lang="nl">GB-rekeningen Product</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -6087,8 +6115,13 @@
         <value xml:lang="nl">Aantal</value>
         <value xml:lang="th">จำนวน</value>
     </property>
+    <property key="AccountingRateAmounts">
+        <value xml:lang="en">Rate Amounts</value>
+        <value xml:lang="it">Importi Tassi</value>
+    </property>
     <property key="AccountingRates">
         <value xml:lang="en">Rates</value>
+        <value xml:lang="it">Tassi</value>
     </property>
     <property key="AccountingReceivePayment">
         <value xml:lang="ar">تسلم التسديد</value>
@@ -6502,12 +6535,14 @@
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="en">Tax Authority Geo</value>
         <value xml:lang="fr">Zone géographique de l'administration fiscale</value>
+        <value xml:lang="it">Geo Autorità Tasse</value>
         <value xml:lang="nl">GEO belastinginstantie</value>
         <value xml:lang="th">โครงสร้างภาษี</value>
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
         <value xml:lang="fr">Comptes de l'administration fiscale</value>
+        <value xml:lang="it">Conti Gl Autorità Tasse</value>
         <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -6876,6 +6911,7 @@
     </property>
     <property key="AccountingUpdateRateAmount">
         <value xml:lang="en">Update Rate amount</value>
+        <value xml:lang="it">Aggiorna importo Tasso</value>
     </property>
     <property key="AccountingUseAccount">
         <value xml:lang="cs">Použít účet</value>
@@ -7123,6 +7159,7 @@
     <property key="AcctgPartyGlJournalSummary">
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Résumé</value>
+        <value xml:lang="it">Sommario</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="th">สรุป</value>
     </property>
@@ -7244,6 +7281,14 @@
         <value xml:lang="ru">Реальная дата списания</value>
         <value xml:lang="th">Actual End Of Life</value>
         <value xml:lang="zh">实际使用寿命</value>
+    </property>
+    <property key="FormFieldTitle_acquireOrderId">
+        <value xml:lang="en">Acquire Order Id</value>
+        <value xml:lang="it">Numero Ordine Acquisito</value>
+    </property>
+    <property key="FormFieldTitle_acquireOrderItemSeqId">
+        <value xml:lang="en">Acquire Order Item Seq Id</value>
+        <value xml:lang="it">Numero Riga Ordine Acquisito</value>
     </property>
     <property key="FormFieldTitle_agreementDate">
         <value xml:lang="ar">تاريخ الإتفاقية</value>
@@ -7445,6 +7490,10 @@
         <value xml:lang="nl">Vangen</value>
         <value xml:lang="th">ยึดครอง</value>
     </property>
+    <property key="FormFieldTitle_cardType">
+        <value xml:lang="en">Card Type</value>
+        <value xml:lang="it">Tipo Carta di Credito</value>
+    </property>
     <property key="FormFieldTitle_classEnumId">
         <value xml:lang="en">Class Enum Id</value>
         <value xml:lang="es">Id Clase de enumeración</value>
@@ -7479,6 +7528,10 @@
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">比率</value>
     </property>
+    <property key="FormFieldTitle_credit">
+        <value xml:lang="en">Credit</value>
+        <value xml:lang="it">Credito</value>
+    </property>
     <property key="FormFieldTitle_creditGlAccountId">
         <value xml:lang="en">Credit Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM Crédito</value>
@@ -7489,6 +7542,10 @@
         <value xml:lang="ru">Кредит счета ГК</value>
         <value xml:lang="th">รหัสเครดิตบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">贷方总账账户标识</value>
+    </property>
+    <property key="FormFieldTitle_customTimePeriodId">
+        <value xml:lang="en">Custom Time Period Id</value>
+        <value xml:lang="it">Periodo Fiscale Personalizzato</value>
     </property>
     <property key="FormFieldTitle_dateAcquired">
         <value xml:lang="ar">تاريخ التحصيل</value>
@@ -7567,6 +7624,10 @@
         <value xml:lang="it">Giorni di Intervallo</value>
         <value xml:lang="th">กำหนดวันหยุด</value>
     </property>
+    <property key="FormFieldTitle_debit">
+        <value xml:lang="en">Debit</value>
+        <value xml:lang="it">Debito</value>
+    </property>
     <property key="FormFieldTitle_debitCreditFlag">
         <value xml:lang="ar">علامة الدين القرض</value>
         <value xml:lang="en">Debit Credit Flag</value>
@@ -7600,6 +7661,10 @@
         <value xml:lang="ru">Код счета ГК по умолчанию</value>
         <value xml:lang="th">รหัสค่าเริ่มตันบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">缺省总账账户标识</value>
+    </property>
+    <property key="FormFieldTitle_depreciation">
+        <value xml:lang="en">Depreciation</value>
+        <value xml:lang="it">Deprecazione</value>
     </property>
     <property key="FormFieldTitle_dueDate">
         <value xml:lang="ar">تاريخ الإنتهاء</value>
@@ -7648,6 +7713,14 @@
         <value xml:lang="ru">Кому</value>
         <value xml:lang="th">ถึงที่อยู่อีเมล</value>
         <value xml:lang="zh">收件人</value>
+    </property>
+    <property key="FormFieldTitle_emplPositionTypeId">
+        <value xml:lang="en">Empl Position Type Id</value>
+        <value xml:lang="it">Tipo Posizione Impiegato</value>
+    </property>
+    <property key="FormFieldTitle_errorGlJournalId">
+        <value xml:lang="en">Error Gl Journal Id</value>
+        <value xml:lang="it">Numero Giornale Errori Gl</value>
     </property>
     <property key="FormFieldTitle_expectedEndOfLife">
         <value xml:lang="ar">نهاية الحياة المرتقبة</value>
@@ -7890,6 +7963,18 @@
         <value xml:lang="nl">ID GB-journaal</value>
         <value xml:lang="th">Gl Journal Id</value>
     </property>
+    <property key="FormFieldTitle_glJournalName">
+        <value xml:lang="en">Gl Journal Name</value>
+        <value xml:lang="it">Nome Giornale Gl</value>
+    </property>
+    <property key="FormFieldTitle_glReconciliationId">
+        <value xml:lang="en">Gl Reconciliation Id</value>
+        <value xml:lang="it">Numero Riconcilazione Gl</value>
+    </property>
+    <property key="FormFieldTitle_glReconciliationName">
+        <value xml:lang="en">Gl Reconciliation Name</value>
+        <value xml:lang="it">Nome Riconcilazione Gl</value>
+    </property>
     <property key="FormFieldTitle_glResourceTypeId">
         <value xml:lang="ar">دليل نوع المورد المحاسبي</value>
         <value xml:lang="en">Gl Resource Type Id</value>
@@ -7912,6 +7997,10 @@
         <value xml:lang="ru">Gl Xbrl Class Id</value>
         <value xml:lang="th">Gl Xbrl Class Id</value>
         <value xml:lang="zh">总账可扩展商业报告语言类标识</value>
+    </property>
+    <property key="FormFieldTitle_groupStatusId">
+        <value xml:lang="en">Group Status Id</value>
+        <value xml:lang="it">Stato Gruppo</value>
     </property>
     <property key="FormFieldTitle_includeTaxInPrice">
         <value xml:lang="ar">ضم الضريبة إلى السعر</value>
@@ -8050,6 +8139,10 @@
         <value xml:lang="th">ประเภทใบกำกับสินค้า</value>
         <value xml:lang="zh">发票类型</value>
     </property>
+    <property key="FormFieldTitle_isClosed">
+        <value xml:lang="en">Is Closed</value>
+        <value xml:lang="it">E' Chiuso</value>
+    </property>
     <property key="FormFieldTitle_isPosted">
         <value xml:lang="ar">مرسل</value>
         <value xml:lang="en">Is Posted</value>
@@ -8117,6 +8210,10 @@
         <value xml:lang="ru">Последний номер заказа</value>
         <value xml:lang="th">หมายเลขการสั่งซื้อสุดท้าย</value>
         <value xml:lang="zh">上一个定单编号</value>
+    </property>
+    <property key="FormFieldTitle_lastUpdatedStamp">
+        <value xml:lang="en">Last Updated Stamp</value>
+        <value xml:lang="it">Ultimo Aggiornamento</value>
     </property>
     <property key="FormFieldTitle_lastQuoteNumber">
         <value xml:lang="ar">أخر رقم قوطة</value>
@@ -8359,6 +8456,10 @@
         <value xml:lang="th">รหัสรายการกลุ่มใบกำกับสินค้า</value>
         <value xml:lang="zh">上级发票明细顺序编号</value>
     </property>
+    <property key="FormFieldTitle_parentPeriodId">
+        <value xml:lang="en">Parent Period Id</value>
+        <value xml:lang="it">Periodo Fiscale Padre</value>
+    </property>
     <property key="FormFieldTitle_paymentApplied">
         <value xml:lang="en">Already Applied</value>
         <value xml:lang="es">Ya aplicado</value>
@@ -8489,6 +8590,34 @@
         <value xml:lang="ru">Выполнено участником</value>
         <value xml:lang="th">แสดงโดยรหัสกลุ่มผู้ใช้</value>
     </property>
+    <property key="FormFieldTitle_period1GlFiscalTypeId">
+        <value xml:lang="en">Period1 Gl Fiscal Type Id</value>
+        <value xml:lang="it">Periodo 1 Tipo Fiscale Gl</value>
+    </property>
+    <property key="FormFieldTitle_period2GlFiscalTypeId">
+        <value xml:lang="en">Period2 Gl Fiscal Type Id</value>
+        <value xml:lang="it">Periodo 2 Tipo Fiscale Gl</value>
+    </property>
+    <property key="FormFieldTitle_period1ThruDate">
+        <value xml:lang="en">Period1 Thru Date</value>
+        <value xml:lang="it">Periodo 1 Alla Data</value>
+    </property>
+    <property key="FormFieldTitle_period2ThruDate">
+        <value xml:lang="en">Period2 Thru Date</value>
+        <value xml:lang="it">Periodo 2 Alla Data</value>
+    </property>
+    <property key="FormFieldTitle_periodName">
+        <value xml:lang="en">Period Name</value>
+        <value xml:lang="it">Nome Periodo Fiscale</value>
+    </property>
+    <property key="FormFieldTitle_periodNum">
+        <value xml:lang="en">Period Num</value>
+        <value xml:lang="it">Numero Periodo Fiscale</value>
+    </property>
+    <property key="FormFieldTitle_periodTypeId">
+        <value xml:lang="en">Period Type Id</value>
+        <value xml:lang="it">Tipo Periodo Fiscale</value>
+    </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
         <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
@@ -8559,6 +8688,14 @@
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品编号</value>
     </property>
+    <property key="FormFieldTitle_purchaseCost">
+        <value xml:lang="en">Purchase Cost</value>
+        <value xml:lang="it">Costo d'Acquisto</value>
+    </property>
+    <property key="FormFieldTitle_purchaseCostUomId">
+        <value xml:lang="en">Purchase Cost Uom Id</value>
+        <value xml:lang="it">Udm Costo d'Acquisto</value>
+    </property>
     <property key="FormFieldTitle_purchaseOrderId">
         <value xml:lang="en">Purchase Order Id</value>
         <value xml:lang="es">Id Orden de Compra</value>
@@ -8592,12 +8729,32 @@
         <value xml:lang="th">ลำดับการอ้างอิง</value>
         <value xml:lang="zh">询价序号</value>
     </property>
+    <property key="FormFieldTitle_rateAmount">
+        <value xml:lang="en">Rate Amount</value>
+        <value xml:lang="it">Importo Tasso</value>
+    </property>
+    <property key="FormFieldTitle_rateCurrencyUomId">
+        <value xml:lang="en">Rate Currency Uom Id</value>
+        <value xml:lang="it">Valuta del Tasso</value>
+    </property>
+    <property key="FormFieldTitle_rateDescription">
+        <value xml:lang="en">Rate Description</value>
+        <value xml:lang="it">Descrizione Tasso</value>
+    </property>
     <property key="FormFieldTitle_rateTypeId">
         <value xml:lang="en">Rate Type Id</value>
         <value xml:lang="fr">Réf. type de taux</value>
         <value xml:lang="it">Tipo Tasso</value>
         <value xml:lang="nl">ID koerstype</value>
         <value xml:lang="th">รหัสประเภทอัตรา</value>
+    </property>
+    <property key="FormFieldTitle_readingDate">
+        <value xml:lang="en">Reading Date</value>
+        <value xml:lang="it">Data Lettura</value>
+    </property>
+    <property key="FormFieldTitle_readingReasonEnumId">
+        <value xml:lang="en">Reading Reason Enum Id</value>
+        <value xml:lang="it">Motivazione Lettura</value>
     </property>
     <property key="FormFieldTitle_receiptId">
         <value xml:lang="en">Receipt Id</value>
@@ -8609,6 +8766,18 @@
         <value xml:lang="ru">Код прихода</value>
         <value xml:lang="th">รหัสใบเสร็จรับเงิน</value>
         <value xml:lang="zh">收据标识</value>
+    </property>
+    <property key="FormFieldTitle_reconciledAmount">
+        <value xml:lang="en">Reconciled Amount</value>
+        <value xml:lang="it">Importo Riconcilazione</value>
+    </property>
+    <property key="FormFieldTitle_reconciledBalance">
+        <value xml:lang="en">Reconciled Balance</value>
+        <value xml:lang="it">Bilancio Riconcilazione</value>
+    </property>
+    <property key="FormFieldTitle_reconciledDate">
+        <value xml:lang="en">Reconciled Date</value>
+        <value xml:lang="it">Data Riconcilazione</value>
     </property>
     <property key="FormFieldTitle_reconcileStatusId">
         <value xml:lang="en">Reconcile Status Id</value>
@@ -8720,6 +8889,14 @@
         <value xml:lang="ru">Код типа роли</value>
         <value xml:lang="th">รหัสประเภทสถานะ</value>
         <value xml:lang="zh">角色类型标识</value>
+    </property>
+    <property key="FormFieldTitle_salesOpportunityId">
+        <value xml:lang="en">Sales Opportunity Id</value>
+        <value xml:lang="it">Numero Opportunità di Vendita</value>
+    </property>
+    <property key="FormFieldTitle_salvageValue">
+        <value xml:lang="en">Salvage Value</value>
+        <value xml:lang="it">Valore di salvataggio</value>
     </property>
     <property key="FormFieldTitle_scheduleWorkEffortId">
         <value xml:lang="en">Schedule Work Effort Id</value>
@@ -8872,6 +9049,10 @@
         <value xml:lang="th">ค่าที่กำหนด</value>
         <value xml:lang="zh">条件值</value>
     </property>
+    <property key="FormFieldTitle_textData">
+        <value xml:lang="en">Text Data</value>
+        <value xml:lang="it">Dato Testo</value>
+    </property>
     <property key="FormFieldTitle_textValue">
         <value xml:lang="en">Text Value</value>
         <value xml:lang="fr">Valeur du texte</value>
@@ -8880,12 +9061,20 @@
         <value xml:lang="ru">Текстовое значение</value>
         <value xml:lang="th">ค่าตัวอักษร</value>
     </property>
+    <property key="FormFieldTitle_theirAcctgTransId">
+        <value xml:lang="en">Their Acctg Trans Id</value>
+        <value xml:lang="it">Loro Numero Transazione Contabilità</value>
+    </property>
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="en">Time Entry Id</value>
         <value xml:lang="fr">Réf. de date d'écriture</value>
         <value xml:lang="it">Riga Timbratura</value>
         <value xml:lang="nl">ID tijdregistratie</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
+    </property>
+    <property key="FormFieldTitle_timesheetPartyId">
+        <value xml:lang="en">Timesheet Party Id</value>
+        <value xml:lang="it">Soggetto Timbratura</value>
     </property>
     <property key="FormFieldTitle_toPaymentId">
         <value xml:lang="en">To payment ID</value>
@@ -8897,6 +9086,10 @@
         <value xml:lang="ru">На участника</value>
         <value xml:lang="th">ถึงรหัสการชำระเงิน</value>
         <value xml:lang="zh">到支付编号</value>
+    </property>
+    <property key="FormFieldTitle_totalAmount">
+        <value xml:lang="en">Total Amount</value>
+        <value xml:lang="it">Importo Totale</value>
     </property>
     <property key="FormFieldTitle_toTaxAuthGeoId">
         <value xml:lang="en">To Tax Auth Geo Id</value>
@@ -8972,6 +9165,10 @@
         <value xml:lang="th">Use Invoice Id For Returns</value>
         <value xml:lang="zh">用于退货的发票编号</value>
     </property>
+    <property key="FormFieldTitle_voucherDate">
+        <value xml:lang="en">Voucher Date</value>
+        <value xml:lang="it">Data Voucher</value>
+    </property>
     <property key="FormFieldTitle_voucherRef">
         <value xml:lang="en">Voucher Ref</value>
         <value xml:lang="es">Ref Voucher</value>
@@ -8986,6 +9183,7 @@
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="en">Add Agreement Roles</value>
         <value xml:lang="fr">Ajouter des rôles d'accords commerciaux</value>
+        <value xml:lang="it">Aggiungi Ruoli Contratto</value>
         <value xml:lang="nl">Rollen overeenkomst toevoegen</value>
     </property>
     <property key="PageTitleAddBillingAccountRoles">
@@ -9138,6 +9336,7 @@
     <property key="PageTitleEditAgreementWorkEffortAppls">
         <value xml:lang="en">Edit Agreement Work Effort Appls</value>
         <value xml:lang="fr">Modifier les application d'accords commerciaux de service</value>
+        <value xml:lang="it">Aggiorna Applicazioni Impegno di Lavoro</value>
         <value xml:lang="nl">Toepassing werkinzet overeenkomst aanpassen</value>
     </property>
     <property key="PageTitleEditBillingAccount">
@@ -9298,7 +9497,7 @@
         <value xml:lang="th">แก้ไขการลงทะเบียนทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产登记</value>
     </property>
-    <property key="PageTitleEditFixedAssetStdCost">
+    <property key="PageTitleEditFixedAssetStdCosts">
         <value xml:lang="en">Edit Fixed Asset Standard Cost</value>
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
         <value xml:lang="fr">Modifier un coût standard d'immobilisation</value>
@@ -9354,6 +9553,7 @@
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
         <value xml:lang="fr">Modifier les comptes de tiers</value>
+        <value xml:lang="it">Aggiorna Conti Gl Soggetto</value>
         <value xml:lang="nl">Gb-rekeningen relatie aanpassen</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9480,6 +9680,7 @@
     <property key="PageTitleFindAgreementRoles">
         <value xml:lang="en">Find Agreement Roles</value>
         <value xml:lang="fr">Chercher les rôles d'accords commerciaux</value>
+        <value xml:lang="it">Ricerca Ruoli Contratto</value>
         <value xml:lang="nl">Vind rollen overeenkomst</value>
     </property>
     <property key="PageTitleFindBillingAccount">
@@ -9653,6 +9854,7 @@
     <property key="PageTitleListAgreementRoles">
         <value xml:lang="en">List Agreement Roles</value>
         <value xml:lang="fr">Liste des rôles d'accords commerciaux</value>
+        <value xml:lang="it">Lista Ruoli Contratto</value>
         <value xml:lang="nl">Toon rollen overeenkomst</value>
     </property>
     <property key="PageTitleListAgreementTerms">

@@ -118,7 +118,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="TimePeriod"/>
+                <set field="titleProperty" value="AccountingTimePeriod"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingTimePeriod}"/>
                 <set field="tabButtonItem" value="TimePeriods"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
