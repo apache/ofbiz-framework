@@ -27,9 +27,8 @@
         <set-nonpk-fields value-field="content" map="parameters"/>
         <set-pk-fields value-field="content" map="parameters"/>
 
-        <if-empty field="content.contentId">
-            <sequenced-id sequence-name="Content" field="contentId"/>
-            <set field="content.contentId" from-field="contentId"/>
+        <if-empty field="parameters.contentId">
+            <sequenced-id-to-env sequence-name="Content" env-name="content.contentId"/>
         </if-empty>
 
         <if-empty field="content.statusId">
@@ -42,7 +41,7 @@
             <set field="content.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
@@ -56,7 +55,7 @@
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
         <set-nonpk-fields value-field="content" map="parameters"/>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
 
@@ -78,7 +77,7 @@
         <set-pk-fields value-field="assoc" map="parameters"/>
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <if-empty field="assoc.fromDate">
             <set field="assoc.fromDate" from-field="nowTimestamp"/>
         </if-empty>
@@ -97,7 +96,7 @@
         <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
         <set-nonpk-fields value-field="assoc" map="parameters"/>
 
-        <now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
 
@@ -209,12 +208,12 @@
             <set from-field="parameters.contentAssocTypeId" field="newContentAssoc.contentAssocTypeId"/>
             <set from-field="newUserLogin.userLoginId" field="newContentAssoc.createdByUserLogin"/>
             <set from-field="newUserLogin.userLoginId" field="newContentAssoc.lastModifiedByUserLogin"/>
-            <now-timestamp field="newContentAssoc.createdDate"/>
-            <now-timestamp field="newContentAssoc.lastModifiedDate"/>
+            <now-timestamp-to-env env-name="newContentAssoc.createdDate"/>
+            <now-timestamp-to-env env-name="newContentAssoc.lastModifiedDate"/>
             
             <if-empty field="parameters.fromDate">
-                <now-timestamp field="parameters.fromDate"/>
-                <to-string map-name="parameters" field-name="fromDate" />
+                <now-timestamp-to-env env-name="parameters.fromDate"/>
+                <to-string field="parameters.fromDate"/>
             </if-empty>
             <set from-field="parameters.fromDate" field="newContentAssoc.fromDate"/>
             <if-not-empty field="parameters.thruDate">
@@ -249,13 +248,13 @@
     <!-- Methods for ContentRole -->
     <simple-method method-name="createContentRole" short-description="Create Content Role">
         <if-empty field="parameters.fromDate">
-            <now-timestamp field="parameters.fromDate"/>
+            <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <make-value value-field="partyRolePK" entity-name="PartyRole"/>
         <set-pk-fields value-field="partyRolePK" map="parameters"/>
         <find-by-primary-key entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
         <if-empty field="partyRole">
-            <make-value entity-name="PartyRole" map-name="partyRolePK" value-field="partyRole"/>
+            <make-value entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
             <create-value value-field="partyRole"/>
         </if-empty>
         <check-errors/>
@@ -283,8 +282,8 @@
         <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
         <find-by-and entity-name="ContentRole" map="lookupKeyValue" list="roleList"/>
         <iterate entry="contentRoleMap" list="roleList">
-            <make-value entity-name="ContentRole" value-field="role" map-name="contentRoleMap"/>
-            <now-timestamp field="role.thruDate"/>
+            <make-value entity-name="ContentRole" value-field="role" map="contentRoleMap"/>
+            <now-timestamp-to-env env-name="role.thruDate"/>
             <store-value value-field="role"/>
         </iterate>
     </simple-method>
@@ -302,7 +301,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field="contentTypeId" />
+        <field-to-result result-name="contentTypeId" field="newEntity.contentTypeId" />
     </simple-method>
     <simple-method method-name="updateContentType" short-description="Update Content Type">
         <make-value entity-name="ContentType" value-field="lookupKeyValue"/>
@@ -338,7 +337,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field="contentAssocTypeId" />
+        <field-to-result result-name="contentAssocTypeId" field="newEntity.contentAssocTypeId" />
     </simple-method>
     <simple-method method-name="updateContentAssocType" short-description="Update Content AssocType">
         <make-value entity-name="ContentAssocType" value-field="lookupKeyValue"/>
@@ -363,7 +362,7 @@
 			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-field="newEntity"/>
 		</if-empty>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field="contentPurposeTypeId" />
+        <field-to-result field="newEntity.contentPurposeTypeId" result-name="contentPurposeTypeId" />
     </simple-method>
     <simple-method method-name="updateContentPurposeType" short-description="Update Content PurposeType">
         <make-value entity-name="ContentPurposeType" value-field="lookupKeyValue"/>
@@ -385,7 +384,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field="contentAssocPredicateId" />
+        <field-to-result field="newEntity.contentAssocPredicateId" result-name="contentAssocPredicateId"/>
     </simple-method>
     <simple-method method-name="updateContentAssocPredicate" short-description="Update Content AssocPredicate">
         <make-value entity-name="ContentAssocPredicate" value-field="lookupKeyValue"/>
@@ -552,7 +551,7 @@
             <call-service service-name="createContentFromUploadedFile" in-map-name="uploadContext"/>
         </if-not-empty>
 
-        <field-to-result field="parentContentId" map-name="parameters" result-name="contentId"/>
+        <field-to-result field="parameters.parentContentId" result-name="contentId"/>
     </simple-method>
 
     <!-- Util -->
@@ -592,16 +591,16 @@
         <set-service-fields service-name="createContent" map="parameters" to-map="createSubjectContent"/>
         <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
-            <result-to-field result-name="dataResourceId" map-name="createSubjectContent"/>
+            <result-to-field result-name="dataResourceId" field="createSubjectContent.dataResourceId"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createSubjectContent">
-            <result-to-field result-name="contentId" map-name="createBodyAssoc"/>
+            <result-to-field result-name="contentId" field="createBodyAssoc.contentId"/>
         </call-service>
 
         <!-- Create plain body -->
         <set from-field="parameters.plainBody" field="createPlainBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createPlainBodyEtext">
-            <result-to-field result-name="dataResourceId" map-name="createPlainBodyContent"/>
+            <result-to-field result-name="dataResourceId" field="createPlainBodyContent.dataResourceId"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createPlainBodyContent">
             <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
@@ -614,7 +613,7 @@
         <!-- Create HTML body -->
         <set from-field="parameters.htmlBody" field="createHtmlBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createHtmlBodyEtext">
-            <result-to-field result-name="dataResourceId" map-name="createHtmlBodyContent"/>
+            <result-to-field result-name="dataResourceId" field="createHtmlBodyContent.dataResourceId"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createHtmlBodyContent">
             <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
@@ -657,7 +656,7 @@
         <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
         <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
         <call-service service-name="createOtherDataResource" in-map-name="createDownload">
-            <result-to-field result-name="dataResourceId" map-name="createDownloadContent"/>
+            <result-to-field result-name="dataResourceId" field="createDownloadContent.dataResourceId"/>
         </call-service>
         <call-service service-name="createContent" in-map-name="createDownloadContent">
             <result-to-result result-name="contentId"/>
@@ -692,8 +691,8 @@
         <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
         
         <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
-            <result-to-field result-name="dataResourceId" map-name="createSimpleText"/>
-            <result-to-field result-name="dataResourceId" map-name="createSimpleTextContent"/>
+            <result-to-field result-name="dataResourceId" field="createSimpleText.dataResourceId"/>
+            <result-to-field result-name="dataResourceId" field="createSimpleTextContent.dataResourceId"/>
         </call-service>
         
         <call-service service-name="createElectronicText" in-map-name="createSimpleText"/>
@@ -721,8 +720,8 @@
         <set from-field="parameters.newTopicDescription" field="content.description" />
         <set value="TOPIC" field="content.contentTypeId" />
         
-        <now-timestamp field="content.lastModifiedDate"/>
-        <now-timestamp field="content.createdDate"/>
+        <now-timestamp-to-env env-name="content.lastModifiedDate"/>
+        <now-timestamp-to-env env-name="content.createdDate"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.createdByUserLogin"/>
 
@@ -777,12 +776,12 @@
         <check-errors/>
 			-->
 		
-		<now-timestamp field="nowTimestamp"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
 		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
 		<if-empty field="persistIn.dataResourceTypeId">
 		<log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
-			<if-regexp expr="text.*" field-name="persistIn.drMimeTypeId">
+			<if-regexp expr="text.*" field="persistIn.drMimeTypeId">
 				<set field="persistIn.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
 				<else>
 					<set field="persistIn.dataResourceTypeId" value="IMAGE_OBJECT"/>
@@ -844,7 +843,7 @@
 		<set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
 		<set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
 		<if-empty field="commEventContentAssoc.fromDate">
-			<now-timestamp field="commEventContentAssoc.fromDate"/>
+		    <now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
 		</if-empty>
 		<create-value value-field="commEventContentAssoc" />
 		<field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
@@ -947,8 +946,8 @@
                 </and>
             </condition>
             <then>
-                <field-to-result field="contentIdFrom" map-name="parameters" result-name="contentId"/>
-                <field-to-result field="contentId" map-name="parameters" result-name="contentIdTo"/>
+                <field-to-result field="parameters.contentIdFrom" result-name="contentId"/>
+                <field-to-result field="parameters.contentId" result-name="contentIdTo"/>
                 <log level="info" message="Converted 'contentId' to 'contentIdTo' and 'contentIdFrom' to 'contentId'"/>
             </then>
             <else-if>
@@ -958,8 +957,8 @@
                     </not>
                 </condition>
                 <then>
-                    <field-to-result field="contentIdTo" map-name="parameters" result-name="contentIdTo"/>
-                    <field-to-result field="contentId" map-name="parameters" result-name="contentId"/>
+                    <field-to-result field="parameters.contentIdTo" result-name="contentIdTo"/>
+                    <field-to-result field="parameters.contentId" result-name="contentId"/>
                     <log level="info" message="Returned 'contentId' as 'contentId' and 'contentIdTo' as 'contentIdTo'"/>
                 </then>
             </else-if>
@@ -978,7 +977,7 @@
         </if-compare>
         <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>         
         <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>   
-        <call-object-method method-name="length" obj-field-name="parameters.textData" ret-field="textDataLen"/>
+        <call-object-method method-name="length" obj-field="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
         <property-to-field resource="forum" property="descriptLen" field="descriptLen" />
         <log level="info" message="descriptLen:${descriptLen}"/>
@@ -991,7 +990,7 @@
         <set field="intSubStringLen" from-field="subStringLen" type="Integer"/>
         <log level="info" message="subStringLen:${subStringLen}"/>
         <set field="zeroValue" value="0" type="Integer"/>
-        <call-object-method method-name="substring" obj-field-name="parameters.textData" ret-field="subDescript">
+        <call-object-method method-name="substring" obj-field="parameters.textData" ret-field="subDescript">
             <field field="zeroValue" type="int"/>
             <field field="intSubStringLen" type="int"/>
         </call-object-method>
