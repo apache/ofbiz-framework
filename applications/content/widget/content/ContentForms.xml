@@ -127,7 +127,9 @@ under the License.
         <field use-when="currentValue==null&amp;&amp;contentId!=null" name="contentId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
+                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="dataResourceId">
@@ -136,6 +138,11 @@ under the License.
             </lookup>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="decoratorContentId">
+            <lookup target-form-name="LookupContent">
+                <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent?contentId=${currentValue.decoratorContentId}" description="${uiLabelMap.ContentGoToContent}"/>
+            </lookup>
+        </field>
         <field name="mimeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">

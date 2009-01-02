@@ -416,6 +416,9 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">论坛</value>
     </property>
+    <property key="ContentGoToContent">
+        <value xml:lang="en">Go to Content</value>
+    </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
         <value xml:lang="de">Gehe zur Datenressource</value>
