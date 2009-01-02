@@ -85,7 +85,7 @@ under the License.
     <screen name="NewInvoice">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditInvoice"/>
+                <set field="titleProperty" value="AccountingCreateNewInvoice"/>
                 <entity-one entity-name="Invoice" value-name="invoice"/>
             </actions>
             <widgets>
