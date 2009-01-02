@@ -23,7 +23,7 @@ under the License.
     
      <form name="ListInvoiceItemType" type="list" target="updateInvoiceItemType" list-name="invoiceItemTypes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="invoiceItemTypeId" title="InvoiceItemTypeId"><display/></field>
+        <field name="invoiceItemTypeId"><display/></field>
         <field name="description"><display/></field>
         <field name="defaultGlAccountId" title="${uiLabelMap.ProductGlAccount}" parameter-name="defaultGlAccountId">
             <drop-down allow-empty="true">
