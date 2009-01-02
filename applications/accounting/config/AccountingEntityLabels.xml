@@ -47,7 +47,7 @@
     </property>
     <property key="AcctgTransType.description.CREDIT_MEMO">
         <value xml:lang="en">Credit Memo</value>
-        <value xml:lang="fr">Mémo de crédit</value>
+        <value xml:lang="fr">Note de crédit</value>
         <value xml:lang="it">Nota Credito</value>
         <value xml:lang="ro">Nota de Credit</value>
         <value xml:lang="ru">Кредитный мемориальный ордер</value>
@@ -305,7 +305,7 @@
     </property>
     <property key="FixedAssetIdentType.description.MFG_SERIAL">
         <value xml:lang="en">Mfg Serial Number</value>
-        <value xml:lang="fr">No de série de fabrication</value>
+        <value xml:lang="fr">No de série (fabrication)</value>
         <value xml:lang="it">Numero Seriale Mfg</value>
         <value xml:lang="ro">Nr.Serial Mfg</value>
         <value xml:lang="ru">Серийный номер производителя</value>
