@@ -6879,7 +6879,7 @@
     </property>
     <property key="CommonWelcomeToTheOFBizDashboard">
         <value xml:lang="en">Welcome to the OFBiz dashboard</value>
-        <value xml:lang="fr">Bienvenue au tableau de bord d'OFBiz</value>
+        <value xml:lang="fr">Bienvenue sur le tableau de bord d'OFBiz</value>
     </property>    
     <property key="CommonWhere">
         <value xml:lang="ar">أين</value>
