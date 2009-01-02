@@ -46,18 +46,6 @@
         <value xml:lang="th">ใบเสร็จถึงรหัสกลุ่มลูกค้า</value>
         <value xml:lang="zh">账单记入客户会员标识</value>
     </property>
-    <property key="FormFieldTitle_carrierPartyId">
-        <value xml:lang="de">Spediteur Akteur ID</value>
-        <value xml:lang="en">Carrier Party Id</value>
-        <value xml:lang="es">Código Transportista</value>
-        <value xml:lang="fr">Réf. de transporteur</value>
-        <value xml:lang="it">Codice Corriere</value>
-        <value xml:lang="nl">Vervoerder Id</value>
-        <value xml:lang="ro">Cod Curier</value>
-        <value xml:lang="ru">Код перевозчика</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ส่ง</value>
-        <value xml:lang="zh">送货人会员标识</value>
-    </property>
     <property key="FormFieldTitle_carrierRoleTypeId">
         <value xml:lang="de">Spediteur Rollentyp ID</value>
         <value xml:lang="en">Carrier Role Type Id</value>
@@ -1691,6 +1679,14 @@
         <value xml:lang="ru">COD</value>
         <value xml:lang="th">เงินด่วน</value>
         <value xml:lang="zh">货到付款</value>
+    </property>
+    <property key="OrderCalculatedMarkup">
+        <value xml:lang="de">Berechneter Aufschlag</value>
+        <value xml:lang="en">Calculated Markup</value>
+        <value xml:lang="es">Margen calculado</value>
+        <value xml:lang="fr">Marge bénéficiaire calculée</value>
+        <value xml:lang="it">Markup calcolato</value>
+        <value xml:lang="th">การคำนวนราคาที่เพิ่มขึ้น</value>
     </property>
     <property key="OrderCalculatedOffline">
         <value xml:lang="en">Calculated Offline</value>
@@ -6117,6 +6113,14 @@
         <value xml:lang="th">การชำระเงินรายการที่ขายที่ยังค้างอยู่ (รวมโปรโมชัน)</value>
         <value xml:lang="zh">扣留的销售支付明细 (包括促销)</value>
         <value xml:lang="zh_CN">为支付的销售项 (包括促销)</value>
+    </property>
+    <property key="OrderPercentageMarkup">
+        <value xml:lang="de">Prozent Zuschlag</value>
+        <value xml:lang="en">Percentage Markup</value>
+        <value xml:lang="es">Porcentaje de margen</value>
+        <value xml:lang="fr">Pourcentage de marge bénéficiaire</value>
+        <value xml:lang="it">Markup Percentuale</value>
+        <value xml:lang="th">เพิ่มราคาอัตราร้อยละ</value>
     </property>
     <property key="OrderPickOrders">
         <value xml:lang="de">Aufträge komissionieren</value>

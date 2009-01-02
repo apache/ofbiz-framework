@@ -86,24 +86,6 @@
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
         <value xml:lang="zh">客户会员标识</value>
     </property>
-    <property key="FormFieldTitle_comments">
-        <value xml:lang="en">Comments</value>
-        <value xml:lang="fr">Commentaires</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="nl">Opmerkingen</value>
-        <value xml:lang="ro">Comentarii </value>
-        <value xml:lang="th">ความคิดเห็น</value>
-        <value xml:lang="zh">评论</value>
-    </property>
-    <property key="FormFieldTitle_communicationEventId">
-        <value xml:lang="en">Communication Event Id </value>
-        <value xml:lang="fr">Réf. d'évènement de communication </value>
-        <value xml:lang="it">Codice Evento Comunicazione</value>
-        <value xml:lang="nl">Communication Event Id</value>
-        <value xml:lang="ro">Cod Eveniment Comunicatie</value>
-        <value xml:lang="th">รหัสผลที่ได้จากการติดต่อสื่อสาร</value>
-        <value xml:lang="zh">沟通事件标识 </value>
-    </property>
     <property key="FormFieldTitle_contactMechTypeId">
         <value xml:lang="en">Contact Mech Type Id</value>
         <value xml:lang="fr">Réf. de type de coordonnée</value>

@@ -29,7 +29,7 @@ under the License.
 
     <table border='0' cellpadding='2' cellspacing='0'>
       <tr>
-        <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingPaymentMethodType}</b></td>
+        <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonPaymentMethodType}</b></td>
         <td width="5">&nbsp;</td>
         <td width='74%'>
           <#if paymentMethodType?has_content>

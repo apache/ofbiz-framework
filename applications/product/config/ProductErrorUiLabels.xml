@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>
         <value xml:lang="en">This return is not yet accepted or already received.</value>
@@ -44,5 +45,851 @@
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
+    </property>
+    
+    <property key="productSearchEvents.added_param_features">
+        <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
+        <value xml:lang="en">Added ${numAdded} features with ID ${productFeatureId}</value>
+        <value xml:lang="es">Se añadieron ${numAdded} características con códigos ${productFeatureId}</value>
+        <value xml:lang="fr">Ajout de ${numAdded} caractéristiques avec la réf. ${productFeatureId}]</value>
+        <value xml:lang="it">Aggiunta(e) ${numAdded} caratteristiche con Codice ${productFeatureId}</value>
+        <value xml:lang="ro">Adauga ${numAdded} caracteristici cu Codul ${productFeatureId}</value>
+        <value xml:lang="ru">Добавлены ${numAdded} особенностей с кодом ${productFeatureId}</value>
+        <value xml:lang="th">เพิ่ม ${numAdded} ลักษณะด้วยรหัส ${productFeatureId}</value>
+        <value xml:lang="zh">已添加 ${numAdded} 特征，标识 ${productFeatureId}</value>
+    </property>
+    <property key="productSearchEvents.error_casting_types">
+        <value xml:lang="de">Fehler bei der Konvertierung von Datentypen</value>
+        <value xml:lang="en">Error casting data types</value>
+        <value xml:lang="es">Error convirtiendo tipos de datos</value>
+        <value xml:lang="fr">Erreur pendant le remplacement de types de données</value>
+        <value xml:lang="it">Errore di casting tipi dato</value>
+        <value xml:lang="ro">Eroare de casting tip data</value>
+        <value xml:lang="ru">Ошибка приведение типов данных</value>
+        <value xml:lang="th">Error: ผิดพลาด ! การคัดเลือกประเภทข้อมูล</value>
+        <value xml:lang="zh">释放数据类型时发生错误</value>
+    </property>
+    <property key="productSearchEvents.error_getting_results">
+        <value xml:lang="de">Fehler beim Holen der Suchresultate</value>
+        <value xml:lang="en">Error getting search results</value>
+        <value xml:lang="es">Error al obtener resultados de búsqueda</value>
+        <value xml:lang="fr">Erreur survenue pendant la recherche</value>
+        <value xml:lang="it">Errore nella ricerca risultati</value>
+        <value xml:lang="ro">Eroare in cautarea resultatelor </value>
+        <value xml:lang="ru">Ошибка получения результатов поиска</value>
+        <value xml:lang="th">Error: ผิดพลาด ! การดึงค่าผลลัพธ์การค้นหา</value>
+        <value xml:lang="zh">获取搜索结果时发生错误</value>
+    </property>
+    <property key="productSearchEvents.removed_param_features">
+        <value xml:lang="de">${numRemoved} Merkmale gelöscht mit ID ${productFeatureId}</value>
+        <value xml:lang="en">Removed ${numRemoved} features with ID ${productFeatureId}</value>
+        <value xml:lang="es">Se quitaron ${numRemoved} características con código ${productFeatureId}</value>
+        <value xml:lang="fr">Suppression de ${numRemoved} caractéristiques avec la réf. ${productFeatureId}]</value>
+        <value xml:lang="it">Cancellato(i) ${numRemoved} caratteristiche con Codice ${productFeatureId}</value>
+        <value xml:lang="ro">Sters(i) ${numRemoved} caracteristici cu Cod ${productFeatureId}</value>
+        <value xml:lang="ru">Удалены ${numRemoved} особенностей с кодом ${productFeatureId}</value>
+        <value xml:lang="th">ลบ ${numRemoved} ลักษณะด้วยรหัส ${productFeatureId}</value>
+        <value xml:lang="zh">已删除 ${numRemoved} 特征，标识 ${productFeatureId}</value>
+    </property>
+    <property key="productevents.association_type_ID_missing">
+        <value xml:lang="de">Verknüpfungstyp ID fehlt.</value>
+        <value xml:lang="en">Association Type ID is missing.</value>
+        <value xml:lang="es">Hace falta el código del tipo de asociación</value>
+        <value xml:lang="fr">La réf. de type d'association est absente.</value>
+        <value xml:lang="it">Tipo Associazione è mancante.</value>
+        <value xml:lang="ro">Tip Asociatie lipseste.</value>
+        <value xml:lang="ru">Отсутствует код типа ассоциации.</value>
+        <value xml:lang="th">รหัสกลุ่มประเภทซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少关联类型标识。</value>
+    </property>
+    <property key="productevents.attribute_name_missing">
+        <value xml:lang="de">Attributname fehlt.</value>
+        <value xml:lang="en">Attribute name is missing.</value>
+        <value xml:lang="es">Falta el nombre del atributo.</value>
+        <value xml:lang="fr">Le nom d'attribut est absent.</value>
+        <value xml:lang="it">Nome Attributo è mancante.</value>
+        <value xml:lang="ro">Nume Atribut lipseste.</value>
+        <value xml:lang="ru">Отсутствует имя атрибута.</value>
+        <value xml:lang="th">ชื่อแอททริบิวต์ซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少属性名称。</value>
+    </property>
+    <property key="productevents.could_not_create_attribute_write">
+        <value xml:lang="de">Attribute konnten nicht erstellen werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not create attribute (write error).</value>
+        <value xml:lang="es">No se pudo crear atributo (error de escritura).</value>
+        <value xml:lang="fr">Impossible de créer l'attribut (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile creare l'attributo (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila crearea atributului (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно создать атрибут (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถสร้างแอททริบิวต์ (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有创建属性 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_create_keywords_write">
+        <value xml:lang="de">Schlüsselwörter konnten nicht erstellt werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not create keywords (write error).</value>
+        <value xml:lang="es">No se pudieron crear palabras clave (error de escritura).</value>
+        <value xml:lang="fr">Impossible de créer le mot-clé (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile creare le chiavi (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila crearea cheilor (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно создать ключевые слова (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถสร้างคีย์เวิร์ด (เขียนผิดลาด).</value>
+        <value xml:lang="zh">没有创建关键字 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_create_product_association_exists">
+        <value xml:lang="de">Produktverknüpfung konnte nicht erstellt werden (existiert bereits).</value>
+        <value xml:lang="en">Could not create product association (already exists).</value>
+        <value xml:lang="es">No se pudo crear asociación (ya existe).</value>
+        <value xml:lang="fr">Impossible de créer l'association à l'article (existe déjà).</value>
+        <value xml:lang="it">Non è possibile creare l'associazione prodotto (già esistente).</value>
+        <value xml:lang="ro">Nu este posibila crearea asociere produs (deja existente).</value>
+        <value xml:lang="ru">Невозможно создать ассоциации продукта (уже существуют).</value>
+        <value xml:lang="th">ไม่สามารถสร้างกลุ่มสินค้า (ยังคงมีอยู่).</value>
+        <value xml:lang="zh">没有创建产品关联(已存在)。</value>
+    </property>
+    <property key="productevents.could_not_create_product_association_write">
+        <value xml:lang="de">Produktverknüpfung konnte nicht erstellt werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not create product association (write error).</value>
+        <value xml:lang="es">No se pudo crear asociación (error de escritura).</value>
+        <value xml:lang="fr">Impossible de créer l'association à l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile creare associazione prodotto (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila crearea asocierii produs (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно создать ассоциацию продукта (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถสร้างกลุ่มสินค้า (เขียนผิดลาด).</value>
+        <value xml:lang="zh">没有创建产品关联(写错误)。</value>
+    </property>
+    <property key="productevents.could_not_create_productkeyword_entry_exists">
+        <value xml:lang="de">Produkt Schlüsselwort Eintrag konnte nicht erstellt werden (existiert bereits).</value>
+        <value xml:lang="en">Could not create product-keyword entry (already exists).</value>
+        <value xml:lang="es">No se pudo crear entrada de palabra clave-producto (ya existe).</value>
+        <value xml:lang="fr">Impossible de créer le mot-clé de l'article (existe déjà).</value>
+        <value xml:lang="it">Non è possibile creare voce chiave-prodotto (già esistenti).</value>
+        <value xml:lang="ro">Nu este posibila crearea campului cheie-produs (deja existenta).</value>
+        <value xml:lang="ru">Невозможно создать элемент ключевого слова (уже существует).</value>
+        <value xml:lang="th">ไม่สามารถสร้างการกรอกคีย์เวิร์ดสินค้า (ยังคงมีอยู่).</value>
+        <value xml:lang="zh">没有创建产品-关键字记录 (已存在)。</value>
+    </property>
+    <property key="productevents.could_not_create_productkeyword_entry_write">
+        <value xml:lang="de">Produkt Schlüsselwort Eintrag konnte nicht erstellt werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not create product-keyword entry (write error).</value>
+        <value xml:lang="es">No se pudo crear asociación entrada de palabra clave-producto (error de escritura).</value>
+        <value xml:lang="fr">Impossible de créer le mot-clé de l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile creare voce chiave-prodotto (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila crearea vocii cheie-produsd (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно создать элемент ключевого слова (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถสร้างการกรอกคีย์เวิร์ดสินค้า (เขียนผิดพลาด)</value>
+        <value xml:lang="zh">没有创建产品-关键字记录 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_delete_attribute_write">
+        <value xml:lang="de">Attribut konnte nicht gelöscht werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not delete attribute (write error).</value>
+        <value xml:lang="es">No se pudo borrar atributo (error de escritura).</value>
+        <value xml:lang="fr">Impossible de supprimer l'attribut (erreur d'écriture)</value>
+        <value xml:lang="it">Non è possibile cancellare attributo (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila stergerea atributului (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно удалить атрибут (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถลบแอททริบิวต์ (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有删除属性 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_remove_keywords_write">
+        <value xml:lang="de">Produkt-Schlüsselwort konnte nicht gelöscht werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not remove product-keywords (write error).</value>
+        <value xml:lang="es">No se pudo remover producto-palabras clave (error de escritura).</value>
+        <value xml:lang="fr">Impossible de supprimer le mot-clé de l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile cancellare chiavi-prodotto (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila stergerea cheie -produs (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно удалить элемент ключевого слова (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有删除产品-关键字 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_remove_product_association_exist">
+        <value xml:lang="de">Produktverknüpfung konnte nicht gelöscht werden (nicht vorhanden).</value>
+        <value xml:lang="en">Could not remove product association (does not exist).</value>
+        <value xml:lang="es">No se pudo remover asociación de producto (no existe).</value>
+        <value xml:lang="fr">Impossible de supprimer le mot-clé de l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile cancellare associazione prodotto (non esiste).</value>
+        <value xml:lang="ro">Nu este posibila stergerea asocierea produs (nu exista).</value>
+        <value xml:lang="ru">Невозможно удалить ассоциацию продукта (не существует).</value>
+        <value xml:lang="th">ไม่สามารถลบกลุ่มสินค้า (ไม่มีอยู่).</value>
+        <value xml:lang="zh">没有删除产品关联(不存在)。</value>
+    </property>
+    <property key="productevents.could_not_remove_product_association_write">
+        <value xml:lang="de">Produktverknüpfung konnte nicht gelöscht werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not remove product association (write error).</value>
+        <value xml:lang="es">No se pudo remover asociación de producto (error de escritura).</value>
+        <value xml:lang="fr">Impossible de supprimer l'association à l'article (n'existe pas).</value>
+        <value xml:lang="it">Non è possibile cancellare associazione prodotto (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila stergere asociere produs (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно удалить ассоциацию продукта (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถลบกลุ่มสินค้า (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有删除产品关联(写错误)。</value>
+    </property>
+    <property key="productevents.could_not_remove_productkeyword_entry_notexists">
+        <value xml:lang="de">Produkt Schlüsselwort konnte nicht gelöscht werden (nicht vorhanden).</value>
+        <value xml:lang="en">Could not remove product-keyword (does not exist);</value>
+        <value xml:lang="es">No se pudo remover producto-palabra clave (no existe).</value>
+        <value xml:lang="fr">Impossible de supprimer le mot-clé de l'article (n'existe pas).</value>
+        <value xml:lang="it">Non è possibile cancellare chiave-prodotto (non esiste).</value>
+        <value xml:lang="ru">Невозможно удалить ключевое слово (не существует).</value>
+        <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (ไม่มีอยู่);</value>
+        <value xml:lang="zh">没有删除产品-关键字(不存在)。</value>
+    </property>
+    <property key="productevents.could_not_remove_productkeyword_entry_writeerror">
+        <value xml:lang="de">Produkt Schlüsselwort konnte nicht gelöscht werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not remove product-keyword (write error);</value>
+        <value xml:lang="es">No se pudo remover producto-palabra clave (error de escritura).</value>
+        <value xml:lang="fr">Impossible de supprimer le mot-clé de l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile cancellare chiave-prodotto (errore scrittura);</value>
+        <value xml:lang="ro">Nu este posibila stergerea cheie-produs (eroare la scriere);</value>
+        <value xml:lang="ru">Невозможно удалить ключевое слово (ошибка записи);</value>
+        <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (เขียนผิดพลาด)</value>
+        <value xml:lang="zh">没有删除产品-关键字(写错误)；</value>
+    </property>
+    <property key="productevents.could_not_update_attribute_write">
+        <value xml:lang="de">Attribut konnte nicht aktualisiert werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not update attribute (write error).</value>
+        <value xml:lang="es">No se pudo actualizar atributo (error de escritura).</value>
+        <value xml:lang="fr">Impossible de mettre à jour l'attribut (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile aggiornare attributo (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila actualizarea atribut (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно обновить атрибут (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถอัพเดทแอททริบิวต์ (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有更新属性 (写错误)。</value>
+    </property>
+    <property key="productevents.could_not_update_product_association_write">
+        <value xml:lang="de">Produktverknüpfung konnte nicht aktualisiert werden (Schreibfehler).</value>
+        <value xml:lang="en">Could not update product association (write error).</value>
+        <value xml:lang="es">No se pudo actualizar asociación de escritura (error de escritura).</value>
+        <value xml:lang="fr">Impossible de mettre à jour l'association à l'article (erreur d'écriture).</value>
+        <value xml:lang="it">Non è possibile aggiornare associazione prodotto (errore scrittura).</value>
+        <value xml:lang="ro">Nu este posibila actualizarea asociatie produs (eroare la scriere).</value>
+        <value xml:lang="ru">Невозможно обновить ассоциацию продукта (ошибка записи).</value>
+        <value xml:lang="th">ไม่สามารถอัพเดทกลุ่มสินค้า (เขียนผิดพลาด).</value>
+        <value xml:lang="zh">没有更新产品关联(写错误)。</value>
+    </property>
+    <property key="productevents.error_getting_product_list">
+        <value xml:lang="de">Fehler beim Holden der Produktliste für Index: ${gee}.</value>
+        <value xml:lang="en">Error getting the product list to index: ${gee}.</value>
+        <value xml:lang="es">Error obteniendo la lista de productos en el índice: ${gee}.</value>
+        <value xml:lang="fr">Erreur en obtenant la liste d'article à l'index : ${gee}.</value>
+        <value xml:lang="it">Errore leggendo la lista prodotti per indice: ${gee}.</value>
+        <value xml:lang="ro">Eroare la citirea listei produs indexat: ${gee}.</value>
+        <value xml:lang="ru">Ошибка получения списка продуктов по индексу: ${gee}.</value>
+        <value xml:lang="th">ผิดพลาดการดึงค่ารายการสินค้าไปยังดัชนี: ${gee}.</value>
+        <value xml:lang="zh">获取产品列表到索引时出错：${gee}。</value>
+    </property>
+    <property key="productevents.following_errors_occurred">
+        <value xml:lang="de">Der folgende Fehler ist aufgetreten:</value>
+        <value xml:lang="en">The following errors occurred:</value>
+        <value xml:lang="es">Ocurrieron los siguientes errores</value>
+        <value xml:lang="fr">Les erreurs suivantes sont apparues :</value>
+        <value xml:lang="it">I seguenti errori sono occorsi:</value>
+        <value xml:lang="ro">Urmatoarele erori au aparut:</value>
+        <value xml:lang="ru">Произошли следующие ошибки:</value>
+        <value xml:lang="th">ผิดพลาดตามที่เกิดขึ้น:</value>
+        <value xml:lang="zh">发生下列错误：</value>
+    </property>
+    <property key="productevents.from_date_missing">
+        <value xml:lang="de">Von Datum fehlt.</value>
+        <value xml:lang="en">From Date is missing.</value>
+        <value xml:lang="es">Falta la fecha de inicio.</value>
+        <value xml:lang="fr">La date de début manque.</value>
+        <value xml:lang="it">Data Da è mancante.</value>
+        <value xml:lang="ro">Data De la lipseste.</value>
+        <value xml:lang="ru">Отсутствует дата начала.</value>
+        <value xml:lang="th">จากวันที่ซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少开始日期</value>
+    </property>
+    <property key="productevents.keyword_creation_complete_for_products">
+        <value xml:lang="de">Erstellung Schlüsselwörter abgeschlossen für ${numProds} Produkte.</value>
+        <value xml:lang="en">Keyword creation complete for ${numProds} products.</value>
+        <value xml:lang="es">Se completó la creación de palabras clave de ${numProds} productos.</value>
+        <value xml:lang="fr">La création de mot-clé est terminée pour ${numProds} articless,</value>
+        <value xml:lang="it">Creazione Chiave completata per ${numProds} prodotto(i).</value>
+        <value xml:lang="ro">Creare Cheie completa pentru ${numProds} produs(e).</value>
+        <value xml:lang="ru">Создание ключевых слов для ${numProds} продуктов завершено.</value>
+        <value xml:lang="th">การสร้างคีย์เวิร์ดทั้งหมดสำหรับ ${numProds} สินค้า.</value>
+        <value xml:lang="zh">完成为 ${numProds} 产品创建关键字。</value>
+    </property>
+    <property key="productevents.keyword_creation_complete_for_products_with_errors">
+        <value xml:lang="de">Erstellung Schlüsselwörter abgeschlossen für ${numProds} Produkte, mit Fehlern bei ${errProds} Produkten (siehe Log für mehr Details).</value>
+        <value xml:lang="en">Keyword creation complete for ${numProds} products, with errors in ${errProds} products (see the log for more details).</value>
+        <value xml:lang="es">Se completó la creación de palabras clave de ${numProds} productos, con errores en ${errProds} productos (ver el log para más detalles).</value>
+        <value xml:lang="fr">La création de mot-clé est terminée pour ${numProds} articles, avec des erreurs dans ${errProds} articles (voir la log pour plus de détails).</value>
+        <value xml:lang="it">Creazione Chiave completata per ${numProds} prodotto(i), con errori in ${errProds} prodotto(i) (vedi il log per maggiori dettagli).</value>
+        <value xml:lang="ro">Creare Cheie complectata pentru ${numProds} produs(e), cu erori in ${errProds} produs(e) (vezi log pentru mai multe detalii).</value>
+        <value xml:lang="ru">Создание ключевых слов завершено для ${numProds} продуктов, с ошибками в ${errProds} продуктах (подробности в лог файле).</value>
+        <value xml:lang="th">การสร้างคีย์เวิร์ดทั้งหมดสำหรับ${numProds} สินค้า, ด้วยผิดพลาดใน ${errProds} สินค้า (ดูในลอกสำหรับข้อมูลที่มากกว่า).</value>
+        <value xml:lang="zh">完成为 ${numProds} 产品创建关键字，${errProds} 产品出错 (查看日志了解详细信息)。</value>
+    </property>
+    <property key="productevents.keyword_missing">
+        <value xml:lang="de">Schlüsselwort fehlt.</value>
+        <value xml:lang="en">Keyword is missing.</value>
+        <value xml:lang="es">Falta la palabra clave.</value>
+        <value xml:lang="fr">Le mot-clé est absent.</value>
+        <value xml:lang="it">Chiave mancante.</value>
+        <value xml:lang="ro">Chieie lipsa.</value>
+        <value xml:lang="ru">Отсутствует ключевое слово.</value>
+        <value xml:lang="th">คีย์เวิร์ดซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少关键字。</value>
+    </property>
+    <property key="productevents.no_product_ID_specified_keywords">
+        <value xml:lang="de">Keine Produkt-ID angegeben, kann die Schlüsselwörter nicht aktualisieren.</value>
+        <value xml:lang="en">No Product ID specified, cannot update keywords.</value>
+        <value xml:lang="es">No se especificó producto, no se puede actualizar palabras clave.</value>
+        <value xml:lang="fr">Aucune réf. d'article indiquée, ne peut mettre à jour les mots-clés.</value>
+        <value xml:lang="it">Nessun Codice Prodotto specificato, non è possibile aggiornare le chiavi.</value>
+        <value xml:lang="ro">Nici-un Cod Produs specificat, nu este posibila actualizarea cheilor.</value>
+        <value xml:lang="ru">Невозможно обновить ключевые слова потому-что не указан код продукта.</value>
+        <value xml:lang="th">ไม่ระบุรหัสสินค้า, ไม่สามารถอัพเดทคีย์เวิร์ด.</value>
+        <value xml:lang="zh">没有指定产品标识， 无法更新关键字。</value>
+    </property>
+    <property key="productevents.not_sufficient_permissions">
+        <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CATALOG (CATALOG_${updateMode} oder CATALOG_ADMIN benötigt).</value>
+        <value xml:lang="en">You do not have sufficient permissions to ${updateMode} CATALOG (CATALOG_${updateMode} or CATALOG_ADMIN needed).</value>
+        <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CATALOG (CATALOG_${updateMode} o CATALOG_ADMIN).</value>
+        <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CATALOGUE (CATALOG_${updateMode} ou CATALOG_ADMIN requis).</value>
+        <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CATALOG (permesso CATALOG_${updateMode} o CATALOG_ADMIN necessario).</value>
+        <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CATALOG (este necesar permisul CATALOG_${updateMode} sau CATALOG_ADMIN).</value>
+        <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CATALOG (необходимы права CATALOG_${updateMode} или CATALOG_ADMIN).</value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CATALOG (CATALOG_${updateMode} หรือ CATALOG_ADMIN ต้องการ).</value>
+        <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CATALOG_${updateMode} 或 CATALOG_ADMIN)。</value>
+    </property>
+    <property key="productevents.product_ID_To_missing">
+        <value xml:lang="de">Produkt ID Zu fehlt.</value>
+        <value xml:lang="en">Product ID To is missing.</value>
+        <value xml:lang="es">Falta el código de producto destino.</value>
+        <value xml:lang="fr">La réf. de "l'article vers" est absente.</value>
+        <value xml:lang="it">Codice Prodotto A mancante.</value>
+        <value xml:lang="ro">Cod Produs A lipseste.</value>
+        <value xml:lang="ru">Отсутствует К продукту.</value>
+        <value xml:lang="th">รหัสสินค้าซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少产品标识到。</value>
+    </property>
+    <property key="productevents.product_ID_missing">
+        <value xml:lang="de">Produkt ID fehlt.</value>
+        <value xml:lang="en">Product ID is missing.</value>
+        <value xml:lang="es">Falta el código de producto.</value>
+        <value xml:lang="fr">La réf. d'article est absente.</value>
+        <value xml:lang="it">Codice Prodotto mancante.</value>
+        <value xml:lang="ro">Cod Produs lipseste.</value>
+        <value xml:lang="ru">Отсутствует код продукта.</value>
+        <value xml:lang="th">รหัสสินค้าซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少产品标识。</value>
+    </property>
+    <property key="productevents.product_To_with_id_not_found">
+        <value xml:lang="de">Produkt Zu mit ID ${productIdTo} nicht gefunden.</value>
+        <value xml:lang="en">Product To with id ${productIdTo} not found.</value>
+        <value xml:lang="es">Producto destino con código ${productIdTo} no se encontró.</value>
+        <value xml:lang="fr">Le "l'article vers" avec la réf. ${productidTo} non trouvé.</value>
+        <value xml:lang="it">Prodotto A con Codice ${productIdTo} non trovato.</value>
+        <value xml:lang="ro">Nu gaseste Produs A cu Cod ${productIdTo}.</value>
+        <value xml:lang="ru">Не найден продукт с кодом ${productIdTo}.</value>
+        <value xml:lang="th">สินค้าถึงด้วยรหัส ${productIdTo} ไม่พบ.</value>
+        <value xml:lang="zh">没有找到标识为 ${productIdTo} 产品到。</value>
+    </property>
+    <property key="productevents.product_with_id_not_found">
+        <value xml:lang="de">Produkt mit ID ${productId} nicht gefunden.</value>
+        <value xml:lang="en">Product with id ${productId} not found.</value>
+        <value xml:lang="es">Producto con código ${productId} no fue encontrado.</value>
+        <value xml:lang="fr">Produit avec la réf. ${productId} non trouvé.</value>
+        <value xml:lang="it">Prodotto con Codice ${productId} non trovato.</value>
+        <value xml:lang="ro">Produs cu Cod ${productId} negasit.</value>
+        <value xml:lang="ru">Продукт с кодом ${productId} не найден.</value>
+        <value xml:lang="th">สินค้าด้วยรหัส${productId} ไม่พบ.</value>
+        <value xml:lang="zh">没有找到标识为 ${productId} 的产品。</value>
+    </property>
+    <property key="productevents.product_with_productId_not_found_keywords">
+        <value xml:lang="de">Product mit ID "${productId}", nicht gefunden; Schlüsselwörter können nicht aktualisiert werden.</value>
+        <value xml:lang="en">Product with ID "${productId}", not found; cannot update keywords.</value>
+        <value xml:lang="es">Producto con código "${productId}" no fue encotrado; no se pueden actualizar las palabras clave.</value>
+        <value xml:lang="fr">L'article avec la réf. "${productId}", non trouvé. Ne peut mettre à jour les mots-clés.</value>
+        <value xml:lang="it">Prodotto con Codice "${productId}", non trovato; non è possibile aggiornare le chiavi.</value>
+        <value xml:lang="ro">Produs cu Cod "${productId}", negasit; nu este posibila actualizarea cheilor.</value>
+        <value xml:lang="ru">Продукт с кодом "${productId}" не найден; невозможно обновить ключевые слова.</value>
+        <value xml:lang="th">สินค้าด้วยรหัส "${productId}", ไม่พบ; ไม่สามารถอัพเดทคีย์เวิร์ด.</value>
+        <value xml:lang="zh">没有找到标识为 "${productId}" 的产品；不能更新关键字。</value>
+    </property>
+    <property key="productevents.quantity_not_formatted_correctly">
+        <value xml:lang="de">Menge in falschem Format angegeben.</value>
+        <value xml:lang="en">Quantity not formatted correctly.</value>
+        <value xml:lang="es">Cantidad no formateada correctamente.</value>
+        <value xml:lang="fr">Quantité non formatée correctement.</value>
+        <value xml:lang="it">Quantità non formattata correttamente.</value>
+        <value xml:lang="ro">Cantitatea nu este formatata corect.</value>
+        <value xml:lang="ru">Неверный формат количества.</value>
+        <value xml:lang="th">จำนวนไม่ตรงรูปแบบอย่างถูกต้อง</value>
+        <value xml:lang="zh">数量格式不正确。</value>
+    </property>
+    <property key="productevents.sequenceNum_not_formatted_correctly">
+        <value xml:lang="de">Sequenznummer im Falschen Format angegeben.</value>
+        <value xml:lang="en">SequenceNum not formatted correctly.</value>
+        <value xml:lang="es">Número de secuencia no formateada correctamente.</value>
+        <value xml:lang="fr">N° de séquence non composé correctement.</value>
+        <value xml:lang="it">Numero Sequence non formattato correttamente.</value>
+        <value xml:lang="ro">Numar Secventa ne formatat corect.</value>
+        <value xml:lang="ru">Неверный формат последовательного номера.</value>
+        <value xml:lang="th">หมายเลขรายการไม่ตรงรูปแบบอย่างถูกต้อง</value>
+        <value xml:lang="zh">序号格式不正确。</value>
+    </property>
+    <property key="productevents.specified_update_mode_not_supported">
+        <value xml:lang="de">Angegebenen Aktualisierungsmodus: "${updateMode}" wird nicht unterstützt.</value>
+        <value xml:lang="en">Specified update mode: "${updateMode}" is not supported.</value>
+        <value xml:lang="es">Modo especificado de actualización: "${updateMode}" no es soportado</value>
+        <value xml:lang="fr">Le mode indiqué de mise à jour: "${updatemode}" n'est pas supporté.</value>
+        <value xml:lang="it">Specificato modo di aggiornamento: "${updateMode}" non è supportato.</value>
+        <value xml:lang="ro">Modul de actualizare specificat: "${updateMode}" nu a fost suportat.</value>
+        <value xml:lang="ru">Указанный режим обновления: "${updateMode}" не поддерживается.</value>
+        <value xml:lang="th">เฉพาะอัพเดทวิธีการ: "${updateMode}" ไม่สนับสนุน.</value>
+        <value xml:lang="zh">不支持指定的更新模式："${updateMode}"。</value>
+    </property>
+    <property key="productevents.thru_date_not_formatted_correctly">
+        <value xml:lang="de">Bis Datum im falschen Format</value>
+        <value xml:lang="en">Thru Date not formatted correctly.</value>
+        <value xml:lang="es">Fecha fin no formateada correctamente.</value>
+        <value xml:lang="fr">Date de fin non composée correctement.</value>
+        <value xml:lang="it">Data A non formattata correttamente.</value>
+        <value xml:lang="ro">Data A nu este formatata corect.</value>
+        <value xml:lang="ru">Формат конечной даты неверный.</value>
+        <value xml:lang="th">ถึงวันที่ไม่ตรงรูปแบบที่ถูกต้อง</value>
+        <value xml:lang="zh">结束日期格式不正确。</value>
+    </property>
+    <property key="productevents.updatemode_not_specified">
+        <value xml:lang="de">Aktualisierungmodus nicht angegeben, wird benötigt.</value>
+        <value xml:lang="en">Update Mode was not specified, but is required.</value>
+        <value xml:lang="es">No se especificó el modo de actualización, pero es requerido.</value>
+        <value xml:lang="fr">Le mode de mise à jour n'a pas été indiqué, mais est exigé.</value>
+        <value xml:lang="it">Modo di Aggiornamento non è stato specificato, ma è richiesto.</value>
+        <value xml:lang="ro">Mod de Actualizare nu a fost specificat, dar este cerut.</value>
+        <value xml:lang="ru">Требуется режим обновления, но он не указан.</value>
+        <value xml:lang="th">อัพเดทวิธีการไม่ระบุ แต่ต้องการ</value>
+        <value xml:lang="zh">没有指定必须的更新模式。</value>
+    </property>
+    <property key="productsearchevents.added_x_product_category_members">
+        <value xml:lang="de">${numAdded} Produktkategorie Mitglieder hinzugefügt.</value>
+        <value xml:lang="en">Added ${numAdded} product category members.</value>
+        <value xml:lang="es">Se añadieron ${numAdded} miembros de categoría de productos.</value>
+        <value xml:lang="fr">Ajout de ${numAdded} articles membres de la catégorie.</value>
+        <value xml:lang="it">Aggiunti ${numAdded} membri prodotto categoria.</value>
+        <value xml:lang="ro">Adaugati ${numAdded} membri produs categorie.</value>
+        <value xml:lang="ru">Добавлены ${numAdded} членов категории продуктов.</value>
+        <value xml:lang="th">เพิ่ม ${numAdded} สมาชิกหมวดหมู่สินค้า.</value>
+        <value xml:lang="zh">已添加 ${numAdded} 产品分类成员。</value>
+    </property>
+    <property key="productsearchevents.error_getting_search_results">
+        <value xml:lang="de">Fehler beim Holen Suchresultate: ${errSearchResult}.</value>
+        <value xml:lang="en">Error getting search results: ${errSearchResult}.</value>
+        <value xml:lang="es">Error obteniendo resultados de búsqueda: ${errSearchResult}.</value>
+        <value xml:lang="fr">Erreur dans les résultats de recherche : ${errSearchResult}.</value>
+        <value xml:lang="it">Errore leggendo i risultati di ricerca: ${errSearchResult}.</value>
+        <value xml:lang="ro">Eroare citind resultatele de cautare: ${errSearchResult}.</value>
+        <value xml:lang="ru">Ошибка получения результатов поиска: ${errSearchResult}.</value>
+        <value xml:lang="th">ผิดพลาดการดึงค่าผลลัพธ์การค้นหา: ${errSearchResult}.</value>
+        <value xml:lang="zh">获得搜索结果时出错：${errSearchResult}。</value>
+    </property>
+    <property key="productsearchevents.expired_x_items">
+        <value xml:lang="de">${numExpired} Positionen abgelaufen.</value>
+        <value xml:lang="en">Expired ${numExpired} items.</value>
+        <value xml:lang="es">Expiraron ${numExpired} artículos.</value>
+        <value xml:lang="fr">${numExpired} articles périmés.</value>
+        <value xml:lang="it">${numExpired} righe Scadute.</value>
+        <value xml:lang="ro">${numExpired} linii Expirate.</value>
+        <value xml:lang="ru">Устарели ${numExpired} позиций.</value>
+        <value xml:lang="th">หมดอายุ ${numExpired} รายการ.</value>
+        <value xml:lang="zh">已过期 ${numExpired} 明细。</value>
+    </property>
+    <property key="productsearchevents.fromDate_not_formatted_properly">
+        <value xml:lang="de">Das Von Datum ist nicht im korrekten Format: ${errDateFormat}.</value>
+        <value xml:lang="en">The fromDate was not formatted properly: ${errDateFormat}.</value>
+        <value xml:lang="es">La fecha de fin no fue formateada adecuadamente: ${errDateFormat}.</value>
+        <value xml:lang="fr">Le champ "Date de début" n'a pas été convenablement formaté : ${errDateFormat}.</value>
+        <value xml:lang="it">La Data Da non è stata formattata propriamente: ${errDateFormat}.</value>
+        <value xml:lang="ro">Data De La nu a fost formatata: ${errDateFormat}.</value>
+        <value xml:lang="ru">Неверный формат даты начала: ${errDateFormat}.</value>
+        <value xml:lang="th">จากวันที่ไม่ตรงรูปแบบอย่างถูกต้อ ${errDateFormat}.</value>
+        <value xml:lang="zh">开始日期格式不正确：${errDateFormat}。</value>
+    </property>
+    <property key="productsearchevents.no_results_found_probably_error_constraints">
+        <value xml:lang="de">Keine Resultate gefunde, vermutlich ist ein Fehler aufgetreten oder es waren keine Bedingungen vorhanden</value>
+        <value xml:lang="en">No results found, probably because there was an error or were no constraints.</value>
+        <value xml:lang="es">No se encontraron resultados, probablemente porque hubo un error o no hubieron restricciones.</value>
+        <value xml:lang="fr">Aucun résultat trouvé, probablement parce qu'il y avait une erreur ou aucunes contrainte.</value>
+        <value xml:lang="it">Nessun risultato trovato, probabilmente perché c'era un'errore o nessuna costrizione.</value>
+        <value xml:lang="ro">Nici-un rezultat gasit, probabil pentru ca era o eroare si nici-o constrangere.</value>
+        <value xml:lang="ru">Результаты не найдены, вероятно по причине ошибке или по условиям.</value>
+        <value xml:lang="th">ไม่พบผลลัพธ์, อย่างถูกต้องเพราะมีข้อผิดพลาดหรือไม่เป็นข้อจำกัด</value>
+        <value xml:lang="zh">没有找到结果，可能是因为有错误或没有约束。</value>
+    </property>
+    <property key="productsearchevents.removed_x_items">
+        <value xml:lang="de">${numRemoved} Positionen entfernt.</value>
+        <value xml:lang="en">removed ${numRemoved} items.</value>
+        <value xml:lang="es">se removieron ${numRemoved} artículos.</value>
+        <value xml:lang="fr">${numRemoved} articles supprimés.</value>
+        <value xml:lang="it">${numRemoved} righe cancellate.</value>
+        <value xml:lang="ru">удалено ${numRemoved} позиций.</value>
+        <value xml:lang="th">ลบ ${numRemoved} รายการ.</value>
+        <value xml:lang="zh">已删除 ${numRemoved} 明细。</value>
+    </property>
+    <property key="productsearchevents.thruDate_not_formatted_properly">
+        <value xml:lang="de">Das Bis Datum ist nicht im korrekten Format: ${errDateFormat}.</value>
+        <value xml:lang="en">The thruDate is not formatted properly: ${errDateFormat}.</value>
+        <value xml:lang="es">La fecha fin no fue formateada adecuadamente: ${errDateFormat}.</value>
+        <value xml:lang="fr">Le champ "Date de fin" n'est pas convenablement formaté : ${errDateFormat}.</value>
+        <value xml:lang="it">La Data A non è stata formattata propriamente: ${errDateFormat}.</value>
+        <value xml:lang="ro">Data A nu a fost formatata: ${errDateFormat}.</value>
+        <value xml:lang="ru">Неверный формат конечной даты: ${errDateFormat}.</value>
+        <value xml:lang="th">ถึงวันที่ไม่ตรงรูปแบบอย่างถูกต้อง: ${errDateFormat}.</value>
+        <value xml:lang="zh">结束日期格式不正确：${errDateFormat}。</value>
+    </property>
+    <property key="productservices.both_productId_and_productIdTo_cannot_be_defined">
+        <value xml:lang="de">Sowohl Produkt ID wie auch Produkt ID Zu können nicht definiert werden.</value>
+        <value xml:lang="en">Both productId and productIdTo cannot be defined.</value>
+        <value xml:lang="es">Tanto el código de producto como el código de producto destino no se pudieron definir.</value>
+        <value xml:lang="fr">La "Réf. d'article" et la "Réf. d'article vers" n'ont pu être définis.</value>
+        <value xml:lang="it">Entrambi productId e productIdTo non sono stati definiti.</value>
+        <value xml:lang="ro">Amandoua productId si productIdTo nu au fost definite.</value>
+        <value xml:lang="ru">Нельзя определять одновременно productId и productIdTo.</value>
+        <value xml:lang="th">ทั้งรหัสสินค้าและถึงรหัสสินค้าไม่สามารถระบุ</value>
+        <value xml:lang="zh">不能定义productId和 productIdTo。</value>
+    </property>
+    <property key="productservices.both_productId_and_productIdTo_cannot_be_null">
+        <value xml:lang="de">Sowohl Produkt ID und Produkt ID Zu dürfen nicht leer sein.</value>
+        <value xml:lang="en">Both productId and productIdTo cannot be null.</value>
+        <value xml:lang="es">Tanto el código de producto como el código de producto destino no se pueden ser nulos.</value>
+        <value xml:lang="fr">La "Réf. d'article" et la "Réf. d'article vers" ne peuvent être toutes les 2 nulles.</value>
+        <value xml:lang="it">Entrambi productId e productIdTo non possono essere nulli.</value>
+        <value xml:lang="ro">Amandoua productId si productIdTo nu pot sa fie nuli.</value>
+        <value xml:lang="ru">Значения productId и productIdTo не могут быть пустыми одновременно.</value>
+        <value xml:lang="th">ทั้งรหัสสินค้าและถึงรหัสสินค้าไม่สามารถเป็นค่าว่าง</value>
+        <value xml:lang="zh">productId和 productIdTo 不能为null。</value>
+    </property>
+    <property key="productservices.cannot_build_feature_tree_full">
+        <value xml:lang="de">Merkmals-Baum kann nicht aufgebaut werden, Merkmalliste ist leer.</value>
+        <value xml:lang="en">Cannot build feature tree: featureList is null.</value>
+        <value xml:lang="es">No se pudo construir el árbol de características: la lista de características es nula.</value>
+        <value xml:lang="fr">Ne peut construire l'arbre de caractéristiques : la liste de caractéristiques est nulle.</value>
+        <value xml:lang="it">Non è possibli costruire l'albero delle caratteristiche build feature tree: featureList è nulla.</value>
+        <value xml:lang="ro">Nu este posibla construirea arborelui caracteristicilor build feature tree: featureList este nula.</value>
+        <value xml:lang="ru">Не могу построить дерево особенностей: пустое значение featureList.</value>
+        <value xml:lang="th">ไม่สามารถสร้างลักษณะต้นไม้: รายการลักษณะเป็นค่าว่าง.</value>
+        <value xml:lang="zh">不能构建特征树：特征列表为 null。</value>
+    </property>
+    <property key="productservices.empty_list_of_products_returned">
+        <value xml:lang="de">Leere Produktliste erhalten.</value>
+        <value xml:lang="en">Empty list of products returned.</value>
+        <value xml:lang="es">Se devolvió una lista de productos vacía.</value>
+        <value xml:lang="fr">Liste d'articles retournés vide.</value>
+        <value xml:lang="it">Lista vuota di prodotti restituita.</value>
+        <value xml:lang="ro">Restituita-Lista goala de produse.</value>
+        <value xml:lang="ru">Возвращен пустой список продуктов.</value>
+        <value xml:lang="th">กลับไปยังสินค้าของรายการที่ว่าง.</value>
+        <value xml:lang="zh">返回了空的产品列表。</value>
+    </property>
+    <property key="productservices.empty_list_of_selectable_features_found">
+        <value xml:lang="de">Leere Liste mit wählbaren Merkmalen gefunden.</value>
+        <value xml:lang="en">Empty list of selectable features found.</value>
+        <value xml:lang="es">Se halló una lista de características seleccionables vacía.</value>
+        <value xml:lang="fr">Liste de caractéristiques sélectionnables trouvées vide.</value>
+        <value xml:lang="it">Lista vuota di caratteristiche selezionabili trovate.</value>
+        <value xml:lang="ro">A Gasit o Lista goala de caracteristici selectionabile.</value>
+        <value xml:lang="ru">Найден пустой список выбираемых особенностей.</value>
+        <value xml:lang="th">พบรายการการเลือกลักษณะสินค้าว่าง</value>
+        <value xml:lang="zh">找到了空的可选择特征列表。</value>
+    </property>
+    <property key="productservices.error_finding_associated_variant_with_ID_error">
+        <value xml:lang="de">Fehler bei zugeordneter Variante mit ID ${productIdTo}, Fehler war: ${errMessage}.</value>
+        <value xml:lang="en">Error finding associated variant with ID ${productIdTo}, error was: ${errMessage}.</value>
+        <value xml:lang="es">Error buscando una variante asociada con el código ${productIdTo}, el error fue: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur dans la variante associée avec la réf. ${productIdTo}, l'erreur était : ${errMessage}.</value>
+        <value xml:lang="it">Errore nella ricerca associata alla variante con Codice ${productIdTo}, errore era: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in cautarea asociata variantei cu Cod ${productIdTo}, eroarea era: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка поиска ассоциированного варианта с кодом ${productIdTo}, ошибка: ${errMessage}.</value>
+        <value xml:lang="th">ผิดพลาดการค้นหากลุ่มการเปลี่ยนแปลงด้วยรหัส ${productIdTo}, ผิดพลาดคือ: ${errMessage}.</value>
+        <value xml:lang="zh">查找标识为 ${productIdTo} 的关联变型时出错，错误是：${errMessage}。</value>
+    </property>
+    <property key="productservices.feature_grouping_came_back_empty">
+        <value xml:lang="de">Merkmalgruppierung wurde leer zurückgegeben.</value>
+        <value xml:lang="en">Feature grouping came back empty.</value>
+        <value xml:lang="es">El grupo de características regresó vacío.</value>
+        <value xml:lang="fr">Le groupe de caractéristiques est revenu vide.</value>
+        <value xml:lang="it">Raggruppamento Caratteristiche tornano indietro vuote.</value>
+        <value xml:lang="ro">Ragrupamentul Caracteristici se intoarce inapoi gol.</value>
+        <value xml:lang="ru">Группировка особенностей вернулась пустая.</value>
+        <value xml:lang="th">กลุ่มลักษณะสินค้ากลับมาว่าง</value>
+        <value xml:lang="zh">特征组返回空。</value>
+    </property>
+    <property key="productservices.feature_sample_came_back_empty">
+        <value xml:lang="de">Merkmal Beispiel wurde leer zurückgegeben.</value>
+        <value xml:lang="en">Feature sample came back empty.</value>
+        <value xml:lang="es">Ejemplo de características regresó vacío.</value>
+        <value xml:lang="fr">L'exemple de caractéristique est revenu vide.</value>
+        <value xml:lang="it">Caratteristiche esempio torna indietro vuota.</value>
+        <value xml:lang="ro">Caracteristici exemplu se intorc inapoi goale.</value>
+        <value xml:lang="ru">Пример особенности вернулся пустой.</value>
+        <value xml:lang="th">ตัวอย่างลักษณะสินค้ากลับมาว่าง</value>
+        <value xml:lang="zh">特征样例返回空。</value>
+    </property>
+    <property key="productservices.invalid_productId_passed">
+        <value xml:lang="de">Ungültige Produkt ID erhalten.</value>
+        <value xml:lang="en">Invalid productId passed.</value>
+        <value xml:lang="es">Código de producto inválido.</value>
+        <value xml:lang="fr">Réf. d'article non valide.</value>
+        <value xml:lang="it">Codice Prodotto passato non è valido.</value>
+        <value xml:lang="ro">Cod Produs trecut nu este valid.</value>
+        <value xml:lang="ru">Передано неверное значение кода продукта.</value>
+        <value xml:lang="th">ผ่านรหัสสินค้าใช้ไม่ได้</value>
+        <value xml:lang="zh">传递的产品标识无效。</value>
+    </property>
+    <property key="productservices.problem_reading_product_feature_entity">
+        <value xml:lang="de">Problem bei der Produkt Merkmal Entität: ${errMessage}.</value>
+        <value xml:lang="en">Problem reading product feature entity: ${errMessage}.</value>
+        <value xml:lang="es">Problema al leer la entidad de característica de producto: ${errMessage}.</value>
+        <value xml:lang="fr">Problème à la lecture de l'entité des caractéristiques d'article : ${errMessage}.</value>
+        <value xml:lang="it">Problema leggendo l'entità caratteristiche prodotto: ${errMessage}.</value>
+        <value xml:lang="ro">Problema citind entitatea caracteristicii produs: ${errMessage}.</value>
+        <value xml:lang="ru">Проблема при чтении объекта особенностей продукта: ${errMessage}.</value>
+        <value xml:lang="th">ปัญหาการอ่านเอนทิตีลักษณะสินค้า: ${errMessage}.</value>
+        <value xml:lang="zh">读取产品特征实体时发生问题：${errMessage}。</value>
+    </property>
+    <property key="productservices.problem_reading_product_features">
+        <value xml:lang="de">Problem beim Lesen der Produktmerkmale.</value>
+        <value xml:lang="en">Problem reading product features.</value>
+        <value xml:lang="es">Problema al leer características de producto.</value>
+        <value xml:lang="fr">Problème à la lecture des caractéristiques d'article.</value>
+        <value xml:lang="it">Problema leggendo caratteristiche prodotto.</value>
+        <value xml:lang="ro">Problema la citire caracteristici produs.</value>
+        <value xml:lang="ru">Проблема при чтении особенностей продукта.</value>
+        <value xml:lang="th">ปัญหาการอ่านลักษณะสินค้า</value>
+        <value xml:lang="zh">读取产品特征时发生问题。</value>
+    </property>
+    <property key="productservices.problem_reading_product_features_errors">
+        <value xml:lang="de">Problem beim Lesen Produktmerkmal: ${errProductFeatures}.</value>
+        <value xml:lang="en">Problem reading product features: ${errProductFeatures}.</value>
+        <value xml:lang="es">Problema al leer características de producto: ${errProductFeatures}.</value>
+        <value xml:lang="fr">Problème à la lecture des caractéristiques d'article : ${errProductFeatures}.</value>
+        <value xml:lang="it">Problema leggendo caratteristiche prodotto: ${errProductFeatures}.</value>
+        <value xml:lang="ro">Problema la citire caracteristici produs: ${errProductFeatures}.</value>
+        <value xml:lang="ru">Проблема при чтении особенностей продукта: ${errProductFeatures}.</value>
+        <value xml:lang="th">ปัญหาการอ่านลักษณะสินค้า: ${errProductFeatures}.</value>
+        <value xml:lang="zh">读取产品特征时发生问题：${errProductFeatures}。</value>
+    </property>
+    <property key="productservices.problems_getting_product_entity">
+        <value xml:lang="de">Problem beim Holen der Produkt Entität.</value>
+        <value xml:lang="en">Problems getting the product entity.</value>
+        <value xml:lang="es">Problemas al obtener la entidad de producto.</value>
+        <value xml:lang="fr">Problème à la lecture de l'entité d'article.</value>
+        <value xml:lang="it">Problema leggendo entità prodotto.</value>
+        <value xml:lang="ro">Problema la citirea entitatii produs.</value>
+        <value xml:lang="ru">Проблемы при обращении к объекта продукта.</value>
+        <value xml:lang="th">ปัญหาการดึงค่าเอนทิตีสินค้า</value>
+        <value xml:lang="zh">获取产品实体时发生问题。</value>
+    </property>
+    <property key="productservices.problems_product_association_relation_error">
+        <value xml:lang="de">Problem bei den Produktverbindungen: ${errMessage}.</value>
+        <value xml:lang="en">Problems product association relation: ${errMessage}.</value>
+        <value xml:lang="es">Problemas de relación de asociaciones de producto: ${errMessage}.</value>
+        <value xml:lang="fr">Problème dans l'association d'article : ${errMessage}.</value>
+        <value xml:lang="it">Problema leggendo relazione associazione prodotto: ${errMessage}.</value>
+        <value xml:lang="ro">Problema la citirea relatiei asociere produs: ${errMessage}.</value>
+        <value xml:lang="ru">Проблемы с отношениями ассоциаций продукта: ${errMessage}.</value>
+        <value xml:lang="th">ปัญหาความสัมพันธ์กลุ่มสินค้า: ${errMessage}.</value>
+        <value xml:lang="zh">产品关联关系出错：${errMessage}。</value>
+    </property>
+    <property key="productservices.problems_reading_product_entity">
+        <value xml:lang="de">Problem beim Lesen der Produkt Entität: ${errMessage}.</value>
+        <value xml:lang="en">Problems reading product entity: ${errMessage}.</value>
+        <value xml:lang="es">Problemas al leer entidad de producto: ${errMessage}.</value>
+        <value xml:lang="fr">Problème à la lecture de l'entité d'article : ${errMessage}.</value>
+        <value xml:lang="it">Problemi leggendo entità prodotto: ${errMessage}.</value>
+        <value xml:lang="ro">Probleme la citirea entitatii produs: ${errMessage}.</value>
+        <value xml:lang="ru">Проблемы при чтении объекта продукта: ${errMessage}.</value>
+        <value xml:lang="th">ปัญหาการอ่านเอนทิตีสินค้า: ${errMessage}.</value>
+        <value xml:lang="zh">读取产品实体时出现问题：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.did_not_find_any_valid_variants_for_virtual_ID">
+        <value xml:lang="de">Keine gültigen Varianten gefunden für virtuelles Produkt mit der ID [${productId}], keinen Merge durchgeführt...</value>
+        <value xml:lang="en">Did not find any valid variants for virtual ID [${productId}], not doing merge...</value>
+        <value xml:lang="es">No se encontraron variantes válidas para el código de producto virtual [${productId}], no se realiza la unión...</value>
+        <value xml:lang="fr">Aucune variante valide pour la réf. virtuelle [${productId}], pas de fusion...</value>
+        <value xml:lang="it">Non è possibile trovare qualsiasi variante valida per Codice virtuale [${productId}], non facendo la fusione...</value>
+        <value xml:lang="ro">Nu este posibila gasirea variantei valide pe Cod virtual [${productId}], ne fiind facuta fuziunea...</value>
+        <value xml:lang="ru">Не найдены правильные варианты для виртуального кода [${productId}], слияние не выполнено...</value>
+        <value xml:lang="th">ไม่สามารถค้นหาทุก ๆ ค่าที่เปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
+        <value xml:lang="zh">没有为虚拟产品标识 [${productId}]找到任何有效变型， 没有做合并...</value>
+    </property>
+    <property key="productutilservices.entity_error_running_clearAllVirtualProductImageNames">
+        <value xml:lang="de">Entitätenfehler beim Ausführen clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="en">Entity error running clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de clearAllVirtualProductImageNames : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executia Entitatii clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ clearAllVirtualProductImageNames: ${errMessage}.</value>
+        <value xml:lang="zh">运行 clearAllVirtualProductImageNames 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.entity_error_running_discVirtualsWithDiscVariants">
+        <value xml:lang="de">Entitätenfehler beim Ausführen discVirtaulsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="en">Entity error running discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de discVirtualsWithDiscVariants : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executie Entitate discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ discVirtualsWithDiscVariants: ${errMessage}.</value>
+        <value xml:lang="zh">运行 discVirtualsWithDiscVariants 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals">
+        <value xml:lang="de">Entitätenfehler beim Ausführen makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="en">Entity error running makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de makeStandAloneFromSingleVariantVirtuals : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executie Entitate makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการmakeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
+        <value xml:lang="zh">运行 makeStandAloneFromSingleVariantVirtuals 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.entity_error_running_removeCategoryMembersOfDiscProducts">
+        <value xml:lang="de">Entitätenfehler beim Ausführen removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="en">Entity error running removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de removeCategoryMembersOfDiscProducts : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executie Entitate removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
+        <value xml:lang="zh">运行 removeCategoryMembersOfDiscProducts 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers">
+        <value xml:lang="de">Entitätenfehler beim Ausführen removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="en">Entity error running removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de removeDuplicateOpenEndedCategoryMembers : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executie Entitate removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
+        <value xml:lang="zh">运行 removeDuplicateOpenEndedCategoryMembers 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.entity_error_running_setAllProductImageNames">
+        <value xml:lang="de">Entitätenfehler beim Ausführen setAllProductImageNames: ${errMessage}</value>
+        <value xml:lang="en">Entity error running setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al correr setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de setAllProductImageNames : ${errMessage}.</value>
+        <value xml:lang="it">Errore nell'esecuzione Entità setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in executie Entitate setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта при выполнении setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ setAllProductImageNames: ${errMessage}.</value>
+        <value xml:lang="zh">运行 setAllProductImageNames 时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.error_in_attachProductFeaturesToCategory">
+        <value xml:lang="de">Fehler bei attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="en">Error in attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="es">Error al correr attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de attachProductFeaturesToCategory : ${errMessage}.</value>
+        <value xml:lang="it">Errore in attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare in attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка в attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="th">ผิดพลาดใน attachProductFeaturesToCategory: ${errMessage}.</value>
+        <value xml:lang="zh">在 attachProductFeaturesToCategory 中发生错误：${errMessage}。</value>
+    </property>
+    <property key="productutilservices.found_more_than_one_valid_variant_for_virtual_ID">
+        <value xml:lang="de">Mehr als eine gültige Variante gefunden für Virtuelles Produkt mit der ID [${productId}], kein Merge durchgeführt.</value>
+        <value xml:lang="en">Found more than one valid variant for virtual ID [${productId}], not doing merge...</value>
+        <value xml:lang="es">Se encontrarón más de una variante válida para el código de producto virtual [${productId}], no se hace la unión...</value>
+        <value xml:lang="fr">Plusieur variantes valides pour la réf. virtuelle [${productId}], pas de fusion...</value>
+        <value xml:lang="it">Trovati più di una variante valida per Codice virtuale [${productId}], non facendo la fusione...</value>
+        <value xml:lang="ro">Au fost gasite mai multe variante valide pentru Cod virtual [${productId}], ne fiind facuta fuziunea...</value>
+        <value xml:lang="ru">Найдено более одного правильного варианта для витруального кода [${productId}], слияние не выполнено...</value>
+        <value xml:lang="th">พบมากกว่าหนึ่งการเปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
+        <value xml:lang="zh">找到了一个以上虚拟产品标识为 [${productId}]有效变型，没有做合并...</value>
+    </property>
+    <property key="variantevents.transaction_error_quick_add_variant_data">
+        <value xml:lang="de">Transaktionsfehler beim raschen Hinzufügen Variantendaten: ${errMessage}</value>
+        <value xml:lang="en">Transaction error creating quick add variant data: ${errMessage}.</value>
+        <value xml:lang="es">Error de transacción creando data al añadir rápido variantes: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de transaction pendant l'ajout rapide des données de variante : ${errMessage}.</value>
+        <value xml:lang="it">Transazione errore creazione aggiunta veloce variante data: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare de Tranzactie la crearea adaugarea rapide a variantei data: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка транзакции создания быстрого добавления варианта продукта: ${errMessage}.</value>
+        <value xml:lang="th">รายการผิดพลาดการสร้างการเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
+        <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
+    </property>
+    <property key="variantevents.entity_error_quick_add_variant_data">
+        <value xml:lang="de">Entitätenfehler beim raschen Hinzufügen Variantendaten: ${errMessage}.</value>
+        <value xml:lang="en">Entity error quick add variant data: ${errMessage}.</value>
+        <value xml:lang="es">Error de entidad al añadir rápido datos de variantes: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de base de données (entité) lors de l'exécution de l'ajout rapide de données variantes : ${errMessage}.</value>
+        <value xml:lang="it">Errora Entità aggiunta variante data: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare Entitate adaugata varianta data: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка объекта быстрого добавления варианта объекта: ${errMessage}.</value>
+        <value xml:lang="th">เอนทิตีผิดพลาดเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
+        <value xml:lang="zh">快速添加变型数据时发生实体错误：${errMessage}。</value>
+    </property>
+    <property key="variantevents.featureTypeSize_not_number">
+        <value xml:lang="de">featureTypeSize ist keine Nummer: ${featureTypeSizeStr}.</value>
+        <value xml:lang="en">featureTypeSize is not a number: ${featureTypeSizeStr}.</value>
+        <value xml:lang="es">TypeSize de característica no es un número: ${featureTypeSizeStr}.</value>
+        <value xml:lang="fr">La caractéristiques TypeSize n'est pas un nombre : ${featureTypeSizeStr}.</value>
+        <value xml:lang="it">featureTypeSize non è un numero: ${featureTypeSizeStr}.</value>
+        <value xml:lang="ro">featureTypeSize nu este un numar: ${featureTypeSizeStr}.</value>
+        <value xml:lang="ru">featureTypeSize не является номером: ${featureTypeSizeStr}.</value>
+        <value xml:lang="th">ขนาดประเภทลักษณะไม่ใช่หมายเลข: ${featureTypeSizeStr}.</value>
+        <value xml:lang="zh">特征类型大小不是一个数字：${featureTypeSizeStr}。</value>
+    </property>
+    <property key="variantevents.productFeatureId_for_feature_type_number_not_found">
+        <value xml:lang="de">Die Produktmerkmal ID für Merkmaltyp Nummer ${i} wurde nicht gefunden.</value>
+        <value xml:lang="en">The productFeatureId for feature type number ${i} was not found.</value>
+        <value xml:lang="es">El productFeatureId para número de tipo de característica ${i} no se encontró.</value>
+        <value xml:lang="fr">La réf. de caractéristique d'article pour le type de caractéristique ${i} n'a pas été trouvée.</value>
+        <value xml:lang="it">La productFeatureId per caratteristica tipo numero ${i} non è stata trovata.</value>
+        <value xml:lang="ro">La productFeatureId pentru caracteristica tip numar ${i} nu a fost gasita.</value>
+        <value xml:lang="ru">productFeatureId для номера типа особенности ${i} не найден.</value>
+        <value xml:lang="th">รหัสลักษณะสินค้าสำหรับหมายเลขประเภทลักษณะ ${i} ไม่พบ.</value>
+        <value xml:lang="zh">没有找到特征类型编号为 ${i} 的产品特征标识。</value>
+    </property>
+    <property key="variantevents.productId_required_but_missing">
+        <value xml:lang="de">Produkt ID wird benötigt fehlt aber.</value>
+        <value xml:lang="en">productId is required but missing.</value>
+        <value xml:lang="es">Se requiere el código de producto pero no fue especificado.</value>
+        <value xml:lang="fr">La réf. d'article est indispensable mais manque.</value>
+        <value xml:lang="it">productId è richiesto ma è mancante.</value>
+        <value xml:lang="ro">productId este cerut dar lipseste.</value>
+        <value xml:lang="ru">Отсутствует обязательный код продукта.</value>
+        <value xml:lang="th">รหัสสินค้าต้องการแต่ซึ่งหาไม่พบ</value>
+        <value xml:lang="zh">缺少必须的产品标识。</value>
+    </property>
+    <property key="variantevents.product_not_found_with_ID">
+        <value xml:lang="de">Produkt nicht gefunden mit der ID: ${productId}.</value>
+        <value xml:lang="en">Product not found with ID: ${productId}.</value>
+        <value xml:lang="es">No se encontró el producto con el código: ${productId}.</value>
+        <value xml:lang="fr">Article avec la réf. ${productId} non trouvé.</value>
+        <value xml:lang="it">Prodotto non trovato con Codice: ${productId}.</value>
+        <value xml:lang="ro">Produs negasit cu Codul: ${productId}.</value>
+        <value xml:lang="ru">Продукт с кодом ${productId} не найден.</value>
+        <value xml:lang="th">สินค้าไม่พบด้วยรหัส: ${productId}.</value>
+        <value xml:lang="zh">没有找到产品，标识：${productId}。</value>
+    </property>
+    <property key="variantevents.successfully_created_variant_product_with_id">
+        <value xml:lang="de">Produktvariante erfolgreich erstellt mit der ID: ${variantProductId} (enthält Verbindungen und Standart-Merkmale für die Variante).</value>
+        <value xml:lang="en">Successfully created variant product with id: ${variantProductId} (includes association, and standard features for the variant).</value>
+        <value xml:lang="es">Se creó exitosamente el producto variante con código: ${variantProductId} (incluye asociación, y características estándard para la variante).</value>
+        <value xml:lang="fr">Création résussie de la variante d'article : réf. ${variantProductId} (inclut l'association, et les caractéristiques standards pour la variante).</value>
+        <value xml:lang="it">Variante prodotto con Codice: ${variantProductId} creato con successo (incluse associazioni, e caratteristiche standard per la variante).</value>
+        <value xml:lang="ro">Varianta produs cu Cod: ${variantProductId} creat cu succes (incluse asocieri si caracteristici standard pe varianta).</value>
+        <value xml:lang="ru">Вариант продукта с кодом ${variantProductId} успешно создан (включая ассоциацию и стандартные, для вариантов, особенности).</value>
+        <value xml:lang="th">ประสบผลสำเร็จสร้างการเปลี่ยนแปลงสินค้าด้วยรหัส: ${variantProductId} (รวมกลุ่ม, และลักษณะพื้นฐานสำหรับการเปลี่ยนแปลง).</value>
+        <value xml:lang="zh">成功创建变型产品，标识：${variantProductId} (包括关联，以及变型的表转特征)。</value>
+    </property>
+    <property key="variantevents.variantProductId_required_but_missing_enter_an_id">
+        <value xml:lang="de">variantProductId wir benötigt fehlt aber, bitte geben Sie eine ID für die neue Produktvariante an.</value>
+        <value xml:lang="en">variantProductId is required but missing, please enter an id for the new variant product.</value>
+        <value xml:lang="es">Se requiere el código del producto variante, pero no se especificó, por favor ingrese un código para el nuevo producto variante.</value>
+        <value xml:lang="fr">La réf. de variante d'article est indispensable mais manque. S'il vous plaît entrez une réf. pour la nouvelle variante d'article.</value>
+        <value xml:lang="it">Il codice della variante prodotto è richiesto ma mancante.</value>
+        <value xml:lang="ro">variantProductId este cerut dar lipseste, va rugam introduceti un Cod pentru noua Varianta produs.</value>
+        <value xml:lang="ru">Отсутствует необходимый variantProductId, пожалуйста введите код для нового варианта продукта.</value>
+        <value xml:lang="th">รหัสการเปลี่ยนแปลงสินค้าต้องการแต่ไม่พบ, กรุณากรอกรหัสสำหรับการเปลี่ยนแปลงสินค้าใหม่.</value>
+        <value xml:lang="zh">缺少必须的变型产品标识， 请为新的变型产品输入一个标识。</value>
     </property>
 </resource>

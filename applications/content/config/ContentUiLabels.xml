@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
         <value xml:lang="de">Antwort</value>
@@ -865,36 +866,6 @@
         <value xml:lang="th">AcroForm (PDF) Content ID</value>
         <value xml:lang="zh">AcroForm (PDF)内容标识</value>
     </property>
-    <property key="FormFieldTitle_allowMultiple">
-        <value xml:lang="ar">السماح بالتعدد</value>
-        <value xml:lang="de">Mehrere Erlauben</value>
-        <value xml:lang="en">Allow Multiple</value>
-        <value xml:lang="fr">Permettre la multiplicité</value>
-        <value xml:lang="it">Permette Multipli</value>
-        <value xml:lang="ro">Permite Multipli</value>
-        <value xml:lang="th">ยินยอมให้ทำหลายอย่างได้</value>
-        <value xml:lang="zh">允许多个</value>
-    </property>
-    <property key="FormFieldTitle_allowProductStoreChange">
-        <value xml:lang="ar">السماح بتغيير المتجر</value>
-        <value xml:lang="de">Produktladen wechseln erlauben</value>
-        <value xml:lang="en">Allow Product Store Change</value>
-        <value xml:lang="fr">Permettre le changement de centre de profit</value>
-        <value xml:lang="it">Permetti Cambio Negozio</value>
-        <value xml:lang="ro">Permisie Schimb Magazin</value>
-        <value xml:lang="th">อนุญาตให้แก้ไขคลังสินค้าได้</value>
-        <value xml:lang="zh">允许产品店铺修改</value>
-    </property>
-    <property key="FormFieldTitle_allowUpdate">
-        <value xml:lang="ar">السماح بالتحديث</value>
-        <value xml:lang="de">Aktualisierung erlauben</value>
-        <value xml:lang="en">Allow Update</value>
-        <value xml:lang="fr">Permettre la mise à jour</value>
-        <value xml:lang="it">Permette Aggiornamenti</value>
-        <value xml:lang="ro">Permite Actualizari</value>
-        <value xml:lang="th">อนุญาตให้เปลี่ยนแปลงได้</value>
-        <value xml:lang="zh">允许更新</value>
-    </property>
     <property key="FormFieldTitle_amountBase">
         <value xml:lang="ar">قاعدة المبلغ</value>
         <value xml:lang="de">Basisbetrag</value>
@@ -925,26 +896,6 @@
         <value xml:lang="th">วันที่ลงความเห็น</value>
         <value xml:lang="zh">批准日期</value>
     </property>
-    <property key="FormFieldTitle_attrName">
-        <value xml:lang="ar">اسم الخاصية</value>
-        <value xml:lang="de">Attributnamen</value>
-        <value xml:lang="en">Attr Name</value>
-        <value xml:lang="fr">Nom d'attribut</value>
-        <value xml:lang="it">Nome Attributo</value>
-        <value xml:lang="ro">Nume Atribut</value>
-        <value xml:lang="th">ชื่อลักษณะ</value>
-        <value xml:lang="zh">属性名称</value>
-    </property>
-    <property key="FormFieldTitle_attrValue">
-        <value xml:lang="ar">قيمة الخاصية</value>
-        <value xml:lang="de">Attributwert</value>
-        <value xml:lang="en">Attr Value</value>
-        <value xml:lang="fr">Valeur d'attribut</value>
-        <value xml:lang="it">Valore Attributo</value>
-        <value xml:lang="ro">Valoare Atribut</value>
-        <value xml:lang="th">ลักษณะ</value>
-        <value xml:lang="zh">属性值</value>
-    </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
         <value xml:lang="de">Inhalt Zuordnung Prädikat ID</value>
@@ -954,16 +905,6 @@
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อแสดงความคิดเห็น</value>
         <value xml:lang="zh">内容关联谓词标识</value>
-    </property>
-    <property key="FormFieldTitle_caContentAssocTypeId">
-        <value xml:lang="ar">تعريف نوع الارتباط</value>
-        <value xml:lang="de">Zuordnungstyp ID</value>
-        <value xml:lang="en">Assoc Type Id</value>
-        <value xml:lang="fr">Réf. de type d'association</value>
-        <value xml:lang="it">Tipo Associazione</value>
-        <value xml:lang="ro">Tip Asociatie</value>
-        <value xml:lang="th">รหัสประเภทกลุ่มความคิดเห็น</value>
-        <value xml:lang="zh">关联类型标识</value>
     </property>
     <property key="FormFieldTitle_caContentIdTo">
         <value xml:lang="ar">المحتوى إلى</value>
@@ -991,26 +932,6 @@
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
         <value xml:lang="zh">变换键</value>
-    </property>
-    <property key="FormFieldTitle_categoryName">
-        <value xml:lang="ar">اسم الفئة</value>
-        <value xml:lang="de">Kategorienname</value>
-        <value xml:lang="en">Category Name</value>
-        <value xml:lang="fr">Nom de catégorie</value>
-        <value xml:lang="it">Nome Categoria</value>
-        <value xml:lang="ro">Nume Categorie</value>
-        <value xml:lang="th">ชื่อหมวดหมู่</value>
-        <value xml:lang="zh">分类名称</value>
-    </property>
-    <property key="FormFieldTitle_characterSetId">
-        <value xml:lang="ar">تعريف مجموعة الحروف</value>
-        <value xml:lang="de">Zeichensatz ID</value>
-        <value xml:lang="en">Character Set Id</value>
-        <value xml:lang="fr">Réf. de jeu de caractères</value>
-        <value xml:lang="it">Set di Caratteri</value>
-        <value xml:lang="ro">Set de Caractere</value>
-        <value xml:lang="th">รหัสเซ็ตลักษณะ</value>
-        <value xml:lang="zh">字符集标识</value>
     </property>
     <property key="FormFieldTitle_childBranchCount">
         <value xml:lang="ar">عدد الفروع</value>
@@ -1041,16 +962,6 @@
         <value xml:lang="ro">Titlu Coloana</value>
         <value xml:lang="th">ชื่อคอลัมน์</value>
         <value xml:lang="zh">列标题</value>
-    </property>
-    <property key="FormFieldTitle_comments">
-        <value xml:lang="ar">تعاليق</value>
-        <value xml:lang="de">Anmerkungen</value>
-        <value xml:lang="en">Comments</value>
-        <value xml:lang="fr">Commentaires</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="ro">Comentarii</value>
-        <value xml:lang="th">ข้อคิดเห็น</value>
-        <value xml:lang="zh">评论</value>
     </property>
     <property key="FormFieldTitle_committedByPartyId">
         <value xml:lang="ar">مرتكبة من طرف</value>
@@ -1096,9 +1007,12 @@
         <value xml:lang="ar">تعريف المحتوى</value>
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content Id</value>
+        <value xml:lang="es">Código de contenido</value>
         <value xml:lang="fr">Réf. de contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="nl">Content-ID</value>
         <value xml:lang="ro">Continut</value>
+        <value xml:lang="ru">Код контента</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
         <value xml:lang="zh">内容标识</value>
     </property>
@@ -1126,9 +1040,11 @@
         <value xml:lang="ar">اسم المحتوى</value>
         <value xml:lang="de">Inhalt Name</value>
         <value xml:lang="en">Content Name</value>
+        <value xml:lang="es">Nombre de contenido</value>
         <value xml:lang="fr">Nom de contenu</value>
-        <value xml:lang="it">Nome Contenuto</value>
+        <value xml:lang="it">Nome contenuto</value>
         <value xml:lang="ro">Nume Continut</value>
+        <value xml:lang="ru">Имя контента</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
         <value xml:lang="zh">内容名称</value>
     </property>
@@ -1166,9 +1082,11 @@
         <value xml:lang="ar">تعريف نوع هدف المحتوى</value>
         <value xml:lang="de">Inhalt Zweck Typ ID</value>
         <value xml:lang="en">Content Purpose Type Id</value>
+        <value xml:lang="es">Código Propósito de contenido</value>
         <value xml:lang="fr">Type de but de contenu</value>
-        <value xml:lang="it">Tipo Funzione Contenuto</value>
+        <value xml:lang="it">Tipo funzione contenuto</value>
         <value xml:lang="ro">Tip Functie Continut</value>
+        <value xml:lang="ru">Код типа назначения контента</value>
         <value xml:lang="th">รหัสประเภทหัวข้อวัตถุประสงค์</value>
         <value xml:lang="zh">内容目的类型标识</value>
     </property>
@@ -1186,9 +1104,11 @@
         <value xml:lang="ar">نوع المحتوى</value>
         <value xml:lang="de">Inhaltstyp</value>
         <value xml:lang="en">Content Type</value>
+        <value xml:lang="es">Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
-        <value xml:lang="it">Tipo Contenuto</value>
+        <value xml:lang="it">Tipo contenuto</value>
         <value xml:lang="ro">Tip Continut</value>
+        <value xml:lang="ru">Тип контента</value>
         <value xml:lang="th">ประเภทหัวข้อ</value>
         <value xml:lang="zh">内容类型</value>
     </property>
@@ -1196,9 +1116,11 @@
         <value xml:lang="ar"> تعريف نوع المحتوى</value>
         <value xml:lang="de">Inhaltstyp ID</value>
         <value xml:lang="en">Content Type Id</value>
+        <value xml:lang="es">Código Tipo de contenido</value>
         <value xml:lang="fr">Réf. de type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
         <value xml:lang="ro">Tip Continut</value>
+        <value xml:lang="ru">Код типа контента</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ</value>
         <value xml:lang="zh">内容类型标识</value>
     </property>
@@ -1206,9 +1128,11 @@
         <value xml:lang="ar">مجال الكوكي</value>
         <value xml:lang="de">Domain Cookie</value>
         <value xml:lang="en">Domain Cookie</value>
+        <value xml:lang="es">Dominio de cookie</value>
         <value xml:lang="fr">Cookie de domaine</value>
-        <value xml:lang="it">Dominio Cookie</value>
+        <value xml:lang="it">Dominio cookie</value>
         <value xml:lang="ro">Domeniu Cookie</value>
+        <value xml:lang="ru">Cookie домен</value>
         <value xml:lang="th">ขอบเขตบุคคล</value>
         <value xml:lang="zh">对域启用Cookie</value>
     </property>
@@ -1342,15 +1266,6 @@
         <value xml:lang="ro">Dezactiveaza Existent</value>
         <value xml:lang="th">ยับยั้งสิ่งที่มีอยู่</value>
         <value xml:lang="zh">令已存在的无效</value>
-    </property>
-    <property key="CommonDescription">
-        <value xml:lang="ar">وصف</value>
-        <value xml:lang="de">Beschreibung</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh">描述</value>
     </property>
     <property key="FormFieldTitle_displayFailCond">
         <value xml:lang="ar">عرض ظروف الإخفاق</value>

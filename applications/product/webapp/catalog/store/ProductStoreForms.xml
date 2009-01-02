@@ -988,15 +988,15 @@
             </entity-and>
         </actions>
         <field name="productStoreId"><hidden/></field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
             <display-entity entity-name="PaymentMethodType" description="${description}"/>
         </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
         </field>
         <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><display/></field>
-        <field name="paymentPropertiesPath" title="${uiLabelMap.AccountingPaymentProps}"><display/></field>
-        <field name="applyToAllProducts" title="${uiLabelMap.ApplyToAll}"><display/></field>
+        <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
+        <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
             <hyperlink target="EditProductStorePaySetup?productStoreId=${productStoreId}&amp;paymentMethodTypeId=${paymentMethodTypeId}&amp;paymentServiceTypeEnumId=${paymentServiceTypeEnumId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
@@ -1015,10 +1015,10 @@
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productStorePaymentSetting==null" target="storeCreatePaySetting"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}" use-when="productStorePaymentSetting!=null">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting!=null">
             <display-entity entity-name="PaymentMethodType" also-hidden="true" description="${description}" key-field-name="paymentMethodTypeId"/>
         </field>        
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}" use-when="productStorePaymentSetting==null">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -1037,8 +1037,8 @@
             </drop-down>
         </field>
         <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><text/></field>
-        <field name="paymentPropertiesPath" title="${uiLabelMap.AccountingPaymentProps}"><text/></field>
-        <field name="applyToAllProducts" title="${uiLabelMap.ApplyToAll} ${uiLabelMap.ProductProducts}">
+        <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><text/></field>
+        <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll} ${uiLabelMap.ProductProducts}">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>

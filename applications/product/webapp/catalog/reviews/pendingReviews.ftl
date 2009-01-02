@@ -36,13 +36,13 @@ under the License.
                 <input type="hidden" name="statusId" value="">
                 <div align="right">
                     <input type="button" value="${uiLabelMap.CommonUpdate}" onClick="javascript:changeReviewStatus('PRR_PENDING')">
-                    <input type="button" value="${uiLabelMap.PendingReviewUpdateAndApprove}" onClick="javascript:changeReviewStatus('PRR_APPROVED')">
+                    <input type="button" value="${uiLabelMap.ProductPendingReviewUpdateAndApprove}" onClick="javascript:changeReviewStatus('PRR_APPROVED')">
                     <input type="button" value="${uiLabelMap.CommonDelete}" onClick="javascript:changeReviewStatus('PRR_DELETED')">
                 </div>
                 <table cellspacing="0" class="basic-table">
                   <tr class="header-row">
-                    <td><b>${uiLabelMap.PendingReviewDate}</b></td>
-                    <td><b>${uiLabelMap.PendingReviewBy}</b></td>
+                    <td><b>${uiLabelMap.ProductPendingReviewDate}</b></td>
+                    <td><b>${uiLabelMap.ProductPendingReviewBy}</b></td>
                     <td><b>${uiLabelMap.CommonIsAnonymous}</b></td>
                     <td><b>${uiLabelMap.ProductProductId}</b></td>
                     <td><b>${uiLabelMap.ProductRating}</b></td>

@@ -146,8 +146,8 @@ under the License.
         <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display/></field>
         <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
         <field name="discount" title="${uiLabelMap.ProductDiscount}"><display/></field>
-        <field name="calculatedMarkup" title="${uiLabelMap.CalculatedMarkup}"><display/></field>
-        <field name="percentMarkup" title="${uiLabelMap.PercentageMarkup}"><display/></field>
+        <field name="calculatedMarkup" title="${uiLabelMap.OrderCalculatedMarkup}"><display/></field>
+        <field name="percentMarkup" title="${uiLabelMap.OrderPercentageMarkup}"><display/></field>
     </form>
     
     <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" 

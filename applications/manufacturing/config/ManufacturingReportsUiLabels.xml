@@ -99,15 +99,6 @@
         <value xml:lang="th">แบบจำลอง</value>
         <value xml:lang="zh">模型</value>
     </property>
-    <property key="CommonNote">
-        <value xml:lang="en">Note</value>
-        <value xml:lang="es">Nota</value>
-        <value xml:lang="fr">Note</value>
-        <value xml:lang="it">Annotazioni</value>
-        <value xml:lang="ro">Anotari</value>
-        <value xml:lang="th">หมายเหตุ</value>
-        <value xml:lang="zh">便笺</value>
-    </property>
     <property key="CommonPrintoutDate">
         <value xml:lang="en">Printout Date</value>
         <value xml:lang="es">Fecha de Impresión</value>

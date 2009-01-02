@@ -225,7 +225,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.SearchFeatureInterAction}"/>
+                                    <label text="${uiLabelMap.ProductSearchFeatureInterAction}"/>
                                 </container>
                             </container>                            
                             <container style="screenlet-body">

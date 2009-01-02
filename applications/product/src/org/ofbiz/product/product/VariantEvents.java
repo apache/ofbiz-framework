@@ -41,7 +41,7 @@ import java.util.Map;
 public class VariantEvents {
 
     public static final String module = VariantEvents.class.getName();
-    public static final String resource = "ProductUiLabels";
+    public static final String resource = "ProductErrorUiLabels";
 
     /** Creates variant products from a virtual product and a combination of selectable features
      *@param request The HTTPRequest object for the current request

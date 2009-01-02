@@ -197,7 +197,7 @@ function insertImageName(type,nameValue) {
     </script>
     <div class="screenlet">
         <div class="screenlet-title-bar">
-            <h3>${uiLabelMap.CategoryUploadImage}</h3>
+            <h3>${uiLabelMap.ProductCategoryUploadImage}</h3>
         </div>
         <div class="screenlet-body">    
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId?if_exists}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">

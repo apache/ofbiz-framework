@@ -571,7 +571,7 @@ under the License.
         <menu-item name="Costs" title="${uiLabelMap.ManufacturingCostCalcs}">
             <link target="EditCostCalcs"/>
         </menu-item>  
-        <menu-item name="PaymentMethodTypes" title="${uiLabelMap.AccountingPaymentMethodType}">
+        <menu-item name="PaymentMethodTypes" title="${uiLabelMap.CommonPaymentMethodType}">
             <link target="editPaymentMethodType"/>
         </menu-item> 
         <menu-item name="InvoiceItemTypes" title="${uiLabelMap.AccountingInvoiceItemType}">
@@ -647,7 +647,7 @@ under the License.
         <menu-item name="BillingAccountInvoices" title="${uiLabelMap.AccountingInvoices}">
             <link target="BillingAccountInvoices?billingAccountId=${billingAccount.billingAccountId}"/>
         </menu-item>
-        <menu-item name="BillingAccountPayments" title="${uiLabelMap.AccountingPayments}">
+        <menu-item name="BillingAccountPayments" title="${uiLabelMap.CommonPayments}">
             <link target="BillingAccountPayments?billingAccountId=${billingAccount.billingAccountId}"/>
         </menu-item>
         <menu-item name="BillingAccountOrders" title="${uiLabelMap.AccountingOrders}">

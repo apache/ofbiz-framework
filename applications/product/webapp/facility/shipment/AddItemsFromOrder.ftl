@@ -45,7 +45,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="h3">${uiLabelMap.ProductAddItemsShipment}: [${shipmentId?if_exists}]; ${uiLabelMap.OrderFromOrder}: [${orderId?if_exists}], ${uiLabelMap.OrderShipGroup}: [${shipGroupSeqId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductAddItemsShipment}: [${shipmentId?if_exists}]; ${uiLabelMap.ProductFromAnOrder}: [${orderId?if_exists}], ${uiLabelMap.ProductOrderShipGroupId}: [${shipGroupSeqId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>

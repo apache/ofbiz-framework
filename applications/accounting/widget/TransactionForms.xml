@@ -80,7 +80,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId"><text/></field>
         <field name="orderPaymentPreferenceId"><text/></field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}"/>
             </drop-down>
@@ -94,7 +94,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId"><text/></field>
         <field name="orderPaymentPreferenceId"><text/></field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}"/>
             </drop-down>

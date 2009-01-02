@@ -39,9 +39,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelEntity;
@@ -59,7 +56,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ProductUtilServices {
 
     public static final String module = ProductUtilServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    public static final String resource = "ProductErrorUiLabels";
 
     /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
     public static Map<String, Object> discVirtualsWithDiscVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -488,7 +485,6 @@ public class ProductUtilServices {
      */
     public static Map<String, Object> setAllProductImageNames(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String pattern = (String) context.get("pattern");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;

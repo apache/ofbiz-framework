@@ -71,7 +71,7 @@ function doPublish() {
                 <tr>
                     <td><h2>${productId?if_exists}<h2></td>
                     <td><input type="text" name="productName" size="40" maxlength="40" value="${product.productName?if_exists}"/></td>
-                    <td><input type="submit" value="${uiLabelMap.UpdateName}"/></td>
+                    <td><input type="submit" value="${uiLabelMap.ProductUpdateName}"/></td>
                 </tr>
             </table>
         </form>
@@ -80,7 +80,7 @@ function doPublish() {
 <#if (product.isVirtual)?if_exists == "Y">
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.SelectableFeatures}</h3>
+        <h3>${uiLabelMap.ProductSelectableFeatures}</h3>
     </div>
     <div class="screenlet-body">
         <!-- ***************************************************** Selectable features section -->
@@ -90,7 +90,7 @@ function doPublish() {
                 <tr>
                     <td colspan="2"><span class="label">${uiLabelMap.CommonType}</span>
                         <select name="productFeatureTypeId" onchange="javascript:document.selectableFeatureTypeSelector.submit();">
-                            <option value="~~any~~">${uiLabelMap.AnyFeatureType}</option>
+                            <option value="~~any~~">${uiLabelMap.ProductAnyFeatureType}</option>
                             <#list featureTypes as featureType>
                                 <#if (featureType.productFeatureTypeId)?if_exists == (productFeatureTypeId)?if_exists>
                                     <#assign selected="selected"/>
@@ -157,7 +157,7 @@ function doPublish() {
                 </td>
                 <td align="right">
                     <table cellspacing="0" class="basic-table">
-                        <tr><td align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.AddSelectableFeature}"/></td></tr>
+                        <tr><td align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.ProductAddSelectableFeature}"/></td></tr>
                     </table>
                 </td>
             </tr>
@@ -169,7 +169,7 @@ function doPublish() {
 <#if (product.isVariant)?if_exists == "Y">
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.DistinguishingFeatures}</h3>
+        <h3>${uiLabelMap.ProductDistinguishingFeatures}</h3>
     </div>
     <div class="screenlet-body">
         <form action="<@ofbizUrl>updateProductQuickAdminDistFeat</@ofbizUrl>" method="post" style="margin: 0;" name="distFeature">
@@ -202,7 +202,7 @@ function doPublish() {
 <!-- ***************************************************** end Selectable features section -->
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ShippingDimensionsAndWeights}</h3>
+        <h3>${uiLabelMap.ProductShippingDimensionsAndWeights}</h3>
     </div>
     <div class="screenlet-body">
         <!-- ***************************************************** Shipping dimensions section -->
@@ -252,8 +252,8 @@ function doPublish() {
                 </#if>
             </#list>
                 <tr>
-                    <td colspan=10 align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.ApplyToAll}"/>
-                    &nbsp;&nbsp;<input name="updateShipping" type="submit" value="${uiLabelMap.UpdateShipping}"/></td>
+                    <td colspan=10 align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.ProductApplyToAll}"/>
+                    &nbsp;&nbsp;<input name="updateShipping" type="submit" value="${uiLabelMap.ProductUpdateShipping}"/></td>
                 </tr>
         <#else>
                 <tr>
@@ -270,7 +270,7 @@ function doPublish() {
                     <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${thrudate?if_exists}</a></td>
                 </tr>
                 <tr>
-                    <td colspan=10 align="right"><input type="submit" value="${uiLabelMap.UpdateShipping}"></td>
+                    <td colspan=10 align="right"><input type="submit" value="${uiLabelMap.ProductUpdateShipping}"></td>
                 </tr>
         </#if>
     
@@ -281,7 +281,7 @@ function doPublish() {
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.StandardFeatures}</h3>
+        <h3>${uiLabelMap.ProductStandardFeatures}</h3>
     </div>
     <div class="screenlet-body">
         <!--  **************************************************** Standard Features section -->
@@ -300,7 +300,7 @@ function doPublish() {
                         <td align="right">${addedFeatureTypes.get(addedFeatureTypeId).description}</td>
                         <td>
                             <select name="productFeatureId">
-                                <option value="~~any~~">${uiLabelMap.AnyFeatureType}</option>
+                                <option value="~~any~~">${uiLabelMap.ProductAnyFeatureType}</option>
                             <#list featuresByType.get(addedFeatureTypeId) as feature>
                                 <option value="${feature.getString("productFeatureId")}">${feature.description}</option>
                             </#list>
@@ -314,7 +314,7 @@ function doPublish() {
                         <#assign rowClass = "2">
                     </#if>
                 </#list>
-                <tr><td colspan="2" align="right"><input type="submit" value="${uiLabelMap.AddFeatures}"/></td></tr>
+                <tr><td colspan="2" align="right"><input type="submit" value="${uiLabelMap.ProductAddFeatures}"/></td></tr>
             </table>
             </form>
             </#if>
@@ -347,7 +347,7 @@ function doPublish() {
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <table cellspacing="0" class="basic-table">
             <tr>
-                <td align="right">${uiLabelMap.FeatureTypes}</td>
+                <td align="right">${uiLabelMap.ProductFeatureTypes}</td>
                 <td>
                     <select multiple="multiple" name="addFeatureTypeId">
                         <#list featureTypes as featureType>
@@ -355,7 +355,7 @@ function doPublish() {
                         </#list>
                     </select>
                 </td>
-                <td><input type="submit" value="${uiLabelMap.AddFeatureType}"/></td>
+                <td><input type="submit" value="${uiLabelMap.ProductAddFeatureType}"/></td>
             </tr>
         </table>
         </form>
@@ -364,7 +364,7 @@ function doPublish() {
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.Categories}</h3>
+        <h3>${uiLabelMap.ProductCategories}</h3>
     </div>
     <div class="screenlet-body">
         <!--  **************************************************** Categories section -->
@@ -405,7 +405,7 @@ function doPublish() {
             </td>
             </tr>
             <tr>
-                <td colspan="2" align="right"><input type="submit" value="${uiLabelMap.UpdateCategories}"/></td>
+                <td colspan="2" align="right"><input type="submit" value="${uiLabelMap.ProductUpdateCategories}"/></td>
             </tr>
             </table>
         </form>
@@ -414,7 +414,7 @@ function doPublish() {
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PublishAndView}</h3>
+        <h3>${uiLabelMap.ProductPublishAndView}</h3>
     </div>
     <div class="screenlet-body">
     <!--  **************************************************** publish section -->
@@ -429,7 +429,7 @@ function doPublish() {
                     <a href="javascript:call_cal(document.publish.fromDate,'${nowTimestampString}');">
                         <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
-                    <input type=button value="${uiLabelMap.PublishAndView}" onClick="doPublish();"/>
+                    <input type=button value="${uiLabelMap.ProductPublishAndView}" onClick="doPublish();"/>
                 </td>
             </tr>
         </table>
@@ -445,7 +445,7 @@ function doPublish() {
                     <a href="javascript:call_cal(document.unpublish.thruDate,'${nowTimestampString}');">
                         <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
-                    <input type="submit" value="${uiLabelMap.RemoveFromSite}"/>
+                    <input type="submit" value="${uiLabelMap.ProductRemoveFromSite}"/>
                 </td>
             </tr>
         </table>

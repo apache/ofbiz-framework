@@ -108,13 +108,13 @@ under the License.
             <link target="EditProductStoreTaxSetup?productStoreId=${productStoreId}"/>
         </menu-item>
         -->
-        <menu-item name="EditProductStoreShipSetup" title="${uiLabelMap.OrderShipping}">
+        <menu-item name="EditProductStoreShipSetup" title="${uiLabelMap.ProductShipping}">
             <link target="EditProductStoreShipSetup?productStoreId=${productStoreId}"/>
         </menu-item>
         <menu-item name="EditProductStoreShipmentCostEstimates" title="${uiLabelMap.ProductViewEstimates}">
             <link target="EditProductStoreShipmentCostEstimates?productStoreId=${productStoreId}"/>
         </menu-item>
-        <menu-item name="EditProductStorePaySetup" title="${uiLabelMap.AccountingPayments}">
+        <menu-item name="EditProductStorePaySetup" title="${uiLabelMap.CommonPayments}">
             <link target="EditProductStorePaySetup?productStoreId=${productStoreId}"/>
         </menu-item>
         <menu-item name="EditProductStoreFinAccountSettings" title="${uiLabelMap.CommonFinAccounts}">

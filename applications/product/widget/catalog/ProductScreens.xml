@@ -1093,7 +1093,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ListFeatureInteractions}"/>
+                                    <label text="${uiLabelMap.ProductListFeatureInteractions}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">                                
@@ -1103,7 +1103,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AddFeatureInteraction}"/>
+                                    <label text="${uiLabelMap.ProductAddFeatureInteraction}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
