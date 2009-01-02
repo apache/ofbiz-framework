@@ -27,7 +27,7 @@ margin: 1em;
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">Available portlets</li>
-      <li><a href="<@ofbizUrl>dashboard?portalPageId=${parameters.portalPageId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}&amp;mainPortalPageId=${parameters.mainPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
+      <li><a href="<@ofbizUrl>dashboard?portalPageId=${parameters.portalPageId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.portalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>
   </div>
@@ -45,7 +45,7 @@ margin: 1em;
               <tr>
                 <td>
                   <div class="h2">
-                    <a href="<@ofbizUrl>createPortalPagePortlet?portalPortletId=${portalPortlet.portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}&amp;mainPortalPageId=${parameters.mainPortalPageId}</@ofbizUrl>">${portalPortlet.portletName}</a>
+                    <a href="<@ofbizUrl>createPortalPagePortlet?portalPortletId=${portalPortlet.portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">${portalPortlet.portletName}</a>
                   </div>
                   <div class="tabletext">
                     ${portalPortlet.description}

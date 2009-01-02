@@ -607,19 +607,18 @@ under the License.
     <service name="createPortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
         location="org/ofbiz/common/PortalPageServices.xml" invoke="createPortalPage">
         <description>Create a new Portal Page</description>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updatePortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Portal Page</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
         location="org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPage">
-        <description>Delete a Portal Page</description>
+        <description>Delete a Portal Page, related colums and used portlets</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- PortalPageColumn services -->
@@ -628,7 +627,7 @@ under the License.
         <description>Add a new Column to a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="columnSeqId" mode="OUT" optional="true"/>
+        <override name="columnSeqId" mode="INOUT" optional="true"/>
     </service>
     <service name="updatePortalPageColumn" default-entity-name="PortalPageColumn" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Portal Page Column</description>
@@ -654,14 +653,5 @@ under the License.
         <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
         <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
-    </service>
-    
-    <!-- GetListPreferences services -->
-    <service name="getListPreferences" engine="simple" auth="true"
-        location="org/ofbiz/common/PortalPageServices.xml" invoke="getListPreferences">
-        <description>GetListPreferences</description>
-        <attribute name="originalPortalPageId" type="String" mode="IN" optional="false"/>
-        <attribute name="mainPortalPageId" type="String" mode="IN" optional="false"/>
-        <attribute name="listIt" type="List" mode="OUT" optional="true"/>
     </service>
 </services>

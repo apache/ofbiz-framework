@@ -573,14 +573,27 @@ under the License.
     </entity>
     <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id-ne"></field>
-        <field name="portalName" type="name"></field>
+        <field name="portalPageName" type="name"></field>
         <field name="description" type="description"></field>
         <field name="ownerUserLoginId" type="id"></field>
-        <field name="originalPortalPageId" type="id"></field>
+        <field name="originalPortalPageId" type="id"><description>The system portal page this page is derived from</description></field>
+        <field name="parentPortalPageId" type="id"><description>the parent this page is belonging to, normally the startpage of the portal page group</description></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="portalPageId"/>
+        <relation type="one" fk-name="PortPage_PARENT" title="Parent" rel-entity-name="PortalPage">
+          <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
+        </relation>
     </entity>
-    <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
+  <view-entity entity-name="PortalPageAndChildren" package-name="org.ofbiz.common.portal" title="Defines a Portal Page and children">
+      <member-entity entity-alias="PP" entity-name="PortalPage"/>
+      <member-entity entity-alias="PPP" entity-name="PortalPage"/>
+      <alias-all entity-alias="PP"/>
+      <alias-all entity-alias="PPP" prefix="p"/>
+      <view-link entity-alias="PP" rel-entity-alias="PPP" rel-optional="true">
+        <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
+      </view-link>
+    </view-entity>
+  <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id-ne"></field>
         <field name="columnSeqId" type="id-ne"></field>
         <field name="columnWidthPixels" type="numeric"></field>

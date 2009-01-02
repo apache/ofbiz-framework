@@ -20,9 +20,9 @@ under the License.
 
 <entity-engine-xml>
     <!-- PortalPortlet Demo Data -->
-    <PortalPage portalPageId="DEFAULT" portalName="Default home Portal Page" description="The default OFBiz portal page" ownerUserLoginId="_NA_" originalPortalPageId="EXAMPLE"/>
-    <PortalPageColumn portalPageId="DEFAULT" columnSeqId="01" columnWidthPixels="200"/>
-    <PortalPageColumn portalPageId="DEFAULT" columnSeqId="02"/><!-- no width in pixels or percent, use the rest of the space available -->
+    <PortalPage portalPageId="EXAMPLE" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
     
     <PortalPortlet portalPortletId="WELCOME" portletName="Welcome" description="OFBiz Welcome Message" 
         screenName="welcomePortlet" screenLocation="component://common/widget/PortletScreens.xml"/>
@@ -30,6 +30,6 @@ under the License.
         screenName="loginPortlet"       screenLocation="component://common/widget/PortletScreens.xml"
         editFormName="LoginPortletEdit" editFormLocation="component://common/widget/PortletEditForms.xml"/>
 
-    <PortalPagePortlet portalPageId="DEFAULT" portalPortletId="WELCOME" portletSeqId="1" columnSeqId="01" sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="DEFAULT" portalPortletId="LOGIN"   portletSeqId="1" columnSeqId="02" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="WELCOME" portletSeqId="1" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="LOGIN"   portletSeqId="1" columnSeqId="00002" sequenceNum="1"/>
 </entity-engine-xml>

@@ -19,9 +19,9 @@ under the License.
 
 <div id="manage-portal-toolbar">
   <ul>
-    <#if currentPortalPage.portalName?has_content>
+    <#if currentPortalPage.portalPageName?has_content>
       <li id="portal-page-name">
-        ${currentPortalPage.portalName}
+        ${currentPortalPage.portalPageName}
       </li>
     </#if>
 
@@ -31,7 +31,7 @@ under the License.
           <option>${uiLabelMap.CommonSelectPortalPage}</option>
           <#list portalPages as portalPage>
             <#if (currentPortalPage.portalPageId != portalPage.portalPageId)>
-              <option value="<@ofbizUrl>dashboard?portalPageId=${portalPage.portalPageId}</@ofbizUrl>">${portalPage.portalName}</option>
+              <option value="<@ofbizUrl>dashboard?portalPageId=${portalPage.portalPageId}</@ofbizUrl>">${portalPage.portalPageName}</option>
             </#if>
           </#list>                          
         </select>
