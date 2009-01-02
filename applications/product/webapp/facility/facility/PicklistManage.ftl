@@ -121,7 +121,7 @@ under the License.
                                 <table class="basic-table" cellspacing="0">
                                     <tr class="header-row"
                                         <td>${uiLabelMap.ProductOrderId}</td>
-                                        <td>${uiLabelMap.OrderShipGroup}</td>
+                                        <td>${uiLabelMap.ProductOrderShipGroupId}</td>
                                         <td>${uiLabelMap.ProductOrderItem}</td>
                                         <td>${uiLabelMap.ProductProduct}</td>
                                         <td>${uiLabelMap.ProductInventoryItem}</td>

@@ -1579,16 +1579,16 @@ public class ProductSearch {
                 return null;
             }
             StringBuilder msgBuf = new StringBuilder();
-            msgBuf.append(UtilProperties.getMessage(resource, "ListPriceRange", locale));
+            msgBuf.append(UtilProperties.getMessage(resource, "ProductListPriceRange", locale));
             msgBuf.append(": ");
             
             // NOTE: at this point we know that only one or none are null
             if (this.lowPrice == null) {
-                msgBuf.append(UtilProperties.getMessage(resource, "CommonLessThan", locale));
+                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonLessThan", locale));
                 msgBuf.append(" ");
                 msgBuf.append(this.highPrice);
             } else if (this.highPrice == null) {
-                msgBuf.append(UtilProperties.getMessage(resource, "CommonMoreThan", locale));
+                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonMoreThan", locale));
                 msgBuf.append(" ");
                 msgBuf.append(this.lowPrice);
             } else {

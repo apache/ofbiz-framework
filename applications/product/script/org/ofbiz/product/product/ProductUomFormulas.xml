@@ -41,7 +41,7 @@ under the License.
         <set field="args" from-field="parameters.arguments"/>
         
         <if-empty field="args.conversionParameters.productId">
-            <add-error> <fail-property property="NoProductSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <add-error> <fail-property property="ProductNoSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
             <check-errors/>
         </if-empty>
         
@@ -49,18 +49,18 @@ under the License.
         
         <set field="productId" from-field="args.conversionParameters.productId"/>
         <log level="verbose" message="convertUomProduct: productId=${productId}"/>
-        <entity-one entity-name="Product" value-name="product" auto-field-map="true"/>
+        <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
         
         <if-empty field="product">
-            <add-error> <fail-property property="NoProductSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <add-error> <fail-property property="ProductNoSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
             <check-errors/>
         </if-empty>
         
         <set field="uomId" from-field="args.uomId"/>
-        <entity-one entity-name="Uom" value-name="fromUom" auto-field-map="true"/>
+        <entity-one entity-name="Uom" value-field="fromUom" auto-field-map="true"/>
         
         <set field="uomId" from-field="args.uomIdTo"/>
-        <entity-one entity-name="Uom" value-name="toUom" auto-field-map="true"/>
+        <entity-one entity-name="Uom" value-field="toUom" auto-field-map="true"/>
         
         <!-- if the UoM types are the same, just use the uomConversion.conversionFactor (not product based) -->
         <if-compare-field field="fromUom.uomTypeId" to-field="toUom.uomTypeId" operator="equals">
@@ -151,6 +151,6 @@ under the License.
                 <calcop operator="get" field="productFactor"/>
             </calcop>
         </calculate>
-        <field-to-result field-name="totQuantity" result-name="convertedValue"/>
+        <field-to-result field="totQuantity" result-name="convertedValue"/>
     </simple-method>
 </simple-methods>

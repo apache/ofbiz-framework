@@ -31,7 +31,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -46,10 +45,6 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
 
 /**
  * Product Search Related Events
@@ -57,7 +52,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ProductSearchEvents {
 
     public static final String module = ProductSearchEvents.class.getName();
-    public static final String resource = "ProductUiLabels";
+    public static final String resource = "ProductErrorUiLabels";
     public static final int DEFAULT_TX_TIMEOUT = 600;
 
     /** Removes the results of a search from the specified category
@@ -215,7 +210,6 @@ public class ProductSearchEvents {
                }
 
                GenericValue searchResultView = null;
-               List searchResultList = FastList.newInstance();
                int numAdded = 0;
                while ((searchResultView = (GenericValue) eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");

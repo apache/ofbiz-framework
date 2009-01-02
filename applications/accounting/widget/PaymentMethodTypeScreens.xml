@@ -25,7 +25,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="PaymentMethodTypes"/>
-                <set field="titleProperty" value="AccountingPaymentMethodType"/>
+                <set field="titleProperty" value="CommonPaymentMethodType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition entity-name="PaymentMethodType" list-name="paymentMethodTypes">

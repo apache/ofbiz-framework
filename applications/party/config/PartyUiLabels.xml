@@ -63,29 +63,6 @@
         <value xml:lang="en">Annual revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
     </property>
-    <property key="FormFieldTitle_attrName">
-        <value xml:lang="de">Attribut Name</value>
-        <value xml:lang="en">Attr Name</value>
-        <value xml:lang="fr">Nom d'attribut</value>
-        <value xml:lang="it">Nome Attributo</value>
-        <value xml:lang="nl">Attr. naam</value>
-        <value xml:lang="ro">Nume Atribut</value>
-        <value xml:lang="ru">Имя аттр.</value>
-        <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">属性名称</value>
-    </property>
-    <property key="FormFieldTitle_attrValue">
-        <value xml:lang="de">Attribut Wert</value>
-        <value xml:lang="en">Attr Value</value>
-        <value xml:lang="es">Valor de atributo</value>
-        <value xml:lang="fr">Valeur de l'attribut</value>
-        <value xml:lang="it">Valore Attributo</value>
-        <value xml:lang="nl">Attr. waarde</value>
-        <value xml:lang="ro">Valoare Atribut</value>
-        <value xml:lang="ru">Знач. аттр.</value>
-        <value xml:lang="th">ค่า</value>
-        <value xml:lang="zh">属性值</value>
-    </property>
     <property key="FormFieldTitle_birthDate">
         <value xml:lang="de">Geburtsdatum</value>
         <value xml:lang="en">Birth Date</value>
@@ -146,16 +123,17 @@
         <value xml:lang="ru">Обычное имя</value>
         <value xml:lang="th">ชื่อ</value>
     </property>
+    
     <property key="FormFieldTitle_communicationEventId">
-        <value xml:lang="de">Kommunkationsereignis ID</value>
-        <value xml:lang="en">communication Event Id</value>
+        <value xml:lang="de">Kommunikationsereignis ID</value>
+        <value xml:lang="en">Communication Event Id</value>
         <value xml:lang="es">Código Evento de comunicación</value>
-        <value xml:lang="fr">Réf. évènement de communication</value>
-        <value xml:lang="it">Evento Comunicazione</value>
-        <value xml:lang="nl">ID communicatie-actie</value>
-        <value xml:lang="ro">Code Eveniment Comunicare</value>
-        <value xml:lang="ru">Код коммуникационного события</value>
-        <value xml:lang="th">รหัสผลการติดต่อสื่อสาร</value>
+        <value xml:lang="fr">Réf. d'évènement de communication</value>
+        <value xml:lang="it">Codice evento comunicazioni</value>
+        <value xml:lang="nl">Communication Event Id</value>
+        <value xml:lang="ro">Cod Eveniment Comunicatii i</value>
+        <value xml:lang="ru">Код события связи</value>
+        <value xml:lang="th">รหัสผลลัพธ์การติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通事件标识</value>
     </property>
     <property key="FormFieldTitle_communicationEventPrpTypId">
@@ -175,7 +153,7 @@
         <value xml:lang="en">Comm.Type Id</value>
         <value xml:lang="es">Código Tipo de evento de comunicación</value>
         <value xml:lang="fr">Réf. de type d'évènement de communication</value>
-        <value xml:lang="it">Tipo Evento Communicazioni</value>
+        <value xml:lang="it">Tipo evento communicazioni</value>
         <value xml:lang="nl">Soort communicatie-actie</value>
         <value xml:lang="ro">Tip Eveniment Comunicatii</value>
         <value xml:lang="ru">Код типа коммуникационного события</value>
@@ -230,18 +208,6 @@
         <value xml:lang="th">รหัสประเภทการติดต่อการทำงาน</value>
         <value xml:lang="zh">联系方式类型标识</value>
     </property>
-    <property key="FormFieldTitle_contentId">
-        <value xml:lang="de">Inhalt ID</value>
-        <value xml:lang="en">Content Id</value>
-        <value xml:lang="es">Código Contenido</value>
-        <value xml:lang="fr">Réf. de contenu</value>
-        <value xml:lang="it">Codice Contenuto</value>
-        <value xml:lang="nl">Content-ID</value>
-        <value xml:lang="ro">Cod Contenut</value>
-        <value xml:lang="ru">Код контента</value>
-        <value xml:lang="th">รหัสหัวข้อ</value>
-        <value xml:lang="zh">内容标识</value>
-    </property>
     <property key="FormFieldTitle_contentMimeTypeId">
         <value xml:lang="de">Inhalt Mime Typ ID</value>
         <value xml:lang="en">Content Mime Type Id</value>
@@ -252,18 +218,6 @@
         <value xml:lang="ru">Код mime типа контента</value>
         <value xml:lang="th">รหัสประเภทสำเนาหัวข้อ</value>
         <value xml:lang="zh">内容Mime类型标识</value>
-    </property>
-    <property key="FormFieldTitle_contentName">
-        <value xml:lang="de">Inhalt Name</value>
-        <value xml:lang="en">Content Name</value>
-        <value xml:lang="es">Nombre de contenido</value>
-        <value xml:lang="fr">Nom de contenu</value>
-        <value xml:lang="it">Nome Contenuto</value>
-        <value xml:lang="nl">Contentnaam</value>
-        <value xml:lang="ro">Nume Contenut</value>
-        <value xml:lang="ru">Имя контента</value>
-        <value xml:lang="th">ชื่อหัวข้อ</value>
-        <value xml:lang="zh">内容名称</value>
     </property>
     <property key="FormFieldTitle_country">
         <value xml:lang="de">Land</value>
@@ -3425,6 +3379,17 @@
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถลบข้อมูลการติดต่อนี้ได้ (ไม่พบข้อมูลการติดต่อของกลุ่มผู้ใช้นี้)</value>
         <value xml:lang="zh">错误：无法删除联系信息 (没有找到会员联系方式)</value>
     </property>
+    <property key="PartyContactMechs">
+        <value xml:lang="de">Kontaktmechanismus</value>
+        <value xml:lang="en">ContactMechs</value>
+        <value xml:lang="es">Mecanismos de Contacto</value>
+        <value xml:lang="fr">Coordonnées</value>
+        <value xml:lang="it">Contatto</value>
+        <value xml:lang="ro">Contact</value>
+        <value xml:lang="ru">СпособСвязи</value>
+        <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="zh">联系方式</value>
+    </property>
     <property key="PartyContactMechType">
         <value xml:lang="de">Kontaktmechanismus Typ</value>
         <value xml:lang="en">Contact Mech Type</value>
@@ -4321,6 +4286,17 @@
         <value xml:lang="ru">Банковский счет</value>
         <value xml:lang="th">บัญชีธนาคาร</value>
         <value xml:lang="zh">电子资金转账账户</value>
+    </property>
+    <property key="PartyEmailAddress">
+        <value xml:lang="de">E-Mail Adresse</value>
+        <value xml:lang="en">E-Mail Address</value>
+        <value xml:lang="es">Dirección de E-Mail</value>
+        <value xml:lang="fr">Adresse courriel</value>
+        <value xml:lang="it">Indirizzo E-Mail</value>
+        <value xml:lang="ro">Adresa E-Mail</value>
+        <value xml:lang="ru">Адрес эл. почты</value>
+        <value xml:lang="th">ที่อยู่อีเมล</value>
+        <value xml:lang="zh">电子邮件地址</value>
     </property>
     <property key="PartyEmailAddresses">
         <value xml:lang="cs">E-mailové adresy</value>

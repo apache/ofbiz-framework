@@ -55,7 +55,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ProductServices {
 
     public static final String module = ProductServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    public static final String resource = "ProductErrorUiLabels";
 
     /**
      * Creates a Collection of product entities which are variant products from the specified product ID.
@@ -289,7 +289,7 @@ public class ProductServices {
             }
         }
 
-        Map tree = null;
+        Map<String, Object> tree = null;
         try {
             tree = makeGroup(delegator, features, items, featureOrder, 0);
         } catch (Exception e) {
@@ -1020,7 +1020,7 @@ public class ProductServices {
                             
                         productContentCtx.put("contentId", contentId);
                         try {
-                            Map<String, Object> productContentResult = dispatcher.runSync("updateProductContent", productContentCtx);
+                            dispatcher.runSync("updateProductContent", productContentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             ServiceUtil.returnError(e.getMessage());
@@ -1050,7 +1050,7 @@ public class ProductServices {
                     
                     productContentCtx.put("contentId", contentResult.get("contentId"));
                     try {
-                        Map<String, Object> productContentResult = dispatcher.runSync("createProductContent", productContentCtx);
+                        dispatcher.runSync("createProductContent", productContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         ServiceUtil.returnError(e.getMessage());
@@ -1088,7 +1088,6 @@ public class ProductServices {
         }
                 
         if (UtilValidate.isNotEmpty(productsFound)) {          
-            List<GenericValue> productsList = FastList.newInstance();
             // gets the first productId of the List
             product = EntityUtil.getFirst(productsFound);
             // remove this productId

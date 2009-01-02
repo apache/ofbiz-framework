@@ -146,7 +146,7 @@ under the License.
                 <td>${uiLabelMap.ProductChannel}</td>
                 <td>${uiLabelMap.ProductOrderItem}</td>
                 <td>${uiLabelMap.ProductDescription}</td>
-                <td>${uiLabelMap.OrderShipGroup}</td>
+                <td>${uiLabelMap.ProductOrderShipGroupId}</td>
                 <td>${uiLabelMap.ProductQuantity}</td>
                 <td>${uiLabelMap.ProductQuantityNotAvailable}</td>
             </tr>

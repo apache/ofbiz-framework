@@ -175,7 +175,7 @@ under the License.
                     </td>
                     <td>&nbsp;</td>
                     <td valign="top">
-                      <span class="label">${uiLabelMap.OrderShipping} ${uiLabelMap.ProductInstruction}</span>
+                      <span class="label">${uiLabelMap.ProductShipping} ${uiLabelMap.ProductInstruction}</span>
                       <br/>
                       ${orderItemShipGroup.shippingInstructions?default("(none)")}
                     </td>

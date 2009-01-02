@@ -5603,19 +5603,6 @@
         <value xml:lang="th">ข้อมูลวิธีการชำระเงิน</value>
         <value xml:lang="zh">支付方法信息</value>
     </property>
-    <property key="AccountingPaymentMethodType">
-        <value xml:lang="ar">نوع طريقة التسديد</value>
-        <value xml:lang="de">Zahlungsmethode Typ</value>
-        <value xml:lang="en">Payment Method Type</value>
-        <value xml:lang="es">Tipo Metodo de Pago</value>
-        <value xml:lang="fr">Type de méthode de paiement</value>
-        <value xml:lang="it">Tipo Metodo Pagamento</value>
-        <value xml:lang="nl">Type betaalmethode</value>
-        <value xml:lang="ro">Tip Metoda Plata.</value>
-        <value xml:lang="ru">Тип способа платежа</value>
-        <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
-        <value xml:lang="zh">支付方法类型</value>
-    </property>
     <property key="AccountingPaymentMethodTypeNotHandled">
         <value xml:lang="en">Payment method not handled paymentMethodTypeId :</value>
         <value xml:lang="it">Metodo di pagamento non trattato :</value>
@@ -5666,17 +5653,6 @@
         <value xml:lang="th">รูปแบบการชำระเงิน</value>
         <value xml:lang="zh">支付参数</value>
     </property>
-    <property key="AccountingPaymentProps">
-        <value xml:lang="de">Zahlung Einstellungen</value>
-        <value xml:lang="en">Payment Props</value>
-        <value xml:lang="es">Propiedades de Pago</value>
-        <value xml:lang="fr">Propriétés du paiement</value>
-        <value xml:lang="it">Prop. Pagamento</value>
-        <value xml:lang="ro">Prop. Plata</value>
-        <value xml:lang="ru">Свойства платежа</value>
-        <value xml:lang="th">รูปแบบการชำระเงิน</value>
-        <value xml:lang="zh">支付参数</value>
-    </property>
     <property key="AccountingPaymentReceiveViaPayPal">
         <value xml:lang="en">Payment receive via PayPal</value>
         <value xml:lang="fr">Paiement reçu par PayPal</value>
@@ -5694,21 +5670,6 @@
         <value xml:lang="ru">Запись платежа [${paymentId}] не найдена....</value>
         <value xml:lang="th">ไม่พบการชำระเงิน [${paymentId}]</value>
         <value xml:lang="zh">没有找到支付[${paymentId}]的记录...</value>
-    </property>
-    <property key="AccountingPayments">
-        <value xml:lang="ar">التسديدات</value>
-        <value xml:lang="de">Zahlungen</value>
-        <value xml:lang="en">Payments</value>
-        <value xml:lang="es">Pagos</value>
-        <value xml:lang="fr">Paiements</value>
-        <value xml:lang="it">Pagamenti</value>
-        <value xml:lang="nl">Betalingen</value>
-        <value xml:lang="pt_BR">Pagamentos</value>
-        <value xml:lang="pt_PT">Pagamentos</value>
-        <value xml:lang="ro">Plati</value>
-        <value xml:lang="ru">Платежи</value>
-        <value xml:lang="th">การชำระเงิน</value>
-        <value xml:lang="zh">支付</value>
     </property>
     <property key="AccountingPaymentsApplied">
         <value xml:lang="ar">التسديدات المطبقة</value>

@@ -43,7 +43,7 @@ under the License.
                     <td>${uiLabelMap.ProductAtp}</td>
                     <td>${uiLabelMap.ProductMinimumStock}</td>
                     <td>${uiLabelMap.ProductMoveQuantity}</td>
-                    <td>${uiLabelMap.OrderConfirm}</td>
+                    <td>${uiLabelMap.CommonConfirm}</td>
                     <td align="right">
                         ${uiLabelMap.ProductSelectAll}&nbsp;
                         <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');">

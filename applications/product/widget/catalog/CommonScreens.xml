@@ -30,7 +30,7 @@ under the License.
 
                 <set field="MainColumnStyle" value="nocolumns" global="true"/>
 
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.CatalogCompanyName" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ProductCatalogCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProductCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->

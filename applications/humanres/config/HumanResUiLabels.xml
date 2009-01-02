@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_accountNumber">
         <value xml:lang="en">Account Number</value>
         <value xml:lang="fr">N° de compte</value>
@@ -60,12 +61,6 @@
         <value xml:lang="it">Soggetto Applicato</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
     </property>
-    <property key="FormFieldTitle_availableTime">
-        <value xml:lang="en">Available Time</value>
-        <value xml:lang="fr">Temps disponible</value>
-        <value xml:lang="it">Tempo Disponibile</value>
-        <value xml:lang="th">เวลาที่มีอยู่</value>
-    </property>
     <property key="FormFieldTitle_bankName">
         <value xml:lang="en">Bank Name</value>
         <value xml:lang="fr">Nom de la banque</value>
@@ -101,18 +96,6 @@
         <value xml:lang="fr">Réf. de budget type</value>
         <value xml:lang="it">Tipo Budget</value>
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
-    </property>
-    <property key="FormFieldTitle_comments">
-        <value xml:lang="en">Comments</value>
-        <value xml:lang="fr">Commentaires</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="th">ความคิดเห็น</value>
-    </property>
-    <property key="FormFieldTitle_cost">
-        <value xml:lang="en">Cost</value>
-        <value xml:lang="fr">Coût</value>
-        <value xml:lang="it">Costo</value>
-        <value xml:lang="th">ราคา</value>
     </property>
     <property key="FormFieldTitle_customTimePeriodId">
         <value xml:lang="en">Custom Time Period Id</value>
