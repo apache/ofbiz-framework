@@ -1306,7 +1306,7 @@
         <value xml:lang="de">Die angegebene Kreditkarte gehört Ihnen nicht. Sie dürfen daher weder ihre Daten einsehen noch bearbeiten.</value>
         <value xml:lang="en">The credit card specified does not belong to you, you may not view or edit it</value>
         <value xml:lang="es">La tarjeta especificada no le pertenece, no puede verla o editarla</value>
-        <value xml:lang="fr">La carte de crédit spécifiée ne vous est pas attribuée, vous ne pouvez pas y accéder et l'éditer</value>
+        <value xml:lang="fr">La carte de crédit spécifiée ne vous est pas attribuée, vous ne pouvez pas y accéder ou la modifier</value>
         <value xml:lang="hi_IN">यह कार्ड आपका नन्ही है, आप इसका प्रयोग नही कर सकते</value>
         <value xml:lang="it">La carta di credito specificata non corrisponde a te, non puoi vederla o modificarla</value>
         <value xml:lang="ja">The credit card specified does not belong to you, you may not view or edit it</value>
@@ -3064,6 +3064,19 @@
         <value xml:lang="th">RollUp</value>
         <value xml:lang="zh">汇总</value>
     </property>
+    <property key="AccountingFixedAssets">
+        <value xml:lang="ar">الأصول الثابتة</value>
+        <value xml:lang="de">Anlagen</value>
+        <value xml:lang="en">Fixed Assets</value>
+        <value xml:lang="es">Activos Fijos</value>
+        <value xml:lang="fr">Actifs immobilisés</value>
+        <value xml:lang="it">Cespiti</value>
+        <value xml:lang="nl">Vaste activa</value>
+        <value xml:lang="ro">Mijloace Fixe</value>
+        <value xml:lang="ru">Основные средства</value>
+        <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="zh">固定资产</value>
+    </property>    
     <property key="AccountingFixedAssetStdCostAlreadyExists">
         <value xml:lang="ar">السعر المعياري موجود</value>
         <value xml:lang="en">Standard Cost already Exists</value>
@@ -3107,19 +3120,6 @@
         <value xml:lang="ru">Тип активов</value>
         <value xml:lang="th">ประเภททรัพย์สิน</value>
         <value xml:lang="zh">资产类型</value>
-    </property>
-    <property key="AccountingFixedAssets">
-        <value xml:lang="ar">الأصول الثابتة</value>
-        <value xml:lang="de">Anlagen</value>
-        <value xml:lang="en">Fixed Assets</value>
-        <value xml:lang="es">Activos Fijos</value>
-        <value xml:lang="fr">Actifs immobilisés</value>
-        <value xml:lang="it">Cespiti</value>
-        <value xml:lang="nl">Vaste activa</value>
-        <value xml:lang="ro">Mijloace Fixe</value>
-        <value xml:lang="ru">Основные средства</value>
-        <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产</value>
     </property>
     <property key="AccountingFromParty">
         <value xml:lang="ar">من الطرف</value>
@@ -5640,6 +5640,33 @@
         <value xml:lang="th">ไม่พบการชำระเงิน [${paymentId}]</value>
         <value xml:lang="zh">没有找到支付[${paymentId}]的记录...</value>
     </property>
+    <property key="AccountingPayments">
+        <value xml:lang="ar">التسديدات</value>
+        <value xml:lang="de">Zahlungen</value>
+        <value xml:lang="en">Payments</value>
+        <value xml:lang="es">Pagos</value>
+        <value xml:lang="fr">Paiements</value>
+        <value xml:lang="it">Pagamenti</value>
+        <value xml:lang="nl">Betalingen</value>
+        <value xml:lang="pt_BR">Pagamentos</value>
+        <value xml:lang="pt_PT">Pagamentos</value>
+        <value xml:lang="ro">Plati</value>
+        <value xml:lang="ru">Платежи</value>
+        <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="zh">支付</value>
+    </property>
+    <property key="AccountingPaymentsApplied">
+        <value xml:lang="ar">التسديدات المطبقة</value>
+        <value xml:lang="en">Payments Applied</value>
+        <value xml:lang="es">Pagos Aplicados</value>
+        <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="it">Pagamenti Applicati</value>
+        <value xml:lang="nl">Toegewezen betalingen</value>
+        <value xml:lang="ro">Plati Aplicate.</value>
+        <value xml:lang="ru">Payments Applied</value>
+        <value xml:lang="th">การประยุกต์ใช้การชำระเงิน</value>
+        <value xml:lang="zh">已应用的支付</value>
+    </property>
     <property key="AccountingPaymentSentForm">
         <value xml:lang="ar">مرسل من طرف</value>
         <value xml:lang="en">sent from</value>
@@ -5651,6 +5678,66 @@
         <value xml:lang="ru">послано от</value>
         <value xml:lang="th">ส่งจาก</value>
         <value xml:lang="zh">发自</value>
+    </property>
+    <property key="AccountingPaymentsFound">
+        <value xml:lang="en">Payment(s) Found</value>
+        <value xml:lang="es">Pago(s) Encontrado(s)</value>
+        <value xml:lang="fr">Paiement(s) trouvé(s)</value>
+        <value xml:lang="it">Pagamento(i) Trovato</value>
+        <value xml:lang="nl">Betaling(en) gevonden</value>
+        <value xml:lang="ro">Plata/i Gasite</value>
+        <value xml:lang="ru">Найденные платежи</value>
+        <value xml:lang="th">พบการชำระเงิน</value>
+        <value xml:lang="zh">找到的支付</value>
+    </property>
+    <property key="AccountingPaymentsMenu">
+        <value xml:lang="ar">التسديدات</value>
+        <value xml:lang="en">Payments</value>
+        <value xml:lang="es">Pagos</value>
+        <value xml:lang="fr">Paiements</value>
+        <value xml:lang="it">Pagamenti</value>
+        <value xml:lang="nl">Betalingen</value>
+        <value xml:lang="ro">Plati</value>
+        <value xml:lang="ru">Платежи</value>
+        <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="zh">支付</value>
+    </property>
+    <property key="AccountingPaymentsReceived">
+        <value xml:lang="ar">التسديدات المستلمة</value>
+        <value xml:lang="de">Zahlungen erhalten</value>
+        <value xml:lang="en">Payments received</value>
+        <value xml:lang="es">Pagos recibidos</value>
+        <value xml:lang="fr">Paiements reçus</value>
+        <value xml:lang="it">Pagamenti ricevuti</value>
+        <value xml:lang="nl">Betalingen ontvangen</value>
+        <value xml:lang="ro">Plati Incasate</value>
+        <value xml:lang="ru">Полученные платежи</value>
+        <value xml:lang="th">ได้รับการชำระเงิน</value>
+        <value xml:lang="zh">已收到的支付</value>
+    </property>
+    <property key="AccountingPaymentsSend">
+        <value xml:lang="ar">التسديدات المرسلة</value>
+        <value xml:lang="en">Payments send</value>
+        <value xml:lang="es">Pagos enviados</value>
+        <value xml:lang="fr">Paiements effectués</value>
+        <value xml:lang="it">Pagamenti effettuati</value>
+        <value xml:lang="nl">Betalingen gestuurd</value>
+        <value xml:lang="ro">Plati Trimise</value>
+        <value xml:lang="ru">Отосланные платежи</value>
+        <value xml:lang="th">ส่งการชำระเงิน</value>
+        <value xml:lang="zh">已发出的支付</value>
+    </property>
+    <property key="AccountingPaymentsSent">
+        <value xml:lang="de">Zahlungen übermittelt</value>
+        <value xml:lang="en">Payments Sent</value>
+        <value xml:lang="es">Pagos emitidos</value>
+        <value xml:lang="fr">Règlements envoyés</value>
+        <value xml:lang="it">Pagamenti inviati</value>
+        <value xml:lang="nl">Verzonden betalingen</value>
+        <value xml:lang="ro">Plati Trimise</value>
+        <value xml:lang="ru">Отосланные платежи</value>
+        <value xml:lang="th">ส่งการชำระเงิน</value>
+        <value xml:lang="zh">已发送的支付</value>
     </property>
     <property key="AccountingPaymentTabApplications">
         <value xml:lang="ar">التطبيقات</value>
@@ -5771,93 +5858,6 @@
         <value xml:lang="ru">Платеж через</value>
         <value xml:lang="th">วิธีการชำระเงิน</value>
         <value xml:lang="zh">支付通过</value>
-    </property>
-    <property key="AccountingPayments">
-        <value xml:lang="ar">التسديدات</value>
-        <value xml:lang="de">Zahlungen</value>
-        <value xml:lang="en">Payments</value>
-        <value xml:lang="es">Pagos</value>
-        <value xml:lang="fr">Paiements</value>
-        <value xml:lang="it">Pagamenti</value>
-        <value xml:lang="nl">Betalingen</value>
-        <value xml:lang="pt_BR">Pagamentos</value>
-        <value xml:lang="pt_PT">Pagamentos</value>
-        <value xml:lang="ro">Plati</value>
-        <value xml:lang="ru">Платежи</value>
-        <value xml:lang="th">การชำระเงิน</value>
-        <value xml:lang="zh">支付</value>
-    </property>
-    <property key="AccountingPaymentsApplied">
-        <value xml:lang="ar">التسديدات المطبقة</value>
-        <value xml:lang="en">Payments Applied</value>
-        <value xml:lang="es">Pagos Aplicados</value>
-        <value xml:lang="fr">Paiements alloués</value>
-        <value xml:lang="it">Pagamenti Applicati</value>
-        <value xml:lang="nl">Toegewezen betalingen</value>
-        <value xml:lang="ro">Plati Aplicate.</value>
-        <value xml:lang="ru">Payments Applied</value>
-        <value xml:lang="th">การประยุกต์ใช้การชำระเงิน</value>
-        <value xml:lang="zh">已应用的支付</value>
-    </property>
-    <property key="AccountingPaymentsFound">
-        <value xml:lang="en">Payment(s) Found</value>
-        <value xml:lang="es">Pago(s) Encontrado(s)</value>
-        <value xml:lang="fr">Paiement(s) trouvé(s)</value>
-        <value xml:lang="it">Pagamento(i) Trovato</value>
-        <value xml:lang="nl">Betaling(en) gevonden</value>
-        <value xml:lang="ro">Plata/i Gasite</value>
-        <value xml:lang="ru">Найденные платежи</value>
-        <value xml:lang="th">พบการชำระเงิน</value>
-        <value xml:lang="zh">找到的支付</value>
-    </property>
-    <property key="AccountingPaymentsMenu">
-        <value xml:lang="ar">التسديدات</value>
-        <value xml:lang="en">Payments</value>
-        <value xml:lang="es">Pagos</value>
-        <value xml:lang="fr">Paiements</value>
-        <value xml:lang="it">Pagamenti</value>
-        <value xml:lang="nl">Betalingen</value>
-        <value xml:lang="ro">Plati</value>
-        <value xml:lang="ru">Платежи</value>
-        <value xml:lang="th">การชำระเงิน</value>
-        <value xml:lang="zh">支付</value>
-    </property>
-    <property key="AccountingPaymentsReceived">
-        <value xml:lang="ar">التسديدات المستلمة</value>
-        <value xml:lang="de">Zahlungen erhalten</value>
-        <value xml:lang="en">Payments received</value>
-        <value xml:lang="es">Pagos recibidos</value>
-        <value xml:lang="fr">Paiements reçus</value>
-        <value xml:lang="it">Pagamenti ricevuti</value>
-        <value xml:lang="nl">Betalingen ontvangen</value>
-        <value xml:lang="ro">Plati Incasate</value>
-        <value xml:lang="ru">Полученные платежи</value>
-        <value xml:lang="th">ได้รับการชำระเงิน</value>
-        <value xml:lang="zh">已收到的支付</value>
-    </property>
-    <property key="AccountingPaymentsSend">
-        <value xml:lang="ar">التسديدات المرسلة</value>
-        <value xml:lang="en">Payments send</value>
-        <value xml:lang="es">Pagos enviados</value>
-        <value xml:lang="fr">Paiements effectués</value>
-        <value xml:lang="it">Pagamenti effettuati</value>
-        <value xml:lang="nl">Betalingen gestuurd</value>
-        <value xml:lang="ro">Plati Trimise</value>
-        <value xml:lang="ru">Отосланные платежи</value>
-        <value xml:lang="th">ส่งการชำระเงิน</value>
-        <value xml:lang="zh">已发出的支付</value>
-    </property>
-    <property key="AccountingPaymentsSent">
-        <value xml:lang="de">Zahlungen übermittelt</value>
-        <value xml:lang="en">Payments Sent</value>
-        <value xml:lang="es">Pagos emitidos</value>
-        <value xml:lang="fr">Règlements envoyés</value>
-        <value xml:lang="it">Pagamenti inviati</value>
-        <value xml:lang="nl">Verzonden betalingen</value>
-        <value xml:lang="ro">Plati Trimise</value>
-        <value xml:lang="ru">Отосланные платежи</value>
-        <value xml:lang="th">ส่งการชำระเงิน</value>
-        <value xml:lang="zh">已发送的支付</value>
     </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>
