@@ -59,7 +59,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingAp} ${uiLabelMap.PageTitleMain}"/>
+                        <screenlet title="${uiLabelMap.AccountingAp}"/>
                         <container style="lefthalf">
                             <container style="left">
                                 <label style="h1">${uiLabelMap.AccountingAgreements}</label>

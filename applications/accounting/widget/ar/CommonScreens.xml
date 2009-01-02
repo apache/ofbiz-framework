@@ -63,7 +63,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingMainMenu}">
+                        <screenlet title="${uiLabelMap.AccountingAr}">
                             <platform-specific><html><html-template location="component://accounting/webapp/ar/main.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>

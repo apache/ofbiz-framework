@@ -324,6 +324,7 @@
     <property key="AccountingAdditionalShippingChargeForShipment">
         <value xml:lang="en">Additional Shipping Charge For Shipment #${shipmentId}</value>
         <value xml:lang="fr">Ajouter des frais de transport à la livraison</value>
+        <value xml:lang="it">Ricarico spedizione aggiuntivo per la spedizione #${shipmentId}</value>
         <value xml:lang="nl">Extra vrachtkosten voor zending #${shipmentId}</value>
         <value xml:lang="ru">Дополнительные затраты на доставку</value>
         <value xml:lang="th">เพิ่มค่าขนส่งสำหรับการขนส่ง #${shipmentId}</value>
@@ -398,6 +399,7 @@
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
         <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant de modifier les tarifs</value>
+        <value xml:lang="it">Perfavore impostare un fornitore in Agreement.partyIdTo e una valuta in AgreementItem prima di aggiornare il prezzo di listino</value>
         <value xml:lang="nl">Zet een leverancier in de overeenkomst, PartyIDTo en een valuta in het item van de overeenkomst voordat de prijslijst wordt aangepast</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา</value>
     </property>
@@ -517,6 +519,7 @@
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
         <value xml:lang="fr">Cette application  d'accord commercial de tâche existe déjà</value>
+        <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
         <value xml:lang="nl">Overeenkomst Work Effort Appl bestaat al</value>
     </property>
     <property key="AccountingAgreementWorkEffortAppls">
@@ -632,33 +635,39 @@
         <value xml:lang="zh">任一支付状态</value>
     </property>
     <property key="AccountingAp">
-        <value xml:lang="en">Account Payable</value>
+        <value xml:lang="en">Main Page Account Payable</value>
         <value xml:lang="fr">Compte fournisseur</value>
+        <value xml:lang="it">Pagina principale conto debitori</value>
         <value xml:lang="nl">Crediteuren</value>
     </property>
     <property key="AccountingApCompanyName">
         <value xml:lang="en">OFBiz: AP Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
+        <value xml:lang="it">OFBiz: Gestione conti debitori</value>
         <value xml:lang="nl">OFBiz: Credit Manager</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
         <value xml:lang="en">Find Vendors</value>
         <value xml:lang="fr">Chercher des vendeurs</value>
+        <value xml:lang="it">Ricerca fornitori</value>
         <value xml:lang="nl">Vind verkopende relaties</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
         <value xml:lang="en">Find Vendor Results</value>
         <value xml:lang="fr">Chercher des résultats de vendeurs</value>
+        <value xml:lang="it">Risultati ricerce fornitori</value>
         <value xml:lang="nl">Vind resultaten verkopende relaties</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
         <value xml:lang="en">List Vendors</value>
         <value xml:lang="fr">Liste des vendeurs</value>
+        <value xml:lang="it">Lista fornitori</value>
         <value xml:lang="nl">Toon verkopende relaties</value>
     </property>
     <property key="AccountingApManagerApplication">
         <value xml:lang="en">Account Payable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes fourn.</value>
+        <value xml:lang="it">Applicazione gestione conto debitori</value>
         <value xml:lang="nl">Credit Manager applicatie</value>
     </property>
     <property key="AccountingApplicationSuccess">
@@ -770,6 +779,7 @@
     <property key="AccountingApplyServiceCredit">
         <value xml:lang="en">Apply Service Credit</value>
         <value xml:lang="fr">Alimenter le crédit</value>
+        <value xml:lang="it">Applica servizio credito</value>
         <value xml:lang="nl">Wijs Service-krediet toe</value>
         <value xml:lang="ru">Применить сервисный кредит</value>
         <value xml:lang="th">ใช้บริการเครดิต</value>
@@ -798,19 +808,26 @@
         <value xml:lang="th">Arithmetic properties for Invoice services not configured properly. Cannot proceed.</value>
         <value xml:lang="zh">用于发票服务的算法属性配置不正确。无法操作。</value>
     </property>
+    <property key="AccountingAr">
+        <value xml:lang="en">Main Page Account Receivable</value>
+        <value xml:lang="it">Pagina principale conto creditori</value>
+    </property>
     <property key="AccountingArCompanyName">
         <value xml:lang="en">OFBiz: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
+        <value xml:lang="it">OFBiz: Gestione conto creditori</value>
         <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
     </property>
     <property key="AccountingArManagerApplication">
         <value xml:lang="en">Account Receivable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes clients</value>
+        <value xml:lang="it">Applicazione gestione conto creditore</value>
         <value xml:lang="nl">Debiteuren Manager toepassing</value>
     </property>
     <property key="AccountingArPageTitleListReports">
         <value xml:lang="en">List Reports</value>
         <value xml:lang="fr">Liste des rapports</value>
+        <value xml:lang="it">Lista reports</value>
         <value xml:lang="nl">Toon rapporten</value>
     </property>
     <property key="AccountingAssets">
@@ -1261,19 +1278,22 @@
         <value xml:lang="zh">账单账户上未付的金额。</value>
     </property>
     <property key="AccountingBothInvoiceIdBillingAccountIdEmptyError">
-        <value xml:lang="en">AccountingBothInvoiceIdBillingAccountIdEmptyError</value>
+        <value xml:lang="en">Both InvoiceId and BillingAccountId Empty</value>
         <value xml:lang="fr">Les réf. de facture et de compte de facturation sont toutes les 2 vides</value>
+        <value xml:lang="it">Entrambi InvoiceId e BillingAccountId sono vuoti</value>
         <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
     </property>
     <property key="AccountingByAccount">
         <value xml:lang="en">By Account</value>
         <value xml:lang="fr">Par compte</value>
+        <value xml:lang="it">Per conto</value>
         <value xml:lang="nl">Per rekening</value>
         <value xml:lang="th">โดยบัญชี</value>
     </property>
     <property key="AccountingByDate">
         <value xml:lang="en">By Date</value>
         <value xml:lang="fr">Par date</value>
+        <value xml:lang="it">Per data</value>
         <value xml:lang="nl">Per datum</value>
         <value xml:lang="th">โดยวันที่</value>
     </property>
@@ -1453,7 +1473,7 @@
         <value xml:lang="en">OFBiz: Accounting Manager</value>
         <value xml:lang="es">OFBiz: Administrador de cuentas</value>
         <value xml:lang="fr">OFBiz: Gestion comptable</value>
-        <value xml:lang="it">OFBiz: Gestione Contabilità</value>
+        <value xml:lang="it">OFBiz: Gestione contabilità</value>
         <value xml:lang="nl">OFBiz: Boekhouding</value>
         <value xml:lang="pt_BR">OFBiz: Gerente de Contas</value>
         <value xml:lang="pt_PT">OFBiz: Gerente de Contas</value>
@@ -1658,6 +1678,7 @@
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les autorisations ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée ACCOUNTING_ROLE_CREATE</value>
+        <value xml:lang="it">Errore sicurezza: per eseguire il servizio createFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_CREATEUPDATE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="nl">Toegangfout: om createFixedAssetMaintOrder uit te voeren is ACCOUNTING_CREATEUPDATE- of ACCOUNTING_ADMIN-permissie, of de beperkte ACCOUNTING_ROLE_CREATE-permissie nodig.</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска createFixedAssetMaintOrder у вас должны быть права ACCOUNTING_CREATEUPDATE, ACCOUNTING_ADMIN, или ограниченные ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ createFixedAssetMaintOrder คุณต้องมี ACCOUNTING_CREATEUPDATE หรือ ACCOUNTING_ADMIN permission, หรือจำกัด ACCOUNTING_ROLE_CREATE ก่อน</value>
@@ -1705,8 +1726,9 @@
         <value xml:lang="zh">新建礼品卡</value>
     </property>
     <property key="AccountingCreateNewInvoice">
-        <value xml:lang="en">AccountingCreateNewInvoice</value>
+        <value xml:lang="en">Create New Invoice</value>
         <value xml:lang="fr">Créer une nouvelle facture</value>
+        <value xml:lang="it">Creare nuova fattura</value>
         <value xml:lang="nl">Maak nieuwe factuur</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
     </property>
@@ -1799,12 +1821,14 @@
     <property key="AccountingCreditCardBillingAddNotFoundError">
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
         <value xml:lang="fr">Adresse de facturation associée à la carte de crédit non trouvée</value>
+        <value xml:lang="it">Indirizzo di spedizione associato alla carta di credito non trovato.</value>
         <value xml:lang="nl">Factuuradres geassocieerd met kredietkaart niet gevonden.</value>
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
         <value xml:lang="en">Bill To Email Address not found.</value>
         <value xml:lang="fr">Adresse courriel de facturation non trouvée</value>
+        <value xml:lang="it">Indirizzo email carta di credito non trovato.</value>
         <value xml:lang="nl">Factuure-mailadres niet gevonden.</value>
         <value xml:lang="th">ไม่พบใบเสร็จถึงที่อยู่อีเมล</value>
     </property>
@@ -1825,6 +1849,7 @@
     <property key="AccountingCreditCardManualAuthFailedError">
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
         <value xml:lang="fr">Pas de création de carte de crédit,  carte non vérifiée, l'authentification a échoué.</value>
+        <value xml:lang="it">Non creata carta di credito.  Carta di credito non verificata, autenticazione fallita.</value>
         <value xml:lang="nl">Kredietkaart niet aangemaakt. Kredietkaar niet geverifiëerd, Authenticatie faalde.</value>
         <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
     </property>
@@ -1911,12 +1936,14 @@
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
+        <value xml:lang="it">Campo dateAcquired è vuoto in FixedAsset.</value>
         <value xml:lang="nl">Veld dateAcquired is leeg in data vaste activa.</value>
         <value xml:lang="th">Field dateAcquired is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingDateFilter">
-        <value xml:lang="en">AccountingDateFilter</value>
+        <value xml:lang="en">Date Filter</value>
         <value xml:lang="fr">Filtre de date</value>
+        <value xml:lang="it">Data filtro</value>
         <value xml:lang="nl">Filter boekhouddatum</value>
         <value xml:lang="th">Date Filter</value>
     </property>
@@ -1935,6 +1962,7 @@
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
+        <value xml:lang="it">Errore sicurezza: per eseguire il servizio deleteFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="nl">Toegangfout: om deleteFixedAssetMaintOrder te draaien heb je ACCOUNTING_DELETE- of ACCOUNTING_ADMIN-, of de beperkte ACCOUNTING_ROLE_UPDATE-permissie nodig.</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
@@ -2091,6 +2119,7 @@
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
         <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
+        <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
         <value xml:lang="nl">Wijzig GB-rekeningen belastinginstantie</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2198,6 +2227,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث إحداثيات الصلة على الفاتورة من الطلبية</value>
         <value xml:lang="en">Error creating InvoiceContactMech from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un InvoiceContactMech à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di InvoiceContactMech dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken InvoiceContactMech vanaf order</value>
         <value xml:lang="ru">Ошибка создания InvoiceContactMech на основании заказа</value>
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้าง InvoiceContactMech จากรายการสั่งซื้อ</value>
@@ -2255,6 +2285,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث بند الفاتورة من الطلبية</value>
         <value xml:lang="en">Error creating InvoiceItem from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di InvoiceItem dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van het factuurelement vanaf order</value>
         <value xml:lang="ru">Ошибка создания позиций накладной на основании заказа</value>
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบสั่งของจากรายการสั่งซื้อ</value>
@@ -2264,6 +2295,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث دور الفاتورة من الطلبية</value>
         <value xml:lang="en">Error creating InvoiceRole from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un rôle de facturation à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di InvoiceRole dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuurrol vanaf order</value>
         <value xml:lang="ru">Ошибка создания роли накладной на основании заказа</value>
         <value xml:lang="th">ผิดพลาด !ในการสร้างสถานพใบกำกับสินค้าจากใบสั่งซื้อสินค้า</value>
@@ -2273,6 +2305,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث بند الفاتورة من الطلبية</value>
         <value xml:lang="en">Error creating InvoiceTerm from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un terme de facturation à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di InvoiceTerm dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuurconditie vanaf order</value>
         <value xml:lang="ru">Ошибка создания условий накладной на основании заказа</value>
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างระยะเวลาใบกำกับสินค้าจากรายการสั่งซื้อสินค้า</value>
@@ -2282,6 +2315,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث تعديل فوترة الطلبية من الطلبية</value>
         <value xml:lang="en">Error creating OrderAdjustmentBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un ajustement facturation à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di OrderAdjustmentBilling dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van OrderAdjustmentBilling vanaf order</value>
         <value xml:lang="ru">Ошибка создания OrderAdjustmentBilling для заказа</value>
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบเสร็จรายการส่วนลดจากรายการสั่งซื้อ</value>
@@ -2291,6 +2325,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث بند فوترة الطلبية من الطلبية</value>
         <value xml:lang="en">Error creating OrderItemBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
+        <value xml:lang="it">Errore durante la creazione di OrderItemBilling dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van OrderItemBilling vanaf order</value>
         <value xml:lang="ru">Ошибка создания OrderItemBilling для заказа</value>
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบเสร็จรายการสั่งซื้อสินค้าจากรายการสั่งซื้อ</value>
@@ -2299,6 +2334,7 @@
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ "Fin de vie estimée" est vide dans les données d'immobilisation</value>
+        <value xml:lang="it">Il campo expectedEndOfLife è vuoto in FixedAsset.</value>
         <value xml:lang="nl">Veld expectedEndOfLife is leeg in data vaste activa.</value>
         <value xml:lang="th">Field expectedEndOfLife is empty in FixedAsset data.</value>
     </property>
@@ -2646,6 +2682,7 @@
     <property key="AccountingFixedAssetDepreciationMethodNotFound">
         <value xml:lang="en">Depreciation method not found</value>
         <value xml:lang="fr">Méthode de calcul de dépréciation non trouvée</value>
+        <value xml:lang="it">Metodo di svalutazione non trovato</value>
         <value xml:lang="nl">Afschrijvingmethode niet gevonden</value>
     </property>
     <property key="AccountingFixedAssetEdit">
@@ -2689,6 +2726,7 @@
         <value xml:lang="ar">دليل الأصل الثابت [${parameters.fixedAssetId}] موجود</value>
         <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
         <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
+        <value xml:lang="it">Cespite ${parameters.fixedAssetId} già esistente</value>
         <value xml:lang="nl">Vaste activa ID [${parameters.fixedAssetId}] bestaat al.</value>
         <value xml:lang="ru">Основные средства с кодом [${parameters.fixedAssetId}] уже существует</value>
         <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน [${parameters.fixedAssetId}] ยังคงมีอยู่แล้ว</value>
@@ -2718,8 +2756,9 @@
         <value xml:lang="zh">标识类型</value>
     </property>
     <property key="AccountingFixedAssetIdentTypeId">
-        <value xml:lang="en">AccountingFixedAssetIdentTypeId</value>
+        <value xml:lang="en">Fixed Asset Ident Type Id</value>
         <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
+        <value xml:lang="it">Tipo identificazione cespite</value>
         <value xml:lang="nl">AccountingFixedAssetIdentTypeId</value>
         <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -2762,6 +2801,7 @@
     <property key="AccountingFixedAssetMaintWorkEffortName">
         <value xml:lang="en">Maintenance of Fixed Asset ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="fr">Maintenance de l'immobilisation ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
+        <value xml:lang="it">Manutenzione del cespite ${fixedAsset.fixedAssetName} ${fixedAsset.fixedAssetId}</value>
         <value xml:lang="nl">Onderhoud van vaste activa ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
     </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
@@ -2828,6 +2868,7 @@
         <value xml:lang="ar">إذا حدد نموذج الصيانة مع صيانة السلعة, فإنه سيتم الوضع/إعادة الوضع آليا</value>
         <value xml:lang="en">If Maintenance Template is specified with Product Maintenance, this will be set/reset automatically</value>
         <value xml:lang="fr">Si un schéma de maintenance est défini pour la maintenance du produit, ceci sera mis à jour automatiquement</value>
+        <value xml:lang="it">Se il Maintenance Template è specificato per la manutenzione prodotto, questo verrà impostato/azzerato automaticamente</value>
         <value xml:lang="nl">Als sjabloon onderhoud is gespecifieerd bij productonderhoud wordt dit automatisch gezet of herzet.</value>
         <value xml:lang="ru">Если вместе с Обслуживанием продукта указан Шаблон обслуживанияe, поле будет устанавливаться/сбрасываться автоматически</value>
         <value xml:lang="th">ถ้าการบำรุงรักษาเทมเพลตเป็นพิเศษด้วยการบำรุงรักษาสินค้า นี่จะกำหนดอัตโนมัติ</value>
@@ -2893,6 +2934,7 @@
         <value xml:lang="ar">نموذج الصيانة</value>
         <value xml:lang="en">Maintenance Template</value>
         <value xml:lang="fr">Schéma de maintenance</value>
+        <value xml:lang="it">Manutenzione template</value>
         <value xml:lang="ru">Шаблон обслуживания</value>
         <value xml:lang="th">การบำรุงรักษาเทมเพลต</value>
     </property>
@@ -3081,6 +3123,7 @@
         <value xml:lang="ar">السعر المعياري موجود</value>
         <value xml:lang="en">Standard Cost already Exists</value>
         <value xml:lang="fr">Coût standard déjà défini</value>
+        <value xml:lang="it">Costo standard già esistente</value>
         <value xml:lang="nl">Standaard kosten bestaan al.</value>
         <value xml:lang="ru">Стандартная стоимость уже существует</value>
         <value xml:lang="th">ราคามาตรฐานยังคงมีอยู่แล้ว</value>
@@ -3404,6 +3447,7 @@
     <property key="AccountingIgnoringAdditionalShipCharges">
         <value xml:lang="en">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
         <value xml:lang="fr">L'option "Coût des expéditions au prorata" ne vaut pas N pour le centre de profit ${productStoreId} : les frais d'expédition additionnels sont ignorés</value>
+        <value xml:lang="it">prorateShipping non è N per il productStoreId ${productStoreId}: ricarichi spedizione aggiuntivi per le spedizioni saranno ignorati</value>
         <value xml:lang="nl">prorateShipping is niet N voor productStoreId ${productStoreId}: Additionele verzendkosten voor zendingen worden genegeerd</value>
         <value xml:lang="th">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
     </property>
@@ -3446,6 +3490,7 @@
     <property key="AccountingInheritedValue">
         <value xml:lang="en">Inherited Value</value>
         <value xml:lang="fr">Valeur héritée</value>
+        <value xml:lang="it">Valore ereditato</value>
         <value xml:lang="nl">Overgenomen waarde</value>
     </property>
     <property key="AccountingInvNr">
@@ -3833,6 +3878,7 @@
     </property>
     <property key="AccountingInvoicePDFDefaultCur">
         <value xml:lang="en">PDF default Currency</value>
+        <value xml:lang="it">PDF valuta di default</value>
     </property>
     <property key="AccountingInvoicePaid">
         <value xml:lang="ar">مسدد</value>
@@ -4168,6 +4214,7 @@
     <property key="AccountingListAgreementWorkEffortAppls">
         <value xml:lang="en">List Agreement Work Effort Appls</value>
         <value xml:lang="fr">Liste des applications d'accords commerciaux de service</value>
+        <value xml:lang="it">Lista applicazioni contratto impegno di lavoro</value>
         <value xml:lang="nl">Toon overzicht werkinzet toepassingen</value>
     </property>
     <property key="AccountingListInvoiceItemType">
@@ -4218,11 +4265,13 @@
     <property key="AccountingLookupAgreement">
         <value xml:lang="en">Lookup Agreement</value>
         <value xml:lang="fr">Consulter l'accord commercial</value>
+        <value xml:lang="it">Ricerca contratti</value>
         <value xml:lang="nl">Vind overeenkomst</value>
     </property>
     <property key="AccountingLookupAgreementItem">
         <value xml:lang="en">Lookup Agreement Item</value>
         <value xml:lang="fr">Consulter la ligne d'accord commercial</value>
+        <value xml:lang="it">Ricerca righe contratti</value>
         <value xml:lang="nl">Vind onderdelen overeenkomst</value>
     </property>
     <property key="AccountingLookupInvoices">
@@ -4268,7 +4317,7 @@
         <value xml:lang="en">Accounting Manager Main Page</value>
         <value xml:lang="es">Página principal del Administrador Contable</value>
         <value xml:lang="fr">Page d'accueil de la comptabilité</value>
-        <value xml:lang="it">Pagina Principale Gestione Contabilità</value>
+        <value xml:lang="it">Pagina principale gestione contabilità</value>
         <value xml:lang="nl">Beginpagina boekhouding</value>
         <value xml:lang="pt_BR">Página de Entrada do Gestor de Contas</value>
         <value xml:lang="pt_PT">Página de Entrada do Gestor de Contas</value>
@@ -4282,7 +4331,7 @@
         <value xml:lang="en">Welcome to the Accounting Manager!</value>
         <value xml:lang="es">Bienvenido al Administrador Contable!</value>
         <value xml:lang="fr">Bienvenue dans le module de Gestion comptable !</value>
-        <value xml:lang="it">Benvenuto nella Gestione Contabilità!</value>
+        <value xml:lang="it">Benvenuto nella gestione contabilità!</value>
         <value xml:lang="nl">Welkom op de beginpagina van boekhouding.</value>
         <value xml:lang="pt_BR">Nota: esta aplicação encontra-se em desenvolvimento. Esta página sofrerá alterações.</value>
         <value xml:lang="pt_PT">Nota: esta aplicação encontra-se em desenvolvimento.Esta página sofrerá alterações.</value>
@@ -4296,7 +4345,7 @@
         <value xml:lang="en">Accounting Manager Application</value>
         <value xml:lang="es">Aplicación Administrador Contable</value>
         <value xml:lang="fr">Module de Gestion comptable</value>
-        <value xml:lang="it">Applicazione Gestione Contabilità</value>
+        <value xml:lang="it">Applicazione gestione contabilità</value>
         <value xml:lang="nl">Boekhoud toepassing</value>
         <value xml:lang="pt_BR">Aplicação de Gestão de Contas</value>
         <value xml:lang="pt_PT">Aplicação de Gestão de Contas</value>
@@ -4521,6 +4570,7 @@
         <value xml:lang="en">New Billing Account</value>
         <value xml:lang="es">Nueva cuenta de facturación</value>
         <value xml:lang="fr">Créer un compte de facturation</value>
+        <value xml:lang="it">Nuovo conto fatturazione</value>
         <value xml:lang="nl">Nieuwe factuurrekening</value>
         <value xml:lang="ru">Новый кредитный счет</value>
         <value xml:lang="th">ยอดรวมของบัญชีใหม่</value>
@@ -4934,6 +4984,7 @@
     <property key="AccountingOrderItemWithIdNotFound">
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
         <value xml:lang="fr">La ligne de commande avec identifiant  ${orderItemSeqId} n'a pas été trouvée</value>
+        <value xml:lang="it">Riga ordine ${orderItemSeqId} non trovata.</value>
         <value xml:lang="nl">Orderregel ${orderItemSeqId} niet gevonden.</value>
         <value xml:lang="ru">Позиция заказа с кодом ${orderItemSeqId} не найдена.</value>
         <value xml:lang="th">ไม่พบรายการสั่งรายการด้วยรหัส ${orderItemSeqId}</value>
@@ -4963,6 +5014,7 @@
     <property key="AccountingOrderWithIdNotFound">
         <value xml:lang="en">Order with id ${orderId} not found.</value>
         <value xml:lang="fr">Pas trouvé de commande avec l'identifiant ${orderId}</value>
+        <value xml:lang="it">Ordine ${orderId} non trovato.</value>
         <value xml:lang="nl">Order ${orderId} niet gevonden.</value>
         <value xml:lang="ru">Не найден заказ с кодом ${orderId}.</value>
         <value xml:lang="th">ไม่พบการสั่งซื้อด้วยรหัส ${orderId}</value>
@@ -5080,6 +5132,7 @@
         <value xml:lang="en">Agreement Price List</value>
         <value xml:lang="es">Acuerdo de precio de lista</value>
         <value xml:lang="fr">Liste de prix agréée</value>
+        <value xml:lang="it">Prezzo di listino contratto</value>
         <value xml:lang="nl">Prijslijst overeenkomst</value>
         <value xml:lang="ru">Прайс-лист договора</value>
         <value xml:lang="th">รายการสัญญาราคา</value>
@@ -5519,6 +5572,7 @@
     <property key="AccountingPaymentMethodId........">
         <value xml:lang="en">AccountingPaymentMethodId........</value>
         <value xml:lang="fr">Réf. de méthode de paiement      </value>
+        <value xml:lang="it">Metodo di pagamento..............</value>
         <value xml:lang="nl">AccountingPaymentMethodId........</value>
         <value xml:lang="ro">No values are passed............???</value>
         <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
@@ -5527,6 +5581,7 @@
         <value xml:lang="en">No values are passed for paymentMethodId or paymentMethodTypeId. At least pass paymentMethodId.</value>
         <value xml:lang="es">Ningun valor pasado para IdMetodoPago o IdTipoMetodoPago. Al menos pasar IdMetodoPago.</value>
         <value xml:lang="fr">Aucune méthode de paiement n'a été passée. Veuillez passer au moins une réf.</value>
+        <value xml:lang="it">Nessun valore passato per paymentMethodId o paymentMethodTypeId. Al minimo paymentMethodId deve essere passato.</value>
         <value xml:lang="nl">Geen gegevens voor paymentMethodId of paymentMethodTypeId. Geef minstens paymentMethodId.</value>
         <value xml:lang="ru">В paymentMethodId или paymentMethodTypeId нет значений. Как минимум укажите paymentMethodId.</value>
         <value xml:lang="th">สำหรับรหัสวิธีการชำระเงินหรือรหัสประเภทวิธีการชำระเงินไม่มีค่าผ่าน อย่างน้อยที่สุดค่ารหัสวิธีการชำระเงินต้องผ่าน</value>
@@ -6019,6 +6074,7 @@
     <property key="AccountingProblemGettingOrderPaymentPreferences">
         <value xml:lang="en">Problem getting OrderPaymentPreference records</value>
         <value xml:lang="fr">Erreur en recherchant les préférences de paiement associées à la commande</value>
+        <value xml:lang="it">Problema nella ricerca dei records di OrderPaymentPreference</value>
         <value xml:lang="nl">Probleem met het ophalen van OrderPaymentPreference records</value>
         <value xml:lang="ru">Проблема получения записей OrderPaymentPreference</value>
         <value xml:lang="th">Problem getting OrderPaymentPreference records</value>
@@ -6049,6 +6105,7 @@
     <property key="AccountingProblemStoringOrderAdjustments">
         <value xml:lang="en">Problem storing OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="fr">Erreur en essayant d'enregistrer les ajustements de commande: ${orderAdjustments}</value>
+        <value xml:lang="it">Problema nella salvataggio di OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="nl">Probleem met het opslaan van orderaanpassing(en): ${orderAdjustments}</value>
         <value xml:lang="ru">Проблема сохранения OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="th">ปัญหาในการเก็บข้อมูลรายการส่วนลด: ${orderAdjustments}</value>
@@ -6106,12 +6163,14 @@
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
+        <value xml:lang="it">Lista assegnazioni tipo fattura acquisto numero conto GL profitti</value>
         <value xml:lang="nl">Inkoopfactuurtype naar Revenue BG-rekening toewijzingslijst</value>
         <value xml:lang="th">Purchase Invoice type to Revenue GL Account Number assignment list</value>
     </property>
     <property key="AccountingQuantity">
-        <value xml:lang="en">AccountingQuantity</value>
+        <value xml:lang="en">Quantity</value>
         <value xml:lang="fr">Quantité</value>
+        <value xml:lang="it">Quantità</value>
         <value xml:lang="nl">Aantal</value>
         <value xml:lang="th">จำนวน</value>
     </property>
@@ -6255,6 +6314,7 @@
     <property key="AccountingServiceCredit">
         <value xml:lang="en">Service Credit</value>
         <value xml:lang="fr">Service crédit</value>
+        <value xml:lang="it">Servizio credito</value>
         <value xml:lang="nl">Dienst credit</value>
         <value xml:lang="ru">Сервисный кредит</value>
         <value xml:lang="th">บริการเครดิต</value>
@@ -6262,6 +6322,7 @@
     <property key="AccountingServiceCredits">
         <value xml:lang="en">Service Credits</value>
         <value xml:lang="fr">Service crédits</value>
+        <value xml:lang="it">Servizio crediti</value>
         <value xml:lang="nl">Dienst credits</value>
         <value xml:lang="ru">Сервисные кредиты</value>
         <value xml:lang="th">บริการเครดิต</value>
@@ -6269,6 +6330,7 @@
     <property key="AccountingServiceErrorCreatingInvoiceItemFromOrder">
         <value xml:lang="en">Service/other problem creating InvoiceItem from order header adjustment</value>
         <value xml:lang="fr">Service/ autre problème rencontré en essayant de créer une ligne de facturation à partir de l'ajustement à l'en-tête de la commande</value>
+        <value xml:lang="it">Servizio/altro problema nelle creazione di InvoiceItem dagli aggiustamenti testata ordine</value>
         <value xml:lang="nl">Dienst/ander problem aanmaken factuurregel van(af) aanpassing orderkop</value>
         <value xml:lang="ru">Проблемы службы/другие создания позиции накладной на основании корректировки шапки заказа</value>
         <value xml:lang="th">บริการ/ปัญหาอื่น ๆ ในการสร้างใบส่งของจากหัวข้อรายการส่วนลด</value>
@@ -6277,6 +6339,7 @@
     <property key="AccountingServiceErrorCreatingInvoiceTermFromOrder">
         <value xml:lang="en">Service/other problem creating InvoiceTerm from order</value>
         <value xml:lang="fr">Service/ erreur en essayant de créer une date d'échéance à partir de la commande</value>
+        <value xml:lang="it">Servizio/altro problema nelle creazione di InvoiceTerm dall'ordine</value>
         <value xml:lang="nl">Dienst/ander probleem aanmaken factuurconditie van(af) order</value>
         <value xml:lang="ru">Проблемы службы/другие создания условий накладной на основании заказа</value>
         <value xml:lang="th">Service/other problem creating InvoiceTerm from order</value>
@@ -6296,6 +6359,7 @@
     <property key="AccountingSetup">
         <value xml:lang="en">Setup</value>
         <value xml:lang="fr">Configuration</value>
+        <value xml:lang="it">Configurazione</value>
         <value xml:lang="nl">Configuratie</value>
         <value xml:lang="th">ติดตั้ง</value>
     </property>
@@ -6387,8 +6451,9 @@
         <value xml:lang="zh">显示发票</value>
     </property>
     <property key="AccountingShowLookupFields">
-        <value xml:lang="en">AccountingShowLookupFields</value>
+        <value xml:lang="en">Show Lookup Fields</value>
         <value xml:lang="fr">Montrer les champs de consultation</value>
+        <value xml:lang="it">Mostra campi di ricerca</value>
         <value xml:lang="nl">Toon alle velden</value>
         <value xml:lang="th">แสดงการค้นหาฟิลด์</value>
     </property>
@@ -6561,6 +6626,7 @@
     <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
         <value xml:lang="en">At least one Product Rate uses this Category</value>
         <value xml:lang="fr">Au moins un taux applicable aux produits utilise cette catégorie</value>
+        <value xml:lang="it">Al minimo un tasso prodotto stà usando questa categoria</value>
     </property>
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
@@ -6670,12 +6736,14 @@
     <property key="AccountingTotalExclTax">
         <value xml:lang="en">Total excl. tax</value>
         <value xml:lang="fr">Total HT</value>
+        <value xml:lang="it">Totale escluso tasse</value>
         <value xml:lang="nl">Totaal excl. BTW</value>
         <value xml:lang="th">Total excl. tax</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="en">Transaction has been already posted</value>
         <value xml:lang="fr">Transaction déjà effectuée</value>
+        <value xml:lang="it">Transazione è già stata contabilizzata</value>
         <value xml:lang="nl">Transactie is al verwerkt</value>
     </property>
     <property key="AccountingTransactionTotals">
@@ -6736,6 +6804,7 @@
     <property key="AccountingTroubleCallingAuthOrderPaymentPreferenceService">
         <value xml:lang="en">Trouble calling authOrderPaymentPreference service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service authOrderPaymentPreference</value>
+        <value xml:lang="it">Problemi nell'esecuzione del servizio authOrderPaymentPreference</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'authOrderPaymentPreference'.</value>
         <value xml:lang="ru">Сбой вызова службы authOrderPaymentPreference</value>
         <value xml:lang="th">ปัญหาในการเรียกบริการ authOrderPaymentPreference</value>
@@ -6744,6 +6813,7 @@
     <property key="AccountingTroubleCallingCalcTaxService">
         <value xml:lang="en">Trouble calling calcTaxService</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service calcTaxService</value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio calcTaxService</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'calcTaxService'.</value>
         <value xml:lang="ru">Сбой вызова calcTaxService</value>
         <value xml:lang="th">ปัญหาในการเรียก calcTaxService</value>
@@ -6752,6 +6822,7 @@
     <property key="AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService">
         <value xml:lang="en">Accounting trouble calling calculateInvoicedAdjustmentTotal service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service calculateInvoicedAdjustmentTotal </value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio calculateInvoicedAdjustmentTotal</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'calculateInvoicedAdjustmentTotal'.</value>
         <value xml:lang="ru">Сбой вызова службы calculateInvoicedAdjustmentTotal </value>
         <value xml:lang="th">การบัญชีมีปัญหาในการเรียกบริการ calculateInvoicedAdjustmentTotal</value>
@@ -6761,7 +6832,7 @@
         <value xml:lang="en">Trouble calling createInvoiceForOrder service; invoice not created for shipment</value>
         <value xml:lang="es">Problema en la llamada al servicio createInvoiceForOrder; factura no creada para envío</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service createInvoiceForOrder; il n'a pas été créé de facture pour la livraison</value>
-        <value xml:lang="it">Problemi chiamando il servizio createInvoiceForOrder ; fattura non creata per la spedizione</value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createInvoiceForOrder ; fattura non creata per la spedizione</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createInvoiceForOrder'; factuur niet aangemaakt voor de verzending.</value>
         <value xml:lang="ro">Probleme la chiamarea functiei createInvoiceForOrder ; Factura expediere ne-creata.</value>
         <value xml:lang="ru">Сбой вызова службы createInvoiceForOrder; накладная для поставки не создана</value>
@@ -6771,6 +6842,7 @@
     <property key="AccountingTroubleCallingCreateInvoicesFromShipmentService">
         <value xml:lang="en">Trouble calling createInvoicesFromShipment service; invoice not created for shipment [${shipmentId}]</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service createInvoicesFromShipment; il n'a pas été créé de facture pour la livraison  [${shipmentId}]</value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createInvoicesFromShipment; fattura non creata per la spedizione ${shipmentId}</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createInvoicesFromShipment'; factuur niet gemaakt voor zending [${shipmentId}]</value>
         <value xml:lang="ru">Сбой вызова службы createInvoicesFromShipment; накладная для поставки  [${shipmentId}] не создана</value>
         <value xml:lang="th">ปัญหาในการเรียก createInvoiceForOrder service; ไม่สามารถสร้างใบส่งของสำหรับการขนส่ง [${shipmentId}]</value>
@@ -6779,6 +6851,7 @@
     <property key="AccountingTroubleCallingCreateInvoicesFromShipmentsService">
         <value xml:lang="en">Trouble calling createInvoicesFromShipments service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service createInvoicesFromShipments </value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createInvoicesFromShipments</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createInvoicesFromShipments'.</value>
         <value xml:lang="ru">Сбой вызова службы createInvoicesFromShipments</value>
         <value xml:lang="th">ปัญหาในการเรียก createInvoicesFromShipments service</value>
@@ -6787,6 +6860,7 @@
     <property key="AccountingTroubleCallingCreateOrderAdjustmentService">
         <value xml:lang="en">Trouble calling createOrderAdjustment service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service createOrderAdjustment </value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createOrderAdjustment</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createOrderAdjustment'.</value>
         <value xml:lang="ru">Сбой вызова службы createOrderAdjustment</value>
         <value xml:lang="th">ปัญหาในการเรียก createOrderAdjustment service</value>
@@ -6795,6 +6869,7 @@
     <property key="AccountingTroubleCallingCreateOrderPaymentPreferenceService">
         <value xml:lang="en">Trouble calling createOrderPaymentPreference service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service createOrderPaymentPreference </value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createOrderPaymentPreference</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createOrderPaymentPreference'.</value>
         <value xml:lang="ru">Сбой вызова службы createOrderPaymentPreference</value>
         <value xml:lang="th">ปัญหาในการเรียก createOrderPaymentPreference service</value>
@@ -6803,14 +6878,16 @@
     <property key="AccountingTroubleCallingReleaseOrderPaymentPreferenceService">
         <value xml:lang="en">Trouble calling releaseOrderPaymentPreference service</value>
         <value xml:lang="fr">Problème rencontré en invoquant le service releaseOrderPaymentPreference </value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio releaseOrderPaymentPreference</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'releaseOrderPaymentPreference'.</value>
         <value xml:lang="ru">Сбой вызова службы releaseOrderPaymentPreference</value>
         <value xml:lang="th">ปัญหาในการเรียก releaseOrderPaymentPreference service</value>
         <value xml:lang="zh">调用解除定单支付优先方法服务时出错</value>
     </property>
     <property key="AccountingTroubleCreateInvoicesFromShipmentsService">
-        <value xml:lang="en">AccountingTroubleCreateInvoicesFromShipmentsService</value>
+        <value xml:lang="en">Trouble Create Invoices From Shipments Service</value>
         <value xml:lang="fr">Problème à la création des factures depuis le service d'expédition</value>
+        <value xml:lang="it">Problema nell'esecuzione del servizio createInvoicesFromShipments</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'createInvoicesFromShipments'.</value>
         <value xml:lang="th">ปํญหาในการสร้างใบกำกับสินค้าจากบริการการขนส่งสินค้า</value>
     </property>
@@ -6818,7 +6895,7 @@
         <value xml:lang="en">Trouble getting Shipment entity for shipment [${tmpShipmentId}]</value>
         <value xml:lang="es">Problema obteniendo entidad envío para envío [${tmpShipmentId}]</value>
         <value xml:lang="fr">Problème rencontré en essayant d'obtenir l'entité de livraison pour la livraison  [${tmpShipmentId}]</value>
-        <value xml:lang="it">Problemi leggendo entità Shipment per la spedizione [${tmpShipmentId}]</value>
+        <value xml:lang="it">Problemi leggendo entità Shipment per la spedizione ${tmpShipmentId}</value>
         <value xml:lang="nl">Problemen om een verzendingsentiteit op te halen voor verzending [${tmpShipmentId}]</value>
         <value xml:lang="ro">Probleme la citerea  entitatii Shipment pentru expediere [${tmpShipmentId}]</value>
         <value xml:lang="ru">Сбой получения объекта Shipment для поставки [${tmpShipmentId}]</value>
@@ -6826,14 +6903,16 @@
         <value xml:lang="zh">无法为运输[${tmpShipmentId}]获得运输实体</value>
     </property>
     <property key="AccountingType">
-        <value xml:lang="en">AccountingType</value>
+        <value xml:lang="en">Type</value>
         <value xml:lang="fr">Type</value>
+        <value xml:lang="it">Tipo</value>
         <value xml:lang="nl">Type</value>
         <value xml:lang="th">ประเภท</value>
     </property>
     <property key="AccountingUnableToAuthAdditionalShipCharges">
         <value xml:lang="en">Unable to authorize additional shipping charges for shipmentId ${shipmentId} to paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="fr">Impossible d'autoriser des frais de livraison supplémentaires pour la livraison [ ${shipmentId}] à la méthode de paiement ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
+        <value xml:lang="it">Non è possibile autorizzare i ricarichi spedizione aggiuntivi per la spedizione ${shipmentId} metodo di pagamento ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="nl">Niet in staat om additioneel verzendadres te authoriseren voor zending ${shipmentId} naar paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="ru">Невозможно авторизовать дополнительные затраты поставки для поставки с кодом ${shipmentId} для paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="th">Unable to authorize additional shipping charges for shipmentId ${shipmentId} to paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
@@ -7047,6 +7126,7 @@
     <property key="AcctgFindGlJournalEntry">
         <value xml:lang="en">Find Journal Entry</value>
         <value xml:lang="fr">Chercher l'écriture comptable</value>
+        <value xml:lang="it">Ricerca voce giornale</value>
         <value xml:lang="nl">Vind journaalpost</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลบัญชีรายวัน</value>
     </property>
@@ -7077,6 +7157,7 @@
     <property key="AcctgGlJournalEntry">
         <value xml:lang="en">GL Journal</value>
         <value xml:lang="fr">Journal du Grand Livre</value>
+        <value xml:lang="it">Giornale GL</value>
         <value xml:lang="nl">GBjournaal</value>
         <value xml:lang="th">GL Journal</value>
     </property>
@@ -7153,6 +7234,7 @@
     <property key="AcctgNewGlJournalEntry">
         <value xml:lang="en">New Journal Entry</value>
         <value xml:lang="fr">Nouvelle écriture comptable</value>
+        <value xml:lang="it">Nuova voce giornale</value>
         <value xml:lang="nl">Nieuwe journaalpost</value>
         <value xml:lang="th">New Journal Entry</value>
     </property>
@@ -8028,6 +8110,7 @@
     <property key="FormFieldTitle_invoiceAmount">
         <value xml:lang="en">Invoice Amount</value>
         <value xml:lang="fr">Montant</value>
+        <value xml:lang="it">Importo fattura</value>
     </property>
     <property key="FormFieldTitle_invoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
@@ -8102,6 +8185,7 @@
     <property key="FormFieldTitle_invoiceNotApplied">
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="it">Non applicata</value>
     </property>
     <property key="FormFieldTitle_invoiceProcessing">
         <value xml:lang="ar">تعيين لكامل الفاتورة</value>
@@ -8318,6 +8402,7 @@
     <property key="FormFieldTitle_notApplied">
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="it">Non applicata</value>
     </property>
     <property key="FormFieldTitle_orderIdPrefix">
         <value xml:lang="en">Order Id Prefix</value>
@@ -9116,6 +9201,7 @@
     <property key="FormFieldTitle_totInvoiceApplied">
         <value xml:lang="en">Tot Invoice Applied</value>
         <value xml:lang="fr">Total alloué</value>
+        <value xml:lang="it">Totale fattura applicato</value>
     </property>
     <property key="FormFieldTitle_transCodeEnumId">
         <value xml:lang="en">Trans Code Enum Id</value>
@@ -9251,6 +9337,7 @@
     <property key="PageTitleAddTransactionEntry">
         <value xml:lang="en">Add Transaction Entry</value>
         <value xml:lang="fr">Ajouter une écriture de transaction</value>
+        <value xml:lang="it">Aggiungi voce transazione</value>
         <value xml:lang="nl">Transactieregel toevoegen</value>
     </property>
     <property key="PageTitleCopyAgreement">
@@ -9637,11 +9724,13 @@
     <property key="PageTitleEditTransaction">
         <value xml:lang="en">Edit Transaction</value>
         <value xml:lang="fr">Modifier la transaction</value>
+        <value xml:lang="it">Aggiorna transazione</value>
         <value xml:lang="nl">Transactie aanpassen</value>
     </property>
     <property key="PageTitleEditTransactionEntries">
         <value xml:lang="en">Edit Transaction Entries</value>
         <value xml:lang="fr">Modifier les écritures de la transaction</value>
+        <value xml:lang="it">Aggiorna voci transazione</value>
         <value xml:lang="nl">Transactieregels aanpassen</value>
     </property>
     <property key="PageTitleFinAccount">
@@ -9655,6 +9744,7 @@
     <property key="PageTitleFinancialAccountSummary">
         <value xml:lang="en">Financial Account Summary</value>
         <value xml:lang="fr">Résumé des comptes financiers</value>
+        <value xml:lang="it">Sommario conto finanziario</value>
         <value xml:lang="nl">Samenvatting financiële rekening</value>
         <value xml:lang="ru">Резюме финансового счета</value>
         <value xml:lang="th">งบกำไรสะสมโดยสรุป</value>
@@ -9662,6 +9752,7 @@
     <property key="PageTitleFinancialSummaryReportOptions">
         <value xml:lang="en">Financial Summary Report Options</value>
         <value xml:lang="fr">Options du rapport de résumé financier</value>
+        <value xml:lang="it">Opzioni sommario report finanziario</value>
         <value xml:lang="nl">Opties rapport financiële samenvatting</value>
         <value xml:lang="ru">Параметры итогового финансового отчета</value>
         <value xml:lang="th">ตัวเลือกรายงานบัญชีโดยสรุป</value>
@@ -9708,8 +9799,9 @@
         <value xml:lang="zh">查找网关响应</value>
     </property>
     <property key="PageTitleFindGlAccount">
-        <value xml:lang="en">PageTitleFindGlAccount</value>
+        <value xml:lang="en">Find Gl Account</value>
         <value xml:lang="fr">Chercher un compte</value>
+        <value xml:lang="it">Ricerca conto Gl</value>
         <value xml:lang="nl">Vind GB-rekening(en)</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9767,6 +9859,7 @@
     <property key="PageTitleInventoryIssueSummary">
         <value xml:lang="en">Inventory Issue Summary</value>
         <value xml:lang="fr">Résumé des problèmes d'inventaire</value>
+        <value xml:lang="it">Sommario problemi inventario</value>
         <value xml:lang="nl">Samenvatting inventarisproblemen</value>
         <value xml:lang="ru">Резюме выдачи ТМЦ</value>
         <value xml:lang="th">โดยสรุปการประกาศสินค้าคงเหลือ</value>
@@ -10088,22 +10181,10 @@
         <value xml:lang="th">ตรวจสอบสินค้า</value>
         <value xml:lang="zh">查找产品</value>
     </property>
-    <property key="PageTitleMain">
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
-        <value xml:lang="nl">Hoofdpagina</value>
-        <value xml:lang="pt_BR">Página de Entrada</value>
-        <value xml:lang="pt_PT">Página de Entrada</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Основная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
-    </property>
     <property key="PageTitlePaymentByMethodSummary">
         <value xml:lang="en">Payments By Method Summary</value>
         <value xml:lang="fr">Résumé des paiements par de méthode</value>
+        <value xml:lang="it">Sommario per metodo di pagamento</value>
         <value xml:lang="nl">Samenvatting betalingen per methode</value>
         <value xml:lang="ru">Резюме Платежи по способам</value>
         <value xml:lang="th">การชำระเงินโดยสรุป</value>
@@ -10122,6 +10203,7 @@
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="en">Sales Invoice By Product Category Summary</value>
         <value xml:lang="fr">Résumé des factures de vente par catégorie de produits</value>
+        <value xml:lang="it">Sommario fatture di vendita per categoria prodotto</value>
         <value xml:lang="nl">Samenvatting verkoopfacturen per productcategorie</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым категориям</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปหมวดหมู่สินค้า</value>
@@ -10129,6 +10211,7 @@
     <property key="PageTitleSalesInvoiceByProductGlAccountSummary">
         <value xml:lang="en">Sales Invoice By Product GL Account Summary</value>
         <value xml:lang="fr">Résumé des factures de vente par compte de produit</value>
+        <value xml:lang="it">Sommario fatture di vendita per conto GL prodotto</value>
         <value xml:lang="nl">Samenvatting verkoopfacturen per product-GB-rekening</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым счетам</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปสินค้าบัญชีแยกประเภททั่วไป</value>
@@ -10180,11 +10263,13 @@
     <property key="PageTitleViewTransaction">
         <value xml:lang="en">View Transaction</value>
         <value xml:lang="fr">Voir la transaction</value>
+        <value xml:lang="it">Mostra transazione</value>
         <value xml:lang="nl">Transactie bekijken</value>
     </property>
     <property key="PageTitleViewTransactionEntries">
         <value xml:lang="en">View Transaction Entries</value>
         <value xml:lang="fr">Voir les écritures de la transaction</value>
+        <value xml:lang="it">Mostra voci transazione</value>
         <value xml:lang="nl">Boekingen transactie bekijken</value>
     </property>
 </resource>
