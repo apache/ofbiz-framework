@@ -41,7 +41,9 @@ under the License.
     <simple-method method-name="addPortalPageColumn" short-description="Add a new Column to a PortalPage">
         <make-value entity-name="PortalPageColumn" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="columnSeqId"/>
+        <if-empty field="parameters.columnSeqId">
+            <make-next-seq-id value-field="newEntity" seq-field-name="columnSeqId"/>
+        </if-empty>
         <field-to-result field="newEntity.columnSeqId" result-name="columnSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>  
@@ -107,78 +109,29 @@ under the License.
     <simple-method method-name="createPortalPage" short-description="Create a new Portal Page">
         <make-value entity-name="PortalPage" value-field="newPortalPage"/>
         <set-pk-fields map="parameters" value-field="newPortalPage"/>
-        <make-next-seq-id value-field="newPortalPage" seq-field-name="portalPageId"/>
-
+        <if-empty field="newPortalPage.portalPageId">
+            <make-next-seq-id value-field="newPortalPage" seq-field-name="portalPageId"/>
+        </if-empty>
         <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
+        <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>
         <create-value value-field="newPortalPage"/>  
 
-        <make-value entity-name="PortalPageColumn" value-field="newPortalPageColumn"/>
         <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
-        <set field="newPortalPageColumn.columnSeqId"  value="1"/>
-        <create-value value-field="newPortalPageColumn"/>
+        <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>
 
         <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
     </simple-method>
     
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
-        <if-compare field="parameters.portalPageId" value="MYPORTAL" operator="not-equals">
-            <if-compare field="parameters.portalPageId" value="DEFAULT" operator="not-equals">
-                <entity-one entity-name="PortalPage" value-field="portalPage" auto-field-map="true" use-cache="true"/>
-        
-                <if-not-empty field="portalPage">
-                    <entity-and entity-name="PortalPageColumn" list="portalPageColumnList">
-                        <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                    </entity-and>
-            
-                    <iterate list="portalPageColumnList" entry="portalPageColumn">
-                        <set-service-fields service-name="deletePortalPageColumn" to-map="deletePortalPageColumnInMap" map="portalPageColumn"/>
-                        <call-service service-name="deletePortalPageColumn" in-map-name="deletePortalPageColumnInMap"/>
-                    </iterate>
-            
-                    <remove-value value-field="portalPage"/>
-                </if-not-empty>
-                </if-compare>
-        </if-compare>
+        <entity-one entity-name="PortalPage" value-field="portalPage"/>
+        <if-not-empty field="portalPage">
+            <if-compare field="portalPage.ownerUserLoginId" value="_NA_" operator="not-equals">
+                <remove-related value-field="portalPage" relation-name="PortalPageColumn"/>
+                <remove-related value-field="portalPage" relation-name="PortalPagePortlet"/>
+                <remove-value value-field="portalPage"/>
+            </if-compare>
+        </if-not-empty>
+
     </simple-method>
-    
-    <!--Create simple-method of getListPreferences-->
-    <simple-method method-name="getListPreferences" short-description="">
-        <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
-        
-        <entity-and entity-name="PortalPage" list="getMainPage">
-            <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
-            <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
-        </entity-and>
-        
-        <if-empty field="getMainPage">
-            <entity-condition entity-name="PortalPage" list="PortalPageList">
-                <condition-list combine="and">
-                    <condition-list combine="or">
-                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.originalPortalPageId"/>
-                    </condition-list>
-                    <condition-list combine="or">
-                        <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
-                        <condition-expr field-name="ownerUserLoginId" operator="equals" value="_NA_"/>
-                    </condition-list>
-                </condition-list>
-                <order-by field-name="createdStamp"/>
-            </entity-condition>
-        </if-empty>
-        <if-not-empty field="getMainPage">
-            <entity-condition entity-name="PortalPage" list="PortalPageList">
-                <condition-list combine="and">
-                    <condition-list combine="or">
-                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.originalPortalPageId"/>
-                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="mainPortalPageId"/>
-                    </condition-list>
-                    <condition-list combine="or">
-                        <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
-                    </condition-list>
-                </condition-list>
-                <order-by field-name="createdStamp"/>
-            </entity-condition>
-        </if-not-empty> 
-        <list-to-list list="PortalPageList" to-list="result"/>
-        <field-to-result field="result" result-name="listIt"/>
-    </simple-method>  
+
 </simple-methods>

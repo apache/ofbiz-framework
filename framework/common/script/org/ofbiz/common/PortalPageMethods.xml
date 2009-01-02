@@ -22,25 +22,25 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getPortletAttributes" short-description="Get Portlet Attribute Values">
-        <call-object-method obj-field-name="request" method-name="getAttribute" ret-field-name="portalPageId"><string value="portalPageId"/></call-object-method>
-        <call-object-method obj-field-name="request" method-name="getAttribute" ret-field-name="portalPortletId"><string value="portalPortletId"/></call-object-method>
-        <call-object-method obj-field-name="request" method-name="getAttribute" ret-field-name="portletSeqId"><string value="portletSeqId"/></call-object-method>
-        <entity-condition entity-name="PortletAttribute" list-name="portletAttributeList">
+        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portalPageId"><string value="portalPageId"/></call-object-method>
+        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portalPortletId"><string value="portalPortletId"/></call-object-method>
+        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portletSeqId"><string value="portletSeqId"/></call-object-method>
+        <entity-condition entity-name="PortletAttribute" list="portletAttributeList">
             <condition-list combine="and">
-                <condition-expr field-name="portalPageId" env-name="portalPageId"/>
-                <condition-expr field-name="portalPortletId" env-name="portalPortletId"/>
-                <condition-expr field-name="portletSeqId" env-name="portletSeqId"/>
+                <condition-expr field-name="portalPageId" from-field="portalPageId"/>
+                <condition-expr field-name="portalPortletId" from-field="portalPortletId"/>
+                <condition-expr field-name="portletSeqId" from-field="portletSeqId"/>
             </condition-list>
         </entity-condition>
         <log level="info" message="portletAttributeList: ${portletAttributeList}"/>
-        <iterate entry-name="portletAttributeList" list-name="portletAttribute">
+        <iterate entry="portletAttributeList" list="portletAttribute">
             <set field="context.${portletAttribute.attrName}" from-field="portletAttribute.attrValue"/>
         </iterate>
     </simple-method>
     
     <simple-method method-name="setPortalPortletAttributes" short-description="Sets a PortalPortlet attributes">
         <if-not-empty field="parameters">
-            <iterate-map map-name="parameters" key-name="attributeKey" value-name="attributeValue">
+            <iterate-map map="parameters" key="attributeKey" value="attributeValue">
                 <if-not-empty field="attributeKey">
                     <if>
                         <condition>
@@ -51,16 +51,16 @@ under the License.
                             </and>
                         </condition>
                         <then>
-                            <clear-field field-name="attributeEntityMap"/>
-                            <set-service-fields service-name="createPortletAttribute" to-map-name="attributeEntityMap" map-name="parameters"/>
+                            <clear-field field="attributeEntityMap"/>
+                            <set-service-fields service-name="createPortletAttribute" to-map="attributeEntityMap" map="parameters"/>
                             <set field="attributeEntityMap.attrName"  from-field="attributeKey"/>
                             <set field="attributeEntityMap.attrValue" from-field="attributeValue"/>
                             
-                            <entity-one entity-name="PortletAttribute" value-name="attributeItem">
-                                <field-map field-name="attrName" env-name="attributeEntityMap.attrName"/>
+                            <entity-one entity-name="PortletAttribute" value-field="attributeItem">
+                                <field-map field-name="attrName" from-field="attributeEntityMap.attrName"/>
                             </entity-one>
                             <if-not-empty field="attributeItem">
-                                <remove-value value-name="attributeItem"/>
+                                <remove-value value-field="attributeItem"/>
                             </if-not-empty>
 
                             <call-service in-map-name="attributeEntityMap" service-name="createPortletAttribute"/>
@@ -72,69 +72,52 @@ under the License.
     </simple-method>
     
     <!--Create simple-method of copyOriginalPage-->
-    <simple-method method-name="copyOriginalPage" short-description="">
-        <set field="originalPortalPageId"  from-field="parameters.originalPortalPageId"/>
-        <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
-        <set field="ownerUserLoginId" from-field="parameters.ownerUserLoginId"/>        
-        
-        <if-compare field="ownerUserLoginId" value="_NA_" operator="equals">
-            <entity-and entity-name="PortalPage" list-name="getMainPage">
-                <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-                <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+    <simple-method method-name="copyIfRequiredSystemPage" short-description="Check if the page is a system page, then copy before allowing the user to copy it">
+        <entity-one entity-name="PortalPage" value-field="portalPage"/>
+        <if-compare field="portalPage.ownerUserLoginId" value="_NA_" operator="equals">
+            <!-- check if private page already created -->
+            <entity-and entity-name="PortalPage" list="getPrivatePages">
+                <field-map field-name="originalPortalPageId" from-field="parameters.portalPageId"/>
+                <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
             </entity-and>
-            
-            <if-empty field="getMainPage">
-                <entity-and entity-name="PortalPage" use-cache="true" list-name="getNA">
-                    <field-map field-name="ownerUserLoginId" value="_NA_"/>
-                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
-                </entity-and>
-                <first-from-list entry-name="getNA" list-name="getNA"/>
-                <make-value entity-name="PortalPage" value-name="getPortalPageAll" map-name="test"/>
-                <set field="test.portalName" from-field="getNA.portalName"/>
-                <set field="test.description" from-field="getNA.description"/>
-                <set field="test.ownerUserLoginId" from-field="userLogin.userLoginId"/>
-                <set field="test.originalPortalPageId" from-field="mainPortalPageId"/>
-                <set-pk-fields map-name="test" value-name="getPortalPageAll"/>
-                <make-next-seq-id value-name="getPortalPageAll" seq-field-name="portalPageId"/>
-                <set-nonpk-fields map-name="test" value-name="getPortalPageAll"/>
-                <create-value value-name="getPortalPageAll"/>
-                <set field="portalPageId" from-field="getPortalPageAll.portalPageId"/>
-                <field-to-request field-name="portalPageId" request-name="portalPageId"/>
+            <if-empty field="getPrivatePages">
                 
-                <entity-and entity-name="PortalPageColumn" use-cache="true"
-                    list-name="portalPageColumnList">
-                    <field-map field-name="portalPageId" env-name="getNA.portalPageId"/>
+                <!-- copy the portal page -->
+                <set-service-fields service-name="createPortalPage" map="portalPage" to-map="createPage"/>
+                <clear-field field="createPage.portalPageId"/>
+                <set field="createPage.ownerUserLoginId" from-field="userLogin.userLoginId"/>
+                <set field="createPage.originalPortalPageId" from-field="parameters.portalPageId"/>
+                <call-service service-name="createPortalPage" in-map-name="createPage">
+                    <result-to-field result-name="portalPageId"/>
+                </call-service>
+                <field-to-request field="portalPageId" request-name="portalPageId"/>
+                
+                <!-- copy portlets -->  
+                <entity-and entity-name="PortalPagePortlet" list="portalPagePortlets">
+                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
                 </entity-and>
-                <iterate entry-name="portalPageColumnList" list-name="portalPageColumnList">
-                    <make-value entity-name="PortalPageColumn" value-name="PortalPageColumn"
-                        map-name="column"/>
-                    <set field="column.portalPageId" from-field="getPortalPageAll.portalPageId"/>
-                    <set field="column.columnSeqId" from-field="portalPageColumnList.columnSeqId"/>
-                    <set-pk-fields map-name="column" value-name="PortalPageColumn"/>
-                    <set-nonpk-fields map-name="column" value-name="PortalPageColumn"/>
-                    <create-value value-name="PortalPageColumn"/>
-                    
-                    <entity-and entity-name="PortalPagePortlet" use-cache="true"
-                        list-name="PortalPagePortlet">
-                        <field-map field-name="portalPageId" env-name="getNA.portalPageId"/>
-                        <field-map field-name="columnSeqId" env-name="PortalPageColumn.columnSeqId"/>
-                    </entity-and>
-                    <iterate entry-name="PortalPagePortlet" list-name="PortalPagePortlet">
-                        <make-value entity-name="PortalPagePortlet" value-name="PortletView"
-                            map-name="portlet"/>
-                        <set field="portlet.portalPageId" from-field="PortalPageColumn.portalPageId"/>
-                        <set field="portlet.portalPortletId"
-                            from-field="PortalPagePortlet.portalPortletId"/>
-                        <set field="portlet.columnSeqId" from-field="PortalPageColumn.columnSeqId"/>
-                        <set field="portlet.portletSeqId"
-                            from-field="PortalPagePortlet.portletSeqId"/>
-                        <set field="portlet.sequenceNum" from-field="PortalPagePortlet.sequenceNum"/>
-                        
-                        <set-pk-fields map-name="portlet" value-name="PortletView"/>
-                        <set-nonpk-fields map-name="portlet" value-name="PortletView"/>
-                        <create-value value-name="PortletView"/>
-                    </iterate>
+                <iterate entry="portalPagePortlet" list="portalPagePortlets">
+                    <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet"/>
+                    <set field="createPortLet.portalPageId" from-field="portalPageId" />
+                    <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet"/>
                 </iterate>
+                
+                <!-- delete the columns -->
+                <set field="delMap.portalPageId" from-field="portalPageId"/>
+                <remove-by-and entity-name="PortalPageColumn" map="delMap"/>
+
+                <!-- copy columns -->
+                <entity-and entity-name="PortalPageColumn" use-cache="true" list="portalPageColumns">
+                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                </entity-and>
+                <set field="first" value="true" type="Boolean"/>
+                <iterate entry="portalPageColumn" list="portalPageColumns">
+                    <set-service-fields service-name="addPortalPageColumn" map="portalPageColumn" to-map="addColumnMap"/>
+                    <clear-field field="addColumnMap.columnSeqId"/>
+                    <set field="addColumnMap.portalPageId" from-field="portalPageId" />
+                    <call-service service-name="addPortalPageColumn" in-map-name="addColumnMap"/>
+                </iterate>
+                
             </if-empty>
         </if-compare>
     </simple-method>    
