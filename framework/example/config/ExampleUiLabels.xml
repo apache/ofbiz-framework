@@ -61,10 +61,6 @@
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
-    <property key="ExampleDashboard">
-        <value xml:lang="en">Example Dashboard</value>
-        <value xml:lang="fr">Exemple de tableau de bord</value>
-    </property>        
     <property key="ExampleExampleId">
         <value xml:lang="en">Example ID</value>
         <value xml:lang="fr">Réf. exemple</value>

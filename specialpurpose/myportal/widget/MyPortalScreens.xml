@@ -803,40 +803,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <!--Create Portal Screen-->
-    <screen name="DisplayExamplePage">
-        <section>
-            <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId"/>
-                <set field="headerItem" from-field="portalPageId"/>
-                <set field="configurePortalPage" from-field="parameters.configurePortalPage"/>
-                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>
-                <entity-condition entity-name="PortalPageColumn" list-name="portalPageColumnList">
-                    <condition-expr field-name="portalPageId" env-name="portalPageId"/>
-                    <order-by field-name="columnSeqId"/>
-                </entity-condition>               
-                <entity-condition entity-name="PortalPagePortletView" list-name="portalPagePortletViewList">
-                    <condition-expr field-name="portalPageId" env-name="portalPageId"/>
-                    <order-by field-name="sequenceNum"/>
-                </entity-condition>
-                <!--My Profile From Party-->
-                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
-                <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/webcommon/portal/portalPage.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>       
 
     <!-- My Profile Screens -->
     <screen name="model">

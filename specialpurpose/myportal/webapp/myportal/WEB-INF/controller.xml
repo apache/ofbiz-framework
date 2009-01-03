@@ -28,8 +28,7 @@
     <description>Show personal information in the system</description>
     
     <request-map uri="main">
-        <security https="true" auth="true"/>
-        <event  type="simple" invoke="getPortalPageId" path="org/ofbiz/myportal/Events.xml"/>
+        <security https="true" auth="true"/>        
         <response name="success" type="view" value="main"/>
     </request-map>
     
@@ -292,12 +291,7 @@
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
     
-    <!-- dashboard -->   
-    <request-map uri="dashboardExample">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="dashboardExample"/>
-    </request-map>
-    
+    <view-map name="main" type="screen" page="component://myportal/widget/CommonScreens.xml#main"/>
     <view-map name="myTasks" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTasks"/>
     <view-map name="myCommunications" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCommunications"/>
     <view-map name="otherCommunications" type="screen" page="component://myportal/widget/CommonScreens.xml#OtherCommunications"/>
@@ -313,8 +307,4 @@
     <view-map name="EditCommunicationEvent" type="screen" page="component://myportal/widget/MyPageScreens.xml#EditCommunicationEvent"/>
     <view-map name="addAttachmentEmail" type="screen" page="component://myportal/widget/MyPageScreens.xml#addAttachmentEmail"/>
     <view-map name="EditCustRequestContent" type="screen" page="component://myportal/widget/MyPageScreens.xml#EditCustRequestContent"/>   
-    
-    <!-- dashboard -->  
-    <view-map name="main" type="screen" page="component://myportal/widget/CommonScreens.xml#main"/>
-    <view-map name="dashboardExample" type="screen" page="component://myportal/widget/MyPortalScreens.xml#DisplayExamplePage"/>
 </site-conf>

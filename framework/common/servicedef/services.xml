@@ -612,7 +612,7 @@ under the License.
     </service>
     <service name="updatePortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Portal Page</description>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePortalPage" default-entity-name="PortalPage" engine="simple" auth="true"

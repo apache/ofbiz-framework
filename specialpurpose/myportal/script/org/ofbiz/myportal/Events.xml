@@ -312,21 +312,4 @@ under the License.
             request-name="communicationEventTypeId"/>
         <field-to-request field="communicationEventId" request-name="communicationEventId"/>
     </simple-method>
-    
-    <!--Create simple-method of getPortalPageId-->
-    <simple-method method-name="getPortalPageId" short-description="">
-        <set field="mainPortalPageId" value="MAINMYPORTAL"/>
-        <entity-and entity-name="PortalPage" list="getMainPage">
-            <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
-            <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
-        </entity-and>
-        <first-from-list entry="getMyportal" list="getMainPage"/>
-        <if-empty field="getMainPage">
-            <set field="portalPageId" value="MYPORTAL"/>
-        </if-empty>
-        <if-not-empty field="getMainPage">
-            <set field="portalPageId" from-field="getMyportal.portalPageId"/>
-        </if-not-empty>
-        <field-to-request field="portalPageId" request-name="portalPageId"/>
-    </simple-method>
 </simple-methods>
