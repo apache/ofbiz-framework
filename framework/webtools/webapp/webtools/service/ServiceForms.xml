@@ -54,34 +54,41 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
     
-    <form name="findJob" title="" type="single" target="jobList?hideFields=Y&amp;lookupFlag=Y" list-name="jobs"
-        header-row-style="header-row" default-table-style="basic-table">
-        <!--field name="lookupFlag"><hidden value="Y"/></field-->
-        <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text/></field>
-        <field name="jobId" title="${uiLabelMap.CommonId}"><text/></field>
-        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><text/></field>
-        <field name="filterJobsWithRunningStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsRunningStatus}"><check/></field>
-        <field name="filterJobsWithPendingStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsPendingStatus}"><check/></field>
-        <field name="filterJobsWithFinishedStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsFinishedStatus}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
-        <field name="" widget-style="buttontext">
-            <hyperlink target="jobList?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y" description="${uiLabelMap.CommonShowAllRecords}"/>
+    <form name="FindJobs" type="single" target="FindJob" default-entity-name="JobSandbox">
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><text-find/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}"><text-find/></field>
+        <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text-find/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true" current-description="">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="SERVICE_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
         </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
     
-    <form name="JobList" title="" target="" type="list" list-name="jobs"
-        paginate-target="jobList" override-list-size="${jobListSize}"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><display/></field>
-        <field name="jobId" title="${uiLabelMap.CommonId}"><display/></field>
-        <field name="poolId" title="${uiLabelMap.WebtoolsPool}"><display/></field>
-        <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}"><display/></field>
-        <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}"><display/></field>
-        <field name="serviceName" title="${uiLabelMap.WebtoolsService}">
-            <hyperlink also-hidden="false" description="${serviceName}" target="availableServices?sel_service_name=${serviceName}"/>
+    <form name="ListJobs" type="list" list-name="listIt" paginate-target="FindJob" default-entity-name="JobSandbox" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="jobCtx"/>
+                <field-map field-name="entityName" value="JobSandbox"/>
+                <field-map field-name="orderBy" env-name="parameters.sortField"/>
+            </service>
+        </actions>
+        <field name="jobName" title="${uiLabelMap.WebtoolsJob}" sort-field="true"><display/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}" sort-field="true"><display/></field>
+        <field name="poolId" title="${uiLabelMap.WebtoolsPool}" sort-field="true"><display/></field>
+        <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}" sort-field="true"><display/></field>
+        <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}" sort-field="true"><display/></field>
+        <field name="serviceName" title="${uiLabelMap.WebtoolsService}" sort-field="true">
+            <hyperlink also-hidden="false" description="${serviceName}" target="ServiceList?sel_service_name=${serviceName}"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
         <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob?jobId=${jobId}"/>
         </field>

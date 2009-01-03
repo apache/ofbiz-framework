@@ -20,13 +20,12 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="EntitySQLProcessor">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEntitySQLProcessor"/>
+                <set field="tabButtonItem" value="EntitySQLProcessor"/>
                 <set field="labelTitleProperty" value="PageTitleEntitySQLProcessor"/>
                 <set field="sqlCommand" from-field="parameters.sqlCommand"/>
                 <set field="selGroup" from-field="parameters.group"/>
@@ -36,7 +35,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntitySQLProcessor.ftl"/></html>
@@ -44,23 +43,18 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
     <screen name="EntityExportAll">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEntityExportAll"/>
+                <set field="tabButtonItem" value="entityExportAll"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
                 <set field="results" from-field="parameters.results"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -81,24 +75,19 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
     <screen name="EntityImportDir">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEntityImportDir"/>
+                <set field="tabButtonItem" value="entityImportDir"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
                 
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -119,24 +108,19 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
     <screen name="EntityImport">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEntityImport"/>
+                <set field="tabButtonItem" value="entityImport"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
                 
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -157,24 +141,19 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
     <screen name="EntityImportReaders">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEntityImportReaders"/>
+                <set field="tabButtonItem" value="entityImportReaders"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
                 
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -195,22 +174,18 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
+
     <screen name="EntityMaint">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsEntityDataMaintenance"/>
+                <set field="tabButtonItem" value="entitymaint"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityMaint.ftl"/></html>
@@ -218,11 +193,9 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
+
     <screen name="FindGeneric">
         <section>
             <condition>
@@ -400,9 +373,11 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEntitySQLProcessor___"/>
+                <set field="tabButtonItem" value="entityEoModelBundle"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
                     </decorator-section>
@@ -413,16 +388,14 @@ under the License.
     
     <screen name="CheckDb">
         <section>
-            <condition>
-                <if-has-permission permission="ENTITY_MAINT"/>
-            </condition>
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsCheckUpdateDatabase"/>
+                <set field="tabButtonItem" value="checkDb"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.groovy"/>
             </actions>
             <widgets>  
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -443,9 +416,6 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-            </fail-widgets>
         </section>
     </screen>
     <screen name="EntityPerformanceTest">
@@ -470,12 +440,12 @@ under the License.
         <section>
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="PageTitleEntityExport"/>
+                <set field="tabButtonItem" value="xmlDsDump"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -534,4 +504,5 @@ under the License.
         </section>
     </screen>
 </screens>
+
 

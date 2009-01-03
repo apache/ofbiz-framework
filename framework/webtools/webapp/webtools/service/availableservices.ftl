@@ -19,7 +19,7 @@ under the License.
 
 <#--Dispatcher Name: ${dispatcherName?default(uiLabelMap.CommonNA)} -->
 
-<#assign url='availableServices'>
+<#assign url='ServiceList'>
 <#assign popupUrl='serviceEcaDetail'>
 
 <#-- Selected Service is available -->

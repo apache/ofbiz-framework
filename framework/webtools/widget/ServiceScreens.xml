@@ -21,28 +21,24 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     
-    <screen name="CommonServiceDecorator">
+    <screen name="ServiceList">
         <section>
             <actions>
-                <set field="headerItem" value="jobs"/>
+                <set field="titleProperty" value="PageTitleServiceList"/>
+                <set field="tabButtonItem" value="serviceList"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/AvailableServices.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
-                            </condition>
                             <widgets>
-                                <include-menu name="serviceTabBar" location="component://webtools/widget/Menus.xml"/>
-                                
-                                <decorator-section-include name="body"/>
-                                
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://webtools/webapp/webtools/service/availableservices.ftl"/>
+                                    </html>
+                                </platform-specific>
                             </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
-                            </fail-widgets>
                         </section>                    
                     </decorator-section>
                 </decorator-screen>
@@ -50,15 +46,15 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ServiceList">
+    <screen name="ServiceLog">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
-                <set field="tabButtonItem" value="ServiceList"/>
+                <set field="tabButtonItem" value="serviceLog"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Services.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/services.ftl"/></html>
@@ -68,52 +64,44 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="JobList">
+
+    <screen name="FindJob">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleJobList"/>
-                <set field="tabButtonItem" value="JobList"/>
-                <!--<limit-range start="0" size="100"/>-->
-                <service service-name="jobList" auto-field-map="parameters"/>
+                <set field="tabButtonItem" value="findJob"/>
+                <set field="jobCtx" from-field="parameters"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <include-menu location="component://webtools/widget/WebToolsMenus.xml" name="FindJobsTitleBar"/>
-                            <container style="screenlet-body">
-                                <section>
-                                    <condition>
-                                        <if-compare field-name="parameters.hideFields" operator="not-equals" value="Y"/>
-                                    </condition>
-                                    <widgets>
-                                        <include-form name="findJob" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <label style="h3">${uiLabelMap.PageTitleJobList}</label>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="JobList" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
-                            </container>
-                        </container>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindJobs" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListJobs" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
+
     <screen name="ThreadList">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleThreadList"/>
-                <set field="tabButtonItem" value="ThreadList"/>
+                <set field="tabButtonItem" value="threadList"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Threads.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
@@ -127,11 +115,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
-                <set field="tabButtonItem" value="ScheduleJob"/>
+                <set field="tabButtonItem" value="scheduleJob"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -157,11 +145,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleRunService"/>
-                <set field="tabButtonItem" value="RunService"/>
+                <set field="tabButtonItem" value="runService"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
