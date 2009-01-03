@@ -1584,6 +1584,14 @@
         <value xml:lang="th">แอพพลิเคซั่นนี้เป็นสิ่งแรกเริ่มจึงอยากให้เข้าร่วมพัฒนาระบบสำหรับนักพัฒนาระบบและระบบของผู้ดูแลระบบ</value>
         <value xml:lang="zh">本应用程序主要供开发人员和系统管理员使用</value>
     </property>
+    <property key="WebtoolsMessage14">
+        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
+        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, le mot de passe : ofbiz</value>
+        <value xml:lang="it">Se interessato, devi essere autenticato, provare con Nome utente:admin, Password:ofbiz</value>
+        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
+        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
+        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
+    </property>
     <property key="WebtoolsViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("OFBTOOLS_VIEW" or "OFBTOOLS_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page ("OFBTOOLS_VIEW" ou "OFBTOOLS_ADMIN" nécessaire)</value>
