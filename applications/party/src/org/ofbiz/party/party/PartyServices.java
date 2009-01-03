@@ -21,7 +21,6 @@ package org.ofbiz.party.party;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -42,7 +41,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
@@ -63,7 +61,7 @@ import org.ofbiz.service.ServiceUtil;
 public class PartyServices {
 
     public static final String module = PartyServices.class.getName();
-    public static final String resource = "PartyUiLabels";
+    public static final String resource = "PartyErrorUiLabels";
 
     /**
      * Deletes a Party.
@@ -1392,12 +1390,10 @@ public class PartyServices {
      * @return
      */
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator _delegator = dctx.getDelegator();
         GenericDelegator delegator = _delegator.cloneDelegator();
         delegator.setEntityEcaHandler(null);
 
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyIdTo = (String) context.get("partyIdTo");
         String partyId = (String) context.get("partyId");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -1672,7 +1668,7 @@ public class PartyServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static String getPartyId(Map context) {
+    public static String getPartyId(Map<String, ? extends Object> context) {
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");

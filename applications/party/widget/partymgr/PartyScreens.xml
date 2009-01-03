@@ -242,12 +242,12 @@ under the License.
                                 <if-compare field-name="party.partyTypeId" operator="equals" value="PERSON"/>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.AddRelatedAccount}">
+                                <screenlet title="${uiLabelMap.PartyAddRelatedAccount}">
                                     <include-form name="AddAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet title="${uiLabelMap.AddRelatedContact}">
+                                <screenlet title="${uiLabelMap.PartyAddRelatedContact}">
                                     <include-form name="AddContact" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
@@ -992,7 +992,7 @@ under the License.
     <screen name="PartyFinancialHistory">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditPartyAttribute"/>
+                <set field="titleProperty" value="PartyFinancialHistory"/>
                 <set field="headerItem" value="accountsMain"/>
                 <set field="tabButtonItem" value="FinancialHistory"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -1001,7 +1001,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h1" text="${uiLabelMap.FinancialHistory}"/>
+                        <label style="h1" text="${uiLabelMap.PartyFinancialHistory}"/>
                         <section>
                             <actions>
                                 <entity-condition entity-name="InvoiceAndApplAndPayment" list-name="ListInvoicesApplPayments">
@@ -1061,7 +1061,7 @@ under the License.
                                 <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
                             </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.InvoicesNotApplied}" navigation-form-name="partyFinancialHistoryInvoicesN">
+                                <screenlet title="${uiLabelMap.PartyInvoicesNotApplied}" navigation-form-name="partyFinancialHistoryInvoicesN">
                                     <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>
@@ -1088,7 +1088,7 @@ under the License.
                                 <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyId"/>
                             </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PaymentsNotApplied}" navigation-form-name="partyFinancialHistoryPaymentsN">
+                                <screenlet title="${uiLabelMap.PartyPaymentsNotApplied}" navigation-form-name="partyFinancialHistoryPaymentsN">
                                     <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>

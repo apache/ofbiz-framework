@@ -29,7 +29,7 @@ under the License.
         </entity-and>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
-        <field name="partyClassificationGroupId" title="${uiLabelMap.Description} [${uiLabelMap.PartyClassificationGroupId}]">
+        <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
             <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}&amp;nbsp;[${partyClassificationGroupId}]"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -53,8 +53,8 @@ under the License.
         <field name="partyClassificationTypeId">
             <display-entity entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId" description="${description}"/>
         </field>
-        <field name="parentGroupId" title="${uiLabelMap.ParentGroupId}"><display/></field>
-        <field name="description" title="${uiLabelMap.Description}"><display/></field>
+        <field name="parentGroupId"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroupId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -74,8 +74,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="parentGroupId" title="${uiLabelMap.ParentGroupId}"><lookup target-form-name="LookupPartyClassificationGroup"/></field>
-        <field name="description" title="${uiLabelMap.Description}"><text size="55"/></field>
+        <field name="parentGroupId"><lookup target-form-name="LookupPartyClassificationGroup"/></field>
+        <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><text size="55"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
@@ -114,7 +114,7 @@ under the License.
                 <field-map field-name="partyClassificationGroupId"/>
             </entity-and>
         </actions>
-        <field name="partyClassificationGroupId" title="${uiLabelMap.Description} [${uiLabelMap.PartyClassificationGroupId}]">
+        <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
             <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}&amp;nbsp;[${partyClassificationGroupId}]"/>
         </field>
         <field name="partyId" title="${uiLabelMap.Party}">

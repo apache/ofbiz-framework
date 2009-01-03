@@ -56,7 +56,7 @@ import org.ofbiz.service.GenericServiceException;
 public class ContactMechServices {
 
     public static final String module = ContactMechServices.class.getName();
-    public static final String resource = "PartyUiLabels";
+    public static final String resource = "PartyErrorUiLabels";
 
     /**
      * Creates a ContactMech
@@ -990,7 +990,7 @@ public class ContactMechServices {
     /**
      * Copies all contact mechs from one party to another. Does not delete or overwrite any contact mechs.
      */
-    public static Map copyPartyContactMechs(DispatchContext dctx, Map context) {
+    public static Map<String, Object> copyPartyContactMechs(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1039,8 +1039,7 @@ public class ContactMechServices {
     /**
      * Creates an EmailAddressVerification
      */
-    
-    public static Map createEmailAddressVerification(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createEmailAddressVerification(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;

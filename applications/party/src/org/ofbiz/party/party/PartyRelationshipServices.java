@@ -39,7 +39,7 @@ import org.ofbiz.service.ServiceUtil;
 public class PartyRelationshipServices {
 
     public static final String module = PartyRelationshipServices.class.getName();
-    public static final String resource = "PartyUiLabels";
+    public static final String resource = "PartyErrorUiLabels";
 
     /** Creates a PartyRelationshipType
      *@param ctx The DispatchContext that this service is operating in

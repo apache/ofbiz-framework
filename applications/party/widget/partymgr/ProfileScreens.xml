@@ -473,7 +473,7 @@
                         <not><if-empty field-name="contacts"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.ListRelatedContacts}" navigation-form-name="ListContacts">
+                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-form-name="ListContacts">
                             <include-form name="ListRelatedContacts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -483,7 +483,7 @@
                         <not><if-empty field-name="accounts"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.ListRelatedAccounts}" navigation-form-name="ListAccounts">
+                        <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-form-name="ListAccounts">
                             <include-form name="ListRelatedAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>
                     </widgets>

@@ -3888,8 +3888,12 @@
         <value xml:lang="es">Nuevo pedido</value>
         <value xml:lang="fr">Nouvelle commande</value>
         <value xml:lang="it">Nuovo ordine</value>
+        <value xml:lang="nl">Nieuwe order</value>
+        <value xml:lang="pt_PT">Nova Encomenda</value>
+        <value xml:lang="ro">Noua Comanda</value>
         <value xml:lang="ru">Новый заказ</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าใหม่</value>
+        <value xml:lang="zh">新建订单</value>
     </property>
     <property key="OrderNewQuantity">
         <value xml:lang="de">Neue Menge</value>
@@ -5783,8 +5787,12 @@
         <value xml:lang="es">Pedidos</value>
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
+        <value xml:lang="nl">Orders</value>
+        <value xml:lang="pt_PT">Encomendas</value>
+        <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказы</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">订单</value>
     </property>
     <property key="OrderOrdersItemCounts">
         <value xml:lang="de">Anzahl Auftragselemente</value>

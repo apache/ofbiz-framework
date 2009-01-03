@@ -30,7 +30,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityUtil;
@@ -42,7 +41,7 @@ import org.ofbiz.service.ServiceUtil;
 public class CommunicationEventServices {
     
     public static final String module = CommunicationEventServices.class.getName();
-    public static final String resource = "PartyUiLabels";
+    public static final String resource = "PartyErrorUiLabels";
     
     public static Map<String, Object> sendCommEventAsEmail(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
@@ -307,9 +306,8 @@ public class CommunicationEventServices {
 
         return errorMessages.size() == 0 ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
     }
-
-
-    public static Map setCommEventComplete(DispatchContext dctx, Map context) {
+    
+    public static Map<String, Object> setCommEventComplete(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String communicationEventId = (String) context.get("communicationEventId");

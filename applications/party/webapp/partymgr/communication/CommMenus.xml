@@ -52,7 +52,7 @@ under the License.
             <link target="ListCommCustRequests?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </menu-item>
         -->
-        <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.EmailfromUnknownParties}">
+        <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
             <link target="listUnknownPartyComms"/>
         </menu-item>
     </menu>
