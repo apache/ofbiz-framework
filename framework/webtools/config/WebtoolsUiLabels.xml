@@ -1586,7 +1586,7 @@
     </property>
     <property key="WebtoolsMessage14">
         <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
-        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, le mot de passe : ofbiz</value>
+        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, et le mot de passe : ofbiz</value>
         <value xml:lang="it">Se interessato, devi essere autenticato, provare con Nome utente:admin, Password:ofbiz</value>
         <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
         <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
