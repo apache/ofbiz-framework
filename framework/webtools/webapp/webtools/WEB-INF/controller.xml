@@ -278,30 +278,34 @@ under the License.
     </request-map>
 
     <!-- Service Engine Info and Job Management Requests -->
-    <request-map uri="serviceList">
+    <request-map uri="ServiceLog">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="serviceList"/>
+        <response name="success" type="view" value="ServiceLog"/>
+    </request-map>
+    <request-map uri="ServiceList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ServiceList"/>
     </request-map>
 
     <request-map uri="threadList">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="threadList"/>
     </request-map>
-    <request-map uri="jobList">
+    <request-map uri="FindJob">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="jobList"/>
+        <response name="success" type="view" value="FindJob"/>
     </request-map>
     <request-map uri="cancelJob">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelScheduledJob"/>
-        <response name="success" type="view" value="jobList"/>
-        <response name="error" type="view" value="jobList"/>
+        <response name="success" type="view" value="FindJob"/>
+        <response name="error" type="view" value="FindJob"/>
     </request-map>
     <request-map uri="resetJob">
         <security https="true" auth="true"/>
         <event type="service" invoke="resetScheduledJob"/>
-        <response name="success" type="view" value="jobList"/>
-        <response name="error" type="view" value="jobList"/>
+        <response name="success" type="view" value="FindJob"/>
+        <response name="error" type="view" value="FindJob"/>
     </request-map>
     <request-map uri="scheduleJob">
         <security https="true" auth="true"/>
@@ -322,7 +326,7 @@ under the License.
     <request-map uri="scheduleService">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
-        <response name="success" type="view" value="jobList"/>
+        <response name="success" type="view" value="FindJob"/>
         <response name="sync_success" type="view" value="serviceResult"/>
         <response name="error" type="view" value="scheduleJob"/>
     </request-map>   
@@ -338,10 +342,6 @@ under the License.
     </request-map>   
     
     <!-- Available services requests -->
-    <request-map uri="availableServices">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="availableServices"/>
-    </request-map>
     <request-map uri="serviceEcaDetail">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="serviceEcaDetail"/>
@@ -349,8 +349,8 @@ under the License.
     <request-map uri="exportServiceEoModelBundle">
         <security https="true" auth="true"/>
         <event type="service" invoke="exportServiceEoModelBundle"/>
-        <response name="success" type="view" value="availableServices"/>
-        <response name="error" type="view" value="availableServices"/>
+        <response name="success" type="view" value="ServiceList"/>
+        <response name="error" type="view" value="ServiceList"/>
     </request-map>
     
     <!-- CustomTimePeriod requests -->
@@ -576,15 +576,15 @@ under the License.
 
     <view-map name="EditCustomTimePeriod" type="screen" page="component://webtools/widget/MiscScreens.xml#EditCustomTimePeriod"/>
 
-    <view-map name="serviceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
-    <view-map name="jobList" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobList"/>
+    <view-map name="ServiceLog" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceLog"/>
+    <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
+    <view-map name="FindJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJob"/>
     <view-map name="serviceResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceResult"/>
     <view-map name="threadList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ThreadList"/>
     <view-map name="scheduleJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#ScheduleJob"/>
     <view-map name="runService" type="screen" page="component://webtools/widget/ServiceScreens.xml#RunService"/>
     <view-map name="setServiceParameters" type="screen" page="component://webtools/widget/ServiceScreens.xml#setServiceParameters"/>
     <view-map name="setSyncServiceParameters" type="screen" page="component://webtools/widget/ServiceScreens.xml#setSyncServiceParameters"/>
-    <view-map name="availableServices" type="screen" page="component://webtools/widget/AvailableServicesScreens.xml#AvailableServicesList"/>
     <view-map name="serviceEcaDetail" type="screen" page="component://webtools/widget/AvailableServicesScreens.xml#ServiceEcaDetail"/>
 
     <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>

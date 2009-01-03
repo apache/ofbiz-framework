@@ -1122,12 +1122,6 @@
         <value xml:lang="it">Risultati della Ricerca</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
     </property>
-    <property key="WebtoolsFinishedStatus">
-        <value xml:lang="en">Finished status</value>
-        <value xml:lang="fr">Statut de fin</value>
-        <value xml:lang="it">stato completato</value>
-        <value xml:lang="th">สถานะเสร็จสิ้น</value>
-    </property>
     <property key="WebtoolsFkIdx">
         <value xml:lang="en">Fk-Idx</value>
         <value xml:lang="fr">Indice-Clè étrangère</value>
@@ -1380,12 +1374,6 @@
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">任务</value>
     </property>
-    <property key="WebtoolsJobFilterOn">
-        <value xml:lang="en">Filter jobs on</value>
-        <value xml:lang="fr">Filtrer les jobs actifs</value>
-        <value xml:lang="it">Filtra i lavori in</value>
-        <value xml:lang="th">งานที่ต้องการ</value>
-    </property>
     <property key="WebtoolsJobList">
         <value xml:lang="en">Job List</value>
         <value xml:lang="fr">Liste des jobs</value>
@@ -1596,13 +1584,14 @@
         <value xml:lang="th">แอพพลิเคซั่นนี้เป็นสิ่งแรกเริ่มจึงอยากให้เข้าร่วมพัฒนาระบบสำหรับนักพัฒนาระบบและระบบของผู้ดูแลระบบ</value>
         <value xml:lang="zh">本应用程序主要供开发人员和系统管理员使用</value>
     </property>
-    <property key="WebtoolsMessage14">
-        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
-        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, le mot de passe : ofbiz</value>
-        <value xml:lang="it">Se interessato, devi essere autenticato, provare con Nome utente:admin, Password:ofbiz</value>
-        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
-        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
-        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
+    <property key="WebtoolsViewPermissionError">
+        <value xml:lang="en">You do not have permission to view this page. ("OFBTOOLS_VIEW" or "OFBTOOLS_ADMIN" needed)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page ("OFBTOOLS_VIEW" ou "OFBTOOLS_ADMIN" nécessaire)</value>
+        <value xml:lang="it">Non sei autorizzato a vedere questa pagina. (Necessario permesso "OFBTOOLS_VIEW" o "OFBTOOLS_ADMIN")</value>
+        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Este necesar Permisul "OFBTOOLS_VIEW" sau "OFBTOOLS_ADMIN")</value>
+        <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "OFBTOOLS_VIEW" или "OFBTOOLS_ADMIN")</value>
+        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "OFBTOOLS_VIEW" หรือ "OFBTOOLS_ADMIN" ที่ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限。(需要"OFBTOOLS_VIEW"或"OFBTOOLS_ADMIN")</value>
     </property>
     <property key="WebtoolsMessage15">
         <value xml:lang="en">You may create an Entity</value>
@@ -2056,12 +2045,6 @@
         <value xml:lang="th">หยุด (secs) ระหว่างไฟล์</value>
         <value xml:lang="zh">文件间暂停 (秒)</value>
     </property>
-    <property key="WebtoolsPendingStatus">
-        <value xml:lang="en">Pending status</value>
-        <value xml:lang="fr">Statut "en attente"</value>
-        <value xml:lang="it">stato di atteso</value>
-        <value xml:lang="th">สถานะอยู่ในระหว่าง</value>
-    </property>
     <property key="WebtoolsPerformanceCalls">
         <value xml:lang="en">Calls</value>
         <value xml:lang="fr">Appels</value>
@@ -2403,12 +2386,6 @@
         <value xml:lang="ro">Timp de Executie</value>
         <value xml:lang="th">เวลาดำเนินงาน</value>
         <value xml:lang="zh">运行时间</value>
-    </property>
-    <property key="WebtoolsRunningStatus">
-        <value xml:lang="en">Running status</value>
-        <value xml:lang="fr">Statut "En cours"</value>
-        <value xml:lang="it">stato di esecuzione</value>
-        <value xml:lang="th">สถานะการทำงาน</value>
     </property>
     <property key="WebtoolsSchedule">
         <value xml:lang="en">Schedule</value>

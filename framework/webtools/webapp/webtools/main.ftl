@@ -71,7 +71,7 @@ text-decoration: underline;
           <li><h3>${uiLabelMap.WebtoolsGeneralArtifactInfoTools}</h3></li>
           <li><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsArtifactInfo}</a></li>
           <li><a href="<@ofbizUrl>entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference} - Interactive</a></li>
-          <li><a href="<@ofbizUrl>availableServices</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
+          <li><a href="<@ofbizUrl>ServiceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
         </#if>
         <#if security.hasPermission("ENTITY_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>
@@ -107,12 +107,12 @@ text-decoration: underline;
         </#if>
         <#if security.hasPermission("SERVICE_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsServiceEngineTools}</h3></li>
-          <li><a href="<@ofbizUrl>availableServices</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
+          <li><a href="<@ofbizUrl>ServiceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
           <li><a href="<@ofbizUrl>scheduleJob</@ofbizUrl>">${uiLabelMap.PageTitleScheduleJob}</a></li>
           <li><a href="<@ofbizUrl>runService</@ofbizUrl>">${uiLabelMap.PageTitleRunService}</a></li>
-          <li><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.PageTitleJobList}</a></li>
+          <li><a href="<@ofbizUrl>FindJob</@ofbizUrl>">${uiLabelMap.PageTitleJobList}</a></li>
           <li><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.PageTitleThreadList}</a></li>
-          <li><a href="<@ofbizUrl>serviceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
+          <li><a href="<@ofbizUrl>ServiceLog</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
         </#if>
         <#if security.hasPermission("WORKFLOW_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsWorkflowEngineTools}</h3></li>

@@ -33,7 +33,7 @@ under the License.
                                 <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://webtools/widget/WebToolsMenus.xml" name="LoggingTabBar"/>
+                                <include-menu location="component://webtools/widget/Menus.xml" name="LoggingTabBar"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

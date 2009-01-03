@@ -19,23 +19,128 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
+    <menu name="WebtoolsAppBar" title="${uiLabelMap.FrameworkWebTools}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="cache" title="${uiLabelMap.WebtoolsCacheMaintenance}">
+            <link target="FindUtilCache"/>
+        </menu-item>
+        <menu-item name="entity" title="${uiLabelMap.WebtoolsEntityEngineTools}">
+            <link target="entitymaint"/>
+        </menu-item>
+        <menu-item name="service" title="${uiLabelMap.WebtoolsServiceEngineTools}">
+            <link target="ServiceList"/>
+        </menu-item>
+        <menu-item name="logging" title="${uiLabelMap.WebtoolsLogging}">
+            <link target="LogView"/>
+        </menu-item>
+<!--
+        <menu-item name="workflow" title="Workflow">
+            <link target="workflowMonitor"/>
+        </menu-item>
+-->
+        <menu-item name="data" title="${uiLabelMap.WebtoolsDataFileTools}">
+            <link target="viewdatafile"/>
+        </menu-item>
+        <menu-item name="ArtifactInfo" title="${uiLabelMap.WebtoolsArtifactInfo}">
+            <link target="ArtifactInfo"/>
+        </menu-item>
+        <menu-item name="tempexpr" title="${uiLabelMap.TemporalExpression}">
+            <link target="findTemporalExpression"/>
+        </menu-item>
+        <menu-item name="stats" title="${uiLabelMap.WebtoolsStatsSinceServerStart}">
+            <link target="StatsSinceStart"/>
+        </menu-item>
+    </menu>
+
     <menu name="serviceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="page.tabButtonItem">
-        <menu-item name="ServiceList" title="${uiLabelMap.WebtoolsServiceList}">
-            <link target="serviceList"/>
+        <menu-item name="serviceList" title="${uiLabelMap.WebtoolsServiceReference}">
+            <link target="ServiceList"/>
         </menu-item>
-        <menu-item name="JobList" title="${uiLabelMap.WebtoolsJobList}">
-            <link target="jobList"/>
+        <menu-item name="serviceLog" title="${uiLabelMap.WebtoolsServiceLog}">
+            <link target="ServiceLog"/>
         </menu-item>
-        <menu-item name="ThreadList" title="${uiLabelMap.WebtoolsThreadList}">
+        <menu-item name="findJob" title="${uiLabelMap.WebtoolsJobList}">
+            <link target="FindJob"/>
+        </menu-item>
+        <menu-item name="threadList" title="${uiLabelMap.WebtoolsThreadList}">
             <link target="threadList"/>
         </menu-item> 
-        <menu-item name="ScheduleJob" title="${uiLabelMap.WebtoolsScheduleJob}">
+        <menu-item name="scheduleJob" title="${uiLabelMap.WebtoolsScheduleJob}">
             <link target="scheduleJob"/>
         </menu-item> 
-        <menu-item name="RunService" title="${uiLabelMap.PageTitleRunService}">
+        <menu-item name="runService" title="${uiLabelMap.PageTitleRunService}">
             <link target="runService"/>
         </menu-item> 
+    </menu>
+
+    <menu name="LoggingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="logMenuItem">
+        <menu-item name="viewLog" title="${uiLabelMap.WebtoolsViewLog}">
+            <link target="LogView"/>
+        </menu-item>
+        <menu-item name="logConfiguration" title="${uiLabelMap.PageTitleLogConfiguration}">
+            <link target="LogConfiguration"/>
+        </menu-item>
+    </menu>
+
+    <menu name="TempExprTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabMenuItem">
+        <menu-item name="findExpression" title="${uiLabelMap.CommonFind}">
+            <link target="findTemporalExpression"/>
+        </menu-item>
+        <menu-item name="editExpression" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <not><if-empty field-name="temporalExpression"/></not>
+            </condition>
+            <link target="editTemporalExpression?tempExprId=${temporalExpression.tempExprId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="EntityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="entitymaint" title="${uiLabelMap.WebtoolsEntityDataMaintenance}">
+            <link target="entitymaint"/>
+        </menu-item>
+        <menu-item name="entityref" title="${uiLabelMap.WebtoolsEntityReference} - Interactive">
+            <link target="entityref" target-window="_BLANK"/>
+        </menu-item>
+        <menu-item name="entityrefStatic" title="${uiLabelMap.WebtoolsEntityReference} - ${uiLabelMap.WebtoolsEntityReferenceStaticVersion}">
+            <link target="entityref?forstatic=true" target-window="_BLANK"/>
+        </menu-item>
+        <menu-item name="entityrefReport" title="${uiLabelMap.WebtoolsEntityReferencePdf}">
+            <link target="entityrefReport" target-window="_BLANK"/>
+        </menu-item>
+        <menu-item name="EntitySQLProcessor" title="${uiLabelMap.PageTitleEntitySQLProcessor}">
+            <link target="EntitySQLProcessor"/>
+        </menu-item>
+        <menu-item name="entitySyncStatus" title="${uiLabelMap.WebtoolsEntitySyncStatus}">
+            <link target="EntitySyncStatus"/>
+        </menu-item>
+        <menu-item name="modelInduceFromDb" title="${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}">
+            <link target="view/ModelInduceFromDb"/>
+        </menu-item>
+        <menu-item name="entityEoModelBundle" title="${uiLabelMap.WebtoolsExportEntityEoModelBundle}">
+            <link target="EntityEoModelBundle"/>
+        </menu-item>
+        <menu-item name="checkDb" title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
+            <link target="view/checkdb"/>
+        </menu-item>
+
+        <menu-item name="xmlDsDump" title="${uiLabelMap.PageTitleEntityExport}">
+            <link target="xmldsdump"/>
+        </menu-item>
+        <menu-item name="entityExportAll" title="${uiLabelMap.PageTitleEntityExportAll}">
+            <link target="EntityExportAll"/>
+        </menu-item>
+        <menu-item name="entityImport" title="${uiLabelMap.PageTitleEntityImport}">
+            <link target="EntityImport"/>
+        </menu-item>
+        <menu-item name="entityImportDir" title="${uiLabelMap.PageTitleEntityImportDir}">
+            <link target="EntityImportDir"/>
+        </menu-item>
+        <menu-item name="entityImportReaders" title="${uiLabelMap.PageTitleEntityImportReaders}">
+            <link target="EntityImportReaders"/>
+        </menu-item>
     </menu>
 
 </menus>

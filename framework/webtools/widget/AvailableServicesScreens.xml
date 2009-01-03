@@ -20,37 +20,11 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="AvailableServicesList">
-        <section>
-            <actions>
-                <set field="titleProperty" value="WebtoolsServiceReference"/>
-                <set field="appButtonItem" value="service"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/AvailableServices.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://webtools/webapp/webtools/service/availableservices.ftl"/>
-                                    </html>
-                                </platform-specific>
-                            </widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ServiceEcaDetail">
         <section>
             <actions>
                 <set field="titleProperty" value="WebtoolsServiceReference"/>
                 <set field="appButtonItem" value="service"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
