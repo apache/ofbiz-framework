@@ -55,7 +55,7 @@ under the License.
         <menu-item name="EditPartyClassifications" title="${uiLabelMap.PartyClassifications}">
             <link target="EditPartyClassifications?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="ContactList" title="${uiLabelMap.PartyContactList}">
+        <menu-item name="ContactList" title="${uiLabelMap.PartyContactLists}">
             <link target="ListPartyContactLists?partyId=${partyId}"/>
         </menu-item>
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
@@ -73,7 +73,7 @@ under the License.
         <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmploymentApps?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
         </menu-item>
-        <menu-item name="FinancialHistory" title="${uiLabelMap.FinancialHistory}">
+        <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
             <condition>
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>

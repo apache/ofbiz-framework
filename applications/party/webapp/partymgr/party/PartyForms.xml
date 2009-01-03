@@ -712,7 +712,7 @@ under the License.
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
-        <field name="partyRelationshipTypeId" title="${uiLabelMap.IsA}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.PartyIsA}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyOfParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink description="[${partyIdFrom}]" target="viewprofile?partyId=${partyIdFrom}"/>
@@ -738,7 +738,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyRelationshipTypeId" title="${uiLabelMap.IsA}">
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.PartyIsA}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRelationshipType" description="${partyRelationshipName}">
                     <entity-order-by field-name="partyRelationshipName"/>
