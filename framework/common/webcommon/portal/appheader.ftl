@@ -19,7 +19,7 @@ under the License.
 
 <#assign selected = headerItem?default("void")>
 <div id="app-navigation">
-  <h2>${uiLabelMap.ExampleDashboard}</h2>
+  <h2>${uiLabelMap.ExampleApplication}</h2>
   <ul>
     <#if userLogin?has_content>    	
         <li <#if selected = "${uiLabelMap.ExampleExample}"> class="selected"</#if>><a href="<@ofbizUrl>FindExample?portalPageId=${uiLabelMap.ExampleExample}</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
@@ -28,7 +28,7 @@ under the License.
         <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>        
         <#if portalPages?has_content>
         	<#list portalPages as page>
-            	<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalPageName}</a></li>
+            	<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>"><#if page.portalPageName?exists>${page.portalPageName}<#else>?</#if></a></li>
         	</#list>
         </#if>
         <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>

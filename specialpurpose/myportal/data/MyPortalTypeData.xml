@@ -36,7 +36,7 @@
     <Enumeration description="Customer Request Completed" enumCode="CUST_COMPLETE" enumId="PRDS_CUST_CONFIRM" sequenceId="18" enumTypeId="PRDS_EMAIL"/>
     
     <!-- PortalPortlet Demo Data -->
-    <PortalPage portalPageId="MYPORTAL" portalName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" originalPortalPageId="MYPORTAL"/>
+    <PortalPage portalPageId="MYPORTAL" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="MYPORTAL" columnSeqId="01" />
     <PortalPageColumn portalPageId="MYPORTAL" columnSeqId="02" />
     

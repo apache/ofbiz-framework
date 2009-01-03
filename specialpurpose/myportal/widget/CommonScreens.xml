@@ -44,36 +44,14 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <!-- TODO: Use transform to specify component URI -->
-                <set field="activeApp" value="example" global="true"/>
                 <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                     <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
-                <set field="originalPortalPageId" value="MYPORTAL"/>
-                <set field="mainPortalPageId" value="MAINMYPORTAL"/>
-                <set field="appheaderTemplate" value="component://myportal/templates/appheader.ftl"/>               
-                <entity-and entity-name="PortalPage" list-name="pages">
-                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
-                    <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-                    <order-by field-name="createdStamp"/>
-                </entity-and>
-                <entity-and entity-name="PortalPage" list-name="getNA">
-                    <field-map field-name="ownerUserLoginId" value="_NA_"/>
-                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
-                </entity-and>
-                <entity-and entity-name="PortalPage" list-name="getMainPage">
-                    <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-                    <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-                </entity-and>
+                <set field="appheaderTemplate" value="component://myportal/templates/appheader.ftl"/>
+                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
+                <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
             </actions>
             <widgets>
-                <section>
-                    <condition><not><if-empty field-name="userLogin"/></not></condition>
-                    <actions>
-                        <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                            <field-map field-name="userPrefGroupTypeId" value="MyPortal" />
-                        </service>
-                    </actions>
-                    <widgets/>
-                </section>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
@@ -124,6 +102,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <actions>
@@ -131,12 +110,12 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-name="commEvent">
                     <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
                 </entity-one>
-                <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
+                <script location="component://myportal/webapp/myportal/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu location="component://mypage/widget/MyPageMenus.xml" name="CommSubTabBar"/>
+                        <include-menu location="component://myportal/widget/MyPortalMenus.xml" name="CommSubTabBar"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -158,197 +137,29 @@ under the License.
     </screen>
 
 	<screen name="main">
-		<section>
-			<widgets>
-			    <include-screen name="DisplayExamplePage" location="component://myportal/widget/MyPortalScreens.xml"/>
-			</widgets>
-		</section>
-	</screen>
-    
-    <screen name="mainEmployee">
-        <section>
-            <actions>
-                <service service-name="getUserPreferenceGroup"
-                    result-map-name="preferences">
-                    <field-map field-name="userPrefGroupTypeId" value="MyPage" />
-                </service>
-                <!--  check if there are any customer requests for this user -->
-                <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
-                    <condition-list combine="and">
-                        <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
-                        <condition-list combine="and">
-                            <condition-expr field-name="roleTypeIdTo" operator="equals" value="REQ_TAKER"/>
-                            <condition-expr field-name="partyIdTo" operator="equals" env-name="userLogin.partyId"/>
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="-custRequestDate"/>
-                </entity-condition>
-            </actions>
-            <widgets>
-                <section>
-                    <condition>
-                        <not><if-empty field-name="custRequests"/></not>
-                    </condition>
-                    <widgets>
-                        <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList" >
-                            <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        </screenlet>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="preferences.userPrefMap.myCommunications"
-                            operator="equals" value="Y" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="MyCommunications"
-                            location="component://mypage/widget/MyPageScreens.xml"/>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="preferences.userPrefMap.otherCommunications"
-                            operator="equals" value="Y" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="OtherCommunications"
-                            location="component://mypage/widget/MyPageScreens.xml" />
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="preferences.userPrefMap.myCompanyComms"
-                            operator="equals" value="Y" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="MyCompanyComms"
-                            location="component://mypage/widget/MyPageScreens.xml" />
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="preferences.userPrefMap.myTasks"
-                            operator="equals" value="Y" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="MyTasks"
-                            location="component://mypage/widget/MyPageScreens.xml" />
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="preferences.userPrefMap.myTimesheet"
-                            operator="equals" value="Y" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="MyTimesheet"
-                            location="component://mypage/widget/MyPageScreens.xml" />
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="mainCustomer">
-        <section>
-            <actions>
-                <set field="partyId" from-field="userLogin.partyId"/>
-                <set field="status" from-field="parameters.status" default-value="open"/>
-                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
-                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
-                    <condition-list combine="and">
-                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="+priority"/>
-                    <order-by field-name="+custRequestDate"/>
-                </entity-condition>
-                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
-                    <condition-list combine="and">
-                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="custRequestDate"/>
-                </entity-condition>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
-                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
-                    <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
-                        <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
-                    </condition-list>
-                    <order-by field-name="custRequestDate"/>
-                </entity-condition>
-                <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
-                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
-                    <condition-list combine="and">
-                        <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
-                        <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
-                        <condition-list combine="or">
-                            <condition-expr field-name="roleStatusId"
-                                operator="not-equals" value="COM_ROLE_COMPLETED" />
-                            <condition-expr field-name="roleStatusId"
-                                operator="like" value="${status}" />
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="-datetimeStarted" />
-                </entity-condition>
-                <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                    <field-map field-name="userPrefGroupTypeId" value="MyPage" />
-                </service>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.MyOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
-                    <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                    <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
-                </screenlet>
-                <screenlet title="${uiLabelMap.MyCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
-                    <include-form name="ListCustRequestsCompleted" location="component://mypage/widget/MyPageForms.xml"/>
-                </screenlet>
-                <section>
-                    <condition>
-                        <not><if-empty field-name="companyCustRequests"/></not>
-                    </condition>
-                    <widgets>
-                        <screenlet title="${uiLabelMap.OtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
-                            <include-form name="ListOtherCompanyRequests" location="component://mypage/widget/MyPageForms.xml"/>
-                        </screenlet>
-                    </widgets>
-                </section>
-                <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
-                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
-                    <include-menu name="communicationsMenu" location="component://mypage/widget/MyPageMenus.xml" />
-                    <include-form name="ListPartyCommEvents" location="component://mypage/widget/MyPageForms.xml" />
-                </screenlet>                
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="mainNoAccess">
-        <section>
-            <widgets>
-                <screenlet title="${uiLabelMap.CommonNoAccess}" navigation-form-name="ListRequestList" >
-                    <container>
-                        <label style="h1" text="${uiLabelMap.MyPageNoAccess1}"></label>
-                    </container>
-                    <container>
-                        <label style="h2" text="${uiLabelMap.MyPageNoAccess2}"></label>
-                    </container>
-                    <container>
-                        <label style="h3" text="${uiLabelMap.MyPageNoAccess3}"></label>
-                    </container>
-                    <container>
-                        <label style="h3" text="${uiLabelMap.MyPageNoAccess4}"></label>
-                    </container>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
+	    <section>
+	        <actions>
+	            <service service-name="getMainPortalPageId" result-map-name="getMainPortalPageId"/>
+	            <set field="parameters.portalPageId" from-field="getMainPortalPageId.portalPageId"/>
+	            <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
+	            <set field="headerItem" from-field="parameters.portalPageId"/>
+	            <!--My Profile From Party-->
+	            <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+	            <set field="tabButtonItem" value="viewprofile"/>
+	            <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+	            <set field="parameters.partyId" from-field="userLogin.userLoginId"/>
+	            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+	            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+	        </actions>
+	        <widgets>
+	            <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+	                <decorator-section name="body">
+	                    <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+	                </decorator-section>
+	            </decorator-screen>
+	        </widgets>
+	    </section>
+	</screen>                 
 
     <screen name="CommonRequestDecorator">
         <section>
