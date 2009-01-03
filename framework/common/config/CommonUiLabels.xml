@@ -1609,6 +1609,10 @@
         <value xml:lang="zh">日期过滤</value>
         <value xml:lang="zh_CN">日期过滤器</value>
     </property>
+    <property key="CommonDates">
+        <value xml:lang="en">Dates</value>
+        <value xml:lang="fr">Dates</value>
+    </property>
     <property key="CommonDay">
         <value xml:lang="ar">يوم</value>
         <value xml:lang="de">Tag</value>
@@ -3137,7 +3141,7 @@
         <value xml:lang="th">มิถุนายน</value>
         <value xml:lang="zh">六月</value>
         <value xml:lang="zh_CN">六月</value>
-    </property>
+    </property>    
     <property key="CommonLanguageTitle">
         <value xml:lang="ar">اللغة</value>
         <value xml:lang="cs">Jazyk</value>
@@ -3473,6 +3477,10 @@
         <value xml:lang="zh">你可以在这里新建账户</value>
         <value xml:lang="zh_CN">你可以在这里建立新的帐户</value>
     </property>
+    <property key="CommonMeasures">
+        <value xml:lang="en">Measures</value>
+        <value xml:lang="fr">Mesures</value>
+    </property>
     <property key="CommonMedium">
         <value xml:lang="ar">وسيط</value>
         <value xml:lang="de">Mittel</value>
@@ -3556,6 +3564,10 @@
         <value xml:lang="th">ทุกนาที</value>
         <value xml:lang="zh">每分钟</value>
     </property>
+    <property key="CommonMiscellaneous">
+        <value xml:lang="en">Miscellaneous</value>
+        <value xml:lang="fr">Divers</value>
+    </property>    
     <property key="CommonModify">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Bearbeiten</value>
