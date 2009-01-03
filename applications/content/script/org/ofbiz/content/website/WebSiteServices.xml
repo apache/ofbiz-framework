@@ -48,7 +48,7 @@ under the License.
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
-            <now-date-to-env field="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/> 
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -154,7 +154,7 @@ under the License.
         <now-timestamp field="now"/>
         <log level="always" message="Parameters: ${parameters}"/>
         
-        <if-instance-of field-name="parameters.webSiteContentTypeId" class="String">
+        <if-instance-of field="parameters.webSiteContentTypeId" class="String">
             <!-- just one checked -->
             <entity-one entity-name="WebSiteContentType" value-field="wct">
                 <field-map field-name="webSiteContentTypeId" from-field="parameters.webSiteContentTypeId"/>
