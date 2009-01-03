@@ -7340,7 +7340,7 @@
         <value xml:lang="de">Schlüsselwörter automatisch erstellen</value>
         <value xml:lang="en">AutoCreateKeywords</value>
         <value xml:lang="es">Creación Automática de Palabras Clave</value>
-        <value xml:lang="fr">Création automatique de mots-clés</value>
+        <value xml:lang="fr">Création automatique de mots-clés ?</value>
         <value xml:lang="it">Creazione Automatica Chiavi</value>
         <value xml:lang="ro">Creatie Automatica Chei</value>
         <value xml:lang="ru">Ключев. слова созд. автом-ки</value>
@@ -8098,7 +8098,7 @@
         <value xml:lang="de">Lieferung verrechnen</value>
         <value xml:lang="en">Charge Shipping</value>
         <value xml:lang="es">(Cobrar) Gastos de envío</value>
-        <value xml:lang="fr">Frais d'expédition</value>
+        <value xml:lang="fr">Frais d'expédition ?</value>
         <value xml:lang="it">Spese di Spedizione</value>
         <value xml:lang="ro">Cheltuieli de Expediere</value>
         <value xml:lang="ru">Считать стоим. доставки</value>
@@ -9155,6 +9155,10 @@
         <value xml:lang="th">หมายเลขรายการค่าเริ่มต้น</value>
         <value xml:lang="zh">缺省序号</value>
     </property>
+    <property key="ProductDefaultShipmentBoxTypeId">
+        <value xml:lang="en">Default Shipment Box Type Id</value>
+        <value xml:lang="fr">Réf. de carton d'emballage par défaut</value>
+    </property>    
     <property key="ProductDefaultsTo">
         <value xml:lang="de">Standartwert</value>
         <value xml:lang="en">Defaults to</value>
@@ -9364,7 +9368,7 @@
         <value xml:lang="de">Produkt duplizieren</value>
         <value xml:lang="en">Duplicate Product</value>
         <value xml:lang="es">Producto duplicado</value>
-        <value xml:lang="fr">Copier l'article</value>
+        <value xml:lang="fr">Dupliquer l'article</value>
         <value xml:lang="it">Duplica Prodotto</value>
         <value xml:lang="ro">Produs Duplicat</value>
         <value xml:lang="ru">Копировать продукт</value>
@@ -11282,7 +11286,7 @@
         <value xml:lang="de">Bei Aktionen berücksichtigen</value>
         <value xml:lang="en">Include In Promotions</value>
         <value xml:lang="es">Incluir en promociones</value>
-        <value xml:lang="fr">Inclure dans les promotions</value>
+        <value xml:lang="fr">Inclure dans les promotions ?</value>
         <value xml:lang="it">Includi Nelle Promozioni</value>
         <value xml:lang="ro">Include In Promotii</value>
         <value xml:lang="ru">Включать в акционную кат-рию</value>
@@ -11951,7 +11955,7 @@
         <value xml:lang="ru">Ключевые слова</value>
         <value xml:lang="th">คำหลัก</value>
         <value xml:lang="zh">关键字</value>
-    </property>
+    </property>    
     <property key="ProductLabel">
         <value xml:lang="de">Etikette</value>
         <value xml:lang="en">Label</value>
@@ -13833,7 +13837,7 @@
         <value xml:lang="de">ANMERKUNG: Für Inhalte verwenden Sie den Bereich Inhalte.</value>
         <value xml:lang="en">NOTE: For content options, use the Content tab.</value>
         <value xml:lang="es">NOTA: Para opciones de contenido, use la pestaña Contenido</value>
-        <value xml:lang="fr">NOTE: Pour les options concernant le contenu, utiliser l'onglet contenu.</value>
+        <value xml:lang="fr">NOTE: Pour les options concernant le contenu (descriptions, etc.), utiliser l'onglet contenu.</value>
         <value xml:lang="it">NOTA: Per le opzioni contenuto, usare il Tab Contenuto.</value>
         <value xml:lang="ro">NOTA: Pentru optiunile continut, folositi Tab Continut.</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: для параметров контента используйте разделитель Контент.</value>
@@ -16805,7 +16809,7 @@
         <value xml:lang="de">Benötigt Betrag</value>
         <value xml:lang="en">Require Amount</value>
         <value xml:lang="es">Monto requerido</value>
-        <value xml:lang="fr">Nécessite une quantitée</value>
+        <value xml:lang="fr">Nécessite une quantitée ?</value>
         <value xml:lang="it">Importo Richiesto</value>
         <value xml:lang="ro">Valoare Ceruta</value>
         <value xml:lang="ru">Требуется количество</value>
@@ -16849,7 +16853,7 @@
         <value xml:lang="de">Benötigt Bestand</value>
         <value xml:lang="en">Require Inventory</value>
         <value xml:lang="es">Requerir inventario</value>
-        <value xml:lang="fr">Stock requis</value>
+        <value xml:lang="fr">Stock requis ?</value>
         <value xml:lang="it">Richiesto Inventario</value>
         <value xml:lang="ro">Se cere Inventarul</value>
         <value xml:lang="ru">Требует наличия</value>
@@ -17092,7 +17096,7 @@
         <value xml:lang="de">Wird zurückgenommen</value>
         <value xml:lang="en">Returnable</value>
         <value xml:lang="es">Retornable</value>
-        <value xml:lang="fr">Restituable/remboursable</value>
+        <value xml:lang="fr">Restituable/remboursable ?</value>
         <value xml:lang="it">Reso</value>
         <value xml:lang="ro">Returnabil</value>
         <value xml:lang="ru">Возврат возможен</value>
@@ -17309,7 +17313,7 @@
         <value xml:lang="de">Verkauf einstellen wenn kein Lagerbestand vorhanden</value>
         <value xml:lang="en">Disc. When Inv. Not Avail?</value>
         <value xml:lang="es">¿Interrumpir venta cuando no hay inventario disponible?</value>
-        <value xml:lang="fr">Escompte si stock vide</value>
+        <value xml:lang="fr">Pas de vente si le stock est vide</value>
         <value xml:lang="it">Sospeso Quando Inventario Non Disponibile?</value>
         <value xml:lang="ro">Suspendat Cand Inventarul nu este Disponibil?</value>
         <value xml:lang="ru">Прекр. прод. если нет в наличии?</value>
@@ -18265,7 +18269,7 @@
         <value xml:lang="de">In Versandkiste?</value>
         <value xml:lang="en">In Shipping Box ?</value>
         <value xml:lang="es">¿En el paquete de envío?</value>
-        <value xml:lang="fr">Dans le carton d'expédition ?</value>
+        <value xml:lang="fr">Dans un carton d'emballage ?</value>
         <value xml:lang="it">Spedizioni In Scatoloni ?</value>
         <value xml:lang="ru">В ящике?</value>
         <value xml:lang="th">ในกล่องการขนส่ง</value>
@@ -19089,7 +19093,7 @@
         <value xml:lang="de">Versteuerbar</value>
         <value xml:lang="en">Taxable</value>
         <value xml:lang="es">Imponible</value>
-        <value xml:lang="fr">Taxable</value>
+        <value xml:lang="fr">Taxable ?</value>
         <value xml:lang="it">Tassabile</value>
         <value xml:lang="ro">Taxabila</value>
         <value xml:lang="ru">Облагаемый налогом</value>
@@ -19889,7 +19893,7 @@
     <property key="ProductVariantProduct">
         <value xml:lang="en">Is VARIANT Product ?</value>
         <value xml:lang="es">Es producto VARIANTE?</value>
-        <value xml:lang="fr">C'est une variante ?</value>
+        <value xml:lang="fr">Est-ce une variante ?</value>
         <value xml:lang="it">E' un Prodotto con VARIANTE ?</value>
         <value xml:lang="ro">Este un Produs cu VARIANTE ?</value>
         <value xml:lang="ru">Это ВАРИАНТ продукта?</value>
@@ -19981,6 +19985,10 @@
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (нужны права "CATALOG_VIEW" или "CATALOG_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตในการแสดงหน้านี้. ("CATALOG_VIEW" หรือ "CATALOG_ADMIN" ต้องการ)</value>
         <value xml:lang="zh">你没有权限浏览本页面。 (需要"CATALOG_VIEW" 或 "CATALOG_ADMIN")</value>
+    </property>    
+    <property key="ProductVirtualFieldGroup">
+        <value xml:lang="en">Virtual Product</value>
+        <value xml:lang="fr">Article virtuel</value>
     </property>
     <property key="ProductVirtualProduct">
         <value xml:lang="en">Is VIRTUAL Product ?</value>
@@ -20165,6 +20173,10 @@
         <value xml:lang="ru">Ед. изм. ширины</value>
         <value xml:lang="th">รหัสหน่วยวัดความกว้าง</value>
         <value xml:lang="zh">宽度度量单位标识</value>
+    </property>
+    <property key="ProductWordingAndComment">
+        <value xml:lang="en">Wording And Comment</value>
+        <value xml:lang="fr">Libellés et commentaire</value>
     </property>
     <property key="ProductWorkEffort">
         <value xml:lang="de">Arbeitseinsatz</value>

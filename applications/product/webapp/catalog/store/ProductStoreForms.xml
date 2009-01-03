@@ -278,8 +278,7 @@
         <field name="reqReturnInventoryReceive">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>        
         <sort-order>
             <field-group>
                 <sort-field name="productStoreId"/>
@@ -380,8 +379,7 @@
             <field-group title="${uiLabelMap.CommonUpload}" collapsible="true" initially-collapsed="true">
                 <sort-field name="enableDigProdUpload"/>
                 <sort-field name="digProdUploadCategoryId"/>
-            </field-group>
-            
+            </field-group>            
         </sort-order>
     </form>
 
