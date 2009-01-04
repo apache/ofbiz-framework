@@ -56,7 +56,19 @@ under the License.
         <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="httpHost"><display/></field>
     </form>
-
+    
+    <form name="WebSitePathAlias" target="" title="" type="list" list-name="aliases" paginate-target="WebSiteAliases" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="pathAlias"><display/></field>
+        <field name="pathAliasTo"><display/></field>
+        <field name="mapKey"><display/></field>
+        <field name="contentId">
+            <display-entity entity-name="Content" description="${contentName}">
+                <sub-hyperlink target="EditContent?contentId=${contentId}" description=" [${contentId}]"/>
+            </display-entity>
+        </field>
+    </form>
+    
     <!-- WebSite Content Forms -->
     <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent" 
         paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
