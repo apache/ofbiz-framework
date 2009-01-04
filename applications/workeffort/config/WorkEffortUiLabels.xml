@@ -19,6 +19,7 @@
     under the License.
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actualCompletionDate">
+        <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Véritable date d'achèvement</value>
         <value xml:lang="it">Data Completamento Attuale</value>
@@ -54,6 +55,7 @@
         <value xml:lang="zh">实际安装毫秒数</value>
     </property>
     <property key="FormFieldTitle_actualStartDate">
+        <value xml:lang="de">Ist-Anfangsdatum</value>
         <value xml:lang="en">Actual Start Date</value>
         <value xml:lang="es">Fecha de comienzo real</value>
         <value xml:lang="fr">Date de début</value>
@@ -138,6 +140,7 @@
         <value xml:lang="zh">预计计算方法</value>
     </property>
     <property key="FormFieldTitle_estimatedCompletionDate">
+        <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date d'achèvement estimée</value>
         <value xml:lang="it">Data Completamento Stimata</value>
@@ -174,6 +177,7 @@
         <value xml:lang="zh">预计安装毫秒数</value>
     </property>
     <property key="FormFieldTitle_estimatedStartDate">
+        <value xml:lang="de">Soll-Anfangsdatum</value>
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date de début estimée</value>
@@ -271,6 +275,7 @@
         <value xml:lang="zh">登录用户上次修改的</value>
     </property>
     <property key="FormFieldTitle_lastModifiedDate">
+        <value xml:lang="de">geändert am</value>
         <value xml:lang="en">Last Modified Date</value>
         <value xml:lang="fr">Date de dernière modification</value>
         <value xml:lang="it">Data Ultima Modifica</value>
@@ -346,6 +351,7 @@
         <value xml:lang="th">ไม่ระบุชื่อการโพสต์</value>
     </property>
     <property key="FormFieldTitle_priority">
+        <value xml:lang="de">Dringlichkeit</value>
         <value xml:lang="en">Priority</value>
         <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Priorità</value>
@@ -355,6 +361,7 @@
         <value xml:lang="zh">优先级</value>
     </property>
     <property key="FormFieldTitle_productProductId">
+        <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="fr">Réf. d'article</value>
         <value xml:lang="it">Codice Prodotto</value>
@@ -400,6 +407,7 @@
         <value xml:lang="zh">询价明细序号标识</value>
     </property>
     <property key="FormFieldTitle_quoteName">
+        <value xml:lang="de">Offertenname</value>
         <value xml:lang="en">Quote Name</value>
         <value xml:lang="fr">Nom du devis</value>
         <value xml:lang="it">Nome Preventivo</value>
@@ -418,6 +426,7 @@
         <value xml:lang="zh">费率</value>
     </property>
     <property key="FormFieldTitle_rating">
+        <value xml:lang="de">Beurteilung</value>
         <value xml:lang="en">Rating</value>
         <value xml:lang="fr">Coefficient</value>
         <value xml:lang="it">Classifica</value>
@@ -558,6 +567,7 @@
         <value xml:lang="zh">状态日期时间</value>
     </property>
     <property key="FormFieldTitle_statusItemDescription">
+        <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
         <value xml:lang="fr">Statut</value>
         <value xml:lang="it">Stato</value>
@@ -1300,6 +1310,7 @@
         <value xml:lang="zh">下一级人工服务</value>
     </property>
     <property key="PageTitleViewActivityAndTaskList">
+        <value xml:lang="de">Liste der Aufgaben und Aktivitäten ansehen</value>
         <value xml:lang="en">View Activity and Task List</value>
         <value xml:lang="fr">Voir l'activité et la liste de la tâche</value>
         <value xml:lang="it">Mostra Attività e Lista Compiti</value>
@@ -1631,6 +1642,7 @@
         <value xml:lang="zh">会员指派详细</value>
     </property>
     <property key="PartyPartyId">
+        <value xml:lang="de">Vertragspartner ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código del participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
@@ -1675,6 +1687,7 @@
         <value xml:lang="zh">角色标识</value>
     </property>
     <property key="PartyRoleTypeId">
+        <value xml:lang="de">Funktionstyp ID</value>
         <value xml:lang="en">RoleType ID</value>
         <value xml:lang="es">Código de tipo de rol</value>
         <value xml:lang="fr">Réf. de type de rôle</value>
@@ -1802,6 +1815,7 @@
         <value xml:lang="zh">费率类型</value>
     </property>
     <property key="TimesheetRates">
+        <value xml:lang="de">Raten</value>
         <value xml:lang="en">Rates</value>
         <value xml:lang="es">Tasas</value>
         <value xml:lang="fr">Taux</value>
@@ -1995,6 +2009,7 @@
         <value xml:lang="zh">这个应用程序对那些维护和使用日历事件和工作流行动的人有用</value>
     </property>
     <property key="WorkEffortAssignedTasks">
+        <value xml:lang="de">Zugewiesene Aufgaben</value>
         <value xml:lang="en">Assigned Tasks</value>
         <value xml:lang="es">Tareas asignadas</value>
         <value xml:lang="fr">Tâches assignées</value>
@@ -2119,6 +2134,7 @@
         <value xml:lang="zh">按会员</value>
     </property>
     <property key="WorkEffortCalendar">
+        <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier</value>
@@ -2246,6 +2262,7 @@
         <value xml:lang="zh">通讯</value>
     </property>
     <property key="WorkEffortComments">
+        <value xml:lang="de">Kommentare</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
@@ -2463,6 +2480,7 @@
         <value xml:lang="zh">估计预算</value>
     </property>
     <property key="WorkEffortEstimatedCompletionDate">
+        <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date estimée d'achèvement</value>
         <value xml:lang="it">Data Completamento Stimata</value>
@@ -2472,6 +2490,7 @@
         <value xml:lang="zh">预计完成日期</value>
     </property>
     <property key="WorkEffortEstimatedStartDate">
+        <value xml:lang="de">Soll-Anfangsdatum</value>
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date estimée de début</value>
@@ -2765,6 +2784,7 @@
         <value xml:lang="zh">必须回复</value>
     </property>
     <property key="WorkEffortMyCurrentTaskList">
+        <value xml:lang="de">Meine aktuelle Aufgabenliste</value>
         <value xml:lang="en">My Current TaskList</value>
         <value xml:lang="es">Mi lista actual de tareas</value>
         <value xml:lang="fr">Ma liste de tâche courante</value>
@@ -2911,6 +2931,7 @@
         <value xml:lang="zh">新需求</value>
     </property>
     <property key="WorkEffortNewTask">
+        <value xml:lang="de">Neue Aufgabe</value>
         <value xml:lang="en">New Task</value>
         <value xml:lang="es">Nueva tarea</value>
         <value xml:lang="fr">Nouvelle tâche</value>
@@ -3132,6 +3153,7 @@
         <value xml:lang="fr">L'acteur ${parameters.partyId} avec le rôle ${parameters.roleTypeId} est déjà affecté à la tâche de réf. ${parameters.workEffortId}</value>
     </property>
     <property key="WorkEffortPartyId">
+        <value xml:lang="de">Teilnehmer ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código del participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
@@ -3235,6 +3257,7 @@
         <value xml:lang="zh">上一周</value>
     </property>
     <property key="WorkEffortPriority">
+        <value xml:lang="de">Dringlichkeit</value>
         <value xml:lang="en">Priority</value>
         <value xml:lang="es">Prioridad</value>
         <value xml:lang="fr">Priorité</value>
@@ -3700,6 +3723,7 @@
         <value xml:lang="th">เริ่มวันที่</value>
     </property>
     <property key="WorkEffortStatus">
+        <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
         <value xml:lang="es">Estado</value>
         <value xml:lang="fr">Statut</value>
@@ -3719,6 +3743,7 @@
         <value xml:lang="zh">缺少当前状态标识。</value>
     </property>
     <property key="WorkEffortSummary">
+        <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="es">Resumen</value>
         <value xml:lang="fr">Résumé</value>
@@ -3751,6 +3776,7 @@
         <value xml:lang="zh">任务详细</value>
     </property>
     <property key="WorkEffortTaskList">
+        <value xml:lang="de">Aufgabenliste</value>
         <value xml:lang="en">Task List</value>
         <value xml:lang="es">Lista de tareas</value>
         <value xml:lang="fr">Liste de tâche</value>
@@ -3762,6 +3788,7 @@
         <value xml:lang="zh">任务列表</value>
     </property>
     <property key="WorkEffortTaskName">
+        <value xml:lang="de">Aufgabenname</value>
         <value xml:lang="en">TaskName</value>
         <value xml:lang="es">Nombre de tarea</value>
         <value xml:lang="fr">Nom de tâche</value>

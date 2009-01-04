@@ -229,7 +229,7 @@ under the License.
                       <td>&nbsp;</td>
                       <td>${uiLabelMap.ProductItem} #</td>
                       <td>${uiLabelMap.ProductProductId}</td>
-                      <td>${uiLabelMap.ProductDescription}</td>
+                      <td>${uiLabelMap.Description}</td>
                       <td align="right">${uiLabelMap.ProductOrderedQuantity}</td>
                       <td align="right">${uiLabelMap.ProductQuantityShipped}</td>
                       <td align="right">${uiLabelMap.ProductPackedQty}</td>
@@ -378,7 +378,7 @@ under the License.
                   <tr class="header-row">
                     <td>${uiLabelMap.ProductItem} #</td>
                     <td>${uiLabelMap.ProductProductId}</td>
-                    <td>${uiLabelMap.ProductDescription}</td>
+                    <td>${uiLabelMap.Description}</td>
                     <td>${uiLabelMap.ProductInventoryItem} #</td>
                     <td align="right">${uiLabelMap.ProductPackedQty}</td>
                     <#--td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td-->

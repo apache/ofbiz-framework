@@ -19,6 +19,7 @@
     under the License.
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountAnnualRevenue">
+        <value xml:lang="de">Jahreseinkommen</value>
         <value xml:lang="en">Annual Revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
         <value xml:lang="fr">Revenu annuel</value>
@@ -28,6 +29,7 @@
         <value xml:lang="fr">Information sur le compte</value>
     </property>
     <property key="AccountName">
+        <value xml:lang="de">Kontoname</value>
         <value xml:lang="en">Account Name</value>
         <value xml:lang="fr">Nom du compte</value>
     </property>
@@ -187,6 +189,7 @@
         <value xml:lang="zh">新建联系列表会员</value>
     </property>
     <property key="ContactListPartyId">
+        <value xml:lang="de">Teilnehmer ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
@@ -309,6 +312,7 @@
         <value xml:lang="zh">产品目录标识</value>
     </property>
     <property key="FormFieldTitle_productStoreId">
+        <value xml:lang="de">Produktgeschäfts-ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="fr">Réf. de centre de profit</value>
         <value xml:lang="it">Negozio</value>
@@ -438,6 +442,7 @@
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
     </property>
     <property key="MarketingMainPage">
+        <value xml:lang="de">Haupt</value>
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
@@ -489,6 +494,7 @@
         <value xml:lang="zh">上级攻势标识</value>
     </property>
     <property key="MarketingReports">
+        <value xml:lang="de">Berichte</value>
         <value xml:lang="en">Reports</value>
         <value xml:lang="es">Informes</value>
         <value xml:lang="fr">Rapports</value>
@@ -1009,6 +1015,7 @@
         <value xml:lang="zh">新建分区组</value>
     </property>
     <property key="SegmentGroupDescription">
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
         <value xml:lang="fr">Description</value>
@@ -1090,6 +1097,7 @@
         <value xml:lang="zh">没有找到分区组，标识：</value>
     </property>
     <property key="SegmentGroupProductStoreId">
+        <value xml:lang="de">Produktgeschäfts-ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Tienda</value>
         <value xml:lang="fr">Réf. de centre de profit</value>
@@ -1126,6 +1134,7 @@
         <value xml:lang="zh">分类</value>
     </property>
     <property key="SegmentGroupSegmentGroupGeo">
+        <value xml:lang="de">Gebiet</value>
         <value xml:lang="en">Geo</value>
         <value xml:lang="es">Ubicación</value>
         <value xml:lang="fr">Zone géographique</value>
@@ -1153,6 +1162,7 @@
         <value xml:lang="zh">查找</value>
     </property>
     <property key="SegmentGroupSegmentGroupRole">
+        <value xml:lang="de">Funktion</value>
         <value xml:lang="en">Role</value>
         <value xml:lang="es">Rol</value>
         <value xml:lang="fr">Rôle</value>
@@ -1162,6 +1172,7 @@
         <value xml:lang="zh">角色</value>
     </property>
     <property key="SegmentGroupSegmentGroupType">
+        <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>
         <value xml:lang="es">Tipo</value>
         <value xml:lang="fr">Type</value>
@@ -1197,6 +1208,7 @@
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
     </property>
     <property key="SfaAccountName">
+        <value xml:lang="de">Kontoname</value>
         <value xml:lang="en">Account Name</value>
         <value xml:lang="es">Nombre de cuenta</value>
         <value xml:lang="fr">Nom de compte</value>
@@ -1403,6 +1415,7 @@
         <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
     </property>
     <property key="SfaType">
+        <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>
         <value xml:lang="fr">Type</value>
     </property>
@@ -1438,6 +1451,7 @@
         <value xml:lang="zh">可记账期限</value>
     </property>
     <property key="TrackingCodeComments">
+        <value xml:lang="de">Kommentare</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
@@ -1465,6 +1479,7 @@
         <value xml:lang="zh">缺省产品目录标识</value>
     </property>
     <property key="TrackingCodeDescription">
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
         <value xml:lang="fr">Description</value>
@@ -1618,6 +1633,7 @@
         <value xml:lang="zh">新建跟踪码类型</value>
     </property>
     <property key="TrackingCodeTypeDescription">
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
         <value xml:lang="fr">Description</value>
@@ -1663,6 +1679,7 @@
         <value xml:lang="zh">联系方式类型</value>
     </property>
     <property key="TrackingCodeVisitPartyId">
+        <value xml:lang="de">Teilnehmer ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
@@ -1672,6 +1689,7 @@
         <value xml:lang="zh">会员标识</value>
     </property>
     <property key="TrackingCodeVisitRoleTypeId">
+        <value xml:lang="de">Funktionstyp ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="es">Tipo de rol</value>
         <value xml:lang="fr">Type de rôle</value>

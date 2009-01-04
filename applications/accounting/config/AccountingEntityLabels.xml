@@ -47,6 +47,7 @@
         <value xml:lang="zh">信用额度</value>
     </property>
     <property key="AcctgTransType.description.CREDIT_MEMO">
+        <value xml:lang="de">Zahlungsaufforderung</value>
         <value xml:lang="en">Credit Memo</value>
         <value xml:lang="fr">Note de crédit</value>
         <value xml:lang="it">Nota Credito</value>
@@ -56,6 +57,7 @@
         <value xml:lang="zh">贷项凭单</value>
     </property>
     <property key="AcctgTransType.description.DEPRECIATION">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="it">Deprecato</value>
@@ -65,6 +67,7 @@
         <value xml:lang="zh">折旧</value>
     </property>
     <property key="AcctgTransType.description.DISBURSEMENT">
+        <value xml:lang="de">Auszahlung</value>
         <value xml:lang="en">Disbursement</value>
         <value xml:lang="fr">Débours</value>
         <value xml:lang="it">Esborso</value>
@@ -176,6 +179,7 @@
         <value xml:lang="zh">一期结束</value>
     </property>
     <property key="AcctgTransType.description.RECEIPT">
+        <value xml:lang="de">Quittung</value>
         <value xml:lang="en">Receipt</value>
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevute</value>
@@ -548,6 +552,7 @@
         <value xml:lang="zh">借方</value>
     </property>
     <property key="GlAccountClass.description.DEPRECIATION">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="it">Ammortamento Beni Tangibili</value>
@@ -782,6 +787,7 @@
         <value xml:lang="zh">已售商品的费用 - 平均费用调整</value>
     </property>
     <property key="GlAccountType.description.CREDIT_CARD">
+        <value xml:lang="de">Kreditkarte</value>
         <value xml:lang="en">Credit Card</value>
         <value xml:lang="fr">Carte de crédit</value>
         <value xml:lang="it">Carta di Credito</value>
@@ -1907,6 +1913,7 @@
         <value xml:lang="zh">发票费用</value>
     </property>
     <property key="InvoiceType.description.COMMISSION_INVOICE">
+        <value xml:lang="de">Kommission</value>
         <value xml:lang="en">Commission</value>
         <value xml:lang="fr">Commission</value>
         <value xml:lang="it">Provvigioni</value>
@@ -1916,6 +1923,7 @@
         <value xml:lang="zh">手续费</value>
     </property>
     <property key="InvoiceType.description.CUST_RTN_INVOICE">
+        <value xml:lang="de">Kundenrücksendung</value>
         <value xml:lang="en">Customer Return</value>
         <value xml:lang="fr">Articles retournés</value>
         <value xml:lang="it">Resi Cliente</value>
@@ -1943,6 +1951,7 @@
         <value xml:lang="zh">购货发票</value>
     </property>
     <property key="InvoiceType.description.SALES_INVOICE">
+        <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="fr">Facture de vente</value>
         <value xml:lang="it">Fattura di Vendita</value>
@@ -1962,6 +1971,7 @@
         <value xml:lang="zh">现金    </value>
     </property>
     <property key="PaymentMethodType.description.CERTIFIED_CHECK">
+        <value xml:lang="de">bestätigter Scheck</value>
         <value xml:lang="en">Certified Check</value>
         <value xml:lang="fr">Chèque certifié</value>
         <value xml:lang="it">Assegno Certificato</value>
@@ -1972,6 +1982,7 @@
         <value xml:lang="zh">保付支票</value>
     </property>
     <property key="PaymentMethodType.description.COMPANY_ACCOUNT">
+        <value xml:lang="de">Firmenkonto</value>
         <value xml:lang="en">Company Account</value>
         <value xml:lang="fr">Compte de société</value>
         <value xml:lang="it">Conto Aziendale</value>
@@ -1982,6 +1993,7 @@
         <value xml:lang="zh">公司账户</value>
     </property>
     <property key="PaymentMethodType.description.COMPANY_CHECK">
+        <value xml:lang="de">Firmenscheck</value>
         <value xml:lang="en">Company Check</value>
         <value xml:lang="fr">Chèque de société</value>
         <value xml:lang="it">Assegno Aziendale</value>
@@ -1992,6 +2004,7 @@
         <value xml:lang="zh">公司支票</value>
     </property>
     <property key="PaymentMethodType.description.CREDIT_CARD">
+        <value xml:lang="de">Kreditkarte</value>
         <value xml:lang="en">Credit Card</value>
         <value xml:lang="fr">Carte de crédit</value>
         <value xml:lang="it">Carta Credito</value>
@@ -2002,6 +2015,7 @@
         <value xml:lang="zh">信用卡</value>
     </property>
     <property key="PaymentMethodType.description.EFT_ACCOUNT">
+        <value xml:lang="de">elektronische Überweisung</value>
         <value xml:lang="en">Electronic Funds Transfer</value>
         <value xml:lang="fr">Transfert de fonds électronique</value>
         <value xml:lang="it">Bonifico (EFT)</value>
@@ -2012,6 +2026,7 @@
         <value xml:lang="zh">电子资金转账</value>
     </property>
     <property key="PaymentMethodType.description.EXT_BILLACT">
+        <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Account</value>
         <value xml:lang="fr">Compte de facturation</value>
         <value xml:lang="it">Conto Fatturazione</value>
@@ -2022,6 +2037,7 @@
         <value xml:lang="zh">账单账户</value>
     </property>
     <property key="PaymentMethodType.description.EXT_COD">
+        <value xml:lang="de">per Nachnahme</value>
         <value xml:lang="en">Cash On Delivery</value>
         <value xml:lang="fr">Paiement à la livraison</value>
         <value xml:lang="it">Contrassegno</value>
@@ -2048,6 +2064,7 @@
         <value xml:lang="zh">离线支付</value>
     </property>
     <property key="PaymentMethodType.description.EXT_PAYPAL">
+        <value xml:lang="de">Paypal-Konto</value>
         <value xml:lang="en">Paypal</value>
         <value xml:lang="fr">Paypal</value>
         <value xml:lang="it">Paypal</value>
@@ -2058,6 +2075,7 @@
         <value xml:lang="zh">贝宝</value>
     </property>
     <property key="PaymentMethodType.description.EXT_WORLDPAY">
+        <value xml:lang="de">WorldPay-Konto</value>
         <value xml:lang="en">WorldPay</value>
         <value xml:lang="fr">WorldPay</value>
         <value xml:lang="it">WorldPay</value>
@@ -2068,6 +2086,7 @@
         <value xml:lang="zh">WorldPay</value>
     </property>
     <property key="PaymentMethodType.description.GIFT_CARD">
+        <value xml:lang="de">Gutschriftskarte</value>
         <value xml:lang="en">Gift Card</value>
         <value xml:lang="fr">Carte de fidélité</value>
         <value xml:lang="it">Carta Omaggio</value>
@@ -2078,6 +2097,7 @@
         <value xml:lang="zh">礼品卡</value>
     </property>
     <property key="PaymentMethodType.description.GIFT_CERTIFICATE">
+        <value xml:lang="de">Gutschrift</value>
         <value xml:lang="en">Gift Certificate</value>
         <value xml:lang="fr">Bon d'achat</value>
         <value xml:lang="it">Certificato Omaggio</value>
@@ -2088,6 +2108,7 @@
         <value xml:lang="zh">礼券</value>
     </property>
     <property key="PaymentMethodType.description.MONEY_ORDER">
+        <value xml:lang="de">Zahlungsanweisung</value>
         <value xml:lang="en">Money Order</value>
         <value xml:lang="fr">Mandat</value>
         <value xml:lang="it">Ordine Soldi</value>
@@ -2098,6 +2119,7 @@
         <value xml:lang="zh">汇款</value>
     </property>
     <property key="PaymentMethodType.description.PERSONAL_CHECK">
+        <value xml:lang="de">persönlicher Scheck</value>
         <value xml:lang="en">Personal Check</value>
         <value xml:lang="fr">Chèque</value>
         <value xml:lang="it">Assegno Personale</value>
@@ -2125,6 +2147,7 @@
         <value xml:lang="zh">客户保证金</value>
     </property>
     <property key="PaymentType.description.CUSTOMER_PAYMENT">
+        <value xml:lang="de">Kunden-Zahlung</value>
         <value xml:lang="en">Customer Payment</value>
         <value xml:lang="fr">Paiement client</value>
         <value xml:lang="it">Pagamento Cliente</value>
@@ -2135,6 +2158,7 @@
         <value xml:lang="zh">客户付款</value>
     </property>
     <property key="PaymentType.description.CUSTOMER_REFUND">
+        <value xml:lang="de">Kunden-Rückerstattung</value>
         <value xml:lang="en">Customer Refund</value>
         <value xml:lang="fr">Remboursement client</value>
         <value xml:lang="it">Rimborso Cliente</value>
@@ -2145,6 +2169,7 @@
         <value xml:lang="zh">客户退款</value>
     </property>
     <property key="PaymentType.description.DISBURSEMENT">
+        <value xml:lang="de">Auszahlung</value>
         <value xml:lang="en">Disbursement</value>
         <value xml:lang="fr">Débours</value>
         <value xml:lang="it">Rimborsati</value>
@@ -2155,6 +2180,7 @@
         <value xml:lang="zh">支付</value>
     </property>
     <property key="PaymentType.description.GC_DEPOSIT">
+        <value xml:lang="de">hinterlegte Gutschrift</value>
         <value xml:lang="en">Gift Certificate Deposit</value>
         <value xml:lang="fr">Crédit de bons d'achat</value>
         <value xml:lang="it">Deposito Certificato Omaggio</value>
@@ -2164,6 +2190,7 @@
         <value xml:lang="zh">礼券保证金</value>
     </property>
     <property key="PaymentType.description.GC_WITHDRAWAL">
+        <value xml:lang="de">Gutschriftsabzug</value>
         <value xml:lang="en">Gift Certificate Withdrawal</value>
         <value xml:lang="fr">Débit de bon d'achat</value>
         <value xml:lang="it">Prelievo Certificato Omaggio</value>
@@ -2173,6 +2200,7 @@
         <value xml:lang="zh">礼券收回</value>
     </property>
     <property key="PaymentType.description.INCOME_TAX_PAYMENT">
+        <value xml:lang="de">Einkommenssteuerzahlung</value>
         <value xml:lang="en">Income Tax Payment</value>
         <value xml:lang="fr">Paiement de l'impôt sur les sociétés</value>
         <value xml:lang="it">Pagamento Tassa sul Redditi</value>
@@ -2198,6 +2226,7 @@
         <value xml:lang="zh">工资税完税</value>
     </property>
     <property key="PaymentType.description.PAY_CHECK">
+        <value xml:lang="de">Lohnzahlung</value>
         <value xml:lang="en">Pay Check</value>
         <value xml:lang="fr">Paiement des salaires</value>
         <value xml:lang="it">Assegni Pagati</value>
@@ -2232,6 +2261,7 @@
         <value xml:lang="zh">收据</value>
     </property>
     <property key="PaymentType.description.SALES_TAX_PAYMENT">
+        <value xml:lang="de">Umsatzsteuerzahlung</value>
         <value xml:lang="en">Sales Tax Payment</value>
         <value xml:lang="fr">Paiement des taxes sur ventes</value>
         <value xml:lang="it">Tassa di Vendita</value>
@@ -2242,6 +2272,7 @@
         <value xml:lang="zh">营业税完税</value>
     </property>
     <property key="PaymentType.description.TAX_PAYMENT">
+        <value xml:lang="de">Steuerzahlung</value>
         <value xml:lang="en">Tax Payment</value>
         <value xml:lang="fr">Paiement d'impôt</value>
         <value xml:lang="it">Tassa</value>
@@ -2252,6 +2283,7 @@
         <value xml:lang="zh">完税</value>
     </property>
     <property key="PaymentType.description.VENDOR_PAYMENT">
+        <value xml:lang="de">Kreditorenzahlung</value>
         <value xml:lang="en">Vendor Payment</value>
         <value xml:lang="fr">Paiement de fournisseur</value>
         <value xml:lang="it">Fornitore</value>
@@ -2262,6 +2294,7 @@
         <value xml:lang="zh">供应商付款</value>
     </property>
     <property key="PaymentType.description.VENDOR_PREPAY">
+        <value xml:lang="de">Kreditorenvorauszahlung</value>
         <value xml:lang="en">Vendor Prepayment</value>
         <value xml:lang="fr">Paiement d'acompte fournisseur</value>
         <value xml:lang="it">Prepagati Fornitore</value>

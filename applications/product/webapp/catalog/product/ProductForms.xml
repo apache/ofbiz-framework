@@ -292,7 +292,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}" map-name="dupProduct"><text size="20" maxlength="20"/></field>
         <field name="newInternalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="255"/></field>
         <field name="newProductName" title="${uiLabelMap.ProductProductName}"><text size="30" maxlength="60"/></field>
-        <field name="newDescription" title="${uiLabelMap.ProductProductDescription}" widget-style="textAreaBox"><textarea cols="60" rows="2"/></field>
+        <field name="newDescription" title="${uiLabelMap.ProductDescription}" widget-style="textAreaBox"><textarea cols="60" rows="2"/></field>
         <field name="newLongDescription" title="${uiLabelMap.ProductLongDescription}" widget-style="textAreaBox dojo-ResizableTextArea"><textarea cols="60" rows="7"/></field>
         <field name="duplicateTitle" title="${uiLabelMap.CommonDuplicate}" title-style="h1" map-name="dummy">
             <display description=""/>
@@ -646,7 +646,7 @@ under the License.
             </drop-down>
         </field>
         <field name="useRoleTypeId" title="${uiLabelMap.ProductUseRole}"></field>
-        <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
+        <field name="description" title="${uiLabelMap.Description}" map-name="content"><text size="40"/></field>
         <field name="subject" title="${uiLabelMap.ProductSubject}" map-name="emailData"><text size="40"/></field>
         <field name="plainBody" title="${uiLabelMap.ProductContentPlainBody}" map-name="emailData"><textarea cols="60" rows="7"/></field>
         <field name="htmlBody" title="${uiLabelMap.ProductContentHtmlBody}" map-name="emailData"><textarea cols="60" rows="7"/></field>
@@ -678,7 +678,7 @@ under the License.
             </drop-down>
         </field>
         <field name="useRoleTypeId" title="${uiLabelMap.ProductUseRole}"></field>
-        <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
+        <field name="description" title="${uiLabelMap.Description}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
         <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><hyperlink description="${contentId} ${contentName}" target="/content/control/editContent?contentId=${contentId}" target-type="inter-app"/></field>
         <field name="imageData" title="${uiLabelMap.ProductFile}"><file/></field>
@@ -692,7 +692,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contentId==null" target="createExternalContentForProduct"/>
         <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
-        <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
+        <field name="description" title="${uiLabelMap.Description}" map-name="content"><text size="40"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
         <field name="serviceName" title="${uiLabelMap.ProductServiceName}" map-name="content"><text size="40"/></field>
@@ -710,7 +710,7 @@ under the License.
         <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
         <field name="fromDate" use-when="contentId!=null" title="${uiLabelMap.CommonFromDate}" ><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
-        <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
+        <field name="description" title="${uiLabelMap.Description}" map-name="content"><text size="40"/></field>
         <field name="localeString" title="${uiLabelMap.ProductLocaleString}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId"><ignored/></field>
         <field use-when="contentId != null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>

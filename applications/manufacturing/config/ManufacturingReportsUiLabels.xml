@@ -388,6 +388,7 @@
         <value xml:lang="zh">设计编号</value>
     </property>
     <property key="ProductProductCategory">
+        <value xml:lang="de">Kategorie</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>

@@ -124,7 +124,7 @@ under the License.
                 <td><span class="label">${uiLabelMap.ProductNewItem}</span></td>
                 <td colspan="2"><span class="label">${uiLabelMap.ProductProductId}</span> <input type="text" name="productId" size="15" maxlength="20"/></td>
                 <td><input type="text" name="quantity" size="5" value="0"/></td>
-                <td colspan="2"><span class="label">${uiLabelMap.ProductDescription}</span> <input name="shipmentContentDescription" size="30" maxlength="255"/></td>
+                <td colspan="2"><span class="label">${uiLabelMap.Description}</span> <input name="shipmentContentDescription" size="30" maxlength="255"/></td>
                 <td><a href="javascript:document.createShipmentItemForm.submit()" class="buttontext">${uiLabelMap.CommonCreate}</a></td>
             </form>
         </tr>

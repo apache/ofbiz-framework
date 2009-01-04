@@ -1837,6 +1837,7 @@
         <value xml:lang="zh">结账</value>
     </property>
     <property key="OrderCheckoutQuick">
+        <value xml:lang="de">schnelle Abmeldung</value>
         <value xml:lang="en">Quick Checkout</value>
         <value xml:lang="es">Realizar pedido rápido</value>
         <value xml:lang="fr">Paiement rapide</value>
@@ -3193,6 +3194,7 @@
         <value xml:lang="zh">如何支付</value>
     </property>
     <property key="OrderImage">
+        <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imagen</value>
         <value xml:lang="fr">Image</value>

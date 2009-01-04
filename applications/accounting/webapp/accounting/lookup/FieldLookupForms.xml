@@ -54,7 +54,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="BillingAccount" default-field-type="hidden" />
         <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccountId}"><text-find/></field>
-        <field name="description" title="${uiLabelMap.AccountingDescription}"><text-find/></field>
+        <field name="description" title="${uiLabelMap.Description}"><text-find/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><text-find/></field>
         
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 

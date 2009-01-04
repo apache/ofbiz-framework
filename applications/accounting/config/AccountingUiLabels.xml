@@ -67,6 +67,7 @@
     </property>
     <property key="AccountingAccountLimit">
         <value xml:lang="ar">حدود الحساب</value>
+        <value xml:lang="de">Kontolimit</value>
         <value xml:lang="en">Account Limit</value>
         <value xml:lang="es">Límite de cuenta</value>
         <value xml:lang="fr">Limite du compte</value>
@@ -208,6 +209,7 @@
         <value xml:lang="zh">编辑固定资产标识</value>
     </property>
     <property key="AccountingAddFixedAssetMaintenance">
+        <value xml:lang="de">Anlagevermögensverwaltung hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Maintenance</value>
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une maintenance d'immobilisation</value>
@@ -356,6 +358,7 @@
     </property>
     <property key="AccountingAgreementAvailable">
         <value xml:lang="ar">قائمة الإتفاقات المتوفرة</value>
+        <value xml:lang="de">Liste verfügbarer Vereinbarungen</value>
         <value xml:lang="en">List Available Agreements</value>
         <value xml:lang="es">Lista de acuerdos disponibles</value>
         <value xml:lang="fr">Liste des accords disponibles</value>
@@ -368,6 +371,7 @@
     </property>
     <property key="AccountingAgreementDate">
         <value xml:lang="ar">تاريخ الإتفاق</value>
+        <value xml:lang="de">Vertragsdatum</value>
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
         <value xml:lang="fr">Date de l'accord</value>
@@ -380,6 +384,7 @@
     </property>
     <property key="AccountingAgreementId">
         <value xml:lang="ar">رمز الإتفاق</value>
+        <value xml:lang="de">Vertrags-ID</value>
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id acuerdo</value>
         <value xml:lang="fr">Réf. de l'accord</value>
@@ -429,6 +434,7 @@
     </property>
     <property key="AccountingAgreementItemTerms">
         <value xml:lang="ar">فصول</value>
+        <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Terms</value>
         <value xml:lang="es">Términos</value>
         <value xml:lang="fr">Termes</value>
@@ -506,6 +512,7 @@
     </property>
     <property key="AccountingAgreementTypeId">
         <value xml:lang="ar">رمز نوع الإتفاق</value>
+        <value xml:lang="de">Vertragsart-ID</value>
         <value xml:lang="en">Agreement Type Id</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
         <value xml:lang="fr">Type d'accord</value>
@@ -530,6 +537,7 @@
     </property>
     <property key="AccountingAgreements">
         <value xml:lang="ar">إتفاقيات</value>
+        <value xml:lang="de">Vereinbarungen</value>
         <value xml:lang="en">Agreements</value>
         <value xml:lang="es">Acuerdos</value>
         <value xml:lang="fr">Accords</value>
@@ -665,6 +673,7 @@
         <value xml:lang="nl">Toon verkopende relaties</value>
     </property>
     <property key="AccountingApManagerApplication">
+        <value xml:lang="de">Forderungsverwaltung</value>
         <value xml:lang="en">Account Payable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes fourn.</value>
         <value xml:lang="it">Applicazione gestione conto debitori</value>
@@ -819,6 +828,7 @@
         <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
     </property>
     <property key="AccountingArManagerApplication">
+        <value xml:lang="de">Forderungs-Manager</value>
         <value xml:lang="en">Account Receivable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes clients</value>
         <value xml:lang="it">Applicazione gestione conto creditore</value>
@@ -875,6 +885,7 @@
     </property>
     <property key="AccountingAuthorize">
         <value xml:lang="ar">السماح</value>
+        <value xml:lang="de">Autorisieren</value>
         <value xml:lang="en">Authorize</value>
         <value xml:lang="es">Autorizar</value>
         <value xml:lang="fr">Autoriser</value>
@@ -1143,6 +1154,7 @@
     </property>
     <property key="AccountingBillingAccounts">
         <value xml:lang="ar">حسابات الفوترة</value>
+        <value xml:lang="de">Rechnungskonten</value>
         <value xml:lang="en">Billing Accounts</value>
         <value xml:lang="es">Cuentas de facturación</value>
         <value xml:lang="fr">Comptes de facturation</value>
@@ -1181,6 +1193,7 @@
     </property>
     <property key="AccountingBillingAvailableBalance">
         <value xml:lang="ar">الميزانبة المتوفرة</value>
+        <value xml:lang="de">verfügbares Guthaben</value>
         <value xml:lang="en">Available Balance</value>
         <value xml:lang="es">Balance disponible</value>
         <value xml:lang="fr">Solde disponible</value>
@@ -1243,6 +1256,7 @@
     </property>
     <property key="AccountingBillingMenu">
         <value xml:lang="ar">حسابات الفوترة</value>
+        <value xml:lang="de">Rechnungskonten</value>
         <value xml:lang="en">Billing Accounts</value>
         <value xml:lang="es">Cuentas de facturación</value>
         <value xml:lang="fr">Comptes de facturation</value>
@@ -1311,6 +1325,7 @@
     </property>
     <property key="AccountingCapture">
         <value xml:lang="ar">خطفة</value>
+        <value xml:lang="de">erfassen</value>
         <value xml:lang="en">Capture</value>
         <value xml:lang="es">Capturar</value>
         <value xml:lang="fr">Prélèvement</value>
@@ -1389,6 +1404,7 @@
     </property>
     <property key="AccountingChartOfAcctsMenu">
         <value xml:lang="ar">بيان الحسابات</value>
+        <value xml:lang="de">Kontenübersicht</value>
         <value xml:lang="en">Chart of Accounts</value>
         <value xml:lang="es">Carta de cuentas</value>
         <value xml:lang="fr">Plan comptable</value>
@@ -1446,6 +1462,7 @@
     </property>
     <property key="AccountingComments">
         <value xml:lang="ar">تعاليق</value>
+        <value xml:lang="de">Kommentare</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
@@ -1458,6 +1475,7 @@
     </property>
     <property key="AccountingCompanies">
         <value xml:lang="ar">شركات</value>
+        <value xml:lang="de">Firmen</value>
         <value xml:lang="en">Companies</value>
         <value xml:lang="es">Compañias</value>
         <value xml:lang="fr">Sociétés</value>
@@ -1616,6 +1634,7 @@
     </property>
     <property key="AccountingCreateAssignment">
         <value xml:lang="ar">استحداث إتفاقية</value>
+        <value xml:lang="de">Zuweisung erstellen</value>
         <value xml:lang="en">Create Assignment</value>
         <value xml:lang="es">Crear obligación</value>
         <value xml:lang="fr">Créer une allocation</value>
@@ -1656,6 +1675,7 @@
     </property>
     <property key="AccountingCreateBillingAccountTerm">
         <value xml:lang="ar">استحداث بند لحساب الفوترة</value>
+        <value xml:lang="de">Rechnungskontobedingung erstellen</value>
         <value xml:lang="en">Create Billing Account Term</value>
         <value xml:lang="es">Crear término de cuenta de facturación</value>
         <value xml:lang="fr">Créer un terme pour le compte de facturation</value>
@@ -1669,6 +1689,7 @@
         <value xml:lang="zh">新建账单账户条件</value>
     </property>
     <property key="AccountingCreateCostComponentCalc">
+        <value xml:lang="de">Neue Kostenkomponentenrechnung erstellen</value>
         <value xml:lang="en">Create New Cost Component Calc</value>
         <value xml:lang="fr">Créer le nouveau composant de calcul coût</value>
         <value xml:lang="it">Creare Nuovo Calcolo Costo Componente</value>
@@ -1741,6 +1762,7 @@
         <value xml:lang="th">ใบเสร็จรับเงินการสั่งซื้อใหม่</value>
     </property>
     <property key="AccountingCreateNewSalesInvoice">
+        <value xml:lang="de">Neue Verkaufsrechnung</value>
         <value xml:lang="en">New Sales Invoice</value>
         <value xml:lang="fr">Nouvelle facture de ventes</value>
         <value xml:lang="it">Nuova Fattura di Vendita</value>
@@ -1750,6 +1772,7 @@
     </property>
     <property key="AccountingCreatePayment">
         <value xml:lang="ar">تسديد جديد</value>
+        <value xml:lang="de">Zahlung durchführen</value>
         <value xml:lang="en">Create Payment</value>
         <value xml:lang="es">Crear Pago</value>
         <value xml:lang="fr">Saisir un paiement</value>
@@ -1979,22 +2002,9 @@
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
     </property>
-    <property key="AccountingDescription">
-        <value xml:lang="ar">وصف</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="es">Descripción</value>
-        <value xml:lang="fr">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="nl">Omschrijving</value>
-        <value xml:lang="pt_BR">Descrição</value>
-        <value xml:lang="pt_PT">Descrição</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="ru">Описание</value>
-        <value xml:lang="th">คำอธิบาย</value>
-        <value xml:lang="zh">描述</value>
-    </property>
     <property key="AccountingDueDate">
         <value xml:lang="ar">تاريخ الفوترة</value>
+        <value xml:lang="de">Fälligkeit</value>
         <value xml:lang="en">Due Date</value>
         <value xml:lang="es">Fecha Debito</value>
         <value xml:lang="fr">Date d'échéance</value>
@@ -2137,6 +2147,7 @@
     </property>
     <property key="AccountingEffectiveDate">
         <value xml:lang="ar">تاريخ الفعالية</value>
+        <value xml:lang="de">Anwendungszeitpunkt</value>
         <value xml:lang="en">Effective Date</value>
         <value xml:lang="es">Fecha Efectivo</value>
         <value xml:lang="fr">Date d'effet</value>
@@ -2380,6 +2391,7 @@
         <value xml:lang="zh">外汇汇率</value>
     </property>
     <property key="AccountingFinAccount">
+        <value xml:lang="de">Geldkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
         <value xml:lang="it">Conto Finanziario</value>
@@ -2396,6 +2408,7 @@
         <value xml:lang="th">การอนุญาต</value>
     </property>
     <property key="AccountingFinAccountTransations">
+        <value xml:lang="de">Transaktionen</value>
         <value xml:lang="en">Transactions</value>
         <value xml:lang="fr">Transactions</value>
         <value xml:lang="it">Transazioni</value>
@@ -2420,6 +2433,7 @@
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
     <property key="AccountingFindFinAccount">
+        <value xml:lang="de">Suche Bankkonto</value>
         <value xml:lang="en">Find Financial Account</value>
         <value xml:lang="fr">Rechercher un compte financier</value>
         <value xml:lang="it">Ricerca Conto Finanziario</value>
@@ -2428,6 +2442,7 @@
         <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
     <property key="AccountingFindFixedAssets">
+        <value xml:lang="de">Suche Anlagen</value>
         <value xml:lang="en">Find Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
         <value xml:lang="fr">Liste des immobilisations</value>
@@ -2466,6 +2481,7 @@
     </property>
     <property key="AccountingFindPayments">
         <value xml:lang="ar">إيجاد التسديدات</value>
+        <value xml:lang="de">Suche Zahlungen</value>
         <value xml:lang="en">Find Payments</value>
         <value xml:lang="es">Encontrar Pagos</value>
         <value xml:lang="fr">Rechercher des paiements</value>
@@ -2477,6 +2493,7 @@
         <value xml:lang="zh">查找支付</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
+        <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures d'achat à échéance</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
@@ -2484,6 +2501,7 @@
         <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
+        <value xml:lang="de">Suche Verkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures de ventes à échéance</value>
         <value xml:lang="it">Ricerca Fatture Vendita Per Data Scadenza</value>
@@ -2662,6 +2680,7 @@
     </property>
     <property key="AccountingFixedAssetCalendar">
         <value xml:lang="ar">رزمانة</value>
+        <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier d'immobilisation</value>
@@ -2673,6 +2692,7 @@
         <value xml:lang="zh">日历</value>
     </property>
     <property key="AccountingFixedAssetDepreciation">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="it">Svalutazioni</value>
@@ -2806,6 +2826,7 @@
     </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
         <value xml:lang="ar">نوع مقياس المجال</value>
+        <value xml:lang="de">Abstandsmessgerät</value>
         <value xml:lang="en">Interval Meter Type</value>
         <value xml:lang="es">Intervalo Tipo de Contador</value>
         <value xml:lang="fr">Type d'intervalle de mesure</value>
@@ -2818,6 +2839,7 @@
     </property>
     <property key="AccountingFixedAssetMaintIntervalQuantity">
         <value xml:lang="ar">كمية المجال</value>
+        <value xml:lang="de">Abstandsmaß</value>
         <value xml:lang="en">Interval Quantity</value>
         <value xml:lang="es">Cantidad de Intervalo</value>
         <value xml:lang="fr">Quantité d'intervalles</value>
@@ -2932,6 +2954,7 @@
     </property>
     <property key="AccountingFixedAssetMaintenanceTemplate">
         <value xml:lang="ar">نموذج الصيانة</value>
+        <value xml:lang="de">Verwaltungsvorlage</value>
         <value xml:lang="en">Maintenance Template</value>
         <value xml:lang="fr">Schéma de maintenance</value>
         <value xml:lang="it">Manutenzione template</value>
@@ -2964,6 +2987,7 @@
     </property>
     <property key="AccountingFixedAssetName">
         <value xml:lang="ar">اسم الأصل الثابت</value>
+        <value xml:lang="de">Anlagename</value>
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de Activo Fijo</value>
         <value xml:lang="fr">Nom de l'immobilisation</value>
@@ -3154,6 +3178,7 @@
     </property>
     <property key="AccountingFixedAssetTypeId">
         <value xml:lang="ar">نوع الأصل</value>
+        <value xml:lang="de">Art des Vermögens</value>
         <value xml:lang="en">Asset Type</value>
         <value xml:lang="es">Tipo de activo</value>
         <value xml:lang="fr">Type d'actif</value>
@@ -3178,6 +3203,7 @@
     </property>
     <property key="AccountingFromPartyId">
         <value xml:lang="ar">من دليل الطرف</value>
+        <value xml:lang="de">von Akteur-Nr.</value>
         <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Id Grupo de origen</value>
         <value xml:lang="fr">De l'acteur réf.</value>
@@ -3214,6 +3240,7 @@
     </property>
     <property key="AccountingGatewayResponses">
         <value xml:lang="ar">ممر الإجابات</value>
+        <value xml:lang="de">Schnittstellen-Antwort</value>
         <value xml:lang="en">Gateway Responses</value>
         <value xml:lang="es">Respuestas de entradas</value>
         <value xml:lang="fr">Réponses du terminal de paiement</value>
@@ -3225,6 +3252,7 @@
         <value xml:lang="zh">网关响应</value>
     </property>
     <property key="AccountingGeneralLedger">
+        <value xml:lang="de">Hauptbuchhaltung</value>
         <value xml:lang="en">General Ledger</value>
         <value xml:lang="fr">Grand Livre (GL)</value>
         <value xml:lang="it">Contabilità Generale</value>
@@ -3351,6 +3379,7 @@
     </property>
     <property key="AccountingGlAccountDefault">
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
+        <value xml:lang="de">GL Konto Zahlungsverzug</value>
         <value xml:lang="en">GL Account defaults</value>
         <value xml:lang="es">Valores predeterminados de cuentas de LM</value>
         <value xml:lang="fr">Comptes par défaut</value>
@@ -3653,6 +3682,7 @@
     </property>
     <property key="AccountingInvoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
+        <value xml:lang="de">Rechnungs-Datum</value>
         <value xml:lang="en">Invoice Date</value>
         <value xml:lang="es">Fecha Factura</value>
         <value xml:lang="fr">Date de facture</value>
@@ -3798,6 +3828,7 @@
         <value xml:lang="zh">明细编号</value>
     </property>
     <property key="AccountingInvoiceItemType">
+        <value xml:lang="de">Rechnungspostentyp</value>
         <value xml:lang="en">Invoice Item Type</value>
         <value xml:lang="fr">Type de ligne de facture</value>
         <value xml:lang="it">Tipo Riga Fattura</value>
@@ -3905,6 +3936,7 @@
     </property>
     <property key="AccountingInvoicePayments">
         <value xml:lang="ar">التسديدات</value>
+        <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
         <value xml:lang="es">Pagos</value>
         <value xml:lang="fr">Paiements</value>
@@ -3917,6 +3949,7 @@
     </property>
     <property key="AccountingInvoicePurchase">
         <value xml:lang="ar">فاتورة الشراء</value>
+        <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice</value>
         <value xml:lang="es">Factura de compra</value>
         <value xml:lang="fr">Facture d'achat</value>
@@ -3945,6 +3978,7 @@
     </property>
     <property key="AccountingInvoiceSales">
         <value xml:lang="ar">فاتورة المبيعات</value>
+        <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="es">Factura de venta</value>
         <value xml:lang="fr">Facture de vente</value>
@@ -3961,6 +3995,7 @@
     </property>
     <property key="AccountingInvoiceStatus">
         <value xml:lang="ar">الوضعيات</value>
+        <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
         <value xml:lang="es">Status</value>
         <value xml:lang="fr">Statut</value>
@@ -4113,6 +4148,7 @@
     </property>
     <property key="AccountingInvoices">
         <value xml:lang="ar">القواتير</value>
+        <value xml:lang="de">Rechnungen</value>
         <value xml:lang="en">Invoices</value>
         <value xml:lang="es">Facturas</value>
         <value xml:lang="fr">Factures</value>
@@ -4141,6 +4177,7 @@
     </property>
     <property key="AccountingInvoicesMenu">
         <value xml:lang="ar">القواتير</value>
+        <value xml:lang="de">Rechnungen</value>
         <value xml:lang="en">Invoices</value>
         <value xml:lang="es">Facturas</value>
         <value xml:lang="fr">Factures</value>
@@ -4218,6 +4255,7 @@
         <value xml:lang="nl">Toon overzicht werkinzet toepassingen</value>
     </property>
     <property key="AccountingListInvoiceItemType">
+        <value xml:lang="de">Rechnungspostentyp auflisten</value>
         <value xml:lang="en">Invoice Item Type List</value>
         <value xml:lang="fr">Liste des types de ligne de facture</value>
         <value xml:lang="it">Lista Tipi Riga Fattura</value>
@@ -4225,6 +4263,7 @@
         <value xml:lang="th">รายการประเภทใบกำกับสินค้า</value>
     </property>
     <property key="AccountingListInvoices">
+        <value xml:lang="de">Rechnungen auflisten</value>
         <value xml:lang="en">List Invoices</value>
         <value xml:lang="fr">Liste des factures</value>
         <value xml:lang="it">Lista Fatture</value>
@@ -4302,6 +4341,7 @@
     </property>
     <property key="AccountingMainMenu">
         <value xml:lang="ar">الرئيسية</value>
+        <value xml:lang="de">Haupt</value>
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
@@ -4380,6 +4420,7 @@
     </property>
     <property key="AccountingManualTransaction">
         <value xml:lang="ar">صفقة إلكترونية يدوية</value>
+        <value xml:lang="de">Manuelle elektronische Transaktionen</value>
         <value xml:lang="en">Manual Electronic Transaction</value>
         <value xml:lang="es">Manual Electronic Transaction</value>
         <value xml:lang="fr">Entrer une transaction électronique</value>
@@ -4502,6 +4543,7 @@
     </property>
     <property key="AccountingNewAgreement">
         <value xml:lang="ar">إتفاقية جديدة</value>
+        <value xml:lang="de">Vereinbarung erstellen</value>
         <value xml:lang="en">Create Agreement</value>
         <value xml:lang="es">Crear acuerdo</value>
         <value xml:lang="fr">Nouvel accord</value>
@@ -4578,6 +4620,7 @@
     </property>
     <property key="AccountingNewFixedAsset">
         <value xml:lang="ar">أصل ثابت جديد</value>
+        <value xml:lang="de">Neue Anlage</value>
         <value xml:lang="en">New Fixed Asset</value>
         <value xml:lang="es">Nuevo Activo fijo</value>
         <value xml:lang="fr">Nouvelle immobilisation</value>
@@ -4614,6 +4657,7 @@
     </property>
     <property key="AccountingNewFixedAssetMaint">
         <value xml:lang="ar">صيانة جديدة</value>
+        <value xml:lang="de">Neue Verwaltung</value>
         <value xml:lang="en">New Maintenance</value>
         <value xml:lang="es">Nuevo mantenimiento</value>
         <value xml:lang="fr">Créer une maintenance</value>
@@ -4665,6 +4709,7 @@
     </property>
     <property key="AccountingNewTaxAuthority">
         <value xml:lang="ar">سلطة ضريبية جديدة</value>
+        <value xml:lang="de">Neue Steuerbehörde</value>
         <value xml:lang="en">New Tax Authority</value>
         <value xml:lang="es">Nueva Autoridad Fiscal</value>
         <value xml:lang="fr">Créer une administration fiscale</value>
@@ -5001,6 +5046,7 @@
         <value xml:lang="zh">定单 #</value>
     </property>
     <property key="AccountingOrderPaymentPreferenceId">
+        <value xml:lang="de">Buchungsauftrags-Zahlungspräferenz-Nr.</value>
         <value xml:lang="en">Accounting Order Payment Preference Id</value>
         <value xml:lang="es">Id Preferencia de pago de orden contable</value>
         <value xml:lang="fr">Id de la préférence de paiement associée à la commande</value>
@@ -5033,6 +5079,7 @@
     </property>
     <property key="AccountingOrganizationPartyId">
         <value xml:lang="ar">تعريف طرف المؤسسة</value>
+        <value xml:lang="de">Firmen-ID</value>
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur de type Organisation</value>
@@ -5196,6 +5243,7 @@
     </property>
     <property key="AccountingPartyIdFrom">
         <value xml:lang="ar">تعريف الطرف المرسل</value>
+        <value xml:lang="de">Akteur-Nr von</value>
         <value xml:lang="en">Party Id From</value>
         <value xml:lang="es">Id Grupo Origen</value>
         <value xml:lang="fr">Réf. acteur (de)</value>
@@ -5207,6 +5255,7 @@
         <value xml:lang="zh">自会员标识</value>
     </property>
     <property key="AccountingPartyIdTo">
+        <value xml:lang="de">Akteurs-Nr-zu</value>
         <value xml:lang="en">Party Id To</value>
         <value xml:lang="es">Id Grupo destino</value>
         <value xml:lang="fr">Réf. acteur (à)</value>
@@ -5481,6 +5530,7 @@
         <value xml:lang="zh">支付日</value>
     </property>
     <property key="AccountingPaymentGatewayResponseId">
+        <value xml:lang="de">Bilanzierung der Zahlungsportalantworten</value>
         <value xml:lang="en">Accounting Payment Gateway Response Id</value>
         <value xml:lang="es">Id Respuesta Puerta de Pago Contable</value>
         <value xml:lang="fr">Réf. de la réponse du terminal de paiement</value>
@@ -5708,6 +5758,8 @@
     </property>
     <property key="AccountingPaymentsMenu">
         <value xml:lang="ar">التسديدات</value>
+        <value xml:lang="de">Zahlungen</value>
+        <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
         <value xml:lang="es">Pagos</value>
         <value xml:lang="fr">Paiements</value>
@@ -6099,6 +6151,7 @@
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductId">
+        <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Id Producto</value>
         <value xml:lang="fr">Réf. produit</value>
@@ -6170,6 +6223,7 @@
     </property>
     <property key="AccountingReports">
         <value xml:lang="ar">تقارير</value>
+        <value xml:lang="de">Berichte</value>
         <value xml:lang="en">Reports</value>
         <value xml:lang="es">Informes</value>
         <value xml:lang="fr">Rapports</value>
@@ -6200,6 +6254,7 @@
         <value xml:lang="zh">角色类型</value>
     </property>
     <property key="AccountingRoleTypeIdFrom">
+        <value xml:lang="de">Funktionstyp ID von</value>
         <value xml:lang="en">Role Type Id From</value>
         <value xml:lang="es">Id tipo de role origen</value>
         <value xml:lang="fr">Type de role (de)</value>
@@ -6211,6 +6266,7 @@
         <value xml:lang="zh">自角色类型标识</value>
     </property>
     <property key="AccountingRoleTypeIdTo">
+        <value xml:lang="de">An Funktionstyp ID</value>
         <value xml:lang="en">Role Type Id To</value>
         <value xml:lang="es">Id Tipo de Rol</value>
         <value xml:lang="fr">Type de role (à)</value>
@@ -6365,6 +6421,7 @@
     </property>
     <property key="AccountingShowAllFixedAssets">
         <value xml:lang="ar">عرض كل الأصول الثابتة</value>
+        <value xml:lang="de">Alle Anlagen anzeigen</value>
         <value xml:lang="en">Show All Fixed Assets</value>
         <value xml:lang="es">Mostrar todos los activos fijos</value>
         <value xml:lang="fr">Afficher toutes les immobilisations</value>
@@ -6377,6 +6434,7 @@
     </property>
     <property key="AccountingShowAllInvoices">
         <value xml:lang="ar">عرض كل الفواتير</value>
+        <value xml:lang="de">Alle Rechnungen anzeigen</value>
         <value xml:lang="en">Show All Invoices</value>
         <value xml:lang="es">Mostrar todas las facturas</value>
         <value xml:lang="fr">Afficher toutes les factures</value>
@@ -6401,6 +6459,7 @@
     </property>
     <property key="AccountingShowInvoices">
         <value xml:lang="ar">عرض الفواتير</value>
+        <value xml:lang="de">Rechnung anzeigen</value>
         <value xml:lang="en">Show Invoices</value>
         <value xml:lang="es">Mostrar facturas</value>
         <value xml:lang="fr">Afficher les factures</value>
@@ -6420,6 +6479,7 @@
     </property>
     <property key="AccountingShowPayments">
         <value xml:lang="ar">عرض التسديدات</value>
+        <value xml:lang="de">Zahlung anzeigen</value>
         <value xml:lang="en">Show Payments</value>
         <value xml:lang="es">Mostrar pagos</value>
         <value xml:lang="fr">Afficher les paiements</value>
@@ -6499,6 +6559,7 @@
     </property>
     <property key="AccountingStatus">
         <value xml:lang="ar">الوضعية المحاسبية</value>
+        <value xml:lang="de">Kontierungs-Status</value>
         <value xml:lang="en">Accounting Status</value>
         <value xml:lang="es">Status Contable</value>
         <value xml:lang="fr">Statut comptable</value>
@@ -6536,6 +6597,7 @@
     </property>
     <property key="AccountingTaxAuthorities">
         <value xml:lang="ar">السلط الضريبية</value>
+        <value xml:lang="de">Steuerbehörden</value>
         <value xml:lang="en">Tax Authorities</value>
         <value xml:lang="es">Autoridades fiscales</value>
         <value xml:lang="fr">Administrations fiscales</value>
@@ -6613,6 +6675,7 @@
         <value xml:lang="zh">条件类型标识</value>
     </property>
     <property key="AccountingTextData">
+        <value xml:lang="de">Textangaben</value>
         <value xml:lang="en">Text Data</value>
         <value xml:lang="es">Dato Texto</value>
         <value xml:lang="fr">Données de texte</value>
@@ -6672,6 +6735,7 @@
         <value xml:lang="zh">到会员</value>
     </property>
     <property key="AccountingToPartyId">
+        <value xml:lang="de">An Akteur ID</value>
         <value xml:lang="en">To Party Id</value>
         <value xml:lang="es">Id a grupo</value>
         <value xml:lang="fr">A l'acteur réf.</value>
@@ -6716,6 +6780,7 @@
     </property>
     <property key="AccountingTransactionType">
         <value xml:lang="ar">نوع العملية</value>
+        <value xml:lang="de">Transaktions-Art</value>
         <value xml:lang="en">Transaction Type</value>
         <value xml:lang="es">Tipo transacción</value>
         <value xml:lang="fr">Type de transaction</value>
@@ -6740,6 +6805,7 @@
     </property>
     <property key="AccountingTransactions">
         <value xml:lang="ar">العمليات</value>
+        <value xml:lang="de">Transaktionen</value>
         <value xml:lang="en">Transactions</value>
         <value xml:lang="es">Transacciones</value>
         <value xml:lang="fr">Transactions</value>
@@ -6984,6 +7050,7 @@
         <value xml:lang="zh">使用礼品卡不存档</value>
     </property>
     <property key="AccountingValidationPattern">
+        <value xml:lang="de">Nutzen Sie den regulären Ausdruck Validierungs-Muster</value>
         <value xml:lang="en">Use regular expression validation pattern</value>
         <value xml:lang="es">Usar expresión regular de validación</value>
         <value xml:lang="fr">Utilisez une expression régulière pour la validation</value>
@@ -7050,6 +7117,7 @@
     </property>
     <property key="AcctgAssignGlAccount">
         <value xml:lang="ar">تعيين الحساب المحاسبي</value>
+        <value xml:lang="de">zuweisen Hauptbuchkonto</value>
         <value xml:lang="en">Assign GL Account</value>
         <value xml:lang="es">Asignar Cuenta de LM</value>
         <value xml:lang="fr">Assigner un compte comptable</value>
@@ -7062,6 +7130,7 @@
     </property>
     <property key="AcctgChartOfAcctsTabMenu">
         <value xml:lang="ar">بيان الحسابات</value>
+        <value xml:lang="de">Kontenübersicht</value>
         <value xml:lang="en">Chart of Accounts</value>
         <value xml:lang="es">Carta de cuentas</value>
         <value xml:lang="fr">Plan comptable</value>
@@ -7182,6 +7251,7 @@
     </property>
     <property key="AcctgNavigateAccts">
         <value xml:lang="ar">إستكشاف الحسابات</value>
+        <value xml:lang="de">Kontenübersicht</value>
         <value xml:lang="en">Navigate Accounts</value>
         <value xml:lang="es">Navegación de cuentas</value>
         <value xml:lang="fr">Naviguer dans les comptes</value>
@@ -7200,6 +7270,7 @@
         <value xml:lang="th">New Journal Entry</value>
     </property>
     <property key="AcctgPartyGlJournalSummary">
+        <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Résumé</value>
         <value xml:lang="it">Sommario</value>
@@ -7231,6 +7302,7 @@
     </property>
     <property key="FormFieldTitle_accountLimit">
         <value xml:lang="ar">حدود الحساب</value>
+        <value xml:lang="de">Kontolimit</value>
         <value xml:lang="en">Account Limit</value>
         <value xml:lang="es">Límite de cuenta</value>
         <value xml:lang="fr">Limite du compte</value>
@@ -7243,6 +7315,7 @@
     </property>
     <property key="FormFieldTitle_accountName">
         <value xml:lang="ar">إسم الحساب</value>
+        <value xml:lang="de">Kontoname</value>
         <value xml:lang="en">Account Name</value>
         <value xml:lang="es">Nombre de cuenta</value>
         <value xml:lang="fr">Nom du compte</value>
@@ -7316,6 +7389,7 @@
         <value xml:lang="th">ยอดเงินจริง</value>
     </property>
     <property key="FormFieldTitle_actualEndOfLife">
+        <value xml:lang="de">Ist-Lebensdauer</value>
         <value xml:lang="en">Actual End Of Life</value>
         <value xml:lang="fr">Fin de vie réelle</value>
         <value xml:lang="it">Fine Vita Attuale</value>
@@ -7335,6 +7409,7 @@
     </property>
     <property key="FormFieldTitle_agreementDate">
         <value xml:lang="ar">تاريخ الإتفاقية</value>
+        <value xml:lang="de">Vertragsdatum</value>
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
         <value xml:lang="fr">Date de l'accord</value>
@@ -7416,6 +7491,7 @@
     </property>
     <property key="FormFieldTitle_amountToApply">
         <value xml:lang="ar">المبلغ للتطبيق</value>
+        <value xml:lang="de">zuzuweisender Betrag</value>
         <value xml:lang="en">Amount to Apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="fr">Montant à allouer</value>
@@ -7439,6 +7515,7 @@
     </property>
     <property key="FormFieldTitle_applied">
         <value xml:lang="ar">مطبق</value>
+        <value xml:lang="de">Angelegt</value>
         <value xml:lang="en">Applied</value>
         <value xml:lang="es">Aplicado</value>
         <value xml:lang="fr">Alloué</value>
@@ -7470,6 +7547,7 @@
         <value xml:lang="th">วันที่อนุญาต</value>
     </property>
     <property key="FormFieldTitle_availableBalance">
+        <value xml:lang="de">verfügbares Guthaben</value>
         <value xml:lang="en">Available Balance</value>
         <value xml:lang="fr">Balance disponible</value>
         <value xml:lang="it">Bilancio Disponibile</value>
@@ -7516,6 +7594,7 @@
     </property>
     <property key="FormFieldTitle_calendarId">
         <value xml:lang="ar">الرزمانة</value>
+        <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier</value>
@@ -7527,6 +7606,7 @@
         <value xml:lang="zh">日历</value>
     </property>
     <property key="FormFieldTitle_capture">
+        <value xml:lang="de">erfassen</value>
         <value xml:lang="en">Capture</value>
         <value xml:lang="fr">Capture</value>
         <value xml:lang="it">Cattura</value>
@@ -7538,6 +7618,7 @@
         <value xml:lang="it">Tipo Carta di Credito</value>
     </property>
     <property key="FormFieldTitle_classEnumId">
+        <value xml:lang="de">Kategorieaufzählungs-ID</value>
         <value xml:lang="en">Class Enum Id</value>
         <value xml:lang="es">Id Clase de enumeración</value>
         <value xml:lang="fr">Réf. énumération</value>
@@ -7592,6 +7673,7 @@
     </property>
     <property key="FormFieldTitle_dateAcquired">
         <value xml:lang="ar">تاريخ التحصيل</value>
+        <value xml:lang="de">Erlangter Termin</value>
         <value xml:lang="en">Date Acquired</value>
         <value xml:lang="es">Fecha de adquisición</value>
         <value xml:lang="fr">Date d'acquisition</value>
@@ -7604,6 +7686,7 @@
     </property>
     <property key="FormFieldTitle_dateLastServiced">
         <value xml:lang="ar">تاريخ آخر مرة خدمة</value>
+        <value xml:lang="de">Datum des letzten Dienstes</value>
         <value xml:lang="en">Date Last Serviced</value>
         <value xml:lang="es">Fecha de último servicio</value>
         <value xml:lang="fr">Date du dernier entretien</value>
@@ -7616,6 +7699,7 @@
     </property>
     <property key="FormFieldTitle_dateNextService">
         <value xml:lang="ar">تاريخ الخدمة المقبلة</value>
+        <value xml:lang="de">Datum des nächsten Dienstes</value>
         <value xml:lang="en">Date Next Service</value>
         <value xml:lang="es">Fecha de siguiente servicio</value>
         <value xml:lang="fr">Date du prochain entretien</value>
@@ -7662,6 +7746,7 @@
         <value xml:lang="zh">已履行的日期时间</value>
     </property>
     <property key="FormFieldTitle_daysOffset">
+        <value xml:lang="de">Tageverschiebung</value>
         <value xml:lang="en">Days Offset</value>
         <value xml:lang="fr">Décalages en jours</value>
         <value xml:lang="it">Giorni di Intervallo</value>
@@ -7695,6 +7780,7 @@
         <value xml:lang="zh">借方总账账户标识</value>
     </property>
     <property key="FormFieldTitle_defaultGlAccountId">
+        <value xml:lang="de">Zahlungsverzug GI-Konto ID</value>
         <value xml:lang="en">Default Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
         <value xml:lang="fr">Compte par défaut</value>
@@ -7711,6 +7797,7 @@
     </property>
     <property key="FormFieldTitle_dueDate">
         <value xml:lang="ar">تاريخ الإنتهاء</value>
+        <value xml:lang="de">Fälligkeit</value>
         <value xml:lang="en">Due Date</value>
         <value xml:lang="es">Fecha de adeudo</value>
         <value xml:lang="fr">Date d'échéance</value>
@@ -7767,6 +7854,7 @@
     </property>
     <property key="FormFieldTitle_expectedEndOfLife">
         <value xml:lang="ar">نهاية الحياة المرتقبة</value>
+        <value xml:lang="de">Soll-Lebensdauer</value>
         <value xml:lang="en">Expected End Of Life</value>
         <value xml:lang="fr">Fin de vie estimée</value>
         <value xml:lang="it">Fine Vita Attesa</value>
@@ -7869,6 +7957,7 @@
     </property>
     <property key="FormFieldTitle_fixedAssetName">
         <value xml:lang="ar">إسم الأصل الثابت</value>
+        <value xml:lang="de">Anlagename</value>
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de activo fijo</value>
         <value xml:lang="fr">Nom de l'immobilisation</value>
@@ -8000,6 +8089,7 @@
         <value xml:lang="zh">财务总账类型标识</value>
     </property>
     <property key="FormFieldTitle_glJournalId">
+        <value xml:lang="de">GI Grundbuchs-ID</value>
         <value xml:lang="en">Gl Journal Id</value>
         <value xml:lang="fr">Réf. journal du Grand Livre</value>
         <value xml:lang="it">Giornale</value>
@@ -8047,6 +8137,7 @@
     </property>
     <property key="FormFieldTitle_includeTaxInPrice">
         <value xml:lang="ar">ضم الضريبة إلى السعر</value>
+        <value xml:lang="de">Preis enthält Steuer</value>
         <value xml:lang="en">Include Tax In Price</value>
         <value xml:lang="es">Incluir impuesto en precio</value>
         <value xml:lang="fr">Inclure les taxes dans le prix</value>
@@ -8058,6 +8149,7 @@
         <value xml:lang="zh">价格中含税</value>
     </property>
     <property key="FormFieldTitle_instanceOfProductId">
+        <value xml:lang="de">Beispiel für Produkt ID</value>
         <value xml:lang="en">Instance Of Product Id</value>
         <value xml:lang="es">Id Instacia de producto</value>
         <value xml:lang="fr">Instance du produit réf.</value>
@@ -8087,6 +8179,7 @@
     </property>
     <property key="FormFieldTitle_invoiceId">
         <value xml:lang="ar">دليل الفاتورة</value>
+        <value xml:lang="de">Rechnungs-Nr.</value>
         <value xml:lang="en">Invoice ID</value>
         <value xml:lang="es">Id Factura</value>
         <value xml:lang="fr">Réf. de facture</value>
@@ -8110,6 +8203,7 @@
     </property>
     <property key="FormFieldTitle_invoiceItemSeqId">
         <value xml:lang="ar">رفم البند</value>
+        <value xml:lang="de">Objekt Nummer</value>
         <value xml:lang="en">Item No</value>
         <value xml:lang="es">No Elemento</value>
         <value xml:lang="fr">Réf. de la ligne de facture</value>
@@ -8174,6 +8268,7 @@
     </property>
     <property key="FormFieldTitle_invoiceTypeId">
         <value xml:lang="ar">نوع الفاتورة</value>
+        <value xml:lang="de">Rechnungs-Art</value>
         <value xml:lang="en">Invoice Type</value>
         <value xml:lang="es">Tipo Factura</value>
         <value xml:lang="fr">Type de facture</value>
@@ -8190,6 +8285,7 @@
     </property>
     <property key="FormFieldTitle_isPosted">
         <value xml:lang="ar">مرسل</value>
+        <value xml:lang="de">Verbucht</value>
         <value xml:lang="en">Is Posted</value>
         <value xml:lang="es">Esta Enviado</value>
         <value xml:lang="fr">Postée</value>
@@ -8273,6 +8369,7 @@
         <value xml:lang="zh">上一个询价编号</value>
     </property>
     <property key="FormFieldTitle_locatedAtFacilityId">
+        <value xml:lang="de">Vor Ort ID</value>
         <value xml:lang="en">Located At Facility Id</value>
         <value xml:lang="fr">Situé dans le magasin réf.</value>
         <value xml:lang="it">Ubicato Nello Stabilimento</value>
@@ -8399,6 +8496,7 @@
         <value xml:lang="zh">定单序号</value>
     </property>
     <property key="FormFieldTitle_organizationPartyId">
+        <value xml:lang="de">Firmen-ID</value>
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur organisation</value>
@@ -8461,6 +8559,7 @@
         <value xml:lang="zh">实际支付日期</value>
     </property>
     <property key="FormFieldTitle_parentFixedAssetId">
+        <value xml:lang="de">Ursprungsanlagevermögen ID</value>
         <value xml:lang="en">Fixed Asset Parent Id</value>
         <value xml:lang="es">Id Padre Activo Fijo</value>
         <value xml:lang="fr">Immobilisation parente</value>
@@ -8472,6 +8571,7 @@
         <value xml:lang="zh">固定资产上级标识</value>
     </property>
     <property key="FormFieldTitle_parentGlAccountId">
+        <value xml:lang="de">Übergeordnete Hauptbuchungskonten-ID</value>
         <value xml:lang="en">Parent Gl Account Id</value>
         <value xml:lang="es">Id Padre Cuenta de LM</value>
         <value xml:lang="fr">Compte parent</value>
@@ -8518,6 +8618,7 @@
         <value xml:lang="zh">已应用</value>
     </property>
     <property key="FormFieldTitle_paymentApplyNow">
+        <value xml:lang="de">zuzuweisender Betrag</value>
         <value xml:lang="en">Amount to Apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="fr">Montant à allouer</value>
@@ -8607,6 +8708,7 @@
         <value xml:lang="zh">支付服务类型枚举标识</value>
     </property>
     <property key="FormFieldTitle_paymentTypeId">
+        <value xml:lang="de">Zahlungs-Art-Nr.</value>
         <value xml:lang="en">Payment Type ID</value>
         <value xml:lang="es">Id Tipo de Pago</value>
         <value xml:lang="fr">Type de paiement</value>
@@ -8665,6 +8767,7 @@
         <value xml:lang="it">Tipo Periodo Fiscale</value>
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
+        <value xml:lang="de">auf Hauptbuchkonto-Nr. buchen</value>
         <value xml:lang="en">Post To Gl Account Id</value>
         <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
@@ -8673,6 +8776,7 @@
         <value xml:lang="th">ประกาศถึงรหัสบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="FormFieldTitle_postedBalance">
+        <value xml:lang="de">Verbuchter Kontostand</value>
         <value xml:lang="en">Posted Balance</value>
         <value xml:lang="es">Balance Enviado</value>
         <value xml:lang="fr">Balance</value>
@@ -8684,6 +8788,7 @@
         <value xml:lang="zh">过账余额</value>
     </property>
     <property key="FormFieldTitle_postedDate">
+        <value xml:lang="de">Buchungsdatum</value>
         <value xml:lang="en">Posted Date</value>
         <value xml:lang="fr">Date de comptabilisation</value>
         <value xml:lang="it">Data Contabilizzazione</value>
@@ -8691,6 +8796,7 @@
         <value xml:lang="th">โพสต์เมื่อวันที่</value>
     </property>
     <property key="FormFieldTitle_productMaintSeqId">
+        <value xml:lang="de">Produktverwaltung</value>
         <value xml:lang="en">Product Maintenance</value>
         <value xml:lang="es">Mantenimiento de producto</value>
         <value xml:lang="fr">Maintenance du produit</value>
@@ -8713,6 +8819,7 @@
         <value xml:lang="zh">产品促销名称</value>
     </property>
     <property key="FormFieldTitle_productionCapacity">
+        <value xml:lang="de">Produktionskapazität</value>
         <value xml:lang="en">Production Capacity</value>
         <value xml:lang="es">Capacidad de producción</value>
         <value xml:lang="fr">Capacité de production</value>
@@ -8724,6 +8831,7 @@
         <value xml:lang="zh">生产能力</value>
     </property>
     <property key="FormFieldTitle_produtId">
+        <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Id Producto</value>
         <value xml:lang="fr">Réf. produit</value>
@@ -8743,6 +8851,7 @@
         <value xml:lang="it">Udm Costo d'Acquisto</value>
     </property>
     <property key="FormFieldTitle_purchaseOrderId">
+        <value xml:lang="de">Bestellungs-ID</value>
         <value xml:lang="en">Purchase Order Id</value>
         <value xml:lang="es">Id Orden de Compra</value>
         <value xml:lang="fr">Réf. commande d'achat</value>
@@ -8883,6 +8992,7 @@
         <value xml:lang="th">รหัสการชำระเงินเสร็จสมบูรณ์</value>
     </property>
     <property key="FormFieldTitle_requireTaxIdForExemption">
+        <value xml:lang="de">benötigt Steuer-Nr. für Befreiung</value>
         <value xml:lang="en">Require Tax Id For Exemption</value>
         <value xml:lang="es">Requerir Id de impuesto para excepción</value>
         <value xml:lang="fr">Requiert identifiant fiscal pour exemption</value>
@@ -8926,6 +9036,7 @@
         <value xml:lang="th">Result Nsf</value>
     </property>
     <property key="FormFieldTitle_roleTypeId">
+        <value xml:lang="de">Funktionstyp ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="es">Id Tipo de Rol</value>
         <value xml:lang="fr">Role type</value>
@@ -9023,6 +9134,7 @@
         <value xml:lang="zh">团体的税务表格</value>
     </property>
     <property key="FormFieldTitle_taxIdFormatPattern">
+        <value xml:lang="de">Steuer-Nr. Format-Pattern</value>
         <value xml:lang="en">Tax Id Format Pattern</value>
         <value xml:lang="es">Id Impuesto Formato Patrón</value>
         <value xml:lang="fr">Format d'identifiant fiscal</value>
@@ -9085,6 +9197,7 @@
         <value xml:lang="th">รหัสประเภทช่วงเวลาที่กำหนด</value>
     </property>
     <property key="FormFieldTitle_termValue">
+        <value xml:lang="de">Bedingungswert</value>
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Valor Término</value>
         <value xml:lang="fr">Terme (valeur)</value>
@@ -9096,6 +9209,7 @@
         <value xml:lang="zh">条件值</value>
     </property>
     <property key="FormFieldTitle_textData">
+        <value xml:lang="de">Textangaben</value>
         <value xml:lang="en">Text Data</value>
         <value xml:lang="it">Dato Testo</value>
     </property>
@@ -9160,6 +9274,7 @@
         <value xml:lang="zh">到税务机构会员标识</value>
     </property>
     <property key="FormFieldTitle_totInvoiceApplied">
+        <value xml:lang="de">alle angelegten Rechnungen</value>
         <value xml:lang="en">Tot Invoice Applied</value>
         <value xml:lang="fr">Total alloué</value>
         <value xml:lang="it">Totale fattura applicato</value>
@@ -9191,6 +9306,7 @@
         <value xml:lang="th">อธิบายประเภทรายการ</value>
     </property>
     <property key="FormFieldTitle_transactionDate">
+        <value xml:lang="de">Transaktionsdatum</value>
         <value xml:lang="en">Transaction Date</value>
         <value xml:lang="es">Fecha de Transacción</value>
         <value xml:lang="fr">Date de transaction</value>
@@ -9234,6 +9350,7 @@
         <value xml:lang="nl">Rollen overeenkomst toevoegen</value>
     </property>
     <property key="PageTitleAddBillingAccountRoles">
+        <value xml:lang="de">Rechnungskontenfunktionen hinzufügen</value>
         <value xml:lang="en">Add Billing Account Roles</value>
         <value xml:lang="fr">Ajouter les rôles pour le compte de facturation</value>
         <value xml:lang="it">Aggiungi Ruoli Conto Fatturazione</value>
@@ -9309,6 +9426,7 @@
         <value xml:lang="th">คัดลอกสัญญา</value>
     </property>
     <property key="PageTitleEditAgreement">
+        <value xml:lang="de">Vereinbarung ändern</value>
         <value xml:lang="en">Edit Agreement</value>
         <value xml:lang="es">Editar Acuerdo</value>
         <value xml:lang="fr">Modifier un accord</value>
@@ -9388,6 +9506,7 @@
         <value xml:lang="nl">Toepassing werkinzet overeenkomst aanpassen</value>
     </property>
     <property key="PageTitleEditBillingAccount">
+        <value xml:lang="de">Rechnungskonto bearbeiten</value>
         <value xml:lang="en">Edit Billing Account</value>
         <value xml:lang="es">Editar Cuenta de Facturación</value>
         <value xml:lang="fr">Modifier un compte de facturation</value>
@@ -9412,6 +9531,7 @@
         <value xml:lang="zh">编辑账单账户发票</value>
     </property>
     <property key="PageTitleEditBillingAccountOrders">
+        <value xml:lang="de">Rechnungskontobestellungen bearbeiten</value>
         <value xml:lang="en">Edit Billing Account Orders</value>
         <value xml:lang="fr">Modifier le compte de facturation des commandes</value>
         <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
@@ -9443,6 +9563,7 @@
         <value xml:lang="zh">编辑账单账户角色</value>
     </property>
     <property key="PageTitleEditBillingAccountTerms">
+        <value xml:lang="de">Rechnungskontobedingungen bearbeiten</value>
         <value xml:lang="en">Edit Billing Account Terms</value>
         <value xml:lang="es">Editar Términos de Cuenta de Facturación</value>
         <value xml:lang="fr">Modifier les termes du compte de facturation</value>
@@ -9617,6 +9738,7 @@
         <value xml:lang="zh">编辑支付</value>
     </property>
     <property key="PageTitleEditTaxAuthority">
+        <value xml:lang="de">Neue Steuerbehörde</value>
         <value xml:lang="en">Edit Tax Authority</value>
         <value xml:lang="es">Editar Autoridad Fiscal</value>
         <value xml:lang="fr">Modifier une administration fiscale</value>
@@ -9695,6 +9817,7 @@
         <value xml:lang="nl">Transactieregels aanpassen</value>
     </property>
     <property key="PageTitleFinAccount">
+        <value xml:lang="de">Geldkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
         <value xml:lang="it">Conto Finanziario</value>
@@ -9719,6 +9842,7 @@
         <value xml:lang="th">ตัวเลือกรายงานบัญชีโดยสรุป</value>
     </property>
     <property key="PageTitleFindAgreement">
+        <value xml:lang="de">Verträge finden</value>
         <value xml:lang="en">Find Agreements</value>
         <value xml:lang="es">Encontrar Acuerdos</value>
         <value xml:lang="fr">Recherche d'accords</value>
@@ -9736,6 +9860,7 @@
         <value xml:lang="nl">Vind rollen overeenkomst</value>
     </property>
     <property key="PageTitleFindBillingAccount">
+        <value xml:lang="de">Rechnungskonto finden</value>
         <value xml:lang="en">Find Billing Account(s)</value>
         <value xml:lang="es">Encontrar Cuenta(s) de Facturación</value>
         <value xml:lang="fr">Recherche de comptes de facturation</value>
@@ -9749,6 +9874,7 @@
         <value xml:lang="zh">查找账单账户</value>
     </property>
     <property key="PageTitleFindGatewayResponses">
+        <value xml:lang="de">Schnittstellen-Antwort finden</value>
         <value xml:lang="en">Find Gateway Responses</value>
         <value xml:lang="es">Encontrar Respuestas de Gateway</value>
         <value xml:lang="fr">Recherche de réponses de terminaux de paiement</value>
@@ -9778,6 +9904,7 @@
         <value xml:lang="zh">查找全局总账账户</value>
     </property>
     <property key="PageTitleFindInvoice">
+        <value xml:lang="de">Suche Rechnungen</value>
         <value xml:lang="en">Find Invoice</value>
         <value xml:lang="es">Encontrar Factura</value>
         <value xml:lang="fr">Recherche de factures</value>
@@ -9800,6 +9927,7 @@
         <value xml:lang="zh">查找支付</value>
     </property>
     <property key="PageTitleFindTaxAuthority">
+        <value xml:lang="de">Suche Steuerbehörde</value>
         <value xml:lang="en">Find Tax Authority</value>
         <value xml:lang="es">Encontrar Autoridad Fiscal</value>
         <value xml:lang="fr">Recherche d'administrations fiscales</value>
@@ -9837,6 +9965,7 @@
         <value xml:lang="zh">发票总览</value>
     </property>
     <property key="PageTitleListAccounts">
+        <value xml:lang="de">Konten auflisten</value>
         <value xml:lang="en">List Accounts</value>
         <value xml:lang="es">Lista de Cuentas</value>
         <value xml:lang="fr">Liste des comptes</value>
@@ -9848,6 +9977,7 @@
         <value xml:lang="zh">账户列表</value>
     </property>
     <property key="PageTitleListAgreement">
+        <value xml:lang="de">Vereinbarung aufführen</value>
         <value xml:lang="en">List Agreement</value>
         <value xml:lang="fr">Liste des accords commerciaux</value>
         <value xml:lang="it">Lista Contratti</value>
@@ -10049,6 +10179,7 @@
         <value xml:lang="zh">发票角色列表</value>
     </property>
     <property key="PageTitleListInvoices">
+        <value xml:lang="de">Rechnungen auflisten</value>
         <value xml:lang="en">List Invoices</value>
         <value xml:lang="es">Lista de Facturas</value>
         <value xml:lang="fr">Liste des factures</value>
