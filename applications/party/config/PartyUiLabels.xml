@@ -2105,7 +2105,7 @@
     <property key="PartyAddProtectedViewToSecurityGroup">
         <value xml:lang="en">Add a Protected View to SecurityGroup</value>
         <value xml:lang="fr">Ajouter une vue protégée à ce groupe de sécurité</value>
-    </property>    
+    </property>
     <property key="PartyAddPurpose">
         <value xml:lang="cs">Přidat účel</value>
         <value xml:lang="de">Zweck hinzufügen</value>
@@ -3661,7 +3661,7 @@
         <value xml:lang="en">Create New Contact Information</value>
         <value xml:lang="es">Crear nuevo contacto</value>
         <value xml:lang="fr">Créer de nouvelles coordonnées</value>
-        <value xml:lang="it">Creare Nuovo Informazione Contatto</value>
+        <value xml:lang="it">Creare nuovo informazione contatto</value>
         <value xml:lang="nl">Nieuwe contactinformatie</value>
         <value xml:lang="pt_PT">Criar Nova Informação de Contacto</value>
         <value xml:lang="ro">Creare o Noua Informatie Contact</value>
@@ -4148,7 +4148,7 @@
         <value xml:lang="en">Edit Contact Information</value>
         <value xml:lang="es">Editar información de contacto</value>
         <value xml:lang="fr">Modifier les coordonnées</value>
-        <value xml:lang="it">Aggiorna Informazioni Contatto</value>
+        <value xml:lang="it">Aggiorna informazioni contatto</value>
         <value xml:lang="nl">Contactinfo wijzigen</value>
         <value xml:lang="pt_PT">Editar Informação de Contacto</value>
         <value xml:lang="ro">Actualizare Informatii Contact</value>
@@ -4210,7 +4210,8 @@
         <value xml:lang="en">E-Mail Address</value>
         <value xml:lang="es">Dirección de E-Mail</value>
         <value xml:lang="fr">Adresse courriel</value>
-        <value xml:lang="it">Indirizzo E-Mail</value>
+        <value xml:lang="it">Indirizzo email</value>
+        <value xml:lang="nl">Emailadres</value>
         <value xml:lang="ro">Adresa E-Mail</value>
         <value xml:lang="ru">Адрес эл. почты</value>
         <value xml:lang="th">ที่อยู่อีเมล</value>
@@ -4654,6 +4655,17 @@
         <value xml:lang="es">El número de empleados no es válido</value>
         <value xml:lang="fr">Le nombre d'employés n'est pas valable</value>
         <value xml:lang="nl">Aantal medewerkers is fout opgegeven</value>
+    </property>
+    <property key="PartyGroupPartyId">
+        <value xml:lang="en">Group Party ID</value>
+        <value xml:lang="es">Código de grupo de participante</value>
+        <value xml:lang="fr">Réf. de groupe d'acteur</value>
+        <value xml:lang="it">Codice gruppo soggetto</value>
+        <value xml:lang="nl">Group Party ID</value>
+        <value xml:lang="ro">Cod Grup Subiect</value>
+        <value xml:lang="ru">ID группы участника</value>
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">组会员标识</value>
     </property>
     <property key="PartyHeight">
         <value xml:lang="cs">Velikost</value>
@@ -6472,7 +6484,7 @@
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="it">Codice soggetto</value>
         <value xml:lang="nl">Relatie-ID</value>
         <value xml:lang="pt_PT">ID da Secção</value>
         <value xml:lang="ro">Cod Subiect</value>
@@ -7487,7 +7499,7 @@
         <value xml:lang="en">RoleType ID</value>
         <value xml:lang="es">Tipo de rol</value>
         <value xml:lang="fr">Référence Type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
+        <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="nl">ID soort rol</value>
         <value xml:lang="pt_PT">ID de Tipo de Função</value>
         <value xml:lang="ro">Tip Rol</value>
@@ -7730,7 +7742,7 @@
         <value xml:lang="es">Enviar Email</value>
         <value xml:lang="fr">Envoyer un courriel</value>
         <value xml:lang="hi_IN">ईमेल दिजीये</value>
-        <value xml:lang="it">Invia Email</value>
+        <value xml:lang="it">Invia email</value>
         <value xml:lang="ja">Send Email</value>
         <value xml:lang="nl">Stuur een Email</value>
         <value xml:lang="pt_PT">Enviar E-mail</value>
@@ -8314,7 +8326,7 @@
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom dest.</value>
         <value xml:lang="hi_IN">नाम को</value>
-        <value xml:lang="it">Nome</value>
+        <value xml:lang="it">al nome</value>
         <value xml:lang="ja">To Name</value>
         <value xml:lang="nl">Aan Naam</value>
         <value xml:lang="pt_PT">Para O Nome De</value>

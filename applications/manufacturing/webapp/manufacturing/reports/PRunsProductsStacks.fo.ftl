@@ -65,7 +65,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>     
                             <fo:block line-height="6pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="6pt">${uiLabelMap.WorkEffortName}:</fo:inline>
+                                <fo:inline font-size="6pt">${uiLabelMap.ManufacturingPlan}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>     

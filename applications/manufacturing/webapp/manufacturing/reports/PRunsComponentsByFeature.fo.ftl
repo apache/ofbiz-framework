@@ -69,7 +69,7 @@ under the License.
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
                               <#if mrpName?exists>                
-                                <fo:inline font-size="10pt">${uiLabelMap.WorkEffortName}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPlan}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${mrpName}</fo:inline>
                               <#else>
                                 <fo:inline font-size="10pt">${uiLabelMap.ProductShipmentPlan}:</fo:inline>
