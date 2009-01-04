@@ -461,7 +461,34 @@ under the License.
     </request-map>
     
     <!-- Artifact Info Requests -->
-    <request-map uri="ArtifactInfo"><security https="true" auth="true"/><response name="success" type="view" value="ArtifactInfo"/></request-map>
+    <request-map uri="ArtifactInfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ArtifactInfo"/>
+    </request-map>
+
+    <!-- Label Manager Requests -->
+    <request-map uri="SearchLabels">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SearchLabels"/>
+    </request-map>
+    
+    <request-map uri="SaveLabelsToXmlFile">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="saveLabelsToXmlFile"/>
+        <response name="success" type="view" value="SearchLabels"/>
+    </request-map>
+    
+    <request-map uri="UpdateLabel">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdateLabel"/>
+    </request-map>
+    
+    <request-map uri="UpdateLabelKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateLabelKey"/>
+        <response name="success" type="view" value="SearchLabels"/>
+        <response name="error" type="view" value="UpdateLabel"/>
+    </request-map>
 
     <!-- cert requests -->
     <request-map uri="myCertificates">
@@ -607,6 +634,10 @@ under the License.
     
     <!-- Artifact Info Views -->
     <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/> 
+
+    <!-- Label Manager Views -->
+    <view-map name="SearchLabels" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#SearchLabels"/>
+    <view-map name="UpdateLabel" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#UpdateLabel"/>
 
     <!-- Temporal expression views -->
     <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>

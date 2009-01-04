@@ -20,9 +20,9 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
-	<description>OFBiz WebTools Services</description>
-	<vendor>OFBiz</vendor>
-	<version>1.0</version>
+    <description>OFBiz WebTools Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
 
     <!-- Entity Import Services 
          Transacitons are turned off for these services because they set transactions and timeouts inside the services with txTimeout parameter -->
@@ -122,5 +122,20 @@ under the License.
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
         <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false"/>
+    </service>
+    <service name="saveLabelsToXmlFile" engine="java" location="org.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile" 
+             invoke="saveLabelsToXmlFile" auth="true" use-transaction="false">
+        <description>Save labels to xml file</description>
+        <attribute name="labelFileName" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateLabelKey" engine="java" location="org.ofbiz.webtools.labelmanager.LabelManagerFactory" 
+             invoke="updateLabelKey" auth="true" use-transaction="false">
+        <description>Update Label Key</description>
+        <attribute name="key" type="String" mode="IN" optional="true"/>
+        <attribute name="update_label" type="String" mode="IN" optional="false"/>
+        <attribute name="fileName" type="String" mode="IN" optional="false"/>
+        <attribute name="confirm" type="String" mode="IN" optional="true"/>
+        <attribute name="localeNames" type="List" mode="IN" optional="true"/>
+        <attribute name="localeValues" type="List" mode="IN" optional="true"/>
     </service>
 </services>
