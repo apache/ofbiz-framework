@@ -213,7 +213,6 @@
             
             <if-empty field="parameters.fromDate">
                 <now-timestamp field="parameters.fromDate"/>
-                <to-string field="parameters.fromDate"/>
             </if-empty>
             <set from-field="parameters.fromDate" field="newContentAssoc.fromDate"/>
             <if-not-empty field="parameters.thruDate">
