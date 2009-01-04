@@ -2840,8 +2840,10 @@
         <value xml:lang="es">Problemas de autorización</value>
         <value xml:lang="fr">Problèmes d'autorisation CB</value>
         <value xml:lang="it">problemi di Autorizzazione</value>
+        <value xml:lang="ro">Probleme de Autorizatie</value>
         <value xml:lang="ru">Проблемы авторизации</value>
         <value xml:lang="th">ปัญหาการอนุญาต</value>
+        <value xml:lang="zh">授权问题</value>
     </property>
     <property key="OrderFilterInventoryProblems">
         <value xml:lang="de">Probleme Lager</value>
@@ -2849,6 +2851,7 @@
         <value xml:lang="es">Problemas de almacén</value>
         <value xml:lang="fr">Problèmes de stock</value>
         <value xml:lang="it">problemi di inventario</value>
+        <value xml:lang="ro">Probleme de Inventar</value>
         <value xml:lang="ru">Проблемы с материальным обеспечением</value>
         <value xml:lang="th">ปัญหาสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存问题</value>
@@ -9622,28 +9625,6 @@
         <value xml:lang="th">YTD</value>
         <value xml:lang="zh">年合计</value>
         <value xml:lang="zh_CN">YTD</value>
-    </property>
-    <property key="OrderfilterAuthProblems">
-        <value xml:lang="de">Problem Zahlungsverarbeitung</value>
-        <value xml:lang="en">Authorization Problems</value>
-        <value xml:lang="es">Problema de autorización</value>
-        <value xml:lang="fr">Problèmes d'autorisation de paiement</value>
-        <value xml:lang="it">Problemi di Autorizzazioni</value>
-        <value xml:lang="ro">Probleme de Autorizatie</value>
-        <value xml:lang="ru">Проблемы авторизации</value>
-        <value xml:lang="th">ปัญหาการอนุญาต</value>
-        <value xml:lang="zh">授权问题</value>
-    </property>
-    <property key="OrderfilterInventoryProblems">
-        <value xml:lang="de">Problem Lager</value>
-        <value xml:lang="en">Inventory Problems</value>
-        <value xml:lang="es">Problema de existencias</value>
-        <value xml:lang="fr">problèmes d'inventaire</value>
-        <value xml:lang="it">Problemi di Inventario</value>
-        <value xml:lang="ro">Probleme de Inventar</value>
-        <value xml:lang="ru">Проблемы материального обеспечения</value>
-        <value xml:lang="th">ปัญหาสินค้าคงเหลือ</value>
-        <value xml:lang="zh">库存问题</value>
     </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="de">Neue Offerte und Offertelement für Kundenanfrage erstellen</value>

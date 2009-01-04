@@ -44,7 +44,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="Survey" default-field-type="display"/>
-        <field name="surveyId" title="${uiLabelMap.SurveySurveyId}" widget-style="buttontext">
+        <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}" widget-style="buttontext">
             <hyperlink description="${surveyId}" target="EditSurvey?surveyId=${surveyId}" also-hidden="false"/>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="ListFindSurveySearchResults"/>
@@ -77,7 +77,7 @@ under the License.
         <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">      
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="submitButton" title="${uiLabelMap.SurveyGenerateQuestions}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.ContentSurveyGenerateQuestions}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="BuildSurveyResponseFromPdf" type="single" target="buildSurveyResponseFromPdf" title="" default-map-name="survey"
@@ -89,7 +89,7 @@ under the License.
         <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="submitButton" title="${uiLabelMap.SurveyBuildRespondeFromPDF}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.ContentSurveyBuildRespondeFromPDF}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- SurveyMultiResp & SurveyMultiRespColumn -->
@@ -269,7 +269,7 @@ under the License.
     <form name="lookupSurvey" target="LookupSurvey" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Survey" default-field-type="find"/>
-        <field name="surveyId" title="${uiLabelMap.SurveySurveyId}"><text-find/></field>
+        <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}"><text-find/></field>
         <field name="isAnonymous"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <field name="allowMultiple"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <field name="allowUpdate"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>

@@ -417,6 +417,82 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">论坛</value>
     </property>
+    <property key="ContentForumAddPurposeTo">
+        <value xml:lang="ar">إضافة هدف إلى</value>
+        <value xml:lang="de">Zweck hinzufügen zu</value>
+        <value xml:lang="en">Add purpose to</value>
+        <value xml:lang="fr">Ajouter le but à</value>
+        <value xml:lang="it">Aggiungi funzione a</value>
+        <value xml:lang="ro">Adauga functie la </value>
+        <value xml:lang="th">เพิ่มวัตถุประสงค์ถึง</value>
+        <value xml:lang="zh">把目的添加到</value>
+    </property>
+    <property key="ContentForumAddResponseToMessage">
+        <value xml:lang="de">Antwort hinzufügen zu Meldung</value>
+        <value xml:lang="en">Add a response to message</value>
+        <value xml:lang="fr">Ajouter une réponse au message</value>
+        <value xml:lang="it">Aggiungi una risposta al messaggio</value>
+        <value xml:lang="th">ผลตอบรับถึงข้อความ</value>
+    </property>
+    <property key="ContentForumAddRoleTo">
+        <value xml:lang="ar">إضافة  جور إلى</value>
+        <value xml:lang="de">Rolle hinzufügen zu</value>
+        <value xml:lang="en">Add role to</value>
+        <value xml:lang="fr">Ajoutez le rôle à</value>
+        <value xml:lang="it">Aggiungi ruolo a</value>
+        <value xml:lang="ro">Adauga Drept la</value>
+        <value xml:lang="th">เพิ่มสถานะถึง</value>
+        <value xml:lang="zh">把角色添加到</value>
+    </property>
+    <property key="ContentForumAddThreadTo">
+        <value xml:lang="ar">إضافة سلك جديد إلى هذا المنتدى</value>
+        <value xml:lang="de">Ein neues Thema zu diesem Forum hinzufügen</value>
+        <value xml:lang="en">Add new thread to this Forum</value>
+        <value xml:lang="fr">Ajouter un nouveau fil de discussion à ce forum</value>
+        <value xml:lang="it">Aggiungi nuova discussione a questo forum</value>
+        <value xml:lang="ro">Adauga nou thread la acest Forum</value>
+        <value xml:lang="th">เพิ่มเรื่องเข้าสู่ความคิดเห็นนี้</value>
+        <value xml:lang="zh">在这个论坛新建话题</value>
+    </property>
+    <property key="ContentForumAddTo">
+        <value xml:lang="ar">إضافة منتدى إلى</value>
+        <value xml:lang="de">Forum hinzufügen zu</value>
+        <value xml:lang="en">Add forum to</value>
+        <value xml:lang="fr">Ajouter le forum à</value>
+        <value xml:lang="it">Aggiungi al forum</value>
+        <value xml:lang="ro">Adauga la forum</value>
+        <value xml:lang="th">เพิ่มความคิดเห็นถึง</value>
+        <value xml:lang="zh">把论坛添加到</value>
+    </property>
+    <property key="ContentForumGroupCreate">
+        <value xml:lang="ar">إستحداث مجموعة منتدى جديد</value>
+        <value xml:lang="de">Neue Forumsgruppe erstellen</value>
+        <value xml:lang="en">Create new forum group</value>
+        <value xml:lang="fr">Créer un nouveau groupe de forum</value>
+        <value xml:lang="it">Creare nuovo gruppo forum</value>
+        <value xml:lang="ro">Creare un nou grup forum</value>
+        <value xml:lang="th">สร้างกลุ่มความคิดเห็นใหม่</value>
+        <value xml:lang="zh">新建论坛组</value>
+    </property>
+    <property key="ContentForumMessage">
+        <value xml:lang="de">Meldung</value>
+        <value xml:lang="en">Message</value>
+        <value xml:lang="it">Messaggio</value>
+        <value xml:lang="th">ข้อความ</value>
+    </property>
+    <property key="ContentForumMessages">
+        <value xml:lang="de">Meldungen</value>
+        <value xml:lang="en">Messages</value>
+        <value xml:lang="it">Messaggi</value>
+        <value xml:lang="th">ข้อความ</value>
+    </property>
+    <property key="ContentForumThread">
+        <value xml:lang="de">Thema</value>
+        <value xml:lang="en">Thread</value>
+        <value xml:lang="fr">Fil de discussion</value>
+        <value xml:lang="it">Discussione</value>
+        <value xml:lang="th">Thread</value>
+    </property>
     <property key="ContentGoToContent">
         <value xml:lang="en">Go to Content</value>
     </property>
@@ -494,6 +570,12 @@
         <value xml:lang="ro">Layout</value>
         <value xml:lang="th">แผนงาน</value>
         <value xml:lang="zh">版式</value>
+    </property>
+    <property key="ContentListOwnCreatedTemplates">
+        <value xml:lang="de">Liste der selber erstellten Vorlagen</value>
+        <value xml:lang="en">List own created Templates</value>
+        <value xml:lang="fr">Voir vos propres modèles</value>
+        <value xml:lang="it">Lista templates personali creati</value>
     </property>
     <property key="ContentMain">
         <value xml:lang="ar">الرئيسية</value>
@@ -699,6 +781,297 @@
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="th">สำรวจ</value>
         <value xml:lang="zh">调查</value>
+    </property>
+    <property key="ContentSurveyAddSurveyMultiResp">
+        <value xml:lang="ar">إضافة مجموعة جواب متعدد للتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwortgruppe hinzufügen</value>
+        <value xml:lang="en">Add Survey Multi-Response Group</value>
+        <value xml:lang="es">Añadir Grupo de respuestas a encuesta</value>
+        <value xml:lang="fr">Ajouter un groupe multi-réponses au sondage</value>
+        <value xml:lang="it">Aggiungi risposte multiple gruppo sondaggio</value>
+        <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
+        <value xml:lang="th">เพิ่มการสำรวจกลุ่มคำตอบ</value>
+        <value xml:lang="zh">新建有多个回答的调查的组</value>
+    </property>
+    <property key="ContentSurveyAddSurveyMultiRespColumn">
+        <value xml:lang="ar">إضافة عمود جواب متعدد للتصويت</value>
+        <value xml:lang="de">Mehrfachantworten Spalte hinzufügen</value>
+        <value xml:lang="en">Add Survey Multi-Resp Column</value>
+        <value xml:lang="es">Añadir Columna de Grupo de respuestas</value>
+        <value xml:lang="fr">Ajouter une colonne multi-réponses au sondage</value>
+        <value xml:lang="it">Aggiungi risposte multiple colonna sondaggio</value>
+        <value xml:lang="ro">Adauga Raspunsuri Multiple Coloana Sondaj</value>
+        <value xml:lang="th">เพิ่มแถวการสำรวจคำตอบ</value>
+        <value xml:lang="zh">新建调查的多个回答的列</value>
+    </property>
+    <property key="ContentSurveyApplyQuestionFromCategory">
+        <value xml:lang="ar">تكبيق الأسئلة من الفئة</value>
+        <value xml:lang="de">Frage(n) anwenden von Kategorie</value>
+        <value xml:lang="en">Apply Question(s) From Category</value>
+        <value xml:lang="fr">Appliquer les questions à partir de la catégorie</value>
+        <value xml:lang="it">Applica domanda(e) dalla categoria</value>
+        <value xml:lang="ro">Aplica Intrebare(i) De la Categoria</value>
+        <value xml:lang="th">ใช้คำถามจากหมวดหมู่</value>
+        <value xml:lang="zh">从分类引用问题</value>
+    </property>
+    <property key="ContentSurveyBuildRespondeFromPDF">
+        <value xml:lang="ar">بناء جواب التصويت من PDF</value>
+        <value xml:lang="de">Befragung Antwort erstellen von PDF</value>
+        <value xml:lang="en">Build Survey Response from PDF</value>
+        <value xml:lang="fr">Construire une réponse de sondage depuis le PDF</value>
+        <value xml:lang="it">Prepare risposte sondaggio dal PDF</value>
+        <value xml:lang="ro">Prepara Raspuns Sondaj De la PDF</value>
+        <value xml:lang="th">สร้างการสำรวจคำตอบจาก PDF</value>
+        <value xml:lang="zh">从PDF建立调查回答</value>
+    </property>
+    <property key="ContentSurveryCategory">
+        <value xml:lang="ar">فئة</value>
+        <value xml:lang="de">Kategorie</value>
+        <value xml:lang="en">Category</value>
+        <value xml:lang="fr">Catégorie</value>
+        <value xml:lang="it">Categoria</value>
+        <value xml:lang="ro">Categoria</value>
+        <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="zh">分类</value>
+    </property>
+    <property key="ContentSurveyCreate">
+        <value xml:lang="ar">إضافة تصويت</value>
+        <value xml:lang="de">Befragung erstellen</value>
+        <value xml:lang="en">Create Survey</value>
+        <value xml:lang="es">Crear Encuesta</value>
+        <value xml:lang="fr">Créer un sondage</value>
+        <value xml:lang="it">Creare sondaggio</value>
+        <value xml:lang="ro">Creare Sondaj</value>
+        <value xml:lang="th">สร้างการสำรวจ</value>
+        <value xml:lang="zh">新建调查</value>
+    </property>
+    <property key="ContentSurveyCreateQuestion">
+        <value xml:lang="ar">إضافة سؤال جديد</value>
+        <value xml:lang="de">Neue Frage erstellen</value>
+        <value xml:lang="en">Create New Question</value>
+        <value xml:lang="fr">Créer une nouvelle question</value>
+        <value xml:lang="it">Creare nuova domanda</value>
+        <value xml:lang="ro">Creare Noua Intrebare</value>
+        <value xml:lang="th">สร้างคำถามใหม่</value>
+        <value xml:lang="zh">新建问题</value>
+    </property>
+    <property key="ContentSurveyCreateQuestionCategory">
+        <value xml:lang="ar">إضافة فئة سؤال</value>
+        <value xml:lang="de">Fragenkategorie erstellen</value>
+        <value xml:lang="en">Create Question Category</value>
+        <value xml:lang="fr">Créer la catégorie question</value>
+        <value xml:lang="it">Creare categoria domanda</value>
+        <value xml:lang="ro">Creare Categorie Intrebare</value>
+        <value xml:lang="th">สร้างคำถามหมวดหมู่คำถาม</value>
+        <value xml:lang="zh">新建问题分类</value>
+    </property>
+    <property key="ContentSurveyCreateQuestionOption">
+        <value xml:lang="ar">إضافة زيادة سؤال</value>
+        <value xml:lang="de">Frage Wahlmöglichkeit erstellen</value>
+        <value xml:lang="en">Create Question Option</value>
+        <value xml:lang="fr">Créer la question option</value>
+        <value xml:lang="it">Creare opzione domanda</value>
+        <value xml:lang="ro">Creare Optiune Intrebare</value>
+        <value xml:lang="th">สร้างทางเลือกคำถาม</value>
+        <value xml:lang="zh">新建问题选项</value>
+    </property>
+    <property key="ContentSurveyCreateResponse">
+        <value xml:lang="ar">إضافة جواب تصويت</value>
+        <value xml:lang="de">Befragung Anwort erstellen</value>
+        <value xml:lang="en">Create Survey Response</value>
+        <value xml:lang="es">Crear respuesta</value>
+        <value xml:lang="fr">Créer la réponse de sondage</value>
+        <value xml:lang="it">Creare risposta sondaggio</value>
+        <value xml:lang="ro">Creare Raspuns Sondaj</value>
+        <value xml:lang="th">สร้างคำตอบ</value>
+        <value xml:lang="zh">新建调查回答</value>
+    </property>
+    <property key="ContentSurveyEditQuestionOption">
+        <value xml:lang="ar">تحرير زيادة سؤال</value>
+        <value xml:lang="de">Frage Wahlmöglichkeit bearbeiten</value>
+        <value xml:lang="en">Edit Question Option</value>
+        <value xml:lang="fr">Modifier la question option</value>
+        <value xml:lang="it">Aggiorna opzione domanda</value>
+        <value xml:lang="ro">Actualizeaza Optiune Intrebare</value>
+        <value xml:lang="th">แก้ไขลักษณะคำถาม</value>
+        <value xml:lang="zh">编辑问题选项</value>
+    </property>
+    <property key="ContentSurveyEditSurveyMultiResp">
+        <value xml:lang="ar">تحرير مجموعة جواب متعدد للتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwortgruppe bearbeiten</value>
+        <value xml:lang="en">Edit Survey Multi-Response Group</value>
+        <value xml:lang="es">Modificar grupo multi-respuesta</value>
+        <value xml:lang="fr">Modifier le groupe multi-réponses</value>
+        <value xml:lang="it">Aggiorna risposte multiple gruppo sondaggio</value>
+        <value xml:lang="ro">Actualizeaza Raspunsuri Multiple Grup Sondaj</value>
+        <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบ</value>
+        <value xml:lang="zh">编辑调查的多个回答的组</value>
+    </property>
+    <property key="ContentSurveyFindResponse">
+        <value xml:lang="ar">إيجاد جواب</value>
+        <value xml:lang="de">Antwort suchen</value>
+        <value xml:lang="en">Find Response</value>
+        <value xml:lang="es">Buscar respuesta</value>
+        <value xml:lang="fr">Rechercher la réponse</value>
+        <value xml:lang="it">Ricerca risposta</value>
+        <value xml:lang="ro">Cautare Raspuns</value>
+        <value xml:lang="th">ค้นหาคำตอบ</value>
+        <value xml:lang="zh">查找回答</value>
+    </property>
+    <property key="ContentSurveyGenerateQuestions">
+        <value xml:lang="ar">لإستخراج الأسئلة من إستمارة أكرو PDF</value>
+        <value xml:lang="de">Fragen von AcroForm PDF erstellen</value>
+        <value xml:lang="en">Generate Questions from AcroForm PDF</value>
+        <value xml:lang="fr">Générer les questions depuis AcroForm PDF</value>
+        <value xml:lang="it">Genera domande da PDF</value>
+        <value xml:lang="ro">GenereazaIntrebari de la  AcroForm PDF</value>
+        <value xml:lang="th">สร้างคำถามจากรูปแบบใน PDF</value>
+        <value xml:lang="zh">从AcroForm PDF生成问题</value>
+    </property>
+    <property key="ContentSurveyMultiResp">
+        <value xml:lang="ar">جواب متعدد</value>
+        <value xml:lang="de">Mehrfach-Antwort</value>
+        <value xml:lang="en">Multi-Resp</value>
+        <value xml:lang="fr">multi-réponses</value>
+        <value xml:lang="it">Risposta multipla</value>
+        <value xml:lang="ro">Raspuns Multiplu</value>
+        <value xml:lang="th">หลายคำตอบ</value>
+        <value xml:lang="zh">多个回答</value>
+    </property>
+    <property key="ContentSurveyMultiRespColumn">
+        <value xml:lang="ar">عمود جواب متعدد</value>
+        <value xml:lang="de">Mehrfach-Antwort Spalte</value>
+        <value xml:lang="en">Multi-Resp Column</value>
+        <value xml:lang="fr">Colonne multi-réponses</value>
+        <value xml:lang="it">Colonna risposta multipla</value>
+        <value xml:lang="ro">Coloana Raspuns Multiplu</value>
+        <value xml:lang="th">ช่องของหลายคำตอบ</value>
+        <value xml:lang="zh">多个回答列</value>
+    </property>
+    <property key="ContentSurveyMultiResps">
+        <value xml:lang="ar">أجوبة متعددة</value>
+        <value xml:lang="de">Mehrfach Antworten</value>
+        <value xml:lang="en">Multi-Resps</value>
+        <value xml:lang="es">Multi-respuesta</value>
+        <value xml:lang="fr">Multi-réponses</value>
+        <value xml:lang="it">Risposte multiple</value>
+        <value xml:lang="ro">Raspunsuri Multiple</value>
+        <value xml:lang="th">หลายคำตอบ</value>
+        <value xml:lang="zh">多个回答</value>
+    </property>
+    <property key="ContentSurveyNoQuestions">
+        <value xml:lang="ar">لا أسئلة في التصويت, لا يمكن إيجاد أجوية</value>
+        <value xml:lang="de">Keine Fragen in Befragung; keine Antworten können gefunden werden.</value>
+        <value xml:lang="en">No questions in survey; no responses can be located.</value>
+        <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
+        <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta può essere localizzata.</value>
+        <value xml:lang="ro">Nici-o intrebare in sondaj; nu poate fi localizat nici-un raspuns.</value>
+        <value xml:lang="th">ไม่มีคำถามในการสำรวจ;ไม่สามารถสร้างคำตอบได้</value>
+        <value xml:lang="zh">调查中没有问题；无法定位回答。</value>
+    </property>
+    <property key="ContentSurveyOption">
+        <value xml:lang="ar">إختيار</value>
+        <value xml:lang="de">Auswahl</value>
+        <value xml:lang="en">Option</value>
+        <value xml:lang="fr">Option</value>
+        <value xml:lang="it">Opzione</value>
+        <value xml:lang="ro">Optiune</value>
+        <value xml:lang="th">ทางเลือก</value>
+        <value xml:lang="zh">选项</value>
+    </property>
+    <property key="ContentSurveyOptions">
+        <value xml:lang="ar">إختيارات التصويت</value>
+        <value xml:lang="de">Befragung Auswahl</value>
+        <value xml:lang="en">Survey Options</value>
+        <value xml:lang="fr">Options du sondage</value>
+        <value xml:lang="it">Opzioni sondaggio</value>
+        <value xml:lang="ro">Optiune Sondaj</value>
+        <value xml:lang="th">การสำรวจทางเลือก</value>
+        <value xml:lang="zh">调查选项</value>
+    </property>
+    <property key="ContentSurveyQuestion">
+        <value xml:lang="ar">سؤال</value>
+        <value xml:lang="de">Frage</value>
+        <value xml:lang="en">Question</value>
+        <value xml:lang="fr">Question</value>
+        <value xml:lang="it">Domanda</value>
+        <value xml:lang="ro">Intrebare</value>
+        <value xml:lang="th">คำถาม</value>
+        <value xml:lang="zh">问题</value>
+    </property>
+    <property key="ContentSurveyQuestions">
+        <value xml:lang="ar">أسئلة</value>
+        <value xml:lang="de">Fragen</value>
+        <value xml:lang="en">Questions</value>
+        <value xml:lang="es">Preguntas</value>
+        <value xml:lang="fr">Questions</value>
+        <value xml:lang="it">Domande</value>
+        <value xml:lang="ro">Intrebari</value>
+        <value xml:lang="th">คำถาม</value>
+        <value xml:lang="zh">问题</value>
+    </property>
+    <property key="ContentSurveyResponse">
+        <value xml:lang="ar">جواب</value>
+        <value xml:lang="de">Antwort</value>
+        <value xml:lang="en">Response</value>
+        <value xml:lang="fr">Réponse</value>
+        <value xml:lang="it">Risposta</value>
+        <value xml:lang="ro">Raspuns</value>
+        <value xml:lang="th">คำตอบ</value>
+        <value xml:lang="zh">回答</value>
+    </property>
+    <property key="ContentSurveyResponseSummary">
+        <value xml:lang="ar">ماخص الجواب</value>
+        <value xml:lang="de">Antwort Zusammenfassung</value>
+        <value xml:lang="en">Response Summary</value>
+        <value xml:lang="es">Resumen de respuestas</value>
+        <value xml:lang="fr">Résumé de réponse</value>
+        <value xml:lang="it">Sommario risposta</value>
+        <value xml:lang="ro">Sumar Raspuns</value>
+        <value xml:lang="th">คำตอบโดยสรุป</value>
+        <value xml:lang="zh">回答摘要</value>
+    </property>
+    <property key="ContentSurveyResponses">
+        <value xml:lang="ar">أجوية</value>
+        <value xml:lang="de">Antworten</value>
+        <value xml:lang="en">Responses</value>
+        <value xml:lang="es">Respuestas</value>
+        <value xml:lang="fr">Réponses</value>
+        <value xml:lang="it">Risposte</value>
+        <value xml:lang="ro">Raspunsuri</value>
+        <value xml:lang="th">คำตอบ</value>
+        <value xml:lang="zh">回答</value>
+    </property>
+    <property key="ContentSurveySurveyId">
+        <value xml:lang="ar">تعريف التصويت</value>
+        <value xml:lang="de">Befragung ID</value>
+        <value xml:lang="en">Survey ID</value>
+        <value xml:lang="es">Id de Encuesta</value>
+        <value xml:lang="fr">Réf. de sondage</value>
+        <value xml:lang="it">Numero sondaggio</value>
+        <value xml:lang="ro">Numer Sondaj</value>
+        <value xml:lang="th">รหัสการสำรวจ</value>
+        <value xml:lang="zh">调查编号</value>
+    </property>
+    <property key="ContentSurveyWithOption">
+        <value xml:lang="ar">مع إختيار</value>
+        <value xml:lang="de">Mit Auswahl</value>
+        <value xml:lang="en">W/Option</value>
+        <value xml:lang="fr">Avec option</value>
+        <value xml:lang="it">Con opzione</value>
+        <value xml:lang="ro">Cu Optiune</value>
+        <value xml:lang="th">W/ทางเลือก </value>
+        <value xml:lang="zh">带有选项</value>
+    </property>
+    <property key="ContentSurveyWithQuestion">
+        <value xml:lang="ar">مع سؤال</value>
+        <value xml:lang="de">Mit Frage</value>
+        <value xml:lang="en">W/Question</value>
+        <value xml:lang="fr">Avec question</value>
+        <value xml:lang="it">Con domanda</value>
+        <value xml:lang="ro">Cu Intrebare</value>
+        <value xml:lang="th">W/คำถาม</value>
+        <value xml:lang="zh">带有问题</value>
     </property>
     <property key="ContentTemplate">
         <value xml:lang="ar">نموذج</value>
@@ -1715,7 +2088,7 @@
         <value xml:lang="de">Meldungsthema</value>
         <value xml:lang="en">Msgs Thread</value>
         <value xml:lang="fr">Fil de discussion des msgs</value>
-        <value xml:lang="it">Thread Messaggi</value>
+        <value xml:lang="it">Messaggi discussione</value>
         <value xml:lang="ro">Thread Mesaje</value>
         <value xml:lang="th">ข้อความต่อเนื่อง</value>
         <value xml:lang="zh">消息线索</value>
@@ -2267,86 +2640,6 @@
         <value xml:lang="ro">Factor Greutate</value>
         <value xml:lang="th">มาตรฐานน้ำหนัก</value>
         <value xml:lang="zh">重量系数</value>
-    </property>
-    <property key="ForumAddPurposeTo">
-        <value xml:lang="ar">إضافة هدف إلى</value>
-        <value xml:lang="de">Zweck hinzufügen zu</value>
-        <value xml:lang="en">Add purpose to</value>
-        <value xml:lang="fr">Ajouter le but à</value>
-        <value xml:lang="it">Aggiungi funzione a</value>
-        <value xml:lang="ro">Adauga functie la </value>
-        <value xml:lang="th">เพิ่มวัตถุประสงค์ถึง</value>
-        <value xml:lang="zh">把目的添加到</value>
-    </property>
-    <property key="ForumAddResponseToMessage">
-        <value xml:lang="de">Antwort hinzufügen zu Meldung</value>
-        <value xml:lang="en">Add a response to message</value>
-        <value xml:lang="fr">Ajouter une réponse au message</value>
-        <value xml:lang="it">Aggiungi una risposta al messaggio</value>
-        <value xml:lang="th">ผลตอบรับถึงข้อความ</value>
-    </property>
-    <property key="ForumAddRoleTo">
-        <value xml:lang="ar">إضافة  جور إلى</value>
-        <value xml:lang="de">Rolle hinzufügen zu</value>
-        <value xml:lang="en">Add role to</value>
-        <value xml:lang="fr">Ajoutez le rôle à</value>
-        <value xml:lang="it">Aggiungi ruolo a</value>
-        <value xml:lang="ro">Adauga Drept la</value>
-        <value xml:lang="th">เพิ่มสถานะถึง</value>
-        <value xml:lang="zh">把角色添加到</value>
-    </property>
-    <property key="ForumAddThreadTo">
-        <value xml:lang="ar">إضافة سلك جديد إلى هذا المنتدى</value>
-        <value xml:lang="de">Ein neues Thema zu diesem Forum hinzufügen</value>
-        <value xml:lang="en">Add new thread to this Forum</value>
-        <value xml:lang="fr">Ajouter un nouveau fil de discussion à ce forum</value>
-        <value xml:lang="it">Aggiungi nuovo thread a questo Forum</value>
-        <value xml:lang="ro">Adauga nou thread la acest Forum</value>
-        <value xml:lang="th">เพิ่มเรื่องเข้าสู่ความคิดเห็นนี้</value>
-        <value xml:lang="zh">在这个论坛新建话题</value>
-    </property>
-    <property key="ForumAddTo">
-        <value xml:lang="ar">إضافة منتدى إلى</value>
-        <value xml:lang="de">Forum hinzufügen zu</value>
-        <value xml:lang="en">Add forum to</value>
-        <value xml:lang="fr">Ajouter le forum à</value>
-        <value xml:lang="it">Aggiungi al forum</value>
-        <value xml:lang="ro">Adauga la forum</value>
-        <value xml:lang="th">เพิ่มความคิดเห็นถึง</value>
-        <value xml:lang="zh">把论坛添加到</value>
-    </property>
-    <property key="ForumGroupCreate">
-        <value xml:lang="ar">إستحداث مجموعة منتدى جديد</value>
-        <value xml:lang="de">Neue Forumsgruppe erstellen</value>
-        <value xml:lang="en">Create new forum group</value>
-        <value xml:lang="fr">Créer un nouveau groupe de forum</value>
-        <value xml:lang="it">Creare nuovo gruppo forum</value>
-        <value xml:lang="ro">Creare un nou grup forum</value>
-        <value xml:lang="th">สร้างกลุ่มความคิดเห็นใหม่</value>
-        <value xml:lang="zh">新建论坛组</value>
-    </property>
-    <property key="ForumMessage">
-        <value xml:lang="de">Meldung</value>
-        <value xml:lang="en">Message</value>
-        <value xml:lang="it">Messaggio</value>
-        <value xml:lang="th">ข้อความ</value>
-    </property>
-    <property key="ForumMessages">
-        <value xml:lang="de">Meldungen</value>
-        <value xml:lang="en">Messages</value>
-        <value xml:lang="it">Messaggi</value>
-        <value xml:lang="th">ข้อความ</value>
-    </property>
-    <property key="ForumThread">
-        <value xml:lang="de">Thema</value>
-        <value xml:lang="en">Thread</value>
-        <value xml:lang="fr">Fil de discussion</value>
-        <value xml:lang="th">Thread</value>
-    </property>
-    <property key="ListOwnCreatedTemplates">
-        <value xml:lang="de">Liste der selber erstellten Vorlagen</value>
-        <value xml:lang="en">List own created Templates</value>
-        <value xml:lang="fr">Voir vos propres modèles</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
@@ -3268,326 +3561,5 @@
         <value xml:lang="fr">Contenu du site Web CMS</value>
         <value xml:lang="it">Sito Web CMS Contenuto</value>
         <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
-    </property>
-    <property key="PartyParties">
-        <value xml:lang="ar">الأطراف</value>
-        <value xml:lang="de">Akteure</value>
-        <value xml:lang="en">Parties</value>
-        <value xml:lang="fr">Acteurs</value>
-        <value xml:lang="it">Soggetti</value>
-        <value xml:lang="ro">Parteneri</value>
-        <value xml:lang="th">กลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员</value>
-    </property>
-    <property key="PartyPartyId">
-        <value xml:lang="ar">تعريف الطرف</value>
-        <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="ro">Cod Partener</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="ProductFeatures">
-        <value xml:lang="ar">خواص المنتوج</value>
-        <value xml:lang="de">Produktmerkmal</value>
-        <value xml:lang="en">Product Features</value>
-        <value xml:lang="fr">Caractéristiques de produit</value>
-        <value xml:lang="it">Caratteristiche Prodotto</value>
-        <value xml:lang="ro">Caracteristici Produs</value>
-        <value xml:lang="th">ลักษณะสินค้า</value>
-        <value xml:lang="zh">产品特征</value>
-    </property>
-    <property key="SurveryCategory">
-        <value xml:lang="ar">فئة</value>
-        <value xml:lang="de">Kategorie</value>
-        <value xml:lang="en">Category</value>
-        <value xml:lang="fr">Catégorie</value>
-        <value xml:lang="it">Categoria</value>
-        <value xml:lang="ro">Categoria</value>
-        <value xml:lang="th">หมวดหมู่</value>
-        <value xml:lang="zh">分类</value>
-    </property>
-    <property key="SurveyAddSurveyMultiResp">
-        <value xml:lang="ar">إضافة مجموعة جواب متعدد للتصويت</value>
-        <value xml:lang="de">Befragung Mehrfachantwortgruppe hinzufügen</value>
-        <value xml:lang="en">Add Survey Multi-Response Group</value>
-        <value xml:lang="es">Añadir Grupo de respuestas a encuesta</value>
-        <value xml:lang="fr">Ajouter un groupe multi-réponses au sondage</value>
-        <value xml:lang="it">Aggiungi Risposte Multiple Gruppo Sondaggio</value>
-        <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
-        <value xml:lang="th">เพิ่มการสำรวจกลุ่มคำตอบ</value>
-        <value xml:lang="zh">新建有多个回答的调查的组</value>
-    </property>
-    <property key="SurveyAddSurveyMultiRespColumn">
-        <value xml:lang="ar">إضافة عمود جواب متعدد للتصويت</value>
-        <value xml:lang="de">Mehrfachantworten Spalte hinzufügen</value>
-        <value xml:lang="en">Add Survey Multi-Resp Column</value>
-        <value xml:lang="es">Añadir Columna de Grupo de respuestas</value>
-        <value xml:lang="fr">Ajouter une colonne multi-réponses au sondage</value>
-        <value xml:lang="it">Aggiungi Risposte Multiple Colonna Sondaggio</value>
-        <value xml:lang="ro">Adauga Raspunsuri Multiple Coloana Sondaj</value>
-        <value xml:lang="th">เพิ่มแถวการสำรวจคำตอบ</value>
-        <value xml:lang="zh">新建调查的多个回答的列</value>
-    </property>
-    <property key="SurveyApplyQuestionFromCategory">
-        <value xml:lang="ar">تكبيق الأسئلة من الفئة</value>
-        <value xml:lang="de">Frage(n) anwenden von Kategorie</value>
-        <value xml:lang="en">Apply Question(s) From Category</value>
-        <value xml:lang="fr">Appliquer les questions à partir de la catégorie</value>
-        <value xml:lang="it">Applica Domanda(e) Dalla Categoria</value>
-        <value xml:lang="ro">Aplica Intrebare(i) De la Categoria</value>
-        <value xml:lang="th">ใช้คำถามจากหมวดหมู่</value>
-        <value xml:lang="zh">从分类引用问题</value>
-    </property>
-    <property key="SurveyBuildRespondeFromPDF">
-        <value xml:lang="ar">بناء جواب التصويت من PDF</value>
-        <value xml:lang="de">Befragung Antwort erstellen von PDF</value>
-        <value xml:lang="en">Build Survey Response from PDF</value>
-        <value xml:lang="fr">Construire une réponse de sondage depuis le PDF</value>
-        <value xml:lang="it">Prepare Risposte Sondaggio Dal PDF</value>
-        <value xml:lang="ro">Prepara Raspuns Sondaj De la PDF</value>
-        <value xml:lang="th">สร้างการสำรวจคำตอบจาก PDF</value>
-        <value xml:lang="zh">从PDF建立调查回答</value>
-    </property>
-    <property key="SurveyCreate">
-        <value xml:lang="ar">إضافة تصويت</value>
-        <value xml:lang="de">Befragung erstellen</value>
-        <value xml:lang="en">Create Survey</value>
-        <value xml:lang="es">Crear Encuesta</value>
-        <value xml:lang="fr">Créer un sondage</value>
-        <value xml:lang="it">Creare Sondaggio</value>
-        <value xml:lang="ro">Creare Sondaj</value>
-        <value xml:lang="th">สร้างการสำรวจ</value>
-        <value xml:lang="zh">新建调查</value>
-    </property>
-    <property key="SurveyCreateQuestion">
-        <value xml:lang="ar">إضافة سؤال جديد</value>
-        <value xml:lang="de">Neue Frage erstellen</value>
-        <value xml:lang="en">Create New Question</value>
-        <value xml:lang="fr">Créer une nouvelle question</value>
-        <value xml:lang="it">Creare Nuova Domanda</value>
-        <value xml:lang="ro">Creare Noua Intrebare</value>
-        <value xml:lang="th">สร้างคำถามใหม่</value>
-        <value xml:lang="zh">新建问题</value>
-    </property>
-    <property key="SurveyCreateQuestionCategory">
-        <value xml:lang="ar">إضافة فئة سؤال</value>
-        <value xml:lang="de">Fragenkategorie erstellen</value>
-        <value xml:lang="en">Create Question Category</value>
-        <value xml:lang="fr">Créer la catégorie question</value>
-        <value xml:lang="it">Creare Categoria Domanda</value>
-        <value xml:lang="ro">Creare Categorie Intrebare</value>
-        <value xml:lang="th">สร้างคำถามหมวดหมู่คำถาม</value>
-        <value xml:lang="zh">新建问题分类</value>
-    </property>
-    <property key="SurveyCreateQuestionOption">
-        <value xml:lang="ar">إضافة زيادة سؤال</value>
-        <value xml:lang="de">Frage Wahlmöglichkeit erstellen</value>
-        <value xml:lang="en">Create Question Option</value>
-        <value xml:lang="fr">Créer la question option</value>
-        <value xml:lang="it">Creare Opzione Domanda</value>
-        <value xml:lang="ro">Creare Optiune Intrebare</value>
-        <value xml:lang="th">สร้างทางเลือกคำถาม</value>
-        <value xml:lang="zh">新建问题选项</value>
-    </property>
-    <property key="SurveyCreateResponse">
-        <value xml:lang="ar">إضافة جواب تصويت</value>
-        <value xml:lang="de">Befragung Anwort erstellen</value>
-        <value xml:lang="en">Create Survey Response</value>
-        <value xml:lang="es">Crear respuesta</value>
-        <value xml:lang="fr">Créer la réponse de sondage</value>
-        <value xml:lang="it">Creare Risposta Sondaggio</value>
-        <value xml:lang="ro">Creare Raspuns Sondaj</value>
-        <value xml:lang="th">สร้างคำตอบ</value>
-        <value xml:lang="zh">新建调查回答</value>
-    </property>
-    <property key="SurveyEditQuestionOption">
-        <value xml:lang="ar">تحرير زيادة سؤال</value>
-        <value xml:lang="de">Frage Wahlmöglichkeit bearbeiten</value>
-        <value xml:lang="en">Edit Question Option</value>
-        <value xml:lang="fr">Modifier la question option</value>
-        <value xml:lang="it">Aggiorna Opzione Domanda</value>
-        <value xml:lang="ro">Actualizeaza Optiune Intrebare</value>
-        <value xml:lang="th">แก้ไขลักษณะคำถาม</value>
-        <value xml:lang="zh">编辑问题选项</value>
-    </property>
-    <property key="SurveyEditSurveyMultiResp">
-        <value xml:lang="ar">تحرير مجموعة جواب متعدد للتصويت</value>
-        <value xml:lang="de">Befragung Mehrfachantwortgruppe bearbeiten</value>
-        <value xml:lang="en">Edit Survey Multi-Response Group</value>
-        <value xml:lang="es">Modificar grupo multi-respuesta</value>
-        <value xml:lang="fr">Modifier le groupe multi-réponses</value>
-        <value xml:lang="it">Aggiorna Risposte Multiple Gruppo Sondaggio</value>
-        <value xml:lang="ro">Actualizeaza Raspunsuri Multiple Grup Sondaj</value>
-        <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบ</value>
-        <value xml:lang="zh">编辑调查的多个回答的组</value>
-    </property>
-    <property key="SurveyFindResponse">
-        <value xml:lang="ar">إيجاد جواب</value>
-        <value xml:lang="de">Antwort suchen</value>
-        <value xml:lang="en">Find Response</value>
-        <value xml:lang="es">Buscar respuesta</value>
-        <value xml:lang="fr">Rechercher la réponse</value>
-        <value xml:lang="it">Ricerca Risposta</value>
-        <value xml:lang="ro">Cautare Raspuns</value>
-        <value xml:lang="th">ค้นหาคำตอบ</value>
-        <value xml:lang="zh">查找回答</value>
-    </property>
-    <property key="SurveyGenerateQuestions">
-        <value xml:lang="ar">لإستخراج الأسئلة من إستمارة أكرو PDF</value>
-        <value xml:lang="de">Fragen von AcroForm PDF erstellen</value>
-        <value xml:lang="en">Generate Questions from AcroForm PDF</value>
-        <value xml:lang="fr">Générer les questions depuis AcroForm PDF</value>
-        <value xml:lang="it">Genera Domande da AcroForm PDF</value>
-        <value xml:lang="ro">GenereazaIntrebari de la  AcroForm PDF</value>
-        <value xml:lang="th">สร้างคำถามจากรูปแบบใน PDF</value>
-        <value xml:lang="zh">从AcroForm PDF生成问题</value>
-    </property>
-    <property key="SurveyMultiResp">
-        <value xml:lang="ar">جواب متعدد</value>
-        <value xml:lang="de">Mehrfach-Antwort</value>
-        <value xml:lang="en">Multi-Resp</value>
-        <value xml:lang="fr">multi-réponses</value>
-        <value xml:lang="it">Risposta Multipla</value>
-        <value xml:lang="ro">Raspuns Multiplu</value>
-        <value xml:lang="th">หลายคำตอบ</value>
-        <value xml:lang="zh">多个回答</value>
-    </property>
-    <property key="SurveyMultiRespColumn">
-        <value xml:lang="ar">عمود جواب متعدد</value>
-        <value xml:lang="de">Mehrfach-Antwort Spalte</value>
-        <value xml:lang="en">Multi-Resp Column</value>
-        <value xml:lang="fr">Colonne multi-réponses</value>
-        <value xml:lang="it">Colonna Risposta Multipla</value>
-        <value xml:lang="ro">Coloana Raspuns Multiplu</value>
-        <value xml:lang="th">ช่องของหลายคำตอบ</value>
-        <value xml:lang="zh">多个回答列</value>
-    </property>
-    <property key="SurveyMultiResps">
-        <value xml:lang="ar">أجوبة متعددة</value>
-        <value xml:lang="de">Mehrfach Antworten</value>
-        <value xml:lang="en">Multi-Resps</value>
-        <value xml:lang="es">Multi-respuesta</value>
-        <value xml:lang="fr">Multi-réponses</value>
-        <value xml:lang="it">Risposte Multiple</value>
-        <value xml:lang="ro">Raspunsuri Multiple</value>
-        <value xml:lang="th">หลายคำตอบ</value>
-        <value xml:lang="zh">多个回答</value>
-    </property>
-    <property key="SurveyNoQuestions">
-        <value xml:lang="ar">لا أسئلة في التصويت, لا يمكن إيجاد أجوية</value>
-        <value xml:lang="de">Keine Fragen in Befragung; keine Antworten können gefunden werden.</value>
-        <value xml:lang="en">No questions in survey; no responses can be located.</value>
-        <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
-        <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta può essere localizzata.</value>
-        <value xml:lang="ro">Nici-o intrebare in sondaj; nu poate fi localizat nici-un raspuns.</value>
-        <value xml:lang="th">ไม่มีคำถามในการสำรวจ;ไม่สามารถสร้างคำตอบได้</value>
-        <value xml:lang="zh">调查中没有问题；无法定位回答。</value>
-    </property>
-    <property key="SurveyOption">
-        <value xml:lang="ar">إختيار</value>
-        <value xml:lang="de">Auswahl</value>
-        <value xml:lang="en">Option</value>
-        <value xml:lang="fr">Option</value>
-        <value xml:lang="it">Opzione</value>
-        <value xml:lang="ro">Optiune</value>
-        <value xml:lang="th">ทางเลือก</value>
-        <value xml:lang="zh">选项</value>
-    </property>
-    <property key="SurveyOptions">
-        <value xml:lang="ar">إختيارات التصويت</value>
-        <value xml:lang="de">Befragung Auswahl</value>
-        <value xml:lang="en">Survey Options</value>
-        <value xml:lang="fr">Options du sondage</value>
-        <value xml:lang="it">Opzioni Sondaggio</value>
-        <value xml:lang="ro">Optiune Sondaj</value>
-        <value xml:lang="th">การสำรวจทางเลือก</value>
-        <value xml:lang="zh">调查选项</value>
-    </property>
-    <property key="SurveyQuestion">
-        <value xml:lang="ar">سؤال</value>
-        <value xml:lang="de">Frage</value>
-        <value xml:lang="en">Question</value>
-        <value xml:lang="fr">Question</value>
-        <value xml:lang="it">Domanda</value>
-        <value xml:lang="ro">Intrebare</value>
-        <value xml:lang="th">คำถาม</value>
-        <value xml:lang="zh">问题</value>
-    </property>
-    <property key="SurveyQuestions">
-        <value xml:lang="ar">أسئلة</value>
-        <value xml:lang="de">Fragen</value>
-        <value xml:lang="en">Questions</value>
-        <value xml:lang="es">Preguntas</value>
-        <value xml:lang="fr">Questions</value>
-        <value xml:lang="it">Domande</value>
-        <value xml:lang="ro">Intrebari</value>
-        <value xml:lang="th">คำถาม</value>
-        <value xml:lang="zh">问题</value>
-    </property>
-    <property key="SurveyResponse">
-        <value xml:lang="ar">جواب</value>
-        <value xml:lang="de">Antwort</value>
-        <value xml:lang="en">Response</value>
-        <value xml:lang="fr">Réponse</value>
-        <value xml:lang="it">Risposta</value>
-        <value xml:lang="ro">Raspuns</value>
-        <value xml:lang="th">คำตอบ</value>
-        <value xml:lang="zh">回答</value>
-    </property>
-    <property key="SurveyResponseSummary">
-        <value xml:lang="ar">ماخص الجواب</value>
-        <value xml:lang="de">Antwort Zusammenfassung</value>
-        <value xml:lang="en">Response Summary</value>
-        <value xml:lang="es">Resumen de respuestas</value>
-        <value xml:lang="fr">Résumé de réponse</value>
-        <value xml:lang="it">Sommario Risposta</value>
-        <value xml:lang="ro">Sumar Raspuns</value>
-        <value xml:lang="th">คำตอบโดยสรุป</value>
-        <value xml:lang="zh">回答摘要</value>
-    </property>
-    <property key="SurveyResponses">
-        <value xml:lang="ar">أجوية</value>
-        <value xml:lang="de">Antworten</value>
-        <value xml:lang="en">Responses</value>
-        <value xml:lang="es">Respuestas</value>
-        <value xml:lang="fr">Réponses</value>
-        <value xml:lang="it">Risposte</value>
-        <value xml:lang="ro">Raspunsuri</value>
-        <value xml:lang="th">คำตอบ</value>
-        <value xml:lang="zh">回答</value>
-    </property>
-    <property key="SurveySurveyId">
-        <value xml:lang="ar">تعريف التصويت</value>
-        <value xml:lang="de">Befragung ID</value>
-        <value xml:lang="en">Survey ID</value>
-        <value xml:lang="es">Id de Encuesta</value>
-        <value xml:lang="fr">Réf. de sondage</value>
-        <value xml:lang="it">Numero Sondaggio</value>
-        <value xml:lang="ro">Numer Sondaj</value>
-        <value xml:lang="th">รหัสการสำรวจ</value>
-        <value xml:lang="zh">调查编号</value>
-    </property>
-    <property key="SurveyWithOption">
-        <value xml:lang="ar">مع إختيار</value>
-        <value xml:lang="de">Mit Auswahl</value>
-        <value xml:lang="en">W/Option</value>
-        <value xml:lang="fr">Avec option</value>
-        <value xml:lang="it">Con Opzione</value>
-        <value xml:lang="ro">Cu Optiune</value>
-        <value xml:lang="th">W/ทางเลือก </value>
-        <value xml:lang="zh">带有选项</value>
-    </property>
-    <property key="SurveyWithQuestion">
-        <value xml:lang="ar">مع سؤال</value>
-        <value xml:lang="de">Mit Frage</value>
-        <value xml:lang="en">W/Question</value>
-        <value xml:lang="fr">Avec question</value>
-        <value xml:lang="it">Con Domanda</value>
-        <value xml:lang="ro">Cu Intrebare</value>
-        <value xml:lang="th">W/คำถาม</value>
-        <value xml:lang="zh">带有问题</value>
     </property>
 </resource>

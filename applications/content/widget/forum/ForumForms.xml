@@ -41,7 +41,7 @@ under the License.
         <field name="contentIdTo"><hidden value="${caContentIdTo}"/></field>
         <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
         <field name="contentTypeId"><hidden/></field>
-        <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${contentId}" description="${uiLabelMap.ForumMessages}"/></field>
+        <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${contentId}" description="${uiLabelMap.ContentForumMessages}"/></field>
         <field name="forumName" entry-name="contentName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" entry-name="description" parameter-name="description"><text/></field>
         <field name="thruDate" entry-name="caThruDate"><date-time/></field>

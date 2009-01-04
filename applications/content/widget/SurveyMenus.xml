@@ -21,19 +21,19 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="SurveyTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="Survey">
-        <menu-item name="Survey" title="${uiLabelMap.SurveySurveyId}">
+        <menu-item name="Survey" title="${uiLabelMap.ContentSurveySurveyId}">
             <link target="EditSurvey?surveyId=${surveyId}"/>
         </menu-item>
-        <menu-item name="SurveyMultiResps" title="${uiLabelMap.SurveyMultiResps}">
+        <menu-item name="SurveyMultiResps" title="${uiLabelMap.ContentSurveyMultiResps}">
             <link target="EditSurveyMultiResps?surveyId=${surveyId}"/>
         </menu-item>
-        <menu-item name="SurveyQuestions" title="${uiLabelMap.SurveyQuestions}">
+        <menu-item name="SurveyQuestions" title="${uiLabelMap.ContentSurveyQuestions}">
             <link target="EditSurveyQuestions?surveyId=${surveyId}"/>
         </menu-item>
-        <menu-item name="FindSurveyResponse" title="${uiLabelMap.SurveyFindResponse}">
+        <menu-item name="FindSurveyResponse" title="${uiLabelMap.ContentSurveyFindResponse}">
             <link target="FindSurveyResponse?surveyId=${surveyId}"/>
         </menu-item>
-        <menu-item name="SurveyResponses" title="${uiLabelMap.SurveyResponseSummary}">
+        <menu-item name="SurveyResponses" title="${uiLabelMap.ContentSurveyResponseSummary}">
             <link target="ViewSurveyResponses?surveyId=${surveyId}"/>
         </menu-item>
     </menu>

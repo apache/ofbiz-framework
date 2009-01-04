@@ -238,6 +238,7 @@ under the License.
                 <set field="title" value="CMS Search Page"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
                 <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
+                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
