@@ -1273,6 +1273,7 @@
         <value xml:lang="es">Método de cálculo estimado</value>
         <value xml:lang="fr">Methode de calcul estimé</value>
         <value xml:lang="it">Metodo Calcolo Stimato</value>
+        <value xml:lang="nl">Estimate Calc Method</value>
         <value xml:lang="ro">Metoda de Calcul Stimat</value>
         <value xml:lang="ru">Метод оценки</value>
         <value xml:lang="th">วิธีประมาณการคำนวน</value>
@@ -1283,7 +1284,7 @@
         <value xml:lang="en">Estimated Cost</value>
         <value xml:lang="es">Coste estimado</value>
         <value xml:lang="fr">Coût estimé</value>
-        <value xml:lang="it">Costo Stimato</value>
+        <value xml:lang="it">Costo stimato</value>
         <value xml:lang="ro">Cost Stimat</value>
         <value xml:lang="ru">Оценка стоимости</value>
         <value xml:lang="th">ค่าใช้จ่ายประมาณ</value>
@@ -1294,7 +1295,7 @@
         <value xml:lang="en">Est. Deliver Date</value>
         <value xml:lang="es">Fecha de recepción estimada</value>
         <value xml:lang="fr">Date de livraison estimée</value>
-        <value xml:lang="it">Data Consegna Stimata</value>
+        <value xml:lang="it">Data consegna stimata</value>
         <value xml:lang="ro">Data Livrare Stimata</value>
         <value xml:lang="ru">Ожид. дата доставки</value>
         <value xml:lang="th">วันที่การส่งประมาณ</value>
@@ -1402,7 +1403,8 @@
         <value xml:lang="en">Facility Id</value>
         <value xml:lang="es">Código de almacén</value>
         <value xml:lang="fr">Réf. de lieu de stockage</value>
-        <value xml:lang="it">Codice Stabilimento</value>
+        <value xml:lang="it">Codice stabilimento</value>
+        <value xml:lang="nl">Faciliteit Id</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Код объекта</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>

@@ -19,26 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="FormFieldTitle_actualCompletionDate">
-        <value xml:lang="de">Ist-Fertigstellungs-Datum</value>
-        <value xml:lang="en">Actual Completion Date</value>
-        <value xml:lang="es">Fecha de terminación real</value>
-        <value xml:lang="fr">Date exacte d'achèvement</value>
-        <value xml:lang="it">Data Completamento Attuale</value>
-        <value xml:lang="ro">Data Terminare Actuala</value>
-        <value xml:lang="th">วันที่ทำเสร็จจริง</value>
-        <value xml:lang="zh">实际结束日期</value>
-    </property>
-    <property key="FormFieldTitle_actualStartDate">
-        <value xml:lang="de">Ist-Start-Datum</value>
-        <value xml:lang="en">Actual Start Date</value>
-        <value xml:lang="es">Fecha de comienzo real</value>
-        <value xml:lang="fr">Date de début réelle</value>
-        <value xml:lang="it">Data Inizio Attuale</value>
-        <value xml:lang="ro">Data initiere Actuala</value>
-        <value xml:lang="th">วันที่เริ่มจริง</value>
-        <value xml:lang="zh">实际开始日期</value>
-    </property>
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="de">Verrechnete Kosten</value>
         <value xml:lang="en">Allocated Cost</value>
@@ -67,7 +47,7 @@
         <value xml:lang="en">Cancel Date Time</value>
         <value xml:lang="es">Fecha y hora de cancelación</value>
         <value xml:lang="fr">Date et heure d'annulation</value>
-        <value xml:lang="it">Data/Ora di Annullamento</value>
+        <value xml:lang="it">Data/ora di annullamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
@@ -98,16 +78,6 @@
         <value xml:lang="it">Scostamento Anni Di Default</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
     </property>
-    <property key="FormFieldTitle_estimatedCompletionDate">
-        <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
-        <value xml:lang="en">Estimated Completion Date</value>
-        <value xml:lang="es">Fecha de terminación estimada</value>
-        <value xml:lang="fr">Date prévue d'achèvement</value>
-        <value xml:lang="it">Data Completamento Stimata</value>
-        <value xml:lang="ro">Data Terminare Stimata</value>
-        <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
-        <value xml:lang="zh">预计结束日期</value>
-    </property>
     <property key="FormFieldTitle_estimatedDuration">
         <value xml:lang="de">Geschätzte Dauer</value>
         <value xml:lang="en">Estimated Duration</value>
@@ -115,26 +85,6 @@
         <value xml:lang="fr">Durée prévue</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ประมาณเวลา</value>
-    </property>
-    <property key="FormFieldTitle_estimatedMilliSeconds">
-        <value xml:lang="de">Geschätzte Millisekunden</value>
-        <value xml:lang="en">Estimated Milli Seconds</value>
-        <value xml:lang="es">Milisegundos estimados</value>
-        <value xml:lang="fr">Estimation en millisecondes</value>
-        <value xml:lang="it">Milli Secondi Stimati</value>
-        <value xml:lang="ro">Milisecunde Stimate</value>
-        <value xml:lang="th">ประมาณเป็นพันวินาที</value>
-        <value xml:lang="zh">预计毫秒数</value>
-    </property>
-    <property key="FormFieldTitle_estimatedSetupMillis">
-        <value xml:lang="de">Geschätzte Rüstzeit (Millisekunden)</value>
-        <value xml:lang="en">Estimated Setup Millis</value>
-        <value xml:lang="es">Tiempo de setup en milisegundos</value>
-        <value xml:lang="fr">Configuration estimée en millisecondes</value>
-        <value xml:lang="it">Configurazione Stimata in Milli secondi</value>
-        <value xml:lang="ro">Configuratie Stimata in Milisecunde</value>
-        <value xml:lang="th">ประมาณการติดตั้ง</value>
-        <value xml:lang="zh">预计安装毫秒数</value>
     </property>
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="de">Geschätztes Start-Datum</value>
@@ -153,14 +103,6 @@
         <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
         <value xml:lang="it">Fallisce se i Prodotti Non Sono Disponibili</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
-    </property>
-    <property key="FormFieldTitle_finishDateTime">
-        <value xml:lang="de">Fertigstellungszeit</value>
-        <value xml:lang="en">Finish Date Time</value>
-        <value xml:lang="es">Fecha de terminación</value>
-        <value xml:lang="fr">Date et heure de fin</value>
-        <value xml:lang="it">Data/Ora di Termine</value>
-        <value xml:lang="th">วัน เวลาที่เสร็จ</value>
     </property>
     <property key="FormFieldTitle_fixedAssetId">
         <value xml:lang="de">Anlagen-Nr.</value>
@@ -213,7 +155,7 @@
         <value xml:lang="en">Job Id</value>
         <value xml:lang="es">Código del trabajo</value>
         <value xml:lang="fr">Réf. du job</value>
-        <value xml:lang="it">Numero Lavoro</value>
+        <value xml:lang="it">Numero lavoro</value>
         <value xml:lang="th">รหัสงาน</value>
     </property>
     <property key="FormFieldTitle_jobName">
@@ -221,7 +163,7 @@
         <value xml:lang="en">Job Name</value>
         <value xml:lang="es">Nombre del trabajo</value>
         <value xml:lang="fr">Nom du job</value>
-        <value xml:lang="it">Nome Lavoro</value>
+        <value xml:lang="it">Nome lavoro</value>
         <value xml:lang="th">ชื่องาน</value>
     </property>
     <property key="FormFieldTitle_manufacturingTask">
@@ -237,9 +179,8 @@
         <value xml:lang="en">Max Retry</value>
         <value xml:lang="es">Número máximo de intentos</value>
         <value xml:lang="fr">Nb de tentatives max</value>
-        <value xml:lang="it">Tentativi Massimi</value>
-        <value xml:lang="th">ทดสอบใหม่มากสุด
-        </value>
+        <value xml:lang="it">Tentativi massimi</value>
+        <value xml:lang="th">ทดสอบใหม่มากสุด</value>
     </property>
     <property key="FormFieldTitle_mondayCapacity">
         <value xml:lang="de">Montagskapazität</value>
@@ -326,16 +267,6 @@
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
-    </property>
-    <property key="FormFieldTitle_quantityProduced">
-        <value xml:lang="de">Produzierte Menge</value>
-        <value xml:lang="en">Quantity Produced</value>
-        <value xml:lang="es">Cantidad fabricada</value>
-        <value xml:lang="fr">Quantité produite</value>
-        <value xml:lang="it">Quantità Prodotta</value>
-        <value xml:lang="ro">Cantitate Produsa</value>
-        <value xml:lang="th">จำนวนสินค้า</value>
-        <value xml:lang="zh">已生产的数量</value>
     </property>
     <property key="FormFieldTitle_quantityToProduce">
         <value xml:lang="de">Zu produzierende Menge</value>
@@ -576,7 +507,7 @@
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de fin real</value>
         <value xml:lang="fr">Date d'achèvement</value>
-        <value xml:lang="it">Data Completamento</value>
+        <value xml:lang="it">Data completamento</value>
         <value xml:lang="ro">Data Completament</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
         <value xml:lang="zh">完成日期</value>
@@ -614,7 +545,7 @@
         <value xml:lang="en">Start Date</value>
         <value xml:lang="es">Fecha de inicio real</value>
         <value xml:lang="fr">Date de début</value>
-        <value xml:lang="it">Data Inizio</value>
+        <value xml:lang="it">Data inizio</value>
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันที่เริ่มต้น</value>
         <value xml:lang="zh">开始日期</value>

@@ -154,7 +154,7 @@ under the License.
     <form name="lookupTimesheet" target="LookupTimesheet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Timesheet" default-field-type="find"/>
-        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}"><text-find/></field>
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}"><text-find/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>
         
@@ -170,7 +170,7 @@ under the License.
                 <field-map field-name="orderBy" value="timesheetId"/>
             </service>
         </actions>
-        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${timesheetId}" target="javascript:set_value('${timesheetId}')"/>
         </field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>

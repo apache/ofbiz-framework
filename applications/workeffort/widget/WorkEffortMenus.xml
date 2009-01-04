@@ -24,10 +24,10 @@ under the License.
         default-selected-style="selected" title="${uiLabelMap.WorkEffortWorkEffortManagerApplication}">
         <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
-        <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
+        <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
-        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimesheet"/></menu-item>
+        <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}"><link target="FindTimesheet"/></menu-item>
         <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>
         
         <menu-item name="Logout" title="Logout" align-style="opposed">
@@ -53,7 +53,7 @@ under the License.
         <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
             <link target="ListWorkEffortPartyAssigns?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="WorkEffortRates" title="${uiLabelMap.TimesheetRates}">
+        <menu-item name="WorkEffortRates" title="${uiLabelMap.WorkEffortTimesheetRates}">
             <link target="EditWorkEffortRates?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="WorkEffortCommEvents" title="${uiLabelMap.WorkEffortCommEvents}">
@@ -74,7 +74,7 @@ under the License.
         <menu-item name="WorkEffortOrderHeaders" title="${uiLabelMap.WorkEffortOrderHeaders}">
             <link target="ListWorkEffortOrderHeaders?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="WorkEffortTimeEntries" title="${uiLabelMap.TimesheetTimeEntries}">
+        <menu-item name="WorkEffortTimeEntries" title="${uiLabelMap.WorkEffortTimesheetTimeEntries}">
             <link target="EditWorkEffortTimeEntries?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="WorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}">

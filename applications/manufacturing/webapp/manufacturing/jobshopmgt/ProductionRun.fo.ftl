@@ -74,7 +74,7 @@ under the License.
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell padding="2pt">
-                            <fo:block>${uiLabelMap.FormFieldTitle_estimatedStartDate}:</fo:block>
+                            <fo:block> title="${uiLabelMap.ManufacturingStartDate}":</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block><#if productionRunData.estimatedStartDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block>
@@ -88,7 +88,7 @@ under the License.
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell padding="2pt">
-                            <fo:block>${uiLabelMap.FormFieldTitle_estimatedCompletionDate}:</fo:block>
+                            <fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block><#if productionRunData.estimatedCompletionDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block>

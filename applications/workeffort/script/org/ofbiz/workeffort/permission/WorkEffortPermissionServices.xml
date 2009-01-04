@@ -222,7 +222,7 @@ under the License.
         <call-simple-method method-name="workEffortGenericPermission"/>
         <check-errors/>
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
-            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field="failMessage"/>
+            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimesheetNotInRolePermissionError" field="failMessage"/>
             <set field="hasPermission" type="Boolean" value="false"/>
             <field-to-result field="hasPermission"/>
             <field-to-result field="failMessage"/>
@@ -233,7 +233,7 @@ under the License.
             <find-by-and entity-name="WorkEffortPartyAssignByRole" map="lookupRoleWorkEffortMap" list="roleParties"/>                    
             <filter-list-by-date list="roleParties"/>
             <if-empty field="roleParties">
-                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field="failMessage"/>
+                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimesheetNotInRolePermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>

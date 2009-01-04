@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
@@ -65,19 +66,9 @@
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
     </property>
-    <property key="FormFieldTitle_allocatedCost">
-        <value xml:lang="en">Allocated Cost</value>
-        <value xml:lang="fr">Coût alloué</value>
-    </property>
     <property key="FormFieldTitle_availabilityStatusId">
         <value xml:lang="en">Availability</value>
         <value xml:lang="fr">Disponibilité</value>
-    </property>
-    <property key="FormFieldTitle_cancelDateTime">
-        <value xml:lang="en">Cancel Date Time</value>
-        <value xml:lang="fr">Date-heure de fermeture</value>
-        <value xml:lang="it">Data/Ora Annullamento</value>
-        <value xml:lang="th">ยกเลิกวันเวลา</value>
     </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="en">Client Party Id</value>
@@ -87,15 +78,6 @@
         <value xml:lang="ro">Client Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
         <value xml:lang="zh">客户会员标识</value>
-    </property>
-    <property key="FormFieldTitle_contactMechTypeId">
-        <value xml:lang="en">Contact Mech Type Id</value>
-        <value xml:lang="fr">Réf. de type de coordonnée</value>
-        <value xml:lang="it">Tipo Contatto</value>
-        <value xml:lang="nl">Soort relatie Id</value>
-        <value xml:lang="ro">Tip Contact</value>
-        <value xml:lang="th">รหัสประเภทวิธีการติดต่อ</value>
-        <value xml:lang="zh">联系方式类型标识</value>
     </property>
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="en">Created By User Login</value>
@@ -124,21 +106,6 @@
         <value xml:lang="th">รายละเอียดประเภทคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求类型描述</value>
     </property>
-    <property key="FormFieldTitle_defaultRate">
-        <value xml:lang="en">Default Rate</value>
-        <value xml:lang="fr">Taux de défaut</value>
-        <value xml:lang="it">Percentuale di Default</value>
-        <value xml:lang="th">ค่าเริ่มต้นอัตรา</value>
-    </property>
-    <property key="FormFieldTitle_estimateCalcMethod">
-        <value xml:lang="en">Estimate Calc Method</value>
-        <value xml:lang="fr">Méthode de calcul d'estimation</value>
-        <value xml:lang="it">Metodo Calcolo Stimato</value>
-        <value xml:lang="nl">Estimate Calc Method</value>
-        <value xml:lang="ro">Metoda Calcul Stimata</value>
-        <value xml:lang="th">วิธีการคำนวนโดยประมาณ</value>
-        <value xml:lang="zh">预计计算方法</value>
-    </property>
     <property key="FormFieldTitle_estimatedCompletionDate">
         <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
@@ -148,15 +115,6 @@
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
         <value xml:lang="zh">预计完成日期</value>
-    </property>
-    <property key="FormFieldTitle_estimatedDeliveryDate">
-        <value xml:lang="en">Estimated Delivery Date</value>
-        <value xml:lang="fr">Date de livraison prévue</value>
-        <value xml:lang="it">Data Consegna Stimata</value>
-        <value xml:lang="nl">Verwachtte leverdatum</value>
-        <value xml:lang="ro">Data Livrare Stimata</value>
-        <value xml:lang="th">วันที่ส่งประมาณ</value>
-        <value xml:lang="zh">预计交付日期</value>
     </property>
     <property key="FormFieldTitle_estimatedMilliSeconds">
         <value xml:lang="en">Estimated Milli Seconds</value>
@@ -187,29 +145,11 @@
         <value xml:lang="th">เริ่มประมาณวันที่</value>
         <value xml:lang="zh">预计开始日期</value>
     </property>
-    <property key="FormFieldTitle_facilityId">
-        <value xml:lang="en">Facility Id</value>
-        <value xml:lang="fr">Réf. de lieu de stockage</value>
-        <value xml:lang="it">Codice Stabilimento</value>
-        <value xml:lang="nl">Facility Id</value>
-        <value xml:lang="ro">Cod Compartiment</value>
-        <value xml:lang="th">รหัสคลังสินค้า</value>
-        <value xml:lang="zh">场所标识</value>
-    </property>
     <property key="FormFieldTitle_finishDateTime">
         <value xml:lang="en">Finish Date Time</value>
         <value xml:lang="fr">Date-heure de fin</value>
         <value xml:lang="it">Data/Ora Fine</value>
         <value xml:lang="th">วันเวลาที่เสร็จ</value>
-    </property>
-    <property key="FormFieldTitle_fixedAssetId">
-        <value xml:lang="en">Fixed Asset Id</value>
-        <value xml:lang="fr">Réf. d'immobilisation</value>
-        <value xml:lang="it">Numero Cespite</value>
-        <value xml:lang="nl">Fixed Asset Id</value>
-        <value xml:lang="ro">Numar Mijloc Fix</value>
-        <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产标识</value>
     </property>
     <property key="FormFieldTitle_hours">
         <value xml:lang="en">Hours</value>
@@ -252,18 +192,6 @@
         <value xml:lang="ro">Data Probleme</value>
         <value xml:lang="th">ฉบับวันที่</value>
         <value xml:lang="zh">发布日期</value>
-    </property>
-    <property key="FormFieldTitle_jobId">
-        <value xml:lang="en">Job Id</value>
-        <value xml:lang="fr">Réf. du job</value>
-        <value xml:lang="it">Numero Lavoro</value>
-        <value xml:lang="th">รหัสงาน</value>
-    </property>
-    <property key="FormFieldTitle_jobName">
-        <value xml:lang="en">Job Name</value>
-        <value xml:lang="fr">Nom du job</value>
-        <value xml:lang="it">Nome Lavoro</value>
-        <value xml:lang="th">ชื่องาน</value>
     </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="en">Last Modified By User Login</value>
@@ -311,12 +239,6 @@
         <value xml:lang="th">รหัสแผนการตลาด</value>
         <value xml:lang="zh">市场攻势标识</value>
     </property>
-    <property key="FormFieldTitle_maxRetry">
-        <value xml:lang="en">Max Retry</value>
-        <value xml:lang="fr">Nb d'essais maximum</value>
-        <value xml:lang="it">Massimo Tentativi di Riprova</value>
-        <value xml:lang="th">การทดสอบจำนวนมาก</value>
-    </property>
     <property key="FormFieldTitle_mustRsvp">
         <value xml:lang="en">Must Rsvp</value>
         <value xml:lang="fr">Répondez S'il Vous Plaît</value>
@@ -335,30 +257,11 @@
         <value xml:lang="th">รายละเอียดประเภทรายการสั่งซื้อ</value>
         <value xml:lang="zh">订单类型描述</value>
     </property>
-    <property key="FormFieldTitle_percentComplete">
-        <value xml:lang="en">Percent Complete</value>
-        <value xml:lang="fr">Pourcentage de complétion</value>
-        <value xml:lang="it">Percentuale Completata</value>
-        <value xml:lang="nl">Percentage afgehandeld</value>
-        <value xml:lang="ro">Procent Indeplinit</value>
-        <value xml:lang="th">เปอร์เซ็นต์ที่สำเร็จ</value>
-        <value xml:lang="zh">完成的百分比</value>
-    </property>
     <property key="FormFieldTitle_postedAnonymous">
         <value xml:lang="en">Posted Anonymous</value>
         <value xml:lang="fr">Envoyé anonymement</value>
         <value xml:lang="it">Inviato da Anonimo</value>
         <value xml:lang="th">ไม่ระบุชื่อการโพสต์</value>
-    </property>
-    <property key="FormFieldTitle_priority">
-        <value xml:lang="de">Dringlichkeit</value>
-        <value xml:lang="en">Priority</value>
-        <value xml:lang="fr">Priorité</value>
-        <value xml:lang="it">Priorità</value>
-        <value xml:lang="nl">Prioriteit</value>
-        <value xml:lang="ro">Prioritate </value>
-        <value xml:lang="th">สิทธิพิเศษ</value>
-        <value xml:lang="zh">优先级</value>
     </property>
     <property key="FormFieldTitle_productProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -378,15 +281,6 @@
         <value xml:lang="ro">Cantitatea Produsa</value>
         <value xml:lang="th">จำนวนผลผลิต</value>
         <value xml:lang="zh">已产生的数量</value>
-    </property>
-    <property key="FormFieldTitle_quantityRejected">
-        <value xml:lang="en">Quantity Rejected</value>
-        <value xml:lang="fr">Quantité rejetée</value>
-        <value xml:lang="it">Quantità Rifiutate</value>
-        <value xml:lang="nl">Aantal geweigers</value>
-        <value xml:lang="ro">Cantitatea Refuzata</value>
-        <value xml:lang="th">จำนวนปฏิเสธ</value>
-        <value xml:lang="zh">已拒绝的数量</value>
     </property>
     <property key="FormFieldTitle_quantityToProduce">
         <value xml:lang="en">Quantity To Produce</value>
@@ -450,16 +344,6 @@
         <value xml:lang="th">รหัสความต้องการ</value>
         <value xml:lang="zh">需求标识</value>
     </property>
-    <property key="FormFieldTitle_requirementStartDate">
-        <value xml:lang="en">Requirement Start Date</value>
-        <value xml:lang="es">Fecha de comienzo del requisito</value>
-        <value xml:lang="fr">Date de début de besoin</value>
-        <value xml:lang="it">Data Inizio Fabbisogno</value>
-        <value xml:lang="nl">Aanvraag start datum</value>
-        <value xml:lang="ro">Data Initiala Necesar</value>
-        <value xml:lang="th">วันที่ต้องการเริ่ม</value>
-        <value xml:lang="zh">需求开始日期</value>
-    </property>
     <property key="FormFieldTitle_reserv2ndPPPerc">
         <value xml:lang="en">Reserv2nd P P Perc</value>
         <value xml:lang="fr">% d'augmentation pour une 2d personne</value>
@@ -508,12 +392,6 @@
         <value xml:lang="th">หมายเลขการแก้ไขใหม่</value>
         <value xml:lang="zh">修订序号</value>
     </property>
-    <property key="FormFieldTitle_runTime">
-        <value xml:lang="en">Run Time</value>
-        <value xml:lang="fr">Moment d'exécution</value>
-        <value xml:lang="it">Tempo di Esecuzione</value>
-        <value xml:lang="th">เวลาการดำเนินการ</value>
-    </property>
     <property key="FormFieldTitle_scopeEnumId">
         <value xml:lang="en">Scope</value>
         <value xml:lang="fr">Possibilité d'accès</value>
@@ -549,13 +427,6 @@
         <value xml:lang="ro">Termene Speciale</value>
         <value xml:lang="th">ช่วงระยะเวลาพิเศษ</value>
         <value xml:lang="zh">特别条款</value>
-    </property>
-    <property key="FormFieldTitle_startDateTime">
-        <value xml:lang="en">Start Date Time</value>
-        <value xml:lang="es">Fecha/hora de comienzo</value>
-        <value xml:lang="fr">Date-heure de début</value>
-        <value xml:lang="it">Data/Ora Inizio</value>
-        <value xml:lang="th">เริ่มวันเวลา</value>
     </property>
     <property key="FormFieldTitle_statusDateTime">
         <value xml:lang="en">Status Date Time</value>
@@ -1339,546 +1210,6 @@
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
         <value xml:lang="zh">人工服务购买列表</value>
     </property>
-    <property key="PartyAddContactInformationParty">
-        <value xml:lang="en">Add this contact information to party</value>
-        <value xml:lang="es">Agregar esta información del contacto al participante</value>
-        <value xml:lang="fr">Ajout cette coordonnées à l'acteur</value>
-        <value xml:lang="it">Aggiungi questa informazione contatto al Soggetto</value>
-        <value xml:lang="nl">Voeg deze contact informatie toe aan relatie</value>
-        <value xml:lang="ro">Adauga aceasta informatie contact la Subiect</value>
-        <value xml:lang="ru">Добавить информацию об этом контакте к участнику</value>
-        <value xml:lang="th">เพิ่มข้อมูลการติดต่อนี้ถึงกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">把这个联系信息添加到会员</value>
-    </property>
-    <property key="PartyAddPurpose">
-        <value xml:lang="en">Add Purpose</value>
-        <value xml:lang="es">Añadir un propósito</value>
-        <value xml:lang="fr">Ajouter un but</value>
-        <value xml:lang="it">Aggiungi Funzione</value>
-        <value xml:lang="nl">Nieuw Doel</value>
-        <value xml:lang="ro">Adauga Functie</value>
-        <value xml:lang="ru">Добавить цель</value>
-        <value xml:lang="th">เพิ่มเป้าหมาย</value>
-        <value xml:lang="zh">添加目的</value>
-    </property>
-    <property key="PartyAddWorkEffort">
-        <value xml:lang="en">Add Work Effort</value>
-        <value xml:lang="es">Añadir esfuerzo de trabajo</value>
-        <value xml:lang="it">Aggiungi Impegno di Lavoro</value>
-        <value xml:lang="nl">Nieuwe actie</value>
-        <value xml:lang="ro">Adauga Sarcina de Lucru </value>
-        <value xml:lang="th">เพิ่มงาน</value>
-        <value xml:lang="zh">添加人工服务</value>
-    </property>
-    <property key="PartyAddressLine1">
-        <value xml:lang="en">Address Line 1</value>
-        <value xml:lang="es">Dirección (línea 1)</value>
-        <value xml:lang="fr">Ligne d'adresse 1</value>
-        <value xml:lang="it">Indirizzo riga 1</value>
-        <value xml:lang="nl">Adres lijn 1</value>
-        <value xml:lang="ro">Adresa Linia 1</value>
-        <value xml:lang="ru">Строка 1 для адреса</value>
-        <value xml:lang="th">ที่อยู่ที่ 1</value>
-        <value xml:lang="zh">地址行1</value>
-    </property>
-    <property key="PartyAddressLine2">
-        <value xml:lang="en">Address Line 2</value>
-        <value xml:lang="es">Dirección (línea 2)</value>
-        <value xml:lang="fr">Ligne d'adresse 2</value>
-        <value xml:lang="it">Indirizzo riga 2</value>
-        <value xml:lang="nl">Adres Lijn 2</value>
-        <value xml:lang="ro">Adresa Linia 2</value>
-        <value xml:lang="ru">Строка 2 для адреса</value>
-        <value xml:lang="th">ที่อยู่ที่ 2</value>
-        <value xml:lang="zh">地址行2</value>
-    </property>
-    <property key="PartyAreaCode">
-        <value xml:lang="en">Area Code</value>
-        <value xml:lang="es">Código de área</value>
-        <value xml:lang="fr">Indicatif régional</value>
-        <value xml:lang="it">Codice Area</value>
-        <value xml:lang="nl">Gemeente</value>
-        <value xml:lang="ro">Cod Arie</value>
-        <value xml:lang="ru">Тлф код города</value>
-        <value xml:lang="th">รหัสพื้นที่</value>
-        <value xml:lang="zh">地区代码</value>
-    </property>
-    <property key="PartyAttentionName">
-        <value xml:lang="en">Attention Name</value>
-        <value xml:lang="es">A la atención de</value>
-        <value xml:lang="fr">A l'attention de</value>
-        <value xml:lang="it">Attenzione Di</value>
-        <value xml:lang="nl">T.a.v</value>
-        <value xml:lang="ro">Atentie </value>
-        <value xml:lang="ru">Имя в поле "Вниманию"</value>
-        <value xml:lang="th">การพิจารณาชื่อ</value>
-        <value xml:lang="zh">收件人</value>
-    </property>
-    <property key="PartyCity">
-        <value xml:lang="en">City</value>
-        <value xml:lang="es">Ciudad</value>
-        <value xml:lang="fr">Ville</value>
-        <value xml:lang="it">Città</value>
-        <value xml:lang="nl">Plaats</value>
-        <value xml:lang="ro">Oras</value>
-        <value xml:lang="ru">Город</value>
-        <value xml:lang="th">เมือง</value>
-        <value xml:lang="zh">城市</value>
-    </property>
-    <property key="PartyContactExt">
-        <value xml:lang="en">ext</value>
-        <value xml:lang="es">ext.</value>
-        <value xml:lang="fr">ext.</value>
-        <value xml:lang="it">int.</value>
-        <value xml:lang="nl">ext</value>
-        <value xml:lang="ro">int.</value>
-        <value xml:lang="ru">Доб.</value>
-        <value xml:lang="th">ext</value>
-        <value xml:lang="zh">扩展</value>
-    </property>
-    <property key="PartyContactInformation">
-        <value xml:lang="en">Contact Information</value>
-        <value xml:lang="es">Información de contacto</value>
-        <value xml:lang="fr">Coordonnées</value>
-        <value xml:lang="it">Informazione Contatto</value>
-        <value xml:lang="nl">Contact Informatie</value>
-        <value xml:lang="ro">Informatie Contact</value>
-        <value xml:lang="ru">Информация о контакте</value>
-        <value xml:lang="th">ข้อมูลการติดต่อ</value>
-        <value xml:lang="zh">联系信息</value>
-    </property>
-    <property key="PartyContactNumber">
-        <value xml:lang="en">Contact Number</value>
-        <value xml:lang="es">Número de contacto</value>
-        <value xml:lang="fr">Numéro</value>
-        <value xml:lang="it">Numero Contatto</value>
-        <value xml:lang="nl">Contact Nummer</value>
-        <value xml:lang="ro">Numar Contact</value>
-        <value xml:lang="ru">Номер контакта</value>
-        <value xml:lang="th">หมายเลขการติดต่อ</value>
-        <value xml:lang="zh">联系编号</value>
-    </property>
-    <property key="PartyContactPurposes">
-        <value xml:lang="en">Contact Purposes</value>
-        <value xml:lang="es">Propósito del contacto</value>
-        <value xml:lang="fr">Objet des coordonnées</value>
-        <value xml:lang="it">Funzioni Contatto</value>
-        <value xml:lang="nl">Contact doel</value>
-        <value xml:lang="ro">Functii Contacto</value>
-        <value xml:lang="ru">Цель контакта</value>
-        <value xml:lang="th">เป้าหมายการติดต่อ</value>
-        <value xml:lang="zh">联系目的</value>
-    </property>
-    <property key="PartyCountry">
-        <value xml:lang="en">Country</value>
-        <value xml:lang="es">País</value>
-        <value xml:lang="fr">Pays</value>
-        <value xml:lang="it">Paese</value>
-        <value xml:lang="nl">Land</value>
-        <value xml:lang="ro">Tara</value>
-        <value xml:lang="ru">Страна</value>
-        <value xml:lang="th">ประเทศ</value>
-        <value xml:lang="zh">国家</value>
-    </property>
-    <property key="PartyCountryCode">
-        <value xml:lang="en">Country Code</value>
-        <value xml:lang="es">Código de país</value>
-        <value xml:lang="fr">Code pays</value>
-        <value xml:lang="it">Codice Paese</value>
-        <value xml:lang="nl">Landcode</value>
-        <value xml:lang="ro">Cod Tara</value>
-        <value xml:lang="ru">Тлф код страны</value>
-        <value xml:lang="th">รหัสประเทศ</value>
-        <value xml:lang="zh">国家代码</value>
-    </property>
-    <property key="PartyCreateAdditionalContactInformation">
-        <value xml:lang="en">Create additional contact information</value>
-        <value xml:lang="es">Crear información adicional de contacto</value>
-        <value xml:lang="fr">Créer des coordonnées additionnelles</value>
-        <value xml:lang="it">Creare informazioni contatto aggiuntive</value>
-        <value xml:lang="nl">Nieuwe extra contact information</value>
-        <value xml:lang="ro">Creare informatii contact suplimentare</value>
-        <value xml:lang="ru">Создать дополнительную информацию о контакте</value>
-        <value xml:lang="th">สร้างการเพิ่มข้อมูลการติดต่อ</value>
-        <value xml:lang="zh">新建附加联系信息</value>
-    </property>
-    <property key="PartyCreateNewContact">
-        <value xml:lang="en">Create new contact information</value>
-        <value xml:lang="es">Crear nueva información de contacto</value>
-        <value xml:lang="fr">Créer de nouvelles coordonnées</value>
-        <value xml:lang="it">Creare nuova informazione contatto</value>
-        <value xml:lang="nl">Nieuw contact informatie</value>
-        <value xml:lang="ro">Creare noua informatie contact</value>
-        <value xml:lang="ru">Создать новую информацию о контакте</value>
-        <value xml:lang="th">สร้างข้อมูลการติดต่อใหม่</value>
-        <value xml:lang="zh">新建联系信息</value>
-    </property>
-    <property key="PartyEditContactInformation">
-        <value xml:lang="en">Edit Contact Information</value>
-        <value xml:lang="es">Editar información de contacto</value>
-        <value xml:lang="fr">Modifier les coordonnées</value>
-        <value xml:lang="it">Aggiorna Informazione Contatto</value>
-        <value xml:lang="nl">Wijzig contact informatie</value>
-        <value xml:lang="ro">Actualizeaza Informatie Contact</value>
-        <value xml:lang="ru">Редактировать информацию о контакте</value>
-        <value xml:lang="th">แก้ไขข้อมูลการติดต่อ</value>
-        <value xml:lang="zh">编辑联系信息</value>
-    </property>
-    <property key="PartyEditWorkEffort">
-        <value xml:lang="en">Edit Work Effort</value>
-        <value xml:lang="es">Editar esfuerzo de trabajo</value>
-        <value xml:lang="fr">Modifier la tâche</value>
-        <value xml:lang="it">Aggiorna Impegno di Lavoro</value>
-        <value xml:lang="nl">Wijzig actie</value>
-        <value xml:lang="ro">Actualizeaza Sarcina de Lucru </value>
-        <value xml:lang="th">แก้ไขงาน</value>
-        <value xml:lang="zh">编辑人工服务</value>
-    </property>
-    <property key="PartyEmailAddress">
-        <value xml:lang="en">Email Address</value>
-        <value xml:lang="es">E-mail</value>
-        <value xml:lang="fr">Adresse courriel</value>
-        <value xml:lang="it">Indirizzo Email</value>
-        <value xml:lang="nl">Emailadres</value>
-        <value xml:lang="ro">Adresa Email</value>
-        <value xml:lang="ru">e-mail</value>
-        <value xml:lang="th">ที่อยู่อีเมล</value>
-        <value xml:lang="zh">电子邮件地址</value>
-    </property>
-    <property key="PartyErrorContactInformation">
-        <value xml:lang="en">The contact information specified does not belong to you, you may not view or edit it.</value>
-        <value xml:lang="es">La información de contacto especificada no le pertenece, por tanto no podrá editarla.</value>
-        <value xml:lang="fr">Les coordonnées spécifiées ne vous appartiennent pas, vous ne pouvez ni les voir, ni les modifier.</value>
-        <value xml:lang="it">L'informazione contatto specificata non corrisponde a te, tu non puoi vederla o modificarla.</value>
-        <value xml:lang="nl">The contact information specified does not belong to you, you may not view or edit it.</value>
-        <value xml:lang="ro">Informatia contact specificata nu iti corespunde, nu  poti vedea sau modifica.</value>
-        <value xml:lang="ru">Данная информация о контакте не принадлежит Вам. Просмотр и редуктирование недоступны.</value>
-        <value xml:lang="th">ข้อมูลการติดต่อระบุไม่เป็นส่วนหนึ่งของคุณ, คุณอาจจะไม่แสดงหรือแก้ไขมัน.</value>
-        <value xml:lang="zh">指定的联系方式不属于你，你不能浏览和编辑它。</value>
-    </property>
-    <property key="PartyGroupPartyId">
-        <value xml:lang="en">Group Party ID</value>
-        <value xml:lang="es">Código de grupo de participante</value>
-        <value xml:lang="fr">Réf. de groupe d'acteur</value>
-        <value xml:lang="it">Codice Gruppo Soggetto</value>
-        <value xml:lang="nl">Group Party ID</value>
-        <value xml:lang="ro">Cod Grup Subiect</value>
-        <value xml:lang="ru">ID группы участника</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">组会员标识</value>
-    </property>
-    <property key="PartyIdMissing">
-        <value xml:lang="en">Party ID is missing.</value>
-        <value xml:lang="fr">Réf. d'acteur manquante</value>
-        <value xml:lang="it">Soggetto è mancante.</value>
-        <value xml:lang="ro">Subiect lipseste.</value>
-        <value xml:lang="th">ซึ่งไม่พบกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">找不到会员标识</value>
-    </property>
-    <property key="PartyName">
-        <value xml:lang="en">Name</value>
-        <value xml:lang="es">Nombre</value>
-        <value xml:lang="fr">Nom</value>
-        <value xml:lang="it">Nome</value>
-        <value xml:lang="nl">Name</value>
-        <value xml:lang="ro">Nume</value>
-        <value xml:lang="ru">Имя</value>
-        <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">名字</value>
-    </property>
-    <property key="PartyNoContactInformationParty">
-        <value xml:lang="en">No contact information was found for the party with ID ${partyId}</value>
-        <value xml:lang="es">No se encontró información de contacto para el participante con código ${partyId}</value>
-        <value xml:lang="fr">Aucune coordonnées trouvées pour l'acteur avec la réf.: ${partyId}</value>
-        <value xml:lang="it">Nessuna informazione contatto è stata trovata per il Soggetto con Codice ${partyId}</value>
-        <value xml:lang="nl">No contact information was found for the party with ID ${partyId}</value>
-        <value xml:lang="ro">Nici-o informatie contact a fost gasita pentru  Subiectul cu Cod ${partyId}</value>
-        <value xml:lang="ru">Не найдено никакой контактной информации для участника с ID ${partyId}</value>
-        <value xml:lang="th">ไม่พบข้อมูลการติดต่อสำหรับกลุ่มผู้ใช้ด้วยรหัส ${partyId}</value>
-        <value xml:lang="zh">没有找到标识为${partyId}的会员的联系信息</value>
-    </property>
-    <property key="PartyNoteNewContactInformation">
-        <value xml:lang="en">Note: this new contact information will have the purpose</value>
-        <value xml:lang="es">Nota: esta nueva información de contacto tendrá el propósito de</value>
-        <value xml:lang="fr">Note: ces nouvelles coordonnées seront destinées à ce but</value>
-        <value xml:lang="it">Nota: questo nuova informazione contatto che avrà la funzione</value>
-        <value xml:lang="nl">Opmerking: dit nieuwe contact this new contact information will have the purpose</value>
-        <value xml:lang="ro">Nota: aceasta noua informatie contact va avea functia</value>
-        <value xml:lang="ru">Внимание: этому новому контакту будет приписана цель</value>
-        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลการติดต่อใหม่จะมีเป้าหมาย</value>
-        <value xml:lang="zh">注意：这个新的联系信息的目的是</value>
-    </property>
-    <property key="PartyParties">
-        <value xml:lang="en">Parties</value>
-        <value xml:lang="es">Participantes</value>
-        <value xml:lang="fr">Acteurs</value>
-        <value xml:lang="it">Soggetti</value>
-        <value xml:lang="nl">Relaties</value>
-        <value xml:lang="ro">Subiecti</value>
-        <value xml:lang="ru">Участники</value>
-        <value xml:lang="th">กลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员</value>
-    </property>
-    <property key="PartyPartyAssignmentStatus">
-        <value xml:lang="en">Party Assignment Status</value>
-        <value xml:lang="es">Estado de asignación del participante</value>
-        <value xml:lang="fr">Etat de l'affectation de l'acteur</value>
-        <value xml:lang="it">Stato Soggetto Assegnato</value>
-        <value xml:lang="nl">Toekkenen status relatie</value>
-        <value xml:lang="ro">Stare Subiect Atribuit</value>
-        <value xml:lang="ru">Статус назначения участника</value>
-        <value xml:lang="th">สถานะกลุ่มการมอบหมายงาน</value>
-        <value xml:lang="zh">会员指派状态</value>
-    </property>
-    <property key="PartyPartyAssignmentsDetail">
-        <value xml:lang="en">Party Assignments Detail</value>
-        <value xml:lang="es">Detalle de asignaciones del participante</value>
-        <value xml:lang="fr">Détail des affectations de l'acteur</value>
-        <value xml:lang="it">Dettaglio Soggetto Assegnati</value>
-        <value xml:lang="nl">Toekennen relatie detail</value>
-        <value xml:lang="ro">Subiect Atribuiri Detaliu </value>
-        <value xml:lang="ru">Подробности назначения участника</value>
-        <value xml:lang="th">รายละเอียดกลุ่มการมอบหมาย</value>
-        <value xml:lang="zh">会员指派详细</value>
-    </property>
-    <property key="PartyPartyId">
-        <value xml:lang="de">Vertragspartner ID</value>
-        <value xml:lang="en">Party ID</value>
-        <value xml:lang="es">Código del participante</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="nl">Relatie ID</value>
-        <value xml:lang="ro">Cod Subiect </value>
-        <value xml:lang="ru">ID участника</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="PartyPhoneNumber">
-        <value xml:lang="en">Phone Number</value>
-        <value xml:lang="es">Número de teléfono</value>
-        <value xml:lang="fr">Numéro de téléphone</value>
-        <value xml:lang="it">Numero Telefono</value>
-        <value xml:lang="nl">Telefoonnummer</value>
-        <value xml:lang="ro">Numar Telefon</value>
-        <value xml:lang="ru">Тлф</value>
-        <value xml:lang="th">หมายเลขโทรศัพท์</value>
-        <value xml:lang="zh">电话号码</value>
-    </property>
-    <property key="PartyPurposeTypeNotFound">
-        <value xml:lang="en">Purpose Type not found with ID</value>
-        <value xml:lang="es">No se encontró el tipo de propósito con código</value>
-        <value xml:lang="fr">Type de but non trouvé avec cette réf.</value>
-        <value xml:lang="it">Tipo Funzione non trovato con Codice</value>
-        <value xml:lang="nl">Soort doel niet gevonden met ID</value>
-        <value xml:lang="ro">Nu gaseste Tip Functie cu Cod</value>
-        <value xml:lang="ru">Для этого ID цель указанного типа не найдена</value>
-        <value xml:lang="th">ไม่พบประเภทเป้าหมายด้วยรหัส</value>
-        <value xml:lang="zh">没有找到目的类型：目的标识</value>
-    </property>
-    <property key="PartyRoleId">
-        <value xml:lang="en">Role ID</value>
-        <value xml:lang="es">Código de rol</value>
-        <value xml:lang="fr">Réf. du rôle</value>
-        <value xml:lang="it">Codice Ruolo</value>
-        <value xml:lang="nl">Rol ID</value>
-        <value xml:lang="ro">Cod Rol</value>
-        <value xml:lang="ru">ID роли</value>
-        <value xml:lang="th">รหัสสถานะ</value>
-        <value xml:lang="zh">角色标识</value>
-    </property>
-    <property key="PartyRoleTypeId">
-        <value xml:lang="de">Funktionstyp ID</value>
-        <value xml:lang="en">RoleType ID</value>
-        <value xml:lang="es">Código de tipo de rol</value>
-        <value xml:lang="fr">Réf. de type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="nl">Soort Rol ID</value>
-        <value xml:lang="ro">Tip Rol</value>
-        <value xml:lang="ru">ID типа роли</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
-    <property key="PartyRoleTypeIdMissing">
-        <value xml:lang="en">Role Type ID is missing.</value>
-        <value xml:lang="fr">Réf. de type de rôle manquant</value>
-        <value xml:lang="it">Tipo Ruolo è mancante.</value>
-        <value xml:lang="ro">Tip Rol lipseste.</value>
-        <value xml:lang="th">ไม่พบรหัสประเภทสถานะ</value>
-        <value xml:lang="zh">没有找到角色类型标识。</value>
-    </property>
-    <property key="PartySendEmail">
-        <value xml:lang="en">Send Email</value>
-        <value xml:lang="es">Enviar un e-mail</value>
-        <value xml:lang="fr">Envoyer le courriel</value>
-        <value xml:lang="it">Invia Email</value>
-        <value xml:lang="nl">Stuur email</value>
-        <value xml:lang="ro">Trimite Email</value>
-        <value xml:lang="ru">Отправить e-mail</value>
-        <value xml:lang="th">ส่งอีเมล
-</value>
-        <value xml:lang="zh">发送电子邮件</value>
-    </property>
-    <property key="PartyStateProvince">
-        <value xml:lang="en">State/Province</value>
-        <value xml:lang="es">Estado/Provincia</value>
-        <value xml:lang="fr">Région/Province</value>
-        <value xml:lang="it">Stato/Provincia</value>
-        <value xml:lang="nl">Provincie</value>
-        <value xml:lang="ro">Stat/Provincie</value>
-        <value xml:lang="ru">Область, край, республика</value>
-        <value xml:lang="th">รัฐ/จังหวัด</value>
-        <value xml:lang="zh">州/省</value>
-    </property>
-    <property key="PartyToName">
-        <value xml:lang="en">To Name</value>
-        <value xml:lang="es">Nombre:</value>
-        <value xml:lang="fr">Nom destination</value>
-        <value xml:lang="it">Al Nome</value>
-        <value xml:lang="nl">T.a.v.</value>
-        <value xml:lang="ro">La Nume </value>
-        <value xml:lang="ru">Кому</value>
-        <value xml:lang="th">ถึงชื่อ</value>
-        <value xml:lang="zh">名字</value>
-    </property>
-    <property key="PartyZipPostalCode">
-        <value xml:lang="en">Zip/Postal Code</value>
-        <value xml:lang="es">Código postal</value>
-        <value xml:lang="fr">Code postal</value>
-        <value xml:lang="it">C.A.P.</value>
-        <value xml:lang="nl">Postcode</value>
-        <value xml:lang="ro">C.A.P.</value>
-        <value xml:lang="ru">Почтовый индекс</value>
-        <value xml:lang="th">รหัสไปรษณีย์</value>
-        <value xml:lang="zh">邮政编码</value>
-    </property>
-    <property key="PriorityFormatNotCorrect">
-        <value xml:lang="en">Priority format is incorrect</value>
-        <value xml:lang="fr">Le format prioritaire est incorrect</value>
-        <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
-    </property>
-    <property key="Timesheet">
-        <value xml:lang="en">Timesheet</value>
-        <value xml:lang="es">Hoja de tiempos</value>
-        <value xml:lang="fr">Feuille d'activité</value>
-        <value xml:lang="it">Timbratura</value>
-        <value xml:lang="nl">Tijdschema</value>
-        <value xml:lang="ro">Pontaj</value>
-        <value xml:lang="th">ตารางเวลาการทำงาน</value>
-        <value xml:lang="zh">工单</value>
-    </property>
-    <property key="TimesheetCreate">
-        <value xml:lang="en">Create Timesheet</value>
-        <value xml:lang="es">Crear hoja de tiempos</value>
-        <value xml:lang="fr">Créer la feuille d'activité</value>
-        <value xml:lang="it">Creare Timbratura</value>
-        <value xml:lang="nl">Nieuw tijdschema</value>
-        <value xml:lang="ro">Creare Pontaj</value>
-        <value xml:lang="th">สร้างตารางการทำงาน</value>
-        <value xml:lang="zh">新建工单</value>
-    </property>
-    <property key="TimesheetHours">
-        <value xml:lang="en">Hours</value>
-        <value xml:lang="fr">Heures</value>
-        <value xml:lang="it">Ore</value>
-        <value xml:lang="nl">Uren</value>
-        <value xml:lang="ro">Ore</value>
-        <value xml:lang="th">ชั่งโมง</value>
-        <value xml:lang="zh">小时</value>
-    </property>
-    <property key="TimesheetMyTime">
-        <value xml:lang="en">My Time</value>
-        <value xml:lang="es">Mi tiempo</value>
-        <value xml:lang="fr">Mon temps</value>
-        <value xml:lang="it">Mio Tempo</value>
-        <value xml:lang="nl">Mijn tijd</value>
-        <value xml:lang="ro">Timpul Meu</value>
-        <value xml:lang="th">เวลาของฉัน</value>
-        <value xml:lang="zh">我的时间</value>
-    </property>
-    <property key="TimesheetQuickTimeEntry">
-        <value xml:lang="en">Quick Time Entry</value>
-        <value xml:lang="fr">Entrée rapide d'une ligne d'activité</value>
-        <value xml:lang="it">Inserimento Veloce Ore</value>
-        <value xml:lang="nl">Snel een tijd invoeren</value>
-        <value xml:lang="ro">Introducere Rapida Ore</value>
-        <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
-        <value xml:lang="zh">快速时间记录</value>
-    </property>
-    <property key="TimesheetRateType">
-        <value xml:lang="en">Rate Type</value>
-        <value xml:lang="es">Tipo de tasa</value>
-        <value xml:lang="fr">Type de taux</value>
-        <value xml:lang="it">Tipo Percentuale</value>
-        <value xml:lang="nl">Soort tarief</value>
-        <value xml:lang="ro">Tip Procent</value>
-        <value xml:lang="th">ประเภทอัตรา</value>
-        <value xml:lang="zh">费率类型</value>
-    </property>
-    <property key="TimesheetRates">
-        <value xml:lang="de">Raten</value>
-        <value xml:lang="en">Rates</value>
-        <value xml:lang="es">Tasas</value>
-        <value xml:lang="fr">Taux</value>
-        <value xml:lang="it">Percentuali</value>
-        <value xml:lang="nl">Tarieven</value>
-        <value xml:lang="ro">Procente</value>
-        <value xml:lang="th">อัตรา</value>
-        <value xml:lang="zh">费率</value>
-    </property>
-    <property key="TimesheetTimeEntries">
-        <value xml:lang="en">Time Entries</value>
-        <value xml:lang="es">Entradas de tiempo</value>
-        <value xml:lang="fr">Lignes d'activité</value>
-        <value xml:lang="it">Righe Tempo</value>
-        <value xml:lang="nl">Invoer tijden</value>
-        <value xml:lang="ro">Linie Timp</value>
-        <value xml:lang="th">ตารางเวลา</value>
-        <value xml:lang="zh">时间记录</value>
-    </property>
-    <property key="TimesheetTimeEntry">
-        <value xml:lang="en">Time Entry</value>
-        <value xml:lang="es">Entrada de tiempo</value>
-        <value xml:lang="fr">Ligne d'activité</value>
-        <value xml:lang="it">Riga Tempo</value>
-        <value xml:lang="nl">Tijd invoer</value>
-        <value xml:lang="ro">Linie Timp</value>
-        <value xml:lang="th">ตารางเวลา</value>
-        <value xml:lang="zh">时间记录</value>
-    </property>
-    <property key="TimesheetTimesheetId">
-        <value xml:lang="en">Timesheet ID</value>
-        <value xml:lang="es">Código de hoja de tiempos</value>
-        <value xml:lang="fr">Réf. de feuille d'activité</value>
-        <value xml:lang="it">Numero Timbratura</value>
-        <value xml:lang="nl">Tijdschema ID</value>
-        <value xml:lang="ro">Numar Pontaj</value>
-        <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
-        <value xml:lang="zh">工单编号</value>
-    </property>
-    <property key="TimesheetTimsheetEdit">
-        <value xml:lang="en">Edit Timesheet</value>
-        <value xml:lang="fr">Modifier la feuille d'activité</value>
-        <value xml:lang="th">แก้ไขตารางเวลาการทำงาน</value>
-    </property>
-    <property key="TitleAddWorkEffortQuote">
-        <value xml:lang="en">Add  WorkEffort  Quote</value>
-        <value xml:lang="fr">Ajouter un devis à la tâche</value>
-        <value xml:lang="ro">Adauga Sarcina de Lucru Preventiva</value>
-        <value xml:lang="th">เพิ่มการอ้างอิงงาน</value>
-    </property>
-    <property key="WorKEffortInternalNote">
-        <value xml:lang="en">Internal Note</value>
-        <value xml:lang="fr">Note interne</value>
-        <value xml:lang="it">Nota Interna</value>
-        <value xml:lang="th">ข้อความภายใน</value>
-        <value xml:lang="zh">内部便笺</value>
-    </property>
-    <property key="WorkEffort">
-        <value xml:lang="en">WorkEffort</value>
-        <value xml:lang="es">Esfuerzo de trabajo</value>
-        <value xml:lang="fr">Tâche</value>
-        <value xml:lang="th">งาน</value>
-    </property>
     <property key="WorkEffortAcceptAssignment">
         <value xml:lang="en">Accept Assignment</value>
         <value xml:lang="es">Aceptar tarea</value>
@@ -2236,8 +1567,7 @@
         <value xml:lang="nl">Calendar Up-Coming Events View</value>
         <value xml:lang="ro">Afiseaza Evenimente Calendar care vor fi  </value>
         <value xml:lang="ru">Список наступающих событий</value>
-        <value xml:lang="th">แสดงผลที่ได้จากปฏิทินล่วงหน้า
-</value>
+        <value xml:lang="th">แสดงผลที่ได้จากปฏิทินล่วงหน้า</value>
         <value xml:lang="zh">浏览日历即将到来的事件</value>
     </property>
     <property key="WorkEffortCalendarWeekView">
@@ -2645,6 +1975,13 @@
         <value xml:lang="ru">Проверьте : Username;Admin;Password Ofbiz</value>
         <value xml:lang="th">สำหรับการสนใจบางสิ่งทำให้มั่นใจ, คุณพยายามลอกอินเข้าสู่ระบบ : ชื่อผู้เข้าใช้;Admin;รหัสผ่าน Ofbiz</value>
         <value xml:lang="zh">如果你对某些内容感兴趣，你需要登录系统，可以尝试用户名：admin;密码：Ofbiz</value>
+    </property>
+    <property key="WorkEffortInternalNote">
+        <value xml:lang="en">Internal Note</value>
+        <value xml:lang="fr">Note interne</value>
+        <value xml:lang="it">Nota interna</value>
+        <value xml:lang="th">ข้อความภายใน</value>
+        <value xml:lang="zh">内部便笺</value>
     </property>
     <property key="WorkEffortItem">
         <value xml:lang="en">Item</value>
@@ -3268,6 +2605,12 @@
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
     </property>
+    <property key="WorkEffortPriorityFormatNotCorrect">
+        <value xml:lang="en">Priority format is incorrect</value>
+        <value xml:lang="fr">Le format prioritaire est incorrect</value>
+        <value xml:lang="it">Formato priorità non è corretto</value>
+        <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
+    </property>
     <property key="WorkEffortPriorityHigh">
         <value xml:lang="en">High</value>
         <value xml:lang="fr">Haute</value>
@@ -3866,11 +3209,117 @@
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
         <value xml:lang="zh">账单到会员</value>
     </property>
-    <property key="WorkEffortTimeSheetNotInRolePermissionError">
+    
+    <property key="WorkEffortTimesheet">
+        <value xml:lang="en">Timesheet</value>
+        <value xml:lang="es">Hoja de tiempos</value>
+        <value xml:lang="fr">Feuille d'activité</value>
+        <value xml:lang="it">Timbratura</value>
+        <value xml:lang="nl">Tijdschema</value>
+        <value xml:lang="ro">Pontaj</value>
+        <value xml:lang="th">ตารางเวลาการทำงาน</value>
+        <value xml:lang="zh">工单</value>
+    </property>
+    <property key="WorkEffortTimesheetCreate">
+        <value xml:lang="en">Create Timesheet</value>
+        <value xml:lang="es">Crear hoja de tiempos</value>
+        <value xml:lang="fr">Créer la feuille d'activité</value>
+        <value xml:lang="it">Creare timbratura</value>
+        <value xml:lang="nl">Nieuw tijdschema</value>
+        <value xml:lang="ro">Creare Pontaj</value>
+        <value xml:lang="th">สร้างตารางการทำงาน</value>
+        <value xml:lang="zh">新建工单</value>
+    </property>
+    <property key="WorkEffortTimesheetHours">
+        <value xml:lang="en">Hours</value>
+        <value xml:lang="fr">Heures</value>
+        <value xml:lang="it">Ore</value>
+        <value xml:lang="nl">Uren</value>
+        <value xml:lang="ro">Ore</value>
+        <value xml:lang="th">ชั่งโมง</value>
+        <value xml:lang="zh">小时</value>
+    </property>
+    <property key="WorkEffortTimesheetMyTime">
+        <value xml:lang="en">My Time</value>
+        <value xml:lang="es">Mi tiempo</value>
+        <value xml:lang="fr">Mon temps</value>
+        <value xml:lang="it">Mio tempo</value>
+        <value xml:lang="nl">Mijn tijd</value>
+        <value xml:lang="ro">Timpul Meu</value>
+        <value xml:lang="th">เวลาของฉัน</value>
+        <value xml:lang="zh">我的时间</value>
+    </property>
+    <property key="WorkEffortTimesheetNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche ${workEffortId}</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire ${resourceDescription} tu devi avere il ruolo ${roleTypeId} con l'Impegno di Lavoro: ${workEffortId}</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} ด้วยสถานะงาน: ${workEffortId}</value>
+    </property>
+    <property key="WorkEffortTimesheetQuickTimeEntry">
+        <value xml:lang="en">Quick Time Entry</value>
+        <value xml:lang="fr">Entrée rapide d'une ligne d'activité</value>
+        <value xml:lang="it">Inserimento veloce ore</value>
+        <value xml:lang="nl">Snel een tijd invoeren</value>
+        <value xml:lang="ro">Introducere Rapida Ore</value>
+        <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速时间记录</value>
+    </property>
+    <property key="WorkEffortTimesheetRateType">
+        <value xml:lang="en">Rate Type</value>
+        <value xml:lang="es">Tipo de tasa</value>
+        <value xml:lang="fr">Type de taux</value>
+        <value xml:lang="it">Tipo percentuale</value>
+        <value xml:lang="nl">Soort tarief</value>
+        <value xml:lang="ro">Tip Procent</value>
+        <value xml:lang="th">ประเภทอัตรา</value>
+        <value xml:lang="zh">费率类型</value>
+    </property>
+    <property key="WorkEffortTimesheetRates">
+        <value xml:lang="de">Raten</value>
+        <value xml:lang="en">Rates</value>
+        <value xml:lang="es">Tasas</value>
+        <value xml:lang="fr">Taux</value>
+        <value xml:lang="it">Percentuali</value>
+        <value xml:lang="nl">Tarieven</value>
+        <value xml:lang="ro">Procente</value>
+        <value xml:lang="th">อัตรา</value>
+        <value xml:lang="zh">费率</value>
+    </property>
+    <property key="WorkEffortTimesheetTimeEntries">
+        <value xml:lang="en">Time Entries</value>
+        <value xml:lang="es">Entradas de tiempo</value>
+        <value xml:lang="fr">Lignes d'activité</value>
+        <value xml:lang="it">Voci timbrature</value>
+        <value xml:lang="nl">Invoer tijden</value>
+        <value xml:lang="ro">Linie Timp</value>
+        <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="zh">时间记录</value>
+    </property>
+    <property key="WorkEffortTimesheetTimeEntry">
+        <value xml:lang="en">Time Entry</value>
+        <value xml:lang="es">Entrada de tiempo</value>
+        <value xml:lang="fr">Ligne d'activité</value>
+        <value xml:lang="it">Voce timbratura</value>
+        <value xml:lang="nl">Tijd invoer</value>
+        <value xml:lang="ro">Linie Timp</value>
+        <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="zh">时间记录</value>
+    </property>
+    <property key="WorkEffortTimesheetTimesheetId">
+        <value xml:lang="en">Timesheet ID</value>
+        <value xml:lang="es">Código de hoja de tiempos</value>
+        <value xml:lang="fr">Réf. de feuille d'activité</value>
+        <value xml:lang="it">Numero timbratura</value>
+        <value xml:lang="nl">Tijdschema ID</value>
+        <value xml:lang="ro">Numar Pontaj</value>
+        <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
+        <value xml:lang="zh">工单编号</value>
+    </property>
+    <property key="WorkEffortTimesheetTimsheetEdit">
+        <value xml:lang="en">Edit Timesheet</value>
+        <value xml:lang="fr">Modifier la feuille d'activité</value>
+        <value xml:lang="it">Aggiorna timbratura</value>
+        <value xml:lang="th">แก้ไขตารางเวลาการทำงาน</value>
     </property>
     <property key="WorkEffortUpcomingEvents">
         <value xml:lang="en">Upcoming Events</value>

@@ -718,7 +718,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="rateCurrencyUomId"><hidden/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><display-entity entity-name="RateType"/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit /></field>
@@ -730,7 +730,7 @@ under the License.
             <set field="periodTypeId" value="RATE_HOUR"/>
         </actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -777,7 +777,7 @@ under the License.
         </field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -807,7 +807,7 @@ under the License.
         <field name="timesheetId"><lookup size="10" target-form-name="LookupTimesheet"/></field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -868,7 +868,7 @@ under the License.
         <field name="noteId" use-when="noteId != null"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><textarea cols="70" rows="5" /></field>
-        <field name="internalNote" title="${uiLabelMap.WorKEffortInternalNote}">
+        <field name="internalNote" title="${uiLabelMap.WorkEffortInternalNote}">
             <drop-down no-current-selected-key="">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
                 <option key="N" description="${uiLabelMap.CommonNo}"/>                

@@ -274,18 +274,6 @@
         <value xml:lang="th">รหัสลักษณะภายนอก</value>
         <value xml:lang="zh">外部标识</value>
     </property>
-    <property key="FormFieldTitle_facilityId">
-        <value xml:lang="de">Lager ID</value>
-        <value xml:lang="en">Facility Id</value>
-        <value xml:lang="es">Código de almacén</value>
-        <value xml:lang="fr">Réf. du lieu de stockage</value>
-        <value xml:lang="it">Codice Stabilimento </value>
-        <value xml:lang="nl">Faciliteit Id</value>
-        <value xml:lang="ro">Cod Compartiment </value>
-        <value xml:lang="ru">Код склада</value>
-        <value xml:lang="th">รหัสคลังสินค้า</value>
-        <value xml:lang="zh">场所标识</value>
-    </property>
     <property key="FormFieldTitle_facilityQuantityOnHandTotal">
         <value xml:lang="de">Lagermenge Verfügbar Total</value>
         <value xml:lang="en">Facility Quantity On Hand Total</value>

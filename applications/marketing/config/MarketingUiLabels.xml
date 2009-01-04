@@ -264,22 +264,6 @@
         <value xml:lang="th">งบประมาณ</value>
         <value xml:lang="zh">已预算的费用</value>
     </property>
-    <property key="FormFieldTitle_cmDetail">
-        <value xml:lang="en">Contact Mech Detail</value>
-        <value xml:lang="fr">Détail des coordonnées</value>
-        <value xml:lang="it">Dettaglio Contatto</value>
-        <value xml:lang="ro">Detaliu Contact</value>
-        <value xml:lang="th">รายละเอียดวิธีการติดต่อ</value>
-        <value xml:lang="zh">详细联系方式</value>
-    </property>
-    <property key="FormFieldTitle_contactListId">
-        <value xml:lang="en">Contact List Id</value>
-        <value xml:lang="fr">Réf. de liste de contact</value>
-        <value xml:lang="it">Lista di Contatto</value>
-        <value xml:lang="ro">Lista de Contact</value>
-        <value xml:lang="th">รหัสรายการติดต่อ</value>
-        <value xml:lang="zh">联系列表标识</value>
-    </property>
     <property key="FormFieldTitle_custReqestId">
         <value xml:lang="en">Cust Reqest Id</value>
         <value xml:lang="fr">Réf. de requête de client</value>
@@ -287,14 +271,6 @@
         <value xml:lang="ro">Numar Cerere Subiect</value>
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求标识</value>
-    </property>
-    <property key="FormFieldTitle_estimatedCost">
-        <value xml:lang="en">Estimated Cost</value>
-        <value xml:lang="fr">Coût estimé</value>
-        <value xml:lang="it">Costo Stimato</value>
-        <value xml:lang="ro">Cost Stimat</value>
-        <value xml:lang="th">ประมาณราคา</value>
-        <value xml:lang="zh">预计费用</value>
     </property>
     <property key="FormFieldTitle_partyClassificationGroupId">
         <value xml:lang="en">Party Classification Group Id</value>
