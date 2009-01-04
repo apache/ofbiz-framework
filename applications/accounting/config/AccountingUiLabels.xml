@@ -135,14 +135,14 @@
     </property>
     <property key="AccountingAcctRecon">
         <value xml:lang="en">Account Reconciliation</value>
-        <value xml:lang="fr">Réconciliation</value>
+        <value xml:lang="fr">Rapprochement de compte</value>
         <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="nl">Afstemming rekening</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
         <value xml:lang="en">Account Reconciliations</value>
-        <value xml:lang="fr">Réconciliations</value>
+        <value xml:lang="fr">Rapprochements de compte</value>
         <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="nl">Afstemmingen</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
@@ -819,6 +819,7 @@
     </property>
     <property key="AccountingAr">
         <value xml:lang="en">Main Page Account Receivable</value>
+        <value xml:lang="fr">Page d'accueil de la comptabilité client</value>        
         <value xml:lang="it">Pagina principale conto creditori</value>
     </property>
     <property key="AccountingArCompanyName">
@@ -1613,7 +1614,7 @@
     </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="en">Create Account Reconciliation</value>
-        <value xml:lang="fr">Créer la réconciliation de compte</value>
+        <value xml:lang="fr">Créer le rapprochement de compte</value>
         <value xml:lang="it">Crea Riconciliazione</value>
         <value xml:lang="nl">Maak rekeningafstemming aan</value>
         <value xml:lang="th">สร้างการเช็คยอดบัญชี</value>
@@ -2101,7 +2102,7 @@
     </property>
     <property key="AccountingEditAcctRecon">
         <value xml:lang="en">Edit Account Reconciliation</value>
-        <value xml:lang="fr">Modifier la réconciliation de compte</value>
+        <value xml:lang="fr">Modifier le rapprochement de compte</value>
         <value xml:lang="it">Modifica Riconciliazione</value>
         <value xml:lang="nl">Wijzig rekeningafstemming</value>
         <value xml:lang="th">แก้ไขการเช็คยอดบัญชี</value>
@@ -3964,6 +3965,7 @@
     </property>
     <property key="AccountingInvoicePurchaseItemType">
         <value xml:lang="en">Invoice Purchase Item Type</value>
+        <value xml:lang="fr">Type de ligne de facture d'achat</value>
         <value xml:lang="it">Tipo Riga Fattura Acquisto</value>
     </property>
     <property key="AccountingInvoiceRoles">
@@ -3993,6 +3995,7 @@
     </property>
     <property key="AccountingInvoicesApplPayments">
         <value xml:lang="en">Payments applied to Invoices</value>
+        <value xml:lang="fr">Paiements alloués aux factures</value>
         <value xml:lang="it">Pagamenti applicati alle Fatture</value>
     </property>
     <property key="AccountingInvoiceStatus">
@@ -5023,7 +5026,7 @@
     </property>
     <property key="AccountingOpenTimePeriods">
         <value xml:lang="en">Open Time Periods</value>
-        <value xml:lang="fr">Ouvrir les périodes de temps</value>
+        <value xml:lang="fr">Ouvrir les exercices comptables</value>
         <value xml:lang="it">Periodi Fiscali Aperti</value>
         <value xml:lang="nl">Open perioden</value>
         <value xml:lang="th">เปิดช่วงเวลา</value>
@@ -5657,6 +5660,7 @@
     </property>
     <property key="AccountingPaymentMethodTypeNotHandled">
         <value xml:lang="en">Payment method not handled paymentMethodTypeId :</value>
+        <value xml:lang="fr">Méthode de paiment non gérée : </value>
         <value xml:lang="it">Metodo di pagamento non trattato :</value>
         <value xml:lang="th">วิธีการชำระเงินโดยไม่มีประเภทการชำระเงิน :</value>
     </property>
@@ -5770,6 +5774,11 @@
         <value xml:lang="ru">Платежи</value>
         <value xml:lang="th">การชำระเงิน</value>
         <value xml:lang="zh">支付</value>
+    </property>
+    <property key="AccountingPaymentMethodAssignAccountType">
+        <value xml:lang="en">Payment Method Assign Account Type</value>
+        <value xml:lang="fr">Assigner un méthode de paiement à un type de compte</value>
+        <value xml:lang="it">Assegna Metodo Pagamento a Tipo Conto Gl</value>
     </property>
     <property key="AccountingPaymentsReceived">
         <value xml:lang="ar">التسديدات المستلمة</value>
@@ -5906,11 +5915,8 @@
     </property>
     <property key="AccountingPaymentTypeAssignAccountType">
         <value xml:lang="en">Payment Type Assign Account Type</value>
+        <value xml:lang="fr">Assigner un type de paiement à un type de compte</value>
         <value xml:lang="it">Assegna Tipo Pagamento a Tipo Conto Gl</value>
-    </property>
-    <property key="AccountingPaymentMethodAssignAccountType">
-        <value xml:lang="en">Payment Method Assign Account Type</value>
-        <value xml:lang="it">Assegna Metodo Pagamento a Tipo Conto Gl</value>
     </property>
     <property key="AccountingPaymentVia">
         <value xml:lang="cs">Platba prostřednictvím</value>
@@ -6191,10 +6197,12 @@
     </property>
     <property key="AccountingRateAmounts">
         <value xml:lang="en">Rate Amounts</value>
+        <value xml:lang="fr">Valeurs de taux</value>
         <value xml:lang="it">Importi Tassi</value>
     </property>
     <property key="AccountingRates">
         <value xml:lang="en">Rates</value>
+        <value xml:lang="fr">Taux</value>
         <value xml:lang="it">Tassi</value>
     </property>
     <property key="AccountingReceivePayment">
@@ -7018,6 +7026,7 @@
     </property>
     <property key="AccountingUpdateRateAmount">
         <value xml:lang="en">Update Rate amount</value>
+        <value xml:lang="fr">Mise à jour d'une valeur de taux</value>
         <value xml:lang="it">Aggiorna importo Tasso</value>
     </property>
     <property key="AccountingUseAccount">
@@ -7402,10 +7411,12 @@
     </property>
     <property key="FormFieldTitle_acquireOrderId">
         <value xml:lang="en">Acquire Order Id</value>
+        <value xml:lang="fr">Obtenir une réf. de commande</value>
         <value xml:lang="it">Numero Ordine Acquisito</value>
     </property>
     <property key="FormFieldTitle_acquireOrderItemSeqId">
         <value xml:lang="en">Acquire Order Item Seq Id</value>
+        <value xml:lang="fr">Obtenir une réf. séq. de ligne de commande</value>
         <value xml:lang="it">Numero Riga Ordine Acquisito</value>
     </property>
     <property key="FormFieldTitle_agreementDate">
@@ -7616,6 +7627,7 @@
     </property>
     <property key="FormFieldTitle_cardType">
         <value xml:lang="en">Card Type</value>
+        <value xml:lang="fr">Type de carte</value>
         <value xml:lang="it">Tipo Carta di Credito</value>
     </property>
     <property key="FormFieldTitle_classEnumId">
@@ -7655,6 +7667,7 @@
     </property>
     <property key="FormFieldTitle_credit">
         <value xml:lang="en">Credit</value>
+        <value xml:lang="fr">Crédit</value>
         <value xml:lang="it">Credito</value>
     </property>
     <property key="FormFieldTitle_creditGlAccountId">
@@ -7670,6 +7683,7 @@
     </property>
     <property key="FormFieldTitle_customTimePeriodId">
         <value xml:lang="en">Custom Time Period Id</value>
+        <value xml:lang="fr">Réf. d'exercice spécifique</value>
         <value xml:lang="it">Periodo Fiscale Personalizzato</value>
     </property>
     <property key="FormFieldTitle_dateAcquired">
@@ -7755,6 +7769,7 @@
     </property>
     <property key="FormFieldTitle_debit">
         <value xml:lang="en">Debit</value>
+        <value xml:lang="fr">Débit</value>
         <value xml:lang="it">Debito</value>
     </property>
     <property key="FormFieldTitle_debitCreditFlag">
@@ -7784,7 +7799,7 @@
         <value xml:lang="de">Zahlungsverzug GI-Konto ID</value>
         <value xml:lang="en">Default Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
-        <value xml:lang="fr">Compte par défaut</value>
+        <value xml:lang="fr">Réf. de compte par défaut</value>
         <value xml:lang="it">Default Conto Gl</value>
         <value xml:lang="nl">Standaard GB-rekening</value>
         <value xml:lang="ro">Default Cont Gl</value>
@@ -7794,6 +7809,7 @@
     </property>
     <property key="FormFieldTitle_depreciation">
         <value xml:lang="en">Depreciation</value>
+        <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="it">Deprecazione</value>
     </property>
     <property key="FormFieldTitle_dueDate">
@@ -7847,10 +7863,12 @@
     </property>
     <property key="FormFieldTitle_emplPositionTypeId">
         <value xml:lang="en">Empl Position Type Id</value>
+        <value xml:lang="fr">Réf. de type de position employé</value>
         <value xml:lang="it">Tipo Posizione Impiegato</value>
     </property>
     <property key="FormFieldTitle_errorGlJournalId">
         <value xml:lang="en">Error Gl Journal Id</value>
+        <value xml:lang="fr">Réf. de journal d'erreur (GL)</value>
         <value xml:lang="it">Numero Giornale Errori Gl</value>
     </property>
     <property key="FormFieldTitle_expectedEndOfLife">
@@ -8099,14 +8117,17 @@
     </property>
     <property key="FormFieldTitle_glJournalName">
         <value xml:lang="en">Gl Journal Name</value>
+        <value xml:lang="fr">Nom du journal (GL)</value>
         <value xml:lang="it">Nome Giornale Gl</value>
     </property>
     <property key="FormFieldTitle_glReconciliationId">
         <value xml:lang="en">Gl Reconciliation Id</value>
+        <value xml:lang="fr">Réf. de réconciliation(GL)</value>
         <value xml:lang="it">Numero Riconcilazione Gl</value>
     </property>
     <property key="FormFieldTitle_glReconciliationName">
         <value xml:lang="en">Gl Reconciliation Name</value>
+        <value xml:lang="fr">Nom du rapprochement (GL)</value>
         <value xml:lang="it">Nome Riconcilazione Gl</value>
     </property>
     <property key="FormFieldTitle_glResourceTypeId">
@@ -8134,6 +8155,7 @@
     </property>
     <property key="FormFieldTitle_groupStatusId">
         <value xml:lang="en">Group Status Id</value>
+        <value xml:lang="fr">Réf. de groupe de statuts</value>
         <value xml:lang="it">Stato Gruppo</value>
     </property>
     <property key="FormFieldTitle_includeTaxInPrice">
@@ -8282,6 +8304,7 @@
     </property>
     <property key="FormFieldTitle_isClosed">
         <value xml:lang="en">Is Closed</value>
+        <value xml:lang="fr">Fermée</value>
         <value xml:lang="it">E' Chiuso</value>
     </property>
     <property key="FormFieldTitle_isPosted">
@@ -8321,7 +8344,7 @@
         <value xml:lang="ar">آخر رقم فاتورة</value>
         <value xml:lang="en">Last Invoice Number</value>
         <value xml:lang="es">Último número de factura</value>
-        <value xml:lang="fr">Dernier no de facture</value>
+        <value xml:lang="fr">Dernier n° de facture</value>
         <value xml:lang="it">Ultimo Numero Fattura</value>
         <value xml:lang="nl">Laatste factuurnummer</value>
         <value xml:lang="ro">Ultimul  Nr.Factura</value>
@@ -8345,7 +8368,7 @@
         <value xml:lang="ar">آخر رقم طلبية</value>
         <value xml:lang="en">Last Order Number</value>
         <value xml:lang="es">Último número de orden</value>
-        <value xml:lang="fr">Dernier no de commande</value>
+        <value xml:lang="fr">Dernier n° de commande</value>
         <value xml:lang="it">Ultimo Numero Ordine</value>
         <value xml:lang="nl">Laatste ordernummer</value>
         <value xml:lang="ro">Ultimul Nr.Comanda</value>
@@ -8355,13 +8378,14 @@
     </property>
     <property key="FormFieldTitle_lastUpdatedStamp">
         <value xml:lang="en">Last Updated Stamp</value>
+        <value xml:lang="fr">Dernier n° de devis</value>
         <value xml:lang="it">Ultimo Aggiornamento</value>
     </property>
     <property key="FormFieldTitle_lastQuoteNumber">
         <value xml:lang="ar">أخر رقم قوطة</value>
         <value xml:lang="en">Last Quote Number</value>
         <value xml:lang="es">Último número de presupuesto</value>
-        <value xml:lang="fr">Dernier no de devis</value>
+        <value xml:lang="fr">Dernier n° de devis</value>
         <value xml:lang="it">Ultimo Numero Preventivo</value>
         <value xml:lang="nl">Laatste quotenummer</value>
         <value xml:lang="ro">Ultimul Nr.Preventiv</value>
@@ -8605,6 +8629,7 @@
     </property>
     <property key="FormFieldTitle_parentPeriodId">
         <value xml:lang="en">Parent Period Id</value>
+        <value xml:lang="fr">Réf. de période parente</value>
         <value xml:lang="it">Periodo Fiscale Padre</value>
     </property>
     <property key="FormFieldTitle_paymentApplied">
@@ -8689,7 +8714,7 @@
     <property key="FormFieldTitle_paymentRefNum">
         <value xml:lang="en">Reference No </value>
         <value xml:lang="es">No Referencia</value>
-        <value xml:lang="fr">No de référence</value>
+        <value xml:lang="fr">N° de référence</value>
         <value xml:lang="it">Numero Riferimento</value>
         <value xml:lang="nl">Referentienr.</value>
         <value xml:lang="ro">Nr.Referinta</value>
@@ -8741,30 +8766,37 @@
     </property>
     <property key="FormFieldTitle_period1GlFiscalTypeId">
         <value xml:lang="en">Period1 Gl Fiscal Type Id</value>
+        <value xml:lang="fr">Réf. de type d'exercice 1</value>
         <value xml:lang="it">Periodo 1 Tipo Fiscale Gl</value>
     </property>
     <property key="FormFieldTitle_period2GlFiscalTypeId">
         <value xml:lang="en">Period2 Gl Fiscal Type Id</value>
+        <value xml:lang="fr">Réf. de type d'exercice 2</value>
         <value xml:lang="it">Periodo 2 Tipo Fiscale Gl</value>
     </property>
     <property key="FormFieldTitle_period1ThruDate">
         <value xml:lang="en">Period1 Thru Date</value>
+        <value xml:lang="fr">Exercice 1 jusqu'à la date</value>
         <value xml:lang="it">Periodo 1 Alla Data</value>
     </property>
     <property key="FormFieldTitle_period2ThruDate">
         <value xml:lang="en">Period2 Thru Date</value>
+        <value xml:lang="fr">Exercice 2 jusqu'à la date</value>
         <value xml:lang="it">Periodo 2 Alla Data</value>
     </property>
     <property key="FormFieldTitle_periodName">
         <value xml:lang="en">Period Name</value>
+        <value xml:lang="fr">Nom d'exercice</value>
         <value xml:lang="it">Nome Periodo Fiscale</value>
     </property>
     <property key="FormFieldTitle_periodNum">
         <value xml:lang="en">Period Num</value>
+        <value xml:lang="fr">N° d'exercice</value>
         <value xml:lang="it">Numero Periodo Fiscale</value>
     </property>
     <property key="FormFieldTitle_periodTypeId">
         <value xml:lang="en">Period Type Id</value>
+        <value xml:lang="fr">Réf. de type d'exercice</value>
         <value xml:lang="it">Tipo Periodo Fiscale</value>
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
@@ -8845,10 +8877,12 @@
     </property>
     <property key="FormFieldTitle_purchaseCost">
         <value xml:lang="en">Purchase Cost</value>
+        <value xml:lang="fr">Coût d'achat</value>
         <value xml:lang="it">Costo d'Acquisto</value>
     </property>
     <property key="FormFieldTitle_purchaseCostUomId">
         <value xml:lang="en">Purchase Cost Uom Id</value>
+        <value xml:lang="fr">Réf. de mesure de coût d'achat</value>
         <value xml:lang="it">Udm Costo d'Acquisto</value>
     </property>
     <property key="FormFieldTitle_purchaseOrderId">
@@ -8887,14 +8921,17 @@
     </property>
     <property key="FormFieldTitle_rateAmount">
         <value xml:lang="en">Rate Amount</value>
+        <value xml:lang="fr">Valeur de taux</value>
         <value xml:lang="it">Importo Tasso</value>
     </property>
     <property key="FormFieldTitle_rateCurrencyUomId">
         <value xml:lang="en">Rate Currency Uom Id</value>
+        <value xml:lang="fr">Réf. de taux monétaire</value>
         <value xml:lang="it">Valuta del Tasso</value>
     </property>
     <property key="FormFieldTitle_rateDescription">
         <value xml:lang="en">Rate Description</value>
+        <value xml:lang="fr">Description de taux</value>
         <value xml:lang="it">Descrizione Tasso</value>
     </property>
     <property key="FormFieldTitle_rateTypeId">
@@ -8906,6 +8943,7 @@
     </property>
     <property key="FormFieldTitle_readingDate">
         <value xml:lang="en">Reading Date</value>
+        <value xml:lang="fr">Date de lecture</value>
         <value xml:lang="it">Data Lettura</value>
     </property>
     <property key="FormFieldTitle_readingReasonEnumId">
@@ -8925,20 +8963,23 @@
     </property>
     <property key="FormFieldTitle_reconciledAmount">
         <value xml:lang="en">Reconciled Amount</value>
+        <value xml:lang="fr">Montant de rapprochement</value>
         <value xml:lang="it">Importo Riconcilazione</value>
     </property>
     <property key="FormFieldTitle_reconciledBalance">
         <value xml:lang="en">Reconciled Balance</value>
+        <value xml:lang="fr">Solde rapproché</value>
         <value xml:lang="it">Bilancio Riconcilazione</value>
     </property>
     <property key="FormFieldTitle_reconciledDate">
         <value xml:lang="en">Reconciled Date</value>
+        <value xml:lang="fr">Date de rapprochement</value>
         <value xml:lang="it">Data Riconcilazione</value>
     </property>
     <property key="FormFieldTitle_reconcileStatusId">
         <value xml:lang="en">Reconcile Status Id</value>
         <value xml:lang="es">Id Status Reconciliación</value>
-        <value xml:lang="fr">Réconciliation de statuts</value>
+        <value xml:lang="fr">Ref. de statut de rapprochement</value>
         <value xml:lang="it">Codice Stato Riconcilazione</value>
         <value xml:lang="nl">ID status afstemmen</value>
         <value xml:lang="ro">Cod Stat Reconciliere</value>
@@ -8949,7 +8990,7 @@
     <property key="FormFieldTitle_referenceNum">
         <value xml:lang="en">Reference Num</value>
         <value xml:lang="es">Número de referencia</value>
-        <value xml:lang="fr">No de référence</value>
+        <value xml:lang="fr">N° de référence</value>
         <value xml:lang="it">Numero Riferimento</value>
         <value xml:lang="nl">Referentienr.</value>
         <value xml:lang="ro">Nr.Referinta</value>
@@ -9050,10 +9091,12 @@
     </property>
     <property key="FormFieldTitle_salesOpportunityId">
         <value xml:lang="en">Sales Opportunity Id</value>
+        <value xml:lang="fr">Réf. d'opportunité de vente</value>
         <value xml:lang="it">Numero Opportunità di Vendita</value>
     </property>
     <property key="FormFieldTitle_salvageValue">
         <value xml:lang="en">Salvage Value</value>
+        <value xml:lang="fr">Valeur résiduelle</value>
         <value xml:lang="it">Valore di salvataggio</value>
     </property>
     <property key="FormFieldTitle_scheduleWorkEffortId">
@@ -9212,6 +9255,7 @@
     <property key="FormFieldTitle_textData">
         <value xml:lang="de">Textangaben</value>
         <value xml:lang="en">Text Data</value>
+        <value xml:lang="fr">Données textuelles</value>
         <value xml:lang="it">Dato Testo</value>
     </property>
     <property key="FormFieldTitle_textValue">
@@ -9224,6 +9268,7 @@
     </property>
     <property key="FormFieldTitle_theirAcctgTransId">
         <value xml:lang="en">Their Acctg Trans Id</value>
+        <value xml:lang="fr">Leur réf. de transcation comptable</value>
         <value xml:lang="it">Loro Numero Transazione Contabilità</value>
     </property>
     <property key="FormFieldTitle_timeEntryId">
@@ -9235,6 +9280,7 @@
     </property>
     <property key="FormFieldTitle_timesheetPartyId">
         <value xml:lang="en">Timesheet Party Id</value>
+        <value xml:lang="fr">Réf de feuille d'activité d'un acteur</value>
         <value xml:lang="it">Soggetto Timbratura</value>
     </property>
     <property key="FormFieldTitle_toPaymentId">
@@ -9250,6 +9296,7 @@
     </property>
     <property key="FormFieldTitle_totalAmount">
         <value xml:lang="en">Total Amount</value>
+        <value xml:lang="fr">Montant total</value>
         <value xml:lang="it">Importo Totale</value>
     </property>
     <property key="FormFieldTitle_toTaxAuthGeoId">
@@ -9331,6 +9378,7 @@
     </property>
     <property key="FormFieldTitle_voucherDate">
         <value xml:lang="en">Voucher Date</value>
+        <value xml:lang="fr">Date de bon d'achat</value>
         <value xml:lang="it">Data Voucher</value>
     </property>
     <property key="FormFieldTitle_voucherRef">
