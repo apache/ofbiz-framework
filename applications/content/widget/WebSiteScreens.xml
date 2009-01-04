@@ -109,7 +109,6 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteContent"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
-                
                 <entity-and entity-name="WebSiteContent" list-name="webSiteContent">
                     <field-map field-name="webSiteId" env-name="webSiteId"/>
                 </entity-and>                
@@ -317,24 +316,13 @@ under the License.
             </actions>
             <widgets>
                 <container id="cmscontent">
-                    <container style="screenlet">
-                        <container style="screenlet-title-bar">
-                            <container style="h3">
-                                <label text="${uiLabelMap.PageTitleWebSiteCMSContent}"/>
-                            </container>
-                        </container>
-                        <container style="screenlet-body">
-                            <section>
-                                <widgets>    
-                                    <platform-specific>
-                                        <html>
-                                            <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
-                                       </html>
-                                    </platform-specific>
-                                </widgets>
-                            </section>
-                        </container>
-                   </container>
+                    <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </screenlet>
                </container>
             </widgets>
         </section>
@@ -402,6 +390,28 @@ under the License.
                         <html-template location="component://content/webapp/content/website/WebSiteCMSPathAlias.ftl"/>
                     </html>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WebSiteAliases">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ContentPathAlias"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <set field="tabButtonItem" value="PathAlias"/>
+                <entity-and entity-name="WebSitePathAlias" list-name="aliases">
+                    <field-map field-name="webSiteId" env-name="parameters.webSiteId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentPathAliasList}" navigation-form-name="WebSitePathAlias">
+                            <include-form name="WebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

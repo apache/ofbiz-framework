@@ -239,6 +239,7 @@ under the License.
                                 <container style="widget-container">
                                     <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
                                 </container>
+                                <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${uiLabelMap.${extraFunctionName}}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

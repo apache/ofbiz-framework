@@ -122,6 +122,9 @@ under the License.
         <menu-item name="ListWebSiteContent" title="${uiLabelMap.ContentContent}">
             <link target="ListWebSiteContent?webSiteId=${parameters.webSiteId}"/>
         </menu-item>
+        <menu-item name="PathAlias" title="${uiLabelMap.ContentPathAlias}">
+            <link target="WebSiteAliases?webSiteId=${parameters.webSiteId}"/>
+        </menu-item>
         <menu-item name="EditWebSiteParties" title="${uiLabelMap.PartyParties}">
             <link target="EditWebSiteParties?webSiteId=${parameters.webSiteId}"/>
         </menu-item>

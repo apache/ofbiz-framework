@@ -686,6 +686,9 @@
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
     </property>
+    <property key="ContentPathAliasList">
+        <value xml:lang="en">Path Alias list</value>
+    </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
         <value xml:lang="de">Geben Sie die Suchparamter an</value>
