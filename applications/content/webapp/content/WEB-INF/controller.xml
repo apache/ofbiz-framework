@@ -173,6 +173,7 @@ under the License.
     
     <!-- ================ WebSite Requests ================= -->
     <request-map uri="FindWebSite"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
+    <request-map uri="ListWebSite"><security https="true" auth="true"/><response name="success" type="view" value="ListWebSite"/></request-map>
     <request-map uri="EditWebSite"><security https="true" auth="true"/><response name="success" type="view" value="EditWebSite"/></request-map>
     <request-map uri="createWebSite">
         <security https="true" auth="true"/>
@@ -1686,6 +1687,7 @@ under the License.
     <view-map name="findContentSearchResults" type="screen" page="component://content/widget/content/ContentScreens.xml#findContentSearchResults"/>
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
+    <view-map name="ListWebSite" page="component://content/widget/content/ContentScreens.xml#ListWebSite" type="screen"/>
     
     <view-map name="EditContentAttribute" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute" type="screen"/>
     <view-map name="EditContentMetaData" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData" type="screen"/>

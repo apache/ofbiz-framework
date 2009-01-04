@@ -1523,6 +1523,19 @@ under the License.
             <key-map field-name="webSiteContentTypeId"/>
         </relation>
     </entity>
+    <view-entity entity-name="WebSiteAndContent"
+        package-name="org.ofbiz.content.website"
+        title="Web Sites by contentId">
+      <member-entity entity-alias="WS" entity-name="WebSite"/>
+      <member-entity entity-alias="WSCT" entity-name="WebSiteContent"/>
+      <alias-all entity-alias="WS"/>
+      <alias-all entity-alias="WSCT">
+        <exclude field="webSiteId"/>
+      </alias-all>
+      <view-link entity-alias="WS" rel-entity-alias="WSCT">
+        <key-map field-name="webSiteId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="WebSiteContentType"
         package-name="org.ofbiz.content.website"
         title="Web Site Content Type">

@@ -54,6 +54,7 @@ under the License.
             <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
         </field>
         <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="httpHost"><display/></field>
     </form>
 
     <!-- WebSite Content Forms -->
