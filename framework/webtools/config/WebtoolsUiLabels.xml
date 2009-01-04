@@ -3273,7 +3273,7 @@
     <property key="WebtoolsWorkflowActualStartDate">
         <value xml:lang="de">Ist-Anfangsdatum</value>
         <value xml:lang="en">Actual Start Date</value>
-
+        <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="th">วันที่เริ่มงานจริง</value>
     </property>
