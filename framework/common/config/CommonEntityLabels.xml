@@ -4184,7 +4184,6 @@
         <value xml:lang="de">Manitoba</value>
         <value xml:lang="en">MB</value>
         <value xml:lang="fr">Manitoba</value>
-        <value xml:lang="fr">Manitoba</value>
         <value xml:lang="th">MB</value>
     </property>
     <property key="Geo.geoName.MCO">
@@ -4421,7 +4420,6 @@
     <property key="Geo.geoName.NB">
         <value xml:lang="de">Neu-Brunswick</value>
         <value xml:lang="en">NB</value>
-        <value xml:lang="fr">Nouveau-Brunswick</value>
         <value xml:lang="fr">Nouveau-Brunswick</value>
         <value xml:lang="th">NB</value>
     </property>
