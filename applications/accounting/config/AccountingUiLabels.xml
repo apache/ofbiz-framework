@@ -5759,7 +5759,6 @@
     <property key="AccountingPaymentsMenu">
         <value xml:lang="ar">التسديدات</value>
         <value xml:lang="de">Zahlungen</value>
-        <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
         <value xml:lang="es">Pagos</value>
         <value xml:lang="fr">Paiements</value>

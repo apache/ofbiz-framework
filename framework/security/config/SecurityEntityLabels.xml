@@ -22,7 +22,6 @@
         <value xml:lang="en">Full Business Applications permission group, has all business app admin permissions, not technical permissions.</value>
         <value xml:lang="es">Permisos completos para las Aplicaciones de Negocio, no posee permisos técnicos.</value>
         <value xml:lang="ru">Полная группа прав 'Деловые приложения', содержит все права для администрирования деловых приложений, нет технических прав.</value>
-        <value xml:lang="th">Full Business Applications permission group, has all business app admin permissions, not technical permissions.</value>
     </property>
     <property key="SecurityGroup.description.CATALOGADMIN">
         <value xml:lang="en">Catalog Admin group, has all catalog permissions.</value>
