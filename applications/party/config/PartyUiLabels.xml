@@ -71,7 +71,9 @@
         <value xml:lang="fr">Détail des coordonées</value>
         <value xml:lang="it">Dettagli Contatto</value>
         <value xml:lang="nl">Details contactmech</value>
+        <value xml:lang="ro">Detaliu Contact</value>
         <value xml:lang="th">รายละเอียดในการติดต่อ</value>
+        <value xml:lang="zh">详细联系方式</value>
     </property>
     <property key="FormFieldTitle_commonName">
         <value xml:lang="de">Allgemeiner Name</value>
@@ -124,7 +126,7 @@
         <value xml:lang="en">Contact List Id</value>
         <value xml:lang="es">Codigo Lista de contactos</value>
         <value xml:lang="fr">Liste de contact</value>
-        <value xml:lang="it">Lista Contatto</value>
+        <value xml:lang="it">Lista contatto</value>
         <value xml:lang="nl">ID contactlijst</value>
         <value xml:lang="ro">Lista Contact</value>
         <value xml:lang="ru">Коди контактного списка</value>
@@ -160,7 +162,7 @@
         <value xml:lang="en">Contact Mech Type Id</value>
         <value xml:lang="es">Código Tipo Mecanismo de contacto</value>
         <value xml:lang="fr">Réf. type de coordonées</value>
-        <value xml:lang="it">Tipo Contatto</value>
+        <value xml:lang="it">Tipo contatto</value>
         <value xml:lang="nl">Soort contactmech</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="ru">Код типа способа связи</value>
@@ -253,7 +255,9 @@
         <value xml:lang="en">Default Rate</value>
         <value xml:lang="es">Tasa por defecto</value>
         <value xml:lang="fr">Taux par défaut</value>
+        <value xml:lang="it">Percentuale di Default</value>
         <value xml:lang="nl">Standaard tarief</value>
+        <value xml:lang="th">ค่าเริ่มต้นอัตรา</value>
         <value xml:lang="zh">默认费率</value>
     </property>
     <property key="FormFieldTitle_disabledDateTime">
@@ -7518,6 +7522,14 @@
         <value xml:lang="ru">Код типа роли участника из (НОВЫЙ)</value>
         <value xml:lang="th">รหัสประเภทสถานะกลุ่มผู้ใช้จาก (ใหม่)</value>
         <value xml:lang="zh">会员角色类型标识来自 (新)</value>
+    </property>
+    <property key="PartyRoleTypeIdMissing">
+        <value xml:lang="en">Role Type ID is missing.</value>
+        <value xml:lang="fr">Réf. de type de rôle manquant</value>
+        <value xml:lang="it">Tipo ruolo è mancante.</value>
+        <value xml:lang="ro">Tip Rol lipseste.</value>
+        <value xml:lang="th">ไม่พบรหัสประเภทสถานะ</value>
+        <value xml:lang="zh">没有找到角色类型标识。</value>
     </property>
     <property key="PartyRoleTypeIdTo">
         <value xml:lang="de">Akteur Rolle Typ ID an (neu)</value>

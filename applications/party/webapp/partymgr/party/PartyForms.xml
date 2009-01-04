@@ -318,7 +318,7 @@ under the License.
             <set field="periodTypeId" value="RATE_HOUR"/>
         </actions>
         <field name="partyId"><hidden/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD" allow-empty="false">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -362,7 +362,7 @@ under the License.
         <field name="fromDate"><hidden/></field>
         <field name="rateAmountFromDate"><hidden/></field>
         <field name="rateCurrencyUomId"><hidden/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
         <field name="rateDefaultAmount" use-when="&quot;workEffort&quot;.equals(rateLevel)" tooltip="Value from workeffort level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="rateDefaultAmount" use-when="&quot;party&quot;.equals(rateLevel)" tooltip="Value from party level"><display type="currency" currency="${rateCurrencyUomId}"/></field>

@@ -51,7 +51,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek?partyId=${userLogin.partyId}" style="buttontext"/>
-                                <link text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet?partyId=${userLogin.partyId}" style="buttontext"/>
+                                <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet?partyId=${userLogin.partyId}" style="buttontext"/>
                                 <iterate-section entry-name="currentTimesheet" list-name="currentTimesheetList">
                                     <section>
                                         <actions>
@@ -64,7 +64,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <container>
-                                                <label style="tableheadtext" text="${uiLabelMap.Timesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
+                                                <label style="tableheadtext" text="${uiLabelMap.WorkEffortTimesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
                                                 <link target="EditTimesheet?timesheetId=${currentTimesheet.timesheetId}" text="${currentTimesheet.timesheetId}" style="buttontext"></link>
                                             </container>
                                             <iterate-section entry-name="currentTimeEntry" list-name="currentTimeEntryList">
@@ -76,8 +76,8 @@ under the License.
                                                     </actions>
                                                     <widgets>
                                                         <container>
-                                                            <label style="tabletext" text="${uiLabelMap.TimesheetTimeEntry} ${uiLabelMap.CommonFor} ${currentTimeEntry.fromDate} "/>
-                                                            <label style="tableheadtext" text="${currentTimeEntry.hours} ${uiLabelMap.TimesheetHours} "/>
+                                                            <label style="tabletext" text="${uiLabelMap.WorkEffortTimesheetTimeEntry} ${uiLabelMap.CommonFor} ${currentTimeEntry.fromDate} "/>
+                                                            <label style="tableheadtext" text="${currentTimeEntry.hours} ${uiLabelMap.WorkEffortTimesheetHours} "/>
                                                             <label style="tabletext" text="${currentTimeEntry.comments} [${currentRateType.description}]"/>
                                                             <section>
                                                                 <condition><not><if-empty field-name="currentTimeEntry.workEffortId"/></not></condition>
@@ -94,8 +94,8 @@ under the License.
                                                 </widgets>
                                                 <fail-widgets>
                                                     <container>
-                                                        <link target="MyTimesheets?showQuickEntry=${currentTimesheet.timesheetId}" text="${uiLabelMap.TimesheetQuickTimeEntry}" style="buttontext"></link>
-                                                        <link target="EditTimesheetEntries?timesheetId=${currentTimesheet.timesheetId}" text="${uiLabelMap.TimesheetTimeEntries}" style="buttontext"></link>
+                                                        <link target="MyTimesheets?showQuickEntry=${currentTimesheet.timesheetId}" text="${uiLabelMap.WorkEffortTimesheetQuickTimeEntry}" style="buttontext"></link>
+                                                        <link target="EditTimesheetEntries?timesheetId=${currentTimesheet.timesheetId}" text="${uiLabelMap.WorkEffortTimesheetTimeEntries}" style="buttontext"></link>
                                                     </container>
                                                 </fail-widgets>
                                             </section>
@@ -164,7 +164,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>    
-                                                <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                                <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
                                                 <include-form name="FindTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
                                             </widgets>
                                         </section>
@@ -237,7 +237,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>    
-                                                <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                                <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
                                                 <include-form name="EditTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
                                             </widgets>
                                         </section>
@@ -266,7 +266,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>    
-                                                <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                                <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
                                                 <include-form name="DisplayTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
                                             </widgets>
                                         </section>
@@ -315,7 +315,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                        <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
                                         <include-form name="ListTimesheetRoles" location="component://workeffort/widget/TimesheetForms.xml"/>
                                     </widgets>
                                 </section>
@@ -362,7 +362,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                        <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
                                         <include-form name="ListTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
                                     </widgets>
                                 </section>

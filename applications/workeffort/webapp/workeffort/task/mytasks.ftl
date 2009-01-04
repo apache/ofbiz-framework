@@ -50,7 +50,7 @@ under the License.
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
         <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
-        <td>${uiLabelMap.PartyRoleId}</td>
+        <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
       </tr>
@@ -80,7 +80,7 @@ under the License.
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
         <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
-        <td>${uiLabelMap.PartyRoleId}</td>
+        <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
       </tr>
@@ -110,7 +110,7 @@ under the License.
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
         <td>${uiLabelMap.PartyGroupPartyId}</td>
-        <#-- <td>${uiLabelMap.PartyRoleId}</td> -->
+        <#-- <td>${uiLabelMap.PartyRole}</td> -->
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
       </tr>

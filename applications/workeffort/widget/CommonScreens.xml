@@ -109,7 +109,7 @@ under the License.
                                     <condition><not><if-empty field-name="timesheetId"/></not></condition>
                                     <widgets>
                                         <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
-                                        <container><label style="h1">${uiLabelMap.TimesheetTimesheetId} ${timesheetId}</label></container>
+                                        <container><label style="h1">${uiLabelMap.WorkEffortTimesheetTimesheetId} ${timesheetId}</label></container>
                                     </widgets>
                                 </section>
                                 

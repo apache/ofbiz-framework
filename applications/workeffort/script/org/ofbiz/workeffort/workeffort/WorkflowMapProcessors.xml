@@ -23,7 +23,7 @@ under the License.
   <simple-map-processor name="assignmentMap">
     <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
     <process field="partyId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPartyIdMissing"/></not-empty></process>
-    <process field="roleTypeId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="PartyRoleTypeIdMissing"/></not-empty></process>
+    <process field="roleTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyRoleTypeIdMissing"/></not-empty></process>
     <process field="fromDate">
         <convert type="Timestamp"><fail-property resource="WorkEffortUiLabels" property="WorkEffortFromDateIsNotValid"/></convert></process>
   </simple-map-processor>
@@ -35,7 +35,7 @@ under the License.
     <process field="universalId"><copy/></process>
     <process field="scopeEnumId"><copy/></process>
     <process field="priority"><copy/>
-        <convert type="Long"><fail-property resource="WorkEffortUiLabels" property="PriorityFormatNotCorrect"/></convert>
+        <convert type="Long"><fail-property resource="WorkEffortUiLabels" property="WorkEffortPriorityFormatNotCorrect"/></convert>
     </process>
     <process field="percentComplete"><copy/></process>
     <process field="workEffortName"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortNameIsMissing"/></not-empty></process>
