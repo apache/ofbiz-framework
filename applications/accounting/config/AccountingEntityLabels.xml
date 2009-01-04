@@ -2350,17 +2350,21 @@
         <value xml:lang="zh">所得税</value>
     </property>
     <property key="TaxAuthorityRateType.description.SALES_TAX">
+        <value xml:lang="de">Verkaufssteuer</value>
         <value xml:lang="en">Sales Tax</value>
-        <value xml:lang="fr">Taxes sur les ventes</value>
-        <value xml:lang="it">Tasse Vendita</value>
+        <value xml:lang="es">Impuesto de ventas</value>
+        <value xml:lang="fr">TVA</value>
+        <value xml:lang="it">Tasse vendita</value>
         <value xml:lang="ro">Taxe Vanzare</value>
         <value xml:lang="ru">Налог на продажи</value>
         <value xml:lang="th">ภาษีขาย</value>
         <value xml:lang="zh">营业税</value>
     </property>
     <property key="TaxAuthorityRateType.description.USE_TAX">
+        <value xml:lang="de">Gebrauchssteuer</value>
         <value xml:lang="en">Use Tax</value>
-        <value xml:lang="fr">Taxes à l'utilisation</value>
+        <value xml:lang="es">Impuesto de uso</value>
+        <value xml:lang="fr">Taxe d'utilisation (pas en France)</value>
         <value xml:lang="it">Tassa sull'utilizzo</value>
         <value xml:lang="ro">Foloseste Taxe</value>
         <value xml:lang="ru">Налог на использование</value>

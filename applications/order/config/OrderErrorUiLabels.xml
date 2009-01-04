@@ -938,12 +938,6 @@
         <value xml:lang="th">ประเภทรายการการคืนค่าไม่ถูกต้อง : ถ้าไม่ใบคำสั่งซื้อ ${orderId} รายการ ${orderItemSeqId} มีการคืนค่าครบถ้วน, ก็รายการการคืนค่าอื่นกว่าการปรับเปลี่ยนวิธีใช้หรือการขนส่งเพิ่มไปยังการคืนค่า</value>
         <value xml:lang="zh">非法的退货明细类型：或者订单 ${orderId} 明细 ${orderItemSeqId} 返回的是null，或者是一个退货明细而不是人工调整或送货被添加到了退货中 </value>
     </property>
-    <property key="OrderInputQuickPurchaseOrder">
-        <value xml:lang="en">Input  Quick  Purchase  Order</value>
-        <value xml:lang="es">Entrada rápida de un pedido de compra</value>
-        <value xml:lang="fr">Entrer rapidement une commande d'achat</value>
-        <value xml:lang="th">การกรอกข้อมูลรายการสั่งซื้อย่างรวดเร็ว</value>
-    </property>
     <property key="OrderInvalidAmountSetForBillingAccount">
         <value xml:lang="en">Invalid amount set for Billing Account # ${billingAccountId}</value>
         <value xml:lang="es">Monto inválido para cuenta de facturación # ${billingAccountId}</value>
@@ -1226,7 +1220,7 @@
         <value xml:lang="th">ประเภทรายการใบคำสั่งซื้อไม่มีอยู่</value>
         <value xml:lang="zh">不存在订单明细类型</value>
     </property>
-    <property key="OrderOrderTermDays">
+    <property key="OrderOrderTermDaysError">
         <value xml:lang="en">Order Term Days : ${orderTermDays}</value>
         <value xml:lang="es">Días de los términos del pedido : ${orderTermDays}</value>
         <value xml:lang="fr">Jours des termes de la commande : ${orderTermDays}</value>
@@ -1246,7 +1240,7 @@
         <value xml:lang="th">ต้องการประเภทช่วงระยะเวลารายการสั่งซื้อ. </value>
         <value xml:lang="zh">需要订单条件类型。 </value>
     </property>
-    <property key="OrderOrderTermValue">
+    <property key="OrderOrderTermValueError">
         <value xml:lang="en">Order Term Value : ${orderTermValue}</value>
         <value xml:lang="es">Valor de los términos del pedido : ${orderTermValue}</value>
         <value xml:lang="fr">Valeur des termes de la commande : ${orderTermValue}</value>
@@ -1649,7 +1643,7 @@
         <value xml:lang="th">คลังสินค้าไม่มีอยู่</value>
         <value xml:lang="zh">产品店铺不存在</value>
     </property>
-    <property key="OrderQuickAddOrderItem">
+    <property key="OrderQuickAddOrderItemError">
         <value xml:lang="en">Quick  Add  Order  Item</value>
         <value xml:lang="es">Agregar rápidamente ítems a el pedido</value>
         <value xml:lang="fr">Ajout rapide d'une ligne de commande</value>
@@ -2202,13 +2196,13 @@
         <value xml:lang="th">รหัสสถานนะไม่มีอยู่</value>
         <value xml:lang="zh">状态标识不存在</value>
     </property>
-    <property key="OrderSupplierData">
+    <property key="OrderSupplierDataError">
         <value xml:lang="en">SupplierData</value>
         <value xml:lang="es">Datos de provedor</value>
         <value xml:lang="fr">Donnée fournisseur</value>
         <value xml:lang="th">ข้อมูลผู้จัดหาสิ่งของ</value>
     </property>
-    <property key="OrderSupplierFinancialData">
+    <property key="OrderSupplierFinancialDataError">
         <value xml:lang="en">SupplierFinancialData</value>
         <value xml:lang="fr">Donnée financière du fournisseur</value>
         <value xml:lang="es">Datos financieros de proveedor</value>

@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CustRequestResolution.description.DUPLICATE">
         <value xml:lang="de">Duplikat</value>
         <value xml:lang="en">Duplicate</value>
@@ -652,20 +653,6 @@
         <value xml:lang="ru">Список пожеланий</value>
         <value xml:lang="th">รายการความต้องการ</value>
         <value xml:lang="zh">期望列表</value>
-    </property>
-    <property key="TaxAuthorityRateType.description.SALES_TAX">
-        <value xml:lang="de">Verkaufssteuer</value>
-        <value xml:lang="en">SALES_TAX</value>
-        <value xml:lang="es">Impuesto de ventas</value>
-        <value xml:lang="fr">TVA</value>
-        <value xml:lang="th">ภาษีการขาย</value>
-    </property>
-    <property key="TaxAuthorityRateType.description.USE_TAX">
-        <value xml:lang="de">Gebrauchssteuer</value>
-        <value xml:lang="en">USE_TAX</value>
-        <value xml:lang="es">Impuesto de uso</value>
-        <value xml:lang="fr">Taxe d'utilisation (pas en France)</value>
-        <value xml:lang="th">ภาษีการใช้</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_DELIVERS">
         <value xml:lang="de">Liefert</value>

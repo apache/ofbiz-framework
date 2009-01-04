@@ -66,7 +66,7 @@ under the License.
                                 <fo:inline font-size="10pt">${uiLabelMap.ProductShipmentPlan}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${shipment.shipmentId}</fo:inline>
                                 <#else>
-                                <fo:inline font-size="10pt">${uiLabelMap.WorkEffortName}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPlan}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${planName}</fo:inline>
                                 </#if>
                             </fo:block>

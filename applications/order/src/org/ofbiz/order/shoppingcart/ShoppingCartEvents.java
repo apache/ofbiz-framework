@@ -1170,14 +1170,14 @@ public class ShoppingCartEvents {
             return "error";
         }
         if (!UtilValidate.isSignedDouble(termValue)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermValue", UtilMisc.toMap("orderTermValue",UtilValidate.isSignedFloatMsg), locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermValueError", UtilMisc.toMap("orderTermValue",UtilValidate.isSignedFloatMsg), locale));
             return "error";
         }
         if (termValue != null) {
             dTermValue =new Double(termValue);
         }
         if (!UtilValidate.isInteger(termDays)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermDays", UtilMisc.toMap("orderTermDays",UtilValidate.isLongMsg), locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays",UtilValidate.isLongMsg), locale));
             return "error";
         }
         if (termDays != null) {
