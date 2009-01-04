@@ -63,28 +63,35 @@ under the License.
                     <if-empty field-name="currentValue.contentId" />
                 </not>
             </condition>
-            <link target="EditContentPurpose?contentId=${contentId}"/>
+            <link target="EditContentPurpose?contentId=${parameters.contentId}"/>
         </menu-item>
         
         <menu-item name="attribute" title="${uiLabelMap.ContentAttribute}" >
             <condition>
                 <not><if-empty field-name="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentAttribute?contentId=${contentId}"/>
+            <link target="EditContentAttribute?contentId=${parameters.contentId}"/>
         </menu-item>
         
+        <menu-item name="websites" title="${uiLabelMap.ContentWebSites}">
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="ListWebSite?contentId=${parameters.contentId}"/>
+        </menu-item>
+
         <menu-item name="metaData" title="${uiLabelMap.ContentMetadata}" >
             <condition>
                 <not><if-empty field-name="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentMetaData?contentId=${contentId}"/>
+            <link target="EditContentMetaData?contentId=${parameters.contentId}"/>
         </menu-item>
-
+        
         <menu-item name="workEffort" title="${uiLabelMap.WorkEffortWorkEffort}" >
             <condition>
                 <not><if-empty field-name="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentWorkEfforts?contentId=${contentId}"/>
+            <link target="EditContentWorkEfforts?contentId=${parameters.contentId}"/>
         </menu-item>
         
     </menu>

@@ -85,7 +85,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        
+        <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
             <field-group>
                 <sort-field name="dataResourceId"/>
@@ -112,7 +112,6 @@ under the License.
             </field-group>
         </sort-order>
         
-        <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLookupDataResource" extends="ListDataResource" list-name="listIt" type="list" paginate-target="LookupDataResource"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -150,12 +149,16 @@ under the License.
         <field use-when="currentValue==null&amp;&amp;dataResourceId!=null" name="dataResourceId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${dataResourceId}]" also-hidden="false"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="dataTemplateTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="currentValue==null"><ignored/></field>

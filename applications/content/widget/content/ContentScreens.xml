@@ -278,6 +278,41 @@ under the License.
         </section>
     </screen>
     
+    <screen name="ListWebSite">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindWebSite"/>
+                <set field="labelTitleProperty" value="PageTitleFindWebSite"/>
+                <set field="tabButtonItem" value="websites"/>
+                <entity-condition entity-name="WebSiteAndContent" list-name="webSites">
+                    <condition-expr field-name="contentId" env-name="parameters.contentId"/>
+                    <order-by field-name="webSiteId"/>
+                </entity-condition>
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleListWebSite}">
+                                    <include-form name="ListWebSites" location="component://content/widget/content/ContentForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     
     <screen name="EditContentMetaData">
         <section>
