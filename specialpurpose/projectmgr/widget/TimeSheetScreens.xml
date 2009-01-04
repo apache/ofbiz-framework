@@ -187,7 +187,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
+                        <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheetEntries}</label></container>
                             <container style="screenlet-body">
@@ -218,7 +218,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
+                        <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheetRoles}</label></container>
                             <container style="screenlet-body">
