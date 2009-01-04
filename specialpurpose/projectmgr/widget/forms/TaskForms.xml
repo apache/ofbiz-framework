@@ -385,7 +385,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -421,7 +421,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>

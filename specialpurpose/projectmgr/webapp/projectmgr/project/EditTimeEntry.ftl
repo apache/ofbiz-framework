@@ -53,7 +53,7 @@ under the License.
           </td>
         </tr>
         <tr>    
-          <td class="label" >${uiLabelMap.TimesheetRateType}</td>
+          <td class="label" >${uiLabelMap.WorkEffortTimesheetRateType}</td>
           <td>
             <#assign rateTypes = delegator.findList("RateType", null, null, null, null, false)>
             <select name="rateTypeId">
@@ -64,7 +64,7 @@ under the License.
           </td>
         </tr>
         <tr>    
-          <td class="label" >${uiLabelMap.TimesheetTimesheetId}</td>
+          <td class="label" >${uiLabelMap.WorkEffortTimesheetTimesheetId}</td>
           <td>
             <input type="text" name="timesheetId" value=""/>
             <a href="javascript:call_fieldlookup2(document.editTimeEntryForm.timesheetId,'LookupTimesheet');">
@@ -73,7 +73,7 @@ under the License.
           </td>
         </tr>
         <tr>    
-          <td class="label" >${uiLabelMap.TimesheetHours}</td>
+          <td class="label" >${uiLabelMap.WorkEffortTimesheetHours}</td>
           <td><input type="text" name="hours" value=""/></td>
         </tr> 
         <tr>
