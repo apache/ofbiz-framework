@@ -65,35 +65,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonWebSiteDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="websites"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <platform-specific><html><html-template location="component://content/webapp/content/website/WebSiteTabBar.ftl"/></html></platform-specific>
-                                <container style="widget-container">
-                                    <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
-                                </container>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="EditWebSite">
         <section>
             <actions>
@@ -104,7 +75,7 @@ under the License.
                 <entity-one entity-name="WebSite" value-name="webSite"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebSiteDecorator">
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -144,7 +115,7 @@ under the License.
                 </entity-and>                
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebSiteDecorator">
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -210,7 +181,7 @@ under the License.
                 <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebSiteDecorator">
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -239,7 +210,7 @@ under the License.
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebSiteDecorator">
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
