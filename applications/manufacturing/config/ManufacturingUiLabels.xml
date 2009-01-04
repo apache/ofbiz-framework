@@ -3592,6 +3592,7 @@
         <value xml:lang="es">Coste</value>
     </property>
     <property key="ProductId">
+        <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Código de producto</value>
     </property>

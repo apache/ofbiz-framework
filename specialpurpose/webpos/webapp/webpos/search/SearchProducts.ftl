@@ -29,7 +29,7 @@ under the License.
         <label for="searchBy"><b>&nbsp;${uiLabelMap.WebPosSearchBy}</b></label>
         <select id="searchBy" name="searchBy">
           <option value="productName" selected>${uiLabelMap.ProductProductName}</option>
-          <option value="productDescription">${uiLabelMap.ProductProductDescription}</option>
+          <option value="productDescription">${uiLabelMap.ProductDescription}</option>
         </select>
         <input type="text" id="productToSearch" name="productToSearch" size="40" maxlength="100">
         <div id="products" class="autocomplete" style="display:none"></div>

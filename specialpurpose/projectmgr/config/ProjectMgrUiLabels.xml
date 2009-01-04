@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="PageTitleAddProjectTimeToNewInvoice">
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
         <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture/</value>
@@ -463,6 +464,7 @@
         <value xml:lang="zh">客户请求的工作任务</value>
     </property>
     <property key="ProjectMgrDependencies">
+        <value xml:lang="de">Abhängigkeiten</value>
         <value xml:lang="en">Dependencies</value>
         <value xml:lang="fr">Dépendances</value>
         <value xml:lang="it">Dipendenze</value>
@@ -470,6 +472,7 @@
         <value xml:lang="zh">依赖</value>
     </property>
     <property key="ProjectMgrEdit">
+        <value xml:lang="de">Bearbeiten</value>
         <value xml:lang="en">Edit</value>
         <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
@@ -568,6 +571,7 @@
         <value xml:lang="zh">新子任务</value>
     </property>
     <property key="ProjectMgrNewTask">
+        <value xml:lang="de">Neue Aufgabe</value>
         <value xml:lang="en">New Task</value>
         <value xml:lang="fr">Nouvelle tâche</value>
         <value xml:lang="it">Nuovo Compito</value>
@@ -633,6 +637,7 @@
         <value xml:lang="zh">会员列表</value>
     </property>
     <property key="ProjectMgrPartyRoleTypeId">
+        <value xml:lang="de">Funktionstyp ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="fr">Réf. de type de rôle</value>
         <value xml:lang="it">Tipo Ruolo</value>
@@ -741,6 +746,7 @@
         <value xml:lang="zh">快速分配会员</value>
     </property>
     <property key="ProjectMgrRates">
+        <value xml:lang="de">Raten</value>
         <value xml:lang="en">Rates</value>
         <value xml:lang="fr">Taux</value>
         <value xml:lang="it">Percentuali</value>
@@ -1104,6 +1110,7 @@
         <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>
     </property>
     <property key="ProjectMgrWorkEffortActualCompletionDate">
+        <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Date de fin réelle</value>
         <value xml:lang="it">Data Fine Attuale</value>
@@ -1111,6 +1118,7 @@
         <value xml:lang="zh">实际完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortActualStartDate">
+        <value xml:lang="de">Ist-Anfangsdatum</value>
         <value xml:lang="en">Actual Start Date</value>
         <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data Inizio Attuale</value>
@@ -1118,6 +1126,7 @@
         <value xml:lang="zh">实际开始日期</value>
     </property>
     <property key="ProjectMgrWorkEffortAssocTypeId">
+        <value xml:lang="de">Zuordnungsart</value>
         <value xml:lang="en">Association Type</value>
         <value xml:lang="fr">Type d'association</value>
         <value xml:lang="it">Tipo Associazione</value>
@@ -1125,6 +1134,7 @@
         <value xml:lang="zh">相关类型</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedCompletionDate">
+        <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date de fin prévue</value>
         <value xml:lang="it">Data Fine Stimata</value>
@@ -1132,6 +1142,7 @@
         <value xml:lang="zh">估计完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedStartDate">
+        <value xml:lang="de">Soll-Anfangsdatum</value>
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
@@ -1159,6 +1170,7 @@
         <value xml:lang="zh">Id到</value>
     </property>
     <property key="ProjectMgrWorkEffortPurposeTypeId">
+        <value xml:lang="de">Gebrauchsart</value>
         <value xml:lang="en">Purpose Type</value>
         <value xml:lang="fr">Type de but</value>
         <value xml:lang="it">Tipo Funzione</value>
@@ -1173,6 +1185,7 @@
         <value xml:lang="zh">范围</value>
     </property>
     <property key="ProjectMgrWorkEffortTypeId">
+        <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>
         <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
@@ -1251,16 +1264,19 @@
         <value xml:lang="zh">请求分类Id</value>
     </property>
     <property key="FormFieldTitle_openDateTime">
+        <value xml:lang="de">Öffnungsdatum &amp; -uhrzeit</value>
         <value xml:lang="en">Open Date Time</value>
         <value xml:lang="fr">Date/heure ouverte</value>
         <value xml:lang="zh">开启日期</value>
     </property>
     <property key="FormFieldTitle_internalComment">
+        <value xml:lang="de">Interner Vermerk</value>
         <value xml:lang="en">Internal Comment</value>
         <value xml:lang="fr">Commentaire interne</value>
         <value xml:lang="zh">内部评论</value>
     </property>
     <property key="FormFieldTitle_closedDateTime">
+        <value xml:lang="de">Schließungsdatum &amp; -uhrzeit</value>
         <value xml:lang="en">Closed Date Time</value>
         <value xml:lang="fr">Date/heure fermée</value>
         <value xml:lang="zh">关闭日期</value>

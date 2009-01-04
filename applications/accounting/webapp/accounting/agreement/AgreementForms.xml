@@ -40,7 +40,7 @@ under the License.
         <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}"><hidden/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}"><hidden/></field>
         <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
-        <field name="description" title="${uiLabelMap.AccountingDescription}"><hidden/></field>
+        <field name="description" title="${uiLabelMap.Description}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="thruDate" title="${uiLabelMap.AccountingThruDate}"><hidden/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>

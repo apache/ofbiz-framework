@@ -49,7 +49,7 @@ under the License.
         </td>
     </tr>        
     <tr>
-        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductDescription}</b></td>
+        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductDescription}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
             <textarea name="description" cols="60" rows="2">${(product.description)?if_exists}</textarea>

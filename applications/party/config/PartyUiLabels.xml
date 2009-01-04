@@ -450,6 +450,7 @@
         <value xml:lang="zh">免税吗</value>
     </property>
     <property key="FormFieldTitle_isNexus">
+        <value xml:lang="de">Ist verknüpft</value>
         <value xml:lang="en">Is Nexus</value>
         <value xml:lang="es">Es Nexo</value>
         <value xml:lang="fr">Connecté</value>
@@ -1135,10 +1136,12 @@
         <value xml:lang="fr">Total des factures non allouées</value>
     </property>
     <property key="FormFieldTitle_totalPaymentsIn">
+        <value xml:lang="de">Gesamteinzahlungen</value>
         <value xml:lang="en">Total Payments In</value>
         <value xml:lang="fr">Total des paiements reçus</value>
     </property>
     <property key="FormFieldTitle_totalPaymentsOut">
+        <value xml:lang="de">Gesamtauszahlungen</value>
         <value xml:lang="en">Total Payments Out</value>
         <value xml:lang="fr">Total des paiements dus</value>
     </property>
@@ -1147,10 +1150,12 @@
         <value xml:lang="fr">Total des paiements non alloués</value>
     </property>
     <property key="FormFieldTitle_totalPurchaseInvoice">
+        <value xml:lang="de">Gesamteinkaufsrechnung</value>
         <value xml:lang="en">Total Purchase Invoice</value>
         <value xml:lang="fr">Total des factures d'achat</value>
     </property>
     <property key="FormFieldTitle_totalSalesInvoice">
+        <value xml:lang="de">Gesamtverkaufsrechnung</value>
         <value xml:lang="en">Total Sales Invoice</value>
         <value xml:lang="fr">Total des factures de vente</value>
     </property>
@@ -1218,6 +1223,22 @@
         <value xml:lang="ru">Лет работы в организации</value>
         <value xml:lang="th">ปีกับผู้ว่าจ้าง</value>
         <value xml:lang="zh">年为雇主</value>
+    </property>
+    <property key="InvoicesNotApplied">
+        <value xml:lang="en">Invoices not yet (fully) applied</value>
+        <value xml:lang="fr">Factures non (complètement) payées</value>
+        <value xml:lang="nl">Facturen nog niet (volledig) toegewezen</value>
+    </property>
+    <property key="InvoicesOtherParties">
+        <value xml:lang="en">Invoices of other parties paid by payments from</value>
+        <value xml:lang="fr">Factures d'autres acteurs payées par des paiements de</value>
+        <value xml:lang="nl">Facturen van andere relaties betaald via betalingen van</value>
+    </property>
+    <property key="InvoicesPayments">
+        <value xml:lang="de">Rechnungsbegleichungen</value>
+        <value xml:lang="en">Invoices Payments</value>
+        <value xml:lang="fr">Paiements de factures</value>
+        <value xml:lang="nl">Betalingen van facturen</value>
     </property>
     <property key="PageTitleAddIssuerProvisions">
         <value xml:lang="de">Aussteller Bestimmungen hinzufügen</value>
@@ -2441,6 +2462,11 @@
         <value xml:lang="ru">Если у вас уже есть учетная запись</value>
         <value xml:lang="th">ถ้าคุณพร้อมจะมีบัญชี</value>
         <value xml:lang="zh">如果你已经有账户了</value>
+    </property>
+    <property key="PartyAppliedPayments">
+        <value xml:lang="en">Applied payments to payments</value>
+        <value xml:lang="fr">Paiements affectés à d'autres paiements</value>
+        <value xml:lang="nl">Betalingen toewijzen aan andere betalingen</value>
     </property>
     <property key="PartyAreaCode">
         <value xml:lang="cs">Místní předvolba</value>
@@ -4955,7 +4981,8 @@
         <value xml:lang="th">เปลี่ยนแปลง IP ที่อยู่อีเมล์ของเว็บเป็นผลสำเร็จ</value>
         <value xml:lang="zh">已成功更新网站IP地址。</value>
     </property>
-    <property key="PartyIsA">
+    <property key="PartyIsA"><!-- Peter 'is a' employee of company B -->
+        <value xml:lang="de">Ist ein</value>
         <value xml:lang="en">is A</value>
         <value xml:lang="fr">est un</value>
         <value xml:lang="it">è un</value>
@@ -8240,6 +8267,7 @@
         <value xml:lang="fr">A payer à :</value>
     </property>
     <property key="PartyToBeReceivedFrom">
+        <value xml:lang="de">Empfangen von:</value>
         <value xml:lang="en">To be received from:</value>
         <value xml:lang="fr">A recevoir de :</value>
     </property>

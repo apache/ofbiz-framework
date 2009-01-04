@@ -9214,17 +9214,6 @@
         <value xml:lang="th">รหัสหน่วยวัดความลึก</value>
         <value xml:lang="zh">深度度量单位标识</value>
     </property>
-    <property key="ProductDescription">
-        <value xml:lang="de">Beschreibung</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="es">Descripción</value>
-        <value xml:lang="fr">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="ru">Описание</value>
-        <value xml:lang="th">คำอธิบาย</value>
-        <value xml:lang="zh">描述</value>
-    </property>
     <property key="ProductDest">
         <value xml:lang="de">Ziel</value>
         <value xml:lang="en">Dest</value>
@@ -18476,6 +18465,7 @@
         <value xml:lang="zh">小图</value>
     </property>
     <property key="ProductSoftIdentifier">
+        <value xml:lang="de">weiches Kennzeichen</value>
         <value xml:lang="en">Soft Identifier</value>
         <value xml:lang="es">Identificador blando</value>
         <value xml:lang="fr">Ref. secondaire</value>
@@ -19522,6 +19512,7 @@
         <value xml:lang="zh">度量单位</value>
     </property>
     <property key="ProductUnitOfMeasureId">
+        <value xml:lang="de">Maßeinheit</value>
         <value xml:lang="en">Unit of Measure ID</value>
         <value xml:lang="es">Código de la unidad de medida</value>
         <value xml:lang="fr">Réf. de l'unité de mesure</value>
@@ -19892,6 +19883,7 @@
         <value xml:lang="zh">添加变型产品</value>
     </property>
     <property key="ProductVariantProduct">
+        <value xml:lang="de">Ist ein variierendes Produkt?</value>
         <value xml:lang="en">Is VARIANT Product ?</value>
         <value xml:lang="es">Es producto VARIANTE?</value>
         <value xml:lang="fr">Est-ce une variante ?</value>
@@ -19922,6 +19914,7 @@
         <value xml:lang="zh">变型产品库存摘要</value>
     </property>
     <property key="ProductVariants">
+        <value xml:lang="de">Varianten</value>
         <value xml:lang="en">Variants</value>
         <value xml:lang="es">Variantes</value>
         <value xml:lang="fr">Variantes</value>
@@ -19992,6 +19985,7 @@
         <value xml:lang="fr">Article virtuel</value>
     </property>
     <property key="ProductVirtualProduct">
+        <value xml:lang="de">Ist ein virtuelles Produkt?</value>
         <value xml:lang="en">Is VIRTUAL Product ?</value>
         <value xml:lang="es">Es Producto VIRTUAL?</value>
         <value xml:lang="fr">Est-ce un article virtuel ?</value>

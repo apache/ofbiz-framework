@@ -39,11 +39,13 @@
         <value xml:lang="fr">Cpt. fourn.</value>
     </property>
     <property key="AR">
+        <value xml:lang="de">Forderungen</value>
         <value xml:lang="en">AR</value>
         <value xml:lang="es">CC.C.</value>
         <value xml:lang="fr">Cpt. clients</value>
     </property>
     <property key="AssetMaint">
+        <value xml:lang="de">Vermögensverwaltung</value>
         <value xml:lang="en">Asset Maint</value>
         <value xml:lang="es">Manten. Activos</value>
         <value xml:lang="fr">Maint. immo.</value>
@@ -51,6 +53,7 @@
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
     </property>
     <property key="Business Intelligence">
+        <value xml:lang="de">Geschäftsanalytik</value>
         <value xml:lang="en">Business Intelligence</value>
         <value xml:lang="es">Información de negocio</value>
         <value xml:lang="fr">Informat. décis.</value>
@@ -58,6 +61,7 @@
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
     </property>
     <property key="CMSSite">
+        <value xml:lang="de">CMS Seite</value>
         <value xml:lang="en">CMS Site</value>
         <value xml:lang="es">Gestión de contenido</value>
         <value xml:lang="fr">Site de gestion de contenu</value>
@@ -1730,12 +1734,12 @@
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="nl">Omschrijving</value>
-        <value xml:lang="pt">Descrição</value>
+        <value xml:lang="pt_BR">Descrição</value>
+        <value xml:lang="pt_PT">Descrição</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
-        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="th">คำอธิบาย</value><!--value xml:lang="th">รายละเอียด</value-->
         <value xml:lang="zh">描述</value>
-        <value xml:lang="zh_CN">描述</value>
     </property>
     <property key="CommonDetail">
         <value xml:lang="ar">تفصيل</value>
@@ -4423,6 +4427,7 @@
         <value xml:lang="zh_CN">团体标识</value>
     </property>
     <property key="CommonPartySkills">
+        <value xml:lang="de">Teilnehmerfähigkeiten</value>
         <value xml:lang="en">Party Skills</value>
         <value xml:lang="es">Competencias del participante</value>
         <value xml:lang="fr">Compétences de l'acteur</value>
@@ -4455,6 +4460,7 @@
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
     </property>
     <property key="CommonPayments">
+        <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
         <value xml:lang="fr">Paiements</value>
     </property>
@@ -4866,6 +4872,7 @@
     </property>
     <property key="CommonRates">
         <value xml:lang="ar">نسبات</value>
+        <value xml:lang="de">Raten</value>
         <value xml:lang="en">Rates</value>
         <value xml:lang="es">Tasas</value>
         <value xml:lang="fr">Taux</value>

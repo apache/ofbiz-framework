@@ -364,6 +364,7 @@
         <value xml:lang="it">Pagamento in Contanti</value>
     </property>
     <property key="WebPosPageTitlePayCheck">
+        <value xml:lang="de">Lohnzahlung</value>
         <value xml:lang="en">Pay Check</value>
         <value xml:lang="fr">Payer en chèque</value>
         <value xml:lang="it">Pagamento con Assegno</value>

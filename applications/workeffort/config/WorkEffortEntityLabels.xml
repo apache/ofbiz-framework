@@ -269,6 +269,7 @@
         <value xml:lang="zh">固定资产使用(租赁)</value>
     </property>
     <property key="WorkEffortType.description.AVAILABLE">
+        <value xml:lang="de">Verfügbar</value>
         <value xml:lang="en">Available</value>
         <value xml:lang="es">Disponible</value>
         <value xml:lang="fr">Disponible</value>

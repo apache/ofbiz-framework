@@ -31,6 +31,7 @@
         <value xml:lang="th">OFBiz</value>
     </property>
     <property key="EbayExportToEbay">
+        <value xml:lang="de">zu eBay exportieren</value>
         <value xml:lang="en">Export To eBay</value>
         <value xml:lang="fr">Exporter vers Ebay</value>
         <value xml:lang="it">Esporta Su eBay</value>
@@ -43,6 +44,7 @@
         <value xml:lang="th">รหัสรายการ</value>
     </property>
     <property key="EbayImportOrdersFromEbay">
+        <value xml:lang="de">eBay-Aufträge importieren</value>
         <value xml:lang="en">Import Orders From eBay</value>
         <value xml:lang="fr">Importer des commandes depuis Ebay</value>
         <value xml:lang="it">Importa Ordini Da eBay</value>

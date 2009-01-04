@@ -711,6 +711,7 @@
         <value xml:lang="th">การผลิต</value>
     </property>
     <property key="PartyClassificationType.description.ANNUAL_REVENUE">
+        <value xml:lang="de">Jahreseinkommen</value>
         <value xml:lang="en">Annual Revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
     </property>
@@ -934,6 +935,7 @@
         <value xml:lang="zh">经理</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.OWNER">
+        <value xml:lang="de">Inhaber</value>
         <value xml:lang="en">Owner</value>
         <value xml:lang="es">Propietario</value>
     </property>

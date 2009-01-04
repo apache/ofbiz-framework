@@ -116,6 +116,7 @@
         <value xml:lang="th">รหัสประเภทการหักลบ</value>
     </property>
     <property key="FormFieldTitle_emplPositionId">
+        <value xml:lang="de">Anstellungspositions-ID</value>
         <value xml:lang="en">Empl Position Id</value>
         <value xml:lang="fr">Réf. de la position de l'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
@@ -146,6 +147,7 @@
         <value xml:lang="th">รหัสประเภทสถานะพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employmentAppSourceTypeId">
+        <value xml:lang="de">Quelle der Anstellungsanwendungs-ID</value>
         <value xml:lang="en">Employment App Source Type Id</value>
         <value xml:lang="fr">Réf. de type d'origine de demande d'emploi</value>
         <value xml:lang="it">Tipo Origine Applicazione Impiegato</value>
@@ -278,6 +280,7 @@
         <value xml:lang="fr">Réf. de type de qualification</value>
     </property>        
     <property key="FormFieldTitle_rating">
+        <value xml:lang="de">Beurteilung</value>
         <value xml:lang="en">Rating</value>
         <value xml:lang="fr">Cote</value>
         <value xml:lang="it">Tasso</value>
@@ -378,6 +381,7 @@
         <value xml:lang="th">รหัสจำนวนผู้ว่างงานเรียกร้อง</value>
     </property>
     <property key="FormFieldTitle_yearsExperience">
+        <value xml:lang="de">Jahre der Erfahrung</value>
         <value xml:lang="en">Years Experience</value>
         <value xml:lang="fr">Années d'expérience</value>
         <value xml:lang="it">Anni di Esperienza</value>
@@ -428,6 +432,7 @@
         <value xml:lang="fr">Ajoutez la compétence</value>
     </property>
     <property key="HumanResAddPersonTraining">
+        <value xml:lang="de">Personenschulung hinzufügen</value>
         <value xml:lang="en">Add Person Training</value>
         <value xml:lang="fr">Ajouter la formation de la personne</value>
     </property>
@@ -464,6 +469,7 @@
         <value xml:lang="fr">Ajouter une responsabilité valable</value>
     </property>
     <property key="HumanResApplicationId">
+        <value xml:lang="de">Einsatzgebiet ID</value>
         <value xml:lang="en">Application Id</value>
         <value xml:lang="fr">Réf. de demande d'emploi</value>
         <value xml:lang="it">Codice Applicazione</value>
@@ -498,6 +504,7 @@
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="HumanResEmplLeave">
+        <value xml:lang="de">Entlassungen</value>
         <value xml:lang="en">Leave</value>
         <value xml:lang="fr">Congé</value>
     </property>
@@ -634,6 +641,7 @@
         <value xml:lang="fr">Les positions "rapportant à" et "dirigée par" doivent être différentes</value>
     </property>
     <property key="HumanResEmployeePosition">
+        <value xml:lang="de">Stellen</value>
         <value xml:lang="en">Employee Positions</value>
         <value xml:lang="fr">Positions d'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
@@ -996,6 +1004,7 @@
         <value xml:lang="th">เงินเดือนสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPersonTraining">
+        <value xml:lang="de">Neue Ausbildung</value>
         <value xml:lang="en">New Person Training</value>
         <value xml:lang="fr">Nouvelle formation</value>
     </property>
@@ -1062,6 +1071,7 @@
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResPayGrade">
+        <value xml:lang="de">Lohnstufen</value>
         <value xml:lang="en">Pay Grades</value>
         <value xml:lang="fr">Echelon de salaire</value>
         <value xml:lang="it">Grado Paga</value>
@@ -1102,6 +1112,7 @@
         <value xml:lang="fr">Note de performance</value>
     </property>
     <property key="HumanResPerfReview">
+        <value xml:lang="de">Leistungsbewertungen</value>
         <value xml:lang="en">Performance Review</value>
         <value xml:lang="fr">Évaluation des performances</value>
     </property>
@@ -1119,6 +1130,7 @@
         <value xml:lang="fr">Rapports à</value>
     </property>
     <property key="HumanResResponsibilityType">
+        <value xml:lang="de">Verantwortungsarten</value>
         <value xml:lang="en">Responsibility Types</value>
         <value xml:lang="fr">Types de responsabilité</value>
     </property>
@@ -1129,6 +1141,7 @@
         <value xml:lang="th">รหัสประเภทหน้าที่ที่ต้องรับผิดชอบ</value>
     </property>
     <property key="HumanResResumeId">
+        <value xml:lang="de">Resümee ID</value>
         <value xml:lang="en">Resume Id</value>
         <value xml:lang="fr">Réf. de CV</value>
     </property>
@@ -1210,6 +1223,7 @@
         <value xml:lang="zh">技能类型Id</value>
     </property>
     <property key="HumanResTerminationReason">
+        <value xml:lang="de">Entlassungsgründe</value>
         <value xml:lang="en">Termination Reasons</value>
         <value xml:lang="fr">Raisons de fin de contrat</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
