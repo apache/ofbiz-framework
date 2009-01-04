@@ -3882,6 +3882,7 @@
     </property>
     <property key="AccountingInvoiceOverrideExpenseGlAccountId">
         <value xml:lang="en">Invoice Override Expense Gl Account Id</value>
+        <value xml:lang="fr">Remplace la réf. de compte de frais pour la facture</value>
         <value xml:lang="it">Sovrapponi Conto Spese GL Fattura</value>
     </property>
     <property key="AccountingInvoiceOverview">
@@ -3909,6 +3910,7 @@
     </property>
     <property key="AccountingInvoicePDFDefaultCur">
         <value xml:lang="en">PDF default Currency</value>
+        <value xml:lang="fr">PDF : monnaie par défaut </value>
         <value xml:lang="it">PDF valuta di default</value>
     </property>
     <property key="AccountingInvoicePaid">
