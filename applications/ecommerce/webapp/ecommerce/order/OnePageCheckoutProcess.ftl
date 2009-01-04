@@ -387,7 +387,7 @@ under the License.
           <div id="shippingOptionSummaryPanel" class="screenlet-body" style="display: none;">
             <div><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingOptionPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></span></h3></div>
             <div class="completed" id="shippingOptionCompleted">
-              <div align="center" id="openShippingOption"><h3>${uiLabelMap.FacilityShipping} ${uiLabelMap.SurveyOption} ${uiLabelMap.EcommerceSummary}</h3></div>
+              <div align="center" id="openShippingOption"><h3>${uiLabelMap.FacilityShipping} ${uiLabelMap.ContentSurveyOption} ${uiLabelMap.EcommerceSummary}</h3></div>
               <table cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr>

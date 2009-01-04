@@ -10517,6 +10517,7 @@
         <value xml:lang="fr">Interaction entre caractéristiques</value>
     </property>
     <property key="ProductFeatures">
+        <value xml:lang="ar">خواص المنتوج</value>
         <value xml:lang="de">Merkmale</value>
         <value xml:lang="en">Features</value>
         <value xml:lang="es">Características</value>

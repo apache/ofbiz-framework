@@ -205,6 +205,7 @@ under the License.
                 <set field="tabButtonItem" value="EditWebSiteParties"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteParties"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <property-map map-name="uiLabelMap" resource="PartyUiLabels"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
             </actions>

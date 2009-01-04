@@ -71,7 +71,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ForumGroupPanel" title="${uiLabelMap.ForumGroupCreate}" collapsible="true">
+                        <screenlet id="ForumGroupPanel" title="${uiLabelMap.ContentForumGroupCreate}" collapsible="true">
                             <include-form name="AddForumGroup" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
                         <include-form name="ListForumGroups" location="component://content/widget/forum/ForumForms.xml"/>
@@ -100,7 +100,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="AddForumToForumGroupPanel" title="${uiLabelMap.ForumAddTo} ${forumGroup.contentName}" collapsible="true">
+                        <screenlet id="AddForumToForumGroupPanel" title="${uiLabelMap.ContentForumAddTo} ${forumGroup.contentName}" collapsible="true">
                             <include-form name="AddForum" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
                         <include-form name="ListForums" location="component://content/widget/forum/ForumForms.xml"/>
@@ -129,7 +129,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ForumGroupRolePanel" title="${uiLabelMap.ForumAddRoleTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
+                        <screenlet id="ForumGroupRolePanel" title="${uiLabelMap.ContentForumAddRoleTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
                             <include-form name="AddForumGroupRole" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
                         <include-form name="ForumGroupRoles" location="component://content/widget/forum/ForumForms.xml"/>
@@ -158,7 +158,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ForumGroupPurposePanel" title="${uiLabelMap.ForumAddPurposeTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
+                        <screenlet id="ForumGroupPurposePanel" title="${uiLabelMap.ContentForumAddPurposeTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
                             <include-form name="AddForumGroupPurpose" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
                         <include-form name="ForumGroupPurposes" location="component://content/widget/forum/ForumForms.xml"/>
@@ -195,7 +195,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ForumAddThreadTo} ${forum.description}"/>
+                                    <label text="${uiLabelMap.ContentForumAddThreadTo} ${forum.description}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -258,7 +258,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.ForumThread} ${parameters.forumThreadId}"/>
+                                            <label text="${uiLabelMap.ContentForumThread} ${parameters.forumThreadId}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
@@ -279,7 +279,7 @@ under the License.
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
                                                 <container style="h3">
-                                                    <label text="${uiLabelMap.ForumMessage} ${parameters.forumMessageId}"/>
+                                                    <label text="${uiLabelMap.ContentForumMessage} ${parameters.forumMessageId}"/>
                                                 </container>
                                             </container>
                                             <container style="screenlet-body">
@@ -314,7 +314,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ForumAddResponseToMessage} ${contentData.resultData.content.description}"/>
+                                    <label text="${uiLabelMap.ContentForumAddResponseToMessage} ${contentData.resultData.content.description}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -350,7 +350,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ForumAddResponseToMessage} ${forumMessage.description}"/>
+                                    <label text="${uiLabelMap.ContentForumAddResponseToMessage} ${forumMessage.description}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -386,7 +386,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ForumAddResponseToMessage} ${forumMessage.description} [${forumMessage.contentId}]"/>
+                                    <label text="${uiLabelMap.ContentForumAddResponseToMessage} ${forumMessage.description} [${forumMessage.contentId}]"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
