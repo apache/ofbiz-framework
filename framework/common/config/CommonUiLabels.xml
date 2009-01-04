@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="Accounting">
         <value xml:lang="ar">المحاسبة</value>
         <value xml:lang="de">Buchhaltung</value>
@@ -3204,6 +3205,7 @@
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
         <value xml:lang="en">less than</value>
+        <value xml:lang="es">menos que</value>
         <value xml:lang="fr">Moins que</value>
         <value xml:lang="it">minore di</value>
         <value xml:lang="ru">меньше чем</value>
@@ -3662,6 +3664,7 @@
     <property key="CommonMoreThan">
         <value xml:lang="de">mehr als</value>
         <value xml:lang="en">more than</value>
+        <value xml:lang="es">más que</value>
         <value xml:lang="fr">Plus que</value>
         <value xml:lang="it">maggiore di</value>
         <value xml:lang="ru">больше чем</value>
@@ -4459,10 +4462,33 @@
         <value xml:lang="fr">SVP, changer cotre mot de passe</value>
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
     </property>
+    <property key="CommonPaymentMethodType">
+        <value xml:lang="ar">نوع طريقة التسديد</value>
+        <value xml:lang="de">Zahlungsmethode Typ</value>
+        <value xml:lang="en">Payment Method Type</value>
+        <value xml:lang="es">Tipo Metodo de Pago</value>
+        <value xml:lang="fr">Type de méthode de paiement</value>
+        <value xml:lang="it">Tipo metodo pagamento</value>
+        <value xml:lang="nl">Type betaalmethode</value>
+        <value xml:lang="ro">Tip Metoda Plata.</value>
+        <value xml:lang="ru">Тип способа платежа</value>
+        <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
+        <value xml:lang="zh">支付方法类型</value>
+    </property>
     <property key="CommonPayments">
+        <value xml:lang="ar">التسديدات</value>
         <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
+        <value xml:lang="es">Pagos</value>
         <value xml:lang="fr">Paiements</value>
+        <value xml:lang="it">Pagamenti</value>
+        <value xml:lang="nl">Betalingen</value>
+        <value xml:lang="pt_BR">Pagamentos</value>
+        <value xml:lang="pt_PT">Pagamentos</value>
+        <value xml:lang="ro">Plati</value>
+        <value xml:lang="ru">Платежи</value>
+        <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="zh">支付</value>
     </property>
     <property key="CommonPdf">
         <value xml:lang="en">Pdf</value>
@@ -5991,6 +6017,17 @@
         <value xml:lang="zh">星期日</value>
         <value xml:lang="zh_CN">星期天</value>
     </property>
+    <property key="CommonSurveys">
+        <value xml:lang="de">Befragungen</value>
+        <value xml:lang="en">Surveys</value>
+        <value xml:lang="es">Encuesta</value>
+        <value xml:lang="fr">Sondages</value>
+        <value xml:lang="it">Sondaggi</value>
+        <value xml:lang="ro">Sondaj</value>
+        <value xml:lang="ru">Обзоры</value>
+        <value xml:lang="th">สำรวจ</value>
+        <value xml:lang="zh">调查</value>
+    </property>
     <property key="CommonSwitchAllTableViewOff">
         <value xml:lang="ar">منظر عادي</value>
         <value xml:lang="de">Einfache Ansicht</value>
@@ -6379,6 +6416,83 @@
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
         <value xml:lang="zh_CN">总共</value>
+    </property>
+    <property key="CommonTotalAmount">
+        <value xml:lang="de">Totalbetrag</value>
+        <value xml:lang="en">Total Amount</value>
+        <value xml:lang="es">Cantidad total</value>
+        <value xml:lang="fr">Montant total</value>
+        <value xml:lang="it">Importo totale</value>
+        <value xml:lang="ro">Valoare Totala</value>
+        <value xml:lang="ru">Общее количество</value>
+        <value xml:lang="th">จำนวนผลรวม</value>
+        <value xml:lang="zh">金额合计</value>
+    </property>
+    <property key="CommonTotalCost">
+        <value xml:lang="de">Total Kosten</value>
+        <value xml:lang="en">Total Cost</value>
+        <value xml:lang="es">Coste total</value>
+        <value xml:lang="fr">Coût total</value>
+        <value xml:lang="it">Costo totale</value>
+        <value xml:lang="ro">Cost Total</value>
+        <value xml:lang="ru">Общая стоимость</value>
+        <value xml:lang="th">ผลรวมค่าใช้จ่าย</value>
+        <value xml:lang="zh">成本合计</value>
+    </property>
+    <property key="CommonTotalCostMult">
+        <value xml:lang="de">Mehrfache Total Kosten</value>
+        <value xml:lang="en">Total Cost Mult</value>
+        <value xml:lang="es">Coste total múltiple</value>
+        <value xml:lang="fr">Coût total multiple</value>
+        <value xml:lang="it">Totale costo multiplo</value>
+        <value xml:lang="ro">Multiplu Cost Total</value>
+        <value xml:lang="ru">Общ. стоим. мульт</value>
+        <value xml:lang="th">ผลรวมค่าใช้จ่ายมาก</value>
+        <value xml:lang="zh">成本合计乘以</value>
+    </property>
+    <property key="CommonTotalCostToPriceMult">
+        <value xml:lang="de">Kosten zu Preis mehrfach</value>
+        <value xml:lang="en">Cost To Price Mult</value>
+        <value xml:lang="es">Coste a precio múltiplo</value>
+        <value xml:lang="fr">Coût vers prix multiple</value>
+        <value xml:lang="it">Totale costo di prezzo multiplo</value>
+        <value xml:lang="ro">Multiplu Cost De Pret</value>
+        <value xml:lang="ru">Стоимость к цене мульт</value>
+        <value xml:lang="th">ค่าใช้จ่ายจนถึงราคามาก</value>
+        <value xml:lang="zh">成本价格差乘以</value>
+    </property>
+    <property key="CommonTotalPercProfit">
+        <value xml:lang="de">Total Prozent Gewinn</value>
+        <value xml:lang="en">Total Perc Profit</value>
+        <value xml:lang="es">Porcentaje de margen de beneficio total</value>
+        <value xml:lang="fr">Pourcentage total du bénéfice</value>
+        <value xml:lang="it">Totale percentuale profitto</value>
+        <value xml:lang="ro">Total Procente Profit</value>
+        <value xml:lang="ru">Общий проц. прибыли</value>
+        <value xml:lang="th">ผลรวมร้อยละของกำไร</value>
+        <value xml:lang="zh">利润百分比合计</value>
+    </property>
+    <property key="CommonTotalPrice">
+        <value xml:lang="de">Total Preis</value>
+        <value xml:lang="en">Total Price</value>
+        <value xml:lang="es">Precio total</value>
+        <value xml:lang="fr">Prix total</value>
+        <value xml:lang="it">Totale prezzo</value>
+        <value xml:lang="ro">Total Pret</value>
+        <value xml:lang="ru">Общая цена</value>
+        <value xml:lang="th">ผลรวมราคา</value>
+        <value xml:lang="zh">价格合计</value>
+    </property>
+    <property key="CommonTotalProfit">
+        <value xml:lang="de">Total Gewinn</value>
+        <value xml:lang="en">Total Profit</value>
+        <value xml:lang="es">Beneficio total</value>
+        <value xml:lang="fr">Bénéfice total</value>
+        <value xml:lang="it">Totale profitto</value>
+        <value xml:lang="ro">Total Profit</value>
+        <value xml:lang="ru">Суммарная прибыль</value>
+        <value xml:lang="th">ผลรวมกำไร</value>
+        <value xml:lang="zh">全部利润</value>
     </property>
     <property key="CommonTotalValue">
         <value xml:lang="ar">القيمة الإجمالية</value>
@@ -7270,6 +7384,32 @@
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">金额</value>
+    </property>
+    <property key="FormFieldTitle_attrName">
+        <value xml:lang="ar">اسم الخاصية</value>
+        <value xml:lang="de">Attributnamen</value>
+        <value xml:lang="en">Attr Name</value>
+        <value xml:lang="es">Nombre de atributo</value>
+        <value xml:lang="fr">Nom d'attribut</value>
+        <value xml:lang="it">Nome attributo</value>
+        <value xml:lang="nl">Attr. naam</value>
+        <value xml:lang="ro">Nume Atribut</value>
+        <value xml:lang="ru">Имя атрибута</value>
+        <value xml:lang="th">ชื่อลักษณะ</value>
+        <value xml:lang="zh">属性名称</value>
+    </property>
+    <property key="FormFieldTitle_attrValue">
+        <value xml:lang="ar">قيمة الخاصية</value>
+        <value xml:lang="de">Attributwert</value>
+        <value xml:lang="en">Attr Value</value>
+        <value xml:lang="es">Valor de atributo</value>
+        <value xml:lang="fr">Valeur d'attribut</value>
+        <value xml:lang="it">Valore attributo</value>
+        <value xml:lang="nl">Attr. waarde</value>
+        <value xml:lang="ro">Valoare Atribut</value>
+        <value xml:lang="ru">Значение атрибута</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">属性值</value>
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="ar">تعاليق</value>
