@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="en">Entity Sync Id</value>
         <value xml:lang="fr">Réf. de synchro. d'entités</value>
@@ -364,6 +365,7 @@
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="en">Artifact Info</value>
         <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
+        <value xml:lang="it">Informazioni Artifatti</value>
     </property>
     <property key="WebtoolsAsync">
         <value xml:lang="en">ASYNC</value>
@@ -469,6 +471,7 @@
         </value>
     </property>
     <property key="WebtoolsCertsSerialNum">
+        <value xml:lang="de">Seriennummer</value>
         <value xml:lang="en">Serial Number</value>
         <value xml:lang="fr">Numéro de série</value>
         <value xml:lang="it">Numero Seriale</value>
@@ -481,6 +484,7 @@
         <value xml:lang="th">ใบรับรอง x.509 </value>
     </property>
     <property key="WebtoolsCheckAll">
+        <value xml:lang="de">Alle auswählen</value>
         <value xml:lang="en">Check All</value>
         <value xml:lang="fr">Tout vérifier</value>
         <value xml:lang="it">Seleziona Tutti</value>
@@ -507,7 +511,7 @@
     </property>
     <property key="WebtoolsClearAllCaches">
         <value xml:lang="en">Clear All Caches</value>
-        <value xml:lang="fr">Purger tous les caches</value>
+        <value xml:lang="fr">Vider tous les caches</value>
         <value xml:lang="it">Pulisci Tutte le Caches</value>
         <value xml:lang="ro">Curata Toate Cache</value>
         <value xml:lang="th">ลบค่า Caches ทั้งหมด</value>
@@ -515,13 +519,13 @@
     </property>
     <property key="WebtoolsClearCurrent">
         <value xml:lang="en">Clear Current</value>
-        <value xml:lang="fr">Purger l'en cours</value>
+        <value xml:lang="fr">Vider l'en cours</value>
         <value xml:lang="it">Pulisci Attuale</value>
         <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
     </property>
     <property key="WebtoolsClearExpiredFromAll">
         <value xml:lang="en">Clear Expired From All</value>
-        <value xml:lang="fr">Purger tout ce qui a expiré</value>
+        <value xml:lang="fr">Vider tout ce qui est périmé</value>
         <value xml:lang="it">Pulisci quelle Scadute da Tutte</value>
         <value xml:lang="ro">Curata pe cele expirate de Toate</value>
         <value xml:lang="th">ล้างข้อมูลที่หมดอายุทั้งหมด</value>
@@ -529,7 +533,7 @@
     </property>
     <property key="WebtoolsClearThisCache">
         <value xml:lang="en">Clear this Cache</value>
-        <value xml:lang="fr">Purger ce cache</value>
+        <value xml:lang="fr">Vider ce cache</value>
         <value xml:lang="it">Pulisci questa Cache</value>
         <value xml:lang="ro">Curata aceasta Cache</value>
         <value xml:lang="th">ลบ Cache นี้</value>
@@ -617,6 +621,7 @@
         <value xml:lang="zh">计数</value>
     </property>
     <property key="WebtoolsCreate">
+        <value xml:lang="de">Erz</value>
         <value xml:lang="en">Crt</value>
         <value xml:lang="fr">Créer</value>
         <value xml:lang="it">Crea</value>
@@ -893,6 +898,7 @@
         <value xml:lang="zh">实体引擎工具</value>
     </property>
     <property key="WebtoolsEntityName">
+        <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity Name</value>
         <value xml:lang="fr">Nom d'entité</value>
         <value xml:lang="it">Nome Entità</value>
@@ -925,6 +931,10 @@
         <value xml:lang="it">Tabella Riferimenti Entità</value>
         <value xml:lang="th">ตารางอ้างอิง Entity </value>
         <value xml:lang="zh">实体引用图表</value>
+    </property>
+    <property key="WebtoolsEntityReferenceInteractiveVersion">
+        <value xml:lang="en">Interactive Version</value>
+        <value xml:lang="it">Versione Interattiva</value>
     </property>
     <property key="WebtoolsEntityReferenceMainPage">
         <value xml:lang="en">Entity Reference Main Page</value>
@@ -1385,7 +1395,92 @@
     <property key="WebtoolsJobLog">
         <value xml:lang="de">Logdatei</value>
         <value xml:lang="en">Logfile</value>
-        <value xml:lang="en">Fichier de Log</value>
+        <value xml:lang="fr">Fichier de Log</value>
+    </property>
+    <property key="WebtoolsLabelManager">
+        <value xml:lang="en">Label Manager</value>
+        <value xml:lang="fr">Gestionnaire de traduction</value>
+        <value xml:lang="it">Gestione delle Label</value>
+    </property>
+    <property key="WebtoolsLabelManagerAddNew">
+        <value xml:lang="en">Add New Label</value>
+        <value xml:lang="fr">Ajouter une nouvelle traduction</value>
+        <value xml:lang="it">Aggiungi Nuova Label</value>
+    </property>
+    <property key="WebtoolsLabelManagerAllComponents">
+        <value xml:lang="en">All Components</value>
+        <value xml:lang="fr">Tous les composants</value>
+        <value xml:lang="it">Tutti i componenti</value>
+    </property>
+    <property key="WebtoolsLabelManagerAllFiles">
+        <value xml:lang="en">All Files</value>
+        <value xml:lang="fr">Tous les fichiers</value>
+        <value xml:lang="it">Tutti i files</value>
+    </property>
+    <property key="WebtoolsLabelManagerAllLocales">
+        <value xml:lang="en">All Locales</value>
+        <value xml:lang="fr">Tous les langages</value>
+        <value xml:lang="it">Tutte le lingue</value>
+    </property>
+    <property key="WebtoolsLabelManagerComponentName">
+        <value xml:lang="en">Component Name</value>
+        <value xml:lang="fr">Nom de composant</value>
+        <value xml:lang="it">Nome Componente</value>
+    </property>
+    <property key="WebtoolsLabelManagerFileName">
+        <value xml:lang="en">File Name</value>
+        <value xml:lang="fr">Nom de fichier</value>
+        <value xml:lang="it">Nome File</value>
+    </property>
+    <property key="WebtoolsLabelManagerKey">
+        <value xml:lang="en">Key</value>
+        <value xml:lang="fr">Clef</value>
+        <value xml:lang="it">Chiave</value>
+    </property>
+    <property key="WebtoolsLabelManagerLocale">
+        <value xml:lang="en">Locale</value>
+        <value xml:lang="fr">Langage</value>
+        <value xml:lang="it">Lingua</value>
+    </property>
+    <property key="WebtoolsLabelManagerNewLabelEmpty">
+        <value xml:lang="en">Please insert at least one translated label</value>
+        <value xml:lang="fr">SVP, insérez au moins une nouvelle traduction</value>
+        <value xml:lang="it">Perfavore inserire almeno una label tradotta</value>
+    </property>
+    <property key="WebtoolsLabelManagerNewLabelEmptyKey">
+        <value xml:lang="en">Please insert a label key</value>
+        <value xml:lang="fr">SVP, insérez une nouvelle clef</value>
+        <value xml:lang="it">Perfavore inserire una chiave della label</value>
+    </property>
+    <property key="WebtoolsLabelManagerNewLabelExisting">
+        <value xml:lang="en">The label ${key} is already existing in file ${fileName}</value>
+        <value xml:lang="fr">La traduction ${key} existe déjà dans le fichier ${fileName}</value>
+        <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
+    </property>
+    <property key="WebtoolsLabelManagerSearchBy">
+        <value xml:lang="en">Filter Labels Info By</value>
+        <value xml:lang="fr">Filtrer les traductions</value>
+        <value xml:lang="it">Ricerca Informazioni sulle Labels</value>
+    </property>
+    <property key="WebtoolsLabelManagerSecuryError">
+        <value xml:lang="en">Cannot view Labels Info pages without LABEL_MANAGER_VIEW permission.</value>
+        <value xml:lang="fr">Impossible d'accèder à la page de gestion des traductions sans l'autorisation LABEL_MANAGER_VIEW.</value>
+        <value xml:lang="it">Non e posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
+    </property>
+    <property key="WebtoolsLabelManagerUpdateFile">
+        <value xml:lang="en">Update Labels Files</value>
+        <value xml:lang="fr">Mettre à jour les fichiers de traduction</value>
+        <value xml:lang="it">Aggiorna files delle labels</value>
+    </property>
+    <property key="WebtoolsLabelManagerUpdate">
+        <value xml:lang="en">Update Label</value>
+        <value xml:lang="fr">Mettre à jour la traduction</value>
+        <value xml:lang="it">Aggiorna Label</value>
+    </property>
+    <property key="WebtoolsLabelManagerWarningMessage">
+        <value xml:lang="en">There are some labels with more than translation for the same language</value>
+        <value xml:lang="fr">Il y a des traduction dupliquées pour le même langage</value>
+        <value xml:lang="it">Ci sono alcune label con pi‚àöœÄ di una traduzione per la stessa lingua</value>
     </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="en">LHS map name</value>
@@ -1437,7 +1532,7 @@
     </property>
     <property key="WebtoolsLogFileName">
         <value xml:lang="en">Log File Name</value>
-        <value xml:lang="en">Nom de fichier de Log</value>
+        <value xml:lang="fr">Nom de fichier de Log</value>
         <value xml:lang="it">Nome File di Log</value>
         <value xml:lang="ro">Nume File de Log</value>
         <value xml:lang="th">ชื่อไฟล์ที่ใช้บันทึก</value>
@@ -2072,6 +2167,7 @@
         <value xml:lang="th">ไม่พบการทดสอบ</value>
     </property>
     <property key="WebtoolsPerformanceOperation">
+        <value xml:lang="de">Funktion</value>
         <value xml:lang="en">Operation</value>
         <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Operazione</value>
@@ -2216,6 +2312,7 @@
         <value xml:lang="th">สินค้าส่วนที่ 4</value>
     </property>
     <property key="WebtoolsPriority">
+        <value xml:lang="de">Dringlichkeit</value>
         <value xml:lang="en">Priority</value>
         <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Priorità</value>
@@ -2289,6 +2386,7 @@
         <value xml:lang="zh">关系</value>
     </property>
     <property key="WebtoolsReln">
+        <value xml:lang="de">Bez</value>
         <value xml:lang="en">Reln</value>
         <value xml:lang="fr">Rel.</value>
         <value xml:lang="it">Rel</value>
@@ -2522,6 +2620,7 @@
         <value xml:lang="zh">服务日志</value>
     </property>
     <property key="WebtoolsServiceName">
+        <value xml:lang="de">Dienstname</value>
         <value xml:lang="en">Service Name</value>
         <value xml:lang="fr">Nom de service</value>
         <value xml:lang="it">Nome Servizio</value>
@@ -3017,6 +3116,7 @@
         <value xml:lang="zh">全部</value>
     </property>
     <property key="WebtoolsUnCheckAll">
+        <value xml:lang="de">Keine auswählen</value>
         <value xml:lang="en">Un-Check All</value>
         <value xml:lang="fr">Tout désélectionner</value>
         <value xml:lang="it">De-seleziona Tutto</value>
@@ -3171,9 +3271,9 @@
         <value xml:lang="th">วันที่เสร็จจริง</value>
     </property>
     <property key="WebtoolsWorkflowActualStartDate">
+        <value xml:lang="de">Ist-Anfangsdatum</value>
         <value xml:lang="en">Actual Start Date</value>
-        <value xml:lang="fr">Date réelle de début</value>
-        <value xml:lang="fr">Date de début réelle</value>
+
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="th">วันที่เริ่มงานจริง</value>
     </property>
