@@ -23,6 +23,7 @@
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>
         <value xml:lang="en">This return is not yet accepted or already received.</value>
         <value xml:lang="fr">Ce retour n'est pas encore accepté ou déjà reçu.</value>
+        <value xml:lang="it">Questo non è ancora accettato o già ricevuto.</value>
         <value xml:lang="ru">Этот возврат еще не подтвержден или уже получен.</value>
         <value xml:lang="th">การคืนค่านี้ไม่ยอมรับหรือได้รับเรียบร้อยแล้ว</value>
         <value xml:lang="zh">还没有接受或接收到这个退货。</value>
@@ -31,6 +32,7 @@
         <value xml:lang="de">Die Retoure wurde verlangt.</value>
         <value xml:lang="en">The return is requested.</value>
         <value xml:lang="fr">Le retour est demandé.</value>
+        <value xml:lang="it">Il reso è richiesto.</value>
         <value xml:lang="ru">Запрошен возврат.</value>
         <value xml:lang="th">การคืนค่าการร้องขอ</value>
         <value xml:lang="zh">已请求退货。</value>
@@ -39,14 +41,15 @@
         <value xml:lang="de">USPS Adressverifikation benötigt Postleitzahl oder Ort/Staat</value>
         <value xml:lang="en">USPS address validation requires either zip5 or city and state</value>
         <value xml:lang="fr">La validation de l'adresse USPS demande l'un ou l'autre : zip5 ou ville et état</value>
+        <value xml:lang="it">USPS richiedere validazione indirizzo entrambi zip5 o città e stato</value>
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
+        <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Perfavore inserire nuovamente</value>
     </property>
-    
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
         <value xml:lang="en">Added ${numAdded} features with ID ${productFeatureId}</value>
