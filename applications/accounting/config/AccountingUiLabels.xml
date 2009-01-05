@@ -8964,6 +8964,7 @@
     </property>
     <property key="FormFieldTitle_readingReasonEnumId">
         <value xml:lang="en">Reading Reason Enum Id</value>
+        <value xml:lang="fr">Réf. de motivation de lecture</value>
         <value xml:lang="it">Motivazione Lettura</value>
     </property>
     <property key="FormFieldTitle_receiptId">
