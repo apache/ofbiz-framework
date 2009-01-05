@@ -26,6 +26,7 @@ under the License.
                 <xs:element minOccurs="0" ref="owner"/>
                 <xs:element minOccurs="0" ref="errorpage"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="handler"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="protect"/>
                 <xs:element minOccurs="0" ref="firstvisit"/>
                 <xs:element minOccurs="0" ref="preprocessor"/>
                 <xs:element minOccurs="0" ref="postprocessor"/>
@@ -73,6 +74,14 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="protect">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.protect"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.protect">
+        <xs:attribute type="xs:string" name="view" use="required"/>
     </xs:attributeGroup>
     <xs:element name="firstvisit">
         <xs:complexType>

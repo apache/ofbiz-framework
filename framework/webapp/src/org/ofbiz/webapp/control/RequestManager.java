@@ -298,6 +298,11 @@ public class RequestManager implements Serializable {
         return "/error/error.jsp";
     }
 
+    /** Gets the default "protect" view; used when no "protect" response type and :_protect_: is used */
+    public String getDefaultProtectView() {
+        return (String) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.DEFAULT_PROTECT_VIEW);
+    }
+
     public boolean requiresAuth(String uriStr) {
         Map<String, Object> uri = getRequestMapMap(uriStr);
 

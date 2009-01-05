@@ -171,6 +171,7 @@ public class ConfigXMLReader {
 
     /** Site Config Variables */
     public static final String DEFAULT_ERROR_PAGE = "errorpage";
+    public static final String DEFAULT_PROTECT_VIEW = "protect";
     public static final String SITE_OWNER = "owner";
     public static final String SECURITY_CLASS = "security-class";
     public static final String FIRSTVISIT = "firstvisit";
@@ -501,6 +502,14 @@ public class ConfigXMLReader {
         String errorpage = UtilXml.childElementValue(root, DEFAULT_ERROR_PAGE);
         if (UtilValidate.isNotEmpty(errorpage)) map.put(DEFAULT_ERROR_PAGE, errorpage);
 
+        // default protect view
+        Element protectElement = UtilXml.firstChildElement(root, DEFAULT_PROTECT_VIEW);
+        String protectview;
+        if (protectElement != null) {
+            protectview = protectElement.getAttribute("view");
+            if (protectview != null) map.put(DEFAULT_PROTECT_VIEW, protectview);
+        }
+        
         // site owner
         String owner = UtilXml.childElementValue(root, SITE_OWNER);
         if (UtilValidate.isNotEmpty(owner)) map.put(SITE_OWNER, owner);
