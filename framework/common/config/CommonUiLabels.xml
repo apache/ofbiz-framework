@@ -7452,6 +7452,45 @@
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">新建</value>
     </property>
+    <property key="FormFieldTitle_createdBy">
+        <value xml:lang="ar">استحدث من طرف</value>
+        <value xml:lang="de">Erstellt von</value>
+        <value xml:lang="en">Created By</value>
+        <value xml:lang="es">Creado por</value>
+        <value xml:lang="fr">Créé par</value>
+        <value xml:lang="it">Creato da</value>
+        <value xml:lang="nl">Aangemaakt door By</value>
+        <value xml:lang="ro">Creat De</value>
+        <value xml:lang="ru">Создан</value>
+        <value xml:lang="th">สร้างโดย</value>
+        <value xml:lang="zh">创建者</value>
+    </property>
+    <property key="FormFieldTitle_createdByUserLogin">
+        <value xml:lang="ar">استحدث من طرف المستخدم</value>
+        <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
+        <value xml:lang="en">Created By User Login</value>
+        <value xml:lang="es">Creado por usuario</value>
+        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
+        <value xml:lang="it">Creato dall'utente</value>
+        <value xml:lang="nl">Aangemaakt door ingelogde gebruiker</value>
+        <value xml:lang="ro">Creiat De Utilizator</value>
+        <value xml:lang="ru">Создано (имя входа)</value>
+        <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
+        <value xml:lang="zh">登录用户新建的</value>
+    </property>
+    <property key="FormFieldTitle_createdDate">
+        <value xml:lang="ar">تاريخ الإستحداث</value>
+        <value xml:lang="de">Erstellungsdatum</value>
+        <value xml:lang="en">Created Date</value>
+        <value xml:lang="es">Fecha de creación</value>
+        <value xml:lang="fr">Date de création</value>
+        <value xml:lang="it">Data creazione</value>
+        <value xml:lang="nl">Aanmaak datum</value>
+        <value xml:lang="ro">Data Creatie</value>
+        <value xml:lang="ru">Дата создания</value>
+        <value xml:lang="th">สร้างวันที่</value>
+        <value xml:lang="zh">创建日期</value>
+    </property>
     <property key="FormFieldTitle_currencyUomId">
         <value xml:lang="ar">العملة</value>
         <value xml:lang="de">Währung</value>
@@ -7472,6 +7511,7 @@
         <value xml:lang="en">Delete</value>
         <value xml:lang="es">Borrar</value>
         <value xml:lang="fr">Effacer</value>
+        <value xml:lang="it">Cancella</value>
         <value xml:lang="nl">Verwijderen</value>
         <value xml:lang="pt">Apagar</value>
         <value xml:lang="ru">Удалить</value>
@@ -7484,6 +7524,7 @@
         <value xml:lang="en">Delete Selected</value>
         <value xml:lang="es">Borrar seleccionados</value>
         <value xml:lang="fr">Effacer la sélection</value>
+        <value xml:lang="it">Cancella selezionato</value>
         <value xml:lang="nl">Geselecteerde Verwijderen</value>
         <value xml:lang="pt">Apagar Seleccionado</value>
         <value xml:lang="ru">Удалить выбранный</value>
@@ -7541,6 +7582,32 @@
         <value xml:lang="ru">Есть таблица?</value>
         <value xml:lang="th">มีตาราง</value>
         <value xml:lang="zh">有库表</value><!--value xml:lang="zh">有数据库表</value-->
+    </property>
+    <property key="FormFieldTitle_lastModifiedByUserLogin">
+        <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
+        <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
+        <value xml:lang="en">Last Modified By User Login</value>
+        <value xml:lang="es">Última modificación por usuario</value>
+        <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
+        <value xml:lang="it">Ultima modifica dell'utente</value>
+        <value xml:lang="nl">Laatste wijziging door gebruiker</value>
+        <value xml:lang="ro">Ultima Modificare Utilizator</value>
+        <value xml:lang="ru">Последнее изменение пользователем</value>
+        <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยผู้เข้าใช้ระบบ</value>
+        <value xml:lang="zh">登录用户上次修改的</value>
+    </property>
+    <property key="FormFieldTitle_lastModifiedDate">
+        <value xml:lang="ar">تاريخ آخر تغيير</value>
+        <value xml:lang="de">Letztes Bearbeitungsdatum</value>
+        <value xml:lang="en">Last Modified Date</value>
+        <value xml:lang="es">Última fecha de modificación</value>
+        <value xml:lang="fr">Dernière date de modification</value>
+        <value xml:lang="it">Data Ultima Modifica</value>
+        <value xml:lang="nl">Laatste wijziging op</value>
+        <value xml:lang="ro">Data Ultimei Modificari</value>
+        <value xml:lang="ru">Дата последнего изменения</value>
+        <value xml:lang="th">วันสุดท้ายของการปรับปรุง</value>
+        <value xml:lang="zh">上次修改日期</value>
     </property>
     <property key="FormFieldTitle_lineTotal">
         <value xml:lang="ar">مجموع السطر</value>
@@ -7623,7 +7690,7 @@
         <value xml:lang="en">Sequence Num</value>
         <value xml:lang="es">Número de secuencia</value>
         <value xml:lang="fr">N° de séq.</value>
-        <value xml:lang="it">Num. Sequenza</value>
+        <value xml:lang="it">Numero sequenza</value>
         <value xml:lang="pt">Número de Sequência</value>
         <value xml:lang="ro">Num. Secventa</value>
         <value xml:lang="ru">Последовательный номер</value>
@@ -7677,7 +7744,7 @@
         <value xml:lang="en">Thru Date</value>
         <value xml:lang="es">Hasta fecha</value>
         <value xml:lang="fr">jusqu'à la date</value>
-        <value xml:lang="it">Alla Data</value>
+        <value xml:lang="it">Alla data</value>
         <value xml:lang="pt">Data Final</value>
         <value xml:lang="ro">La Data</value>
         <value xml:lang="ru">До даты</value>
