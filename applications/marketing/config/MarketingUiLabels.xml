@@ -757,13 +757,16 @@
         <value xml:lang="zh">查找跟踪码访问</value>
     </property>
     <property key="PageTitleListContactList">
+        <value xml:lang="de">Liste der Kontaktlisten</value>
         <value xml:lang="en">List Contact List</value>
-        <value xml:lang="es">Mostrar lista de contactos</value>
-        <value xml:lang="fr">Montrer la liste de contacts</value>
-        <value xml:lang="it">Visualizza Lista Contatti</value>
-        <value xml:lang="ro">Vizualizeaza Lista Contacte</value>
-        <value xml:lang="th">ลงรายการติดต่อ</value>
-        <value xml:lang="zh">沟通列表的列表</value>
+        <value xml:lang="es">Listado de listas de contactos</value>
+        <value xml:lang="fr">Afficher la liste de contact</value>
+        <value xml:lang="it">Lista contatto</value>
+        <value xml:lang="nl">Contactlijst(en) tonen</value>
+        <value xml:lang="ro">Listeaza Lista Contacte</value>
+        <value xml:lang="ru">Список контактов</value>
+        <value xml:lang="th">รายการการติดต่อ</value>
+        <value xml:lang="zh">联系列表的列表</value>
     </property>
     <property key="PageTitleListContactListCommEvent">
         <value xml:lang="en">List Contact List Comm Events</value>

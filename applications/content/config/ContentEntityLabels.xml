@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CharacterSet.description.ISO-8859-1">
         <value xml:lang="de">ISO-8859-1</value>
         <value xml:lang="en">ISO-8859-1</value>
@@ -1851,132 +1852,6 @@
         <value xml:lang="ro">Video Quicktime</value>
         <value xml:lang="th">วิดีโอแบบใช้เวลารวดเร็ว</value>
         <value xml:lang="zh">Quicktime视频</value>
-    </property>
-    <property key="PartyRelationshipType.description.BLOG_PERMISSION">
-        <value xml:lang="de">Blog Berechtigung</value>
-        <value xml:lang="en">BLOG_PERMISSION</value>
-        <value xml:lang="es">Agregar a todos los usuarios del blog de modo que esta operación se haga una sola vez.</value>
-        <value xml:lang="fr">Autorisation de blog</value>
-        <value xml:lang="th">ข้อความการอนุญาต</value>
-    </property>
-    <property key="RoleType.description.BLOG">
-        <value xml:lang="de">Blog</value>
-        <value xml:lang="en">BLOG</value>
-        <value xml:lang="es">Blog</value>
-        <value xml:lang="fr">Blog</value>
-        <value xml:lang="th">บริการบันทึกข้อมูลส่วนตัว</value>
-    </property>
-    <property key="RoleType.description.BLOG_ADMIN">
-        <value xml:lang="de">Blog Administrator</value>
-        <value xml:lang="en">BLOG_ADMIN</value>
-        <value xml:lang="es">Administrador de Blog</value>
-        <value xml:lang="fr">Administrateur de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ดูแลระบบ</value>
-    </property>
-    <property key="RoleType.description.BLOG_AUTHOR">
-        <value xml:lang="de">Blog Autor</value>
-        <value xml:lang="en">BLOG_AUTHOR</value>
-        <value xml:lang="es">Author de Blog</value>
-        <value xml:lang="fr">Auteur de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้เขียน</value>
-    </property>
-    <property key="RoleType.description.BLOG_EDITOR">
-        <value xml:lang="de">Blog Redakteur</value>
-        <value xml:lang="en">BLOG_EDITOR</value>
-        <value xml:lang="es">Editor de Blog</value>
-        <value xml:lang="fr">Rédacteur de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้แก้ไข</value>
-    </property>
-    <property key="RoleType.description.BLOG_GUEST">
-        <value xml:lang="de">Blog Gast</value>
-        <value xml:lang="en">BLOG_GUEST</value>
-        <value xml:lang="es">Invitado de Blog</value>
-        <value xml:lang="fr">Invité de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้เยี่มชม</value>
-    </property>
-    <property key="RoleType.description.BLOG_PUBLISHER">
-        <value xml:lang="de">Blog Herausgeber</value>
-        <value xml:lang="en">BLOG_PUBLISHER</value>
-        <value xml:lang="es">Publicador de Blog</value>
-        <value xml:lang="fr">Editeur de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ประกาศ</value>
-    </property>
-    <property key="RoleType.description.BLOG_USER">
-        <value xml:lang="de">Blog Benutzer</value>
-        <value xml:lang="en">BLOG_USER</value>
-        <value xml:lang="es">Usuario de Blog</value>
-        <value xml:lang="fr">Utilisateur de blog</value>
-        <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ใช้</value>
-    </property>
-    <property key="RoleType.description.PERMISSION_GROUP">
-        <value xml:lang="de">Berechtigungsgruppe</value>
-        <value xml:lang="en">PERMISSION_GROUP</value>
-        <value xml:lang="es">Permiso de grupo</value>
-        <value xml:lang="fr">Autorisation de groupe</value>
-        <value xml:lang="th">กลุ่มการอนุญาต</value>
-    </property>
-    <property key="RoleType.description.PERMISSION_GROUP_MBR">
-        <value xml:lang="de">Berechtigungsgruppe Mitglied</value>
-        <value xml:lang="en">PERMISSION_GROUP_MBR</value>
-        <value xml:lang="es">Permiso de miembro de grupo</value>
-        <value xml:lang="fr">Autorisation de membre de groupe</value>
-        <value xml:lang="th">กลุ่มการอนุญาตของสมาชิก</value>
-    </property>
-    <property key="ServerHitType.description.ENTITY">
-        <value xml:lang="de">Entität</value>
-        <value xml:lang="en">ENTITY</value>
-        <value xml:lang="es">Entidad</value>
-        <value xml:lang="fr">Entité</value>
-        <value xml:lang="th">เอกลักษณ์</value>
-    </property>
-    <property key="ServerHitType.description.EVENT">
-        <value xml:lang="de">Event</value>
-        <value xml:lang="en">EVENT</value>
-        <value xml:lang="es">Evento</value>
-        <value xml:lang="fr">Evènement</value>
-        <value xml:lang="th">เหตุการณ์</value>
-    </property>
-    <property key="ServerHitType.description.REQUEST">
-        <value xml:lang="de">Anfrage</value>
-        <value xml:lang="en">REQUEST</value>
-        <value xml:lang="es">Petición</value>
-        <value xml:lang="fr">Requête</value>
-        <value xml:lang="th">คำร้อง</value>
-    </property>
-    <property key="ServerHitType.description.SERVICE">
-        <value xml:lang="de">Service</value>
-        <value xml:lang="en">SERVICE</value>
-        <value xml:lang="es">Servicio</value>
-        <value xml:lang="fr">Service</value>
-        <value xml:lang="th">การบริการ</value>
-    </property>
-    <property key="ServerHitType.description.VIEW">
-        <value xml:lang="de">Ansicht</value>
-        <value xml:lang="en">VIEW</value>
-        <value xml:lang="es">Ver</value>
-        <value xml:lang="fr">Opinion</value>
-        <value xml:lang="th">ดู</value>
-    </property>
-    <property key="SubscriptionType.description.NEWSGROUP_SUBSCR">
-        <value xml:lang="de">Newsgruppe Anmeldung</value>
-        <value xml:lang="en">NEWSGROUP_SUBSCR</value>
-        <value xml:lang="fr">Souscription de nouveau groupe</value>
-        <value xml:lang="es">Subscripción a grupo de noticias</value>
-        <value xml:lang="th">สมาชิกของกลุ่มข่าว</value>
-    </property>
-    <property key="SubscriptionType.description.OTHER_SUBSCR">
-        <value xml:lang="de">Andere Anmeldung</value>
-        <value xml:lang="en">OTHER_SUBSCR</value>
-        <value xml:lang="es">Otras subscripciones</value>
-        <value xml:lang="fr">Autres souscriptions</value>
-        <value xml:lang="th">สมาชิกอื่น</value>
-    </property>
-    <property key="SubscriptionType.description.PRODUCT_INFO_SUBSCR">
-        <value xml:lang="de">Produktinformationen Anmeldung</value>
-        <value xml:lang="en">PRODUCT_INFO_SUBSCR</value>
-        <value xml:lang="es">Subscripción a información de productos</value>
-        <value xml:lang="fr">Souscription d'information de produit</value>
-        <value xml:lang="th">ข้อมูลรายละเอียดสินค้า</value>
     </property>
     <property key="SurveyApplType.description.CART_ADD">
         <value xml:lang="de">Zum Warenkorb hinzufügen</value>

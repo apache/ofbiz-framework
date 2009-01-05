@@ -1273,7 +1273,7 @@
         <value xml:lang="en">Create New Party Detail</value>
         <value xml:lang="es">Crear nuevo participante</value>
         <value xml:lang="fr">Création nouv. acteur</value>
-        <value xml:lang="it">Creare Nuovo Dettaglio Soggetto</value>
+        <value xml:lang="it">Creare nuovo soggetto</value>
         <value xml:lang="nl">Nieuw relatie-detail</value>
         <value xml:lang="pt_PT">Criar Novo Destaque</value>
         <value xml:lang="ro">Creare Detaliu nou Subiect</value>
@@ -1332,13 +1332,17 @@
         <value xml:lang="zh">编辑联系方式</value>
     </property>
     <property key="PageTitleEditCreditCard">
+        <value xml:lang="cs">Zpracovat kreditkartu</value>
         <value xml:lang="de">Kreditkarte bearbeiten</value>
         <value xml:lang="en">Edit Credit Card</value>
-        <value xml:lang="es">Editar tarjeta de crédito</value>
-        <value xml:lang="fr">Modifier la carte de crédit</value>
-        <value xml:lang="it">Aggiorna Carta Credito</value>
-        <value xml:lang="nl">Kredietkaart wijzigen</value>
-        <value xml:lang="ro">Actualizare Carte de Credit</value>
+        <value xml:lang="es">Modificar Tarjeta De Crédito</value>
+        <value xml:lang="fr">Modification de la carte de crédit</value>
+        <value xml:lang="hi_IN">क्रेडिट कार्ड बदलिये</value>
+        <value xml:lang="it">Aggiorna carta di credito</value>
+        <value xml:lang="ja">Edit Credit Card</value>
+        <value xml:lang="nl">Pas de kredietkaart aan</value>
+        <value xml:lang="pt_PT">Editar Cartao de Crédito</value>
+        <value xml:lang="ro">Actualizeaza Carte de Credit</value>
         <value xml:lang="ru">Изменить кредитную карту</value>
         <value xml:lang="th">แก้ไขบัตรเครดิต</value>
         <value xml:lang="zh">编辑信用卡</value>
@@ -1356,14 +1360,17 @@
         <value xml:lang="zh">编辑电子资金转账账户</value>
     </property>
     <property key="PageTitleEditGiftCard">
+        <value xml:lang="cs">Zpracovat dárkový poukaz</value>
         <value xml:lang="de">Gutschein bearbeiten</value>
         <value xml:lang="en">Edit Gift Card</value>
-        <value xml:lang="es">Editar certificado de regalo</value>
+        <value xml:lang="es">Modificar Tarjeta de Regalo</value>
         <value xml:lang="fr">Modifier la carte cadeau</value>
-        <value xml:lang="it">Aggiorna Carta Omaggio</value>
-        <value xml:lang="nl">Cadeaubon wijzigen</value>
-        <value xml:lang="ro">Actualizare Carte Omagiu</value>
-        <value xml:lang="ru">Изменить дисконтную карту</value>
+        <value xml:lang="hi_IN">उपहार कार्ड</value>
+        <value xml:lang="it">Aggiorna carta omagggio</value>
+        <value xml:lang="ja">Edit Gift Card</value>
+        <value xml:lang="nl">Pas de geschenkkaart aan</value>
+        <value xml:lang="ro">Actualizeaza Carte Omagiu</value>
+        <value xml:lang="ru">Редактировать дисконтную карту</value>
         <value xml:lang="th">แก้ไขบัตรของขวัญ</value>
         <value xml:lang="zh">编辑礼品卡</value>
     </property>
@@ -1665,44 +1672,6 @@
         <value xml:lang="th">รายการการติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通列表</value>
     </property>
-    <property key="PageTitleListContactList">
-        <value xml:lang="de">Liste der Kontaktlisten</value>
-        <value xml:lang="en">List Contact List</value>
-        <value xml:lang="es">Listado de listas de contactos</value>
-        <value xml:lang="fr">Afficher la liste de contact</value>
-        <value xml:lang="it">Lista Lista Contatto</value>
-        <value xml:lang="nl">Contactlijst(en) tonen</value>
-        <value xml:lang="ro">Listeaza Lista Contacte</value>
-        <value xml:lang="ru">Список контактов</value>
-        <value xml:lang="th">รายการการติดต่อ</value>
-        <value xml:lang="zh">联系列表的列表</value>
-    </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="de">Anmelden</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="nl">Aanloggen</value>
-        <value xml:lang="pt_PT">Início</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Вход</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="de">Hauptseite</value>
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
-        <value xml:lang="nl">Startpagina</value>
-        <value xml:lang="pt_PT">Página de Entrada</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Главная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
-    </property>
     <property key="PageTitleNewPartyNote">
         <value xml:lang="de">Neue Notiz zum Akteur</value>
         <value xml:lang="en">New Party Note</value>
@@ -1758,15 +1727,19 @@
         <value xml:lang="zh">安全组列表</value>
     </property>
     <property key="PageTitleShoppingList">
+        <value xml:lang="cs">Nákupní seznam</value>
         <value xml:lang="de">Einkaufsliste</value>
         <value xml:lang="en">Shopping List</value>
-        <value xml:lang="es">Lista de compras</value>
-        <value xml:lang="fr">Liste d'achats</value>
-        <value xml:lang="it">Lista Acquisto</value>
+        <value xml:lang="es">Lista de Compra</value>
+        <value xml:lang="fr">Liste d'achat</value>
+        <value xml:lang="hi_IN">खरीदारी सूची</value>
+        <value xml:lang="it">Lista di acquisto</value>
+        <value xml:lang="ja">買い物リスト</value>
         <value xml:lang="nl">Boodschappenlijst</value>
-        <value xml:lang="ro">Lista Cumparaturi</value>
+        <value xml:lang="pt_PT">Lista De Compras</value>
+        <value xml:lang="ro">Lista Cumparari</value>
         <value xml:lang="ru">Список покупок</value>
-        <value xml:lang="th">รายการซื้อสินค้า</value>
+        <value xml:lang="th">รายการสินค้าที่ซื้อ</value>
         <value xml:lang="zh">购物列表</value>
     </property>
     <property key="PageTitleListUnknownPartyComms">
@@ -3718,7 +3691,7 @@
         <value xml:lang="en">Create New Party Detail</value>
         <value xml:lang="es">Nuevo participante</value>
         <value xml:lang="fr">Créer un nouveau détail pour l'acteur</value>
-        <value xml:lang="it">Creare Nuovo Dettaglio Soggetto</value>
+        <value xml:lang="it">Creare nuovo soggetto</value>
         <value xml:lang="nl">Nieuwe detail relatie</value>
         <value xml:lang="pt_PT">CriarNovo Detalhe de Secção</value>
         <value xml:lang="ro">Creare Nou Detaliu Subiect</value>

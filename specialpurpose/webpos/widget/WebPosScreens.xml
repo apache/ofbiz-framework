@@ -47,7 +47,7 @@ under the License.
     <screen name="Main">
         <section>
             <actions>
-                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="titleProperty" value="PageTitleMain"/>
                 <set field="rightbarScreenName" value="rightbar"/>
             </actions>
             <widgets>
@@ -59,7 +59,7 @@ under the License.
     <screen name="Manager">
         <section>
             <actions>
-                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="titleProperty" value="PageTitleMain"/>
                 <set field="rightbarScreenName" value="rightbar_manager"/>
             </actions>
             <widgets>
@@ -71,7 +71,7 @@ under the License.
     <screen name="Payment">
         <section>
             <actions>
-                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="titleProperty" value="PageTitleMain"/>
                 <set field="rightbarScreenName" value="rightbar_payment"/>
             </actions>
             <widgets>
@@ -83,7 +83,7 @@ under the License.
     <screen name="Promo">
         <section>
             <actions>
-                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="titleProperty" value="PageTitleMain"/>
                 <set field="rightbarScreenName" value="rightbar_promo"/>
             </actions>
             <widgets>
@@ -159,7 +159,7 @@ under the License.
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
-                            <label text="${uiLabelMap.WebPosPageTitleMain}"/>
+                            <label text="${uiLabelMap.PageTitleMain}"/>
                         </container>
                     </container>
                     <container id="MicroCart">

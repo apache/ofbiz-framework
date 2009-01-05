@@ -328,16 +328,6 @@
         <value xml:lang="fr">Pour ouvrir la caisse, il est obligatoire qu'un reponsable se connecte</value>
         <value xml:lang="it">Per aprire il terminale e' obbligatorio autenticarsi con un manager</value>
     </property>
-    <property key="WebPosPageTitleLogin">
-        <value xml:lang="en">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-    </property>
-    <property key="WebPosPageTitleMain">
-        <value xml:lang="en">Web Pos</value>
-        <value xml:lang="fr">Web POS</value>
-        <value xml:lang="it">Pos Web</value>
-    </property>
     <property key="WebPosPageTitleCloseTerminal">
         <value xml:lang="en">Close Terminal</value>
         <value xml:lang="fr">Fermer la caisse</value>

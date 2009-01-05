@@ -3837,14 +3837,18 @@
         <value xml:lang="th">เพิ่มผู้จำหน่ายสินค้า</value>
     </property>
     <property key="PageTitleAdvancedSearch">
+        <value xml:lang="cs">rozšířené hledání</value>
         <value xml:lang="de">Erweiterte Suche</value>
         <value xml:lang="en">Advanced Search</value>
-        <value xml:lang="es">Búsqueda avanzada</value>
+        <value xml:lang="es">Búsqueda Avanzada</value>
         <value xml:lang="fr">Recherche avancée</value>
-        <value xml:lang="it">Ricerca Avanzata</value>
+        <value xml:lang="it">Ricerca avanzata</value>
+        <value xml:lang="ja">詳細検索</value>
+        <value xml:lang="nl">Uitvoerig zoeken</value>
+        <value xml:lang="pt_PT">Pesquisa Avançada</value>
         <value xml:lang="ro">Cautare Avansata</value>
         <value xml:lang="ru">Расширенный поиск</value>
-        <value xml:lang="th">การค้นหาเพิ่มขี้น</value>
+        <value xml:lang="th">ค้นหาเพิ่มขึ้น</value>
         <value xml:lang="zh">高级搜索</value>
     </property>
     <property key="PageTitleApplyFeaturesFromCategory">
@@ -3887,17 +3891,6 @@
         <value xml:lang="fr">Créer les attributs de catégorie</value>
         <value xml:lang="it">Creare Attributi Categoria Prodotto</value>
         <value xml:lang="th">สร้างคุณสมบัติหมวดหมู่</value>
-    </property>
-    <property key="PageTitleCreateNewPartyDetail">
-        <value xml:lang="de">Neues Akteur-Detail erstellen</value>
-        <value xml:lang="en">Create New Party Detail</value>
-        <value xml:lang="es">Creación de un nuevo detalle de Participante</value>
-        <value xml:lang="fr">Création d'un nouvel acteur</value>
-        <value xml:lang="it">Creare Nuovo Dettaglio Soggetto</value>
-        <value xml:lang="ro">Creiaza Nou Detaliu Subiect</value>
-        <value xml:lang="ru">Создать подробности для участника</value>
-        <value xml:lang="th">สร้างรายละเอียดกลุ่มผู้ใช้ใหม่</value>
-        <value xml:lang="zh">新建会员详细</value>
     </property>
     <property key="PageTitleCreateProductAssetUsage">
         <value xml:lang="de">Neue Anlageverwendung</value>
@@ -5244,17 +5237,6 @@
         <value xml:lang="ru">Список типов способов доставки</value>
         <value xml:lang="th">รายการประเภทวิธีการชำระเงิน</value>
     </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Conexión</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Войти</value>
-        <value xml:lang="th">ลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
     <property key="PageTitleLookupBulkAddProduct">
         <value xml:lang="de">Massenhinzufügung Produkte</value>
         <value xml:lang="en">Bulk Add Product</value>
@@ -5282,7 +5264,8 @@
         <value xml:lang="en">Lookup Product</value>
         <value xml:lang="es">Buscar Producto</value>
         <value xml:lang="fr">Consulter l'article</value>
-        <value xml:lang="it">Ricerca Prodotti</value>
+        <value xml:lang="it">Ricerca prodotti</value>
+        <value xml:lang="nl">Produkt zoeken</value>
         <value xml:lang="ro">Cauta Produse</value>
         <value xml:lang="ru">Искать продукт</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -5353,17 +5336,6 @@
         <value xml:lang="ru">Искать виртуальный продукт</value>
         <value xml:lang="th">ค้นหาสินค้าทั้งหมด</value>
         <value xml:lang="zh">查找虚拟产品</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="de">Hauptseite</value>
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página Principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Главная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
     </property>
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="de">Neuer Einrichtungs-Kontaktmechanismus für ${facility.facilityName} [${facility.facilityId}]</value>
@@ -5483,12 +5455,17 @@
         <value xml:lang="th">ค้นหารายการสินค้าคงเหลือโดยทำเครื่องหมาย</value>
     </property>
     <property key="PageTitleSearchResults">
-        <value xml:lang="de">Suchresultate</value>
+        <value xml:lang="cs">Výsledky hledání</value>
+        <value xml:lang="de">Suchergebnisse</value>
         <value xml:lang="en">Search Results</value>
         <value xml:lang="es">Resultados de búsqueda</value>
-        <value xml:lang="fr">Rechercher dans les résultats</value>
-        <value xml:lang="it">Risultati Ricerca</value>
-        <value xml:lang="ro">Resultate Cautare</value>
+        <value xml:lang="fr">Résultats de la recherche</value>
+        <value xml:lang="hi_IN">नतीजा खोज</value>
+        <value xml:lang="it">Risultati della ricerca</value>
+        <value xml:lang="ja">検索結果</value>
+        <value xml:lang="nl">Zoek resultaat</value>
+        <value xml:lang="pt_PT">Resultados Da Procura</value>
+        <value xml:lang="ro">Cauta Rezultate </value>
         <value xml:lang="ru">Результаты поиска</value>
         <value xml:lang="th">ค้นหาผลลัพธ์</value>
         <value xml:lang="zh">搜索结果</value>

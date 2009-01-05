@@ -9673,7 +9673,7 @@
         <value xml:lang="en">Edit Fixed Asset</value>
         <value xml:lang="es">Editar Activo Fijo</value>
         <value xml:lang="fr">Modifier une immobilisation</value>
-        <value xml:lang="it">Aggiorna Cespite</value>
+        <value xml:lang="it">Aggiorna cespite</value>
         <value xml:lang="nl">Vaste activa aanpassen</value>
         <value xml:lang="ro">Actualizeaza Mijloc Fix</value>
         <value xml:lang="ru">Изменить ОС</value>
@@ -10277,19 +10277,6 @@
         <value xml:lang="th">รายการกลุ่มภาษี</value>
         <value xml:lang="zh">税务机关会员列表</value>
     </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Entrada</value>
-        <value xml:lang="fr">S'identifier</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="nl">Aanloggen</value>
-        <value xml:lang="pt_BR">Entrada</value>
-        <value xml:lang="pt_PT">Entrada</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Вход</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
     <property key="PageTitleLookupBillingAccount">
         <value xml:lang="en">Lookup Billing Account by Name</value>
         <value xml:lang="es">Buscar Cuenta de Facturación por Nombre</value>
@@ -10322,17 +10309,6 @@
         <value xml:lang="ru">Поиска счета ГК</value>
         <value xml:lang="th">ตรวจสอบบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">查找总账账户</value>
-    </property>
-    <property key="PageTitleLookupProduct">
-        <value xml:lang="en">Lookup Product</value>
-        <value xml:lang="es">Buscar producto</value>
-        <value xml:lang="fr">Recherche de produit</value>
-        <value xml:lang="it">Ricerca Prodotto</value>
-        <value xml:lang="nl">Produkt zoeken</value>
-        <value xml:lang="ro">Cauta Produs</value>
-        <value xml:lang="ru">Поиска продукта</value>
-        <value xml:lang="th">ตรวจสอบสินค้า</value>
-        <value xml:lang="zh">查找产品</value>
     </property>
     <property key="PageTitlePaymentByMethodSummary">
         <value xml:lang="en">Payments By Method Summary</value>

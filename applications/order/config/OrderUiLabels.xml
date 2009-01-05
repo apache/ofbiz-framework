@@ -9642,19 +9642,6 @@
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>
     </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="nl">Login</value>
-        <value xml:lang="pt_PT">Início</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Войти</value>
-        <value xml:lang="th">ลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
     <property key="PageTitleLookupCustomerRequest">
         <value xml:lang="de">Kundenanfrage suchen</value>
         <value xml:lang="en">Lookup Customer Request</value>
