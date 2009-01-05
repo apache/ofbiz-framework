@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.webapp.control.ContextFilter;
 
 /**
- * ViewHandlerException - View Handler Exception
+ * JspViewHandler - Java Server Pages View Handler
  */
 public class JspViewHandler implements ViewHandler {
     
