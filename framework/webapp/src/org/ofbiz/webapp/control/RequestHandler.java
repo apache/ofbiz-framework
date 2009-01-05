@@ -224,7 +224,9 @@ public class RequestHandler implements Serializable {
                                 throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                             } else { // protect the view normally rendered and redirect to error response view 
                                 returnString = returnString.replace(":_protect_:", "");
-                                request.setAttribute("_ERROR_MESSAGE_", returnString);
+                                if (returnString.length() > 0) {
+                                    request.setAttribute("_ERROR_MESSAGE_", returnString);
+                                }
                                 eventReturnString = "protect";
                                 // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
                                 if (null == requestManager.getRequestAttribute(requestUri, "protect")) {
