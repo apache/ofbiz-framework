@@ -40,7 +40,7 @@ under the License.
     <screen name="editPortalPage">
         <section>
             <actions>
-                <set field="headerItem" from-field="portalPageId"/>
+                <set field="headerItem" from-field="parameters.portalPageId"/>
                 <entity-one entity-name="PortalPage" value-name="portalPage"/>    
                 <set field="portalPageId" from-field="portalPage.portalPageId"/>
                 <set field="parentPortalPageId" from-field="parameters.parentPortalPageId"/>                

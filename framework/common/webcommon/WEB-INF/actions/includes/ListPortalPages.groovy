@@ -36,7 +36,7 @@ if (parameters.userLogin) {
     ],EntityOperator.AND);
 	sortField = parameters.sortField;
 	if (UtilValidate.isEmpty(sortField)) {
-		sortField = "portalPageName";
+		sortField = "parentPortalPageId DESC";
 	}
 	orderBy = [sortField];
 	portalPages = delegator.findList("PortalPage", ppCond, null, orderBy, null, false);
