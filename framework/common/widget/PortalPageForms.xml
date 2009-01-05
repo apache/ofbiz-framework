@@ -48,9 +48,12 @@ under the License.
                 </in-place-editor>
             </display>
         </field>
-        <field name="originalPortalPageId"><display/></field>
+        <field name="originalPortalPageId"><display-entity entity-name="PortalPage" description="${portalPageName} [${portalPageId}]" key-field-name="portalPageId"/></field>
         <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
             <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)&amp;&amp;originalPortalPageId!=null" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" description="revert to original"/>
         </field>
     </form>
     

@@ -804,29 +804,14 @@ under the License.
         </section>
     </screen>
 
-    <!-- My Profile Screens -->
-    <screen name="model">
-        <section>
-            <widgets>
-                <section>
-                    <condition>
-                        <not><if-empty field-name="party"/></not>
-                    </condition>
-                    <widgets>
-
-                    </widgets>
-                    <fail-widgets>
-                        <container>
-                            <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
-                        </container>
-                    </fail-widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    
+    <!-- My Profile Screens -->    
     <screen name="Party">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -851,6 +836,11 @@ under the License.
 
     <screen name="Contact">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -875,6 +865,11 @@ under the License.
 
     <screen name="contactsAndAccounts">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -899,6 +894,11 @@ under the License.
 
     <screen name="LoyaltyPoints">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -923,6 +923,11 @@ under the License.
 
     <screen name="PaymentMethods">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -947,6 +952,11 @@ under the License.
 
     <screen name="AvsSettings">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -971,6 +981,11 @@ under the License.
 
     <screen name="FinAccounts">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -995,6 +1010,11 @@ under the License.
 
     <screen name="UserLogin">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1019,6 +1039,11 @@ under the License.
 
     <screen name="Attributes">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1043,6 +1068,11 @@ under the License.
 
     <screen name="Visits">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                <section>
                   <condition>
@@ -1067,6 +1097,11 @@ under the License.
 
     <screen name="Cart">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1091,6 +1126,11 @@ under the License.
 
     <screen name="SerializedInventory">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1115,6 +1155,11 @@ under the License.
 
     <screen name="Subscriptions">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1139,6 +1184,11 @@ under the License.
 
     <screen name="Content">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1163,6 +1213,11 @@ under the License.
 
     <screen name="ShipperAccount">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1187,6 +1242,11 @@ under the License.
 
     <screen name="Notes">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1211,6 +1271,11 @@ under the License.
 
     <screen name="mytasksParty">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -1235,6 +1300,11 @@ under the License.
 
     <screen name="ViewInternalOrg">
         <section>
+            <actions>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
