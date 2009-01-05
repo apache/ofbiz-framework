@@ -131,8 +131,8 @@ under the License.
         <field name="partyId"><display/></field>
         <field name="name" title="${uiLabelMap.PartyName}"><display description="${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName}"/></field>
         <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>        
-        <field name="externalId" title="${uiLabelMap.External} ${uiLabelMap.Id}"><display/></field>
-        <field name="statusId" title="${uiLabelMap.Status} ${uiLabelMap.Id}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="externalId"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
     
     <form name="ViewPartyPersonHistory" type="list" list-name="partyNameHistoryList"
@@ -328,8 +328,8 @@ under the License.
         <field name="periodTypeId" position="2">
             <display-entity entity-name="PeriodType"/>
         </field>
-        <field name="rateAmount"  tooltip="override Default Rate amount"><text/></field>
-        <field name="rateCurrencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" position="2" entry-name="defaultCurrencyUomId" tooltip="Adjust in accounting component">
+        <field name="rateAmount"  tooltip="${uiLabelMap.PartyOverrideDefaultRateAmount}"><text/></field>
+        <field name="rateCurrencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" position="2" entry-name="defaultCurrencyUomId" tooltip="${uiLabelMap.PartyAdjustInAccountingComponent}">
             <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="percentageUsed"><text size="6"/></field>
@@ -364,10 +364,10 @@ under the License.
         <field name="rateCurrencyUomId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
-        <field name="rateDefaultAmount" use-when="&quot;workEffort&quot;.equals(rateLevel)" tooltip="Value from workeffort level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
-        <field name="rateDefaultAmount" use-when="&quot;party&quot;.equals(rateLevel)" tooltip="Value from party level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
-        <field name="rateDefaultAmount" use-when="&quot;rateType&quot;.equals(rateLevel)" tooltip="Value from rateType level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
-        <field name="rateDefaultAmount" use-when="rateLevel==null" tooltip="Rate not specified for this party AND NO default rate"><display/></field>
+        <field name="rateDefaultAmount" use-when="&quot;workEffort&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromWorkEffortLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="&quot;party&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromPartyLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="&quot;rateType&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromRateTypeLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="rateLevel==null" tooltip="${uiLabelMap.PartyRateNotSpecified}"><display/></field>
         <field name="defaultRate"><display/></field>
         <field name="percentageUsed"><display/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit /></field>

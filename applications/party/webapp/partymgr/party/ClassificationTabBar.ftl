@@ -24,7 +24,7 @@ under the License.
     <div class="button-bar tab-bar">
       <ul>
         <li<#if selected == "EditPartyClassificationGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.PartyClassificationGroups}</a></li>
-        <li<#if selected == "EditPartyClassificationGroupParties"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroupParties?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.Parties}</a></li>
+        <li<#if selected == "EditPartyClassificationGroupParties"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroupParties?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.PartyParties}</a></li>
       </ul>
       <br class="clear"/>
     </div>

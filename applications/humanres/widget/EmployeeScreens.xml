@@ -146,7 +146,7 @@ under the License.
     <screen name="EditEmployeeSkills">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPartySkill"/>
+                <set field="titleProperty" value="PageTitleViewPartySkill"/>
                 <set field="tabButtonItem" value="EditEmployeeSkills"/>    
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
@@ -190,7 +190,7 @@ under the License.
     <screen name="EditEmployeeTrainings">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPersonTraining"/>
+                <set field="titleProperty" value="PageTitleViewPersonTraining"/>
                 <set field="tabButtonItem" value="EditEmployeeTrainings"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
@@ -212,7 +212,7 @@ under the License.
     <screen name="EditEmployeeEmploymentApps">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewEmploymentApp"/>
+                <set field="titleProperty" value="PageTitleViewEmploymentApp"/>
                 <set field="tabButtonItem" value="EditEmployeeEmploymentApps"/>
                 <set field="referredByPartyId" from-field="parameters.partyId"/>
                 <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/>

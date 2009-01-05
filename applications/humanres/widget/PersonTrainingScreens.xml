@@ -56,7 +56,7 @@
     <screen name="EditPersonTrainings">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPersonTraining"/>
+                <set field="titleProperty" value="PageTitleViewPersonTraining"/>
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditPersonTrainings"/>
                 <set field="partyId" from-field="parameters.partyId"/>

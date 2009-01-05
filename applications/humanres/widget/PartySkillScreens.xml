@@ -56,7 +56,7 @@
     <screen name="EditPartySkills">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPartySkill"/>
+                <set field="titleProperty" value="PageTitleViewPartySkill"/>
                 <set field="headerItem" value="Employee"/>            
                 <set field="tabButtonItem" value="EditPartySkills"/>    
                 <set field="partyId" from-field="parameters.partyId"/>

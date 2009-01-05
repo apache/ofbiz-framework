@@ -8204,6 +8204,10 @@
         <value xml:lang="fr">Montant</value>
         <value xml:lang="it">Importo fattura</value>
     </property>
+    <property key="FormFieldTitle_invoiceParentTypeId">
+        <value xml:lang="en">Invoice Parent Type Id</value>
+        <value xml:lang="it">Tipo fattura padre</value>
+    </property>
     <property key="FormFieldTitle_invoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
         <value xml:lang="en">Invoice Date</value>
@@ -8598,6 +8602,10 @@
         <value xml:lang="ru">Дата оплаты</value>
         <value xml:lang="th">วันที่จ่าย</value>
         <value xml:lang="zh">实际支付日期</value>
+    </property>
+    <property key="FormFieldTitle_paymentParentTypeId">
+        <value xml:lang="en">Payment Parent Type Id</value>
+        <value xml:lang="it">Tipo pagamento padre</value>
     </property>
     <property key="FormFieldTitle_parentFixedAssetId">
         <value xml:lang="de">Ursprungsanlagevermögen ID</value>
@@ -9377,6 +9385,10 @@
         <value xml:lang="ru">Дата проводки</value>
         <value xml:lang="th">รายการวันที่</value>
         <value xml:lang="zh">交易日期</value>
+    </property>
+    <property key="FormFieldTitle_unAppliedAmount">
+        <value xml:lang="en">Un Applied Amount</value>
+        <value xml:lang="it">Importo non applicato</value>
     </property>
     <property key="FormFieldTitle_useInvoiceIdForReturns">
         <value xml:lang="en">Use Invoice Id For Returns</value>

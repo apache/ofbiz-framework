@@ -971,7 +971,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="HumanResEditPartyResume"/>
                 <set field="headerItem" value="find"/>
-                <set field="tabButtonItem" value="PartyResume"/>
+                <set field="tabButtonItem" value="EditPartyResumes"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
                 <set field="partyResumeCtx.resumeId" from-field="parameters.resumeId"/>
