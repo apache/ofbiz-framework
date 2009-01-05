@@ -542,6 +542,7 @@
         <value xml:lang="en">Balance Res On Order Creation</value>
         <value xml:lang="es">Resto reserva stock al crear pedido</value>
         <value xml:lang="fr">Expédition par un tiers : réservation de stock réévaluée suivant les dates d'exp. au plus tard</value>
+        <value xml:lang="it">Bilancio riserve sulla creazione ordine</value>
     </property>
     <property key="FormFieldTitle_bccAddress">
         <value xml:lang="de">BCC Adresse</value>
@@ -588,6 +589,7 @@
         <value xml:lang="en">carrier Id</value>
         <value xml:lang="es">Código de transportista</value>
         <value xml:lang="fr">Réf. transporteur</value>
+        <value xml:lang="it">Corriere</value>
         <value xml:lang="ru">Код перевозчика</value>
         <value xml:lang="th">รหัสผู้ส่ง</value>
     </property>
@@ -608,7 +610,7 @@
         <value xml:lang="en">Carrier Service Code</value>
         <value xml:lang="es">Cödigo de servicio del transportista</value>
         <value xml:lang="fr">Code service de transporteur</value>
-        <value xml:lang="it">Codice Servizio Corriere</value>
+        <value xml:lang="it">Codice servizio corriere</value>
         <value xml:lang="ru">Сервисный код перевозчика</value>
         <value xml:lang="th">รหัสบริการผู้ส่ง</value>
     </property>
@@ -2134,6 +2136,7 @@
         <value xml:lang="en">Parent Facility Id</value>
         <value xml:lang="es">Código Almacén precursor</value>
         <value xml:lang="fr">Lieu de stockage parent</value>
+        <value xml:lang="it">Stabilimento padre</value>
     </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="de">Übergeordnete Einrichtungsgruppe ID</value>
@@ -2396,6 +2399,7 @@
         <value xml:lang="de">Interaktionstyp</value>
         <value xml:lang="en">Interaction Type</value>
         <value xml:lang="es">Código Tipo de interacción</value>
+        <value xml:lang="it">Tipo interattivo</value>
     </property>
     <property key="FormFieldTitle_productFeatureTypeId">
         <value xml:lang="de">Produktmerkmal Typ ID</value>
@@ -3224,6 +3228,7 @@
         <value xml:lang="en">styleSheet</value>
         <value xml:lang="es">hoja de estilos</value>
         <value xml:lang="fr">Feuille de style</value>
+        <value xml:lang="it">Foglio di stile</value>
         <value xml:lang="th">styleSheet</value>
     </property>
     <property key="FormFieldTitle_submitCaption">
@@ -3231,7 +3236,7 @@
         <value xml:lang="en">Submit Caption</value>
         <value xml:lang="es">Enviar encabezado</value>
         <value xml:lang="fr">Légende d'envoi</value>
-        <value xml:lang="it">Titolo Sottometti</value>
+        <value xml:lang="it">Titolo pagina</value>
         <value xml:lang="ro">Titlu Subordonat</value>
         <value xml:lang="ru">Послать заголовок</value>
         <value xml:lang="th">ยอมรับคำชี้แจง</value>
@@ -3616,12 +3621,14 @@
         <value xml:lang="en">Add Feature InterAction</value>
         <value xml:lang="es">Añadir interacción de característica</value>
         <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
+        <value xml:lang="it">Aggiungi caratteristica interattiva</value>
     </property>
     <property key="PageTitleAddFeaturePrice">
         <value xml:lang="de">Merkmalpreis hinzufügen</value>
         <value xml:lang="en">Add Feature Price</value>
         <value xml:lang="es">Añadir precio de característica</value>
         <value xml:lang="fr">Ajouter un prix de caractéristique</value>
+        <value xml:lang="it">Aggiungi caratteristica prezzo</value>
     </property>
     <property key="PageTitleAddInventoryItemLabelAppls">
         <value xml:lang="de">Bestandsposition Etikettenanwendung hinzufügen</value>
@@ -4216,6 +4223,7 @@
         <value xml:lang="en">Edit Feature Price</value>
         <value xml:lang="es">Editar precio de característica</value>
         <value xml:lang="fr">Modification des caractéristiques de prix</value>
+        <value xml:lang="it">Aggiorna caratteristica prezzo</value>
     </property>
     <property key="PageTitleEditFeatureType">
         <value xml:lang="de">Merkmalstyp bearbeiten</value>
@@ -4241,12 +4249,14 @@
         <value xml:lang="en">Edit Product Feature Interactions</value>
         <value xml:lang="es">Editar interacciones de características</value>
         <value xml:lang="fr">Modifier les interactions entre caractéristiques de produit</value>
+        <value xml:lang="it">Aggiorna caratteristica interattiva prodotto</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
         <value xml:lang="de">Merkmal Interaktionen bearbeiten</value>
         <value xml:lang="en">Edit Feature InterActions</value>
         <value xml:lang="es">Editar características</value>
         <value xml:lang="fr">Modifier les interactions entre caractéristiques</value>
+        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
     </property>
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="de">Bestandspositionen bearbeiten</value>
@@ -4271,6 +4281,7 @@
         <value xml:lang="de">Bestandsposition Etiketten bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Labels</value>
         <value xml:lang="es">Editar etiquetas de ítems de inventario</value>
+        <value xml:lang="it">Aggiorna riga inventario etichette</value>
     </property>
     <property key="PageTitleEditInventoryItemLabelTypes">
         <value xml:lang="de">Bestandspositione Etikettentypen bearbeiten</value>
@@ -4480,7 +4491,7 @@
         <value xml:lang="en">Edit Product Features</value>
         <value xml:lang="es">Editar Características de un Producto</value>
         <value xml:lang="fr">Modification des caractéristiques d'articles</value>
-        <value xml:lang="it">Aggiorna Caratteristiche Prodotto</value>
+        <value xml:lang="it">Aggiorna caratteristiche prodotto</value>
         <value xml:lang="ro">Actualizeaza Caracteristici Produs</value>
         <value xml:lang="ru">Изменить особенности продукта</value>
         <value xml:lang="th">แก้ไขลักษณะสินค้า</value>
@@ -4555,6 +4566,7 @@
         <value xml:lang="en">Edit Product Meter</value>
         <value xml:lang="es">Editar medidor de producto</value>
         <value xml:lang="fr">Modifier la mesure d'article</value>
+        <value xml:lang="it">Aggiorna contatore prodotto</value>
         <value xml:lang="ro">Actualizeaza Contor Produs</value>
         <value xml:lang="th">แก้ไขหน่วยวัดสินค้า</value>
         <value xml:lang="zh">编辑产品测量仪表</value>
@@ -4564,7 +4576,7 @@
         <value xml:lang="en">Edit Product Meters</value>
         <value xml:lang="es">Editar medidores de producto</value>
         <value xml:lang="fr">Modifier les mesures de l'article</value>
-        <value xml:lang="it">Aggiorna Contatori Prodotto</value>
+        <value xml:lang="it">Aggiorna contatori prodotto</value>
         <value xml:lang="ru">Изменить счетчики продукта</value>
         <value xml:lang="th">แก้ไขหน่วยวัดสินค้า</value>
     </property>
@@ -5178,12 +5190,14 @@
         <value xml:lang="en">List Product Feature Interactions</value>
         <value xml:lang="es">Listar interacciones de características</value>
         <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
+        <value xml:lang="it">Lista caratteristiche interattive prodotto</value>
     </property>
     <property key="PageTitleListProductFeatureTypes">
         <value xml:lang="de">Liste Produktmerkmale Typen</value>
         <value xml:lang="en">List Product Feature Types</value>
         <value xml:lang="es">Listar tipos de características</value>
         <value xml:lang="fr">Liste des types de caractéristiques de produit</value>
+        <value xml:lang="it">Lista tipi caratteristiche prodotto</value>
     </property>
     <property key="PageTitleListProductStoreFinAccountSettings">
         <value xml:lang="de">Liste Laden Finanzkonten Einstellungen</value>
@@ -5421,6 +5435,7 @@
         <value xml:lang="en">Product Export</value>
         <value xml:lang="es">Exportación de producto</value>
         <value xml:lang="fr">Exportation d'article</value>
+        <value xml:lang="it">Esposta prodotto</value>
         <value xml:lang="ru">Экспорт продукта</value>
         <value xml:lang="th">การส่งออกสินค้า</value>
     </property>
@@ -5571,6 +5586,7 @@
         <value xml:lang="en">Add Items From Inventory</value>
         <value xml:lang="es">Añadir ítems del inventario</value>
         <value xml:lang="fr">Ajouter un article depuis le stock</value>
+        <value xml:lang="it">Aggiungi righe da inventario</value>
     </property>
     <property key="ProductAbbrev">
         <value xml:lang="de">Abkürzung</value>
@@ -7201,6 +7217,7 @@
         <value xml:lang="en">ProductCarrierId</value>
         <value xml:lang="es">Código de transportista</value>
         <value xml:lang="fr">Réf. de transporteur</value>
+        <value xml:lang="it">Corriere</value>
         <value xml:lang="ru">Код перевозчика</value>
         <value xml:lang="th">รหัสผู้ส่งสินค้า</value>
     </property>
@@ -8521,6 +8538,7 @@
         <value xml:lang="en">New Web Site</value>
         <value xml:lang="es">Nuevo sitio web</value>
         <value xml:lang="fr">Nouveau site web</value>
+        <value xml:lang="it">Nuovo sito web</value>
     </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Sie könnten auch diese Interessant finden:</value>
@@ -8681,6 +8699,7 @@
     <property key="ProductDefaultShipmentBoxTypeId">
         <value xml:lang="en">Default Shipment Box Type Id</value>
         <value xml:lang="fr">Réf. de carton d'emballage par défaut</value>
+        <value xml:lang="it">Default tipo scatola di spedizione</value>
     </property>    
     <property key="ProductDefaultsTo">
         <value xml:lang="de">Standartwert</value>
@@ -9065,16 +9084,18 @@
     </property>
     <property key="ProductEditProductMaints">
         <value xml:lang="de">Produkt Instandhaltung bearbeiten</value>
-        <value xml:lang="en">EditProductMaints</value>
+        <value xml:lang="en">Edit Product Maints</value>
         <value xml:lang="es">Editar Mantos. de producto</value>
         <value xml:lang="fr">Entretien</value>
+        <value xml:lang="it">Aggiorna manutenzioni prodotto</value>
         <value xml:lang="th">แก้ไขการบำรุงสินค้า</value>
     </property>
     <property key="ProductEditProductMeters">
         <value xml:lang="de">Messungen</value>
-        <value xml:lang="en">Meters</value>
+        <value xml:lang="en">Edit Product Meters</value>
         <value xml:lang="es">Medidores</value>
         <value xml:lang="fr">Mètres</value>
+        <value xml:lang="it">Aggiorna contatori prodotto</value>
         <value xml:lang="th">Meters</value>
     </property>
     <property key="ProductEditProductWithProductId">
@@ -9201,6 +9222,7 @@
         <value xml:lang="en">Shipment ${shipmentId} is not a Purchase Shipment</value>
         <value xml:lang="es">El envío ${shipmentId} no es un envío de compra</value>
         <value xml:lang="fr">L'expédition ${shipmentId} n'est pas une expédition d'achat</value>
+        <value xml:lang="it">Spedizione ${shipmentId} non è una spedizione di acquisto</value>
         <value xml:lang="ru">Поставка ${shipmentId} это не закупочная поставка</value>
         <value xml:lang="th">การขนส่ง ${shipmentId} ไม่มีการขนส่งการสั่งซื้อ</value>
     </property>
@@ -9554,6 +9576,7 @@
         <value xml:lang="en">Facility Children for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Sucesores de almacén para ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="fr">Lieu de stockage descendant pour ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="it">Stabilimento figlio per ${facility.facilityName} [${facility.facilityId}]</value>
     </property>
     <property key="ProductFacilityContainer">
         <value xml:lang="de">Einrichtung / Container</value>
@@ -9780,6 +9803,7 @@
         <value xml:lang="en">Security Error : to run ${resourceDescription} you must have the CATALOG_${mainAction} or CATALOG_ADMIN or FACILITY_${mainAction} or FACILITY_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar ${resourceDescription} debe tener alguno de los permisos CATALOG_${mainAction} - CATALOG_ADMIN - FACILITY_${mainAction} - FACILITY_ADMIN </value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation CATALOG_${mainAction} ou le CATALOG_ADMIN ou FACILITY_${mainAction} ou FACILITY_ADMIN</value>
+        <value xml:lang="it">Errore sicurezza : per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_${mainAction} o CATALOG_ADMIN o FACILITY_${mainAction} o FACILITY_ADMIN</value>
         <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด ! ในการดำเนินการ ${resourceDescription} คุณต้องมี CATALOG_${mainAction} หรือ CATALOG_ADMIN หรือ FACILITY_${mainAction} หนือ FACILITY_ADMIN การอนุญาต</value>
     </property>
     <property key="ProductFacilityRoleMemberMaintenance">
@@ -10027,6 +10051,7 @@
         <value xml:lang="en">Feature Interaction</value>
         <value xml:lang="es">Interacción de características</value>
         <value xml:lang="fr">Interaction entre caractéristiques</value>
+        <value xml:lang="it">Caratteristica interattiva</value>
     </property>
     <property key="ProductFeatures">
         <value xml:lang="ar">خواص المنتوج</value>
@@ -10226,6 +10251,7 @@
     <property key="ProductFlatTitle">
         <value xml:lang="en">Flat charges</value>
         <value xml:lang="fr">Frais fixes</value>
+        <value xml:lang="it">Ricarichi fissi</value>
     </property>
     <property key="ProductFromGeo">
         <value xml:lang="de">Von Geo</value>
@@ -10511,6 +10537,7 @@
         <value xml:lang="de">Gefahrgut</value>
         <value xml:lang="en">HZ</value>
         <value xml:lang="fr">Prod. Dang.</value>
+        <value xml:lang="it">Pr.Dan.</value>
     </property>
     <property key="ProductHandlingInstructions">
         <value xml:lang="de">Bedienungsanleitung</value>
@@ -11120,6 +11147,7 @@
         <value xml:lang="de">Nicht verfügbar</value>
         <value xml:lang="en">Not Avail</value>
         <value xml:lang="es">No disponible</value>
+        <value xml:lang="it">Non disponibile</value>
         <value xml:lang="ru">Не дост</value>
         <value xml:lang="th">ไม่นำมาใช้</value>
     </property>
@@ -11227,6 +11255,7 @@
         <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
         <value xml:lang="es">Emitir ítem(s) de inventario para el envío</value>
         <value xml:lang="fr">Prélevé un(des) article(s) du stock pour l'(es) expédier</value>
+        <value xml:lang="it">Riga(e) inventario prelevate per la spedizione</value>
     </property>
     <property key="ProductIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
@@ -11794,6 +11823,7 @@
         <value xml:lang="en">Lookup Inventory(s)</value>
         <value xml:lang="es">Consultar inventario</value>
         <value xml:lang="fr">Consulter le stock</value>
+        <value xml:lang="it">Ricerca inventario(i)</value>
     </property>
     <property key="ProductLookupShipment">
         <value xml:lang="de">Lieferung(en) suchen</value>
@@ -11877,6 +11907,7 @@
         <value xml:lang="en">Maintenance FacilityGroup Party Role</value>
         <value xml:lang="es">Rol del grupo de mantenimiento de almacén</value>
         <value xml:lang="fr">Rôle équipement service d'entretien</value>
+        <value xml:lang="it">Manutenzione ruolo soggetto gruppo stabilimento</value>
         <value xml:lang="th">ประเภทกลุ่มคลังสินค้าการบำรุงรักษา</value>
     </property>
     <property key="ProductMakeTop">
@@ -12524,6 +12555,7 @@
         <value xml:lang="de">Neue Merkmalsinteraktion</value>
         <value xml:lang="en">New Feature InterAction</value>
         <value xml:lang="fr">Nouvelle interaction entre caractéristiques</value>
+        <value xml:lang="it">Nuova caratteristica interattiva</value>
     </property>
     <property key="ProductNewGroup">
         <value xml:lang="de">Neue Gruppe</value>
@@ -12739,6 +12771,7 @@
         <value xml:lang="en">New Method</value>
         <value xml:lang="es">Nuevo método</value>
         <value xml:lang="fr">Nouvelle méthode</value>
+        <value xml:lang="it">Nuovo metodo</value>
     </property>
     <property key="ProductNewVirtualProduct">
         <value xml:lang="de">Neues virtuelles Produkt</value>
@@ -13428,7 +13461,7 @@
         <value xml:lang="en"><p>NOTE: The Require Email Or Party flag is set to N (No), so any email addresses or parties listed here will be ignored.</p><p>To require an email address or party from these lists, set the flag to Y (Yes).</p></value>
         <value xml:lang="es">NOTA: El flag "Requerir E-mail" está configurado como N (No). Cualquier dirección de e-mail o participantes listados aquí serán ignorados. Para usar alguna de estas direcciones, debe configurar el flag a Y(Si)</value>
         <value xml:lang="fr">NOTE: Pour rendre obligatoire et prendre en compte le champ acteur ou courriel, cocher (O), sinon mettre (N)</value>
-        <value xml:lang="it"><p>NOTA: L'Email richiesta O se il flag Soggetto è impostato a N (No), così qualsiasi indirizzo email o Soggetti listati qui saranno ignorati.</p><p>Per richiedere un'indirizzo email o il Soggetto da queste liste, imposta il flag a Y (Si).</p></value>
+        <value xml:lang="it">NOTA: L'email richiesta o se il flag soggetto è impostato a N (No), così qualsiasi indirizzo email o soggetti listati qui saranno ignorati. Per richiedere un'indirizzo email o il soggetto da queste liste, imposta il flag a Y (Si).</value>
         <value xml:lang="ro">NOTA: Email-ul cerut O daca flag Subiect este setat N (Nu), asa ca orice adresa email sau Subiectii listati aici vor fi ignorati. Pentru a cere o adresa email sau Subiectul din aceste liste, seteaza flag Y (Da).</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: Флаги Требуется Email или Участник установлены в Н (Нет), поэтому все перечисленные адреса и участники будут проигнорированы. Если требуются адреса эл.почты или участники из этих списков, установите флаг в Д (Да).</value>
         <value xml:lang="th"><p>NOTE: หมายเหตุ ต้องการอีเมลหรือเครื่องหมายกลุ่มผู้ใช้ในการตั้งค่าเป็น N (ไม่), ดังนั้นทุก ๆ ที่อยู่อีเมลหรือกลุ่มผู้ใช้แสดงที่นี่จะถูกมองข้าม.</p><p>ต้องการที่อยู่อีเมลหรือกลุ่มผู้ใช้จากรายการนี้, ตั้งค่าเครื่องหทายเป็น Y (ใช่).</p></value>
@@ -13470,6 +13503,7 @@
     <property key="ProductNumber">
         <value xml:lang="en">number</value>
         <value xml:lang="fr">nombre</value>
+        <value xml:lang="it">numero</value>
     </property>
     <property key="ProductNumberQuantity">
         <value xml:lang="de">Nummer / Menge</value>
@@ -13897,6 +13931,7 @@
     <property key="ProductOversizeNumber">
         <value xml:lang="en">number of product(s) in oversize</value>
         <value xml:lang="fr">nombre d'article(s) au-delà des limites</value>
+        <value xml:lang="it">numero di prodotto(i) in sovraccarico</value>
     </property>
     <property key="ProductOversizeSurcharge">
         <value xml:lang="de">Zuschlag Übergrösse</value>
@@ -13912,6 +13947,7 @@
     <property key="ProductOversizeTitle">
         <value xml:lang="en">Oversize surcharge</value>
         <value xml:lang="fr">Supplément pour dépassement de taille</value>
+        <value xml:lang="it">Ricarico sovraccarico</value>
     </property>
     <property key="ProductOversizeUnit">
         <value xml:lang="de">Einheit Übergrösse</value>
@@ -14517,6 +14553,7 @@
         <value xml:lang="en">PriceBreakId</value>
         <value xml:lang="es">Código Referencia de separación de precio</value>
         <value xml:lang="fr">Réf. de rupture par prix</value>
+        <value xml:lang="it">Intervallo prezzo</value>
         <value xml:lang="ru">Ценовый порог</value>
         <value xml:lang="th">รหัสราคาที่เปิดเผย</value>
     </property>
@@ -14556,6 +14593,7 @@
     <property key="ProductPriceTitle1">
         <value xml:lang="en">Price charge</value>
         <value xml:lang="fr">Frais lié au prix</value>
+        <value xml:lang="it">Prezzo ricarico</value>
     </property>
     <property key="ProductPriceType">
         <value xml:lang="de">Preistyp</value>
@@ -14628,6 +14666,7 @@
         <value xml:lang="en">Primary Return ID</value>
         <value xml:lang="es">Código principal devolución</value>
         <value xml:lang="fr">Réf. de retour principale</value>
+        <value xml:lang="it">Reso primario</value>
     </property>
     <property key="ProductPrimaryShipGroupSeqId">
         <value xml:lang="de">Primäre Liefergruppe Seq. ID</value>
@@ -14815,6 +14854,7 @@
     <property key="ProductFeatureTitle">
         <value xml:lang="en">Features group charges</value>
         <value xml:lang="fr">Frais par groupe de caractéristiques</value>
+        <value xml:lang="it">Gruppo caratteristiche ricarichi</value>
     </property>
     <property key="ProductProductHeight">
         <value xml:lang="de">Produkt Höhe</value>
@@ -15580,6 +15620,7 @@
         <value xml:lang="en">Qty Offset</value>
         <value xml:lang="es">Stock actual menor que mínimo</value>
         <value xml:lang="fr">Quantité existante moins le stock minima</value>
+        <value xml:lang="it">Intervallo quantità</value>
         <value xml:lang="th">จำนวนที่ชดเชย</value>
     </property>
     <property key="ProductQtyOffsetATP">
@@ -15609,6 +15650,7 @@
         <value xml:lang="en">QtyOffsetBelow</value>
         <value xml:lang="es">Stock actual menos mínimo está por debajo de</value>
         <value xml:lang="fr">Quantité existante moins le stock mini sous la quantité de</value>
+        <value xml:lang="it">QOH al di sotto dello stock minimo</value>
         <value xml:lang="th">ต่ำกว่าจำนวนที่ชดเชย</value>
     </property>
     <property key="ProductQtyOffsetQOH">
@@ -15682,6 +15724,7 @@
         <value xml:lang="en">Quantity Break Id</value>
         <value xml:lang="es">Código separación de cantidad</value>
         <value xml:lang="fr">Réf. rupture en quantité</value>
+        <value xml:lang="it">Intervallo quantità</value>
         <value xml:lang="ru">Количественный порог</value>
         <value xml:lang="th">รหัสจำนวนที่เปิดเผย</value>
     </property>
@@ -15690,7 +15733,7 @@
         <value xml:lang="en">Quantity Breaks</value>
         <value xml:lang="es">Separaciones de cantidad</value>
         <value xml:lang="fr">Ruptures en quantité</value>
-        <value xml:lang="it">Intervalli Quantità</value>
+        <value xml:lang="it">Intervalli quantità</value>
         <value xml:lang="ru">Количественные пороги</value>
         <value xml:lang="th">จำนวนที่เปิดเผย</value>
     </property>
@@ -15760,6 +15803,7 @@
     <property key="ProductQuantityTitle1">
         <value xml:lang="en">Quantity charge</value>
         <value xml:lang="fr">Frais lié à la quantité</value>
+        <value xml:lang="it">Quantità ricaricata</value>
     </property>
     <property key="ProductQuantityToBin">
         <value xml:lang="de">Menge zu Behälter</value>
@@ -16499,6 +16543,7 @@
         <value xml:lang="de">Bestand von Einrichtung reservieren</value>
         <value xml:lang="en">Reserve inventory from facility</value>
         <value xml:lang="fr">Réserver depuis le stock d'un lieu de stockage</value>
+        <value xml:lang="it">Inventario riservato dallo stabilimento</value>
     </property>
     <property key="ProductReserveInventory">
         <value xml:lang="de">Bestand reservieren</value>
@@ -16761,18 +16806,21 @@
         <value xml:lang="en">Search feature category</value>
         <value xml:lang="es">Buscar categoría de características</value>
         <value xml:lang="fr">Rechercher la catégorie de caractéristiques</value>
+        <value xml:lang="it">Ricerca categoria caratteristica</value>
     </property>
     <property key="ProductSearchFeatureInterAction">
         <value xml:lang="de">Suche Merkmalinteraktion</value>
         <value xml:lang="en">Search feature interAction</value>
         <value xml:lang="es">Buscar interacción de características</value>
         <value xml:lang="fr">Rechercher les interaction de la caractéristique</value>
+        <value xml:lang="it">Ricerca caratteristica interattiva</value>
     </property>
     <property key="ProductSearchFeatureType">
         <value xml:lang="de">Suche Merkmaltyp</value>
         <value xml:lang="en">Search feature type</value>
         <value xml:lang="es">Buscar tipo de característica</value>
         <value xml:lang="fr">Rechercher le type de la caractéristique</value>
+        <value xml:lang="it">Ricerca tipo carattteristica</value>
     </property>
     <property key="ProductSelectableFeatures">
         <value xml:lang="de">Auswählbare Merkmale</value>
@@ -16800,6 +16848,7 @@
         <value xml:lang="en">ST</value>
         <value xml:lang="es">ST</value>
         <value xml:lang="fr">Dates</value>
+        <value xml:lang="it">ST</value>
     </property>
     <property key="ProductSaleRule">
         <value xml:lang="de">Verkaufsregel</value>
@@ -17440,6 +17489,7 @@
         <value xml:lang="en">Cost Estimate Id</value>
         <value xml:lang="es">Código estimación de coste</value>
         <value xml:lang="fr">Réf. estimation du coût</value>
+        <value xml:lang="it">Costo stimato</value>
         <value xml:lang="ru">Код сметы стоим-ти доставки</value>
         <value xml:lang="th">รหัสประมาณค่าใช้จ่าย</value>
     </property>
@@ -17622,6 +17672,7 @@
         <value xml:lang="en">Shipment Qty</value>
         <value xml:lang="es">Cant. envío</value>
         <value xml:lang="fr">Qté expédiée</value>
+        <value xml:lang="it">Qnt. spedita</value>
     </property>        
     <property key="ProductShipmentQuickComplete">
         <value xml:lang="de">Rasches Abschliessen Direktlieferung</value>
@@ -17716,6 +17767,7 @@
         <value xml:lang="en">kg</value>
         <value xml:lang="es">kg</value>
         <value xml:lang="fr">kg</value>
+        <value xml:lang="it">kg</value>
         <value xml:lang="ru">кг</value>
         <value xml:lang="th">กิโลกรัม</value>
     </property>
@@ -17724,6 +17776,7 @@
         <value xml:lang="en">lbs</value>
         <value xml:lang="es">libras</value>
         <value xml:lang="fr">livres</value>
+        <value xml:lang="it">libre</value>
         <value xml:lang="ru">фнт</value>
         <value xml:lang="th">lbs</value>
     </property>
@@ -18158,6 +18211,7 @@
     <property key="ProductStoreFinAccountSettings">
         <value xml:lang="en">Product Store Financial Account Settings</value>
         <value xml:lang="fr">Paramétrage des comptes financiers du centre de profit</value>
+        <value xml:lang="it">Impostazioni conto finanziario negozio</value>
         <value xml:lang="th">ตั้งค่าบัญชีคลังสินค้า</value>
     </property>
     <property key="ProductStoreId">
@@ -18253,6 +18307,7 @@
         <value xml:lang="en">Product Store Vendor Payments</value>
         <value xml:lang="es">Pagos a proveedores de tienda</value>
         <value xml:lang="fr">Paiements du vendeur du centre de profit</value>
+        <value xml:lang="it">Pagamenti fornitore negozio</value>
         <value xml:lang="th">การชำระเงินผู้จำหน่ายคลังสินค้า</value>
     </property>
     <property key="ProductStoreVendorShipments">
@@ -18260,6 +18315,7 @@
         <value xml:lang="en">Product Store Vendor Shipments</value>
         <value xml:lang="es">Envíos de proveedores de tienda</value>
         <value xml:lang="fr">Expéditions du vendeur du centre de profit</value>
+        <value xml:lang="it">Spedizioni fornitore negozio</value>
         <value xml:lang="th">การขนส่งผู้จำหน่ายคลังสินค้า</value>
     </property>
     <property key="ProductStores">
@@ -18537,6 +18593,7 @@
         <value xml:lang="en">TD</value>
         <value xml:lang="es">TD</value>
         <value xml:lang="fr">Assoc.</value>
+        <value xml:lang="it">TD</value>
     </property>
     <property key="ProductTargetProductCategory">
         <value xml:lang="de">Ziel Produktkategorie</value>
@@ -18875,6 +18932,7 @@
         <value xml:lang="en">Total Cost Price</value>
         <value xml:lang="es">Precio de coste total</value>
         <value xml:lang="fr">Total prix d'achat</value>
+        <value xml:lang="it">Totale prezzo di costo</value>
         <value xml:lang="th">ผลรวมราคาค่าใช้จ่าย</value>
     </property>
     <property key="ProductTotalFeaturesApplied">
@@ -18893,6 +18951,7 @@
         <value xml:lang="en">Total List Price</value>
         <value xml:lang="es">Precio de lista total</value>
         <value xml:lang="fr">Total tarif</value>
+        <value xml:lang="it">Totale prezzo di listino</value>
         <value xml:lang="th">ผลรวมรายการราคา</value>
     </property>
     <property key="ProductTotalRetailPrice">
@@ -18900,6 +18959,7 @@
         <value xml:lang="en">Total Retail Price</value>
         <value xml:lang="es">Precio de consumidor total</value>
         <value xml:lang="fr">Total prix au détail</value>
+        <value xml:lang="it">Totale prezzo al dettaglio</value>
         <value xml:lang="th">ผลรวมราคาขายปลีก</value>
     </property>
     <property key="ProductTrack">
@@ -19506,6 +19566,7 @@
     <property key="ProductVirtualFieldGroup">
         <value xml:lang="en">Virtual Product</value>
         <value xml:lang="fr">Article virtuel</value>
+        <value xml:lang="it">Prodotto virtuale</value>
     </property>
     <property key="ProductVirtualProduct">
         <value xml:lang="de">Ist ein virtuelles Produkt?</value>
@@ -19522,6 +19583,7 @@
         <value xml:lang="en">Virtual Variant Method</value>
         <value xml:lang="es">Método de variante virtual</value>
         <value xml:lang="fr">Méthode utilisée pour les variantes</value>
+        <value xml:lang="it">Metodo virtuale variante</value>
     </property>
     <property key="ProductVoidUpsShipment">
         <value xml:lang="en">Void UPS Shipment</value>
@@ -19633,12 +19695,14 @@
         <value xml:lang="en">WeightBreakId</value>
         <value xml:lang="es">Código separación peso</value>
         <value xml:lang="fr">Réf. de rupture par poids</value>
+        <value xml:lang="it">Intervallo peso</value>
         <value xml:lang="ru">Весовой порог</value>
         <value xml:lang="th">รหัสน้ำหนักที่เปิดเผย</value>
     </property>
     <property key="ProductWeightTitle1">
         <value xml:lang="en">Weight charge</value>
         <value xml:lang="fr">Frais lié au poids</value>
+        <value xml:lang="it">Peso ricarico</value>
     </property>
     <property key="ProductWeightUnit">
         <value xml:lang="de">Gewicht Einheit</value>
@@ -19695,6 +19759,7 @@
     <property key="ProductWordingAndComment">
         <value xml:lang="en">Wording And Comment</value>
         <value xml:lang="fr">Libellés et commentaire</value>
+        <value xml:lang="it">Parole e commento</value>
     </property>
     <property key="ProductWorkEffort">
         <value xml:lang="de">Arbeitseinsatz</value>
