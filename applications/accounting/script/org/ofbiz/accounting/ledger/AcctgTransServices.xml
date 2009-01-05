@@ -402,18 +402,18 @@ under the License.
 
                     <!-- update GlAccountHistory's debit and credit totals -->
                     <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                        <calculate field="postedDebits" map-name="glAccountHistory" type="BigDecimal">
+                        <calculate field="glAccountHistory.postedDebits" type="BigDecimal">
                             <calcop operator="add">
-                                <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
-                                <calcop operator="get" field="postedDebits" map-name="glAccountHistory"/>
+                                <calcop operator="get" field="acctgTransEntry.amount"/>
+                                <calcop operator="get" field="glAccountHistory.postedDebits"/>
                             </calcop> 
                         </calculate>
                     <else>
                         <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                            <calculate field="postedCredits" map-name="glAccountHistory" type="BigDecimal" >                                    
+                            <calculate field="glAccountHistory.postedCredits" type="BigDecimal">                                    
                                 <calcop operator="add">
-                                    <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
-                                    <calcop operator="get" field="postedCredits" map-name="glAccountHistory"/>
+                                    <calcop operator="get" field="acctgTransEntry.amount"/>
+                                    <calcop operator="get" field="glAccountHistory.postedCredits"/>
                                 </calcop> 
                             </calculate>
                             <else>
