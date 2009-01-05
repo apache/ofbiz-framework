@@ -3350,7 +3350,7 @@
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="it">Pagina principale</value>
         <value xml:lang="nl">HoofdMenu</value>
         <value xml:lang="pt">Início</value>
         <value xml:lang="pt_PT">Entrada</value>
@@ -7961,6 +7961,38 @@
         <value xml:lang="th">เพิ่มประเภทแหล่งข้อมูลใหม่</value>
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">增加新数据源类型</value>
+    </property>
+    <property key="PageTitleLogin">
+        <value xml:lang="cs">přihlášení</value>
+        <value xml:lang="de">Anmeldung</value>
+        <value xml:lang="en">Login</value>
+        <value xml:lang="es">Entrada</value>
+        <value xml:lang="fr">Connexion</value>
+        <value xml:lang="it">Login</value>
+        <value xml:lang="ja">ログイン</value>
+        <value xml:lang="nl">Aanmelden</value>
+        <value xml:lang="pt_BR">Entrada</value>
+        <value xml:lang="pt_PT">Início</value>
+        <value xml:lang="ro">Login</value>
+        <value xml:lang="ru">Логин</value>
+        <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="zh">登录</value>
+    </property>
+    <property key="PageTitleMain">
+        <value xml:lang="cs">úvodní strana</value>
+        <value xml:lang="de">Startseite</value>
+        <value xml:lang="en">Main Page</value>
+        <value xml:lang="es">Página Principal</value>
+        <value xml:lang="fr">Page d'accueil</value>
+        <value xml:lang="hi_IN">मुख्य पृष्ठ</value>
+        <value xml:lang="it">Pagina principale</value>
+        <value xml:lang="ja">メインページ</value>
+        <value xml:lang="nl">Hoofdpagina</value>
+        <value xml:lang="pt_PT">Página de Entrada</value>
+        <value xml:lang="ro">Pagina Principala</value>
+        <value xml:lang="ru">Основная страница</value>
+        <value xml:lang="th">หน้าหลัก</value>
+        <value xml:lang="zh">首页</value>
     </property>
     <property key="PageTitleViewBlocked">
         <value xml:lang="en">View Blocked</value>

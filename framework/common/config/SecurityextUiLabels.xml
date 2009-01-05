@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="loginevents.error_accessing_password">
         <value xml:lang="de">Fehler beim Zugriff auf Passwort: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
@@ -80,14 +81,16 @@
         <value xml:lang="it">Il seguente errore è accaduto durante l'autenticazione: ${errorMessage}</value>
         <value xml:lang="nl">De volgende fout kwam voor tijdens het inloggen: ${errorMessage}</value>
         <value xml:lang="ro">A aparut urmatoarea eroare in timpul logarii: ${errorMessage}</value>
+        <value xml:lang="ru">Во время регистрации в системе произошла следующая ошибка: ${errorMessage}</value>
         <value xml:lang="th">ผิดพลาดตามสิ่งที่เกิดขึ้นระหว่างการลอกอินเข้าสู่ระบบ: ${errorMessage}</value>
+        <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
     </property>
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
         <value xml:lang="es">Un nuevo password ha sido creado y enviado. Por favor revise su e-mail</value>
         <value xml:lang="fr">Un nouveau mot de passe a été crée et envoyé. Merci de vérifier votre courriel.</value>
-        <value xml:lang="it">Una nuova password è stata creata ed inviata. Controlla la tua Email.</value>
+        <value xml:lang="it">Una nuova password è stata creata ed inviata. Controlla le email.</value>
         <value xml:lang="nl">A new password has been created and sent to you. Please check your Email.</value>
         <value xml:lang="ro">Ti-a fost creata si trimisa  o noua parola. Te rugam sa controlezi posta ta Email.</value>
         <value xml:lang="ru">Новый пароль создан и выслан вам. Пожалуйста, проверьте свою эл. почту.</value>
@@ -99,7 +102,7 @@
         <value xml:lang="en">Your password has been sent to you. Please check your Email.</value>
         <value xml:lang="es">Su password ha sido enviado. Revise su e-mail</value>
         <value xml:lang="fr">Votre nouveau mot de passe vous a été envoyé. Merci de vérifier votre courriel.</value>
-        <value xml:lang="it">La tua password ti è stata inviata. Controlla la tua Email.</value>
+        <value xml:lang="it">La tua password ti è stata inviata. Controlla le email.</value>
         <value xml:lang="nl">Your password has been sent to you. Please check your Email.</value>
         <value xml:lang="ro">Parola ta a fost trimisa. Te rugam s controlezi posta Email.</value>
         <value xml:lang="ru">Ваш пароль был выслан в ваш адрес. Пожалуйста, проверьте свою эл. почту.</value>
@@ -123,7 +126,7 @@
         <value xml:lang="en">No Primary Email Address has been set, please contact customer service.</value>
         <value xml:lang="es">No se ha actualizado dirección e-mail.</value>
         <value xml:lang="fr">Pas d'adresse courriel créée, merci de contacter votre service commercial.</value>
-        <value xml:lang="it">Indirizzo Email primario non impostato, prego contattare il servizio clienti.</value>
+        <value xml:lang="it">Indirizzo email primario non impostato, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">No Primary Email Address has been set, please contact customer service.</value>
         <value xml:lang="ro">Nici-o Adresa Primara Email a fost inregistrata, Va rugam contactati serviciul clienti.</value>
         <value xml:lang="ru">Не установлен основной адрес эл. почты, пожалуйста связывайтесь со службой поддержки.</value>
@@ -147,10 +150,12 @@
         <value xml:lang="en">password was empty reenter</value>
         <value xml:lang="es">El password no puede ser vacío</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
-        <value xml:lang="it">La password è vuota, prego inserirla.</value>
+        <value xml:lang="it">La password è vuota, prego inserirla dinuovo.</value>
         <value xml:lang="nl">Het wachtwoord is leeg, toets aub opnieuw in.</value>
         <value xml:lang="ro">Parola este goala, va rugam re-introduceti.</value>
+        <value xml:lang="ru">Пароль пустой, введите повторно.</value>
         <value xml:lang="th">กลับเข้าไปสู่รหัสผ่านที่ว่างเปล่า</value>
+        <value xml:lang="zh">密码是空的，请重新输入。</value>
     </property>
     <property key="loginevents.problems_with_configuration_contact_customer_service">
         <value xml:lang="de">Fehler bei der Konfiguration; bitte wenden Sie sich an den Kundenservice.</value>
@@ -169,9 +174,10 @@
         <value xml:lang="en">unable to login this application</value>
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
         <value xml:lang="fr"><b>Impossible de se connecter à cette application.</b></value>
-        <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficenti).</value>
+        <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficienti).</value>
         <value xml:lang="nl">Login for this application couldn't be completed (required permissions missing).</value>
         <value xml:lang="ro">Autentificarea acestei aplicatii nu a fost completata (drepturi insuficiente).</value>
+        <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
         <value xml:lang="th">ไม่สามารถลอกอินเข้าสู่โปรแกรมประยุกต์นี้</value>
     </property>
     <property key="loginevents.user_already_logged_in">
@@ -191,7 +197,7 @@
         <value xml:lang="en">A user with the Username "${userLoginId}" was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, taper le de nouveau SVP.</value>
-        <value xml:lang="it">L'utente con Nome Utente "${userLoginId}" non è stato trovato, riprovare prego.</value>
+        <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo dinuovo.</value>
         <value xml:lang="nl">A user with the username "${userLoginId}" was not found, please re-enter.</value>
         <value xml:lang="ro">Utilizatorul cu nume "${userLoginId}" nu a fost gasit, va rog re-introduceti.</value>
         <value xml:lang="ru">Пользователь с именем "${userLoginId}" не найден, пожалуйста повторите ввод.</value>
@@ -203,7 +209,7 @@
         <value xml:lang="en">The Username was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est inconnu, taper le de nouveau SVP.</value>
-        <value xml:lang="it">Il Nome Utente non è stato trovato, riprovare prego.</value>
+        <value xml:lang="it">L'utente non è stato trovato, prego inserirlo dinuovo.</value>
         <value xml:lang="nl">De gebruikersnaam is niet gevonden,toets aub opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator nu a fost gasit, va rugam reintroduceti.</value>
         <value xml:lang="ru">Это имя пользователя не найдено, введите повторно.</value>
@@ -215,9 +221,10 @@
         <value xml:lang="en">username was empty reenter</value>
         <value xml:lang="es">El usuario no puede ser vacío, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, taper le de nouveau SVP.</value>
-        <value xml:lang="it">Il Nome Utente è vuoto, riprovare prego.</value>
+        <value xml:lang="it">L'utente è vuoto, prego inserirlo dinuovo.</value>
         <value xml:lang="nl">De gebruikersnaam is leeg, toets aub opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator este gol, va rugam reintroduceti.</value>
+        <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ว่าง, กรุณากรอกข้อมูลอีกครั้ง</value>
     </property>
     <property key="loginmapprocs.new_password_missing">

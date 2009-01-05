@@ -5732,6 +5732,7 @@
         <value xml:lang="de">Angenommen</value>
         <value xml:lang="en">Accepted</value>
         <value xml:lang="es">Aceptado</value>
+        <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettata</value>
         <value xml:lang="pt">Aceite</value>
         <value xml:lang="ro">Acceptata</value>
@@ -5743,6 +5744,7 @@
         <value xml:lang="de">Wartend auf Annahme</value>
         <value xml:lang="en">Pending Acceptance</value>
         <value xml:lang="es">Pendiente de aceptar</value>
+        <value xml:lang="fr">Acceptation en attente</value>
         <value xml:lang="it">Accettazione Sospesa</value>
         <value xml:lang="pt">Aceitação Pendente</value>
         <value xml:lang="ro">Aceptare Suspendata</value>
@@ -5754,6 +5756,7 @@
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
+        <value xml:lang="fr">Refué</value>
         <value xml:lang="it">Rifiutata</value>
         <value xml:lang="pt">Rejeitada</value>
         <value xml:lang="ro">Refuzata</value>
@@ -7603,6 +7606,7 @@
         <value xml:lang="de">Kontaktliste Akteur</value>
         <value xml:lang="en">Contact List Party</value>
         <value xml:lang="es">Lista de contactos Participante</value>
+        <value xml:lang="fr">Acteur de liste de contact</value>
         <value xml:lang="it">Liste di Contatto Soggetto</value>
         <value xml:lang="pt">Lista de Contactos de Participante</value>
         <value xml:lang="ro">Lista de Contact Subiecti</value>
