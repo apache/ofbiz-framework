@@ -97,12 +97,6 @@
         <value xml:lang="it">Tipo Budget</value>
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
     </property>
-    <property key="FormFieldTitle_customTimePeriodId">
-        <value xml:lang="en">Custom Time Period Id</value>
-        <value xml:lang="fr">Réf. de période de temps adaptée</value>
-        <value xml:lang="it">Periodo di Tempo Personalizzato</value>
-        <value xml:lang="th">รหัสช่วงเวลาที่ทำตามคำสั่ง</value>
-    </property>
     <property key="FormFieldTitle_dateModified">
         <value xml:lang="en">Date Modified</value>
         <value xml:lang="fr">Date modifiée</value>
@@ -127,12 +121,6 @@
         <value xml:lang="fr">Réf. de la position de l'employé contrôlé par</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">โดยการจัดการรหัสตำแหน่งพนักงาน</value>
-    </property>
-    <property key="FormFieldTitle_emplPositionTypeId">
-        <value xml:lang="en">Empl Position Type Id</value>
-        <value xml:lang="fr">Réf. du type de position</value>
-        <value xml:lang="it">Tipo Posizione Impiegato</value>
-        <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employeePartyId">
         <value xml:lang="en">Employee Party Id</value>
@@ -253,12 +241,6 @@
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
     </property>
-    <property key="FormFieldTitle_periodTypeId">
-        <value xml:lang="en">Period Type Id</value>
-        <value xml:lang="fr">Réf. de type de période</value>
-        <value xml:lang="it">Codice Tipo Periodo</value>
-        <value xml:lang="th">รหัสประเภทช่วงเวลา</value>
-    </property>
     <property key="FormFieldTitle_primaryFlag">
         <value xml:lang="en">Primary Flag</value>
         <value xml:lang="fr">Balise primaire</value>
@@ -279,13 +261,6 @@
         <value xml:lang="en">Party Qual Type Id</value>
         <value xml:lang="fr">Réf. de type de qualification</value>
     </property>        
-    <property key="FormFieldTitle_rating">
-        <value xml:lang="de">Beurteilung</value>
-        <value xml:lang="en">Rating</value>
-        <value xml:lang="fr">Cote</value>
-        <value xml:lang="it">Tasso</value>
-        <value xml:lang="th">การประเมิน</value>
-    </property>
     <property key="FormFieldTitle_referredByPartyId">
         <value xml:lang="en">Referred By Party Id</value>
         <value xml:lang="fr">Envoyé par l'acteur</value>
@@ -359,10 +334,6 @@
         <value xml:lang="fr">Réf. de type de fin de contrat</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
-    </property>
-    <property key="FormFieldTitle_title">
-        <value xml:lang="en">Title</value>
-        <value xml:lang="fr">Titre</value>
     </property>
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>

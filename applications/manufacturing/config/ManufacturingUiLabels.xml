@@ -86,16 +86,6 @@
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ประมาณเวลา</value>
     </property>
-    <property key="FormFieldTitle_estimatedStartDate">
-        <value xml:lang="de">Geschätztes Start-Datum</value>
-        <value xml:lang="en">Estimated Start Date</value>
-        <value xml:lang="es">Fecha de comienzo estimada</value>
-        <value xml:lang="fr">Date de début estimée</value>
-        <value xml:lang="it">Data Inizio Stimata</value>
-        <value xml:lang="ro">Data Initiere Stimata</value>
-        <value xml:lang="th">ประมาณวันเริ่มต้น</value>
-        <value xml:lang="zh">预计开始日期</value>
-    </property>
     <property key="FormFieldTitle_failIfItemsAreNotAvailable">
         <value xml:lang="de">Abbruch falls Komponenten nicht vorhanden</value>
         <value xml:lang="en">Fail If Items Are Not Available</value>
@@ -103,16 +93,6 @@
         <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
         <value xml:lang="it">Fallisce se i Prodotti Non Sono Disponibili</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
-    </property>
-    <property key="FormFieldTitle_fixedAssetId">
-        <value xml:lang="de">Anlagen-Nr.</value>
-        <value xml:lang="en">Fixed Asset Id</value>
-        <value xml:lang="es">Código de recurso</value>
-        <value xml:lang="fr">Réf. de machine</value>
-        <value xml:lang="it">Codice Cespite</value>
-        <value xml:lang="ro">Cod Mijloc Fix</value>
-        <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产标识</value>
     </property>
     <property key="FormFieldTitle_fixedCost">
         <value xml:lang="de">Fixkosten</value>
@@ -267,16 +247,6 @@
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
-    </property>
-    <property key="FormFieldTitle_quantityToProduce">
-        <value xml:lang="de">Zu produzierende Menge</value>
-        <value xml:lang="en">Quantity To Produce</value>
-        <value xml:lang="es">Cantidad a fabricar</value>
-        <value xml:lang="fr">Quantité à produire</value>
-        <value xml:lang="it">Quantità Da Produrre</value>
-        <value xml:lang="ro">Cantitate de Produs</value>
-        <value xml:lang="th">จำนวนสินค้า</value>
-        <value xml:lang="zh">要生产的数量</value>
     </property>
     <property key="FormFieldTitle_requirementStartDate">
         <value xml:lang="de">Bedarfs-Start-Datum</value>
@@ -481,16 +451,6 @@
         <value xml:lang="fr">Heure de début du vendredi</value>
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
-    </property>
-    <property key="FormFieldTitle_workEffortName">
-        <value xml:lang="de">Arbeitseinsatzname</value>
-        <value xml:lang="en">Work Effort Name</value>
-        <value xml:lang="es">Nombre del esfuerzo de trabajo</value>
-        <value xml:lang="fr">Nom d'opération</value>
-        <value xml:lang="it">Nome Impegno di Lavoro</value>
-        <value xml:lang="ro">Nume Sarcina de Lucru</value>
-        <value xml:lang="th">ชื่องาน</value>
-        <value xml:lang="zh">人工服务名称</value>
     </property>
     <property key="ManufacturingATPDate">
         <value xml:lang="de">ATP-Datum</value>

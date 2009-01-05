@@ -214,42 +214,6 @@
         <value xml:lang="th">ยืนยันรหัสผ่าน</value>
         <value xml:lang="zh">当前密码验证</value>
     </property>
-    <property key="FormFieldTitle_custRequestId">
-        <value xml:lang="de">Kundenanfrage ID</value>
-        <value xml:lang="en">Cust Request Id</value>
-        <value xml:lang="es">Codigo de Petición</value>
-        <value xml:lang="fr">Demande client</value>
-        <value xml:lang="it">Codice Richiesta Soggetto</value>
-        <value xml:lang="nl">ID klantverzoek</value>
-        <value xml:lang="ro">Cod Cerere Subiect</value>
-        <value xml:lang="ru">Код запроса заказчика</value>
-        <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求标识</value>
-    </property>
-    <property key="FormFieldTitle_dataResourceId">
-        <value xml:lang="de">Datenressource ID</value>
-        <value xml:lang="en">Data Resource Id</value>
-        <value xml:lang="es">Código fuente de datos</value>
-        <value xml:lang="fr">Réf. de ressource de données</value>
-        <value xml:lang="it">Codice Risorsa Dati</value>
-        <value xml:lang="nl">ID databron</value>
-        <value xml:lang="ro">Cod Resurse Date</value>
-        <value xml:lang="ru">Код ресурса данных</value>
-        <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล  </value>
-        <value xml:lang="zh">数据资源标识</value>
-    </property>
-    <property key="FormFieldTitle_dataResourceTypeId">
-        <value xml:lang="de">Datenressource Typ ID</value>
-        <value xml:lang="en">Data Resource Type Id</value>
-        <value xml:lang="es">Código Tipo fuente de datos</value>
-        <value xml:lang="fr">Réf. type de ressource de données</value>
-        <value xml:lang="it">Tipo Risorsa Dati</value>
-        <value xml:lang="nl">Soort databron</value>
-        <value xml:lang="ro">Tip Resurse Date</value>
-        <value xml:lang="ru">Код типа ресурса данных</value>
-        <value xml:lang="th">รหัสประเภทแหล่งที่มาของข้อมูล  </value>
-        <value xml:lang="zh">数据资源类型标识</value>
-    </property>
     <property key="FormFieldTitle_defaultRate">
         <value xml:lang="de">Standard Ansatz</value>
         <value xml:lang="en">Default Rate</value>
@@ -271,30 +235,6 @@
         <value xml:lang="ru">Отключен</value>
         <value xml:lang="th">แก้ไขวันเวลาไม่ได้</value>
         <value xml:lang="zh">无效的日期时间</value>
-    </property>
-    <property key="FormFieldTitle_drMimeTypeId">
-        <value xml:lang="de">Dokumenttyp</value>
-        <value xml:lang="en">Document Type</value>
-        <value xml:lang="es">Tipo de documento</value>
-        <value xml:lang="fr">Type mime du document</value>
-        <value xml:lang="it">Tipo Documento</value>
-        <value xml:lang="nl">Documentsoort</value>
-        <value xml:lang="ro">Tip Document</value>
-        <value xml:lang="ru">Тип документа</value>
-        <value xml:lang="th">ประเภทเอกสาร</value>
-        <value xml:lang="zh">文档类型</value>
-    </property>
-    <property key="FormFieldTitle_drObjectInfo">
-        <value xml:lang="de">Dateiname</value>
-        <value xml:lang="en">File Name</value>
-        <value xml:lang="es">Nombre de fichero</value>
-        <value xml:lang="fr">Nom de fichier</value>
-        <value xml:lang="it">Nome File</value>
-        <value xml:lang="nl">Naam bestand</value>
-        <value xml:lang="ro">Nume File</value>
-        <value xml:lang="ru">Имя файла</value>
-        <value xml:lang="th">ชื่อไฟล์</value>
-        <value xml:lang="zh">文件名</value>
     </property>
     <property key="FormFieldTitle_editContent">
         <value xml:lang="de">Inhalt bearbeiten</value>
@@ -372,6 +312,17 @@
         <value xml:lang="th">ชื่อเดิม</value>
         <value xml:lang="zh">名字本地语言</value>
     </property>
+    <property key="FormFieldTitle_fromPartyId">
+        <value xml:lang="de">Von Akteur ID</value>
+        <value xml:lang="en">From Party Id</value>
+        <value xml:lang="es">Código Participante origen</value>
+        <value xml:lang="fr">Réf. d'expéditeur</value>
+        <value xml:lang="it">Dal Soggetto</value>
+        <value xml:lang="ro">De la Subiect </value>
+        <value xml:lang="ru">От участника</value>
+        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">来自会员标识</value>
+    </property>
     <property key="FormFieldTitle_gender">
         <value xml:lang="de">Geschlecht</value>
         <value xml:lang="en">Gender</value>
@@ -419,18 +370,6 @@
         <value xml:lang="ru">Рост</value>
         <value xml:lang="th">ส่วนสูง</value>
         <value xml:lang="zh">高度</value>
-    </property>
-    <property key="FormFieldTitle_imageData">
-        <value xml:lang="de">Datei</value>
-        <value xml:lang="en">File</value>
-        <value xml:lang="es">Fichero</value>
-        <value xml:lang="fr">Fichier image</value>
-        <value xml:lang="it">File</value>
-        <value xml:lang="nl">Bestand</value>
-        <value xml:lang="ro">File</value>
-        <value xml:lang="ru">Файл</value>
-        <value xml:lang="th">ไฟล์</value>
-        <value xml:lang="zh">文件</value>
     </property>
     <property key="FormFieldTitle_infoString">
         <value xml:lang="de">Info String</value>
@@ -527,7 +466,7 @@
         <value xml:lang="en">Marketing Campaign Id</value>
         <value xml:lang="es">Código de campaña de marketing</value>
         <value xml:lang="fr">Campagne marketing</value>
-        <value xml:lang="it">Campagna Marketing</value>
+        <value xml:lang="it">Campagna marketing</value>
         <value xml:lang="nl">Marketingcampagne</value>
         <value xml:lang="ro">Campania Marketing</value>
         <value xml:lang="ru">Код маркетинговой компании</value>
@@ -767,6 +706,7 @@
         <value xml:lang="zh">上级组标识</value>
     </property>
     <property key="FormFieldTitle_parentTypeId">
+        <value xml:lang="ar">تعريف نوع الوالد</value>
         <value xml:lang="de">Übergeordneter Typ ID</value>
         <value xml:lang="en">Parent Type Id</value>
         <value xml:lang="es">Código Precursos de tipo</value>
@@ -783,7 +723,7 @@
         <value xml:lang="en">Party Classification Group Id</value>
         <value xml:lang="es">Código Grupo de clasificación</value>
         <value xml:lang="fr">Groupe de classification d'acteur</value>
-        <value xml:lang="it">Codice Gruppo Classificazione Soggetto</value>
+        <value xml:lang="it">Codice gruppo classificazione soggetto</value>
         <value xml:lang="nl">Relatie klassegroep ID</value>
         <value xml:lang="ro">Cod Grup Clasificare Subiect</value>
         <value xml:lang="ru">Код группы классификации участника</value>

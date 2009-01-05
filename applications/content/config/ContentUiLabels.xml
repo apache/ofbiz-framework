@@ -1533,43 +1533,15 @@
         <value xml:lang="it">Descrizione Contenuto</value>
         <value xml:lang="th">รายละเอียด</value>
     </property>
-    <property key="FormFieldTitle_createdBy">
-        <value xml:lang="ar">استحدث من طرف</value>
-        <value xml:lang="de">Erstellt von</value>
-        <value xml:lang="en">Created By</value>
-        <value xml:lang="fr">Créer par</value>
-        <value xml:lang="it">Creato Da</value>
-        <value xml:lang="ro">Creat </value>
-        <value xml:lang="th">สร้างโดย</value>
-        <value xml:lang="zh">创建者</value>
-    </property>
-    <property key="FormFieldTitle_createdByUserLogin">
-        <value xml:lang="ar">استحدث من طرف المستخدم</value>
-        <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
-        <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
-        <value xml:lang="it">Creato Dall'Utente</value>
-        <value xml:lang="ro">Creiat De Utilizator</value>
-        <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
-        <value xml:lang="zh">登录用户新建的</value>
-    </property>
-    <property key="FormFieldTitle_createdDate">
-        <value xml:lang="ar">تاريخ الإستحداث</value>
-        <value xml:lang="de">Erstellungsdatum</value>
-        <value xml:lang="en">Created Date</value>
-        <value xml:lang="fr">Date de création</value>
-        <value xml:lang="it">Data Creazione</value>
-        <value xml:lang="ro">Data Creatie</value>
-        <value xml:lang="th">วันที่สร้าง</value>
-        <value xml:lang="zh">创建日期</value>
-    </property>
     <property key="FormFieldTitle_dataCategoryId">
         <value xml:lang="ar">تعريف فئة المعلومات</value>
         <value xml:lang="de">Datenkategorie ID</value>
         <value xml:lang="en">Data Category Id</value>
+        <value xml:lang="es">Código Categoría de datos</value>
         <value xml:lang="fr">Réf. de catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
         <value xml:lang="ro">Categorie Date</value>
+        <value xml:lang="ru">Код категории данных</value>
         <value xml:lang="th">รหัสประเภทข้อมูล</value>
         <value xml:lang="zh">数据分类标识</value>
     </property>
@@ -1577,9 +1549,12 @@
         <value xml:lang="ar">تعريف مورد المعلومات</value>
         <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Resource Id</value>
+        <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Réf. de ressource de données</value>
         <value xml:lang="it">Risorsa Dati</value>
+        <value xml:lang="nl">ID databron</value>
         <value xml:lang="ro">Resurse Date</value>
+        <value xml:lang="ru">Код ресурса данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源标识</value>
     </property>
@@ -1587,9 +1562,11 @@
         <value xml:lang="ar">اسم مورد المعلومات</value>
         <value xml:lang="de">Datenressource Namen</value>
         <value xml:lang="en">Data Resource Name</value>
+        <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Nom de ressource de données</value>
         <value xml:lang="it">Nome Risorsa Dati</value>
         <value xml:lang="ro">Nome Resurse Date</value>
+        <value xml:lang="ru">Имя ресурса данных</value>
         <value xml:lang="th">ชื่อแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源名称</value>
     </property>
@@ -1607,9 +1584,12 @@
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
         <value xml:lang="de">Datenressource Typ ID</value>
         <value xml:lang="en">Data Resource Type Id</value>
+        <value xml:lang="es">Código Tipo de recurso de datos</value>
         <value xml:lang="fr">Réf. de type de ressource de données</value>
-        <value xml:lang="it">Tipo Risorsa Dati</value>
+        <value xml:lang="it">Tipo risorsa dati</value>
+        <value xml:lang="nl">Soort databron</value>
         <value xml:lang="ro">Tip Resurse Date</value>
+        <value xml:lang="ru">Код типа ресурса данных</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源类型标识</value>
     </property>
@@ -1617,9 +1597,11 @@
         <value xml:lang="ar">تعريف مصدر المعلومات</value>
         <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Source Id</value>
+        <value xml:lang="es">Código Fuente de datos</value>
         <value xml:lang="fr">Réf. de source de données</value>
         <value xml:lang="it">Risorsa Dati</value>
         <value xml:lang="ro">Risursa Date</value>
+        <value xml:lang="ru">Код источника данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据源标识</value>
     </property>
@@ -1627,9 +1609,11 @@
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
         <value xml:lang="de">Datenvorlagetyp ID</value>
         <value xml:lang="en">Data Template Type Id</value>
+        <value xml:lang="es">Código Plantilla de datos</value>
         <value xml:lang="fr">Réf. de type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
         <value xml:lang="ro">Tip Template Date</value>
+        <value xml:lang="ru">Код типа шаблона данных</value>
         <value xml:lang="th">รหัสประเภท Template</value>
         <value xml:lang="zh">数据模板类型标识</value>
     </property>
@@ -1717,18 +1701,26 @@
         <value xml:lang="ar">تعريف نوع  Mime</value>
         <value xml:lang="de">Mime Typ ID (Dr)</value>
         <value xml:lang="en">Dr Mime Type Id</value>
+        <value xml:lang="es">Tipo de documento</value>
         <value xml:lang="fr">Réf. de type mime (Dr)</value>
         <value xml:lang="it">Tipo Mime</value>
+        <value xml:lang="nl">Documentsoort</value>
         <value xml:lang="ro">Tip Mime</value>
+        <value xml:lang="ru">Тип документа</value>
         <value xml:lang="th">รหัสประเภทที่เลียนแบบ</value>
         <value xml:lang="zh">指定Mime类型标识</value>
     </property>
     <property key="FormFieldTitle_drObjectInfo">
         <value xml:lang="de">Vorlagedatei</value>
         <value xml:lang="en">Template File</value>
+        <value xml:lang="es">Nombre de fichero</value>
         <value xml:lang="fr">Modèle de fichier</value>
         <value xml:lang="it">File Template</value>
+        <value xml:lang="nl">Naam bestand</value>
+        <value xml:lang="ro">Nume File</value>
+        <value xml:lang="ru">Имя файла</value>
         <value xml:lang="th">ข้อมูลสิ่งของ</value>
+        <value xml:lang="zh">文件名</value>
     </property>
     <property key="FormFieldTitle_duration">
         <value xml:lang="ar">المدة</value>
@@ -1764,9 +1756,11 @@
         <value xml:lang="ar">تفعيل Https</value>
         <value xml:lang="de">HTTPS aktivieren</value>
         <value xml:lang="en">Enable Https</value>
+        <value xml:lang="es">Habilitar Https</value>
         <value xml:lang="fr">Permettre Https</value>
         <value xml:lang="it">Abilita Https</value>
         <value xml:lang="ro">Abilitate Https</value>
+        <value xml:lang="ru">Использовать Https</value>
         <value xml:lang="th">Https ที่สามารถใช้ได้</value>
         <value xml:lang="zh">启用Https</value>
     </property>
@@ -1860,16 +1854,6 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">论坛</value>
     </property>
-    <property key="FormFieldTitle_fromDate">
-        <value xml:lang="ar">إبتداءا من تاريخ و وقت</value>
-        <value xml:lang="de">Von Datum und Zeit</value>
-        <value xml:lang="en">From Date &amp; Time</value>
-        <value xml:lang="fr">Date et heure de début</value>
-        <value xml:lang="it">Dalla Data e Ora</value>
-        <value xml:lang="ro">De la Data si Ora</value>
-        <value xml:lang="th">จากวัน เวลา</value>
-        <value xml:lang="zh">开始日期和时间</value>
-    </property>
     <property key="FormFieldTitle_generalFeedback">
         <value xml:lang="ar">ردود عامة</value>
         <value xml:lang="de">Generelles Feedback</value>
@@ -1894,9 +1878,11 @@
         <value xml:lang="ar"> حاوي Http</value>
         <value xml:lang="de">HTTP Server</value>
         <value xml:lang="en">Http Host</value>
+        <value xml:lang="es">Host Http</value>
         <value xml:lang="fr">Centre serveur HTTP</value>
         <value xml:lang="it">Host Http</value>
         <value xml:lang="ro">Host Http</value>
+        <value xml:lang="ru">Http хост</value>
         <value xml:lang="th">เจ้าของ Http</value>
         <value xml:lang="zh">Http主机</value>
     </property>
@@ -1904,18 +1890,23 @@
         <value xml:lang="ar">بوابة Http</value>
         <value xml:lang="de">Http Port</value>
         <value xml:lang="en">Http Port</value>
+        <value xml:lang="es">Puerto Http</value>
         <value xml:lang="fr">Port HTTP</value>
         <value xml:lang="it">Porta Http</value>
         <value xml:lang="ro">Poarta Http</value>
+        <value xml:lang="ru">Http порт</value>
+        <value xml:lang="th">พอร์ท Http</value>
         <value xml:lang="zh">Http端口</value>
     </property>
     <property key="FormFieldTitle_httpsHost">
         <value xml:lang="ar">Https حاوي</value>
         <value xml:lang="de">Https Server</value>
         <value xml:lang="en">Https Host</value>
+        <value xml:lang="es">Host Https</value>
         <value xml:lang="fr">Centre serveur HTTPS</value>
         <value xml:lang="it">Host Https</value>
         <value xml:lang="ro">Host Https</value>
+        <value xml:lang="ru">Https хост</value>
         <value xml:lang="th">เจ้าของ Http</value>
         <value xml:lang="zh">Https主机</value>
     </property>
@@ -1923,19 +1914,24 @@
         <value xml:lang="ar">Https بوابة</value>
         <value xml:lang="de">Https Port</value>
         <value xml:lang="en">Https Port</value>
+        <value xml:lang="es">Puerto Https</value>
         <value xml:lang="fr">Port HTTPS</value>
         <value xml:lang="it">Porta Https</value>
         <value xml:lang="ro">Poarta Https</value>
-        <value xml:lang="th">Https พอร์ท</value>
+        <value xml:lang="ru">Https порт</value>
+        <value xml:lang="th">พอร์ท Https </value>
         <value xml:lang="zh">Https端口</value>
     </property>
     <property key="FormFieldTitle_imageData">
         <value xml:lang="ar">صورة المعلومات</value>
         <value xml:lang="de">Bilddaten</value>
         <value xml:lang="en">Image Data</value>
+        <value xml:lang="es">Fichero</value>
         <value xml:lang="fr">Données d'image</value>
         <value xml:lang="it">Dati Immagine</value>
+        <value xml:lang="nl">Bestand</value>
         <value xml:lang="ro">Date Imagine</value>
+        <value xml:lang="ru">Файл</value>
         <value xml:lang="th">ข้อมูลรูปภาพ</value>
         <value xml:lang="zh">图像数据</value>
     </property>
@@ -1973,9 +1969,11 @@
         <value xml:lang="ar">كينونة لتعريف المحتوى</value>
         <value xml:lang="de">Instanz von Inhalt ID</value>
         <value xml:lang="en">Instance Of Content Id</value>
+        <value xml:lang="es">Código Instancia de contenido</value>
         <value xml:lang="fr">Réf. d'exemple de contenu</value>
         <value xml:lang="it">Instanza Del Contenuto</value>
         <value xml:lang="ro">Instanta Continutului</value>
+        <value xml:lang="ru">Код экземпляра контента</value>
         <value xml:lang="th">ตัวอย่างของรหัสหัวข้อ</value>
         <value xml:lang="zh">内容标识实例</value>
     </property>
@@ -1983,21 +1981,13 @@
         <value xml:lang="ar">عرف معرف</value>
         <value xml:lang="de">Ist anonym</value>
         <value xml:lang="en">Is Anonymous</value>
+        <value xml:lang="es">Es anónimo</value>
         <value xml:lang="fr">Est anonyme</value>
         <value xml:lang="it">E' Anonimo</value>
         <value xml:lang="ro">Este Anonim</value>
+        <value xml:lang="ru">Анонимный?</value>
         <value xml:lang="th">ไม่เป็นที่เปิดเผย</value>
         <value xml:lang="zh">匿名</value>
-    </property>
-    <property key="FormFieldTitle_isPublic">
-        <value xml:lang="ar">جمهور</value>
-        <value xml:lang="de">Ist öffentlich</value>
-        <value xml:lang="en">Is Public</value>
-        <value xml:lang="fr">Est public</value>
-        <value xml:lang="it">E' Pubblico</value>
-        <value xml:lang="ro">Este Public</value>
-        <value xml:lang="th">เป็นของสาธารณะ</value>
-        <value xml:lang="zh">公开</value>
     </property>
     <property key="FormFieldTitle_itemContentId">
         <value xml:lang="ar">تعريف محتوى البند</value>
@@ -2008,26 +1998,6 @@
         <value xml:lang="ro">Numar Linie Continut</value>
         <value xml:lang="th">รหัสหัวข้อสิ่งของ</value>
         <value xml:lang="zh">明细内容标识</value>
-    </property>
-    <property key="FormFieldTitle_lastModifiedByUserLogin">
-        <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
-        <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
-        <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
-        <value xml:lang="it">Ultima Modifica Dell'Utente</value>
-        <value xml:lang="ro">Ultima Modificare Utilizator</value>
-        <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">登录用户上次修改的</value>
-    </property>
-    <property key="FormFieldTitle_lastModifiedDate">
-        <value xml:lang="ar">تاريخ آخر تغيير</value>
-        <value xml:lang="de">Letztes Bearbeitungsdatum</value>
-        <value xml:lang="en">Last Modified Date</value>
-        <value xml:lang="fr">Dernière date de modification</value>
-        <value xml:lang="it">Data Ultima Modifica</value>
-        <value xml:lang="ro">Data Ultimei Modificari</value>
-        <value xml:lang="th">วันสุดท้ายของการปรับปรุง</value>
-        <value xml:lang="zh">上次修改日期</value>
     </property>
     <property key="FormFieldTitle_leftCoordinate">
         <value xml:lang="ar">إحداثيات اليسار</value>
@@ -2044,8 +2014,9 @@
         <value xml:lang="de">Locale Text</value>
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
-        <value xml:lang="it">Stringa Locale</value>
+        <value xml:lang="it">Stringa locale</value>
         <value xml:lang="ro">Sir Local</value>
+        <value xml:lang="ru">Идентификатор языка</value>
         <value xml:lang="th">ทางที่เกิดเหตุ</value>
         <value xml:lang="zh">语言字符串</value>
     </property>
@@ -2130,9 +2101,11 @@
         <value xml:lang="ar">نعريف نوع المايم</value>
         <value xml:lang="de">Mimetyp ID</value>
         <value xml:lang="en">Mime Type Id</value>
+        <value xml:lang="es">Tipo MIME</value>
         <value xml:lang="fr">Type MIME</value>
         <value xml:lang="it">Tipo Mime</value>
         <value xml:lang="ro">Tip Mime</value>
+        <value xml:lang="ru">Mime тип</value>
         <value xml:lang="th">รหัสประเภทสำเนา</value>
         <value xml:lang="zh">Mime类型标识</value>
     </property>
@@ -2170,9 +2143,11 @@
         <value xml:lang="ar">خبر كينونة</value>
         <value xml:lang="de">Objektinformationen</value>
         <value xml:lang="en">Object Info</value>
+        <value xml:lang="es">Información del objeto</value>
         <value xml:lang="fr">Information d'objet</value>
         <value xml:lang="it">Informazione Oggetto</value>
         <value xml:lang="ro">Informatie Obiect</value>
+        <value xml:lang="ru">Информация по объекту</value>
         <value xml:lang="th">ข้อมูลสิ่งของ</value>
         <value xml:lang="zh">对象信息</value>
     </property>
@@ -2186,33 +2161,15 @@
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูลเดิม</value>
         <value xml:lang="zh">旧数据资源标识</value>
     </property>
-    <property key="FormFieldTitle_orderId">
-        <value xml:lang="ar">تعريف الترتيب</value>
-        <value xml:lang="de">Auftrag ID</value>
-        <value xml:lang="en">Order Id</value>
-        <value xml:lang="fr">Réf. de commande</value>
-        <value xml:lang="it">Numero Ordine</value>
-        <value xml:lang="ro">Numar Ordine</value>
-        <value xml:lang="th">รหัสใบสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">订单编号</value>
-    </property>
-    <property key="FormFieldTitle_orderItemSeqId">
-        <value xml:lang="ar">تعريف تسلسل جزء الترتيب</value>
-        <value xml:lang="de">Auftragsposition Seq. ID</value>
-        <value xml:lang="en">Order Item Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de ligne de cmd</value>
-        <value xml:lang="it">Numero Sequenza Riga Ordine</value>
-        <value xml:lang="ro">Numear Secventa Linie Ordine</value>
-        <value xml:lang="th">ลำดับรหัสใบสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">订单明细序号</value>
-    </property>
     <property key="FormFieldTitle_ownerContentId">
         <value xml:lang="ar">تعريف صاحب المحتوى</value>
         <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content Id</value>
+        <value xml:lang="es">Código del propietario</value>
         <value xml:lang="fr">Réf. de contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
         <value xml:lang="ro">Proprietar Continut</value>
+        <value xml:lang="ru">Код владельца контента</value>
         <value xml:lang="th">รหัสเจ้าของหัวข้อ</value>
         <value xml:lang="zh">拥有者内容标识</value>
     </property>
@@ -2236,16 +2193,6 @@
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
         <value xml:lang="zh">上级分类标识</value>
     </property>
-    <property key="FormFieldTitle_parentTypeId">
-        <value xml:lang="ar">تعريف نوع الوالد</value>
-        <value xml:lang="de">Übergeordneter Typ ID</value>
-        <value xml:lang="en">Parent Type Id</value>
-        <value xml:lang="fr">Réf. de type parent</value>
-        <value xml:lang="it">Tipo Padre</value>
-        <value xml:lang="ro">Tip Parinte</value>
-        <value xml:lang="th">รหัสประเภทผู้ปกครอง</value>
-        <value xml:lang="zh">上级类型标识</value>
-    </property>
     <property key="FormFieldTitle_pasteContent">
         <value xml:lang="de">Inhalt einfügen</value>
         <value xml:lang="en">Paste Content</value>
@@ -2267,21 +2214,13 @@
         <value xml:lang="ar">تعريف تعداد الأفضلية</value>
         <value xml:lang="de">Privileg Aufzählung ID</value>
         <value xml:lang="en">Privilege Enum Id</value>
+        <value xml:lang="es">Tipo privilegio</value>
         <value xml:lang="fr">Réf. d'énumération de privilège</value>
         <value xml:lang="it">Enumerazione Privilegio</value>
         <value xml:lang="ro">Enumerare Privilegiu</value>
+        <value xml:lang="ru">Код привилегий</value>
         <value xml:lang="th">รหัสสิทธิพิเศษ</value>
         <value xml:lang="zh">特权枚举标识</value>
-    </property>
-    <property key="FormFieldTitle_productStoreId">
-        <value xml:lang="ar">تعريف المتجر</value>
-        <value xml:lang="de">Produktladen ID</value>
-        <value xml:lang="en">Product Store Id</value>
-        <value xml:lang="fr">Réf. de centre de profit</value>
-        <value xml:lang="it">Negozio</value>
-        <value xml:lang="ro">Magazin</value>
-        <value xml:lang="th">รหัสคลังสินค้า</value>
-        <value xml:lang="zh">产品店铺标识</value>
     </property>
     <property key="FormFieldTitle_purposes">
         <value xml:lang="ar">الأهداف</value>
@@ -2357,16 +2296,6 @@
         <value xml:lang="th">วันที่ตอบ</value>
         <value xml:lang="zh">回答日期</value>
     </property>
-    <property key="FormFieldTitle_responseService">
-        <value xml:lang="ar">خدمة الجواب</value>
-        <value xml:lang="de">Antwortsdienst</value>
-        <value xml:lang="en">Response Service</value>
-        <value xml:lang="fr">Service de réponse</value>
-        <value xml:lang="it">Servizio Risposta</value>
-        <value xml:lang="ro">Serviciu Raspuns</value>
-        <value xml:lang="th">บริการ</value>
-        <value xml:lang="zh">回答服务</value>
-    </property>
     <property key="FormFieldTitle_roles">
         <value xml:lang="ar">الأدوار</value>
         <value xml:lang="de">Rollen</value>
@@ -2381,9 +2310,11 @@
         <value xml:lang="ar">مقدمة محتوى مؤمن</value>
         <value xml:lang="de">Prefix sicherer Inhalt</value>
         <value xml:lang="en">Secure Content Prefix</value>
+        <value xml:lang="es">Prefijo contenido seguro</value>
         <value xml:lang="fr">Sécuriser le préfixe de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Sicuro</value>
         <value xml:lang="ro">Prefix Continut Sigur</value>
+        <value xml:lang="ru">Секретный префикс контента</value>
         <value xml:lang="th">คำนำหน้าหัวข้อความปลอดภัย</value>
         <value xml:lang="zh">安全内容前缀</value>
     </property>
@@ -2397,23 +2328,15 @@
         <value xml:lang="th">เลือก</value>
         <value xml:lang="zh">选择</value>
     </property>
-    <property key="FormFieldTitle_sequenceNum">
-        <value xml:lang="ar">رقم التسلسل</value>
-        <value xml:lang="de">Sequenznummer</value>
-        <value xml:lang="en">Sequence Num</value>
-        <value xml:lang="fr">N° de séquence</value>
-        <value xml:lang="it">Numero Sequenza</value>
-        <value xml:lang="ro">Numar Secventa</value>
-        <value xml:lang="th">เรียงลำดับหมายเลข</value>
-        <value xml:lang="zh">序号</value>
-    </property>
     <property key="FormFieldTitle_serviceName">
         <value xml:lang="ar">إسم الخدمة</value>
         <value xml:lang="de">Servicenamen</value>
         <value xml:lang="en">Service Name</value>
+        <value xml:lang="es">Nombre del servicio</value>
         <value xml:lang="fr">Nom de service</value>
         <value xml:lang="it">Nome Servizio</value>
         <value xml:lang="ro">Nume Serviciu</value>
+        <value xml:lang="ru">Имя сервиса</value>
         <value xml:lang="th">ชื่อบริการ</value>
         <value xml:lang="zh">服务名称</value>
     </property>
@@ -2421,9 +2344,11 @@
         <value xml:lang="ar">إسم الموقع</value>
         <value xml:lang="de">Webseite Namen</value>
         <value xml:lang="en">Site Name</value>
+        <value xml:lang="es">Nombre del sitio</value>
         <value xml:lang="fr">Nom de site</value>
         <value xml:lang="it">Nome Sito</value>
         <value xml:lang="ro">Nume Sit</value>
+        <value xml:lang="ru">Имя сайта</value>
         <value xml:lang="th">ชื่อ Site</value>
         <value xml:lang="zh">站点名称</value>
     </property>
@@ -2441,9 +2366,11 @@
         <value xml:lang="ar">المقدم المعياري للمحتوى</value>
         <value xml:lang="de">Standart Inhaltspräfix</value>
         <value xml:lang="en">Standard Content Prefix</value>
+        <value xml:lang="es">Prefijo de contenido estándar</value>
         <value xml:lang="fr">Préfixe de contenu standard</value>
-        <value xml:lang="it">Prefisso Contenuto Standard </value>
+        <value xml:lang="it">Prefisso contenuto standard </value>
         <value xml:lang="ro">Prefix Continut Standard </value>
+        <value xml:lang="ru">Стандартный префикс контента</value>
         <value xml:lang="th">หัวข้อมาตรฐาน</value>
         <value xml:lang="zh">标准内容前缀</value>
     </property>
@@ -2451,9 +2378,11 @@
         <value xml:lang="ar">تعريف التصويت</value>
         <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey Id</value>
+        <value xml:lang="es">Código de encuesta</value>
         <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
         <value xml:lang="ro">Numar Sondaj</value>
+        <value xml:lang="ru">Код обзора</value>
         <value xml:lang="th">รหัสการสำรวจ</value>
         <value xml:lang="zh">调查编号</value>
     </property>
@@ -2481,9 +2410,11 @@
         <value xml:lang="ar">اسم التصويت</value>
         <value xml:lang="de">Befragungsnamen</value>
         <value xml:lang="en">Survey Name</value>
+        <value xml:lang="es">Nombre de la encuesta</value>
         <value xml:lang="fr">Nom du sondage</value>
         <value xml:lang="it">Nome Sondaggio</value>
         <value xml:lang="ro">Numar Sondaj</value>
+        <value xml:lang="ru">Имя обзора</value>
         <value xml:lang="th">ชื่อการสำรวจ</value>
         <value xml:lang="zh">调查名称</value>
     </property>
@@ -2551,9 +2482,11 @@
         <value xml:lang="ar">تعريف مورد معلومات نموذج</value>
         <value xml:lang="de">Vorlage Datenressource ID</value>
         <value xml:lang="en">Template Data Resource Id</value>
+        <value xml:lang="es">Código Plantilla de fuente de datos</value>
         <value xml:lang="fr">Réf.  de modèle de ressource de données</value>
         <value xml:lang="it">Template Risorsa Dati</value>
         <value xml:lang="ro">Template Resurse Date</value>
+        <value xml:lang="ru">Код шаблона ресурса данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล Template </value>
         <value xml:lang="zh">模板数据资源标识</value>
     </property>
@@ -2564,38 +2497,15 @@
         <value xml:lang="it">Posizione Template</value>
         <value xml:lang="th">ที่ตั้ง template</value>
     </property>
-    <property key="FormFieldTitle_textData">
-        <value xml:lang="ar">نص</value>
-        <value xml:lang="de">Text</value>
-        <value xml:lang="en">Text</value>
-        <value xml:lang="es">Dato Texto</value>
-        <value xml:lang="fr">Texte</value>
-        <value xml:lang="it">Testo</value>
-        <value xml:lang="nl">Datum tekst</value>
-        <value xml:lang="ro">Text</value>
-        <value xml:lang="ru">Текстовые данные</value>
-        <value xml:lang="th">ตัวอักษร</value>
-        <value xml:lang="zh">文本</value>
-    </property>
     <property key="FormFieldTitle_textDataTitle">
         <value xml:lang="ar">نص</value>
         <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
-        <value xml:lang="fr">Texte</value>
+        <value xml:lang="fr">Données textuelles</value>
         <value xml:lang="it">Testo</value>
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
-    </property>
-    <property key="FormFieldTitle_thruDate">
-        <value xml:lang="ar">حتى تاريخ و وقت</value>
-        <value xml:lang="de">Bis Datum und Zeit</value>
-        <value xml:lang="en">Thru Date &amp; Time</value>
-        <value xml:lang="fr">Date et heure de fin</value>
-        <value xml:lang="it">Alla Data e Ora</value>
-        <value xml:lang="ro">La Data si Ora</value>
-        <value xml:lang="th">ถึงวันที่ เวลา</value>
-        <value xml:lang="zh">截止日期和时间</value>
     </property>
     <property key="FormFieldTitle_tree">
         <value xml:lang="ar">شجرة</value>
@@ -2628,9 +2538,12 @@
         <value xml:lang="ar">تعريف موقع الويب</value>
         <value xml:lang="de">Webseite ID</value>
         <value xml:lang="en">Web Site Id</value>
+        <value xml:lang="es">Código del sitio web</value>
         <value xml:lang="fr">Réf. de site web</value>
-        <value xml:lang="it">Sito Web</value>
+        <value xml:lang="it">Sito web</value>
+        <value xml:lang="nl">Web Site Id</value>
         <value xml:lang="ro">Sit Web</value>
+        <value xml:lang="ru">Код Web сайта</value>
         <value xml:lang="th">รหัส Web Site</value>
         <value xml:lang="zh">网站标识</value>
     </property>

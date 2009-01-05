@@ -656,7 +656,7 @@ under the License.
         <field name="workEffortIdFrom" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdFrom}" description="${workEffortIdFrom}" also-hidden="false"/>
         </field>
-        <field name="workEffortName" entry-name="workEffortIdFrom">
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}" entry-name="workEffortIdFrom">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
         </field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}" entry-name="workEffortIdFrom">
@@ -683,7 +683,7 @@ under the License.
         <field name="workEffortIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdTo}" description="${workEffortIdTo}" also-hidden="false"/>
         </field>
-        <field name="workEffortName" entry-name="workEffortIdTo">
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}" entry-name="workEffortIdTo">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
         </field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}" entry-name="workEffortIdTo">

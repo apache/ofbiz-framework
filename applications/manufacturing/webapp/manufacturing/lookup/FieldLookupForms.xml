@@ -23,7 +23,7 @@ under the License.
     <form name="lookupRouting" target="LookupRouting" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="lookupRoutingTask" default-field-type="hidden"/>
-        <field name="workEffortName"><text-find/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><text-find/></field>
         <field name="workEffortTypeId"><hidden value="ROUTING"/></field>
         <field name="fixedAssetId"><hidden value=""/></field> 
         <field name="fixedAssetId_op"><hidden value="equals"/></field>

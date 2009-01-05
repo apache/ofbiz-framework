@@ -79,24 +79,6 @@
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
         <value xml:lang="zh">客户会员标识</value>
     </property>
-    <property key="FormFieldTitle_createdByUserLogin">
-        <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
-        <value xml:lang="it">Creato Dall'Utente</value>
-        <value xml:lang="nl">Aangeaakt door ingelogde gebruiker</value>
-        <value xml:lang="ro">Creat De Utilizatorul </value>
-        <value xml:lang="th">สร้างโดยการลอกอินเข้าสู่ระบบของผู้ใช้</value>
-        <value xml:lang="zh">登录用户创建的</value>
-    </property>
-    <property key="FormFieldTitle_createdDate">
-        <value xml:lang="en">Created Date</value>
-        <value xml:lang="fr">Date de création</value>
-        <value xml:lang="it">Data Creazione</value>
-        <value xml:lang="nl">Datum aangemaakt</value>
-        <value xml:lang="ro">Data Creatie</value>
-        <value xml:lang="th">สร้างวันที่</value>
-        <value xml:lang="zh">创建日期</value>
-    </property>
     <property key="FormFieldTitle_custRequestTypeDescription">
         <value xml:lang="en">Cust Request Type Description</value>
         <value xml:lang="fr">Description de type de requête client</value>
@@ -179,10 +161,11 @@
         <value xml:lang="zh">发票信息</value>
     </property>
     <property key="FormFieldTitle_isPrintable">
-        <value xml:lang="en">isPrintable</value>
+        <value xml:lang="en">is Printable</value>
         <value xml:lang="fr">Est imprimable</value>
-        <value xml:lang="it">E' Stampabile</value>
+        <value xml:lang="it">E' stampabile</value>
         <value xml:lang="th">ซึ่งเหมาะกับการพิมพ์</value>
+        <value xml:lang="zh">是否可印</value>
     </property>
     <property key="FormFieldTitle_issueDate">
         <value xml:lang="en">Issue Date</value>
@@ -192,25 +175,6 @@
         <value xml:lang="ro">Data Probleme</value>
         <value xml:lang="th">ฉบับวันที่</value>
         <value xml:lang="zh">发布日期</value>
-    </property>
-    <property key="FormFieldTitle_lastModifiedByUserLogin">
-        <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Dernière modification par l'identifiant de connexion</value>
-        <value xml:lang="it">Ultima Modifica dell'Utente</value>
-        <value xml:lang="nl">Laatst gewijzigd door ingelogde gebruiker</value>
-        <value xml:lang="ro">Ultima Modificare a Utilizatorului</value>
-        <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยการลอกอินเข้าสู่ระบบของผู้ใช้</value>
-        <value xml:lang="zh">登录用户上次修改的</value>
-    </property>
-    <property key="FormFieldTitle_lastModifiedDate">
-        <value xml:lang="de">geändert am</value>
-        <value xml:lang="en">Last Modified Date</value>
-        <value xml:lang="fr">Date de dernière modification</value>
-        <value xml:lang="it">Data Ultima Modifica</value>
-        <value xml:lang="nl">Laatste datum wijziging</value>
-        <value xml:lang="ro">Data Ultimei Modificari</value>
-        <value xml:lang="th">วันที่ปรับปรุงครั้งสุดท้าย</value>
-        <value xml:lang="zh">上次修改日期</value>
     </property>
     <property key="FormFieldTitle_lastStatusUpdate">
         <value xml:lang="en">Last Status Update</value>
@@ -229,15 +193,6 @@
         <value xml:lang="ro">Descriere Locatie</value>
         <value xml:lang="th">รายละเอียดที่ตั้ง</value>
         <value xml:lang="zh">地点按降序排列</value>
-    </property>
-    <property key="FormFieldTitle_marketingCampaignId">
-        <value xml:lang="en">Marketing Campaign Id</value>
-        <value xml:lang="fr">Réf. de campagne de marketing</value>
-        <value xml:lang="it">Campagna di Vendita</value>
-        <value xml:lang="nl">Marketing Campagne Id</value>
-        <value xml:lang="ro">Campanie de Vanzare </value>
-        <value xml:lang="th">รหัสแผนการตลาด</value>
-        <value xml:lang="zh">市场攻势标识</value>
     </property>
     <property key="FormFieldTitle_mustRsvp">
         <value xml:lang="en">Must Rsvp</value>
@@ -291,15 +246,6 @@
         <value xml:lang="th">ผลผลิตถึงจำนวน</value>
         <value xml:lang="zh">要产生的数量</value>
     </property>
-    <property key="FormFieldTitle_quoteItemSeqId">
-        <value xml:lang="en">Quote Item Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de ligne de devis</value>
-        <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
-        <value xml:lang="nl">Volgende Offerte Itemnr Id</value>
-        <value xml:lang="ro">Numar Secventa Linie Preventiv</value>
-        <value xml:lang="th">รหัสรายการข้ออ้างอิง</value>
-        <value xml:lang="zh">询价明细序号标识</value>
-    </property>
     <property key="FormFieldTitle_quoteName">
         <value xml:lang="de">Offertenname</value>
         <value xml:lang="en">Quote Name</value>
@@ -335,15 +281,6 @@
         <value xml:lang="th">รายละเอียดความต้องการ</value>
         <value xml:lang="zh">需求描述</value>
     </property>
-    <property key="FormFieldTitle_requirementId">
-        <value xml:lang="en">Requirement Id</value>
-        <value xml:lang="fr">Réf. de besoin</value>
-        <value xml:lang="it">Numero Fabbisogno</value>
-        <value xml:lang="nl">Requirement Id</value>
-        <value xml:lang="ro">Numar Necesar</value>
-        <value xml:lang="th">รหัสความต้องการ</value>
-        <value xml:lang="zh">需求标识</value>
-    </property>
     <property key="FormFieldTitle_reserv2ndPPPerc">
         <value xml:lang="en">Reserv2nd P P Perc</value>
         <value xml:lang="fr">% d'augmentation pour une 2d personne</value>
@@ -361,15 +298,6 @@
         <value xml:lang="ro">N-a Persoana de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจอง Nth</value>
         <value xml:lang="zh">第N个预留人员百分比</value>
-    </property>
-    <property key="FormFieldTitle_reservPersons">
-        <value xml:lang="en">Reserv Persons</value>
-        <value xml:lang="fr">Réservation de personnes</value>
-        <value xml:lang="it">Persone Riserva</value>
-        <value xml:lang="nl">Reserv Persons</value>
-        <value xml:lang="ro">Persoane de Rezerva</value>
-        <value xml:lang="th">บุคคลที่จอง</value>
-        <value xml:lang="zh">预留的人员</value>
     </property>
     <property key="FormFieldTitle_reviewDate">
         <value xml:lang="en">Review Date</value>
