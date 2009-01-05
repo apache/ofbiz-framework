@@ -50,7 +50,8 @@ under the License.
     
     <SegmentGroupType segmentGroupTypeId="MARKET_SEGMENT" description="Market Segment"/>
     <SegmentGroupType segmentGroupTypeId="SALES_SEGMENT" description="Sales Segment"/>
-    
+
+    <TrackingCodeType trackingCodeTypeId="ACCESS" description="Access Code"/>
     <TrackingCodeType trackingCodeTypeId="INTERNAL" description="Internal"/>
     <TrackingCodeType trackingCodeTypeId="EXTERNAL" description="External"/>
     <TrackingCodeType trackingCodeTypeId="PARTNER_MGD" description="Partner Managed"/>

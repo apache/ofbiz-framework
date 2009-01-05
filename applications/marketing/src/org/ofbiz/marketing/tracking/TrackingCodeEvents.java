@@ -225,22 +225,20 @@ public class TrackingCodeEvents {
 
         // if trackingCode.trackableLifetime not null and is > 0 write a trackable cookie with name in the form: TKCDT_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.trackableLifetime
         Long trackableLifetime = trackingCode.getLong("trackableLifetime");
-        if (trackableLifetime != null && trackableLifetime.longValue() > 0) {
+        if (trackableLifetime != null && (trackableLifetime.longValue() > 0 || trackableLifetime.longValue() == -1)) {
             Cookie trackableCookie = new Cookie("TKCDT_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            trackableCookie.setMaxAge(trackableLifetime.intValue());
+            if (trackableLifetime.longValue() > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
-            trackableCookie.setVersion(1);
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
             response.addCookie(trackableCookie);
         }
         
         // if trackingCode.billableLifetime not null and is > 0 write a billable cookie with name in the form: TKCDB_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.billableLifetime
         Long billableLifetime = trackingCode.getLong("billableLifetime");
-        if (billableLifetime != null && billableLifetime.longValue() > 0) {
+        if (billableLifetime != null && (billableLifetime.longValue() > 0 || billableLifetime.longValue() == -1)) {
             Cookie billableCookie = new Cookie("TKCDB_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            billableCookie.setMaxAge(billableLifetime.intValue());
+            if (billableLifetime.longValue() > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
-            billableCookie.setVersion(1);
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
             response.addCookie(billableCookie);
         }
@@ -366,6 +364,62 @@ public class TrackingCodeEvents {
         }
         
         return "success";
+    }
+
+    public static String checkAccessTrackingCode(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
+
+        String trackingCodeId = request.getParameter("autoTrackingCode");
+        if (UtilValidate.isEmpty(trackingCodeId)) trackingCodeId = request.getParameter("atc");
+        if (UtilValidate.isEmpty(trackingCodeId)) {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("TKCDT_ACCESS".equals(cookie.getName())) {
+                        trackingCodeId = cookie.getValue();                        
+                    }
+                }
+            }
+        }
+
+        if (UtilValidate.isNotEmpty(trackingCodeId)) {
+            // find the tracking code object
+            GenericValue trackingCode = null;
+            try {
+                trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
+            }
+            if (trackingCode != null) {
+                // verify the tracking code type
+                if ("ACCESS".equals(trackingCode.getString("trackingCodeTypeId"))) {
+                    // verify the effective date
+                    if (trackingCode.get("fromDate") != null && nowStamp.after(trackingCode.getTimestamp("fromDate"))) {
+                        if (trackingCode.get("thruDate") != null && nowStamp.before(trackingCode.getTimestamp("thruDate"))) {
+                            // tracking code is valid
+                            return "success";
+                        } else {
+                            if (Debug.infoOn())
+                                Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", module);
+                            request.setAttribute("_ERROR_MESSAGE_", "Access code [" + trackingCodeId + "], is not valid.");
+                        }
+                    } else {
+                        if (Debug.infoOn())
+                            Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", module);
+                        request.setAttribute("_ERROR_MESSAGE_", "Access code [" + trackingCodeId + "], is not valid.");
+                    }
+                } else {
+                    Debug.logWarning("Tracking code found [" + trackingCodeId + "] but was not of the type ACCESS; access denied", module);
+                    request.setAttribute("_ERROR_MESSAGE_", "Access code [" + trackingCodeId + "] not found.");
+                }
+            } else {
+                request.setAttribute("_ERROR_MESSAGE_", "Access code [" + trackingCodeId + "] not found.");
+            }
+        }
+
+        // no tracking code or tracking code invalid; redirect to the access page (i.e. request named 'protect')  
+        return ":_protect_:";
     }
     
     /** Makes a list of TrackingCodeOrder entities to be attached to the current order; called by the createOrder event; the values in the returned List will not have the orderId set */
