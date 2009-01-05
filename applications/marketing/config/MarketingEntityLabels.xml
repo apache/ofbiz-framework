@@ -64,42 +64,6 @@
         <value xml:lang="th">ส่วนของการขาย</value>
         <value xml:lang="zh">销售分区</value>
     </property>
-    <property key="StatusItem.description.CLPT_ACCEPTED">
-        <value xml:lang="en">Accepted</value>
-        <value xml:lang="es">Aceptado</value>
-        <value xml:lang="fr">Accepté</value>
-        <value xml:lang="it">Accettata</value>
-        <value xml:lang="ro">Acceptata</value>
-        <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh">已接受</value>
-    </property>
-    <property key="StatusItem.description.CLPT_PENDING">
-        <value xml:lang="en">Pending Acceptance</value>
-        <value xml:lang="es">Pendiente</value>
-        <value xml:lang="fr">Acceptation en attente</value>
-        <value xml:lang="it">Accettazioni Sospese</value>
-        <value xml:lang="ro">Acceptari Suspendate</value>
-        <value xml:lang="th">ในระหว่างการตอบรับ</value>
-        <value xml:lang="zh">暂缓接受</value>
-    </property>
-    <property key="StatusItem.description.CLPT_REJECTED">
-        <value xml:lang="en">Rejected</value>
-        <value xml:lang="es">Rechazado</value>
-        <value xml:lang="fr">Refué</value>
-        <value xml:lang="it">Rifiutata</value>
-        <value xml:lang="ro">Refuzata</value>
-        <value xml:lang="th">ปฏิเสธ</value>
-        <value xml:lang="zh">已拒绝</value>
-    </property>
-    <property key="StatusType.description.CONTACTLST_PARTY">
-        <value xml:lang="en">Contact List Party</value>
-        <value xml:lang="es">Lista de contactos</value>
-        <value xml:lang="fr">Acteur de liste de contact</value>
-        <value xml:lang="it">Lista Contatto Soggetto</value>
-        <value xml:lang="ro">Lista Contact Subiect</value>
-        <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">联系列表会员</value>
-    </property>
     <property key="TrackingCodeType.description.EXTERNAL">
         <value xml:lang="en">External</value>
         <value xml:lang="es">Externo</value>

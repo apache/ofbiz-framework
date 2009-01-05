@@ -22,11 +22,12 @@ under the License.
     <screen name="ListPartyContactLists">
         <section>
             <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleListContactList"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="partyId" value="${parameters.partyId}"/>
-                 <set field="entityName" value="ContactListParty"/>
+                <set field="entityName" value="ContactListParty"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

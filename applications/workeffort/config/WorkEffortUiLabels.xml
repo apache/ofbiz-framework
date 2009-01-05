@@ -807,7 +807,7 @@
         <value xml:lang="en">Edit Work Effort</value>
         <value xml:lang="es">Editar esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la tâche</value>
-        <value xml:lang="it">Aggiorna Impegno di Lavoro</value>
+        <value xml:lang="it">Aggiorna impegno di lavoro</value>
         <value xml:lang="nl">Wijzig actie</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru</value>
         <value xml:lang="th">แก้ไขงาน</value>
@@ -1058,17 +1058,6 @@
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">人工服务</value>
     </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="nl">Login</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Вход</value>
-        <value xml:lang="th">ลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
     <property key="PageTitleLookupTimesheet">
         <value xml:lang="en">Lookup Timesheet by Name</value>
         <value xml:lang="fr">Consulter les feuilles de présence par nom</value>
@@ -1086,17 +1075,6 @@
         <value xml:lang="ro">Cauta Sarcina de Lucru dupa Nume</value>
         <value xml:lang="th">ค้นหางานโดยชื่อ</value>
         <value xml:lang="zh">通过名称查找人工服务</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
-        <value xml:lang="nl">Home</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Главная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
     </property>
     <property key="PageTitleTreeWorkEfforts">
         <value xml:lang="en">Child Work Efforts</value>

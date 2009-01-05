@@ -80,18 +80,6 @@
         <value xml:lang="it">Compito Breakdown</value>
         <value xml:lang="th">งานหยุด</value>
     </property>
-    <property key="PageTitleEditFixedAsset">
-        <value xml:lang="en">Edit Equipment</value>
-        <value xml:lang="fr">Modifier l'équipement</value>
-        <value xml:lang="it">Aggiorna Cespite</value>
-        <value xml:lang="th">แก้ไขเครื่องมือ</value>
-    </property>
-    <property key="PageTitleEditWorkEffort">
-        <value xml:lang="en">Edit Task</value>
-        <value xml:lang="fr">Modifier la tâche</value>
-        <value xml:lang="it">Aggiorna Compito</value>
-        <value xml:lang="th">แก้ไขงาน</value>
-    </property>
     <property key="PageTitleFindFixedAssetMaints">
         <value xml:lang="de">Verwaltungen finden</value>
         <value xml:lang="en">Find Maintenances</value>

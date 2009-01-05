@@ -3383,26 +3383,6 @@
         <value xml:lang="th">แก้ไขเส้นทางการทำงาน</value>
         <value xml:lang="zh">编辑规程任务的规程</value>
     </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
-    <property key="PageTitleLookupProduct">
-        <value xml:lang="de">Produktsuche</value>
-        <value xml:lang="en">Product Lookup</value>
-        <value xml:lang="es">Buscar producto</value>
-        <value xml:lang="fr">Consultation d'article</value>
-        <value xml:lang="it">Ricerca Prodotto</value>
-        <value xml:lang="ro">Cauta Produs</value>
-        <value xml:lang="th">ค้นหาสินค้า</value>
-        <value xml:lang="zh">查找产品</value>
-    </property>
     <property key="PageTitleLookupRouting">
         <value xml:lang="de">Arbeitsplansuche</value>
         <value xml:lang="en">Lookup Routing</value>
@@ -3432,16 +3412,6 @@
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="th">ค้นหาสินค้าที่มีอยู่จริง</value>
         <value xml:lang="zh">查找虚拟产品</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="de">Startseite</value>
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="it">Pagina Principale</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
     </property>
     <property key="ProductionRunSimulation">
         <value xml:lang="en">Production Run Simulation</value>

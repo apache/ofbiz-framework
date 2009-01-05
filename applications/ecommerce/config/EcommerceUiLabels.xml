@@ -2929,19 +2929,6 @@
         <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้าของคุณ</value>
         <value xml:lang="zh">你的购物车是空的</value>
     </property>
-    <property key="PageTitleAddContent">
-        <value xml:lang="de">Inhalt hinzufügen</value>
-        <value xml:lang="en">Add Content</value>
-        <value xml:lang="es">Añadir Contenido</value>
-        <value xml:lang="fr">Ajouter le contenu</value>
-        <value xml:lang="it">Aggiungi contenuto</value>
-        <value xml:lang="ja">Add Content</value>
-        <value xml:lang="nl">Voeg inhoud toe</value>
-        <value xml:lang="ro">Adauga Continut </value>
-        <value xml:lang="ru">Добавить контент</value>
-        <value xml:lang="th">เพิ่มหัวข้อ</value>
-        <value xml:lang="zh">添加内容</value>
-    </property>
     <property key="PageTitleAddResponse">
         <value xml:lang="de">Antwort hinzufügen</value>
         <value xml:lang="en">Add Response</value>
@@ -2969,21 +2956,6 @@
         <value xml:lang="ru">Дополнительная информация</value>
         <value xml:lang="th">ข้อมูลเพิ่มเติม</value>
         <value xml:lang="zh">附加信息</value>
-    </property>
-    <property key="PageTitleAdvancedSearch">
-        <value xml:lang="cs">rozšířené hledání</value>
-        <value xml:lang="de">Erweiterte Suche</value>
-        <value xml:lang="en">Advanced Search</value>
-        <value xml:lang="es">Búsqueda Avanzada</value>
-        <value xml:lang="fr">Recherche avancée</value>
-        <value xml:lang="it">Ricerca avanzata</value>
-        <value xml:lang="ja">詳細検索</value>
-        <value xml:lang="nl">Uitvoerig zoeken</value>
-        <value xml:lang="pt_PT">Pesquisa Avançada</value>
-        <value xml:lang="ro">Cautare Avansata</value>
-        <value xml:lang="ru">Расширенный поиск</value>
-        <value xml:lang="th">ค้นหาเพิ่มขึ้น</value>
-        <value xml:lang="zh">高级搜索</value>
     </property>
     <property key="PageTitleBillingInformation">
         <value xml:lang="de">Rechnungstellung Informationen</value>
@@ -3140,35 +3112,6 @@
         <value xml:lang="th">แก้ไขข้อมูลการทำงาน</value>
         <value xml:lang="zh">编辑联系方式</value>
     </property>
-    <property key="PageTitleEditContent">
-        <value xml:lang="de">Inhalt bearbeiten</value>
-        <value xml:lang="en">Edit Content</value>
-        <value xml:lang="es">Modificar Contenido</value>
-        <value xml:lang="fr">Modifier le contenu</value>
-        <value xml:lang="it">Aggiorna contenuto</value>
-        <value xml:lang="ja">Edit Content</value>
-        <value xml:lang="nl">Pas de inhoud aan</value>
-        <value xml:lang="ro">Actualizeaza Continut</value>
-        <value xml:lang="ru">Редактировать контент</value>
-        <value xml:lang="th">แก้ไขหัวข้อ</value>
-        <value xml:lang="zh">编辑内容</value>
-    </property>
-    <property key="PageTitleEditCreditCard">
-        <value xml:lang="cs">Zpracovat kreditkartu</value>
-        <value xml:lang="de">Kreditkarte bearbeiten</value>
-        <value xml:lang="en">Edit Credit Card</value>
-        <value xml:lang="es">Modificar Tarjeta De Crédito</value>
-        <value xml:lang="fr">Modification de la carte de crédit</value>
-        <value xml:lang="hi_IN">क्रेडिट कार्ड बदलिये</value>
-        <value xml:lang="it">Aggiorna carta di credito</value>
-        <value xml:lang="ja">Edit Credit Card</value>
-        <value xml:lang="nl">Pas de kredietkaart aan</value>
-        <value xml:lang="pt_PT">Editar Cartao de Crédito</value>
-        <value xml:lang="ro">Actualizeaza Carte de Credit</value>
-        <value xml:lang="ru">Изменить кредитную карту</value>
-        <value xml:lang="th">แก้ไขบัตรเครดิต</value>
-        <value xml:lang="zh">编辑信用卡</value>
-    </property>
     <property key="PageTitleEditEFTAccount">
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
@@ -3196,21 +3139,6 @@
         <value xml:lang="ru">Редактировать информацию о содержании форума</value>
         <value xml:lang="th">แก้ไขหัวข้อความคิดเห็น</value>
         <value xml:lang="zh">编辑论坛内容信息</value>
-    </property>
-    <property key="PageTitleEditGiftCard">
-        <value xml:lang="cs">Zpracovat dárkový poukaz</value>
-        <value xml:lang="de">Gutschein bearbeiten</value>
-        <value xml:lang="en">Edit Gift Card</value>
-        <value xml:lang="es">Modificar Tarjeta de Regalo</value>
-        <value xml:lang="fr">Modifier la carte cadeau</value>
-        <value xml:lang="hi_IN">उपहार कार्ड</value>
-        <value xml:lang="it">Aggiorna carta omagggio</value>
-        <value xml:lang="ja">Edit Gift Card</value>
-        <value xml:lang="nl">Pas de geschenkkaart aan</value>
-        <value xml:lang="ro">Actualizeaza Carte Omagiu</value>
-        <value xml:lang="ru">Редактировать дисконтную карту</value>
-        <value xml:lang="th">แก้ไขบัตรของขวัญ</value>
-        <value xml:lang="zh">编辑礼品卡</value>
     </property>
     <property key="PageTitleEditPerson">
         <value xml:lang="cs">Upravit osobu</value>
@@ -3324,36 +3252,6 @@
         <value xml:lang="fr">Liste des demandes</value>
         <value xml:lang="it">Lista richieste</value>
         <value xml:lang="th">รายการคำร้อง</value>
-    </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="cs">přihlášení</value>
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="ja">ログイン</value>
-        <value xml:lang="nl">Aanmelden</value>
-        <value xml:lang="pt_PT">Início</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Логин</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="cs">úvodní strana</value>
-        <value xml:lang="de">Startseite</value>
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página Principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="hi_IN">मुख्य पृष्ठ</value>
-        <value xml:lang="it">Pagina principale</value>
-        <value xml:lang="ja">メインページ</value>
-        <value xml:lang="nl">Hoofdpagina</value>
-        <value xml:lang="pt_PT">Página de Entrada</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Основная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
     </property>
     <property key="PageTitleMessageDetail">
         <value xml:lang="de">Meldung Detail</value>
@@ -3587,22 +3485,6 @@
         <value xml:lang="th">แสดงคำร้อง</value>
         <value xml:lang="zh">请求退货</value>
     </property>
-    <property key="PageTitleSearchResults">
-        <value xml:lang="cs">Výsledky hledání</value>
-        <value xml:lang="de">Suchergebnisse</value>
-        <value xml:lang="en">Search Results</value>
-        <value xml:lang="es">Resultados de búsqueda</value>
-        <value xml:lang="fr">Résultats de la recherche</value>
-        <value xml:lang="hi_IN">नतीजा खोज</value>
-        <value xml:lang="it">Risultati della ricerca</value>
-        <value xml:lang="ja">検索結果</value>
-        <value xml:lang="nl">Zoek resultaat</value>
-        <value xml:lang="pt_PT">Resultados Da Procura</value>
-        <value xml:lang="ro">Cauta Rezultate </value>
-        <value xml:lang="ru">Результаты поиска</value>
-        <value xml:lang="th">ค้นหาผลลัพธ์</value>
-        <value xml:lang="zh">搜索结果</value>
-    </property>
     <property key="PageTitleSearchSites">
         <value xml:lang="de">Seiten suchen</value>
         <value xml:lang="en">Search Sites</value>
@@ -3682,22 +3564,6 @@
         <value xml:lang="ru">Корзина покупок</value>
         <value xml:lang="th">การซื้อสินค้าลงตะกร้า</value>
         <value xml:lang="zh">购物车</value>
-    </property>
-    <property key="PageTitleShoppingList">
-        <value xml:lang="cs">Nákupní seznam</value>
-        <value xml:lang="de">Einkaufsliste</value>
-        <value xml:lang="en">Shopping List</value>
-        <value xml:lang="es">Lista de Compra</value>
-        <value xml:lang="fr">Liste d'achat</value>
-        <value xml:lang="hi_IN">खरीदारी सूची</value>
-        <value xml:lang="it">Lista di acquisto</value>
-        <value xml:lang="ja">買い物リスト</value>
-        <value xml:lang="nl">Boodschappenlijst</value>
-        <value xml:lang="pt_PT">Lista De Compras</value>
-        <value xml:lang="ro">Lista Cumparari</value>
-        <value xml:lang="ru">Список покупок</value>
-        <value xml:lang="th">รายการสินค้าที่ซื้อ</value>
-        <value xml:lang="zh">购物列表</value>
     </property>
     <property key="PageTitleShowAllPromotions">
         <value xml:lang="de">Alle Aktionen anzeigen</value>

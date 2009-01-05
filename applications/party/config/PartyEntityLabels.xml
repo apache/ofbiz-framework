@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AgreementItemType.description.AGREEMENT_COMMISSION">
         <value xml:lang="de">Kommission</value>
         <value xml:lang="en">Commission rate</value>
@@ -1214,7 +1215,7 @@
         <value xml:lang="en">Blog Administrator</value>
         <value xml:lang="es">Administrador de blog</value>
         <value xml:lang="fr">Administrateur du blog</value>
-        <value xml:lang="it">Blog Amministratore</value>
+        <value xml:lang="it">Amministratore blog</value>
         <value xml:lang="ro">Blog Administrator</value>
         <value xml:lang="ru">Администратор блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้บริหาร</value>
@@ -1225,7 +1226,7 @@
         <value xml:lang="en">Blog Author</value>
         <value xml:lang="es">Autor de blog</value>
         <value xml:lang="fr">Auteur du blog</value>
-        <value xml:lang="it">Blog Autore</value>
+        <value xml:lang="it">Autore blog</value>
         <value xml:lang="ro">Blog Autor</value>
         <value xml:lang="ru">Автор блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้เขียน</value>
@@ -1236,7 +1237,7 @@
         <value xml:lang="en">Blog Editor</value>
         <value xml:lang="es">Editor de blog</value>
         <value xml:lang="fr">Editeur du blog</value>
-        <value xml:lang="it">Blog Editore</value>
+        <value xml:lang="it">Editor blog</value>
         <value xml:lang="ro">Blog Editor</value>
         <value xml:lang="ru">Редактор блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้แก้ไข</value>
@@ -1247,7 +1248,7 @@
         <value xml:lang="en">Blog Guest</value>
         <value xml:lang="es">Invitado de blog</value>
         <value xml:lang="fr">Invité du blog</value>
-        <value xml:lang="it">Blog Ospite</value>
+        <value xml:lang="it">Ospite blog</value>
         <value xml:lang="ro">Blog Oaspete</value>
         <value xml:lang="ru">Гость блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของลูกค้า</value>
@@ -1258,7 +1259,7 @@
         <value xml:lang="en">Blog Publisher</value>
         <value xml:lang="es">Emisor de blog</value>
         <value xml:lang="fr">Editeur du blog</value>
-        <value xml:lang="it">Blog Pubblicatore</value>
+        <value xml:lang="it">Pubblicatore blog</value>
         <value xml:lang="ro">Blog Publicator</value>
         <value xml:lang="ru">Издатель блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ประกาศ</value>
@@ -1269,7 +1270,7 @@
         <value xml:lang="en">Blog User</value>
         <value xml:lang="es">Usuario de blog</value>
         <value xml:lang="fr">Utilisateur du blog</value>
-        <value xml:lang="it">Blog Utente</value>
+        <value xml:lang="it">Utente blog</value>
         <value xml:lang="ro">Blog Utilizator</value>
         <value xml:lang="ru">Пользователь блога</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ใช้</value>
@@ -1712,7 +1713,7 @@
         <value xml:lang="en">Permission Group Member</value>
         <value xml:lang="es">Miembro de grupo de permisos</value>
         <value xml:lang="fr">Membre du groupe d'approbation</value>
-        <value xml:lang="it">Membro Gruppo Permesso</value>
+        <value xml:lang="it">Permesso membro gruppo</value>
         <value xml:lang="ro">Membru Grup Permis</value>
         <value xml:lang="ru">Член группы прав</value>
         <value xml:lang="th">สมาชิกกลุ่มการอนุญาต</value>
@@ -2350,19 +2351,5 @@
         <value xml:lang="ru">Пороговые значения</value>
         <value xml:lang="th">จุดเริ่มต้น</value>
         <value xml:lang="zh">阈值</value>
-    </property>
-    <property key="party.id_generation_failure">
-        <value xml:lang="de">Fehler beim Erstellen einer neuen Party ID</value>
-        <value xml:lang="en">id_generation_failure</value>
-        <value xml:lang="es">Error al crear un nuevo código de participante</value>
-        <value xml:lang="fr">ERREUR: Echec lors de la génération d'un nouvelle identifiant acteur</value>
-        <value xml:lang="th">เกิดความผิดพลาดในรหัสต้นกำเนิด</value>
-    </property>
-    <property key="party.id_is_digit">
-        <value xml:lang="de">ID darf keine Zahl sein. Zahlen sind für die vom System automatisch generierten IDs reserviert.</value>
-        <value xml:lang="en">id_is_digit</value>
-        <value xml:lang="es">Código no debe ser un número</value>
-        <value xml:lang="fr">L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé pour les identifiants générés automatiquement</value>
-        <value xml:lang="th">รหัสที่เป็นตัวเลข</value>
     </property>
 </resource>

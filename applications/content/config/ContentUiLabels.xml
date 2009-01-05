@@ -2581,9 +2581,11 @@
         <value xml:lang="ar">إضافة محتوى</value>
         <value xml:lang="de">Inhalt hinzufügen</value>
         <value xml:lang="en">Add Content</value>
+        <value xml:lang="es">Añadir Contenido</value>
         <value xml:lang="fr">Ajouter un contenu</value>
-        <value xml:lang="it">Aggiungi Contenuto</value>
+        <value xml:lang="it">Aggiungi contenuto</value>
         <value xml:lang="ro">Adaugia Continut</value>
+        <value xml:lang="ru">Добавить контент</value>
         <value xml:lang="th">เพิ่มหัวข้อ</value>
         <value xml:lang="zh">新建内容</value>
     </property>
@@ -2768,8 +2770,11 @@
         <value xml:lang="en">Edit Content</value>
         <value xml:lang="es">Modificar Contenido</value>
         <value xml:lang="fr">Modifier le contenu</value>
-        <value xml:lang="it">Aggiorna Contenuto</value>
-        <value xml:lang="ro">Actualizeaza Continutul</value>
+        <value xml:lang="it">Aggiorna contenuto</value>
+        <value xml:lang="ja">Edit Content</value>
+        <value xml:lang="nl">Pas de inhoud aan</value>
+        <value xml:lang="ro">Actualizeaza Continut</value>
+        <value xml:lang="ru">Редактировать контент</value>
         <value xml:lang="th">แก้ไขหัวข้อ</value>
         <value xml:lang="zh">编辑内容</value>
     </property>

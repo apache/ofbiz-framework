@@ -381,7 +381,7 @@
         <value xml:lang="en">ERROR: Failure generating new party ID</value>
         <value xml:lang="es">ERROR: Error al generar nuevo código de participante</value>
         <value xml:lang="fr">ERREUR: Echec lors de la génération d'un nouvelle identifiant acteur</value>
-        <value xml:lang="it">ERRORE: Fallito generazione nuovo Codice Soggetto</value>
+        <value xml:lang="it">ERRORE: Fallito generazione nuovo codice soggetto</value>
         <value xml:lang="nl">Fout: Failure generating new party ID</value>
         <value xml:lang="pt_PT">Erro: Falha na geração de Nova Identificação de Secção</value>
         <value xml:lang="ro">EROARE: Generarea noului Cod Subiect </value>
@@ -394,7 +394,7 @@
         <value xml:lang="en">Specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs</value>
         <value xml:lang="es">El código no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé aux identifiants générés automatiquement</value>
-        <value xml:lang="it">Codice Soggetto specificato non può iniziare con un numero, codice numerici sono riservati per codici generati automaticamente</value>
+        <value xml:lang="it">Codice soggetto specificato non può iniziare con un numero, codice numerici sono riservati per codici generati automaticamente</value>
         <value xml:lang="nl">Specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs</value>
         <value xml:lang="pt_PT">ID de Secção especificada não pode começar com dígitos, Identificações numéricas reservadas para Identificações auto-geradas.</value>
         <value xml:lang="ro">Cod Subiect specificat nu poate initia cu un numar, codurile  numerice sunt reservate pentru coduri generate automat</value>

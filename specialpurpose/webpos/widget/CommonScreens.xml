@@ -149,7 +149,7 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="center"/>
-                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="titleProperty" value="PageTitleMain"/>
                 <set field="headerItem" value="Main" />
             </actions>
             <widgets>
@@ -166,7 +166,7 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="leftonly"/>
-                <set field="titleProperty" value="WebPosPageTitleLogin"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
             </actions>
@@ -185,7 +185,7 @@ under the License.
     <screen name="RequirePasswordChange">
         <section>
             <actions>
-                <set field="titleProperty" value="WebPosPageTitleLogin"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
             </actions>
             <widgets>
