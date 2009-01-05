@@ -410,7 +410,7 @@ under the License.
                         </calculate>
                     <else>
                         <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                            <calculate field="glAccountHistory" type="BigDecimal.postedCredits" >
+                            <calculate field="postedCredits" map-name="glAccountHistory" type="BigDecimal" >                                    
                                 <calcop operator="add">
                                     <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
                                     <calcop operator="get" field="postedCredits" map-name="glAccountHistory"/>
