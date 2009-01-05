@@ -25,6 +25,7 @@ under the License.
     <screen name="FindSubscription">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="headerItem" value="Subscription"/>
                 <set field="titleProperty" value="PageTitleFindSubscription"/>
             </actions>
@@ -104,6 +105,7 @@ under the License.
     <screen name="EditSubscription">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditSubscription"/>
                 <set field="tabButtonItem" value="EditSubscription"/>
                 <set field="subscriptionId" from-field="parameters.subscriptionId"/>
@@ -152,6 +154,7 @@ under the License.
     <screen name="FindSubscriptionResource">
         <section>
             <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
                 <set field="headerItem" value="Subscription"/>
                 <set field="titleProperty" value="PageTitleFindSubscriptionResource"/>
             </actions>
@@ -227,6 +230,7 @@ under the License.
     <screen name="EditSubscriptionResource">
         <section>
             <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditSubscriptionResource"/>
                 <set field="tabButtonItem" value="EditSubscriptionResource"/>
                 <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>

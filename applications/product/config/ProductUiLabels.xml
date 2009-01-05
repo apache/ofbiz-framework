@@ -2379,8 +2379,7 @@
         <value xml:lang="fr">Réf. de groupe de caractéristiques de produit</value>
         <value xml:lang="it">Gruppo Caratteristica Prodotto</value>
         <value xml:lang="ru">Код группы особенностей продукта</value>
-        <value xml:lang="th">รหัสกลุ่มลักษณะสินค้า
-        </value>
+        <value xml:lang="th">รหัสกลุ่มลักษณะสินค้า</value>
     </property>
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
@@ -2394,6 +2393,10 @@
         <value xml:lang="ru">Особенность продукта</value>
         <value xml:lang="th">รหัสลักษณะสินค้า</value>
         <value xml:lang="zh">产品特征标识</value>
+    </property>
+    <property key="FormFieldTitle_productFeatureIdTo">
+        <value xml:lang="en">Product Feature Id To</value>
+        <value xml:lang="it">Caratteristica prodotto a</value>
     </property>
     <property key="FormFieldTitle_productFeatureIactnTypeId">
         <value xml:lang="de">Interaktionstyp</value>
@@ -2724,6 +2727,10 @@
         <value xml:lang="fr">Reçu par l'identifiant de connexion</value>
         <value xml:lang="it">Ricevuto dall'Utente</value>
         <value xml:lang="th">ได้รับโดยรหัสการลอกอินเข้าสู่ระบบของผู้ใช้</value>
+    </property>
+    <property key="FormFieldTitle_recurrenceInfoId">
+        <value xml:lang="en">Recurrence Info Id</value>
+        <value xml:lang="it">Informazione ricorrente</value>
     </property>
     <property key="FormFieldTitle_rejectionId">
         <value xml:lang="de">Ablehnung ID</value>
@@ -5520,7 +5527,7 @@
         <value xml:lang="en">View Product Agreements</value>
         <value xml:lang="es">Ver acuerdos de producto</value>
         <value xml:lang="fr">Voir les accords commerciaux</value>
-        <value xml:lang="it">Mostra Accordi Prodotto</value>
+        <value xml:lang="it">Mostra contratti prodotto</value>
         <value xml:lang="ru">Просмотреть договора по продукту</value>
         <value xml:lang="th">แสดงสัญญาสินค้า</value>
     </property>
@@ -6393,7 +6400,7 @@
         <value xml:lang="en">Agreements</value>
         <value xml:lang="es">Acuerdos</value>
         <value xml:lang="fr">Accords</value>
-        <value xml:lang="it">Accordi</value>
+        <value xml:lang="it">Contratti</value>
         <value xml:lang="ru">Договора</value>
         <value xml:lang="th">สัญญา</value>
         <value xml:lang="zh">合同</value>
@@ -9770,7 +9777,7 @@
         <value xml:lang="en">Facility Manager Application</value>
         <value xml:lang="es">Aplicación de Administración del Almacén</value>
         <value xml:lang="fr">Application de gestion de stock</value>
-        <value xml:lang="it">Applicazione Gestione Stabilimenti</value>
+        <value xml:lang="it">Applicazione gestione stabilimenti</value>
         <value xml:lang="ro">Aplicatie Gestiune Compartimente</value>
         <value xml:lang="ru">Управление объектами</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการคลังสินค้า</value>
@@ -10838,7 +10845,7 @@
         <value xml:lang="en">Include sub-categories?</value>
         <value xml:lang="es">Incluír sub-categorías?</value>
         <value xml:lang="fr">Inclure les sous-catégories ?</value>
-        <value xml:lang="it">Includi sotto-categorie?</value>
+        <value xml:lang="it">Includi sotto-categorie</value>
         <value xml:lang="ja">Include sub-categories?</value>
         <value xml:lang="nl">Ook voor de subcategorieen?</value>
         <value xml:lang="ru">Включить подкатегории?</value>
