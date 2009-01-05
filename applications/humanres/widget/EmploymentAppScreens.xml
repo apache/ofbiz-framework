@@ -53,7 +53,7 @@
     <screen name="EditEmploymentApps">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewEmploymentApp"/>
+                <set field="titleProperty" value="PageTitleViewEmploymentApp"/>
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditEmploymentApps"/>
                 <set field="referredByPartyId" from-field="parameters.partyId"/>

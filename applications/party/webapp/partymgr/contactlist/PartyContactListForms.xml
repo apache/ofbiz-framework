@@ -27,7 +27,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="partyId"><hidden/></field>
-        <field name="contactListId" title="${uiLabelMap.PartyContactList}">
+        <field name="contactListId" title="${uiLabelMap.PartyContactLists}">
             <display-entity entity-name="ContactList" description="${contactListName}">
                 <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${contactListId}" description="${contactListId}" target-type="inter-app" link-style="smallSubmit"/>
             </display-entity>

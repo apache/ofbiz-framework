@@ -225,6 +225,10 @@
         <value xml:lang="th">ค่าเริ่มต้นอัตรา</value>
         <value xml:lang="zh">默认费率</value>
     </property>
+    <property key="FormFieldTitle_deleteEmail">
+        <value xml:lang="en">Delete email</value>
+        <value xml:lang="it">Cancella email</value>
+    </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="de">Ausgeschaltet Zeitpunkt</value>
         <value xml:lang="en">Disabled Date Time</value>
@@ -288,6 +292,10 @@
         <value xml:lang="nl">Bestaande klant</value>
         <value xml:lang="ru">Существующий заказчик</value>
         <value xml:lang="th">ลูกค้าที่มีอยู่</value>
+    </property>
+    <property key="FormFieldTitle_externalId">
+        <value xml:lang="en">External Id</value>
+        <value xml:lang="it">Codice esterno</value>
     </property>
     <property key="FormFieldTitle_firstName">
         <value xml:lang="de">Vorname</value>
@@ -486,6 +494,10 @@
         <value xml:lang="th">รหัสสมาชิก</value>
         <value xml:lang="zh">成员标识</value>
     </property>
+    <property key="FormFieldTitle_messageId">
+        <value xml:lang="en">Message Id</value>
+        <value xml:lang="it">Messaggio</value>
+    </property>
     <property key="FormFieldTitle_middleName">
         <value xml:lang="de">Zweiter Vorname</value>
         <value xml:lang="en">Middle Name</value>
@@ -585,6 +597,10 @@
         <value xml:lang="ru">Коз примечания</value>
         <value xml:lang="th">รหัสหมายเหตุ</value>
         <value xml:lang="zh">便笺标识</value>
+    </property>
+    <property key="FormFieldTitle_noteName">
+        <value xml:lang="en">Note Name</value>
+        <value xml:lang="it">Nome nota</value>
     </property>
     <property key="FormFieldTitle_numEmployees">
         <value xml:lang="en">Number of employees</value>
@@ -687,6 +703,10 @@
         <value xml:lang="it">Codice postale</value>
         <value xml:lang="nl">Postcode</value>
         <value xml:lang="th">รหัสไปรษณีย์</value>
+    </property>
+    <property key="FormFieldTitle_partyContentTypeId">
+        <value xml:lang="en">Parent Content Type Id</value>
+        <value xml:lang="it">Tipo contenuto padre</value>
     </property>
     <property key="FormFieldTitle_parentCommEventId">
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
@@ -863,6 +883,10 @@
         <value xml:lang="ru">Подсказка пароля</value>
         <value xml:lang="th">ซ่อนรหัสผ่าน</value>
         <value xml:lang="zh">密码提示</value>
+    </property>
+    <property key="FormFieldTitle_percentageUsed">
+        <value xml:lang="en">Percentage Used</value>
+        <value xml:lang="it">Percentuale usata</value>
     </property>
     <property key="FormFieldTitle_percentComplete">
         <value xml:lang="de">Prozent abgeschlossen</value>
@@ -1237,7 +1261,7 @@
         <value xml:lang="en">Address Match Map</value>
         <value xml:lang="es">Mapeado de direcciones</value>
         <value xml:lang="fr">Couples clefs-valeurs d'addresses comparables</value>
-        <value xml:lang="it">Mappatura Uguaglianza Indirizzi</value>
+        <value xml:lang="it">Mappatura uguaglianza indirizzi</value>
         <value xml:lang="nl">Adres op kaart bekijken</value>
         <value xml:lang="ro">Harta Adreselor Egale</value>
         <value xml:lang="ru">Карта соответствия адресов</value>
@@ -1576,7 +1600,7 @@
         <value xml:lang="en">Find Party(s)</value>
         <value xml:lang="es">Buscar participante(s)</value>
         <value xml:lang="fr">Recherche d'acteur(s)</value>
-        <value xml:lang="it">Ricerca Cliente(i)/Fornitore(i)</value>
+        <value xml:lang="it">Ricerca soggetto(i)</value>
         <value xml:lang="nl">Relatie(s) vinden</value>
         <value xml:lang="pt_PT">Procurar Secção</value>
         <value xml:lang="ro">Cauta Client(i)/Furnizor(i)</value>
@@ -1794,6 +1818,10 @@
         <value xml:lang="ru">Просмотреть классификации участника</value>
         <value xml:lang="th">แสดงการแบ่งประเภทกลุ่มผู้ใช้</value>
         <value xml:lang="zh">浏览会员分类</value>
+    </property>
+    <property key="PageTitleViewPartyPreferences">
+        <value xml:lang="en">View Party Preference</value>
+        <value xml:lang="it">Mostra preferenze soggetto</value>
     </property>
     <property key="PageTitleViewPartyProfile">
         <value xml:lang="de">Akteur Profil anzeigen</value>
@@ -2269,6 +2297,10 @@
         <value xml:lang="ru">Соответствие</value>
         <value xml:lang="th">เท่ากัน</value>
         <value xml:lang="zh">匹配</value>
+    </property>
+    <property key="PartyAdjustInAccountingComponent">
+        <value xml:lang="en">Adjust in accounting component</value>
+        <value xml:lang="it">Modificalo nell'applicazione di contabilità</value>
     </property>
     <property key="PartyAffiliateCodeMissingError">
         <value xml:lang="cs">Chybí kód dceřinné společnosti</value>
@@ -3018,7 +3050,7 @@
         <value xml:lang="en">OFBiz: Party Manager</value>
         <value xml:lang="es">OFBiz: Gestión de participantes</value>
         <value xml:lang="fr">OFBiz : Gestionnaire d'acteur</value>
-        <value xml:lang="it">OFBiz: Gestione Soggetti</value>
+        <value xml:lang="it">OFBiz: Gestione soggetti</value>
         <value xml:lang="nl">OFBiz: Relatie Manager</value>
         <value xml:lang="pt_PT">OFBiz:Grupo de Gestão</value>
         <value xml:lang="ro">OFBiz: Gestiune Subiecti</value>
@@ -4256,6 +4288,10 @@
         <value xml:lang="it">Email da soggetti sconosciuti</value>
         <value xml:lang="nl">E-mail van een onbekende relatie of contact</value>
     </property>
+    <property key="PartyEmailTo">
+        <value xml:lang="en">Email to</value>
+        <value xml:lang="it">Email a</value>
+    </property>
     <property key="PartyEnabled">
         <value xml:lang="de">Eingeschaltet</value>
         <value xml:lang="en">ENABLED</value>
@@ -4400,7 +4436,7 @@
         <value xml:lang="en">Find Parties</value>
         <value xml:lang="es">Buscar participantes</value>
         <value xml:lang="fr">Recherche des acteurs</value>
-        <value xml:lang="it">Ricerca Soggetti</value>
+        <value xml:lang="it">Ricerca soggetti</value>
         <value xml:lang="nl">Relatie(s) vinden</value>
         <value xml:lang="pt_PT">Procurar Secções</value>
         <value xml:lang="ro">Cauta Subiecti</value>
@@ -4413,7 +4449,7 @@
         <value xml:lang="en">Find Party</value>
         <value xml:lang="es">Buscar participante</value>
         <value xml:lang="fr">Recherche d'acteur</value>
-        <value xml:lang="it">Ricerca Soggetto</value>
+        <value xml:lang="it">Ricerca soggetto</value>
         <value xml:lang="nl">Relatie vinden</value>
         <value xml:lang="ro">Cauta Subiect</value>
         <value xml:lang="ru">Найти участника</value>
@@ -4824,7 +4860,7 @@
         <value xml:lang="de">Einladung</value>
         <value xml:lang="en">Invitation</value>
         <value xml:lang="es">Invitación</value>
-        <value xml:lang="it">Inviti Soggetti</value>
+        <value xml:lang="it">Inviti soggetti</value>
         <value xml:lang="th">คำเชิญ</value>
     </property>
     <property key="PartyInvitationAccAndDecPermissionError">
@@ -5012,25 +5048,16 @@
         <value xml:lang="fr">Le nom manque sur la carte</value>
         <value xml:lang="it">Cognome sulla carta di credito è mancante</value>
     </property>
-    <property key="PartyLastVisit">
-        <value xml:lang="de">Letzte Besuche</value>
-        <value xml:lang="en">Last Visit(s)</value>
-        <value xml:lang="es">Última visita(s)</value>
-        <value xml:lang="fr">Dernière(s) connexion(s)</value>
-        <value xml:lang="it">Ultima Visita(e)</value>
-        <value xml:lang="nl">Laatste bezoek(en)</value>
-        <value xml:lang="pt_PT">Última (s) Visita(s)</value>
-        <value xml:lang="ro">Ultima Vizita(e)</value>
-        <value xml:lang="ru">Последнее посещение(я)</value>
-        <value xml:lang="th">เข้าชมครั้งสุดท้าย</value>
-        <value xml:lang="zh">上次访问</value>
+    <property key="PartyLeaveEmpty">
+        <value xml:lang="en">Leave empty for new 'Party'</value>
+        <value xml:lang="it">Lasciare vuoto per un nuovo soggetto</value>
     </property>
     <property key="PartyLink">
         <value xml:lang="de">Akteur verknüpfen</value>
         <value xml:lang="en">Link Party</value>
         <value xml:lang="es">Asociar participante</value>
         <value xml:lang="fr">Fusionner</value>
-        <value xml:lang="it">Legami Soggetto</value>
+        <value xml:lang="it">Legami soggetto</value>
         <value xml:lang="nl">Link naar relatie</value>
         <value xml:lang="ro">Legaturi Subiect</value>
         <value xml:lang="ru">Связать участника</value>
@@ -5184,7 +5211,7 @@
         <value xml:lang="en">Lookup Party</value>
         <value xml:lang="es">Buscar participante</value>
         <value xml:lang="fr">Lancer la recherche d'acteur(s)</value>
-        <value xml:lang="it">Ricerca Soggetto</value>
+        <value xml:lang="it">Ricerca soggetto</value>
         <value xml:lang="nl">Relatie zoeken</value>
         <value xml:lang="ro">Cauta Subiect</value>
         <value xml:lang="ru">Искать участника</value>
@@ -5196,7 +5223,7 @@
         <value xml:lang="en">Lookup PartyAndUserLoginAndPerson</value>
         <value xml:lang="es">Buscar participante y conexion</value>
         <value xml:lang="fr">Consulter l'acteur et son identifiant de connexion</value>
-        <value xml:lang="it">Ricerca Soggetti Utenti e Persone</value>
+        <value xml:lang="it">Ricerca soggetti utenti e persone</value>
         <value xml:lang="nl">Gebruikers zoeken</value>
         <value xml:lang="ro">Cauta Subiecti Utilizzatori si Persoane</value>
         <value xml:lang="ru">Искать участника/имя входа/персону</value>
@@ -5306,7 +5333,7 @@
         <value xml:lang="en">Party Manager Application</value>
         <value xml:lang="es">Gestión de participantes</value>
         <value xml:lang="fr">Application de gestion des acteurs</value>
-        <value xml:lang="it">Applicazione Gestione Soggetti</value>
+        <value xml:lang="it">Applicazione gestione soggetti</value>
         <value xml:lang="nl">Relatie Manager</value>
         <value xml:lang="pt_PT">Função de Gerente de Secção</value>
         <value xml:lang="ro">Aplicatie Gestiune Subiecti</value>
@@ -5365,6 +5392,10 @@
         <value xml:lang="ru">Манифест политик</value>
         <value xml:lang="th">ผู้ดูแลที่เป็นที่รู้จัก</value>
         <value xml:lang="zh">显示政策</value>
+    </property>
+    <property key="PartyManualTx">
+        <value xml:lang="en">Manual Tx</value>
+        <value xml:lang="it">Transazione manuale</value>
     </property>
     <property key="PartyMaritalStatus">
         <value xml:lang="cs">Rodinný stav</value>
@@ -6286,6 +6317,10 @@
         <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
         <value xml:lang="zh">机构会员标识</value>
     </property>
+    <property key="PartyOverrideDefaultRateAmount">
+        <value xml:lang="en">Override Default Rate Amount</value>
+        <value xml:lang="it">Sostituzione importo tasso di default</value>
+    </property>
     <property key="PartyPagePushFollowing">
         <value xml:lang="de">Page Push/Following</value>
         <value xml:lang="en">Page Push/Following</value>
@@ -6441,7 +6476,7 @@
         <value xml:lang="en">PartyID/UserLoginID</value>
         <value xml:lang="es">Código / usuario</value>
         <value xml:lang="fr">Réf. de l'acteur et ident. de connexion</value>
-        <value xml:lang="it">Codice Cliente Fornitori / Codice Utente</value>
+        <value xml:lang="it">Codice Soggetto / Codice Utente</value>
         <value xml:lang="nl">Relatie-ID/Loginnaam</value>
         <value xml:lang="pt_PT">ID da Secção/ID de Entrada de Utilizador</value>
         <value xml:lang="ro">Cod Client Furnizor / Cod Utilizator</value>
@@ -7172,7 +7207,7 @@
         <value xml:lang="en">Quantity</value>
         <value xml:lang="es">Cantidad</value>
         <value xml:lang="fr">Quantité</value>
-        <value xml:lang="it">Quantit </value>
+        <value xml:lang="it">Quantità</value>
         <value xml:lang="nl">Hoeveelheid</value>
         <value xml:lang="ro">Cantitate </value>
         <value xml:lang="ru">Количество</value>
@@ -7202,6 +7237,10 @@
         <value xml:lang="ru">Быстро добавить в список покупок</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็วในรายการซื้อของ</value>
         <value xml:lang="zh">快速添加到购物列表</value>
+    </property>
+    <property key="PartyRateNotSpecified">
+        <value xml:lang="en">Rate not specified for this party AND NO default rate</value>
+        <value xml:lang="it">Tasso non specificato per questo soggetto e nessun tasso di default</value>
     </property>
     <property key="PartyReceivePasswordByEmail">
         <value xml:lang="cs">Heslo oddržíte e-mailem jakmile bude Váš účet aktivován</value>
@@ -7794,7 +7833,7 @@
         <value xml:lang="en">Service management Customer Request Id</value>
         <value xml:lang="es">Gestión de servicios, Código de petición de cliente</value>
         <value xml:lang="fr">Réf. de demande de service</value>
-        <value xml:lang="it">Gestione Servizio Codice Richiesta Cliente/Fornitore</value>
+        <value xml:lang="it">Gestione servizio codice richiesta soggetto</value>
         <value xml:lang="nl">Service management ID klantverzoek</value>
         <value xml:lang="ro">Gestiune Serviciu Cod Cerere Client//Furnizor</value>
         <value xml:lang="ru">Код запроса клиента управления службами</value>
@@ -8633,6 +8672,18 @@
         <value xml:lang="ru">Отсутствует имя пользователя</value>
         <value xml:lang="th">ไม่ได้ใส่ชื่อผู้ใช้</value>
         <value xml:lang="zh">缺少用户名</value>
+    </property>
+    <property key="PartyValueFromPartyLevel">
+        <value xml:lang="en">Value from party level</value>
+        <value xml:lang="it">Valore a livello di soggetto</value>
+    </property>
+    <property key="PartyValueFromWorkEffortLevel">
+        <value xml:lang="en">Value from workeffort level</value>
+        <value xml:lang="it">Valore a livello di impegno di lavoro</value>
+    </property>
+    <property key="PartyValueFromRateTypeLevel">
+        <value xml:lang="en">Value from rateType level</value>
+        <value xml:lang="it">Valore a livello di tipo tasso</value>
     </property>
     <property key="PartyVendor">
         <value xml:lang="de">Lieferant</value>

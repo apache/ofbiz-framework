@@ -273,18 +273,20 @@
         <value xml:lang="it">Tipo Responsibilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่</value>
     </property>
-    FormFieldTitle_
     <property key="FormFieldTitle_resumeDate">
         <value xml:lang="en">Resume Date</value>
         <value xml:lang="fr">Date de CV</value>
+        <value xml:lang="it">Data curriculum vitae</value>
     </property>    
     <property key="FormFieldTitle_resumeId">
         <value xml:lang="en">Resume Id</value>
         <value xml:lang="fr">Réf. de CV</value>
+        <value xml:lang="it">Rif. curriculum vitae</value>
     </property>    
     <property key="FormFieldTitle_resumeText">
         <value xml:lang="en">Resume Text</value>
         <value xml:lang="fr">Texte de CV</value>
+        <value xml:lang="it">Testo curriculum vitae</value>
     </property>    
     <property key="FormFieldTitle_routingNumber">
         <value xml:lang="en">Routing Number</value>
@@ -338,6 +340,7 @@
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>
         <value xml:lang="fr">Réf. de type de formation</value>
+        <value xml:lang="it">Tipo classe corso</value>
     </property>    
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
@@ -401,11 +404,13 @@
     <property key="HumanResAddPartySkill">
         <value xml:lang="en">Add Party Skill</value>
         <value xml:lang="fr">Ajoutez la compétence</value>
+        <value xml:lang="it">Aggiungi abilità soggetto</value>
     </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="de">Personenschulung hinzufügen</value>
         <value xml:lang="en">Add Person Training</value>
         <value xml:lang="fr">Ajouter la formation de la personne</value>
+        <value xml:lang="it">Aggiungi corsi persona</value>
     </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
@@ -1034,6 +1039,7 @@
         <value xml:lang="en">Resumes</value>
         <value xml:lang="es">Resúmenes</value>
         <value xml:lang="fr">CV</value>
+        <value xml:lang="it">Curriculum vitae</value>
     </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
@@ -1220,6 +1226,7 @@
         <value xml:lang="en">Trainings</value>
         <value xml:lang="es">Entrenamiento</value>
         <value xml:lang="fr">Formation</value>
+        <value xml:lang="it">Corsi</value>
     </property>
     <property key="HumanResViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
@@ -1314,5 +1321,17 @@
         <value xml:lang="fr">Liste de validité des responsabilités</value>
         <value xml:lang="it">Lista Validità Responsibilità</value>
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
+    </property>
+    <property key="PageTitleViewEmploymentApp">
+        <value xml:lang="en">View Employment App</value>
+        <value xml:lang="it">Mostra applicazioni impiegato</value>
+    </property>
+    <property key="PageTitleViewPartySkill">
+        <value xml:lang="en">View Party Skill</value>
+        <value xml:lang="it">Mostra abilità soggetto</value>
+    </property>
+    <property key="PageTitleViewPersonTraining">
+        <value xml:lang="en">View Person Training</value>
+        <value xml:lang="it">Mostra corsi persona</value>
     </property>
 </resource>

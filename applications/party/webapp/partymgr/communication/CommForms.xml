@@ -659,7 +659,7 @@ under the License.
         </actions>
         <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
-        <field name="partyId" tooltip="leave empty for new 'Party'"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" tooltip="${uiLabelMap.PartyLeaveEmpty}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="emailAddress"><text/></field>
         <field name="firstName" position="1"><text/></field>
         <field name="middleName" position="2"><text/></field>
@@ -673,7 +673,7 @@ under the License.
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="" position="1"><display/></field>
         <field name=" " position="2"><display/></field>
-        <field name="deleteEmail" title="Delete email" widget-style="smallSubmit" position="3"><submit/></field>
+        <field name="deleteEmail" widget-style="smallSubmit" position="3"><submit/></field>
     </form>
     <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="communicationEvent">
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>

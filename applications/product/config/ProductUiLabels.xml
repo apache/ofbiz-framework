@@ -17663,7 +17663,7 @@
         <value xml:lang="en">Third Party Postal Code</value>
         <value xml:lang="es">Código postal de tercero</value>
         <value xml:lang="fr">Code postal d'une tierce personne</value>
-        <value xml:lang="it">C.A.P. Soggetto Terzo</value>
+        <value xml:lang="it">Codice postale soggetto terzo</value>
         <value xml:lang="ru">Почтовый код третьей стороны</value>
         <value xml:lang="th">รหัสไปรษณีย์กลุ่มที่สาม</value>
     </property>
