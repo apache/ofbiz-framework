@@ -160,6 +160,7 @@ under the License.
     <screen name="ViewProductAgreements">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleViewProductAgreements"/>
                 <set field="tabButtonItem" value="ViewProductAgreements"/>
                 <set field="labelTitleProperty" value="ProductAgreements"/>
@@ -839,6 +840,7 @@ under the License.
     <screen name="EditProductInventoryItems">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditProductInventoryItems"/>
                 <set field="tabButtonItem" value="EditProductInventoryItems"/>
                 <set field="labelTitleProperty" value="ProductInventorySummary"/>
@@ -1013,6 +1015,7 @@ under the License.
     <screen name="EditProductPaymentMethodTypes">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditProductPaymentMethodType"/>
                 <set field="tabButtonItem" value="EditProductPaymentMethodTypes"/>
                 <set field="labelTitleProperty" value="ProductPaymentTypes"/>

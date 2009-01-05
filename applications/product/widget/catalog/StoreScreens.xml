@@ -648,6 +648,7 @@ under the License.
     <screen name="EditProductStoreFinAccountSettings">
        <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditProductStoreFinAccountSettings"/>
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreFinAccountSettings"/>
@@ -701,6 +702,7 @@ under the License.
     <screen name="EditProductStoreVendorPayments">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditProductStoreVendorPayments"/>
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreVendorPayments"/>
