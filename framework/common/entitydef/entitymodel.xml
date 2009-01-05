@@ -584,15 +584,6 @@ under the License.
           <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
         </relation>
     </entity>
-  <view-entity entity-name="PortalPageAndChildren" package-name="org.ofbiz.common.portal" title="Defines a Portal Page and children">
-      <member-entity entity-alias="PP" entity-name="PortalPage"/>
-      <member-entity entity-alias="PPP" entity-name="PortalPage"/>
-      <alias-all entity-alias="PP"/>
-      <alias-all entity-alias="PPP" prefix="p"/>
-      <view-link entity-alias="PP" rel-entity-alias="PPP" rel-optional="true">
-        <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
-      </view-link>
-    </view-entity>
   <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id-ne"></field>
         <field name="columnSeqId" type="id-ne"></field>
