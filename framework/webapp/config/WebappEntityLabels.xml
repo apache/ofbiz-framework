@@ -17,12 +17,13 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ServerHitType.description.ENTITY">
         <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity</value>
         <value xml:lang="es">Entidad</value>
-        <value xml:lang="it">Entité</value>
+        <value xml:lang="it">Entità</value>
         <value xml:lang="ro">Entitate</value>
         <value xml:lang="ru">Сущность</value>
         <value xml:lang="th">เอกลักษณ์</value>

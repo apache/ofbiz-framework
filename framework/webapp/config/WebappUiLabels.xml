@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="coreEvents.delegator_not_passed">
         <value xml:lang="de">Benötigter Parameter 'delegator' fehlt.</value>
         <value xml:lang="en">Required parameter 'delegator' not passed.</value>
@@ -252,44 +253,6 @@
         <value xml:lang="ru">SERVICE_TIME уже передан</value>
         <value xml:lang="th">SERVICE_TIME ผ่านเรียบร้อยแล้ว</value>
         <value xml:lang="zh">SERVICE_TIME已经传递了</value>
-    </property>
-    <property key="loginevents.following_error_occurred_during_login">
-        <value xml:lang="de">Der folgende Fehler ist beim Anmelden aufgetreten: ${errorMessage}</value>
-        <value xml:lang="en">The following error occurred during login: ${errorMessage}</value>
-        <value xml:lang="fr">L'erreur suivante est apparue lors de la connexion: ${errorMessage}</value>
-        <value xml:lang="it">Il seguente errore è avvenuto durante il login: ${errorMessage}</value>
-        <value xml:lang="ru">Во время регистрации в системе произошла следующая ошибка: ${errorMessage}</value>
-        <value xml:lang="th">เกิดความผิดพลาดระหว่างการเข้าสู่ระบบ: ${errorMessage}
-        </value>
-        <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
-    </property>
-    <property key="loginevents.password_was_empty_reenter">
-        <value xml:lang="de">Passwort war leer, bitte erneut eingeben.</value>
-        <value xml:lang="en">The Password was empty, please re-enter.</value>
-        <value xml:lang="fr">Le mot de passe est vide, merci de le saisir</value>
-        <value xml:lang="it">La password è vuota, prego inserirla di nuovo.</value>
-        <value xml:lang="ru">Пароль пустой, введите повторно.</value>
-        <value xml:lang="th">รหัสผ่านเป็นค่าว่าง กรุณากรอกอีกครั้ง</value>
-        <value xml:lang="zh">密码是空的，请重新输入。</value>
-    </property>
-    <property key="loginevents.unable_to_login_this_application">
-        <value xml:lang="de">Sie können sich nicht bei dieser Anwendung anmelden (benötigte Berechtigungen fehlen).</value>
-        <value xml:lang="en">Login for this application couldn't be completed (required permissions missing).</value>
-        <value xml:lang="fr">La connexion à cette application n'a pas pu être effectuée (cet utilisateur n'a pas le niveau d'autorisation nécessaire)</value>
-        <value xml:lang="it">Impossibile accedere a questa applicazione (utente con privilegi insufficienti)</value>
-        <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
-        <value xml:lang="th">การเข้าสู่ระบบสำหรับโปรแกรมประยุกต์นี้ไม่เสร็จสมบูรณ์ (ไม่ได้รับอนุญาตตามความต้องการ)
-        </value>
-        <value xml:lang="zh">无法完成登录这个应用 (找不到所需权限)。</value>
-    </property>
-    <property key="loginevents.username_was_empty_reenter">
-        <value xml:lang="de">Der Benutzername ist leer, bitte erneut eingeben.</value>
-        <value xml:lang="en">The Username was empty, please re-enter.</value>
-        <value xml:lang="fr">Le nom d'utilisateur est vide, merci de le saisir</value>
-        <value xml:lang="it">Il nome utente è vuoto, prego inserirlo di nuovo.</value>
-        <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
-        <value xml:lang="th">ชื่อผู้ใช้เป็นค่าว่าง กรุณากรอกอีกครั้ง</value>
-        <value xml:lang="zh">用户名是空的，请重新输入。</value>
     </property>
     <property key="protectedviewevents.blocked_message">
         <value xml:lang="en">This is the blocked message (to be adapted).</value>
