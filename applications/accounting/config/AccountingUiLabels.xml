@@ -6415,6 +6415,7 @@
     <property key="AccountingShipmentNotSalesReturnAndPurchaseReturn">
         <value xml:lang="en">Shipment is not of type SALES_RETURN or PURCHASE_RETURN.</value>
         <value xml:lang="fr">L'expédition n'est pas de type SALES_RETURN ou PURCHASE_RETURN.</value>
+        <value xml:lang="it">La spedizione non è di tipo SALES_RETURN o PURCHASE_RETURN.</value>
         <value xml:lang="nl">Verzending is niet van het type SALES_RETURN of PURCHASE_RETURN.</value>
     </property>
     <property key="AccountingShipmentsOfDifferentTypes">
