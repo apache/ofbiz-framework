@@ -230,7 +230,10 @@ public class RequestHandler implements Serializable {
                                 eventReturnString = "protect";
                                 // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
                                 if (null == requestManager.getRequestAttribute(requestUri, "protect")) {
-                                    nextView = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                    nextView = requestManager.getDefaultProtectView();
+                                    if (nextView == null) {
+                                        nextView = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                    }
                                 }                
                             }
                         } else if (returnString == null) {
