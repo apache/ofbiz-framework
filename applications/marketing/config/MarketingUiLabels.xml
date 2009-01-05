@@ -272,14 +272,6 @@
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求标识</value>
     </property>
-    <property key="FormFieldTitle_partyClassificationGroupId">
-        <value xml:lang="en">Party Classification Group Id</value>
-        <value xml:lang="fr">Groupe de classification d'acteur</value>
-        <value xml:lang="it">Gruppo Classificazione Soggetto</value>
-        <value xml:lang="ro">Grup Clasificare Subiect</value>
-        <value xml:lang="th">รหัสการจัดแบ่งประเภทกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员分类组标识</value>
-    </property>
     <property key="FormFieldTitle_prodCatalogId">
         <value xml:lang="en">Product Catalog Id</value>
         <value xml:lang="fr">Réf. de catalogue</value>
@@ -287,15 +279,6 @@
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
         <value xml:lang="zh">产品目录标识</value>
-    </property>
-    <property key="FormFieldTitle_productStoreId">
-        <value xml:lang="de">Produktgeschäfts-ID</value>
-        <value xml:lang="en">Product Store Id</value>
-        <value xml:lang="fr">Réf. de centre de profit</value>
-        <value xml:lang="it">Negozio</value>
-        <value xml:lang="ro">Magazin</value>
-        <value xml:lang="th">รหัสคลังสินค้า</value>
-        <value xml:lang="zh">产品店铺标识</value>
     </property>
     <property key="MarketingCampaign">
         <value xml:lang="en">Marketing Campaign</value>

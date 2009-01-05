@@ -860,28 +860,6 @@
         <value xml:lang="th">รหัสหน่วยวัดค่าใช้จ่าย</value>
         <value xml:lang="zh">成本币种标识</value>
     </property>
-    <property key="FormFieldTitle_createdByUserLogin">
-        <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
-        <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="es">Creado por usuario</value>
-        <value xml:lang="fr">Créé au login de l'utilisateur</value>
-        <value xml:lang="it">Creato Dall'Utente</value>
-        <value xml:lang="ro">Creat De Utilizator</value>
-        <value xml:lang="ru">Создано пользователем</value>
-        <value xml:lang="th">สร้างโดยผู้ใช้ที่ลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh">由登录用户创建</value>
-    </property>
-    <property key="FormFieldTitle_createdDate">
-        <value xml:lang="de">Erstellungsdatum</value>
-        <value xml:lang="en">Created Date</value>
-        <value xml:lang="es">Fecha de creación</value>
-        <value xml:lang="fr">Date créée</value>
-        <value xml:lang="it">Data Creazione</value>
-        <value xml:lang="ro">Data Creatie</value>
-        <value xml:lang="ru">Дата создания</value>
-        <value xml:lang="th">สร้างวันที่</value>
-        <value xml:lang="zh">创建日期</value>
-    </property>
     <property key="FormFieldTitle_createdDatetime">
         <value xml:lang="de">Datum/Zeit der Erstellung</value>
         <value xml:lang="en">Created Datetime</value>
@@ -928,124 +906,13 @@
         <value xml:lang="th">วันที่ลูกค้าเรียกร้อง</value>
         <value xml:lang="zh">客户请求日期</value>
     </property>
-    <property key="FormFieldTitle_custRequestId">
-        <value xml:lang="de">Kundenanfrage ID</value>
-        <value xml:lang="en">Cust Request Id</value>
-        <value xml:lang="es">Código de petición</value>
-        <value xml:lang="fr">Réf. de la demande client</value>
-        <value xml:lang="it">Numero Richiesta Cliente</value>
-        <value xml:lang="ro">Numar Cerut Client</value>
-        <value xml:lang="ru">Код запроса заказч</value>
-        <value xml:lang="th">รหัสการเรียกร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求标识</value>
-    </property>
-    <property key="FormFieldTitle_custRequestItemSeqId">
-        <value xml:lang="de">Kundenanfrage Position Seq. ID</value>
-        <value xml:lang="en">Cust Request Item Seq Id</value>
-        <value xml:lang="es">Número de secuencia item de petición</value>
-        <value xml:lang="fr">Réf. séq. de la ligne de demande</value>
-        <value xml:lang="it">Numero Sequenza Riga Richiesta Cliente</value>
-        <value xml:lang="ro">Numar Secventa Linie Ceruta Client</value>
-        <value xml:lang="ru">Посл. код поз. запроса заказчика</value>
-        <value xml:lang="th">รหัสรายการหัวข้อการเรียกร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求明细顺序标识</value>
-    </property>
-    <property key="FormFieldTitle_custRequestName">
-        <value xml:lang="de">Kundenanfrage Namen</value>
-        <value xml:lang="en">Cust Request Name</value>
-        <value xml:lang="es">Nombre de petición</value>
-        <value xml:lang="fr">Nom de la demande client</value>
-        <value xml:lang="it">Nome Richiesta Cliente</value>
-        <value xml:lang="ro">Nume Cerere Client</value>
-        <value xml:lang="ru">Имя запроса</value>
-        <value xml:lang="th">ชื่อการเรียกร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求名称</value>
-    </property>
-    <property key="FormFieldTitle_custRequestTypeId">
-        <value xml:lang="de">Kundenanfragetyp ID</value>
-        <value xml:lang="en">Cust Request Type Id</value>
-        <value xml:lang="es">Código Tipo de petición</value>
-        <value xml:lang="fr">Réf. du type de la demande client</value>
-        <value xml:lang="it">Tipo Richiesta Cliente</value>
-        <value xml:lang="ro">Tip Cerere Client</value>
-        <value xml:lang="ru">Код типа запроса заказчика</value>
-        <value xml:lang="th">รหัสประเภทการเรียกร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求类型标识</value>
-    </property>
     <property key="FormFieldTitle_customPriceCalcService">
         <value xml:lang="de">Angepasster Preisberechnungsdienst</value>
         <value xml:lang="en">Custom Price Calc Service</value>
         <value xml:lang="es">Método de cálculo del precio</value>
         <value xml:lang="fr">Service adapté de calcul du prix</value>
         <value xml:lang="it">Servizio Personalizzato Calcolo Prezzo</value>
-        <value xml:lang="th">บริการคำนวนราคา
-        </value>
-    </property>
-    <property key="FormFieldTitle_dataCategoryId">
-        <value xml:lang="de">Daten Kategorie ID</value>
-        <value xml:lang="en">Data Category Id</value>
-        <value xml:lang="es">Código Categoría de datos</value>
-        <value xml:lang="fr">Réf. de catégorie de données</value>
-        <value xml:lang="it">Codice Categoria Dati</value>
-        <value xml:lang="ro">Cod Categorie Dati</value>
-        <value xml:lang="ru">Код категории данных</value>
-        <value xml:lang="th">รหัสข้อมูลหมวดหมู่</value>
-        <value xml:lang="zh">数据分类标识</value>
-    </property>
-    <property key="FormFieldTitle_dataResourceId">
-        <value xml:lang="de">Daten Ressource ID</value>
-        <value xml:lang="en">Data Resource Id</value>
-        <value xml:lang="es">Código Recurso de datos</value>
-        <value xml:lang="fr">Réf. de resource de données</value>
-        <value xml:lang="it">Codice Risorsa Dati</value>
-        <value xml:lang="ro">Cod Resurse Date</value>
-        <value xml:lang="ru">Код ресурса данных</value>
-        <value xml:lang="th">รหัสแหลง่ข้อมูล</value>
-        <value xml:lang="zh">数据资源标识</value>
-    </property>
-    <property key="FormFieldTitle_dataResourceName">
-        <value xml:lang="de">Daten Ressource Name</value>
-        <value xml:lang="en">Data Resource Name</value>
-        <value xml:lang="es">Código Recurso de datos</value>
-        <value xml:lang="fr">Nom de resource de données</value>
-        <value xml:lang="it">Nome Risorsa Dati</value>
-        <value xml:lang="ro">Nume Resurse Date</value>
-        <value xml:lang="ru">Имя ресурса данных</value>
-        <value xml:lang="th">ชื่อแหล่งข้อมูล</value>
-        <value xml:lang="zh">数据资源名称</value>
-    </property>
-    <property key="FormFieldTitle_dataResourceTypeId">
-        <value xml:lang="de">Daten Ressourcentyp ID</value>
-        <value xml:lang="en">Data Resource Type Id</value>
-        <value xml:lang="es">Código Tipo de recurso de datos</value>
-        <value xml:lang="fr">Réf. de type de resource de données</value>
-        <value xml:lang="it">Tipo Risorsa Dati</value>
-        <value xml:lang="ro">Tip Resurse Date</value>
-        <value xml:lang="ru">Код типа ресурса данных</value>
-        <value xml:lang="th">รหัสประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh">数据资源类型标识</value>
-    </property>
-    <property key="FormFieldTitle_dataSourceId">
-        <value xml:lang="de">Datenquelle ID</value>
-        <value xml:lang="en">Data Source Id</value>
-        <value xml:lang="es">Código Fuente de datos</value>
-        <value xml:lang="fr">Réf. de source de données</value>
-        <value xml:lang="it">Codice Sorgente Dati</value>
-        <value xml:lang="ro">Cod Surse Date</value>
-        <value xml:lang="ru">Код источника данных</value>
-        <value xml:lang="th">รหัสแหล่งข้อมูล</value>
-        <value xml:lang="zh">数据源标识</value>
-    </property>
-    <property key="FormFieldTitle_dataTemplateTypeId">
-        <value xml:lang="de">Daten Templatetyp ID</value>
-        <value xml:lang="en">Data Template Type Id</value>
-        <value xml:lang="es">Código Plantilla de datos</value>
-        <value xml:lang="fr">Réf. de type de canevas de données</value>
-        <value xml:lang="it">Tipo Template Dati</value>
-        <value xml:lang="ro">Tip Template Date</value>
-        <value xml:lang="ru">Код типа шаблона данных</value>
-        <value xml:lang="th">รหัสประเภทข้อมูลเทมเพลต</value>
-        <value xml:lang="zh">数据模板类型标识</value>
+        <value xml:lang="th">บริการคำนวนราคา</value>
     </property>
     <property key="FormFieldTitle_datetimeManufactured">
         <value xml:lang="de">Datum/Zeit Herstellung</value>
@@ -1169,14 +1036,6 @@
         <value xml:lang="th">ลบค่าใช้จ่ายส่วนประกอบ</value>
         <value xml:lang="zh">删除成本组成</value>
     </property>
-    <property key="FormFieldTitle_deleteLink">
-        <value xml:lang="de">Link löschen</value>
-        <value xml:lang="en">Delete Link</value>
-        <value xml:lang="es">Borrar enlace</value>
-        <value xml:lang="fr">Supprimer le lien</value>
-        <value xml:lang="it">Cancella</value>
-        <value xml:lang="th">ลบลิงค์</value>
-    </property>
     <property key="FormFieldTitle_detailScreen">
         <value xml:lang="de">Detail Anzeige</value>
         <value xml:lang="en">Detail Screen</value>
@@ -1255,17 +1114,6 @@
         <value xml:lang="ru">Разрешить загрузку цифровых продуктов</value>
         <value xml:lang="th">สามารถอัพโหลดสินค้าดิจิตอล</value>
         <value xml:lang="zh">允许数字产品上传</value>
-    </property>
-    <property key="FormFieldTitle_enableHttps">
-        <value xml:lang="de">HTTPS zulassen</value>
-        <value xml:lang="en">Enable Https</value>
-        <value xml:lang="es">Habilitar Https</value>
-        <value xml:lang="fr">Autoriser HTPPS</value>
-        <value xml:lang="it">Abilita Https</value>
-        <value xml:lang="ro">Abilitare Https</value>
-        <value xml:lang="ru">Использовать Https</value>
-        <value xml:lang="th">Enable Https</value>
-        <value xml:lang="zh">允许Https</value>
     </property>
     <property key="FormFieldTitle_estimateCalcMethod">
         <value xml:lang="de">Methode zur Berechnung Schätzung</value>
@@ -1458,25 +1306,6 @@
         <value xml:lang="ru">Цена особенности</value>
         <value xml:lang="th">ลักษณะราคา</value>
     </property>
-    <property key="FormFieldTitle_fixedAssetId">
-        <value xml:lang="de">Anlage ID</value>
-        <value xml:lang="en">Fixed Asset Id</value>
-        <value xml:lang="es">Código de activo fijo</value>
-        <value xml:lang="fr">Réf. d'immobilisation</value>
-        <value xml:lang="it">Numero Cespite</value>
-        <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน</value>
-    </property>
-    <property key="FormFieldTitle_fromPartyId">
-        <value xml:lang="de">Von Akteur ID</value>
-        <value xml:lang="en">From Party Id</value>
-        <value xml:lang="es">Código Participante origen</value>
-        <value xml:lang="fr">Réf. d'expéditeur</value>
-        <value xml:lang="it">Dal Soggetto</value>
-        <value xml:lang="ro">De la Subiect </value>
-        <value xml:lang="ru">От участника</value>
-        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">来自会员标识</value>
-    </property>
     <property key="FormFieldTitle_fromQuantity">
         <value xml:lang="de">Von Menge</value>
         <value xml:lang="en">From Quantity</value>
@@ -1574,50 +1403,6 @@
         <value xml:lang="th">หัวข้อทางซ้ายพื้นหลัง</value>
         <value xml:lang="zh">头右侧背景</value>
     </property>
-    <property key="FormFieldTitle_httpHost">
-        <value xml:lang="de">Http Host</value>
-        <value xml:lang="en">Http Host</value>
-        <value xml:lang="es">Host Http</value>
-        <value xml:lang="fr">Hôte HTTP</value>
-        <value xml:lang="it">Host Http</value>
-        <value xml:lang="ro">Host Http</value>
-        <value xml:lang="ru">Http хост</value>
-        <value xml:lang="th">Http Host</value>
-        <value xml:lang="zh">Http主机</value>
-    </property>
-    <property key="FormFieldTitle_httpPort">
-        <value xml:lang="de">Http Port</value>
-        <value xml:lang="en">Http Port</value>
-        <value xml:lang="es">Puerto Http</value>
-        <value xml:lang="fr">Port HTTP</value>
-        <value xml:lang="it">Porta Http</value>
-        <value xml:lang="ro">Poarta Http</value>
-        <value xml:lang="ru">Http порт</value>
-        <value xml:lang="th">พอร์ท Http</value>
-        <value xml:lang="zh">Http端口</value>
-    </property>
-    <property key="FormFieldTitle_httpsHost">
-        <value xml:lang="de">Https Host</value>
-        <value xml:lang="en">Https Host</value>
-        <value xml:lang="es">Host Https</value>
-        <value xml:lang="fr">Hôte HTTPS</value>
-        <value xml:lang="it">Host Https</value>
-        <value xml:lang="ro">Host Https</value>
-        <value xml:lang="ru">Https хост</value>
-        <value xml:lang="th">ที่อยู่ Https</value>
-        <value xml:lang="zh">Https主机</value>
-    </property>
-    <property key="FormFieldTitle_httpsPort">
-        <value xml:lang="de">Https Port</value>
-        <value xml:lang="en">Https Port</value>
-        <value xml:lang="es">Puerto Https</value>
-        <value xml:lang="fr">Port HTTPS</value>
-        <value xml:lang="it">Porta Https</value>
-        <value xml:lang="ro">Poarta Https</value>
-        <value xml:lang="ru">Https порт</value>
-        <value xml:lang="th">พอร์ท Https </value>
-        <value xml:lang="zh">Https端口</value>
-    </property>
     <property key="FormFieldTitle_idCode">
         <value xml:lang="de">Code ID</value>
         <value xml:lang="en">Id Code</value>
@@ -1703,17 +1488,6 @@
         <value xml:lang="it">Inc. Rig. No Ric.</value>
         <value xml:lang="ru">Включ. позиции с бесплат. достав.</value>
         <value xml:lang="th">ไม่รวมค่าธรรมเนียมรายการ</value>
-    </property>
-    <property key="FormFieldTitle_instanceOfContentId">
-        <value xml:lang="de">Instanz von Inhalt ID</value>
-        <value xml:lang="en">Instance Of Content Id</value>
-        <value xml:lang="es">Código Instancia de contenido</value>
-        <value xml:lang="fr">Réf. d'instance de contenu</value>
-        <value xml:lang="it">Instanza del Codice Contenuto</value>
-        <value xml:lang="ro">Instanta Codului Continut</value>
-        <value xml:lang="ru">Код экземпляра контента</value>
-        <value xml:lang="th">แทนที่รหัสหัวข้อ</value>
-        <value xml:lang="zh">内容标识实例</value>
     </property>
     <property key="FormFieldTitle_intervalMeterTypeId">
         <value xml:lang="de">Intervall Messungstyp ID</value>
@@ -1804,17 +1578,6 @@
         <value xml:lang="it">Numero Trasferimento Inventario</value>
         <value xml:lang="th">รหัสการเปลี่ยนสินค้าคงเหลือ</value>
     </property>
-    <property key="FormFieldTitle_isAnonymous">
-        <value xml:lang="de">Ist Anonym</value>
-        <value xml:lang="en">Is Anonymous</value>
-        <value xml:lang="es">Es anónimo</value>
-        <value xml:lang="fr">Est anonyme</value>
-        <value xml:lang="it">E' Anonimo</value>
-        <value xml:lang="ro">Este Anonim</value>
-        <value xml:lang="ru">Анонимный?</value>
-        <value xml:lang="th">ไม่ระบุ</value>
-        <value xml:lang="zh">匿名吗</value>
-    </property>
     <property key="FormFieldTitle_isDemoStore">
         <value xml:lang="de">Ist ein Demo-Laden</value>
         <value xml:lang="en">Is Demo Store</value>
@@ -1854,6 +1617,7 @@
         <value xml:lang="es">Es promocional</value>
         <value xml:lang="fr">Est une promotion</value>
         <value xml:lang="it">E' una Promozione</value>
+        <value xml:lang="nl">Is een Promotie</value>
         <value xml:lang="ro">Este o Promotie </value>
         <value xml:lang="ru">Это акция</value>
         <value xml:lang="th">โปรโมชัน</value>
@@ -1941,28 +1705,6 @@
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="zh">关键字</value>
     </property>
-    <property key="FormFieldTitle_lastModifiedByUserLogin">
-        <value xml:lang="de">Zuletzt bearbeitet von Benutzeranmeldung</value>
-        <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="es">Última vez modificado por usuario</value>
-        <value xml:lang="fr">Modifié dernièrement par l'identifiant de connexion</value>
-        <value xml:lang="it">Ultima Modifica Dell'Utente</value>
-        <value xml:lang="ro">Ultima Modificare a Utilizatorului</value>
-        <value xml:lang="ru">Последним изменил пользователь</value>
-        <value xml:lang="th">การปรับปรุงครั้งสุดท้ายโดยผู้ใช้ที่ลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh">由登录用户上次修改</value>
-    </property>
-    <property key="FormFieldTitle_lastModifiedDate">
-        <value xml:lang="de">Datum letzte Bearbeitung</value>
-        <value xml:lang="en">Last Modified Date</value>
-        <value xml:lang="es">Fecha última modificación</value>
-        <value xml:lang="fr">Dernière date de modification</value>
-        <value xml:lang="it">Data Ultima Modifica</value>
-        <value xml:lang="ro">Data Ultimei Modificari</value>
-        <value xml:lang="ru">Дата последнего изменения</value>
-        <value xml:lang="th">ปรับปรุงครั้งสุดท้ายวันที่</value>
-        <value xml:lang="zh">上次修改日期</value>
-    </property>
     <property key="FormFieldTitle_lastPrice">
         <value xml:lang="de">Letzter Preis</value>
         <value xml:lang="en">Last Price</value>
@@ -2021,17 +1763,6 @@
         <value xml:lang="ru">Ссылка на два изображения</value>
         <value xml:lang="th">การเชื่อมต่อสองรูปภาพ Url</value>
         <value xml:lang="zh">链接两个图像网址</value>
-    </property>
-    <property key="FormFieldTitle_localeString">
-        <value xml:lang="de">Locale String</value>
-        <value xml:lang="en">Locale String</value>
-        <value xml:lang="es">Cadena Locale</value>
-        <value xml:lang="fr">Chaîne de caractère régionalisée</value>
-        <value xml:lang="it">Stringa Locale</value>
-        <value xml:lang="ro">Sir Local</value>
-        <value xml:lang="ru">Идентификатор языка</value>
-        <value xml:lang="th">เส้นทาง</value>
-        <value xml:lang="zh">本地语言字符串</value>
     </property>
     <property key="FormFieldTitle_locationSeqId">
         <value xml:lang="de">Standort Seq. ID</value>
@@ -2197,17 +1928,6 @@
         <value xml:lang="th">รหัสหน่วยวัด</value>
         <value xml:lang="zh">仪表度量单位标识</value>
     </property>
-    <property key="FormFieldTitle_mimeTypeId">
-        <value xml:lang="de">Mime Typ ID</value>
-        <value xml:lang="en">Mime Type Id</value>
-        <value xml:lang="es">Tipo MIME</value>
-        <value xml:lang="fr">Réf. de type Mime</value>
-        <value xml:lang="it">Tipo Mime</value>
-        <value xml:lang="ro">Tip Mime</value>
-        <value xml:lang="ru">Mime тип</value>
-        <value xml:lang="th">รหัสประเภทจำลอง</value>
-        <value xml:lang="zh">Mime类型标识</value>
-    </property>
     <property key="FormFieldTitle_minSize">
         <value xml:lang="de">Minimale Grösse</value>
         <value xml:lang="en">Min Size</value>
@@ -2293,17 +2013,6 @@
         <value xml:lang="th">ระบุจำนวน</value>
         <value xml:lang="zh">指定的编号</value>
     </property>
-    <property key="FormFieldTitle_objectInfo">
-        <value xml:lang="de">Informationen zum Objekt</value>
-        <value xml:lang="en">Object Info</value>
-        <value xml:lang="es">Información del objeto</value>
-        <value xml:lang="fr">Information sur l'objet</value>
-        <value xml:lang="it">Oggetto Informazioni</value>
-        <value xml:lang="ro">Obiect Informatii</value>
-        <value xml:lang="ru">Информация по объекту</value>
-        <value xml:lang="th">ข้อมูลจุดประสงค์</value>
-        <value xml:lang="zh">物体信息</value>
-    </property>
     <property key="FormFieldTitle_oldPickStartDate">
         <value xml:lang="de">Altes Kommissionierungs-Startdatum</value>
         <value xml:lang="en">Old Pick Start Date</value>
@@ -2332,17 +2041,6 @@
         <value xml:lang="ru">Гладкая цена заказа</value>
         <value xml:lang="th">รายการราคาพื้นฐาน</value>
     </property>
-    <property key="FormFieldTitle_orderId">
-        <value xml:lang="de">Auftrag ID</value>
-        <value xml:lang="en">Order Id</value>
-        <value xml:lang="es">Código de pedido</value>
-        <value xml:lang="fr">Réf. de commande</value>
-        <value xml:lang="it">Numero Ordine</value>
-        <value xml:lang="ro">Numar Comanda</value>
-        <value xml:lang="ru">Код заказа</value>
-        <value xml:lang="th">รหัสรายการสั่งซื้อ</value>
-        <value xml:lang="zh">订单标识</value>
-    </property>
     <property key="FormFieldTitle_orderItemFlatPrice">
         <value xml:lang="de">Auftragsposition Pauschalpreis</value>
         <value xml:lang="en">Order Item Flat Price</value>
@@ -2351,17 +2049,6 @@
         <value xml:lang="it">Prezzo Fisso Riga Ordine</value>
         <value xml:lang="ru">Гладкая цена поз. заказа</value>
         <value xml:lang="th">ราคาพื้นฐานรายการสั่งซื้อ</value>
-    </property>
-    <property key="FormFieldTitle_orderItemSeqId">
-        <value xml:lang="de">Auftragsposition Seq. ID</value>
-        <value xml:lang="en">Order Item Seq Id</value>
-        <value xml:lang="es">Nº sec. ítem de pedido</value>
-        <value xml:lang="fr">Réf. séq. de ligne de commande</value>
-        <value xml:lang="it">Num.Seq. Riga Ordine</value>
-        <value xml:lang="ro">Num.Secventa. Linie Comanda</value>
-        <value xml:lang="ru">Послед. номер поз. заказа</value>
-        <value xml:lang="th">รหัสรายการหัวข้อการสั่งซื้อ</value>
-        <value xml:lang="zh">订单明细顺序标识</value>
     </property>
     <property key="FormFieldTitle_orderNumberPrefix">
         <value xml:lang="de">Präfix Auftragsnummer</value>
@@ -2442,17 +2129,6 @@
         <value xml:lang="ru">Негабаритное место</value>
         <value xml:lang="th">หน่วยมากกว่าปกติ</value>
     </property>
-    <property key="FormFieldTitle_ownerContentId">
-        <value xml:lang="de">Besitzer Inhalt ID</value>
-        <value xml:lang="en">Owner Content Id</value>
-        <value xml:lang="es">Código del propietario</value>
-        <value xml:lang="fr">Réf. de propriétaire de contenu</value>
-        <value xml:lang="it">Codice Contenuto Proprietario</value>
-        <value xml:lang="ro">Cod Continut Proprietar</value>
-        <value xml:lang="ru">Код владельца контента</value>
-        <value xml:lang="th">รหัสของหัวข้อ</value>
-        <value xml:lang="zh">拥有者内容标识</value>
-    </property>
     <property key="FormFieldTitle_parentFacilityId">
         <value xml:lang="de">Übergeordnete Einrichtung ID</value>
         <value xml:lang="en">Parent Facility Id</value>
@@ -2466,14 +2142,6 @@
         <value xml:lang="fr">Réf. de groupe de lieux de stockage parent</value>
         <value xml:lang="it">Gruppo Stabilimento Padre</value>
         <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
-    </property>
-    <property key="FormFieldTitle_parentTypeId">
-        <value xml:lang="de">Übergeordnetes Element Typ ID</value>
-        <value xml:lang="en">Parent Type Id</value>
-        <value xml:lang="es">Código Tipo precursor</value>
-        <value xml:lang="fr">Réf. de type parent</value>
-        <value xml:lang="it">Tipo Padre</value>
-        <value xml:lang="th">รหัสประเภทกลุ่มการทำงาน</value>
     </property>
     <property key="FormFieldTitle_partyNeedId">
         <value xml:lang="de">Akteur Bedarf ID</value>
@@ -2604,17 +2272,6 @@
         <value xml:lang="ru">Код основной группы торг. точек</value>
         <value xml:lang="th">รหัสกลุ่มคลังสินค้าขั้นพื้นฐาน</value>
         <value xml:lang="zh">主要店铺组标识</value>
-    </property>
-    <property key="FormFieldTitle_privilegeEnumId">
-        <value xml:lang="de">Privileg Aufzählung ID</value>
-        <value xml:lang="en">Privilege Enum Id</value>
-        <value xml:lang="es">Tipo privilegio</value>
-        <value xml:lang="fr">Réf. de type de privilège</value>
-        <value xml:lang="it">Tipo Privilegio</value>
-        <value xml:lang="ro">Tip Privilegiu</value>
-        <value xml:lang="ru">Код привилегий</value>
-        <value xml:lang="th">รหัสการระบุสิทธิพิเศษ</value>
-        <value xml:lang="zh">特权枚举标识</value>
     </property>
     <property key="FormFieldTitle_prodCatContentTypeId">
         <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>
@@ -2859,11 +2516,13 @@
         <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_productStoreId">
+        <value xml:lang="ar">تعريف المتجر</value>
         <value xml:lang="de">Produkt Laden ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Código de tienda</value>
         <value xml:lang="fr">Réf. de centre de profit</value>
         <value xml:lang="it">Negozio</value>
+        <value xml:lang="nl">Produkt Winkel Id</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Код торг. т. продукта</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
@@ -3037,28 +2696,6 @@
         <value xml:lang="ru">Корректировки цен предложения</value>
         <value xml:lang="th">รหัสการปรับเปลี่ยนคำร้อง</value>
         <value xml:lang="zh">询价调整标识</value>
-    </property>
-    <property key="FormFieldTitle_quoteId">
-        <value xml:lang="de">Angebot ID</value>
-        <value xml:lang="en">Quote Id</value>
-        <value xml:lang="es">Código de presupuesto</value>
-        <value xml:lang="fr">Réf. de devis</value>
-        <value xml:lang="it">Numero Preventivo</value>
-        <value xml:lang="ro">Numar Preventiv</value>
-        <value xml:lang="ru">Код ценового предложения</value>
-        <value xml:lang="th">รหัสคำร้อง</value>
-        <value xml:lang="zh">询价标识</value>
-    </property>
-    <property key="FormFieldTitle_quoteItemSeqId">
-        <value xml:lang="de">Angebot Position Seq. ID</value>
-        <value xml:lang="en">Quote Item Seq Id</value>
-        <value xml:lang="es">Nº sec. ítem de presupuesto</value>
-        <value xml:lang="fr">Réf. séq. de ligne de devis</value>
-        <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
-        <value xml:lang="ro">Numar Secventa Linie Preventiv</value>
-        <value xml:lang="ru">Посл. код поз. ценов. предложения</value>
-        <value xml:lang="th">รหัสรายการหัวข้อคำร้อง</value>
-        <value xml:lang="zh">询价明细顺序标识</value>
     </property>
     <property key="FormFieldTitle_reasonEnumId">
         <value xml:lang="de">Grund Aufzählung ID</value>
@@ -3259,17 +2896,19 @@
         <value xml:lang="es">Fecha exigida para respuesta</value>
         <value xml:lang="fr">Date requise de la réponse</value>
         <value xml:lang="it">Data Richiesta Risposta</value>
+        <value xml:lang="nl">Antwoord geven voor</value>
         <value xml:lang="ro">Data Cerere Raspuns</value>
         <value xml:lang="ru">Требуемая дата ответа</value>
         <value xml:lang="th">วันที่ตอบสนองการร้องขอ</value>
         <value xml:lang="zh">回答需要的日期</value>
     </property>
     <property key="FormFieldTitle_responseService">
+        <value xml:lang="ar">خدمة الجواب</value>
         <value xml:lang="de">Antwortdienst</value>
         <value xml:lang="en">Response Service</value>
         <value xml:lang="es">Servicio de respuesta</value>
         <value xml:lang="fr">Service de réponse</value>
-        <value xml:lang="it">Servizio Risposta</value>
+        <value xml:lang="it">Servizio risposta</value>
         <value xml:lang="ro">Serviciu Raspuns</value>
         <value xml:lang="ru">Отклик</value>
         <value xml:lang="th">บริการการตอบรับ</value>
@@ -3331,17 +2970,6 @@
         <value xml:lang="it">Sezione</value>
         <value xml:lang="th">รหัสกลุ่ม</value>
     </property>
-    <property key="FormFieldTitle_secureContentPrefix">
-        <value xml:lang="de">Sicherer Inhalt Präfix</value>
-        <value xml:lang="en">Secure Content Prefix</value>
-        <value xml:lang="es">Prefijo contenido seguro</value>
-        <value xml:lang="fr">Préfixe de contenu sécurisé</value>
-        <value xml:lang="it">Prefisso Contenuto Sicuro</value>
-        <value xml:lang="ro">Prefix Continut Sigur</value>
-        <value xml:lang="ru">Секретный префикс контента</value>
-        <value xml:lang="th">คำนำหน้าหัวข้อการรับประกัน</value>
-        <value xml:lang="zh">安全内容前缀</value>
-    </property>
     <property key="FormFieldTitle_selectPaymentTypePerItem">
         <value xml:lang="de">Zahlungsart pro Position auswählen</value>
         <value xml:lang="en">Select Payment Type Per Item</value>
@@ -3359,6 +2987,7 @@
         <value xml:lang="es">Cantidad seleccionada</value>
         <value xml:lang="fr">Montant sélectionné</value>
         <value xml:lang="it">Importo Selezionato</value>
+        <value xml:lang="nl">Geselecteerd bedrag</value>
         <value xml:lang="ro">Valoare Selectionata</value>
         <value xml:lang="ru">Выбранное количество</value>
         <value xml:lang="th">เลือกจำนวน</value>
@@ -3380,17 +3009,6 @@
         <value xml:lang="it">Numero Sequenza</value>
         <value xml:lang="th">รหัสรายการ</value>
     </property>
-    <property key="FormFieldTitle_sequenceNum">
-        <value xml:lang="de">Sequenznummer</value>
-        <value xml:lang="en">Sequence Number</value>
-        <value xml:lang="es">Número de secuencia</value>
-        <value xml:lang="fr">N° de séquence</value>
-        <value xml:lang="it">Numero Sequenza</value>
-        <value xml:lang="ro">Num.Secventa</value>
-        <value xml:lang="ru">Послед. ном.</value>
-        <value xml:lang="th">หมายเลขรายการ</value>
-        <value xml:lang="zh">序号</value>
-    </property>
     <property key="FormFieldTitle_sequenceNumber">
         <value xml:lang="de">Seq. Num.</value>
         <value xml:lang="en">Seq. Num.</value>
@@ -3411,17 +3029,6 @@
         <value xml:lang="ru">Серийный номер</value>
         <value xml:lang="th">หมายเลขลำดับ</value>
         <value xml:lang="zh">序列号</value>
-    </property>
-    <property key="FormFieldTitle_serviceName">
-        <value xml:lang="de">Service Name</value>
-        <value xml:lang="en">Serv. Name</value>
-        <value xml:lang="es">Nombre del servicio</value>
-        <value xml:lang="fr">Nom de service</value>
-        <value xml:lang="it">Nome Servizio</value>
-        <value xml:lang="ro">Nume Serviciu</value>
-        <value xml:lang="ru">Имя сервиса</value>
-        <value xml:lang="th">ชื่อบริการ</value>
-        <value xml:lang="zh">服务名称</value>
     </property>
     <property key="FormFieldTitle_setOwnerUponIssuance">
         <value xml:lang="de">Besitzer nach Ausgabe festlegen</value>
@@ -3470,9 +3077,12 @@
         <value xml:lang="en">Shipment Method Type Id</value>
         <value xml:lang="es">Código Tipo de método de envío</value>
         <value xml:lang="fr">Réf. de méthode d'expédition</value>
-        <value xml:lang="it">Metodo di Spedizione</value>
+        <value xml:lang="it">Metodo di spedizione</value>
+        <value xml:lang="nl">Soort verzending</value>
+        <value xml:lang="ro">Tip Metoda de Expediere</value>
         <value xml:lang="ru">Тип способа доставки</value>
         <value xml:lang="th">รหัสประเภทวิธีการขนส่งสินค้า</value>
+        <value xml:lang="zh">送货方法类型标识</value>
     </property>
     <property key="FormFieldTitle_shipmentPackageSeqId">
         <value xml:lang="de">Lieferpaket Seq. ID</value>
@@ -3549,17 +3159,6 @@
         <value xml:lang="th">แสดงภาษีที่ได้รับการยกเว้น</value>
         <value xml:lang="zh">显示免除的税</value>
     </property>
-    <property key="FormFieldTitle_siteName">
-        <value xml:lang="de">Name der Seite anzeigen</value>
-        <value xml:lang="en">Site Name</value>
-        <value xml:lang="es">Nombre del sitio</value>
-        <value xml:lang="fr">Nom du site</value>
-        <value xml:lang="it">Nome Sito</value>
-        <value xml:lang="ro">Nume Sit</value>
-        <value xml:lang="ru">Имя сайта</value>
-        <value xml:lang="th">ชื่อที่ตั้ง</value>
-        <value xml:lang="zh">站点名称</value>
-    </property>
     <property key="FormFieldTitle_softIdentifier">
         <value xml:lang="de">Identifikationsnummer</value>
         <value xml:lang="en">Soft Identifier</value>
@@ -3586,17 +3185,6 @@
         <value xml:lang="fr">Séparer les préférences de paiement par groupes d'expédition</value>
         <value xml:lang="it">Suddividere Preferenze Pagamento Per Gruppo di Spedizione</value>
         <value xml:lang="th">Split Pay Pref Per Shp Grp</value>
-    </property>
-    <property key="FormFieldTitle_standardContentPrefix">
-        <value xml:lang="de">Standart Inhalt Präfix</value>
-        <value xml:lang="en">Standard Content Prefix</value>
-        <value xml:lang="es">Prefijo de contenido estándar</value>
-        <value xml:lang="fr">Préfixe de contenu std</value>
-        <value xml:lang="it">Prefisso Standard Contenuto</value>
-        <value xml:lang="ro">Prefix Standard Continut</value>
-        <value xml:lang="ru">Стандартный префикс контента</value>
-        <value xml:lang="th">มาตรฐานคำนำหน้าหัวข้อ</value>
-        <value xml:lang="zh">标准内容前缀</value>
     </property>
     <property key="FormFieldTitle_standardLeadTimeDays">
         <value xml:lang="de">Standart Durchlaufzeit Tage</value>
@@ -3737,28 +3325,6 @@
         <value xml:lang="th">รหัสประเภทอัตราผู้จัดหาสิ่งของ</value>
         <value xml:lang="zh">供货商评级类型标识</value>
     </property>
-    <property key="FormFieldTitle_surveyId">
-        <value xml:lang="de">Befragung ID</value>
-        <value xml:lang="en">Survey Id</value>
-        <value xml:lang="es">Código de encuesta</value>
-        <value xml:lang="fr">Réf. de sondage</value>
-        <value xml:lang="it">Codice Sondaggio</value>
-        <value xml:lang="ro">Cod Sondaj</value>
-        <value xml:lang="ru">Код обзора</value>
-        <value xml:lang="th">รหัสการสำรวจ</value>
-        <value xml:lang="zh">调查标识</value>
-    </property>
-    <property key="FormFieldTitle_surveyName">
-        <value xml:lang="de">Befragung Name</value>
-        <value xml:lang="en">Survey Name</value>
-        <value xml:lang="es">Nombre de la encuesta</value>
-        <value xml:lang="fr">Nom du sondage</value>
-        <value xml:lang="it">Nome Sondaggio</value>
-        <value xml:lang="ro">Nume Sondaj</value>
-        <value xml:lang="ru">Имя обзора</value>
-        <value xml:lang="th">ชื่อการสำรวจ</value>
-        <value xml:lang="zh">调查名称</value>
-    </property>
     <property key="FormFieldTitle_target">
         <value xml:lang="de">Ziel</value>
         <value xml:lang="en">Target</value>
@@ -3780,17 +3346,6 @@
         <value xml:lang="ru">Код типа назначения</value>
         <value xml:lang="th">รหัสระบุประเภทเป้าหมาย</value>
         <value xml:lang="zh">目标类型枚举标识</value>
-    </property>
-    <property key="FormFieldTitle_templateDataResourceId">
-        <value xml:lang="de">Template Daten Ressource ID</value>
-        <value xml:lang="en">Template Data Resource Id</value>
-        <value xml:lang="es">Código Plantilla de fuente de datos</value>
-        <value xml:lang="fr">Réf. de canevas de ressource de données</value>
-        <value xml:lang="it">Template Codice Risorsa Dati</value>
-        <value xml:lang="ro">Template Cod Resurse Date</value>
-        <value xml:lang="ru">Код шаблона ресурса данных</value>
-        <value xml:lang="th">รหัสแหล่งข้อมูลเทมเพลต</value>
-        <value xml:lang="zh">模板数据资源标识</value>
     </property>
     <property key="FormFieldTitle_termUomId">
         <value xml:lang="de">Einheit ID</value>
@@ -4020,17 +3575,6 @@
         <value xml:lang="ru">Просмотр корзины после добавления</value>
         <value xml:lang="th">แสดงตระกร้าในการเพิ่ม</value>
         <value xml:lang="zh">添加时浏览购物车</value>
-    </property>
-    <property key="FormFieldTitle_webSiteId">
-        <value xml:lang="de">Webseite ID</value>
-        <value xml:lang="en">Web Site Id</value>
-        <value xml:lang="es">Código del sitio web</value>
-        <value xml:lang="fr">Réf. de site Web</value>
-        <value xml:lang="it">Sito Web</value>
-        <value xml:lang="ro">Sit Web</value>
-        <value xml:lang="ru">Код Web сайта</value>
-        <value xml:lang="th">รหัสเว็บไซต์</value>
-        <value xml:lang="zh">网站标识</value>
     </property>
     <property key="FormFieldTitle_weightBreakId">
         <value xml:lang="de">Gewicht Sprung ID</value>

@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EbayApplication">
         <value xml:lang="en">Ebay Integration</value>
         <value xml:lang="fr">Intégration Ebay</value>
@@ -85,12 +86,6 @@
         <value xml:lang="fr">Paiement envoyé par l'acheteur</value>
         <value xml:lang="it">Pagamento Inviato dal Compratore</value>
         <value xml:lang="th">ส่งการชำระเงินโดยผู้ซื้อ</value>
-    </property>
-    <property key="FormFieldTitle_country">
-        <value xml:lang="en">Country</value>
-        <value xml:lang="fr">Pays</value>
-        <value xml:lang="it">Paese</value>
-        <value xml:lang="th">ประเทศ</value>
     </property>
     <property key="FormFieldTitle_eBayPaymentStatus">
         <value xml:lang="en">eBay Payment Status</value>
@@ -242,12 +237,6 @@
         <value xml:lang="it">Quantità Acquistata</value>
         <value xml:lang="th">จำนวนการสั่งซื้อ</value>
     </property>
-    <property key="FormFieldTitle_salesTaxAmount">
-        <value xml:lang="en">Sales Tax Amount</value>
-        <value xml:lang="fr">Montant de TVA</value>
-        <value xml:lang="it">Importo Tasse di Vendita</value>
-        <value xml:lang="th">จำนวนภาษีการขาย</value>
-    </property>
     <property key="FormFieldTitle_shippedTime">
         <value xml:lang="en">Date/Time Shipment</value>
         <value xml:lang="fr">Date/Heure d'expédition</value>
@@ -277,12 +266,6 @@
         <value xml:lang="fr">Prix de début</value>
         <value xml:lang="it">Prezzo di Partenza</value>
         <value xml:lang="th">ราคาเริ่มต้น</value>
-    </property>
-    <property key="FormFieldTitle_transactionId">
-        <value xml:lang="en">Transaction Id</value>
-        <value xml:lang="fr">Réf. de transaction</value>
-        <value xml:lang="it">Numero Transazione</value>
-        <value xml:lang="th">รหัสรายการ</value>
     </property>
     <property key="FormFieldTitle_transactionPrice">
         <value xml:lang="en">Transaction Price</value>
