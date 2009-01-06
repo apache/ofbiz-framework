@@ -361,22 +361,22 @@ under the License.
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true"/>
         </iterate>
         <set field="cookie" from-field="parameters.cookie" type="Integer"/>
-        <calculate field-name="cookie" type="Integer">
+        <calculate field="cookie" type="Integer">
             <calcop operator="add">
                 <number value="1"/>
-                <calcop operator="get" field-name="cookie"/>
+                <calcop operator="get" field="cookie"/>
             </calcop>
         </calculate>
         <set field="pk.runtimeDataId" value="TESTID"/>
-        <find-by-primary-key map-name="pk" value-name="runtimeData" entity-name="RuntimeData"/>
+        <find-by-primary-key map="pk" value-field="runtimeData" entity-name="RuntimeData"/>
         <set field="newData.runtimeDataId" from-field="pk.runtimeDataId"/>
         <set field="newData.cookie" from-field="cookie"/>
-        <call-class-method method-name="serialize" class-name="org.ofbiz.entity.serialize.XmlSerializer" ret-field-name="dummy">
-            <field field-name="newData" type="Object"/>
+        <call-class-method method-name="serialize" class-name="org.ofbiz.entity.serialize.XmlSerializer" ret-field="dummy">
+            <field field="newData" type="Object"/>
         </call-class-method>
         <log level="always" message="${dummy}"></log>
         <set field="runtimeData.runtimeInfo" from-field="dummy"/>
-        <store-value value-name="runtimeData"/>
+        <store-value value-field="runtimeData"/>
     </simple-method>
 
     <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
