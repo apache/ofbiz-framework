@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -168,7 +169,7 @@ public class CheckOutEvents {
 
             String billingAccountId = request.getParameter("billingAccountId");
             if (UtilValidate.isNotEmpty(billingAccountId)) {
-                Double billingAccountAmt = null;
+                BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) { 
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
@@ -191,7 +192,7 @@ public class CheckOutEvents {
                 return "error";
             } else {
                 String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
-                Double gcAmount = (Double) gcResult.get("amount");
+                BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
                 if (gcPaymentMethodId != null) {
                     selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
                     if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
@@ -299,11 +300,11 @@ public class CheckOutEvents {
                     paymentMethodInfo.put("securityCode", securityCode);
                 }
                 String amountStr = request.getParameter("amount_" + paymentMethods[i]);
-                Double amount = null;
+                BigDecimal amount = null;
                 if (amountStr != null && amountStr.length() > 0 && !"REMAINING".equals(amountStr)) {
                     try {
-                        amount = new Double(formatter.parse(amountStr).doubleValue());
-                    } catch (ParseException e) {
+                        amount = new BigDecimal(amountStr);
+                    } catch (NumberFormatException e) {
                         Debug.logError(e, module);
                         errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_payment_method", (cart != null ? cart.getLocale() : Locale.getDefault()));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -332,7 +333,7 @@ public class CheckOutEvents {
         // get the billing account and amount
         String billingAccountId = request.getParameter("billingAccountId");
         if (UtilValidate.isNotEmpty(billingAccountId)) {
-            Double billingAccountAmt = null;
+            BigDecimal billingAccountAmt = null;
             billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
             if (billingAccountAmt == null) { 
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
@@ -389,7 +390,7 @@ public class CheckOutEvents {
         }
 
         String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
-        Double gcAmount = (Double) gcResult.get("amount");
+        BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
         if (gcPaymentMethodId != null) {
             selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
             if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
@@ -823,7 +824,7 @@ public class CheckOutEvents {
             // Set the billing account (if any)
             String billingAccountId = request.getParameter("billingAccountId");
             if (UtilValidate.isNotEmpty(billingAccountId)) {
-                Double billingAccountAmt = null;
+                BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if (billingAccountAmt == null) { 
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
@@ -853,7 +854,7 @@ public class CheckOutEvents {
             ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             if (errorMessages.size() == 0 && errorMaps.size() == 0) {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
-                Double giftCardAmount = (Double) callResult.get("amount");
+                BigDecimal giftCardAmount = (BigDecimal) callResult.get("amount");
                 // WARNING: if gcPaymentMethodId is not empty, all the previously set payment methods will be removed
                 Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
                 ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
@@ -1029,8 +1030,8 @@ public class CheckOutEvents {
      *
      * @return  Amount to charge billing account or null if there was an error
      */
-    private static Double determineBillingAccountAmount(String billingAccountId, String billingAccountAmount, LocalDispatcher dispatcher) {
-        Double billingAccountAmt = null;
+    private static BigDecimal determineBillingAccountAmount(String billingAccountId, String billingAccountAmount, LocalDispatcher dispatcher) {
+        BigDecimal billingAccountAmt = null;
 
         // set the billing account amount to the minimum of billing account available balance or amount input if less than balance
         if (UtilValidate.isNotEmpty(billingAccountId)) {
@@ -1039,28 +1040,28 @@ public class CheckOutEvents {
                 String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
                 DecimalFormat formatter = new DecimalFormat(currencyFormat);
                 try {
-                    billingAccountAmt = new Double(formatter.parse(billingAccountAmount).doubleValue());
-                } catch (ParseException e) {
+                    billingAccountAmt = new BigDecimal(billingAccountAmount);
+                } catch (NumberFormatException e) {
                     return null;
                 }
             }
             if (billingAccountAmt == null) {
-                billingAccountAmt = new Double(0.0);
+                billingAccountAmt = BigDecimal.ZERO;
             }
-            double availableBalance = CheckOutHelper.availableAccountBalance(billingAccountId, dispatcher);
+            BigDecimal availableBalance = CheckOutHelper.availableAccountBalance(billingAccountId, dispatcher);
 
             // set amount to be charged to entered amount unless it exceeds the available balance
-            double chargeAmount = 0;
-            if (billingAccountAmt.doubleValue() < availableBalance) {
-                chargeAmount = billingAccountAmt.doubleValue();
+            BigDecimal chargeAmount = BigDecimal.ZERO;
+            if (billingAccountAmt.compareTo(availableBalance) < 0) {
+                chargeAmount = billingAccountAmt;
             } else {
                 chargeAmount = availableBalance;
             }
-            if (chargeAmount < 0.0) {
-                chargeAmount = 0.0;
+            if (chargeAmount.compareTo(BigDecimal.ZERO) < 0.0) {
+                chargeAmount = BigDecimal.ZERO;
             }
 
-            return new Double(chargeAmount);
+            return chargeAmount;
         } else {
             return null;
         }

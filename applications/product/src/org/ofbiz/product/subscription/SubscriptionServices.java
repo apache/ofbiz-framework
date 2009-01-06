@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.product.subscription;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -244,7 +245,7 @@ public class SubscriptionServices {
             subContext.put("orderCreatedDate", orderCreatedDate);
             List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem");
             for (GenericValue orderItem: orderItemList) {
-                Double qty = orderItem.getDouble("quantity");
+            	BigDecimal qty = orderItem.getBigDecimal("quantity");
                 String productId = orderItem.getString("productId");
                 if (UtilValidate.isEmpty(productId)) {
                     continue;

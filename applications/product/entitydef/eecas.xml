@@ -39,7 +39,7 @@ under the License.
     <eca entity="InventoryItem" operation="create-store" event="return">
         <condition field-name="productId" operator="is-not-empty"/>
         <condition field-name="availableToPromiseTotal" operator="is-not-empty"/>
-        <condition field-name="availableToPromiseTotal" operator="less-equals" value="0" type="Double"/>
+        <condition field-name="availableToPromiseTotal" operator="less-equals" value="0" type="BigDecimal"/>
         <action service="checkProductInventoryDiscontinuation" mode="async"/>
     </eca>
     <!-- update the totals for serialized inventory items -->

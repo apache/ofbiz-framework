@@ -131,8 +131,8 @@ under the License.
              invoke="updateReturnAdjustment">
         <description></description>
         <implements service="returnAdjustmentInterface"/>
-        <attribute name="originalReturnPrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="originalReturnQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="originalReturnPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="originalReturnQuantity" type="BigDecimal" mode="IN" optional="true"/>
         <override name="returnAdjustmentId" optional="false"/>        
     </service>
     <service name="removeReturnAdjustment" engine="simple" location="org/ofbiz/order/order/OrderReturnServices.xml"
@@ -184,7 +184,7 @@ under the License.
         <description>Gets the item's initial cost based on the inventory item record associated with the order item or 0.00 if none found.</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="initialItemCost" type="Double" mode="OUT" optional="false"/>
+        <attribute name="initialItemCost" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="checkReturnComplete" engine="java"
@@ -260,8 +260,8 @@ under the License.
             location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableQuantity">
         <description>Get the quantity allowed for an item to be returned</description>
         <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="returnableQuantity" type="Double" mode="OUT" optional="false"/>
-        <attribute name="returnablePrice" type="Double" mode="OUT" optional="false"/>
+        <attribute name="returnableQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="returnablePrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getReturnableItems" engine="java"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableItems">
@@ -285,7 +285,7 @@ under the License.
             location="org.ofbiz.order.order.OrderReturnServices" invoke="refundBillingAccountPayment" auth="true">
         <description>Refunds A Billing Account Payment</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
 

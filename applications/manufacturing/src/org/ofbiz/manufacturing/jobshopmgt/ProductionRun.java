@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.jobshopmgt;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -49,7 +50,7 @@ public class ProductionRun {
     protected GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
     protected GenericValue productionRunProduct; // WorkEffortGoodStandard (type: PRUN_PROD_DELIV)
     protected GenericValue productProduced; // Product (from WorkEffortGoodStandard of type: PRUN_PROD_DELIV)
-    protected Double quantity; // the estimatedQuantity
+    protected BigDecimal quantity; // the estimatedQuantity
     
     protected Timestamp estimatedStartDate;
     protected Timestamp estimatedCompletionDate;
@@ -165,7 +166,7 @@ public class ProductionRun {
                 try {
                     List productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"),null);
                     this.productionRunProduct = EntityUtil.getFirst(productionRunProducts);
-                    quantity = productionRunProduct.getDouble("estimatedQuantity");
+                    quantity = productionRunProduct.getBigDecimal("estimatedQuantity");
                     productProduced = productionRunProduct.getRelatedOneCache("Product");
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
@@ -180,7 +181,7 @@ public class ProductionRun {
      * get the quantity property.
      * @return the quantity property
      **/
-    public Double getQuantity(){
+    public BigDecimal getQuantity(){
         if (exist()) {
             if (quantity == null)  getProductProduced();
             return quantity;
@@ -191,17 +192,17 @@ public class ProductionRun {
      * set the quantity property and recalculated the productComponent quantity.
      * @return
      **/
-    public void setQuantity(Double newQuantity) {
+    public void setQuantity(BigDecimal newQuantity) {
         if (quantity == null) getProductProduced();
-        double previousQuantity = quantity.doubleValue(), componentQuantity;
+        BigDecimal previousQuantity = quantity, componentQuantity;
         this.quantity = newQuantity;
         this.quantityIsUpdated = true;
         this.updateCompletionDate = true;
         if (productionRunComponents == null) getProductionRunComponents();
         for (Iterator iter = productionRunComponents.iterator(); iter.hasNext();){
             GenericValue component = (GenericValue) iter.next();
-            componentQuantity = component.getDouble("estimatedQuantity").doubleValue();
-            component.set("estimatedQuantity", new Double(componentQuantity / previousQuantity * newQuantity.doubleValue()));
+            componentQuantity = component.getBigDecimal("estimatedQuantity");
+            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity));
         }
     }
     /**
@@ -387,18 +388,15 @@ public class ProductionRun {
     }
     
     /*
-     * FIXME: the three getEstimatedTaskTime(...) methods will be removed and
+     * FIXME: the two getEstimatedTaskTime(...) methods will be removed and
      * implemented in the "getEstimatedTaskTime" service.
      */
-    public static long getEstimatedTaskTime(GenericValue task, double quantity, LocalDispatcher dispatcher) {
-        return getEstimatedTaskTime(task, new Double(quantity), dispatcher);
-    }
-    public static long getEstimatedTaskTime(GenericValue task, Double quantity, LocalDispatcher dispatcher) {
+    public static long getEstimatedTaskTime(GenericValue task, BigDecimal quantity, LocalDispatcher dispatcher) {
         return getEstimatedTaskTime(task, quantity, null, null, dispatcher);
     }
-    public static long getEstimatedTaskTime(GenericValue task, Double quantity, String productId, String routingId, LocalDispatcher dispatcher) {
+    public static long getEstimatedTaskTime(GenericValue task, BigDecimal quantity, String productId, String routingId, LocalDispatcher dispatcher) {
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
         if (task == null) return 0;
         double setupTime = 0;

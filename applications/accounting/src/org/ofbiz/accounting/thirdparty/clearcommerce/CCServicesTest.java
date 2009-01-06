@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.lang.Thread;
+import java.math.BigDecimal;
 
 import junit.framework.TestCase;
 
@@ -57,7 +58,7 @@ public class CCServicesTest extends TestCase {
     protected GenericValue billingAddress = null;
     protected GenericValue shippingAddress = null;
     protected Map pbOrder = null;
-    protected Double creditAmount = null;
+    protected BigDecimal creditAmount = null;
     protected String configFile = null;
     
     public CCServicesTest(String name) {
@@ -70,7 +71,7 @@ public class CCServicesTest extends TestCase {
 
         // populate test data
         configFile = new String("paymentTest.properties");
-        creditAmount = new Double(234.00);
+        creditAmount = new BigDecimal("234.00");
         emailAddr = delegator.makeValue("ContactMech", UtilMisc.toMap(
                 "infoString","test@hansbakker.com"));
         orderId = new String("testOrder1000");
@@ -115,7 +116,7 @@ public class CCServicesTest extends TestCase {
                     "shippingAddress", shippingAddress,
                     "orderId", orderId
             );
-            serviceInput.put("processAmount", new Double(200.00));
+            serviceInput.put("processAmount", new BigDecimal("200.00"));
             
             // run the service (make sure in payment
             Map result = dispatcher.runSync("clearCommerceCCAuth",serviceInput);
@@ -147,7 +148,7 @@ public class CCServicesTest extends TestCase {
                     "creditAmount", creditAmount,
                     "billToEmail", emailAddr,
                     "creditCard", creditCard,
-                    "creditAmount", new Double(200.00)
+                    "creditAmount", new BigDecimal("200.00")
             );
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
@@ -181,7 +182,7 @@ public class CCServicesTest extends TestCase {
                     "creditCard", creditCard,
                     "pbOrder", pbOrder          // if supplied, the crediting is for a subscription and credit by period is managed by ClearCommerce                
             );
-            serviceMap.put("creditAmount", new Double(200.00));
+            serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);

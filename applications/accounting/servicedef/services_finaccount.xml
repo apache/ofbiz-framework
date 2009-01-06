@@ -44,9 +44,9 @@ under the License.
         </auto-attributes>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldReplenishPaymentId" type="String" mode="OUT" optional="true"/>
-        <attribute name="oldReplenishLevel" type="Double" mode="OUT" optional="true"/>
+        <attribute name="oldReplenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
-        <attribute name="replenishLevel" type="Double" mode="OUT" optional="true"/>
+        <attribute name="replenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
@@ -145,9 +145,9 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="previousBalance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
     </service>
@@ -163,9 +163,9 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="previousBalance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
     </service>
@@ -184,8 +184,8 @@ under the License.
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="checkFinAccountBalance" auth="true">
         <description>Checks the balance of the financial account</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableBalance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/> 
     </service>
     <service name="checkFinAccountStatus" engine="java"
@@ -203,7 +203,7 @@ under the License.
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTypeId" type="String" mode="IN" default-value="SVCCRED_ACCOUNT"/>
@@ -217,9 +217,9 @@ under the License.
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>        
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="replenishPaymentId" type="String" mode="IN" optional="true"/>
-        <attribute name="replenishLevel" type="Double" mode="IN" optional="true"/>
+        <attribute name="replenishLevel" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTypeId" type="String" mode="IN" optional="false"/>
@@ -263,7 +263,7 @@ under the License.
              location="org.ofbiz.accounting.payment.GiftCertificateServices" invoke="createGiftCertificate" auth="true">
         <description>Generate a Gift Certificate number/pin and store as a FinAccount</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="initialAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="initialAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="OUT" optional="false"/>
@@ -278,11 +278,11 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="previousBalance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -293,11 +293,11 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="previousBalance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -308,7 +308,7 @@ under the License.
         <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="createGcFulFillmentRecord" engine="java" require-new-transaction="true" use-transaction="true"
@@ -322,7 +322,7 @@ under the License.
         <attribute name="surveyResponseId" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="responseCode" type="String" mode="IN" optional="true"/>
         <attribute name="referenceNum" type="String" mode="IN" optional="true"/>
         <attribute name="authCode" type="String" mode="IN" optional="true"/>

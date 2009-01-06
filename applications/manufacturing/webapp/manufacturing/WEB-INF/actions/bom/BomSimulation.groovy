@@ -34,12 +34,12 @@ if (tree) {
     context.tree = treeArray;
     Iterator treeQtyIt = treeQty.values().iterator();
     productsData = [];
-    Double grandTotalCost = null;
+    grandTotalCost = null;
     while (treeQtyIt) {
         BOMNode node = (BOMNode)treeQtyIt.next();
-        Double unitCost = null;
-        Double totalCost = null;
-        Double qoh = null;
+        unitCost = null;
+        totalCost = null;
+        qoh = null;
         // The standard cost is retrieved
         try {
             outMap = [:];
@@ -48,7 +48,7 @@ if (tree) {
                                                                              currencyUomId : currencyUomId,
                                                                              costComponentTypePrefix : "EST_STD",
                                                                              userLogin : userLogin]);
-                unitCost = (Double)outMap.productCost;
+                unitCost = outMap.productCost;
                 totalCost = unitCost * node.getQuantity();
                 grandTotalCost = grandTotalCost + totalCost ?: 0;
             }
@@ -56,7 +56,7 @@ if (tree) {
                 outMap = dispatcher.runSync("getInventoryAvailableByFacility", [productId : node.getProduct().productId,
                                                                                               facilityId : facilityId,
                                                                                               userLogin : userLogin]);
-                qoh = (Double)outMap.quantityOnHandTotal;
+                qoh = outMap.quantityOnHandTotal;
             }
         } catch(Exception e) {}
         productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh]);

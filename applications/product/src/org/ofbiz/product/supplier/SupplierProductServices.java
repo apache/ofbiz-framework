@@ -19,6 +19,7 @@
 
 package org.ofbiz.product.supplier;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class SupplierProductServices {
         String productId = (String) context.get("productId");
         String partyId = (String) context.get("partyId");
         String currencyUomId = (String) context.get("currencyUomId");
-        Double quantity =(Double) context.get("quantity");
+        BigDecimal quantity =(BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
         try {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));

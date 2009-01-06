@@ -25,6 +25,7 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import net.xoetrope.xui.XPage;
@@ -216,10 +217,10 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
                     output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale)
-                            + UtilFormatOut.formatPrice(trans.getTotalDue() * -1));
+                            + UtilFormatOut.formatPrice(trans.getTotalDue().negate().doubleValue()));
                 } else if (input.isFunctionSet("TOTAL")) {
-                    if (trans.getTotalDue() > 0) {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue()));
+                    if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue().doubleValue()));
                     } else {
                         output.print(UtilProperties.getMessage(PosTransaction.resource,"PAYFIN",defaultLocale));
                     }

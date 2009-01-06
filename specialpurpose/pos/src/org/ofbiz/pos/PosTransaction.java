@@ -20,6 +20,7 @@ package org.ofbiz.pos;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -200,26 +201,26 @@ public class PosTransaction implements Serializable {
         return this.orderId;
     }
 
-    public double getTaxTotal() {
+    public BigDecimal getTaxTotal() {
         return cart.getTotalSalesTax();
     }
 
-    public double getGrandTotal() {
-        return UtilFormatOut.formatPriceNumber(cart.getGrandTotal()).doubleValue();
+    public BigDecimal getGrandTotal() {
+        return cart.getGrandTotal();
     }
 
     public int getNumberOfPayments() {
         return cart.selectedPayments();
     }
 
-    public double getPaymentTotal() {
-        return UtilFormatOut.formatPriceNumber(cart.getPaymentTotal()).doubleValue();
+    public BigDecimal getPaymentTotal() {
+        return cart.getPaymentTotal();
     }
 
-    public double getTotalDue() {
-        double grandTotal = this.getGrandTotal();
-        double paymentAmt = this.getPaymentTotal();
-        return (grandTotal - paymentAmt);
+    public BigDecimal getTotalDue() {
+    	BigDecimal grandTotal = this.getGrandTotal();
+    	BigDecimal paymentAmt = this.getPaymentTotal();
+        return grandTotal.subtract(paymentAmt);
     }
 
     public int size() {
@@ -231,24 +232,24 @@ public class PosTransaction implements Serializable {
         Map itemInfo = new HashMap();
         itemInfo.put("productId", item.getProductId());
         itemInfo.put("description", item.getDescription());
-        itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
-        itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
+        itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity().doubleValue()));
+        itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal().doubleValue()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
         
         itemInfo.put("discount", "");
         itemInfo.put("adjustments", "");
-        if (item.getOtherAdjustments() != 0) {
+        if (item.getOtherAdjustments().compareTo(BigDecimal.ZERO) != 0) {
             itemInfo.put("itemDiscount", UtilFormatOut.padString(
                     UtilProperties.getMessage(PosTransaction.resource,"(ItemDiscount)",defaultLocale), Receipt.pridLength[0] + 1, true, ' '));                    
-            itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
+            itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments().doubleValue()));
         }
         
         if (isAggregatedItem(item.getProductId())){
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
-            itemInfo.put("basePrice", UtilFormatOut.formatPrice(pcw.getDefaultPrice()));
+            itemInfo.put("basePrice", UtilFormatOut.formatPrice(pcw.getDefaultPrice().doubleValue()));
         } else {
-            itemInfo.put("basePrice", UtilFormatOut.formatPrice(item.getBasePrice()));
+            itemInfo.put("basePrice", UtilFormatOut.formatPrice(item.getBasePrice().doubleValue()));
         }
         return itemInfo;
     }
@@ -271,8 +272,8 @@ public class PosTransaction implements Serializable {
                     itemInfo.put("productId", "");
                     itemInfo.put("sku", "");
                     itemInfo.put("configDescription", configoption.getDescription());
-                    itemInfo.put("configQuantity", UtilFormatOut.formatQuantity(item.getQuantity()));
-                    itemInfo.put("configBasePrice", UtilFormatOut.formatPrice(configoption.getOffsetPrice()));
+                    itemInfo.put("configQuantity", UtilFormatOut.formatQuantity(item.getQuantity().doubleValue()));
+                    itemInfo.put("configBasePrice", UtilFormatOut.formatPrice(configoption.getOffsetPrice().doubleValue()));
                     //itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
                     list.add(itemInfo);
                 }
@@ -334,7 +335,7 @@ public class PosTransaction implements Serializable {
         if ("PaymentMethodType".equals(infValue.getEntityName())) {
             payInfo.put("description", infValue.getString("description"));
             payInfo.put("payInfo", infValue.getString("description"));
-            payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
+            payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount.doubleValue()));
         } else {
             String paymentMethodTypeId = infValue.getString("paymentMethodTypeId");
             GenericValue pmt = null;
@@ -345,7 +346,7 @@ public class PosTransaction implements Serializable {
             }
             if (pmt != null) {
                 payInfo.put("description", pmt.getString("description"));
-                payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
+                payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount.doubleValue()));
             }
 
             if ("CREDIT_CARD".equals(paymentMethodTypeId)) {
@@ -381,14 +382,14 @@ public class PosTransaction implements Serializable {
         return payInfo;
     }
 
-    public double getItemQuantity(String productId) {
+    public BigDecimal getItemQuantity(String productId) {
         trace("request item quantity", productId);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
         if (item != null) {
             return item.getQuantity();
         } else {
             trace("item not found", productId);
-            return 0;
+            return BigDecimal.ZERO;
         }
     }
 
@@ -451,7 +452,7 @@ public class PosTransaction implements Serializable {
         return pcw;
     }
     
-    public void addItem(String productId, double quantity) throws CartItemModifyException, ItemNotFoundException {
+    public void addItem(String productId, BigDecimal quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
             GenericDelegator delegator = cart.getDelegator();
@@ -484,7 +485,7 @@ public class PosTransaction implements Serializable {
         throws ItemNotFoundException, CartItemModifyException {
         trace("add item with ProductConfigWrapper", productId );
         try {
-            cart.addOrIncreaseItem(productId, null, 1, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
+            cart.addOrIncreaseItem(productId, null, BigDecimal.ONE, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
         } catch (ItemNotFoundException e) {
             trace("item not found", e);
             throw e;
@@ -503,7 +504,7 @@ public class PosTransaction implements Serializable {
         try {   
             int cartIndexInt = Integer.parseInt(cartIndex);
             ShoppingCartItem cartItem = cart.findCartItem(cartIndexInt);
-            double quantity = cartItem.getQuantity();
+            BigDecimal quantity = cartItem.getQuantity();
             cart.removeCartItem(cartIndexInt, session.getDispatcher());
             cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
         } catch (CartItemModifyException e) {
@@ -520,9 +521,9 @@ public class PosTransaction implements Serializable {
         return;
     }
     
-    public void modifyQty(String productId, double quantity) throws CartItemModifyException {
+    public void modifyQty(String productId, BigDecimal quantity) throws CartItemModifyException {
         trace("modify item quantity", productId + "/" + quantity);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
         if (item != null) {
             try {
                 item.setQuantity(quantity, session.getDispatcher(), cart, true);
@@ -536,9 +537,9 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public void modifyPrice(String productId, double price) {
+    public void modifyPrice(String productId, BigDecimal price) {
         trace("modify item price", productId + "/" + price);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
         if (item != null) {
             item.setBasePrice(price);
         } else {
@@ -557,7 +558,7 @@ public class PosTransaction implements Serializable {
 
         if (productId != null) {
             trace("add item adjustment");
-            ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+            ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
             Integer itemAdj = (Integer) skuDiscounts.get(productId);
             if (itemAdj != null) {
                 item.removeAdjustment(itemAdj.intValue());
@@ -582,7 +583,7 @@ public class PosTransaction implements Serializable {
             Iterator i = skuDiscounts.keySet().iterator();
             while (i.hasNext()) {
                 String productId = (String) i.next();
-                ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+                ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
                 Integer itemAdj = (Integer) skuDiscounts.remove(productId);
                 if (itemAdj != null) {
                     item.removeAdjustment(itemAdj.intValue());
@@ -591,13 +592,13 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public double GetTotalDiscount() {
+    public BigDecimal GetTotalDiscount() {
         return cart.getOrderOtherAdjustmentTotal();
     }
     
     public void voidItem(String productId) throws CartItemModifyException {
         trace("void item", productId);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
+        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
         if (item != null) {
             try {
                 int itemIdx = cart.getItemIndex(item);
@@ -695,17 +696,17 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public double addPayment(String id, double amount) {
+    public BigDecimal addPayment(String id, BigDecimal amount) {
         return this.addPayment(id, amount, null, null);
     }
 
-    public double addPayment(String id, double amount, String refNum, String authCode) {
+    public BigDecimal addPayment(String id, BigDecimal amount, String refNum, String authCode) {
         trace("added payment", id + "/" + amount);
         if ("CASH".equals(id)) {
             // clear cash payments first; so there is only one
             cart.clearPayment(id);
         }
-        cart.addPaymentAmount(id, new Double(amount), refNum, authCode, true, true, false);
+        cart.addPaymentAmount(id, amount, refNum, authCode, true, true, false);
         return this.getTotalDue();
     }
 
@@ -775,11 +776,11 @@ public class PosTransaction implements Serializable {
         currentTx = null;
     }
 
-    public double processSale(Output output) throws GeneralException {
+    public BigDecimal processSale(Output output) throws GeneralException {
         trace("process sale");
-        double grandTotal = this.getGrandTotal();
-        double paymentAmt = this.getPaymentTotal();
-        if (grandTotal > paymentAmt) {
+        BigDecimal grandTotal = this.getGrandTotal();
+        BigDecimal paymentAmt = this.getPaymentTotal();
+        if (grandTotal.compareTo(paymentAmt) > 0) {
             throw new IllegalStateException();
         }
 
@@ -819,10 +820,10 @@ public class PosTransaction implements Serializable {
         }
 
         // get the change due
-        double change = (grandTotal - paymentAmt);
+        BigDecimal change = grandTotal.subtract(paymentAmt);
 
         // notify the change due
-        output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
+        output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue().negate().doubleValue()));
 
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
@@ -889,16 +890,16 @@ public class PosTransaction implements Serializable {
             Iterator i = cart.iterator();
             while (i.hasNext()) {
                 ShoppingCartItem item = (ShoppingCartItem) i.next();
-                double quantity = item.getQuantity();
-                double unitPrice = item.getBasePrice();
-                double subTotal = unitPrice * quantity;
-                double adjustment = item.getOtherAdjustments();
+                BigDecimal quantity = item.getQuantity();
+                BigDecimal unitPrice = item.getBasePrice();
+                BigDecimal subTotal = unitPrice.multiply(quantity);
+                BigDecimal adjustment = item.getOtherAdjustments();
 
                 XModel line = Journal.appendNode(model, "tr", ""+cart.getItemIndex(item), "");
                 Journal.appendNode(line, "td", "sku", item.getProductId());
                 Journal.appendNode(line, "td", "desc", item.getName());
-                Journal.appendNode(line, "td", "qty", UtilFormatOut.formatQuantity(quantity));
-                Journal.appendNode(line, "td", "price", UtilFormatOut.formatPrice(subTotal));
+                Journal.appendNode(line, "td", "qty", UtilFormatOut.formatQuantity(quantity.doubleValue()));
+                Journal.appendNode(line, "td", "price", UtilFormatOut.formatPrice(subTotal.doubleValue()));
                 Journal.appendNode(line, "td", "index", Integer.toString(cart.getItemIndex(item)));
 
                 if (this.isAggregatedItem(item.getProductId())){
@@ -916,19 +917,19 @@ public class PosTransaction implements Serializable {
                             Journal.appendNode(option, "td", "sku", "");
                             Journal.appendNode(option, "td", "desc", configoption.getDescription());
                             Journal.appendNode(option, "td", "qty", "");
-                            Journal.appendNode(option, "td", "price", UtilFormatOut.formatPrice(configoption.getPrice()));
+                            Journal.appendNode(option, "td", "price", UtilFormatOut.formatPrice(configoption.getPrice().doubleValue()));
                             Journal.appendNode(option, "td", "index", Integer.toString(cart.getItemIndex(item)));
                         }
                     }
                 }
                   
-                if (adjustment != 0) {
+                if (adjustment.compareTo(BigDecimal.ZERO) != 0) {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
                     Journal.appendNode(promo, "td", "sku", "");
                     Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"(ItemDiscount)",defaultLocale));
                     Journal.appendNode(promo, "td", "qty", "");
-                    Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
+                    Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment.doubleValue()));
                 }
             }
         }
@@ -936,17 +937,17 @@ public class PosTransaction implements Serializable {
 
     public void appendTotalDataModel(XModel model) {
         if (cart != null) {
-            double taxAmount = cart.getTotalSalesTax();
-            double total = cart.getGrandTotal();
+        	BigDecimal taxAmount = cart.getTotalSalesTax();
+        	BigDecimal total = cart.getGrandTotal();
             List adjustments = cart.getAdjustments();            
-            Double itemsAdjustmentsAmount = 0.0; 
+            BigDecimal itemsAdjustmentsAmount = BigDecimal.ZERO; 
 
             Iterator i = cart.iterator();
             while (i.hasNext()) {
                 ShoppingCartItem item = (ShoppingCartItem) i.next();
-                double adjustment = item.getOtherAdjustments();
-                if (adjustment != 0) {
-                    itemsAdjustmentsAmount =+ adjustment;
+                BigDecimal adjustment = item.getOtherAdjustments();
+                if (adjustment.compareTo(BigDecimal.ZERO) != 0) {
+                    itemsAdjustmentsAmount = itemsAdjustmentsAmount.add(adjustment);
                 }
             }
             
@@ -960,20 +961,20 @@ public class PosTransaction implements Serializable {
                 iter = adjustments.iterator();
                 while(iter.hasNext()){
                     GenericValue orderAdjustment = (GenericValue) iter.next();
-                    Double amount = orderAdjustment.getDouble("amount");
-                    Double sourcePercentage = orderAdjustment.getDouble("sourcePercentage");
+                    BigDecimal amount = orderAdjustment.getBigDecimal("amount");
+                    BigDecimal sourcePercentage = orderAdjustment.getBigDecimal("sourcePercentage");
                     XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc", 
                             UtilProperties.getMessage(PosTransaction.resource, "(SalesDiscount)",defaultLocale));
                     if (UtilValidate.isNotEmpty(amount)) {
                         Journal.appendNode(adjustmentLine, "td", "qty", "");
-                        Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount));
+                        Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount.doubleValue()));
                     } else if (UtilValidate.isNotEmpty(sourcePercentage)) {
-                        double percentage = - sourcePercentage.doubleValue()/100; // sourcePercentage is negative and must be show as a positive value (it's a discount not an amount)
-                        Journal.appendNode(adjustmentLine, "td", "qty", UtilFormatOut.formatPercentage(percentage)); 
-                        amount = new Double((cart.getItemTotal() + itemsAdjustmentsAmount) * percentage); // itemsAdjustmentsAmount is negative
-                        Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(- amount)); // amount must be shown as a negative value
+                    	BigDecimal percentage = sourcePercentage.movePointLeft(2).negate(); // sourcePercentage is negative and must be show as a positive value (it's a discount not an amount)
+                        Journal.appendNode(adjustmentLine, "td", "qty", UtilFormatOut.formatPercentage(percentage.doubleValue())); 
+                        amount = cart.getItemTotal().add(itemsAdjustmentsAmount).multiply(percentage); // itemsAdjustmentsAmount is negative
+                        Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount.negate().doubleValue())); // amount must be shown as a negative value
                     }                        
                     Journal.appendNode(adjustmentLine, "td", "index", "-1");
                 }    
@@ -984,14 +985,14 @@ public class PosTransaction implements Serializable {
 
             Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"Sales_Tax",defaultLocale));
             Journal.appendNode(taxLine, "td", "qty", "");
-            Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
+            Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount.doubleValue()));
             Journal.appendNode(taxLine, "td", "index", "-1");
             
             XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
             Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"Grand_Total",defaultLocale));
             Journal.appendNode(totalLine, "td", "qty", "");
-            Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
+            Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total.doubleValue()));
             Journal.appendNode(totalLine, "td", "index", "-1");
         }
     }
@@ -1018,18 +1019,18 @@ public class PosTransaction implements Serializable {
 
                 Object desc = paymentMethodType != null ? paymentMethodType.get("description",defaultLocale) : "??";
                 String descString = desc.toString();
-                double amount = 0;
+                BigDecimal amount = BigDecimal.ZERO;
                 if (inf.amount == null) {
-                    amount = cart.getGrandTotal() - cart.getPaymentTotal();
+                    amount = cart.getGrandTotal().subtract(cart.getPaymentTotal());
                 } else {
-                    amount = inf.amount.doubleValue();
+                    amount = inf.amount;
                 }
 
                 XModel paymentLine = Journal.appendNode(model, "tr", Integer.toString(i), "");
                 Journal.appendNode(paymentLine, "td", "sku", "");
                 Journal.appendNode(paymentLine, "td", "desc", descString);
                 Journal.appendNode(paymentLine, "td", "qty", "-");
-                Journal.appendNode(paymentLine, "td", "price", UtilFormatOut.formatPrice(-1 * amount));
+                Journal.appendNode(paymentLine, "td", "price", UtilFormatOut.formatPrice(amount.negate().doubleValue()));
                 Journal.appendNode(paymentLine, "td", "index", Integer.toString(i));
             }
         }
@@ -1037,13 +1038,13 @@ public class PosTransaction implements Serializable {
 
     public void appendChangeDataModel(XModel model) {
         if (cart != null) {
-            double changeDue = (-1 * this.getTotalDue());
-            if (changeDue >= 0) {
+        	BigDecimal changeDue = this.getTotalDue().negate();
+            if (changeDue.compareTo(BigDecimal.ZERO) >= 0) {
                 XModel changeLine = Journal.appendNode(model, "tr", "", "");
                 Journal.appendNode(changeLine, "td", "sku", "");
                 Journal.appendNode(changeLine, "td", "desc", "Change");
                 Journal.appendNode(changeLine, "td", "qty", "-");
-                Journal.appendNode(changeLine, "td", "price", UtilFormatOut.formatPrice(changeDue));
+                Journal.appendNode(changeLine, "td", "price", UtilFormatOut.formatPrice(changeDue.doubleValue()));
             }
         }
     }

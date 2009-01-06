@@ -65,7 +65,7 @@ public class FinAccountPaymentServices {
         String finAccountPin = (String) context.get("finAccountPin");
         String finAccountId = (String) context.get("finAccountId");
         String orderId = (String) context.get("orderId");
-        Double amount = (Double) context.get("processAmount");
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
 
         // check for an existing auth trans and cancel it
         GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
@@ -201,7 +201,7 @@ public class FinAccountPaymentServices {
                 availableBalance = FinAccountHelper.ZERO;
             } else {
                 BigDecimal availableBalanceOriginal = availableBalance;
-                availableBalance = (availableBalance).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+                availableBalance = availableBalance.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
                 if (availableBalance != availableBalanceOriginal) {
                     Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance [" + availableBalanceOriginal + "] was different after rounding [" + availableBalance + "]; it should never have made it into the database this way, so check whatever put it there.", module);
                 }
@@ -213,13 +213,13 @@ public class FinAccountPaymentServices {
             Boolean processResult;
             String refNum;
 
-            // turn amount into a big decimal, making sure to round and scale it to the same as availableBalance
-            BigDecimal amountBd = (new BigDecimal(amount)).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+            // make sure to round and scale it to the same as availableBalance
+            amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
-            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amountBd, module);
+            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, module);
             // check the available balance to see if we can auth this tx
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
-                    || (availableBalance.compareTo(amountBd) > -1)) {
+                    || (availableBalance.compareTo(amount) > -1)) {
                 Timestamp thruDate;
                 
                 if (finAccountSettings != null && finAccountSettings.getLong("authValidDays") != null) {
@@ -286,7 +286,7 @@ public class FinAccountPaymentServices {
 
             Map result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
-            result.put("releaseAmount", authTransaction.getDouble("amount"));
+            result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
 
             // if there's an error, don't release
@@ -308,7 +308,7 @@ public class FinAccountPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
-        Double amount = (Double) context.get("captureAmount");
+        BigDecimal amount = (BigDecimal) context.get("captureAmount");
         String currency = (String) context.get("currency");
 
         // get the authorization transaction
@@ -408,7 +408,7 @@ public class FinAccountPaymentServices {
         // create the capture response
         Map result = ServiceUtil.returnSuccess();
         Boolean processResult = (Boolean) withdrawResp.get("processResult");
-        Double withdrawAmount = (Double) withdrawResp.get("amount");
+        BigDecimal withdrawAmount = (BigDecimal) withdrawResp.get("amount");
         String referenceNum = (String) withdrawResp.get("referenceNum");
         result.put("captureResult", processResult);
         result.put("captureRefNum", referenceNum);
@@ -425,7 +425,7 @@ public class FinAccountPaymentServices {
 
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Double amount = (Double) context.get("refundAmount");
+        BigDecimal amount = (BigDecimal) context.get("refundAmount");
         String currency = (String) context.get("currency");
         String finAccountId = (String) context.get("finAccountId");
 
@@ -479,7 +479,7 @@ public class FinAccountPaymentServices {
         // create the refund response
         Map result = ServiceUtil.returnSuccess();
         Boolean processResult = (Boolean) depositResp.get("processResult");
-        Double depositAmount = (Double) depositResp.get("amount");
+        BigDecimal depositAmount = (BigDecimal) depositResp.get("amount");
         String referenceNum = (String) depositResp.get("referenceNum");
         result.put("refundResult", processResult);
         result.put("refundRefNum", referenceNum);
@@ -502,7 +502,7 @@ public class FinAccountPaymentServices {
         String reasonEnumId = (String) context.get("reasonEnumId");
         String orderId = (String) context.get("orderId");
         Boolean requireBalance = (Boolean) context.get("requireBalance");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         if (requireBalance == null) requireBalance = Boolean.TRUE;
 
         final String WITHDRAWAL = "WITHDRAWAL";
@@ -517,7 +517,7 @@ public class FinAccountPaymentServices {
         }
 
         // validate the amount
-        if (amount < 0.00) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             return ServiceUtil.returnError("Amount should be a positive number.");
         }
 
@@ -548,7 +548,7 @@ public class FinAccountPaymentServices {
         BigDecimal balance;
         String refNum;
         Boolean procResult;
-        if (requireBalance && previousBalance.doubleValue() < amount) {
+        if (requireBalance && previousBalance.compareTo(amount) < 0) {
             procResult = Boolean.FALSE;
             balance = previousBalance;
             refNum = "N/A";
@@ -571,8 +571,8 @@ public class FinAccountPaymentServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", previousBalance.doubleValue());
-        result.put("balance", balance.doubleValue());
+        result.put("previousBalance", previousBalance);
+        result.put("balance", balance);
         result.put("amount", amount);
         result.put("processResult", procResult);
         result.put("referenceNum", refNum);
@@ -591,7 +591,7 @@ public class FinAccountPaymentServices {
         String reasonEnumId = (String) context.get("reasonEnumId");
         String orderId = (String) context.get("orderId");
         Boolean isRefund = (Boolean) context.get("isRefund");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         final String DEPOSIT = isRefund == null || !isRefund ? "DEPOSIT" : "ADJUSTMENT";
 
@@ -646,7 +646,7 @@ public class FinAccountPaymentServices {
         if (actualBalance == null) {
             actualBalance = FinAccountHelper.ZERO;
         } else {
-            if (actualBalance.doubleValue() < 0) {
+            if (actualBalance.compareTo(BigDecimal.ZERO) < 0) {
                 // balance went below zero, set negative pending replenishment status so that no more auths or captures will go through until it is replenished
                 try {
                     Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
@@ -659,8 +659,8 @@ public class FinAccountPaymentServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", previousBalance.doubleValue());
-        result.put("balance", actualBalance.doubleValue());
+        result.put("previousBalance", previousBalance);
+        result.put("balance", actualBalance);
         result.put("amount", amount);
         result.put("processResult", Boolean.TRUE);
         result.put("referenceNum", refNum);        
@@ -727,15 +727,14 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();
         }
 
-        Double replThres = finAccountSettings.getDouble("replenishThreshold");
-        if (replThres == null) {
+        BigDecimal replenishThreshold = finAccountSettings.getBigDecimal("replenishThreshold");
+        if (replenishThreshold == null) {
             Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because ProductStoreFinActSetting.replenishThreshold field was null for: " + psfasFindMap, module);
             return ServiceUtil.returnSuccess();
         }
-        BigDecimal replenishThreshold = new BigDecimal(replThres);
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
-        if (replenishLevel == null || replenishLevel.compareTo(FinAccountHelper.ZERO) == 0) {
+        if (replenishLevel == null || replenishLevel.compareTo(BigDecimal.ZERO) == 0) {
             Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because FinAccount.replenishLevel field was null or 0", module);
             // no replenish level set; this account goes not support auto-replenish
             return ServiceUtil.returnSuccess();
@@ -803,7 +802,7 @@ public class FinAccountPaymentServices {
         }
 
         // hit the payment method for the amount to replenish
-        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount.doubleValue());
+        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
         Map replOrderCtx = FastMap.newInstance();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
@@ -831,7 +830,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("partyId", ownerPartyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
-        depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
+        depositCtx.put("amount",  depositAmount);
         depositCtx.put("reasonEnumId", "FATR_REPLENISH");
         depositCtx.put("userLogin", userLogin);
         try {
@@ -897,7 +896,7 @@ public class FinAccountPaymentServices {
         return null;
     }
     
-    private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Double amount,
+    private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
             String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId, String reasonEnumId) throws GeneralException {
 
         final String coParty = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
@@ -910,7 +909,7 @@ public class FinAccountPaymentServices {
         String paymentType;
         String partyIdFrom;
         String partyIdTo;
-        Double paymentAmount;
+        BigDecimal paymentAmount;
 
         // determine the payment type and which direction the parties should go
         if ("DEPOSIT".equals(txType)) {
@@ -924,11 +923,11 @@ public class FinAccountPaymentServices {
             partyIdTo = partyId;
             paymentAmount = amount;
         } else if ("ADJUSTMENT".equals(txType)) {
-            if (amount < 0) {
+            if (amount.compareTo(BigDecimal.ZERO) < 0) {
                 paymentType = "DISBURSEMENT";
                 partyIdFrom = coParty;
                 partyIdTo = partyId;
-                paymentAmount = amount * -1; // must be positive
+                paymentAmount = amount.negate(); // must be positive
             } else {
                 paymentType = "RECEIPT";
                 partyIdFrom = partyId;

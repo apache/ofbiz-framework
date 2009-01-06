@@ -72,26 +72,26 @@ if (shipmentPlans) {
                         productId = product.productId;
                         productIdToProduct.put(productId, product);
                         if (!productIdToQuantity.containsKey(productId)) {
-                            productIdToQuantity.put(productId, new Double(0));
+                            productIdToQuantity.put(productId, 0.0);
                         }
-                        qty = (Double)productIdToQuantity.get(productId);
-                        productIdToQuantity.put(productId, new Double(oneProductionRun.getGenericValue().getDouble("quantityToProduce").doubleValue() + qty.doubleValue()));
+                        qty = productIdToQuantity.get(productId);
+                        productIdToQuantity.put(productId, oneProductionRun.getGenericValue().quantityToProduce + qty);
                     }
                 }
             }
         }
     }
     productIdToProduct.values().each { product ->
-        heightD = product.getDouble("productHeight");
+        heightD = product.productHeight;
         height = 0;        
         if (heightD) {
-            height = (heightD.doubleValue() * 1000) as int;
+            height = (heightD * 1000) as int;
         }
         
-        widthD = product.getDouble("productWidth");
+        widthD = product.productWidth;
         width = 0;        
         if (widthD) {
-            width = (widthD.doubleValue() * 1000) as int;
+            width = (widthD * 1000) as int;
         }
         Dimension dim = new Dimension(width, height);
         if (!dimensionToProducts.containsKey(dim)) {
@@ -101,10 +101,10 @@ if (shipmentPlans) {
         prodList.add(product);
         // tot qty per dimension
         if (!dimensionToQuantity.containsKey(dim)) {
-            dimensionToQuantity.put(dim, new Double(0));
+            dimensionToQuantity.put(dim, 0.0);
         }
-        Double qty = (Double)dimensionToQuantity.get(dim);
-        dimensionToQuantity.put(dim, new Double(((Double)productIdToQuantity.get(product.productId)).doubleValue() + qty.doubleValue()));
+        qty = dimensionToQuantity[dim];
+        dimensionToQuantity.put(dim, productIdToQuantity[product.productId] + qty);
     }
     //
     //
@@ -113,8 +113,8 @@ if (shipmentPlans) {
     dimensionToProducts.keySet().each { dim ->
         map1 = [:];
         list1.add(map1);
-        map1.width = (dim.getWidth() / 1000) as Double;
-        map1.height = (dim.getHeight() / 1000) as Double;
+        map1.width = (dim.getWidth() / 1000);
+        map1.height = (dim.getHeight() / 1000);
         map1.quantity = dimensionToQuantity.get(dim);
         list2 = [] as ArrayList;
         map1.products = list2;

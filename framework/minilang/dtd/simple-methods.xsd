@@ -4523,7 +4523,7 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation><xs:documentation>The name (key) of the map (or env if map-name is empty) field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute name="type" default="Double">
+        <xs:attribute name="type" default="BigDecimal">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="String"/>

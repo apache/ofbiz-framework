@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.thirdparty.zipsales;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -58,10 +59,6 @@ public class ZipSalesServices {
     public static final String flatTable = "FlatTaxTable";
     public static final String ruleTable = "FreightRuleTable";
     public static final String resource_error = "OrderErrorUiLabels";
-
-    // number formatting
-    private static String curFmtStr = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-    private static DecimalFormat curFormat = new DecimalFormat(curFmtStr);
 
     // date formatting
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -218,7 +215,7 @@ public class ZipSalesServices {
         List itemProductList = (List) context.get("itemProductList");
         List itemAmountList = (List) context.get("itemAmountList");
         List itemShippingList = (List) context.get("itemShippingList");
-        Double orderShippingAmount = (Double) context.get("orderShippingAmount");
+        BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
 
         // flatTaxCalc only uses the Zip + City from the address
@@ -246,12 +243,12 @@ public class ZipSalesServices {
             // loop through and get per item tax rates
             for (int i = 0; i < itemProductList.size(); i++) {
                 GenericValue product = (GenericValue) itemProductList.get(i);
-                Double itemAmount = (Double) itemAmountList.get(i);
-                Double shippingAmount = (Double) itemShippingList.get(i);
-                itemAdjustments.add(getItemTaxList(delegator, product, postalCode, city, itemAmount.doubleValue(), shippingAmount.doubleValue(), false));
+                BigDecimal itemAmount = (BigDecimal) itemAmountList.get(i);
+                BigDecimal shippingAmount = (BigDecimal) itemShippingList.get(i);
+                itemAdjustments.add(getItemTaxList(delegator, product, postalCode, city, itemAmount, shippingAmount, false));
             }
-            if (orderShippingAmount.doubleValue() > 0) {
-                List taxList = getItemTaxList(delegator, null, postalCode, city, 0.00, orderShippingAmount.doubleValue(), false);
+            if (orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
+                List taxList = getItemTaxList(delegator, null, postalCode, city, BigDecimal.ZERO, orderShippingAmount, false);
                 orderAdjustments.addAll(taxList);
             }
         } catch (GeneralException e) {
@@ -264,7 +261,7 @@ public class ZipSalesServices {
         return result;
     }
 
-    private static List getItemTaxList(GenericDelegator delegator, GenericValue item, String zipCode, String city, double itemAmount, double shippingAmount, boolean isUseTax) throws GeneralException {
+    private static List getItemTaxList(GenericDelegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
         List adjustments = new ArrayList();
 
         // check the item for tax status
@@ -333,7 +330,7 @@ public class ZipSalesServices {
             fieldName = "comboUseTax";
         }
 
-        Double comboTaxRate = taxEntry.getDouble(fieldName);
+        BigDecimal comboTaxRate = taxEntry.getBigDecimal(fieldName);
         if (comboTaxRate == null) {
             Debug.logWarning("No Combo Tax Rate In Field " + fieldName + " @ " + zipCode + " / " + city + " - " + itemAmount, module);
             return adjustments;
@@ -468,21 +465,19 @@ public class ZipSalesServices {
             }
         }
 
-        double taxableAmount = itemAmount;
+        BigDecimal taxableAmount = itemAmount;
         if (taxShipping) {
             //Debug.log("Taxing shipping", module);
-            taxableAmount += shippingAmount;
+            taxableAmount = taxableAmount.add(shippingAmount);
         } else {
             Debug.log("Shipping is not taxable", module);
         }
 
         // calc tax amount
-        double taxRate = comboTaxRate.doubleValue();
-        double taxCalc = taxableAmount * taxRate;
+        BigDecimal taxRate = comboTaxRate;
+        BigDecimal taxCalc = taxableAmount.multiply(taxRate);
 
-        // format the number
-        Double taxAmount = new Double(formatCurrency(taxCalc));
-        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxAmount, "orderAdjustmentTypeId", "SALES_TAX", "comments", Double.toString(taxRate), "description", "Sales Tax (" + stateCode + ")")));
+        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxCalc, "orderAdjustmentTypeId", "SALES_TAX", "comments", taxRate, "description", "Sales Tax (" + stateCode + ")")));
 
         return adjustments;
     }
@@ -503,9 +498,5 @@ public class ZipSalesServices {
         } else {
             return useWhenNull;
         }
-    }
-
-    private static String formatCurrency(double currency) {
-        return curFormat.format(currency);
     }
 }

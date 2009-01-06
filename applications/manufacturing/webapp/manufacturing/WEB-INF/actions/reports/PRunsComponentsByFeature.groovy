@@ -91,9 +91,9 @@ if (allProductionRuns) {
                 products.put(productionRunComponent.productId, [product : productionRunProduct, quantity : new Double(0), location : location]);
             }
             Map productMap = (Map)products.get(productionRunComponent.productId);
-            Double productMapQty = (Double)productMap.quantity;
-            Double currentProductQty = productionRunComponent.getDouble("estimatedQuantity");
-            productMap.quantity = new Double(productMapQty.doubleValue() + currentProductQty.doubleValue());
+            productMapQty = productMap.quantity;
+            currentProductQty = productionRunComponent.estimatedQuantity;
+            productMap.quantity = productMapQty + currentProductQty;
         }
     }
     // now create lists of products for each feature group
@@ -105,14 +105,14 @@ if (allProductionRuns) {
         while (productsMapIt.hasNext()) {
             productMap = productsMapIt.next();
             if (productMap.product.productWidth && productMap.product.productHeight) {
-                Double productMapQty = (Double)productMap.get("quantity");
-                Double productHeight = (Double)productMap.get("product").get("productHeight");
-                Double productWidth = (Double)productMap.get("product").get("productWidth");
-                double productArea = (productHeight.doubleValue() * productWidth.doubleValue()) / (1000 * 1000);
-                double panelQty = 0.0;
+                productMapQty = productMap.quantity;
+                productHeight = productMap.product.productHeight;
+                productWidth = productMap.product.productWidth;
+                productArea = (productHeight * productWidth) / (1000 * 1000);
+                panelQty = 0.0;
                 int panelQtyInt = 0;
-                if (productArea > 0) panelQty = productMapQty.doubleValue() / productArea;
-                panelQtyInt = (int)panelQty;
+                if (productArea > 0) panelQty = productMapQty / productArea;
+                panelQtyInt = panelQty;
                 if (panelQtyInt < panelQty) panelQtyInt++;
                 productMap.panelQuantity = new Integer(panelQtyInt);
             }

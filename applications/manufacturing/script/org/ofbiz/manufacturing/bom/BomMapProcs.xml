@@ -50,12 +50,12 @@ under the License.
             </convert>
         </process>
         <process field="quantity">
-            <convert type="Double">
+            <convert type="BigDecimal">
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingQuantityBadFormat"/>
             </convert>
         </process>
         <process field="scrapFactor">
-            <convert type="Double">
+            <convert type="BigDecimal">
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingScrapFactorBadFormat"/>
             </convert>
         </process>

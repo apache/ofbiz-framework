@@ -102,8 +102,8 @@ under the License.
         <attribute mode="IN" name="statusIds" type="List" optional="true"/> <!-- By default, this service looks for approved requirements.  To override this, pass in a list of requirement statusIds to search. -->
         <attribute mode="OUT" name="requirementsForSupplier" type="java.util.List" optional="true"/>
         <attribute mode="OUT" name="distinctProductCount" type="Integer" optional="true"/>
-        <attribute mode="OUT" name="quantityTotal" type="Double" optional="true"/>
-        <attribute mode="OUT" name="amountTotal" type="Double" optional="true"/>
+        <attribute mode="OUT" name="quantityTotal" type="BigDecimal" optional="true"/>
+        <attribute mode="OUT" name="amountTotal" type="BigDecimal" optional="true"/>
     </service>
     <service name="createOrderRequirementCommitment" engine="simple" auth="true"
         location="org/ofbiz/order/order/OrderServices.xml" invoke="createOrderRequirementCommitment">
@@ -116,7 +116,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="checkCreateStockRequirementQoh" engine="simple" auth="true" default-entity-name="ItemIssuance"
@@ -136,7 +136,7 @@ under the License.
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createRequirementFromItemATP" engine="simple" auth="true"
@@ -147,7 +147,7 @@ under the License.
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -162,7 +162,7 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
         <description>Approves a requirement.</description>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
     </service>
 
     <service name="autoAssignRequirementToSupplier" engine="simple" auth="true"
@@ -176,7 +176,7 @@ under the License.
         <description>Create the inventory transfers required to fulfill the requirement.</description>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
         <attribute mode="IN" name="fromFacilityId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
     </service>
 
     <service name="createAutoRequirementsForOrder" engine="java"

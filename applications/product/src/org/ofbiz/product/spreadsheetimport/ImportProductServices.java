@@ -22,6 +22,7 @@ package org.ofbiz.product.spreadsheetimport;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -117,9 +118,9 @@ public class ImportProductServices {
                     String productId = cell1.getStringCellValue();
                     // read QOH from ninth column
                     HSSFCell cell8 = row.getCell((short) 8);
-                    double quantityOnHand = 0.0;
+                    BigDecimal quantityOnHand = BigDecimal.ZERO;
                     if (cell8 != null && cell8.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
-                        quantityOnHand = cell8.getNumericCellValue();
+                        quantityOnHand = new BigDecimal(cell8.getNumericCellValue());
 
                     // check productId if null then skip creating inventory item
                     // too.
@@ -128,11 +129,11 @@ public class ImportProductServices {
 
                     if (productId != null && !productId.trim().equalsIgnoreCase("") && !productExists) {
                         products.add(ImportProductHelper.prepareProduct(productId));
-                        if (quantityOnHand >= 0.0)
+                        if (quantityOnHand.compareTo(BigDecimal.ZERO) >= 0)
                             inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, quantityOnHand,
                                     delegator.getNextSeqId("InventoryItem")));
                         else
-                            inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, 0.0, delegator
+                            inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, BigDecimal.ZERO, delegator
                                     .getNextSeqId("InventoryItem")));
                     }
                     int rowNum = row.getRowNum() + 1;

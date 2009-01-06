@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.thirdparty.verisign;
 
 import java.util.*;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 
@@ -52,7 +53,7 @@ public class PayflowPro {
         GenericValue authTrans = (GenericValue) context.get("authTrans");
         String orderId = (String) context.get("orderId");
         String cvv2 = (String) context.get("cardSecurityCode");
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         GenericValue party = (GenericValue) context.get("billToParty");
         GenericValue cc = (GenericValue) context.get("creditCard");
         GenericValue ps = (GenericValue) context.get("billingAddress");
@@ -153,7 +154,7 @@ public class PayflowPro {
     public static Map ccCapture(DispatchContext dctx, Map context) {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
-        Double amount = (Double) context.get("captureAmount");
+        BigDecimal amount = (BigDecimal) context.get("captureAmount");
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
@@ -216,7 +217,7 @@ public class PayflowPro {
     public static Map ccVoid(DispatchContext dctx, Map context) {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
-        Double amount = (Double) context.get("releaseAmount");
+        BigDecimal amount = (BigDecimal) context.get("releaseAmount");
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
@@ -278,7 +279,7 @@ public class PayflowPro {
 
     public static Map ccRefund(DispatchContext dctx, Map context) {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
-        Double amount = (Double) context.get("refundAmount");
+        BigDecimal amount = (BigDecimal) context.get("refundAmount");
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";

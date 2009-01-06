@@ -143,15 +143,15 @@ under the License.
             <call-service service-name="calculateAcctgTransTrialBalance" in-map-name="callServiceMap">
                 <results-to-map map-name="serviceResults"/>
             </call-service>
-            <calculate field="debitTotal" type="Double">
+            <calculate field="debitTotal">
                 <calcop operator="get" field="debitTotal"/>
                 <calcop operator="get" field="serviceResults.debitTotal"/>
             </calculate>
-            <calculate field="creditTotal" type="Double">
+            <calculate field="creditTotal">
                 <calcop operator="get" field="creditTotal"/>
                 <calcop operator="get" field="serviceResults.creditTotal"/>
             </calculate>
-            <calculate field="debitCreditDifference" type="Double">
+            <calculate field="debitCreditDifference">
                 <calcop operator="get" field="debitCreditDifference"/>
                 <calcop operator="get" field="serviceResults.debitCreditDifference"/>
             </calculate>
@@ -171,7 +171,7 @@ under the License.
             <results-to-map map-name="trialBalanceResultMap"/>
         </call-service>
         
-        <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="Double">
+        <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="BigDecimal">
             <add-error><fail-message message="Not posting GL Journal with ID [${parameters.glJournalId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
             <check-errors/>
         </if-compare>
@@ -333,7 +333,7 @@ under the License.
                             <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                             <if-compare-field field="acctgTransEntry.origCurrencyUomId" to-field="acctgTransEntry.currencyUomId" operator="not-equals">
                                 <clear-field field="convertUomInMap"/>
-                                <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount" type="Double"/>
+                                <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount"/>
                                 <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
                                 <set field="convertUomInMap.uomIdTo" from-field="acctgTransEntry.currencyUomId"/>
                                 <!-- TODO: set the optional asOfDate input parameter -->
@@ -655,7 +655,7 @@ under the License.
             <order-by field-name="acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
-        <set field="totalAmount" value="0.0" type="Double"/>
+        <set field="totalAmount" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
@@ -667,7 +667,7 @@ under the License.
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if>
                 <condition>
                     <or>
@@ -692,7 +692,7 @@ under the License.
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <calculate field="totalAmount" type="Double">
+            <calculate field="totalAmount">
                 <calcop field="totalAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
@@ -715,7 +715,7 @@ under the License.
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field="postedBalance">
                 <field field="profitLossAccountHistory" type="GenericValue"/>
             </call-class-method>
-            <if-compare-field field="postedBalance" to-field="totalAmount" operator="not-equals" type="Double">
+            <if-compare-field field="postedBalance" to-field="totalAmount" operator="not-equals" type="BigDecimal">
                 <add-error><fail-message message="There is already a posted balance [${postedBalance}] that doesn't match with the current one [${totalAmount}]."/></add-error>
             </if-compare-field>
             <check-errors/>
@@ -753,7 +753,7 @@ under the License.
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field="endingBalance">
                 <field field="glAccountHistory" type="GenericValue"/>
             </call-class-method>
-            <set field="glAccountHistory.endingBalance" from-field="endingBalance" type="Double"/>
+            <set field="glAccountHistory.endingBalance" from-field="endingBalance"/>
             <store-value value-field="glAccountHistory"/>
         </iterate>
         <if-not-empty field="lastClosedTimePeriod">
@@ -781,12 +781,12 @@ under the License.
                     <set field="thisPeriodGlAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
                     <set field="thisPeriodGlAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
                     <set field="thisPeriodGlAccountHistory.glAccountId" from-field="lastPeriodGlAccountHistory.glAccountId"/>
-                    <set field="thisPeriodGlAccountHistory.postedDebits" value="0.0" type="Double"/>
-                    <set field="thisPeriodGlAccountHistory.postedCredits" value="0.0" type="Double"/>
-                    <set field="thisPeriodGlAccountHistory.endingBalance" from-field="lastPeriodGlAccountHistory.endingBalance" type="Double"/>
+                    <set field="thisPeriodGlAccountHistory.postedDebits" value="0.0" type="BigDecimal"/>
+                    <set field="thisPeriodGlAccountHistory.postedCredits" value="0.0" type="BigDecimal"/>
+                    <set field="thisPeriodGlAccountHistory.endingBalance" from-field="lastPeriodGlAccountHistory.endingBalance"/>
                     <create-value value-field="thisPeriodGlAccountHistory"/>
                 <else>
-                    <calculate field="thisPeriodGlAccountHistory.endingBalance" type="Double">
+                    <calculate field="thisPeriodGlAccountHistory.endingBalance">
                         <calcop field="thisPeriodGlAccountHistory.endingBalance" operator="add"><calcop field="lastPeriodGlAccountHistory.endingBalance" operator="get"/></calcop>
                     </calculate>
                     <store-value value-field="thisPeriodGlAccountHistory"/>
@@ -823,7 +823,7 @@ under the License.
                 <order-by field-name="acctgTransEntrySeqId"/>
             </entity-condition>
 
-            <set field="newPostedBalance" value="0.0" type="Double"/>
+            <set field="newPostedBalance" value="0.0" type="BigDecimal"/>
             <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
                 <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
                 <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
@@ -835,7 +835,7 @@ under the License.
                 <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
                     <field field="glAccount" type="GenericValue"/>
                 </call-class-method>
-                <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+                <set field="amount" from-field="acctgTransAndEntry.amount"/>
                 <if>
                     <condition>
                         <or>
@@ -860,14 +860,14 @@ under the License.
                         <calcop field="amount" operator="negative"/>
                     </calculate>
                 </if-compare>
-                <calculate field="newPostedBalance" type="Double">
+                <calculate field="newPostedBalance">
                     <calcop field="newPostedBalance" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
             </iterate>
 
             <set field="updateGlAccountOrganizationInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
             <set field="updateGlAccountOrganizationInMap.glAccountId" from-field="glAccountOrganizationAndClass.glAccountId"/>
-            <set field="updateGlAccountOrganizationInMap.postedBalance" from-field="newPostedBalance" type="Double"/>
+            <set field="updateGlAccountOrganizationInMap.postedBalance" from-field="newPostedBalance"/>
             <call-service service-name="updateGlAccountOrganization" in-map-name="updateGlAccountOrganizationInMap"/>
         </iterate>
 
@@ -913,7 +913,7 @@ under the License.
             <order-by field-name="acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
-        <set field="totalNetIncome" value="0.0" type="Double"/>
+        <set field="totalNetIncome" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
@@ -925,7 +925,7 @@ under the License.
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if>
                 <condition>
                     <or>
@@ -950,21 +950,21 @@ under the License.
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <calculate field="totalNetIncome" type="Double">
+            <calculate field="totalNetIncome">
                 <calcop field="totalNetIncome" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
             <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                 <if-empty field="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
-                    <set field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
+                    <set field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" value="0.0" type="BigDecimal"/>
                 </if-empty>
-                <calculate field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" type="Double">
+                <calculate field="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
                     <calcop field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
             <else>
                 <if-empty field="glAccountTotalsProfitMap.${glAccount.glAccountId}">
-                    <set field="glAccountTotalsProfitMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
+                    <set field="glAccountTotalsProfitMap.${glAccount.glAccountId}" value="0.0" type="BigDecimal"/>
                 </if-empty>
-                <calculate field="glAccountTotalsProfitMap.${glAccount.glAccountId}" type="Double">
+                <calculate field="glAccountTotalsProfitMap.${glAccount.glAccountId}">
                     <calcop field="glAccountTotalsProfitMap.${glAccount.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
             </else>
@@ -1030,7 +1030,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsAssetMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+                <set field="glAccountTotalsAssetMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
@@ -1041,7 +1041,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsLiabilityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+                <set field="glAccountTotalsLiabilityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
@@ -1052,7 +1052,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsEquityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+                <set field="glAccountTotalsEquityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
         </if-not-empty>
 
@@ -1070,16 +1070,16 @@ under the License.
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
-            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C">
                 <calculate field="amount">
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
             <if-empty field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+                <set field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" type="Double">
+            <calculate field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
                 <calcop field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
@@ -1097,16 +1097,16 @@ under the License.
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
-            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
                 <calculate field="amount">
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
             <if-empty field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+                <set field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" type="Double">
+            <calculate field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
                 <calcop field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
@@ -1124,16 +1124,16 @@ under the License.
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
-            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
                 <calculate field="amount">
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
             <if-empty field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+                <set field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" type="Double">
+            <calculate field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
                 <calcop field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
@@ -1153,9 +1153,9 @@ under the License.
         </entity-one>
         <if-not-empty field="retainedEarningsAccount">
             <if-empty field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
-                <set field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" value="0.0" type="Double"/>
+                <set field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" type="Double">
+            <calculate field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
                 <calcop field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" operator="add"><calcop field="totalNetIncome" operator="get"/></calcop>
             </calculate>
         </if-not-empty>
@@ -1202,49 +1202,49 @@ under the License.
         </call-service>
 
         <iterate list="period2AssetBalancesList" entry="period2AssetBalance">
-            <set field="assetBalancesMap.${period2AssetBalance.glAccountId}" from-field="period2AssetBalance.totalAmount" type="Double"/>
+            <set field="assetBalancesMap.${period2AssetBalance.glAccountId}" from-field="period2AssetBalance.totalAmount"/>
         </iterate>
         <iterate list="period1AssetBalancesList" entry="period1AssetBalance">
-            <set field="amount" from-field="period1AssetBalance.totalAmount" type="Double"/>
+            <set field="amount" from-field="period1AssetBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
             <if-empty field="assetBalancesMap.${period1AssetBalance.glAccountId}">
-                <set field="assetBalancesMap.${period1AssetBalance.glAccountId}" value="0.0" type="Double"/>
+                <set field="assetBalancesMap.${period1AssetBalance.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="assetBalancesMap.${period1AssetBalance.glAccountId}" type="Double">
+            <calculate field="assetBalancesMap.${period1AssetBalance.glAccountId}">
                 <calcop field="assetBalancesMap.${period1AssetBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
         <iterate list="period2LiabilityBalancesList" entry="period2LiabilityBalance">
-            <set field="liabilityBalancesMap.${period2LiabilityBalance.glAccountId}" from-field="period2LiabilityBalance.totalAmount" type="Double"/>
+            <set field="liabilityBalancesMap.${period2LiabilityBalance.glAccountId}" from-field="period2LiabilityBalance.totalAmount"/>
         </iterate>
         <iterate list="period1LiabilityBalancesList" entry="period1LiabilityBalance">
-            <set field="amount" from-field="period1LiabilityBalance.totalAmount" type="Double"/>
+            <set field="amount" from-field="period1LiabilityBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
             <if-empty field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
-                <set field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" value="0.0" type="Double"/>
+                <set field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" type="Double">
+            <calculate field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
                 <calcop field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
         <iterate list="period2EquityBalancesList" entry="period2EquityBalance">
-            <set field="equityBalancesMap.${period2EquityBalance.glAccountId}" from-field="period2EquityBalance.totalAmount" type="Double"/>
+            <set field="equityBalancesMap.${period2EquityBalance.glAccountId}" from-field="period2EquityBalance.totalAmount"/>
         </iterate>
         <iterate list="period1EquityBalancesList" entry="period1EquityBalance">
-            <set field="amount" from-field="period1EquityBalance.totalAmount" type="Double"/>
+            <set field="amount" from-field="period1EquityBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
             <if-empty field="equityBalancesMap.${period1EquityBalance.glAccountId}">
-                <set field="equityBalancesMap.${period1EquityBalance.glAccountId}" value="0.0" type="Double"/>
+                <set field="equityBalancesMap.${period1EquityBalance.glAccountId}" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="equityBalancesMap.${period1EquityBalance.glAccountId}" type="Double">
+            <calculate field="equityBalancesMap.${period1EquityBalance.glAccountId}">
                 <calcop field="equityBalancesMap.${period1EquityBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
@@ -1290,7 +1290,7 @@ under the License.
         </entity-and>
         <first-from-list list="billToCustomers" entry="billToCustomer"/>
         <!-- TODO: handle serialized inventory -->
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="itemIssuance.quantity"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1348,7 +1348,7 @@ under the License.
         </entity-and>
         <first-from-list list="billToCustomers" entry="billToCustomer"/>
         <!-- TODO: handle serialized inventory -->
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="parameters.canceledQuantity"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1408,7 +1408,7 @@ under the License.
         </else>
         </if-not-empty>
         <!-- TODO: handle serialized inventory -->
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="shipmentReceipt.quantityAccepted"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1464,7 +1464,7 @@ under the License.
         </entity-condition>
         <first-from-list list="inventoryItemDetails" entry="oldInventoryItemDetail"/>
         <if-not-empty field="oldInventoryItemDetail">
-            <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply" field="newinventoryItem.quantityOnHandTotal">
                     <calcop operator="subtract">
                         <calcop operator="get" field="oldInventoryItemDetail.unitCost"/>
@@ -1514,7 +1514,7 @@ under the License.
         </entity-and>
         <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
             <get-related-one value-field="inventoryItemDetail" relation-name="InventoryItem" to-value-field="inventoryItem"/>        
-            <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
                     <calcop operator="get" field="inventoryItemDetail.quantityOnHandDiff"/>
                     <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1560,7 +1560,7 @@ under the License.
         </entity-one>
         <get-related-one value-field="workEffortInventoryProduced" relation-name="InventoryItem" to-value-field="inventoryItem"/>  
         <!-- TODO: handle serialized inventory -->
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1660,7 +1660,7 @@ under the License.
         
         <!-- TODO: handle serialized inventory -->
         <if-not-empty field="inventoryItem.quantityOnHandTotal">
-            <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
                     <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
                     <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1746,7 +1746,7 @@ under the License.
         </entity-one>        
         <get-related-one value-field="workEffortInventoryAssign" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <!-- TODO: handle serialized inventory -->
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="workEffortInventoryAssign.quantity"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1789,7 +1789,7 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
 
-        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="itemIssuance.quantity"/>
                 <calcop operator="get" field="inventoryItem.unitCost"/>
@@ -1830,8 +1830,8 @@ under the License.
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
           
-        <calculate field="amountAppliedTotal" type="BigDecimal"><number value="0"/></calculate>
-        <calculate field="diffAmount" type="BigDecimal"><number value="0"/></calculate>
+        <calculate field="amountAppliedTotal"><number value="0"/></calculate>
+        <calculate field="diffAmount"><number value="0"/></calculate>
          
         <entity-one entity-name="Payment" value-field="payment"/>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceiptValue">
@@ -1876,7 +1876,7 @@ under the License.
                 </if-not-empty>
                 <set field="creditEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <set field="creditEntry.glAccountTypeId" from-field="creditGlAccountTypeId"/>
-                <calculate field="amountAppliedTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="amountAppliedTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
                         <calcop operator="get" field="amountAppliedTotal"/>
                         <calcop operator="get" field="paymentApplication.amountApplied"/>
@@ -1885,7 +1885,7 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>
          
-            <calculate field="diffAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="diffAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="subtract">
                     <calcop operator="get" field="payment.amount"/>
                     <calcop operator="get" field="amountAppliedTotal"/>
@@ -1941,13 +1941,13 @@ under the License.
                 <if-empty field="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
                 </if-empty>
-                <calculate field="amountFromInvoice"  type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="amountFromInvoice"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="multiply">
                         <calcop operator="get" field="invoiceItem.quantity"/>
                         <calcop operator="get" field="invoiceItem.amount"/>
                     </calcop>
                 </calculate>
-                <calculate field="totalAmountFromInvoice" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="totalAmountFromInvoice" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
                         <calcop operator="get" field="totalAmountFromInvoice"/>
                         <calcop operator="get" field="amountFromInvoice"/>
@@ -1956,7 +1956,7 @@ under the License.
                 <get-related value-field="invoiceItem" relation-name="OrderItemBilling" list="orderItemBillings"/>
                 <iterate list="orderItemBillings" entry="orderItemBilling">
                     <get-related-one value-field="orderItemBilling" relation-name="OrderItem" to-value-field="orderItem"/>
-                    <calculate field="amountFromOrder" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calculate field="amountFromOrder" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop field="amountFromOrder" operator="add">
                             <calcop operator="multiply">
                                 <calcop operator="get" field="orderItemBilling.quantity"/>
@@ -1981,7 +1981,7 @@ under the License.
                         <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
                         <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
                         <set field="debitEntry.glAccountTypeId" value="PURCHASE_PRICE_VAR"/>
-                        <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                        <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                             <calcop operator="subtract">
                                 <calcop operator="get" field="amountFromInvoice"/>
                                 <calcop operator="get" field="amountFromOrder"/>
@@ -2058,13 +2058,13 @@ under the License.
                 <if-empty field="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
                 </if-empty> 
-                <calculate field="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="multiply">
                         <calcop operator="get" field="invoiceItem.quantity"/>
                         <calcop operator="get" field="invoiceItem.amount"/>
                     </calcop>
                 </calculate>
-                <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="totalOrigAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
                         <calcop operator="get" field="totalOrigAmount"/>
                         <calcop operator="get" field="origAmount"/>
@@ -2166,7 +2166,7 @@ under the License.
                     </if-not-empty>
                 </else>
                 </if-not-empty>
-                <calculate field="amountAppliedTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calculate field="amountAppliedTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
                         <calcop operator="get" field="amountAppliedTotal"/>
                         <calcop operator="get" field="paymentApplication.amountApplied"/>
@@ -2174,7 +2174,7 @@ under the License.
                 </calculate>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
-            <calculate field="amount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="amount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="subtract">
                     <calcop operator="get" field="payment.amount"/>
                     <calcop operator="get" field="amountAppliedTotal"/>

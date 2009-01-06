@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart.shipping;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -46,9 +47,9 @@ public class ShippingEstimateWrapper {
     protected List shippableItemSizes = null;
     protected List shippableItemInfo = null;
     protected String productStoreId = null;
-    protected double shippableQuantity = 0;
-    protected double shippableWeight = 0;
-    protected double shippableTotal = 0;
+    protected BigDecimal shippableQuantity = BigDecimal.ZERO;
+    protected BigDecimal shippableWeight = BigDecimal.ZERO;
+    protected BigDecimal shippableTotal = BigDecimal.ZERO;
     protected String partyId = null;
     protected String supplierPartyId = null;
 
@@ -101,7 +102,7 @@ public class ShippingEstimateWrapper {
                         supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId);
 
                 if (!ServiceUtil.isError(estimateMap)) {
-                    Double shippingTotal = (Double) estimateMap.get("shippingTotal");
+                    BigDecimal shippingTotal = (BigDecimal) estimateMap.get("shippingTotal");
                     shippingEstimates.put(shipMethod, shippingTotal);
                 }
             }
@@ -116,8 +117,8 @@ public class ShippingEstimateWrapper {
         return shippingEstimates;
     }
 
-    public Double getShippingEstimate(GenericValue storeCarrierShipMethod) {
-        return (Double) shippingEstimates.get(storeCarrierShipMethod);
+    public BigDecimal getShippingEstimate(GenericValue storeCarrierShipMethod) {
+        return (BigDecimal) shippingEstimates.get(storeCarrierShipMethod);
     }
 
 }

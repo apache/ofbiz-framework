@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.thirdparty.worldpay;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.view.JPublishWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -128,10 +130,10 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         }
         
         // the order total MUST match the auth amount or we do not process
-        Double wpTotal = new Double(authAmount);
-        Double orderTotal = orderHeader != null ? orderHeader.getDouble("grandTotal") : null;
+        BigDecimal wpTotal = new BigDecimal(authAmount);
+        BigDecimal orderTotal = orderHeader.getBigDecimal("grandTotal");
         if (orderTotal != null && wpTotal != null) {
-            if (orderTotal.doubleValue() != wpTotal.doubleValue()) {
+            if (orderTotal.compareTo(wpTotal) != 0) {
                 Debug.logError("AuthAmount (" + wpTotal + ") does not match OrderTotal (" + orderTotal + ")", module);
                 callError(request);
             }                
@@ -258,7 +260,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         paymentPreference.set("authDate", authDate);
         paymentPreference.set("authFlag", transStatus);
         paymentPreference.set("authMessage", rawAuthMessage);
-        paymentPreference.set("maxAmount", new Double(authAmount));
+        paymentPreference.set("maxAmount", new BigDecimal(authAmount));
         
         // create a payment record too -- this method does not store the object so we must here
         Map results = null;

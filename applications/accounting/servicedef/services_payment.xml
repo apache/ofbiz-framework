@@ -75,7 +75,7 @@ under the License.
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
-        <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
+        <attribute name="amountApplied" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updatePaymentApplication" default-entity-name="PaymentApplication" engine="java"

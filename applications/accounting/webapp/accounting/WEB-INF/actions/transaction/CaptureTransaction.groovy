@@ -54,7 +54,7 @@ if (orderPaymentPreference) {
 
     if (gatewayResponses) {
         latestAuth = gatewayResponses[0];
-        context.captureAmount = latestAuth.getDouble("amount");
+        context.captureAmount = latestAuth.getBigDecimal("amount");
     } else {
         // todo: some kind of error telling user to re-authorize
     }

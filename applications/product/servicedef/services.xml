@@ -180,7 +180,7 @@ under the License.
                 location="org/ofbiz/product/product/ProductServices.xml" invoke="countProductQuantityOrdered" auth="true">
         <description>count Product Quantity Ordered</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductReview" engine="simple"
@@ -189,7 +189,7 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="postedAnonymous" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="productRating" type="Double" mode="IN" optional="false"/>
+        <attribute name="productRating" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="productReview" type="String" mode="IN" optional="true"/>
         <attribute name="productReviewId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -259,14 +259,14 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <attribute name="oldPrice" type="Double" mode="OUT" optional="false"/>
+        <attribute name="oldPrice" type="BigDecimal" mode="OUT" optional="false"/>
         <override name="price" optional="false"/>
     </service>
     <service name="deleteProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPrice" auth="true">
         <description>Delete an ProductPrice</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="oldPrice" type="Double" mode="OUT" optional="false"/>
+        <attribute name="oldPrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <!-- called by ECAs on ProductPrice service call events -->
@@ -275,7 +275,7 @@ under the License.
         <description>Save History of a ProductPrice Change</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="oldPrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="oldPrice" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
     <!-- Product PaymentMethodType Services -->
@@ -718,8 +718,8 @@ under the License.
         <auto-attributes entity-name="Product" include="nonpk" mode="IN" optional="true"/>
         <attribute name="productFeatureIdByType" type="java.util.Map" mode="IN" optional="false" string-map-prefix="pft_"/>
         <attribute name="productFeatureSelectableByType" type="java.util.Map" mode="IN" optional="false" string-map-prefix="pftsel_"/>
-        <attribute name="defaultPrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="averageCost" type="Double" mode="IN" optional="true"/>
+        <attribute name="defaultPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="averageCost" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -942,12 +942,12 @@ under the License.
         <description></description>
         <attribute name="productName" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="price" type="Double" mode="IN" optional="false"/>
+        <attribute name="price" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productId" type="String" mode="OUT" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="OUT" optional="false"/>
-        <attribute name="minimumOrderQuantity" type="Double" mode="OUT" optional="false"/>
+        <attribute name="minimumOrderQuantity" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableFromDate" type="Timestamp" mode="OUT" optional="false"/>
     </service>
     <service name="updateCustomerDigitalDownloadProduct" auth="true" engine="simple"
@@ -955,11 +955,11 @@ under the License.
         <description></description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
-        <attribute name="minimumOrderQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="minimumOrderQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="availableFromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="productName" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
-        <attribute name="price" type="Double" mode="IN" optional="true"/>
+        <attribute name="price" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="deleteCustomerDigitalDownloadProduct" auth="true" engine="simple"
         location="org/ofbiz/product/product/CustomerDigitalDownloadServices.xml" invoke="deleteCustomerDigitalDownloadProduct">

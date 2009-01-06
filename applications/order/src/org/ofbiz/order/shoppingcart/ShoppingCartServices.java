@@ -19,6 +19,7 @@
 package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
@@ -58,12 +59,13 @@ public class ShoppingCartServices {
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
+    public static final MathContext generalRounding = new MathContext(10);
     public static Map<String, Object> assignItemShipGroup(DispatchContext dctx, Map<String, Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Integer fromGroupIndex = (Integer) context.get("fromGroupIndex");
         Integer toGroupIndex = (Integer) context.get("toGroupIndex");
         Integer itemIndex = (Integer) context.get("itemIndex");
-        Double quantity = (Double) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         Boolean clearEmptyGroups = (Boolean) context.get("clearEmptyGroups");
 
         if (clearEmptyGroups == null) {
@@ -76,7 +78,7 @@ public class ShoppingCartServices {
             return ServiceUtil.returnSuccess();
         }
 
-        cart.positionItemToGroup(itemIndex.intValue(), quantity.doubleValue(),
+        cart.positionItemToGroup(itemIndex.intValue(), quantity,
                 fromGroupIndex.intValue(), toGroupIndex.intValue(), clearEmptyGroups.booleanValue());
         Debug.log("Called cart.positionItemToGroup()", module);
 
@@ -266,7 +268,7 @@ public class ShoppingCartServices {
                 if (paymentId == null) {
                     paymentId = opp.getString("paymentMethodTypeId");
                 }
-                Double maxAmount = opp.getDouble("maxAmount");
+                BigDecimal maxAmount = opp.getBigDecimal("maxAmount");
                 String overflow = opp.getString("overflowFlag");
 
                 ShoppingCart.CartPaymentInfo cpi = null;
@@ -311,19 +313,18 @@ public class ShoppingCartServices {
                 }
 
                 // not a promo item; go ahead and add it in
-                Double amount = item.getDouble("selectedAmount");
+                BigDecimal amount = item.getBigDecimal("selectedAmount");
                 if (amount == null) {
-                    amount = new Double(0);
+                    amount = BigDecimal.ZERO;
                 }
-                double quantityDbl = 0;
                 BigDecimal quantity = item.getBigDecimal("quantity");
-                if (quantity != null) {
-                    quantityDbl = quantity.doubleValue();
+                if (quantity == null) {
+                    quantity = BigDecimal.ZERO;
                 }
                 
-                Double unitPrice = null;
+                BigDecimal unitPrice = null;
                 if ("Y".equals(item.getString("isModifiedPrice"))) {
-                    unitPrice = item.getDouble("unitPrice");
+                    unitPrice = item.getBigDecimal("unitPrice");
                 }
                 
                 int itemIndex = -1;
@@ -333,7 +334,7 @@ public class ShoppingCartServices {
                     String desc = item.getString("itemDescription");
                     try {
                         // TODO: passing in null now for itemGroupNumber, but should reproduce from OrderItemGroup records
-                        itemIndex = cart.addNonProductItem(itemType, desc, null, unitPrice, quantity.doubleValue(), null, null, null, dispatcher);
+                        itemIndex = cart.addNonProductItem(itemType, desc, null, unitPrice, quantity, null, null, null, dispatcher);
                     } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -345,8 +346,8 @@ public class ShoppingCartServices {
                     
                     //prepare the rental data
                     Timestamp reservStart = null;
-                    Double reservLength = null;
-                    Double reservPersons = null;
+                    BigDecimal reservLength = null;
+                    BigDecimal reservPersons = null;
                     String accommodationMapId = null;
                     String accommodationSpotId = null;
                     
@@ -361,8 +362,8 @@ public class ShoppingCartServices {
                     }             
                     if (workEffort != null && "ASSET_USAGE".equals(workEffort.getString("workEffortTypeId"))){
                         reservStart = workEffort.getTimestamp("estimatedStartDate");
-                        reservLength = OrderReadHelper.getWorkEffortRentalLenght(workEffort);
-                        reservPersons = workEffort.getDouble("reservPersons");
+                        reservLength = OrderReadHelper.getWorkEffortRentalLength(workEffort);
+                        reservPersons = workEffort.getBigDecimal("reservPersons");
                         accommodationMapId = workEffort.getString("accommodationMapId");
                         accommodationSpotId = workEffort.getString("accommodationSpotId");
                         
@@ -389,7 +390,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
                     }                     
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -455,9 +456,9 @@ public class ShoppingCartServices {
                 List<GenericValue>shipGroups = orh.getOrderItemShipGroupAssocs(item);
                 for (int g = 0; g < shipGroups.size(); g++) {
                     GenericValue sgAssoc = (GenericValue) shipGroups.get(g);
-                    Double shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
+                    BigDecimal shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
                     if (shipGroupQty == null) {
-                        shipGroupQty = new Double(0);
+                        shipGroupQty = BigDecimal.ZERO;
                     }
 
                     GenericValue sg = null;
@@ -479,7 +480,7 @@ public class ShoppingCartServices {
                     cart.setShipGroupFacilityId(g, sg.getString("facilityId"));
                     cart.setShipGroupVendorPartyId(g, sg.getString("vendorPartyId"));
                     cart.setShipGroupSeqId(g, sg.getString("shipGroupSeqId"));
-                    cart.setItemShipGroupQty(itemIndex, shipGroupQty.doubleValue(), g);
+                    cart.setItemShipGroupQty(itemIndex, shipGroupQty, g);
                 }
             }
 
@@ -643,28 +644,28 @@ public class ShoppingCartServices {
                 }
 
                 // not a promo item; go ahead and add it in
-                Double amount = quoteItem.getDouble("selectedAmount");
+                BigDecimal amount = quoteItem.getBigDecimal("selectedAmount");
                 if (amount == null) {
-                    amount = new Double(0);
+                    amount = BigDecimal.ZERO;
                 }
-                Double quantity = quoteItem.getDouble("quantity");
+                BigDecimal quantity = quoteItem.getBigDecimal("quantity");
                 if (quantity == null) {
-                    quantity = new Double(0);
+                    quantity = BigDecimal.ZERO;
                 }
-                Double quoteUnitPrice = quoteItem.getDouble("quoteUnitPrice");
+                BigDecimal quoteUnitPrice = quoteItem.getBigDecimal("quoteUnitPrice");
                 if (quoteUnitPrice == null) {
-                    quoteUnitPrice = new Double(0);
+                    quoteUnitPrice = BigDecimal.ZERO;
                 }
-                if (amount.doubleValue() > 0) {
+                if (amount.compareTo(BigDecimal.ZERO) > 0) {
                     // If, in the quote, an amount is set, we need to
                     // pass to the cart the quoteUnitPrice/amount value.
-                    quoteUnitPrice = new Double(quoteUnitPrice.doubleValue() / amount.doubleValue());
+                    quoteUnitPrice = quoteUnitPrice.divide(amount, generalRounding);
                 }
                 
                 //rental product data
                 Timestamp reservStart = quoteItem.getTimestamp("reservStart");
-                Double reservLength = quoteItem.getDouble("reservLength");
-                Double reservPersons = quoteItem.getDouble("reservPersons");
+                BigDecimal reservLength = quoteItem.getBigDecimal("reservLength");
+                BigDecimal reservPersons = quoteItem.getBigDecimal("reservPersons");
                 //String accommodationMapId = quoteItem.getString("accommodationMapId");
                 //String accommodationSpotId = quoteItem.getString("accommodationSpotId");
                 
@@ -674,7 +675,7 @@ public class ShoppingCartServices {
                     String desc = quoteItem.getString("comments");
                     try {
                         // note that passing in null for itemGroupNumber as there is no real grouping concept in the quotes right now
-                        itemIndex = cart.addNonProductItem(null, desc, null, null, quantity.doubleValue(), null, null, null, dispatcher);
+                        itemIndex = cart.addNonProductItem(null, desc, null, null, quantity, null, null, null, dispatcher);
                     } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -687,7 +688,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }                    
                     try {
-                            itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0), Boolean.FALSE, Boolean.FALSE);
+                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0), Boolean.FALSE, Boolean.FALSE);
                             
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
@@ -822,14 +823,14 @@ public class ShoppingCartServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 /*
-                Double amount = shoppingListItem.getDouble("selectedAmount");
+                BigDecimal amount = shoppingListItem.getBigDecimal("selectedAmount");
                 if (amount == null) {
-                    amount = new Double(0);
+                    amount = BigDecimal.ZERO;
                 }
                  */
-                Double quantity = shoppingListItem.getDouble("quantity");
+                BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                 if (quantity == null) {
-                    quantity = new Double(0);
+                    quantity = BigDecimal.ZERO;
                 }
                 int itemIndex = -1;
                 if (shoppingListItem.get("productId") != null) {
@@ -840,7 +841,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, shoppingListItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                        itemIndex = cart.addItemToEnd(productId, null, quantity.doubleValue(), null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
+                        itemIndex = cart.addItemToEnd(productId, null, quantity, null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -880,25 +881,25 @@ public class ShoppingCartServices {
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         if(shoppingCart != null){
             String isoCode = shoppingCart.getCurrency();
-            result.put("totalQuantity",new Double(shoppingCart.getTotalQuantity()));
+            result.put("totalQuantity", shoppingCart.getTotalQuantity());
             result.put("currencyIsoCode",isoCode);
-            result.put("subTotal",new Double(shoppingCart.getSubTotal()));
-            result.put("subTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(),isoCode,locale));
-            result.put("totalShipping",new Double(shoppingCart.getTotalShipping()));
-            result.put("totalShippingCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(),isoCode,locale));
-            result.put("totalSalesTax",new Double(shoppingCart.getTotalSalesTax()));
-            result.put("totalSalesTaxCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(),isoCode,locale));
-            result.put("displayGrandTotal",new Double(shoppingCart.getDisplayGrandTotal()));
-            result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(),isoCode,locale));
-            double orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), BigDecimal.valueOf(shoppingCart.getSubTotal()), true, true, true).doubleValue();
+            result.put("subTotal", shoppingCart.getSubTotal());
+            result.put("subTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode, locale));
+            result.put("totalShipping", shoppingCart.getTotalShipping());
+            result.put("totalShippingCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(), isoCode, locale));
+            result.put("totalSalesTax",shoppingCart.getTotalSalesTax());
+            result.put("totalSalesTaxCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(), isoCode, locale));
+            result.put("displayGrandTotal", shoppingCart.getDisplayGrandTotal());
+            result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
+            BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
             Iterator i = shoppingCart.iterator();
             Map<String, Object> cartItemData = FastMap.newInstance();
             while (i.hasNext()) {
                 ShoppingCartItem cartLine = (ShoppingCartItem) i.next();
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
-                cartItemData.put("displayItemSubTotal_" + cartLineIndex ,new Double(cartLine.getDisplayItemSubTotal()));
-                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(),isoCode,locale));
+                cartItemData.put("displayItemSubTotal_" + cartLineIndex, cartLine.getDisplayItemSubTotal());
+                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
                 cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
             result.put("cartItemData",cartItemData);

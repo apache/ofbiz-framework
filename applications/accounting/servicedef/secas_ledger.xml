@@ -36,7 +36,7 @@ under the License.
     
     <!-- create an accounting transactions every time an issuance to sales shipment is canceled -->
     <eca service="cancelOrderItemIssuanceFromSalesShipment" event="commit">
-        <condition field-name="canceledQuantity" operator="greater" value="0" type="Double"/>
+        <condition field-name="canceledQuantity" operator="greater" value="0" type="BigDecimal"/>
         <action service="createAcctgTransForCanceledSalesShipmentIssuance" mode="sync"/>
     </eca>
 

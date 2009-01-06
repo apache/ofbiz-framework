@@ -18,6 +18,7 @@
  */
 package org.ofbiz.pos.event;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -79,16 +80,16 @@ public class ManagerEvents {
         Input input = pos.getInput();
         String value = input.value();
         if (UtilValidate.isNotEmpty(value)) {
-            double price = 0.00;
+        	BigDecimal price = BigDecimal.ZERO;
             boolean parsed = false;
             try {
-                price = Double.parseDouble(value);
+                price = new BigDecimal(value);
                 parsed = true;
             } catch (NumberFormatException e) {
             }
 
             if (parsed) {
-                price = price / 100;
+                price = price.movePointLeft(2);
                 trans.modifyPrice(sku, price);
 
                 // re-calc tax

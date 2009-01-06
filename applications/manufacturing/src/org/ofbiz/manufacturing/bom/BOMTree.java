@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.bom;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,8 +51,8 @@ public class BOMTree {
     protected GenericDelegator delegator = null;
 
     BOMNode root;
-    double rootQuantity;
-    double rootAmount;
+    BigDecimal rootQuantity;
+    BigDecimal rootAmount;
     Date inDate;
     String bomTypeId;
     GenericValue inputProduct;
@@ -157,8 +158,8 @@ public class BOMTree {
         }
         this.bomTypeId = bomTypeId;
         this.inDate = inDate;
-        rootQuantity = 1;
-        rootAmount = 0;
+        rootQuantity = BigDecimal.ONE;
+        rootAmount = BigDecimal.ZERO;
     }
 
     public GenericValue getInputProduct() {
@@ -199,7 +200,7 @@ public class BOMTree {
      * @return Value of property rootQuantity.
      *
      */
-    public double getRootQuantity() {
+    public BigDecimal getRootQuantity() {
         return rootQuantity;
     }
     
@@ -207,7 +208,7 @@ public class BOMTree {
      * @param rootQuantity New value of property rootQuantity.
      *
      */
-    public void setRootQuantity(double rootQuantity) {
+    public void setRootQuantity(BigDecimal rootQuantity) {
         this.rootQuantity = rootQuantity;
     }
 
@@ -215,7 +216,7 @@ public class BOMTree {
      * @return Value of property rootAmount.
      *
      */
-    public double getRootAmount() {
+    public BigDecimal getRootAmount() {
         return rootAmount;
     }
     
@@ -223,7 +224,7 @@ public class BOMTree {
      * @param rootAmount New value of property rootAmount.
      *
      */
-    public void setRootAmount(double rootAmount) {
+    public void setRootAmount(BigDecimal rootAmount) {
         this.rootAmount = rootAmount;
     }
     

@@ -50,19 +50,19 @@ under the License.
         <attribute name="calendarWeekId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="mondayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="mondayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="mondayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="tuesdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="tuesdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="tuesdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="wednesdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="wednesdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="wednesdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="thursdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="thursdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="thursdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="fridayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="fridayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="fridayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="saturdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="saturdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="saturdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="sundayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="sundayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="sundayCapacity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarWeek" engine="simple"
             location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendarWeek">
@@ -70,19 +70,19 @@ under the License.
         <attribute name="calendarWeekId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="mondayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="mondayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="mondayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="tuesdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="tuesdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="tuesdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="wednesdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="wednesdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="wednesdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="thursdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="thursdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="thursdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="fridayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="fridayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="fridayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="saturdayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="saturdayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="saturdayCapacity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="sundayStartTime" type="java.sql.Time" mode="IN" optional="true"/>
-        <attribute name="sundayCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="sundayCapacity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarWeek" engine="simple"
             location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendarWeek">
@@ -96,7 +96,7 @@ under the License.
         <attribute name="calendarId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="exceptionDateStartTime" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="exceptionCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="exceptionCapacity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarExceptionDay" engine="simple"
             location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionDay">
@@ -104,7 +104,7 @@ under the License.
         <attribute name="calendarId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="exceptionDateStartTime" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="exceptionCapacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="exceptionCapacity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarExceptionDay" engine="simple"
             location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionDay">

@@ -18,6 +18,7 @@
  */
 package org.ofbiz.product.product;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1527,11 +1528,11 @@ public class ProductSearch {
 
     public static class ListPriceRangeConstraint extends ProductSearchConstraint {
         public static final String constraintName = "ListPriceRange";
-        protected Double lowPrice;
-        protected Double highPrice;
+        protected BigDecimal lowPrice;
+        protected BigDecimal highPrice;
         protected String currencyUomId;
 
-        public ListPriceRangeConstraint(Double lowPrice, Double highPrice, String currencyUomId) {
+        public ListPriceRangeConstraint(BigDecimal lowPrice, BigDecimal highPrice, String currencyUomId) {
             this.lowPrice = lowPrice;
             this.highPrice = highPrice;
             this.currencyUomId = UtilValidate.isNotEmpty(currencyUomId) ? currencyUomId : "USD";

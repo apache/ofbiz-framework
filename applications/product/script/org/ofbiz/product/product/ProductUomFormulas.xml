@@ -68,12 +68,12 @@ under the License.
         <else>
         
             <!-- Determine a conversion value for the From UoM -->
-            <set field="fromVal" type="Double" value="1"/>
+            <set field="fromVal" type="BigDecimal" value="1"/>
             <if-compare field="fromUom.uomTypeId" operator="equals" value="LENGTH_MEASURE">
-                <set field="fromVal" type="Double" from-field="product.productDepth"/>
+                <set field="fromVal" type="BigDecimal" from-field="product.productDepth"/>
             </if-compare>
             <if-compare field="fromUom.uomTypeId" operator="equals" value="AREA_MEASURE">
-                <calculate field="fromVal" type="Double" decimal-scale="15">
+                <calculate field="fromVal" type="BigDecimal" decimal-scale="15">
                     <calcop operator="multiply">
                         <calcop operator="get" field="product.productDepth"/>
                         <calcop operator="get" field="product.productWidth"/>
@@ -81,7 +81,7 @@ under the License.
                 </calculate>
             </if-compare>
             <if-compare field="fromUom.uomTypeId" operator="equals" value="VOLUME_DRY_MEASURE">
-                <calculate field="fromVal" type="Double" decimal-scale="15">
+                <calculate field="fromVal" type="BigDecimal" decimal-scale="15">
                     <calcop operator="multiply">
                         <calcop operator="get" field="product.productDepth"/>
                         <calcop operator="multiply">
@@ -97,12 +97,12 @@ under the License.
             <log level="verbose" message="From product-based conversion factor: ${fromVal}"/>
             
             <!-- Determine a conversion value for the To UoM -->
-            <set field="toVal" type="Double" value="1"/>
+            <set field="toVal" type="BigDecimal" value="1"/>
             <if-compare field="toUom.uomTypeId" operator="equals" value="LENGTH_MEASURE">
                 <set field="toVal" from-field="product.productDepth"/>
             </if-compare>
             <if-compare field="toUom.uomTypeId" operator="equals" value="AREA_MEASURE">
-                <calculate field="toVal" type="Double" decimal-scale="15">
+                <calculate field="toVal" type="BigDecimal" decimal-scale="15">
                     <calcop operator="multiply">
                         <calcop operator="get" field="product.productDepth"/>
                         <calcop operator="get" field="product.productWidth"/>
@@ -110,7 +110,7 @@ under the License.
                 </calculate>
             </if-compare>
             <if-compare field="toUom.uomTypeId" operator="equals" value="VOLUME_DRY_MEASURE">
-                <calculate field="toVal" type="Double" decimal-scale="15">
+                <calculate field="toVal" type="BigDecimal" decimal-scale="15">
                     <calcop operator="multiply">
                         <calcop operator="get" field="product.productDepth"/>
                         <calcop operator="multiply">
@@ -126,7 +126,7 @@ under the License.
             <log level="verbose" message="To product-based conversion factor: ${toVal}"/>
             
             <!-- Calcualte the product-based conversion factor = toVal / fromVal * uomConversion.conversionFactor -->
-            <calculate field="ratio" type="Double" decimal-scale="15">
+            <calculate field="ratio" type="BigDecimal" decimal-scale="15">
                 <calcop operator="divide">
                     <calcop operator="get" field="toVal"/>
                     <calcop operator="get" field="fromVal"/>
@@ -134,7 +134,7 @@ under the License.
             </calculate>
             <log level="verbose" message="To/From ratio is ${ratio}"/>
             
-            <calculate field="productFactor" type="Double" decimal-scale="15">
+            <calculate field="productFactor" type="BigDecimal" decimal-scale="15">
                 <calcop operator="multiply">
                     <calcop operator="get" field="args.uomConversion.conversionFactor"/>
                     <calcop operator="get" field="ratio"/>
@@ -145,7 +145,7 @@ under the License.
         </if-compare-field> 
         
         <!-- Convert the value -->
-        <calculate field="totQuantity" type="Double" decimal-scale="15">
+        <calculate field="totQuantity" type="BigDecimal" decimal-scale="15">
             <calcop operator="multiply">
                 <calcop operator="get" field="args.originalValue"/>
                 <calcop operator="get" field="productFactor"/>

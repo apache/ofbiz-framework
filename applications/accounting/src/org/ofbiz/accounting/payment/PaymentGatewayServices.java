@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 import org.ofbiz.accounting.invoice.InvoiceWorker;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -83,7 +84,7 @@ public class PaymentGatewayServices {
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
      * "errors" and "finished" which notify the user if there were any errors and if the authorizatoin was finished.
-     * There is also a List "messages" for the authorization response messages and a Double, "processAmount" as the 
+     * There is also a List "messages" for the authorization response messages and a BigDecimal, "processAmount" as the 
      * amount processed. 
      * 
      * TODO: it might be nice to return the paymentGatewayResponseId
@@ -94,12 +95,12 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
-        Double overrideAmount = (Double) context.get("overrideAmount");
+        BigDecimal overrideAmount = (BigDecimal) context.get("overrideAmount");
 
         // validate overrideAmount if its available
         if (overrideAmount != null) {
-            if (overrideAmount.doubleValue() < 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is negative.");
-            if (overrideAmount.doubleValue() == 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is zero.");
+            if (overrideAmount.compareTo(BigDecimal.ZERO) < 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is negative.");
+            if (overrideAmount.compareTo(BigDecimal.ZERO) == 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is zero.");
         }
 
         GenericValue orderHeader = null;
@@ -114,9 +115,7 @@ public class PaymentGatewayServices {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
 
         // get the total remaining
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
-        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
-        double totalRemaining = orderGrandTotal.doubleValue();
+        BigDecimal totalRemaining = orh.getOrderGrandTotal();
 
         // get the process attempts so far
         Long procAttempt = orderPaymentPreference.getLong("processAttempt");
@@ -141,18 +140,18 @@ public class PaymentGatewayServices {
         }
 
         // use overrideAmount or maxAmount
-        Double transAmount = null;
+        BigDecimal transAmount = null;
         if (overrideAmount != null) {
             transAmount = overrideAmount;
         } else {
-            transAmount = orderPaymentPreference.getDouble("maxAmount");
+            transAmount = orderPaymentPreference.getBigDecimal("maxAmount");
         }
         
         // round this before moving on just in case a funny number made it this far
-        transAmount = (new BigDecimal(transAmount)).setScale(decimals, rounding).doubleValue();
+        transAmount = transAmount.setScale(decimals, rounding);
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
-        if ((transAmount != null) && (transAmount.doubleValue() <= 0)) {
+        if ((transAmount != null) && (transAmount.compareTo(BigDecimal.ZERO) <= 0)) {
             Map results = ServiceUtil.returnSuccess();
             results.put("finished", Boolean.TRUE); // finished is true since there is nothing to do
             results.put("errors", Boolean.FALSE); // errors is false since no error occured
@@ -166,7 +165,7 @@ public class PaymentGatewayServices {
             // handle the response
             if (authPaymentResult != null) {
                 // not null result means either an approval or decline; null would mean error
-                Double thisAmount = (Double) authPaymentResult.get("processAmount");
+                BigDecimal thisAmount = (BigDecimal) authPaymentResult.get("processAmount");
 
                 // process the auth results
                 try {
@@ -333,9 +332,7 @@ public class PaymentGatewayServices {
 
         // get the order amounts
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
-        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
-        double totalRemaining = orderGrandTotal.doubleValue();
+        BigDecimal totalRemaining = orh.getOrderGrandTotal();
 
         // loop through and auth each order payment preference
         int finished = 0;
@@ -383,7 +380,7 @@ public class PaymentGatewayServices {
             if (((Boolean) results.get("finished")).booleanValue()) finished += 1;
             if (((Boolean) results.get("errors")).booleanValue()) hadError += 1;
             if (results.get("messages") != null) messages.addAll((List) results.get("messages"));
-            if (results.get("processAmount") != null) totalRemaining -= ((Double) results.get("processAmount")).doubleValue();
+            if (results.get("processAmount") != null) totalRemaining = totalRemaining.subtract(((BigDecimal) results.get("processAmount")));
         }
 
         Debug.logInfo("Finished with auth(s) checking results", module);
@@ -410,7 +407,7 @@ public class PaymentGatewayServices {
     }
 
 
-    private static Map authPayment(LocalDispatcher dispatcher, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPreference, double totalRemaining, boolean reauth, Double overrideAmount) throws GeneralException {
+    private static Map authPayment(LocalDispatcher dispatcher, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPreference, BigDecimal totalRemaining, boolean reauth, BigDecimal overrideAmount) throws GeneralException {
         String paymentConfig = null;
         String serviceName = null;
 
@@ -471,31 +468,22 @@ public class PaymentGatewayServices {
         getBillingInformation(orh, paymentPreference, processContext);
 
         // default charge is totalRemaining
-        double thisAmount = totalRemaining;
+        BigDecimal processAmount = totalRemaining;
 
         // use override or max amount available
         if (overrideAmount != null) {
-            thisAmount = overrideAmount.doubleValue();
+            processAmount = overrideAmount;
         } else if (paymentPreference.get("maxAmount") != null) {
-            thisAmount = paymentPreference.getDouble("maxAmount").doubleValue();
+            processAmount = paymentPreference.getBigDecimal("maxAmount");
         }
 
         // don't authorized more then what is required
-        if (thisAmount > totalRemaining) {
-            thisAmount = totalRemaining;
+        if (processAmount.compareTo(totalRemaining) > 0) {
+            processAmount = totalRemaining;
         }
 
         // format the decimal
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        String amountString = formatter.format(thisAmount);
-        Double processAmount = null;
-        try {
-            processAmount = new Double(formatter.parse(amountString).doubleValue());
-        } catch (ParseException e) {
-            Debug.logError(e, "Problems parsing string formatted double to Double", module);
-            throw new GeneralException("ParseException in number format", e);
-        }
+        processAmount = processAmount.setScale(decimals, rounding);
 
         if (Debug.verboseOn()) Debug.logVerbose("Charging amount: " + processAmount, module);
         processContext.put("processAmount", processAmount);
@@ -815,7 +803,7 @@ public class PaymentGatewayServices {
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(paymentPref);
         Map releaseContext = new HashMap();
         releaseContext.put("orderPaymentPreference", paymentPref);
-        releaseContext.put("releaseAmount", authTransaction.getDouble("amount"));
+        releaseContext.put("releaseAmount", authTransaction.getBigDecimal("amount"));
         releaseContext.put("currency", currency);
         releaseContext.put("paymentConfig", paymentConfig);
         releaseContext.put("userLogin", userLogin);
@@ -1001,11 +989,11 @@ public class PaymentGatewayServices {
         }
 
         // get the invoice amount (amount to bill)
-        double invoiceTotal = InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue();
+        BigDecimal invoiceTotal = InvoiceWorker.getInvoiceNotApplied(invoice);
         if (Debug.infoOn()) Debug.logInfo("(Capture) Invoice [#" + invoiceId + "] total: " + invoiceTotal, module);
 
         // now capture the order
-        Map serviceContext = UtilMisc.toMap("userLogin", userLogin, "orderId", testOrderId, "invoiceId", invoiceId, "captureAmount", new Double(invoiceTotal));
+        Map serviceContext = UtilMisc.toMap("userLogin", userLogin, "orderId", testOrderId, "invoiceId", invoiceId, "captureAmount", invoiceTotal);
         if (UtilValidate.isNotEmpty(billingAccountId)) {
             serviceContext.put("billingAccountId", billingAccountId);
         }
@@ -1028,8 +1016,7 @@ public class PaymentGatewayServices {
         String orderId = (String) context.get("orderId");
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
-        Double captureAmount = (Double) context.get("captureAmount");
-        BigDecimal amountToCapture = new BigDecimal(captureAmount.doubleValue());
+        BigDecimal amountToCapture = (BigDecimal) context.get("captureAmount");
         amountToCapture = amountToCapture.setScale(decimals, rounding);
 
         // get the order header and payment preferences
@@ -1066,10 +1053,10 @@ public class PaymentGatewayServices {
         orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
         totalPayments = totalPayments.setScale(decimals, rounding);
-        BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
-        if (Debug.infoOn()) Debug.logInfo("The Remaining Total for order: " + orderId + " is: " + remainingTotalBd, module);
+        BigDecimal remainingTotal = orderGrandTotal.subtract(totalPayments);
+        if (Debug.infoOn()) Debug.logInfo("The Remaining Total for order: " + orderId + " is: " + remainingTotal, module);
         // The amount to capture cannot be greater than the remaining total
-        amountToCapture = amountToCapture.min(remainingTotalBd);
+        amountToCapture = amountToCapture.min(remainingTotal);
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // Process billing accounts payments
@@ -1100,7 +1087,7 @@ public class PaymentGatewayServices {
                     try {
                         captureResult = dispatcher.runSync("captureBillingAccountPayments", UtilMisc.<String, Object>toMap("invoiceId", invoiceId,
                                                                                                           "billingAccountId", billingAccountId,
-                                                                                                          "captureAmount", new Double(amountThisCapture.doubleValue()),
+                                                                                                          "captureAmount", amountThisCapture,
                                                                                                           "orderId", orderId,
                                                                                                           "userLogin", userLogin));
                         if (ServiceUtil.isError(captureResult)) {
@@ -1111,14 +1098,12 @@ public class PaymentGatewayServices {
                     }
                     if (captureResult != null) {
                         
-                        Double amountCaptured = (Double) captureResult.get("captureAmount");
+                        BigDecimal amountCaptured = (BigDecimal) captureResult.get("captureAmount");
                         Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
 
-                        // big decimal reference to the capture amount
-                        BigDecimal amountCapturedBd = BigDecimal.valueOf(amountCaptured);
-                        amountCapturedBd = amountCapturedBd.setScale(decimals, rounding);
+                        amountCaptured = amountCaptured.setScale(decimals, rounding);
 
-                        if (amountCapturedBd.compareTo(BigDecimal.ZERO) == 0) {
+                        if (amountCaptured.compareTo(BigDecimal.ZERO) == 0) {
                             continue;
                         }
                         // add the invoiceId to the result for processing
@@ -1130,7 +1115,7 @@ public class PaymentGatewayServices {
                         // process the capture's results
                         try {
                             // the following method will set on the OrderPaymentPreference:
-                            // maxAmount = amountCapturedBd and
+                            // maxAmount = amountCaptured and
                             // statusId = PAYMENT_RECEIVED
                             processResult(dctx, captureResult, userLogin, paymentPref);
                         } catch (GeneralException e) {
@@ -1139,8 +1124,8 @@ public class PaymentGatewayServices {
                         }
 
                         // create any splits which are needed
-                        if (authAmount.compareTo(amountCapturedBd) == 1) {
-                            BigDecimal splitAmount = authAmount.subtract(amountCapturedBd);
+                        if (authAmount.compareTo(amountCaptured) > 0) {
+                            BigDecimal splitAmount = authAmount.subtract(amountCaptured);
                             try {
                                 Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
                                 dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
@@ -1203,20 +1188,18 @@ public class PaymentGatewayServices {
                     amountThisCapture = authAmount;
                 }
 
-                Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
+                Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture);
                 if (captureResult != null && !ServiceUtil.isError(captureResult)) {
                     // credit card processors return captureAmount, but gift certificate processors return processAmount
-                    Double amountCaptured = (Double) captureResult.get("captureAmount");
+                    BigDecimal amountCaptured = (BigDecimal) captureResult.get("captureAmount");
                     if (amountCaptured == null) {
-                        amountCaptured = (Double) captureResult.get("processAmount");
+                        amountCaptured = (BigDecimal) captureResult.get("processAmount");
                     }
 
-                    // big decimal reference to the capture amount
-                    BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
-                    amountCapturedBd = amountCapturedBd.setScale(decimals, rounding);
+                    amountCaptured = amountCaptured.setScale(decimals, rounding);
 
                     // decrease amount of next payment preference to capture
-                    amountToCapture = amountToCapture.subtract(amountCapturedBd);                
+                    amountToCapture = amountToCapture.subtract(amountCaptured);                
 
                     // add the invoiceId to the result for processing
                     captureResult.put("invoiceId", invoiceId);
@@ -1230,8 +1213,8 @@ public class PaymentGatewayServices {
                     }
 
                     // create any splits which are needed
-                    if (authAmount.compareTo(amountCapturedBd) == 1) {
-                        BigDecimal splitAmount = authAmount.subtract(amountCapturedBd);
+                    if (authAmount.compareTo(amountCaptured) > 0) {
+                        BigDecimal splitAmount = authAmount.subtract(amountCaptured);
                         try {
                             Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
                             dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
@@ -1298,7 +1281,7 @@ public class PaymentGatewayServices {
 
             if ("PAYMENT_NOT_AUTH".equals(statusId)) {
                 // authorize the new preference
-                processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount.doubleValue(), false, null);
+                processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount, false, null);
                 if (processorResult != null) {
                     // process the auth results
                     boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
@@ -1328,7 +1311,7 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
-        Double captureAmount = (Double) context.get("captureAmount");
+        BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
         String orderId = (String) context.get("orderId");
         Map results = ServiceUtil.returnSuccess();
         
@@ -1357,7 +1340,7 @@ public class PaymentGatewayServices {
             }
             results.put("paymentId", paymentId);
             
-            if (orderId != null && captureAmount.doubleValue() > 0) {
+            if (orderId != null && captureAmount.compareTo(BigDecimal.ZERO) > 0) {
                 // Create a paymentGatewayResponse, if necessary
                 GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
                 if (order == null) {
@@ -1411,8 +1394,7 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
-        Double captureAmountDbl = (Double) context.get("captureAmount");
-        BigDecimal captureAmount = new BigDecimal(captureAmountDbl.doubleValue());
+        BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
         captureAmount = captureAmount.setScale(decimals, rounding);
         String orderId = (String) context.get("orderId");
         BigDecimal capturedAmount = BigDecimal.ZERO;
@@ -1466,15 +1448,15 @@ public class PaymentGatewayServices {
         }
         capturedAmount = capturedAmount.setScale(decimals, rounding);
         Map results = ServiceUtil.returnSuccess();
-        results.put("captureAmount", new Double(capturedAmount.doubleValue()));
+        results.put("captureAmount", capturedAmount);
         return results;
     }
     
-    private static Map capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, double amount) {
+    private static Map capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, BigDecimal amount) {
         return capturePayment(dctx, userLogin, orh, paymentPref, amount, null);
     }
 
-    private static Map capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, double amount, GenericValue authTrans) {
+    private static Map capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, BigDecimal amount, GenericValue authTrans) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         // look up the payment configuration settings
         String serviceName = null;
@@ -1545,9 +1527,9 @@ public class PaymentGatewayServices {
             ModelService captureService = dctx.getModelService(serviceName);
             Set inParams = captureService.getInParamNames();
             if (inParams.contains("captureAmount")) {
-                captureContext.put("captureAmount", new Double(amount));    
+                captureContext.put("captureAmount", amount);    
             } else if (inParams.contains("processAmount")) {
-                captureContext.put("processAmount", new Double(amount));    
+                captureContext.put("processAmount", amount);    
             } else {
                 return ServiceUtil.returnError("Service [" + serviceName + "] does not have a captureAmount or processAmount.  Its parameters are: " + inParams);
             }
@@ -1733,7 +1715,8 @@ public class PaymentGatewayServices {
             response.set("gatewayScoreResult", context.get("scoreCode"));
 
             // set the auth info
-            response.set("amount", context.get("processAmount"));
+            BigDecimal processAmount = (BigDecimal) context.get("processAmount");
+            response.set("amount", processAmount);
             response.set("referenceNum", context.get("authRefNum"));
             response.set("altReference", context.get("authAltRefNum"));
             response.set("gatewayCode", context.get("authCode"));
@@ -1764,7 +1747,7 @@ public class PaymentGatewayServices {
                 }
             }
     
-            if (response.getDouble("amount").doubleValue() != ((Double) context.get("processAmount")).doubleValue()) {
+            if (response.getBigDecimal("amount").compareTo((BigDecimal)context.get("processAmount")) != 0) {
                 Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, module);
             }
     
@@ -1881,11 +1864,11 @@ public class PaymentGatewayServices {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Boolean captureResult = (Boolean) result.get("captureResult");
-        Double amount = null;
+        BigDecimal amount = null;
         if (result.get("captureAmount") != null) {
-            amount = (Double) result.get("captureAmount");
+            amount = (BigDecimal) result.get("captureAmount");
         } else if (result.get("processAmount") != null) {
-            amount = (Double) result.get("processAmount");
+            amount = (BigDecimal) result.get("processAmount");
             result.put("captureAmount", amount);
         }
 
@@ -1894,8 +1877,7 @@ public class PaymentGatewayServices {
         }
 
         // setup the amount big decimal
-        BigDecimal amtBd = new BigDecimal(amount.doubleValue());
-        amtBd = amtBd.setScale(decimals, rounding);
+        amount = amount.setScale(decimals, rounding);
 
         result.put("orderPaymentPreference", paymentPreference);
         result.put("userLogin", userLogin);
@@ -1916,7 +1898,7 @@ public class PaymentGatewayServices {
         if (!captureResult.booleanValue()) {
             // capture returned false (error)
             try {
-                processReAuthFromCaptureFailure(dctx, result, amtBd, userLogin, paymentPreference);
+                processReAuthFromCaptureFailure(dctx, result, amount, userLogin, paymentPreference);
             } catch (GeneralException e) {
                 // just log this for now (same as previous implementation)
                 Debug.logError(e, module);
@@ -1953,7 +1935,7 @@ public class PaymentGatewayServices {
         Debug.log("reauth with amount: " + amount, module);
 
         // first re-auth the card
-        Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount.doubleValue(), true, null);
+        Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount, true, null);
         if (authPayRes == null) {
             throw new GeneralException("Null result returned from payment re-authorization");
         }
@@ -1968,7 +1950,7 @@ public class PaymentGatewayServices {
                 processCaptureResult(dctx, result, userLogin, paymentPreference);
             } else {
                 // no auto-capture; do manual capture now
-                Map capPayRes = capturePayment(dctx, userLogin, orh, paymentPreference, amount.doubleValue(), authTrans);
+                Map capPayRes = capturePayment(dctx, userLogin, orh, paymentPreference, amount, authTrans);
                 if (capPayRes == null) {
                     throw new GeneralException("Problems trying to capture payment (null result)");
                 }
@@ -1995,7 +1977,7 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String invoiceId = (String) context.get("invoiceId");
         String payTo = (String) context.get("payToPartyId");
-        Double amount = (Double) context.get("captureAmount");
+        BigDecimal amount = (BigDecimal) context.get("captureAmount");
         String serviceType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
         boolean captureSuccessful = ((Boolean) context.get("captureResult")).booleanValue();
@@ -2176,7 +2158,7 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
-        Double refundAmount = (Double) context.get("refundAmount");
+        BigDecimal refundAmount = (BigDecimal) context.get("refundAmount");
 
         GenericValue orderHeader = null;
         try {
@@ -2211,17 +2193,7 @@ public class PaymentGatewayServices {
                     return ServiceUtil.returnError("Problems getting billing information");
                 }
 
-                // format the price
-                String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-                DecimalFormat formatter = new DecimalFormat(currencyFormat);
-                String amountString = formatter.format(refundAmount);
-                Double processAmount = null;
-                try {
-                    processAmount = new Double(formatter.parse(amountString).doubleValue());
-                } catch (ParseException e) {
-                    Debug.logError(e, "Problem parsing amount using DecimalFormat", module);
-                    return ServiceUtil.returnError("Refund processor problems; see logs");
-                }
+                BigDecimal processAmount = refundAmount.setScale(decimals, rounding);
                 serviceContext.put("refundAmount", processAmount);
                 serviceContext.put("userLogin", userLogin);
 
@@ -2258,8 +2230,8 @@ public class PaymentGatewayServices {
                     // such as having to void the entire original auth amount and re-authorize the new order total.
                     // However, since some legacy services might be non-compliant, so as a safety measure we will
                     // override the original refund amount if the refund response has a positive value
-                    Double actualRefundAmount = (Double) refundResponse.get("refundAmount");
-                    if (actualRefundAmount != null && actualRefundAmount.doubleValue() > 0) {
+                    BigDecimal actualRefundAmount = (BigDecimal) refundResponse.get("refundAmount");
+                    if (actualRefundAmount != null && actualRefundAmount.compareTo(BigDecimal.ZERO) > 0) {
                         refundResCtx.put("refundAmount", refundResponse.get("refundAmount"));
                     }
                     refundResRes = dispatcher.runSync(model.name, refundResCtx);
@@ -2695,7 +2667,7 @@ public class PaymentGatewayServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
         String productStoreId = (String) context.get("productStoreId");
         String securityCode = (String) context.get("securityCode");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // check the payment method; verify type
         GenericValue paymentMethod;
@@ -2936,8 +2908,8 @@ public class PaymentGatewayServices {
         Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);
 
         if (amount != null && amount.length() > 0) {
-            double authAmount = Double.parseDouble(amount);
-            if (authAmount > 0.0) {
+            BigDecimal authAmount = new BigDecimal(amount);
+            if (authAmount.compareTo(BigDecimal.ZERO) > 0) {
                 Map<String, Object> ccAuthContext = FastMap.newInstance();
                 ccAuthContext.put("paymentMethodId", paymentMethodId);
                 ccAuthContext.put("productStoreId", productStoreId);
@@ -2972,11 +2944,11 @@ public class PaymentGatewayServices {
      */
     public static Map testProcessor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
 
-        if (processAmount != null && processAmount.doubleValue() >= 100.00)
+        if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) >= 0)
             result.put("authResult", Boolean.TRUE);
-        if (processAmount != null && processAmount.doubleValue() < 100.00)
+        if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) < 0)
             result.put("authResult", Boolean.FALSE);
             result.put("customerRespMsgs", UtilMisc.toList("Sorry this processor requires at least a $100.00 purchase."));
         if (processAmount == null)
@@ -2999,12 +2971,12 @@ public class PaymentGatewayServices {
      */
     public static Map testProcessorWithCapture(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
 
-        if (processAmount != null && processAmount.doubleValue() >= 100.00)
+        if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) >= 0)
             result.put("authResult", Boolean.TRUE);
             result.put("captureResult", Boolean.TRUE);
-        if (processAmount != null && processAmount.doubleValue() < 100.00)
+        if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) < 0)
             result.put("authResult", Boolean.FALSE);
             result.put("captureResult", Boolean.FALSE);
             result.put("customerRespMsgs", UtilMisc.toList("Sorry this processor requires at least a $100.00 purchase."));
@@ -3095,7 +3067,7 @@ public class PaymentGatewayServices {
      */
     public static Map alwaysDeclineProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         Debug.logInfo("Test Processor Declining Credit Card", module);
 
         String refNum = UtilDateTime.nowAsString();
@@ -3114,7 +3086,7 @@ public class PaymentGatewayServices {
      */
     public static Map alwaysNsfProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         Debug.logInfo("Test Processor NSF Credit Card", module);
 
         String refNum = UtilDateTime.nowAsString();
@@ -3134,7 +3106,7 @@ public class PaymentGatewayServices {
      */
     public static Map alwaysBadExpireProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         Debug.logInfo("Test Processor Bad Expire Date Credit Card", module);
 
         String refNum = UtilDateTime.nowAsString();
@@ -3170,7 +3142,7 @@ public class PaymentGatewayServices {
      */
     public static Map alwaysBadCardNumberProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        Double processAmount = (Double) context.get("processAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         Debug.logInfo("Test Processor Bad Card Number Credit Card", module);
 
         String refNum = UtilDateTime.nowAsString();
@@ -3229,7 +3201,7 @@ public class PaymentGatewayServices {
      */
     public static Map testCCProcessorCaptureAlwaysDecline(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        Double processAmount = (Double) context.get("captureAmount");
+        BigDecimal processAmount = (BigDecimal) context.get("captureAmount");
         Debug.logInfo("Test Processor Declining Credit Card capture", module);
 
         String refNum = UtilDateTime.nowAsString();

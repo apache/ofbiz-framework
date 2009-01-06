@@ -265,8 +265,8 @@ public class FinAccountServices {
         Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Status: " + statusId, module);
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("availableBalance", new Double(availableBalance.doubleValue()));
-        result.put("balance", new Double(balance.doubleValue()));
+        result.put("availableBalance", availableBalance);
+        result.put("balance", balance);
         result.put("statusId", statusId);
         return result;
     }
@@ -345,7 +345,7 @@ public class FinAccountServices {
             }
 
             // now we make sure there is something to refund
-            if (actualBalance.doubleValue() > 0) {
+            if (actualBalance.compareTo(BigDecimal.ZERO) > 0) {
                 BigDecimal remainingBalance = new BigDecimal(actualBalance.toString());
                 BigDecimal refundAmount = BigDecimal.ZERO;
 
@@ -394,9 +394,9 @@ public class FinAccountServices {
                                     returnItemCtx.put("orderId", orderId);
                                     returnItemCtx.put("description", orderItem.getString("itemDescription"));
                                     returnItemCtx.put("orderItemSeqId", orderItemSeqId);
-                                    returnItemCtx.put("returnQuantity", new Double(1));
-                                    returnItemCtx.put("receivedQuantity", new Double(1));
-                                    returnItemCtx.put("returnPrice", new Double(refAmt.doubleValue()));
+                                    returnItemCtx.put("returnQuantity", BigDecimal.ONE);
+                                    returnItemCtx.put("receivedQuantity", BigDecimal.ONE);
+                                    returnItemCtx.put("returnPrice", refAmt);
                                     returnItemCtx.put("returnReasonId", "RTN_NOT_WANT");
                                     returnItemCtx.put("returnTypeId", "RTN_REFUND"); // refund return
                                     returnItemCtx.put("returnItemTypeId", "RET_NPROD_ITEM");
@@ -438,7 +438,7 @@ public class FinAccountServices {
                                     txCtx.put("orderId", orderId);
                                     txCtx.put("orderItemSeqId", orderItemSeqId);
                                     txCtx.put("paymentId", paymentId);
-                                    txCtx.put("amount", new Double(refAmt.doubleValue() * -1));
+                                    txCtx.put("amount", refAmt.negate());
                                     txCtx.put("partyId", finAccount.getString("ownerPartyId"));
                                     txCtx.put("userLogin", userLogin);
 

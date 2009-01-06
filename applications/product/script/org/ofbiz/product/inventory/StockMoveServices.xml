@@ -93,9 +93,9 @@ under the License.
                     <get-related-one value-field="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-field="moveInfo.targetProductFacilityLocation"/>
 
                     <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
-                    <calculate field="moveInfo.totalQuantity" type="Double"><number value="0"/></calculate>
+                    <calculate field="moveInfo.totalQuantity"><number value="0"/></calculate>
                     <iterate entry="perProductOiirail" list="perProductOiirailList">
-                        <calculate field="moveInfo.totalQuantity" type="Double">
+                        <calculate field="moveInfo.totalQuantity">
                             <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="perProductOiirail.quantity" operator="get"/></calcop>
                         </calculate>
                     </iterate>
@@ -107,19 +107,21 @@ under the License.
                         <field-map field-name="locationSeqId" from-field="locationSeqId"/>
                     </entity-and>
 
-                    <calculate field="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
-                    <calculate field="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
+                    <calculate field="totalQuantityOnHand"><number value="0"/></calculate>
+                    <calculate field="totalAvailableToPromise"><number value="0"/></calculate>
                     <iterate entry="inventoryItem" list="inventoryItemList">
-                        <calculate field="totalQuantityOnHand" type="Double">
-                            <calcop field="totalQuantityOnHand" operator="add"><calcop field="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
+                        <calculate field="totalQuantityOnHand">
+                            <calcop field="totalQuantityOnHand" operator="get"/>
+                            <calcop field="inventoryItem.quantityOnHandTotal" operator="get"/>
                         </calculate>
-                        <calculate field="totalAvailableToPromise" type="Double">
-                            <calcop field="totalAvailableToPromise" operator="add"><calcop field="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
+                        <calculate field="totalAvailableToPromise">
+                            <calcop field="totalAvailableToPromise" operator="get"/>
+                            <calcop field="inventoryItem.availableToPromiseTotal" operator="get"/>
                         </calculate>
                     </iterate>
                     <set from-field="totalQuantityOnHand" field="moveInfo.quantityOnHandTotalFrom"/>
                     <set from-field="totalAvailableToPromise" field="moveInfo.availableToPromiseTotalFrom"/>
-                    <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="Double">
+                    <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="BigDecimal">
                         <!-- not enough on hand for move: add warning message, set moveInfo.totalQuantity to totalQuantityOnHand, and don't even bother looking for pre-emptive replenishment needs for this location right now -->
                         <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${moveInfo.targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list="warningMessageList"/>
                         <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
@@ -128,13 +130,13 @@ under the License.
 
                         <!-- get all InventoryItems and total the availableToPromise (and quantityOnHand) for the target location -->
                         <get-related value-field="moveInfo.targetProductFacilityLocation" relation-name="InventoryItem" list="targetInventoryItemList"/>
-                        <calculate field="targetTotalAvailableToPromise" type="Double"><number value="0"/></calculate>
-                        <calculate field="targetTotalQuantityOnHand" type="Double"><number value="0"/></calculate>
+                        <calculate field="targetTotalAvailableToPromise"><number value="0"/></calculate>
+                        <calculate field="targetTotalQuantityOnHand"><number value="0"/></calculate>
                         <iterate entry="inventoryItem" list="targetInventoryItemList">
-                            <calculate field="targetTotalAvailableToPromise" type="Double">
+                            <calculate field="targetTotalAvailableToPromise">
                                 <calcop field="targetTotalAvailableToPromise" operator="add"><calcop field="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                             </calculate>
-                            <calculate field="targetTotalQuantityOnHand" type="Double">
+                            <calculate field="targetTotalQuantityOnHand">
                                 <calcop field="targetTotalQuantityOnHand" operator="add"><calcop field="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                             </calculate>
                         </iterate>
@@ -144,12 +146,12 @@ under the License.
                             now if there is enough left and there is less than the minimum for the
                             ProductFacilityLocation, move the restock quantity from ProductFacilityLocation
                         -->
-                        <if-compare-field field="targetTotalAvailableToPromise" to-field="moveInfo.targetProductFacilityLocation.minimumStock" operator="less" type="Double">
+                        <if-compare-field field="targetTotalAvailableToPromise" to-field="moveInfo.targetProductFacilityLocation.minimumStock" operator="less" type="BigDecimal">
                             <if-empty field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}">
                                 <!-- if targetTotalAvailableToPromise is less than productFacilityLocation.minimumStock, move over the moveInfo.targetProductFacilityLocation.moveQuantity -->
 
                                 <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId} -->
-                                <calculate field="moveInfo.totalQuantity" type="Double">
+                                <calculate field="moveInfo.totalQuantity">
                                     <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="moveInfo.targetProductFacilityLocation.moveQuantity" operator="get"/></calcop>
                                 </calculate>
                             <else>
@@ -159,13 +161,13 @@ under the License.
                                     if not do whatever is available and put difference back in
                                     targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}
                                 -->
-                                <calculate field="moveInfo.totalQuantity" type="Double">
+                                <calculate field="moveInfo.totalQuantity">
                                     <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}" operator="get"/></calcop>
                                 </calculate>
                             </else>
                             </if-empty>
-                            <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="Double">
-                                <calculate field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}" type="Double">
+                            <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="BigDecimal">
+                                <calculate field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}">
                                     <calcop field="moveInfo.totalQuantity" operator="subtract"><calcop field="totalQuantityOnHand" operator="get"/></calcop>
                                 </calculate>
                                 <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
@@ -227,16 +229,16 @@ under the License.
                 <condition>
                     <and>
                         <not><if-empty field="productFacilityLocationQuantityTest.moveQuantity"/></not>
-                        <if-compare field="productFacilityLocationQuantityTest.moveQuantity" operator="greater" value="0" type="Double"/>
+                        <if-compare field="productFacilityLocationQuantityTest.moveQuantity" operator="greater" value="0" type="BigDecimal"/>
                         <or>
                             <and>
                                 <if-empty field="productFacilityLocationQuantityTest.availableToPromiseTotal"/>
                                 <not><if-empty field="productFacilityLocationQuantityTest.minimumStock"/></not>
-                                <if-compare field="productFacilityLocationQuantityTest.minimumStock" operator="greater" value="0" type="Double"></if-compare>
+                                <if-compare field="productFacilityLocationQuantityTest.minimumStock" operator="greater" value="0" type="BigDecimal"></if-compare>
                             </and>
                             <and>
                                 <not><if-empty field="productFacilityLocationQuantityTest.availableToPromiseTotal"/></not>
-                                <if-compare-field field="productFacilityLocationQuantityTest.availableToPromiseTotal" to-field="productFacilityLocationQuantityTest.minimumStock" operator="less" type="Double"/>
+                                <if-compare-field field="productFacilityLocationQuantityTest.availableToPromiseTotal" to-field="productFacilityLocationQuantityTest.minimumStock" operator="less" type="BigDecimal"/>
                             </and>
                         </or>
                     </and>
@@ -276,13 +278,13 @@ under the License.
                                 <clear-field field="perLocationInventoryItemAndLocList"/>
                                 <iterate-map key="locationSeqId" value="perLocationInventoryItemAndLocList" map="InventoryItemAndLocationByLocMap">
                                     <if-empty field="fromLocationTotalAvailableToPromise.${locationSeqId}">
-                                        <calculate field="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
-                                        <calculate field="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
+                                        <calculate field="totalQuantityOnHand"><number value="0"/></calculate>
+                                        <calculate field="totalAvailableToPromise"><number value="0"/></calculate>
                                         <iterate entry="inventoryItem" list="perLocationInventoryItemAndLocList">
-                                            <calculate field="totalQuantityOnHand" type="Double">
+                                            <calculate field="totalQuantityOnHand">
                                                 <calcop field="totalQuantityOnHand" operator="add"><calcop field="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                                             </calculate>
-                                            <calculate field="totalAvailableToPromise" type="Double">
+                                            <calculate field="totalAvailableToPromise">
                                                 <calcop field="totalAvailableToPromise" operator="add"><calcop field="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                                             </calculate>
                                         </iterate>
@@ -294,8 +296,8 @@ under the License.
                                     <if>
                                        <condition>
                                           <and>
-                                                <if-compare field="totalAvailableToPromise" operator="greater" value="0" type="Double"/>
-                                                <if-compare field="targetLocationMoveQuantity" operator="greater" value="0" type="Double"/>
+                                                <if-compare field="totalAvailableToPromise" operator="greater" value="0" type="BigDecimal"/>
+                                                <if-compare field="targetLocationMoveQuantity" operator="greater" value="0" type="BigDecimal"/>
                                           </and>
                                         </condition>
                                     <then>   
@@ -312,18 +314,18 @@ under the License.
                                         <!--   see if there is enough left for the full amount in targetLocationMoveQuantity,
                                                  if not do whatever is available and put difference back in targetLocationMoveQuantity,
                                                  trying to move more from the location than is there, find the difference and put it in targetLocationMoveQuantity     -->
-                                        <if-compare-field field="totalAvailableToPromise" to-field="targetLocationMoveQuantity" operator="less" type="Double">
-                                            <calculate field="targetLocationMoveQuantity" type="Double">
+                                        <if-compare-field field="totalAvailableToPromise" to-field="targetLocationMoveQuantity" operator="less" type="BigDecimal">
+                                            <calculate field="targetLocationMoveQuantity">
                                                 <calcop field="targetLocationMoveQuantity" operator="subtract"><calcop field="totalAvailableToPromise" operator="get"/></calcop>
                                             </calculate>
                                             <set from-field="totalAvailableToPromise" field="moveInfo.totalQuantity"/>
-                                            <calculate field="fromLocationTotalAvailableToPromise.${locationSeqId}" type="Double"><number value="0"/></calculate>
+                                            <calculate field="fromLocationTotalAvailableToPromise.${locationSeqId}"><number value="0"/></calculate>
                                         <else>
                                             <set from-field="targetLocationMoveQuantity" field="moveInfo.totalQuantity"/>
-                                            <calculate map-name="fromLocationTotalAvailableToPromise" field-name="${locationSeqId}" type="Double">
+                                            <calculate field="fromLocationTotalAvailableToPromise.${locationSeqId}">
                                                 <calcop field="totalAvailableToPromise" operator="subtract"><calcop field="targetLocationMoveQuantity" operator="get"/></calcop>
                                             </calculate>
-                                            <calculate field="targetLocationMoveQuantity" type="Double"><number value="0"/></calculate>
+                                            <calculate field="targetLocationMoveQuantity"><number value="0"/></calculate>
                                         </else>
                                         </if-compare-field>
                                     
@@ -367,7 +369,7 @@ under the License.
         <call-simple-method method-name="processOisgirMoveByStatusInline"/>
 
         <!-- Now for any remaining quantity, do a simple, ie non-OISGIR, stock move -->
-        <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
+        <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="BigDecimal">
             <!-- find InventoryItems in the origin location with some availableToPromise to move -->
             <entity-and entity-name="InventoryItem" list="inventoryItemList">
                 <field-map field-name="productId" from-field="parameters.productId"/>
@@ -378,10 +380,10 @@ under the License.
 
             <iterate entry="inventoryItem" list="inventoryItemList">
                 <!-- for each inventoryItem only process if quantityLeftToProcess > 0 and inventoryItem.availableToPromiseTotal > 0 -->
-                <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
-                    <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
+                <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="BigDecimal">
+                    <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="BigDecimal">
                         <!-- set the currentQuantityToMove to the lower of these two values to ensure we don't move too much -->
-                        <if-compare-field field="quantityLeftToProcess" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="Double">
+                        <if-compare-field field="quantityLeftToProcess" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
                             <set from-field="inventoryItem.availableToPromiseTotal" field="currentQuantityToMove"/>
                         <else>
                             <set from-field="quantityLeftToProcess" field="currentQuantityToMove"/>
@@ -389,7 +391,7 @@ under the License.
                         </if-compare-field>
 
                         <!-- create a new InventoryItem for the targetInventoryItem -->
-                        <make-value entity-name="InventoryItem" map-name="inventoryItem" value-field="targetInventoryItem"/>
+                        <make-value entity-name="InventoryItem" map="inventoryItem" value-field="targetInventoryItem"/>
                         <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                         <!-- now that targetInventoryItem is populated with quantities, etc, call createInventoryItem service -->
                         <clear-field field="createNonOisgirTargetDetailMap"/>
@@ -407,10 +409,10 @@ under the License.
                         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                         <clear-field field="createNonOisgirDetailMap"/>
                         <set from-field="inventoryItem.inventoryItemId" field="createNonOisgirDetailMap.inventoryItemId"/>
-                        <calculate field="createNonOisgirDetailMap.availableToPromiseDiff" type="Double">
+                        <calculate field="createNonOisgirDetailMap.availableToPromiseDiff">
                             <calcop field="currentQuantityToMove" operator="negative"/>
                         </calculate>
-                        <calculate field="createNonOisgirDetailMap.quantityOnHandDiff" type="Double">
+                        <calculate field="createNonOisgirDetailMap.quantityOnHandDiff">
                             <calcop field="currentQuantityToMove" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createNonOisgirDetailMap"/>
@@ -422,7 +424,7 @@ under the License.
             </iterate>
         </if-compare>
 
-        <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
+        <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="BigDecimal">
             <!-- this really isn't good, that means more was moved than we found to move, how did that happen? -->
             <string-to-list string="ERROR: Not enough available inventory found in location [${parameters.locationSeqId}] in facility [${parameters.facilityId}], did not reallocate ${quantityLeftToProcess} of the ${parameters.quantityMoved} reported as physically moved." list="warningMessageList"/>
         </if-compare>
@@ -459,12 +461,12 @@ under the License.
             -->
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
                 <!-- create a new InventoryItem for the targetInventoryItem -->
-                <make-value entity-name="InventoryItem" map-name="inventoryItem" value-field="targetInventoryItem"/>
+                <make-value entity-name="InventoryItem" map="inventoryItem" value-field="targetInventoryItem"/>
                 <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                 <!-- now that targetInventoryItem is populated with initial values, call createInventoryItem service -->
                 <set-service-fields map="targetInventoryItem" service-name="createInventoryItem" to-map="createInventoryItemMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
-                    <result-to-field result-name="inventoryItemId" map-name="targetInventoryItem"/>
+                    <result-to-field result-name="inventoryItemId" field="targetInventoryItem.inventoryItemId"/>
                 </call-service>
                 <!-- refresh the value object now that the create has been done -->
                 <refresh-value value-field="targetInventoryItem"/>
@@ -488,9 +490,9 @@ under the License.
                          OISGIR (reservation), so we would have to split it up
                     -->
                     <clear-field field="reservedQuantityLeftOver"/>
-                    <if-compare-field field="quantityLeftToProcess" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="Double">
+                    <if-compare-field field="quantityLeftToProcess" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="BigDecimal">
                         <!-- the complicated part: can split up the OISGIR (reservation) into two parts, and then transfer the inventory, somewhat complicated... -->
-                        <calculate field="reservedQuantityLeftOver" type="Double">
+                        <calculate field="reservedQuantityLeftOver">
                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                             <calcop field="quantityLeftToProcess" operator="negative"/>
                         </calculate>
@@ -507,7 +509,7 @@ under the License.
                     </if-compare-field>
                     
                     <!-- now make sure that the currentQuantityToMove we decided on is not greater than remainingQuantityOnHand... -->
-                    <if-compare-field field="currentQuantityToMove" to-field="remainingQuantityOnHand" operator="greater" type="Double">
+                    <if-compare-field field="currentQuantityToMove" to-field="remainingQuantityOnHand" operator="greater" type="BigDecimal">
                         <set from-field="remainingQuantityOnHand" field="currentQuantityToMove"/>
                     </if-compare-field>
                     
@@ -517,7 +519,7 @@ under the License.
                             <and>
                                 <not><if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
                                 <not><if-empty field="reservedQuantityLeftOver"/></not>
-                                <if-compare-field field="orderItemShipGrpInvRes.quantityNotAvailable" to-field="reservedQuantityLeftOver" operator="greater" type="Double"/>
+                                <if-compare-field field="orderItemShipGrpInvRes.quantityNotAvailable" to-field="reservedQuantityLeftOver" operator="greater" type="BigDecimal"/>
                             </and>
                         </condition>
                         <then>
@@ -532,7 +534,7 @@ under the License.
                     </if>
 
                     <!-- make a new OISGIR value object -->
-                    <make-value entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvRes" value-field="targetOrderItemShipGrpInvRes"/>
+                    <make-value entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvRes" value-field="targetOrderItemShipGrpInvRes"/>
                     <set from-field="targetInventoryItem.inventoryItemId" field="targetOrderItemShipGrpInvRes.inventoryItemId"/>
 
                     <!-- okay, move it over, start by calculating new QOHs; note that don't need to modify the ATP since with an OISGIR that has already been subtracted out, so it shouldn't be subtracted from the source or added to the target -->
@@ -541,10 +543,10 @@ under the License.
                     <clear-field field="createOisgirTargetDetailMap"/>
                     <set from-field="inventoryItem.inventoryItemId" field="createOisgirDetailMap.inventoryItemId"/>
                     <set from-field="targetInventoryItem.inventoryItemId" field="createOisgirTargetDetailMap.inventoryItemId"/>
-                    <calculate field="createOisgirDetailMap.quantityOnHandDiff" type="Double">
+                    <calculate field="createOisgirDetailMap.quantityOnHandDiff">
                         <calcop field="currentQuantityToMove" operator="negative"/>
                     </calculate>
-                    <calculate field="createOisgirTargetDetailMap.quantityOnHandDiff" type="Double">
+                    <calculate field="createOisgirTargetDetailMap.quantityOnHandDiff">
                         <calcop field="currentQuantityToMove" operator="get"/>
                     </calculate>
 
@@ -555,11 +557,11 @@ under the License.
                     -->
                     <!-- if the OISGIR has a quantityNotAvailable, move that over by adding it to the origin, and subtracting it from the target -->
                     <if-not-empty field="orderItemShipGrpInvRes.quantityNotAvailable">
-                        <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="Double">
-                            <calculate field="createOisgirDetailMap.availableToPromiseDiff" type="Double">
+                        <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="BigDecimal">
+                            <calculate field="createOisgirDetailMap.availableToPromiseDiff">
                                 <calcop field="quantityNotAvailableToMove" operator="get"/>
                             </calculate>
-                            <calculate field="createOisgirTargetDetailMap.availableToPromiseDiff" type="Double">
+                            <calculate field="createOisgirTargetDetailMap.availableToPromiseDiff">
                                 <calcop field="quantityNotAvailableToMove" operator="negative"/>
                             </calculate>
                         </if-compare>
@@ -573,11 +575,11 @@ under the License.
                     <if-empty field="reservedQuantityLeftOver">
                         <remove-value value-field="orderItemShipGrpInvRes"/>
                     <else>
-                        <calculate field="orderItemShipGrpInvRes.quantity" type="Double">
+                        <calculate field="orderItemShipGrpInvRes.quantity">
                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                             <calcop field="reservedQuantityLeftOver" operator="negative"/>
                         </calculate>
-                        <calculate field="orderItemShipGrpInvRes.quantityNotAvailable" type="Double">
+                        <calculate field="orderItemShipGrpInvRes.quantityNotAvailable">
                             <calcop field="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
                             <calcop field="quantityNotAvailableToMove" operator="negative"/>
                         </calculate>
@@ -588,11 +590,11 @@ under the License.
                     <set value="Y" field="haveSetIiDetail"/>
 
                     <!-- deduct the orderItemShipGrpInvRes.quantity from quantityLeftToProcess -->
-                    <calculate field="quantityLeftToProcess" type="Double">
+                    <calculate field="quantityLeftToProcess">
                         <calcop field="quantityLeftToProcess" operator="get"/>
                         <calcop field="currentQuantityToMove" operator="negative"/>
                     </calculate>
-                    <calculate field="remainingQuantityOnHand" type="Double">
+                    <calculate field="remainingQuantityOnHand">
                         <calcop field="remainingQuantityOnHand" operator="subtract"/>
                         <calcop field="currentQuantityToMove" operator="negative"/>
                     </calculate>

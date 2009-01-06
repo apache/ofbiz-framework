@@ -293,10 +293,10 @@ under the License.
                     <order-by field-name="glAccountId"/>
                 </entity-condition>
                 <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
-                <set field="totalsRow.postedBalance" value="0" type="Double"/>
+                <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
                 <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
-                <set field="parameters.debitTotal" value="0" type="Double"/>
-                <set field="parameters.creditTotal" value="0" type="Double"/>
+                <set field="parameters.debitTotal" value="0" type="BigDecimal"/>
+                <set field="parameters.creditTotal" value="0" type="BigDecimal"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">

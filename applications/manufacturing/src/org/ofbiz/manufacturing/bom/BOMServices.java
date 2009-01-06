@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.bom;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -290,8 +291,8 @@ public class BOMServices {
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
         Integer type = (Integer) context.get("type");
-        Double quantity = (Double) context.get("quantity");
-        Double amount = (Double) context.get("amount");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         if (type == null) {
             type = new Integer(0);
         }
@@ -314,10 +315,10 @@ public class BOMServices {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         if (tree != null && quantity != null) {
-            tree.setRootQuantity(quantity.doubleValue());
+            tree.setRootQuantity(quantity);
         }
         if (tree != null && amount != null) {
-            tree.setRootAmount(amount.doubleValue());
+            tree.setRootAmount(amount);
         }
         result.put("tree", tree);
 
@@ -339,16 +340,16 @@ public class BOMServices {
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
         String productId = (String) context.get("productId");
-        Double quantity = (Double) context.get("quantity");
-        Double amount = (Double) context.get("amount");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         Boolean excludeWIPs = (Boolean) context.get("excludeWIPs");
         
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
         if (amount == null) {
-            amount = new Double(0);
+            amount = BigDecimal.ZERO;
         }
 
         Date fromDate = null;
@@ -372,8 +373,8 @@ public class BOMServices {
         ArrayList components = new ArrayList();
         try {
             tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
-            tree.setRootQuantity(quantity.doubleValue());
-            tree.setRootAmount(amount.doubleValue());
+            tree.setRootQuantity(quantity);
+            tree.setRootAmount(amount);
             tree.print(components, excludeWIPs.booleanValue());
             if (components.size() > 0) components.remove(0);
         } catch(GenericEntityException gee) {
@@ -411,7 +412,7 @@ public class BOMServices {
             Map componentMap = new HashMap();
             BOMNode node = (BOMNode)componentsIt.next();
             componentMap.put("product", node.getProduct());
-            componentMap.put("quantity", new Double(node.getQuantity()));
+            componentMap.put("quantity", node);
             componentsMap.add(componentMap);
         }
         result.put("componentsMap", componentsMap);
@@ -423,16 +424,16 @@ public class BOMServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
-        Double quantity = (Double) context.get("quantity");
-        Double amount = (Double) context.get("amount");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
         if (amount == null) {
-            amount = new Double(0);
+            amount = BigDecimal.ZERO;
         }
 
         Date fromDate = null;
@@ -451,8 +452,8 @@ public class BOMServices {
         ArrayList notAssembledComponents = new ArrayList();
         try {
             tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
-            tree.setRootQuantity(quantity.doubleValue());
-            tree.setRootAmount(amount.doubleValue());
+            tree.setRootQuantity(quantity);
+            tree.setRootAmount(amount);
             tree.print(components);
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
@@ -539,7 +540,7 @@ public class BOMServices {
                 // getProductsInPackages
                 Map serviceContext = new HashMap();
                 serviceContext.put("productId", orderItem.getString("productId"));
-                serviceContext.put("quantity", orderShipment.getDouble("quantity"));
+                serviceContext.put("quantity", orderShipment.getBigDecimal("quantity"));
                 Map resultService = null;
                 try {
                     resultService = dispatcher.runSync("getProductsInPackages", serviceContext);
@@ -640,11 +641,10 @@ public class BOMServices {
                 String boxTypeId = (String)boxTypeContentEntry.getKey();
                 List contentList = (List)boxTypeContentEntry.getValue();
                 GenericValue boxType = (GenericValue)boxTypes.get(boxTypeId);
-                Double boxWidth = boxType.getDouble("boxLength");
-                double totalWidth = 0;
-                double boxWidthDbl = 0;
-                if (boxWidth != null) {
-                    boxWidthDbl = boxWidth.doubleValue();
+                BigDecimal boxWidth = boxType.getBigDecimal("boxLength");
+                BigDecimal totalWidth = BigDecimal.ZERO;
+                if (boxWidth == null) {
+                    boxWidth = BigDecimal.ZERO;
                 }
                 String shipmentPackageSeqId = null;
                 for (int i = 0; i < contentList.size(); i++) {
@@ -655,7 +655,7 @@ public class BOMServices {
                     GenericValue orderShipment = (GenericValue)content.get("orderShipment");
 
                     GenericValue product = null;
-                    double quantity = 0;
+                    BigDecimal quantity = BigDecimal.ZERO;
                     boolean subProduct = contentMap.containsKey("componentIndex");
                     if (subProduct) {
                         // multi package
@@ -671,35 +671,34 @@ public class BOMServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }
-                        quantity = orderShipment.getDouble("quantity").doubleValue();
+                        quantity = orderShipment.getBigDecimal("quantity");
                     }
 
-                    Double productDepth = product.getDouble("shippingDepth");
+                    BigDecimal productDepth = product.getBigDecimal("shippingDepth");
                     if (productDepth == null) {
-                        productDepth = product.getDouble("productDepth");
+                        productDepth = product.getBigDecimal("productDepth");
                     }
-                    double productDepthDbl = 1;
-                    if (productDepth != null) {
-                        productDepthDbl = productDepth.doubleValue();
+                    if (productDepth == null) {
+                        productDepth = BigDecimal.ONE;
                     }
                     
-                    int firstMaxNumOfProducts = (int)((boxWidthDbl - totalWidth) / productDepthDbl);
-                    if (firstMaxNumOfProducts == 0) firstMaxNumOfProducts = 1;
+                    BigDecimal firstMaxNumOfProducts = boxWidth.subtract(totalWidth).divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
+                    if (firstMaxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) firstMaxNumOfProducts = BigDecimal.ONE;
                     // 
-                    int maxNumOfProducts = (int)(boxWidthDbl / productDepthDbl);
-                    if (maxNumOfProducts == 0) maxNumOfProducts = 1;
+                    BigDecimal maxNumOfProducts = boxWidth.divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
+                    if (maxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) maxNumOfProducts = BigDecimal.ONE;
 
-                    double remQuantity = quantity;
+                    BigDecimal remQuantity = quantity;
                     boolean isFirst = true;
-                    while (remQuantity > 0) {
-                        int maxQuantity = 0;
+                    while (remQuantity.compareTo(BigDecimal.ZERO) > 0) {
+                        BigDecimal maxQuantity = BigDecimal.ZERO;
                         if (isFirst) {
                             maxQuantity = firstMaxNumOfProducts;
                             isFirst = false;
                         } else {
                             maxQuantity = maxNumOfProducts;
                         }
-                        double qty = (remQuantity < maxQuantity? remQuantity: maxQuantity);
+                        BigDecimal qty = (remQuantity.compareTo(maxQuantity) < 0 ? remQuantity : maxQuantity);
                         // If needed, create the package
                         if (shipmentPackageSeqId == null) {
                             try {
@@ -708,7 +707,7 @@ public class BOMServices {
                             } catch (GenericServiceException e) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                             }
-                            totalWidth = 0;
+                            totalWidth = BigDecimal.ZERO;
                         }
                         try {
                             Map inputMap = null;
@@ -718,21 +717,21 @@ public class BOMServices {
                                 "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
                                 "subProductId", product.getString("productId"),
                                 "userLogin", userLogin,
-                                "subProductQuantity", new Double(qty));
+                                "subProductQuantity", qty);
                             } else {
                                 inputMap = UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"),
                                 "shipmentPackageSeqId", shipmentPackageSeqId,
                                 "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
                                 "userLogin", userLogin,
-                                "quantity", new Double(qty));
+                                "quantity", qty);
                             }
                             Map resultService = dispatcher.runSync("createShipmentPackageContent", inputMap);
                         } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }
-                        totalWidth += qty * productDepthDbl;
-                        if (qty == maxQuantity) shipmentPackageSeqId = null;
-                        remQuantity = remQuantity - qty;
+                        totalWidth = totalWidth.add( qty.multiply(productDepth) );
+                        if (qty.compareTo(maxQuantity) == 0) shipmentPackageSeqId = null;
+                        remQuantity = remQuantity.subtract(qty);
                     }
                 }
             }
@@ -755,11 +754,11 @@ public class BOMServices {
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         
         String productId = (String) context.get("productId");
-        Double quantity = (Double) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
         
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -779,7 +778,7 @@ public class BOMServices {
         ArrayList components = new ArrayList();
         try {
             tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
-            tree.setRootQuantity(quantity.doubleValue());
+            tree.setRootQuantity(quantity);
             tree.getProductsInPackages(components);
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());

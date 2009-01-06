@@ -166,7 +166,7 @@ under the License.
                                                 <and>
                                                     <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="N"/>
                                                     <not><if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
-                                                    <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="Double"/>
+                                                    <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="BigDecimal"/>
                                                 </and>
                                                 <!-- make sure the inventoryItem is in the specified facility -->
                                                 <if-compare-field field="parameters.facilityId" to-field="inventoryItem.facilityId" operator="not-equals"/>
@@ -182,9 +182,9 @@ under the License.
                                                 <condition>
                                                     <or>
                                                         <if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/>
-                                                        <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="Double"/>
+                                                        <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="BigDecimal"/>
                                                         <and>
-                                                            <if-compare-field field="orderItemShipGrpInvRes.quantity" to-field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" type="Double"/>
+                                                            <if-compare-field field="orderItemShipGrpInvRes.quantity" to-field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" type="BigDecimal"/>
                                                             <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="Y"/>
                                                         </and>
                                                     </or>
@@ -342,7 +342,7 @@ under the License.
             <iterate entry="orderReadyToPickInfo" list="pickMoveByShipmentMethodInfo.orderReadyToPickInfoList">
                 <iterate entry="orderItemAndShipGroupAssoc" list="orderReadyToPickInfo.orderItemAndShipGroupAssocList">
                     <if-compare value="ITEM_APPROVED" operator="equals" field="orderItemAndShipGroupAssoc.statusId">
-                        <calculate field="reservedQuantity" type="Double"><number value="0"/></calculate>
+                        <calculate field="reservedQuantity"><number value="0"/></calculate>
 
                         <set from-field="orderItemAndShipGroupAssoc.orderItemSeqId" field="itemFilterMap.orderItemSeqId"/>
                         <filter-list-by-and map="itemFilterMap" list="orderReadyToPickInfo.orderItemShipGrpInvResList" to-list="perItemResList"/>
@@ -363,7 +363,7 @@ under the License.
                                 <set field="inventoryItemOrderItems.${orderItemShipGrpInvRes.inventoryItemId}" from-field="inventoryItemOrderItemList"/>
                                 <clear-field field="inventoryItemOrderItemList"/>
                                 <if-not-empty field="inventoryItemQuantities.${inventoryItemId}">
-                                    <calculate field="inventoryItemQuantities.${inventoryItemId}" type="Double">
+                                    <calculate field="inventoryItemQuantities.${inventoryItemId}">
                                         <calcop field="inventoryItemQuantities.${inventoryItemId}" operator="add">
                                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                                         </calcop>
@@ -375,7 +375,7 @@ under the License.
                             </if-compare-field>
                             <clear-field field="inventoryItem"/>
                             <!-- update total quantity reserved, picked, etc per line item to check to see if all and not more is reserved -->
-                            <calculate field="reservedQuantity" type="Double">
+                            <calculate field="reservedQuantity">
                                 <calcop field="reservedQuantity" operator="add">
                                     <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                                 </calcop>
@@ -394,21 +394,18 @@ under the License.
                         <!-- warn if wrong inventory has been reserved+issued -->
                         <!-- must include issued items as well, otherwise can't really do an effective check... -->
                         <get-related value-field="orderItemAndShipGroupAssoc" relation-name="ItemIssuance" list="itemIssuances"/>
-                        <calculate field="issuedQuantity" type="Double"><number value="0"/></calculate>
+                        <calculate field="issuedQuantity"><number value="0"/></calculate>
                         <iterate entry="itemIssuance" list="itemIssuances">
-                            <calculate field="issuedQuantity" type="Double">
-                                <calcop field="issuedQuantity" operator="add">
-                                    <calcop field="itemIssuance.quantity" operator="get"/>
-                                </calcop>
+                            <calculate field="issuedQuantity">
+                                <calcop field="issuedQuantity" operator="get"/>
+                                <calcop field="itemIssuance.quantity" operator="get"/>
                             </calculate>
                         </iterate>
                         <calculate field="reservedIssuedQuantity">
-                            <calcop operator="add">
-                                <calcop operator="get" field="reservedQuantity"/>
-                                <calcop operator="get" field="issuedQuantity"/>
-                            </calcop>
+                            <calcop operator="get" field="reservedQuantity"/>
+                            <calcop operator="get" field="issuedQuantity"/>
                         </calculate>
-                        <if-compare-field field="reservedIssuedQuantity" to-field="orderItemAndShipGroupAssoc.quantity" operator="not-equals" type="Double">
+                        <if-compare-field field="reservedIssuedQuantity" to-field="orderItemAndShipGroupAssoc.quantity" operator="not-equals" type="BigDecimal">
                             <set field="wrongQuantityReserved.orderItemAndShipGroupAssoc" from-field="orderItemAndShipGroupAssoc"/>
                             <set field="wrongQuantityReserved.reservedQuantity" from-field="reservedQuantity"/>
                             <set field="wrongQuantityReserved.issuedQuantity" from-field="issuedQuantity"/>
@@ -439,17 +436,17 @@ under the License.
             <if>
                 <condition>
                     <and>
-                        <if-compare value="1" operator="less-equals" field="quantityNeeded" type="Double"/>
+                        <if-compare value="1" operator="less-equals" field="quantityNeeded" type="BigDecimal"/>
                         <or>
                             <and>
                                 <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId"/>
-                                <if-compare value="1" operator="less" field="quantityNeeded" type="Double"/>
+                                <if-compare value="1" operator="less" field="quantityNeeded" type="BigDecimal"/>
                             </and>
                             <and>
                                 <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId"/>
                                 <or>
                                     <if-empty field="inventoryItem.quantityOnHandTotal"/>
-                                    <if-compare-field field="quantityNeeded" to-field="inventoryItem.quantityOnHandTotal" operator="greater" type="Double"/>
+                                    <if-compare-field field="quantityNeeded" to-field="inventoryItem.quantityOnHandTotal" operator="greater" type="BigDecimal"/>
                                 </or>
                             </and>
                         </or>
@@ -529,7 +526,7 @@ under the License.
                             <then>
                                 <set field="quantityToSubtract" from-field="orderItemShipGrpInvRes.quantityNotAvailable"/>
                                 <log level="info" message="Subtracting ${quantityToSubtract} from ${quantityToPick}"/>
-                                <calculate field="quantityToPick" type="Double">
+                                <calculate field="quantityToPick">
                                     <calcop field="quantityToPick" operator="subtract">
                                         <calcop field="quantityToSubtract" operator="get"/>
                                     </calcop>
@@ -538,7 +535,7 @@ under the License.
                         </if>
 
                         <log level="info" message="Order #${orderItemShipGrpInvRes.orderId} / ${orderItemShipGrpInvRes.orderItemSeqId} - ${quantityToPick}"/>
-                        <if-compare field="quantityToPick" value="0" operator="greater" type="Double">
+                        <if-compare field="quantityToPick" value="0" operator="greater" type="BigDecimal">
                             <clear-field field="createPicklistItemMap"/>
                             <set from-field="picklistBinId" field="createPicklistItemMap.picklistBinId"/>
                             <set field="createPicklistItemMap.itemStatusId" value="PICKITEM_PENDING"/>
@@ -862,7 +859,7 @@ under the License.
                          A Map with a List of PicklistItemInfo records keyed by the productId
                 -->
                 <if-not-empty field="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
-                    <make-value value-field="facilityLocation" entity-name="FacilityLocation" map-name="picklistItemInfo.inventoryItemAndLocation"/>
+                    <make-value value-field="facilityLocation" entity-name="FacilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
                     <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap.${facilityLocation.locationSeqId}"/>
 
                     <clear-field field="picklistItemInfoTempList"/>
@@ -915,7 +912,7 @@ under the License.
         <set value="+sectionId" field="facilityLocsOrdLst[]"/>
         <set value="+levelId" field="facilityLocsOrdLst[]"/>
         <set value="+positionId" field="facilityLocsOrdLst[]"/>
-        <order-value-list list-name="facilityLocationList" order-by-list-name="facilityLocsOrdLst"/>
+        <order-value-list list="facilityLocationList" order-by-list="facilityLocsOrdLst"/>
 
         <!-- Now we have an ordered list of FacilityLocations, create a facilityLocationInfoList -->
         <iterate entry="facilityLocation" list="facilityLocationList">
@@ -925,13 +922,13 @@ under the License.
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
             <iterate entry="picklistItemInfo" list="facilityLocationInfo.picklistItemInfoList">
-                <calculate field="facilityLocationInfo.pickQuantity" type="Double">
+                <calculate field="facilityLocationInfo.pickQuantity">
                     <calcop field="facilityLocationInfo.pickQuantity" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                     </calcop>
                 </calculate>
 
-                <calculate field="facilityLocationInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" type="Double">
+                <calculate field="facilityLocationInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}">
                     <calcop field="facilityLocationInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                     </calcop>
@@ -957,7 +954,7 @@ under the License.
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
                 <set from-field="picklistBinInfo" field="facilityLocationInfo.picklistBinInfoList[]"/>
             </iterate-map>
-            <order-map-list list-name="facilityLocationInfo.picklistBinInfoList"><order-by field-name="picklistBin.binLocationNumber"/></order-map-list>
+            <order-map-list list="facilityLocationInfo.picklistBinInfoList"><order-by field-name="picklistBin.binLocationNumber"/></order-map-list>
 
             <set from-field="facilityLocationInfo" field="facilityLocationInfoList[]"/>
         </iterate>
@@ -968,7 +965,7 @@ under the License.
 
         <!-- order/sort the products -->
         <set value="+productId" field="productsOrdLst[]"/>
-        <order-value-list list-name="productList" order-by-list-name="productsOrdLst"/>
+        <order-value-list list="productList" order-by-list="productsOrdLst"/>
 
         <!-- Now we have an ordered list of Products, create a noLocationProductInfoList -->
         <iterate entry="product" list="productList">
@@ -978,13 +975,12 @@ under the License.
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
             <iterate entry="picklistItemInfo" list="productInfo.picklistItemInfoList">
-                <calculate field="productInfo.pickQuantity" type="Double">
-                    <calcop field="productInfo.pickQuantity" operator="add">
-                        <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
-                    </calcop>
+                <calculate field="productInfo.pickQuantity">
+                    <calcop field="productInfo.pickQuantity" operator="add"/>
+                    <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                 </calculate>
 
-                <calculate field="productInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" type="Double">
+                <calculate field="productInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}">
                     <calcop field="productInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                     </calcop>
@@ -998,7 +994,7 @@ under the License.
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
                 <set from-field="picklistBinInfo" field="productInfo.picklistBinInfoList[]"/>
             </iterate-map>
-            <order-map-list list-name="productInfo.picklistBinInfoList"><order-by field-name="picklistBin.binLocationNumber"/></order-map-list>
+            <order-map-list list="productInfo.picklistBinInfoList"><order-by field-name="picklistBin.binLocationNumber"/></order-map-list>
 
             <set from-field="productInfo" field="noLocationProductInfoList[]"/>
         </iterate>
@@ -1168,7 +1164,7 @@ under the License.
         <set value="+sectionId" field="facilityLocsOrdLst[]"/>
         <set value="+levelId" field="facilityLocsOrdLst[]"/>
         <set value="+positionId" field="facilityLocsOrdLst[]"/>
-        <order-value-list list-name="facilityLocations" order-by-list-name="facilityLocsOrdLst"/>
+        <order-value-list list="facilityLocations" order-by-list="facilityLocsOrdLst"/>
 
         <!-- for each facility location add an entry to the inventoryItemInfoList -->
         <iterate entry="facilityLocation" list="facilityLocations">
@@ -1191,7 +1187,7 @@ under the License.
 
                 <!-- before destroying inventoryItemInfo, add info to the productInfoMap -->
                 <set from-field="inventoryItemInfo.product" field="productInfoMap.${inventoryItemInfo.product.productId}.product"/>
-                <calculate field="productInfoMap.${inventoryItemInfo.product.productId}.quantity" type="Double">
+                <calculate field="productInfoMap.${inventoryItemInfo.product.productId}.quantity">
                     <calcop field="productInfoMap.${inventoryItemInfo.product.productId}.quantity" operator="get"/>
                     <calcop field="inventoryItemInfo.quantity" operator="get"/>
                 </calculate>

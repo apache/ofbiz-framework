@@ -29,7 +29,7 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
         <description>Explodes a product id and creates all the needed production runs.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" optional="true" mode="IN" type="Double"/>
+        <attribute name="quantity" optional="true" mode="IN" type="BigDecimal"/>
         <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="routingId" type="String" mode="IN" optional="true"/>
@@ -43,7 +43,7 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRun" auth="true">
         <description>Create a Production Run</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="pRQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="pRQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="routingId" type="String" mode="IN" optional="true"/>
@@ -56,7 +56,7 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRun" auth="true">
         <description>Update a Production Run</description>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="estimatedStartDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
@@ -85,8 +85,8 @@ under the License.
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="routingTaskId" type="String" mode="INOUT" optional="false"/>
         <attribute name="priority" type="Long" mode="IN" optional="false"/>
-        <attribute name="estimatedSetupMillis" type="Double" mode="IN" optional="true"/>
-        <attribute name="estimatedMilliSeconds" type="Double" mode="IN" optional="true"/>
+        <attribute name="estimatedSetupMillis" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="estimatedMilliSeconds" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="estimatedStartDate" type="Timestamp" mode="INOUT" optional="true"/>
@@ -99,8 +99,8 @@ under the License.
         <attribute name="routingTaskId" type="String" mode="IN" optional="false"/>
         <attribute name="priority" type="Long" mode="IN"/>
         <attribute name="estimatedStartDate" type="Timestamp" mode="IN"/>
-        <attribute name="estimatedSetupMillis" type="Double" mode="IN"/>
-        <attribute name="estimatedMilliSeconds" type="Double" mode="IN"/>
+        <attribute name="estimatedSetupMillis" type="BigDecimal" mode="IN"/>
+        <attribute name="estimatedMilliSeconds" type="BigDecimal" mode="IN"/>
     </service>
     <!-- TODO: NOT STILL IMPLEMENTED ('deleteWorkEffort' is called directly) -->
     <service name="deleteProductionRunRoutingTask" engine="java"
@@ -114,7 +114,7 @@ under the License.
         <description>add a Product Component to an existing ProductionRun</description>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="estimatedQuantity" type="Double" mode="IN"/>
+        <attribute name="estimatedQuantity" type="BigDecimal" mode="IN"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateProductionRunComponent" engine="java"
@@ -123,7 +123,7 @@ under the License.
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
-        <attribute name="estimatedQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="estimatedQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <!-- TODO: NOT STILL IMPLEMENTED ('removeWorkEffortGoodStandard' is called directly) -->
     <service name="deleteProductionRunComponent" engine="java"
@@ -159,7 +159,7 @@ under the License.
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="failIfItemsAreNotAvailable" type="String" mode="IN" optional="true"/>
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
@@ -176,8 +176,8 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="quantityIssued" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="quantityIssued" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="finishedProductId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="productionRunProduce" engine="java" transaction-timeout="7200"
@@ -187,7 +187,7 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
-        <attribute name="quantity" type="Double" mode="INOUT" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="INOUT" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
@@ -200,7 +200,7 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
-        <attribute name="quantity" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
@@ -214,9 +214,9 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
-        <attribute name="unitCost" type="Double" mode="IN" optional="true"/>
+        <attribute name="unitCost" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
@@ -228,7 +228,7 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkDecomposeInventoryItem" engine="java"
@@ -238,7 +238,7 @@ under the License.
             It is intended to be called as seca when a marketing package is received into warehouse (e.g. from a return).
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <!--<attribute name="quantityAccepted" type="Double" mode="IN" optional="true"/>-->
+        <!--<attribute name="quantityAccepted" type="BigDecimal" mode="IN" optional="true"/>-->
     </service>
     <service name="decomposeInventoryItem" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="decomposeInventoryItem" auth="true">
@@ -248,7 +248,7 @@ under the License.
             The components will be returned to inventory at ((Marketing Package Actual Inventory Unit Cost) / (Marketing Package Standard Cost)) * (Component Standard Cost)
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="updateProductionRunTask" engine="java"
@@ -261,10 +261,10 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="addQuantityProduced" type="Double" mode="IN" optional="true"/>
-        <attribute name="addQuantityRejected" type="Double" mode="IN" optional="true"/>
-        <attribute name="addSetupTime" type="Double" mode="IN" optional="true"/>
-        <attribute name="addTaskTime" type="Double" mode="IN" optional="true"/>
+        <attribute name="addQuantityProduced" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="addQuantityRejected" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="addSetupTime" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="addTaskTime" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="issueRequiredComponents" type="Boolean" mode="IN" optional="true"/>
         <attribute name="componentsLocationMap" mode="IN" type="Map" optional="true"/>
@@ -301,14 +301,14 @@ under the License.
         <description>Given a productId and an optional date, returns the total qty of productId reserved by production runs</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="startDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="reservedQuantity" type="Double" mode="OUT" optional="false"/>
+        <attribute name="reservedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="createProductionRunsForOrder" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForOrder" auth="true">
         <description>Explodes a product id and creates all the needed production runs; if an order id is also provided, it links the production runs to the sales order.</description>
         <attribute mode="IN" name="orderId" optional="false" type="String"/>
         <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="shipmentId" optional="true" type="String"/>
         <attribute mode="OUT" name="productionRuns" type="java.util.List"/>
@@ -317,7 +317,7 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunFromRequirement" auth="true">
         <description>Creates a production run from a requirement.</description>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="OUT" name="productionRunId" optional="true" type="String"/>
     </service>
     <service name="createProductionRunFromConfiguration" engine="java"
@@ -326,7 +326,7 @@ under the License.
         <attribute mode="IN" name="facilityId" optional="false" type="String"/>
         <attribute mode="IN" name="configId" optional="true" type="String"/>
         <attribute mode="IN" name="config" optional="true" type="org.ofbiz.product.config.ProductConfigWrapper"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="orderId" optional="true" type="String"/>
         <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
         <attribute mode="OUT" name="productionRunId" optional="false" type="String"/>

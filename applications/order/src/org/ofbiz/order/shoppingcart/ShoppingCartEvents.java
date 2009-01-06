@@ -18,15 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -40,8 +45,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
@@ -58,8 +61,6 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.control.RequestHandler;
 
-import javolution.util.FastList;
-
 /**
  * Shopping cart events.
  */
@@ -72,6 +73,8 @@ public class ShoppingCartEvents {
     private static final String NO_ERROR = "noerror";
     private static final String NON_CRITICAL_ERROR = "noncritical";
     private static final String ERROR = "error";
+
+    public static final MathContext generalRounding = new MathContext(10);
 
     public static String addProductPromoCode(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -122,17 +125,17 @@ public class ShoppingCartEvents {
         String itemDescription = null;
         String productCategoryId = null;
         String priceStr = null;
-        Double price = null;
+        BigDecimal price = null;
         String quantityStr = null;
-        double quantity = 0;
+        BigDecimal quantity = BigDecimal.ZERO;
         String reservStartStr = null;
         String reservEndStr = null;
         java.sql.Timestamp reservStart = null;
         java.sql.Timestamp reservEnd = null;
         String reservLengthStr = null;
-        Double reservLength = null;
+        BigDecimal reservLength = null;
         String reservPersonsStr = null;
-        Double reservPersons = null;
+        BigDecimal reservPersons = null;
         String accommodationMapId = null;
         String accommodationSpotId = null;
         String shipBeforeDateStr = null;
@@ -323,18 +326,18 @@ public class ShoppingCartEvents {
             }
 
             if (reservStart != null && reservEnd != null) {
-                reservLength = new Double(UtilDateTime.getInterval(reservStart,reservEnd)/86400000);
+            	reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart,reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
             }
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {
                 reservLengthStr = (String) paramMap.remove("reservLength");
                 // parse the reservation Length
                 try {
-                    reservLength = new Double(nf.parse(reservLengthStr).doubleValue());
+                    reservLength = new BigDecimal(nf.parse(reservLengthStr).doubleValue());
                 } catch (Exception e) {
                     Debug.logWarning(e,"Problems parsing reservation length string: "
                                     + reservLengthStr, module);
-                    reservLength = new Double(1);
+                    reservLength = BigDecimal.ONE;
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderReservationLengthShouldBeAPositiveNumber", locale));
                     return "error";
                 }
@@ -344,10 +347,10 @@ public class ShoppingCartEvents {
                 reservPersonsStr = (String) paramMap.remove("reservPersons");
                 // parse the number of persons
                 try {
-                    reservPersons = new Double(nf.parse(reservPersonsStr).doubleValue());
+                    reservPersons = new BigDecimal(nf.parse(reservPersonsStr).doubleValue());
                 } catch (Exception e) {
                     Debug.logWarning(e,"Problems parsing reservation number of persons string: " + reservPersonsStr, module);
-                    reservPersons = new Double(1);
+                    reservPersons = BigDecimal.ONE;
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderNumberOfPersonsShouldBeOneOrLarger", locale));
                     return "error";
                 }
@@ -379,7 +382,7 @@ public class ShoppingCartEvents {
 
         // parse the price
         try {
-            price = new Double(nf.parse(priceStr).doubleValue());
+            price = new BigDecimal(nf.parse(priceStr).doubleValue());
         } catch (Exception e) {
             Debug.logWarning(e, "Problems parsing price string: " + priceStr, module);
             price = null;
@@ -387,10 +390,10 @@ public class ShoppingCartEvents {
 
         // parse the quantity
         try {
-            quantity = nf.parse(quantityStr).doubleValue();
+            quantity = new BigDecimal(nf.parse(quantityStr).doubleValue());
         } catch (Exception e) {
             Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
-            quantity = 1;
+            quantity = BigDecimal.ONE;
         }
 
         // get the selected amount
@@ -402,10 +405,10 @@ public class ShoppingCartEvents {
         }
 
         // parse the amount
-        Double amount = null;
+        BigDecimal amount = null;
         if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
             try {
-                amount = new Double(nf.parse(selectedAmountStr).doubleValue());
+                amount = new BigDecimal(nf.parse(selectedAmountStr).doubleValue());
             } catch (Exception e) {
                 Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                 amount = null;
@@ -692,7 +695,7 @@ public class ShoppingCartEvents {
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
         Map result;
-        Double totalQuantity;
+        BigDecimal totalQuantity;
         Locale locale = UtilHttp.getLocale(request);
 
         result = cartHelper.addCategoryDefaults(catalogId, categoryId, itemGroupNumber);
@@ -702,8 +705,8 @@ public class ShoppingCartEvents {
         if (controlDirective.equals(ERROR)) {
             return "error";
         } else {
-            totalQuantity = (Double)result.get("totalQuantity");
-            Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity) );
+            totalQuantity = (BigDecimal)result.get("totalQuantity");
+            Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()) );
 
             request.setAttribute("_EVENT_MESSAGE_",
                                   UtilProperties.getMessage(resource, "cart.add_category_defaults",
@@ -1150,44 +1153,44 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String termTypeId = request.getParameter("termTypeId");
-        String termValue = request.getParameter("termValue");
-        String termDays = request.getParameter("termDays");
+        String termValueStr = request.getParameter("termValue");
+        String termDaysStr = request.getParameter("termDays");
         String termIndex = request.getParameter("termIndex");
         String textValue = request.getParameter("textValue");
         Locale locale = UtilHttp.getLocale(request);
 
-        Double dTermValue = null;
-        Long lTermDays = null;
+        BigDecimal termValue = null;
+        Long termDays = null;
 
-        if (termValue.trim().equals("")) {
+        if (termValueStr.trim().equals("")) {
             termValue = null;
         }
-        if (termDays.trim().equals("")) {
+        if (termDaysStr.trim().equals("")) {
             termDays = null;
         }
         if (UtilValidate.isEmpty(termTypeId)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermTypeIsRequired", locale));
             return "error";
         }
-        if (!UtilValidate.isSignedDouble(termValue)) {
+        if (!UtilValidate.isSignedDouble(termValueStr)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermValueError", UtilMisc.toMap("orderTermValue",UtilValidate.isSignedFloatMsg), locale));
             return "error";
         }
         if (termValue != null) {
-            dTermValue =new Double(termValue);
+            termValue = new BigDecimal(termValueStr);
         }
-        if (!UtilValidate.isInteger(termDays)) {
+        if (!UtilValidate.isInteger(termDaysStr)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays",UtilValidate.isLongMsg), locale));
             return "error";
         }
         if (termDays != null) {
-            lTermDays = new Long(termDays);
+            termDays = new Long(termDaysStr);
         }
         if ((termIndex != null) && (!"-1".equals(termIndex)) && (UtilValidate.isInteger(termIndex))) {
             cartHelper.removeOrderTerm(Integer.parseInt(termIndex));
         }
 
-        Map result = cartHelper.addOrderTerm(termTypeId, dTermValue, lTermDays, textValue);
+        Map result = cartHelper.addOrderTerm(termTypeId, termValue, termDays, textValue);
         if (ServiceUtil.isError(result)) {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
             return "error";
@@ -1547,7 +1550,7 @@ public class ShoppingCartEvents {
         String productCategoryId = null;
         String quantityStr = null;
         String itemDesiredDeliveryDateStr = null;
-        double quantity = 0;
+        BigDecimal quantity = BigDecimal.ZERO;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         String itemType = null;
         String itemDescription = "";
@@ -1584,10 +1587,10 @@ public class ShoppingCartEvents {
 
                 // parse the quantity
                 try {
-                    quantity = NumberFormat.getNumberInstance().parse(quantityStr).doubleValue();
+                    quantity = new BigDecimal(quantityStr);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
-                    quantity = 0;
+                    quantity = BigDecimal.ZERO;
                 }
 
                 // get the selected amount
@@ -1597,10 +1600,10 @@ public class ShoppingCartEvents {
                 }
 
                 // parse the amount
-                Double amount = null;
+                BigDecimal amount = null;
                 if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
                     try {
-                        amount = new Double(NumberFormat.getNumberInstance().parse(selectedAmountStr).doubleValue());
+                        amount = new BigDecimal(selectedAmountStr);
                     } catch (Exception e) {
                         Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                         amount = null;
@@ -1621,7 +1624,7 @@ public class ShoppingCartEvents {
 
                 Map itemAttributes = UtilMisc.toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
 
-                if (quantity > 0) {
+                if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, 

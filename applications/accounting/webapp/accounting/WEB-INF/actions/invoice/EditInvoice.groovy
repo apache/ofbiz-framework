@@ -51,17 +51,17 @@ if (invoice) {
 	invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
     invoiceItemsConv = FastList.newInstance();
     invoiceItems.each { invoiceItem ->
-      invoiceItem.amount = new Double((invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)).doubleValue());
+      invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);
       invoiceItemsConv.add(invoiceItem);
     }
     
 
     context.invoiceItems = invoiceItemsConv;
     
-    invoiceTotal = InvoiceWorker.getInvoiceTotalBd(invoice).multiply(conversionRate).setScale(decimals, rounding).doubleValue();
-    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotalBd(invoice).multiply(conversionRate).setScale(decimals, rounding).doubleValue();
-    context.invoiceTotal = new Double(invoiceTotal);    
-    context.invoiceNoTaxTotal = new Double(invoiceNoTaxTotal);
+    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    context.invoiceTotal = invoiceTotal;    
+    context.invoiceNoTaxTotal = invoiceNoTaxTotal;
     
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or

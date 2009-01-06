@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.*;
@@ -243,7 +244,7 @@ public class ProductServices {
 
             // next check inventory for each item: if inventory is not required or is available
             try {
-                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", Double.valueOf(1.0)));
+                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
                 if (ServiceUtil.isError(invReqResult)) {
                     return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
                 } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
@@ -875,8 +876,8 @@ public class ProductServices {
                             return ServiceUtil.returnError(e.getMessage());
                         }
 
-                        Double availableToPromiseTotal = (Double) invRes.get("availableToPromiseTotal");
-                        if (availableToPromiseTotal != null && availableToPromiseTotal.doubleValue() > 0) {
+                        BigDecimal availableToPromiseTotal = (BigDecimal) invRes.get("availableToPromiseTotal");
+                        if (availableToPromiseTotal != null && availableToPromiseTotal.compareTo(BigDecimal.ZERO) > 0) {
                             // refresh the product so we can update it
                             GenericValue productToUpdate = null;
                             try {

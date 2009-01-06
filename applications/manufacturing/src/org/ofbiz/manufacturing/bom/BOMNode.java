@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.bom;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,11 +60,11 @@ public class BOMNode {
     private GenericValue productAssoc; // the product assoc record (from ProductAssoc entity) in which the current product is in productIdTo
     private ArrayList children; // current node's children (ProductAssocs)
     private ArrayList childrenNodes; // current node's children nodes (BOMNode)
-    private double quantityMultiplier; // the necessary quantity as declared in the bom (from ProductAssocs or ProductManufacturingRule)
-    private double scrapFactor; // the scrap factor as declared in the bom (from ProductAssocs)
+    private BigDecimal quantityMultiplier; // the necessary quantity as declared in the bom (from ProductAssocs or ProductManufacturingRule)
+    private BigDecimal scrapFactor; // the scrap factor as declared in the bom (from ProductAssocs)
     // Runtime fields
     private int depth; // the depth of this node in the current tree
-    private double quantity; // the quantity of this node in the current tree
+    private BigDecimal quantity; // the quantity of this node in the current tree
     private String bomTypeId; // the type of the current tree
    
     public BOMNode(GenericValue product, LocalDispatcher dispatcher, GenericValue userLogin) {
@@ -76,11 +77,11 @@ public class BOMNode {
         parentNode = null;
         productForRules = null;
         bomTypeId = null;
-        quantityMultiplier = 1;
-        scrapFactor = 1;
+        quantityMultiplier = BigDecimal.ONE;
+        scrapFactor = BigDecimal.ONE;
         // Now we initialize the fields used in breakdowns
         depth = 0;
-        quantity = 0;
+        quantity = BigDecimal.ZERO;
     }
 
     public BOMNode(String productId, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
@@ -145,11 +146,11 @@ public class BOMNode {
                 String ruleCondition = (String)rule.get("productFeature");
                 String ruleOperator = (String)rule.get("ruleOperator");
                 String newPart = (String)rule.get("productIdInSubst");
-                double ruleQuantity = 0;
+                BigDecimal ruleQuantity = BigDecimal.ZERO;
                 try {
-                    ruleQuantity = rule.getDouble("quantity").doubleValue();
+                    ruleQuantity = rule.getBigDecimal("quantity");
                 } catch(Exception exc) {
-                    ruleQuantity = 0;
+                    ruleQuantity = BigDecimal.ZERO;
                 }
 
                 GenericValue feature = null;
@@ -179,7 +180,7 @@ public class BOMNode {
                         oneChildNode.setRuleApplied(rule);
                         oneChildNode.setProductAssoc(origNode.getProductAssoc());
                         oneChildNode.setScrapFactor(origNode.getScrapFactor());
-                        if (ruleQuantity > 0) {
+                        if (ruleQuantity.compareTo(BigDecimal.ZERO) > 0) {
                             oneChildNode.setQuantityMultiplier(ruleQuantity);
                         } else {
                             oneChildNode.setQuantityMultiplier(origNode.getQuantityMultiplier());
@@ -199,23 +200,24 @@ public class BOMNode {
         oneChildNode.setTree(tree);
         oneChildNode.setProductAssoc(node);
         try {
-            oneChildNode.setQuantityMultiplier(node.getDouble("quantity").doubleValue());
+            oneChildNode.setQuantityMultiplier(node.getBigDecimal("quantity"));
         } catch(Exception nfe) {
-            oneChildNode.setQuantityMultiplier(1);
+            oneChildNode.setQuantityMultiplier(BigDecimal.ONE);
         }
         try {
-            double percScrapFactor = node.getDouble("scrapFactor").doubleValue();
+            BigDecimal percScrapFactor = node.getBigDecimal("scrapFactor");
 
-            // A negative scrap factor is a salvage factor 
-            if (percScrapFactor > -100 && percScrapFactor < 100) {
-                percScrapFactor = 1 + percScrapFactor / 100;
+            // A negative scrap factor is a salvage factor
+            BigDecimal bdHundred = new BigDecimal("100");
+            if (percScrapFactor.compareTo(bdHundred.negate()) > 0 && percScrapFactor.compareTo(bdHundred.negate()) < 0) {
+                percScrapFactor = BigDecimal.ONE.add(percScrapFactor.movePointLeft(2));
             } else {
                 Debug.logWarning("A scrap factor of [" + percScrapFactor + "] was ignored", module);
-                percScrapFactor = 1;
+                percScrapFactor = BigDecimal.ONE;
             }
             oneChildNode.setScrapFactor(percScrapFactor);
         } catch(Exception nfe) {
-            oneChildNode.setScrapFactor(1);
+            oneChildNode.setScrapFactor(BigDecimal.ONE);
         }
         BOMNode newNode = oneChildNode;
         // CONFIGURATOR
@@ -376,7 +378,7 @@ public class BOMNode {
     }
     // ------------------------------------
     // Method used for TEST and DEBUG purposes
-    public void print(StringBuffer sb, double quantity, int depth) {
+    public void print(StringBuffer sb, BigDecimal quantity, int depth) {
         for (int i = 0; i < depth; i++) {
             sb.append("<b>&nbsp;*&nbsp;</b>");
         }
@@ -388,21 +390,21 @@ public class BOMNode {
         depth++;
         for (int i = 0; i < children.size(); i++) {
             oneChild = (GenericValue)children.get(i);
-            double bomQuantity = 0;
+            BigDecimal bomQuantity = BigDecimal.ZERO;
             try {
-                bomQuantity = oneChild.getDouble("quantity").doubleValue();
+                bomQuantity = oneChild.getBigDecimal("quantity");
             } catch(Exception exc) {
-                bomQuantity = 1;
+                bomQuantity = BigDecimal.ONE;
             }
             oneChildNode = (BOMNode)childrenNodes.get(i);
             sb.append("<br/>");
             if (oneChildNode != null) {
-                oneChildNode.print(sb, (quantity * bomQuantity), depth);
+                oneChildNode.print(sb, quantity.multiply(bomQuantity), depth);
             }
         }
     }
 
-    public void print(ArrayList arr, double quantity, int depth, boolean excludeWIPs) {
+    public void print(ArrayList arr, BigDecimal quantity, int depth, boolean excludeWIPs) {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
         this.depth = depth;
@@ -418,27 +420,27 @@ public class BOMNode {
         }
         if (serviceName != null) {
             Map resultContext = null;
-            Map arguments = UtilMisc.toMap("neededQuantity", new Double(quantity * quantityMultiplier), "amount", new Double((tree!=null? tree.getRootAmount():0)));
-            Double width = null;
+            Map arguments = UtilMisc.toMap("neededQuantity", quantity.multiply(quantityMultiplier), "amount", tree != null ? tree.getRootAmount() : BigDecimal.ZERO);
+            BigDecimal width = null;
             if (getProduct().get("productWidth") != null) {
-                width = getProduct().getDouble("productWidth");
+                width = getProduct().getBigDecimal("productWidth");
             }
             if (width == null) {
-                width = new Double(0);
+                width = BigDecimal.ZERO;
             }
             arguments.put("width", width);
             Map inputContext = UtilMisc.toMap("arguments", arguments, "userLogin", userLogin);
             try {
                 resultContext = dispatcher.runSync(serviceName, inputContext);
-                Double calcQuantity = (Double)resultContext.get("quantity");
+                BigDecimal calcQuantity = (BigDecimal)resultContext.get("quantity");
                 if (calcQuantity != null) {
-                    this.quantity = calcQuantity.doubleValue();
+                    this.quantity = calcQuantity;
                 }
             } catch (GenericServiceException e) {
                 //Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
             }
         } else {
-            this.quantity = quantity * quantityMultiplier * scrapFactor;
+            this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
         }
         // First of all we visit the current node.
         arr.add(this);
@@ -458,11 +460,11 @@ public class BOMNode {
         }
     }
 
-    public void getProductsInPackages(ArrayList arr, double quantity, int depth, boolean excludeWIPs) {
+    public void getProductsInPackages(ArrayList arr, BigDecimal quantity, int depth, boolean excludeWIPs) {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
         this.depth = depth;
-        this.quantity = quantity * quantityMultiplier * scrapFactor;
+        this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
         // First of all we visit the current node.
         if (this.getProduct().getString("shipmentBoxTypeId") != null) {
             arr.add(this);
@@ -492,7 +494,7 @@ public class BOMNode {
             nodes.put(product.getString("productId"), sameNode);
         }
         // Now we add the current quantity to the node
-        sameNode.setQuantity(sameNode.getQuantity() + quantity);
+        sameNode.setQuantity(sameNode.getQuantity().add(quantity));
         // Now (recursively) we visit the children.
         BOMNode oneChildNode = null;
         for (int i = 0; i < childrenNodes.size(); i++) {
@@ -554,7 +556,7 @@ public class BOMNode {
                 serviceContext.put("workEffortName", "SP_" + shipmentId + "_" + serviceContext.get("productId"));
             }
             
-            serviceContext.put("pRQuantity", new Double(getQuantity()));
+            serviceContext.put("pRQuantity", getQuantity());
             if (UtilValidate.isNotEmpty(maxEndDate)) {
                 serviceContext.put("startDate", maxEndDate);
             } else {
@@ -695,11 +697,11 @@ public class BOMNode {
      * @return Value of property quantity.
      *
      */
-    public double getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
@@ -764,7 +766,7 @@ public class BOMNode {
      * @return Value of property quantityMultiplier.
      *
      */
-    public double getQuantityMultiplier() {
+    public BigDecimal getQuantityMultiplier() {
         return quantityMultiplier;
     }    
     
@@ -772,7 +774,7 @@ public class BOMNode {
      * @param quantityMultiplier New value of property quantityMultiplier.
      *
      */
-    public void setQuantityMultiplier(double quantityMultiplier) {
+    public void setQuantityMultiplier(BigDecimal quantityMultiplier) {
         this.quantityMultiplier = quantityMultiplier;
     }
     
@@ -796,7 +798,7 @@ public class BOMNode {
      * @return Value of property scrapFactor.
      *
      */
-    public double getScrapFactor() {
+    public BigDecimal getScrapFactor() {
         return scrapFactor;
     }
     
@@ -804,7 +806,7 @@ public class BOMNode {
      * @param scrapFactor New value of property scrapFactor.
      *
      */
-    public void setScrapFactor(double scrapFactor) {
+    public void setScrapFactor(BigDecimal scrapFactor) {
         this.scrapFactor = scrapFactor;
     }
     

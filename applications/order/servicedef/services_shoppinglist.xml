@@ -58,10 +58,10 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="autoUserLogin" type="GenericValue" mode="IN" optional="true"/>
-        <attribute name="totalPrice" type="Double" mode="OUT" optional="false"/>
+        <attribute name="totalPrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="runShoppingListAutoReorder" engine="java" auth="true" use-transaction="false"
@@ -100,11 +100,11 @@ under the License.
         <description>Interface of shopping list items</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservStart" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="reservLength" type="Double" mode="IN" optional="true"/>
-        <attribute name="reservPersons" type="Double" mode="IN" optional="true"/>
-        <attribute name="quantityPurchased" type="Double" mode="IN" optional="true"/>
+        <attribute name="reservLength" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="reservPersons" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="quantityPurchased" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="configId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createShoppingListItem" engine="simple" auth="true"

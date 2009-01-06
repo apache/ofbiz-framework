@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.List;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.sql.Timestamp;
 
@@ -33,6 +34,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilDateTime;
@@ -46,6 +48,8 @@ import org.ofbiz.accounting.payment.PaymentGatewayServices;
 public class RitaServices {
 
     public static final String module = RitaServices.class.getName();
+    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public static Map ccAuth(DispatchContext dctx, Map context) {
         Properties props = buildPccProperties(context);
@@ -524,9 +528,7 @@ public class RitaServices {
     }
 
     private static String getAmountString(Map context, String amountField) {
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        Double processAmount = (Double) context.get(amountField);
-        return formatter.format(processAmount);
+        BigDecimal processAmount = (BigDecimal) context.get(amountField);
+        return processAmount.setScale(decimals, rounding).toPlainString();
     }
 }

@@ -35,8 +35,8 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="agreementId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productPricePurposeId" type="String" mode="IN" optional="true"><!-- defaults to PURCHASE --></attribute>
         <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>
@@ -45,14 +45,14 @@ under the License.
         <attribute name="findAllQuantityPrices" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N; see the allQuantityPrices attribute for more details --></attribute>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="true"/>
         <attribute name="customAttributes" type="Map" mode="IN" optional="true"/>
-        <attribute name="basePrice" type="Double" mode="OUT" optional="false"><!-- will only be different from price if there is a display price adjustment, for example: checkIncludeVat=Y and a VAT amount was found --></attribute>
-        <attribute name="price" type="Double" mode="OUT" optional="false"/>
-        <attribute name="listPrice" type="Double" mode="OUT" optional="true"/>
-        <attribute name="defaultPrice" type="Double" mode="OUT" optional="true"/>
-        <attribute name="competitivePrice" type="Double" mode="OUT" optional="true"/>
-        <attribute name="averageCost" type="Double" mode="OUT" optional="true"/>
-        <attribute name="promoPrice" type="Double" mode="OUT" optional="true"/>      
-        <attribute name="specialPromoPrice" type="Double" mode="OUT" optional="true"><!-- used for the Product [Special Promo] Type ProductPromo Action --></attribute>
+        <attribute name="basePrice" type="BigDecimal" mode="OUT" optional="false"><!-- will only be different from price if there is a display price adjustment, for example: checkIncludeVat=Y and a VAT amount was found --></attribute>
+        <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="listPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="defaultPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="competitivePrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="averageCost" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="promoPrice" type="BigDecimal" mode="OUT" optional="true"/>      
+        <attribute name="specialPromoPrice" type="BigDecimal" mode="OUT" optional="true"><!-- used for the Product [Special Promo] Type ProductPromo Action --></attribute>
         <attribute name="isSale" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="currencyUsed" type="String" mode="OUT" optional="false"/>
@@ -327,10 +327,10 @@ under the License.
         <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         
-        <attribute name="price" type="Double" mode="OUT" optional="false"/>
+        <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
     </service>

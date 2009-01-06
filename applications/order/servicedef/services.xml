@@ -118,11 +118,11 @@ under the License.
         <attribute name="workEfforts" type="List" mode="IN" optional="true"/>
         <attribute name="orderAdjustments" type="List" mode="IN" optional="false"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
-        <attribute name="shippingAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="shippingAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="firstAttemptOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="currencyUom" type="String" mode="IN" optional="false"/>
-        <attribute name="grandTotal" type="Double" mode="IN" optional="true"/>
-        <attribute name="taxAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="grandTotal" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="taxAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="orderDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="orderItemShipGroupInfo" type="List" mode="IN" optional="true"/>
         <attribute name="orderItemAttributes" type="List" mode="IN" optional="true"/>
@@ -169,8 +169,8 @@ under the License.
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentReceiptId" type="String" mode="IN" optional="true"/>
     </service>
@@ -203,7 +203,7 @@ under the License.
         <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
     <service name="createPaymentFromPreference" engine="java"
@@ -257,7 +257,7 @@ under the License.
         <attribute name="orderStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="orderTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="needsInventoryIssuance" type="String" mode="OUT" optional="true"/>
-        <attribute name="grandTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -278,7 +278,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="itemReasonMap" type="Map" mode="IN" string-map-prefix="irm_" optional="true"/>
         <attribute name="itemCommentMap" type="Map" mode="IN" string-map-prefix="icm_" optional="true"/>
     </service>
@@ -288,7 +288,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
     <service name="updateOrderItems" engine="java" auth="true"
@@ -312,8 +312,8 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="basePrice" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="changeComments" type="String" mode="IN" optional="true"/>
@@ -457,8 +457,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="monthsToInclude" type="Integer" mode="IN" optional="true"/> <!-- if monthsToInclude specified along with fromDate/thruDate, will override fromDate/thruDate -->
         <attribute name="totalOrders" type="Long" mode="OUT" optional="false"/>
-        <attribute name="totalGrandAmount" type="Double" mode="OUT" optional="false"/>
-        <attribute name="totalSubRemainingAmount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="totalGrandAmount" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="totalSubRemainingAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="getOrderHeaderInformation" engine="java" validate="false"

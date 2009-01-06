@@ -103,7 +103,7 @@ orh = new OrderReadHelper(orderAdjustments, orderItems);
 context.localOrderReadHelper = orh;
 context.orderShippingTotal = cart.getTotalShipping();
 context.orderTaxTotal = cart.getTotalSalesTax();
-context.orderGrandTotal = new Double(cart.getGrandTotal());
+context.orderGrandTotal = cart.getGrandTotal();
 
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");

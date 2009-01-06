@@ -22,5 +22,28 @@
 <entity-engine-xml>
     <!-- create recurring job to check email communication events with the status COM_IN_PROGRESS to send these emails.. -->
     <TemporalExpression tempExprId="SENDEMAIL" tempExprTypeId="FREQUENCY" integer1="12" integer2="5"/>
-    <JobSandbox jobId="SENDEMAIL" jobName="Send Email" runTime="2000-01-01 00:00:00.000" serviceName="sendEmailDated" poolId="pool" runAsUser="system" tempExprId="SENDEMAIL" maxRecurrenceCount="-1"/>
+    <RuntimeData runtimeDataId="TESTID">
+        <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-ser>
+  <map-HashMap>
+    <map-Entry>
+      <map-Key>
+        <std-String value="cookie"/>
+      </map-Key>
+      <map-Value>
+        <std-Integer value="1"/>
+      </map-Value>
+    </map-Entry>
+    <map-Entry>
+      <map-Key>
+        <std-String value="runtimeDataId"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="TESTID"/>
+      </map-Value>
+    </map-Entry>
+  </map-HashMap>
+</ofbiz-ser>
+        ]]></runtimeInfo>
+    </RuntimeData>    <JobSandbox jobId="SENDEMAIL" jobName="Send Email" runtimeDataId="TESTID" runTime="2000-01-01 00:00:00.000" serviceName="sendEmailDated" poolId="pool" runAsUser="system" tempExprId="SENDEMAIL" maxRecurrenceCount="-1"/>
 </entity-engine-xml>

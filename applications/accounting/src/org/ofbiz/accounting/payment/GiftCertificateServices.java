@@ -63,7 +63,7 @@ public class GiftCertificateServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
-        Double initialAmount = (Double) context.get("initialAmount");
+        BigDecimal initialAmount = (BigDecimal) context.get("initialAmount");
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -161,7 +161,7 @@ public class GiftCertificateServices {
         String productStoreId = (String) context.get("productStoreId");
         String cardNumber = (String) context.get("cardNumber");
         String pinNumber = (String) context.get("pinNumber");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -224,8 +224,8 @@ public class GiftCertificateServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", new Double(previousBalance.doubleValue()));
-        result.put("balance", new Double(balance.doubleValue()));
+        result.put("previousBalance", previousBalance);
+        result.put("balance", balance);
         result.put("amount", amount);
         result.put("processResult", Boolean.TRUE);
         result.put("responseCode", "1");
@@ -243,7 +243,7 @@ public class GiftCertificateServices {
         String productStoreId = (String) context.get("productStoreId");
         String cardNumber = (String) context.get("cardNumber");
         String pinNumber = (String) context.get("pinNumber");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -255,7 +255,7 @@ public class GiftCertificateServices {
         }
 
         // validate the amount
-        if (amount.doubleValue() < 0.00) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             return ServiceUtil.returnError("Amount should be a positive number.");
         }
 
@@ -278,17 +278,17 @@ public class GiftCertificateServices {
         }
         
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
-        double previousBalance = finAccount.get("actualBalance") == null ? 0.0 : finAccount.getDouble("actualBalance").doubleValue();
+        BigDecimal previousBalance = finAccount.get("actualBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("actualBalance");
 
-        double balance = 0.00;
+        BigDecimal balance = BigDecimal.ZERO;
         String refNum = null;
         Boolean procResult;
-        if (previousBalance >= amount.doubleValue()) {
+        if (previousBalance.compareTo(amount) >= 0) {
             try {
                 refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, withdrawl, cardNumber);
                 finAccount.refresh();
-                balance = finAccount.get("availableBalance") == null ? 0.0 : finAccount.getDouble("availableBalance").doubleValue();
+                balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
                 procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -301,8 +301,8 @@ public class GiftCertificateServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", new Double(previousBalance));
-        result.put("balance", new Double(balance));
+        result.put("previousBalance", previousBalance);
+        result.put("balance", balance);
         result.put("amount", amount);
         result.put("processResult", procResult);
         result.put("responseCode", "2");
@@ -331,10 +331,10 @@ public class GiftCertificateServices {
         // TODO: get the real currency from context
         //String currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         // get the balance
-        double balance = finAccount.get("availableBalance") == null ? 0.0 : finAccount.getDouble("availableBalance").doubleValue();
+        BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("balance", new Double(balance));
+        result.put("balance", balance);
         Debug.log("GC Balance Result - " + result, module);
         return result;
     }
@@ -345,7 +345,7 @@ public class GiftCertificateServices {
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-        Double amount = (Double) context.get("processAmount");
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
         String currency = (String) context.get("currency");
         // make sure we have a currency
         if (currency == null) {
@@ -431,7 +431,7 @@ public class GiftCertificateServices {
         GenericValue giftCard = (GenericValue) context.get("giftCard");
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
-        Double amount = (Double) context.get("processAmount");
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
 
         // make sure we have a currency
         if (currency == null) {
@@ -479,11 +479,11 @@ public class GiftCertificateServices {
             String refNum = null;
             Map result = ServiceUtil.returnSuccess();
 
-            // turn amount into a big decimal, making sure to round and scale it to the same as availableBalance
-            BigDecimal amountBd = (new BigDecimal(amount.doubleValue())).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+            // make sure to round and scale it to the same as availableBalance
+            amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
             // if availableBalance equal to or greater than amount, then auth
-            if (UtilValidate.isNotEmpty(availableBalance) && availableBalance.compareTo(amountBd) > -1) {
+            if (UtilValidate.isNotEmpty(availableBalance) && availableBalance.compareTo(amount) >= 0) {
                 Timestamp thruDate = null;
                 if (giftCertSettings.getLong("authValidDays") != null) {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays"));
@@ -524,7 +524,7 @@ public class GiftCertificateServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String currency = (String) context.get("currency");
-        Double amount = (Double) context.get("refundAmount");
+        BigDecimal amount = (BigDecimal) context.get("refundAmount");
         return giftCertificateRestore(dctx, userLogin, paymentPref, amount, currency, "refund");
     }
 
@@ -546,7 +546,7 @@ public class GiftCertificateServices {
 
             Map result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
-            result.put("releaseAmount", authTransaction.getDouble("amount"));
+            result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
 
             // if there's an error, don't release
@@ -561,7 +561,7 @@ public class GiftCertificateServices {
         }
     }
 
-    private static Map giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, Double amount, String currency, String resultPrefix) {
+    private static Map giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, BigDecimal amount, String currency, String resultPrefix) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -677,8 +677,8 @@ public class GiftCertificateServices {
         }
 
         // amount/quantity of the gift card(s)
-        Double amount = orderItem.getDouble("unitPrice");
-        Double quantity = orderItem.getDouble("quantity");
+        BigDecimal amount = orderItem.getBigDecimal("unitPrice");
+        BigDecimal quantity = orderItem.getBigDecimal("quantity");
 
         // the product entity needed for information
         GenericValue product = null;
@@ -924,7 +924,7 @@ public class GiftCertificateServices {
         }
 
         // amount of the gift card reload
-        Double amount = orderItem.getDouble("unitPrice");
+        BigDecimal amount = orderItem.getBigDecimal("unitPrice");
 
         // survey information
         String surveyId = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId");
@@ -1141,8 +1141,8 @@ public class GiftCertificateServices {
         }
 
         if (returnableInfo != null) {
-            Double returnableQuantity = (Double) returnableInfo.get("returnableQuantity");
-            Double returnablePrice = (Double) returnableInfo.get("returnablePrice");
+            BigDecimal returnableQuantity = (BigDecimal) returnableInfo.get("returnableQuantity");
+            BigDecimal returnablePrice = (BigDecimal) returnableInfo.get("returnablePrice");
             Debug.logInfo("Returnable INFO : " + returnableQuantity + " @ " + returnablePrice + " :: " + orderItem, module);
 
             // create the return header
@@ -1265,7 +1265,7 @@ public class GiftCertificateServices {
         return false;
     }
 
-    private static String createTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Double amount,
+    private static String createTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
             String productStoreId, String partyId, String currencyUom, String txType, String finAccountId) throws GeneralException {
         final String coParty = getPayToPartyId(delegator, productStoreId);
         final String paymentMethodType = "GIFT_CERTIFICATE";

@@ -41,7 +41,7 @@ under the License.
 
         <if-empty field="newEntity.finAccountId">
             <sequenced-id sequence-name="FinAccount" field="finAccountId"/>
-            <to-string field-name="finAccountId"/>
+            <to-string field="finAccountId"/>
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
         </if-empty>
 
@@ -297,7 +297,7 @@ under the License.
                     <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
                 </else-if>
             </if>
-            <calculate field="actualBalanceSum" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
+            <calculate field="actualBalanceSum" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add" field="actualBalanceSum">
                     <calcop operator="get" field="amountForCalc"/>
                 </calcop>
@@ -320,8 +320,8 @@ under the License.
         <!-- Okay, now just store the results -->
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <log level="info" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
-        <set field="finAccount.actualBalance" from-field="actualBalanceSum" type="Double"/>
-        <set field="finAccount.availableBalance" from-field="availableBalanceSum" type="Double"/>
+        <set field="finAccount.actualBalance" from-field="actualBalanceSum"/>
+        <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
         <store-value value-field="finAccount"/>
     </simple-method>
     

@@ -158,7 +158,7 @@ under the License.
             <result-to-field field="quantityNotTransferred" result-name="quantityNotTransferred"/>
         </call-service>
         <check-errors/>
-        <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="Double">
+        <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="BigDecimal">
             <!-- we create a new requirement for the quantity not trasferred (because not available) -->
             <clear-field field="inputMap"/>
             <set-service-fields service-name="createRequirement" map="requirement" to-map="inputMap"/>

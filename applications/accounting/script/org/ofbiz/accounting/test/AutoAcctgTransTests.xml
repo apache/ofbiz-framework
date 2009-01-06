@@ -45,8 +45,8 @@ under the License.
         <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
         <set field="serviceCtx.productId" from-field="productId"/>
         <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
-        <set field="serviceCtx.quantityAccepted" value="10" type="Double"/>
-        <set field="serviceCtx.quantityRejected" value="0" type="Double"/>
+        <set field="serviceCtx.quantityAccepted" value="10" type="BigDecimal"/>
+        <set field="serviceCtx.quantityRejected" value="0" type="BigDecimal"/>
         <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
         <set field="serviceCtx.orderId" from-field="orderId"/>
         <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
@@ -104,8 +104,8 @@ under the License.
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
         
-        <set field="debitTotal" type="Double" value="0.0"/>
-        <set field="creditTotal" type="Double" value="0.0"/>
+        <set field="debitTotal" type="BigDecimal" value="0.0"/>
+        <set field="creditTotal" type="BigDecimal" value="0.0"/>
         
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
@@ -158,8 +158,8 @@ under the License.
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
 
-        <set field="debitTotal" type="Double" value="0.0"/>
-        <set field="creditTotal" type="Double" value="0.0"/>
+        <set field="debitTotal" type="BigDecimal" value="0.0"/>
+        <set field="creditTotal" type="BigDecimal" value="0.0"/>
         
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
@@ -206,7 +206,7 @@ under the License.
         <set field="shipGroupSeqId" value="00001"/>
         <set field="orderItemSeqId" value="00001"/>
         <set field="inventoryItemId" value="9001"/>
-        <set field="quantity" value="2" type="Double"/>
+        <set field="quantity" value="2" type="BigDecimal"/>
         <set field="productId" value="GZ-2644"/>
 
         <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
@@ -326,8 +326,8 @@ under the License.
         <get-related value-field="payment" relation-name="AcctgTrans" list="acctgTransList"/>
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
-        <set field="debitTotal" type="Double" value="0.0"/>
-        <set field="creditTotal" type="Double" value="0.0"/>
+        <set field="debitTotal" type="BigDecimal" value="0.0"/>
+        <set field="creditTotal" type="BigDecimal" value="0.0"/>
 
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
@@ -389,8 +389,8 @@ under the License.
         </entity-condition>
         <assert><not><if-empty field="workEffortAndInventoryAssigns"/></not></assert>
 
-        <set field="totalIssuedQty_MAT_A_COST" value="0.0" type="Double"/>
-        <set field="totalIssuedQty_MAT_B_COST" value="0.0" type="Double"/>
+        <set field="totalIssuedQty_MAT_A_COST" value="0.0" type="BigDecimal"/>
+        <set field="totalIssuedQty_MAT_B_COST" value="0.0" type="BigDecimal"/>
         <iterate list-name="workEffortAndInventoryAssigns" entry-name="workEffortAndInventoryAssign">
             <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
                 <calculate field="totalIssuedQty_MAT_A_COST">
@@ -412,8 +412,8 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="Double"/>
-            <if-compare field="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="Double"/> 
+            <if-compare field="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="BigDecimal"/>
+            <if-compare field="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="BigDecimal"/> 
         </assert>
         <entity-and entity-name="AcctgTrans" list-name="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
@@ -524,7 +524,7 @@ under the License.
         <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="BigDecimal"/>
         </assert>
         
         <!-- For debit entry -->
@@ -537,7 +537,7 @@ under the License.
         <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="BigDecimal"/>
         </assert>
         <check-errors/> 
     </simple-method>

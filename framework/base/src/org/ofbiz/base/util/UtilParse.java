@@ -18,19 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.math.BigDecimal;
+
 /** @deprecated */
 public class UtilParse {
 
     /** @deprecated */
-    public static Double parseDoubleForEntity(String doubleString) throws NumberFormatException {
-        if (doubleString == null) {
+    public static BigDecimal parseBigDecimalForEntity(String bigDecimalString) throws NumberFormatException {
+        if (bigDecimalString == null) {
             return null;
         }
-        doubleString = doubleString.trim();
-        doubleString = doubleString.replaceAll(",", "");
-        if (doubleString.length() < 1) {
+        bigDecimalString = bigDecimalString.trim();
+        bigDecimalString = bigDecimalString.replaceAll(",", "");
+        if (bigDecimalString.length() < 1) {
             return null;
         }
-        return Double.valueOf(doubleString);
+        return new BigDecimal(bigDecimalString);
     }
 }

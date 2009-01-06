@@ -65,11 +65,11 @@ topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
 
 if (payments)    {
-    basePaymentApplied = PaymentWorker.getPaymentAppliedBd(basePayment);
+    basePaymentApplied = PaymentWorker.getPaymentApplied(basePayment);
     basePaymentAmount = basePayment.getBigDecimal("amount");
     basePaymentToApply = basePaymentAmount.subtract(basePaymentApplied); 
     payments.each { payment ->
-        if (PaymentWorker.getPaymentNotAppliedBd(payment).signum() == 1) {  // positiv not applied amount?
+        if (PaymentWorker.getPaymentNotApplied(payment).signum() == 1) {  // positiv not applied amount?
            // yes, put in the map
            paymentMap = [:];
            paymentMap.paymentId = basePaymentId;
@@ -77,8 +77,8 @@ if (payments)    {
            paymentMap.currencyUomId = payment.currencyUomId;
            paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0,10); // list as YYYY-MM-DD
            paymentMap.amount = payment.getBigDecimal("amount");
-           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment);
-           paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
+           paymentMap.amountApplied = PaymentWorker.getPaymentApplied(payment);
+           paymentToApply = PaymentWorker.getPaymentNotApplied(payment);
            if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
                 paymentMap.amountToApply = paymentToApply;
            } else {

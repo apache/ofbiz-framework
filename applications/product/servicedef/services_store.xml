@@ -45,11 +45,11 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
         <attribute name="orderId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"></attribute>
-        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"></attribute>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"></attribute>
     </service>
 
     <service name="isStoreInventoryRequired" engine="simple"
@@ -59,7 +59,7 @@ under the License.
         <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="requireInventory" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+        <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
     <service name="isStoreInventoryAvailable" engine="simple"
             location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
@@ -68,8 +68,8 @@ under the License.
         <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
-        <attribute name="available" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
+        <attribute name="available" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
     <service name="isStoreInventoryAvailableOrNotRequired" engine="simple"
             location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
@@ -78,8 +78,8 @@ under the License.
         <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
-        <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
+        <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
 
     <!-- Product Store Role Services -->

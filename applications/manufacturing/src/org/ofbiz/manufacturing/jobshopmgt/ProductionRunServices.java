@@ -193,7 +193,7 @@ public class ProductionRunServices {
         // Mandatory input fields
         String productId = (String) context.get("productId");
         Timestamp  startDate =  (Timestamp) context.get("startDate");
-        Double pRQuantity = (Double) context.get("pRQuantity");
+        BigDecimal pRQuantity = (BigDecimal) context.get("pRQuantity");
         String facilityId = (String) context.get("facilityId");
         // Optional input fields
         String workEffortId = (String) context.get("routingId");
@@ -405,7 +405,7 @@ public class ProductionRunServices {
                         serviceContext.put("fromDate", productBom.get("fromDate"));
                         // Here we use the getQuantity method to get the quantity already
                         // computed by the getManufacturingComponents service
-                        serviceContext.put("estimatedQuantity", new Double(node.getQuantity()));
+                        serviceContext.put("estimatedQuantity", node.getQuantity());
                         serviceContext.put("userLogin", userLogin);
                         resultService = null;
                         try {
@@ -465,7 +465,7 @@ public class ProductionRunServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
                 }
 
-                Double quantity = (Double) context.get("quantity");
+                BigDecimal quantity = (BigDecimal) context.get("quantity");
                 if (quantity != null &&  ! quantity.equals(productionRun.getQuantity())) {
                     productionRun.setQuantity(quantity);
                 }
@@ -809,22 +809,22 @@ public class ProductionRunServices {
             serviceContext.put("workEffortId", taskId);
             serviceContext.put("currentStatusId", "PRUN_COMPLETED");
             serviceContext.put("actualCompletionDate", UtilDateTime.nowTimestamp());
-            Double quantityToProduce = theTask.getDouble("quantityToProduce");
+            BigDecimal quantityToProduce = theTask.getBigDecimal("quantityToProduce");
             if (quantityToProduce == null) {
-                quantityToProduce = new Double(0);
+                quantityToProduce = BigDecimal.ZERO;
             }
-            Double quantityProduced = theTask.getDouble("quantityProduced");
+            BigDecimal quantityProduced = theTask.getBigDecimal("quantityProduced");
             if (quantityProduced == null) {
-                quantityProduced = new Double(0);
+                quantityProduced = BigDecimal.ZERO;
             }
-            Double quantityRejected = theTask.getDouble("quantityRejected");
+            BigDecimal quantityRejected = theTask.getBigDecimal("quantityRejected");
             if (quantityRejected == null) {
-                quantityRejected = new Double(0);
+                quantityRejected = BigDecimal.ZERO;
             }
-            double totalQuantity = quantityProduced.doubleValue() + quantityRejected.doubleValue();
-            double diffQuantity = quantityToProduce.doubleValue() - totalQuantity;
-            if (diffQuantity > 0) {
-                quantityProduced = new Double(quantityProduced.doubleValue() + diffQuantity);
+            BigDecimal totalQuantity = quantityProduced.add(quantityRejected);
+            BigDecimal diffQuantity = quantityToProduce.subtract(totalQuantity);
+            if (diffQuantity.compareTo(BigDecimal.ZERO) > 0) {
+                quantityProduced = quantityProduced.add(diffQuantity);
             }
             serviceContext.put("quantityProduced", quantityProduced);
             if (theTask.get("actualSetupMillis") == null) {
@@ -833,7 +833,7 @@ public class ProductionRunServices {
             if (theTask.get("actualMilliSeconds") == null) {
                 Double autoMillis = null;
                 if (theTask.get("estimatedMilliSeconds") != null) {
-                    autoMillis = new Double(quantityProduced.doubleValue() * theTask.getDouble("estimatedMilliSeconds").doubleValue());
+                    autoMillis = new Double(quantityProduced.doubleValue() * theTask.getDouble("estimatedMilliSeconds"));
                 }
                 serviceContext.put("actualMilliSeconds", autoMillis);
             }
@@ -1002,7 +1002,7 @@ public class ProductionRunServices {
                     inMap.put("costComponentTypeId", "ACTUAL_" + workEffortCostCalc.getString("costComponentTypeId"));
                     inMap.put("costComponentCalcId", costComponentCalc.getString("costComponentCalcId"));
                     inMap.put("costUomId", costComponentCalc.getString("currencyUomId"));
-                    inMap.put("cost", new Double(totalCost.doubleValue()));
+                    inMap.put("cost", totalCost);
                     dispatcher.runSync("createCostComponent", inMap);
                 } else {
                     // use the custom method (aka formula) to compute the costs
@@ -1041,7 +1041,7 @@ public class ProductionRunServices {
                 Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
                 inMap.put("costComponentTypeId", "ACTUAL_MAT_COST");
                 inMap.put("costUomId", currencyUomId);
-                inMap.put("cost", new Double(materialsCost.doubleValue()));
+                inMap.put("cost", materialsCost);
                 dispatcher.runSync("createCostComponent", inMap);
             }
         } catch(Exception e) {
@@ -1143,7 +1143,7 @@ public class ProductionRunServices {
         // Mandatory input fields
         String productionRunId = (String)context.get("productionRunId");
         String productId = (String)context.get("productId");
-        Double quantity = (Double) context.get("estimatedQuantity");
+        BigDecimal quantity = (BigDecimal) context.get("estimatedQuantity");
         // Optional input fields
         String workEffortId = (String)context.get("workEffortId");
         
@@ -1215,7 +1215,7 @@ public class ProductionRunServices {
         String productId = (String)context.get("productId");
         // Optional input fields
         String workEffortId = (String)context.get("workEffortId"); // the production run task
-        Double quantity = (Double) context.get("estimatedQuantity");
+        BigDecimal quantity = (BigDecimal) context.get("estimatedQuantity");
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
         List components = productionRun.getProductionRunComponents();
@@ -1300,7 +1300,7 @@ public class ProductionRunServices {
         
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        Double pRQuantity = productionRun.getQuantity();
+        BigDecimal pRQuantity = productionRun.getQuantity();
         if (pRQuantity == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotExists", locale));
         }
@@ -1427,7 +1427,7 @@ public class ProductionRunServices {
         String productionRunId = (String)context.get("workEffortId");
         
         // Optional input fields
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
         String lotId = (String)context.get("lotId");
         Boolean createLotIfNeeded = (Boolean)context.get("createLotIfNeeded");
@@ -1457,29 +1457,29 @@ public class ProductionRunServices {
         if ("WIP".equals(productionRun.getProductProduced().getString("productTypeId"))) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductIsWIP", locale));
         }
-        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced");
+        BigDecimal quantityProduced = productionRun.getGenericValue().getBigDecimal("quantityProduced");
 
         if (quantityProduced == null) {
-            quantityProduced = new Double(0);
+            quantityProduced = BigDecimal.ZERO;
         }
-        Double quantityDeclared = lastTask.getDouble("quantityProduced");
+        BigDecimal quantityDeclared = lastTask.getBigDecimal("quantityProduced");
 
         if (quantityDeclared == null) {
-            quantityDeclared = new Double(0);
+            quantityDeclared = BigDecimal.ZERO;
         }
         // If the quantity already produced is not lower than the quantity declared, no inventory is created.
-        double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
+        BigDecimal maxQuantity = quantityDeclared.subtract(quantityProduced);
 
-        if (maxQuantity <= 0) {
+        if (maxQuantity.compareTo(BigDecimal.ZERO) <= 0) {
             return result;
         }
 
         // If quantity was not passed, the max quantity is used
         if (quantity == null) {
-            quantity = new Double(maxQuantity);
+            quantity = maxQuantity;
         }
         //
-        if (quantity.doubleValue() > maxQuantity) {
+        if (quantity.compareTo(maxQuantity) > 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunProductProducedNotStillAvailable", locale));
         }
         
@@ -1520,7 +1520,7 @@ public class ProductionRunServices {
             Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunId));
             BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
             // FIXME
-            unitCost = totalCost.divide(BigDecimal.valueOf(quantity.doubleValue()), decimals, rounding);
+            unitCost = totalCost.divide(quantity, decimals, rounding);
         } catch (GenericServiceException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1537,7 +1537,7 @@ public class ProductionRunServices {
                     serviceContext.put("datetimeReceived", UtilDateTime.nowTimestamp());
                     serviceContext.put("comments", "Created by production run " + productionRunId);
                     if (unitCost.compareTo(ZERO) != 0) {
-                        serviceContext.put("unitCost", new Double(unitCost.doubleValue()));
+                        serviceContext.put("unitCost", unitCost);
                     }
                     //serviceContext.put("serialNumber", productionRunId);
                     serviceContext.put("lotId", lotId);
@@ -1548,8 +1548,8 @@ public class ProductionRunServices {
                     serviceContext.clear();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("workEffortId", productionRunId);
-                    serviceContext.put("availableToPromiseDiff", new Double(1));
-                    serviceContext.put("quantityOnHandDiff", new Double(1));
+                    serviceContext.put("availableToPromiseDiff", BigDecimal.ONE);
+                    serviceContext.put("quantityOnHandDiff", BigDecimal.ONE);
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                     serviceContext.clear();
@@ -1575,7 +1575,7 @@ public class ProductionRunServices {
                 serviceContext.put("comments", "Created by production run " + productionRunId);
                 serviceContext.put("lotId", lotId);
                 if (unitCost.compareTo(ZERO) != 0) {
-                    serviceContext.put("unitCost", new Double(unitCost.doubleValue()));
+                    serviceContext.put("unitCost", unitCost);
                 }
                 serviceContext.put("userLogin", userLogin);
                 Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
@@ -1609,7 +1609,7 @@ public class ProductionRunServices {
         }
         // Now the production run's quantityProduced is updated
         Map serviceContext = UtilMisc.toMap("workEffortId", productionRunId);
-        serviceContext.put("quantityProduced", new Double(quantityProduced.doubleValue() + quantity.doubleValue()));
+        serviceContext.put("quantityProduced", quantityProduced.add(quantity));
         serviceContext.put("actualCompletionDate", UtilDateTime.nowTimestamp());
         serviceContext.put("userLogin", userLogin);
         try {
@@ -1633,22 +1633,22 @@ public class ProductionRunServices {
         String productionRunId = (String)context.get("workEffortId");
         
         // Optional input fields
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         Map componentsLocationMap = (Map)context.get("componentsLocationMap");
        
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
 
-        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced");
-        Double quantityToProduce = productionRun.getGenericValue().getDouble("quantityToProduce");
+        BigDecimal quantityProduced = productionRun.getGenericValue().getBigDecimal("quantityProduced");
+        BigDecimal quantityToProduce = productionRun.getGenericValue().getBigDecimal("quantityToProduce");
         if (quantityProduced == null) {
-            quantityProduced = new Double(0);
+            quantityProduced = BigDecimal.ZERO;
         }
         if (quantityToProduce == null) {
-            quantityToProduce = new Double(0);
+            quantityToProduce = BigDecimal.ZERO;
         }
-        double minimumQuantityProducedByTask = quantityProduced.doubleValue() + quantity.doubleValue();
-        if (minimumQuantityProducedByTask > quantityToProduce.doubleValue()) {
+        BigDecimal minimumQuantityProducedByTask = quantityProduced.add(quantity);
+        if (minimumQuantityProducedByTask.compareTo(quantityToProduce) > 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingQuantityProducedIsHigherThanQuantityDeclared", locale));
         }
 
@@ -1657,14 +1657,14 @@ public class ProductionRunServices {
             GenericValue oneTask = (GenericValue)tasks.get(i);
             String taskId = oneTask.getString("workEffortId");
             if ("PRUN_RUNNING".equals(oneTask.getString("currentStatusId"))) {
-                Double quantityDeclared = oneTask.getDouble("quantityProduced");
+                BigDecimal quantityDeclared = oneTask.getBigDecimal("quantityProduced");
                 if (quantityDeclared == null) {
-                    quantityDeclared = new Double(0);
+                    quantityDeclared = BigDecimal.ZERO;
                 }
-                if (minimumQuantityProducedByTask > quantityDeclared.doubleValue()) {
+                if (minimumQuantityProducedByTask.compareTo(quantityDeclared) > 0) {
                     try {
                         Map serviceContext = UtilMisc.toMap("productionRunId", productionRunId, "productionRunTaskId", taskId);
-                        serviceContext.put("addQuantityProduced", new Double(minimumQuantityProducedByTask - quantityDeclared.doubleValue()));
+                        serviceContext.put("addQuantityProduced", minimumQuantityProducedByTask.subtract(quantityDeclared));
                         serviceContext.put("issueRequiredComponents", Boolean.TRUE);
                         serviceContext.put("componentsLocationMap", componentsLocationMap);
                         serviceContext.put("userLogin", userLogin);
@@ -1696,12 +1696,12 @@ public class ProductionRunServices {
         // Mandatory input fields
         String productionRunTaskId = (String)context.get("workEffortId");
         String productId = (String)context.get("productId");
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         
         // Optional input fields
         String facilityId = (String)context.get("facilityId");
         String currencyUomId = (String)context.get("currencyUomId");
-        Double unitCost = (Double)context.get("unitCost");
+        BigDecimal unitCost = (BigDecimal)context.get("unitCost");
         String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
         
         // The default is non-serialized inventory item
@@ -1735,8 +1735,8 @@ public class ProductionRunServices {
                     serviceContext.clear();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("workEffortId", productionRunTaskId);
-                    serviceContext.put("availableToPromiseDiff", new Double(1));
-                    serviceContext.put("quantityOnHandDiff", new Double(1));
+                    serviceContext.put("availableToPromiseDiff", BigDecimal.ONE);
+                    serviceContext.put("quantityOnHandDiff", BigDecimal.ONE);
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                     serviceContext.clear();
@@ -1803,8 +1803,8 @@ public class ProductionRunServices {
         String productionRunTaskId = (String)context.get("workEffortId");
         String productId = (String)context.get("productId");
         // Optional input fields
-        Double quantity = (Double)context.get("quantity");
-        if (quantity == null || quantity.doubleValue() == 0) {
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        if (quantity == null || quantity.compareTo(ZERO) == 0) {
             return ServiceUtil.returnSuccess();
         }
         // Verify how many items of the given productId
@@ -1812,28 +1812,28 @@ public class ProductionRunServices {
         // If less than passed quantity then return an error message.
         try {
             Iterator issuances = (delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId))).iterator();
-            double totalIssued = 0.0;
+            BigDecimal totalIssued = BigDecimal.ZERO;
             while (issuances.hasNext()) {
                 GenericValue issuance = (GenericValue)issuances.next();
-                Double issued = issuance.getDouble("quantity");
+                BigDecimal issued = issuance.getBigDecimal("quantity");
                 if (issued != null) {
-                    totalIssued += issued.doubleValue();
+                    totalIssued = totalIssued.add(issued);
                 }
             }
             Iterator returns = (delegator.findByAnd("WorkEffortAndInventoryProduced", UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId))).iterator();
-            double totalReturned = 0.0;
+            BigDecimal totalReturned = BigDecimal.ZERO;
             while (returns.hasNext()) {
                 GenericValue returned = (GenericValue)returns.next();
                 GenericValue returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", UtilMisc.toMap("inventoryItemId", returned.getString("inventoryItemId")), UtilMisc.toList("inventoryItemDetailSeqId")));
                 if (returnDetail != null) {
-                    Double qtyReturned = returnDetail.getDouble("quantityOnHandDiff");
+                    BigDecimal qtyReturned = returnDetail.getBigDecimal("quantityOnHandDiff");
                     if (qtyReturned != null) {
-                        totalReturned += qtyReturned.doubleValue();
+                        totalReturned = totalReturned.add(qtyReturned);
                     }
                 }
             }
-            if (quantity.doubleValue() > totalIssued - totalReturned) {
-                return ServiceUtil.returnError("Production Run Task with id [" + productionRunTaskId + "] cannot return more items [" + quantity + "] than the ones currently allocated [" + (totalIssued - totalReturned) + "]");
+            if (quantity.compareTo(totalIssued.subtract(totalReturned)) > 0) {
+                return ServiceUtil.returnError("Production Run Task with id [" + productionRunTaskId + "] cannot return more items [" + quantity + "] than the ones currently allocated [" + (totalIssued.subtract(totalReturned)) + "]");
             }
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
@@ -1874,8 +1874,8 @@ public class ProductionRunServices {
         // Optional input fields
         Timestamp fromDate = (Timestamp)context.get("fromDate");
         Timestamp toDate = (Timestamp)context.get("toDate");
-        Double addQuantityProduced = (Double)context.get("addQuantityProduced");
-        Double addQuantityRejected = (Double)context.get("addQuantityRejected");
+        BigDecimal addQuantityProduced = (BigDecimal)context.get("addQuantityProduced");
+        BigDecimal addQuantityRejected = (BigDecimal)context.get("addQuantityRejected");
         Double addSetupTime = (Double)context.get("addSetupTime");
         Double addTaskTime = (Double)context.get("addTaskTime");
         String comments = (String)context.get("comments");
@@ -1892,10 +1892,10 @@ public class ProductionRunServices {
             toDate = UtilDateTime.nowTimestamp();
         }
         if (addQuantityProduced == null) {
-            addQuantityProduced = new Double(0);
+            addQuantityProduced = BigDecimal.ZERO;
         }
         if (addQuantityRejected == null) {
-            addQuantityRejected = new Double(0);
+            addQuantityRejected = BigDecimal.ZERO;
         }
         if (addSetupTime == null) {
             addSetupTime = new Double(0);
@@ -1940,47 +1940,47 @@ public class ProductionRunServices {
             actualSetupMillis = new Double(0);
         }
 
-        Double quantityProduced = theTask.getDouble("quantityProduced");
+        BigDecimal quantityProduced = theTask.getBigDecimal("quantityProduced");
         if (quantityProduced == null) {
-            quantityProduced = new Double(0);
+            quantityProduced = BigDecimal.ZERO;
         }
-        Double quantityRejected = theTask.getDouble("quantityRejected");
+        BigDecimal quantityRejected = theTask.getBigDecimal("quantityRejected");
         if (quantityRejected == null) {
-            quantityRejected = new Double(0);
+            quantityRejected = BigDecimal.ZERO;
         }
         double totalMillis = actualMilliSeconds.doubleValue() + addTaskTime.doubleValue();
         double totalSetupMillis = actualSetupMillis.doubleValue() + addSetupTime.doubleValue();
-        double totalQuantityProduced = quantityProduced.doubleValue() + addQuantityProduced.doubleValue();
-        double totalQuantityRejected = quantityRejected.doubleValue() + addQuantityRejected.doubleValue();
+        BigDecimal totalQuantityProduced = quantityProduced.add(addQuantityProduced);
+        BigDecimal totalQuantityRejected = quantityRejected.add(addQuantityRejected);
         
-        if (issueRequiredComponents.booleanValue() && addQuantityProduced.doubleValue() > 0) {
-            Double quantityToProduce = theTask.getDouble("quantityToProduce");
+        if (issueRequiredComponents.booleanValue() && addQuantityProduced.compareTo(ZERO) > 0) {
+            BigDecimal quantityToProduce = theTask.getBigDecimal("quantityToProduce");
             if (quantityToProduce == null) {
-                quantityToProduce = new Double(0);
+                quantityToProduce = BigDecimal.ZERO;
             }
-            if (quantityToProduce.doubleValue() > 0) {
+            if (quantityToProduce.compareTo(ZERO) > 0) {
                 try {
                     List<GenericValue> components = theTask.getRelated("WorkEffortGoodStandard");
                     for (GenericValue component : components) {
-                        double totalRequiredMaterialQuantity = component.getDouble("estimatedQuantity").doubleValue() * totalQuantityProduced / quantityToProduce.doubleValue();
+                        BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, rounding);
                         // now get the units that have been already issued and subtract them
                         List<GenericValue> issuances = delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", workEffortId, "productId", component.getString("productId")));
-                        double totalIssued = 0.0;
+                        BigDecimal totalIssued = BigDecimal.ZERO;
                         for (GenericValue issuance : issuances) {
-                            Double issued = issuance.getDouble("quantity");
+                            BigDecimal issued = issuance.getBigDecimal("quantity");
                             if (issued != null) {
-                                totalIssued += issued.doubleValue();
+                                totalIssued = totalIssued.add(issued);
                             }
                         }
-                        double requiredQuantity = totalRequiredMaterialQuantity - totalIssued;
-                        if (requiredQuantity > 0) {
+                        BigDecimal requiredQuantity = totalRequiredMaterialQuantity.subtract(totalIssued);
+                        if (requiredQuantity.compareTo(ZERO) > 0) {
                             GenericPK key = component.getPrimaryKey();
                             Map componentsLocation = null;
                             if (componentsLocationMap != null) {
                                 componentsLocation = (Map)componentsLocationMap.get(key);
                             }
                             Map serviceContext = UtilMisc.toMap("workEffortId", workEffortId, "productId", component.getString("productId"), "fromDate", component.getTimestamp("fromDate"));
-                            serviceContext.put("quantity", new Double(requiredQuantity));
+                            serviceContext.put("quantity", requiredQuantity);
                             if (componentsLocation != null) {
                                 serviceContext.put("locationSeqId", (String)componentsLocation.get("locationSeqId"));
                                 serviceContext.put("secondaryLocationSeqId", (String)componentsLocation.get("secondaryLocationSeqId"));
@@ -2020,8 +2020,8 @@ public class ProductionRunServices {
             serviceContext.put("workEffortId", workEffortId);
             serviceContext.put("actualMilliSeconds", new Double(totalMillis));
             serviceContext.put("actualSetupMillis", new Double(totalSetupMillis));
-            serviceContext.put("quantityProduced", new Double(totalQuantityProduced));
-            serviceContext.put("quantityRejected", new Double(totalQuantityRejected));
+            serviceContext.put("quantityProduced", totalQuantityProduced);
+            serviceContext.put("quantityRejected", totalQuantityRejected);
             serviceContext.put("userLogin", userLogin);
             Map resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
         } catch(Exception exc) {
@@ -2065,7 +2065,7 @@ public class ProductionRunServices {
         // Mandatory input fields
         String requirementId = (String)context.get("requirementId");
         // Optional input fields
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         
         GenericValue requirement = null;
         try {
@@ -2080,7 +2080,7 @@ public class ProductionRunServices {
         }
         
         if (quantity == null) {
-            quantity = requirement.getDouble("quantity");
+            quantity = requirement.getBigDecimal("quantity");
         }
         Map serviceContext = new HashMap();
         serviceContext.clear();
@@ -2127,7 +2127,7 @@ public class ProductionRunServices {
         // Optional input fields
         String configId = (String)context.get("configId");
         ProductConfigWrapper config = (ProductConfigWrapper)context.get("config");
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         String orderId = (String)context.get("orderId");
         String orderItemSeqId = (String)context.get("orderItemSeqId");
         
@@ -2142,7 +2142,7 @@ public class ProductionRunServices {
             return ServiceUtil.returnError("ProductConfigurationNotValid");
         }
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
         String instanceProductId = null;
         try {
@@ -2175,13 +2175,13 @@ public class ProductionRunServices {
             //components.addAll(co.getComponents());
             Iterator selComponents = co.getComponents().iterator();
             while (selComponents.hasNext()) {
-                Double componentQuantity = null;
+                BigDecimal componentQuantity = null;
                 GenericValue selComponent = (GenericValue)selComponents.next();
                 if (selComponent.get("quantity") != null) {
-                    componentQuantity = selComponent.getDouble("quantity");
+                    componentQuantity = selComponent.getBigDecimal("quantity");
                 }
                 if (componentQuantity == null) {
-                    componentQuantity = new Double(1);
+                    componentQuantity = BigDecimal.ONE;
                 }
                 String componentProductId = selComponent.getString("productId");
                 if (co.isVirtualComponent(selComponent)) {       
@@ -2190,10 +2190,10 @@ public class ProductionRunServices {
                         componentProductId = (String)componentOptions.get(componentProductId);
                     }
                 }
-                componentQuantity = new Double(quantity.doubleValue() * componentQuantity.doubleValue());
+                componentQuantity = quantity.multiply(componentQuantity);
                 if (components.containsKey(componentProductId)) {
-                    Double totalQuantity = (Double)components.get(componentProductId);
-                    componentQuantity = new Double(totalQuantity.doubleValue() + componentQuantity.doubleValue());
+                    BigDecimal totalQuantity = (BigDecimal)components.get(componentProductId);
+                    componentQuantity = totalQuantity.add(componentQuantity);
                 }
                 components.put(componentProductId, componentQuantity);
                 
@@ -2222,9 +2222,9 @@ public class ProductionRunServices {
         while (componentsIt.hasNext()) {
             Map.Entry component = (Map.Entry)componentsIt.next();
             String productId = (String)component.getKey();
-            Double componentQuantity = (Double)component.getValue();
+            BigDecimal componentQuantity = (BigDecimal)component.getValue();
             if (componentQuantity == null) {
-                componentQuantity = new Double(1);
+                componentQuantity = BigDecimal.ONE;
             }
             resultService = null;
             serviceContext = new HashMap();
@@ -2288,35 +2288,35 @@ public class ProductionRunServices {
 
         try {
             // first figure out how much of this product we already have in stock (ATP)
-            double existingAtp = 0.0; 
+            BigDecimal existingAtp = BigDecimal.ZERO; 
             Map tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.<String, Object>toMap("productId", orderItem.getString("productId"), "facilityId", facilityId, "userLogin", userLogin));
             if (tmpResults.get("availableToPromiseTotal") != null) {
-                existingAtp = ((Double) tmpResults.get("availableToPromiseTotal")).doubleValue();
+                existingAtp = (BigDecimal) tmpResults.get("availableToPromiseTotal");
             }
             // if the order is immediately fulfilled, adjust the atp to compensate for it not reserved
             if (isImmediatelyFulfilled) {
-                existingAtp -= orderItem.getDouble("quantity");
+                existingAtp = existingAtp.subtract(orderItem.getBigDecimal("quantity"));
             }
             
             if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] Existing ATP = [" + existingAtp + "]", module); } 
             // we only need to produce more marketing packages if there isn't enough in stock.
-            if (existingAtp < 0.0) {
+            if (existingAtp.compareTo(ZERO) < 0) {
                 // how many should we produce?  If there already is some inventory, then just produce enough to bring ATP back up to zero.
-                double qtyRequired = 0 - existingAtp;
+                BigDecimal qtyRequired = BigDecimal.ZERO.subtract(existingAtp);
                 // ok so that's how many we WANT to produce, but let's check how many we can actually produce based on the available components
                 Map serviceContext = new HashMap();
                 serviceContext.put("productId", orderItem.getString("productId"));
                 serviceContext.put("facilityId", facilityId);
                 serviceContext.put("userLogin", userLogin);
                 Map resultService = dispatcher.runSync("getMktgPackagesAvailable", serviceContext);
-                double mktgPackagesAvailable = ((Double) resultService.get("availableToPromiseTotal")).doubleValue();
+                BigDecimal mktgPackagesAvailable = (BigDecimal) resultService.get("availableToPromiseTotal");
 
-                double qtyToProduce = Math.min(qtyRequired, mktgPackagesAvailable);
+                BigDecimal qtyToProduce = qtyRequired.min(mktgPackagesAvailable);
 
-                if (qtyToProduce > 0) {
+                if (qtyToProduce.compareTo(ZERO) > 0) {
                     if (Debug.verboseOn()) { Debug.logVerbose("Required quantity (all orders) = [" + qtyRequired + "] quantity to produce = [" + qtyToProduce + "]", module); }
 
-                    serviceContext.put("pRQuantity", new Double(qtyToProduce));
+                    serviceContext.put("pRQuantity", qtyToProduce);
                     serviceContext.put("startDate", UtilDateTime.nowTimestamp());
                     //serviceContext.put("workEffortName", "");
 
@@ -2365,10 +2365,10 @@ public class ProductionRunServices {
 
         String shipmentId = (String) context.get("shipmentId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
-        Double quantity = (Double) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
         
-        Double amount = null;
+        BigDecimal amount = null;
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -2411,7 +2411,7 @@ public class ProductionRunServices {
                 continue;
             }
             if (orderItem.get("quantity") != null) {
-                quantity = orderItem.getDouble("quantity");
+                quantity = orderItem.getBigDecimal("quantity");
             } else {
                 continue;
             }
@@ -2425,16 +2425,16 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError("Error reading the WorkOrderItemFulfillment: " + gee.getMessage());
             }
             if (orderItem.get("selectedAmount") != null) {
-                amount = orderItem.getDouble("selectedAmount");
+                amount = orderItem.getBigDecimal("selectedAmount");
             }
             if (amount == null) {
-                amount = new Double(0);
+                amount = BigDecimal.ZERO;
             }
             try {
                 ArrayList components = new ArrayList();
                 BOMTree tree = new BOMTree(orderItem.getString("productId"), "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
-                tree.setRootQuantity(quantity.doubleValue());
-                tree.setRootAmount(amount.doubleValue());
+                tree.setRootQuantity(quantity);
+                tree.setRootAmount(amount);
                 tree.print(components);
                 tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin);
             } catch(GenericEntityException gee) {
@@ -2454,20 +2454,20 @@ public class ProductionRunServices {
 
         String productId = (String)context.get("productId");
         Timestamp startDate = (Timestamp)context.get("startDate");
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         String facilityId = (String)context.get("facilityId");
         String workEffortName = (String)context.get("workEffortName");
         String description = (String)context.get("description");
         String routingId = (String)context.get("routingId");
         String workEffortId = null;
         if (quantity == null) {
-            quantity = new Double(1.0);
+            quantity = BigDecimal.ONE;
         }
         try {
             ArrayList components = new ArrayList();
             BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", startDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
-            tree.setRootQuantity(quantity.doubleValue());
-            tree.setRootAmount(0.0);
+            tree.setRootQuantity(quantity);
+            tree.setRootAmount(BigDecimal.ZERO);
             tree.print(components);
             workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, userLogin);
         } catch(GenericEntityException gee) {
@@ -2688,7 +2688,7 @@ public class ProductionRunServices {
         if (startDate == null) {
             startDate = UtilDateTime.nowTimestamp();
         }
-        double totQty = 0.0;
+        BigDecimal totQty = BigDecimal.ZERO;
         try {
             List findOutgoingProductionRunsConds = new LinkedList();
 
@@ -2707,16 +2707,16 @@ public class ProductionRunServices {
             if (outgoingProductionRuns != null) {
                 for (int i = 0; i < outgoingProductionRuns.size(); i++) {
                     GenericValue outgoingProductionRun = (GenericValue)outgoingProductionRuns.get(i);
-                    Double dblQty = outgoingProductionRun.getDouble("estimatedQuantity");
-                    double qty = (dblQty != null? dblQty.doubleValue(): 0.0);
-                    totQty += qty;
+                    BigDecimal qty = outgoingProductionRun.getBigDecimal("estimatedQuantity");
+                    qty = qty != null ? qty : BigDecimal.ZERO;
+                    totQty = totQty.add(qty);
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem calling the getProductionRunTotResQty service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionResQtyCalc", locale));
         }
-        result.put("reservedQuantity", new Double(totQty));
+        result.put("reservedQuantity", totQty);
         return result;
     }
 
@@ -2727,8 +2727,8 @@ public class ProductionRunServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String inventoryItemId = (String)context.get("inventoryItemId");
         /*
-        Double quantity = (Double)context.get("quantityAccepted");
-        if (quantity != null && quantity.doubleValue() == 0) {
+        BigDecimal quantity = (BigDecimal)context.get("quantityAccepted");
+        if (quantity != null && quantity.BigDecimalValue() == 0) {
             return ServiceUtil.returnSuccess();
         }
          */
@@ -2737,7 +2737,7 @@ public class ProductionRunServices {
             if (inventoryItem == null) {
                 return ServiceUtil.returnError("Error: inventory item with id [" + inventoryItemId + "] not found.");
             }
-            if (inventoryItem.get("availableToPromiseTotal") != null && inventoryItem.getDouble("availableToPromiseTotal").doubleValue() <= 0) {
+            if (inventoryItem.get("availableToPromiseTotal") != null && inventoryItem.getBigDecimal("availableToPromiseTotal").compareTo(ZERO) <= 0) {
                 return ServiceUtil.returnSuccess();
             }
             GenericValue product = inventoryItem.getRelatedOne("Product");
@@ -2769,7 +2769,7 @@ public class ProductionRunServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
         String inventoryItemId = (String)context.get("inventoryItemId");
-        Double quantity = (Double)context.get("quantity");
+        BigDecimal quantity = (BigDecimal)context.get("quantity");
         List inventoryItemIds = new ArrayList();
         try {
             GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
@@ -2795,8 +2795,8 @@ public class ProductionRunServices {
                 serviceContext.put("quantity", quantity);
             }
             resultService = dispatcher.runSync("issueInventoryItemToWorkEffort", serviceContext);
-            Double issuedQuantity = (Double)resultService.get("quantityIssued");
-            if (issuedQuantity.doubleValue() == 0) {
+            BigDecimal issuedQuantity = (BigDecimal)resultService.get("quantityIssued");
+            if (issuedQuantity.compareTo(ZERO) == 0) {
                 return ServiceUtil.returnError("Error decomposing inventory item: no marketing packages found in inventory item [" + inventoryItem.getString("inventoryItemId") + "].");
             }
             // get the package's unit cost to compute a cost coefficient ratio which is the marketing package's actual unit cost divided by its standard cost
@@ -2807,18 +2807,18 @@ public class ProductionRunServices {
                                  "costComponentTypePrefix", "EST_STD",
                                  "userLogin", userLogin);
             resultService = dispatcher.runSync("getProductCost", serviceContext);
-            Double packageCost = (Double)resultService.get("productCost");
-            Double inventoryItemCost = inventoryItem.getDouble("unitCost");
-            Double costCoefficient = null;
-            if (packageCost == null || packageCost.doubleValue() == 0 || inventoryItemCost == null) {
+            BigDecimal packageCost = (BigDecimal)resultService.get("productCost");
+            BigDecimal inventoryItemCost = inventoryItem.getBigDecimal("unitCost");
+            BigDecimal costCoefficient = null;
+            if (packageCost == null || packageCost.compareTo(ZERO) == 0 || inventoryItemCost == null) {
                 // if the actual cost of the item (marketing package) that we are decomposing is not available, or
                 // if the standard cost of the marketing package is not available then
                 // the cost coefficient ratio is set to 1.0:
                 // this means that the unit costs of the inventory items of the components
                 // will be equal to the components' standard costs
-                costCoefficient = new Double(1.0);
+                costCoefficient = BigDecimal.ONE;
             } else {
-                costCoefficient = new Double(inventoryItemCost.doubleValue() / packageCost.doubleValue());
+                costCoefficient = inventoryItemCost.divide(packageCost, 10, rounding);
             }
             
             // the components are retrieved
@@ -2841,10 +2841,10 @@ public class ProductionRunServices {
                                      "costComponentTypePrefix", "EST_STD",
                                      "userLogin", userLogin);
                 resultService = dispatcher.runSync("getProductCost", serviceContext);
-                Double componentCost = (Double)resultService.get("productCost");
+                BigDecimal componentCost = (BigDecimal)resultService.get("productCost");
                 
                 // return the component to inventory at its standard cost multiplied by the cost coefficient from above
-                Double componentInventoryItemCost = new Double(costCoefficient.doubleValue() * componentCost.doubleValue());
+                BigDecimal componentInventoryItemCost = costCoefficient.multiply(componentCost);
                 serviceContext.clear();
                 serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),
                                      "quantity", component.get("quantity"),
@@ -2886,18 +2886,18 @@ public class ProductionRunServices {
                     "PRUN_CREATED".equals(genericResult.getString("currentStatusId"))) {
                     continue;
                 }
-                Double qtyToProduce = genericResult.getDouble("quantityToProduce");
+                BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
                 if (qtyToProduce == null) {
-                    qtyToProduce = new Double(0);
+                    qtyToProduce = BigDecimal.ZERO;
                 }
-                Double qtyProduced = genericResult.getDouble("quantityProduced");
+                BigDecimal qtyProduced = genericResult.getBigDecimal("quantityProduced");
                 if (qtyProduced == null) {
-                    qtyProduced = new Double(0);
+                    qtyProduced = BigDecimal.ZERO;
                 }
                 if (qtyProduced.compareTo(qtyToProduce) >= 0) {
                     continue;
                 }
-                double qtyDiff = qtyToProduce.doubleValue() - qtyProduced.doubleValue();
+                BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
                 String productId =  genericResult.getString("productId");
                 Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
                 if (estimatedShipDate == null) {
@@ -2908,12 +2908,12 @@ public class ProductionRunServices {
                 }
                 TreeMap productMap = (TreeMap)products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
-                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", new Double(0.0), "reservations", FastList.newInstance()));
+                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", FastList.newInstance()));
                 }
                 Map dateMap = (Map)productMap.get(estimatedShipDate);
-                Double remainingQty = (Double)dateMap.get("remainingQty");
+                BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
                 //List reservations = (List)dateMap.get("reservations");
-                remainingQty = new Double(remainingQty.doubleValue() + qtyDiff);
+                remainingQty = remainingQty.add(qtyDiff);
                 dateMap.put("remainingQty", remainingQty);
             }
 
@@ -2935,7 +2935,7 @@ public class ProductionRunServices {
                     }
                 }
                 String productId =  genericResult.getString("productId");
-                double orderQuantity = genericResult.getDouble("quantity").doubleValue();
+                BigDecimal orderQuantity = genericResult.getBigDecimal("quantity");
                 GenericValue orderItemDeliverySchedule = null;
                 try {
                     orderItemDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")));
@@ -2957,19 +2957,19 @@ public class ProductionRunServices {
                 }
                 TreeMap productMap = (TreeMap)products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
-                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", new Double(0.0), "reservations", FastList.newInstance()));
+                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", FastList.newInstance()));
                 }
                 Map dateMap = (Map)productMap.get(estimatedShipDate);
-                Double remainingQty = (Double)dateMap.get("remainingQty");
+                BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
                 //List reservations = (List)dateMap.get("reservations");
-                remainingQty = new Double(remainingQty.doubleValue() + orderQuantity);
+                remainingQty = remainingQty.add(orderQuantity);
                 dateMap.put("remainingQty", remainingQty);
             }
 
             // backorders
             List backordersCondList = FastList.newInstance();
             backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
+            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
             //backordersCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
             List backorders = delegator.findList("OrderItemAndShipGrpInvResAndItem", EntityCondition.makeCondition(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"), null, false);
@@ -2981,8 +2981,8 @@ public class ProductionRunServices {
                                                                                                                   "shipGroupSeqId", genericResult.get("shipGroupSeqId")));
                 Timestamp requiredByDate = orderItemShipGroup.getTimestamp("shipByDate");
 
-                Double quantityNotAvailable = genericResult.getDouble("quantityNotAvailable");
-                double quantityNotAvailableRem = quantityNotAvailable.doubleValue();
+                BigDecimal quantityNotAvailable = genericResult.getBigDecimal("quantityNotAvailable");
+                BigDecimal quantityNotAvailableRem = quantityNotAvailable;
                 if (requiredByDate == null) {
                     // If shipByDate is not set, 'now' is assumed.
                     requiredByDate = now;
@@ -2998,12 +2998,12 @@ public class ProductionRunServices {
                     Timestamp currentDate = (Timestamp)subsetMapKeysIt.next();
                     Map currentDateMap = (Map) subsetMap.get(currentDate);
                     //List reservations = (List)currentDateMap.get("reservations");
-                    Double remainingQty = (Double)currentDateMap.get("remainingQty");
-                    if (remainingQty.doubleValue() == 0) {
+                    BigDecimal remainingQty = (BigDecimal)currentDateMap.get("remainingQty");
+                    if (remainingQty.compareTo(ZERO) == 0) {
                         continue;
                     }
-                    if (remainingQty.doubleValue() >= quantityNotAvailableRem) {
-                        remainingQty = new Double(remainingQty.doubleValue() - quantityNotAvailableRem);
+                    if (remainingQty.compareTo(quantityNotAvailableRem) >= 0) {
+                        remainingQty = remainingQty.subtract(quantityNotAvailableRem);
                         currentDateMap.put("remainingQty", remainingQty);
                         GenericValue orderItemShipGrpInvRes = delegator.findByPrimaryKey("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", genericResult.getString("orderId"),
                                                                                                                                   "shipGroupSeqId", genericResult.getString("shipGroupSeqId"),
@@ -3011,11 +3011,11 @@ public class ProductionRunServices {
                                                                                                                                   "inventoryItemId", genericResult.getString("inventoryItemId")));
                         orderItemShipGrpInvRes.set("promisedDatetime", currentDate);
                         orderItemShipGrpInvRes.store();
-                        // Todo: set the reservation
+                        // TODO: set the reservation
                         break;
                     } else {
-                        quantityNotAvailableRem = quantityNotAvailableRem - remainingQty.doubleValue();
-                        remainingQty = new Double(0.0);
+                        quantityNotAvailableRem = quantityNotAvailableRem.subtract(remainingQty);
+                        remainingQty = BigDecimal.ZERO;
                         currentDateMap.put("remainingQty", remainingQty);
                     }
                 }

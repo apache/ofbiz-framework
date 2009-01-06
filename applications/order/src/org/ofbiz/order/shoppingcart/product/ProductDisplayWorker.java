@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart.product;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -131,7 +133,7 @@ public class ProductDisplayWorker {
 
             // randomly remove products while there are more than 3
             while (cartAssocs.size() > 3) {
-                int toRemove = (int) (Math.random() * (double) (cartAssocs.size()));
+                int toRemove = (int) (Math.random() *  cartAssocs.size());
                 cartAssocs.remove(toRemove);
             }
         } catch (GenericEntityException e) {
@@ -188,13 +190,13 @@ public class ProductDisplayWorker {
 
                                 products.put(product.get("productId"), product);
 
-                                Integer curQuant = (Integer) productQuantities.get(product.get("productId"));
+                                BigDecimal curQuant = (BigDecimal) productQuantities.get(product.get("productId"));
 
-                                if (curQuant == null) curQuant = new Integer(0);
-                                Double orderQuant = orderItem.getDouble("quantity");
+                                if (curQuant == null) curQuant = BigDecimal.ZERO;
+                                BigDecimal orderQuant = orderItem.getBigDecimal("quantity");
 
-                                if (orderQuant == null) orderQuant = new Double(0.0);
-                                productQuantities.put(product.get("productId"), new Integer(curQuant.intValue() + orderQuant.intValue()));
+                                if (orderQuant == null) orderQuant = BigDecimal.ZERO;
+                                productQuantities.put(product.get("productId"), curQuant.add(orderQuant));
 
                                 Integer curOcc = (Integer) productOccurances.get(product.get("productId"));
 
@@ -211,12 +213,12 @@ public class ProductDisplayWorker {
                 while (quantEntries.hasNext()) {
                     Map.Entry entry = (Map.Entry) quantEntries.next();
                     Object prodId = entry.getKey();
-                    Integer quantity = (Integer) entry.getValue();
+                    BigDecimal quantity = (BigDecimal) entry.getValue();
                     Integer occs = (Integer) productOccurances.get(prodId);
-                    int nqint = quantity.intValue() / occs.intValue();
+                    BigDecimal nqint = quantity.divide(new BigDecimal(occs), new MathContext(10));
 
-                    if (nqint < 1) nqint = 1;
-                    productQuantities.put(prodId, new Integer(nqint));
+                    if (nqint.compareTo(BigDecimal.ONE) < 0) nqint = BigDecimal.ONE;
+                    productQuantities.put(prodId, nqint);
                 }
 
                 httpRequest.getSession().setAttribute("_QUICK_REORDER_PRODUCTS_", new HashMap(products));
@@ -272,8 +274,8 @@ public class ProductDisplayWorker {
              */
 
             // sort descending by new metric...
-            double occurancesModifier = 1.0;
-            double quantityModifier = 1.0;
+            BigDecimal occurancesModifier = BigDecimal.ONE;
+            BigDecimal quantityModifier = BigDecimal.ONE;
             Map newMetric = new HashMap();
             Iterator occurEntries = productOccurances.entrySet().iterator();
 
@@ -281,10 +283,10 @@ public class ProductDisplayWorker {
                 Map.Entry entry = (Map.Entry) occurEntries.next();
                 Object prodId = entry.getKey();
                 Integer quantity = (Integer) entry.getValue();
-                Integer occs = (Integer) productQuantities.get(prodId);
-                double nqdbl = quantity.doubleValue() * quantityModifier + occs.doubleValue() * occurancesModifier;
+                BigDecimal occs = (BigDecimal) productQuantities.get(prodId);
+                BigDecimal nqdbl = quantityModifier.multiply(new BigDecimal(quantity)).add(occs.multiply(occurancesModifier));
 
-                newMetric.put(prodId, new Double(nqdbl));
+                newMetric.put(prodId, nqdbl);
             }
             reorderProds = productOrderByMap(reorderProds, newMetric, true);
 

@@ -83,7 +83,7 @@ public class BillingAccountWorker {
         billingAccountRoleList = EntityUtil.filterByDate(billingAccountRoleList);
 
         if (billingAccountRoleList.size() > 0) {
-            double totalAvailable = 0.0;
+            BigDecimal totalAvailable = BigDecimal.ZERO;
             Iterator billingAcctIter = billingAccountRoleList.iterator();
             while (billingAcctIter.hasNext()) {
                 GenericValue billingAccountRole = (GenericValue) billingAcctIter.next();
@@ -94,14 +94,14 @@ public class BillingAccountWorker {
                 if ((thruDate != null) && UtilDateTime.nowTimestamp().after(thruDate)) continue;
 
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
-                    double accountBalance = (BillingAccountWorker.getBillingAccountBalance(billingAccountVO)).doubleValue();
+                    BigDecimal accountBalance = BillingAccountWorker.getBillingAccountBalance(billingAccountVO);
                 
                     Map billingAccount = new HashMap(billingAccountVO);
-                    double accountLimit = getAccountLimit(billingAccountVO).doubleValue();
+                    BigDecimal accountLimit = getAccountLimit(billingAccountVO);
                 
-                    billingAccount.put("accountBalance", new Double(accountBalance)); 
-                    double accountAvailable = accountLimit - accountBalance;
-                    totalAvailable += accountAvailable;
+                    billingAccount.put("accountBalance", accountBalance); 
+                    BigDecimal accountAvailable = accountLimit.subtract(accountBalance);
+                    totalAvailable = totalAvailable.add(accountAvailable);
                     billingAccountList.add(billingAccount);
                 }
             }
@@ -195,8 +195,8 @@ public class BillingAccountWorker {
         // set the balance to BillingAccount.accountLimit if it is greater.  This is necessary because nowhere do we track the amount of BillingAccount
         // to be charged to an order, such as FinAccountAuth entity does for FinAccount.  As a result, we must assume that the system is doing things correctly
         // and use the accountLimit
-        BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
-        if (balance.compareTo(accountLimit) == 1) {
+        BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
+        if (balance.compareTo(accountLimit) > 0) {
             balance = accountLimit;
         } else {
             balance = balance.setScale(decimals, rounding);    
@@ -227,7 +227,7 @@ public class BillingAccountWorker {
      */
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
         if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
-            BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
+            BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
             BigDecimal availableBalance = accountLimit.subtract(getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
             return availableBalance;
         } else {
@@ -280,7 +280,7 @@ public class BillingAccountWorker {
      */
     public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
-        BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
+        BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
         
         return accountLimit.subtract(netBalance).setScale(decimals, rounding);
     }
@@ -297,10 +297,10 @@ public class BillingAccountWorker {
             }
             
             result.put("billingAccount", billingAccount);
-            result.put("accountBalance",  new Double((getBillingAccountBalance(delegator, billingAccountId)).doubleValue()));
-            result.put("netAccountBalance", new Double((getBillingAccountNetBalance(delegator, billingAccountId)).doubleValue()));
-            result.put("availableBalance", new Double(getBillingAccountAvailableBalance(billingAccount).doubleValue()));
-            result.put("availableToCapture", new Double(availableToCapture(billingAccount).doubleValue()));
+            result.put("accountBalance",  getBillingAccountBalance(delegator, billingAccountId));
+            result.put("netAccountBalance", getBillingAccountNetBalance(delegator, billingAccountId));
+            result.put("availableBalance", getBillingAccountAvailableBalance(billingAccount));
+            result.put("availableToCapture", availableToCapture(billingAccount));
         
             return result;  
         } catch (GenericEntityException e) {
@@ -311,7 +311,7 @@ public class BillingAccountWorker {
 
     private static class BillingAccountComparator implements Comparator {
         public int compare(Object billingAccount1, Object billingAccount2) {
-            return ((Double)((Map)billingAccount1).get("accountBalance")).compareTo((Double)((Map)billingAccount2).get("accountBalance"));
+            return ((BigDecimal)((Map)billingAccount1).get("accountBalance")).compareTo((BigDecimal)((Map)billingAccount2).get("accountBalance"));
         }
     }
 }

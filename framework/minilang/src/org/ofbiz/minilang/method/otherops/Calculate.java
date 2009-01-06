@@ -114,7 +114,7 @@ public class Calculate extends MethodOperation {
         } else if ("BigDecimal".equals(typeString)) {
             type = Calculate.TYPE_BIG_DECIMAL;
         } else {
-            type = Calculate.TYPE_DOUBLE;
+            type = Calculate.TYPE_BIG_DECIMAL;
         }
         
         String roundingModeString = methodContext.expandString(this.roundingModeString);

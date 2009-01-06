@@ -409,7 +409,7 @@ public class TaxAuthorityServices {
             GenericValue partyTaxInfo = (GenericValue) partyTaxInfos.get(0);
             adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
             if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
-                adjValue.set("amount", new Double(0));
+                adjValue.set("amount", BigDecimal.ZERO);
                 adjValue.set("exemptAmount", taxAmount);
                 foundExemption = true;
             }

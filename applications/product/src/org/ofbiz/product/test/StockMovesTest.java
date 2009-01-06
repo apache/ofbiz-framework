@@ -19,18 +19,19 @@
 
 package org.ofbiz.product.test;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import junit.framework.TestCase;
 
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.base.util.UtilMisc;
-
-import java.util.Map;
-import java.util.List;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /**
  * Facility Tests
@@ -78,7 +79,7 @@ public class StockMovesTest extends TestCase {
         ppsmCtx.put("facilityId", "WebStoreWarehouse");
         ppsmCtx.put("locationSeqId","TLTLTLUL01" );
         ppsmCtx.put("targetLocationSeqId", "TLTLTLLL01");
-        ppsmCtx.put("quantityMoved", Double.valueOf(5));
+        ppsmCtx.put("quantityMoved", new BigDecimal("5"));
         ppsmCtx.put("userLogin", userLogin);
         Map<String, Object> respMap3 = dispatcher.runSync("processPhysicalStockMove", ppsmCtx);
     }

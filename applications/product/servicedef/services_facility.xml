@@ -53,8 +53,8 @@ under the License.
         <description>
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="IN" optional="true"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
     <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
@@ -146,16 +146,16 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAvailable" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByFacility" engine="simple"
@@ -164,8 +164,8 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByLocation" engine="simple"
@@ -175,8 +175,8 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByContainer" engine="simple"
@@ -185,15 +185,15 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="containerId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByItem" engine="simple"
              location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for an InventoryItem</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
@@ -205,8 +205,8 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="assocProducts" type="List" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventorySummaryForItems" engine="java"
                 location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
@@ -230,13 +230,13 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="totalQuantityOnHand" mode="OUT" type="String" optional="true"/>
         <attribute name="totalAvailableToPromise" mode="OUT" type="String" optional="true"/>
-        <attribute name="quantityOnOrder" mode="OUT" type="Double" optional="true"/>
-        <attribute name="offsetQOHQtyAvailable" mode="OUT" type="Integer" optional="true"/>
-        <attribute name="offsetATPQtyAvailable" mode="OUT" type="Integer" optional="true"/>
-        <attribute name="defultPrice" mode="OUT" type="Double" optional="true"/>
-        <attribute name="listPrice" mode="OUT" type="Double" optional="true"/>
-        <attribute name="wholeSalePrice" mode="OUT" type="Double" optional="true"/>
-        <attribute name="usageQuantity" mode="OUT" type="Double" optional="true"/>
+        <attribute name="quantityOnOrder" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="offsetQOHQtyAvailable" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="offsetATPQtyAvailable" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="defultPrice" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="listPrice" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="wholeSalePrice" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="usageQuantity" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
     
     <service name="checkInventoryAvailability" engine="java"
@@ -277,7 +277,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/>        
@@ -295,12 +295,12 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
-        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByFacility" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
@@ -313,12 +313,12 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
-        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
@@ -331,12 +331,12 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
-        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveOrderItemInventory" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveOrderItemInventory" auth="true">
@@ -366,13 +366,13 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="cancelOrderItemShipGrpInvRes" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemShipGrpInvRes" auth="true">
         <description>Cancels an inventory reservation</description>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
-        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
     <service name="interfaceInventoryTransfer" engine="interface" location="" invoke="">
@@ -395,7 +395,7 @@ under the License.
         <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceInventoryTransfer"/>
-        <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateInventoryTransfer" engine="simple"
@@ -409,7 +409,7 @@ under the License.
             location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
         <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory 
                 item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="completeInventoryTransfer" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
@@ -431,9 +431,9 @@ under the License.
         <attribute name="facilityIdTo" type="String" mode="IN" optional="false"/>
         <attribute name="sendDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityNotTransferred" type="Double" mode="OUT" optional="false"/>
+        <attribute name="quantityNotTransferred" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="issueImmediatelyFulfilledOrder" engine="simple"
@@ -801,7 +801,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="targetLocationSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityMoved" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantityMoved" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
     </service>
     <!-- Inventory Label Services -->

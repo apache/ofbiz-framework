@@ -19,6 +19,7 @@
 
 package org.ofbiz.product.inventory;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -71,22 +72,22 @@ public class InventoryWorker {
      * @param delegator
      * @return
      */
-    public static double getOutstandingPurchasedQuantity(String productId, GenericDelegator delegator) {
-        double qty = 0.0;
+    public static BigDecimal getOutstandingPurchasedQuantity(String productId, GenericDelegator delegator) {
+    	BigDecimal qty = BigDecimal.ZERO;
         List<GenericValue> purchaseOrders = getOutstandingPurchaseOrders(productId, delegator);
         if (UtilValidate.isEmpty(purchaseOrders)) {
             return qty;
         } else {
             for (GenericValue nextOrder: purchaseOrders) {
                 if (nextOrder.get("quantity") != null) {
-                    double itemQuantity = nextOrder.getDouble("quantity").doubleValue();
-                    double cancelQuantity = 0.0;
+                	BigDecimal itemQuantity = nextOrder.getBigDecimal("quantity");
+                	BigDecimal cancelQuantity = BigDecimal.ZERO;
                     if (nextOrder.get("cancelQuantity") != null) {
-                        cancelQuantity = nextOrder.getDouble("cancelQuantity").doubleValue();
+                        cancelQuantity = nextOrder.getBigDecimal("cancelQuantity");
                     }
-                    itemQuantity -= cancelQuantity;
-                    if (itemQuantity >= 0.0) {
-                        qty += itemQuantity;
+                    itemQuantity = itemQuantity.subtract(cancelQuantity);
+                    if (itemQuantity.compareTo(BigDecimal.ZERO) >= 0) {
+                        qty = qty.add(itemQuantity);
                     }
                 }
             }
@@ -124,7 +125,7 @@ public class InventoryWorker {
         try {
             List<GenericValue> orderedProducts = delegator.findList("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null, null, false);
             for (GenericValue value: orderedProducts) {
-                results.put(value.getString("productId"), value.getDouble("quantityOpen"));
+                results.put(value.getString("productId"), value.getBigDecimal("quantityOpen"));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

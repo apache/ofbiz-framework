@@ -46,10 +46,10 @@ if (shipment) {
             record = [:];
             if (shipmentPackageComponent.subProductId) {
                 record.productId = shipmentPackageComponent.subProductId;
-                record.quantity = shipmentPackageComponent.getDouble("subQuantity");
+                record.quantity = shipmentPackageComponent.subQuantity;
             } else {
                 record.productId = shipmentItem.productId;
-                record.quantity = shipmentPackageComponent.getDouble("quantity");
+                record.quantity = shipmentPackageComponent.quantity;
             }
             record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
             record.orderId = orderId;

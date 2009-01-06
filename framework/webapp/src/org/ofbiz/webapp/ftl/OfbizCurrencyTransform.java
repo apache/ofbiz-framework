@@ -20,6 +20,7 @@ package org.ofbiz.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +64,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return result;
     }
 
-    private static Double getAmount(Map args, String key) {
+    private static BigDecimal getAmount(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
 
@@ -73,21 +74,13 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
 
-            if (o instanceof NumberModel) {
-                NumberModel s = (NumberModel) o;
-                return s.getAsNumber().doubleValue();
-            }
-            if (o instanceof SimpleNumber) {
-                SimpleNumber s = (SimpleNumber) o;
-                return s.getAsNumber().doubleValue();
-            }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
-                return Double.valueOf( s.getAsString() );
+                return new BigDecimal(s.getAsString());
             }
-            return Double.valueOf( o.toString() );
+            return new BigDecimal(o.toString());
         }
-        return 0.00;
+        return BigDecimal.ZERO;
     }
 
     private static Integer getInteger(Map args, String key) {
@@ -120,7 +113,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
 
-        final Double amount = OfbizCurrencyTransform.getAmount(args, "amount");
+        final BigDecimal amount = OfbizCurrencyTransform.getAmount(args, "amount");
         final String isoCode = OfbizCurrencyTransform.getArg(args, "isoCode");
         final String locale = OfbizCurrencyTransform.getArg(args, "locale");
 
@@ -154,7 +147,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                             out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
                         }
                     } else {
-                        out.write(UtilFormatOut.formatCurrency(amount.doubleValue(), isoCode, new Locale(locale), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                        out.write(UtilFormatOut.formatCurrency(amount, isoCode, new Locale(locale), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
                     }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());

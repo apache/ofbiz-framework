@@ -28,6 +28,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -212,13 +213,13 @@ public class AIMPaymentServices {
 
             if (canDoVoid) {
                 Debug.logWarning("Refund was unsuccessful; will now attempt a VOID transaction.", module);
-                Double authAmountObj = authTransaction.getDouble("amount");
-                Double refundAmountObj = (Double)context.get("refundAmount");
+                BigDecimal authAmountObj = authTransaction.getBigDecimal("amount");
+                BigDecimal refundAmountObj = (BigDecimal)context.get("refundAmount");
 
-                double authAmount = authAmountObj != null? authAmountObj.doubleValue() : 0.0;
-                double refundAmount = refundAmountObj != null? refundAmountObj.doubleValue() : 0.0;
+                BigDecimal authAmount = authAmountObj != null ? authAmountObj : BigDecimal.ZERO;
+                BigDecimal refundAmount = refundAmountObj != null ? refundAmountObj : BigDecimal.ZERO;
 
-                if (authAmount == refundAmount) {
+                if (authAmount.compareTo(refundAmount) == 0) {
                     reply = voidTransaction(authTransaction, context);
                     if (ServiceUtil.isError(reply)) {
                         return reply;
@@ -534,7 +535,7 @@ public class AIMPaymentServices {
     private static void buildAuthTransaction(Map params, Properties props, Map AIMRequest) {
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
-        String amount = ((Double)params.get("processAmount")).toString();
+        String amount = ((BigDecimal)params.get("processAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         String cardSecurityCode = (String) params.get("cardSecurityCode");
@@ -555,7 +556,7 @@ public class AIMPaymentServices {
         GenericValue at = (GenericValue)params.get("authTransaction");
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
-        String amount = ((Double)params.get("captureAmount")).toString();
+        String amount = ((BigDecimal)params.get("captureAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
 
@@ -573,7 +574,7 @@ public class AIMPaymentServices {
         GenericValue at = (GenericValue)params.get("authTransaction");
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
-        String amount = ((Double)params.get("refundAmount")).toString();
+        String amount = ((BigDecimal)params.get("refundAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
 
@@ -622,10 +623,10 @@ public class AIMPaymentServices {
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
             results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
-            results.put("processAmount", new Double("0.00"));
+            results.put("processAmount", new BigDecimal("0.00"));
             results.put("authRefNum", AuthorizeResponse.ERROR);
 
         }
@@ -643,9 +644,9 @@ public class AIMPaymentServices {
 
         if(captureResult.booleanValue()) { //passed
             results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("captureAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("captureAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("captureAmount", new Double("0.00"));
+            results.put("captureAmount", new BigDecimal("0.00"));
 
         }
 
@@ -663,9 +664,9 @@ public class AIMPaymentServices {
 
         if(captureResult.booleanValue()) { //passed
             results.put("refundCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("refundAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("refundAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("refundAmount", new Double("0.00"));
+            results.put("refundAmount", new BigDecimal("0.00"));
         }
 
         Debug.logInfo("processRefundTransResult: " + results.toString(),module);
@@ -683,9 +684,9 @@ public class AIMPaymentServices {
 
         if(captureResult.booleanValue()) { //passed
             results.put("releaseCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("releaseAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("releaseAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("releaseAmount", new Double("0.00"));
+            results.put("releaseAmount", new BigDecimal("0.00"));
 
         }
 
@@ -709,10 +710,10 @@ public class AIMPaymentServices {
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
             results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
-            results.put("processAmount", new Double("0.00"));
+            results.put("processAmount", new BigDecimal("0.00"));
             results.put("authRefNum", AuthorizeResponse.ERROR);
         }
 

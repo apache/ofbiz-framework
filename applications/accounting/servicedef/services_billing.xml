@@ -29,7 +29,7 @@ under the License.
             location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccount">
         <description>Create a Billing Account</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="CREATE"/>
-        <attribute name="accountLimit" type="Double" mode="IN" optional="true"/>
+        <attribute name="accountLimit" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="accountCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
@@ -44,7 +44,7 @@ under the License.
         <description>Update a Billing Account</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="UPDATE"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="accountLimit" type="Double" mode="IN" optional="true"/>
+        <attribute name="accountLimit" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="accountCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
@@ -107,10 +107,10 @@ under the License.
             location="org.ofbiz.accounting.payment.BillingAccountWorker" invoke="calcBillingAccountBalance">
         <description>Calculate the balance of a Billing Account</description>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="accountBalance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="netAccountBalance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="availableToCapture" type="Double" mode="OUT" optional="false"/>
+        <attribute name="accountBalance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="netAccountBalance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableBalance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToCapture" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="billingAccount" type="GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="acctgBillingAcctCheck" engine="simple"

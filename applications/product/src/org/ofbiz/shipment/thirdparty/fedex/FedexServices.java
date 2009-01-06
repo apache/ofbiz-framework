@@ -24,7 +24,6 @@ import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -373,9 +372,8 @@ public class FedexServices {
     public static Map<String, Object> fedexShipRequest( DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");        
-        Locale locale = (Locale) context.get("locale");        
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        //GenericValue userLogin = (GenericValue) context.get("userLogin");        
+        //Locale locale = (Locale) context.get("locale");        
         
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -661,9 +659,9 @@ public class FedexServices {
 
             // Get the weight from the ShipmentRouteSegment first, which overrides all later weight computations
             boolean hasBillingWeight = false;
-            Double billingWeight = shipmentRouteSegment.getDouble("billingWeight");
+            BigDecimal billingWeight = shipmentRouteSegment.getBigDecimal("billingWeight");
             String billingWeightUomId = shipmentRouteSegment.getString("billingWeightUomId");
-            if ((billingWeight != null) && (billingWeight.doubleValue() > 0)) {
+            if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
                     Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile,  module);
@@ -679,7 +677,7 @@ public class FedexServices {
                         // Try getting the weight from package instead
                         hasBillingWeight = false;
                     } else {
-                        billingWeight = (Double) results.get("convertedValue");
+                        billingWeight = (BigDecimal) results.get("convertedValue");
                     }
                 }
             }
@@ -713,13 +711,13 @@ public class FedexServices {
                 packaging = carrierShipmentBoxType.getString("packagingTypeCode");
                  
                 // Determine the dimensions of the package
-                Double dimensionsLength = null;
-                Double dimensionsWidth = null;
-                Double dimensionsHeight = null;
+                BigDecimal dimensionsLength = null;
+                BigDecimal dimensionsWidth = null;
+                BigDecimal dimensionsHeight = null;
                 if (shipmentBoxType != null) {
-                    dimensionsLength = shipmentBoxType.getDouble("boxLength");
-                    dimensionsWidth = shipmentBoxType.getDouble("boxWidth");
-                    dimensionsHeight = shipmentBoxType.getDouble("boxHeight");
+                    dimensionsLength = shipmentBoxType.getBigDecimal("boxLength");
+                    dimensionsWidth = shipmentBoxType.getBigDecimal("boxWidth");
+                    dimensionsHeight = shipmentBoxType.getBigDecimal("boxHeight");
 
                     String boxDimensionsUomId = null;
                     GenericValue boxDimensionsUom = shipmentBoxType.getRelatedOne("DimensionUom");
@@ -729,38 +727,38 @@ public class FedexServices {
                         Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile,  module);
                         boxDimensionsUomId = dimensionsUomId;
                     }
-                    if (dimensionsLength != null && dimensionsLength.doubleValue() > 0) {
+                    if (dimensionsLength != null && dimensionsLength.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsLength = null;
                             } else {
-                                dimensionsLength = (Double) results.get("convertedValue");
+                                dimensionsLength = (BigDecimal) results.get("convertedValue");
                             }
                         }
                         
                     }
-                    if (dimensionsWidth != null && dimensionsWidth.doubleValue() > 0) {
+                    if (dimensionsWidth != null && dimensionsWidth.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsWidth = null;
                             } else {
-                                dimensionsWidth = (Double) results.get("convertedValue");
+                                dimensionsWidth = (BigDecimal) results.get("convertedValue");
                             }
                         }
                         
                     }
-                    if (dimensionsHeight != null && dimensionsHeight.doubleValue() > 0) {
+                    if (dimensionsHeight != null && dimensionsHeight.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsHeight = null;
                             } else {
-                                dimensionsHeight = (Double) results.get("convertedValue");
+                                dimensionsHeight = (BigDecimal) results.get("convertedValue");
                             }
                         }
                         
@@ -768,18 +766,18 @@ public class FedexServices {
                 }
 
                 // Determine the package weight (possibly overriden by route segment billing weight)
-                Double packageWeight = null;
+                BigDecimal packageWeight = null;
                 if (! hasBillingWeight) {
                     if (UtilValidate.isNotEmpty(shipmentPackage.getString("weight"))) {
-                        packageWeight = shipmentPackage.getDouble("weight");
+                        packageWeight = shipmentPackage.getBigDecimal("weight");
                     } else {
 
                         // Use default weight if available
                         try {
-                            packageWeight = Double.valueOf(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
+                            packageWeight = new BigDecimal(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
                         } catch (NumberFormatException ne) {
                             Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , module);
-                            packageWeight = Double.valueOf(1.0);
+                            packageWeight = BigDecimal.ONE;
                         }
                     }
                     
@@ -794,12 +792,12 @@ public class FedexServices {
                         if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                             ServiceUtil.returnError("Unable to convert weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                         } else {
-                            packageWeight = (Double) results.get("convertedValue");
+                            packageWeight = (BigDecimal) results.get("convertedValue");
                         }
                     }
                 }
-                Double weight = hasBillingWeight ? billingWeight : packageWeight;
-                if (weight == null || weight.doubleValue() < 0) {
+                BigDecimal weight = hasBillingWeight ? billingWeight : packageWeight;
+                if (weight == null || weight.compareTo(BigDecimal.ZERO) < 0) {
                     ServiceUtil.returnError("Unable to determine weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                 }
                 
@@ -808,15 +806,15 @@ public class FedexServices {
                 shipRequestContext.put("DropoffType", dropoffType);
                 shipRequestContext.put("Packaging", packaging);
                 if (UtilValidate.isNotEmpty(dimensionsUomId) &&
-                    dimensionsLength != null && Math.round(dimensionsLength.doubleValue()) > 0 &&
-                    dimensionsWidth != null && Math.round(dimensionsWidth.doubleValue()) > 0   &&
-                    dimensionsHeight != null && Math.round(dimensionsHeight.doubleValue()) > 0 ) {
+                    dimensionsLength != null && dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
+                    dimensionsWidth != null && dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
+                    dimensionsHeight != null && dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0 ) {
                         shipRequestContext.put("DimensionsUnits", dimensionsUomId.equals("LEN_in") ? "IN" : "CM");
-                        shipRequestContext.put("DimensionsLength", "" + Math.round(dimensionsLength.doubleValue()));
-                        shipRequestContext.put("DimensionsWidth", "" + Math.round(dimensionsWidth.doubleValue()));
-                        shipRequestContext.put("DimensionsHeight", "" + Math.round(dimensionsHeight.doubleValue()));
+                        shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
+                        shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
+                        shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
                 }
-                shipRequestContext.put("Weight", new BigDecimal(weight.doubleValue()).setScale(1, BigDecimal.ROUND_UP).toString());
+                shipRequestContext.put("Weight", weight.setScale(1, BigDecimal.ROUND_UP).toString());
             }
          
             StringWriter outWriter = new StringWriter();

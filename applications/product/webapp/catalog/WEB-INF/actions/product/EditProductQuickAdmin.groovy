@@ -93,10 +93,10 @@ featureHazmat = [:];
 featureSalesThru = [:];
 featureThruDate = [:];
 selFeatureDesc = [:];
-Double floz = null;
-Double ml = null;
-Double ntwt = null;
-Double grams = null;
+BigDecimal floz = null;
+BigDecimal ml = null;
+BigDecimal ntwt = null;
+BigDecimal grams = null;
 String hazmat = "nbsp;";
 String salesthru = null;
 String thrudate = null;
@@ -169,7 +169,7 @@ if (product) {
     prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ozUS']);
     if (prodFeaturesFiltered) {
         try {
-            floz = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+            floz = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified");
         } catch (Exception e) {
             floz = null;
         }
@@ -178,7 +178,7 @@ if (product) {
     prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ml']);
     if (prodFeaturesFiltered) {
         try {
-            ml = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+            ml = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified");
         } catch (Exception e) {
             ml = null;
         }
@@ -187,7 +187,7 @@ if (product) {
     prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_g']);
     if (prodFeaturesFiltered) {
         try {
-            grams = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+            grams = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified");
         } catch (Exception e) {
             grams = null;
         }
@@ -196,7 +196,7 @@ if (product) {
     prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_oz']);
     if (prodFeaturesFiltered) {
         try {
-            ntwt = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+            ntwt = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified");
         } catch (Exception e) {
             ntwt = null;
         }
@@ -239,19 +239,19 @@ if (product) {
             assocProductFeatureAndAppls = assocProduct.getRelated("ProductFeatureAndAppl");
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ozUS']);
             if (prodFeaturesFiltered) {
-                featureFloz.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+                featureFloz.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified"));
             }
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ml']);
             if (prodFeaturesFiltered) {
-                featureMl.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+                featureMl.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified"));
             }
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_g']);
             if (prodFeaturesFiltered) {
-                featureGrams.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+                featureGrams.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified"));
             }
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_oz']);
             if (prodFeaturesFiltered) {
-                featureNtwt.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+                featureNtwt.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified"));
             }
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'HAZMAT']);
             if (prodFeaturesFiltered) {

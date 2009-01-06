@@ -21,6 +21,7 @@ package org.ofbiz.accounting;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.List;
 import java.util.Iterator;
@@ -50,13 +51,13 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
     String acctgTransEntrySeqId;
     String glAccountId = null;
     String organizationPartyId = null;
-    double reconciledBalance = 0.00;
+    BigDecimal reconciledBalance = BigDecimal.ZERO;
     boolean isSelected;
     String debitCreditFlag;
     // The number of multi form rows is retrieved
     int rowCount = UtilHttp.getMultiFormRowCount(ctx);
     for (int i = 0; i < rowCount; i++) {  //for calculating amount per glAccountId
-        double amount = 0.00;
+        BigDecimal amount = BigDecimal.ZERO;
         String suffix = UtilHttp.MULTI_ROW_DELIMITER + i;
         isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
@@ -75,20 +76,20 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
                     acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
                     debitCreditFlag = (String) acctgTransEntry.getString("debitCreditFlag");
                     if ("D".equalsIgnoreCase(debitCreditFlag)) {
-                        amount += acctgTransEntry.getDouble("amount"); //for debit
+                        amount = amount.add(acctgTransEntry.getBigDecimal("amount")); //for debit
                     } else {
-                          amount -= acctgTransEntry.getDouble("amount"); //for credit
+                          amount = amount.subtract(acctgTransEntry.getBigDecimal("amount")); //for credit
                     }
                 }
             }
-            reconciledBalance += amount;  //total balance per glAccountId
+            reconciledBalance = reconciledBalance.add(amount);  //total balance per glAccountId
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return "error";
         }
         
     }
-    Map fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", new Double(reconciledBalance), "userLogin", userLogin);
+    Map fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", reconciledBalance, "userLogin", userLogin);
     Map glReconResult = null;
     try {
         glReconResult = dispatcher.runSync("createGlReconciliation", fieldMap); //create GlReconciliation for the glAccountId

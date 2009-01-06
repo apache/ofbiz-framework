@@ -63,9 +63,9 @@ under the License.
         <attribute mode="IN" name="taskId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>
         <attribute mode="IN" name="routingId" optional="true" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="OUT" name="estimatedTaskTime" type="Long" optional="false"/>
-        <attribute mode="OUT" name="setupTime" type="Double" optional="true"/>
-        <attribute mode="OUT" name="taskUnitTime" type="Double" optional="true"/>
+        <attribute mode="OUT" name="setupTime" type="BigDecimal" optional="true"/>
+        <attribute mode="OUT" name="taskUnitTime" type="BigDecimal" optional="true"/>
     </service>
 </services>

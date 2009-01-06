@@ -159,21 +159,21 @@ public class MrpServices {
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
-            Double reservedQuantity = genericResult.getDouble("reservedQuantity");
-            Double shipGroupQuantity = genericResult.getDouble("quantity");
-            Double cancelledQuantity = genericResult.getDouble("cancelQuantity");
-            Double eventQuantityTmp = new Double(0.0);
+            BigDecimal reservedQuantity = genericResult.getBigDecimal("reservedQuantity");
+            BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
+            BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
+            BigDecimal eventQuantityTmp = BigDecimal.ZERO;
             
             if (UtilValidate.isNotEmpty(reservedQuantity)) {
-                eventQuantityTmp = new Double(-1.0 * reservedQuantity.doubleValue());
+                eventQuantityTmp = reservedQuantity.negate();
             } else {
                 if (UtilValidate.isNotEmpty(cancelledQuantity)) {
-                    shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+                    shipGroupQuantity = shipGroupQuantity.subtract(cancelledQuantity);
                 }
-                eventQuantityTmp = new Double(-1.0 * shipGroupQuantity.doubleValue());
+                eventQuantityTmp = shipGroupQuantity.negate();
             }
 
-            if (eventQuantityTmp.doubleValue() == 0) {
+            if (eventQuantityTmp.compareTo(BigDecimal.ZERO) == 0) {
                 continue;
             }
             // This is the order in which order dates are considered:
@@ -220,7 +220,7 @@ public class MrpServices {
         while(iteratorResult.hasNext()){
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
-            Double eventQuantityTmp = genericResult.getDouble("quantity");
+            BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
             if (productId == null || eventQuantityTmp == null) {
                 continue;
             }
@@ -270,13 +270,13 @@ public class MrpServices {
             }
             String productId =  genericResult.getString("productId");
             
-            Double shipGroupQuantity = genericResult.getDouble("quantity");
-            Double cancelledQuantity = genericResult.getDouble("cancelQuantity");
+            BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
+            BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
             if (UtilValidate.isEmpty(shipGroupQuantity)) {
-                shipGroupQuantity = new Double(0);
+                shipGroupQuantity = BigDecimal.ZERO;
             }
             if (UtilValidate.isNotEmpty(cancelledQuantity)) {
-                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+                shipGroupQuantity = shipGroupQuantity.subtract(cancelledQuantity);
             }
 
             OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -286,7 +286,7 @@ public class MrpServices {
             } catch (GenericEntityException e) {
             }
             if (UtilValidate.isNotEmpty(shippedQuantity)) {
-                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - shippedQuantity.doubleValue());
+                shipGroupQuantity = shipGroupQuantity.subtract(shippedQuantity);
             }
 
             GenericValue orderItemDeliverySchedule = null;
@@ -331,7 +331,7 @@ public class MrpServices {
         while(iteratorResult.hasNext()){
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
-            Double eventQuantityTmp = new Double(-1.0 * genericResult.getDouble("estimatedQuantity").doubleValue());
+            BigDecimal eventQuantityTmp = genericResult.getBigDecimal("estimatedQuantity").negate();
             Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedStartDate");
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
@@ -365,20 +365,20 @@ public class MrpServices {
             if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))) {
                 continue;
             }
-            Double qtyToProduce = genericResult.getDouble("quantityToProduce");
+            BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
             if (qtyToProduce == null) {
-                qtyToProduce = new Double(0);
+                qtyToProduce = BigDecimal.ZERO;
             }
-            Double qtyProduced = genericResult.getDouble("quantityProduced");
+            BigDecimal qtyProduced = genericResult.getBigDecimal("quantityProduced");
             if (qtyProduced == null) {
-                qtyProduced = new Double(0);
+                qtyProduced = BigDecimal.ZERO;
             }
             if (qtyProduced.compareTo(qtyToProduce) >= 0) {
                 continue;
             }
-            double qtyDiff = qtyToProduce.doubleValue() - qtyProduced.doubleValue();
+            BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
             String productId =  genericResult.getString("productId");
-            Double eventQuantityTmp = new Double(qtyDiff);
+            BigDecimal eventQuantityTmp = qtyDiff;
             Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
@@ -408,9 +408,9 @@ public class MrpServices {
         while(iteratorResult.hasNext()){
             genericResult = (GenericValue) iteratorResult.next();
             String productId = genericResult.getString("productId");
-            Double minimumStock = genericResult.getDouble("minimumStock");
+            BigDecimal minimumStock = genericResult.getBigDecimal("minimumStock");
             if (minimumStock == null) {
-                minimumStock = new Double(0);
+                minimumStock = BigDecimal.ZERO;
             }
             try {
                 EntityFieldMap ecl = EntityCondition.makeCondition(UtilMisc.toMap("mrpId", mrpId, "productId", productId), EntityOperator.AND);
@@ -422,13 +422,13 @@ public class MrpServices {
                 Debug.logError(e, "Unable to count MrpEvent records.", module);
                 return ServiceUtil.returnError("Unable to count MrpEvent records.");
             }
-            double qoh = findProductMrpQoh(mrpId, productId, facilityId, dispatcher, delegator);
-            if (qoh >= minimumStock.longValue()) {
+            BigDecimal qoh = findProductMrpQoh(mrpId, productId, facilityId, dispatcher, delegator);
+            if (qoh.compareTo(minimumStock) >= 0) {
                 continue;
             }
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", now, "mrpEventTypeId", "REQUIRED_MRP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, new Double(0.0), null, null, false, delegator);
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, null, null, false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the MrpEvent entity (REQUIRED_MRP)");
             }
@@ -475,11 +475,11 @@ public class MrpServices {
                 while (sfdIter.hasNext()) {
                     genericResult = (GenericValue) sfdIter.next();
                     String productId =  genericResult.getString("productId");
-                    Double eventQuantityTmp = genericResult.getDouble("quantity");
+                    BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
                     if (productId == null || eventQuantityTmp == null) {
                         continue;
                     }
-                    eventQuantityTmp = new Double(-1.0 * eventQuantityTmp.doubleValue());
+                    eventQuantityTmp = eventQuantityTmp.negate();
                     parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
                     try {
                     	InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("salesForecastDetailId"), false, delegator);
@@ -503,10 +503,10 @@ public class MrpServices {
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
-    public static double findProductMrpQoh(String mrpId, GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public static BigDecimal findProductMrpQoh(String mrpId, GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
         return findProductMrpQoh(mrpId, product.getString("productId"), facilityId, dispatcher, delegator);
     }
-    public static double findProductMrpQoh(String mrpId, String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public static BigDecimal findProductMrpQoh(String mrpId, String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
         Map resultMap = null;
         try{
             if (facilityId == null) {
@@ -517,9 +517,9 @@ public class MrpServices {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
             logMrpError(mrpId, productId, "Unable to count inventory", delegator);
-            return 0;
+            return BigDecimal.ZERO;
         }
-        return ((Double)resultMap.get("quantityOnHandTotal")).doubleValue();
+        return ((BigDecimal)resultMap.get("quantityOnHandTotal"));
     }
 
     public static void logMrpError(String mrpId, String productId, String errorMessage, GenericDelegator delegator) {
@@ -551,7 +551,7 @@ public class MrpServices {
      * @return None
      */
     
-    public static void processBomComponent(String mrpId, GenericValue product, double eventQuantity, Timestamp startDate, Map routingTaskStartDate, List listComponent) {
+    public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate, Map routingTaskStartDate, List listComponent) {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
         GenericDelegator delegator = product.getDelegator();
 
@@ -570,9 +570,9 @@ public class MrpServices {
                     parameters.put("mrpId", mrpId);
                     parameters.put("eventDate", eventDate);
                     parameters.put("mrpEventTypeId", "MRP_REQUIREMENT");
-                    double componentEventQuantity = node.getQuantity();
+                    BigDecimal componentEventQuantity = node.getQuantity();
                     try {
-                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, new Double(-1.0 * componentEventQuantity), null, product.get("productId") + ": " + eventDate, false, delegator);
+                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : findByPrimaryKey(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), module);
                         logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
@@ -645,17 +645,17 @@ public class MrpServices {
         }
         
         int bomLevelWithNoEvent = 0;
-        double stockTmp = 0;
+        BigDecimal stockTmp = BigDecimal.ZERO;
         String oldProductId = null;
         String productId = null;
         GenericValue product = null;
         GenericValue productFacility = null;
-        double eventQuantity = 0;
+        BigDecimal eventQuantity = BigDecimal.ZERO;
         Timestamp eventDate = null;
         boolean isNegative = false;
-        double quantityNeeded = 0;
-        double reorderQuantity = 0;
-        double minimumStock = 0;
+        BigDecimal quantityNeeded = BigDecimal.ZERO;
+        BigDecimal reorderQuantity = BigDecimal.ZERO;
+        BigDecimal minimumStock = BigDecimal.ZERO;
         int daysToShip = 0;
         List components = null;
         boolean isBuilt = false;
@@ -703,10 +703,10 @@ public class MrpServices {
                 while (iteratorListInventoryEventForMRP.hasNext()) {
                     inventoryEventForMRP = (GenericValue) iteratorListInventoryEventForMRP.next();
                     productId = inventoryEventForMRP.getString("productId");
-                    eventQuantity = inventoryEventForMRP.getDouble("quantity").doubleValue();
+                    eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
 
                     if (!productId.equals(oldProductId)) {
-                        double positiveEventQuantity = (eventQuantity > 0? eventQuantity: -1 * eventQuantity);
+                        BigDecimal positiveEventQuantity = eventQuantity.compareTo(BigDecimal.ZERO) > 0 ? eventQuantity: eventQuantity.negate();
                         // It's a new product, so it's necessary to  read the MrpQoh
                         try {
                             product = inventoryEventForMRP.getRelatedOneCache("Product");
@@ -717,7 +717,7 @@ public class MrpServices {
                         stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.toMap("mrpId", mrpId, "productId", product.getString("productId"), "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
-                                                                                              new Double(stockTmp), facilityId, null, false,
+                                                                                              stockTmp, facilityId, null, false,
                                                                                               delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateMrpEvent");
@@ -726,20 +726,20 @@ public class MrpServices {
                         // as well and cause problems
                         daysToShip = 0;
                         if (productFacility != null) {
-                            reorderQuantity = (productFacility.getDouble("reorderQuantity") != null? productFacility.getDouble("reorderQuantity").doubleValue(): -1);
-                            minimumStock = (productFacility.getDouble("minimumStock") != null? productFacility.getDouble("minimumStock").doubleValue(): 0);
+                            reorderQuantity = (productFacility.getBigDecimal("reorderQuantity") != null ? productFacility.getBigDecimal("reorderQuantity"): BigDecimal.ONE.negate());
+                            minimumStock = (productFacility.getBigDecimal("minimumStock") != null ? productFacility.getBigDecimal("minimumStock"): BigDecimal.ZERO);
                             if ("SALES_ORDER_SHIP".equals(inventoryEventForMRP.getString("mrpEventTypeId"))) {
                                 daysToShip = (productFacility.getLong("daysToShip") != null? productFacility.getLong("daysToShip").intValue(): 0);
                             }
                         } else {
-                            minimumStock = 0;
-                            reorderQuantity = -1;
+                            minimumStock = BigDecimal.ZERO;
+                            reorderQuantity = BigDecimal.ONE.negate();
                         }
                         // -----------------------------------------------------
                         // The components are also loaded thru the configurator
                         Map serviceResponse = null;
                         try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", new Double(positiveEventQuantity), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
+                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", positiveEventQuantity, "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
                         } catch (Exception e) {
                             return ServiceUtil.returnError("An error occurred exploding the product [" + product.getString("productId") + "]");
                         }
@@ -755,9 +755,9 @@ public class MrpServices {
                         oldProductId = productId;
                     }
                     
-                    stockTmp = stockTmp + eventQuantity;
-                    if(stockTmp < minimumStock){
-                        double qtyToStock = minimumStock - stockTmp;
+                    stockTmp = stockTmp.add(eventQuantity);
+                    if(stockTmp.compareTo(minimumStock) < 0){
+                        BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
                         //need to buy or build the product as we have not enough stock
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");
                         // to be just before the requirement
@@ -771,7 +771,7 @@ public class MrpServices {
                         // The components are also loaded thru the configurator
                         Map serviceResponse = null;
                         try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", new Double(proposedOrder.getQuantity()), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
+                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", proposedOrder.getQuantity(), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
                         } catch (Exception e) {
                             return ServiceUtil.returnError("An error occurred exploding the product [" + product.getString("productId") + "]");
                         }
@@ -817,12 +817,12 @@ public class MrpServices {
                                                       "eventDate", eventDate,
                                                       "mrpEventTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
-                            InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, new Double(proposedOrder.getQuantity()), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
+                            InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateMrpEvent");
                         }
                         //
-                        stockTmp = stockTmp + proposedOrder.getQuantity();
+                        stockTmp = stockTmp.add(proposedOrder.getQuantity());
                     }
                 }
             } else {

@@ -68,7 +68,7 @@ under the License.
       <field name="correspondingProductId" type="id"></field>
       <field name="taxAuthorityRateSeqId" type="id-ne"></field>
       <field name="sourceReferenceId" type="id-long"></field>
-      <field name="sourcePercentage" type="floating-point">
+      <field name="sourcePercentage" type="fixed-point">
           <description>for tax entries this is the tax percentage</description>          
       </field>
       <field name="customerReferenceId" type="id-long">
@@ -301,10 +301,10 @@ under the License.
       <field name="estimatedReadyDate" type="date-time"></field>
       <field name="cartons" type="numeric"></field>
       <field name="skidsPallets" type="numeric"></field>
-      <field name="unitsPieces" type="floating-point"></field>
-      <field name="totalCubicSize" type="floating-point"></field>
+      <field name="unitsPieces" type="fixed-point"></field>
+      <field name="totalCubicSize" type="fixed-point"></field>
       <field name="totalCubicUomId" type="id"></field>
-      <field name="totalWeight" type="floating-point"></field>
+      <field name="totalWeight" type="fixed-point"></field>
       <field name="totalWeightUomId" type="id"></field>
       <field name="statusId" type="id"></field>
       <prim-key field="orderId"/>
@@ -453,9 +453,9 @@ under the License.
       <field name="shoppingListItemSeqId" type="id"></field>
       <field name="subscriptionId" type="id"></field>
       <field name="deploymentId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="cancelQuantity" type="floating-point"></field>
-      <field name="selectedAmount" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="cancelQuantity" type="fixed-point"></field>
+      <field name="selectedAmount" type="fixed-point"></field>
       <field name="unitPrice" type="currency-amount"></field>
       <field name="unitListPrice" type="currency-amount"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
@@ -540,7 +540,7 @@ under the License.
       <field name="toOrderItemSeqId" type="id-ne"></field>
       <field name="toShipGroupSeqId" type="id-ne"></field>
       <field name="orderItemAssocTypeId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="shipGroupSeqId"/>
@@ -625,7 +625,7 @@ under the License.
       <field name="invoiceItemSeqId" type="id-ne"></field>
       <field name="itemIssuanceId" type="id"></field>
       <field name="shipmentReceiptId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="currency-amount"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
@@ -662,8 +662,8 @@ under the License.
       <field name="changeTypeEnumId" type="id"></field>      
       <field name="changeDatetime" type="date-time"></field>
       <field name="changeUserLogin" type="id-vlong"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="cancelQuantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="cancelQuantity" type="fixed-point"></field>
       <field name="unitPrice" type="currency-amount"></field>
       <field name="itemDescription" type="description"></field>
       <field name="reasonEnumId" type="id"></field>
@@ -735,7 +735,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="productPriceRuleId" type="id"></field>
       <field name="productPriceActionSeqId" type="id"></field>
-      <field name="modifyAmount" type="floating-point"></field>
+      <field name="modifyAmount" type="currency-precise"></field>
       <field name="description" type="description"></field>
       <field name="rateCode" type="short-varchar"></field>
       <prim-key field="orderItemPriceInfoId"/>
@@ -852,8 +852,8 @@ under the License.
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="shipGroupSeqId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="cancelQuantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="cancelQuantity" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="shipGroupSeqId"/>
@@ -878,8 +878,8 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="reserveOrderEnumId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="quantityNotAvailable" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="quantityNotAvailable" type="fixed-point"></field>
       <field name="reservedDatetime" type="date-time"></field>
       <field name="createdDatetime" type="date-time"></field>
       <field name="promisedDatetime" type="date-time"></field>
@@ -1075,7 +1075,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="shipmentId" type="id-ne"></field>
       <field name="shipmentItemSeqId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="shipmentId"/>
@@ -1131,7 +1131,7 @@ under the License.
       <field name="entryDate" type="date"></field>
       <field name="productId" type="id-ne"></field>
       <field name="facilityId" type="id-ne"></field>
-      <field name="totalQuantity" type="floating-point"></field>
+      <field name="totalQuantity" type="fixed-point"></field>
       <field name="grossSales" type="currency-amount"></field>
       <field name="productCost" type="currency-amount"></field>
       <prim-key field="entryDate"/>
@@ -1369,7 +1369,7 @@ under the License.
         title="Quote Coefficient Entity">
         <field name="quoteId" type="id-ne"></field>
         <field name="coeffName" type="id-long-ne"></field>
-        <field name="coeffValue" type="floating-point"></field>
+        <field name="coeffValue" type="fixed-point"></field>
         <prim-key field="quoteId"/>
         <prim-key field="coeffName"/>
         <relation type="one" fk-name="QUOTE_COEFF" rel-entity-name="Quote">
@@ -1389,12 +1389,12 @@ under the License.
       <field name="workEffortId" type="id"></field>
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="selectedAmount" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="selectedAmount" type="fixed-point"></field>
       <field name="quoteUnitPrice" type="currency-amount"></field>
       <field name="reservStart" type="date-time"></field>
-      <field name="reservLength" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"></field>             
+      <field name="reservLength" type="fixed-point"></field>
+      <field name="reservPersons" type="fixed-point"></field>             
       <field name="configId" type="id"></field>
       <field name="estimatedDeliveryDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
@@ -1555,7 +1555,7 @@ under the License.
       <field name="productFeatureId" type="id"></field>
       <field name="correspondingProductId" type="id"></field>
       <field name="sourceReferenceId" type="id-long"></field>
-      <field name="sourcePercentage" type="floating-point"><!-- for tax entries this is the tax percentage --></field>
+      <field name="sourcePercentage" type="fixed-point"><!-- for tax entries this is the tax percentage --></field>
       <field name="customerReferenceId" type="id-long"><!-- for tax entries this is partyTaxId --></field>
       <field name="primaryGeoId" type="id"><!-- for tax entries this is the primary jurisdiction Geo (the smallest or most local Geo that this tax is for, usually a state/province, perhaps a county or a city) --></field>
       <field name="secondaryGeoId" type="id"><!-- for tax entries this is the secondary jurisdiction Geo (usually a country, or other Geo that the primary is within) --></field>
@@ -1767,12 +1767,12 @@ under the License.
       <field name="sequenceNum" type="numeric"></field>
       <field name="requiredByDate" type="date-time"></field>
       <field name="productId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="selectedAmount" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="selectedAmount" type="fixed-point"></field>
       <field name="maximumAmount" type="currency-amount"></field>
       <field name="reservStart" type="date-time"></field>
-      <field name="reservLength" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"></field>       
+      <field name="reservLength" type="fixed-point"></field>
+      <field name="reservPersons" type="fixed-point"></field>       
       <field name="configId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="story" type="very-long"></field>
@@ -1996,7 +1996,7 @@ under the License.
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="requirementId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="requirementId"/>
@@ -2025,7 +2025,7 @@ under the License.
       <field name="requirementStartDate" type="date-time"></field>
       <field name="requiredByDate" type="date-time"></field>
       <field name="estimatedBudget" type="currency-amount"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="useCase" type="very-long"></field>
       <field name="reason" type="long-varchar"></field>
       <field name="createdDate" type="date-time"></field>
@@ -2235,7 +2235,7 @@ under the License.
       <field name="correspondingProductId" type="id"></field>
       <field name="taxAuthorityRateSeqId" type="id-ne"></field>
       <field name="sourceReferenceId" type="id-long"></field>
-      <field name="sourcePercentage" type="floating-point">
+      <field name="sourcePercentage" type="fixed-point">
           <description>for tax entries this is the tax percentage</description>          
       </field>
       <field name="customerReferenceId" type="id-long">
@@ -2410,8 +2410,8 @@ under the License.
         <field name="orderItemSeqId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="expectedItemStatus" type="id"></field>
-        <field name="returnQuantity" type="floating-point"><description>promised by the customer</description></field>
-        <field name="receivedQuantity" type="floating-point"><description>actually received from the customer</description></field>
+        <field name="returnQuantity" type="fixed-point"><description>promised by the customer</description></field>
+        <field name="receivedQuantity" type="fixed-point"><description>actually received from the customer</description></field>
         <field name="returnPrice" type="currency-amount"></field>
         <field name="returnItemResponseId" type="id"></field>
         <prim-key field="returnId"/>
@@ -2561,7 +2561,7 @@ under the License.
       <field name="invoiceId" type="id-ne"></field>
       <field name="invoiceItemSeqId" type="id-ne"></field>
       <field name="shipmentReceiptId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="currency-amount"></field>
       <prim-key field="returnId"/>
       <prim-key field="returnItemSeqId"/>
@@ -2592,7 +2592,7 @@ under the License.
       <field name="returnItemSeqId" type="id-ne"></field>
       <field name="shipmentId" type="id-ne"></field>
       <field name="shipmentItemSeqId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <prim-key field="returnId"/>
       <prim-key field="returnItemSeqId"/>
       <prim-key field="shipmentId"/>
@@ -2625,13 +2625,13 @@ under the License.
       <field name="cartAbandonedLineSeqId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
       <field name="prodCatalogId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="reservStart" type="date-time"></field>
-      <field name="reservLength" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"></field>
+      <field name="reservLength" type="fixed-point"></field>
+      <field name="reservPersons" type="fixed-point"></field>
       <field name="unitPrice" type="currency-amount"></field>
-      <field name="reserv2ndPPPerc" type="floating-point"/>
-      <field name="reservNthPPPerc" type="floating-point"/>
+      <field name="reserv2ndPPPerc" type="fixed-point"/>
+      <field name="reservNthPPPerc" type="fixed-point"/>
       <field name="configId" type="id"></field>
       <field name="totalWithAdjustments" type="currency-amount"></field>
       <field name="wasReserved" type="indicator"></field>
@@ -2727,11 +2727,11 @@ under the License.
       <field name="shoppingListId" type="id-ne"></field>
       <field name="shoppingListItemSeqId" type="id-ne"></field>
       <field name="productId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="reservStart" type="date-time"></field>
-      <field name="reservLength" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"></field>
-      <field name="quantityPurchased" type="floating-point"></field>
+      <field name="reservLength" type="fixed-point"></field>
+      <field name="reservPersons" type="fixed-point"></field>
+      <field name="quantityPurchased" type="fixed-point"></field>
       <field name="configId" type="id"></field>
       <prim-key field="shoppingListId"/>
       <prim-key field="shoppingListItemSeqId"/>
@@ -2797,7 +2797,7 @@ under the License.
         <field name="description" type="very-long"/>
         <field name="nextStep" type="very-long"/>
         <field name="estimatedAmount" type="currency-amount"/>
-        <field name="estimatedProbability" type="floating-point"/>
+        <field name="estimatedProbability" type="fixed-point"/>
         <field name="currencyUomId" type="id-ne"/>
         <field name="marketingCampaignId" type="id-ne"/>
         <field name="dataSourceId" type="id-ne"/>
@@ -2831,7 +2831,7 @@ under the License.
         <field name="description" type="very-long"/>
         <field name="nextStep" type="very-long"/>
         <field name="estimatedAmount" type="currency-amount"/>
-        <field name="estimatedProbability" type="floating-point"/>
+        <field name="estimatedProbability" type="fixed-point"/>
         <field name="currencyUomId" type="id-ne"/>
         <field name="estimatedCloseDate" type="date-time"/>    	
         <field name="opportunityStageId" type="id-ne"/>
@@ -2885,7 +2885,7 @@ under the License.
             title="Describes stages of a sales opportunity with associated probability factors.">
         <field name="opportunityStageId" type="id-ne"></field>
         <field name="description" type="description"/>
-        <field name="defaultProbability" type="floating-point"/>
+        <field name="defaultProbability" type="fixed-point"/>
         <field name="sequenceNum" type="numeric"/>
         <prim-key field="opportunityStageId"/>
     </entity>
@@ -2933,8 +2933,8 @@ under the License.
         <field name="forecastAmount" type="currency-amount"></field>
         <field name="bestCaseAmount" type="currency-amount"></field>
         <field name="closedAmount" type="currency-amount"/>
-        <field name="percentOfQuotaForecast" type="floating-point"/>
-        <field name="percentOfQuotaClosed" type="floating-point"/>
+        <field name="percentOfQuotaForecast" type="fixed-point"/>
+        <field name="percentOfQuotaClosed" type="fixed-point"/>
         <field name="pipelineAmount" type="currency-amount"></field>
         <field name="createdByUserLoginId" type="id-vlong"></field>
         <field name="modifiedByUserLoginId" type="id-vlong"></field>
@@ -2969,7 +2969,7 @@ under the License.
         <field name="salesForecastDetailId" type="id-ne"/>
         <field name="amount" type="currency-amount"/>
         <field name="quantityUomId" type="id"/>
-        <field name="quantity" type="floating-point"/>
+        <field name="quantity" type="fixed-point"/>
         <field name="productId" type="id"/>
         <field name="productCategoryId" type="id"/>
         <prim-key field="salesForecastId"/>
@@ -3002,8 +3002,8 @@ under the License.
         <field name="forecastAmount" type="currency-amount"></field>
         <field name="bestCaseAmount" type="currency-amount"></field>
         <field name="closedAmount" type="currency-amount"/>
-        <field name="percentOfQuotaForecast" type="floating-point"/>
-        <field name="percentOfQuotaClosed" type="floating-point"/>
+        <field name="percentOfQuotaForecast" type="fixed-point"/>
+        <field name="percentOfQuotaClosed" type="fixed-point"/>
         <field name="changeNote" type="very-long">
             <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->
         </field>

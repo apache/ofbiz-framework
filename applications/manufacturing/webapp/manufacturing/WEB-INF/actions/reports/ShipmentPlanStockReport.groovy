@@ -39,12 +39,12 @@ if (shipment) {
         recordGroup.SHIPMENT_ITEM_SEQ_ID = shipmentPlan.shipmentItemSeqId;
 
         recordGroup.PRODUCT_ID = orderLine.productId;
-        recordGroup.QUANTITY = shipmentPlan.getDouble("quantity");
+        recordGroup.QUANTITY = shipmentPlan.quantity;
         product = delegator.findByPrimaryKey("Product", [productId : orderLine.productId]);
         recordGroup.PRODUCT_NAME = product.internalName;
      
         inputPar = [productId : orderLine.productId,
-                                     quantity : shipmentPlan.getDouble("quantity"),
+                                     quantity : shipmentPlan.quantity,
                                      fromDate : "" + new Date(),
                                      userLogin: userLogin];
                             
@@ -65,14 +65,14 @@ if (shipment) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
                     serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId];
                     serviceOutput = dispatcher.runSync("getInventoryAvailableByFacility",serviceInput);
-                    qha = serviceOutput.quantityOnHandTotal ?: new Double(0);
+                    qha = serviceOutput.quantityOnHandTotal ?: 0.0;
                     inventoryStock.oneComponent.getProduct().productId = qha;
                 }
-                qty = ((Double)inventoryStock.get(oneComponent.getProduct().productId)).floatValue();
-                qty = (float)(qty - oneComponent.getQuantity());
-                inventoryStock.oneComponent.getProduct().productId = new Double(qty);
+                qty = inventoryStock[oneComponent.getProduct().productId];
+                qty = qty - oneComponent.getQuantity();
+                inventoryStock.oneComponent.getProduct().productId = qty;
             }
-            record.componentOnHand = new Float(qty);
+            record.componentOnHand = qty;
             // Now we get the products qty already reserved by production runs
             serviceInput = [productId : oneComponent.getProduct().productId,
                                           userLogin : userLogin];

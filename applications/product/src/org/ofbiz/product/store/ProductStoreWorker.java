@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.product.store;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -208,7 +210,7 @@ public class ProductStoreWorker {
         return EntityUtil.getFirst(getProductStoreShipmentMethods(delegator, productStoreId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId));
     }
 
-    public static List<GenericValue> getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List<Double> itemSizes, Map<String, Double> featureIdMap, double weight, double orderTotal) {
+    public static List<GenericValue> getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
         if (featureIdMap == null) {
             featureIdMap = FastMap.newInstance();
         }
@@ -227,42 +229,42 @@ public class ProductStoreWorker {
             for (GenericValue method: shippingMethods) {
 
                 // test min/max weight first
-                Double minWeight = method.getDouble("minWeight");
-                Double maxWeight = method.getDouble("maxWeight");
-                if (minWeight != null && minWeight.doubleValue() > 0 && minWeight.doubleValue() > weight) {
+                BigDecimal minWeight = method.getBigDecimal("minWeight");
+                BigDecimal maxWeight = method.getBigDecimal("maxWeight");
+                if (minWeight != null && minWeight.compareTo(BigDecimal.ZERO) > 0 && minWeight.compareTo(weight) > 0) {
                     returnShippingMethods.remove(method);
                     //Debug.logInfo("Removed shipping method due to not enough weight", module);
                     continue;
                 }
-                if (maxWeight != null && maxWeight.doubleValue() > 0 && maxWeight.doubleValue() < weight) {
+                if (maxWeight != null && maxWeight.compareTo(BigDecimal.ZERO) > 0 && maxWeight.compareTo(weight) < 0) {
                     returnShippingMethods.remove(method);
                     //Debug.logInfo("Removed shipping method due to too much weight", module);
                     continue;
                 }
 
                 // test order total
-                Double minTotal = method.getDouble("minTotal");
-                Double maxTotal = method.getDouble("maxTotal");
-                if (minTotal != null && minTotal.doubleValue() > 0 && minTotal.doubleValue() > orderTotal) {
+                BigDecimal minTotal = method.getBigDecimal("minTotal");
+                BigDecimal maxTotal = method.getBigDecimal("maxTotal");
+                if (minTotal != null && minTotal.compareTo(BigDecimal.ZERO) > 0 && minTotal.compareTo(orderTotal) > 0) {
                     returnShippingMethods.remove(method);
                     //Debug.logInfo("Removed shipping method due to not enough order total", module);
                     continue;
                 }
-                if (maxTotal != null && maxTotal.doubleValue() > 0 && maxTotal.doubleValue() < orderTotal) {
+                if (maxTotal != null && maxTotal.compareTo(BigDecimal.ZERO) > 0 && maxTotal.compareTo(orderTotal) < 0) {
                     returnShippingMethods.remove(method);
                     //Debug.logInfo("Removed shipping method due to too much shipping total", module);
                     continue;
                 }
 
                 // test product sizes
-                Double minSize = method.getDouble("minSize");
-                Double maxSize = method.getDouble("maxSize");
-                if (minSize != null && minSize.doubleValue() > 0) {
+                BigDecimal minSize = method.getBigDecimal("minSize");
+                BigDecimal maxSize = method.getBigDecimal("maxSize");
+                if (minSize != null && minSize.compareTo(BigDecimal.ZERO) > 0) {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        for (Double size: itemSizes) {
-                            if (size.doubleValue() < minSize.doubleValue()) {
+                        for (BigDecimal size: itemSizes) {
+                            if (size.compareTo(minSize) < 0) {
                                 allMatch = false;
                             }
                         }
@@ -273,12 +275,12 @@ public class ProductStoreWorker {
                         continue;
                     }
                 }
-                if (maxSize != null && maxSize.doubleValue() > 0) {
+                if (maxSize != null && maxSize.compareTo(BigDecimal.ZERO) > 0) {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        for (Double size: itemSizes) {
-                            if (size.doubleValue() > maxSize.doubleValue()) {
+                        for (BigDecimal size: itemSizes) {
+                            if (size.compareTo(maxSize) > 0) {
                                 allMatch = false;
                             }
                         }
@@ -324,7 +326,7 @@ public class ProductStoreWorker {
                 // check the items excluded from shipping
                 String includeFreeShipping = method.getString("includeNoChargeItems");
                 if (includeFreeShipping != null && "N".equalsIgnoreCase(includeFreeShipping)) {
-                    if ((itemSizes == null || itemSizes.size() == 0) && orderTotal == 0) {
+                    if ((itemSizes == null || itemSizes.size() == 0) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
                         returnShippingMethods.remove(method);
                         //Debug.logInfo("Removed shipping method due to all items being exempt from shipping", module);
                         continue;
@@ -562,7 +564,7 @@ public class ProductStoreWorker {
         return isStoreInventoryRequiredAndAvailable(request, product, null, Boolean.TRUE, null);
     }
 
-    public static boolean isStoreInventoryAvailable(ServletRequest request, GenericValue product, Double quantity) {
+    public static boolean isStoreInventoryAvailable(ServletRequest request, GenericValue product, BigDecimal quantity) {
         return isStoreInventoryRequiredAndAvailable(request, product, quantity, null, Boolean.TRUE);
     }
 
@@ -576,7 +578,7 @@ public class ProductStoreWorker {
      * @param wantRequired If true then inventory required must be true for the result to be true, if false must be false; if null don't care
      * @param wantAvailable If true then inventory avilable must be true for the result to be true, if false must be false; if null don't care
      */
-    public static boolean isStoreInventoryRequiredAndAvailable(ServletRequest request, GenericValue product, Double quantity, Boolean wantRequired, Boolean wantAvailable) {
+    public static boolean isStoreInventoryRequiredAndAvailable(ServletRequest request, GenericValue product, BigDecimal quantity, Boolean wantRequired, Boolean wantAvailable) {
         GenericValue productStore = getProductStore(request);
         if (productStore == null) {
             Debug.logWarning("No ProductStore found, return false for inventory check", module);
@@ -587,7 +589,7 @@ public class ProductStoreWorker {
             return false;
         }
 
-        if (quantity == null) quantity = Double.valueOf(1);
+        if (quantity == null) quantity = BigDecimal.ONE;
 
         String productStoreId = productStore.getString("productStoreId");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -625,7 +627,7 @@ public class ProductStoreWorker {
         }
     }
 
-    public static boolean isStoreInventoryAvailable(ServletRequest request, ProductConfigWrapper productConfig, double quantity) {
+    public static boolean isStoreInventoryAvailable(ServletRequest request, ProductConfigWrapper productConfig, BigDecimal quantity) {
         GenericValue productStore = getProductStore(request);
 
         if (productStore == null) {
@@ -640,7 +642,7 @@ public class ProductStoreWorker {
     }
 
     /** check inventory availability for the given catalog, product, quantity, etc */
-    public static boolean isStoreInventoryAvailable(String productStoreId, ProductConfigWrapper productConfig, double quantity, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static boolean isStoreInventoryAvailable(String productStoreId, ProductConfigWrapper productConfig, BigDecimal quantity, GenericDelegator delegator, LocalDispatcher dispatcher) {
         GenericValue productStore = getProductStore(productStoreId, delegator);
 
         if (productStore == null) {

@@ -69,7 +69,7 @@ under the License.
                 <if-not-empty field="invoice.invoiceDate">
                     <clear-field field="inMap"/>
                     <set field="inMap.dimensionEntityName" value="DateDimension"/>
-                    <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate"/>
+                    <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate" type="Date"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
                         <result-to-field result-name="dimensionId" field="fact.invoiceDateDimId"/>
                     </call-service>
@@ -123,7 +123,7 @@ under the License.
             <set field="fact.extDiscountAmount" value="0.0" type="BigDecimal"/>
             <set field="fact.extTaxAmount" value="0.0" type="BigDecimal"/>
             <set field="fact.extNetAmount" value="0.0" type="BigDecimal"/>
-            <calculate field="fact.extGrossAmount" type="BigDecimal">
+            <calculate field="fact.extGrossAmount">
                 <calcop field="invoiceItem.quantity" operator="multiply">
                     <calcop field="invoiceItem.amount" operator="get"/>
                 </calcop>
@@ -133,7 +133,7 @@ under the License.
             <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
             <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="taxes" map="andConditions"/>
             <iterate list="taxes" entry="tax">
-                <calculate field="fact.extTaxAmount" type="BigDecimal">
+                <calculate field="fact.extTaxAmount">
                     <calcop field="fact.extTaxAmount" operator="add">
                         <calcop field="tax.amount" operator="get"/>
                     </calcop>
@@ -151,7 +151,7 @@ under the License.
                 </calculate>
             </iterate>
             
-            <calculate field="fact.extNetAmount" type="BigDecimal">
+            <calculate field="fact.extNetAmount">
                 <calcop field="fact.extGrossAmount" operator="subtract">
                     <calcop field="fact.extDiscountAmount" operator="get"/>
                 </calcop>
@@ -163,7 +163,7 @@ under the License.
             <set field="fact.extStorageCost" value="0.0" type="BigDecimal"/>
             <set field="fact.extDistributionCost" value="0.0" type="BigDecimal"/>
 
-            <calculate field="fact.contributionAmount" type="BigDecimal">
+            <calculate field="fact.contributionAmount">
                 <calcop field="fact.extNetAmount" operator="subtract">
                     <calcop field="fact.extManFixedCost" operator="get"/>
                     <calcop field="fact.extManVarCost" operator="get"/>

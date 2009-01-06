@@ -220,7 +220,7 @@ public class EntityExpr extends EntityCondition {
     }
     
     public void checkRhsType(ModelEntity modelEntity, GenericDelegator delegator) {
-        if (this.rhs == null || modelEntity == null) return;
+        if (this.rhs == null || this.rhs == GenericEntity.NULL_FIELD || modelEntity == null) return;
 
         Object value = this.rhs;
         if (this.rhs instanceof EntityFunction) {

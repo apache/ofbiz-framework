@@ -25,7 +25,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
-        <field-to-result field="costComponentId" map-name="newEntity"/>
+        <field-to-result field="newEntity.costComponentId" result-name="costComponentId"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
@@ -99,8 +99,8 @@ under the License.
         <filter-list-by-date list="otherCosts"/>
         <first-from-list list="otherCosts" entry="otherCost"/>
         
-        <set field="productCost" value="0" type="Double" />
-        <calculate field="productCost" type="Double" decimal-scale="6">
+        <set field="productCost" value="0" type="BigDecimal" />
+        <calculate field="productCost" decimal-scale="6">
             <calcop field="laborCost.cost" operator="add">
                 <calcop field="materialsCost.cost" operator="get"/>
                 <calcop field="routeCost.cost" operator="get"/>
@@ -108,7 +108,7 @@ under the License.
             </calcop>
         </calculate>
         <!-- if the cost is zero, and the product is a variant, get the cost of the virtual -->
-        <if-compare field="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
             <entity-one entity-name="Product" value-field="product"/>
             <set from-field="product.productId" field="assocAndMap.productIdTo"/>
             <set value="PRODUCT_VARIANT" field="assocAndMap.productAssocTypeId"/>
@@ -125,7 +125,7 @@ under the License.
             </if-not-empty>
         </if-compare>
         <!-- if the cost is zero, get the purchase cost from the SupplierProduct -->
-        <if-compare field="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
             <set field="orderByList[]" value="+supplierPrefOrderId"/>
             <set field="orderByList[]" value="+lastPrice"/>
             <clear-field field="costsAndMap"/>
@@ -140,7 +140,7 @@ under the License.
             <!-- if the cost is zero, get the purchase cost from the SupplierProduct
                  in a different currency and try to convert
             -->
-            <if-compare field="productCost" operator="equals" value="0" type="Double">
+            <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
                 <clear-field field="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
@@ -160,7 +160,7 @@ under the License.
             </if-compare>
         </if-compare>
         <!--
-        <if-compare field="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
             <clear-field field="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
@@ -184,7 +184,7 @@ under the License.
             <result-to-field result-name="setupTime"/>
         </call-service>
 
-        <calculate field="estimatedTaskTime" type="Double" decimal-scale="6">
+        <calculate field="estimatedTaskTime" decimal-scale="6">
             <calcop field="estimatedTaskTime" operator="subtract">
                 <calcop field="setupTime" operator="get"/>
             </calcop>
@@ -204,7 +204,7 @@ under the License.
             <filter-list-by-date list="usageCosts"/>
             <first-from-list list="usageCosts" entry="usageCost"/>
         </if-not-empty>
-        <calculate field="taskCost" type="Double" decimal-scale="6">
+        <calculate field="taskCost" decimal-scale="6">
             <calcop operator="add">
                 <calcop field="estimatedTaskTime" operator="multiply">
                     <calcop field="usageCost.amount" operator="get"/>
@@ -216,7 +216,7 @@ under the License.
         </calculate>
 
         <!-- Time is converted from milliseconds to hours -->
-        <calculate field="taskCost" type="Double" decimal-scale="6">
+        <calculate field="taskCost" decimal-scale="6">
             <calcop field="taskCost" operator="divide">
                 <number value="3600000"/>
             </calcop>
@@ -261,7 +261,7 @@ under the License.
                 <call-service service-name="getProductCost" in-map-name="inputMap">
                     <result-to-field result-name="productCost"/>
                 </call-service>
-                <calculate field="totalProductsCost" type="Double" decimal-scale="6">
+                <calculate field="totalProductsCost" decimal-scale="6">
                     <calcop field="totalProductsCost" operator="add">
                         <calcop field="componentMap.quantity" operator="multiply">
                             <calcop field="productCost" operator="get"/>
@@ -277,7 +277,7 @@ under the License.
                 <call-service service-name="getProductCost" in-map-name="inputMap">
                     <result-to-field result-name="productCost"/>
                 </call-service>
-                <calculate field="totalProductsCost" type="Double" decimal-scale="6">
+                <calculate field="totalProductsCost" decimal-scale="6">
                     <calcop field="productCost" operator="get"/>
                 </calculate>
             </else>
@@ -297,14 +297,14 @@ under the License.
             <call-service service-name="getTaskCost" in-map-name="callSvcMap">
                 <result-to-field result-name="taskCost" field="taskCost"/>
             </call-service>
-            <calculate field="totalTaskCost" type="Double" decimal-scale="6">
+            <calculate field="totalTaskCost" decimal-scale="6">
                 <calcop field="totalTaskCost" operator="add">
                     <calcop field="taskCost" operator="get"/>
                 </calcop>
             </calculate>
         </iterate>
         
-        <calculate field="totalCost" type="Double" decimal-scale="6">
+        <calculate field="totalCost" decimal-scale="6">
             <calcop field="totalTaskCost" operator="add">
                 <calcop field="totalProductsCost" operator="get"/>
             </calcop>
@@ -312,7 +312,7 @@ under the License.
         
         <!-- The CostComponent records are created. -->
         <if-not-empty field="totalTaskCost">
-            <if-compare field="totalTaskCost" operator="greater" value="0" type="Double">
+            <if-compare field="totalTaskCost" operator="greater" value="0" type="BigDecimal">
                 <clear-field field="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>
@@ -322,7 +322,7 @@ under the License.
             </if-compare>
         </if-not-empty>
         <if-not-empty field="totalProductsCost">
-            <if-compare field="totalProductsCost" operator="greater" value="0" type="Double">
+            <if-compare field="totalProductsCost" operator="greater" value="0" type="BigDecimal">
                 <clear-field field="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>

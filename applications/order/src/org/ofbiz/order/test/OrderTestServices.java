@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.test;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -126,7 +127,7 @@ public class OrderTestServices {
             // get a product
             int k = r.nextInt(productsList.size());
             try {
-                cart.addOrIncreaseItem((String) productsList.get(k), null, 1, null, null, null,
+                cart.addOrIncreaseItem((String) productsList.get(k), null, BigDecimal.ONE, null, null, null,
                                        null, null, null, null, 
                                        null /*catalogId*/, null, null/*itemType*/, null/*itemGroupNumber*/, null, dispatcher);
             } catch (Exception exc) {

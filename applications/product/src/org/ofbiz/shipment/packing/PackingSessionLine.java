@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.shipment.packing;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -40,11 +41,11 @@ public class PackingSessionLine implements java.io.Serializable {
     protected String productId = null;
     protected String inventoryItemId = null;
     protected String shipmentItemSeqId = null;
-    protected double quantity = 0;
-    protected double weight = 0;
+    protected BigDecimal quantity = BigDecimal.ZERO;
+    protected BigDecimal weight = BigDecimal.ZERO;
     protected int packageSeq = 0;
 
-    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, double quantity, double weight, int packageSeq) {
+    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, BigDecimal quantity, BigDecimal weight, int packageSeq) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;
@@ -83,28 +84,28 @@ public class PackingSessionLine implements java.io.Serializable {
         this.shipmentItemSeqId = shipmentItemSeqId;
     }
 
-    public double getQuantity() {
+    public BigDecimal getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
-    public void addQuantity(double quantity) {
-        this.quantity += quantity;
+    public void addQuantity(BigDecimal quantity) {
+        this.quantity = this.quantity.add(quantity);
     }
 
-    public double getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 
-    public void addWeight(double weight) {
-        this.weight += weight;
+    public void addWeight(BigDecimal weight) {
+        this.weight = this.weight.add(weight);
     }
 
     public int getPackageSeq() {
@@ -124,9 +125,9 @@ public class PackingSessionLine implements java.io.Serializable {
         return false;
     }
 
-    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, Double quantity, LocalDispatcher dispatcher) throws GeneralException {
+    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, BigDecimal quantity, LocalDispatcher dispatcher) throws GeneralException {
         if (quantity == null) {
-            quantity = Double.valueOf(this.getQuantity());
+            quantity = this.getQuantity();
         }
 
         Map<String, Object> issueMap = FastMap.newInstance();
@@ -163,8 +164,8 @@ public class PackingSessionLine implements java.io.Serializable {
             GenericValue plItem = delegator.findByPrimaryKey("PicklistItem", itemLookup);
             if (plItem != null) {
                 Debug.log("Found picklist bin: " + plItem, module);
-                Double itemQty = plItem.getDouble("quantity");
-                if (itemQty.doubleValue() == quantity.doubleValue()) {
+                BigDecimal itemQty = plItem.getBigDecimal("quantity");
+                if (itemQty.compareTo(quantity) == 0) {
                     // set to complete
                     itemLookup.put("itemStatusId", "PICKITEM_COMPLETED");
                 } else {
@@ -191,7 +192,7 @@ public class PackingSessionLine implements java.io.Serializable {
         Map<String, Object> packageMap = FastMap.newInstance();
         packageMap.put("shipmentId", shipmentId);
         packageMap.put("shipmentItemSeqId", this.getShipmentItemSeqId());
-        packageMap.put("quantity", Double.valueOf(this.getQuantity()));
+        packageMap.put("quantity", this.getQuantity());
         packageMap.put("shipmentPackageSeqId", shipmentPackageSeqId);
         packageMap.put("userLogin", userLogin);
         Map<String, Object> packageResp = dispatcher.runSync("addShipmentContentToPackage", packageMap);

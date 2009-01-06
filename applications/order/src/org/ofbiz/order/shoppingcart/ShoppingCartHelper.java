@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -99,8 +100,8 @@ public class ShoppingCartHelper {
     /** Event to add an item to the shopping cart. */
     public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription, 
-            Double price, Double amount, double quantity, 
-            java.sql.Timestamp reservStart, Double reservLength, Double reservPersons, 
+            BigDecimal price, BigDecimal amount, BigDecimal quantity, 
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
 
@@ -113,8 +114,8 @@ public class ShoppingCartHelper {
     /** Event to add an item to the shopping cart with accommodation. */
     public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription, 
-            Double price, Double amount, double quantity, 
-            java.sql.Timestamp reservStart, Double reservLength, Double reservPersons, String accommodationMapId,String accommodationSpotId, 
+            BigDecimal price, BigDecimal amount, BigDecimal quantity, 
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId, 
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
         Map result = null;
@@ -122,21 +123,21 @@ public class ShoppingCartHelper {
         String pProductId = null;
         pProductId = parentProductId;
         // price sanity check
-        if (productId == null && price != null && price.doubleValue() < 0) {
+        if (productId == null && price != null && price.compareTo(BigDecimal.ZERO) < 0) {
             String errMsg = UtilProperties.getMessage(resource, "cart.price_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         // quantity sanity check
-        if (quantity < 1) {
+        if (quantity.compareTo(BigDecimal.ONE) < 0) {
             String errMsg = UtilProperties.getMessage(resource, "cart.quantity_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         // amount sanity check
-        if (amount != null && amount.doubleValue() < 0) {
+        if (amount != null && amount.compareTo(BigDecimal.ZERO) < 0) {
             String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
@@ -309,7 +310,7 @@ public class ShoppingCartHelper {
                     continue;
                 // never read: int itemId = -1;
                 if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
-                    Double amount = orderItem.getDouble("selectedAmount");
+                	BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
                     ProductConfigWrapper configWrapper = null;
                     String aggregatedProdId = null;
                     if ("AGGREGATED_CONF".equals(ProductWorker.getProductTypeId(delegator, productId))) {
@@ -324,7 +325,7 @@ public class ShoppingCartHelper {
                         
                     }
                     try {
-                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getDouble("quantity").doubleValue(),
+                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getBigDecimal("quantity"),
                                 null, null, null, null, null, null, null, catalogId, configWrapper, orderItemTypeId, itemGroupNumber, null, dispatcher);
                         noItems = false;
                     } catch (CartItemModifyException e) {
@@ -404,14 +405,14 @@ public class ShoppingCartHelper {
             }
 
             if (quantStr != null && quantStr.length() > 0) {
-                double quantity = 0;
+            	BigDecimal quantity = BigDecimal.ZERO;
 
                 try {
-                    quantity = Double.parseDouble(quantStr);
+                    quantity = new BigDecimal(quantStr);
                 } catch (NumberFormatException nfe) {
-                    quantity = 0;
+                    quantity = BigDecimal.ZERO;
                 }
-                if (quantity > 0.0) {
+                if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     try {
                         if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
                         this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, null, dispatcher);
@@ -480,13 +481,13 @@ public class ShoppingCartHelper {
                 }
 
                 if (quantStr != null && quantStr.length() > 0) {
-                    double quantity = 0;
+                	BigDecimal quantity = BigDecimal.ZERO;
                     try {
-                        quantity = nf.parse(quantStr).doubleValue();
+                        quantity = new BigDecimal(nf.parse(quantStr).doubleValue());
                     } catch (ParseException nfe) {
-                        quantity = 0;
+                        quantity = BigDecimal.ZERO;
                     }
-                    if (quantity > 0.0) {
+                    if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                         Iterator items = this.cart.iterator();
                         boolean requirementAlreadyInCart = false;
                         while (items.hasNext() && !requirementAlreadyInCart) {
@@ -555,19 +556,19 @@ public class ShoppingCartHelper {
             return result;
         }
 
-        double totalQuantity = 0;
+        BigDecimal totalQuantity = BigDecimal.ZERO;
         Iterator pcmIter = prodCatMemberCol.iterator();
 
         while (pcmIter.hasNext()) {
             GenericValue productCategoryMember = (GenericValue) pcmIter.next();
-            Double quantity = productCategoryMember.getDouble("quantity");
+            BigDecimal quantity = productCategoryMember.getBigDecimal("quantity");
 
-            if (quantity != null && quantity.doubleValue() > 0.0) {
+            if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
                 try {
                     this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"), 
-                            null, quantity.doubleValue(), null, null, null, null, null, null, null, 
+                            null, quantity, null, null, null, null, null, null, null, 
                             catalogId, null, null, itemGroupNumber, null, dispatcher);
-                    totalQuantity += quantity.doubleValue();
+                    totalQuantity = totalQuantity.add(quantity);
                 } catch (CartItemModifyException e) {
                     errorMsgs.add(e.getMessage());
                 } catch (ItemNotFoundException e) {
@@ -582,7 +583,7 @@ public class ShoppingCartHelper {
         }
 
         result = ServiceUtil.returnSuccess();
-        result.put("totalQuantity", new Double(totalQuantity));
+        result.put("totalQuantity", totalQuantity);
         return result;
     }
 
@@ -634,9 +635,9 @@ public class ShoppingCartHelper {
         Set parameterNames = context.keySet();
         Iterator parameterNameIter = parameterNames.iterator();
 
-        double oldQuantity = -1;
+        BigDecimal oldQuantity = BigDecimal.ONE.negate();
         String oldDescription = "";
-        double oldPrice = -1;
+        BigDecimal oldPrice = BigDecimal.ONE.negate();
 
         if (this.cart.isReadOnlyCart()) {
             String errMsg = UtilProperties.getMessage(resource, "cart.cart_is_in_read_only_mode", this.cart.getLocale());
@@ -655,7 +656,7 @@ public class ShoppingCartHelper {
                     String indexStr = parameterName.substring(underscorePos + 1);
                     int index = Integer.parseInt(indexStr);
                     String quantString = (String) context.get(parameterName);
-                    double quantity = -1;
+                    BigDecimal quantity = BigDecimal.ONE.negate();
                     String itemDescription = "";
                     if (quantString != null) quantString = quantString.trim();
 
@@ -688,12 +689,12 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.startsWith("reservLength")) {
                         if (item != null) {
-                            double reservLength = nf.parse(quantString).doubleValue();
+                    		BigDecimal reservLength = new BigDecimal(nf.parse(quantString).doubleValue());
                             item.setReservLength(reservLength);
                         }
                     } else if (parameterName.startsWith("reservPersons")) {
                         if (item != null) {
-                            double reservPersons = nf.parse(quantString).doubleValue();
+                        	BigDecimal reservPersons = new BigDecimal(nf.parse(quantString).doubleValue());
                             item.setReservPersons(reservPersons);
                         }
                     } else if (parameterName.startsWith("shipBeforeDate")) {
@@ -726,8 +727,8 @@ public class ShoppingCartHelper {
                             item.setItemType(quantString);
                         }                      
                     } else {
-                        quantity = nf.parse(quantString).doubleValue();
-                        if (quantity < 0) {
+                        quantity = new BigDecimal(nf.parse(quantString).doubleValue());
+                        if (quantity.compareTo(BigDecimal.ZERO) < 0) {
                             String errMsg = UtilProperties.getMessage(resource, "cart.quantity_not_positive_number", this.cart.getLocale());
                             errorMsgs.add(errMsg);
                             result = ServiceUtil.returnError(errorMsgs);
@@ -741,7 +742,7 @@ public class ShoppingCartHelper {
                     }
 
                     if (parameterName.toUpperCase().startsWith("UPDATE")) {
-                        if (quantity == 0.0) {
+                        if (quantity.compareTo(BigDecimal.ZERO) == 0) {
                             deleteList.add(item);
                         } else {
                             if (item != null) {
@@ -755,7 +756,7 @@ public class ShoppingCartHelper {
                                             oldPrice = item.getBasePrice();
 
 
-                                            GenericValue productSupplier = this.getProductSupplier(item.getProductId(), new Double(quantity), cart.getCurrency());
+                                            GenericValue productSupplier = this.getProductSupplier(item.getProductId(), quantity, cart.getCurrency());
 
                                             if (productSupplier == null) {
                                                 if ("_NA_".equals(cart.getPartyId())) {
@@ -770,7 +771,7 @@ public class ShoppingCartHelper {
                                                 }
                                             } else {
                                                 item.setQuantity(quantity, dispatcher, this.cart);
-                                                item.setBasePrice(productSupplier.getDouble("lastPrice").doubleValue());
+                                                item.setBasePrice(productSupplier.getBigDecimal("lastPrice"));
                                                 item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), productSupplier, cart.getLocale()));
                                             }
                                         }
@@ -989,7 +990,7 @@ public class ShoppingCartHelper {
                       for (int i = 0; agreementTerms.size() > i;i++) {
                            GenericValue agreementTerm = (GenericValue) agreementTerms.get(i);
                            String termTypeId = (String) agreementTerm.get("termTypeId");
-                           Double termValue = (Double) agreementTerm.get("termValue");
+                           BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
                            Long termDays = (Long) agreementTerm.get("termDays");
                            String textValue = agreementTerm.getString("textValue");
                            cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
@@ -1017,11 +1018,11 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    public Map addOrderTerm(String termTypeId,Double termValue,Long termDays) {
+    public Map addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays) {
         return addOrderTerm(termTypeId, termValue, termDays, null);
     }
 
-    public Map addOrderTerm(String termTypeId,Double termValue,Long termDays, String textValue) {
+    public Map addOrderTerm(String termTypeId, BigDecimal termValue,Long termDays, String textValue) {
         Map result = null;
         this.cart.addOrderTerm(termTypeId,termValue,termDays,textValue);
         result = ServiceUtil.returnSuccess();
@@ -1036,7 +1037,7 @@ public class ShoppingCartHelper {
     }
 
     /** Get the first SupplierProduct record for productId with matching quantity and currency */
-    public GenericValue getProductSupplier(String productId, Double quantity, String currencyUomId) {
+    public GenericValue getProductSupplier(String productId, BigDecimal quantity, String currencyUomId) {
         GenericValue productSupplier = null;
         Map params = UtilMisc.toMap("productId", productId, "partyId", cart.getPartyId(), "currencyUomId", currencyUomId, "quantity", quantity);
         try {

@@ -27,7 +27,7 @@ under the License.
     <!-- BOM Formulas -->
     <service name="interfaceBomFormula" engine="interface" location="" invoke="">
         <attribute mode="IN" name="arguments" optional="false" type="java.util.Map"/>
-        <attribute mode="OUT" name="quantity" optional="false" type="Double"/>
+        <attribute mode="OUT" name="quantity" optional="false" type="BigDecimal"/>
     </service>
     <service name="exampleComponentFormula" engine="simple" auth="true"
             location="org/ofbiz/manufacturing/bom/BomFormulas.xml" invoke="exampleComponentFormula">
@@ -42,7 +42,7 @@ under the License.
     <!-- Task Formulas -->
     <service name="interfaceTaskFormula" engine="interface" location="" invoke="" auth="false">
         <attribute mode="IN" name="arguments" optional="false" type="java.util.Map"/>
-        <attribute mode="OUT" name="totalTime" optional="false" type="Double"/>
+        <attribute mode="OUT" name="totalTime" optional="false" type="BigDecimal"/>
     </service>
     <service name="exampleTaskFormula" engine="simple" auth="false"
             location="org/ofbiz/manufacturing/techdata/TaskFormulae.xml" invoke="exampleTaskFormula">

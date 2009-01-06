@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content;
 
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -1610,7 +1611,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscriptionByProduct");
             while (orderItemIter.hasNext()) {
                 GenericValue orderItem = (GenericValue)orderItemIter.next();   
-                Double qty = (Double) orderItem.get("quantity");
+                BigDecimal qty = orderItem.getBigDecimal("quantity");
                 String productId = (String) orderItem.get("productId");
                 List productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"));
                 List productContentListFiltered = EntityUtil.filterByDate(productContentList);

@@ -19,6 +19,7 @@
 
 package org.ofbiz.accounting.util;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,9 +96,9 @@ public class UtilAccounting {
      * Little method to figure out the net or ending balance of a GlAccountHistory or GlAccountAndHistory value, based on what kind
      * of account (DEBIT or CREDIT) it is
      * @param account - GlAccountHistory or GlAccountAndHistory value
-     * @return balance - a Double 
+     * @return balance - a BigDecimal 
      */
-    public static Double getNetBalance(GenericValue account, String debugModule) {
+    public static BigDecimal getNetBalance(GenericValue account, String debugModule) {
         try {
             return getNetBalance(account);
         } catch (GenericEntityException ex) {
@@ -105,15 +106,15 @@ public class UtilAccounting {
             return null;
         }
     }
-    public static Double getNetBalance(GenericValue account) throws GenericEntityException {
+    public static BigDecimal getNetBalance(GenericValue account) throws GenericEntityException {
         GenericValue glAccount = account.getRelatedOne("GlAccount");
-        double balance = 0.0;
+        BigDecimal balance = BigDecimal.ZERO;
         if (isDebitAccount(glAccount)) {
-            balance = account.getDouble("postedDebits").doubleValue() - account.getDouble("postedCredits").doubleValue();
+            balance = account.getBigDecimal("postedDebits").subtract(account.getBigDecimal("postedCredits"));
         } else if (isCreditAccount(glAccount)) {
-            balance = account.getDouble("postedCredits").doubleValue() - account.getDouble("postedDebits").doubleValue();
+            balance = account.getBigDecimal("postedCredits").subtract(account.getBigDecimal("postedDebits"));
         }
-        return new Double(balance);    
+        return balance;    
     }
 
     public static List getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
