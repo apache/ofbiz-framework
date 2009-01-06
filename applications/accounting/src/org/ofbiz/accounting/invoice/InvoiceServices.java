@@ -778,7 +778,7 @@ public class InvoiceServices {
                 Iterator cpi = currentPayments.iterator();
                 while (cpi.hasNext()) {
                     GenericValue payment = (GenericValue) cpi.next();
-                    BigDecimal notApplied = PaymentWorker.getPaymentNotAppliedBd(payment);
+                    BigDecimal notApplied = PaymentWorker.getPaymentNotApplied(payment);
                     if (notApplied.signum() > 0) {
                         Map appl = new HashMap();
                         appl.put("paymentId", payment.get("paymentId"));
