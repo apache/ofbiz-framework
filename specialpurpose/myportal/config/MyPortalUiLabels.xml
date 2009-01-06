@@ -18,10 +18,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="ActualStartDate">
-        <value xml:lang="en">Actual Start Date</value>
-        <value xml:lang="th">วันที่เริ่มทำงานจริง</value>
-    </property>
     <property key="AllEvents">
         <value xml:lang="en">All Communications</value>
         <value xml:lang="fr">Toutes les communications</value>
@@ -59,6 +55,7 @@
     </property>
     <property key="MyportalDashboard">
         <value xml:lang="en">My Portal</value>
+        <value xml:lang="fr">Mon portail</value>
         <value xml:lang="th">ส่วนตัว</value>
     </property>
     <property key="MyCommunications">
@@ -196,6 +193,7 @@
     </property>
     <property key="TitlePageMyportalForNoLogin">
         <value xml:lang="en">My Portal Page</value>
+        <value xml:lang="fr">Ma page de portail</value>
         <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
     </property>
     <property key="toComplete">

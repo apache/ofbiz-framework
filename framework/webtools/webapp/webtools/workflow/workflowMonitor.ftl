@@ -31,7 +31,7 @@ under the License.
           <td>${uiLabelMap.WebtoolsWorkflowProcessVersion}</td>
           <td>${uiLabelMap.WebtoolsWorkflowCurrentStatus}</td>
           <td>${uiLabelMap.WebtoolsPriority}</div></td>
-          <td>${uiLabelMap.WebtoolsWorkflowActualStartDate}</div></td>
+          <td>${uiLabelMap.CommonActualStartDate}</div></td>
           <td>${uiLabelMap.WebtoolsWorkflowSourceReferenceId}</div></td>
           <td>&nbsp;</td>
         </tr>
@@ -64,7 +64,7 @@ under the License.
             <td>${uiLabelMap.WebtoolsWorkflowActivityId}</td>
             <td>${uiLabelMap.Priority}</td>
             <td>${uiLabelMap.WebtoolsWorkflowCurrentStatus}</td>
-            <td>${uiLabelMap.WebtoolsWorkflowActualStartDate}</td>
+            <td>${uiLabelMap.CommonActualStartDate}</td>
             <td>${uiLabelMap.WebtoolsWorkflowActualCompleteDate}</td>
             <td>${uiLabelMap.WebtoolsWorkflowAssignments}</td>
           </tr>

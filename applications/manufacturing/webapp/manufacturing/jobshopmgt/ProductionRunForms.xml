@@ -233,7 +233,7 @@ under the License.
             <display/>
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingEstimatedStartDate}"><display/></field>
-        <field name="actualStartDate" title="${uiLabelMap.ManufacturingActualStartDate}"><display/></field>
+        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}"><display/></field>
         <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
@@ -671,7 +671,7 @@ under the License.
         <field name="estimatedCompletionDate" entry-name="workEffortIdFrom">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedCompletionDate} " cache="true"/>
         </field>
-        <field name="actualStartDate" title="${uiLabelMap.ManufacturingActualStartDate}" entry-name="workEffortIdFrom">
+        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}" entry-name="workEffortIdFrom">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualStartDate} " cache="true"/>
         </field>
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}" entry-name="workEffortIdFrom">
@@ -698,7 +698,7 @@ under the License.
         <field name="estimatedCompletionDate" entry-name="workEffortIdTo">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedCompletionDate} " cache="true"/>
         </field>
-        <field name="actualStartDate" title="${uiLabelMap.ManufacturingActualStartDate}" entry-name="workEffortIdTo">
+        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}" entry-name="workEffortIdTo">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualStartDate} " cache="true"/>
         </field>
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}" entry-name="workEffortIdTo">
