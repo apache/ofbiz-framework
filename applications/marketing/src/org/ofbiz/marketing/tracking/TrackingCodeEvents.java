@@ -265,14 +265,12 @@ public class TrackingCodeEvents {
                 Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId" ,siteId);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
-                siteIdCookie.setVersion(1);
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
                     response.addCookie(siteIdCookie);
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
-                updatedTimeStampCookie.setVersion(1);
                 if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
                     response.addCookie(updatedTimeStampCookie);
             }
@@ -421,7 +419,21 @@ public class TrackingCodeEvents {
         // no tracking code or tracking code invalid; redirect to the access page (i.e. request named 'protect')  
         return ":_protect_:";
     }
-    
+
+    /** Removes the ACCESS tracking code cookie */
+    public static String removeAccesTrackingCodeCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().endsWith("_ACCESS")) {
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        return "success";
+    }
+
     /** Makes a list of TrackingCodeOrder entities to be attached to the current order; called by the createOrder event; the values in the returned List will not have the orderId set */
     public static List makeTrackingCodeOrders(HttpServletRequest request) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
