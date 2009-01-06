@@ -2201,7 +2201,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(modelFormField.getParameterName(context));
             writer.append(",'");
         }
-        writer.append(lookupField.getFormName(context));
+        writer.append(appendExternalLoginKey(lookupField.getFormName(context)));
         writer.append("'");
         List targetParameterList = lookupField.getTargetParameterList();
         if (targetParameterList.size() > 0) {
@@ -2225,6 +2225,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         this.appendTooltip(writer, context, modelFormField);
 
         //appendWhitespace(writer);
+    }
+
+    protected String appendExternalLoginKey(String target) {
+        String result = target;
+        String externalLoginKey = (String) this.request.getAttribute("externalLoginKey");
+        if (UtilValidate.isNotEmpty(externalLoginKey)) {
+            if (target.contains("?")) {
+                result = target + "&externalLoginKey=" + externalLoginKey;
+            } else {
+                result = target + "?externalLoginKey=" + externalLoginKey;
+            }
+        }
+        return result;
     }
 
     public void renderNextPrev(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
