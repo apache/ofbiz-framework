@@ -38,6 +38,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -69,6 +70,9 @@ public class CheckOutHelper {
     public static final String module = CheckOutHelper.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
+
+    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
     protected LocalDispatcher dispatcher = null;
     protected GenericDelegator delegator = null;
@@ -252,9 +256,9 @@ public class CheckOutHelper {
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
                 Map billingAccountMap = (Map)selectedPaymentMethods.get("EXT_BILLACT");
-                Double billingAccountAmt = (Double)billingAccountMap.get("amount");
+                BigDecimal billingAccountAmt = (BigDecimal)billingAccountMap.get("amount");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
-                cart.setBillingAccount(billingAccountId, (billingAccountAmt != null? billingAccountAmt.doubleValue(): 0.0));
+                cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt: BigDecimal.ZERO));
                 // copy the billing account terms as order terms
                 try {
                     List billingAccountTerms = delegator.findByAnd("BillingAccountTerm", UtilMisc.toMap("billingAccountId", billingAccountId));
@@ -264,7 +268,7 @@ public class CheckOutHelper {
                             GenericValue billingAccountTerm = (GenericValue)billingAccountTermsIt.next();
                             // the term is not copied if in the cart a term of the same type is already set
                             if (!cart.hasOrderTerm(billingAccountTerm.getString("termTypeId"))) {
-                                cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getDouble("termValue"), billingAccountTerm.getLong("termDays"));
+                                cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getBigDecimal("termValue"), billingAccountTerm.getLong("termDays"));
                             }
                         }
                     }
@@ -273,16 +277,16 @@ public class CheckOutHelper {
                 }
             } else {
                 // remove the billing account from the cart
-                cart.setBillingAccount(null, 0.0);
+                cart.setBillingAccount(null, BigDecimal.ZERO);
             }
 
             // if checkoutPaymentId == EXT_BILLACT, then we have billing account only, so make sure we have enough credit
             if (selectedPaymentMethods.containsKey("EXT_BILLACT") && selectedPaymentMethods.size() == 1) {
-                double accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
-                double amountToUse = cart.getBillingAccountAmount();
+                BigDecimal accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
+                BigDecimal amountToUse = cart.getBillingAccountAmount();
 
                 // if an amount was entered, check that it doesn't exceed availalble amount
-                if (amountToUse > 0 && amountToUse > accountCredit) {
+                if (amountToUse.compareTo(BigDecimal.ZERO) > 0 && amountToUse.compareTo(accountCredit) > 0) {
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.insufficient_credit_available_on_account",
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
@@ -292,9 +296,9 @@ public class CheckOutHelper {
                 }
 
                 // check that the amount to use is enough to fulfill the order
-                double grandTotal = cart.getGrandTotal();
-                if (grandTotal > amountToUse) {
-                    cart.setBillingAccount(null, 0.0); // erase existing billing account data
+                BigDecimal grandTotal = cart.getGrandTotal();
+                if (grandTotal.compareTo(amountToUse) > 0) {
+                    cart.setBillingAccount(null, BigDecimal.ZERO); // erase existing billing account data
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.insufficient_credit_available_on_account",
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
@@ -305,9 +309,9 @@ public class CheckOutHelper {
 
                 // associate the cart billing account amount and EXT_BILLACT selected payment method with whatever amount we have now
                 // XXX: Note that this step is critical for the billing account to be charged correctly
-                if (amountToUse > 0) {
+                if (amountToUse.compareTo(BigDecimal.ZERO) > 0) {
                     cart.setBillingAccount(billingAccountId, amountToUse);
-                    selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", new Double(amountToUse), "securityCode", null));
+                    selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", amountToUse, "securityCode", null));
                 }
             }
 
@@ -328,11 +332,11 @@ public class CheckOutHelper {
                 }
 
                 // get the selected amount to use
-                Double paymentAmount = null;
+                BigDecimal paymentAmount = null;
                 String securityCode = null;
                 if (selectedPaymentMethods.get(checkOutPaymentId) != null) {
                     Map checkOutPaymentInfo = (Map) selectedPaymentMethods.get(checkOutPaymentId);
-                    paymentAmount = (Double) checkOutPaymentInfo.get("amount");
+                    paymentAmount = (BigDecimal) checkOutPaymentInfo.get("amount");
                     securityCode = (String) checkOutPaymentInfo.get("securityCode");
                 }
 
@@ -345,7 +349,7 @@ public class CheckOutHelper {
                     inf.securityCode = securityCode;
                 }
             }
-        } else if (cart.getGrandTotal() != 0.00) {
+        } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
             // only return an error if the order total is not 0.00
             errMsg = UtilProperties.getMessage(resource,"checkhelper.select_method_of_payment",
                     (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -398,11 +402,11 @@ public class CheckOutHelper {
             
             // Recalc shipping costs before setting payment
             Map shipEstimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, 0);
-            Double shippingTotal = (Double) shipEstimateMap.get("shippingTotal");
+            BigDecimal shippingTotal = (BigDecimal) shipEstimateMap.get("shippingTotal");
             if (shippingTotal == null) {
-                shippingTotal = new Double(0.00);
+                shippingTotal = BigDecimal.ZERO;
             }
-            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), 0);
+            cart.setItemShipGroupEstimate(shippingTotal, 0);
 
             //Recalc tax before setting payment
             try {
@@ -439,7 +443,7 @@ public class CheckOutHelper {
             String gcNum = (String) params.get("giftCardNumber");
             String gcPin = (String) params.get("giftCardPin");
             String gcAmt = (String) params.get("giftCardAmount");
-            double gcAmount = -1;
+            BigDecimal gcAmount = BigDecimal.ONE.negate();
 
             boolean gcFieldsOkay = true;
             if (gcNum == null || gcNum.length() == 0) {
@@ -489,7 +493,7 @@ public class CheckOutHelper {
             }
             if (gcAmt != null && gcAmt.length() > 0) {
                 try {
-                    gcAmount = Double.parseDouble(gcAmt);
+                    gcAmount = new BigDecimal(gcAmt);
                 } catch (NumberFormatException e) {
                     Debug.logError(e, module);
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.invalid_amount_for_gift_card", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -519,9 +523,9 @@ public class CheckOutHelper {
 
                     if (errorMessages.size() == 0 && errorMaps.size() == 0) {
                         // set the GC payment method
-                        Double giftCardAmount = null;
-                        if (gcAmount > 0) {
-                            giftCardAmount = new Double(gcAmount);
+                        BigDecimal giftCardAmount = null;
+                        if (gcAmount.compareTo(BigDecimal.ZERO) > 0) {
+                            giftCardAmount = gcAmount;
                         }
                         String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
                         result = ServiceUtil.returnSuccess();
@@ -563,19 +567,7 @@ public class CheckOutHelper {
         String orderId = this.cart.getOrderId();
         this.cart.clearAllItemStatus();
 
-        // format the grandTotal
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        double cartTotal = this.cart.getGrandTotal();
-        String grandTotalString = formatter.format(cartTotal);
-        Double grandTotal = null;
-        try {
-            grandTotal = new Double(formatter.parse(grandTotalString).doubleValue());
-        } catch (ParseException e) {
-            Debug.logError(e, "Problem getting parsed currency amount from DecimalFormat", module);
-            String errMsg = UtilProperties.getMessage(resource,"checkhelper.could_not_create_order_parsing_totals", (cart != null ? cart.getLocale() : Locale.getDefault()));
-            return ServiceUtil.returnError(errMsg);
-        }
+        BigDecimal grandTotal = this.cart.getGrandTotal();
 
         // store the order - build the context
         Map context = this.cart.makeCartMap(this.dispatcher, areOrderItemsExploded);
@@ -646,7 +638,7 @@ public class CheckOutHelper {
                         inputMap.put("facilityId", productStore.getString("inventoryFacilityId"));
                         inputMap.put("orderId", orderId);
                         inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
-                        inputMap.put("quantity", orderItem.getDouble("quantity"));
+                        inputMap.put("quantity", orderItem.getBigDecimal("quantity"));
                         inputMap.put("userLogin", permUserLogin);
                         
                         Map prunResult = dispatcher.runSync("createProductionRunFromConfiguration", inputMap);
@@ -760,7 +752,6 @@ public class CheckOutHelper {
         for (int i = 0; i < shipGroups; i++) {
             Map shoppingCartItemIndexMap = new HashMap();
             Map serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap);
-            // pass in BigDecimal values instead of Double
             List taxReturn = this.getTaxAdjustments(dispatcher, "calcTax", serviceContext);
 
             if (Debug.verboseOn()) Debug.logVerbose("ReturnList: " + taxReturn, module);
@@ -809,8 +800,8 @@ public class CheckOutHelper {
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got itemInfo: " + itemInfo, module);
             
             product.add(i, cartItem.getProduct());
-            amount.add(i, new BigDecimal(cartItem.getItemSubTotal(itemInfo.quantity)));
-            price.add(i, new BigDecimal(cartItem.getBasePrice()));
+            amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
+            price.add(i, cartItem.getBasePrice());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
             shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
         }
@@ -819,7 +810,7 @@ public class CheckOutHelper {
         List allAdjustments = cart.getAdjustments();
         BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
 
-        BigDecimal shipAmount = new BigDecimal(csi.shipEstimate);
+        BigDecimal shipAmount = csi.shipEstimate;
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
             // Debug.logInfo("====== makeTaxContext set shipAddress to cart.getShippingAddress(shipGroup): " + shipAddress, module);
@@ -885,7 +876,7 @@ public class CheckOutHelper {
         return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, manualHold, dispatcher, delegator);
     }
 
-    public static Map processPayment(String orderId, double orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, GenericDelegator delegator) throws GeneralException {
+    public static Map processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, GenericDelegator delegator) throws GeneralException {
         // Get some payment related strings
         String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
         String ERROR_MESSAGE = productStore.getString("authErrorMessage");
@@ -917,7 +908,7 @@ public class CheckOutHelper {
                 if (opp.get("paymentMethodId") == null) {
                     authCtx.put("serviceTypeEnum", "PRDS_PAY_EXTERNAL");
                 }
-                authCtx.put("processAmount", opp.getDouble("maxAmount"));
+                authCtx.put("processAmount", opp.getBigDecimal("maxAmount"));
                 authCtx.put("authRefNum", opp.getString("manualRefNum"));
                 authCtx.put("authResult", Boolean.TRUE);
                 authCtx.put("userLogin", userLogin);
@@ -939,7 +930,7 @@ public class CheckOutHelper {
                     }
                     captCtx.put("payToPartyId", productStore.get("payToPartyId"));
                     captCtx.put("captureResult", Boolean.TRUE);
-                    captCtx.put("captureAmount", opp.getDouble("maxAmount"));
+                    captCtx.put("captureAmount", opp.getBigDecimal("maxAmount"));
                     captCtx.put("captureRefNum", opp.getString("manualRefNum"));
                     captCtx.put("userLogin", userLogin);
                     captCtx.put("currencyUomId", currencyUomId);
@@ -960,7 +951,7 @@ public class CheckOutHelper {
         // Invoke payment processing.
         if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
             boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
-            if (orderTotal == 0 && autoApproveOrder) {
+            if (orderTotal.compareTo(BigDecimal.ZERO) == 0 && autoApproveOrder) {
                 // if there is nothing to authorize; don't bother
                 boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
                 if (!ok) {
@@ -1096,49 +1087,20 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void adjustFaceToFacePayment(String orderId, double cartTotal, List allPaymentPrefs, GenericValue userLogin, GenericDelegator delegator) throws GeneralException {
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-
-        String grandTotalString = formatter.format(cartTotal);
-        Double grandTotal = null;
-        try {
-            grandTotal = new Double(formatter.parse(grandTotalString).doubleValue());
-        } catch (ParseException e) {
-            throw new GeneralException("Problem getting parsed currency amount from DecimalFormat", e);
-        }
-
-        double prefTotal = 0.00;
+    public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List allPaymentPrefs, GenericValue userLogin, GenericDelegator delegator) throws GeneralException {
+        BigDecimal prefTotal = BigDecimal.ZERO;
         if (allPaymentPrefs != null) {
             Iterator i = allPaymentPrefs.iterator();
             while (i.hasNext()) {
                 GenericValue pref = (GenericValue) i.next();
-                Double maxAmount = pref.getDouble("maxAmount");
-                if (maxAmount == null) maxAmount = new Double(0.00);
-                prefTotal += maxAmount.doubleValue();
+                BigDecimal maxAmount = pref.getBigDecimal("maxAmount");
+                if (maxAmount == null) maxAmount = BigDecimal.ZERO;
+                prefTotal = prefTotal.add(maxAmount);
             }
         }
 
-        String payTotalString = formatter.format(prefTotal);
-        Double payTotal = null;
-        try {
-            payTotal = new Double(formatter.parse(payTotalString).doubleValue());
-        } catch (ParseException e) {
-            throw new GeneralException("Problem getting parsed currency amount from DecimalFormat", e);
-        }
-
-        if (grandTotal == null) grandTotal = new Double(0.00);
-        if (payTotal == null) payTotal = new Double(0.00);
-
-        if (payTotal.doubleValue() > grandTotal.doubleValue()) {
-            double diff = (payTotal.doubleValue() - grandTotal.doubleValue()) * -1;
-            String diffString = formatter.format(diff);
-            Double change = null;
-            try {
-                change = new Double(formatter.parse(diffString).doubleValue());
-            } catch (ParseException e) {
-                throw new GeneralException("Problem getting parsed currency amount from DecimalFormat", e);
-            }
+        if (prefTotal.compareTo(cartTotal) > 0) {
+            BigDecimal change = prefTotal.subtract(cartTotal).negate();
             GenericValue newPref = delegator.makeValue("OrderPaymentPreference");
             newPref.set("orderId", orderId);
             newPref.set("paymentMethodTypeId", "CASH");
@@ -1415,7 +1377,7 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages. 
      */
-    public Map finalizeOrderEntryPayment(String checkOutPaymentId, Double amount, boolean singleUse, boolean append) {
+    public Map finalizeOrderEntryPayment(String checkOutPaymentId, BigDecimal amount, boolean singleUse, boolean append) {
         Map result = ServiceUtil.returnSuccess();
 
         if (UtilValidate.isNotEmpty(checkOutPaymentId)) {
@@ -1428,21 +1390,21 @@ public class CheckOutHelper {
         return result;
     }
 
-    public static double availableAccountBalance(String billingAccountId, LocalDispatcher dispatcher) {
-        if (billingAccountId == null) return 0.0;
+    public static BigDecimal availableAccountBalance(String billingAccountId, LocalDispatcher dispatcher) {
+        if (billingAccountId == null) return BigDecimal.ZERO;
         try {
             Map res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
-            Double availableBalance = (Double) res.get("accountBalance");
+            BigDecimal availableBalance = (BigDecimal) res.get("accountBalance");
             if (availableBalance != null) {
-                return availableBalance.doubleValue();
+                return availableBalance;
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
-        return 0.0;
+        return BigDecimal.ZERO;
     }
 
-    public double availableAccountBalance(String billingAccountId) {
+    public BigDecimal availableAccountBalance(String billingAccountId) {
         return availableAccountBalance(billingAccountId, dispatcher);
     }
 
@@ -1453,7 +1415,7 @@ public class CheckOutHelper {
             while (i.hasNext()) {
                 GenericValue pp = (GenericValue) i.next();
                 if (pp.get("billingAccountId") != null) {
-                    accountMap.put(pp.getString("billingAccountId"), pp.getDouble("maxAmount"));
+                    accountMap.put(pp.getString("billingAccountId"), pp.getBigDecimal("maxAmount"));
                 }
             }
         }
@@ -1463,9 +1425,9 @@ public class CheckOutHelper {
     public Map validatePaymentMethods() {
         String errMsg = null;
         String billingAccountId = cart.getBillingAccountId();
-        double billingAccountAmt = cart.getBillingAccountAmount();
-        double availableAmount = this.availableAccountBalance(billingAccountId);
-        if (billingAccountAmt > availableAmount) {
+        BigDecimal billingAccountAmt = cart.getBillingAccountAmount();
+        BigDecimal availableAmount = this.availableAccountBalance(billingAccountId);
+        if (billingAccountAmt.compareTo(availableAmount) > 0) {
             Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
             errMsg = UtilProperties.getMessage(resource, "checkevents.not_enough_available_on_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
             return ServiceUtil.returnError(errMsg);
@@ -1475,7 +1437,7 @@ public class CheckOutHelper {
         List paymentMethods = cart.getPaymentMethodIds();
         List paymentTypes = cart.getPaymentMethodTypeIds();
         if (paymentTypes.contains("EXT_BILLACT") && paymentTypes.size() == 1 && paymentMethods.size() == 0) {
-            if (cart.getGrandTotal() > availableAmount) {
+            if (cart.getGrandTotal().compareTo(availableAmount) > 0) {
                 errMsg = UtilProperties.getMessage(resource, "checkevents.insufficient_credit_available_on_account", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1484,17 +1446,14 @@ public class CheckOutHelper {
         // validate any gift card balances
         this.validateGiftCardAmounts();
 
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-
         // update the selected payment methods amount with valid numbers
         if (paymentMethods != null) {
             List nullPaymentIds = new ArrayList();
             Iterator i = paymentMethods.iterator();
             while (i.hasNext()) {
                 String paymentMethodId = (String) i.next();
-                Double paymentAmount = cart.getPaymentAmount(paymentMethodId);
-                if (paymentAmount == null || paymentAmount.doubleValue() == 0) {
+                BigDecimal paymentAmount = cart.getPaymentAmount(paymentMethodId);
+                if (paymentAmount == null || paymentAmount.compareTo(BigDecimal.ZERO) == 0) {
                     Debug.log("Found null paymentMethodId - " + paymentMethodId, module);
                     nullPaymentIds.add(paymentMethodId);
                 }
@@ -1502,26 +1461,19 @@ public class CheckOutHelper {
             Iterator npi = nullPaymentIds.iterator();
             while (npi.hasNext()) {
                 String paymentMethodId = (String) npi.next();
-                double selectedPaymentTotal = cart.getPaymentTotal();
-                double requiredAmount = cart.getGrandTotal();
-                double nullAmount = requiredAmount - selectedPaymentTotal;
+                BigDecimal selectedPaymentTotal = cart.getPaymentTotal();
+                BigDecimal requiredAmount = cart.getGrandTotal();
+                BigDecimal newAmount = requiredAmount.subtract(selectedPaymentTotal);
                 boolean setOverflow = false;
 
                 ShoppingCart.CartPaymentInfo info = cart.getPaymentInfo(paymentMethodId);
-                String amountString = formatter.format(nullAmount);
-                double newAmount = 0;
-                try {
-                    newAmount = formatter.parse(amountString).doubleValue();
-                } catch (ParseException e) {
-                    Debug.logError(e, "Problem getting parsed new amount; unable to update payment info!", module);
-                }
 
                 Debug.log("Remaining total is - " + newAmount, module);
-                if (newAmount > 0) {
-                    info.amount = new Double(newAmount);
+                if (newAmount.compareTo(BigDecimal.ZERO) > 0) {
+                    info.amount = newAmount;
                     Debug.log("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
                 } else {
-                    info.amount = new Double(0);
+                    info.amount = BigDecimal.ZERO;
                     Debug.log("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
                 }
                 if (!setOverflow) {
@@ -1532,24 +1484,17 @@ public class CheckOutHelper {
         }
 
         // verify the selected payment method amounts will cover the total
-        double reqAmtPreParse = cart.getGrandTotal() - cart.getBillingAccountAmount();
-        double selectedPaymentTotal = cart.getPaymentTotal();
+        BigDecimal reqAmtPreParse = cart.getGrandTotal().subtract(cart.getBillingAccountAmount());
+        BigDecimal selectedPaymentTotal = cart.getPaymentTotal();
 
-        String preParseString = formatter.format(reqAmtPreParse);
-        double requiredAmount = 0;
-        try {
-            requiredAmount = formatter.parse(preParseString).doubleValue();
-        } catch (ParseException e) {
-            requiredAmount = reqAmtPreParse;
-            Debug.logError(e, "Problem getting parsed required amount; unable to update payment info!", module);
-        }
-        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount > selectedPaymentTotal) {
+        BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
+        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
             Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, module);
             errMsg = UtilProperties.getMessage(resource, "checkevents.payment_not_cover_this_order", (cart != null ? cart.getLocale() : Locale.getDefault()));
             return ServiceUtil.returnError(errMsg);
         }
-        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount < selectedPaymentTotal) {
-            double changeAmount = selectedPaymentTotal - requiredAmount;
+        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount.compareTo(selectedPaymentTotal) < 0) {
+            BigDecimal changeAmount = selectedPaymentTotal.subtract(requiredAmount);
             if (!paymentTypes.contains("CASH")){
                 Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);
                 errMsg = UtilProperties.getMessage(resource, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -1557,8 +1502,8 @@ public class CheckOutHelper {
             }else{
                 int cashIndex = paymentTypes.indexOf("CASH");
                 String cashId = (String) paymentTypes.get(cashIndex);
-                double cashAmount = cart.getPaymentAmount(cashId);
-                if (cashAmount < changeAmount){
+                BigDecimal cashAmount = cart.getPaymentAmount(cashId);
+                if (cashAmount.compareTo(changeAmount) < 0){
                     Debug.logError("Change Amount : " + changeAmount + " / Cash Amount : " + cashAmount, module);
                     errMsg = UtilProperties.getMessage(resource, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     return ServiceUtil.returnError(errMsg);
@@ -1585,7 +1530,7 @@ public class CheckOutHelper {
         while (i.hasNext()) {
             GenericValue gc = (GenericValue) i.next();
             Map gcBalanceMap = null;
-            double gcBalance = 0.00;
+            BigDecimal gcBalance = BigDecimal.ZERO;
             try {
                 Map ctx = UtilMisc.toMap("userLogin", cart.getUserLogin());
                 ctx.put("currency", cart.getCurrency());
@@ -1606,18 +1551,18 @@ public class CheckOutHelper {
                 Debug.logError(e, module);
             }
             if (gcBalanceMap != null) {
-                Double bal = (Double) gcBalanceMap.get(balanceField);
+                BigDecimal bal = (BigDecimal) gcBalanceMap.get(balanceField);
                 if (bal != null) {
-                    gcBalance = bal.doubleValue();
+                    gcBalance = bal;
                 }
             }
 
             // get the bill-up to amount
-            Double billUpTo = cart.getPaymentAmount(gc.getString("paymentMethodId"));
+            BigDecimal billUpTo = cart.getPaymentAmount(gc.getString("paymentMethodId"));
 
             // null bill-up to means use the full balance || update the bill-up to with the balance
-            if (billUpTo == null || billUpTo.doubleValue() == 0 || gcBalance < billUpTo.doubleValue()) {
-                cart.addPaymentAmount(gc.getString("paymentMethodId"), new Double(gcBalance));
+            if (billUpTo == null || billUpTo.compareTo(BigDecimal.ZERO) == 0 || gcBalance.compareTo(billUpTo) < 0) {
+                cart.addPaymentAmount(gc.getString("paymentMethodId"), gcBalance);
             }
         }
     }

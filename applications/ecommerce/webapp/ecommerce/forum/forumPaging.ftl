@@ -25,8 +25,8 @@ under the License.
     <#assign listSize = forumMessages?size/>
     <#if highIndex gt listSize><#assign highIndex = listSize></#if> 
     <div class="product-prevnext">
-      <#assign r = listSize?double / viewSize?double />
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil(r?double)>
+      <#assign r = listSize / viewSize />
+      <#assign viewIndexMax = Static["java.lang.Math"].ceil(r)>
       <select name="pageSelect" class="selectBox" onchange="window.location=this[this.selectedIndex].value;">
         <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int+1} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
         <#list 1..viewIndexMax as curViewNum>

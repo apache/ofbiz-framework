@@ -351,14 +351,14 @@ under the License.
             <if-not-empty field="maintList">
                 <set field="listSize" value="${util:size(maintList)}" type="Long"/>
             </if-not-empty>
-            <set field="maxIntervalQty" value="0" type="Double"/>
+            <set field="maxIntervalQty" value="0" type="BigDecimal"/>
             <iterate list="maintList" entry="maintValue">
                 <if-compare-field field="maintValue.intervalQuantity" operator="greater" to-field="maxIntervalQty" type="BigDecimal">
-                    <set field="maxIntervalQty" from-field="maintValue.intervalQuantity" type="Double"/>
+                    <set field="maxIntervalQty" from-field="maintValue.intervalQuantity" type="BigDecimal"/>
                 </if-compare-field>
             </iterate>
-            <set field="nextIntervalQty" value="${bsh:maxIntervalQty + productMaintValue.getDouble(&quot;intervalQuantity&quot;)}" type="BigDecimal"/>
-            <if-compare-field field="nextIntervalQty" operator="less-equals" to-field="meterValue.meterValue" type="Double">
+            <set field="nextIntervalQty" value="${bsh:maxIntervalQty.add(productMaintValue.getBigDecimal(&quot;intervalQuantity&quot;));}" type="BigDecimal"/>
+            <if-compare-field field="nextIntervalQty" operator="less-equals" to-field="meterValue.meterValue" type="BigDecimal">
                 <set field="maintDue" value="false"/>
                 <if-compare field="repeatCount" operator="greater" value="0" type="Long">
                     <if-compare-field field="listSize" operator="less" to-field="repeatCount" type="Long">
@@ -568,13 +568,13 @@ under the License.
     <simple-method method-name="straightLineDepreciation" short-description="Calculate straight line depreciation to Fixed Asset[ (PC-SV)/expLife ]">
         <set field="expEndOfLifeYear" from-field="parameters.expEndOfLifeYear" type="Integer"/>
         <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
-        <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
-        <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
+        <set field="purchaseCost" from-field="parameters.purchaseCost"/>
+        <set field="salvageValue" from-field="parameters.salvageValue"/>
         <call-object-method obj-field="parameters.usageYears" method-name="intValue" ret-field="intUsageYears"/>
         <if-not-empty field="parameters.fixedAssetId">
-            <set field="depreciation" value="0.0" type="Double"/>
+            <set field="depreciation" value="0.0" type="BigDecimal"/>
             <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
-            <calculate field="depreciation" decimal-scale="2" type="Double">
+            <calculate field="depreciation" decimal-scale="2">
                 <calcop operator="divide">
                     <calcop operator="subtract">
                         <calcop operator="get" field="purchaseCost"/>
@@ -587,7 +587,7 @@ under the License.
                 </calcop>
             </calculate>
             <loop count="${intUsageYears}">
-                <calculate field="purchaseCost" type="Double">
+                <calculate field="purchaseCost">
                     <calcop operator="subtract">
                         <calcop operator="get" field="purchaseCost"/>
                         <calcop operator="get" field="depreciation"/>
@@ -605,14 +605,14 @@ under the License.
     <simple-method method-name="doubleDecliningBalanceDepreciation" short-description="Calculate double declining balance depreciation to Fixed Asset">
         <set field="expEndOfLifeYear" from-field="parameters.expEndOfLifeYear" type="Integer"/>
         <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
-        <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
-        <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
+        <set field="purchaseCost" from-field="parameters.purchaseCost"/>
+        <set field="salvageValue" from-field="parameters.salvageValue"/>
         <call-object-method obj-field="parameters.usageYears" method-name="intValue" ret-field="intUsageYears"/>
         <if-not-empty field="parameters.fixedAssetId">
             <loop count="${intUsageYears}">
-                <set field="depreciation" value="0.0" type="Double"/>
+                <set field="depreciation" value="0.0" type="BigDecimal"/>
                 <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
-                <calculate field="depreciation" decimal-scale="2" type="Double">
+                <calculate field="depreciation" decimal-scale="2">
                     <calcop operator="multiply">
                         <calcop operator="divide">
                            <calcop operator="subtract">
@@ -687,7 +687,7 @@ under the License.
 
         <!-- if any asset's salvage value is empty then set it by 0 -->
         <if-empty field="fixedAsset.salvageValue">
-            <set field="salvageValue" value="0.0" type="Double"/>
+            <set field="salvageValue" value="0.0" type="BigDecimal"/>
         <else>
             <set field="salvageValue" from-field="fixedAsset.salvageValue"/>
         </else>
@@ -720,8 +720,8 @@ under the License.
             <set field="serviceInMap.fixedAssetId" from-field="parameters.fixedAssetId"/>
             <set field="serviceInMap.expEndOfLifeYear" from-field="expEndOfLifeYear" type="Integer"/>
             <set field="serviceInMap.assetAcquiredYear" from-field="assetAcquiredYear" type="Integer"/>
-            <set field="serviceInMap.purchaseCost" from-field="fixedAsset.purchaseCost" type="Double"/>
-            <set field="serviceInMap.salvageValue" from-field="salvageValue" type="Double"/>
+            <set field="serviceInMap.purchaseCost" from-field="fixedAsset.purchaseCost"/>
+            <set field="serviceInMap.salvageValue" from-field="salvageValue"/>
             <set field="serviceInMap.usageYears" from-field="usageYears" type="Integer"/>
             <call-service service-name="${customMethod.customMethodName}" in-map-name="serviceInMap">
                 <result-to-field result-name="assetDepreciationTillDate"/>

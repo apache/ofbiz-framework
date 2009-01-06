@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import org.ofbiz.service.DispatchContext;
@@ -471,19 +472,19 @@ public class ShoppingListServices {
                 while (i.hasNext()) {
                     GenericValue shoppingListItem = (GenericValue) i.next();
                     String productId = shoppingListItem.getString("productId");
-                    Double quantity = shoppingListItem.getDouble("quantity");
+                    BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
-                    Double reservLength = null;
+                    BigDecimal reservLength = null;
                     String configId = shoppingListItem.getString("configId");
               //    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
               //    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
 
                     if (shoppingListItem.get("reservLength") != null) {
-                        reservLength = shoppingListItem.getDouble("reservLength");
+                        reservLength = shoppingListItem.getBigDecimal("reservLength");
                     }
-                    Double reservPersons = null;
+                    BigDecimal reservPersons = null;
                     if (shoppingListItem.get("reservPersons") != null) {
-                        reservPersons = shoppingListItem.getDouble("reservPersons");
+                        reservPersons = shoppingListItem.getBigDecimal("reservPersons");
                     }
                /*   if (shoppingListItem.get("accommodationMapId") != null) {
                        accommodationMapId = shoppingListItem.getString("accommodationMapId");
@@ -502,7 +503,7 @@ public class ShoppingListServices {
                         Map attributes = UtilMisc.toMap("shoppingListId", listId, "shoppingListItemSeqId", itemId);
 
                         try { 
-                            listCart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
+                            listCart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
                         } catch (CartItemModifyException e) {
                             Debug.logError(e, "Unable to add product to List Cart - " + productId, module);
                         } catch (ItemNotFoundException e) {
@@ -569,10 +570,10 @@ public class ShoppingListServices {
                     GenericValue shoppingListItem=delegator.findByPrimaryKey("ShoppingListItem", UtilMisc.toMap("shoppingListId",
                                 shoppingListId, "shoppingListItemSeqId", shoppingListItemSeqId));
                     if (shoppingListItem != null) {
-                        Double quantityPurchased = shoppingListItem.getDouble("quantityPurchased");
-                        Double orderQuantity = orderItem.getDouble("quantity");
+                    	BigDecimal quantityPurchased = shoppingListItem.getBigDecimal("quantityPurchased");
+                    	BigDecimal orderQuantity = orderItem.getBigDecimal("quantity");
                         if (quantityPurchased != null) {
-                            shoppingListItem.set("quantityPurchased", new Double(orderQuantity.doubleValue() + quantityPurchased.doubleValue()));
+                            shoppingListItem.set("quantityPurchased", orderQuantity.add(quantityPurchased));
                         }else{
                             shoppingListItem.set("quantityPurchased", orderQuantity);
                         }

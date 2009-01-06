@@ -74,7 +74,7 @@ under the License.
         <attribute name="fixedAssetId" type="Id" mode="IN" optional="false"/>
         <attribute name="exceptionDateStartTime" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="exceptionCapacity" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="capacity" type="Double" mode="IN" optional="true"/>
+        <attribute name="capacity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     -->
     
@@ -258,8 +258,8 @@ under the License.
         <description>Interface to describe base parameters for Depreciation Calculation Services</description>
         <attribute name="expEndOfLifeYear" type="Integer" mode="IN" optional="false"/>
         <attribute name="assetAcquiredYear" type="Integer" mode="IN" optional="false"/>
-        <attribute name="purchaseCost" type="Double" mode="IN" optional="false"/>
-        <attribute name="salvageValue" type="Double" mode="IN" optional="false"/>
+        <attribute name="purchaseCost" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="salvageValue" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="usageYears" type="Integer" mode="IN" optional="false"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>

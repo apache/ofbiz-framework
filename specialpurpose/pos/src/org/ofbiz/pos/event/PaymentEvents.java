@@ -27,6 +27,7 @@ import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.base.util.UtilProperties;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 public class PaymentEvents {
@@ -40,7 +41,7 @@ public class PaymentEvents {
 
         // all cash transactions are NO_PAYMENT; no need to check
         try {
-            double amount = processAmount(trans, pos, null);
+        	BigDecimal amount = processAmount(trans, pos, null);
             Debug.log("Processing [Cash] Amount : " + amount, module);
 
             // add the payment
@@ -212,7 +213,7 @@ public class PaymentEvents {
                     case 3:
                         firstName = msrInfoArr[2];
                     case 2: // card number & exp date found
-                        double amount = 0;
+                    	BigDecimal amount = BigDecimal.ZERO;
                         try {
                             String[] totalInfo = input.getFunction("TOTAL");
                             amount = processAmount(trans, pos, totalInfo[1]);
@@ -259,7 +260,7 @@ public class PaymentEvents {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 
         try {
-            double amount = processAmount(trans, pos, null);
+        	BigDecimal amount = processAmount(trans, pos, null);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
@@ -282,7 +283,7 @@ public class PaymentEvents {
         input.clearInput();
 
         try {
-            double amount = processAmount(trans, pos, amountStr);
+        	BigDecimal amount = processAmount(trans, pos, amountStr);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
@@ -356,7 +357,7 @@ public class PaymentEvents {
         if (trans.isEmpty()) {
             PosScreen newPos = pos.showPage("pospanel");
             newPos.showDialog("dialog/error/noitems");
-        } else if (trans.getTotalDue() > 0) {
+        } else if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
             pos.showDialog("dialog/error/notenoughfunds");
         } else {
             // manual locks (not secured; will be unlocked on clear)
@@ -379,27 +380,27 @@ public class PaymentEvents {
         }
     }
 
-    private static synchronized double processAmount(PosTransaction trans, PosScreen pos, String amountStr) throws GeneralException {
+    private static synchronized BigDecimal processAmount(PosTransaction trans, PosScreen pos, String amountStr) throws GeneralException {
         Input input = pos.getInput();
 
         if (input.isFunctionSet("TOTAL")) {
             String amtStr = amountStr != null ? amountStr : input.value();
-            double amount;
+            BigDecimal amount;
             if (UtilValidate.isNotEmpty(amtStr)) {
                 try {
-                    amount = Double.parseDouble(amtStr);
+                    amount = new BigDecimal(amtStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Invalid number for amount : " + amtStr, module);
                     pos.getOutput().print("Invalid Amount!");
                     input.clearInput();
                     throw new GeneralException();
                 }
-                amount = amount / 100; // convert to decimal
+                amount = amount.movePointLeft(2); // convert to decimal
                 Debug.log("Set amount / 100 : " + amount, module);
             } else {
                 Debug.log("Amount is empty; assumption is full amount : " + trans.getTotalDue(), module);
                 amount = trans.getTotalDue();
-                if (amount <= 0) {
+                if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                     throw new GeneralException();
                 }
             }

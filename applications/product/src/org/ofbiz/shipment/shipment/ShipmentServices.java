@@ -91,13 +91,13 @@ public class ShipmentServices {
         estimate.set("featurePercent", context.get("featurePercent"));
         estimate.set("featurePrice", context.get("featurePrice"));
         estimate.set("weightBreakId", context.get("weightBreakId"));
-        estimate.set("weightUnitPrice", (Double)context.get("wprice"));
+        estimate.set("weightUnitPrice", (BigDecimal)context.get("wprice"));
         estimate.set("weightUomId", context.get("wuom"));
         estimate.set("quantityBreakId", context.get("quantityBreakId"));
-        estimate.set("quantityUnitPrice", (Double)context.get("qprice"));
+        estimate.set("quantityUnitPrice", (BigDecimal)context.get("qprice"));
         estimate.set("quantityUomId", context.get("quom"));
         estimate.set("priceBreakId", context.get("priceBreakId"));
-        estimate.set("priceUnitPrice", (Double)context.get("pprice"));
+        estimate.set("priceUnitPrice", (BigDecimal)context.get("pprice"));
         estimate.set("priceUomId", context.get("puom"));
         storeAll.add(estimate);
 
@@ -165,11 +165,11 @@ public class ShipmentServices {
 
     private static boolean applyQuantityBreak(Map context, Map<String, Object> result, List<GenericValue> storeAll, GenericDelegator delegator,
                                               GenericValue estimate, String prefix, String breakType, String breakTypeString) {
-        Double min = (Double) context.get(prefix + "min");
-        Double max = (Double) context.get(prefix + "max");
+        BigDecimal min = (BigDecimal) context.get(prefix + "min");
+        BigDecimal max = (BigDecimal) context.get(prefix + "max");
         if (min != null || max != null) {
             if (min != null && max != null) {
-                if (min.doubleValue() <= max.doubleValue() || max.doubleValue() == 0) {
+                if (min.compareTo(max) <= 0 || max.compareTo(BigDecimal.ZERO) == 0) {
                     try {
                         String newSeqId = delegator.getNextSeqId("QuantityBreak");
                         GenericValue weightBreak = delegator.makeValue("QuantityBreak");
@@ -178,7 +178,7 @@ public class ShipmentServices {
                         weightBreak.set("fromQuantity", min);
                         weightBreak.set("thruQuantity", max);
                         estimate.set(breakType + "BreakId", newSeqId);
-                        estimate.set(breakType + "UnitPrice", (Double) context.get(prefix + "price"));
+                        estimate.set(breakType + "UnitPrice", (BigDecimal) context.get(prefix + "price"));
                         if (context.containsKey(prefix + "uom")) {
                             estimate.set(breakType + "UomId", (String) context.get(prefix + "uom"));
                         }
@@ -222,22 +222,22 @@ public class ShipmentServices {
         //Map shippableFeatureMap = (Map) context.get("shippableFeatureMap");
         //List shippableItemSizes = (List) context.get("shippableItemSizes");
 
-        Double shippableTotal = (Double) context.get("shippableTotal");
-        Double shippableQuantity = (Double) context.get("shippableQuantity");
-        Double shippableWeight = (Double) context.get("shippableWeight");
-        Double initialEstimateAmt = (Double) context.get("initialEstimateAmt");
+        BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
+        BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
+        BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
+        BigDecimal initialEstimateAmt = (BigDecimal) context.get("initialEstimateAmt");
 
         if (shippableTotal == null) {
-            shippableTotal = Double.valueOf(0.00);
+            shippableTotal = BigDecimal.ZERO;
         }
         if (shippableQuantity == null) {
-            shippableQuantity = Double.valueOf(0.00);
+            shippableQuantity = BigDecimal.ZERO;
         }
         if (shippableWeight == null) {
-            shippableWeight = Double.valueOf(0.00);
+            shippableWeight = BigDecimal.ZERO;
         }
         if (initialEstimateAmt == null) {
-            initialEstimateAmt = Double.valueOf(0.00);
+            initialEstimateAmt = BigDecimal.ZERO;
         }
 
         // get the ShipmentCostEstimate(s)
@@ -259,13 +259,13 @@ public class ShipmentServices {
             return ServiceUtil.returnError("Unable to locate estimates from database");
         }
         if (estimates == null || estimates.size() < 1) {
-            if (initialEstimateAmt.doubleValue() == 0.00) {
+            if (initialEstimateAmt.compareTo(BigDecimal.ZERO) == 0) {
                 Debug.logWarning("Using the passed context : " + context, module);
                 Debug.logWarning("No shipping estimates found; the shipping amount returned is 0!", module);
             }
 
             Map<String, Object> respNow = ServiceUtil.returnSuccess();
-            respNow.put("shippingEstimateAmount", Double.valueOf(0.00));
+            respNow.put("shippingEstimateAmount", BigDecimal.ZERO);
             return respNow;
         }
 
@@ -340,41 +340,41 @@ public class ShipmentServices {
 
                     if (wv != null) {
                         useWeight = true;
-                        double min = 0.0001;
-                        double max = 0.0001;
+                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
 
                         try {
-                            min = wv.getDouble("fromQuantity").doubleValue();
-                            max = wv.getDouble("thruQuantity").doubleValue();
+                            min = wv.getBigDecimal("fromQuantity");
+                            max = wv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableWeight.doubleValue() >= min && (max == 0 || shippableWeight.doubleValue() <= max))
+                        if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0))
                             weightValid = true;
                     }
                     if (qv != null) {
                         useQty = true;
-                        double min = 0.0001;
-                        double max = 0.0001;
+                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
 
                         try {
-                            min = qv.getDouble("fromQuantity").doubleValue();
-                            max = qv.getDouble("thruQuantity").doubleValue();
+                            min = qv.getBigDecimal("fromQuantity");
+                            max = qv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableQuantity.doubleValue() >= min && (max == 0 || shippableQuantity.doubleValue() <= max))
+                        if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0))
                             qtyValid = true;
                     }
                     if (pv != null) {
                         usePrice = true;
-                        double min = 0.0001;
-                        double max = 0.0001;
+                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
 
                         try {
-                            min = pv.getDouble("fromQuantity").doubleValue();
-                            max = pv.getDouble("thruQuantity").doubleValue();
+                            min = pv.getBigDecimal("fromQuantity");
+                            max = pv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableTotal.doubleValue() >= min && (max == 0 || shippableTotal.doubleValue() <= max))
+                        if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0))
                             priceValid = true;
                     }
                     // Now check the tests.
@@ -390,26 +390,26 @@ public class ShipmentServices {
         }
 
         // make the shippable item size/feature objects
-        List<Double> shippableItemSizes = FastList.newInstance();
-        Map<String, Double> shippableFeatureMap = FastMap.newInstance();
+        List<BigDecimal> shippableItemSizes = FastList.newInstance();
+        Map<String, BigDecimal> shippableFeatureMap = FastMap.newInstance();
         if (shippableItemInfo != null) {
             for (Map<String, Object> itemMap: shippableItemInfo) {
                 // add the item sizes
-                Double itemSize = (Double) itemMap.get("size");
+                BigDecimal itemSize = (BigDecimal) itemMap.get("size");
                 if (itemSize != null) {
                     shippableItemSizes.add(itemSize);
                 }
 
                 // add the feature quantities
-                Double quantity = (Double) itemMap.get("quantity");
+                BigDecimal quantity = (BigDecimal) itemMap.get("quantity");
                 Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
                 if (UtilValidate.isNotEmpty(featureSet)) {
                     for (String featureId: featureSet) {
-                        Double featureQuantity = shippableFeatureMap.get(featureId);
+                        BigDecimal featureQuantity = (BigDecimal) shippableFeatureMap.get(featureId);
                         if (featureQuantity == null) {
-                            featureQuantity = Double.valueOf(0.00);
+                            featureQuantity = BigDecimal.ZERO;
                         }
-                        featureQuantity = Double.valueOf(featureQuantity.doubleValue() + quantity.doubleValue());
+                        featureQuantity = featureQuantity.add(quantity);
                         shippableFeatureMap.put(featureId, featureQuantity);
                     }
                 }
@@ -461,60 +461,60 @@ public class ShipmentServices {
         //Debug.log("[ShippingEvents.getShipEstimate] Working with estimate [" + estimateIndex + "]: " + estimate, module);
 
         // flat fees
-        double orderFlat = 0.00;
-        if (estimate.getDouble("orderFlatPrice") != null)
-            orderFlat = estimate.getDouble("orderFlatPrice").doubleValue();
+        BigDecimal orderFlat = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("orderFlatPrice") != null)
+            orderFlat = estimate.getBigDecimal("orderFlatPrice");
 
-        double orderItemFlat = 0.00;
-        if (estimate.getDouble("orderItemFlatPrice") != null)
-            orderItemFlat = estimate.getDouble("orderItemFlatPrice").doubleValue();
+        BigDecimal orderItemFlat = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("orderItemFlatPrice") != null)
+            orderItemFlat = estimate.getBigDecimal("orderItemFlatPrice");
 
-        double orderPercent = 0.00;
-        if (estimate.getDouble("orderPricePercent") != null)
-            orderPercent = estimate.getDouble("orderPricePercent").doubleValue();
+        BigDecimal orderPercent = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("orderPricePercent") != null)
+            orderPercent = estimate.getBigDecimal("orderPricePercent");
 
-        double itemFlatAmount = shippableQuantity.doubleValue() * orderItemFlat;
-        double orderPercentage = shippableTotal.doubleValue() * (orderPercent / 100);
+        BigDecimal itemFlatAmount = shippableQuantity.multiply(orderItemFlat);
+        BigDecimal orderPercentage = shippableTotal.multiply(orderPercent.movePointLeft(2));
 
         // flat total
-        double flatTotal = orderFlat + itemFlatAmount + orderPercentage;        
+        BigDecimal flatTotal = orderFlat.add(itemFlatAmount).add(orderPercentage);        
 
         // spans
-        double weightUnit = 0.00;
-        if (estimate.getDouble("weightUnitPrice") != null)
-            weightUnit = estimate.getDouble("weightUnitPrice").doubleValue();
+        BigDecimal weightUnit = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("weightUnitPrice") != null)
+            weightUnit = estimate.getBigDecimal("weightUnitPrice");
 
-        double qtyUnit = 0.00;
-        if (estimate.getDouble("quantityUnitPrice") != null)
-            qtyUnit = estimate.getDouble("quantityUnitPrice").doubleValue();
+        BigDecimal qtyUnit = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("quantityUnitPrice") != null)
+            qtyUnit = estimate.getBigDecimal("quantityUnitPrice");
 
-        double priceUnit = 0.00;
-        if (estimate.getDouble("priceUnitPrice") != null)
-            priceUnit = estimate.getDouble("priceUnitPrice").doubleValue();
+        BigDecimal priceUnit = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("priceUnitPrice") != null)
+            priceUnit = estimate.getBigDecimal("priceUnitPrice");
 
-        double weightAmount = shippableWeight.doubleValue() * weightUnit;
-        double quantityAmount = shippableQuantity.doubleValue() * qtyUnit;
-        double priceAmount = shippableTotal.doubleValue() * priceUnit;
+        BigDecimal weightAmount = shippableWeight.multiply(weightUnit);
+        BigDecimal quantityAmount = shippableQuantity.multiply(qtyUnit);
+        BigDecimal priceAmount = shippableTotal.multiply(priceUnit);
 
         // span total
-        double spanTotal = weightAmount + quantityAmount + priceAmount;
+        BigDecimal spanTotal = weightAmount.add(quantityAmount).add(priceAmount);
 
         // feature surcharges
-        double featureSurcharge = 0.00;
+        BigDecimal featureSurcharge = BigDecimal.ZERO;
         String featureGroupId = estimate.getString("productFeatureGroupId");
-        Double featurePercent = estimate.getDouble("featurePercent");
-        Double featurePrice = estimate.getDouble("featurePrice");
+        BigDecimal featurePercent = estimate.getBigDecimal("featurePercent");
+        BigDecimal featurePrice = estimate.getBigDecimal("featurePrice");
         if (featurePercent == null) {
-            featurePercent = Double.valueOf(0);
+            featurePercent = BigDecimal.ZERO;
         }
         if (featurePrice == null) {
-            featurePrice = Double.valueOf(0.00);
+            featurePrice = BigDecimal.ZERO;
         }
 
         if (featureGroupId != null && featureGroupId.length() > 0 && shippableFeatureMap != null) {
-            for (Map.Entry<String, Double> entry: shippableFeatureMap.entrySet()) {
+            for (Map.Entry<String, BigDecimal> entry: shippableFeatureMap.entrySet()) {
                 String featureId = entry.getKey();
-                Double quantity = entry.getValue();
+                BigDecimal quantity = entry.getValue();
                 GenericValue appl = null;
                 Map<String, String> fields = UtilMisc.toMap("productFeatureGroupId", featureGroupId, "productFeatureId", featureId);
                 try {
@@ -525,43 +525,43 @@ public class ShipmentServices {
                     Debug.logError(e, "Unable to lookup feature/group" + fields, module);
                 }
                 if (appl != null) {
-                    featureSurcharge += (shippableTotal.doubleValue() * (featurePercent.doubleValue() / 100) * quantity.doubleValue());
-                    featureSurcharge += featurePrice.doubleValue() * quantity.doubleValue();
+                    featureSurcharge = featureSurcharge.add( shippableTotal.multiply( featurePercent.movePointLeft(2) ).multiply(quantity) );
+                    featureSurcharge = featureSurcharge.add(featurePrice.multiply(quantity));
                 }
             }
         }
 
         // size surcharges
-        double sizeSurcharge = 0.00;
-        Double sizeUnit = estimate.getDouble("oversizeUnit");
-        Double sizePrice = estimate.getDouble("oversizePrice");
-        if (sizeUnit != null && sizeUnit.doubleValue() > 0) {
+        BigDecimal sizeSurcharge = BigDecimal.ZERO;
+        BigDecimal sizeUnit = estimate.getBigDecimal("oversizeUnit");
+        BigDecimal sizePrice = estimate.getBigDecimal("oversizePrice");
+        if (sizeUnit != null && sizeUnit.compareTo(BigDecimal.ZERO) > 0) {
             if (shippableItemSizes != null) {
-                for (Double size: shippableItemSizes) {
-                    if (size != null && size.doubleValue() >= sizeUnit.doubleValue()) {
-                        sizeSurcharge += sizePrice.doubleValue();
+                for (BigDecimal size: shippableItemSizes) {
+                    if (size != null && size.compareTo(sizeUnit) >= 0) {
+                        sizeSurcharge = sizeSurcharge.add(sizePrice);
                     }
                 }
             }
         }
 
         // surcharges total
-        double surchargeTotal = featureSurcharge + sizeSurcharge;
+        BigDecimal surchargeTotal = featureSurcharge.add(sizeSurcharge);
 
         // shipping subtotal
-        double subTotal = spanTotal + flatTotal + surchargeTotal;
+        BigDecimal subTotal = spanTotal.add(flatTotal).add(surchargeTotal);
 
         // percent add-on
-        double shippingPricePercent = 0.00;
-        if (estimate.getDouble("shippingPricePercent") != null)
-            shippingPricePercent = estimate.getDouble("shippingPricePercent").doubleValue();
+        BigDecimal shippingPricePercent = BigDecimal.ZERO;
+        if (estimate.getBigDecimal("shippingPricePercent") != null)
+            shippingPricePercent = estimate.getBigDecimal("shippingPricePercent");
 
         // shipping total
-        double shippingTotal = subTotal + ((subTotal + initialEstimateAmt.doubleValue()) * (shippingPricePercent / 100));
+        BigDecimal shippingTotal = subTotal.add((subTotal.add(initialEstimateAmt)).multiply(shippingPricePercent.movePointLeft(2)));
 
         // prepare the return result
         Map<String, Object> responseResult = ServiceUtil.returnSuccess();
-        responseResult.put("shippingEstimateAmount", Double.valueOf(shippingTotal));
+        responseResult.put("shippingEstimateAmount", shippingTotal);
         return responseResult;
     }
 
@@ -619,9 +619,9 @@ public class ShipmentServices {
             // to store list
             List<GenericValue> toStore = FastList.newInstance();
 
-            String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
-            String orderId = shipment.getString("primaryOrderId");
-            String orderInfoKey = orderId + "/" + shipGroupSeqId;
+            //String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
+            //String orderId = shipment.getString("primaryOrderId");
+            //String orderInfoKey = orderId + "/" + shipGroupSeqId;
 
             // make the staging records
             GenericValue stageShip = delegator.makeValue("OdbcShipmentOut");
@@ -872,20 +872,20 @@ public class ShipmentServices {
             if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
 
             // store the quantity of each product shipped in a hashmap keyed to productId
-            Map<String, Double> shippedCountMap = FastMap.newInstance();
+            Map<String, BigDecimal> shippedCountMap = FastMap.newInstance();
             for (GenericValue item: shipmentAndItems) {
-                double shippedQuantity = item.getDouble("quantity").doubleValue();
-                Double quantity = shippedCountMap.get(item.getString("productId"));
-                quantity = Double.valueOf(quantity == null ? shippedQuantity : shippedQuantity + quantity.doubleValue());
+                BigDecimal shippedQuantity = item.getBigDecimal("quantity");
+                BigDecimal quantity = shippedCountMap.get(item.getString("productId"));
+                quantity = quantity == null ? shippedQuantity : shippedQuantity.add(quantity);
                 shippedCountMap.put(item.getString("productId"), quantity);
             }
 
             // store the quantity of each product received in a hashmap keyed to productId
-            Map<String, Double> receivedCountMap = FastMap.newInstance();
+            Map<String, BigDecimal> receivedCountMap = FastMap.newInstance();
             for (GenericValue item: shipmentReceipts) {
-                double receivedQuantity = item.getDouble("quantityAccepted").doubleValue();
-                Double quantity = receivedCountMap.get(item.getString("productId"));
-                quantity = Double.valueOf(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
+                BigDecimal receivedQuantity = item.getBigDecimal("quantityAccepted");
+                BigDecimal quantity = receivedCountMap.get(item.getString("productId"));
+                quantity = quantity == null ? receivedQuantity : receivedQuantity.add(quantity);
                 receivedCountMap.put(item.getString("productId"), quantity);
             }
 
@@ -1044,10 +1044,10 @@ public class ShipmentServices {
             
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
-                Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", Double.valueOf(packageContentValue.doubleValue())));
+                Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", packageContentValue));
                 if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                 if (convertUomResult.containsKey("convertedValue")) {
-                    packageContentValue = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
+                    packageContentValue = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(decimals, rounding);
                 }
                 
                 // Add the value of the packed item to the package's total value

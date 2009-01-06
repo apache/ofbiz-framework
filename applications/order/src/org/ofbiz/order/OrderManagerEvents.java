@@ -18,6 +18,7 @@
  */
 package org.ofbiz.order;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -141,9 +142,9 @@ public class OrderManagerEvents {
             return "error";
         }
 
-        Double grandTotal = new Double(0.00);
+        BigDecimal grandTotal = BigDecimal.ZERO;
         if (orderHeader != null) {
-            grandTotal = orderHeader.getDouble("grandTotal");
+            grandTotal = orderHeader.getBigDecimal("grandTotal");
         }
 
         // get the payment types to receive
@@ -182,21 +183,21 @@ public class OrderManagerEvents {
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");
             String paymentReference = request.getParameter(paymentMethodTypeId + "_reference");
             if (!UtilValidate.isEmpty(amountStr)) {
-                double paymentTypeAmount = 0.00;
+            	BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
-                    paymentTypeAmount = NumberFormat.getNumberInstance(locale).parse(amountStr).doubleValue();
+                    paymentTypeAmount = new BigDecimal(NumberFormat.getNumberInstance(locale).parse(amountStr).doubleValue());
                 } catch (java.text.ParseException pe) {
                 	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
                     return "error";
                 }
-                if (paymentTypeAmount > 0.00) {
+                if (paymentTypeAmount.compareTo(BigDecimal.ZERO) > 0) {
 
                     // create the OrderPaymentPreference
                     // TODO: this should be done with a service
                     Map prefFields = UtilMisc.toMap("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
                     GenericValue paymentPreference = delegator.makeValue("OrderPaymentPreference", prefFields);
                     paymentPreference.set("paymentMethodTypeId", paymentMethodType.getString("paymentMethodTypeId"));
-                    paymentPreference.set("maxAmount", new Double(paymentTypeAmount));
+                    paymentPreference.set("maxAmount", paymentTypeAmount);
                     paymentPreference.set("statusId", "PAYMENT_RECEIVED");
                     paymentPreference.set("orderId", orderId);
                     paymentPreference.set("createdDate", UtilDateTime.nowTimestamp());
@@ -236,7 +237,7 @@ public class OrderManagerEvents {
         // get the current payment prefs
         GenericValue offlineValue = null;
         List currentPrefs = null;
-        double paymentTally = 0.00;
+        BigDecimal paymentTally = BigDecimal.ZERO;
         try {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
@@ -254,9 +255,9 @@ public class OrderManagerEvents {
                 if ("EXT_OFFLINE".equals(paymentMethodType)) {
                     offlineValue = cp;
                 } else {
-                    Double cpAmt = cp.getDouble("maxAmount");
+                	BigDecimal cpAmt = cp.getBigDecimal("maxAmount");
                     if (cpAmt != null) {
-                        paymentTally += cpAmt.doubleValue();
+                        paymentTally = paymentTally.add(cpAmt);
                     }
                 }
             }
@@ -264,7 +265,7 @@ public class OrderManagerEvents {
 
         // now finish up
         boolean okayToApprove = false;
-        if (paymentTally >= grandTotal.doubleValue()) {
+        if (paymentTally.compareTo(grandTotal) >= 0) {
             // cancel the offline preference
             okayToApprove = true;
             if (offlineValue != null) {

@@ -43,10 +43,10 @@ if (shipmentPlans) {
         //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes"));
         orderItem = shipmentPlan.getRelatedOne("OrderItem");
         oneRow.productId = orderItem.productId;
-        orderedQuantity = orderItem.getDouble("quantity");
-        canceledQuantity = orderItem.getDouble("cancelQuantity");
+        orderedQuantity = orderItem.quantity;
+        canceledQuantity = orderItem.cancelQuantity;
         if (canceledQuantity) {
-            orderedQuantity = Double.valueOf(orderedQuantity.doubleValue() - canceledQuantity.doubleValue());
+            orderedQuantity = orderedQuantity - canceledQuantity;
         }
         oneRow.totOrderedQuantity = orderedQuantity.intValue();
         // Total quantity issued
@@ -55,18 +55,18 @@ if (shipmentPlans) {
         issuances = orderItem.getRelated("ItemIssuance");
         issuances.each { issuance ->
             if (issuance.quantity) {
-                issuedQuantity += issuance.getDouble("quantity");
+                issuedQuantity += issuance.quantity;
                 if (issuance.cancelQuantity) {
-                    issuedQuantity -= issuance.getDouble("cancelQuantity");
-                }                 
+                    issuedQuantity -= issuance.cancelQuantity;
+                }
                 if (qtyIssuedInShipment.containsKey(issuance.shipmentId)) {
-                    qtyInShipment = ((Double)qtyIssuedInShipment.get(issuance.shipmentId)).doubleValue();
-                    qtyInShipment += issuance.getDouble("quantity");
+                    qtyInShipment = qtyIssuedInShipment[issuance.shipmentId];
+                    qtyInShipment += issuance.quantity;
                     qtyIssuedInShipment.issuance.shipmentId = qtyInShipment;
                 } else {
-                    qtyInShipment = issuance.getDouble("quantity");
+                    qtyInShipment = issuance.quantity;
                     if (issuance.cancelQuantity) {
-                        qtyInShipment -= issuance.getDouble("cancelQuantity");
+                        qtyInShipment -= issuance.cancelQuantity;
                     }                    
                     qtyIssuedInShipment.issuance.shipmentId = qtyInShipment;
                 }
@@ -79,18 +79,18 @@ if (shipmentPlans) {
         plans = delegator.findByAnd("OrderShipment", [orderId : orderItem.orderId ,orderItemSeqId : orderItem.orderItemSeqId]);
         plans.each { plan ->
             if (plan.quantity) {
-                netPlanQty = plan.getDouble("quantity");
+                netPlanQty = plan.quantity;
                 if (qtyIssuedInShipment.containsKey(plan.shipmentId)) {
-                    qtyInShipment = ((Double)qtyIssuedInShipment.get(plan.shipmentId)).doubleValue();
+                    qtyInShipment = qtyIssuedInShipment[plan.shipmentId];
                     if (netPlanQty > qtyInShipment) {
                         netPlanQty -= qtyInShipment;
                     } else {
-                        netPlanQty = 0;
+                        netPlanQty = 0.0;
                     }
                 }
                 plannedQuantity += netPlanQty;
                 if (qtyPlannedInShipment.containsKey(plan.shipmentId)) {
-                    qtyInShipment = ((Double)qtyPlannedInShipment.get(plan.shipmentId)).doubleValue();
+                    qtyInShipment = qtyPlannedInShipment[plan.shipmentId];
                     qtyInShipment += netPlanQty;
                     qtyPlannedInShipment.plan.shipmentId = qtyInShipment;
                 } else {
@@ -110,10 +110,10 @@ if (shipmentPlans) {
         reservations = orderItem.getRelated("OrderItemShipGrpInvRes");
         reservations.each { reservation ->
             if (reservation.quantity) {
-                reservedQuantity += reservation.getDouble("quantity");
+                reservedQuantity += reservation.quantity;
             }
             if (reservation.quantityNotAvailable) {
-                reservedNotAvailable += reservation.getDouble("quantityNotAvailable");
+                reservedNotAvailable += reservation.quantityNotAvailable;
             }
         }
         oneRow.notAvailableQuantity = reservedNotAvailable;
@@ -121,11 +121,11 @@ if (shipmentPlans) {
         product = orderItem.getRelatedOne("Product");
         weight = 0.0;
         quantity = 0.0;
-        if (shipmentPlan.getDouble("quantity")) {
-            quantity = shipmentPlan.getDouble("quantity");
+        if (shipmentPlan.quantity) {
+            quantity = shipmentPlan.quantity;
         }
-        if (product.getDouble("weight")) {
-            weight = product.getDouble("weight") * quantity;
+        if (product.weight) {
+            weight = product.weight * quantity;
         }
         oneRow.weight = weight;
         if (product.weightUomId) {
@@ -133,19 +133,19 @@ if (shipmentPlans) {
             oneRow.weightUom = weightUom.abbreviation;
         }
         volume = 0.0;
-        if (product.getDouble("productHeight") &&
-            product.getDouble("productWidth") &&
-            product.getDouble("productDepth")) {
+        if (product.productHeight &&
+            product.productWidth &&
+            product.productDepth) {
                 // TODO: check if uom conversion is needed
-                volume = product.getDouble("productHeight") *
-                         product.getDouble("productWidth") *
-                         product.getDouble("productDepth") * 
+                volume = product.productHeight *
+                         product.productWidth *
+                         product.productDepth * 
                          quantity;
         }
         oneRow.volume = volume;
-        if (product.get("heightUomId") &&
-            product.get("widthUomId") &&
-            product.get("depthUomId")) {
+        if (product.heightUomId &&
+            product.widthUomId &&
+            product.depthUomId) {
 
             heightUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.heightUomId]);
             widthUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.widthUomId]);

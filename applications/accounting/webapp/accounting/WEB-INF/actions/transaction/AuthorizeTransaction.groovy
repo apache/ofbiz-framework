@@ -33,7 +33,7 @@ if(orderId) {
 if(orderHeader) {
    orh = new OrderReadHelper(orderHeader);
    context.orh = orh;
-   context.overrideAmount = new Double(orh.getOrderGrandTotal().doubleValue());
+   context.overrideAmount = orh.getOrderGrandTotal();
 }
 
 if(orderPaymentPreferenceId) {
@@ -44,5 +44,5 @@ if(orderPaymentPreferenceId) {
 if(orderPaymentPreference) {
    paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
    context.paymentMethodType = paymentMethodType;
-   context.overrideAmount = orderPaymentPreference.getDouble("maxAmount");
+   context.overrideAmount = orderPaymentPreference.getBigDecimal("maxAmount");
 }

@@ -84,7 +84,7 @@ public class FinAccountHelper {
           if ((transactions != null) && (transactions.size() == 1)) {
               GenericValue firstEntry = (GenericValue) transactions.get(0);
               if (firstEntry.get(fieldName) != null) {
-                  BigDecimal valueToAdd = new BigDecimal(firstEntry.getDouble(fieldName).doubleValue());
+                  BigDecimal valueToAdd = firstEntry.getBigDecimal(fieldName);
                   return initialValue.add(valueToAdd).setScale(decimals, rounding);
               } else {
                   return initialValue;

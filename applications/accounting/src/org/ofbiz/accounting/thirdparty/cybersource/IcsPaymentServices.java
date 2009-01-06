@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.cybersource;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -47,6 +49,8 @@ import org.ofbiz.service.ServiceUtil;
 public class IcsPaymentServices {
 
     public static final String module = IcsPaymentServices.class.getName();
+    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     // load the JSSE properties
     static {
@@ -520,13 +524,10 @@ public class IcsPaymentServices {
                 }
 
                 // get the quantity..
-                Double quantity = item.getDouble("quantity");
+                BigDecimal quantity = item.getBigDecimal("quantity");
 
                 // test quantity if INT pass as is; if not pass as 1
-                long roundQ = Math.round(quantity);
-                Double rounded = new Double(Long.toString(roundQ));
-
-                if (rounded.doubleValue() != quantity.doubleValue()) {
+                if (quantity.scale() > 0) {
                     request.put("item_" + lineNumber + "_quantity", "1");
                 } else {
                     request.put("", Integer.toString(quantity.intValue()));
@@ -539,10 +540,8 @@ public class IcsPaymentServices {
     }
 
     private static String getAmountString(Map context, String amountField) {
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        Double processAmount = (Double) context.get(amountField);
-        return formatter.format(processAmount);
+        BigDecimal processAmount = (BigDecimal) context.get(amountField);
+        return processAmount.setScale(decimals, rounding).toPlainString();
     }
 
     private static void processAuthResult(Map reply, Map<String, Object> result) {
@@ -557,9 +556,9 @@ public class IcsPaymentServices {
         }
 
         if (reply.get("ccAuthReply_amount") != null) {
-            result.put("processAmount", new Double((String) reply.get("ccAuthReply_amount")));
+            result.put("processAmount", new BigDecimal((String) reply.get("ccAuthReply_amount")));
         } else {
-            result.put("processAmount", 0.00);
+            result.put("processAmount", BigDecimal.ZERO);
         }
 
         result.put("authRefNum", reply.get("requestID"));
@@ -583,9 +582,9 @@ public class IcsPaymentServices {
         }
 
         if (reply.get("ccCaptureReply_amount") != null) {
-            result.put("captureAmount", new Double((String) reply.get("ccCaptureReply_amount")));
+            result.put("captureAmount", new BigDecimal((String) reply.get("ccCaptureReply_amount")));
         } else {
-            result.put("captureAmount", 0.00);
+            result.put("captureAmount", BigDecimal.ZERO);
         }
 
         result.put("captureRefNum", reply.get("requestID"));
@@ -605,9 +604,9 @@ public class IcsPaymentServices {
         }
 
         if (reply.get("ccAuthReversalReply_amount") != null) {
-            result.put("releaseAmount", new Double((String) reply.get("ccAuthReversalReply_amount")));
+            result.put("releaseAmount", new BigDecimal((String) reply.get("ccAuthReversalReply_amount")));
         } else {
-            result.put("releaseAmount", 0.00);
+            result.put("releaseAmount", BigDecimal.ZERO);
         }
 
         result.put("releaseRefNum", reply.get("requestID"));
@@ -627,9 +626,9 @@ public class IcsPaymentServices {
         }
 
         if (reply.get("ccCreditReply_amount") != null) {
-            result.put("refundAmount", new Double((String) reply.get("ccCreditReply_amount")));
+            result.put("refundAmount", new BigDecimal((String) reply.get("ccCreditReply_amount")));
         } else {
-            result.put("refundAmount", 0.00);
+            result.put("refundAmount", BigDecimal.ZERO);
         }
 
         result.put("refundRefNum", reply.get("requestID"));
@@ -649,9 +648,9 @@ public class IcsPaymentServices {
         }
 
         if (reply.get("ccCreditReply_amount") != null) {
-            result.put("creditAmount", new Double((String) reply.get("ccCreditReply_amount")));
+            result.put("creditAmount", new BigDecimal((String) reply.get("ccCreditReply_amount")));
         } else {
-            result.put("creditAmount", 0.00);
+            result.put("creditAmount", BigDecimal.ZERO);
         }
 
         result.put("creditRefNum", reply.get("requestID"));

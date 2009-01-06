@@ -211,7 +211,7 @@ document.lookupinventory.productId.focus();
                 </tr>
                 </#list>
             </#if>
-            <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getDouble("quantity")>
+            <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getBigDecimal("quantity")>
             <#assign productTmp = product>
             <#assign MrpEventType = inven.getRelatedOne("MrpEventType")>
             <tr class="${rowClass}">

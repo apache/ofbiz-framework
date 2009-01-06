@@ -58,7 +58,7 @@ public class SalesOrderTest extends TestCase {
         orderPaymentInfo.add(orderContactMech);
         
         GenericValue orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("paymentMethodId", "9015", "paymentMethodTypeId", "CREDIT_CARD",
-                "statusId", "PAYMENT_NOT_AUTH", "overflowFlag", "N", "maxAmount", new Double(49.26)));
+                "statusId", "PAYMENT_NOT_AUTH", "overflowFlag", "N", "maxAmount", new BigDecimal("49.26")));
         orderPaymentInfo.add(orderPaymentPreference);
         ctx.put("orderPaymentInfo", orderPaymentInfo);
         
@@ -70,11 +70,11 @@ public class SalesOrderTest extends TestCase {
                 "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroupInfo.add(orderItemShipGroup);
         
-        GenericValue orderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", "00001", "quantity", new Double(1.0), "shipGroupSeqId", "00001"));
+        GenericValue orderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", "00001", "quantity", BigDecimal.ONE, "shipGroupSeqId", "00001"));
         orderItemShipGroupInfo.add(orderItemShipGroupAssoc);
         
         GenericValue orderAdjustment = null;
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SHIPPING_CHARGES", "shipGroupSeqId", "00001", "amount", new Double(12.45)));
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SHIPPING_CHARGES", "shipGroupSeqId", "00001", "amount", new BigDecimal("12.45")));
         orderItemShipGroupInfo.add(orderAdjustment);
         
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
@@ -112,11 +112,11 @@ public class SalesOrderTest extends TestCase {
         ctx.put("orderAdjustments", orderAdjustments);
 
         List orderItems = new ArrayList();
-        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-2644", "quantity", new Double(1), "selectedAmount", new Double(0.0)));
+        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-2644", "quantity", BigDecimal.ONE, "selectedAmount", BigDecimal.ZERO));
         orderItem.set("isPromo", "N");
         orderItem.set("isModifiedPrice", "N");
-        orderItem.set("unitPrice", new Double(38.4));
-        orderItem.set("unitListPrice", new Double(48.0));
+        orderItem.set("unitPrice", new BigDecimal("38.4"));
+        orderItem.set("unitListPrice", new BigDecimal("48.0"));
         orderItem.set("statusId", "ITEM_CREATED");
         
         orderItems.add(orderItem);

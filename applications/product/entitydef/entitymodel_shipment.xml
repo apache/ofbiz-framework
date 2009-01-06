@@ -57,8 +57,8 @@ under the License.
       <field name="maintHistSeqId" type="id"></field>
       <field name="issuedDateTime" type="date-time"></field>
       <field name="issuedByUserLoginId" type="id-vlong"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="cancelQuantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="cancelQuantity" type="fixed-point"></field>
       <prim-key field="itemIssuanceId"/>
       <relation type="one" fk-name="ITEM_ISS_INVITM" rel-entity-name="InventoryItem">
         <key-map field-name="inventoryItemId"/>
@@ -196,7 +196,7 @@ under the License.
       <field name="shipGroupSeqId" type="id-ne"></field>
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="itemStatusId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <prim-key field="picklistBinId"/>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
@@ -341,8 +341,8 @@ under the License.
       <field name="receivedByUserLoginId" type="id-vlong"></field>
       <field name="datetimeReceived" type="date-time"></field>
       <field name="itemDescription" type="description"></field>
-      <field name="quantityAccepted" type="floating-point"></field>
-      <field name="quantityRejected" type="floating-point"></field>
+      <field name="quantityAccepted" type="fixed-point"></field>
+      <field name="quantityRejected" type="fixed-point"></field>
       <prim-key field="receiptId"/>
       <relation type="one" fk-name="SHP_RCPT_INVITM" rel-entity-name="InventoryItem">
         <key-map field-name="inventoryItemId"/>
@@ -478,9 +478,9 @@ under the License.
       <field name="estimatedStartDate" type="date-time"></field>
       <field name="estimatedArrivalDate" type="date-time"></field>
       <field name="fixedAssetId" type="id"></field>
-      <field name="startMileage" type="floating-point"></field>
-      <field name="endMileage" type="floating-point"></field>
-      <field name="fuelUsed" type="floating-point"></field>
+      <field name="startMileage" type="fixed-point"></field>
+      <field name="endMileage" type="fixed-point"></field>
+      <field name="fuelUsed" type="fixed-point"></field>
       <prim-key field="deliveryId"/>
       <relation type="one" fk-name="DELIV_FXAS" rel-entity-name="FixedAsset">
         <key-map field-name="fixedAssetId"/>
@@ -689,11 +689,11 @@ under the License.
       <field name="shipmentBoxTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <field name="dimensionUomId" type="id"></field>
-      <field name="boxLength" type="floating-point"></field>
-      <field name="boxWidth" type="floating-point"></field>
-      <field name="boxHeight" type="floating-point"></field>
+      <field name="boxLength" type="fixed-point"></field>
+      <field name="boxWidth" type="fixed-point"></field>
+      <field name="boxHeight" type="fixed-point"></field>
       <field name="weightUomId" type="id"></field>  
-      <field name="boxWeight" type="floating-point"></field>
+      <field name="boxWeight" type="fixed-point"></field>
       <prim-key field="shipmentBoxTypeId"/>
       <relation type="one" fk-name="SHMT_BXTP_DUOM" title="Dimension" rel-entity-name="Uom">
         <key-map field-name="dimensionUomId" rel-field-name="uomId"/>
@@ -750,13 +750,13 @@ under the License.
       <field name="priceUomId" type="id"></field>
       <field name="priceUnitPrice" type="currency-amount"></field>
       <field name="orderFlatPrice" type="currency-amount"></field>
-      <field name="orderPricePercent" type="floating-point"></field>
+      <field name="orderPricePercent" type="fixed-point"></field>
       <field name="orderItemFlatPrice" type="currency-amount"></field>
-      <field name="shippingPricePercent" type="floating-point"></field>
+      <field name="shippingPricePercent" type="fixed-point"></field>
       <field name="productFeatureGroupId" type="id"></field>
-      <field name="oversizeUnit" type="floating-point"></field>
+      <field name="oversizeUnit" type="fixed-point"></field>
       <field name="oversizePrice" type="currency-amount"></field>
-      <field name="featurePercent" type="floating-point"></field>
+      <field name="featurePercent" type="fixed-point"></field>
       <field name="featurePrice" type="currency-amount"></field>
       <prim-key field="shipmentCostEstimateId"/>
       <relation type="one" fk-name="SHPMNT_CE_CSHMTH" rel-entity-name="CarrierShipmentMethod">
@@ -805,7 +805,7 @@ under the License.
       <field name="shipmentId" type="id-ne"></field>
       <field name="shipmentItemSeqId" type="id-ne"></field>
       <field name="productId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="shipmentContentDescription" type="description"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentItemSeqId"/>
@@ -1019,7 +1019,7 @@ under the License.
       <field name="shipmentPackageSeqId" type="id-ne"></field>
       <field name="shipmentBoxTypeId" type="id"></field>
       <field name="dateCreated" type="date-time"></field>
-      <field name="weight" type="floating-point"></field>
+      <field name="weight" type="fixed-point"></field>
       <field name="weightUomId" type="id"></field>
       <field name="insuredValue" type="currency-amount"></field>
       <prim-key field="shipmentId"/>
@@ -1043,9 +1043,9 @@ under the License.
       <field name="shipmentId" type="id-ne"></field>
       <field name="shipmentPackageSeqId" type="id-ne"></field>
       <field name="shipmentItemSeqId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="subProductId" type="id"></field>
-      <field name="subProductQuantity" type="floating-point"></field>
+      <field name="subProductQuantity" type="fixed-point"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentPackageSeqId"/>
       <prim-key field="shipmentItemSeqId"/>
@@ -1118,7 +1118,7 @@ under the License.
       <field name="carrierDeliveryZone" type="short-varchar"></field>
       <field name="carrierRestrictionCodes" type="short-varchar"></field>
       <field name="carrierRestrictionDesc" type="very-long"></field>
-      <field name="billingWeight" type="floating-point"></field>
+      <field name="billingWeight" type="fixed-point"></field>
       <field name="billingWeightUomId" type="id"></field>
       <field name="actualTransportCost" type="currency-amount"></field>
       <field name="actualServiceCost" type="currency-amount"></field>

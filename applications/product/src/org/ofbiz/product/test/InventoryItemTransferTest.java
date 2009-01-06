@@ -28,6 +28,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilDateTime;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import javolution.util.FastMap;
 
@@ -37,7 +38,7 @@ public class InventoryItemTransferTest extends TestCase {
     protected GenericDelegator delegator = null;
     protected GenericValue userLogin = null;
     protected static String inventoryTransferId = null;
-    protected double transferQty = 1;
+    protected BigDecimal transferQty = BigDecimal.ONE;
 
     public InventoryItemTransferTest(String name) {
         super(name);
@@ -61,7 +62,7 @@ public class InventoryItemTransferTest extends TestCase {
         ctx.put("facilityId", "WebStoreWarehouse");
         ctx.put("facilityIdTo", "WebStoreWarehouse");
         ctx.put("receiveDate", UtilDateTime.nowTimestamp());
-        ctx.put("xferQty", Double.valueOf(transferQty));
+        ctx.put("xferQty", transferQty);
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("createInventoryTransfer", ctx);
         inventoryTransferId = (String) resp.get("inventoryTransferId");

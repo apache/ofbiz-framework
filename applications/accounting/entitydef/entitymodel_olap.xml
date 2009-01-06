@@ -40,7 +40,7 @@ under the License.
         <field name="billToCustomerDimId" type="id-ne"></field> <!-- TODO: implement the dimension -->
         <field name="origCurrencyDimId" type="id-ne"></field>
 
-        <field name="quantity" type="floating-point">
+        <field name="quantity" type="fixed-point">
             <description>Quantity invoiced. From InvoiceItem.quantity</description>
         </field>
 

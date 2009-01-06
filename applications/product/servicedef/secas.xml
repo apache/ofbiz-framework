@@ -80,7 +80,7 @@ under the License.
         <action service="saveProductPriceChange" mode="sync"/>
     </eca>
     <eca service="updateProductPrice" event="commit">
-        <condition-field field-name="price" operator="not-equals" to-field-name="oldPrice" type="Double"/>
+        <condition-field field-name="price" operator="not-equals" to-field-name="oldPrice" type="BigDecimal"/>
         <action service="saveProductPriceChange" mode="sync"/>
     </eca>
     <eca service="deleteProductPrice" event="commit">

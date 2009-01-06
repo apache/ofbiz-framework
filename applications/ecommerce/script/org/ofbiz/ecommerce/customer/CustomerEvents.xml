@@ -1130,18 +1130,18 @@ under the License.
  
         <call-bsh><![CDATA[
             Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
-            Double shippingTotal = (Double) shipCost.get("shippingTotal");
+            shippingTotal = shipCost.get("shippingTotal");
             if (shippingTotal == null) {
-                shippingTotal = new Double(0.00);
+                shippingTotal = 0.00;
             }
-            shoppingCart.setItemShipGroupEstimate(shippingTotal.doubleValue(), 0);
-            parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal.doubleValue(), isoCode, locale));
+            shoppingCart.setItemShipGroupEstimate(shippingTotal, 0);
+            parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
 
             checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
             // Calculate and add the tax adjustments
             checkOutHelper.calcAndAddTax();
 
-            double salesTax = shoppingCart.getTotalSalesTax();
+            salesTax = shoppingCart.getTotalSalesTax();
             totalSalesTax = org.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
             parameters.put("totalSalesTax", totalSalesTax);
  

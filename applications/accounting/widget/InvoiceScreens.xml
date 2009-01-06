@@ -212,9 +212,9 @@ under the License.
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/OrderListInvoiceItem.groovy"/>
-                <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}" type="BigDecimal"/>
+                <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
-                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}" type="BigDecimal"/>
+                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -336,9 +336,9 @@ under the License.
                 <entity-one entity-name="Invoice" value-name="invoice"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/ListNotAppliedPayments.groovy"/>
-                <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}" type="BigDecimal"/>
+                <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
-                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}" type="BigDecimal"/>
+                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

@@ -24,6 +24,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilMisc;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -58,9 +60,9 @@ public class PurchaseOrderTest extends TestCase {
         ctx.put("currencyUom", "USD");
         ctx.put("productStoreId","9000");
 
-        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-1000", "quantity", new Double(2), "isPromo", "N"));
-        orderItem.set("unitPrice", new Double(1399.5));
-        orderItem.set("unitListPrice", new Double(0));
+        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-1000", "quantity", new BigDecimal("2"), "isPromo", "N"));
+        orderItem.set("unitPrice", new BigDecimal("1399.5"));
+        orderItem.set("unitListPrice", BigDecimal.ZERO);
         orderItem.set("isModifiedPrice", "N");
         orderItem.set("statusId", "ITEM_CREATED");
         List <GenericValue> orderItems = FastList.newInstance();

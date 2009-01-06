@@ -187,7 +187,7 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="securityCode" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="manualForcedCcTransaction" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcTx" auth="true">
@@ -217,7 +217,7 @@ under the License.
         <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="postalCode" type="String" mode="IN" optional="false"/>
         <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="referenceCode" type="String" mode="IN" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
         <attribute name="tranRespMsgs" type="List" mode="OUT" optional="true"/>
@@ -246,11 +246,11 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
         <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
-        <attribute name="overrideAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="overrideAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="finished" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="errors" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="messages" type="List" mode="OUT" optional="true"/>
-        <attribute name="processAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="processAmount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
     <service name="authOrderPayments" engine="java"
@@ -289,7 +289,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
-        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -299,7 +299,7 @@ under the License.
         <description>Records a settlement or payment of an invoice by a billing account for the given captureAmount</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
         <attribute name="paymentGatewayResponseId" type="String" mode="OUT" optional="true"/>
@@ -309,7 +309,7 @@ under the License.
         <description>Applies (part of) the unapplied payment applications associated to the billing account to the given invoice.</description>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
-        <attribute name="captureAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -324,7 +324,7 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
         <description>Refunds A Payment</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -332,7 +332,7 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processAuthResult" auth="true">
         <description>Process the payment authorization result(s)</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="processAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="processAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="authResult" type="Boolean" mode="IN" optional="false"/>
         <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
@@ -354,7 +354,7 @@ under the License.
         <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="IN" optional="false"/>
         <attribute name="captureAltRefNum" type="String" mode="IN" optional="true"/>
@@ -369,7 +369,7 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processReleaseResult" auth="true">
         <description>Process the payment release result(s)</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="releaseAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="releaseAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="releaseResult" type="Boolean" mode="IN" optional="false"/>
         <attribute name="releaseAltRefNum" type="String" mode="IN" optional="true"/>
@@ -388,7 +388,7 @@ under the License.
         <attribute name="payFromPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="refundResult" type="Boolean" mode="IN" optional="false"/>
         <attribute name="refundAltRefNum" type="String" mode="IN" optional="true"/>
@@ -420,7 +420,7 @@ under the License.
         <description>Generic Payment Processing Interface</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="processAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="processAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
         <attribute name="billToParty" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="billToEmail" type="GenericValue" mode="IN" optional="true"/>
@@ -455,7 +455,7 @@ under the License.
     <service name="paymentReleaseInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Release (reverse) Interface</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="releaseAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="releaseAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="authTrans" type="GenericValue" mode="IN" optional="true"/>
@@ -471,7 +471,7 @@ under the License.
     <service name="paymentCreditInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Credit Interface</description>
         <attribute name="referenceCode" type="String" mode="IN" optional="false"/>
-        <attribute name="creditAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="creditAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="orderItems" type="List" mode="IN" optional="true"/>
         <attribute name="billToParty" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="billToEmail" type="GenericValue" mode="IN" optional="true"/>
@@ -490,7 +490,7 @@ under the License.
     <service name="paymentRefundInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Refund Interface</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="refundAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="refundResult" type="Boolean" mode="OUT" optional="false"/>
@@ -513,7 +513,7 @@ under the License.
     <service name="ccCaptureInterface" engine="interface" location="" invoke="">
         <description>Credit Card Capture Interface</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="captureAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="authTrans" type="GenericValue" mode="IN" optional="true"/>

@@ -20,6 +20,11 @@ package org.ofbiz.shipment.thirdparty.dhl;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -157,9 +162,9 @@ public class DhlServices {
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         List shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
-        Double shippableTotal = (Double) context.get("shippableTotal");
-        Double shippableQuantity = (Double) context.get("shippableQuantity");
-        Double shippableWeight = (Double) context.get("shippableWeight");
+        BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
+        BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
+        BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
         
         if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -203,11 +208,11 @@ public class DhlServices {
             }
         }
 
-        if ((shippableWeight == null) || (shippableWeight.doubleValue() <= 0.0)) {
+        if ((shippableWeight == null) || (shippableWeight.compareTo(BigDecimal.ZERO) <= 0)) {
             String tmpValue = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value");
             if (tmpValue != null) {
                 try {
-                    shippableWeight = Double.valueOf(tmpValue);
+                    shippableWeight = new BigDecimal(tmpValue);
                 } catch (Exception e) {
                     return ServiceUtil.returnError("Cannot get DHL Estimate: Default shippable weight not configured (shipment.default.weight.value)");
                 }
@@ -215,11 +220,11 @@ public class DhlServices {
         }
 
         // TODO: if a weight UOM is passed in, use convertUom service to convert it here
-        if (shippableWeight.doubleValue() < 1.0) {
+        if (shippableWeight.compareTo(BigDecimal.ONE) < 0) {
             Debug.logWarning("DHL Estimate: Weight is less than 1 lb, submitting DHL minimum of 1 lb for estimate.", module);
-            shippableWeight = Double.valueOf(1.0);
+            shippableWeight = BigDecimal.ONE;
         }
-        if ((dhlShipmentDetailCode.equals("G") && shippableWeight.doubleValue() > 999) || (shippableWeight.doubleValue() > 150)) {
+        if ((dhlShipmentDetailCode.equals("G") && shippableWeight.compareTo(new BigDecimal("999")) > 0) || (shippableWeight.compareTo(new BigDecimal("150")) > 0)) {
             return ServiceUtil.returnError("Cannot get DHL Estimate: Shippable weight cannot be greater than 999 lbs for ground or 150 lbs for all other services.");
         }
         String weight = (Integer.valueOf((int) shippableWeight.longValue())).toString();
@@ -362,7 +367,7 @@ public class DhlServices {
                 chargeList.add(charge);
             }
         }
-        Double shippingEstimateAmount = Double.valueOf(responseTotalChargeEstimate);
+        BigDecimal shippingEstimateAmount = new BigDecimal(responseTotalChargeEstimate);
         dhlRateCodeMap.put("dateGenerated", dateGenerated);
         dhlRateCodeMap.put("serviceLevelCommitment",
                 responseServiceLevelCommitmentDescription);
@@ -586,9 +591,9 @@ public class DhlServices {
 
             // get the weight from the ShipmentRouteSegment first, which overrides all later weight computations
             boolean hasBillingWeight = false;  // for later overrides
-            Double billingWeight = shipmentRouteSegment.getDouble("billingWeight");
+            BigDecimal billingWeight = shipmentRouteSegment.getBigDecimal("billingWeight");
             String billingWeightUomId = shipmentRouteSegment.getString("billingWeightUomId");
-            if ((billingWeight != null) && (billingWeight.doubleValue() > 0)) {
+            if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
                     Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId,  module);
@@ -601,7 +606,7 @@ public class DhlServices {
                     // try getting the weight from package instead
                     hasBillingWeight = false;
                 } else {
-                    billingWeight = (Double) results.get("convertedValue");
+                    billingWeight = (BigDecimal) results.get("convertedValue");
                 }
             }
 
@@ -609,7 +614,7 @@ public class DhlServices {
             String length = null;
             String width = null;
             String height = null;
-            Double packageWeight = null;
+            BigDecimal packageWeight = null;
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
@@ -632,14 +637,14 @@ public class DhlServices {
 
                 // compute total packageWeight (for now, just one package)
                 if (shipmentPackage.getString("weight") != null) {
-                    packageWeight = Double.valueOf(shipmentPackage.getString("weight"));
+                    packageWeight = new BigDecimal(shipmentPackage.getString("weight"));
                 } else {
                     // use default weight if available
                     try {
-                        packageWeight = Double.valueOf(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
+                        packageWeight = new BigDecimal(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
                     } catch (NumberFormatException ne) {
                         Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value)", module);
-                        packageWeight = Double.valueOf(1.0);
+                        packageWeight = BigDecimal.ONE;
                     }
                 }
                 // convert weight
@@ -651,21 +656,21 @@ public class DhlServices {
                 results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", packageWeight));
                 if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) || (results.get("convertedValue") == null)) {
                     Debug.logWarning("Unable to convert weights for shipmentId " + shipmentId , module);
-                    packageWeight = Double.valueOf(1.0);
+                    packageWeight = BigDecimal.ONE;
                 } else {
-                    packageWeight = (Double) results.get("convertedValue");
+                    packageWeight = (BigDecimal) results.get("convertedValue");
                 }
             }
 
             // pick which weight to use and round it
-            Double weight = null;
+            BigDecimal weight = null;
             if (hasBillingWeight) { 
                 weight = billingWeight;
             } else {
                 weight = packageWeight;
             }
             // want the rounded weight as a string, so we use the "" + int shortcut
-            String roundedWeight = "" + Math.round(weight.doubleValue());
+            String roundedWeight = weight.setScale(0, BigDecimal.ROUND_HALF_UP).toPlainString();
             
             // translate shipmentMethodTypeId to DHL service code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
@@ -838,12 +843,12 @@ public class DhlServices {
         return ServiceUtil.returnSuccess("DHL Shipment Confirmed.");
     }
 
-    private static double getWeight(List<Map<String, Object>> shippableItemInfo) {
-        double totalWeight = 0;
+    private static BigDecimal getWeight(List<Map<String, Object>> shippableItemInfo) {
+        BigDecimal totalWeight = BigDecimal.ZERO;
         if (shippableItemInfo != null) {
             for (Map<String, Object> itemInfo: shippableItemInfo) {
-                double weight = ((Double) itemInfo.get("weight")).doubleValue();
-                totalWeight = totalWeight + weight;
+                BigDecimal weight = ((BigDecimal) itemInfo.get("weight"));
+                totalWeight = totalWeight.add(weight);
             }
         }
         return totalWeight;

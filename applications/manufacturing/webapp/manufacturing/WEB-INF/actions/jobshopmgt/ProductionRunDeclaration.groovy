@@ -52,7 +52,7 @@ if (productionRunId) {
             context.dependentWorkEfforts = dependentWorkEfforts;
         }
 
-        Double quantityToProduce = productionRun.getGenericValue().getDouble("quantityToProduce") ?: new Double(0);
+        quantityToProduce = productionRun.getGenericValue().get("quantityToProduce") ?: 0.0;
 
         // Find the inventory items produced
         inventoryItems = delegator.findByAnd("WorkEffortInventoryProduced", [workEffortId : productionRunId]);
@@ -64,28 +64,28 @@ if (productionRunId) {
         }
 
         // Find if the production run can produce inventory.
-        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced")?: new Double(0);
-        Double quantityRejected = productionRun.getGenericValue().getDouble("quantityRejected")?: new Double(0);
+        quantityProduced = productionRun.getGenericValue().quantityProduced ?: 0.0;
+        quantityRejected = productionRun.getGenericValue().quantityRejected ?: 0.0;
         
         lastTask = productionRun.getLastProductionRunRoutingTask();
-        Double quantityDeclared = (lastTask ? (lastTask.getDouble("quantityProduced")?: new Double(0)): new Double(0));
+        quantityDeclared = (lastTask ? (lastTask.quantityProduced ?: 0.0) : 0.0 ;
         
         if (lastTask && ("PRUN_RUNNING".equals(lastTask.currentStatusId) || "PRUN_COMPLETED".equals(lastTask.currentStatusId))) {
             context.canDeclareAndProduce = "Y";
         }
-        double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
+        maxQuantity = quantityDeclared - quantityProduced;
 
         productionRunData = [:];
         productionRunData.workEffortId = productionRunId;
         productionRunData.productId = productionRun.getProductProduced().productId;
         if (maxQuantity > 0 && !"WIP".equals(productionRun.getProductProduced().productTypeId)) {
-            productionRunData.quantity = new Double(maxQuantity);
+            productionRunData.quantity = maxQuantity;
             context.canProduce = "Y";
         }
         productionRunData.quantityToProduce = quantityToProduce;
         productionRunData.quantityProduced = quantityProduced;
         productionRunData.quantityRejected = quantityRejected;
-        productionRunData.quantityRemaining = new Double(quantityToProduce.doubleValue() - quantityProduced.doubleValue());
+        productionRunData.quantityRemaining = quantityToProduce - quantityProduced;
         productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate();
         productionRunData.productionRunName = productionRun.getProductionRunName();
         productionRunData.description = productionRun.getDescription();
@@ -188,21 +188,21 @@ if (productionRunId) {
                 componentData.workEffortName = workEffortName;
                 componentData.facilityId = productionRunTask.facilityId;
                 issuances = delegator.findByAnd("WorkEffortAndInventoryAssign", [workEffortId : component.workEffortId, productId : product.productId]);
-                double totalIssued = 0.0;
+                totalIssued = 0.0;
                 issuances.each { issuance ->
-                    Double issued = issuance.getDouble("quantity");
+                    issued = issuance.quantity;
                     if (issued) {
-                        totalIssued += issued.doubleValue();
+                        totalIssued += issued;
                     }
                 }
                 returns = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : component.workEffortId , productId : product.productId]);
-                double totalReturned = 0.0;
+                totalReturned = 0.0;
                 returns.each { returned ->
                     returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", [inventoryItemId : returned.inventoryItemId], ["inventoryItemDetailSeqId"]));
                     if (returnDetail) {
-                        Double qtyReturned = returnDetail.getDouble("quantityOnHandDiff");
+                        qtyReturned = returnDetail.quantityOnHandDiff;
                         if (qtyReturned) {
-                            totalReturned += qtyReturned.doubleValue();
+                            totalReturned += qtyReturned;
                         }
                     }
                 }

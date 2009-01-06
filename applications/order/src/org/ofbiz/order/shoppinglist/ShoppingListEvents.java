@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppinglist;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,12 +147,12 @@ public class ShoppingListEvents {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()=" + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(), module);
                     Map serviceResult = null;
                     try {
-                        Map ctx = UtilMisc.toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId", item.getProductId(), "quantity", new Double(item.getQuantity()));
+                        Map ctx = UtilMisc.toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId", item.getProductId(), "quantity", item.getQuantity());
                         ctx.put("reservStart", item.getReservStart());
-                        ctx.put("reservLength", new Double(item.getReservLength()));
-                        ctx.put("reservPersons", new Double(item.getReservPersons()));
-                  //    ctx.put("accommodationMapId", new Double(item.getAccommodationMapId()));
-                  //    ctx.put("accommodationSpotId", new Double(item.getAccommodationSpotId()));
+                        ctx.put("reservLength", item.getReservLength());
+                        ctx.put("reservPersons", item.getReservPersons());
+                  //    ctx.put("accommodationMapId", item.getAccommodationMapId());
+                  //    ctx.put("accommodationSpotId", item.getAccommodationSpotId());
                         if (item.getConfigWrapper() != null) {
                             ctx.put("configId", item.getConfigWrapper().getConfigId());                            
                         }
@@ -259,10 +260,10 @@ public class ShoppingListEvents {
         while (i.hasNext()) {
             GenericValue shoppingListItem = (GenericValue) i.next();
             String productId = shoppingListItem.getString("productId");
-            Double quantity = shoppingListItem.getDouble("quantity");
+            BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
-            Double reservLength = shoppingListItem.getDouble("reservLength");
-            Double reservPersons = shoppingListItem.getDouble("reservPersons");
+            BigDecimal reservLength = shoppingListItem.getBigDecimal("reservLength");
+            BigDecimal reservPersons = shoppingListItem.getBigDecimal("reservPersons");
       //    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
       //    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");            
             String configId = shoppingListItem.getString("configId");
@@ -290,9 +291,9 @@ public class ShoppingListEvents {
                 
                 // i cannot get the addOrDecrease function to accept a null reservStart field: i get a null pointer exception a null constant works....
                 if (reservStart == null) {
-                       cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
+                       cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }else{                
-                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
+                    cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
@@ -326,9 +327,9 @@ public class ShoppingListEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
                 
-        Double quantity = null;
+        BigDecimal quantity = null;
         try {
-            quantity = Double.valueOf(quantityStr);
+            quantity = new BigDecimal(quantityStr);
         } catch (Exception e) {
             // do nothing, just won't pass to service if it is null
         }

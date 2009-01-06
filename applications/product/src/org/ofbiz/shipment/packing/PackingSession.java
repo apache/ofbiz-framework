@@ -18,28 +18,32 @@
  *******************************************************************************/
 package org.ofbiz.shipment.packing;
 
-import java.util.*;
 import java.math.BigDecimal;
+import java.util.AbstractMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import javolution.util.FastMap;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.product.product.ProductWorker;
 
 public class PackingSession implements java.io.Serializable {
 
@@ -56,8 +60,8 @@ public class PackingSession implements java.io.Serializable {
     protected String shipmentId = null;
     protected String instructions = null;
     protected String weightUomId = null;
-    protected Double additionalShippingCharge = null;
-    protected Map<Integer, Double> packageWeights = null;
+    protected BigDecimal additionalShippingCharge = null;
+    protected Map<Integer, BigDecimal> packageWeights = null;
     protected List<PackingEvent> packEvents = null;
     protected List<PackingSessionLine> packLines = null;
     protected List<ItemDisplay> itemInfos = null;
@@ -94,14 +98,14 @@ public class PackingSession implements java.io.Serializable {
         this(dispatcher, userLogin, null, null, null, null);
     }
 
-    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId, double weight, boolean update) throws GeneralException {
+    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, int packageSeqId, BigDecimal weight, boolean update) throws GeneralException {
         // reset the session if we just completed
         if (status == 0) {
             throw new GeneralException("Packing session has been completed; be sure to CLEAR before packing a new order! [000]");
         }
 
         // do nothing if we are trying to add a quantity of 0
-        if (!update && quantity == 0) {
+        if (!update && quantity.compareTo(BigDecimal.ZERO) == 0) {
             return;
         }
 
@@ -138,11 +142,11 @@ public class PackingSession implements java.io.Serializable {
             this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
         } else {
             // more than one reservation found
-            Map<GenericValue, Double> toCreateMap = FastMap.newInstance();
+            Map<GenericValue, BigDecimal> toCreateMap = FastMap.newInstance();
             Iterator<GenericValue> i = reservations.iterator();
-            double qtyRemain = quantity;
+            BigDecimal qtyRemain = quantity;
 
-            while (i.hasNext() && qtyRemain > 0) {
+            while (i.hasNext() && qtyRemain.compareTo(BigDecimal.ZERO) > 0) {
                 GenericValue res = i.next();
 
                 // Check that the inventory item product match with the current product to pack
@@ -150,26 +154,26 @@ public class PackingSession implements java.io.Serializable {
                     continue;
                 }
 
-                double resQty = res.getDouble("quantity").doubleValue();
-                double resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
-                if (resPackedQty >= resQty) {
+                BigDecimal resQty = res.getBigDecimal("quantity");
+                BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
+                if (resPackedQty.compareTo(resQty) >= 0) {
                     continue;
                 } else if (!update) {
-                    resQty -= resPackedQty;
+                    resQty = resQty.subtract(resPackedQty);
                 }
                 
-                double thisQty = resQty > qtyRemain ? qtyRemain : resQty;
+                BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
 
                 int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
                 switch (thisCheck) {
                     case 2:
                         Debug.log("Packing check returned '2' - new pack line will be created!", module);
-                        toCreateMap.put(res, Double.valueOf(thisQty));
-                        qtyRemain -= thisQty;
+                        toCreateMap.put(res, thisQty);
+                        qtyRemain = qtyRemain.subtract(thisQty);
                         break;
                     case 1:
                         Debug.log("Packing check returned '1' - existing pack line has been updated!", module);
-                        qtyRemain -= thisQty;
+                        qtyRemain = qtyRemain.subtract(thisQty);
                         break;
                     case 0:
                         Debug.log("Packing check returned '0' - doing nothing.", module);
@@ -177,11 +181,11 @@ public class PackingSession implements java.io.Serializable {
                 }
             }
 
-            if (qtyRemain == 0) {
-                for (Map.Entry<GenericValue, Double> entry: toCreateMap.entrySet()) {
+            if (qtyRemain.compareTo(BigDecimal.ZERO) == 0) {
+                for (Map.Entry<GenericValue, BigDecimal> entry: toCreateMap.entrySet()) {
                     GenericValue res = entry.getKey();
-                    Double qty = entry.getValue();
-                    this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty.doubleValue(), weight, packageSeqId);
+                    BigDecimal qty = entry.getValue();
+                    this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty, weight, packageSeqId);
                 }
             } else {
                 throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [103]");
@@ -192,12 +196,12 @@ public class PackingSession implements java.io.Serializable {
         this.runEvents(PackingEvent.EVENT_CODE_ADD);
     }
 
-    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, double quantity, int packageSeqId) throws GeneralException {
-        this.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, null, quantity, packageSeqId, 0, false);
+    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, BigDecimal quantity, int packageSeqId) throws GeneralException {
+        this.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, null, quantity, packageSeqId, BigDecimal.ZERO, false);
     }
 
-    public void addOrIncreaseLine(String productId, double quantity, int packageSeqId) throws GeneralException {
-        this.addOrIncreaseLine(null, null, null, productId, quantity, packageSeqId, 0, false);
+    public void addOrIncreaseLine(String productId, BigDecimal quantity, int packageSeqId) throws GeneralException {
+        this.addOrIncreaseLine(null, null, null, productId, quantity, packageSeqId, BigDecimal.ZERO, false);
     }
 
     public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
@@ -214,7 +218,7 @@ public class PackingSession implements java.io.Serializable {
         return null;
     }
 
-    protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, double weight, int packageSeqId) throws GeneralException {
+    protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, BigDecimal weight, int packageSeqId) throws GeneralException {
         // process the result; add new item if necessary
         switch(checkCode) {
             case 0:
@@ -231,7 +235,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         // Add the line weight to the package weight
-        if (weight > 0) this.addToPackageWeight(packageSeqId, Double.valueOf(weight));
+        if (weight.compareTo(BigDecimal.ZERO) > 0) this.addToPackageWeight(packageSeqId, weight);
         
         // update the package sequence
         if (packageSeqId > packageSeq) {
@@ -239,7 +243,7 @@ public class PackingSession implements java.io.Serializable {
         }
     }
 
-    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, double quantity) throws GeneralException {
+    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity) throws GeneralException {
         Map<String, Object> lookupMap = FastMap.newInstance();
         lookupMap.put("orderId", orderId);
         lookupMap.put("productId", productId);
@@ -259,8 +263,8 @@ public class PackingSession implements java.io.Serializable {
                 invLookup.put("shipGroupSeqId", shipGroupSeqId);
                 List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup);
                 for (GenericValue res: reservations) {
-                    Double qty = res.getDouble("quantity");
-                    if (quantity <= qty.doubleValue()) {
+                    BigDecimal qty = res.getBigDecimal("quantity");
+                    if (quantity.compareTo(qty) <= 0) {
                         orderItemSeqId = item.getString("orderItemSeqId");
                         break;
                     }
@@ -275,27 +279,27 @@ public class PackingSession implements java.io.Serializable {
         }
     }
 
-    protected int checkLineForAdd(GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId, boolean update) {
+    protected int checkLineForAdd(GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, int packageSeqId, boolean update) {
         // check to see if the reservation can hold the requested quantity amount
         String invItemId = res.getString("inventoryItemId");
-        double resQty = res.getDouble("quantity").doubleValue();
+        BigDecimal resQty = res.getBigDecimal("quantity");
 
         PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, packageSeqId);
-        double packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId);
+        BigDecimal packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId);
 
         Debug.log("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
 
         if (line == null) {
             Debug.log("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, module);
-            if (resQty < quantity) {
+            if (resQty.compareTo(quantity) < 0) {
                 return 0;
             } else {
                 return 2;
             }
         } else {
-            double newQty = update ? quantity : (line.getQuantity() + quantity);
+            BigDecimal newQty = update ? quantity : (line.getQuantity().add(quantity));
             Debug.log("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, module);
-            if (resQty < newQty) {
+            if (resQty.compareTo(newQty) < 0) {
                 return 0;
             } else {
                 line.setQuantity(newQty);
@@ -341,22 +345,22 @@ public class PackingSession implements java.io.Serializable {
         return packageSeq;
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
+    public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
         return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, -1);
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, int packageSeq) {
+    public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, int packageSeq) {
         return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, packageSeq);
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
-        double total = 0.0;
+    public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
+        BigDecimal total = BigDecimal.ZERO;
         for (PackingSessionLine line: this.getLines()) {
             if (orderId.equals(line.getOrderId()) && orderItemSeqId.equals(line.getOrderItemSeqId()) &&
                     shipGroupSeqId.equals(line.getShipGroupSeqId()) && productId.equals(line.getProductId())) {
                 if (inventoryItemId == null || inventoryItemId.equals(line.getInventoryItemId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
-                        total += line.getQuantity();
+                        total = total.add(line.getQuantity());
                     }
                 }
             }
@@ -364,7 +368,7 @@ public class PackingSession implements java.io.Serializable {
         return total;
     }
 
-    public double getPackedQuantity(String productId, int packageSeq) {
+    public BigDecimal getPackedQuantity(String productId, int packageSeq) {
         if (productId != null) {
             try {
                 productId = ProductWorker.findProductId(this.getDelegator(), productId);
@@ -373,12 +377,12 @@ public class PackingSession implements java.io.Serializable {
             }
         }
 
-        double total = 0.0;
+        BigDecimal total = BigDecimal.ZERO;
         if (productId != null ) {
             for (PackingSessionLine line: this.getLines()) {
                 if (productId.equals(line.getProductId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
-                        total += line.getQuantity();
+                        total = total.add(line.getQuantity());
                     }
                 }
             }
@@ -386,44 +390,43 @@ public class PackingSession implements java.io.Serializable {
         return total;
     }
 
-    public double getPackedQuantity(int packageSeq) {
-        double total = 0.0;
+    public BigDecimal getPackedQuantity(int packageSeq) {
+        BigDecimal total = BigDecimal.ZERO;
         for (PackingSessionLine line: this.getLines()) {
             if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
-                total += line.getQuantity();
+                total = total.add(line.getQuantity());
             }
         }
         return total;
     }
 
-    public double getPackedQuantity(String productId) {
+    public BigDecimal getPackedQuantity(String productId) {
         return getPackedQuantity(productId, -1);
     }
 
-    public double getCurrentReservedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
-        double reserved = -1;
+    public BigDecimal getCurrentReservedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
+        BigDecimal reserved = BigDecimal.ONE.negate();
         try {
             GenericValue res = EntityUtil.getFirst(this.getDelegator().findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId,
                     "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId, "inventoryProductId", productId)));
-            Double reservedDbl = res.getDouble("totQuantityAvailable");
-            if (reservedDbl == null) {
-                reservedDbl = Double.valueOf(-1);
+            reserved = res.getBigDecimal("totQuantityAvailable");
+            if (reserved == null) {
+                reserved = BigDecimal.ONE.negate();
             }
-            reserved = reservedDbl.doubleValue();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
         return reserved;
     }
 
-    public double getCurrentShippedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId) {
-        double shipped = 0.0;
+    public BigDecimal getCurrentShippedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId) {
+        BigDecimal shipped = BigDecimal.ZERO;
         List<GenericValue> issues = this.getItemIssuances(orderId, orderItemSeqId, shipGroupSeqId);
         if (issues != null) {
             for (GenericValue v: issues) {
-                Double qty = v.getDouble("quantity");
-                if (qty == null) qty = Double.valueOf(0);
-                shipped += qty.doubleValue();
+                BigDecimal qty = v.getBigDecimal("quantity");
+                if (qty == null) qty = BigDecimal.ZERO;
+                shipped = shipped.add(qty);
             }
         }
 
@@ -598,8 +601,8 @@ public class PackingSession implements java.io.Serializable {
     protected void checkReservations(boolean ignore) throws GeneralException {
         List<String> errors = FastList.newInstance();        
         for (PackingSessionLine line: this.getLines()) {
-            double reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
-            double packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
+            BigDecimal reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
+            BigDecimal packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
 
             if (packedQty != reservedQty) {
                 errors.add("Packed amount does not match reserved amount for item (" + line.getProductId() + ") [" + packedQty + " / " + reservedQty + "]");
@@ -619,7 +622,7 @@ public class PackingSession implements java.io.Serializable {
         List<PackingSessionLine> lines = FastList.newInstance();
         lines.addAll(this.getLines());
         for (PackingSessionLine l: lines) {
-            if (l.getQuantity() == 0) {
+            if (l.getQuantity().compareTo(BigDecimal.ZERO) == 0) {
                 this.packLines.remove(l);
             }
         }
@@ -681,10 +684,10 @@ public class PackingSession implements java.io.Serializable {
         List<PackingSessionLine> processedLines = FastList.newInstance();
         for (PackingSessionLine line: this.getLines()) {
             if (this.checkLine(processedLines, line)) {
-                double totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
+                BigDecimal totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
                         line.getShipGroupSeqId(), line.getProductId(), line.getInventoryItemId(), -1);
 
-                line.issueItemToShipment(shipmentId, picklistBinId, userLogin, Double.valueOf(totalPacked), getDispatcher());
+                line.issueItemToShipment(shipmentId, picklistBinId, userLogin, totalPacked, getDispatcher());
                 processedLines.add(line);
             }
         }
@@ -727,8 +730,8 @@ public class PackingSession implements java.io.Serializable {
     }
 
     protected void updateShipmentRouteSegments() throws GeneralException {
-        Double shipmentWeight = Double.valueOf(getTotalWeight());
-        if (shipmentWeight.doubleValue() <= 0) return;
+    	BigDecimal shipmentWeight = getTotalWeight();
+        if (shipmentWeight.compareTo(BigDecimal.ZERO) <= 0) return;
         List<GenericValue> shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()));
         if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
             for (GenericValue shipmentRouteSegment: shipmentRouteSegments) {
@@ -773,40 +776,40 @@ public class PackingSession implements java.io.Serializable {
         }
     }
 
-    public Double getAdditionalShippingCharge() {
+    public BigDecimal getAdditionalShippingCharge() {
         return additionalShippingCharge;
     }
 
-    public void setAdditionalShippingCharge(Double additionalShippingCharge) {
+    public void setAdditionalShippingCharge(BigDecimal additionalShippingCharge) {
         this.additionalShippingCharge = additionalShippingCharge;
     }
     
-    public double getTotalWeight() {
-        double total = 0.0;
+    public BigDecimal getTotalWeight() {
+        BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < packageSeq; i++) {
-            Double packageWeight = getPackageWeight(i);
+        	BigDecimal packageWeight = getPackageWeight(i);
             if (! UtilValidate.isEmpty(packageWeight)) {
-                total += packageWeight.doubleValue();
+                total = total.add(packageWeight);
             }
         }
         return total;
     }
 
-    public Double getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId, List<GenericValue> shippableItemInfo, Double shippableTotal, Double shippableWeight, Double shippableQuantity) {
+    public BigDecimal getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
         return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
                                        orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"), 
                                        productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
     }
     
-    public Double getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId) {
+    public BigDecimal getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId) {
         return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
                                        orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"), 
                                        productStoreId, null, null, null, null);
     }
     
-    public Double getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String productStoreId, List<GenericValue> shippableItemInfo, Double shippableTotal, Double shippableWeight, Double shippableQuantity) {
+    public BigDecimal getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
 
-        Double shipmentCostEstimate = null;
+        BigDecimal shipmentCostEstimate = null;
         Map<String, Object> serviceResult = null;
         try {
             Map<String, Object> serviceContext = FastMap.newInstance();
@@ -826,17 +829,17 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableItemInfo", shippableItemInfo);
 
             if (UtilValidate.isEmpty(shippableWeight)) {
-                shippableWeight = Double.valueOf(getTotalWeight());
+                shippableWeight = getTotalWeight();
             }
             serviceContext.put("shippableWeight", shippableWeight);
 
             if (UtilValidate.isEmpty(shippableQuantity)) {
-                shippableQuantity = Double.valueOf(getPackedQuantity(-1));
+                shippableQuantity = getPackedQuantity(-1);
             }
             serviceContext.put("shippableQuantity", shippableQuantity);
 
             if (UtilValidate.isEmpty(shippableTotal)) {
-                shippableTotal = Double.valueOf(0);
+                shippableTotal = BigDecimal.ZERO;
             }
             serviceContext.put("shippableTotal", shippableTotal);
     
@@ -848,7 +851,7 @@ public class PackingSession implements java.io.Serializable {
         }
         
         if (! UtilValidate.isEmpty(serviceResult.get("shippingEstimateAmount"))) {
-            shipmentCostEstimate = (Double) serviceResult.get("shippingEstimateAmount");
+            shipmentCostEstimate = (BigDecimal) serviceResult.get("shippingEstimateAmount");
         }
         
         return shipmentCostEstimate;
@@ -873,7 +876,7 @@ public class PackingSession implements java.io.Serializable {
         return UtilMisc.makeListWritable(packageSeqIds);
     }
     
-    public void setPackageWeight(int packageSeqId, Double packageWeight) {
+    public void setPackageWeight(int packageSeqId, BigDecimal packageWeight) {
         if (UtilValidate.isEmpty(packageWeight)) {
             packageWeights.remove(Integer.valueOf(packageSeqId));
         } else {
@@ -881,16 +884,20 @@ public class PackingSession implements java.io.Serializable {
         }
     }
     
-    public Double getPackageWeight(int packageSeqId) {
+    public BigDecimal getPackageWeight(int packageSeqId) {
         if (this.packageWeights == null) return null;
-        Double packageWeight = packageWeights.get(Integer.valueOf(packageSeqId));
+        BigDecimal packageWeight = null;
+        Object p = packageWeights.get(new Integer(packageSeqId));
+        if (p != null) {
+            packageWeight = (BigDecimal) p;
+        }
         return packageWeight;
     }
     
-    public void addToPackageWeight(int packageSeqId, Double weight) {
+    public void addToPackageWeight(int packageSeqId, BigDecimal weight) {
         if (UtilValidate.isEmpty(weight)) return;
-        Double packageWeight = getPackageWeight(packageSeqId);
-        Double newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : Double.valueOf(weight.doubleValue() + packageWeight.doubleValue());
+        BigDecimal packageWeight = getPackageWeight(packageSeqId);
+        BigDecimal newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : weight.add(packageWeight);
         setPackageWeight(packageSeqId, newPackageWeight);
     }
 

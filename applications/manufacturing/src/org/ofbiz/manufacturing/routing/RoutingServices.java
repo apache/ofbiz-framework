@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.manufacturing.routing;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,13 +54,13 @@ public class RoutingServices {
         
         // The mandatory IN parameters
         String taskId = (String) context.get("taskId");
-        Double quantity = (Double) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         // The optional IN parameters
         String productId = (String) context.get("productId");
         String routingId = (String) context.get("routingId");
         
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = BigDecimal.ONE;
         }
 
         GenericValue task = null;

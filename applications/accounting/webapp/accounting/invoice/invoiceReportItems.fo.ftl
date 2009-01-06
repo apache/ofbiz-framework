@@ -132,7 +132,7 @@ under the License.
                         <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=(invoiceItem.quantity?double * invoiceItem.amount?double) isoCode=invoice.currencyUomId?if_exists/><#else><@ofbizCurrency amount=(invoiceItem.amount?double) isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
+                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId?if_exists/> </fo:block>               
                     </fo:table-cell>
                 </fo:table-row>
         </#list>

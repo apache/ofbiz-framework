@@ -62,7 +62,7 @@ under the License.
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
-        <attribute mode="OUT" name="productCost" type="Double" optional="false"/>
+        <attribute mode="OUT" name="productCost" type="BigDecimal" optional="false"/>
     </service>
     <service name="getTaskCost" engine="simple" auth="true"
                 location="org/ofbiz/product/cost/CostServices.xml" invoke="getTaskCost">
@@ -71,7 +71,7 @@ under the License.
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>
         <attribute mode="IN" name="routingId" optional="true" type="String"/>
-        <attribute mode="OUT" name="taskCost" type="Double" optional="false"/>
+        <attribute mode="OUT" name="taskCost" type="BigDecimal" optional="false"/>
     </service>
     <service name="calculateProductCosts" engine="simple" auth="true"
                 location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductCosts">
@@ -79,7 +79,7 @@ under the License.
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
-        <attribute mode="OUT" name="totalCost" type="Double"/>
+        <attribute mode="OUT" name="totalCost" type="BigDecimal"/>
     </service>
     <service name="calculateAllProductsCosts" engine="simple" auth="true" transaction-timeout="7200"
                 location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateAllProductsCosts">

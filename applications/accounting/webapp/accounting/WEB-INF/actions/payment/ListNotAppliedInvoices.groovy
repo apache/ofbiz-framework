@@ -63,14 +63,14 @@ context.invoicesOtherCurrency = getInvoices(invoices, true);
 List getInvoices(List invoices, boolean actual) {
 	if (invoices) {
 		invoicesList = [];  // to pass back to the screeen list of unapplied invoices
-		paymentApplied = PaymentWorker.getPaymentAppliedBd(payment);
+		paymentApplied = PaymentWorker.getPaymentApplied(payment);
 		paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
 		if (actual) {
 			paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
 		}
 		invoices.each { invoice ->
-			invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice).setScale(decimals,rounding);
-			invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice).setScale(decimals,rounding);
+			invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice).setScale(decimals,rounding);
+			invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice).setScale(decimals,rounding);
 			invoiceToApply = invoiceAmount.subtract(invoiceApplied);
         	if (invoiceToApply.signum() == 1) {
         		invoiceMap = [:];

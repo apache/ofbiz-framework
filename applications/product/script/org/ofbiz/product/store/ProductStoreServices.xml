@@ -426,7 +426,7 @@ under the License.
                     <result-to-field result-name="quantityNotReserved"/>
                 </call-service>
     
-                <if-compare value="0" field="quantityNotReserved" operator="equals" type="Double">
+                <if-compare value="0" field="quantityNotReserved" operator="equals" type="BigDecimal">
                     <log level="info" message="Inventory IS reserved in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
                 <else>
                     <log level="info" message="There is insufficient inventory available in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}"/>
@@ -450,7 +450,7 @@ under the License.
                         </call-service>
                         <clear-field field="callServiceMap"/>
     
-                        <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="Double">
+                        <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="BigDecimal">
                             <set field="storeFound" from-field="productStoreFacility"/>
                         </if-compare-field>
                         <clear-field field="availableToPromiseTotal"/>
@@ -494,7 +494,7 @@ under the License.
             <call-service service-name="reserveProductInventoryByFacility" in-map-name="callServiceMap">
                 <result-to-field result-name="quantityNotReserved"/>
             </call-service>
-            <if-compare value="0" field="quantityNotReserved" operator="equals" type="Double">
+            <if-compare value="0" field="quantityNotReserved" operator="equals" type="BigDecimal">
                 <log level="info" message="Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
             <else>
                 <log level="info" message="There is insufficient inventory available in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}"/>
@@ -600,7 +600,7 @@ under the License.
                 </else>
             </if>
             <!-- check to see if we got enough back... -->
-            <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="Double">
+            <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="BigDecimal">
                 <set value="Y" field="available"/>
                 <log level="info" message="Inventory IS available in facility with id ${productStore.inventoryFacilityId} for product id ${parameters.productId}; desired quantity is ${parameters.quantity}, available quantity is ${availableToPromiseTotal}"/>
             <else>
@@ -642,7 +642,7 @@ under the License.
 
                     <clear-field field="callServiceMap"/>
                     
-                    <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="Double">
+                    <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="BigDecimal">
                         <set value="Y" field="available"/>
                         <log level="info" message="Inventory IS available in facility with id ${productStoreFacility.facilityId} for product id ${parameters.productId}; desired quantity is ${parameters.quantity}, available quantity is ${availableToPromiseTotal}"/>
                     </if-compare-field>

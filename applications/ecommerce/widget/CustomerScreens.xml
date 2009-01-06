@@ -351,7 +351,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleDigitalProductEdit"/>
 
-                <set field="parameters.minimumOrderQuantity" value="1" type="Double"/>
+                <set field="parameters.minimumOrderQuantity" value="1" type="BigDecimal"/>
                 <entity-one entity-name="SupplierProduct" value-name="supplierProduct" auto-field-map="false">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/><!-- get from userLogin for security reasons -->
                     <field-map field-name="productId" env-name="parameters.productId"/>

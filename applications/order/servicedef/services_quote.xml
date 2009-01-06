@@ -149,10 +149,10 @@ under the License.
                 location="org/ofbiz/order/quote/QuoteServices.xml" invoke="autoUpdateQuotePrice" auth="true">
         <description>Update the QuoteItem price with the passed value (if present) or automatically from the averageCost</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="manualQuoteUnitPrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="defaultQuoteUnitPrice" type="Double" mode="IN" optional="true"/>
-        <!--<attribute name="averageCost" type="Double" mode="IN" optional="true"/>
-        <attribute name="costToPriceMult" type="Double" mode="IN" optional="true"/>-->
+        <attribute name="manualQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="defaultQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <!--<attribute name="averageCost" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="costToPriceMult" type="BigDecimal" mode="IN" optional="true"/>-->
     </service>
     <service name="autoCreateQuoteAdjustments" engine="simple" auth="true"
             location="org/ofbiz/order/quote/QuoteServices.xml" invoke="autoCreateQuoteAdjustments">

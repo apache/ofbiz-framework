@@ -27,6 +27,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 
+import com.ibm.icu.math.BigDecimal;
+
 /**
  * TaxwareServices
  */
@@ -37,7 +39,7 @@ public class TaxwareServices {
         List items = (List) context.get("itemProductList");
         List amnts = (List) context.get("itemAmountList");
         List ishpn = (List) context.get("itemShippingList");
-        Double shipping = (Double) context.get("orderShippingAmount");
+        BigDecimal shipping = (BigDecimal) context.get("orderShippingAmount");
         GenericValue address = (GenericValue) context.get("shippingAddress");
 
         if (items.size() != amnts.size()) {
@@ -49,14 +51,14 @@ public class TaxwareServices {
         try {
             TaxwareUTL utl = new TaxwareUTL();
 
-            utl.setShipping(shipping != null ? shipping.doubleValue() : 0.0);
+            utl.setShipping(shipping != null ? shipping : BigDecimal.ZERO);
             utl.setShipAddress(address);
             for (int i = 0; i < items.size(); i++) {
                 GenericValue p = (GenericValue) items.get(i);
-                Double amount = (Double) amnts.get(i);
-                Double ishp = ishpn != null ? (Double) ishpn.get(i) : new Double(0.0);
+                BigDecimal amount = (BigDecimal) amnts.get(i);
+                BigDecimal ishp = ishpn != null ? (BigDecimal) ishpn.get(i) : BigDecimal.ZERO;
 
-                utl.addItem(p, amount.doubleValue(), ishp.doubleValue());
+                utl.addItem(p, amount, ishp);
             }
 
             int resp = utl.process();

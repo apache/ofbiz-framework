@@ -19,6 +19,7 @@
 package org.ofbiz.product.product;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -692,19 +693,19 @@ public class ProductSearchSession {
         
         // add a list price range to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW")) || UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
-            Double listPriceLow = null;
-            Double listPriceHigh = null;
+            BigDecimal listPriceLow = null;
+            BigDecimal listPriceHigh = null;
             String listPriceCurrency = UtilHttp.getCurrencyUom(request);
             if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW"))) {
                 try {
-                    listPriceLow = Double.valueOf((String) parameters.get("LIST_PRICE_LOW"));
+                    listPriceLow = new BigDecimal((String) parameters.get("LIST_PRICE_LOW"));
                 } catch (NumberFormatException e) {
                     Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), module);
                 }
             }
             if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
                 try {
-                    listPriceHigh = Double.valueOf((String) parameters.get("LIST_PRICE_HIGH"));
+                    listPriceHigh = new BigDecimal((String) parameters.get("LIST_PRICE_HIGH"));
                 } catch (NumberFormatException e) {
                     Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: " + e.toString(), module);
                 }
@@ -727,19 +728,19 @@ public class ProductSearchSession {
                 listPriceHighStr = null; 
             }
 
-            Double listPriceLow = null;
-            Double listPriceHigh = null;
+            BigDecimal listPriceLow = null;
+            BigDecimal listPriceHigh = null;
             String listPriceCurrency = UtilHttp.getCurrencyUom(request);
             if (UtilValidate.isNotEmpty(listPriceLowStr)) {
                 try {
-                    listPriceLow = Double.valueOf(listPriceLowStr);
+                    listPriceLow = new BigDecimal(listPriceLowStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Error parsing low part of LIST_PRICE_RANGE parameter [" + listPriceLowStr + "]: " + e.toString(), module);
                 }
             }
             if (UtilValidate.isNotEmpty(listPriceHighStr)) {
                 try {
-                    listPriceHigh = Double.valueOf(listPriceHighStr);
+                    listPriceHigh = new BigDecimal(listPriceHighStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Error parsing high part of LIST_PRICE_RANGE parameter [" + listPriceHighStr + "]: " + e.toString(), module);
                 }

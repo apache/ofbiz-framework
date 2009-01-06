@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
@@ -82,7 +83,7 @@ public class PayPalEvents {
         }
         
         // get the order total
-        String orderTotal = UtilFormatOut.formatPrice(orderHeader.getDouble("grandTotal"));
+        String orderTotal = orderHeader.getBigDecimal("grandTotal").toPlainString();
             
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
@@ -445,7 +446,7 @@ public class PayPalEvents {
             authDate = UtilDateTime.nowTimestamp();
         }
 
-        paymentPreference.set("maxAmount", new Double(paymentAmount));
+        paymentPreference.set("maxAmount", new BigDecimal(paymentAmount));
         if (paymentStatus.equals("Completed")) {
             paymentPreference.set("statusId", "PAYMENT_RECEIVED");
         } else if (paymentStatus.equals("Pending")) {
@@ -468,7 +469,7 @@ public class PayPalEvents {
         response.set("paymentMethodId", paymentPreference.get("paymentMethodId"));
 
         // set the auth info
-        response.set("amount", new Double(paymentAmount));
+        response.set("amount", new BigDecimal(paymentAmount));
         response.set("referenceNum", transactionId);
         response.set("gatewayCode", paymentStatus);
         response.set("gatewayFlag", paymentStatus.substring(0,1));

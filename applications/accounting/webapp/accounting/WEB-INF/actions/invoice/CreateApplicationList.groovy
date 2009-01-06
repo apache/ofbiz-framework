@@ -38,7 +38,7 @@ invoiceAppls.each { invoiceAppl ->
     itemmap = [:];
     itemmap.invoiceId = invoiceAppl.invoiceId;
     itemmap.invoiceItemSeqId = invoiceAppl.invoiceItemSeqId;
-    itemmap.total = InvoiceWorker.getInvoiceTotalBd(invoice).doubleValue();
+    itemmap.total = InvoiceWorker.getInvoiceTotal(invoice);
     itemmap.paymentApplicationId = invoiceAppl.paymentApplicationId;
     itemmap.paymentId = invoiceAppl.paymentId;
     itemmap.billingAccountId = invoiceAppl.billingAccountId;

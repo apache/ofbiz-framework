@@ -49,11 +49,11 @@ if (postedTrans) {
         postedMap = FastMap.newInstance();
         postedMap.glAccountId = value.glAccountId;
         if ("C".equals(value.debitCreditFlag)) {
-            postedMap.credit = value.getDouble("totalAmount");
-            postedMap.debit = new Double(0.0);
+            postedMap.credit = value.getBigDecimal("totalAmount");
+            postedMap.debit = BigDecimal.ZERO;
         } else {
-            postedMap.credit = new Double(0.0);
-            postedMap.debit = value.getDouble("totalAmount");
+            postedMap.credit = BigDecimal.ZERO;
+            postedMap.debit = value.getBigDecimal("totalAmount");
         }
         postedTransTotalList.add(postedMap);
     }
@@ -71,11 +71,11 @@ if (unpostedTrans) {
         Map unpostedMap = FastMap.newInstance();
         unpostedMap.glAccountId = value.glAccountId;
         if ("C".equals(value.debitCreditFlag)) {
-            unpostedMap.credit = value.getDouble("totalAmount");
-            unpostedMap.debit = new Double(0.0);
+            unpostedMap.credit = value.getBigDecimal("totalAmount");
+            unpostedMap.debit = BigDecimal.ZERO;
         } else {
-            unpostedMap.credit = new Double(0.0);
-            unpostedMap.debit = value.getDouble("totalAmount");
+            unpostedMap.credit = BigDecimal.ZERO;
+            unpostedMap.debit = value.getBigDecimal("totalAmount");
         }
         unpostedTransTotalList.add(unpostedMap);
     }

@@ -436,7 +436,7 @@ under the License.
             <set from-field="parameters.quantity" field="productCalculatedInfo.totalQuantityOrdered"/>
             <create-value value-field="productCalculatedInfo"/>
         <else>
-            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}"  type="BigDecimal"/>
+            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}" type="BigDecimal"/>
             <store-value value-field="productCalculatedInfo"/>
         </else>
         </if-empty>
@@ -581,7 +581,7 @@ under the License.
             <field field="productId" type="java.lang.String"/>
         </call-class-method>
         <log level="info" message="Got new average customer rating ${averageCustomerRating}"/>
-        <if-compare field="averageCustomerRating" operator="equals" value="0" type="Double">
+        <if-compare field="averageCustomerRating" operator="equals" value="0" type="BigDecimal">
             <return/>
         </if-compare>
         <!-- update the review average on the ProductCalculatedInfo entity -->

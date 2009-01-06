@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart.shipping;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,11 +77,11 @@ public class ShippingEvents {
                 return "error";
             }
 
-            Double shippingTotal = (Double) result.get("shippingTotal");
+            BigDecimal shippingTotal = (BigDecimal) result.get("shippingTotal");
             if (shippingTotal == null) {
-                shippingTotal = new Double(0.00);
+                shippingTotal = BigDecimal.ZERO;
             }
-            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), i);
+            cart.setItemShipGroupEstimate(shippingTotal, i);
         }
 
         // all done
@@ -91,7 +92,7 @@ public class ShippingEvents {
         // check for shippable items
         if (!cart.shippingApplies()) {
             Map responseResult = ServiceUtil.returnSuccess();
-            responseResult.put("shippingTotal", new Double(0.00));
+            responseResult.put("shippingTotal", BigDecimal.ZERO);
             return responseResult;
         }
 
@@ -108,7 +109,7 @@ public class ShippingEvents {
         // check for shippable items
         if (!orh.shippingApplies()) {
             Map responseResult = ServiceUtil.returnSuccess();
-            responseResult.put("shippingTotal", new Double(0.00));
+            responseResult.put("shippingTotal", BigDecimal.ZERO);
             return responseResult;
         }
 
@@ -121,7 +122,7 @@ public class ShippingEvents {
 
         GenericValue shipAddr = orh.getShippingAddress(shipGroupSeqId);
         if (shipAddr == null) {
-            return UtilMisc.toMap("shippingTotal", new Double(0));
+            return UtilMisc.toMap("shippingTotal", BigDecimal.ZERO);
         }
         
         String contactMechId = shipAddr.getString("contactMechId");
@@ -131,15 +132,15 @@ public class ShippingEvents {
              partyId = partyObject.getString("partyId");
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
-                contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
-                orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue(), partyId, productStoreShipMethId);
+                contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId),
+                orh.getShippableQuantity(shipGroupSeqId), orh.getShippableTotal(shipGroupSeqId), partyId, productStoreShipMethId);
     }
 
     // version with no support for using the supplier's address as the origin
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, List itemInfo, double shippableWeight, double shippableQuantity,
-            double shippableTotal, String partyId, String productStoreShipMethId) {
+            String productStoreId, List itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
+            BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
                 carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
                 shippableWeight, shippableQuantity, shippableTotal, partyId,productStoreShipMethId);
@@ -147,8 +148,8 @@ public class ShippingEvents {
 
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, String supplierPartyId, List itemInfo, double shippableWeight, double shippableQuantity,
-            double shippableTotal, String partyId, String productStoreShipMethId) {
+            String productStoreId, String supplierPartyId, List itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
+            BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
 
@@ -187,9 +188,9 @@ public class ShippingEvents {
         }
 
         // no shippable items; we won't change any shipping at all
-        if (shippableQuantity == 0) {
+        if (shippableQuantity.compareTo(BigDecimal.ZERO) == 0) {
             Map result = ServiceUtil.returnSuccess();
-            result.put("shippingTotal", new Double(0));
+            result.put("shippingTotal", BigDecimal.ZERO);
             return result;
         }
 
@@ -203,14 +204,14 @@ public class ShippingEvents {
         }
 
         // the initial amount before manual estimates
-        double shippingTotal = 0.00;
+        BigDecimal shippingTotal = BigDecimal.ZERO;
 
         // prepare the service invocation fields
         Map serviceFields = new HashMap();
-        serviceFields.put("initialEstimateAmt", new Double(shippingTotal));
-        serviceFields.put("shippableTotal", new Double(shippableTotal));
-        serviceFields.put("shippableQuantity", new Double(shippableQuantity));
-        serviceFields.put("shippableWeight", new Double(shippableWeight));        
+        serviceFields.put("initialEstimateAmt", shippingTotal);
+        serviceFields.put("shippableTotal", shippableTotal);
+        serviceFields.put("shippableQuantity", shippableQuantity);
+        serviceFields.put("shippableWeight", shippableWeight);        
         serviceFields.put("shippableItemInfo", itemInfo);
         serviceFields.put("productStoreId", productStoreId);
         serviceFields.put("carrierRoleTypeId", "CARRIER");
@@ -223,22 +224,22 @@ public class ShippingEvents {
 
         // call the external shipping service
         try {
-            Double externalAmt = getExternalShipEstimate(dispatcher, storeShipMethod, serviceFields);
+            BigDecimal externalAmt = getExternalShipEstimate(dispatcher, storeShipMethod, serviceFields);
             if (externalAmt != null) {
-                shippingTotal += externalAmt.doubleValue();
+                shippingTotal = shippingTotal.add(externalAmt);
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(standardMessage);
         }
 
         // update the initial amount
-        serviceFields.put("initialEstimateAmt", new Double(shippingTotal));
+        serviceFields.put("initialEstimateAmt", shippingTotal);
 
         // call the generic estimate service
         try {
-            Double genericAmt = getGenericShipEstimate(dispatcher, storeShipMethod, serviceFields);
+        	BigDecimal genericAmt = getGenericShipEstimate(dispatcher, storeShipMethod, serviceFields);
             if (genericAmt != null) {
-                shippingTotal += genericAmt.doubleValue();
+                shippingTotal = shippingTotal.add(genericAmt);
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(standardMessage);
@@ -246,14 +247,14 @@ public class ShippingEvents {
 
         // return the totals
         Map responseResult = ServiceUtil.returnSuccess();
-        responseResult.put("shippingTotal", new Double(shippingTotal));
+        responseResult.put("shippingTotal", shippingTotal);
         return responseResult;
     }
 
-    public static Double getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
+    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
         // invoke the generic estimate service next -- append to estimate amount
         Map genericEstimate = null;
-        Double genericShipAmt = null;
+        BigDecimal genericShipAmt = null;
         try {
             genericEstimate = dispatcher.runSync("calcShipmentCostEstimate", context);
         } catch (GenericServiceException e) {
@@ -264,17 +265,17 @@ public class ShippingEvents {
             Debug.logError(ServiceUtil.getErrorMessage(genericEstimate), module);
             throw new GeneralException();
         } else if (ServiceUtil.isFailure(genericEstimate)) {
-            genericShipAmt = new Double(-1);
+            genericShipAmt = BigDecimal.ONE.negate();
         } else {
-            genericShipAmt = (Double) genericEstimate.get("shippingEstimateAmount");
+            genericShipAmt = (BigDecimal) genericEstimate.get("shippingEstimateAmount");
         }
         return genericShipAmt;
     }
 
-    public static Double getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
+    public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
         // invoke the external shipping estimate service
         String serviceName = (String)storeShipMeth.get("serviceName");
-        Double externalShipAmt = null;
+        BigDecimal externalShipAmt = null;
         if(serviceName != null){
             String doEstimates = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true");
             //If all estimates are not turned off, check for the individual one
@@ -312,7 +313,7 @@ public class ShippingEvents {
                     Debug.logError(errMsg, module);
                     // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like add or update order item to abort
                 } else {
-                    externalShipAmt = (Double) serviceResp.get("shippingEstimateAmount");
+                    externalShipAmt = (BigDecimal) serviceResp.get("shippingEstimateAmount");
                 }
             }
         }

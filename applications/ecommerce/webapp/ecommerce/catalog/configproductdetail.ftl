@@ -233,13 +233,13 @@ function getConfigDetails(event) {
       <#if totalPrice?exists>
         <div>${uiLabelMap.ProductAggregatedPrice}: <span id='totalPrice' class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
       <#else>
-      <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
+      <#if price.competitivePrice?exists && price.price?exists && price.price < price.competitivePrice>
         <div>${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
+      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
         <div>${uiLabelMap.ProductListPrice}: <span class='basePrice'><@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price?double < price.defaultPrice?double && price.defaultPrice?double < price.listPrice?double>
+      <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price < price.defaultPrice && price.defaultPrice < price.listPrice>
         <div>${uiLabelMap.ProductRegularPrice}: <span class='basePrice'><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <div>
@@ -253,15 +253,15 @@ function getConfigDetails(event) {
             ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
         </b>
       </div>
-      <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
-        <#assign priceSaved = price.listPrice?double - price.price?double>
-        <#assign percentSaved = (priceSaved?double / price.listPrice?double) * 100>
+      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
+        <#assign priceSaved = price.listPrice - price.price>
+        <#assign percentSaved = (priceSaved / price.listPrice) * 100>
         <div>${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
       </#if>
       </#if>
 
       <#-- Included quantities/pieces -->
-      <#if product.quantityIncluded?exists && product.quantityIncluded?double != 0>
+      <#if product.quantityIncluded?exists && product.quantityIncluded != 0>
         <div>${uiLabelMap.OrderIncludes}:
           ${product.quantityIncluded?if_exists}
           ${product.quantityUomId?if_exists}
@@ -610,7 +610,7 @@ function getConfigDetails(event) {
   <tr>
     <td colspan="2">
       <div>${uiLabelMap.OrderCustomerReviews}:</div>
-      <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
+      <#if averageRating?exists && (averageRating > 0) && numRatings?exists && (numRatings > 1)>
           <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
     </td>

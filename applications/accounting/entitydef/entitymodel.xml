@@ -249,7 +249,7 @@ under the License.
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="amountChange" type="currency-amount"></field>
-      <field name="percentageChange" type="floating-point"></field>
+      <field name="percentageChange" type="fixed-point"></field>
       <prim-key field="budgetScenarioApplicId"/>
       <prim-key field="budgetScenarioId"/>
       <relation type="one" fk-name="BUDGET_SAPL_BSCN" rel-entity-name="BudgetScenario">
@@ -269,7 +269,7 @@ under the License.
       <field name="budgetScenarioId" type="id-ne"></field>
       <field name="budgetItemTypeId" type="id-ne"></field>
       <field name="amountChange" type="currency-amount"></field>
-      <field name="percentageChange" type="floating-point"></field>
+      <field name="percentageChange" type="fixed-point"></field>
       <prim-key field="budgetScenarioId"/>
       <prim-key field="budgetItemTypeId"/>
       <relation type="one" fk-name="BUDGET_SRLE_BSCN" rel-entity-name="BudgetScenario">
@@ -629,7 +629,7 @@ under the License.
         <field name="dateNextService" type="date-time"></field>
         <field name="expectedEndOfLife" type="date"></field>
         <field name="actualEndOfLife" type="date"></field>
-        <field name="productionCapacity" type="floating-point"></field>
+        <field name="productionCapacity" type="fixed-point"></field>
         <field name="uomId" type="id"></field>
         <field name="calendarId" type="id-ne"></field>
         <field name="serialNumber" type="long-varchar"></field>
@@ -749,7 +749,7 @@ under the License.
         <field name="productMaintTypeId" type="id-ne"><description>If productMaintSeqId is known can lookup using that and the FixedAsset.productId; for un-scheduled maintenance is filled in directly</description></field>
         <field name="productMaintSeqId" type="id"><description>Optional, though should be filled in to determine upcoming maintenance for all scheduled maintenance</description></field>
         <field name="scheduleWorkEffortId" type="id"><description>Has field for estimated/actual start and finish dates, etc</description></field>
-        <field name="intervalQuantity" type="floating-point"></field>
+        <field name="intervalQuantity" type="fixed-point"></field>
         <field name="intervalUomId" type="id"><description>UOM for intervalQuantity; if used intervalMeterTypeId is generally not used (ie one or the other); if a meter reading is done as well that is not tied to the interval it should be tracked in a FixedAssetMaintMeter record</description></field>
         <field name="intervalMeterTypeId" type="id"><description>Meter Type for intervalQuantity; if used intervalUomId is generally not used (ie one or the other)</description></field>
         <field name="purchaseOrderId" type="id"></field>
@@ -784,7 +784,7 @@ under the License.
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="maintHistSeqId" type="id-ne"></field>
         <field name="productMeterTypeId" type="id-ne"></field>
-        <field name="meterValue" type="floating-point"></field>
+        <field name="meterValue" type="fixed-point"></field>
         <prim-key field="fixedAssetId"/>
         <prim-key field="maintHistSeqId"/>
         <prim-key field="productMeterTypeId"/>
@@ -802,7 +802,7 @@ under the License.
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="productMeterTypeId" type="id-ne"></field>
         <field name="readingDate" type="date-time"></field>
-        <field name="meterValue" type="floating-point"></field>
+        <field name="meterValue" type="fixed-point"></field>
         <field name="readingReasonEnumId" type="id"></field>
         <field name="maintHistSeqId" type="id"></field>
         <field name="workEffortId" type="id"></field>
@@ -827,7 +827,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
       <field name="sequenceNum" type="numeric"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="quantityUomId" type="id"></field>
       <prim-key field="fixedAssetId"/>
       <prim-key field="productId"/>
@@ -1164,7 +1164,7 @@ under the License.
       <field name="parentInvoiceItemSeqId" type="id"></field>
       <field name="uomId" type="id"></field>
       <field name="taxableFlag" type="indicator"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="currency-precise"></field>
       <field name="description" type="description"></field>
       <field name="taxAuthPartyId" type="id-ne"/>
@@ -1315,7 +1315,7 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
       <field name="datetimePerformed" type="date-time"></field>
-      <field name="percentage" type="floating-point"></field>
+      <field name="percentage" type="fixed-point"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -2008,7 +2008,7 @@ under the License.
       <field name="budgetItemTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="allocationPercentage" type="floating-point"></field>
+      <field name="allocationPercentage" type="fixed-point"></field>
       <prim-key field="glAccountId"/>
       <prim-key field="budgetItemTypeId"/>
       <prim-key field="fromDate"/>
@@ -2158,7 +2158,7 @@ under the License.
        <description>Running tally of a product's average cost in a particular company</description>
        <field name="organizationPartyId" type="id-ne"/>
        <field name="productId" type="id-ne"/>
-       <field name="averageCost" type="floating-point"/>
+       <field name="averageCost" type="fixed-point"/>
        <field name="fromDate" type="date-time"/>
        <field name="thruDate" type="date-time"/>
        <prim-key field="organizationPartyId"/>
@@ -3146,7 +3146,7 @@ under the License.
         <field name="minItemPrice" type="currency-amount"></field>
         <field name="minPurchase" type="currency-amount"></field>
         <field name="taxShipping" type="indicator"></field>
-        <field name="taxPercentage" type="floating-point"></field>
+        <field name="taxPercentage" type="fixed-point"></field>
         <field name="taxPromotions" type="indicator"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
@@ -3198,18 +3198,18 @@ under the License.
         <field name="generalDefault" type="indicator"></field>
         <field name="insideCity" type="indicator"></field>
         <field name="geoCode" type="short-varchar"></field>
-        <field name="stateSalesTax" type="floating-point"></field>
-        <field name="citySalesTax" type="floating-point"></field>
-        <field name="cityLocalSalesTax" type="floating-point"></field>
-        <field name="countySalesTax" type="floating-point"></field>
-        <field name="countyLocalSalesTax" type="floating-point"></field>
-        <field name="comboSalesTax" type="floating-point"></field>
-        <field name="stateUseTax" type="floating-point"></field>
-        <field name="cityUseTax" type="floating-point"></field>
-        <field name="cityLocalUseTax" type="floating-point"></field>
-        <field name="countyUseTax" type="floating-point"></field>
-        <field name="countyLocalUseTax" type="floating-point"></field>
-        <field name="comboUseTax" type="floating-point"></field>
+        <field name="stateSalesTax" type="fixed-point"></field>
+        <field name="citySalesTax" type="fixed-point"></field>
+        <field name="cityLocalSalesTax" type="fixed-point"></field>
+        <field name="countySalesTax" type="fixed-point"></field>
+        <field name="countyLocalSalesTax" type="fixed-point"></field>
+        <field name="comboSalesTax" type="fixed-point"></field>
+        <field name="stateUseTax" type="fixed-point"></field>
+        <field name="cityUseTax" type="fixed-point"></field>
+        <field name="cityLocalUseTax" type="fixed-point"></field>
+        <field name="countyUseTax" type="fixed-point"></field>
+        <field name="countyLocalUseTax" type="fixed-point"></field>
+        <field name="comboUseTax" type="fixed-point"></field>
         <prim-key field="zipCode"/>
         <prim-key field="stateCode"/>
         <prim-key field="city"/>

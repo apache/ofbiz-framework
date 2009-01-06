@@ -41,7 +41,7 @@ under the License.
         <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
         <get-related-one value-field="product" relation-name="ProductType" to-value-field="productType"/>
         <if-compare field="productType.isPhysical" operator="equals" value="N">
-            <set field="parameters.quantityNotReserved" value="0" type="Double"/>
+            <set field="parameters.quantityNotReserved" value="0" type="BigDecimal"/>
             <else>
                 <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
 
@@ -94,13 +94,13 @@ under the License.
                 <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                     <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                         <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                        <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-field="inventoryItem"/>
+                        <make-value entity-name="InventoryItem" map="inventoryItemAndLocation" value-field="inventoryItem"/>
                         <call-simple-method method-name="reserveForInventoryItemInline"/>
                     </if-compare>
                 </iterate>
 
                 <!-- still some left? try the FLT_BULK locations -->
-                <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+                <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="BigDecimal">
                     <entity-condition entity-name="InventoryItemAndLocation" list="inventoryItemAndLocations">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId"/>
@@ -114,14 +114,14 @@ under the License.
                     <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                         <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                            <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-field="inventoryItem"/>
+                            <make-value entity-name="InventoryItem" map="inventoryItemAndLocation" value-field="inventoryItem"/>
                             <call-simple-method method-name="reserveForInventoryItemInline"/>
                         </if-compare>
                     </iterate>
                 </if-compare>
 
                 <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
-                <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+                <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="BigDecimal">
                     <entity-condition entity-name="InventoryItem" list="inventoryItems">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId"/>
@@ -152,7 +152,7 @@ under the License.
                         - subtract the remaining quantityNotReserved from the availableToPromise of the last non-serialized inventory item
                         - or if none was found create a non-ser InventoryItem with availableToPromise = -quantityNotReserved
                 -->
-                <if-compare field="parameters.quantityNotReserved" operator="not-equals" value="0" type="Double">
+                <if-compare field="parameters.quantityNotReserved" operator="not-equals" value="0" type="BigDecimal">
                     <if-compare field="parameters.requireInventory" operator="equals" value="Y">
                         <!-- use this else pattern to accomplish the anything but Y logic, ie if not specified default to inventory NOT required -->
                     <else>
@@ -163,7 +163,7 @@ under the License.
                             <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                            <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                            <calculate field="createDetailMap.availableToPromiseDiff">
                                 <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -196,8 +196,8 @@ under the License.
                             <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
                             <set from-field="lastNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
                             <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
-                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity" type="BigDecimal"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable" type="BigDecimal"/>
                             <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
@@ -228,7 +228,7 @@ under the License.
                             <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                            <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                            <calculate field="createDetailMap.availableToPromiseDiff">
                                 <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -261,8 +261,8 @@ under the License.
                             <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
                             <set from-field="newNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
                             <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
-                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity" type="BigDecimal"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable" type="BigDecimal"/>
                             <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
@@ -271,14 +271,14 @@ under the License.
                         </else>
                         </if-not-empty>
 
-                        <set field="parameters.quantityNotReserved" value="0" type="Double"/>
+                        <set field="parameters.quantityNotReserved" value="0" type="BigDecimal"/>
                     </else>
                     </if-compare>
                 </if-compare>
             </else>
         </if-compare>
 
-        <field-to-result field="quantityNotReserved" map-name="parameters"/>
+        <field-to-result field="parameters.quantityNotReserved" result-name="quantityNotReserved"/>
     </simple-method>
     
     <simple-method method-name="reserveAnInventoryItem" short-description="Reserve a Specific Serialized InventoryItem">
@@ -295,8 +295,8 @@ under the License.
           <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
           <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
           <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
-          <set field="createDetailMap.quantityOnHandDiff" value="-1" type="Double"/>
-          <set field="createDetailMap.availableToPromiseDiff" value="-1" type="Double"/>
+          <set field="createDetailMap.quantityOnHandDiff" value="-1" type="BigDecimal"/>
+          <set field="createDetailMap.availableToPromiseDiff" value="-1" type="BigDecimal"/>
           <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         </if-compare>
         <set-service-fields map="parameters" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
@@ -316,7 +316,7 @@ under the License.
             <set field="receiveCtx.productId" from-field="parameters.productId"/>
             <set field="receiveCtx.facilityId" from-field="facilityId"/>
             <set field="receiveCtx.quantityAccepted" from-field="parameters.quantity"/>
-            <set field="receiveCtx.quantityRejected" value="0" type="Double"/>
+            <set field="receiveCtx.quantityRejected" value="0" type="BigDecimal"/>
             <set field="receiveCtx.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
             <set field="receiveCtx.serialNumber" from-field="parameters.serialNumber"/>
             <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx">
@@ -343,7 +343,7 @@ under the License.
             <set from-field="inventoryItemReservation.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
             <set from-field="inventoryItemReservation.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
             <set from-field="inventoryItemReservation.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-            <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
+            <set field="reserveOisgirMap.quantity" value="1" type="BigDecimal"/>
             <set field="reserveOisgirMap.requireInventory" from-field="parameters.requireInventory"/>
             <if-not-empty field="inventoryItemReservation.sequenceId">
                 <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
@@ -365,19 +365,19 @@ under the License.
         <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
         <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
         <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-        <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
+        <set field="reserveOisgirMap.quantity" value="1" type="BigDecimal"/>
         <if-not-empty field="parameters.sequenceId">
             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
         </if-not-empty>        
         <!-- store OrderItemShipGrpInvRes record -->
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
         <clear-field field="reserveOisgirMap"/>        
-        <field-to-result field="inventoryItemId" map-name="inventoryItem"/>
+        <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
 
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
         <!-- only do something with this inventoryItem if there is more inventory to reserve -->  
-        <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+        <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="BigDecimal">
 
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
@@ -394,7 +394,7 @@ under the License.
                     <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
                     <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
                     <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-                    <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
+                    <set field="reserveOisgirMap.quantity" value="1" type="BigDecimal"/>
                     <if-not-empty field="parameters.sequenceId">
                         <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
                     </if-not-empty>
@@ -413,11 +413,11 @@ under the License.
                         <and>
                             <if-empty field="inventoryItem.statusId"/>
                             <not><if-empty field="inventoryItem.availableToPromiseTotal"/></not>
-                            <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double"/>
+                            <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="BigDecimal"/>
                         </and>
                     </condition>
                     <then>
-                        <if-compare-field field="parameters.quantityNotReserved" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="Double">
+                        <if-compare-field field="parameters.quantityNotReserved" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
                             <set from-field="inventoryItem.availableToPromiseTotal" field="parameters.deductAmount"/>
                         <else>
                             <set from-field="parameters.quantityNotReserved" field="parameters.deductAmount"/>
@@ -428,7 +428,7 @@ under the License.
                         <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                         <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                         <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
-                        <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calculate field="createDetailMap.availableToPromiseDiff">
                             <calcop field="parameters.deductAmount" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -442,7 +442,7 @@ under the License.
                         <set from-field="inventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
                         <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
                         <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-                        <set from-field="parameters.deductAmount" field="reserveOisgirMap.quantity"/>
+                        <set from-field="parameters.deductAmount" field="reserveOisgirMap.quantity" type="BigDecimal"/>
                         <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                         <if-not-empty field="parameters.sequenceId">
                             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
@@ -450,9 +450,9 @@ under the License.
                         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                         <clear-field field="reserveOisgirMap"/>
 
-                        <calculate field="quantityNotReserved" map-name="parameters">
-                            <calcop operator="subtract" field="quantityNotReserved" map-name="parameters">
-                                <calcop operator="get" field="deductAmount" map-name="parameters"/>
+                        <calculate field="parameters.quantityNotReserved">
+                            <calcop operator="subtract" field="parameters.quantityNotReserved">
+                                <calcop operator="get" field="parameters.deductAmount"/>
                             </calcop>
                         </calculate>
                     </then>
@@ -564,11 +564,11 @@ under the License.
             <set from-field="parameters.shipGroupSeqId" field="oisgirListLookupMap.shipGroupSeqId"/>
             <find-by-and entity-name="OrderItemShipGrpInvRes" map="oisgirListLookupMap" list="oisgirList" use-cache="false"/>
             <iterate entry="oisgir" list="oisgirList">
-                <if-compare field="toCancelAmount" operator="greater" value="0" type="Double">
-                    <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="greater-equals" type="Double">
+                <if-compare field="toCancelAmount" operator="greater" value="0" type="BigDecimal">
+                    <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="greater-equals" type="BigDecimal">
                         <set from-field="toCancelAmount" field="cancelOisgirMap.cancelQuantity"/>
                     </if-compare-field>
-                    <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="less" type="Double">
+                    <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="less" type="BigDecimal">
                         <set from-field="oisgir.quantity" field="cancelOisgirMap.cancelQuantity"/>
                     </if-compare-field>
 
@@ -615,7 +615,7 @@ under the License.
             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
             <clear-field field="createDetailMap"/>
 
-            <if-compare-field field="cancelQuantity" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="Double">
+            <if-compare-field field="cancelQuantity" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="BigDecimal">
                 <calculate field="orderItemShipGrpInvRes.quantity">
                     <calcop operator="subtract" field="orderItemShipGrpInvRes.quantity">
                         <calcop operator="get" field="cancelQuantity"/>

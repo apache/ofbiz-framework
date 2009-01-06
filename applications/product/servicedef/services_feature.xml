@@ -47,8 +47,8 @@ under the License.
         <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="false"/>
         <attribute name="uomId" type="String" mode="IN" optional="true"/>
-        <attribute name="numberSpecified" type="Double" mode="IN" optional="true"/>
-        <attribute name="defaultAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="numberSpecified" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="defaultAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="productFeatureId" type="String" mode="IN" optional="true"/>
         <attribute name="productFeatureId" type="String" mode="OUT" optional="false"/>
         <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
@@ -63,8 +63,8 @@ under the License.
         <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="false"/>
         <attribute name="uomId" type="String" mode="IN" optional="true"/>
-        <attribute name="numberSpecified" type="Double" mode="IN" optional="true"/>
-        <attribute name="defaultAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="numberSpecified" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="defaultAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="idCode" type="String" mode="IN" optional="true"/>
         <attribute name="abbrev" type="String" mode="IN" optional="true"/>
@@ -81,7 +81,7 @@ under the License.
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="updateFeatureToProductApplication" engine="simple"
                 location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateFeatureToProductApplication" auth="true">
@@ -92,7 +92,7 @@ under the License.
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="removeFeatureFromProduct" engine="simple"
                 location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeFeatureFromProduct" auth="true">

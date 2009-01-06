@@ -93,9 +93,9 @@ under the License.
         <description>Calculate Trial Balance for a GlJournal</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="debitTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="creditTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="debitCreditDifference" type="Double" mode="OUT" optional="false"/>
+        <attribute name="debitTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="creditTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="postGlJournal" default-entity-name="GlJournal" engine="simple"
             location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="postGlJournal" auth="true">
@@ -301,7 +301,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="glFiscalTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="totalNetIncome" type="Double" mode="OUT" optional="false"/>
+        <attribute name="totalNetIncome" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="glAccountTotalsMap" type="Map" mode="OUT" optional="true"/>
         <attribute name="glAccountTotalsList" type="List" mode="OUT" optional="true"/>
     </service>
@@ -363,7 +363,7 @@ under the License.
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForCanceledSalesShipmentIssuance">
         <description>Create an accounting transaction for a canceled sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
-        <attribute name="canceledQuantity" type="Double" mode="IN" optional="false"/>        
+        <attribute name="canceledQuantity" type="BigDecimal" mode="IN" optional="false"/>        
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createAcctgTransForInventoryItemCostChange" engine="simple" auth="true"

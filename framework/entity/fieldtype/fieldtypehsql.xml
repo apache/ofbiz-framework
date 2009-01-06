@@ -28,8 +28,9 @@ under the License.
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>
     <field-type-def type="time" sql-type="TIME" java-type="java.sql.Time"></field-type-def>
     
-    <field-type-def type="currency-amount" sql-type="DOUBLE" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
-    <field-type-def type="currency-precise" sql-type="DOUBLE" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="currency-amount" sql-type="DOUBLE" java-type="java.math.BigDecimal"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="currency-precise" sql-type="DOUBLE" java-type="java.math.BigDecimal"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="fixed-point" sql-type="DOUBLE" java-type="java.math.BigDecimal"><validate method="isSignedDouble" /></field-type-def>
     <field-type-def type="floating-point" sql-type="DOUBLE" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
     <field-type-def type="numeric" sql-type="BIGINT" java-type="Long"><validate method="isSignedLong" /></field-type-def>
     

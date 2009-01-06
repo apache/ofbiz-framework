@@ -47,7 +47,7 @@ under the License.
         <set field="createProductSupplierMap.productId" from-field="productId"/>
         <set field="createProductSupplierMap.partyId" from-field="userLogin.partyId"/>
         <set field="createProductSupplierMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
-        <set field="createProductSupplierMap.minimumOrderQuantity" value="1" type="Double"/>
+        <set field="createProductSupplierMap.minimumOrderQuantity" value="1" type="BigDecimal"/>
         <set field="createProductSupplierMap.availableFromDate" from-field="nowTimestamp"/>
         <create-value value-field="createProductSupplierMap"/>
 

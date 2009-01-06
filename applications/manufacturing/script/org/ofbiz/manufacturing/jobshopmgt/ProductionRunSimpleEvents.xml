@@ -47,13 +47,13 @@ under the License.
                 </process>
                 <process field="estimatedSetupMillis">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>
                 <process field="estimatedMilliSeconds">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>
@@ -85,13 +85,13 @@ under the License.
                 </process>
                 <process field="estimatedSetupMillis">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>
                 <process field="estimatedMilliSeconds">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>
@@ -137,13 +137,13 @@ under the License.
                 </process>
                 <process field="estimatedSetupMillis">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>
                 <process field="estimatedMilliSeconds">
                     <copy/>
-                    <convert type="Double">
+                    <convert type="BigDecimal">
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
                     </convert>
                 </process>

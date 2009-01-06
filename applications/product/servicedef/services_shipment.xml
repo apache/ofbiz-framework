@@ -227,7 +227,7 @@ under the License.
             NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment 
             Plan stuff BEFORE the items are issued, shipment packed, etc.</description>
         <auto-attributes entity-name="ShipmentItem" include="pk" mode="IN" optional="false"/>
-        <attribute name="newItemQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="newShipmentItemSeqId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -395,7 +395,7 @@ under the License.
         <description>Issue an OrderItem to a Shipment - only for non-sales orders</description>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -404,7 +404,7 @@ under the License.
         <description>Add an OrderItemShipGrpInvRes to a Shipment - only for sales orders</description>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -413,7 +413,7 @@ under the License.
         <description>Issue an InventoryItem to a FixedAssetMaint - for conversion to use as supples/parts</description>
         <auto-attributes entity-name="InventoryItem" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="FixedAssetMaint" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="returnInventoryItemIssuedToFixedAssetMaint" engine="simple"
@@ -425,8 +425,8 @@ under the License.
             location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="cancelOrderItemIssuanceFromSalesShipment" auth="true">
         <description>Cancel an ItemIssuance from Sales Shipment</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
-        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="canceledQuantity" type="Double" mode="OUT" optional="false"/>        
+        <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>        
     </service>
 
     <service name="issueInventoryItemToShipment" engine="simple"
@@ -435,8 +435,8 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
-        <attribute name="totalIssuedQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
         
@@ -448,7 +448,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="packageSeq" type="Integer" mode="IN" optional="false"/>
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
@@ -489,7 +489,7 @@ under the License.
         <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="additionalShippingCharge" type="Double" mode="OUT" optional="true"/>
+        <attribute name="additionalShippingCharge" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
     <service name="clearPackAll" engine="java"
@@ -521,7 +521,7 @@ under the License.
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="additionalShippingCharge" type="Double" mode="IN" optional="true"/>
+        <attribute name="additionalShippingCharge" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
         <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
@@ -545,7 +545,7 @@ under the License.
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="getQuantityForShipment" auth="true">
         <description>get the order item quantity still not put in shipments</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="remainingQuantity" type="Double" mode="OUT" optional="false"/>
+        <attribute name="remainingQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <!-- ============================================================== -->
     <!-- Receipt Services -->
@@ -638,29 +638,29 @@ under the License.
         <attribute name="fromGeo" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="flatPercent" type="Double" mode="IN" optional="false"/>
-        <attribute name="flatPrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="flatItemPrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="shippingPricePercent" type="Double" mode="IN" optional="true"/>
+        <attribute name="flatPercent" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="flatPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="flatItemPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shippingPricePercent" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="productFeatureGroupId" type="String" mode="IN" optional="true"/>
-        <attribute name="featurePercent" type="Double" mode="IN" optional="true"/>
-        <attribute name="featurePrice" type="Double" mode="IN" optional="true"/>
-        <attribute name="oversizeUnit" type="Double" mode="IN" optional="true"/>
-        <attribute name="oversizePrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="featurePercent" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="featurePrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="oversizeUnit" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="oversizePrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="weightBreakId" type="String" mode="IN" optional="true"/>
-        <attribute name="wmin" type="Double" mode="IN" optional="true"/>
-        <attribute name="wmax" type="Double" mode="IN" optional="true"/>
-        <attribute name="wprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="wmin" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="wmax" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="wprice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="wuom" type="String" mode="IN" optional="true"/>
         <attribute name="quantityBreakId" type="String" mode="IN" optional="true"/>
-        <attribute name="qmin" type="Double" mode="IN" optional="true"/>
-        <attribute name="qmax" type="Double" mode="IN" optional="true"/>
-        <attribute name="qprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="qmin" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="qmax" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="qprice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="quom" type="String" mode="IN" optional="true"/>
         <attribute name="priceBreakId" type="String" mode="IN" optional="true"/>
-        <attribute name="pmin" type="Double" mode="IN" optional="true"/>
-        <attribute name="pmax" type="Double" mode="IN" optional="true"/>
-        <attribute name="pprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="pmin" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="pmax" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="pprice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="puom" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentCostEstimateId" type="String" mode="OUT"/>
     </service>
@@ -674,7 +674,7 @@ under the License.
     <service name="calcShipmentEstimateInterface" engine="interface" location="" invoke="">
         <description>Interface for shipment estimate calc service</description>
         <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
-        <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
+        <attribute name="initialEstimateAmt" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="shippingContactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingOriginContactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingPostalCode" type="String" mode="IN" optional="true"/>
@@ -685,11 +685,11 @@ under the License.
         <attribute name="productStoreShipMethId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="shippableItemInfo" type="List" mode="IN" optional="false"/>
-        <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
-        <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
-        <attribute name="shippableTotal" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippableWeight" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippableQuantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippableTotal" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="shippingEstimateAmount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="shippingEstimateAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="calcShipmentCostEstimate" engine="java"
@@ -736,7 +736,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>        
-        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
@@ -744,7 +744,7 @@ under the License.
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
         <attribute name="trackingNum" type="String" mode="IN" optional="true"/>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantityNotReserved" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>
     </service>    

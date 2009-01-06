@@ -27,6 +27,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.base.util.UtilMisc;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -65,21 +66,21 @@ public class FinAccountTests extends TestCase {
     public void testDeposit() throws Exception {
         Map ctx = FastMap.newInstance();
         ctx.put("finAccountId", "TESTACCOUNT1");
-        ctx.put("amount", new Double(100.00));
+        ctx.put("amount", new BigDecimal("100.00"));
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("finAccountDeposit", ctx);
-        Double balance = ((Double) resp.get("balance")).doubleValue();
-        assertEquals(balance, 100.00, 0.0);
+        BigDecimal balance = (BigDecimal) resp.get("balance");
+        assertEquals(balance.toPlainString(), "100.00");
     }
 
     public void testWithdraw() throws Exception {
         Map ctx = FastMap.newInstance();
         ctx.put("finAccountId", "TESTACCOUNT1");
-        ctx.put("amount", new Double(50.00));
+        ctx.put("amount", new BigDecimal("50.00"));
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("finAccountWithdraw", ctx);
-        Double previousBalance = (Double) resp.get("previousBalance");
-        Double balance = ((Double) resp.get("balance")).doubleValue();
-        assertEquals((balance + 50.00), previousBalance.doubleValue(), 0.0);
+        BigDecimal previousBalance = (BigDecimal) resp.get("previousBalance");
+        BigDecimal balance = ((BigDecimal) resp.get("balance"));
+        assertEquals(balance.add(new BigDecimal("50.00")).toPlainString(), previousBalance.toPlainString());
     }
 }

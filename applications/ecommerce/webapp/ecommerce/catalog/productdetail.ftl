@@ -315,13 +315,13 @@ ${virtualJavaScript?if_exists}
               - if price < defaultPrice and defaultPrice < listPrice, show default
               - if isSale show price with salePrice style and print "On Sale!"
       -->
-      <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
+      <#if price.competitivePrice?exists && price.price?exists && price.price < price.competitivePrice>
         <div>${uiLabelMap.ProductCompareAtPrice}: <span class="basePrice"><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
+      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
         <div>${uiLabelMap.ProductListPrice}: <span class="basePrice"><@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price?double < price.defaultPrice?double && price.defaultPrice?double < price.listPrice?double>
+      <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price < price.defaultPrice && price.defaultPrice < price.listPrice>
         <div>${uiLabelMap.ProductRegularPrice}: <span class="basePrice"><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <#if price.specialPromoPrice?exists>
@@ -343,9 +343,9 @@ ${virtualJavaScript?if_exists}
              </#if>
          </b>
       </div>
-      <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
-        <#assign priceSaved = price.listPrice?double - price.price?double>
-        <#assign percentSaved = (priceSaved?double / price.listPrice?double) * 100>
+      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
+        <#assign priceSaved = price.listPrice - price.price>
+        <#assign percentSaved = (priceSaved / price.listPrice) * 100>
         <div>${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
       </#if>
       <#-- show price details ("showPriceDetails" field can be set in the screen definition) -->
@@ -363,32 +363,32 @@ ${virtualJavaScript?if_exists}
           ${uiLabelMap.OrderPieces}: ${product.piecesIncluded}
         </div>
       </#if>
-      <#if (product.quantityIncluded?exists && product.quantityIncluded?double != 0) || product.quantityUomId?has_content>
+      <#if (product.quantityIncluded?exists && product.quantityIncluded != 0) || product.quantityUomId?has_content>
         <#assign quantityUom = product.getRelatedOneCache("QuantityUom")?if_exists/>
         <div>
           ${uiLabelMap.CommonQuantity}: ${product.quantityIncluded?if_exists} ${((quantityUom.abbreviation)?default(product.quantityUomId))?if_exists}
         </div>
       </#if>
 
-      <#if (product.weight?exists && product.weight?double != 0) || product.weightUomId?has_content>
+      <#if (product.weight?exists && product.weight != 0) || product.weightUomId?has_content>
         <#assign weightUom = product.getRelatedOneCache("WeightUom")?if_exists/>
         <div>
           ${uiLabelMap.CommonWeight}: ${product.weight?if_exists} ${((weightUom.abbreviation)?default(product.weightUomId))?if_exists}
         </div>
       </#if>
-      <#if (product.productHeight?exists && product.productHeight?double != 0) || product.heightUomId?has_content>
+      <#if (product.productHeight?exists && product.productHeight != 0) || product.heightUomId?has_content>
         <#assign heightUom = product.getRelatedOneCache("HeightUom")?if_exists/>
         <div>
           ${uiLabelMap.CommonHeight}: ${product.productHeight?if_exists} ${((heightUom.abbreviation)?default(product.heightUomId))?if_exists}
         </div>
       </#if>
-      <#if (product.productWidth?exists && product.productWidth?double != 0) || product.widthUomId?has_content>
+      <#if (product.productWidth?exists && product.productWidth != 0) || product.widthUomId?has_content>
         <#assign widthUom = product.getRelatedOneCache("WidthUom")?if_exists/>
         <div>
           ${uiLabelMap.CommonWidth}: ${product.productWidth?if_exists} ${((widthUom.abbreviation)?default(product.widthUomId))?if_exists}
         </div>
       </#if>
-      <#if (product.productDepth?exists && product.productDepth?double != 0) || product.depthUomId?has_content>
+      <#if (product.productDepth?exists && product.productDepth != 0) || product.depthUomId?has_content>
         <#assign depthUom = product.getRelatedOneCache("DepthUom")?if_exists/>
         <div>
           ${uiLabelMap.CommonDepth}: ${product.productDepth?if_exists} ${((depthUom.abbreviation)?default(product.depthUomId))?if_exists}
@@ -474,7 +474,7 @@ ${virtualJavaScript?if_exists}
         <#else>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
-          <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
+          <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0))>
           <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
           <#if isStoreInventoryNotAvailable>
             <#if isStoreInventoryRequired>
@@ -618,7 +618,7 @@ ${virtualJavaScript?if_exists}
   <#-- Product Reviews -->
     <div id="reviews">
       <div>${uiLabelMap.OrderCustomerReviews}:</div>
-      <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
+      <#if averageRating?exists && (averageRating > 0) && numRatings?exists && (numRatings > 1)>
           <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
       <tr><td colspan="2"><hr/></td></tr>

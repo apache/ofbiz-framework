@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.manufacturing.jobshopmgt;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -52,9 +53,9 @@ public class ProductionRunEvents {
         
         Map parameters = UtilHttp.getParameterMap(request);
 
-        Double quantity = null;
+        BigDecimal quantity = null;
         try {
-            quantity = Double.valueOf((String)parameters.get("quantity"));
+            quantity = new BigDecimal((String)parameters.get("quantity"));
         } catch(NumberFormatException nfe) {
             String errMsg = "Invalid format for quantity field: " + nfe.toString();
             Debug.logError(nfe, errMsg, module);

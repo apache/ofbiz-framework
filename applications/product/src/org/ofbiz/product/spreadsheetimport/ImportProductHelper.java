@@ -19,6 +19,7 @@
 
 package org.ofbiz.product.spreadsheetimport;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -46,15 +47,15 @@ public class ImportProductHelper {
 
     // prepare the inventoryItem map
     public static Map<String, Object> prepareInventoryItem(String productId,
-            double quantityOnHand, String inventoryItemId) {
+            BigDecimal quantityOnHand, String inventoryItemId) {
         Map<String, Object> fields = FastMap.newInstance();
         fields.put("inventoryItemId", inventoryItemId);
         fields.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
         fields.put("productId", productId);
         fields.put("ownerPartyId", "Company");
         fields.put("facilityId", "WebStoreWarehouse");
-        fields.put("quantityOnHandTotal", Double.valueOf(quantityOnHand));
-        fields.put("availableToPromiseTotal", Double.valueOf(quantityOnHand));
+        fields.put("quantityOnHandTotal", quantityOnHand);
+        fields.put("availableToPromiseTotal", quantityOnHand);
         return fields;
     }
 

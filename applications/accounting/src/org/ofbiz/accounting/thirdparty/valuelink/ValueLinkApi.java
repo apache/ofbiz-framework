@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.valuelink;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -664,42 +665,27 @@ public class ValueLinkApi {
 
     /**
      * Returns a ValueLink formatted amount String
-     * @param amount Double value to format
+     * @param amount BigDecimal value to format
      * @return Formatted String
      */
-    public String getAmount(Double amount) {
+    public String getAmount(BigDecimal amount) {
         if (amount == null) {
             return "0.00";
         }
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        String amountString = formatter.format(amount.doubleValue());
-        Double newAmount = null;
-        try {
-            newAmount = new Double(formatter.parse(amountString).doubleValue());
-        } catch (ParseException e) {
-            Debug.logError(e, "Unable to parse amount Double");
-        }
-
-        String formattedString = null;
-        if (newAmount != null) {
-            double amountDouble = newAmount.doubleValue() * 100;
-            formattedString = Integer.toString(new Double(amountDouble).intValue());
-        }
-        return formattedString;
+        return Integer.toString(amount.movePointRight(2).intValue());
     }
 
     /**
-     * Returns a Double from a ValueLink formatted amount String
+     * Returns a BigDecimal from a ValueLink formatted amount String
      * @param amount The ValueLink formatted amount String
-     * @return Double object
+     * @return BigDecimal object
      */
-    public Double getAmount(String amount) {
+    public BigDecimal getAmount(String amount) {
         if (amount == null) {
-            return new Double(0.00);
+            return new BigDecimal("0.00");
         }
-        Double doubleAmount = new Double(amount);
-        return new Double(doubleAmount.doubleValue() / 100);
+        BigDecimal amountBd = new BigDecimal(amount);
+        return amountBd.movePointLeft(2);
     }
     
     public String getCurrency(String currency) {

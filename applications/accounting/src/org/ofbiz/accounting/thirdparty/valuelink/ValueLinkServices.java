@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.valuelink;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -199,7 +200,7 @@ public class ValueLinkServices {
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // override interface for void/rollback
         String iFace = (String) context.get("Interface");
@@ -328,7 +329,7 @@ public class ValueLinkServices {
         String pin = (String) context.get("pin");
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
@@ -385,7 +386,7 @@ public class ValueLinkServices {
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // override interface for void/rollback
         String iFace = (String) context.get("Interface");
@@ -452,7 +453,7 @@ public class ValueLinkServices {
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // override interface for void/rollback
         String iFace = (String) context.get("Interface");
@@ -629,7 +630,7 @@ public class ValueLinkServices {
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
-        Double amount = (Double) context.get("amount");
+        BigDecimal amount = (BigDecimal) context.get("amount");
 
         // override interface for void/rollback
         String iFace = (String) context.get("Interface");
@@ -781,7 +782,7 @@ public class ValueLinkServices {
         String paymentConfig = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
-        Double amount = (Double) context.get("processAmount");
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
 
         // make sure we have a currency
         if (currency == null) {
@@ -812,13 +813,13 @@ public class ValueLinkServices {
             Boolean processResult = (Boolean) redeemResult.get("processResult");
             // confirm the amount redeemed; since VL does not error in insufficient funds
             if (processResult.booleanValue()) {
-                Double previous = (Double) redeemResult.get("previousAmount");
-                if (previous == null) previous = new Double(0);
-                Double current = (Double) redeemResult.get("amount");
-                if (current == null) current = new Double(0);
-                double redeemed = (((double) Math.round((previous.doubleValue() - current.doubleValue()) * 100)) / 100);
+                BigDecimal previous = (BigDecimal) redeemResult.get("previousAmount");
+                if (previous == null) previous = BigDecimal.ZERO;
+                BigDecimal current = (BigDecimal) redeemResult.get("amount");
+                if (current == null) current = BigDecimal.ZERO;
+                BigDecimal redeemed = previous.subtract(current);
                 Debug.logInfo("Redeemed (" + amount + "): " + redeemed + " / " + previous + " : " + current, module);
-                if (redeemed < amount.doubleValue()) {
+                if (redeemed.compareTo(amount) < 0) {
                     // we didn't redeem enough void the transaction and return false
                     Map voidResult = null;
                     try {
@@ -830,7 +831,7 @@ public class ValueLinkServices {
                         return voidResult;
                     }
                     processResult = Boolean.FALSE;
-                    amount = new Double(redeemed);
+                    amount = redeemed;
                     result.put("authMessage", "Gift card did not contain enough funds");
                 }
             }
@@ -854,7 +855,7 @@ public class ValueLinkServices {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String paymentConfig = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
-        Double amount = (Double) context.get("releaseAmount");
+        BigDecimal amount = (BigDecimal) context.get("releaseAmount");
 
         // get the orderId for tracking
         String orderId = paymentPref.getString("orderId");
@@ -915,7 +916,7 @@ public class ValueLinkServices {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String paymentConfig = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
-        Double amount = (Double) context.get("refundAmount");
+        BigDecimal amount = (BigDecimal) context.get("refundAmount");
 
         // get the orderId for tracking
         String orderId = paymentPref.getString("orderId");
@@ -1029,8 +1030,8 @@ public class ValueLinkServices {
         }
 
         // amount/quantity of the gift card(s)
-        Double amount = orderItem.getDouble("unitPrice");
-        Double quantity = orderItem.getDouble("quantity");
+        BigDecimal amount = orderItem.getBigDecimal("unitPrice");
+        BigDecimal quantity = orderItem.getBigDecimal("quantity");
 
         // the product entity needed for information
         GenericValue product = null;
@@ -1306,7 +1307,7 @@ public class ValueLinkServices {
         }
 
         // amount of the gift card reload
-        Double amount = orderItem.getDouble("unitPrice");
+        BigDecimal amount = orderItem.getBigDecimal("unitPrice");
 
         // survey information
         String surveyId = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId");

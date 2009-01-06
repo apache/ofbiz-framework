@@ -194,7 +194,7 @@ public class FinAccountProductServices {
 
         // if we auto-replenish this type; set the level to the initial deposit
         if (replenishEnumId != null && "FARP_AUTOMATIC".equals(replenishEnumId)) {
-            createCtx.put("replenishLevel", new Double(deposit.doubleValue()));
+            createCtx.put("replenishLevel", deposit);
             createCtx.put("replenishPaymentId", paymentMethodId);
         }
 
@@ -239,7 +239,7 @@ public class FinAccountProductServices {
         depositCtx.put("partyId", partyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", orderItemSeqId);
-        depositCtx.put("amount", new Double(deposit.doubleValue()));
+        depositCtx.put("amount", deposit);
         depositCtx.put("reasonEnumId", "FATR_IDEPOSIT");
         depositCtx.put("userLogin", userLogin);
 

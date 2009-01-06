@@ -23,9 +23,11 @@ import java.util.Properties;
 import java.util.List;
 import java.text.DecimalFormat;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
@@ -39,6 +41,8 @@ import org.ofbiz.accounting.payment.PaymentGatewayServices;
 public class PcChargeServices {
 
     public static final String module = PcChargeServices.class.getName();
+    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public static Map ccAuth(DispatchContext dctx, Map context) {
         Properties props = buildPccProperties(context);
@@ -423,10 +427,8 @@ public class PcChargeServices {
     }
 
     private static String getAmountString(Map context, String amountField) {
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        Double processAmount = (Double) context.get(amountField);
-        return formatter.format(processAmount);
+        BigDecimal processAmount = (BigDecimal) context.get(amountField);
+        return processAmount.setScale(decimals, rounding).toPlainString();
     }
 
 }

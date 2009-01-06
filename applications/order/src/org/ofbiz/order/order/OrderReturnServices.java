@@ -125,14 +125,14 @@ public class OrderReturnServices {
     }
 
     // worker method which can be used in screen iterations
-    public static Double getReturnItemInitialCost(GenericDelegator delegator, String returnId, String returnItemSeqId) {
+    public static BigDecimal getReturnItemInitialCost(GenericDelegator delegator, String returnId, String returnItemSeqId) {
         if (delegator == null || returnId == null || returnItemSeqId == null) {
             throw new IllegalArgumentException("Method parameters cannot contain nulls");
         }
         Debug.log("Finding the initial item cost for return item : " + returnId + " / " + returnItemSeqId, module);
 
         // the cost holder
-        Double itemCost = new Double(0.00);
+        BigDecimal itemCost = BigDecimal.ZERO;
 
         // get the return item information
         GenericValue returnItem = null;
@@ -173,7 +173,7 @@ public class OrderReturnServices {
                     if (inventoryItem != null) {
                         Debug.log("Located inventory item - " + inventoryItem.getString("inventoryItemId"), module);
                         if (inventoryItem.get("unitCost") != null) {
-                            itemCost = inventoryItem.getDouble("unitCost");
+                            itemCost = inventoryItem.getBigDecimal("unitCost");
                         } else {
                             Debug.logInfo("Found item cost; but cost was null. Returning default amount (0.00)", module);
                         }
@@ -332,13 +332,13 @@ public class OrderReturnServices {
         }
 
         String itemStatus = orderItem.getString("statusId");
-        double orderQty = orderItem.getDouble("quantity").doubleValue();
-        if (orderItem.getDouble("cancelQuantity") != null) {
-            orderQty -= orderItem.getDouble("cancelQuantity").doubleValue();
+        BigDecimal orderQty = orderItem.getBigDecimal("quantity");
+        if (orderItem.getBigDecimal("cancelQuantity") != null) {
+            orderQty = orderQty.subtract(orderItem.getBigDecimal("cancelQuantity"));
         }
 
         // get the returnable quantity
-        double returnableQuantity = 0.00;
+        BigDecimal returnableQuantity = BigDecimal.ZERO;
         if (returnable && (itemStatus.equals("ITEM_APPROVED") || itemStatus.equals("ITEM_COMPLETED"))) {
             List returnedItems = null;
             try {
@@ -350,7 +350,7 @@ public class OrderReturnServices {
             if (returnedItems == null || returnedItems.size() == 0) {
                 returnableQuantity = orderQty;
             } else {
-                double returnedQty = 0.00;
+                BigDecimal returnedQty = BigDecimal.ZERO;
                 Iterator ri = returnedItems.iterator();
                 while (ri.hasNext()) {
                     GenericValue returnItem = (GenericValue) ri.next();
@@ -363,11 +363,11 @@ public class OrderReturnServices {
                     }
                     String returnStatus = returnHeader.getString("statusId");
                     if (!returnStatus.equals("RETURN_CANCELLED")) {
-                        returnedQty += returnItem.getDouble("returnQuantity").doubleValue();
+                        returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));
                     }
                 }
-                if (returnedQty < orderQty) {
-                    returnableQuantity = orderQty - returnedQty;
+                if (returnedQty.compareTo(orderQty) < 0) {
+                    returnableQuantity = orderQty.subtract(returnedQty);
                 }
             }
         }
@@ -375,8 +375,8 @@ public class OrderReturnServices {
         // get the returnable price now equals to orderItem.unitPrice, since adjustments are booked separately
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("returnableQuantity", new Double(returnableQuantity));
-        result.put("returnablePrice", orderItem.get("unitPrice"));
+        result.put("returnableQuantity", returnableQuantity);
+        result.put("returnablePrice", orderItem.getBigDecimal("unitPrice"));
         return result;
     }
 
@@ -429,8 +429,8 @@ public class OrderReturnServices {
                     }
                     // items not issued/shipped are considered as returnable only if they are 
                     // not physical items
-                    Double quantityIssued = orderItemQuantityIssued.getDouble("quantityIssued");
-                    if (UtilValidate.isEmpty(quantityIssued) || quantityIssued.doubleValue() == 0) {
+                    BigDecimal quantityIssued = orderItemQuantityIssued.getBigDecimal("quantityIssued");
+                    if (UtilValidate.isEmpty(quantityIssued) || quantityIssued.compareTo(BigDecimal.ZERO) == 0) {
                         try {
                             GenericValue itemProduct = item.getRelatedOne("Product");
                             if (ProductWorker.isPhysical(itemProduct)) {
@@ -454,7 +454,7 @@ public class OrderReturnServices {
                     } else {
 
                         // Don't add the OrderItem to the map of returnable OrderItems if there isn't any returnable quantity.
-                        if (((Double) serviceResult.get("returnableQuantity")).doubleValue() == 0 ) {
+                        if (((BigDecimal) serviceResult.get("returnableQuantity")).compareTo(BigDecimal.ZERO) == 0 ) {
                             continue;
                         }
                         Map returnInfo = new HashMap();
@@ -495,7 +495,7 @@ public class OrderReturnServices {
                             while (itemAdjustmentsIt.hasNext()) {
                                 GenericValue itemAdjustment = (GenericValue)itemAdjustmentsIt.next();
                                 returnInfo = new HashMap();
-                                returnInfo.put("returnableQuantity", new Double(1.0));
+                                returnInfo.put("returnableQuantity", BigDecimal.ONE);
                                  // TODO: the returnablePrice should be set to the amount minus the already returned amount
                                 returnInfo.put("returnablePrice", itemAdjustment.get("amount"));
                                 returnInfo.put("itemTypeKey", itemTypeKey);
@@ -630,7 +630,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
         
-        BigDecimal adjustments = new BigDecimal(getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_CREDIT")));
+        BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_CREDIT"));
 
         if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             String billingAccountId = returnHeader.getString("billingAccountId");
@@ -704,7 +704,7 @@ public class OrderReturnServices {
             // create a return item response 
             Map itemResponse = UtilMisc.toMap("paymentId", paymentId);
             itemResponse.put("billingAccountId", billingAccountId);
-            itemResponse.put("responseAmount", new Double(creditTotal.doubleValue()));
+            itemResponse.put("responseAmount", creditTotal);
             itemResponse.put("responseDate", now);
             itemResponse.put("userLogin", userLogin);
             Map serviceResults = null;
@@ -823,7 +823,7 @@ public class OrderReturnServices {
             if (storeCreditValidDays != null) thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), storeCreditValidDays);
 
             // create the billing account
-            Map input = UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account for Return #" + returnHeader.get("returnId"), "userLogin", userLogin);
+            Map input = UtilMisc.toMap("accountLimit", BigDecimal.ZERO, "description", "Credit Account for Return #" + returnHeader.get("returnId"), "userLogin", userLogin);
             input.put("accountCurrencyUomId", returnHeader.get("currencyUomId"));
             input.put("thruDate", thruDate);
             Map results = dispatcher.runSync("createBillingAccount", input);
@@ -868,7 +868,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
 
-        BigDecimal adjustments = new BigDecimal(getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_REFUND")));
+        BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"));
 
         if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             Map itemsByOrder = new HashMap();
@@ -895,7 +895,7 @@ public class OrderReturnServices {
                 Map.Entry entry = (Map.Entry) itemByOrderIt.next();
                 String orderId = (String) entry.getKey();
                 List items = (List) entry.getValue();
-                Double orderTotal = (Double) totalByOrder.get(orderId);
+                BigDecimal orderTotal = (BigDecimal) totalByOrder.get(orderId);
 
                 // get order header & payment prefs
                 GenericValue orderHeader = null;
@@ -961,11 +961,11 @@ public class OrderReturnServices {
                     // See how much we can refund to the payment method
                     BigDecimal orderPayPrefReceivedTotal = ZERO ;
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(new BigDecimal(((Double) receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).doubleValue()).setScale(decimals, rounding));
+                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add((BigDecimal)receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
                     BigDecimal orderPayPrefRefundedTotal = ZERO ;
                     if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add(new BigDecimal(((Double) refundedTotalsByPaymentMethod.get(orderPayPrefKey)).doubleValue()).setScale(decimals, rounding));
+                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add((BigDecimal)refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
                     BigDecimal orderPayPrefAvailableTotal = orderPayPrefReceivedTotal.subtract(orderPayPrefRefundedTotal);
 
@@ -983,7 +983,7 @@ public class OrderReturnServices {
                 }
 
                 // Keep a decreasing total of the amount remaining to refund
-                BigDecimal amountLeftToRefund = new BigDecimal(orderTotal.doubleValue()).setScale(decimals, rounding);
+                BigDecimal amountLeftToRefund = orderTotal.setScale(decimals, rounding);
 
                 // This can be extended to support additional electronic types
                 List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "FIN_ACCOUNT", "GIFT_CARD");
@@ -1031,7 +1031,7 @@ public class OrderReturnServices {
                             if (electronicTypes.contains(paymentMethodTypeId)) {
                                 try {
                                     // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
-                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
@@ -1044,7 +1044,7 @@ public class OrderReturnServices {
                             } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
                                 try {
                                     // for Billing Account refunds
-                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
@@ -1057,7 +1057,7 @@ public class OrderReturnServices {
                             } else {
                                 // handle manual refunds
                                 try {
-                                    Map input = UtilMisc.toMap("userLogin", userLogin, "amount", new Double(amountLeftToRefund.doubleValue()), "statusId", "PMNT_NOT_PAID");
+                                    Map input = UtilMisc.toMap("userLogin", userLogin, "amount", amountLeftToRefund, "statusId", "PMNT_NOT_PAID");
                                     input.put("partyIdTo", returnHeader.get("fromPartyId"));
                                     input.put("partyIdFrom", returnHeader.get("toPartyId"));
                                     input.put("paymentTypeId", "CUSTOMER_REFUND");
@@ -1081,7 +1081,7 @@ public class OrderReturnServices {
                             // Fill out the data for the new ReturnItemResponse
                             Map response = FastMap.newInstance();
                             response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
-                            response.put("responseAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()));
+                            response.put("responseAmount", amountToRefund.setScale(decimals, rounding));
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
                             response.put("paymentId", paymentId);
@@ -1156,7 +1156,7 @@ public class OrderReturnServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
-        Double refundAmount = (Double) context.get("refundAmount");
+        BigDecimal refundAmount = (BigDecimal) context.get("refundAmount");
 
         GenericValue orderHeader = null;
         try {
@@ -1302,7 +1302,7 @@ public class OrderReturnServices {
                 if (paymentId != null) {
                     // create a payment application for the invoice
                     Map input = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoice.getString("invoiceId"));
-                    input.put("amountApplied", new Double(amountApplied.doubleValue()));
+                    input.put("amountApplied", amountApplied);
                     input.put("userLogin", userLogin);
                     if (response.get("billingAccountId") != null) {
                         GenericValue billingAccount = response.getRelatedOne("BillingAccount");
@@ -1397,7 +1397,7 @@ public class OrderReturnServices {
                 orderMap.put("webSiteId", orderHeader.get("webSiteId"));
                 orderMap.put("visitId", orderHeader.get("visitId"));
                 orderMap.put("currencyUom", orderHeader.get("currencyUom"));
-                orderMap.put("grandTotal",  new Double(0.00));
+                orderMap.put("grandTotal",  BigDecimal.ZERO);
 
                 // make the contact mechs
                 List contactMechs = new ArrayList();
@@ -1437,8 +1437,8 @@ public class OrderReturnServices {
                  */
 
                 // make the order items
-                double orderPriceTotal = 0.00;
-                double additionalItemTotal = 0.00;
+                BigDecimal orderPriceTotal = BigDecimal.ZERO;
+                BigDecimal additionalItemTotal = BigDecimal.ZERO;
                 List orderItems = new ArrayList();
                 List orderItemShipGroupInfo = new ArrayList();
                 List orderItemShipGroupIds = new ArrayList(); // this is used to store the ship group ids of the groups already added to the orderItemShipGroupInfo list
@@ -1458,10 +1458,10 @@ public class OrderReturnServices {
                             continue;
                         }
                         if (orderItem != null) {
-                            Double quantity = returnItem.getDouble("returnQuantity");
-                            Double unitPrice = returnItem.getDouble("returnPrice");
+                            BigDecimal quantity = returnItem.getBigDecimal("returnQuantity");
+                            BigDecimal unitPrice = returnItem.getBigDecimal("returnPrice");
                             if (quantity != null && unitPrice != null) {
-                                orderPriceTotal += (quantity.doubleValue() * unitPrice.doubleValue());
+                                orderPriceTotal = orderPriceTotal.add(quantity.multiply(unitPrice));
                                 // Check if the product being returned has a Refurbished Equivalent and if so
                                 // (and there is inventory for the assoc product) use that product instead
                                 GenericValue refurbItem = null;
@@ -1572,11 +1572,11 @@ public class OrderReturnServices {
                                                 continue;
                                             }
                                             if (UtilValidate.isNotEmpty(repairItemProduct)) {
-                                                Double repairUnitQuantity = repairItem.getDouble("quantity");
+                                                BigDecimal repairUnitQuantity = repairItem.getBigDecimal("quantity");
                                                 if (UtilValidate.isEmpty(repairUnitQuantity)) {
-                                                    repairUnitQuantity = new Double(1.0);
+                                                    repairUnitQuantity = BigDecimal.ONE;
                                                 }
-                                                Double repairQuantity = new Double(quantity.doubleValue() * repairUnitQuantity.doubleValue());
+                                                BigDecimal repairQuantity = quantity.multiply(repairUnitQuantity);
                                                 newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
 
                                                 // price
@@ -1610,14 +1610,14 @@ public class OrderReturnServices {
                                                 }
 
                                                 if (priceResult.get("listPrice") != null) {
-                                                    newItem.set("unitListPrice", (Double)priceResult.get("listPrice"));
+                                                    newItem.set("unitListPrice", (BigDecimal)priceResult.get("listPrice"));
                                                 }
 
-                                                Double repairUnitPrice = null;
+                                                BigDecimal repairUnitPrice = null;
                                                 if (priceResult.get("basePrice") != null) {
-                                                    repairUnitPrice = (Double)priceResult.get("basePrice");
+                                                    repairUnitPrice = (BigDecimal)priceResult.get("basePrice");
                                                 } else {
-                                                    repairUnitPrice = new Double(0.0);
+                                                    repairUnitPrice = BigDecimal.ZERO;
                                                 }
                                                 newItem.set("unitPrice", repairUnitPrice);
 
@@ -1627,7 +1627,7 @@ public class OrderReturnServices {
                                                 newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, null));
                                                 newItem.set("statusId", "ITEM_CREATED");
                                                 orderItems.add(newItem);
-                                                additionalItemTotal = additionalItemTotal + (repairQuantity.doubleValue() * repairUnitPrice.doubleValue());
+                                                additionalItemTotal = additionalItemTotal.add(repairQuantity.multiply(repairUnitPrice));
                                                 if (UtilValidate.isNotEmpty(orderItemShipGroupAssoc)) {
                                                     GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", repairQuantity));
                                                     orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
@@ -1659,14 +1659,14 @@ public class OrderReturnServices {
                 // create the replacement adjustment
                 GenericValue adj = delegator.makeValue("OrderAdjustment");
                 adj.set("orderAdjustmentTypeId", "REPLACE_ADJUSTMENT");
-                adj.set("amount", new Double(orderPriceTotal * -1));
+                adj.set("amount", orderPriceTotal.negate());
                 adj.set("comments", "Replacement Item Return #" + returnId);
                 adj.set("createdDate", nowTimestamp);
                 adj.set("createdByUserLogin", userLogin.getString("userLoginId"));
                 orderMap.put("orderAdjustments", UtilMisc.toList(adj));
 
                 // Payment preference
-                if (additionalItemTotal > 0) {
+                if (additionalItemTotal.compareTo(BigDecimal.ZERO) > 0) {
                     GenericValue paymentMethod = null;
                     try {
                         paymentMethod = returnHeader.getRelatedOne("PaymentMethod");
@@ -1744,7 +1744,7 @@ public class OrderReturnServices {
                     // create a ReturnItemResponse and attach to each ReturnItem
                     Map itemResponse = FastMap.newInstance();
                     itemResponse.put("replacementOrderId", createdOrderId);
-                    itemResponse.put("responseAmount", new Double(orderPriceTotal));
+                    itemResponse.put("responseAmount", orderPriceTotal);
                     itemResponse.put("responseDate", nowTimestamp);
                     itemResponse.put("userLogin", userLogin);
                     String returnItemResponseId = null;
@@ -1871,9 +1871,9 @@ public class OrderReturnServices {
             String orderId = returnItem.getString("orderId");
             if (orderId != null) {
                 if (returnItemsByOrderId != null) {
-                    Double totalForOrder = null;
+                    BigDecimal totalForOrder = null;
                     if (totalByOrder != null) {
-                        totalForOrder = (Double) totalByOrder.get(orderId);
+                        totalForOrder = (BigDecimal) totalByOrder.get(orderId);
                     }
 
                     List returnItemList = (List) returnItemsByOrderId.get(orderId);
@@ -1881,7 +1881,7 @@ public class OrderReturnServices {
                         returnItemList = new ArrayList();
                     }
                     if (totalForOrder == null) {
-                        totalForOrder = new Double(0.00);
+                        totalForOrder = BigDecimal.ZERO;
                     }
 
                     // add to the items list
@@ -1890,18 +1890,18 @@ public class OrderReturnServices {
 
                     if (totalByOrder != null) {
                         // add on the total for this line
-                        Double quantity = returnItem.getDouble("returnQuantity");
-                        Double amount = returnItem.getDouble("returnPrice");
+                        BigDecimal quantity = returnItem.getBigDecimal("returnQuantity");
+                        BigDecimal amount = returnItem.getBigDecimal("returnPrice");
                         if (quantity == null) {
-                            quantity = new Double(0);
+                            quantity = BigDecimal.ZERO;
                         }
                         if (amount == null) {
-                            amount = new Double(0.00);
+                            amount = BigDecimal.ZERO;
                         }
-                        double thisTotal = amount.doubleValue() * quantity.doubleValue();
-                        double existingTotal = totalForOrder.doubleValue();
+                        BigDecimal thisTotal = amount.multiply(quantity);
+                        BigDecimal existingTotal = totalForOrder;
                         Map condition = UtilMisc.toMap("returnId", returnItem.get("returnId"), "returnItemSeqId", returnItem.get("returnItemSeqId"));
-                        Double newTotal = new Double(existingTotal + thisTotal + getReturnAdjustmentTotal(delegator, condition) );
+                        BigDecimal newTotal = existingTotal.add(thisTotal).add(getReturnAdjustmentTotal(delegator, condition));
                         totalByOrder.put(orderId, newTotal);
                     }
                 }
@@ -1917,8 +1917,8 @@ public class OrderReturnServices {
                 Map condition = UtilMisc.toMap("returnId", returnId,
                                                "returnItemSeqId", org.ofbiz.common.DataModelConstants.SEQ_ID_NA,
                                                "returnTypeId", returnTypeId);
-                double existingTotal = ((Double) totalByOrder.get(orderId)).doubleValue() + getReturnAdjustmentTotal(delegator, condition);
-                totalByOrder.put(orderId, new Double(existingTotal));
+                BigDecimal existingTotal = ((BigDecimal)totalByOrder.get(orderId)).add(getReturnAdjustmentTotal(delegator, condition));
+                totalByOrder.put(orderId, existingTotal);
             }
         }
     }
@@ -2026,7 +2026,7 @@ public class OrderReturnServices {
         GenericValue returnItem = null;
         GenericValue returnHeader = null;
         
-        Double amount;
+        BigDecimal amount;
         
         // if orderAdjustment is not empty, then copy most return adjustment information from orderAdjustment's
         if (orderAdjustmentId != null) {
@@ -2078,7 +2078,7 @@ public class OrderReturnServices {
         // calculate the returnAdjustment amount
         if (returnItem != null) {  // returnAdjustment for returnItem
             if (needRecalculate(returnAdjustmentTypeId)) {
-                Debug.logInfo("returnPrice:" + returnItem.getDouble("returnPrice") + ",returnQuantity:" + returnItem.getDouble("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getDouble("sourcePercentage"), module);
+                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ",returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), module);
                 if (orderAdjustment == null) {
                     Debug.logError("orderAdjustment [" + orderAdjustmentId + "] not found", module);
                     return ServiceUtil.returnError("orderAdjustment [" + orderAdjustmentId + "] not found");
@@ -2087,10 +2087,10 @@ public class OrderReturnServices {
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));                
                 amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));
             } else {
-                amount = (Double) context.get("amount");
+                amount = (BigDecimal) context.get("amount");
             }
         } else { // returnAdjustment for returnHeader
-            amount = (Double) context.get("amount");
+            amount = (BigDecimal) context.get("amount");
         }
 
         // store the return adjustment
@@ -2103,7 +2103,7 @@ public class OrderReturnServices {
             if (orderAdjustment != null && orderAdjustment.get("taxAuthorityRateSeqId") != null) {
                 newReturnAdjustment.set("taxAuthorityRateSeqId", orderAdjustment.getString("taxAuthorityRateSeqId"));
             }
-            newReturnAdjustment.set("amount", (UtilValidate.isEmpty(amount)? new Double(0.0): amount));
+            newReturnAdjustment.set("amount", amount == null ? BigDecimal.ZERO : amount);
             newReturnAdjustment.set("returnAdjustmentTypeId", returnAdjustmentTypeId);
             newReturnAdjustment.set("description", description);
             newReturnAdjustment.set("returnItemSeqId", UtilValidate.isEmpty(returnItemSeqId) ? "_NA_" : returnItemSeqId);
@@ -2124,7 +2124,7 @@ public class OrderReturnServices {
         GenericValue returnItem = null;
         GenericValue returnAdjustment = null;
         String returnAdjustmentTypeId = null;
-        Double amount;
+        BigDecimal amount;
 
 
         try {
@@ -2137,18 +2137,18 @@ public class OrderReturnServices {
 
             // calculate the returnAdjustment amount
             if (returnItem != null) {  // returnAdjustment for returnItem
-                double originalReturnPrice = (context.get("originalReturnPrice") != null) ? ((Double) context.get("originalReturnPrice")).doubleValue() : returnItem.getDouble("returnPrice").doubleValue();
-                double originalReturnQuantity = (context.get("originalReturnQuantity") != null) ? ((Double) context.get("originalReturnQuantity")).doubleValue() : returnItem.getDouble("returnQuantity").doubleValue();
+            	BigDecimal originalReturnPrice = (context.get("originalReturnPrice") != null) ? ((BigDecimal) context.get("originalReturnPrice")) : returnItem.getBigDecimal("returnPrice");
+            	BigDecimal originalReturnQuantity = (context.get("originalReturnQuantity") != null) ? ((BigDecimal) context.get("originalReturnQuantity")) : returnItem.getBigDecimal("returnQuantity");
 
                 if (needRecalculate(returnAdjustmentTypeId)) {
                     BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
-                    BigDecimal originalReturnTotal = new BigDecimal(originalReturnPrice).multiply(new BigDecimal(originalReturnQuantity));
+                    BigDecimal originalReturnTotal = originalReturnPrice.multiply(originalReturnQuantity);
                     amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, originalReturnTotal, returnAdjustment.getBigDecimal("amount"));
                 } else {
-                    amount = (Double) context.get("amount");
+                    amount = (BigDecimal) context.get("amount");
                 }
             } else { // returnAdjustment for returnHeader
-                amount = (Double) context.get("amount");
+                amount = (BigDecimal) context.get("amount");
             }
 
             Map result = null;
@@ -2226,8 +2226,8 @@ public class OrderReturnServices {
      * @param condition
      * @return
      */
-    public static double getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
-        double total = 0.0;
+    public static BigDecimal getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
+        BigDecimal total = BigDecimal.ZERO;
         List adjustments;
         try {
             // TODO: find on a view-entity with a sum is probably more efficient
@@ -2237,7 +2237,7 @@ public class OrderReturnServices {
                 while (adjustmentIterator.hasNext()) {
                     GenericValue returnAdjustment = (GenericValue) adjustmentIterator.next();
                     if ((returnAdjustment != null) && (returnAdjustment.get("amount") != null)) {
-                       total += returnAdjustment.getDouble("amount").doubleValue();
+                       total = total.add(returnAdjustment.getBigDecimal("amount"));
                     }
                 }
             }
@@ -2284,7 +2284,7 @@ public class OrderReturnServices {
      * @param amount
      * @return  new returnAdjustment amount
      */
-    public static Double getAdjustmentAmount(boolean isSalesTax, BigDecimal returnTotal, BigDecimal originalTotal, BigDecimal amount) {
+    public static BigDecimal getAdjustmentAmount(boolean isSalesTax, BigDecimal returnTotal, BigDecimal originalTotal, BigDecimal amount) {
         String settingPrefix = isSalesTax ? "salestax" : "order";
         String decimalsPrefix = isSalesTax ? ".calc" : "";
         int decimals = UtilNumber.getBigDecimalScale(settingPrefix + decimalsPrefix + ".decimals");
@@ -2297,6 +2297,6 @@ public class OrderReturnServices {
         } else {
             newAmount = ZERO;
         }
-        return new Double(newAmount.doubleValue());
+        return newAmount;
     }
 }

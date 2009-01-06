@@ -251,7 +251,7 @@ under the License.
       <field name="purchaseFromDate" type="date-time"></field>
       <field name="purchaseThruDate" type="date-time"></field>
       <field name="useCountLimit" type="numeric"></field>
-      <field name="useDaysLimit" type="floating-point"></field>
+      <field name="useDaysLimit" type="fixed-point"></field>
       <prim-key field="productCategoryId"/>
       <prim-key field="contentId"/>
       <prim-key field="prodCatContentTypeId"/>
@@ -370,7 +370,7 @@ under the License.
         <field name="thruDate" type="date-time"></field>
         <field name="comments" type="comment"></field>
         <field name="sequenceNum" type="numeric"></field>
-        <field name="quantity" type="floating-point"></field>
+        <field name="quantity" type="fixed-point"></field>
         <prim-key field="productCategoryId"/>
         <prim-key field="productId"/>
         <prim-key field="fromDate"/>
@@ -682,7 +682,7 @@ under the License.
         <field name="configItemId" type="id-ne"></field>
         <field name="configOptionId" type="id-ne"></field>
         <field name="productId" type="id-ne"></field>
-        <field name="quantity" type="floating-point"></field>
+        <field name="quantity" type="fixed-point"></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="configItemId"/>
         <prim-key field="configOptionId"/>
@@ -777,7 +777,7 @@ under the License.
       <field name="costComponentCalcId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="cost" type="floating-point"><description>Higher precision in case it is a calculated number</description></field>
+      <field name="cost" type="fixed-point"><description>Higher precision in case it is a calculated number</description></field>
       <field name="costUomId" type="id"></field>
       <prim-key field="costComponentId"/>
       <relation type="one" fk-name="COST_COMP_TYPE" rel-entity-name="CostComponentType">
@@ -1191,8 +1191,8 @@ under the License.
     <entity entity-name="ProductFacility" package-name="org.ofbiz.product.facility" title="Product Facility Entity">
         <field name="productId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
-        <field name="minimumStock" type="floating-point"></field>
-        <field name="reorderQuantity" type="floating-point"></field>
+        <field name="minimumStock" type="fixed-point"></field>
+        <field name="reorderQuantity" type="fixed-point"></field>
         <field name="daysToShip" type="numeric"></field>
         <prim-key field="productId"/>
         <prim-key field="facilityId"/>
@@ -1207,8 +1207,8 @@ under the License.
         <field name="productId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
         <field name="locationSeqId" type="id-ne"></field>
-        <field name="minimumStock" type="floating-point"></field>
-        <field name="moveQuantity" type="floating-point"></field>
+        <field name="minimumStock" type="fixed-point"></field>
+        <field name="moveQuantity" type="fixed-point"></field>
         <prim-key field="productId"/>
         <prim-key field="facilityId"/>
         <prim-key field="locationSeqId"/>
@@ -1294,7 +1294,7 @@ under the License.
       <field name="productFeatureCategoryId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="uomId" type="id"></field>
-      <field name="numberSpecified" type="floating-point"></field>
+      <field name="numberSpecified" type="fixed-point"></field>
       <field name="defaultAmount" type="currency-amount"></field>
       <field name="defaultSequenceNum" type="numeric"></field>
       <field name="abbrev" type="id"></field>
@@ -1648,15 +1648,15 @@ under the License.
       <field name="binNumber" type="id"></field>
       <field name="locationSeqId" type="id"></field>
       <field name="comments" type="comment"></field>
-      <field name="quantityOnHandTotal" type="floating-point"></field>
-      <field name="availableToPromiseTotal" type="floating-point"></field>
-      <field name="oldQuantityOnHand" col-name="QUANTITY_ON_HAND" type="floating-point"></field>
-      <field name="oldAvailableToPromise" col-name="AVAILABLE_TO_PROMISE" type="floating-point"></field>
+      <field name="quantityOnHandTotal" type="fixed-point"></field>
+      <field name="availableToPromiseTotal" type="fixed-point"></field>
+      <field name="oldQuantityOnHand" col-name="QUANTITY_ON_HAND" type="fixed-point"></field>
+      <field name="oldAvailableToPromise" col-name="AVAILABLE_TO_PROMISE" type="fixed-point"></field>
       <field name="serialNumber" type="value"></field>
       <field name="softIdentifier" type="value"></field>
       <field name="activationNumber" type="value"></field>
       <field name="activationValidThru" type="date-time"></field> 
-      <field name="unitCost" type="floating-point"><description>Higher precision in case it is a calculated number</description></field>
+      <field name="unitCost" type="fixed-point"><description>Higher precision in case it is a calculated number</description></field>
       <field name="currencyUomId" type="id"><description>The currency Uom of the unit cost.</description></field>
       <prim-key field="inventoryItemId"/>
       <relation type="one" fk-name="INV_ITEM_TYPE" rel-entity-name="InventoryItemType">
@@ -1780,9 +1780,9 @@ under the License.
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="inventoryItemDetailSeqId" type="id-ne"></field>
       <field name="effectiveDate" type="date-time"></field>
-      <field name="quantityOnHandDiff" type="floating-point"></field>
-      <field name="availableToPromiseDiff" type="floating-point"></field>
-      <field name="unitCost" type="floating-point"></field>
+      <field name="quantityOnHandDiff" type="fixed-point"></field>
+      <field name="availableToPromiseDiff" type="fixed-point"></field>
+      <field name="unitCost" type="fixed-point"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
@@ -1902,7 +1902,7 @@ under the License.
       <field name="visitId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="reservedDate" type="date-time"></field>
       <prim-key field="visitId"/>
       <prim-key field="productId"/>
@@ -1953,8 +1953,8 @@ under the License.
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="physicalInventoryId" type="id-ne"></field>
       <field name="varianceReasonId" type="id"></field>
-      <field name="availableToPromiseVar" type="floating-point"></field>
-      <field name="quantityOnHandVar" type="floating-point"></field>
+      <field name="availableToPromiseVar" type="fixed-point"></field>
+      <field name="quantityOnHandVar" type="fixed-point"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="inventoryItemId"/>
       <prim-key field="physicalInventoryId"/>
@@ -2062,7 +2062,7 @@ under the License.
             title="Lot Entity">
       <field name="lotId" type="id-ne"></field>
       <field name="creationDate" type="date-time"></field>
-      <field name="quantity" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
       <field name="expirationDate" type="date-time"></field>
       <prim-key field="lotId"/>
     </entity>
@@ -2207,7 +2207,7 @@ under the License.
       <field name="productPriceRuleId" type="id-ne"></field>
       <field name="productPriceActionSeqId" type="id-ne"></field>
       <field name="productPriceActionTypeId" type="id-ne"></field>
-      <field name="amount" type="floating-point"></field>
+      <field name="amount" type="fixed-point"></field>
       <field name="rateCode" type="short-varchar"></field>
       <prim-key field="productPriceRuleId"/>
       <prim-key field="productPriceActionSeqId"/>
@@ -2316,8 +2316,8 @@ under the License.
             title="Quantity Break Entity">
       <field name="quantityBreakId" type="id-ne"></field>
       <field name="quantityBreakTypeId" type="id"></field>
-      <field name="fromQuantity" type="floating-point"></field>
-      <field name="thruQuantity" type="floating-point"></field>
+      <field name="fromQuantity" type="fixed-point"></field>
+      <field name="thruQuantity" type="fixed-point"></field>
       <prim-key field="quantityBreakId"/>
       <relation type="one" fk-name="QUANT_BRK_TYPE" rel-entity-name="QuantityBreakType">
         <key-map field-name="quantityBreakTypeId"/>
@@ -2454,23 +2454,23 @@ under the License.
       <field name="inventoryMessage" type="description"></field>
       <field name="requireInventory" type="indicator"></field>
       <field name="quantityUomId" type="id"></field>
-      <field name="quantityIncluded" type="floating-point"></field>
+      <field name="quantityIncluded" type="fixed-point"></field>
       <field name="piecesIncluded" type="numeric"></field>
       <field name="requireAmount" type="indicator"></field>
       <field name="fixedAmount" type="currency-amount"><description>Use this for products which are sold in fixed denominations, such as gift certificates or calling cards.</description></field>
       <field name="amountUomTypeId" type="id"></field>
       <field name="weightUomId" type="id"></field>
-      <field name="weight" type="floating-point"></field>
+      <field name="weight" type="fixed-point"></field>
       <field name="heightUomId" type="id"></field>
-      <field name="productHeight" type="floating-point"></field>
-      <field name="shippingHeight" type="floating-point"></field>
+      <field name="productHeight" type="fixed-point"></field>
+      <field name="shippingHeight" type="fixed-point"></field>
       <field name="widthUomId" type="id"></field>
-      <field name="productWidth" type="floating-point"></field>
-      <field name="shippingWidth" type="floating-point"></field>
+      <field name="productWidth" type="fixed-point"></field>
+      <field name="shippingWidth" type="fixed-point"></field>
       <field name="depthUomId" type="id"></field>
-      <field name="productDepth" type="floating-point"></field>
-      <field name="shippingDepth" type="floating-point"></field>
-      <field name="productRating" type="floating-point"></field>
+      <field name="productDepth" type="fixed-point"></field>
+      <field name="shippingDepth" type="fixed-point"></field>
+      <field name="productRating" type="fixed-point"></field>
       <field name="ratingTypeEnum" type="id"></field>
       <field name="returnable" type="indicator"></field>
       <field name="taxable" type="indicator"></field>
@@ -2483,9 +2483,9 @@ under the License.
       <field name="originGeoId" type="id"></field>
       <field name="requirementMethodEnumId" type="id"></field>
       <field name="billOfMaterialLevel" type="numeric"></field>
-      <field name="reservMaxPersons" type="floating-point"><description>maximum number of persons who can rent this asset at the same time</description></field>
-      <field name="reserv2ndPPPerc" type="floating-point"><description>percentage of the end price for the 2nd person renting this asset connected to this product</description></field>
-      <field name="reservNthPPPerc" type="floating-point"><description>percentage of the end price for the Nth person renting this asset connected to this product</description></field>
+      <field name="reservMaxPersons" type="fixed-point"><description>maximum number of persons who can rent this asset at the same time</description></field>
+      <field name="reserv2ndPPPerc" type="fixed-point"><description>percentage of the end price for the 2nd person renting this asset connected to this product</description></field>
+      <field name="reservNthPPPerc" type="fixed-point"><description>percentage of the end price for the Nth person renting this asset connected to this product</description></field>
       <field name="configId" type="id"><description>Used to safe the persisted configuration Id for AGGREGATED products.</description></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
@@ -2562,8 +2562,8 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="sequenceNum" type="numeric"></field>
       <field name="reason" type="long-varchar"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="scrapFactor" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="scrapFactor" type="fixed-point"></field>
       <field name="instruction" type="long-varchar"></field>
       <field name="routingWorkEffortId" type="id"></field>
       <field name="estimateCalcMethod" type="id"></field>
@@ -2666,9 +2666,9 @@ under the License.
             package-name="org.ofbiz.product.product"
             title="Product Calculated Info Entity">
         <field name="productId" type="id-ne"></field>
-        <field name="totalQuantityOrdered" type="floating-point"></field>
+        <field name="totalQuantityOrdered" type="fixed-point"></field>
         <field name="totalTimesViewed" type="numeric"></field>
-        <field name="averageCustomerRating" type="floating-point"></field>
+        <field name="averageCustomerRating" type="fixed-point"></field>
         <prim-key field="productId"/>
         <relation type="one" fk-name="PRODCI_PROD" rel-entity-name="Product">
             <key-map field-name="productId"/>
@@ -2882,7 +2882,7 @@ under the License.
         <field name="productMaintTypeId" type="id"></field>
         <field name="maintName" type="name"></field>
         <field name="maintTemplateWorkEffortId" type="id"><description>Template of Maintenance Plan. WorkEffort may have WorkEffortAssocs for tasks/breakdown detailes</description></field>
-        <field name="intervalQuantity" type="floating-point"></field>
+        <field name="intervalQuantity" type="fixed-point"></field>
         <field name="intervalUomId" type="id"><description>UOM for intervalQuantity; if used intervalMeterTypeId is generally not used (ie one or the other)</description></field>
         <field name="intervalMeterTypeId" type="id"><description>Meter Type for intervalQuantity; if used intervalUomId is generally not used (ie one or the other)</description></field>
         <field name="repeatCount" type="numeric"><description>If 0 or null means no limit to repeat count; can be used with multiple ProductMaint records for a single ProductMaintType in cases where maintenance intervals are not evenly distributed, or only need to be done once like a break-in period</description></field>
@@ -2932,7 +2932,7 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="postedAnonymous" type="indicator"></field>
         <field name="postedDateTime" type="date-time"></field>
-        <field name="productRating" type="floating-point"></field>
+        <field name="productRating" type="fixed-point"></field>
         <field name="productReview" type="very-long"></field>
         <prim-key field="productReviewId"/>
         <relation type="one" fk-name="PROD_REVIEW_PRDSTR" rel-entity-name="ProductStore">
@@ -3149,7 +3149,7 @@ under the License.
       <field name="useLimitPerOrder" type="numeric"></field>
       <field name="useLimitPerCustomer" type="numeric"></field>
       <field name="useLimitPerPromotion" type="numeric"></field>
-      <field name="billbackFactor" type="floating-point"></field>
+      <field name="billbackFactor" type="fixed-point"></field>
       <field name="overrideOrgPartyId" type="id"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
@@ -3174,8 +3174,8 @@ under the License.
       <field name="productPromoActionSeqId" type="id-ne"></field>
       <field name="productPromoActionEnumId" type="id-ne"></field>
       <field name="orderAdjustmentTypeId" type="id"></field>
-      <field name="quantity" type="floating-point"></field>
-      <field name="amount" type="floating-point"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="amount" type="fixed-point"></field>
       <field name="productId" type="id"></field>
       <field name="partyId" type="id"></field>
       <prim-key field="productPromoId"/>
@@ -3383,7 +3383,7 @@ under the License.
       <field name="productPromoCodeId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
       <field name="totalDiscountAmount" type="currency-amount"></field>
-      <field name="quantityLeftInActions" type="floating-point"></field>
+      <field name="quantityLeftInActions" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="promoSequenceId"/>
       <relation type="one" fk-name="PROD_PRUSE_PROMO" rel-entity-name="ProductPromo">
@@ -3900,10 +3900,10 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
       <field name="companyPartyId" type="id"></field>
-      <field name="minWeight" type="floating-point"></field>
-      <field name="maxWeight" type="floating-point"></field>
-      <field name="minSize" type="floating-point"></field>
-      <field name="maxSize" type="floating-point"></field>
+      <field name="minWeight" type="fixed-point"></field>
+      <field name="maxWeight" type="fixed-point"></field>
+      <field name="minSize" type="fixed-point"></field>
+      <field name="maxSize" type="fixed-point"></field>
       <field name="minTotal" type="currency-amount"></field>
       <field name="maxTotal" type="currency-amount"></field>
       <field name="allowUspsAddr" type="indicator"></field>
@@ -4359,8 +4359,8 @@ under the License.
       <field name="geoId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="reorderQuantity" type="floating-point"></field>
-      <field name="reorderLevel" type="floating-point"></field>
+      <field name="reorderQuantity" type="fixed-point"></field>
+      <field name="reorderLevel" type="fixed-point"></field>
       <prim-key field="reorderGuidelineId"/>
       <relation type="one" fk-name="REORDER_GD_PROD" rel-entity-name="Product">
         <key-map field-name="productId"/>
@@ -4391,10 +4391,10 @@ under the License.
       <field name="availableThruDate" type="date-time"></field>
       <field name="supplierPrefOrderId" type="id"></field>
       <field name="supplierRatingTypeId" type="id"></field>
-      <field name="standardLeadTimeDays" type="floating-point"></field>
-      <field name="minimumOrderQuantity" type="floating-point"></field>
-      <field name="orderQtyIncrements" type="floating-point"></field>
-      <field name="unitsIncluded" type="floating-point"></field>
+      <field name="standardLeadTimeDays" type="fixed-point"></field>
+      <field name="minimumOrderQuantity" type="fixed-point"></field>
+      <field name="orderQtyIncrements" type="fixed-point"></field>
+      <field name="unitsIncluded" type="fixed-point"></field>
       <field name="quantityUomId" type="id"></field>
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -4403,7 +4403,7 @@ under the License.
       <field name="supplierProductName" type="name"></field>
       <field name="supplierProductId" type="id"></field>
       <field name="canDropShip" type="indicator"></field>
-      <field name="supplierCommissionPerc" type="floating-point"></field>
+      <field name="supplierCommissionPerc" type="fixed-point"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="productId"/>
       <prim-key field="partyId"/>

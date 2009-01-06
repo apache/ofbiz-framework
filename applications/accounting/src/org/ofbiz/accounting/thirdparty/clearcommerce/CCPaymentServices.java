@@ -26,6 +26,7 @@ import java.text.DecimalFormat;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -48,11 +49,14 @@ import org.apache.xml.serialize.OutputFormat;
 public class CCPaymentServices {
 
     public final static String module = CCPaymentServices.class.getName();
+    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+
 
     public static Map ccAuth(DispatchContext dctx, Map context) {
         String ccAction = (String) context.get("ccAction");
         if (ccAction == null) ccAction = new String("PreAuth");
-        Document authRequestDoc = buildPrimaryTxRequest(context, ccAction, (Double) context.get("processAmount"),
+        Document authRequestDoc = buildPrimaryTxRequest(context, ccAction, (BigDecimal) context.get("processAmount"),
                 (String) context.get("orderId"));
 
         Document authResponseDoc = null;
@@ -65,7 +69,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(authResponseDoc) > 4) {  // 5 and higher, process error from HSBC
             Map result = ServiceUtil.returnSuccess();
             result.put("authResult", new Boolean(false));
-            result.put("processAmount", new Double(0.00));
+            result.put("processAmount", new BigDecimal("0.00"));
             result.put("authRefNum", getReferenceNum(authResponseDoc));
             List messages = getMessageList(authResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -83,7 +87,7 @@ public class CCPaymentServices {
             action = new String("Auth");  // required for periodic billing....
         }
 
-        Document creditRequestDoc = buildPrimaryTxRequest(context, action, (Double) context.get("creditAmount"),
+        Document creditRequestDoc = buildPrimaryTxRequest(context, action, (BigDecimal) context.get("creditAmount"),
                 (String) context.get("referenceCode"));
         Document creditResponseDoc = null;
         try {
@@ -95,7 +99,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(creditResponseDoc) > 4) {
             Map result = ServiceUtil.returnSuccess();
             result.put("creditResult", new Boolean(false));
-            result.put("creditAmount", new Double(0.00));
+            result.put("creditAmount", new BigDecimal("0.00"));
             result.put("creditRefNum", getReferenceNum(creditResponseDoc));
             List messages = getMessageList(creditResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -116,7 +120,7 @@ public class CCPaymentServices {
         }
 
         Document captureRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "PostAuth", (Double) context.get("captureAmount"));
+                "PostAuth", (BigDecimal) context.get("captureAmount"));
 
         Document captureResponseDoc = null;
         try {
@@ -128,7 +132,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(captureResponseDoc) > 4) {
             Map result = ServiceUtil.returnSuccess();
             result.put("captureResult", new Boolean(false));
-            result.put("captureAmount", new Double(0.00));
+            result.put("captureAmount", new BigDecimal("0.00"));
             result.put("captureRefNum", getReferenceNum(captureResponseDoc));
             List messages = getMessageList(captureResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -160,7 +164,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(releaseResponseDoc) > 4) {
             Map result = ServiceUtil.returnSuccess();
             result.put("releaseResult", new Boolean(false));
-            result.put("releaseAmount", new Double(0.00));
+            result.put("releaseAmount", new BigDecimal("0.00"));
             result.put("releaseRefNum", getReferenceNum(releaseResponseDoc));
             List messages = getMessageList(releaseResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -183,7 +187,7 @@ public class CCPaymentServices {
         Map result = ServiceUtil.returnSuccess();
         result.put("releaseResult", Boolean.valueOf(true));
         result.put("releaseCode", authTransaction.getString("gatewayCode"));
-        result.put("releaseAmount", authTransaction.getDouble("amount"));
+        result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
         result.put("releaseRefNum", authTransaction.getString("referenceNum"));
         result.put("releaseFlag", authTransaction.getString("gatewayFlag"));
         result.put("releaseMessage", "Approved.");
@@ -202,7 +206,7 @@ public class CCPaymentServices {
         // Although refunds are applied to captured transactions, using the auth reference number is ok here
         // Related auth and capture transactions will always have the same reference number
         Document refundRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "Credit", (Double) context.get("refundAmount"));
+                "Credit", (BigDecimal) context.get("refundAmount"));
 
         Document refundResponseDoc = null;
         try {
@@ -214,7 +218,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(refundResponseDoc) > 4) {
             Map result = ServiceUtil.returnSuccess();
             result.put("refundResult", new Boolean(false));
-            result.put("refundAmount", new Double(0.00));
+            result.put("refundAmount", new BigDecimal("0.00"));
             result.put("refundRefNum", getReferenceNum(refundResponseDoc));
             List messages = getMessageList(refundResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -235,7 +239,7 @@ public class CCPaymentServices {
         }
 
         Document reauthRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "RePreAuth", (Double) context.get("reauthAmount"));
+                "RePreAuth", (BigDecimal) context.get("reauthAmount"));
 
         Document reauthResponseDoc = null;
         try {
@@ -247,7 +251,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(reauthResponseDoc) > 4) {
             Map result = ServiceUtil.returnSuccess();
             result.put("reauthResult", new Boolean(false));
-            result.put("reauthAmount", new Double(0.00));
+            result.put("reauthAmount", new BigDecimal("0.00"));
             result.put("reauthRefNum", getReferenceNum(reauthResponseDoc));
             List messages = getMessageList(reauthResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -372,10 +376,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String authAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("processAmount", new Double(Double.parseDouble(authAmountStr) / 100));
+            result.put("processAmount", new BigDecimal(authAmountStr).movePointLeft(2));
         } else {
             result.put("authResult", Boolean.valueOf(false));
-            result.put("processAmount", Double.valueOf("0.00"));
+            result.put("processAmount", new BigDecimal("0.00"));
         }
 
         result.put("authRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -418,10 +422,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String creditAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("creditAmount", new Double(Double.parseDouble(creditAmountStr) / 100));
+            result.put("creditAmount", new BigDecimal(creditAmountStr).movePointLeft(2));
         } else {
             result.put("creditResult", Boolean.valueOf(false));
-            result.put("creditAmount", Double.valueOf("0.00"));
+            result.put("creditAmount", new BigDecimal("0.00"));
         }
 
         result.put("creditRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -452,10 +456,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String captureAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("captureAmount", new Double(Double.parseDouble(captureAmountStr) / 100));
+            result.put("captureAmount", new BigDecimal(captureAmountStr).movePointLeft(2));
         } else {
             result.put("captureResult", Boolean.valueOf(false));
-            result.put("captureAmount", Double.valueOf("0.00"));
+            result.put("captureAmount", new BigDecimal("0.00"));
         }
 
         result.put("captureRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -486,10 +490,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String releaseAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("releaseAmount", new Double(Double.parseDouble(releaseAmountStr) / 100));
+            result.put("releaseAmount", new BigDecimal(releaseAmountStr).movePointLeft(2));
         } else {
             result.put("releaseResult", Boolean.valueOf(false));
-            result.put("releaseAmount", Double.valueOf("0.00"));
+            result.put("releaseAmount", new BigDecimal("0.00"));
         }
 
         result.put("releaseRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -520,10 +524,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String refundAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("refundAmount", new Double(Double.parseDouble(refundAmountStr) / 100));
+            result.put("refundAmount", new BigDecimal(refundAmountStr).movePointLeft(2));
         } else {
             result.put("refundResult", Boolean.valueOf(false));
-            result.put("refundAmount", Double.valueOf("0.00"));
+            result.put("refundAmount", new BigDecimal("0.00"));
         }
 
         result.put("refundRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -554,10 +558,10 @@ public class CCPaymentServices {
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
             Element totalsElement = UtilXml.firstChildElement(currentTotalsElement, "Totals");
             String reauthAmountStr = UtilXml.childElementValue(totalsElement, "Total");
-            result.put("reauthAmount", new Double(Double.parseDouble(reauthAmountStr) / 100));
+            result.put("reauthAmount", new BigDecimal(reauthAmountStr).movePointLeft(2));
         } else {
             result.put("reauthResult", Boolean.valueOf(false));
-            result.put("reauthAmount", Double.valueOf("0.00"));
+            result.put("reauthAmount", new BigDecimal("0.00"));
         }
 
         result.put("reauthRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -627,7 +631,7 @@ public class CCPaymentServices {
         return referenceNum;
     }
 
-    private static Document buildPrimaryTxRequest(Map context, String type, Double amount, String refNum) {
+    private static Document buildPrimaryTxRequest(Map context, String type, BigDecimal amount, String refNum) {
 
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
@@ -707,7 +711,7 @@ public class CCPaymentServices {
         return requestDocument;
     }
 
-    private static Document buildSecondaryTxRequest(Map context, String id, String type, Double amount) {
+    private static Document buildSecondaryTxRequest(Map context, String id, String type, BigDecimal amount) {
 
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
@@ -781,7 +785,7 @@ public class CCPaymentServices {
         }
     }
 
-    private static void appendTransactionNode(Element element, String type, Double amount, String currencyCode) {
+    private static void appendTransactionNode(Element element, String type, BigDecimal amount, String currencyCode) {
 
         Document document = element.getOwnerDocument();
 
@@ -795,7 +799,7 @@ public class CCPaymentServices {
 
             // DecimalFormat("#") is used here in case the total is something like 9.9999999...
             // in that case, we want to send 999, not 999.9999999...
-            String totalString = new DecimalFormat("#").format(amount.doubleValue() * 100);
+            String totalString = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
 
             Element totalElement = UtilXml.addChildElementValue(totalsElement, "Total", totalString, document);
             totalElement.setAttribute("DataType", "Money");

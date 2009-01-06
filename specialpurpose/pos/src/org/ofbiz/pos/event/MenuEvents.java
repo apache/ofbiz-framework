@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.pos.event;
 
+import java.math.BigDecimal;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.ListIterator;
@@ -149,12 +150,12 @@ public class MenuEvents {
         } else {
 
             // check for quantity
-            double quantity = 1;
+        	BigDecimal quantity = BigDecimal.ONE;
             if (func != null && "QTY".equals(func[0])) {
                 try {
-                    quantity = Double.parseDouble(func[1]);
+                    quantity = new BigDecimal(func[1]);
                 } catch (NumberFormatException e) {
-                    quantity = 1;
+                    quantity = BigDecimal.ONE;
                 }
             }
 
@@ -250,19 +251,19 @@ public class MenuEvents {
         String value = input.value();
 
         boolean increment = true;
-        double quantity = 1;
+        BigDecimal quantity = BigDecimal.ONE;
         if (UtilValidate.isNotEmpty(value)) {
             try {
-                quantity = Double.parseDouble(value);
+                quantity = new BigDecimal(value);
             } catch (NumberFormatException e) {
-                quantity = 1;
+                quantity = BigDecimal.ONE;
             }
         } else {
             String[] func = input.getLastFunction();
             if (func != null && "QTY".equals(func[0])) {
                 increment = false;
                 try {
-                    quantity = Double.parseDouble(func[1]);
+                    quantity = new BigDecimal(func[1]);
                 } catch (NumberFormatException e) {
                     quantity = trans.getItemQuantity(sku);
                 }
@@ -270,7 +271,7 @@ public class MenuEvents {
         }
 
         // adjust the quantity
-        quantity = (increment ? trans.getItemQuantity(sku) + quantity : quantity);
+        quantity = (increment ? trans.getItemQuantity(sku).add(quantity) : quantity);
 
         try {
             trans.modifyQty(sku, quantity);

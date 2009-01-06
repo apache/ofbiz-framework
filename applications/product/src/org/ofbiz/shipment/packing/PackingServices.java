@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.shipment.packing;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -37,8 +37,8 @@ public class PackingServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String orderId = (String) context.get("orderId");
         String productId = (String) context.get("productId");
-        Double quantity = (Double) context.get("quantity");
-        Double weight = (Double) context.get("weight");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        BigDecimal weight = (BigDecimal) context.get("weight");
         Integer packageSeq = (Integer) context.get("packageSeq");
 
         // set the instructions -- will clear out previous if now null
@@ -50,18 +50,18 @@ public class PackingServices {
         session.setPickerPartyId(pickerPartyId);
 
         if (quantity == null) {
-            quantity = Double.valueOf(1);
+            quantity = BigDecimal.ONE;
         }
 
         Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
         
         if (weight == null) {
             Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module); 
-            weight = Double.valueOf(0.0);
+            weight = BigDecimal.ZERO;
         }
 
         try {
-            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity.doubleValue(), packageSeq.intValue(), weight.doubleValue(), false);
+            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -146,13 +146,13 @@ public class PackingServices {
                 weights = new String[] { wgtStr };
 
                 for (int p = 0; p < packages.length; p++) {
-                    double quantity;
+                    BigDecimal quantity;
                     int packageSeq;
-                    double weightSeq;
+                    BigDecimal weightSeq;
                     try {
-                        quantity = Double.parseDouble(quantities[p]);
+                        quantity = new BigDecimal(quantities[p]);
                         packageSeq = Integer.parseInt(packages[p]);
-                        weightSeq = Double.parseDouble(weights[p]);
+                        weightSeq = new BigDecimal(weights[p]);
                     } catch (Exception e) {
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -225,8 +225,8 @@ public class PackingServices {
         String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
         String productStoreId = (String) context.get("productStoreId");
         
-        double shippableWeight = setSessionPackageWeights(session, packageWeights);
-        Double estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, Double.valueOf(shippableWeight), null);
+        BigDecimal shippableWeight = setSessionPackageWeights(session, packageWeights);
+        BigDecimal estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
         session.setAdditionalShippingCharge(estimatedShipCost);
         session.setWeightUomId(weightUomId);
 
@@ -242,7 +242,7 @@ public class PackingServices {
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
-        Double additionalShippingCharge = (Double) context.get("additionalShippingCharge");
+        BigDecimal additionalShippingCharge = (BigDecimal) context.get("additionalShippingCharge");
         Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
         String weightUomId = (String) context.get("weightUomId");
         session.setHandlingInstructions(instructions);
@@ -275,16 +275,16 @@ public class PackingServices {
         return resp;
     }
 
-    public static double setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
-        double shippableWeight = 0;
+    public static BigDecimal setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
+        BigDecimal shippableWeight = BigDecimal.ZERO;
         if (! UtilValidate.isEmpty(packageWeights)) {
             for (Map.Entry<String, String> entry: packageWeights.entrySet()) {
                 String packageSeqId = entry.getKey();
                 String packageWeightStr = entry.getValue();
                 if (UtilValidate.isNotEmpty(packageWeightStr)) {
-                    double packageWeight = UtilMisc.toDouble(packageWeights.get(packageSeqId));
-                    session.setPackageWeight(Integer.parseInt(packageSeqId), Double.valueOf(packageWeight));
-                    shippableWeight += packageWeight;
+                    BigDecimal packageWeight = new BigDecimal((String)packageWeights.get(packageSeqId));
+                    session.setPackageWeight(Integer.parseInt(packageSeqId), packageWeight);
+                    shippableWeight = shippableWeight.add(packageWeight);
                 } else {
                     session.setPackageWeight(Integer.parseInt(packageSeqId), null);
                 }

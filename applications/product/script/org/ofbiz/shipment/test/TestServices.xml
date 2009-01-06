@@ -25,7 +25,7 @@ under the License.
         <set field="packSingleItemInMap.productId" value="GZ-2644"/>
         <set field="packSingleItemInMap.orderId" value="DEMO10090"/>
         <set field="packSingleItemInMap.shipGroupSeqId" value="00001"/>
-        <set field="packSingleItemInMap.quantity" value="1" type="Double"/>
+        <set field="packSingleItemInMap.quantity" value="1" type="BigDecimal"/>
         <set field="packSingleItemInMap.packageSeq" value="1" type="Integer"/>
         <set field="packSingleItemInMap.pickerPartyId" value="DemoCustomer"/>
         <set field="packSingleItemInMap.handlingInstructions" value="Handle with care"/>
@@ -62,7 +62,7 @@ under the License.
         <set field="completePackInMap.packingSession" from-field="packingSession"/>
         <set field="completePackInMap.handlingInstructions" value="Handle with care"/>
         <set field="completePackInMap.pickerPartyId" value="DemoCustomer"/>
-        <set field="completePackInMap.additionalShippingCharge" value="10.0" type="Double"/>
+        <set field="completePackInMap.additionalShippingCharge" value="10.0" type="BigDecimal"/>
         <set field="completePackInMap.forceComplete" value="Y" type="Boolean"/>
         <set field="completePackInMap.userLogin" from-field="userLogin"/>
         
@@ -161,9 +161,9 @@ under the License.
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
         <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
         <set field="serviceCtx.productId" value="GZ-2644"/>
-        <set field="serviceCtx.quantityAccepted" value="5" type="Double"/>
-        <set field="serviceCtx.quantityRejected" value="0" type="Double"/>
-        <set field="serviceCtx.unitCost" value="24" type="Double"/>
+        <set field="serviceCtx.quantityAccepted" value="5" type="BigDecimal"/>
+        <set field="serviceCtx.quantityRejected" value="0" type="BigDecimal"/>
+        <set field="serviceCtx.unitCost" value="24" type="BigDecimal"/>
         <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
         <set field="serviceCtx.datetimeReceived" from-field="nowTimeStamp"/>
         <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx">

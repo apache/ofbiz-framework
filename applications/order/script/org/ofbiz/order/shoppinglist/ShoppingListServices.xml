@@ -147,7 +147,7 @@ under the License.
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
 
-        <if-compare field="parameters.quantity" operator="equals" value="0" type="Double">
+        <if-compare field="parameters.quantity" operator="equals" value="0" type="BigDecimal">
           <!-- if we're setting quantity to 0.0 then remove the item -->
             <set-service-fields service-name="removeShoppingListItem" map="parameters" to-map="removeParams"/>
             <call-service service-name="removeShoppingListItem" in-map-name="removeParams"/>
@@ -215,7 +215,7 @@ under the License.
             <field-map field-name="shoppingListId" from-field="parameters.shoppingListId"/>
         </entity-and>
 
-        <set field="totalPrice" type="Double" value="0.0"/>
+        <set field="totalPrice" type="BigDecimal" value="0.0"/>
         <iterate entry="shoppingListItem" list="shoppingListItems">
             <entity-one entity-name="Product" value-field="product" use-cache="true" auto-field-map="false">
                 <field-map field-name="productId" from-field="shoppingListItem.productId"/>
@@ -337,7 +337,7 @@ under the License.
                     <clear-field field="shoppingListParameters" />
                     <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                     <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
-                    <set field="shoppingListParameters.quantity" value="1" type="Double" />
+                    <set field="shoppingListParameters.quantity" value="1" type="BigDecimal" />
                     <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
                 </iterate>
                 <entity-one entity-name="Product" value-field="product" auto-field-map="false" >
@@ -362,7 +362,7 @@ under the License.
                             <clear-field field="shoppingListParameters" />
                             <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                             <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
-                            <set field="shoppingListParameters.quantity" value="1" type="Double" />
+                            <set field="shoppingListParameters.quantity" value="1" type="BigDecimal" />
                             <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
                         </iterate>
                     </if-not-empty>

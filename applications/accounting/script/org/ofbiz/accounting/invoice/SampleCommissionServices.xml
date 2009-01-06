@@ -37,7 +37,7 @@ under the License.
                 <condition><if-compare field="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>
                 <then>
                     <!-- calculate a simple commission with a base amount + a percentage of the payment -->
-                    <calculate field="commissionAmount" type="Double">
+                    <calculate field="commissionAmount">
                         <calcop operator="add">
                             <number value="10.0"/><!-- base amount -->
                             <calcop operator="multiply">
@@ -74,7 +74,7 @@ under the License.
         <set field="createInvoiceItemMap.invoiceId" from-field="createdInvoiceId"/>
         <set field="createInvoiceItemMap.invoiceItemTypeId" value="COMM_INV_ITEM"/>
         <set field="createInvoiceItemMap.amount" from-field="commissionAmount"/>
-        <set field="createInvoiceItemMap.quantity" value="1" type="Double"/>
+        <set field="createInvoiceItemMap.quantity" value="1" type="BigDecimal"/>
         <set field="createInvoiceItemMap.description" value="Commission for Received Customer Payment [${payment.paymentId}]"/>
         <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItemMap"/>
     </simple-method>

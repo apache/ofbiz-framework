@@ -253,17 +253,17 @@ public class OrderServices {
             if (currentProductId != null) {
                 // only normalize items with a product associated (ignore non-product items)
                 if (normalizedItemQuantities.get(currentProductId) == null) {
-                    normalizedItemQuantities.put(currentProductId, new Double(orderItem.getDouble("quantity").doubleValue()));
+                    normalizedItemQuantities.put(currentProductId, orderItem.getBigDecimal("quantity"));
                     normalizedItemNames.put(currentProductId, orderItem.getString("itemDescription"));
                 } else {
-                    Double currentQuantity = (Double) normalizedItemQuantities.get(currentProductId);
-                    normalizedItemQuantities.put(currentProductId, new Double(currentQuantity.doubleValue() + orderItem.getDouble("quantity").doubleValue()));
+                	BigDecimal currentQuantity = (BigDecimal) normalizedItemQuantities.get(currentProductId);
+                    normalizedItemQuantities.put(currentProductId, currentQuantity.add(orderItem.getBigDecimal("quantity")));
                 }
 
                 try {
                     // count product ordered quantities
                     // run this synchronously so it will run in the same transaction
-                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getDouble("quantity"), "userLogin", userLogin));
+                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getBigDecimal("quantity"), "userLogin", userLogin));
                 } catch (GenericServiceException e1) {
                     Debug.logError(e1, "Error calling countProductQuantityOrdered service", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCallingCountProductQuantityOrderedService",locale) + e1.toString());
@@ -279,7 +279,7 @@ public class OrderServices {
         while (normalizedIter.hasNext()) {
             // lookup the product entity for each normalized item; error on products not found
             String currentProductId = (String) normalizedIter.next();
-            Double currentQuantity = (Double) normalizedItemQuantities.get(currentProductId);
+            BigDecimal currentQuantity = (BigDecimal) normalizedItemQuantities.get(currentProductId);
             String itemName = (String) normalizedItemNames.get(currentProductId);
             GenericValue product = null;
 
@@ -727,20 +727,19 @@ public class OrderServices {
                         techDataCalendarExcDay = delegator.makeValue("TechDataCalendarExcDay");
                         techDataCalendarExcDay.set("calendarId", fixedAsset.get("calendarId"));
                         techDataCalendarExcDay.set("exceptionDateStartTime", exceptionDateStartTime);
-                        techDataCalendarExcDay.set("usedCapacity",new Double(00.00));  // initialise to zero
-                        techDataCalendarExcDay.set("exceptionCapacity", fixedAsset.getDouble("productionCapacity"));
+                        techDataCalendarExcDay.set("usedCapacity", BigDecimal.ZERO);  // initialise to zero
+                        techDataCalendarExcDay.set("exceptionCapacity", fixedAsset.getBigDecimal("productionCapacity"));
 //                       Debug.logInfo(" techData excday record not found creating for calendarId: " + techDataCalendarExcDay.getString("calendarId") +
 //                               " and date: " + exceptionDateStartTime.toString(), module);
                     }
                     // add the quantity to the quantity on the date record
-                    Double newUsedCapacity = new Double(techDataCalendarExcDay.getDouble("usedCapacity").doubleValue() +
-                            workEffort.getDouble("quantityToProduce").doubleValue());
+                    BigDecimal newUsedCapacity = techDataCalendarExcDay.getBigDecimal("usedCapacity").add(workEffort.getBigDecimal("quantityToProduce"));
                     // check to see if the requested quantity is available on the requested day but only when the maximum capacity is set on the fixed asset
                     if (fixedAsset.get("productionCapacity") != null)    {
 //                       Debug.logInfo("see if maximum not reached, available:  " + techDataCalendarExcDay.getString("exceptionCapacity") +
 //                               " already allocated: " + techDataCalendarExcDay.getString("usedCapacity") +
 //                                " Requested: " + workEffort.getString("quantityToProduce"), module);
-                       if (newUsedCapacity.compareTo(techDataCalendarExcDay.getDouble("exceptionCapacity")) > 0)    {
+                       if (newUsedCapacity.compareTo(techDataCalendarExcDay.getBigDecimal("exceptionCapacity")) > 0)    {
                             String errMsg = "ERROR: fixed_Asset_sold_out AssetId: " + workEffort.get("fixedAssetId") + " on date: " + techDataCalendarExcDay.getString("exceptionDateStartTime");
                             Debug.logError(errMsg, module);
                             errorMessages.add(errMsg);
@@ -1144,9 +1143,9 @@ public class OrderServices {
                                         Iterator assocProductsIter = assocProducts.iterator();
                                         while (assocProductsIter.hasNext()) {
                                             GenericValue productAssoc = (GenericValue) assocProductsIter.next();
-                                            Double quantityOrd = productAssoc.getDouble("quantity");
-                                            Double quantityKit = orderItemShipGroupAssoc.getDouble("quantity");
-                                            Double quantity = new Double(quantityOrd.doubleValue() * quantityKit.doubleValue());
+                                            BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
+                                            BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
+                                            BigDecimal quantity = quantityOrd.multiply(quantityKit);
                                             Map reserveInput = new HashMap();
                                             reserveInput.put("productStoreId", productStoreId);
                                             reserveInput.put("productId", productAssoc.getString("productIdTo"));
@@ -1178,7 +1177,7 @@ public class OrderServices {
                                     reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
                                     reserveInput.put("facilityId", shipGroupFacilityId);
                                     // use the quantity from the orderItemShipGroupAssoc, NOT the orderItem, these are reserved by item-group assoc
-                                    reserveInput.put("quantity", orderItemShipGroupAssoc.getDouble("quantity"));
+                                    reserveInput.put("quantity", orderItemShipGroupAssoc.getBigDecimal("quantity"));
                                     reserveInput.put("userLogin", userLogin);
                                     Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
@@ -1477,7 +1476,6 @@ public class OrderServices {
                     }
                     
                     // prepare the service context
-                    // pass in BigDecimal values instead of Double
                     Map serviceContext = UtilMisc.toMap("productStoreId", orh.getProductStoreId(), "itemProductList", products, "itemAmountList", amounts,
                         "itemShippingList", shipAmts, "itemPriceList", itPrices, "orderShippingAmount", orderShipping);
                     serviceContext.put("shippingAddress", shippingAddress);
@@ -1541,7 +1539,7 @@ public class OrderServices {
                 createOrderAdjContext.put("orderItemSeqId", "_NA_");
                 createOrderAdjContext.put("shipGroupSeqId", "_NA_");
                 createOrderAdjContext.put("description", "Tax adjustment due to order change");
-                createOrderAdjContext.put("amount", new Double(orderTaxDifference.doubleValue()));
+                createOrderAdjContext.put("amount", orderTaxDifference);
                 createOrderAdjContext.put("userLogin", userLogin);
                 Map createOrderAdjResponse = null;
                 try {
@@ -1607,7 +1605,7 @@ public class OrderServices {
                     shippingTotal = ZERO;
                     Debug.log("No valid order items found - " + shippingTotal, module);
                 } else {
-                    shippingTotal = UtilValidate.isEmpty(shippingEstMap.get("shippingTotal")) ? ZERO : new BigDecimal(((Double) shippingEstMap.get("shippingTotal")).doubleValue());
+                    shippingTotal = UtilValidate.isEmpty(shippingEstMap.get("shippingTotal")) ? ZERO : (BigDecimal)shippingEstMap.get("shippingTotal");
                     shippingTotal = shippingTotal.setScale(orderDecimals, orderRounding);
                     Debug.log("Got new shipping estimate - " + shippingTotal, module);
                 }
@@ -1791,7 +1789,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Double cancelQuantity = (Double) context.get("cancelQuantity");
+        BigDecimal cancelQuantity = (BigDecimal) context.get("cancelQuantity");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
@@ -1840,33 +1838,33 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
                 }
 
-                Double aisgaCancelQuantity =  orderItemShipGroupAssoc.getDouble("cancelQuantity");
+                BigDecimal aisgaCancelQuantity =  orderItemShipGroupAssoc.getBigDecimal("cancelQuantity");
                 if (aisgaCancelQuantity == null) {
-                    aisgaCancelQuantity = new Double(0.0);
+                    aisgaCancelQuantity = BigDecimal.ZERO;
                 }
-                Double availableQuantity = Double.valueOf(orderItemShipGroupAssoc.getDouble("quantity").doubleValue() - aisgaCancelQuantity.doubleValue());
+                BigDecimal availableQuantity = orderItemShipGroupAssoc.getBigDecimal("quantity").subtract(aisgaCancelQuantity);
                 
-                Double itemCancelQuantity = orderItem.getDouble("cancelQuantity");
+                BigDecimal itemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 if (itemCancelQuantity == null) {
-                    itemCancelQuantity = new Double(0.0);
+                    itemCancelQuantity = BigDecimal.ZERO;
                 }
-                Double itemQuantity = Double.valueOf(orderItem.getDouble("quantity").doubleValue() - itemCancelQuantity.doubleValue());
-                if (availableQuantity == null) availableQuantity = new Double(0.0);
-                if (itemQuantity == null) itemQuantity = new Double(0.0);
+                BigDecimal itemQuantity = orderItem.getBigDecimal("quantity").subtract(itemCancelQuantity);
+                if (availableQuantity == null) availableQuantity = BigDecimal.ZERO;
+                if (itemQuantity == null) itemQuantity = BigDecimal.ZERO;
 
-                Double thisCancelQty = null;
+                BigDecimal thisCancelQty = null;
                 if (cancelQuantity != null) {
-                    thisCancelQty = new Double(cancelQuantity.doubleValue());
+                    thisCancelQty = cancelQuantity;
                 } else {
-                    thisCancelQty = new Double(availableQuantity.doubleValue());
+                    thisCancelQty = availableQuantity;
                 }
 
-                if (availableQuantity.doubleValue() >= thisCancelQty.doubleValue()) {
-                    if (availableQuantity.doubleValue() == 0) {
+                if (availableQuantity.compareTo(thisCancelQty) >= 0) {
+                    if (availableQuantity.compareTo(BigDecimal.ZERO) == 0) {
                         continue;  //OrderItemShipGroupAssoc already cancelled
                     }
-                    orderItem.set("cancelQuantity", Double.valueOf(itemCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
-                    orderItemShipGroupAssoc.set("cancelQuantity", Double.valueOf(aisgaCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
+                    orderItem.set("cancelQuantity", itemCancelQuantity.add(thisCancelQty));
+                    orderItemShipGroupAssoc.set("cancelQuantity", aisgaCancelQuantity.add(thisCancelQty));
 
                     try {
                         List toStore = UtilMisc.toList(orderItem, orderItemShipGroupAssoc);
@@ -1907,7 +1905,7 @@ public class OrderServices {
                         }
                     }  
 
-                    if (thisCancelQty.doubleValue() >= itemQuantity.doubleValue()) {
+                    if (thisCancelQty.compareTo(itemQuantity) >= 0) {
                         // all items are cancelled -- mark the item as cancelled
                         Map statusCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
                         try {
@@ -3259,14 +3257,14 @@ public class OrderServices {
         String productId = (String) context.get("productId");
         String prodCatalogId = (String) context.get("prodCatalogId");
         BigDecimal basePrice = (BigDecimal) context.get("basePrice");
-        Double quantity = (Double) context.get("quantity");
-        Double amount = (Double) context.get("amount");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         String overridePrice = (String) context.get("overridePrice");
         String reasonEnumId = (String) context.get("reasonEnumId");
         String changeComments = (String) context.get("changeComments");        
 
         if (amount == null) {
-            amount = new Double(0.00);
+            amount = BigDecimal.ZERO;
         }
 
         int shipGroupIdx = -1;
@@ -3294,13 +3292,13 @@ public class OrderServices {
 
         // add in the new product
         try {
-            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
+            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
             if (basePrice != null && overridePrice != null) {
-                item.setBasePrice(basePrice.doubleValue());
+                item.setBasePrice(basePrice);
                 // special hack to make sure we re-calc the promos after a price change
-                item.setQuantity(quantity.doubleValue() + 1, dispatcher, cart, false);
-                item.setQuantity(quantity.doubleValue(), dispatcher, cart, false);
-                item.setBasePrice(basePrice.doubleValue());
+                item.setQuantity(quantity.add(BigDecimal.ONE), dispatcher, cart, false);
+                item.setQuantity(quantity, dispatcher, cart, false);
+                item.setBasePrice(basePrice);
                 item.setIsModifiedPrice(true);
             }
 
@@ -3369,24 +3367,24 @@ public class OrderServices {
         while (i.hasNext()) {
             String key = (String) i.next();
             String quantityStr = (String) itemQtyMap.get(key);
-            double groupQty = 0.0;
+            BigDecimal groupQty = BigDecimal.ZERO;
             try {
-                groupQty = Double.parseDouble(quantityStr);
+                groupQty = new BigDecimal(quantityStr);
             } catch (NumberFormatException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
-            if (groupQty == 0) {
+            if (groupQty.compareTo(BigDecimal.ZERO) == 0) {
                 return ServiceUtil.returnError("Quantity must be >0, use cancel item to cancel completely!");
             }
 
             String[] itemInfo = key.split(":");
-            Double tally = (Double) itemTotals.get(itemInfo[0]);
+            BigDecimal tally = (BigDecimal) itemTotals.get(itemInfo[0]);
             if (tally == null) {
-                tally = new Double(groupQty);
+                tally = groupQty;
             } else {
-                tally = new Double(tally.doubleValue() + groupQty);
+                tally = tally.add(groupQty);
             }
             itemTotals.put(itemInfo[0], tally);
         }
@@ -3398,12 +3396,12 @@ public class OrderServices {
             ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
 
             if (cartItem != null) {
-                Double qty = (Double) itemTotals.get(itemSeqId);
-                double priceSave = cartItem.getBasePrice();
+                BigDecimal qty = (BigDecimal) itemTotals.get(itemSeqId);
+                BigDecimal priceSave = cartItem.getBasePrice();
 
                 // set quantity
                 try {
-                    cartItem.setQuantity(qty.doubleValue(), dispatcher, cart, false, false); // trigger external ops, don't reset ship groups (and update prices for both PO and SO items)
+                    cartItem.setQuantity(qty, dispatcher, cart, false, false); // trigger external ops, don't reset ship groups (and update prices for both PO and SO items)
                 } catch (CartItemModifyException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -3416,20 +3414,8 @@ public class OrderServices {
                 if (overridePriceMap.containsKey(itemSeqId)) {
                     String priceStr = (String) itemPriceMap.get(itemSeqId);
                     if (UtilValidate.isNotEmpty(priceStr)) {
-                        double price = -1;
-                        //parse the price
-                        NumberFormat nf = null;
-                        if (locale != null) {
-                            nf = NumberFormat.getNumberInstance(locale);
-                        } else {
-                            nf = NumberFormat.getNumberInstance();
-                        }
-                        try {
-                            price = nf.parse(priceStr).doubleValue();
-                        } catch (ParseException e) {
-                            Debug.logError(e, module);
-                            return ServiceUtil.returnError(e.getMessage());
-                        }
+                    	BigDecimal price = new BigDecimal("-1");
+                        price = new BigDecimal(priceStr).setScale(orderDecimals, orderRounding);
                         cartItem.setBasePrice(price);
                         cartItem.setIsModifiedPrice(true);
                         Debug.log("Set item price: [" + itemSeqId + "] " + price, module);
@@ -3457,9 +3443,9 @@ public class OrderServices {
         while (gai.hasNext()) {
             String key = (String) gai.next();
             String quantityStr = (String) itemQtyMap.get(key);
-            double groupQty = 0.0;
+            BigDecimal groupQty = BigDecimal.ZERO;
             try {
-                groupQty = Double.parseDouble(quantityStr);
+                groupQty = new BigDecimal(quantityStr);
             } catch (NumberFormatException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -3686,11 +3672,11 @@ public class OrderServices {
                 throw new GeneralException(ServiceUtil.getErrorMessage(result));
             }
 
-            Double shippingTotal = (Double) result.get("shippingTotal");
+            BigDecimal shippingTotal = (BigDecimal) result.get("shippingTotal");
             if (shippingTotal == null) {
-                shippingTotal = new Double(0.00);
+                shippingTotal = BigDecimal.ZERO;
             }
-            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), gi);
+            cart.setItemShipGroupEstimate(shippingTotal, gi);
         }
         
         // calc the sales tax
@@ -3764,8 +3750,8 @@ public class OrderServices {
                     
                     //  Existing order item found. Check for modifications and store if any
                     String oldItemDescription = oldOrderItem.getString("itemDescription") != null ? oldOrderItem.getString("itemDescription") : "";
-                    Double oldQuantity = oldOrderItem.getDouble("quantity") != null ? oldOrderItem.getDouble("quantity") : Double.valueOf(0.00);
-                    Double oldUnitPrice = oldOrderItem.getDouble("unitPrice") != null ? oldOrderItem.getDouble("unitPrice") : Double.valueOf(0.00);
+                    BigDecimal oldQuantity = oldOrderItem.getBigDecimal("quantity") != null ? oldOrderItem.getBigDecimal("quantity") : BigDecimal.ZERO;
+                    BigDecimal oldUnitPrice = oldOrderItem.getBigDecimal("unitPrice") != null ? oldOrderItem.getBigDecimal("unitPrice") : BigDecimal.ZERO;
                     
                     boolean changeFound = false;
                     Map modifiedItem = FastMap.newInstance();
@@ -3774,13 +3760,13 @@ public class OrderServices {
                         changeFound = true;
                     }
                     
-                    Double quantityDif = Double.valueOf(valueObj.getDouble("quantity").doubleValue() - oldQuantity.doubleValue());
-                    Double unitPriceDif = Double.valueOf(valueObj.getDouble("unitPrice").doubleValue() - oldUnitPrice.doubleValue());
-                    if (quantityDif.doubleValue() != 0) {
+                    BigDecimal quantityDif = valueObj.getBigDecimal("quantity").subtract(oldQuantity);
+                    BigDecimal unitPriceDif = valueObj.getBigDecimal("unitPrice").subtract(oldUnitPrice);
+                    if (quantityDif.compareTo(BigDecimal.ZERO) != 0) {
                         modifiedItem.put("quantity", quantityDif);
                         changeFound = true;
                     }
-                    if (unitPriceDif.doubleValue() != 0) {
+                    if (unitPriceDif.compareTo(BigDecimal.ZERO) != 0) {
                         modifiedItem.put("unitPrice", unitPriceDif);
                         changeFound = true;
                     }
@@ -3820,7 +3806,7 @@ public class OrderServices {
 
                     appendedItem.put("orderId", valueObj.getString("orderId"));
                     appendedItem.put("orderItemSeqId", valueObj.getString("orderItemSeqId"));
-                    appendedItem.put("quantity", valueObj.getDouble("quantity"));                    
+                    appendedItem.put("quantity", valueObj.getBigDecimal("quantity"));                    
                     appendedItem.put("changeTypeEnumId", "ODR_ITM_APPEND");                         
                     modifiedItems.add(appendedItem);
                 }
@@ -3916,7 +3902,7 @@ public class OrderServices {
             try {
                 Debug.log("Calling process payments...", module);
                 //Debug.set(Debug.VERBOSE, true);
-                paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal().doubleValue(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
+                paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
                 //Debug.set(Debug.VERBOSE, false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -3938,8 +3924,8 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         ShoppingCart cart = new ShoppingCart(dctx.getDelegator(), "9000", "webStore", locale, "USD");
         try {
-            cart.addOrIncreaseItem("GZ-1005", null, 1, null, null, null, null, null, null, null, "DemoCatalog", null, null, null, null, dctx.getDispatcher());
-            } catch (CartItemModifyException e) {
+            cart.addOrIncreaseItem("GZ-1005", null, BigDecimal.ONE, null, null, null, null, null, null, null, "DemoCatalog", null, null, null, null, dctx.getDispatcher());
+        } catch (CartItemModifyException e) {
             Debug.logError(e, module);
         } catch (ItemNotFoundException e) {
             Debug.logError(e, module);
@@ -4007,12 +3993,12 @@ public class OrderServices {
 
             // create the payment
             Map paymentParams = new HashMap();
-            double maxAmount = orderPaymentPreference.getDouble("maxAmount").doubleValue();
+            BigDecimal maxAmount = orderPaymentPreference.getBigDecimal("maxAmount");
             //if (maxAmount > 0.0) {            
                 paymentParams.put("paymentTypeId", "CUSTOMER_PAYMENT");
                 paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
-                paymentParams.put("amount", new Double(maxAmount));
+                paymentParams.put("amount", maxAmount);
                 paymentParams.put("statusId", "PMNT_RECEIVED");
                 paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
                 paymentParams.put("partyIdFrom", billToParty.getString("partyId"));
@@ -4315,7 +4301,7 @@ public class OrderServices {
                                 try {
                                     int itemIndex = cart.addOrIncreaseItem(item.getString("productId"),
                                                                            null, // amount
-                                                                           item.getDouble("quantity").doubleValue(),
+                                                                           item.getBigDecimal("quantity"),
                                                                            null, null, null, // reserv
                                                                            item.getTimestamp("shipBeforeDate"),
                                                                            item.getTimestamp("shipAfterDate"),
@@ -4459,18 +4445,18 @@ public class OrderServices {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
                 
                 // Get the cancelled quantity for the item
-                double orderItemCancelQuantity = 0;
+                BigDecimal orderItemCancelQuantity = BigDecimal.ZERO;
                 if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
-                    orderItemCancelQuantity = orderItem.getDouble("cancelQuantity").doubleValue();
+                    orderItemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 }
 
-                if (orderItemCancelQuantity <= 0) continue;
+                if (orderItemCancelQuantity.compareTo(BigDecimal.ZERO) <= 0) continue;
                 
                 String productId = orderItem.getString("productId");
                 if (productRequirementQuantities.containsKey(productId)) {
-                    orderItemCancelQuantity += ((Double) productRequirementQuantities.get(productId)).doubleValue(); 
+                    orderItemCancelQuantity = orderItemCancelQuantity.add((BigDecimal) productRequirementQuantities.get(productId)); 
                 }
-                productRequirementQuantities.put(productId, new Double(orderItemCancelQuantity));
+                productRequirementQuantities.put(productId, orderItemCancelQuantity);
                 
             }
 
@@ -4478,7 +4464,7 @@ public class OrderServices {
             Iterator cqit = productRequirementQuantities.keySet().iterator();
             while (cqit.hasNext()) {
                 String productId = (String) cqit.next();
-                Double requiredQuantity = (Double) productRequirementQuantities.get(productId);
+                BigDecimal requiredQuantity = (BigDecimal) productRequirementQuantities.get(productId);
                 Map createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.<String, Object>toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
                 if (ServiceUtil.isError(createRequirementResult)) return createRequirementResult;                
             }
@@ -4531,29 +4517,29 @@ public class OrderServices {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
                 
                 // Get the ordered quantity for the item
-                double orderItemQuantity = 0;
+                BigDecimal orderItemQuantity = BigDecimal.ZERO;
                 if (! UtilValidate.isEmpty(orderItem.get("quantity"))) {
-                    orderItemQuantity = orderItem.getDouble("quantity").doubleValue();
+                    orderItemQuantity = orderItem.getBigDecimal("quantity");
                 }
-                double orderItemCancelQuantity = 0;
+                BigDecimal orderItemCancelQuantity = BigDecimal.ZERO;
                 if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
-                    orderItemCancelQuantity = orderItem.getDouble("cancelQuantity").doubleValue();
+                    orderItemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 }
 
                 // Get the received quantity for the order item - ignore the quantityRejected, since rejected items should be reordered
                 List shipmentReceipts = orderItem.getRelated("ShipmentReceipt");
-                double receivedQuantity = 0;
+                BigDecimal receivedQuantity = BigDecimal.ZERO;
                 Iterator srit = shipmentReceipts.iterator();
                 while (srit.hasNext()) {
                     GenericValue shipmentReceipt = (GenericValue) srit.next();
                     if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted")) ) {
-                        receivedQuantity += shipmentReceipt.getDouble("quantityAccepted").doubleValue();
+                        receivedQuantity = receivedQuantity.add(shipmentReceipt.getBigDecimal("quantityAccepted"));
                     }
                 }
                 
-                double quantityToCancel = orderItemQuantity - orderItemCancelQuantity - receivedQuantity;
-                if (quantityToCancel > 0) {
-                Map cancelOrderItemResult = dispatcher.runSync("cancelOrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "cancelQuantity", new Double(quantityToCancel), "userLogin", userLogin));
+                BigDecimal quantityToCancel = orderItemQuantity.subtract(orderItemCancelQuantity).subtract(receivedQuantity);
+                if (quantityToCancel.compareTo(BigDecimal.ZERO) > 0) {
+                Map cancelOrderItemResult = dispatcher.runSync("cancelOrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "cancelQuantity", quantityToCancel, "userLogin", userLogin));
                 if (ServiceUtil.isError(cancelOrderItemResult)) return cancelOrderItemResult;       
                 }
 
@@ -4603,9 +4589,9 @@ public class OrderServices {
         Iterator i = itemMap.keySet().iterator();
         while (i.hasNext()) {
             String item = (String) i.next();
-            Double price = (Double) itemMap.get(item);
+            BigDecimal price = (BigDecimal) itemMap.get(item);
             try {
-                cart.addNonProductItem("BULK_ORDER_ITEM", item, null, price, 1, null, null, null, dispatcher);
+                cart.addNonProductItem("BULK_ORDER_ITEM", item, null, price, BigDecimal.ONE, null, null, null, dispatcher);
             } catch (CartItemModifyException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

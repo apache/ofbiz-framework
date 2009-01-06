@@ -19,6 +19,7 @@
 package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +75,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     public static String[] attributeNames = { "shoppingListId", "shoppingListItemSeqId", "surveyResponses",
                                               "itemDesiredDeliveryDate", "itemComment", "fromInventoryItemId"};
 
+    public static final MathContext generalRounding = new MathContext(10);
+
     private transient GenericDelegator delegator = null;
     /** the actual or variant product */
     private transient GenericValue _product = null;
@@ -93,26 +96,26 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** for reservations: date start*/
     private Timestamp reservStart = null;
     /** for reservations: length */
-    private double reservLength = 0;
+    private BigDecimal reservLength = BigDecimal.ZERO;
     /** for reservations: number of persons using */
-    private double reservPersons = 0;
+    private BigDecimal reservPersons = BigDecimal.ZERO;
     private String accommodationMapId = null;
     private String accommodationSpotId = null;
-    private double quantity = 0.0;
-    private double basePrice = 0.0;
-    private Double displayPrice = null;
-    private Double recurringBasePrice = null;
-    private Double recurringDisplayPrice = null;
+    private BigDecimal quantity = BigDecimal.ZERO;
+    private BigDecimal basePrice = BigDecimal.ZERO;
+    private BigDecimal displayPrice = null;
+    private BigDecimal recurringBasePrice = null;
+    private BigDecimal recurringDisplayPrice = null;
     /** comes from price calc, used for special promo price promotion action */
-    private Double specialPromoPrice = null;
+    private BigDecimal specialPromoPrice = null;
     /** for reservations: extra % 2nd person */
-    private double reserv2ndPPPerc = 0.0;
+    private BigDecimal reserv2ndPPPerc = BigDecimal.ZERO;
     /** for reservations: extra % Nth person */
-    private double reservNthPPPerc = 0.0;
-    private double listPrice = 0.0;
+    private BigDecimal reservNthPPPerc = BigDecimal.ZERO;
+    private BigDecimal listPrice = BigDecimal.ZERO;
     /** flag to know if the price have been modified */
     private boolean isModifiedPrice = false;
-    private double selectedAmount = 0.0;
+    private BigDecimal selectedAmount = BigDecimal.ZERO;
     private String requirementId = null;
     private String quoteId = null;
     private String quoteItemSeqId = null;
@@ -133,7 +136,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private List orderItemPriceInfos = null;
     private List itemAdjustments = new LinkedList();
     private boolean isPromo = false;
-    private double promoQuantityUsed = 0;
+    private BigDecimal promoQuantityUsed = BigDecimal.ZERO;
     private Map quantityUsedPerPromoCandidate = new HashMap();
     private Map quantityUsedPerPromoFailed = new HashMap();
     private Map quantityUsedPerPromoActual = new HashMap();
@@ -161,7 +164,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, 
+    public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, 
             LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate) 
                 throws CartItemModifyException, ItemNotFoundException {
@@ -221,8 +224,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             cart.addItem(cartLocation.intValue(), newItem);
         }
 
-        if (selectedAmountDbl != null) {
-            newItem.setSelectedAmount(selectedAmountDbl.doubleValue());
+        if (selectedAmount != null) {
+            newItem.setSelectedAmount(selectedAmount);
         }
         
         // set the ship before/after dates.  this needs to happen before setQuantity because setQuantity causes the ship group's dates to be
@@ -243,7 +246,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // if supplierProduct has no supplierProductName, use the regular supplierProductId
         if (supplierProduct != null) {
             newItem.setName(getPurchaseOrderItemDescription(product, supplierProduct, cart.getLocale()));
-            newItem.setBasePrice(supplierProduct.getDouble("lastPrice").doubleValue());
+            newItem.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
         } else {
             newItem.setName(product.getString("internalName"));
         }
@@ -279,14 +282,14 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, Double unitPriceDbl, 
-            Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice, 
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
             throws CartItemModifyException, ItemNotFoundException {
         
-        return makeItem(cartLocation,productId,selectedAmountDbl,quantity,unitPriceDbl, 
-                reservStart,reservLengthDbl,reservPersonsDbl,null,null,shipBeforeDate,shipAfterDate, 
+        return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice, 
+                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate, 
                 additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper, 
                 itemType,itemGroup,dispatcher,cart,triggerExternalOpsBool,triggerPriceRulesBool,
                 parentProductId,skipInventoryChecks,skipProductChecks);
@@ -298,8 +301,8 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param accommodationMapId Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, Double unitPriceDbl, 
-            Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice, 
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
             throws CartItemModifyException, ItemNotFoundException {
@@ -342,8 +345,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                 parentProduct = null;
             }
         }
-        return makeItem(cartLocation, product, selectedAmountDbl, quantity, unitPriceDbl, 
-                reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, 
+        return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice, 
+                reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, 
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, 
                 itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
     }
@@ -377,14 +380,14 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, Double selectedAmountDbl, 
-            double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
+    		BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
-        return makeItem(cartLocation,product,selectedAmountDbl, 
-               quantity,unitPriceDbl,reservStart,reservLengthDbl,reservPersonsDbl, 
+        return makeItem(cartLocation,product,selectedAmount, 
+               quantity,unitPrice,reservStart,reservLength,reservPersons, 
                null,null,shipBeforeDate,shipAfterDate,additionalProductFeatureAndAppls,attributes, 
                prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart, 
                triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
@@ -395,8 +398,8 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param accommodationMapId Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
     */
-    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, Double selectedAmountDbl, 
-            double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
+    		BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
             String accommodationMapId,String accommodationSpotId,
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
@@ -404,10 +407,10 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, parentProduct);
 
-        double selectedAmount = selectedAmountDbl == null ? 0.0 : selectedAmountDbl.doubleValue();
-        double unitPrice = unitPriceDbl == null ? 0.0 : unitPriceDbl.doubleValue();
-        double reservLength = reservLengthDbl == null ? 0.0 : reservLengthDbl.doubleValue();
-        double reservPersons = reservPersonsDbl == null ? 0.0 : reservPersonsDbl.doubleValue();
+        selectedAmount = selectedAmount == null ? BigDecimal.ZERO : selectedAmount;
+        unitPrice = unitPrice == null ? BigDecimal.ZERO : unitPrice;
+        reservLength = reservLength == null ? BigDecimal.ZERO : reservLength;
+        reservPersons = reservPersons == null ? BigDecimal.ZERO : reservPersons;
         boolean triggerPriceRules = triggerPriceRulesBool == null ? true : triggerPriceRulesBool.booleanValue();
         boolean triggerExternalOps = triggerExternalOpsBool == null ? true : triggerExternalOpsBool.booleanValue();
     
@@ -495,7 +498,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
             newItem.setReservStart(reservStart);
 
-            if (reservLength < 1)    {
+            if (reservLength.compareTo(BigDecimal.ONE) < 0)    {
                 String excMsg = UtilProperties.getMessage(resource, "item.number_of_days",
                                               cart.getLocale() );                
                 throw new CartItemModifyException(excMsg);
@@ -503,10 +506,10 @@ public class ShoppingCartItem implements java.io.Serializable {
             newItem.setReservLength(reservLength);
             
             if (product.get("reservMaxPersons") != null) {
-                 double reservMaxPersons = product.getDouble("reservMaxPersons").doubleValue();
-                 if (reservMaxPersons < reservPersons)    {
+            	BigDecimal reservMaxPersons = product.getBigDecimal("reservMaxPersons");
+                 if (reservMaxPersons.compareTo(reservPersons) < 0)    {
                      Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"), 
-                                                     "reservPersons", (new Double(reservPersons)).toString());
+                                                     "reservPersons", reservPersons);
                      String excMsg = UtilProperties.getMessage(resource, "item.maximum_number_of_person_renting",
                                                    messageMap, cart.getLocale() );
                      
@@ -517,10 +520,10 @@ public class ShoppingCartItem implements java.io.Serializable {
              newItem.setReservPersons(reservPersons);
 
              if (product.get("reserv2ndPPPerc") != null)
-                 newItem.setReserv2ndPPPerc(product.getDouble("reserv2ndPPPerc").doubleValue());
+                 newItem.setReserv2ndPPPerc(product.getBigDecimal("reserv2ndPPPerc"));
 
              if (product.get("reservNthPPPerc") != null)
-                 newItem.setReservNthPPPerc(product.getDouble("reservNthPPPerc").doubleValue());
+                 newItem.setReservNthPPPerc(product.getBigDecimal("reservNthPPPerc"));
              
              if ((accommodationMapId != null) && (accommodationSpotId != null)) {
                 newItem.setAccommodationId(accommodationMapId,accommodationSpotId);
@@ -556,12 +559,12 @@ public class ShoppingCartItem implements java.io.Serializable {
         // We have to set the selectedAmount before calling setQuantity because
         // selectedAmount changes the item's base price (used in the updatePrice
         // method called inside the setQuantity method)
-        if (selectedAmount > 0) {
+        if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
             newItem.setSelectedAmount(selectedAmount);
         }
 
         try {
-            newItem.setQuantity((int)quantity, dispatcher, cart, triggerExternalOps, true, triggerPriceRules, skipInventoryChecks.booleanValue());
+            newItem.setQuantity(quantity, dispatcher, cart, triggerExternalOps, true, triggerPriceRules, skipInventoryChecks.booleanValue());
         } catch (CartItemModifyException e) {
             Debug.logWarning(e.getMessage(), module);
             cart.removeCartItem(cart.getItemIndex(newItem), dispatcher);
@@ -593,7 +596,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String itemType, String itemDescription, String productCategoryId, 
-            Double basePrice, Double selectedAmount, double quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup, 
+    		BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup, 
             LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool) throws CartItemModifyException {
 
         GenericDelegator delegator = cart.getDelegator();
@@ -616,7 +619,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (selectedAmount != null) {
-            newItem.setSelectedAmount(selectedAmount.doubleValue());
+            newItem.setSelectedAmount(selectedAmount);
         }
         return newItem;
     }
@@ -732,15 +735,15 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Creates new ShopingCartItem object. */
-    protected ShoppingCartItem(GenericDelegator delegator, String itemTypeId, String description, String categoryId, Double basePrice, Map attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+    protected ShoppingCartItem(GenericDelegator delegator, String itemTypeId, String description, String categoryId, BigDecimal basePrice, Map attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
         this.delegator = delegator;
         this.itemType = itemTypeId;
         this.itemGroup = itemGroup;
         this.itemDescription = description;
         this.productCategoryId = categoryId;
         if (basePrice != null) {
-            this.setBasePrice(basePrice.doubleValue());
-            this.setDisplayPrice(basePrice.doubleValue());
+            this.setBasePrice(basePrice);
+            this.setDisplayPrice(basePrice);
         }
         this.attributes = (attributes == null? FastMap.newInstance(): attributes);
         this.prodCatalogId = prodCatalogId;
@@ -761,45 +764,45 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
     
     /** Sets the user selected amount */
-    public void setSelectedAmount(double selectedAmount) {
+    public void setSelectedAmount(BigDecimal selectedAmount) {
         this.selectedAmount = selectedAmount;
     }
 
     /** Returns the user selected amount */
-    public double getSelectedAmount() {
+    public BigDecimal getSelectedAmount() {
         return this.selectedAmount;
     }
 
     /** Sets the base price for the item; use with caution */
-    public void setBasePrice(double basePrice) {
+    public void setBasePrice(BigDecimal basePrice) {
         this.basePrice = basePrice;
     }
 
     /** Sets the display price for the item; use with caution */
-    public void setDisplayPrice(double displayPrice) {
-        this.displayPrice = new Double(displayPrice);
+    public void setDisplayPrice(BigDecimal displayPrice) {
+        this.displayPrice = displayPrice;
     }
 
     /** Sets the base price for the item; use with caution */
-    public void setRecurringBasePrice(Double recurringBasePrice) {
+    public void setRecurringBasePrice(BigDecimal recurringBasePrice) {
         this.recurringBasePrice = recurringBasePrice;
     }
 
     /** Sets the display price for the item; use with caution */
-    public void setRecurringDisplayPrice(Double recurringDisplayPrice) {
+    public void setRecurringDisplayPrice(BigDecimal recurringDisplayPrice) {
         this.recurringDisplayPrice = recurringDisplayPrice;
     }
 
-    public void setSpecialPromoPrice(Double specialPromoPrice) {
+    public void setSpecialPromoPrice(BigDecimal specialPromoPrice) {
         this.specialPromoPrice = specialPromoPrice;
     }
 
     /** Sets the extra % for second person */
-    public void setReserv2ndPPPerc(double reserv2ndPPPerc) {
+    public void setReserv2ndPPPerc(BigDecimal reserv2ndPPPerc) {
         this.reserv2ndPPPerc = reserv2ndPPPerc;
     }
     /** Sets the extra % for third and following person */
-    public void setReservNthPPPerc(double reservNthPPPerc) {
+    public void setReservNthPPPerc(BigDecimal reservNthPPPerc) {
         this.reservNthPPPerc = reservNthPPPerc;
     }
     /** Sets the reservation start date */
@@ -807,11 +810,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.reservStart = reservStart;
     }
     /** Sets the reservation length */
-    public void setReservLength(double reservLength)    {
+    public void setReservLength(BigDecimal reservLength)    {
         this.reservLength = reservLength;
     }
     /** Sets number of persons using the reservation */
-    public void setReservPersons(double reservPersons)    {
+    public void setReservPersons(BigDecimal reservPersons)    {
         this.reservPersons = reservPersons;
     }
     /** Sets accommodationId using the reservation */
@@ -821,27 +824,27 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
-    public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
+    public void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         this.setQuantity(quantity, dispatcher, cart, true);
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
-    public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps) throws CartItemModifyException {
+    public void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps) throws CartItemModifyException {
         this.setQuantity(quantity, dispatcher, cart, triggerExternalOps, true);
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
-    public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup) throws CartItemModifyException {
-        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, true, false);
+    public void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup) throws CartItemModifyException {
+        this.setQuantity(quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, true, false);
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
-    public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice) throws CartItemModifyException {
-        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, updateProductPrice, false);
+    public void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice) throws CartItemModifyException {
+        this.setQuantity(quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, updateProductPrice, false);
     }
 
     /** returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available */
-    public static String checkAvailability(String productId, double quantity, Timestamp reservStart, double reservLength, ShoppingCart cart) {
+    public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, ShoppingCart cart) {
         GenericDelegator delegator = cart.getDelegator();
         // find related fixedAsset
         List selFixedAssetProduct = null;
@@ -889,11 +892,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
         if(techDataCalendar == null) {            
             // no calendar ok, when not more that total capacity
-            if (fixedAsset.getDouble("productionCapacity").doubleValue() >= quantity) {
+            if (fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) >= 0) {
                 String msg = UtilProperties.getMessage(resource, "item.availableOk", cart.getLocale());
                 return msg;
             } else {
-                Map messageMap = UtilMisc.toMap("quantityReq", (new Double(quantity)).toString(),
+                Map messageMap = UtilMisc.toMap("quantityReq", quantity,
                                                 "quantityAvail", fixedAsset.getString("productionCapacity"));
                 String msg = UtilProperties.getMessage(resource, "item.availableQnt", messageMap , cart.getLocale());
                 return msg;
@@ -903,7 +906,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // please note that calendarId is the same for (TechData)Calendar, CalendarExcDay and CalendarExWeek
         long dayCount = 0;
         String resultMessage = "";
-        while (dayCount < (long) reservLength) {
+        while (BigDecimal.valueOf(dayCount).compareTo(reservLength) < 0) {
             GenericValue techDataCalendarExcDay = null;
             // find an existing Day exception record
             Timestamp exceptionDateStartTime = new Timestamp((long) (reservStart.getTime() + (dayCount++ * 86400000)));
@@ -915,22 +918,22 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
             if (techDataCalendarExcDay == null ) {
                 //Debug.logInfo(" No exception day record found, available: " + fixedAsset.getString("productionCapacity") + " Requested now: " + quantity, module);
-                if (fixedAsset.get("productionCapacity") != null && fixedAsset.getDouble("productionCapacity").doubleValue() < quantity)
+                if (fixedAsset.get("productionCapacity") != null && fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) < 0)
                     resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
             } else {
                 // see if we can get the number of assets available
                 // first try techDataCalendarExcDay(exceptionCapacity) and then FixedAsset(productionCapacity)
                 // if still zero, do not check availability
-                double exceptionCapacity = 0.00;
+            	BigDecimal exceptionCapacity = BigDecimal.ZERO;
                 if (techDataCalendarExcDay.get("exceptionCapacity") != null)
-                    exceptionCapacity = techDataCalendarExcDay.getDouble("exceptionCapacity").doubleValue();
-                if (exceptionCapacity == 0.00 && fixedAsset.get("productionCapacity") != null)
-                    exceptionCapacity = fixedAsset.getDouble("productionCapacity").doubleValue();
-                if (exceptionCapacity != 0.00) {
-                    double usedCapacity = 0.00;
+                    exceptionCapacity = techDataCalendarExcDay.getBigDecimal("exceptionCapacity");
+                if (exceptionCapacity.compareTo(BigDecimal.ZERO) == 0 && fixedAsset.get("productionCapacity") != null)
+                    exceptionCapacity = fixedAsset.getBigDecimal("productionCapacity");
+                if (exceptionCapacity.compareTo(BigDecimal.ZERO) != 0) {
+                	BigDecimal usedCapacity = BigDecimal.ZERO;
                     if (techDataCalendarExcDay.get("usedCapacity") != null)
-                        usedCapacity = techDataCalendarExcDay.getDouble("usedCapacity").doubleValue();
-                    if (exceptionCapacity < (quantity + usedCapacity)) {
+                        usedCapacity = techDataCalendarExcDay.getBigDecimal("usedCapacity");
+                    if (exceptionCapacity.compareTo(quantity.add(usedCapacity)) < 0) {
                         resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
                         Debug.logInfo("No rental fixed Asset available: " + exceptionCapacity +
                                 " already used: " + usedCapacity +
@@ -950,10 +953,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-    protected boolean isInventoryAvailableOrNotRequired(double quantity, String productStoreId, LocalDispatcher dispatcher) throws CartItemModifyException {
+    protected boolean isInventoryAvailableOrNotRequired(BigDecimal quantity, String productStoreId, LocalDispatcher dispatcher) throws CartItemModifyException {
         boolean inventoryAvailable = true;
         try {
-            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", new Double(quantity)));
+            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", quantity));
             if (ServiceUtil.isError(invReqResult)) {
                 Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
@@ -967,7 +970,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return inventoryAvailable;
     }
 
-    protected void setQuantity(int quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
+    protected void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
         if (this.quantity == quantity) {
             return;
         }
@@ -984,9 +987,9 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         if (!skipInventoryChecks && !"PURCHASE_ORDER".equals(cart.getOrderType())) {
             // check inventory if new quantity is greater than old quantity; don't worry about inventory getting pulled out from under, that will be handled at checkout time
-            if (_product != null && quantity > this.quantity) {
+            if (_product != null && quantity.compareTo(this.quantity) > 0) {
                 if (!isInventoryAvailableOrNotRequired(quantity, productStoreId, dispatcher)) {
-                    Map messageMap = UtilMisc.toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity),
+                    Map messageMap = UtilMisc.toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity.doubleValue()),
                                                     "productName",       this.getName(),
                                                     "productId",         productId);
                     String excMsg = UtilProperties.getMessage(resource, "OrderDoNotHaveEnoughProducts", messageMap , cart.getLocale() );
@@ -1095,8 +1098,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (partyId != null) {
                     priceContext.put("partyId", partyId);
                 }
-                priceContext.put("quantity", new Double(this.getQuantity()));
-                priceContext.put("amount", new Double(this.getSelectedAmount()));
+                priceContext.put("quantity", this.getQuantity());
+                priceContext.put("amount", this.getSelectedAmount());
                 priceContext.put("product", this.getProduct());
                 if (cart.getOrderType().equals("PURCHASE_ORDER")) {
                     Map priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
@@ -1108,7 +1111,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "] and supplier with ID [" + partyId + "], not adding to cart.");
                     }
 
-                    this.setBasePrice(((Double) priceResult.get("price")).doubleValue());
+                    this.setBasePrice(((BigDecimal) priceResult.get("price")));
                     this.setDisplayPrice(this.basePrice);
                     this.orderItemPriceInfos = (List) priceResult.get("orderItemPriceInfos");
                 } else {
@@ -1154,18 +1157,18 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
 
                     if (priceResult.get("listPrice") != null) {
-                        this.listPrice = ((Double) priceResult.get("listPrice")).doubleValue();
+                        this.listPrice = ((BigDecimal) priceResult.get("listPrice"));
                     }
 
                     if (priceResult.get("basePrice") != null) {
-                        this.setBasePrice(((Double) priceResult.get("basePrice")).doubleValue());
+                        this.setBasePrice(((BigDecimal) priceResult.get("basePrice")));
                     }
 
                     if (priceResult.get("price") != null) {
-                        this.setDisplayPrice(((Double) priceResult.get("price")).doubleValue());
+                        this.setDisplayPrice(((BigDecimal) priceResult.get("price")));
                     }
 
-                    this.setSpecialPromoPrice((Double) priceResult.get("specialPromoPrice"));
+                    this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
 
                     this.orderItemPriceInfos = (List) priceResult.get("orderItemPriceInfos");
 
@@ -1189,10 +1192,10 @@ public class ShoppingCartItem implements java.io.Serializable {
                     Boolean validRecurringPriceFound = (Boolean) recurringPriceResult.get("validPriceFound");
                     if (Boolean.TRUE.equals(validRecurringPriceFound)) {
                         if (recurringPriceResult.get("basePrice") != null) {
-                            this.setRecurringBasePrice((Double) recurringPriceResult.get("basePrice"));
+                            this.setRecurringBasePrice((BigDecimal) recurringPriceResult.get("basePrice"));
                         }
                         if (recurringPriceResult.get("price") != null) {
-                            this.setRecurringDisplayPrice((Double) recurringPriceResult.get("price"));
+                            this.setRecurringDisplayPrice((BigDecimal) recurringPriceResult.get("price"));
                         }
                     }
                 }
@@ -1203,31 +1206,31 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Returns the quantity. */
-    public double getQuantity() {
+    public BigDecimal getQuantity() {
         return this.quantity;
     }
 
     /** Returns the reservation start date. */
     public Timestamp getReservStart() {
-        return this.getReservStart(0);
+        return this.getReservStart(BigDecimal.ZERO);
     }
     /** Returns the reservation start date with a number of days added. */
-    public Timestamp getReservStart(double addDays) {
-        if (addDays == 0)
+    public Timestamp getReservStart(BigDecimal addDays) {
+        if (addDays.compareTo(BigDecimal.ZERO) == 0)
                 return this.reservStart;
         else    {
             if(this.reservStart != null)
-                return new Timestamp((long)(this.reservStart.getTime() + (addDays * 86400000.0)));
+                return new Timestamp((long)(this.reservStart.getTime() + (addDays.doubleValue() * 86400000.0)));
             else
                 return null;
         }
     }
     /** Returns the reservation length. */
-    public double getReservLength() {
+    public BigDecimal getReservLength() {
         return this.reservLength;
     }
     /** Returns the reservation number of persons. */
-    public double getReservPersons() {
+    public BigDecimal getReservPersons() {
         return this.reservPersons;
     }
     
@@ -1240,7 +1243,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.accommodationSpotId;
     }
     
-    public double getPromoQuantityUsed() {
+    public BigDecimal getPromoQuantityUsed() {
         if (this.getIsPromo()) {
             return this.quantity;
         } else {
@@ -1248,11 +1251,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-    public double getPromoQuantityAvailable() {
+    public BigDecimal getPromoQuantityAvailable() {
         if (this.getIsPromo()) {
-            return 0;
+            return BigDecimal.ZERO;
         } else {
-            return this.quantity - this.promoQuantityUsed;
+            return this.quantity.subtract(this.promoQuantityUsed);
         }
     }
 
@@ -1268,68 +1271,68 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.quantityUsedPerPromoFailed.entrySet().iterator();
     }
 
-    public synchronized double addPromoQuantityCandidateUse(double quantityDesired, GenericValue productPromoCondAction, boolean checkAvailableOnly) {
-        if (quantityDesired == 0) return 0;
-        double promoQuantityAvailable = this.getPromoQuantityAvailable();
-        double promoQuantityToUse = quantityDesired;
-        if (promoQuantityAvailable > 0) {
-            if (promoQuantityToUse > promoQuantityAvailable) {
+    public synchronized BigDecimal addPromoQuantityCandidateUse(BigDecimal quantityDesired, GenericValue productPromoCondAction, boolean checkAvailableOnly) {
+        if (quantityDesired.compareTo(BigDecimal.ZERO) == 0) return BigDecimal.ZERO;
+        BigDecimal promoQuantityAvailable = this.getPromoQuantityAvailable();
+        BigDecimal promoQuantityToUse = quantityDesired;
+        if (promoQuantityAvailable.compareTo(BigDecimal.ZERO) > 0) {
+            if (promoQuantityToUse.compareTo(promoQuantityAvailable) > 0) {
                 promoQuantityToUse = promoQuantityAvailable;
             }
 
             if (!checkAvailableOnly) {
                 // keep track of candidate promo uses on cartItem
                 GenericPK productPromoCondActionPK = productPromoCondAction.getPrimaryKey();
-                Double existingValue = (Double) this.quantityUsedPerPromoCandidate.get(productPromoCondActionPK);
+                BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoCandidate.get(productPromoCondActionPK);
                 if (existingValue == null) {
-                    this.quantityUsedPerPromoCandidate.put(productPromoCondActionPK, new Double(promoQuantityToUse));
+                    this.quantityUsedPerPromoCandidate.put(productPromoCondActionPK, promoQuantityToUse);
                 } else {
-                    this.quantityUsedPerPromoCandidate.put(productPromoCondActionPK, new Double(promoQuantityToUse + existingValue.doubleValue()));
+                    this.quantityUsedPerPromoCandidate.put(productPromoCondActionPK, promoQuantityToUse.add(existingValue));
                 }
 
-                this.promoQuantityUsed += promoQuantityToUse;
+                this.promoQuantityUsed = this.promoQuantityUsed.add(promoQuantityToUse);
                 //Debug.logInfo("promoQuantityToUse=" + promoQuantityToUse + ", quantityDesired=" + quantityDesired + ", for promoCondAction: " + productPromoCondAction, module);
                 //Debug.logInfo("promoQuantityUsed now=" + promoQuantityUsed, module);
             }
 
             return promoQuantityToUse;
         } else {
-            return 0;
+            return BigDecimal.ZERO;
         }
     }
 
-    public double getPromoQuantityCandidateUse(GenericValue productPromoCondAction) {
+    public BigDecimal getPromoQuantityCandidateUse(GenericValue productPromoCondAction) {
         GenericPK productPromoCondActionPK = productPromoCondAction.getPrimaryKey();
-        Double existingValue = (Double) this.quantityUsedPerPromoCandidate.get(productPromoCondActionPK);
+        BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoCandidate.get(productPromoCondActionPK);
         if (existingValue == null) {
-            return 0;
+            return BigDecimal.ZERO;
         } else {
-            return existingValue.doubleValue();
+            return existingValue;
         }
     }
 
-    public double getPromoQuantityCandidateUseActionAndAllConds(GenericValue productPromoAction) {
-        double totalUse = 0;
+    public BigDecimal getPromoQuantityCandidateUseActionAndAllConds(GenericValue productPromoAction) {
+    	BigDecimal totalUse = BigDecimal.ZERO;
         String productPromoId = productPromoAction.getString("productPromoId");
         String productPromoRuleId = productPromoAction.getString("productPromoRuleId");
 
         GenericPK productPromoActionPK = productPromoAction.getPrimaryKey();
-        Double existingValue = (Double) this.quantityUsedPerPromoCandidate.get(productPromoActionPK);
+        BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoCandidate.get(productPromoActionPK);
         if (existingValue != null) {
-            totalUse = existingValue.doubleValue();
+            totalUse = existingValue;
         }
 
         Iterator entryIter = this.quantityUsedPerPromoCandidate.entrySet().iterator();
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             GenericPK productPromoCondActionPK = (GenericPK) entry.getKey();
-            Double quantityUsed = (Double) entry.getValue();
+            BigDecimal quantityUsed = (BigDecimal) entry.getValue();
             if (quantityUsed != null) {
                 // must be in the same rule and be a condition
                 if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId")) &&
                         productPromoRuleId.equals(productPromoCondActionPK.getString("productPromoRuleId")) &&
                         productPromoCondActionPK.containsKey("productPromoCondSeqId")) {
-                    totalUse += quantityUsed.doubleValue();
+                    totalUse = totalUse.add(quantityUsed);
                 }
             }
         }
@@ -1342,16 +1345,16 @@ public class ShoppingCartItem implements java.io.Serializable {
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             GenericPK productPromoCondActionPK = (GenericPK) entry.getKey();
-            Double quantityUsed = (Double) entry.getValue();
+            BigDecimal quantityUsed = (BigDecimal) entry.getValue();
             if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId")) && productPromoRuleId.equals(productPromoCondActionPK.getString("productPromoRuleId"))) {
                 entryIter.remove();
-                Double existingValue = (Double) this.quantityUsedPerPromoFailed.get(productPromoCondActionPK);
+                BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoFailed.get(productPromoCondActionPK);
                 if (existingValue == null) {
                     this.quantityUsedPerPromoFailed.put(productPromoCondActionPK, quantityUsed);
                 } else {
-                    this.quantityUsedPerPromoFailed.put(productPromoCondActionPK, new Double(quantityUsed.doubleValue() + existingValue.doubleValue()));
+                    this.quantityUsedPerPromoFailed.put(productPromoCondActionPK, quantityUsed.add(existingValue));
                 }
-                this.promoQuantityUsed -= quantityUsed.doubleValue();
+                this.promoQuantityUsed = this.promoQuantityUsed.subtract(quantityUsed);
             }
         }
     }
@@ -1361,14 +1364,14 @@ public class ShoppingCartItem implements java.io.Serializable {
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             GenericPK productPromoCondActionPK = (GenericPK) entry.getKey();
-            Double quantityUsed = (Double) entry.getValue();
+            BigDecimal quantityUsed = (BigDecimal) entry.getValue();
             if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId")) && productPromoRuleId.equals(productPromoCondActionPK.getString("productPromoRuleId"))) {
                 entryIter.remove();
-                Double existingValue = (Double) this.quantityUsedPerPromoActual.get(productPromoCondActionPK);
+                BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoActual.get(productPromoCondActionPK);
                 if (existingValue == null) {
                     this.quantityUsedPerPromoActual.put(productPromoCondActionPK, quantityUsed);
                 } else {
-                    this.quantityUsedPerPromoActual.put(productPromoCondActionPK, new Double(quantityUsed.doubleValue() + existingValue.doubleValue()));
+                    this.quantityUsedPerPromoActual.put(productPromoCondActionPK, quantityUsed.add(existingValue));
                 }
             }
         }
@@ -1378,7 +1381,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.quantityUsedPerPromoActual.clear();
         this.quantityUsedPerPromoCandidate.clear();
         this.quantityUsedPerPromoFailed.clear();
-        this.promoQuantityUsed = this.getIsPromo() ? this.quantity : 0;
+        this.promoQuantityUsed = this.getIsPromo() ? this.quantity : BigDecimal.ZERO;
     }
 
     /** Sets the item comment. */
@@ -1678,25 +1681,25 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Returns the item's unit weight */
-    public double getWeight() {
+    public BigDecimal getWeight() {
         GenericValue product = getProduct();
         if (product != null) {
-            Double weight = product.getDouble("weight");
+        	BigDecimal weight = product.getBigDecimal("weight");
 
             // if the weight is null, see if there is an associated virtual product and get the weight of that product
             if (weight == null) {
                 GenericValue parentProduct = this.getParentProduct();
-                if (parentProduct != null) weight = parentProduct.getDouble("weight");
+                if (parentProduct != null) weight = parentProduct.getBigDecimal("weight");
             }
 
             if (weight == null) {
-                return 0;
+                return BigDecimal.ZERO;
             } else {
-                return weight.doubleValue();
+                return weight;
             }
         } else {
             // non-product items have 0 weight
-            return 0;
+            return BigDecimal.ZERO;
         }
     }
 
@@ -1784,35 +1787,35 @@ public class ShoppingCartItem implements java.io.Serializable {
    }
 
     /** Returns the item's size (length + girth) */
-    public double getSize() {
+    public BigDecimal getSize() {
         GenericValue product = getProduct();
         if (product != null) {
-            Double height = product.getDouble("shippingHeight");
-            Double width = product.getDouble("shippingWidth");
-            Double depth = product.getDouble("shippingDepth");
+        	BigDecimal height = product.getBigDecimal("shippingHeight");
+        	BigDecimal width = product.getBigDecimal("shippingWidth");
+        	BigDecimal depth = product.getBigDecimal("shippingDepth");
 
             // if all are null, see if there is an associated virtual product and get the info of that product
             if (height == null && width == null && depth == null) {
                 GenericValue parentProduct = this.getParentProduct();
                 if (parentProduct != null) {
-                    height = parentProduct.getDouble("shippingHeight");
-                    width = parentProduct.getDouble("shippingWidth");
-                    depth = parentProduct.getDouble("shippingDepth");
+                    height = parentProduct.getBigDecimal("shippingHeight");
+                    width = parentProduct.getBigDecimal("shippingWidth");
+                    depth = parentProduct.getBigDecimal("shippingDepth");
                 }
             }
 
-            if (height == null) height = new Double(0);
-            if (width == null) width = new Double(0);
-            if (depth == null) depth = new Double(0);
+            if (height == null) height = BigDecimal.ZERO;
+            if (width == null) width = BigDecimal.ZERO;
+            if (depth == null) depth = BigDecimal.ZERO;
 
             // determine girth (longest field is length)
-            double[] sizeInfo = { height.doubleValue(), width.doubleValue(), depth.doubleValue() };
+            BigDecimal[] sizeInfo = { height, width, depth };
             Arrays.sort(sizeInfo);
 
-            return (sizeInfo[0] * 2) + (sizeInfo[1] * 2) + sizeInfo[2];
+            return ( sizeInfo[0].add(sizeInfo[0]) ).add( sizeInfo[1].add(sizeInfo[1]) ).add(sizeInfo[2]);
         } else {
             // non-product items have 0 size
-            return 0;
+            return BigDecimal.ZERO;
         }
     }
 
@@ -1820,75 +1823,75 @@ public class ShoppingCartItem implements java.io.Serializable {
     public Map getItemProductInfo() {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", this.getProductId());
-        itemInfo.put("weight", new Double(this.getWeight()));
-        itemInfo.put("size",  new Double(this.getSize()));
+        itemInfo.put("weight", this.getWeight());
+        itemInfo.put("size", this.getSize());
         itemInfo.put("piecesIncluded", new Long(this.getPiecesIncluded()));
         itemInfo.put("featureSet", this.getFeatureSet());
         GenericValue product = getProduct();
         if (product != null) {
             itemInfo.put("inShippingBox", product.getString("inShippingBox"));
             if (product.getString("inShippingBox") != null && product.getString("inShippingBox").equals("Y")){
-                itemInfo.put("shippingHeight", product.getDouble("shippingHeight"));
-                itemInfo.put("shippingWidth", product.getDouble("shippingWidth"));
-                itemInfo.put("shippingDepth", product.getDouble("shippingDepth"));
+                itemInfo.put("shippingHeight", product.getBigDecimal("shippingHeight"));
+                itemInfo.put("shippingWidth", product.getBigDecimal("shippingWidth"));
+                itemInfo.put("shippingDepth", product.getBigDecimal("shippingDepth"));
             }
         }
         return itemInfo;
     }
 
     /** Returns the base price. */
-    public double getBasePrice() {
-        double curBasePrice;
-        if (selectedAmount > 0) {
-            curBasePrice = basePrice * selectedAmount;
+    public BigDecimal getBasePrice() {
+    	BigDecimal curBasePrice;
+        if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
+            curBasePrice = basePrice.multiply(selectedAmount);
         } else {
             curBasePrice = basePrice;
         }
         return curBasePrice;
     }
     
-    public double getDisplayPrice() {
-        double curDisplayPrice;
+    public BigDecimal getDisplayPrice() {
+    	BigDecimal curDisplayPrice;
         if (this.displayPrice == null) {
             curDisplayPrice = this.getBasePrice();
         } else {
-            if (selectedAmount > 0) {
-                curDisplayPrice = this.displayPrice.doubleValue() * this.selectedAmount;
+            if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
+                curDisplayPrice = this.displayPrice.multiply(this.selectedAmount);
             } else {
-                curDisplayPrice = this.displayPrice.doubleValue();
+                curDisplayPrice = this.displayPrice;
             }
         }
         return curDisplayPrice;
     }
     
-    public Double getSpecialPromoPrice() {
+    public BigDecimal getSpecialPromoPrice() {
         return this.specialPromoPrice;
     }
 
-    public Double getRecurringBasePrice() {
+    public BigDecimal getRecurringBasePrice() {
         if (this.recurringBasePrice == null) return null;
         
-        if (selectedAmount > 0) {
-            return new Double(this.recurringBasePrice.doubleValue() * selectedAmount);
+        if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
+            return this.recurringBasePrice.multiply(selectedAmount);
         } else {
             return this.recurringBasePrice;
         }
     }
     
-    public Double getRecurringDisplayPrice() {
+    public BigDecimal getRecurringDisplayPrice() {
         if (this.recurringDisplayPrice == null) {
             return this.getRecurringBasePrice();
         }
 
-        if (selectedAmount > 0) {
-            return new Double(this.recurringDisplayPrice.doubleValue() * this.selectedAmount);
+        if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
+            return this.recurringDisplayPrice.multiply(this.selectedAmount);
         } else {
             return this.recurringDisplayPrice;
         }
     }
     
     /** Returns the list price. */
-    public double getListPrice() {
+    public BigDecimal getListPrice() {
         return listPrice;
     }
 
@@ -1903,87 +1906,87 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** get the percentage for the second person */
-    public double getReserv2ndPPPerc() {
+    public BigDecimal getReserv2ndPPPerc() {
         return reserv2ndPPPerc;
     }
 
     /** get the percentage for the third and following person */
-    public double getReservNthPPPerc() {
+    public BigDecimal getReservNthPPPerc() {
         return reservNthPPPerc;
     }
 
 
     /** Returns the "other" adjustments. */
-    public double getOtherAdjustments() {
-        return OrderReadHelper.calcItemAdjustments(new BigDecimal(quantity), new BigDecimal(getBasePrice()), this.getAdjustments(), true, false, false, false, false).doubleValue();
+    public BigDecimal getOtherAdjustments() {
+        return OrderReadHelper.calcItemAdjustments(quantity, getBasePrice(), this.getAdjustments(), true, false, false, false, false);
     }
 
     /** Returns the "other" adjustments. */
-    public double getOtherAdjustmentsRecurring() {
-        return OrderReadHelper.calcItemAdjustmentsRecurringBd(new BigDecimal(quantity), new BigDecimal(getRecurringBasePrice() == null ? 0.0 : getRecurringBasePrice().doubleValue()), this.getAdjustments(), true, false, false, false, false).doubleValue();
+    public BigDecimal getOtherAdjustmentsRecurring() {
+        return OrderReadHelper.calcItemAdjustmentsRecurringBd(quantity, getRecurringBasePrice() == null ? BigDecimal.ZERO : getRecurringBasePrice(), this.getAdjustments(), true, false, false, false, false);
     }
 
     /** calculates for a reservation the percentage/100 extra for more than 1 person. */
     // similar code at EditShoppingList.groovy
-    public double getRentalAdjustment() {
+    public BigDecimal getRentalAdjustment() {
         if (!"RENTAL_ORDER_ITEM".equals(this.itemType)) {
             // not a rental item?
-            return 1;
+            return BigDecimal.ONE;
         }
-        double persons = this.getReservPersons();
-        double rentalValue = 0;
-        if (persons > 1)    {
-            if (persons > 2 ) {
-                persons -= 2;
-                if(getReservNthPPPerc() > 0) {
-                    rentalValue = persons * getReservNthPPPerc();
+        BigDecimal persons = this.getReservPersons();
+        BigDecimal rentalValue = BigDecimal.ZERO;
+        if (persons.compareTo(BigDecimal.ONE) > 0)    {
+            if (persons.compareTo(new BigDecimal("2")) > 0 ) {
+                persons = persons.subtract(new BigDecimal("2"));
+                if(getReservNthPPPerc().compareTo(BigDecimal.ZERO) > 0) {
+                    rentalValue = persons.multiply(getReservNthPPPerc());
                 } else {
-                    rentalValue = persons * getReserv2ndPPPerc();
+                    rentalValue = persons.multiply(getReserv2ndPPPerc());
                 }
-                persons = 2;
+                persons = new BigDecimal("2");
             }
-            if (persons == 2) {
-                rentalValue += getReserv2ndPPPerc();
+            if (persons.compareTo(new BigDecimal("2")) == 0) {
+                rentalValue = rentalValue.add(getReserv2ndPPPerc());
             }
         }
-        rentalValue += 100;    // add final 100 percent for first person
+        rentalValue = rentalValue.add(new BigDecimal("100"));    // add final 100 percent for first person
         //     Debug.log("rental parameters....Nbr of persons:" + getReservPersons() + " extra% 2nd person:" + getReserv2ndPPPerc()+ " extra% Nth person:" + getReservNthPPPerc() + "  total rental adjustment:" + rentalValue/100 * getReservLength() );
-        return rentalValue/100 * getReservLength(); // return total rental adjustment
+        return rentalValue.movePointLeft(2).multiply(getReservLength()); // return total rental adjustment
     }
 
     /** Returns the total line price. */
-    public double getItemSubTotal(double quantity) {
+    public BigDecimal getItemSubTotal(BigDecimal quantity) {
 //        Debug.logInfo("Price" + getBasePrice() + " quantity" +  quantity + " Rental adj:" + getRentalAdjustment() + " other adj:" + getOtherAdjustments(), module);
-          return (getBasePrice() * quantity * getRentalAdjustment()) + getOtherAdjustments();
+          return getBasePrice().multiply(quantity).multiply(getRentalAdjustment()).add(getOtherAdjustments());
     }
 
-    public double getItemSubTotal() {
+    public BigDecimal getItemSubTotal() {
         return this.getItemSubTotal(this.getQuantity());
     }
 
-    public double getDisplayItemSubTotal() {
-        return (this.getDisplayPrice() * this.getQuantity() * this.getRentalAdjustment()) + this.getOtherAdjustments();
+    public BigDecimal getDisplayItemSubTotal() {
+        return this.getDisplayPrice().multiply(this.getQuantity()).multiply(this.getRentalAdjustment()).add(this.getOtherAdjustments());
     }
     
-    public double getDisplayItemSubTotalNoAdj() {
-        return this.getDisplayPrice() * this.getQuantity();
+    public BigDecimal getDisplayItemSubTotalNoAdj() {
+        return this.getDisplayPrice().multiply(this.getQuantity());
     }
 
-    public double getDisplayItemRecurringSubTotal() {
-        Double curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+    public BigDecimal getDisplayItemRecurringSubTotal() {
+    	BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
         
         if (curRecurringDisplayPrice == null) {
             return this.getOtherAdjustmentsRecurring();
         }
         
-        return (curRecurringDisplayPrice.doubleValue() * this.getQuantity()) + this.getOtherAdjustmentsRecurring();
+        return curRecurringDisplayPrice.multiply(this.getQuantity()).add(this.getOtherAdjustmentsRecurring());
     }
 
-    public double getDisplayItemRecurringSubTotalNoAdj() {
-        Double curRecurringDisplayPrice = this.getRecurringDisplayPrice();
-        if (curRecurringDisplayPrice == null) return 0.0;
+    public BigDecimal getDisplayItemRecurringSubTotalNoAdj() {
+    	BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+        if (curRecurringDisplayPrice == null) return BigDecimal.ZERO;
         
-        return curRecurringDisplayPrice.doubleValue() * this.getQuantity();
+        return curRecurringDisplayPrice.multiply(this.getQuantity());
     }
 
     public void addAllProductFeatureAndAppls(Map productFeatureAndApplsToAdd) {
@@ -2011,17 +2014,16 @@ public class ShoppingCartItem implements java.io.Serializable {
         orderAdjustment.set("productFeatureId", additionalProductFeatureAndAppl.get("productFeatureId"));
 
         // NOTE: this is a VERY simple pricing scheme for additional features and will likely need to be extended for most real applications
-        double amount = 0;
-        Double amountDbl = (Double) additionalProductFeatureAndAppl.get("amount");
-        if (amountDbl != null) {
-            amount = amountDbl.doubleValue() * this.getQuantity();
+        BigDecimal amount = (BigDecimal) additionalProductFeatureAndAppl.get("amount");
+        if (amount != null) {
+            amount = amount.multiply(this.getQuantity());
         }
-        orderAdjustment.set("amount", new Double(amount));
+        orderAdjustment.set("amount", amount);
 
-        Double recurringAmountDbl = (Double) additionalProductFeatureAndAppl.get("recurringAmount");
-        if (recurringAmountDbl != null) {
-            double recurringAmount = recurringAmountDbl.doubleValue() * this.getQuantity();
-            orderAdjustment.set("recurringAmount", new Double(recurringAmount));
+        BigDecimal recurringAmount = (BigDecimal) additionalProductFeatureAndAppl.get("recurringAmount");
+        if (recurringAmount != null) {
+        	recurringAmount = recurringAmount.multiply(this.getQuantity());
+            orderAdjustment.set("recurringAmount", recurringAmount);
             //Debug.logInfo("Setting recurringAmount " + recurringAmount + " for " + orderAdjustment, module);
         }
 
@@ -2051,7 +2053,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.additionalProductFeatureAndAppls;
     }
 
-    public Map getFeatureIdQtyMap(double quantity) {
+    public Map getFeatureIdQtyMap(BigDecimal quantity) {
         Map featureMap = FastMap.newInstance();
         GenericValue product = this.getProduct();
         if (product != null) {
@@ -2068,11 +2070,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Iterator fai = featureAppls.iterator();
                 while (fai.hasNext()) {
                     GenericValue appl = (GenericValue) fai.next();
-                    Double lastQuantity = (Double) featureMap.get(appl.getString("productFeatureId"));
+                    BigDecimal lastQuantity = (BigDecimal) featureMap.get(appl.getString("productFeatureId"));
                     if (lastQuantity == null) {
-                        lastQuantity = new Double(0);
+                        lastQuantity = BigDecimal.ZERO;
                     }
-                    Double newQuantity = new Double(lastQuantity.doubleValue() + quantity);
+                    BigDecimal newQuantity = lastQuantity.add(quantity);
                     featureMap.put(appl.getString("productFeatureId"), newQuantity);
                 }
             }
@@ -2081,11 +2083,11 @@ public class ShoppingCartItem implements java.io.Serializable {
             Iterator aapi = this.additionalProductFeatureAndAppls.values().iterator();
             while (aapi.hasNext()) {
                 GenericValue appl = (GenericValue) aapi.next();
-                Double lastQuantity = (Double) featureMap.get(appl.getString("productFeatureId"));
+                BigDecimal lastQuantity = (BigDecimal) featureMap.get(appl.getString("productFeatureId"));
                 if (lastQuantity == null) {
-                    lastQuantity = new Double(0);
+                    lastQuantity = BigDecimal.ZERO;
                 }
-                Double newQuantity = new Double(lastQuantity.doubleValue() + quantity);
+                BigDecimal newQuantity = lastQuantity.add(quantity);
                 featureMap.put(appl.getString("productFeatureId"), newQuantity);
             }
         }
@@ -2216,27 +2218,27 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Compares the specified object with this cart item. Defaults isPromo to false. Default to no itemGroup. */
-    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, double selectedAmount) {
+    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount) {
         return equals(productId, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, null, false);
     }
 
     /** Compares the specified object with this cart item. Defaults isPromo to false. */
-    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, double selectedAmount) {
-        return equals(productId, null, 0.00, 0.00, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
+    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, BigDecimal selectedAmount) {
+        return equals(productId, null, BigDecimal.ZERO, BigDecimal.ZERO, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
     }
     /** Compares the specified object with this cart item including rental data. Defaults isPromo to false. */
-    public boolean equals(String productId, Timestamp reservStart, double reservLength, double reservPersons, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, double selectedAmount) {
+    public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, BigDecimal selectedAmount) {
         return equals(productId, reservStart, reservLength, reservPersons, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
     }
     
     /** Compares the specified object with this cart item. Defaults isPromo to false. */
-    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, double selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
-        return equals(productId, null, 0.00, 0.00, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, itemType, itemGroup, isPromo);
+    public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
+        return equals(productId, null, BigDecimal.ZERO, BigDecimal.ZERO, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, itemType, itemGroup, isPromo);
     }
 
     /** Compares the specified object with this cart item. */
-    public boolean equals(String productId, Timestamp reservStart, double reservLength, double reservPersons, String accommodationMapId, String accommodationSpotId,
-            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, double selectedAmount, 
+    public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount, 
             ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         if (this.productId == null || productId == null) {
             // all non-product items are unique
@@ -2377,17 +2379,17 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public void explodeItem(ShoppingCart cart, LocalDispatcher dispatcher) throws CartItemModifyException {
-        double baseQuantity = this.getQuantity();
+    	BigDecimal baseQuantity = this.getQuantity();
         int thisIndex = cart.items().indexOf(this);
         List newItems = new ArrayList();
 
-        if (baseQuantity > 1) {
-            for (int i = 1; i < baseQuantity; i++) {
+        if (baseQuantity.compareTo(BigDecimal.ONE) > 1) {
+            for (int i = 1; i < baseQuantity.intValue(); i++) {
                 // clone the item
                 ShoppingCartItem item = new ShoppingCartItem(this);
 
                 // set the new item's quantity
-                item.setQuantity(1, dispatcher, cart, false);
+                item.setQuantity(BigDecimal.ONE, dispatcher, cart, false);
 
                 // now copy/calc the adjustments
                 Debug.logInfo("Clone's adj: " + item.getAdjustments(), module);
@@ -2401,11 +2403,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (adjustment != null) {
                             item.removeAdjustment(adjustment);
                             GenericValue newAdjustment = GenericValue.create(adjustment);
-                            Double adjAmount = newAdjustment.getDouble("amount");
+                            BigDecimal adjAmount = newAdjustment.getBigDecimal("amount");
 
                             // we use != becuase adjustments can be +/-
-                            if (adjAmount != null && adjAmount.doubleValue() != 0.00)
-                                newAdjustment.set("amount", new Double(adjAmount.doubleValue() / baseQuantity));
+                            if (adjAmount != null && adjAmount.compareTo(BigDecimal.ZERO) != 0)
+                                newAdjustment.set("amount", adjAmount.divide(baseQuantity, generalRounding));
                             Debug.logInfo("Cloned adj: " + newAdjustment, module);
                             item.addAdjustment(newAdjustment);
                         } else {
@@ -2417,7 +2419,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
 
             // set this item's quantity
-            this.setQuantity(1, dispatcher, cart, false);
+            this.setQuantity(BigDecimal.ONE, dispatcher, cart, false);
 
             Debug.logInfo("BaseQuantity: " + baseQuantity, module);
             Debug.logInfo("Item's Adj: " + this.getAdjustments(), module);
@@ -2433,11 +2435,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                     if (adjustment != null) {
                         this.removeAdjustment(adjustment);
                         GenericValue newAdjustment = GenericValue.create(adjustment);
-                        Double adjAmount = newAdjustment.getDouble("amount");
+                        BigDecimal adjAmount = newAdjustment.getBigDecimal("amount");
 
                         // we use != becuase adjustments can be +/-
-                        if (adjAmount != null && adjAmount.doubleValue() != 0.00)
-                            newAdjustment.set("amount", new Double(adjAmount.doubleValue() / baseQuantity));
+                        if (adjAmount != null && adjAmount.compareTo(BigDecimal.ZERO) != 0)
+                            newAdjustment.set("amount", adjAmount.divide(baseQuantity, generalRounding));
                         Debug.logInfo("Updated adj: " + newAdjustment, module);
                         this.addAdjustment(newAdjustment);
                     }

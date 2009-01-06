@@ -84,7 +84,7 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -101,7 +101,7 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -120,12 +120,12 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
-        <attribute name="cashBack" type="Double" mode="OUT" optional="true"/>
+        <attribute name="cashBack" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -139,12 +139,12 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
-        <attribute name="cashBack" type="Double" mode="OUT" optional="true"/>
+        <attribute name="cashBack" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -158,8 +158,8 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -176,8 +176,8 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -196,7 +196,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -211,7 +211,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="history" type="List" mode="OUT" optional="true"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
@@ -226,8 +226,8 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -244,8 +244,8 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
-        <attribute name="previousAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="previousAmount" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
@@ -265,7 +265,7 @@ under the License.
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
-        <attribute name="amount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -280,7 +280,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
-        <attribute name="balance" type="Double" mode="OUT" optional="true"/>
+        <attribute name="balance" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="expireDate" type="String" mode="OUT" optional="true"/>
         <attribute name="cardClass" type="String" mode="OUT" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>

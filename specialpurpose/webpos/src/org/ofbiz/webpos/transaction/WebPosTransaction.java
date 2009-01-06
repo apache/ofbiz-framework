@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webpos.transaction;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -171,9 +172,9 @@ public class WebPosTransaction {
         }
     }
     
-    public void modifyPrice(String productId, double price) {
+    public void modifyPrice(String productId, BigDecimal price) {
         Debug.logInfo("Modify item price " + productId + "/" + price, module);
-        ShoppingCartItem item = getCart().findCartItem(productId, null, null, null, 0.00);
+        ShoppingCartItem item = getCart().findCartItem(productId, null, null, null, BigDecimal.ZERO);
         if (UtilValidate.isNotEmpty(item)) {
             item.setBasePrice(price);
         } else {
@@ -189,12 +190,12 @@ public class WebPosTransaction {
         }
     }
     
-    public double processSale() throws GeneralException {
+    public BigDecimal processSale() throws GeneralException {
         //TODO insert check if not enough funds
         Debug.log("process sale", module);
-        double grandTotal = this.getGrandTotal();
-        double paymentAmt = this.getPaymentTotal();
-        if (grandTotal > paymentAmt) {
+        BigDecimal grandTotal = this.getGrandTotal();
+        BigDecimal paymentAmt = this.getPaymentTotal();
+        if (grandTotal.compareTo(paymentAmt) > 0) {
             throw new IllegalStateException();
         }
         
@@ -233,7 +234,7 @@ public class WebPosTransaction {
         }
         
         // get the change due
-        double change = (grandTotal - paymentAmt);
+        BigDecimal change = grandTotal.subtract(paymentAmt);
         
         // notify the change due
         //output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
@@ -355,25 +356,25 @@ public class WebPosTransaction {
         return INTERNAL_PAYMENT;
     }
     
-    public double addPayment(String id, double amount) {
+    public BigDecimal addPayment(String id, BigDecimal amount) {
         return this.addPayment(id, amount, null, null);
     }
     
-    public double addPayment(String id, double amount, String refNum, String authCode) {
+    public BigDecimal addPayment(String id, BigDecimal amount, String refNum, String authCode) {
         Debug.logInfo("Added payment " + id + "/" + amount, module);
         if ("CASH".equals(id)) {
             // clear cash payments first; so there is only one
             getCart().clearPayment(id);
         }
-        getCart().addPaymentAmount(id, new Double(amount), refNum, authCode, true, true, false);
+        getCart().addPaymentAmount(id, amount, refNum, authCode, true, true, false);
         return this.getTotalDue();
     }
     
-    public double processAmount(String amtStr) throws GeneralException {
-        double amount;
+    public BigDecimal processAmount(String amtStr) throws GeneralException {
+    	BigDecimal amount;
         if (UtilValidate.isNotEmpty(amtStr)) {
             try {
-                amount = Double.parseDouble(amtStr);
+                amount = new BigDecimal(amtStr);
             } catch (NumberFormatException e) {
                 Debug.logError("Invalid number for amount : " + amtStr, module);
                 throw new GeneralException();
@@ -381,7 +382,7 @@ public class WebPosTransaction {
         } else {
             Debug.log("Amount is empty; assumption is full amount : " + this.getTotalDue(), module);
             amount = this.getTotalDue();
-            if (amount <= 0) {
+            if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                 throw new GeneralException();
             }
         }
@@ -390,7 +391,7 @@ public class WebPosTransaction {
     
     public synchronized void processNoPayment(String paymentMethodTypeId) {
         try {
-            double amount = processAmount(null);
+        	BigDecimal amount = processAmount(null);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
             
             // add the payment
@@ -407,7 +408,7 @@ public class WebPosTransaction {
         }
         
         try {
-            double amount = processAmount(amountStr);
+        	BigDecimal amount = processAmount(amountStr);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
             
             // add the payment
@@ -484,26 +485,26 @@ public class WebPosTransaction {
         inf.postalCode = postalCode;
     }
     
-    public double getTaxTotal() {
+    public BigDecimal getTaxTotal() {
         return getCart().getTotalSalesTax();
     }
     
-    public double getGrandTotal() {
-        return UtilFormatOut.formatPriceNumber(getCart().getGrandTotal()).doubleValue();
+    public BigDecimal getGrandTotal() {
+        return getCart().getGrandTotal();
     }
     
     public int getNumberOfPayments() {
         return getCart().selectedPayments();
     }
     
-    public double getPaymentTotal() {
-        return UtilFormatOut.formatPriceNumber(getCart().getPaymentTotal()).doubleValue();
+    public BigDecimal getPaymentTotal() {
+        return getCart().getPaymentTotal();
     }
     
-    public double getTotalDue() {
-        double grandTotal = this.getGrandTotal();
-        double paymentAmt = this.getPaymentTotal();
-        return (grandTotal - paymentAmt);
+    public BigDecimal getTotalDue() {
+    	BigDecimal grandTotal = this.getGrandTotal();
+    	BigDecimal paymentAmt = this.getPaymentTotal();
+        return grandTotal.subtract(paymentAmt);
     }
     
     public String addProductPromoCode(String code) {

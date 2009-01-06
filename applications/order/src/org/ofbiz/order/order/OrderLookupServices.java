@@ -456,11 +456,11 @@ public class OrderLookupServices {
             paramList.add("hasBackOrders=" + hasBackOrders);
             if ("Y".equals(hasBackOrders)) {
                 conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-                conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0)));
+                conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
             } else if ("N".equals(hasBackOrders)) {
                 List orExpr = FastList.newInstance();
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, null));
-                orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, new Double(0)));
+                orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, BigDecimal.ZERO));
                 conditions.add(EntityCondition.makeCondition(orExpr, EntityOperator.OR));
             }
         }

@@ -59,12 +59,12 @@ context.paymentsActualCurrency = getPayments(payments, true);
 List getPayments(List payments, boolean actual) {
 	if (payments)    {
 		paymentList = [];  // to pass back to the screeen list of unapplied payments
-		invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice);
-		invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice);
+		invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice);
+		invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice);
 		invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
 		payments.each { payment ->
 			paymentMap = [:];
-            paymentApplied = PaymentWorker.getPaymentAppliedBd(payment, true);
+            paymentApplied = PaymentWorker.getPaymentApplied(payment, true);
 			if (actual) {
 				paymentMap.amount = payment.actualCurrencyAmount;
 				paymentMap.currencyUomId = payment.actualCurrencyUomId;

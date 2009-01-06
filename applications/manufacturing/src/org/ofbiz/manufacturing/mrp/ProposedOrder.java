@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.mrp;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +59,10 @@ public class ProposedOrder {
     protected String mrpName;
     protected Timestamp requiredByDate;
     protected Timestamp requirementStartDate;
-    protected double quantity;
+    protected BigDecimal quantity;
     
     
-    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity) {
+    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, BigDecimal quantity) {
         this.product = product;
         this.productId = product.getString("productId");
         this.facilityId = facilityId;
@@ -75,7 +76,7 @@ public class ProposedOrder {
      * get the quantity property.
      * @return the quantity property
      **/
-    public double getQuantity(){
+    public BigDecimal getQuantity(){
         return quantity;
     }
     /**
@@ -202,10 +203,10 @@ public class ProposedOrder {
      * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity < reorderQuantity) quantity = reorderQuantity;
      **/
     // FIXME: facilityId
-    public void calculateQuantityToSupply(double reorderQuantity, double minimumStock, ListIterator  listIterIEP){
+    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator  listIterIEP){
         //      TODO : use a better algorithm using Order management cost et Product Stock cost to calculate the re-order quantity
         //                     the variable listIterIEP will be used for that
-        if (quantity < reorderQuantity) {
+        if (quantity.compareTo(reorderQuantity) < 0) {
             quantity = reorderQuantity;
         }
         /*
@@ -243,7 +244,7 @@ public class ProposedOrder {
         parameters.put("facilityId", (isBuilt? manufacturingFacilityId: facilityId));
         parameters.put("requiredByDate", requiredByDate);
         parameters.put("requirementStartDate", requirementStartDate);
-        parameters.put("quantity", new Double(quantity));
+        parameters.put("quantity", quantity);
         parameters.put("requirementTypeId", (isBuilt? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
         if (mrpName != null) {
             parameters.put("description", "MRP_" + mrpName);

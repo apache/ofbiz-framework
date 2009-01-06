@@ -31,7 +31,7 @@ under the License.
         <attribute name="fromGroupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="toGroupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="itemIndex" type="Integer" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="clearEmptyGroups" type="Boolean" mode="IN" optional="true"/>
     </service>
 
@@ -81,7 +81,7 @@ under the License.
         <description>Sets the ShoppingCart Payment Options</description>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="paymentInfoId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="refNum" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -121,15 +121,15 @@ under the License.
             location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartData">
         <description>Get the ShoppingCart data</description>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
-        <attribute name="totalQuantity" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalQuantity" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="currencyIsoCode" type="String" mode="OUT" optional="true"/>
-        <attribute name="subTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="subTotal" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="subTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
-        <attribute name="totalShipping" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalShipping" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="totalShippingCurrencyFormatted" type="String" mode="OUT" optional="true"/>
-        <attribute name="totalSalesTax" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalSalesTax" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="totalSalesTaxCurrencyFormatted" type="String" mode="OUT" optional="true"/>
-        <attribute name="displayGrandTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="displayGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="displayGrandTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="cartItemData" type="Map" mode="OUT"/>
         <attribute name="displayOrderAdjustmentsTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>

@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -740,10 +741,10 @@ public class ImportOrdersFromEbay {
             }
             
             String amountStr = (String) parameters.get("amountPaid");
-            Double amountPaid = new Double(0);
+            BigDecimal amountPaid = BigDecimal.ZERO;
             
             if (UtilValidate.isNotEmpty(amountStr)) {
-                amountPaid = new Double(amountStr);
+                amountPaid = new BigDecimal(amountStr);
             } 
             
             // add the payment EXT_BAY for the paid amount
@@ -775,8 +776,8 @@ public class ImportOrdersFromEbay {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.paymentIsStillNotReceived", locale));
             } 
             
-            Double unitPrice = new Double((String) parameters.get("transactionPrice"));
-            double quantity = new Double((String) parameters.get("quantityPurchased")).doubleValue();
+            BigDecimal unitPrice = new BigDecimal((String) parameters.get("transactionPrice"));
+            BigDecimal quantity = new BigDecimal((String) parameters.get("quantityPurchased"));
             cart.addItemToEnd(productId, null, quantity, unitPrice, null, null, null, "PRODUCT_ORDER_ITEM", dispatcher, Boolean.FALSE, Boolean.FALSE);
            
             // set partyId from

@@ -703,7 +703,7 @@
                 <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_CURRENCY">
-                <set field="responseAnswer.currencyResponse" from-field="answers.${currentFieldName}" type="Double"/>
+                <set field="responseAnswer.currencyResponse" from-field="answers.${currentFieldName}" type="BigDecimal"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_FLOAT">
                 <set field="responseAnswer.floatResponse" from-field="answers.${currentFieldName}" type="Double"/>

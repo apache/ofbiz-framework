@@ -22,6 +22,7 @@ under the License.
 <%@ page import="org.ofbiz.entity.*" %>
 <%@ page import="org.ofbiz.base.util.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.math.BigDecimal" %>
 
 <jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
 
@@ -59,7 +60,7 @@ under the License.
           int wordNum = (int)(Math.random()*(longWordBag.length-1));
           longDesc += (" " + longWordBag[wordNum]);
         }
-        Double price = new Double(2.99 + prod);
+        BigDecimal price = new BigDecimal("2.99").add(BigDecimal.valueOf(prod));
         GenericValue product = delegator.create("Product", UtilMisc.toMap("productId", "" + (cat*100 + prod), "primaryProductCategoryId", "" + (cat), "productName", "Product " + "" + (cat*100 + prod), "description", desc, "longDescription", longDesc, "defaultPrice", price));
         KeywordIndex.indexKeywords(product);
         delegator.create("ProductCategoryMember", UtilMisc.toMap("productId", "" + (cat*100 + prod), "productCategoryId", "" + (cat)));

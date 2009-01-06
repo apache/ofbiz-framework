@@ -64,7 +64,7 @@ under the License.
         <description>UPS On-Line rate inquire tool.  Also supports rate shopping by setting upsRateInquireMode to 'Shop', and upsRateCodeMap
             will return a Map of serviceCode -> rate</description>
         <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
-        <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
+        <attribute name="initialEstimateAmt" type="BigDecimal" mode="IN" optional="true"/>
         <!-- The postal code must not be required or service validation could create an exception and break other things.  It will
         be checked in the service and a Failure (not Error) will be returned if it is null -->
         <attribute name="shippingPostalCode" type="String" mode="IN" optional="true"/>
@@ -75,10 +75,10 @@ under the License.
         <!-- Passing in a list of package weights will override the splitting of packages and calculation of package weights by item -->
         <attribute name="packageWeights" type="List" mode="IN" optional="true"/>
         <attribute name="shippableItemInfo" type="List" mode="IN" optional="false"/>
-        <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
-        <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
-        <attribute name="shippableTotal" type="Double" mode="IN" optional="false"/>
-        <attribute name="shippingEstimateAmount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="shippableWeight" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippableQuantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippableTotal" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippingEstimateAmount" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="upsRateInquireMode" type="String" mode="IN" optional="true"/>
         <attribute name="upsRateCodeMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="isResidentialAddress" type="String" mode="IN" optional="true"/>

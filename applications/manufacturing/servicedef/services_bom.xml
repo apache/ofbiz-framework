@@ -110,8 +110,8 @@ under the License.
         <attribute mode="IN" name="type" optional="true" type="Integer"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="bomType" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
-        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="amount" optional="true" type="BigDecimal"/>
         <attribute mode="OUT" name="tree" optional="true" type="org.ofbiz.manufacturing.bom.BOMTree"/>
     </service>
 
@@ -119,8 +119,8 @@ under the License.
             location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getManufacturingComponents">
         <description>Returns the product's routing id and the components of a given product (if necessary, running the configurator).</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
-        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="amount" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="excludeWIPs" optional="true" type="Boolean"/>
         <attribute mode="OUT" name="workEffortId" optional="true" type="String"/>
@@ -132,7 +132,7 @@ under the License.
             location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getProductsInPackages">
         <description>Returns the components (that needs to be packaged) of a given product (if necessary, running the configurator).</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="OUT" name="productsInPackages" optional="false" type="java.util.List"/>
     </service>
@@ -140,8 +140,8 @@ under the License.
                 location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getNotAssembledComponents" auth="true">
         <description>Explodes a product id and returns all the components that are not manufactured on customer order: these components will be taken from warehouse.</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
-        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="amount" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="OUT" name="notAssembledComponents" type="java.util.List"/>
     </service>

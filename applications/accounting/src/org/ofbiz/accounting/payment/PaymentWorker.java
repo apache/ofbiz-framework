@@ -233,13 +233,13 @@ public class PaymentWorker {
     /**
      * Method to return the total amount of an payment which is applied to a payment
      * @param payment GenericValue object of the Payment
-     * @return the applied total as double
+     * @return the applied total as BigDecimal
      */
-    public static double getPaymentApplied(GenericDelegator delegator, String paymentId) {
-        return getPaymentAppliedBd(delegator, paymentId, false).doubleValue(); 
+    public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId) {
+        return getPaymentApplied(delegator, paymentId, false); 
     }
     
-    public static BigDecimal getPaymentAppliedBd(GenericDelegator delegator, String paymentId, Boolean actual) {
+    public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -255,7 +255,7 @@ public class PaymentWorker {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
         
-        return getPaymentAppliedBd(payment, actual);
+        return getPaymentApplied(payment, actual);
     }
     /**
      * Method to return the amount applied converted to the currency of payment
@@ -286,19 +286,10 @@ public class PaymentWorker {
     /**
      * Method to return the total amount of an payment which is applied to a payment
      * @param payment GenericValue object of the Payment
-     * @return the applied total as double
-     */
-    public static double getPaymentApplied(GenericValue payment) {
-        return getPaymentAppliedBd(payment).doubleValue();
-    }
-
-    /**
-     * Method to return the total amount of an payment which is applied to a payment
-     * @param payment GenericValue object of the Payment
      * @return the applied total as BigDecimal in the currency of the payment
      */
-    public static BigDecimal getPaymentAppliedBd(GenericValue payment) {
-    	return getPaymentAppliedBd(payment, false);
+    public static BigDecimal getPaymentApplied(GenericValue payment) {
+    	return getPaymentApplied(payment, false);
     }
     
     /**
@@ -307,7 +298,7 @@ public class PaymentWorker {
      * @param false for currency of the payment, true for the actual currency
      * @return the applied total as BigDecimal in the currency of the payment
      */
-    public static BigDecimal getPaymentAppliedBd(GenericValue payment, Boolean actual) {
+    public static BigDecimal getPaymentApplied(GenericValue payment, Boolean actual) {
         BigDecimal paymentApplied = BigDecimal.ZERO;
         List paymentApplications = null;
         try {
@@ -337,28 +328,20 @@ public class PaymentWorker {
         }
         return paymentApplied;        
     }
-    public static double getPaymentNotApplied(GenericValue payment) {
-        return getPaymentNotAppliedBd(payment).doubleValue();
+    public static BigDecimal getPaymentNotApplied(GenericValue payment) {
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
-
-    public static BigDecimal getPaymentNotAppliedBd(GenericValue payment) {
-        return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(payment)).setScale(decimals,rounding);
-    }
-    public static BigDecimal getPaymentNotAppliedBd(GenericValue payment, Boolean actual) {
+    public static BigDecimal getPaymentNotApplied(GenericValue payment, Boolean actual) {
     	if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
-    		return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentAppliedBd(payment, actual)).setScale(decimals,rounding);
+    		return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
     	}
-   		return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(payment)).setScale(decimals,rounding);
+   		return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
-    public static double getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
-        return getPaymentNotAppliedBd(delegator,paymentId, false).doubleValue();
+    public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
+        return getPaymentNotApplied(delegator,paymentId, false);
     }
 
     public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
-        return getPaymentNotAppliedBd(delegator,paymentId, actual);
-    }
-
-    public static BigDecimal getPaymentNotAppliedBd(GenericDelegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -373,6 +356,6 @@ public class PaymentWorker {
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(delegator,paymentId, actual)).setScale(decimals,rounding);
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(decimals,rounding);
     }
 }
