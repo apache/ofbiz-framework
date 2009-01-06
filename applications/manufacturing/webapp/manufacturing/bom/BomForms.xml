@@ -132,29 +132,18 @@ under the License.
                 <option key="ENGINEER_COMPONENT" description="Engineering Bill of Materials"/>
             </drop-down>
         </field>
-        <field name="fromDate"><date-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submit" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="ListBom"  type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"  paginate-target="FindBom">
-        <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="ProductAssoc"/>
-                <field-map field-name="orderBy" value="productId"/>
-            </service>
-        </actions>
-        <field name="productId" title="${uiLabelMap.ProductProductId}">
+    <form name="ListBom"  type="list" list-name="ListProductBom" odd-row-style="alternate-row" 
+        default-table-style="basic-table hover-bar"  paginate-target="FindBom">
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="">
             <hyperlink target="EditProductBom?productId=${productId}&amp;productAssocTypeId=${productAssocTypeId}" description="${productId}"/>
         </field>
-        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}">
-            <hyperlink target="EditProductBom?productId=${productIdTo}&amp;productAssocTypeId=${productAssocTypeId}" description="${productIdTo}"/>            
-        </field>
+        <field name="internalName" title="${uiLabelMap.ProductProductName}"><display/></field>
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
             <display-entity entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}"/>
         </field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
     </form>
     <form name="CreateProductBom" target="createProductBom" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

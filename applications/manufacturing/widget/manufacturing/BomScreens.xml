@@ -151,6 +151,7 @@ under the License.
                 <set field="tabButtonItem" value="findBom"/>
                 <set field="labelTitleProperty" value="findBom"/>
                 <set field="headerItem" value="bom"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/FindProductBom.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">

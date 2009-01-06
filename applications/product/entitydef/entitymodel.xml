@@ -2591,6 +2591,21 @@ under the License.
             <key-map field-name="recurrenceInfoId"/>
         </relation>
     </entity>
+    <view-entity entity-name="ProductAndAssoc"
+                 package-name="org.ofbiz.product.product"
+                 title="Product and ProductAssoc View Entity">
+      <member-entity entity-alias="PD" entity-name="Product"/>
+      <member-entity entity-alias="PDA" entity-name="ProductAssoc"/>
+      <alias name="productId" entity-alias="PD" field="productId"/>
+      <alias name="internalName" entity-alias="PD"  field="internalName"/>
+      <alias name="productIdTo" entity-alias="PDA" field="productIdTo"/>
+      <alias name="productAssocTypeId" entity-alias="PDA" field="productAssocTypeId"/>
+      <alias name="quantity" entity-alias="PDA" field="quantity"/>
+      <alias name="fromDate" entity-alias="PDA" field="fromDate"/>
+      <view-link entity-alias="PD" rel-entity-alias="PDA">
+        <key-map field-name="productId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="ProductAssocType"
             package-name="org.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
