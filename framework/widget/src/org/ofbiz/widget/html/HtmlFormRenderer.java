@@ -2229,13 +2229,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
     protected String appendExternalLoginKey(String target) {
         String result = target;
-        String externalLoginKey = (String) this.request.getAttribute("externalLoginKey");
-        if (UtilValidate.isNotEmpty(externalLoginKey)) {
-            if (target.contains("?")) {
-                result = target + "&externalLoginKey=" + externalLoginKey;
-            } else {
-                result = target + "?externalLoginKey=" + externalLoginKey;
-            }
+        String sessionId = ";jsessionid=" + request.getSession().getId();
+        int questionIndex = target.indexOf("?");
+        if (questionIndex == -1) {
+            result += sessionId;
+        } else {
+            result.replace("?", sessionId + "?");
         }
         return result;
     }
