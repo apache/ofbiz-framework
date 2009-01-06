@@ -26,12 +26,12 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
-                <call-object-method obj-field-name="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+                <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                 <if-compare field="isOpen" operator="equals" value="true" type="String">
                     <set field="promoCode" from-field="parameters.promoCode"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
+                    <call-object-method obj-field="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
                         <field field="promoCode" type="String"/>
                     </call-object-method>
                     <check-errors/>

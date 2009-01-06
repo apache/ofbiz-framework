@@ -736,8 +736,8 @@ under the License.
     
     <!-- address match map -->
     <simple-method method-name="createAddressMatchMap" short-description="create a AddressMatchMap">
-        <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapValue" ret-map-name="parameters"/>
-        <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapKey" ret-map-name="parameters"/>
+        <call-object-method obj-field="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapValue" ret-map-name="parameters"/>
+        <call-object-method obj-field="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapKey" ret-map-name="parameters"/>
         <make-value entity-name="AddressMatchMap" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

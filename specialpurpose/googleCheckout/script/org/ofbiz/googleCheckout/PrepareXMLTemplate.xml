@@ -114,7 +114,7 @@
         </create-object>
         <!-- get uri -->
         <property-to-field resource="googleCheckout" property="xmlTemplateUri" field-name="screenUri"/>
-        <call-object-method method-name="render" obj-field-name="xscreens">
+        <call-object-method method-name="render" obj-field="xscreens">
             <field field-name="screenUri" type="String"/>
         </call-object-method>
         <set field="content" value="${bsh:XMLWriter.toString()}"/>
@@ -128,10 +128,10 @@
         <create-object class-name="java.io.BufferedWriter" field-name="writer">
             <field field-name="sWriter" type="java.io.Writer"/>
         </create-object>
-        <call-object-method method-name="write" obj-field-name="writer">
+        <call-object-method method-name="write" obj-field="writer">
             <field field-name="content" type="String"/>
         </call-object-method>
-        <call-object-method method-name="close" obj-field-name="writer"/>
+        <call-object-method method-name="close" obj-field="writer"/>
     </simple-method>
 <!-- Step 4 -->
     <simple-method method-name="getResponse" short-description="">
@@ -164,7 +164,7 @@
             document = org.ofbiz.base.util.UtilXml.readXmlDocument(response, false);
         return org.ofbiz.base.util.UtilMisc.toMap("document", document);
         ]]></call-bsh>
-        <call-object-method method-name="getDocumentElement" obj-field-name="document" ret-field-name="rootElement"/>
+        <call-object-method method-name="getDocumentElement" obj-field="document" ret-field-name="rootElement"/>
         <!-- May want to get the serial number to store eventually; would be an attribute of this rootElement,
                 Skipping for now -->
         <call-simple-method method-name="getRedirectFromRootElement"/>
@@ -205,48 +205,48 @@
         <set field="true" value="true" type="Boolean"/>
         <set field="false" value="false" type="Boolean"/>
 
-        <call-object-method method-name="setDoInput" obj-field-name="conn">
+        <call-object-method method-name="setDoInput" obj-field="conn">
             <field field-name="true" type="boolean"/>
         </call-object-method>
 
-        <call-object-method method-name="setDoOutput" obj-field-name="conn">
+        <call-object-method method-name="setDoOutput" obj-field="conn">
             <field field-name="true" type="boolean"/>
         </call-object-method>
 
-        <call-object-method method-name="setUseCaches" obj-field-name="conn">
+        <call-object-method method-name="setUseCaches" obj-field="conn">
             <field field-name="false" type="boolean"/>
         </call-object-method>
 
-        <call-object-method method-name="setFollowRedirects" obj-field-name="conn">
+        <call-object-method method-name="setFollowRedirects" obj-field="conn">
             <field field-name="true" type="boolean"/>
         </call-object-method>
 
-        <call-object-method method-name="setInstanceFollowRedirects" obj-field-name="conn">
+        <call-object-method method-name="setInstanceFollowRedirects" obj-field="conn">
             <field field-name="true" type="boolean"/>
         </call-object-method>
 
-        <call-object-method method-name="setRequestMethod" obj-field-name="conn">
+        <call-object-method method-name="setRequestMethod" obj-field="conn">
             <string value="POST"/>
         </call-object-method>
 
         <call-simple-method method-name="getHttpAuth"/>
-        <call-object-method method-name="setRequestProperty" obj-field-name="conn">
+        <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="Authorization"/>
             <field field-name="HttpAuth"/>
         </call-object-method>
 
         <call-simple-method method-name="getHttpHost"/>
-        <call-object-method method-name="setRequestProperty" obj-field-name="conn">
+        <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="Host"/>
             <field field-name="HttpHost"/>
         </call-object-method>
 
-        <call-object-method method-name="setRequestProperty" obj-field-name="conn">
+        <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="content-type"/>
             <string value="application/xml"/>
         </call-object-method>
 
-        <call-object-method method-name="setRequestProperty" obj-field-name="conn">
+        <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="accept"/>
             <string value="application/xml"/>
         </call-object-method>

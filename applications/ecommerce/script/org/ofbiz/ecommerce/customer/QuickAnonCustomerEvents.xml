@@ -40,11 +40,11 @@ under the License.
 
         <!-- if username and/or password should be lowercased, do that now -->
         <if-compare field="username_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="username" obj-map-name="parameters" method-name="toLowerCase" ret-field="username" ret-map-name="parameters"/>
+            <call-object-method obj-field="username" obj-map-name="parameters" method-name="toLowerCase" ret-field="username" ret-map-name="parameters"/>
         </if-compare>
         <if-compare field="password_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="password" obj-map-name="parameters" method-name="toLowerCase" ret-field="password" ret-map-name="parameters"/>
-            <call-object-method obj-field-name="confirmPassword" obj-map-name="parameters" method-name="toLowerCase" ret-field="confirmPassword" ret-map-name="parameters"/>
+            <call-object-method obj-field="password" obj-map-name="parameters" method-name="toLowerCase" ret-field="password" ret-map-name="parameters"/>
+            <call-object-method obj-field="confirmPassword" obj-map-name="parameters" method-name="toLowerCase" ret-field="confirmPassword" ret-map-name="parameters"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
@@ -499,11 +499,11 @@ under the License.
         <session-to-field field-name="cart" session-name="shoppingCart"/>
         <session-to-field field-name="userLogin" session-name="userLogin"/>
         <if-empty field="userLogin">
-            <call-object-method obj-field-name="session" method-name="removeAttribute">
+            <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
             </call-object-method>
             <check-errors/>
-            <call-object-method obj-field-name="session" method-name="removeAttribute">
+            <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoName"/>
             </call-object-method>
             <check-errors/>
@@ -525,7 +525,7 @@ under the License.
                     <set field="userLogin.partyId" from-field="partyId"/>
                     <field-to-session field-name="userLogin" session-name="userLogin" />
                     <if-not-empty field="cart">
-                        <call-object-method obj-field-name="cart" method-name="setOrderPartyId">
+                        <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
                         </call-object-method>
                         <call-bsh><![CDATA[
@@ -543,11 +543,11 @@ under the License.
         <check-errors/>
         
         <if-not-empty field="cart">
-            <call-object-method obj-field-name="cart" method-name="addContactMech">
+            <call-object-method obj-field="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
                 <field field="parameters.shippingContactMechId"/>
             </call-object-method>
-            <call-object-method obj-field-name="cart" method-name="setShippingContactMechId">
+            <call-object-method obj-field="cart" method-name="setShippingContactMechId">
                 <field field="parameters.shippingContactMechId"/>
             </call-object-method>
         </if-not-empty>
@@ -557,7 +557,7 @@ under the License.
            <field-to-session field-name="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
         <else>
         <if-not-empty field="cart">
-            <call-object-method obj-field-name="cart" method-name="getShippingContactMechId" ret-field="shippingContactMechId"/>
+            <call-object-method obj-field="cart" method-name="getShippingContactMechId" ret-field="shippingContactMechId"/>
         </if-not-empty>
             <field-to-session field-name="shippingContactMechId" session-name="billingContactMechId"></field-to-session>        
         </else>    
@@ -577,42 +577,42 @@ under the License.
        <session-to-field field-name="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
-           <call-object-method obj-field-name="cart" method-name="setShipmentMethodTypeId">
+           <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">
                <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
            <set field="carrierPartyId" from-field="parameters.carrierPartyId" />
-           <call-object-method obj-field-name="cart" method-name="setCarrierPartyId">
+           <call-object-method obj-field="cart" method-name="setCarrierPartyId">
                <field field="carrierPartyId"/>
            </call-object-method>
 
            <set field="maySplit" from-field="parameters.may_split" type="Boolean" default-value="false"/>
-           <call-object-method obj-field-name="cart" method-name="setMaySplit">
+           <call-object-method obj-field="cart" method-name="setMaySplit">
                <field field="maySplit" type="Boolean"/>
            </call-object-method>
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field="shippingInstruction">
-           <call-object-method obj-field-name="cart" method-name="setShippingInstructions">
+           <call-object-method obj-field="cart" method-name="setShippingInstructions">
                <field field="shippingInstruction" type="String"/>
            </call-object-method>
            </if-not-empty>
 
            <set field="correspondingPoId" from-field="parameters.correspondingPoId" type="String"/>
            <if-not-empty field="correspondingPoId">
-           <call-object-method obj-field-name="cart" method-name="setPoNumber">
+           <call-object-method obj-field="cart" method-name="setPoNumber">
                <field field="correspondingPoId" type="String"/>
            </call-object-method>
            </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false" />
-           <call-object-method obj-field-name="cart" method-name="setIsGift">
+           <call-object-method obj-field="cart" method-name="setIsGift">
                <field field="isGift" type="Boolean"/>
            </call-object-method>
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field="giftMessage">
-           <call-object-method obj-field-name="cart" method-name="setGiftMessage">
+           <call-object-method obj-field="cart" method-name="setGiftMessage">
                <field field="giftMessage" type="String"/>
            </call-object-method>
            </if-not-empty>
