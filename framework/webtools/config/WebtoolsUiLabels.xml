@@ -3270,13 +3270,6 @@
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">วันที่เสร็จจริง</value>
     </property>
-    <property key="WebtoolsWorkflowActualStartDate">
-        <value xml:lang="de">Ist-Anfangsdatum</value>
-        <value xml:lang="en">Actual Start Date</value>
-        <value xml:lang="fr">Date de début réelle</value>
-        <value xml:lang="it">Data Inizio Attuale</value>
-        <value xml:lang="th">วันที่เริ่มงานจริง</value>
-    </property>
     <property key="WebtoolsWorkflowAssignments">
         <value xml:lang="en">Assignation(s)</value>
         <value xml:lang="fr">Tâche (s)</value>

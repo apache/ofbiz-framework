@@ -500,16 +500,6 @@
         <value xml:lang="it">Materiali Attuali</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
     </property>
-    <property key="ManufacturingActualStartDate">
-        <value xml:lang="de">Ist-Start-Datum</value>
-        <value xml:lang="en">Start Date</value>
-        <value xml:lang="es">Fecha de inicio real</value>
-        <value xml:lang="fr">Date de début</value>
-        <value xml:lang="it">Data inizio</value>
-        <value xml:lang="ro">Data Initiala</value>
-        <value xml:lang="th">วันที่เริ่มต้น</value>
-        <value xml:lang="zh">开始日期</value>
-    </property>
     <property key="ManufacturingActualStartDateTime">
         <value xml:lang="de">Ist-Start-Zeit</value>
         <value xml:lang="en">Actual Start Date/Time</value>

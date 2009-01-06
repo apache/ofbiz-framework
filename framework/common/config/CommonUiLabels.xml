@@ -133,6 +133,17 @@
         <value xml:lang="zh">仅有效</value>
         <value xml:lang="zh_CN">在用</value>
     </property>
+    <property key="CommonActualStartDate">
+        <value xml:lang="de">Ist-Anfangsdatum</value>
+        <value xml:lang="en">Actual Start Date</value>
+        <value xml:lang="es">Fecha de comienzo real</value>
+        <value xml:lang="fr">Date de début réelle</value>
+        <value xml:lang="it">Data Inizio Attuale</value>
+        <value xml:lang="nl">Actual Start Date</value>
+        <value xml:lang="ro">Data Initiere Actuala</value>
+        <value xml:lang="th">วันที่เริ่มตามความจริง</value>
+        <value xml:lang="zh">实际开始日期</value>
+    </property>
     <property key="CommonAdd">
         <value xml:lang="ar">إضافة</value>
         <value xml:lang="cs">Přidat</value>
@@ -5194,6 +5205,7 @@
     </property>
     <property key="CommonRevertPortalPage">
         <value xml:lang="en">revert to original</value>
+        <value xml:lang="fr">Revenir à l'original</value>
         <value xml:lang="th">แปลงเป็นต้นฉบับ</value>
     </property>
     <property key="CommonReview">
