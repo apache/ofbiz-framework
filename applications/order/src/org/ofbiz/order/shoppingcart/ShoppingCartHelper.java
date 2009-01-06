@@ -713,8 +713,8 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.startsWith("amount")) {
                         if (item != null && quantString.length() > 0) {
-                            double amount = nf.parse(quantString).doubleValue();
-                            if (amount <= 0 ) {
+                            BigDecimal amount = new BigDecimal(quantString);
+                            if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                                 String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
                                 errorMsgs.add(errMsg);
                                 result = ServiceUtil.returnError(errorMsgs);
