@@ -1117,14 +1117,6 @@
         <value xml:lang="th">วันที่ทำเสร็จจริง</value>
         <value xml:lang="zh">实际完成日期</value>
     </property>
-    <property key="ProjectMgrWorkEffortActualStartDate">
-        <value xml:lang="de">Ist-Anfangsdatum</value>
-        <value xml:lang="en">Actual Start Date</value>
-        <value xml:lang="fr">Date de début réelle</value>
-        <value xml:lang="it">Data Inizio Attuale</value>
-        <value xml:lang="th">วันที่เริ่มทำจริง</value>
-        <value xml:lang="zh">实际开始日期</value>
-    </property>
     <property key="ProjectMgrWorkEffortAssocTypeId">
         <value xml:lang="de">Zuordnungsart</value>
         <value xml:lang="en">Association Type</value>

@@ -538,7 +538,7 @@
         </field>      
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" widget-area-style="centered"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}" widget-area-style="centered"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="plannedHours" widget-area-style="centered"><display/></field>
         <field name="actualHours" widget-area-style="centered"><display/></field>
