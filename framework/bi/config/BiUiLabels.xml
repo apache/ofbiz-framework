@@ -78,13 +78,13 @@
     </property>
     <property key="BusinessIntelligenceNote1">
         <value xml:lang="en">This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.</value>
-        <value xml:lang="fr">C'est une preuve du concept de l'informatique décisionnelle intégrée au Framework</value>
+        <value xml:lang="fr">C'est une preuve de concept d'informatique décisionnelle intégrée au Framework</value>
         <value xml:lang="it">Questo è un prototipo per un OFBiz framework integrato per analisi di business intelligence.</value>
         <value xml:lang="th">การทดสอบความเข้าใจสำหรับ OFBiz framework เพื่อการวิเคราะห์ระบบการเรียนรู้ทางธุรกิจ</value>
     </property>
     <property key="BusinessIntelligenceNote10">
         <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
-        <value xml:lang="fr">Les meilleures pratiques pour des entrepôts de données sont principalement tirées du fameux livre "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
+        <value xml:lang="fr">Les bonnes pratiques pour datawarehouses sont principalement tirées du fameux livre "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
         <value xml:lang="it">Le migliori pratiche per i datawarehouses sono stati ricavati dal grande libro "The Data Warehouse Toolkit - Second Edition" di Ralph Kimball.</value>
         <value xml:lang="th">วิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้าส่วนใหญ่มาจากหนังสือดี ๆ ชื่อ "The Data Warehouse Toolkit - Second Edition" โดย Ralph Kimball</value>
     </property>
@@ -108,13 +108,13 @@
     </property>
     <property key="BusinessIntelligenceNote14">
         <value xml:lang="en">to map the operational keys with the datawarehouse ones, and to manage</value>
-        <value xml:lang="fr">Pour aligner les clefs opérationnelles avec celles du datawarehouse, et les contrôler</value>
+        <value xml:lang="fr">pour aligner les clefs opérationnelles avec celles du datawarehouse, et contrôler</value>
         <value xml:lang="it">la mappa di chiavi operazionali con il datawarehouse, e la gestione</value>
         <value xml:lang="th">แผนที่สำคัญที่สามารถใช้งานได้ด้วยข้อมูลคลังสินค้าและการจัดการ</value>
     </property>
     <property key="BusinessIntelligenceNote15">
         <value xml:lang="en">history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).</value>
-        <value xml:lang="fr">l'historique des changements de données est déjà implémenté; il sera amélioré quand le datawarehouse se développera (par exemple des perfectionnements en performance).</value>
+        <value xml:lang="fr">l'historique des changements de données sont déjà implémentés. Il seront améliorés quand le datawarehouse se développera (par exemple des perfectionnements en performance).</value>
         <value xml:lang="it">storia di cambio di dati che sono già implementati; sarà aumentato di caratteristiche non appena crescerà il datawarehouse (e.g. aumento prestazioni).</value>
         <value xml:lang="th">ความเป็นมาของข้อมูลได้เปลี่ยนแปลงเรียบร้อยแล้ว; ได้มีการปรับปรุงข้อมูลคลังสินค้าให้ดีขึ้น (ตัวอย่างเช่น การทำให้ดีขึ้น)</value>
     </property>
@@ -126,13 +126,13 @@
     </property>
     <property key="BusinessIntelligenceNote17">
         <value xml:lang="en">we will have to complete them and design the other ones (the total number of dimension will be probably around 20).</value>
-        <value xml:lang="fr">Nous devrons les compléter et en concevoir d'autres (le nombre total de dimension sera probablement autour 20)</value>
+        <value xml:lang="fr">Nous devrons les compléter et en concevoir d'autres (le nombre total de dimension sera probablement autour 20).</value>
         <value xml:lang="it">verranno usati per completare questi e disegnare gli altri (il numero totale di dimensioni saranno probabilmente circa 20).</value>
         <value xml:lang="th">เรากำลังทำสิ่งเหล่านั้นสำเร็จแล้วและวางแผนสิ่งต่อไป (จำนวนทั้งหมดประมาณ 20)</value>
     </property>
     <property key="BusinessIntelligenceNote18">
         <value xml:lang="en">Just one fact and one star schema are defined: SalesInvoiceItemFact and SalesInvoiceItemStarSchema.</value>
-        <value xml:lang="fr">un seul fait et schéma d'étoile sont définis : SalesInvoiceItemFact et SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="fr">Seul un fait et un schéma d'étoile sont définis : SalesInvoiceItemFact et SalesInvoiceItemStarSchema.</value>
         <value xml:lang="it">Solo un fatto e uno star schema sono definiti: SalesInvoiceItemFact e SalesInvoiceItemStarSchema.</value>
         <value xml:lang="th">จะต้องระบุ 1 ข้อเท็จจริงและ 1 โครงการ: SalesInvoiceItemFact and SalesInvoiceItemStarSchema</value>
     </property>
@@ -150,13 +150,13 @@
     </property>
     <property key="BusinessIntelligenceNote20">
         <value xml:lang="en">The CurrencyDimension, DateDimension, ProductDimension and the SalesInvoiceItemFact entities will be automatically populated.</value>
-        <value xml:lang="fr">La dimension de devise, la dimension de date, la dimension d'article et SalesInvoiceItemFact seront automatiquement peuplés</value>
+        <value xml:lang="fr">La dimension de devise, la dimension de date, la dimension d'article et SalesInvoiceItemFact seront automatiquement alimentés.</value>
         <value xml:lang="it">Le entità CurrencyDimension, DateDimension, ProductDimension e SalesInvoiceItemFact saranno caricate automaticamente.</value>
         <value xml:lang="th">CurrencyDimension, DateDimension, ProductDimension และ SalesInvoiceItemFact จะคงอยู่โดยอัตโนมัติ</value>
     </property>
     <property key="BusinessIntelligenceNote21">
         <value xml:lang="en">Then you can run the analysis using the report builder menu.</value>
-        <value xml:lang="fr">Vous pouvez alors exécuter l'analyse utilisant le menu "générateur de rapport".</value>
+        <value xml:lang="fr">Vous pouvez alors exécuter l'analyse en utilisant le menu "Générateur de rapport".</value>
         <value xml:lang="it">Dopo tu puoi eseguire analisi usando il menu costruzione report.</value>
         <value xml:lang="th">หลังจากที่คุณทำการวิเคราะห์แล้วสามารถใช้เมนูการสร้างรายงานได้</value>
     </property>
@@ -168,7 +168,7 @@
     </property>
     <property key="BusinessIntelligenceNote23">
         <value xml:lang="en">the analysis on all the star schemas defined in the system.</value>
-        <value xml:lang="fr">L'analyse sur tous les schémas en étoile définis dans le système.</value>
+        <value xml:lang="fr">l'analyse sur tous les schémas en étoile définis dans le système.</value>
         <value xml:lang="it">le analisi su tutti i star schemas definiti nel sistema.</value>
         <value xml:lang="th">การวิเคราะห์บนแผนผังทั้งหมดที่ระบุในระบบ</value>
     </property>
@@ -192,13 +192,13 @@
     </property>
     <property key="BusinessIntelligenceNote27">
         <value xml:lang="en">and a simple report will be shown: according to the columns selected the data will be aggregated (drill up/down);</value>
-        <value xml:lang="fr">Et un simple rapport sera généré : selon les colonnes choisies les données seront regroupées (tri haut/bas);</value>
+        <value xml:lang="fr">et un simple rapport sera généré : selon les colonnes choisies les données seront regroupées (tri haut/bas).</value>
         <value xml:lang="it">e un semplice report verrà mostrato: in accordo alle colonne selezionate i dati verranno aggregati (drill up/down);</value>
         <value xml:lang="th">และพื้นฐานของรายงานจะต้องแสดง: ตามคอลัมภ์ที่เลือกข้อมูลจะต้องรวมกัน (drill up/down);</value>
     </property>
     <property key="BusinessIntelligenceNote28">
         <value xml:lang="en">all the descriptions you see in the report screens are pulled from the entity definitions.</value>
-        <value xml:lang="fr">Toutes les descriptions que vous voyez dans les écrans de rapport sont tirées des définitions d'entité.</value>
+        <value xml:lang="fr">Toutes les descriptions que vous voyez dans les écrans de rapport sont tirées des définitions d'entités.</value>
         <value xml:lang="it">tutte le descrizioni che tu vedrai nelle scrermate del report sono prelevare dalla definizioni delle entità.</value>
         <value xml:lang="th">รายละเอียดทั้งหมดที่คุณเห็นในหน้ารายงานดึงมาจากสิ่งที่กำหด</value>
     </property>
@@ -209,14 +209,14 @@
         <value xml:lang="th">การเริ่มต้นเป็นความต้องการอย่างแรกเพราะเป็นข้อมูลสินค้าและข้อมูลใบแจ้งการขาย</value>
     </property>
     <property key="BusinessIntelligenceNote3">
-        <value xml:lang="en">accessible, in the same way as the main one (olap), via the delegator.</value>
-        <value xml:lang="fr">accessibles, de la même manière que pour l'OLAP, par l'intermédiaire du délégateur.</value>
-        <value xml:lang="it">accessibile, nello stesso modo di quello principale (oltp), attraverso un delegator.</value>
-        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (oltp)</value>
+        <value xml:lang="en">accessible, in the same way as the main one (OLTP), via the delegator.</value>
+        <value xml:lang="fr">accessibles, de la même manière que pour la base de données principale (OLTP), par l'intermédiaire du délégateur.</value>
+        <value xml:lang="it">accessibile, nello stesso modo di quello principale (OLTP), attraverso un delegator.</value>
+        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (OLTP)</value>
     </property>
     <property key="BusinessIntelligenceNote30">
         <value xml:lang="en">are kept updated by ecas: if you create/update a product or create a new invoice,</value>
-        <value xml:lang="fr">sont maintenus à jour par ECAS : si vous créez/mettez à jour un article ou créez une nouvelle facture,</value>
+        <value xml:lang="fr">sont maintenues à jour par ECAS (Evènements/Conditions/Actions). Si vous créez/mettez à jour un article ou créez une nouvelle facture,</value>
         <value xml:lang="it">sono mantenute aggiornate dagli ecas: se tu crei/aggiorni un prodotto o creare una nuova fattura,</value>
         <value xml:lang="th">เป็นการเปลี่ยนแปลงโดยการแทนที่: ถ้าคุณสร้าง/เปลี่ยนแปลงสินค้าหรือสร้างใบส่งของใหม่</value>
     </property>
@@ -240,19 +240,19 @@
     </property>
     <property key="BusinessIntelligenceNote6">
         <value xml:lang="en">The dimensions, facts and star schemas are defined according to best practices for datawarehouses</value>
-        <value xml:lang="fr">Les dimensions, les faits et les schémas en étoile sont définis selon les meilleurs pratiques pour les datawarehouses </value>
+        <value xml:lang="fr">Les dimensions, les faits et les schémas en étoile sont définis selon les bonnes pratiques pour les datawarehouses </value>
         <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
         <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
     </property>
     <property key="BusinessIntelligenceNote7">
         <value xml:lang="en">and best practices for OFBiz: they are defined as standard entities using the xml entity defs;</value>
-        <value xml:lang="fr">et pout OFBiz : ils sont définis comme des entités standars à l'aide de définitions d'entités dans des fichiers XML</value>
+        <value xml:lang="fr">et pour OFBiz. Ils sont définis comme des entités standards à l'aide de définitions d'entités dans des fichiers XML.</value>
         <value xml:lang="it">e le migliori pratiche per OFBiz: queste sono definite come entità standard usando le definizioni xml entity;</value>
         <value xml:lang="th">และวิธีปฏิบัติที่ดีที่สุดสำหรับ OFBiz คือ: ต้องกำหนดมาตรฐานสิ่งที่มีอยู่ให้เหมือนกับที่ใช้ใน xml </value>
     </property>
     <property key="BusinessIntelligenceNote8">
         <value xml:lang="en">clear and consistent naming conventions are used and they are documented</value>
-        <value xml:lang="fr">des conventions de nommages claires et cohérentes sont utilisées et documentées</value>
+        <value xml:lang="fr">Des conventions de nommages claires et cohérentes sont utilisées et documentées</value>
         <value xml:lang="it">corretti e consistenti convenzione nei nomi sono usati and sono documentati</value>
         <value xml:lang="th">ยกเลิกและใช้ชื่อข้อตกลงที่สอดคล้องกันและเป็นไปตามเอกสาร</value>
     </property>
