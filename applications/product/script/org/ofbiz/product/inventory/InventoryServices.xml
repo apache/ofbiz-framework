@@ -833,7 +833,7 @@ under the License.
             </if-compare>
         </iterate-map>
         <if-not-empty field="noLongerOnBackOrderIdMap">
-            <call-object-method obj-field-name="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
+            <call-object-method obj-field="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
             <field-to-result field="noLongerOnBackOrderIdSet"/>
         </if-not-empty>
     </simple-method>
@@ -944,7 +944,7 @@ under the License.
             </if-compare>
         </iterate-map>
         <if-not-empty field="noLongerOnBackOrderIdMap">
-            <call-object-method obj-field-name="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
+            <call-object-method obj-field="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
             <field-to-result field="noLongerOnBackOrderIdSet"/>
         </if-not-empty>
     </simple-method>

@@ -66,16 +66,16 @@
     </simple-method>
     <simple-method method-name="setupItems" short-description="">
         <!-- Get Items from Cart -->
-        <call-object-method method-name="items" obj-field-name="cart" ret-field="cartItems"/>
+        <call-object-method method-name="items" obj-field="cart" ret-field="cartItems"/>
         <iterate entry="item" list="cartItems">
             <!-- itemName -->
-            <call-object-method method-name="getProductId" obj-field-name="item" ret-field="itemName" ret-map-name="thisItem"/>
+            <call-object-method method-name="getProductId" obj-field="item" ret-field="itemName" ret-map-name="thisItem"/>
             <!-- itemDesc -->
-            <call-object-method method-name="getName" obj-field-name="item" ret-field="description" ret-map-name="thisItem"/>
+            <call-object-method method-name="getName" obj-field="item" ret-field="description" ret-map-name="thisItem"/>
             <!-- unitPrice -->
-            <call-object-method method-name="getBasePrice" obj-field-name="item" ret-field="unitPrice" ret-map-name="thisItem"/>
+            <call-object-method method-name="getBasePrice" obj-field="item" ret-field="unitPrice" ret-map-name="thisItem"/>
             <!-- quantity -->
-            <call-object-method method-name="getQuantity" obj-field-name="item" ret-field="quantity" ret-map-name="thisItem"/>
+            <call-object-method method-name="getQuantity" obj-field="item" ret-field="quantity" ret-map-name="thisItem"/>
             <!-- merchantItemId -->
             <call-simple-method method-name="getMerchantItemId"/>
             <!-- merchant private item data -->

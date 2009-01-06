@@ -26,11 +26,11 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+                <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
                 <if-compare field="mgrLoggedIn" operator="equals" value="true" type="String">
-                    <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                    <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                     <check-errors/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                     <if-compare field="isOpen" operator="equals" value="false">
                         <set field="startingDrawerAmount" from-field="parameters.startingDrawerAmount" type="String"/>
                         <set field="allowNegative" value="false" type="Boolean"/>
@@ -46,10 +46,10 @@ under the License.
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-field="terminalState" entity-name="PosTerminalState"/>
-                            <call-object-method obj-field-name="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
+                            <call-object-method obj-field="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
                             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
-                            <call-object-method obj-field-name="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
-                            <call-object-method obj-field-name="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.startingTxId"/>
+                            <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
+                            <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.startingTxId"/>
                             <set from-field="parameters.startingDrawerAmount" field="terminalState.startingDrawerAmount"/>
                             <create-value value-field="terminalState"/>
                             <check-errors/>
@@ -85,11 +85,11 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+                <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
                 <if-compare field="mgrLoggedIn" operator="equals" value="true">
-                    <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                    <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                     <check-errors/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
                     <if-not-empty field="terminalState">
                         <set field="amount" from-field="parameters.endingDrawerCashAmount" type="String"/>
                         <set field="allowNegative" value="false" type="Boolean"/>
@@ -155,13 +155,13 @@ under the License.
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/></add-error>
                             <check-errors/>
                         </if-compare>
-                        <call-object-method obj-field-name="webPosSession" method-name="getUserLoginId" ret-field="terminalState.closedByUserLoginId"/>
+                        <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.closedByUserLoginId"/>
                         <set from-field="parameters.endingDrawerCashAmount"  field="terminalState.actualEndingCash"/>
                         <set from-field="parameters.endingDrawerCheckAmount" field="terminalState.actualEndingCheck"/>
                         <set from-field="parameters.endingDrawerCcAmount"    field="terminalState.actualEndingCc"/>
                         <set from-field="parameters.endingDrawerGcAmount"    field="terminalState.actualEndingGc"/>
                         <set from-field="parameters.endingDrawerOtherAmount" field="terminalState.actualEndingOther"/>
-                        <call-object-method obj-field-name="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.endingTxId"/>
+                        <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.endingTxId"/>
                         <store-value value-field="terminalState"/>
                         <check-errors/>
                         <log level="info" message="Close PosTerminalState ${terminalState.endingTxId}"/>
@@ -192,14 +192,14 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+                <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
                 <if-compare field="mgrLoggedIn" operator="equals" value="true">
-                    <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                    <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                     <check-errors/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
                     <if-not-empty field="terminalState">
                         <set field="fieldName" value="openedDate" type="String"/>
-                        <call-object-method obj-field-name="terminalState" method-name="getTimestamp" ret-field="openDate">
+                        <call-object-method obj-field="terminalState" method-name="getTimestamp" ret-field="openDate">
                             <field field="fieldName" type="String"/>
                         </call-object-method>
                         <entity-one entity-name="OrderHeader" value-field="orderHeader">
@@ -207,19 +207,19 @@ under the License.
                         </entity-one>
                         <if-not-empty field="orderHeader">
                             <set field="fieldName" value="orderDate" type="String"/>
-                            <call-object-method obj-field-name="orderHeader" method-name="getTimestamp" ret-field="orderDate">
+                            <call-object-method obj-field="orderHeader" method-name="getTimestamp" ret-field="orderDate">
                                 <field field="fieldName" type="String"/>
                             </call-object-method>
-                            <call-object-method obj-field-name="orderDate" method-name="after" ret-field="isAfter">
+                            <call-object-method obj-field="orderDate" method-name="after" ret-field="isAfter">
                                 <field field="openDate" type="Timestamp"/>
                             </call-object-method>
                             <if-compare field="isAfter" operator="equals" value="true">
-                                <call-object-method obj-field-name="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
+                                <call-object-method obj-field="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
                                 <set field="returnOrder.orderId" from-field="parameters.orderId"/>
                                 <set field="returnOrder.returnHeaderTypeId" value="CUSTOMER_RETURN"/>
-                                <call-object-method obj-field-name="webPosSession" method-name="getUserLogin" ret-field="returnOrder.userLogin"/>
+                                <call-object-method obj-field="webPosSession" method-name="getUserLogin" ret-field="returnOrder.userLogin"/>
                                 <set field="serviceName" value="quickReturnOrder"/>
-                                <call-object-method obj-field-name="dispatcher" method-name="runSync" ret-field="returnResp">
+                                <call-object-method obj-field="dispatcher" method-name="runSync" ret-field="returnResp">
                                     <field field="serviceName" type="String"/>
                                     <field field="returnOrder" type="java.util.Map"/>
                                 </call-object-method>
@@ -261,9 +261,9 @@ under the License.
             <field field="posTerminalId" type="String"/>
         </call-class-method>
         <if-not-empty field="webPosSession">
-            <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
             <if-compare field="mgrLoggedIn" operator="equals" value="true" type="String">
-                <call-object-method obj-field-name="webPosSession" method-name="logout"/>
+                <call-object-method obj-field="webPosSession" method-name="logout"/>
                 <check-errors/>
             <else>
                 <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
@@ -285,11 +285,11 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+                <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
                 <if-compare field="mgrLoggedIn" operator="equals" value="true">
-                    <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                    <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                     <check-errors/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                     <check-errors/>
                     <if-compare field="isOpen" operator="equals" value="true">
                         <set field="amount" from-field="parameters.amountInOut" type="String"/>
@@ -306,13 +306,13 @@ under the License.
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
-						    <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
+						    <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
 						    <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
 						    <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
 						    <set field="internTx.reasonEnumId" from-field="parameters.reasonInOut"/>
 						    <create-value value-field="internTx"/>
 						    <set from-field="parameters.type" field="paidInOut"/>
-						    <call-object-method obj-field-name="webPosTransaction" method-name="paidInOut">
+						    <call-object-method obj-field="webPosTransaction" method-name="paidInOut">
 						        <field field="paidInOut" type="String"/>
 						    </call-object-method>
                         <else>
@@ -346,7 +346,7 @@ under the License.
                 <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="amount" from-field="parameters.price" type="String"/>
                 <set field="allowNegative" value="false" type="Boolean"/>
@@ -363,12 +363,12 @@ under the License.
                 <if-compare field="isDouble" operator="equals" value="true">
                     <set from-field="parameters.sku" field="sku" type="String"/>
                     <set from-field="parameters.price" field="price" type="Double"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="modifyPrice">
+                    <call-object-method obj-field="webPosTransaction" method-name="modifyPrice">
                         <field field="sku" type="String"/>
                         <field field="price" type="double"/>
                     </call-object-method>
                     <check-errors/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="calcTax"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
                     <check-errors/>
                 <else>
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerModifyPriceNotValidPrice"/></add-error>

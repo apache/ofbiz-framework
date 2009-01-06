@@ -320,7 +320,7 @@ under the License.
 				            <field field="locale" type="java.util.Locale"/>
 				            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
 				        </call-class-method>
-				        <call-object-method method-name="getTotalPrice" obj-field-name="configWrapper" ret-field="totalPrice"></call-object-method>
+				        <call-object-method method-name="getTotalPrice" obj-field="configWrapper" ret-field="totalPrice"></call-object-method>
 				        <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>				                           
                     </then>
                     <else>
@@ -599,25 +599,25 @@ under the License.
             <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
 
-        <call-object-method obj-field-name="cart" method-name="items" ret-field="items"/>
+        <call-object-method obj-field="cart" method-name="items" ret-field="items"/>
         <iterate list="items" entry="item">
-            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field="orderItemSeqId"/>
+            <call-object-method obj-field="item" method-name="getOrderItemSeqId" ret-field="orderItemSeqId"/>
             <if-empty field="orderItemSeqId">
                 <!-- this is a new (promo) item -->
                 <!-- a new quote item is created -->
                 <clear-field field="createQuoteItemInMap"/>
                 <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="parameters"/>
-                <call-object-method obj-field-name="item" method-name="getProductId" ret-field="createQuoteItemInMap.productId"/>
-                <call-object-method obj-field-name="item" method-name="getQuantity" ret-field="createQuoteItemInMap.quantity"/>
+                <call-object-method obj-field="item" method-name="getProductId" ret-field="createQuoteItemInMap.productId"/>
+                <call-object-method obj-field="item" method-name="getQuantity" ret-field="createQuoteItemInMap.quantity"/>
                 <set value="Y" field="createQuoteItemInMap.isPromo"/>
                 <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
                     <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
                 </call-service>
                 <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
-                <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
+                <call-object-method obj-field="item" method-name="setOrderItemSeqId">
                     <field field="quoteItemSeqId" type="String"/>
                 </call-object-method>
-                <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field="newOrderItemSeqId"/>
+                <call-object-method obj-field="item" method-name="getOrderItemSeqId" ret-field="newOrderItemSeqId"/>
             </if-empty>
         </iterate>
         <!-- set the quoteUnitPrice from the item basePrice -->
@@ -631,19 +631,19 @@ under the License.
                     </or>
                 </condition>
                 <then>
-                    <call-object-method obj-field-name="cart" method-name="findCartItem" ret-field="item">
+                    <call-object-method obj-field="cart" method-name="findCartItem" ret-field="item">
                         <field field="quoteItem.quoteItemSeqId" type="String"/>
                     </call-object-method>
                     <clear-field field="updateQuoteItemInMap"/>
                     <set from-field="quoteItem.quoteId" field="updateQuoteItemInMap.quoteId"/>
                     <set from-field="quoteItem.quoteItemSeqId" field="updateQuoteItemInMap.quoteItemSeqId"/>
-                    <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field="updateQuoteItemInMap.quoteUnitPrice"/>
+                    <call-object-method obj-field="item" method-name="getBasePrice" ret-field="updateQuoteItemInMap.quoteUnitPrice"/>
                     <call-service service-name="updateQuoteItem" in-map-name="updateQuoteItemInMap"/>
                 </then>
             </if>
         </iterate>
 
-        <call-object-method obj-field-name="cart" method-name="makeAllQuoteAdjustments" ret-field="adjustments"/>
+        <call-object-method obj-field="cart" method-name="makeAllQuoteAdjustments" ret-field="adjustments"/>
 
         <iterate list="adjustments" entry="adjustment">
             <set from-field="parameters.quoteId" field="adjustment.quoteId"/>
@@ -691,7 +691,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createQuoteFromCart" short-description="Create a Quote from a Cart">
-        <call-object-method obj-field-name="parameters.cart" method-name="getPartyId" ret-field="createQuoteInMap.partyId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getPartyId" ret-field="createQuoteInMap.partyId"/>
         <if>
             <condition>
                 <and>
@@ -706,9 +706,9 @@ under the License.
         </if>
         <check-errors/>
 
-        <call-object-method obj-field-name="parameters.cart" method-name="getCurrency" ret-field="createQuoteInMap.currencyUomId"/>
-        <call-object-method obj-field-name="parameters.cart" method-name="getProductStoreId" ret-field="createQuoteInMap.productStoreId"/>
-        <call-object-method obj-field-name="parameters.cart" method-name="getChannelType" ret-field="createQuoteInMap.salesChannelEnumId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getCurrency" ret-field="createQuoteInMap.currencyUomId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getProductStoreId" ret-field="createQuoteInMap.productStoreId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getChannelType" ret-field="createQuoteInMap.salesChannelEnumId"/>
         <set value="PRODUCT_QUOTE" field="createQuoteInMap.quoteTypeId"/>
         <set value="QUO_CREATED" field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
@@ -717,17 +717,17 @@ under the License.
         <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
 
         <!-- create, for every cart item, a quote item -->
-        <call-object-method obj-field-name="parameters.cart" method-name="items" ret-field="items"/>
+        <call-object-method obj-field="parameters.cart" method-name="items" ret-field="items"/>
         <iterate list="items" entry="item">
             <!-- a new quote item is created -->
             <clear-field field="createQuoteItemInMap"/>
-            <call-object-method obj-field-name="item" method-name="getIsPromo" ret-field="isPromo"/>
+            <call-object-method obj-field="item" method-name="getIsPromo" ret-field="isPromo"/>
             <if-compare field="isPromo" value="true" operator="equals" type="Boolean">
                 <set value="Y" field="createQuoteItemInMap.isPromo"/>
             </if-compare>
-            <call-object-method obj-field-name="item" method-name="getConfigWrapper" ret-field="configWrapper"/>
+            <call-object-method obj-field="item" method-name="getConfigWrapper" ret-field="configWrapper"/>
             <if-not-empty field="configWrapper">
-                <call-object-method obj-field-name="configWrapper" method-name="getConfigId" ret-field="configId"/>
+                <call-object-method obj-field="configWrapper" method-name="getConfigId" ret-field="configId"/>
                 <set from-field="configId" field="createQuoteItemInMap.configId"/>
             </if-not-empty>
             <if>
@@ -739,20 +739,20 @@ under the License.
                 </condition>
                 <then>
                     <set from-field="quote.quoteId" field="createQuoteItemInMap.quoteId"/>
-                    <call-object-method obj-field-name="item" method-name="getProductId" ret-field="createQuoteItemInMap.productId"/>
-                    <call-object-method obj-field-name="item" method-name="getQuantity" ret-field="createQuoteItemInMap.quantity"/>
-                    <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field="createQuoteItemInMap.selectedAmount"/>
-                    <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field="createQuoteItemInMap.quoteUnitPrice"/>
-                    <call-object-method obj-field-name="item" method-name="getItemComment" ret-field="createQuoteItemInMap.comments"/>
-                    <call-object-method obj-field-name="item" method-name="getReservStart" ret-field="createQuoteItemInMap.reservStart"/>
-                    <call-object-method obj-field-name="item" method-name="getReservLength" ret-field="createQuoteItemInMap.reservLength"/>
-                    <call-object-method obj-field-name="item" method-name="getReservPersons" ret-field="createQuoteItemInMap.reservPersons"/>
+                    <call-object-method obj-field="item" method-name="getProductId" ret-field="createQuoteItemInMap.productId"/>
+                    <call-object-method obj-field="item" method-name="getQuantity" ret-field="createQuoteItemInMap.quantity"/>
+                    <call-object-method obj-field="item" method-name="getSelectedAmount" ret-field="createQuoteItemInMap.selectedAmount"/>
+                    <call-object-method obj-field="item" method-name="getBasePrice" ret-field="createQuoteItemInMap.quoteUnitPrice"/>
+                    <call-object-method obj-field="item" method-name="getItemComment" ret-field="createQuoteItemInMap.comments"/>
+                    <call-object-method obj-field="item" method-name="getReservStart" ret-field="createQuoteItemInMap.reservStart"/>
+                    <call-object-method obj-field="item" method-name="getReservLength" ret-field="createQuoteItemInMap.reservLength"/>
+                    <call-object-method obj-field="item" method-name="getReservPersons" ret-field="createQuoteItemInMap.reservPersons"/>
 
                     <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
                         <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
                     </call-service>
                     <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
-                    <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
+                    <call-object-method obj-field="item" method-name="setOrderItemSeqId">
                         <field field="quoteItemSeqId" type="String"/>
                     </call-object-method>
                 </then>
@@ -764,7 +764,7 @@ under the License.
                 <if-compare field="parameters.applyStorePromotions" value="N" operator="not-equals" type="String"/>
             </condition>
             <then>
-                <call-object-method obj-field-name="parameters.cart" method-name="makeAllQuoteAdjustments" ret-field="adjustments"/>
+                <call-object-method obj-field="parameters.cart" method-name="makeAllQuoteAdjustments" ret-field="adjustments"/>
                 <iterate list="adjustments" entry="adjustment">
                     <set from-field="quote.quoteId" field="adjustment.quoteId"/>
                     <sequenced-id sequence-name="QuoteAdjustment" field="adjustment.quoteAdjustmentId"/>
