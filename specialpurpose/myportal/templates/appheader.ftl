@@ -19,7 +19,10 @@ under the License.
 
 <#assign selected = headerItem?default("void")>
 <div id="app-navigation">
-  <h2>${uiLabelMap.ExampleDashboard}</h2>
+  <#if partyNameView?has_content>
+  	<h2>${uiLabelMap.TitlePageMyportal} ${partyNameView.personalTitle?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.middleName?if_exists} ${partyNameView.lastName?if_exists} ${partyNameView.groupName?if_exists}</h2>
+  	<#else><h2>${uiLabelMap.TitlePageMyportalForNoLogin}</h2>
+  </#if>
   <ul>
     <#if userLogin?has_content>    	
         <#if portalPages?has_content>
