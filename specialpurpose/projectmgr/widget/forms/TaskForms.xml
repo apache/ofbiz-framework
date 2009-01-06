@@ -175,7 +175,7 @@
         <field name="priority"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
