@@ -50,6 +50,9 @@ under the License.
                 <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
                 <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
+                <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                </entity-one>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

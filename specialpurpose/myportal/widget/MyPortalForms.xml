@@ -66,7 +66,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="actualStartDate" title="Date"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.ActualStartDate}"><display type="date"/></field>
         <field name="delete"><submit button-type="text-link"/></field>
     </form>
     
@@ -92,7 +92,7 @@ under the License.
     
     <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
         <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
-        <field name="sendCustRequestEmail" title="Send Email To Every Customer Request Change"><check/></field>
+        <field name="sendCustRequestEmail" title="${uiLabelMap.SendMailEveryCust}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
     

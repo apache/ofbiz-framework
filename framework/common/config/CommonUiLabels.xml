@@ -5192,6 +5192,10 @@
         <value xml:lang="zh">退货状态</value>
         <value xml:lang="zh_CN">退货状态</value>
     </property>
+    <property key="CommonRevertPortalPage">
+        <value xml:lang="en">revert to original</value>
+        <value xml:lang="th">แปลงเป็นต้นฉบับ</value>
+    </property>
     <property key="CommonReview">
         <value xml:lang="ar">المراجعة</value>
         <value xml:lang="cs">Hodnocení</value>
