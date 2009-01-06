@@ -54,7 +54,7 @@ public class FilterListByAnd extends MethodOperation {
         if (toListAcsr.isEmpty()) {
             toListAcsr = listAcsr;
         }
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
