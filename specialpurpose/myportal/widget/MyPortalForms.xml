@@ -81,7 +81,7 @@ under the License.
     </form>
 
     <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
-        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
+        <field name="userPrefGroupTypeId"><hidden value="MyPortal"/></field>
         <field name="myCommunications"><check/></field>
         <field name="otherCommunications"><check/></field>
         <field name="myCompanyComms"><check/></field>
@@ -91,7 +91,7 @@ under the License.
     </form>
     
     <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
-        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
+        <field name="userPrefGroupTypeId"><hidden value="MyPortal"/></field>
         <field name="sendCustRequestEmail" title="${uiLabelMap.SendMailEveryCust}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
@@ -196,7 +196,7 @@ under the License.
                 <field-map field-name="compareDate" env-name="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
+            <script location="component://myportal/webapp/myportal/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}"/>
@@ -231,7 +231,7 @@ under the License.
         </field>
     </form>
 
-    <form name="MyPageNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+    <form name="MyPortalNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
             <entity-condition entity-name="PartyContactWithPurpose" list-name="emailAddresses">
@@ -278,10 +278,10 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
         <field name="send" title="&amp;nbsp;" position="1">
-            <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPageNewEmail.submit())"/>
+            <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPortalNewEmail.submit())"/>
         </field>
         <field name="save" title="&amp;nbsp;" position="2">
-            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_PENDING'),(document.MyPageNewEmail.submit())"/>
+            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPortalNewEmail.statusId.value='COM_PENDING'),(document.MyPortalNewEmail.submit())"/>
         </field>
         <field name="dummy" position="320"><hidden/></field>
     </form>

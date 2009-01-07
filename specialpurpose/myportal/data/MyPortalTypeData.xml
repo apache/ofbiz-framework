@@ -27,49 +27,72 @@
     <Enumeration description="Customer Request Completed" enumCode="CUST_COMPLETE" enumId="PRDS_CUST_CONFIRM" sequenceId="18" enumTypeId="PRDS_EMAIL"/>
     
     <!-- PortalPortlet Demo Data -->
-    <PortalPage portalPageId="MYPORTAL" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="MYPORTAL" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" />
     <PortalPage portalPageId="00001" portalPageName="My Profile" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
     <PortalPage portalPageId="00002" portalPageName="My Communications" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
-    <PortalPage portalPageId="00003" portalPageName="Other Communications" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL"/>
+    <PortalPage portalPageId="00003" portalPageName="Other Communications" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
     <PortalPage portalPageId="00004" portalPageName="Company communications" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
     <PortalPage portalPageId="00005" portalPageName="My Time Sheets" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
     <PortalPage portalPageId="00006" portalPageName="My Tasks" ownerUserLoginId="admin" parentPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00007" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="DemoEmployee" originalPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00008" portalPageName="My Profile" ownerUserLoginId="DemoEmployee" parentPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00009" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="DemoCustomer" originalPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00010" portalPageName="My Profile" ownerUserLoginId="DemoCustomer" parentPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00011" portalPageName="Invoices" ownerUserLoginId="DemoCustomer" parentPortalPageId="MYPORTAL" />
+    <PortalPage portalPageId="00012" portalPageName="Projects" ownerUserLoginId="DemoCustomer" parentPortalPageId="MYPORTAL" />
     
     <PortalPageColumn portalPageId="MYPORTAL" columnSeqId="00001" />
-    <PortalPageColumn portalPageId="00001" columnSeqId="00001" columnWidthPercentage="50" />    
+    <PortalPageColumn portalPageId="00001" columnSeqId="00001" columnWidthPercentage="50" />
     <PortalPageColumn portalPageId="00001" columnSeqId="00002" columnWidthPercentage="50" />
     <PortalPageColumn portalPageId="00002" columnSeqId="00001" />
     <PortalPageColumn portalPageId="00003" columnSeqId="00001" />
     <PortalPageColumn portalPageId="00004" columnSeqId="00001" />
     <PortalPageColumn portalPageId="00005" columnSeqId="00001" />
     <PortalPageColumn portalPageId="00006" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="00007" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="00008" columnSeqId="00001" columnWidthPercentage="50" />
+    <PortalPageColumn portalPageId="00008" columnSeqId="00002" columnWidthPercentage="50" />
+    <PortalPageColumn portalPageId="00009" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="00010" columnSeqId="00001" columnWidthPercentage="50" />
+    <PortalPageColumn portalPageId="00011" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="00012" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="00010" columnSeqId="00002" columnWidthPercentage="50" />
     
-    <PortalPortlet portalPortletId="Attributes" portletName="Attributes" screenName="Attributes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Attributes in myportal from party" />
+    <PortalPortlet portalPortletId="Attributes" portletName="Attributes" screenName="Attributes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Attributes in myportal from party"/>
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" screenName="AvsSettings" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Avs Settings in myportal from party" />
-    <PortalPortlet portalPortletId="Cart" portletName="Cart" screenName="Cart" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Cart in myportal from party" />
     <PortalPortlet portalPortletId="Content" portletName="Content" screenName="Content" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Content in myportal from party" />
-    <PortalPortlet portalPortletId="FinAccounts" portletName="Fin Accounts" screenName="FinAccounts" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Fin Accounts in myportal from party" />
     <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points" screenName="LoyaltyPoints" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Loyalty Points in myportal from party" />
     <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party" screenName="mytasksParty" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks in myportal from party" />
     <PortalPortlet portalPortletId="Notes" portletName="Notes" screenName="Notes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Notes in myportal from party" />
     <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods" screenName="PaymentMethods" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="PaymentMethods in myportal from party" />
-    <PortalPortlet portalPortletId="SerializedInventory" portletName="Serialized Inventory" screenName="SerializedInventory" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Serialized Inventory in myportal from party"/>
     <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account" screenName="ShipperAccount" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Shipper Account in myportal from party" />
-    <PortalPortlet portalPortletId="Subscriptions" portletName="Subscriptions" screenName="Subscriptions" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Subscriptions in myportal from party" />
-    <PortalPortlet portalPortletId="UserLogin" portletName="User Login" screenName="UserLogin" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="User Login in myportal from party"/>
+    <PortalPortlet portalPortletId="UserLogin" portletName="User Login" screenName="UserLogin" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="User Login in myportal from party" />
     <PortalPortlet portalPortletId="ViewInternalOrg" portletName="View Internal Org" screenName="ViewInternalOrg" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="View Internal Org in myportal from party" />
     <PortalPortlet portalPortletId="Visits" portletName="Visits" screenName="Visits" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Visits in myportal from party" />
     <PortalPortlet portalPortletId="contact" portletName="Contact" screenName="Contact" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="contact in myportal from party" />
-    <PortalPortlet portalPortletId="contactsAndAccounts" portletName="Contacts and Accounts" screenName="contactsAndAccounts" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Contacts and Accounts in myportal from party" />
     <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" />
     <PortalPortlet portalPortletId="mycommunications" portletName="My Communications" screenName="MyCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Communications From My Page" />
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" />
     <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" />
     <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" />
     <PortalPortlet portalPortletId="otherCommunications" portletName="Other Communications" screenName="OtherCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Other Communications From My Page" />
-    <PortalPortlet portalPortletId="party" portletName="Party" screenName="Party" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="profile in myportal from party" />    
+    <PortalPortlet portalPortletId="party" portletName="Party" screenName="Party" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="profile in myportal from party" />
+    <PortalPortlet portalPortletId="contactsAndAccounts" portletName="Contacts And Accounts" screenName="contactsAndAccounts" screenLocation="component://example/widget/example/PortletScreens.xml" description="Contacts And Accounts From My Page" />
+    <PortalPortlet portalPortletId="FinAccounts" portletName="FinAccounts" screenName="FinAccounts" screenLocation="component://example/widget/example/PortletScreens.xml" description="FinAccounts in myportal from party" />
+    <PortalPortlet portalPortletId="Cart" portletName="Cart" screenName="Cart" screenLocation="component://example/widget/example/PortletScreens.xml" description="Cart in myportal from party" />
+    <PortalPortlet portalPortletId="SerializedInventory" portletName="Serialized Inventory" screenName="SerializedInventory" screenLocation="component://example/widget/example/PortletScreens.xml" description="Serialized Inventory in myportal from party" />
+    <PortalPortlet portalPortletId="Subscriptions" portletName="Sub Scriptions" screenName="Subscriptions" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Sub Scriptions in myportal from party" />
+    <PortalPortlet portalPortletId="Communications" portletName="Communications" screenName="Communications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Communications From MyPortal" />
+    <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" />
+    <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" />
+    <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" />
+    <PortalPortlet portalPortletId="ListPartyCommEvents" portletName="List Party Comm Events" screenName="ListPartyCommEvents" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Party Comm Events in myportal from party" />
+    <PortalPortlet portalPortletId="ContentList" portletName="Content List" screenName="ContentList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Content List in myportal from party" />
+    <PortalPortlet portalPortletId="ListProjects" portletName="List Projects" screenName="ListProjects" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Projects From MyPortal" />
+    <PortalPortlet portalPortletId="WELCOME" portletName="Welcome" screenName="welcomePortlet" screenLocation="component://common/widget/PortletScreens.xml" description="OFBiz Welcome Message" />
+    <PortalPortlet portalPortletId="LOGIN" portletName="Login" screenName="loginPortlet" screenLocation="component://common/widget/PortletScreens.xml" editFormName="LoginPortletEdit" editFormLocation="component://common/widget/PortletEditForms.xml" description="Login Form" />
     
-    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001" />    
     <PortalPagePortlet portalPageId="00001" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" />
@@ -78,13 +101,46 @@
     <PortalPagePortlet portalPageId="00001" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" />
-    <PortalPagePortlet portalPageId="00001" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002"/>
+    <PortalPagePortlet portalPageId="00001" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="ShipperAccount" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00001" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" />
     <PortalPagePortlet portalPageId="00002" portalPortletId="mycommunications" portletSeqId="00001" columnSeqId="00001" />
-    <PortalPagePortlet portalPageId="00003" portalPortletId="otherCommunications" portletSeqId="00001" columnSeqId="00001"/>
+    <PortalPagePortlet portalPageId="00003" portalPortletId="otherCommunications" portletSeqId="00001" columnSeqId="00001" />
     <PortalPagePortlet portalPageId="00004" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001" />
     <PortalPagePortlet portalPageId="00005" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" />
-    <PortalPagePortlet portalPageId="00006" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" />    
+    <PortalPagePortlet portalPageId="00006" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00007" portalPortletId="mycommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="-1" />
+    <PortalPagePortlet portalPageId="00007" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="00007" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="00007" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="5" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="ShipperAccount" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="Content" portletSeqId="00002" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00008" portalPortletId="UserLogin" portletSeqId="00002" columnSeqId="00002" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="00009" portalPortletId="ListCustRequests" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="00009" portalPortletId="ListCustRequestsComp" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00009" portalPortletId="ListPartyCommEvents" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="ShipperAccount" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00010" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" />
+    <PortalPagePortlet portalPageId="00011" portalPortletId="ListInvoices" portletSeqId="00001" columnSeqId="00001" />
+    <PortalPagePortlet portalPageId="00012" portalPortletId="ListProjects" portletSeqId="00001" columnSeqId="00001" />
 </entity-engine-xml>

@@ -178,10 +178,10 @@ under the License.
                                 <not><if-empty field-name="custRequest"/></not>
                             </condition>
                             <widgets>
-                                <include-menu location="component://myportal/widget/MyPageMenus.xml" name="RequestTabBar"/>
+                                <include-menu location="component://myportal/widget/MyPortalMenus.xml" name="RequestTabBar"/>
                             </widgets>
                         </section>
-                        <include-menu name="RequestSubTabBar" location="component://myportal/widget/MyPageMenus.xml"/>
+                        <include-menu name="RequestSubTabBar" location="component://myportal/widget/MyPortalMenus.xml"/>
                         <container>
                             <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
                         </container>

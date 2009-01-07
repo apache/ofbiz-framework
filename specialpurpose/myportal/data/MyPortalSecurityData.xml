@@ -19,8 +19,8 @@ under the License.
 -->
 <entity-engine-xml>
 
-    <SecurityPermission permissionId="MYPORTAL_EMPLOYEE" description="Use the employee screens in mypage."/>
-    <SecurityGroup description="Employee user of mypage, Limited access to the projectmgr, comms,custRequests" groupId="MYPORTAL_EMPLOYEE"/>
+    <SecurityPermission permissionId="MYPORTAL_EMPLOYEE" description="Use the employee screens in myportal."/>
+    <SecurityGroup description="Employee user of myportal, Limited access to the projectmgr, comms,custRequests" groupId="MYPORTAL_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="MYPORTAL_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PROJECTMGR_ROLE_VIEW"/>

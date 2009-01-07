@@ -36,7 +36,7 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/> 
     <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
     
-    <!-- mypage users -->
+    <!-- myportal users -->
     <!-- demo customer read access to his own customer requests and related tasks including planning and actual hours-->
     <UserLoginSecurityGroup groupId="MYPORTAL_CUSTOMER" userLoginId="DemoCustomer" fromDate="2000-01-01 00:00:00.0"/>
     <!-- these customers also have access to the project manager (via rules in the project manager comp) -->
@@ -53,7 +53,7 @@ under the License.
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
     
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CONFIRM" bodyScreenLocation="component://myportal/widget/MyPageScreens.xml#CompletedCustRequestNotification" subject="OFBiz - Your Request Is Complete[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CREATED" bodyScreenLocation="component://myportal/widget/MyPageScreens.xml#CreateCustRequestNotification" subject="OFBiz - Your Request Is Created[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CONFIRM" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CompletedCustRequestNotification" subject="OFBiz - Your Request Is Complete[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CREATED" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CreateCustRequestNotification" subject="OFBiz - Your Request Is Created[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
 
 </entity-engine-xml>
