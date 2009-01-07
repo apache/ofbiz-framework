@@ -193,7 +193,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isEmpty(productId)) {
             // before returning error; check make sure we aren't adding a special item type
             if (UtilValidate.isEmpty(itemType)) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.noProductInfoPassed", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.noProductInfoPassed", locale));
                 return "success"; // not critical return to same page
             }
         } else {
@@ -235,7 +235,7 @@ public class ShoppingCartEvents {
             if (!configWrapper.isCompleted()) {
                 // The configuration is not valid
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.configureProductBeforeAddingToCart", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.configureProductBeforeAddingToCart", locale));
                 return "product";
             }
         }
@@ -258,7 +258,7 @@ public class ShoppingCartEvents {
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
                     return "product";
                 }
  
@@ -267,13 +267,13 @@ public class ShoppingCartEvents {
                     productId = variantProductId;
                 } else {
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.incompatibilityVariantFeature",locale));
+                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.incompatibilityVariantFeature",locale));
                     return "product";
                 }
 
             } else {
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
                 return "product";
             }
         }
@@ -301,7 +301,7 @@ public class ShoppingCartEvents {
                         Debug.logWarning(e,"Problems parsing Reservation start string: "
                                     + reservStartStr, module);
                         reservStart = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource,"cart.addToCart.rental.startDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"cart.addToCart.rental.startDate", locale));
                         return "error";
                     }
                 }
@@ -318,7 +318,7 @@ public class ShoppingCartEvents {
                     } catch (Exception e) {
                         Debug.logWarning(e,"Problems parsing Reservation end string: " + reservEndStr, module);
                         reservEnd = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource,"cart.addToCart.rental.endDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"cart.addToCart.rental.endDate", locale));
                         return "error";
                     }
                 }
@@ -359,7 +359,7 @@ public class ShoppingCartEvents {
             //check for valid rental parameters
             if (UtilValidate.isEmpty(reservStart) && UtilValidate.isEmpty(reservLength) && UtilValidate.isEmpty(reservPersons)) {
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
                 return "product";
             }
 
@@ -418,7 +418,7 @@ public class ShoppingCartEvents {
         // check for required amount
         if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
             request.setAttribute("product_id", productId);
-            request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
+            request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
             return "product";
         }
                 
@@ -709,7 +709,7 @@ public class ShoppingCartEvents {
             Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()) );
 
             request.setAttribute("_EVENT_MESSAGE_",
-                                  UtilProperties.getMessage(resource, "cart.add_category_defaults",
+                                  UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
                                           messageMap, locale ));
 
             return "success";

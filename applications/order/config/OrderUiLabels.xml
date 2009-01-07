@@ -19,6 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FormFieldTitle_addNote">
+        <value xml:lang="en">Add Note</value>
+        <value xml:lang="it">Aggiungi nota</value>
+    </property>
     <property key="FormFieldTitle_amountTotal">
         <value xml:lang="de">Totalbetrag</value>
         <value xml:lang="en">Amount Total</value>
@@ -82,6 +86,18 @@
         <value xml:lang="th">เมือง</value>
         <value xml:lang="zh">城市</value>
     </property>
+    <property key="FormFieldTitle_closedDateTime">
+        <value xml:lang="en">Closed Date Time</value>
+        <value xml:lang="it">Data ora chiusura</value>
+    </property>
+    <property key="FormFieldTitle_completionDate">
+        <value xml:lang="en">Completation Date</value>
+        <value xml:lang="it">Data completamento</value>
+    </property>
+    <property key="FormFieldTitle_configId">
+        <value xml:lang="en">Config Id</value>
+        <value xml:lang="it">Configurazione</value>
+    </property>
     <property key="FormFieldTitle_countryGeoId">
         <value xml:lang="de">Land Geo ID</value>
         <value xml:lang="en">Country Geo Id</value>
@@ -106,24 +122,20 @@
         <value xml:lang="th">หน่วยวัดสกุลเงิน</value>
         <value xml:lang="zh">货币币种</value>
     </property>
+    <property key="FormFieldTitle_currentStatusId">
+        <value xml:lang="en">Current Status Id</value>
+        <value xml:lang="it">Stato attuale</value>
+    </property>
     <property key="FormFieldTitle_custRequestId">
-        <value xml:lang="de">Kundenanfrage ID</value>
         <value xml:lang="en">Cust Request Id</value>
-        <value xml:lang="es">Código Petición</value>
-        <value xml:lang="fr">Réf. de demande client</value>
-        <value xml:lang="it">Codice richiesta soggetto</value>
-        <value xml:lang="nl">Klan aanvraag Id</value>
-        <value xml:lang="ro">Cod Cerere Subiect</value>
-        <value xml:lang="ru">Код запроса</value>
-        <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
-        <value xml:lang="zh">客户请求标识</value>
+        <value xml:lang="it">Richiesta soggetto</value>
     </property>
     <property key="FormFieldTitle_custRequestItemSeqId">
         <value xml:lang="de">Kundenanfrage Element Seq. ID</value>
         <value xml:lang="en">Cust Request Item Seq Id</value>
         <value xml:lang="es">Nº sec. petición de cliente</value>
         <value xml:lang="fr">Réf. séq. de ligne de demande client</value>
-        <value xml:lang="it">Numero sequenza riga richiesta soggetto</value>
+        <value xml:lang="it">Riga richiesta soggetto</value>
         <value xml:lang="nl">Klant aanvraag nr Id</value>
         <value xml:lang="ro">Numar Secvential linie Cerere Subiect</value>
         <value xml:lang="ru">Посл. код польз. запроса</value>
@@ -291,6 +303,10 @@
         <value xml:lang="th">รหัสภายใน</value>
         <value xml:lang="zh">内部代码</value>
     </property>
+    <property key="FormFieldTitle_internalComment">
+        <value xml:lang="en">Internal Comment</value>
+        <value xml:lang="it">Commento interno</value>
+    </property>
     <property key="FormFieldTitle_internalName">
         <value xml:lang="ar">الإسم الداخلي</value>
         <value xml:lang="de">Interner Name</value>
@@ -394,24 +410,20 @@
         <value xml:lang="en">Needs Inventory Issuance</value>
         <value xml:lang="es">Requiere salida de inventario</value>
         <value xml:lang="fr">Nécessite une sortie d'inventaire</value>
-        <value xml:lang="it">Necessario Emissione Inventario</value>
+        <value xml:lang="it">Necessario prelievo inventario</value>
         <value xml:lang="nl">Heeft voorraad aandacht nodig</value>
         <value xml:lang="ro">Necesar Emisie Inventar</value>
         <value xml:lang="ru">Необходимо страхование имущества</value>
         <value xml:lang="th">ต้องการทราบสินค้าคงเหลือ</value>
         <value xml:lang="zh">需要库存保险</value>
     </property>
-    <property key="FormFieldTitle_noteDateTime">
-        <value xml:lang="de">Notiz Datum Zeit</value>
-        <value xml:lang="en">Note Date Time</value>
-        <value xml:lang="es">Nota Fecha/hora</value>
-        <value xml:lang="fr">Note Date Heure</value>
-        <value xml:lang="it">Data/Ora Nota</value>
-        <value xml:lang="nl">Notitie Datum tijd</value>
-        <value xml:lang="ro">Data/Ora Nota</value>
-        <value xml:lang="ru">Дата и время примечания</value>
-        <value xml:lang="th">ข้อความวันเวลา</value>
-        <value xml:lang="zh">便笺日期时间</value>
+    <property key="FormFieldTitle_needsInventoryReceive">
+        <value xml:lang="en">Needs Inventory Receive</value>
+        <value xml:lang="it">Necessario ricevere inventario</value>
+    </property>
+    <property key="FormFieldTitle_newCreditCard">
+        <value xml:lang="en">New Credit Card</value>
+        <value xml:lang="it">Nuova carta di credito</value>
     </property>
     <property key="FormFieldTitle_noteInfo">
         <value xml:lang="de">Notiz Informationen</value>
@@ -424,6 +436,10 @@
         <value xml:lang="ru">Информация</value>
         <value xml:lang="th">ข้อมูลข้อความ</value>
         <value xml:lang="zh">便笺信息</value>
+    </property>    
+    <property key="FormFieldTitle_openDateTime">
+        <value xml:lang="en">Open Date Time</value>
+        <value xml:lang="it">Data ora apertura</value>
     </property>
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="de">Auftragsdatum</value>
@@ -731,17 +747,9 @@
         <value xml:lang="it">Inizio Riserva</value>
         <value xml:lang="th">เริ่มการจอง</value>
     </property>
-    <property key="FormFieldTitle_salesChannelEnumId">
-        <value xml:lang="de">Verkaufskanal Seq. ID</value>
-        <value xml:lang="en">Sales Channel Enum Id</value>
-        <value xml:lang="es">Nº sec. canal de venta</value>
-        <value xml:lang="fr">Réf. d'énumération de canal de vente</value>
-        <value xml:lang="it">Canale di Vendita</value>
-        <value xml:lang="nl">Verkoop kanaal Id</value>
-        <value xml:lang="ro">Canal de Vanzare</value>
-        <value xml:lang="ru">Код канала продаж</value>
-        <value xml:lang="th">รหัสการแจกจ่ายช่องทางการขาย</value>
-        <value xml:lang="zh">销售渠道枚举标识</value>
+    <property key="FormFieldTitle_returnHeaderTypeId">
+        <value xml:lang="en">Return HeaderType Id</value>
+        <value xml:lang="it">Tipo testata reso</value>
     </property>
     <property key="FormFieldTitle_salesTaxAmount">
         <value xml:lang="de">Verkaufssteuern Betrag</value>
@@ -834,6 +842,10 @@
         <value xml:lang="ru">Поддоны</value>
         <value xml:lang="th">Skids Pallets</value>
         <value xml:lang="zh">托台标识</value>
+    </property>
+    <property key="FormFieldTitle_startDate">
+        <value xml:lang="en">Start Date</value>
+        <value xml:lang="it">Data inizio</value>
     </property>
     <property key="FormFieldTitle_stateProvinceGeoId">
         <value xml:lang="de">Staat/Provinz Geo ID</value>
@@ -1525,6 +1537,7 @@
         <value xml:lang="en">Billing Address</value>
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Addresse de facturation</value>
+	<value xml:lang="it">Indirizzo di fatturazione</value>
         <value xml:lang="ru">Платежный адрес</value>
         <value xml:lang="th">ที่อยู่ใบเสร็จรับเงิน</value>
     </property>
@@ -1564,6 +1577,19 @@
         <value xml:lang="th">การคำนวณปิดการทำงาน</value>
         <value xml:lang="zh">离线计算</value>
     </property>
+    <property key="OrderCalendarClickHereForCalendar">
+        <value xml:lang="de">Kalender anzeigen</value>
+        <value xml:lang="en">Click here For Calendar</value>
+        <value xml:lang="es">Pulse aquí para abrir un calendario</value>
+        <value xml:lang="fr">Cliquer ici pour le calendrier</value>
+        <value xml:lang="it">Clicca qui Per Calendario</value>
+        <value xml:lang="nl">Click here For Calendar</value>
+        <value xml:lang="ro">Click_eaza aici  Pentru Calendar</value>
+        <value xml:lang="ru">Нажмите здесь чтобы увидеть календарь</value>
+        <value xml:lang="th">คลิกที่นี่เพื่อดูปฏิทิน</value>
+        <value xml:lang="zh">点击这里得到日历</value>
+        <value xml:lang="zh_CN">点击这里查看日历</value>
+    </property>
     <property key="OrderCancelAllItems">
         <value xml:lang="de">Alle Positionen löschen</value>
         <value xml:lang="en">Cancel all Items</value>
@@ -1581,6 +1607,7 @@
         <value xml:lang="en">Cancel Order</value>
         <value xml:lang="es">Anular pedido</value>
         <value xml:lang="fr">Annulation de commande</value>
+	<value xml:lang="it">Annulla ordine</value>
         <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
     </property>
     <property key="OrderCancelled">
@@ -1613,12 +1640,13 @@
         <value xml:lang="de">Sie können die Menge auf dem Aktionselement ${productName} (Produkt ID: ${productId}) nicht ändern, Menge nicht angepasst.</value>
         <value xml:lang="en">Sorry, you can't change the quantity on the promotion item ${productName} (product ID: ${productId}, not setting quantity.</value>
         <value xml:lang="es">No puede cambiar la cantidad del ítem de promoción ${productName} (código de producto: ${productId}, no se pone cantidad).</value>
-        <value xml:lang="it">Spiacente, non puoi cambiare la quantità del prodotto in promozione ${productName} (product ID: ${productId}.</value>
+        <value xml:lang="it">Spiacente, non puoi cambiare la quantità del prodotto in promozione ${productName} (prodotto: ${productId}.</value>
     </property>
     <property key="OrderCaptureService">
         <value xml:lang="en">Service capture</value>
         <value xml:lang="es">Servicio de captura de pedido</value>
         <value xml:lang="fr">Service de prélèvement</value>
+	<value xml:lang="it">Servizio di cattura</value>
         <value xml:lang="th">ให้ความสนใจบริการ</value>
     </property>
     <property key="OrderCardSecurityCode">
@@ -1683,6 +1711,7 @@
         <value xml:lang="en">Cartons</value>
         <value xml:lang="es">Cajas</value>
         <value xml:lang="fr">Cartons</value>
+	<value xml:lang="it">Cartoni</value>
         <value xml:lang="th">บรรจุลงกล่อง</value>
     </property>
     <property key="OrderCheckout">
@@ -1846,7 +1875,7 @@
         <value xml:lang="en">OFBiz: Order Manager</value>
         <value xml:lang="es">OFBiz: Gestión de pedidos</value>
         <value xml:lang="fr">OFBiz : Gestion commerciale</value>
-        <value xml:lang="it">OFBiz: Gestione Ordini</value>
+        <value xml:lang="it">OFBiz: Gestione ordini</value>
         <value xml:lang="nl">Teleswitch Order Manager</value>
         <value xml:lang="ro">OFBiz: Gestiune Comanda </value>
         <value xml:lang="ru">OFBiz: Управление заказами</value>
@@ -1939,6 +1968,7 @@
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
         <value xml:lang="es">Contenido</value>
+	<value xml:lang="it">Contenuto</value>
     </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="cs">Dále k závěrečnému přehledu objednávky</value>
@@ -2162,6 +2192,7 @@
         <value xml:lang="de">Neue Offerte aus der Anfrage erstellen</value>
         <value xml:lang="en">Create Quote from request</value>
         <value xml:lang="es">Crear nuevo presupuesto desde petición</value>
+	<value xml:lang="it">Crea preventivo dalla richiesta</value>
     </property>
     <property key="OrderCreateQuoteFromShoppingList">
         <value xml:lang="de">Neue Offerte erstellen</value>
@@ -2205,6 +2236,7 @@
         <value xml:lang="en">Create return shipment</value>
         <value xml:lang="es">Crear envío de vuelta</value>
         <value xml:lang="fr">Créer une expédition de retour</value>
+	<value xml:lang="it">Creare reso dalla spedizione</value>
     </property>
     <property key="OrderCreateShippingAddress">
         <value xml:lang="de">Neue Versandadresse erstellen</value>
@@ -2233,6 +2265,7 @@
         <value xml:lang="en">Cubic Measurement</value>
         <value xml:lang="es">Medida de volumen</value>
         <value xml:lang="fr">Mesure cubique</value>
+	<value xml:lang="it">Misura cubica</value>
         <value xml:lang="th">ปริมาตรลูกบาศก์</value>
     </property>
     <property key="OrderCurrentStatus">
@@ -2253,6 +2286,7 @@
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
+	<value xml:lang="it">Cliente</value>
         <value xml:lang="th">ลูกค้า</value>
     </property>
     <property key="OrderCustomerPo">
@@ -2329,6 +2363,7 @@
         <value xml:lang="en">Delivery Schedule Info</value>
         <value xml:lang="es">Información de horario de entrega</value>
         <value xml:lang="fr">Information du plan de livraison</value>
+	<value xml:lang="it">Informazioni consegna schedulata</value>
         <value xml:lang="th">ข้อมูลตารางเวลาการส่ง</value>
     </property>
     <property key="OrderDemoFrontNote">
@@ -2427,6 +2462,7 @@
         <value xml:lang="en">Drop Shipped</value>
         <value xml:lang="es">Envío directo al cliente sin transportista</value>
         <value xml:lang="fr">Expédié par un tiers</value>
+	<value xml:lang="it">Spedizione per un terzo</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
     </property>
@@ -2461,6 +2497,7 @@
         <value xml:lang="en">Edit Requirement</value>
         <value xml:lang="es">Editar requisitos</value>
         <value xml:lang="fr">Modifier le besoin</value>
+	<value xml:lang="it">Aggiorna fabbisogni</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
     </property>
     <property key="OrderEditShipmentInfo">
@@ -2468,6 +2505,7 @@
         <value xml:lang="en">Edit Shipment Info</value>
         <value xml:lang="es">Editar información de envío</value>
         <value xml:lang="fr">Modifier l'info d'expédition</value>
+	<value xml:lang="it">Aggiorna informazioni spedizione</value>
         <value xml:lang="ru">Изменить информацию о поставке</value>
         <value xml:lang="th">แก้ไขข้อมูลการส่งสินค้า</value>
         <value xml:lang="zh">编辑货运信息</value>
@@ -2630,6 +2668,7 @@
         <value xml:lang="en">Error : Select  Customer</value>
         <value xml:lang="es">Por favor, seleccione un cliente</value>
         <value xml:lang="fr">SVP : sélectionnez un client</value>
+	<value xml:lang="it">Errore : selezione cliente</value>
         <value xml:lang="th">Error : ผิดพลาด ! การเลือกลูกค้า</value>
     </property>
     <property key="OrderErrorShoppingCartEmpty">
@@ -2654,6 +2693,7 @@
         <value xml:lang="en">Estimated Ready Date</value>
         <value xml:lang="es">Fecha estimada de disponibilidad</value>
         <value xml:lang="fr">Date prête estimée</value>
+	<value xml:lang="it">Data stimata disponibilità</value>
         <value xml:lang="th">อ่านประมาณวันที่</value>
     </property>
     <property key="OrderEstimatedShipDate">
@@ -2661,6 +2701,7 @@
         <value xml:lang="en">Estimated Ship Date</value>
         <value xml:lang="es">Fecha de envío estimada</value>
         <value xml:lang="fr">Date d'expédition estimée</value>
+	<value xml:lang="it">Data di spedizione stimata</value>
         <value xml:lang="th">ชำระเงินประมาณวันที่</value>
     </property>
     <property key="OrderExcludeCategories">
@@ -2737,6 +2778,7 @@
         <value xml:lang="en">Filter On Inventory Problems</value>
         <value xml:lang="es">Filtrado problemas de almacén</value>
         <value xml:lang="fr">filtrer sur les problèmes de stock</value>
+	<value xml:lang="it">Filtro su problemi di inventario</value>
         <value xml:lang="ro">Filtreaza pe probleme de inventar</value>
         <value xml:lang="th">ปัญหาการเพิ่มสินค้าคงเหลือ</value>
     </property>
@@ -2828,7 +2870,7 @@
         <value xml:lang="en">Find Orders</value>
         <value xml:lang="es">Buscar pedidos</value>
         <value xml:lang="fr">Recherche de commandes</value>
-        <value xml:lang="it">Ricerca Ordini</value>
+        <value xml:lang="it">Ricerca ordini</value>
         <value xml:lang="nl">Zoek Bestellingen</value>
         <value xml:lang="ro">Cauta Comenzi </value>
         <value xml:lang="ru">Поиск заказов</value>
@@ -2853,6 +2895,7 @@
         <value xml:lang="en">Find Quotes</value>
         <value xml:lang="es">Buscar presupuestos</value>
         <value xml:lang="fr">Recherche de devis</value>
+	<value xml:lang="it">Ricerca preventivi</value>
         <value xml:lang="ru">Поиск предложений</value>
         <value xml:lang="th">ค้นหาคำร้อง</value>
     </property>
@@ -2873,6 +2916,7 @@
         <value xml:lang="en">Find Requirements</value>
         <value xml:lang="es">Buscar requisitos</value>
         <value xml:lang="fr">Recherche de besoins</value>
+	<value xml:lang="it">Ricerca fabbisogni</value>
         <value xml:lang="ru">Поиск требований</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
     </property>
@@ -2881,6 +2925,7 @@
         <value xml:lang="en">Find Requirements For Supplier</value>
         <value xml:lang="es">Buscar requisitos para proveedor</value>
         <value xml:lang="fr">Recherche de besoins pour le fournisseur</value>
+	<value xml:lang="it">Ricerca fabbisogni per fornitore</value>
         <value xml:lang="ru">Поиск требований для поставщика</value>
         <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้</value>
     </property>
@@ -2902,6 +2947,7 @@
         <value xml:lang="en">Force Complete Purchase Order</value>
         <value xml:lang="es">Forzar finalización del pedido</value>
         <value xml:lang="fr">Forcer l'achèvement de la commande d'achat</value>
+	<value xml:lang="it">Forza completamento ordine di acquisto</value>
         <value xml:lang="ru">Принудительное завершение закупочного заказа</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าเสร็จสมบูรณ์</value>
     </property>
@@ -2910,6 +2956,7 @@
         <value xml:lang="en">From Monday To Tuesday</value>
         <value xml:lang="es">De lunes a martes</value>
         <value xml:lang="fr">De lundi à mardi</value>
+	<value xml:lang="it">Da lunedì a venerdì</value>
         <value xml:lang="th">จากวันจันทร์ถึงวันอังคาร</value>
     </property>
     <property key="OrderGift">
@@ -3012,6 +3059,19 @@
         <value xml:lang="th">ยอดรวมรายการที่ขาย (รวมโปรโมชันและรายการที่ยังค้างอยู่)</value>
         <value xml:lang="zh">已售的全部明细 (包括促销和待处理的订单)</value>
         <value xml:lang="zh_CN">总销售项目 (包括促销和未完成的订单)</value>
+    </property>
+    <property key="OrderHelpAlsoInterestedIn">
+        <value xml:lang="de">Sie könnten auch an Folgendem interessiert sein:</value>
+        <value xml:lang="en">You might also be interested in :</value>
+        <value xml:lang="es">También le puede interesar :</value>
+        <value xml:lang="fr">Vous pourriez également être intéressé(e) par :</value>
+        <value xml:lang="it">Tu potresti essere interessato anche a :</value>
+        <value xml:lang="nl">You might also be interested in :</value>
+        <value xml:lang="ro">Tu ai putea sa fii interesat si de :</value>
+        <value xml:lang="ru">Вас также может заинтересовать следующая продукция:</value>
+        <value xml:lang="th">คุณน่าจะสนใจใน :</value>
+        <value xml:lang="zh">你可能还会对下列产品感兴趣：</value>
+        <value xml:lang="zh_CN">你可能也对这些感兴趣 :</value>
     </property>
     <property key="OrderHold">
         <value xml:lang="de">Auftrag anhalten</value>
@@ -3349,6 +3409,7 @@
         <value xml:lang="en">Discontinued</value>
         <value xml:lang="es">Dado de baja</value>
         <value xml:lang="fr">Epuisé, plus fabriqué</value>
+	<value xml:lang="it">Cessato</value>
         <value xml:lang="ru">Снято с производства</value>
         <value xml:lang="th">ไม่ต่อเนื่อง</value>
     </property>
@@ -3492,6 +3553,7 @@
         <value xml:lang="en">Linked from order item</value>
         <value xml:lang="es">Enlazado desde ítem de pedido</value>
         <value xml:lang="fr">Lien depuis ligne de commande</value>
+	<value xml:lang="it">Link da una riga ordine</value>
         <value xml:lang="ru">Связь от позиции заказа</value>
         <value xml:lang="th">ลิงค์จากรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">链接自订单明细</value>
@@ -3553,7 +3615,7 @@
         <value xml:lang="en">Lookup Order(s)</value>
         <value xml:lang="es">Buscar pedido(s)</value>
         <value xml:lang="fr">Recherche de commande(s)</value>
-        <value xml:lang="it">Ricerca Ordine(i)</value>
+        <value xml:lang="it">Ricerca ordine(i)</value>
         <value xml:lang="nl">Opvragen Bestelling(en)</value>
         <value xml:lang="ro">Cauta Comanda(enzi)</value>
         <value xml:lang="ru">Искать заказ(ы)</value>
@@ -3590,6 +3652,7 @@
     <property key="OrderLookupWhitepagesLink">
         <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
+	<value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
     </property>
     <property key="OrderMTD">
         <value xml:lang="de">Total Monat</value>
@@ -3623,7 +3686,7 @@
         <value xml:lang="en">Order Manager Application</value>
         <value xml:lang="es">Gestión de pedidos</value>
         <value xml:lang="fr">Gestion de Commandes</value>
-        <value xml:lang="it">Applicazione Gestione Ordini</value>
+        <value xml:lang="it">Applicazione gestione ordini</value>
         <value xml:lang="nl">Bestel Manage Programma</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
@@ -3734,6 +3797,7 @@
         <value xml:lang="en">Net Amount</value>
         <value xml:lang="es">Importe neto</value>
         <value xml:lang="fr">Montant net</value>
+	<value xml:lang="it">Importo netto</value>
         <value xml:lang="th">จำนวนสุทธิ</value>
     </property>
     <property key="OrderNetPriceHT">
@@ -3741,6 +3805,7 @@
         <value xml:lang="en">Net Price HT</value>
         <value xml:lang="es">Precio neto sin impuestos</value>
         <value xml:lang="fr">Prix net HT</value>
+	<value xml:lang="it">Prezzo netto con tasse</value>
         <value xml:lang="th">ราคาสุทธิHT</value>
     </property>
     <property key="OrderNewDropShipmentForShipGroup">
@@ -3748,6 +3813,7 @@
         <value xml:lang="en">New Drop Shipment For Ship Group</value>
         <value xml:lang="es">Nuevo envío directo para este grupo de envío</value>
         <value xml:lang="fr">Nouvelle livraison par un tiers pour le groupe d'expédition</value>
+	<value xml:lang="it">Nuovo gruppo spedizione per spedizione conto terzi</value>
         <value xml:lang="ru">Новая прямая поставка для группы</value>
         <value xml:lang="th">ลดการขนส่งใหม่สำหรับกลุ่มการขนส่ง</value>
         <value xml:lang="zh">为货运组新建厂家直送</value>
@@ -4034,6 +4100,7 @@
         <value xml:lang="en">No payment preferences with this order.</value>
         <value xml:lang="es">No hay preferencias de pago para este pedido</value>
         <value xml:lang="fr">Aucune préférence de paiement liée à cette commande</value>
+	<value xml:lang="it">Nessuna preferenza pagamento con questo ordine.</value>
         <value xml:lang="ru">Платежных предпочтений ассоциированных с этим заказом нет.</value>
         <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">没有与这个订单关联的支付优先方式。</value>
@@ -4043,6 +4110,7 @@
         <value xml:lang="en">No Purchase Order Specified</value>
         <value xml:lang="es">Pedido de compra no especificado</value>
         <value xml:lang="fr">Aucune commande d'achat spécifiée</value>
+	<value xml:lang="it">Nessun ordine di acquisto specificato</value>
         <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
     </property>
     <property key="OrderNoPurchasePaymentMethod">
@@ -4426,6 +4494,7 @@
         <value xml:lang="en">On Friday</value>
         <value xml:lang="es">el viernes</value>
         <value xml:lang="fr">Le vendredi</value>
+	<value xml:lang="it">Di venerdì</value>
         <value xml:lang="th">ภายในวันศุกร์</value>
     </property>
     <property key="OrderOnOrder">
@@ -4546,7 +4615,7 @@
         <value xml:lang="en">Order Entry</value>
         <value xml:lang="es">Crear pedido</value>
         <value xml:lang="fr">Création</value>
-        <value xml:lang="it">Inserimento Ordine</value>
+        <value xml:lang="it">Inserimento ordine</value>
         <value xml:lang="nl">Bestelling Entry</value>
         <value xml:lang="ro">Introducere Comanda </value>
         <value xml:lang="ru">Ввод заказа</value>
@@ -4729,7 +4798,7 @@
         <value xml:lang="en">Order List</value>
         <value xml:lang="es">Lista de pedidos</value>
         <value xml:lang="fr">Liste des commandes</value>
-        <value xml:lang="it">Lista Ordini</value>
+        <value xml:lang="it">Lista ordini</value>
         <value xml:lang="nl">Bestelling List</value>
         <value xml:lang="ro">Lista Comanda</value>
         <value xml:lang="ru">Список заказов</value>
@@ -4742,7 +4811,7 @@
         <value xml:lang="en">Order Manager Application</value>
         <value xml:lang="es">Gestión de pedidos</value>
         <value xml:lang="fr">Gestion de commandes</value>
-        <value xml:lang="it">Applicazione Gestione Ordini</value>
+        <value xml:lang="it">Applicazione gestione ordini</value>
         <value xml:lang="nl">Bestelling Manager Application</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
@@ -4868,6 +4937,7 @@
         <value xml:lang="en">Quote Adjustment Type Id</value>
         <value xml:lang="es">Código del ajuste</value>
         <value xml:lang="fr">Réf. de type d'ajustement de devis</value>
+	<value xml:lang="it">Tipo aggiustamento preventivo</value>
         <value xml:lang="th">รหัสประเภทการปรับเปลี่ยนคำร้อง</value>
     </property>
     <property key="OrderOrderQuoteAdjustments">
@@ -5390,6 +5460,7 @@
         <value xml:lang="en">Quote Type</value>
         <value xml:lang="es">Tipo de presupuesto</value>
         <value xml:lang="fr">Type de devis</value>
+	<value xml:lang="it">Tipo preventivo</value>
         <value xml:lang="ru">Тип предложения</value>
         <value xml:lang="th">ประเภทคำร้อง</value>
     </property>
@@ -5758,6 +5829,7 @@
         <value xml:lang="de">Übersicht</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Resumen</value>
+	<value xml:lang="it">Sommario</value>
     </property>
     <property key="OrderPONumber">
         <value xml:lang="de">Auftragsnummer</value>
@@ -5865,6 +5937,7 @@
         <value xml:lang="en">Pay Method Type</value>
         <value xml:lang="es">Tipo de método de pago</value>
         <value xml:lang="fr">Type de méthode de paiement</value>
+	<value xml:lang="it">Tipo metodo di pagamento</value>
         <value xml:lang="th">วิธีการชำระเงิน</value>
     </property>
     <property key="OrderPaymentAddNewSetting">
@@ -5872,6 +5945,7 @@
         <value xml:lang="en">Payment Add New Setting</value>
         <value xml:lang="es">Agregar nueva configuración</value>
         <value xml:lang="fr">Le paiement ajoute une nouvelle définition</value>
+	<value xml:lang="it">Aggiunta nuove impostazioni pagamento</value>
         <value xml:lang="th">เพิ่มการตั้งค่าการชำระเงินใหม่</value>
     </property>
     <property key="OrderPaymentConfig">
@@ -5879,6 +5953,7 @@
         <value xml:lang="en">Payment Config</value>
         <value xml:lang="es">Configuración del pago</value>
         <value xml:lang="fr">Configuration de paiement</value>
+	<value xml:lang="it">Configurazione pagamento</value>
         <value xml:lang="th">สร้างการชำระเงิน</value>
     </property>
     <property key="OrderPaymentMaximumAmount">
@@ -5909,42 +5984,49 @@
         <value xml:lang="en">Processor Auth Service</value>
         <value xml:lang="es">Servicio procesador de autentificación de pago</value>
         <value xml:lang="fr">Service d'autorisation de paiement</value>
+	<value xml:lang="it">Servizio di autenticazione</value>
         <value xml:lang="th">การบริการให้อำนาจการประมวลผล</value>
     </property>
     <property key="OrderPaymentProcessorCaptureService">
         <value xml:lang="en">Processor Capture Service</value>
         <value xml:lang="es">Servicio procesador de captura de pago</value>
         <value xml:lang="fr">Service de prélèvement du paiement</value>
+	<value xml:lang="it">Servizio di cattura</value>
         <value xml:lang="th">การบริการให้ความสนใจการประมวลผล</value>
     </property>
     <property key="OrderPaymentProcessorPropertiesURL">
         <value xml:lang="en">Processor Properties URL</value>
         <value xml:lang="es">Dirección URL de las propiedades del procesador de pago</value>
         <value xml:lang="fr">URL du service de paiement</value>
+	<value xml:lang="it">URL del servizio di pagamento</value>
         <value xml:lang="th">การประมวผลคุณสมบัติ URL</value>
     </property>
     <property key="OrderPaymentProcessorReAuthService">
         <value xml:lang="en">Processor Re Auth Service</value>
         <value xml:lang="es">Servicio procesador de reautentificación de pago</value>
         <value xml:lang="fr">Service de ré-autorisation de paiement</value>
+	<value xml:lang="it">Servizio di re-autorizzazione</value>
         <value xml:lang="th">การบริการให้อำนาจการประมวลผลอีกครั้ง</value>
     </property>
     <property key="OrderPaymentProcessorRefundService">
         <value xml:lang="en">Processor Refund Service</value>
         <value xml:lang="es">Servicio procesador de reembolso</value>
         <value xml:lang="fr">Service de remboursement</value>
+	<value xml:lang="it">Servizio di rimborso</value>
         <value xml:lang="th">การบริการประมวผลการคืนเงินให้</value>
     </property>
     <property key="OrderPaymentProcessorSetup">
         <value xml:lang="en">Processor Setup</value>
         <value xml:lang="es">Configuración del procesador de pago</value>
         <value xml:lang="fr">Configuration du service de paiement</value>
+	<value xml:lang="it">Configurazione processore pagamenti</value>
         <value xml:lang="th">การตั้งค่าการประมวลผล</value>
     </property>
     <property key="OrderPaymentSetup">
         <value xml:lang="en">Payment Setup</value>
         <value xml:lang="es">Configuración de pagos</value>
         <value xml:lang="fr">Configuration du paiement</value>
+	<value xml:lang="it">Configurazione dei pagamenti</value>
         <value xml:lang="th">การตั้งค่าการชำระเงิน</value>
     </property>
     <property key="OrderPaymentType">
@@ -5964,6 +6046,7 @@
         <value xml:lang="en">Payment Update Setting</value>
         <value xml:lang="es">Actualización de configuración</value>
         <value xml:lang="fr">Configuration de la mise à jour de paiement</value>
+	<value xml:lang="it">Aggiorna configurazione pagamenti</value>
         <value xml:lang="th">ตั้งค่าการอัพเดทวิธีการชำระเงิน</value>
     </property>
     <property key="OrderPendingPaymentDollarAmountsIncludesAdjustments">
@@ -6156,6 +6239,7 @@
         <value xml:lang="en">Process Order</value>
         <value xml:lang="es">Tramitar pedido</value>
         <value xml:lang="fr">Exécuter la commande</value>
+	<value xml:lang="it">Processa ordine</value>
         <value xml:lang="th">ประมวลผลรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderProcessingInActive">
@@ -6401,6 +6485,7 @@
         <value xml:lang="en">Purchased From</value>
         <value xml:lang="es">Comprado a</value>
         <value xml:lang="fr">Acheté de</value>
+	<value xml:lang="it">Acquistato da</value>
         <value xml:lang="ru">Закупать от</value>
         <value xml:lang="th">สั่งซื้อจาก</value>
         <value xml:lang="zh">购自</value>
@@ -6504,6 +6589,7 @@
         <value xml:lang="en">In Group</value>
         <value xml:lang="es">En grupo</value>
         <value xml:lang="fr">En groupe</value>
+	<value xml:lang="it">Qnt. gruppo sped.</value>
         <value xml:lang="ru">В группе</value>
         <value xml:lang="th">ในกลุ่ม</value>
     </property>
@@ -6512,6 +6598,7 @@
         <value xml:lang="en">Total In Group</value>
         <value xml:lang="es">Total en grupo</value>
         <value xml:lang="fr">Total en groupe</value>
+	<value xml:lang="it">Totale gruppo di spedizione</value>
         <value xml:lang="ru">Всего в группе</value>
         <value xml:lang="th">ผลรวมในกลุ่ม</value>
     </property>
@@ -6532,6 +6619,7 @@
         <value xml:lang="en">Shipped</value>
         <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Expédié</value>
+	<value xml:lang="it">Qnt Spedita</value>
         <value xml:lang="ru">Отгружено</value>
         <value xml:lang="th">การขนส่ง</value>
     </property>
@@ -6712,6 +6800,7 @@
         <value xml:lang="en">Re Auth Service</value>
         <value xml:lang="es">Servicio de reautentificación</value>
         <value xml:lang="fr">Service de ré-autorisation de paiement</value>
+	<value xml:lang="it">Servizio di re-autorizzazione</value>
         <value xml:lang="th">ให้บริการอีกครั้ง</value>
     </property>
     <property key="OrderRecalculateOrder">
@@ -6797,6 +6886,7 @@
         <value xml:lang="en">Refund Service</value>
         <value xml:lang="es">Servicio de reembolso</value>
         <value xml:lang="fr">Service de remboursement</value>
+	<value xml:lang="it">Servizio di rimborso</value>
         <value xml:lang="th">บริการคืนเงินให้</value>
     </property>
     <property key="OrderRequestReturn">
@@ -6889,6 +6979,7 @@
         <value xml:lang="en">Reject Order</value>
         <value xml:lang="es">Rechazar pedido</value>
         <value xml:lang="fr">Rejeter la commande</value>
+	<value xml:lang="it">Rifiuta ordine</value>
         <value xml:lang="th">ปฏิเสธรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderRejected">
@@ -7058,6 +7149,7 @@
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
         <value xml:lang="es">Contenido</value>
+	<value xml:lang="it">Contenuto</value>
     </property>
     <property key="OrderRequestCreatedDate">
         <value xml:lang="de">Erstellungsdatum</value>
@@ -7090,7 +7182,7 @@
         <value xml:lang="en">Request Item</value>
         <value xml:lang="es">Ítem de petición</value>
         <value xml:lang="fr">Demande d'article</value>
-        <value xml:lang="it">Riga Richiesta</value>
+        <value xml:lang="it">Riga richiesta</value>
         <value xml:lang="nl">Request Item</value>
         <value xml:lang="ro">Linie Cerere</value>
         <value xml:lang="ru">Позиция запроса</value>
@@ -7102,11 +7194,13 @@
         <value xml:lang="de">Anmerkungen</value>
         <value xml:lang="en">Notes</value>
         <value xml:lang="es">Notas</value>
+	<value xml:lang="it">Note</value>
     </property>
     <property key="OrderRequestItemQuotes">
         <value xml:lang="de">Offerten</value>
         <value xml:lang="en">Quotes</value>
         <value xml:lang="es">Presupuestos</value>
+	<value xml:lang="it">Preventivi</value>
     </property>
     <property key="OrderRequestItems">
         <value xml:lang="de">Anfragelemente</value>
@@ -7120,6 +7214,10 @@
         <value xml:lang="th">หัวข้อการร้องขอ</value>
         <value xml:lang="zh">请求明细</value>
         <value xml:lang="zh_CN">请求项目</value>
+    </property>
+    <property key="OrderRequestItemWorkEffort">
+        <value xml:lang="en">Request Item WorkEffort</value>
+	<value xml:lang="it">Impegni di lavoro riga richiesta</value>
     </property>
     <property key="OrderRequestLastModifiedDate">
         <value xml:lang="de">Datum letzte Änderung</value>
@@ -7190,13 +7288,14 @@
         <value xml:lang="de">Übersicht</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Resumen</value>
+	<value xml:lang="it">Sommario</value>
     </property>
     <property key="OrderRequestRoles">
         <value xml:lang="de">Anfragerollen</value>
         <value xml:lang="en">Request Roles</value>
         <value xml:lang="es">Roles de petición</value>
         <value xml:lang="fr">Rôles de demande</value>
-        <value xml:lang="it">Ruoli Richiesta</value>
+        <value xml:lang="it">Ruoli richiesta</value>
         <value xml:lang="nl">Request Roles</value>
         <value xml:lang="ro">Roluri Cerere</value>
         <value xml:lang="ru">Роли запроса</value>
@@ -7209,7 +7308,7 @@
         <value xml:lang="en">Request Taker</value>
         <value xml:lang="es">Encargado de petición</value>
         <value xml:lang="fr">Gestionnaire de demande</value>
-        <value xml:lang="it">Possessore Richiesta</value>
+        <value xml:lang="it">Possessore richiesta</value>
         <value xml:lang="nl">Request Taker</value>
         <value xml:lang="ro">Posesor Cerere</value>
         <value xml:lang="ru">Получатель запроса</value>
@@ -7222,7 +7321,7 @@
         <value xml:lang="en">Requesting Party</value>
         <value xml:lang="es">Participante solicitante</value>
         <value xml:lang="fr">Acteur émettant une demande</value>
-        <value xml:lang="it">Soggetto Richiedente</value>
+        <value xml:lang="it">Soggetto richiedente</value>
         <value xml:lang="nl">Requesting Party</value>
         <value xml:lang="ro">Subiect Cerere</value>
         <value xml:lang="ru">Запрашивающий контрагент</value>
@@ -7248,7 +7347,7 @@
         <value xml:lang="en">Required for SO</value>
         <value xml:lang="es">Obligatorio para los pedidos de venta</value>
         <value xml:lang="fr">Obligatoire pour les commandes de vente</value>
-        <value xml:lang="it">Richieste per OV</value>
+        <value xml:lang="it">Richieste per ordine di vendita</value>
         <value xml:lang="nl">Required for SO</value>
         <value xml:lang="ro">Cerere pentru OV</value>
         <value xml:lang="ru">Запрос для сбытового заказа</value>
@@ -7387,6 +7486,14 @@
         <value xml:lang="th">กลับคืนการปรับเปลี่ยนรายการสั่งซื้อสินค้าจากรายการ</value>
         <value xml:lang="zh">退货订单调整来自订单</value>
     </property>
+    <property key="OrderReturnCannotBeChanged">
+        <value xml:lang="en">This cannot be changed without re-creating the Return.</value>
+        <value xml:lang="it">Questo non può essere modificato senza ri-creare il reso.</value>
+    </property>
+    <property key="OrderReturnCannotBeFound">
+        <value xml:lang="en">Could not find Return with ID</value>
+        <value xml:lang="it">Non è possibile trovare il reso</value>
+    </property>
     <property key="OrderReturnCreate">
         <value xml:lang="de">Retoure erstellen</value>
         <value xml:lang="en">Create Return</value>
@@ -7416,6 +7523,7 @@
         <value xml:lang="en">Return Enum Id</value>
         <value xml:lang="es">Tipo de devolución</value>
         <value xml:lang="fr">Réf. type énum.</value>
+	<value xml:lang="it">Tipo reso</value>
         <value xml:lang="th">กลับคืนรหัสที่ระบุ</value>
     </property>
     <property key="OrderReturnFound">
@@ -7530,6 +7638,10 @@
         <value xml:lang="ru">Ручная настройка возврата для заказа</value>
         <value xml:lang="th">กลับสู่การปรับปรุงคู่มือสำหรับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单手工退货调整</value>
+    </property>
+    <property key="OrderReturnNecessaryReceiveInventoryMessage">
+        <value xml:lang="en">If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.</value>
+        <value xml:lang="it">Se questo è a Y all i resi saranno automaticamente completati quando verrà accettato, saltando il processo e gli stati della ricezione.</value>
     </property>
     <property key="OrderReturnNeedsAutoReceive">
         <value xml:lang="en">Auto-Receive On ACCEPT</value>
@@ -7846,6 +7958,7 @@
         <value xml:lang="en">Error in toggling notes to Private/Public</value>
         <value xml:lang="es">Error al cambiar notas a privado/público</value>
         <value xml:lang="fr">Erreur dans le basculement de notes entre privé et public</value>
+	<value xml:lang="it">Errore nella impostazione delle note a private/pubbliche</value>
         <value xml:lang="ru">Ошибка переключения заметки в приватную/публичную</value>
         <value xml:lang="th">Error in toggling notes to Private/Public</value>
         <value xml:lang="zh">把便笺做私有/公开切换时发生错误</value>
@@ -7853,6 +7966,7 @@
     <property key="OrderSelAmount">
         <value xml:lang="en">Sel. amount</value>
         <value xml:lang="es">Cantidad sel.</value>
+	<value xml:lang="it">Importo selezionato</value>
     </property>
     <property key="OrderSelectAgreement">
         <value xml:lang="de">Wählen Sie einen Vertrag für diesen Auftrag</value>
@@ -8000,6 +8114,7 @@
         <value xml:lang="en">Select Variant</value>
         <value xml:lang="es">Por favor, seleccione una variante</value>
         <value xml:lang="fr">SVP, sélectionnez une variante</value>
+	<value xml:lang="it">Seleziona variante</value>
         <value xml:lang="th">เลือกตัวแปร</value>
     </property>
     <property key="OrderSelectedGiftNotAvailableForAll">
@@ -8033,6 +8148,7 @@
         <value xml:lang="en">BCC To</value>
         <value xml:lang="es">BCC a</value>
         <value xml:lang="fr">CCI à</value>
+	<value xml:lang="it">CN a</value>
         <value xml:lang="ru">Скрытая копия</value>
         <value xml:lang="th">BCC To</value>
         <value xml:lang="zh">密送</value>
@@ -8042,6 +8158,7 @@
         <value xml:lang="en">Body</value>
         <value xml:lang="es">Cuerpo</value>
         <value xml:lang="fr">Corps</value>
+	<value xml:lang="it">Corpo</value>
         <value xml:lang="ru">Текст сообщения</value>
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh">主体</value>
@@ -8064,6 +8181,7 @@
         <value xml:lang="en">Content-Type</value>
         <value xml:lang="es">Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
+	<value xml:lang="it">Tipo contenuto</value>
         <value xml:lang="ru">Content-Type</value>
         <value xml:lang="th">ประเภทหัวข้อ</value>
         <value xml:lang="zh">内容类型</value>
@@ -8248,6 +8366,7 @@
         <value xml:lang="en">Ship Group Seq Id</value>
         <value xml:lang="es">Nº sec. grupo de envío</value>
         <value xml:lang="fr">Réf. seq. de groupe d'expédition</value>
+	<value xml:lang="it">Gruppo spedizione</value>
         <value xml:lang="ru">Посл. код группы поставки</value>
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่ง</value>
         <value xml:lang="zh">货运组序号标识</value>
@@ -8257,6 +8376,7 @@
         <value xml:lang="en">To Ship Group</value>
         <value xml:lang="es">A grupo de envío</value>
         <value xml:lang="fr">Vers le groupe d'expédition</value>
+	<value xml:lang="it">Al gruppo spedizione</value>
         <value xml:lang="ru">В группу поставки</value>
         <value xml:lang="th">ถึงกลุ่มการขนส่ง</value>
     </property>
@@ -8265,6 +8385,7 @@
         <value xml:lang="en">Ship Groups</value>
         <value xml:lang="es">Grupos de envío</value>
         <value xml:lang="fr">Groupes d'expédition</value>
+	<value xml:lang="it">Gruppi spedizione</value>
         <value xml:lang="ru">Группа поставки</value>
         <value xml:lang="th">กลุ่มการขนส่ง</value>
         <value xml:lang="zh">货运组</value>
@@ -8362,6 +8483,7 @@
         <value xml:lang="en">Shipment Received</value>
         <value xml:lang="es">Envío recibido</value>
         <value xml:lang="fr">Expédition reçue</value>
+	<value xml:lang="it">Spedizione ricevuta</value>
         <value xml:lang="th">ได้รับการขนส่งสินค้า</value>
     </property>
     <property key="OrderShipper">
@@ -8369,6 +8491,7 @@
         <value xml:lang="en">Shipper</value>
         <value xml:lang="es">Transportista</value>
         <value xml:lang="fr">Expéditeur</value>
+	<value xml:lang="it">Spedizioniere</value>
         <value xml:lang="th">บริษัทขนส่ง</value>
     </property>
     <property key="OrderShippingAddress">
@@ -8426,6 +8549,7 @@
         <value xml:lang="en">Shipment Date Hope</value>
         <value xml:lang="es">Fecha de envío deseada</value>
         <value xml:lang="fr">Date espérée d'expédition</value>
+	<value xml:lang="it">Data di speranza spedizione</value>
         <value xml:lang="th">คาดว่าขนส่งสินค้าวันที่</value>
     </property>
     <property key="OrderShoppingCart">
@@ -8505,6 +8629,7 @@
         <value xml:lang="en">Skids Pallets</value>
         <value xml:lang="es">Paletas</value>
         <value xml:lang="fr">Pallettes</value>
+	<value xml:lang="it">Pallets</value>
         <value xml:lang="th">Skids Pallets</value>
     </property>
     <property key="OrderSpecialInstructions">
@@ -8739,6 +8864,7 @@
         <value xml:lang="en">The  Open  Hours  To  Receive  Products  Are</value>
         <value xml:lang="es">Horario de recepción de productos</value>
         <value xml:lang="fr">Les heures d'ouverture pour recevoir des articles sont</value>
+	<value xml:lang="it">Gli orari di apertura per ricevere i prodotti sono</value>
         <value xml:lang="th">ชั่วโมงที่เปิดรับสินค้าคือ</value>
     </property>
     <property key="OrderThisIsGift">
@@ -8853,6 +8979,7 @@
         <value xml:lang="en">Total Cubic Size</value>
         <value xml:lang="es">Volumen total</value>
         <value xml:lang="fr">Volume total</value>
+	<value xml:lang="it">Totale ampiezza cubica</value>
         <value xml:lang="th">ผลรวมขนาดลูกบาศก์</value>
     </property>
     <property key="OrderTotalDue">
@@ -8991,6 +9118,7 @@
         <value xml:lang="en">Total  Weight</value>
         <value xml:lang="es">Peso total</value>
         <value xml:lang="fr">Poids total</value>
+	<value xml:lang="it">Peso totale</value>
         <value xml:lang="th">ผลรวมน้ำหนัก</value>
     </property>
     <property key="OrderTrackingCode">
@@ -9054,12 +9182,14 @@
         <value xml:lang="en">Unit  Price  HT</value>
         <value xml:lang="es">Precio unitario sin impuestos</value>
         <value xml:lang="fr">Prix unitaire HT</value>
+	<value xml:lang="it">Prezzo unitario con tasse</value>
         <value xml:lang="th">ราคาต่อหน่วย HT</value>
     </property>
     <property key="OrderUnitsPieces">
         <value xml:lang="de">Stückpreise</value>
         <value xml:lang="en">Units  Pieces</value>
         <value xml:lang="es">Unidades Piezas</value>
+	<value xml:lang="it">Pezzi unità</value>
         <value xml:lang="th">ราคาต่อชิ้น</value>
     </property>
     <property key="OrderUnplanned">
@@ -9228,6 +9358,7 @@
         <value xml:lang="en">View/Edit Delivery</value>
         <value xml:lang="es">Ver/Editar opciones de envío</value>
         <value xml:lang="fr">Affichage/Modification des options de colisage</value>
+	<value xml:lang="it">Mostra/aggiorna consegna</value>
         <value xml:lang="th">แสดงหรือแก้ไขการส่ง</value>
     </property>
     <property key="OrderViewEditDeliveryScheduleInfo">
@@ -9378,6 +9509,7 @@
         <value xml:lang="en">WebSite</value>
         <value xml:lang="es">Sitio web</value>
         <value xml:lang="fr">Site web</value>
+	<value xml:lang="it">Sito web</value>
         <value xml:lang="th">เว็บไซต์</value>
     </property>
     <property key="OrderWeightMeasurement">
@@ -9385,6 +9517,7 @@
         <value xml:lang="en">Weight Measurement</value>
         <value xml:lang="es">Unidad de peso</value>
         <value xml:lang="fr">Pesée</value>
+	<value xml:lang="it">Misura peso</value>
         <value xml:lang="th">หน่วยวัดน้ำหนัก</value>
     </property>
     <property key="OrderWhereShallWeShipIt">
@@ -9420,6 +9553,7 @@
         <value xml:lang="de">Bedürfnisse</value>
         <value xml:lang="en">Requirements</value>
         <value xml:lang="es">Requisitos</value>
+	<value xml:lang="it">Fabbisogni</value>
     </property>
     <property key="OrderWorkflow">
         <value xml:lang="de">Workflow</value>
@@ -9767,7 +9901,7 @@
         <value xml:lang="en">Order Initis</value>
         <value xml:lang="es">Inicializar pedido</value>
         <value xml:lang="fr">Initialisation de commande</value>
-        <value xml:lang="it">Inserimento Ordine</value>
+        <value xml:lang="it">Inserimento ordine</value>
         <value xml:lang="nl">Bestelling Initis</value>
         <value xml:lang="ro">Introducere Comanda</value>
         <value xml:lang="ru">Начальный заказ</value>
@@ -9893,1054 +10027,5 @@
         <value xml:lang="ru">Просмотреть запрос</value>
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
-    </property>
-    <property key="calendar_click_here_for_calendar">
-        <value xml:lang="de">Kalender anzeigen</value>
-        <value xml:lang="en">Click here For Calendar</value>
-        <value xml:lang="es">Pulse aquí para abrir un calendario</value>
-        <value xml:lang="fr">Cliquer ici pour le calendrier</value>
-        <value xml:lang="it">Clicca qui Per Calendario</value>
-        <value xml:lang="nl">Click here For Calendar</value>
-        <value xml:lang="ro">Click_eaza aici  Pentru Calendar</value>
-        <value xml:lang="ru">Нажмите здесь чтобы увидеть календарь</value>
-        <value xml:lang="th">คลิกที่นี่เพื่อดูปฏิทิน</value>
-        <value xml:lang="zh">点击这里得到日历</value>
-        <value xml:lang="zh_CN">点击这里查看日历</value>
-    </property>
-    <property key="cart.addToCart.chooseVariationBeforeAddingToCart">
-        <value xml:lang="en">Choose Variation Before Adding to Cart</value>
-        <value xml:lang="es">Seleccione una variante antes de añadir al carro</value>
-        <value xml:lang="fr">Choisir la variante avant d'ajouter au panier</value>
-        <value xml:lang="th">เลือกการเปลี่ยนแปลงก่อนที่จะเพิ่มลงตระกร้า</value>
-    </property>
-    <property key="cart.addToCart.configureProductBeforeAddingToCart">
-        <value xml:lang="de">Produkt Konfigurieren vor dem Hinzufügen zum Warenkorb</value>
-        <value xml:lang="en">Configure Product Before Adding to Cart</value>
-        <value xml:lang="es">Configure el producto antes de añadir al carro</value>
-        <value xml:lang="fr">Configurer l'article avant de l'ajouter au panier</value>
-        <value xml:lang="th">สร้างสินค้าก่อนที่จะเพิ่มลงตระกร้า</value>
-    </property>
-    <property key="cart.addToCart.enterAmountBeforeAddingToCart">
-        <value xml:lang="en">Enter Amount Before Adding to Cart</value>
-        <value xml:lang="fr">Entrez une quantité avant d'ajouter au panier</value>
-    </property>
-    <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
-        <value xml:lang="de">Reservationsinformationen erfassen vor dem Hinzufügen zum Warenkorb</value>
-        <value xml:lang="en">Enter Booking Information Before Adding to Cart</value>
-        <value xml:lang="es">Introduzca información de reserva antes de añadir al carro</value>
-        <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
-        <value xml:lang="th">เข้าสู่ข้อมูลการจองก่อนที่จะเพิ่มลงตระกร้า</value>
-    </property>
-    <property key="cart.addToCart.noProductInfoPassed">
-        <value xml:lang="de">Keine Produktinformationen übergeben. Warenkorb bleibt unverändert.</value>
-        <value xml:lang="en">No product information passed, not adding anything to cart.</value>
-        <value xml:lang="es">No se ha proporcionado información de producto, no se añade nada al carro.</value>
-        <value xml:lang="fr">Pas d'information article, pas d'ajout au panier.</value>
-        <value xml:lang="it">Nessuna informazione sul prodotto, non è stato aggiunto niente al carrello.</value>
-        <value xml:lang="nl">No product information passed, not adding anything to cart.</value>
-        <value xml:lang="pt_PT">No product information passed, not adding anything to cart.</value>
-        <value xml:lang="ro">Nici-o informatie pentru produsul trecut, nu adaugati nimic in cos.</value>
-        <value xml:lang="ru">Не передано никакой информации о продукте, в корзину ничего не добавлено.</value>
-        <value xml:lang="th">ข้อมูลสินค้าไม่ผ่าน ไม่สามารถเพิ่มสินค้าลงตระกร้า</value>
-        <value xml:lang="zh">没有传递产品信息，没有向购物车添加任何明细。</value>
-    </property>
-    <property key="cart.addToCart.incompatibilityVariantFeature">
-        <value xml:lang="de">Sie können die Auswahl ${productFutureDescription} nicht verwenden </value>
-        <value xml:lang="en">You cannot use selection ${productFutureDescription} </value>
-        <value xml:lang="es">No puede usar la selección ${productFutureDescription} </value>
-        <value xml:lang="fr">Vous ne pouvez pas utiliser la selection ${productFutureDescription} </value>
-    </property>
-    <property key="cart.addToCart.productConfigurationIsNotValid">
-        <value xml:lang="de">Konfiguration ist nicht gültig</value>
-        <value xml:lang="en">Configuration Is Not Valid</value>
-        <value xml:lang="es">La configuración no es válida</value>
-        <value xml:lang="fr">La configuration n'est pas valide</value>
-        <value xml:lang="it">Configurazione Non E' Valida</value>
-        <value xml:lang="nl">Configuration Is Not Valid</value>
-        <value xml:lang="ro">Configurarea Nu este Valida</value>
-        <value xml:lang="ru">Неверная конфигурация</value>
-        <value xml:lang="th">ไม่มีค่าองค์ประกอบ</value>
-        <value xml:lang="zh">配置无效</value>
-        <value xml:lang="zh_CN">配置无效</value>
-    </property>
-    <property key="cart.add_category_defaults">
-        <value xml:lang="de">${totalQuantity} Produkte in Warenkorb gelegt</value>
-        <value xml:lang="en">Added ${totalQuantity} items to the cart.</value>
-        <value xml:lang="es">Se han añadido ${totalQuantity} ítems al carro.</value>
-        <value xml:lang="fr">Ajouter ${totalQuantity} article(s) dans le panier</value>
-        <value xml:lang="it">Aggiunte ${totalQuantity} righe al carrello.</value>
-        <value xml:lang="nl">Added ${totalQuantity} items to the cart.</value>
-        <value xml:lang="pt_PT">Added ${totalQuantity} items to the cart.</value>
-        <value xml:lang="ro">Adaugare ${totalQuantity} linii in Cos.</value>
-        <value xml:lang="ru">В корзину добавлено ${totalQuantity} позиций.</value>
-        <value xml:lang="th">เพิ่ม ${totalQuantity} รายการลงตระกร้า</value>
-        <value xml:lang="zh">把 ${totalQuantity} 明细添加到购物车。</value>
-    </property>
-    <property key="cart.agreement_not_specified_to_add_from">
-        <value xml:lang="de">Kein Vertrag angegeben, aus dem hinzugefügt werden kann.</value>
-        <value xml:lang="en">No agreement specified to add from.</value>
-        <value xml:lang="es">No se ha indicado un acuerdo del que se pueda añadir.</value>
-        <value xml:lang="fr">Aucun accord spécifié à partir duquel ajouter.</value>
-        <value xml:lang="it">Nessun contratto specificato da aggiungere.</value>
-        <value xml:lang="nl">No agreement specified to add from.</value>
-        <value xml:lang="ro">Nici-un contract specificat de  adaugat.</value>
-        <value xml:lang="ru">Не указаны договора.</value>
-        <value xml:lang="th">ไม่ระบุสัญญาจากการเพิ่ม</value>
-        <value xml:lang="zh">没有指定要添加进来的合同。</value>
-        <value xml:lang="zh_CN">没有指定的协议被加入</value>
-    </property>
-    <property key="cart.amount_not_positive_number">
-        <value xml:lang="en">Amount must be a positive number</value>
-        <value xml:lang="fr">La quantité doit être un nombre positif</value>
-    </property>
-    <property key="cart.category_not_specified_to_add_from">
-        <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>
-        <value xml:lang="en">No category specified to add from.</value>
-        <value xml:lang="es">No se ha indicado una categoría de la que se pueda añadir.</value>
-        <value xml:lang="fr">Aucun catégorie spécifiée à partir de laquelle ajouter.</value>
-        <value xml:lang="it">Nessuna categoria specificata da aggiungere.</value>
-        <value xml:lang="nl">No category specified to add from.</value>
-        <value xml:lang="ro">Nici-o categorie specificata de adaugat.</value>
-        <value xml:lang="ru">Нет выбранной категории.</value>
-        <value xml:lang="th">ไม่ระบุหมวดหมู่จาการเพิ่ม</value>
-        <value xml:lang="zh">没有指定要添加进来的分类。</value>
-        <value xml:lang="zh_CN">没有指定的分类被加入</value>
-    </property>
-    <property key="cart.could_not_add_product_to_cart">
-        <value xml:lang="de">Produkt ${productId} konnte dem Warenkorb NICHT hinzugefügt werden.</value>
-        <value xml:lang="en">Could NOT add product ${productId} to cart.</value>
-        <value xml:lang="es">No se puede añadir el producto ${productId} al carro.</value>
-        <value xml:lang="fr">Impossible d'ajouter l'article ${productId} au panier.</value>
-        <value xml:lang="it">NON è Possibile aggiungere prodotto ${productId} al carrello.</value>
-        <value xml:lang="nl">Could NOT add product ${productId} to cart.</value>
-        <value xml:lang="ro">Nu este Posibila adaugare produs ${productId} in cos.</value>
-        <value xml:lang="ru">Не смог добавить продукт ${productId} в корзину.</value>
-        <value xml:lang="th">ไม่สามารถเพิ่มสินค้า ${productId} ลงตระกร้า</value>
-        <value xml:lang="zh">不能把产品 ${productId} 添加到购物车。</value>
-        <value xml:lang="zh_CN">不能加入产品 ${productId} 到购物车.</value>
-    </property>
-    <property key="cart.could_not_get_agreement">
-        <value xml:lang="de">Konnte Vertrag nicht holen mit der Vertrag ID ${agreementId} (Lesefehler): ${message}</value>
-        <value xml:lang="en">Could not get agreement through ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="es">No se pudo obtener el acuerdo con ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="fr">Impossible d'obtenir un accord par ${agreementId} {read error} : ${message}.</value>
-        <value xml:lang="it">Non è possibile leggere il contratto attraverso ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="nl">Could not get agreement through ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="ro">Nu este posibila Citirea contractului prin  ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="ru">Не смог получить договор в результате ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="th">ไม่สามารถรับข้อสัญญาเนื่องจาก ${agreementId} {read error}: ${message}.</value>
-        <value xml:lang="zh">不能通过 ${agreementId} 获得合同(读错误)：${message}。</value>
-        <value xml:lang="zh_CN">不能读取协议 ${agreementId} {read error} : ${message}.</value>
-    </property>
-    <property key="cart.could_not_get_products_in_category">
-        <value xml:lang="de">Produkt(e) aus Kategorie ${categorieId} konnten nicht zum Warenkorb hinzugefügt werden {read error}.</value>
-        <value xml:lang="en">Could not get products in category ${categorieId} to add to cart {read error}.</value>
-        <value xml:lang="es">No se han obtenido productos para añadir al carro de la categoría ${categorieId} {read error}.</value>
-        <value xml:lang="fr">Impossible d'obtenir des articles de la catégorie ${categorieId} à ajouter au panier {read error}.</value>
-        <value xml:lang="it">Non è possibile leggere i prodotti della categoria ${categorieId} per aggiungere al carrello {read error}.</value>
-        <value xml:lang="nl">Could not get products in category ${categorieId} to add to cart {read error}.</value>
-        <value xml:lang="ro">Nu este posibila Citirea produselor din categoria ${categorieId} pentru a adauga in Cos {read error}.</value>
-        <value xml:lang="ru">Не смог получить продукты категории ${categorieId} и добавить в корзину {read error}.</value>
-        <value xml:lang="th">ไม่สามารถรับสินค้าในหมวดหมู่${categorieId} เพิ่มลงตระกร้า {read error}.</value>
-        <value xml:lang="zh">不能在分类 ${categorieId} 中获得产品以添加到购物车(读错误)。</value>
-        <value xml:lang="zh_CN">不能从分类 ${categorieId}中得到产品 {read error}.</value>
-    </property>
-    <property key="cart.could_not_get_products_in_category_cart">
-        <value xml:lang="de">Produkt(e) aus Kategorie ${categorieId} konnten nicht zum Warenkorb hinzugefügt werden {read error}: ${message}.</value>
-        <value xml:lang="en">Could not get products in category ${categorieId} to add to cart {read error}: ${message}.</value>
-        <value xml:lang="es">No se pudo obtener productos de la categoría ${categorieId} para agregar al carro {read error}: ${message}.</value>
-        <value xml:lang="fr">Impossible d'obtenir des articles de la catégorie ${categorieId} à ajouter au panier {read error} : ${message}.</value>
-        <value xml:lang="it">Non è possibile leggere i prodotti della categoria ${categorieId} per aggiungere al carrello {read error}: ${message}.</value>
-        <value xml:lang="nl">Could not get products in category ${categorieId} to add to cart {read error}: ${message}.</value>
-        <value xml:lang="ro">Nu este posibila Citirea produselor din categoria ${categorieId} pentru adaugarea in Cos{read error}: ${message}.</value>
-        <value xml:lang="ru">Не смог получить продукты категории ${categorieId} и добавить в корзину {read error}: ${message}.</value>
-        <value xml:lang="th">ไม่สามารถรับสินค้าในหมวดหมู่ ${categorieId} เพิ่มลงตระกร้า {read error}: ${message}.</value>
-        <value xml:lang="zh">不能在分类 ${categorieId} 中获得产品以添加到购物车(读错误)：${message}。</value>
-        <value xml:lang="zh_CN">不能从分类 ${categorieId}中得到产品，并加入到购物车 {read error}: ${message}.</value>
-    </property>
-    <property key="cart.order_not_specified_to_add_from">
-        <value xml:lang="de">Keine Aufträge angegeben, von denen hinzugefügt werden kann.</value>
-        <value xml:lang="en">No order specified to add from</value>
-        <value xml:lang="es">Falta indicar el pedido desde el que se pueda añadir.</value>
-        <value xml:lang="fr">Aucune commande spécifiée à partir de laquelle ajouter</value>
-        <value xml:lang="it">Nessun ordine specificato da aggiungere</value>
-        <value xml:lang="nl">No bestelling specified to add from</value>
-        <value xml:lang="ro">Nici-o comanda specificata de adaugat</value>
-        <value xml:lang="ru">Не указан заказ откуда добавлять</value>
-        <value xml:lang="th">ไม่ระบุรายการจากการเพิ่ม</value>
-        <value xml:lang="zh">没有指定要添加进来的订单</value>
-        <value xml:lang="zh_CN">没有指定订单</value>
-    </property>
-    <property key="cart.price_not_positive_number">
-        <value xml:lang="de">Preis muß eine positive Zahl sein.</value>
-        <value xml:lang="en">Price must be a positive number</value>
-        <value xml:lang="es">El precio debe ser un número positivo</value>
-        <value xml:lang="fr">Le prix doit être un nombre positif</value>
-        <value xml:lang="it">Prezzo deve essere un numero positivo</value>
-        <value xml:lang="nl">Price must be a positive number</value>
-        <value xml:lang="ro">Pretul trebuie sa fie un numar pozitiv</value>
-        <value xml:lang="ru">Цена должна быть положительным числом</value>
-        <value xml:lang="th">ราคาต้องเป็นตัวเลขจำนวนบวก</value>
-        <value xml:lang="zh">价格必须是一个正数</value>
-        <value xml:lang="zh_CN">价格必须是正数</value>
-    </property>
-    <property key="cart.product_not_valid_for_supplier">
-        <value xml:lang="de">Dieses Produkt kann nicht vom gewählten Lieferanten zu vorgegebener Menge und Währung bezogen werden.</value>
-        <value xml:lang="en">This product cannot be purchased from the chosen supplier for the given quantity and currency.</value>
-        <value xml:lang="es">Este producto no se puede comprar del proveedor elegido para la cantidad y moneda dadas.</value>
-        <value xml:lang="fr">Cet article ne peut pas être acheté au fournisseur choisi pour la quantité et la monnaie retenues.</value>
-        <value xml:lang="it">Questo prodotto non può essere acquistato dal fornitore selezionato per la quantità e valuta inserita.</value>
-        <value xml:lang="nl">This product cannot be purchased from the chosen supplier for the given quantity and currency.</value>
-        <value xml:lang="ro">Acest produs nu poate fi cumparat de la furnizorul selectionat pentru cantitatea si valuta introdusa.</value>
-        <value xml:lang="ru">Этот продукт не может быть приобретен у выбранного поставщика учитывая имеющееся количество и валюту.</value>
-        <value xml:lang="th">สินค้านี้ไม่สามารถสั่งซื้อจากการเลือกของผู้จัดหาสิ่งของให้สำหรับการให้จำนวนและเงิน</value>
-        <value xml:lang="zh">不能按给定数量和币种从所选的供应商采购到这个产品。</value>
-        <value xml:lang="zh_CN">这个产品不能从选中的供应商中按照指定的货币和数量购买。</value>
-    </property>
-    <property key="cart.quantity_not_positive_number">
-        <value xml:lang="de">Menge muss eine positive Zahl sein.</value>
-        <value xml:lang="en">Quantity must be a positive number</value>
-        <value xml:lang="es">La cantidad debe ser un número positivo</value>
-        <value xml:lang="fr">La quantité doit être positive</value>
-        <value xml:lang="it">Quantità dovrebbe essere un numero positivo</value>
-        <value xml:lang="nl">Quantity must be a positive number</value>
-        <value xml:lang="pt_PT">Quantity must be a positive number</value>
-        <value xml:lang="ro">Cantitatea trebuie sa fie un numar positiv  </value>
-        <value xml:lang="ru">Количество должно быть положительным числом</value>
-        <value xml:lang="th">จำนวนต้องเป็นตัวเลขจำนวนบวกเท่านั้น</value>
-        <value xml:lang="zh">数量必须是一个正数</value>
-    </property>
-    <property key="checkevents.cannot_cancel_item">
-        <value xml:lang="de">Ware kann zur Zeit nicht gelöscht werden; Bitte versuchen sie es erneut.</value>
-        <value xml:lang="en">Cannot cancel item at this time; please try again.</value>
-        <value xml:lang="es">No se puede cancelar el ítem en este momento, por favor vuelva a intentarlo.</value>
-        <value xml:lang="fr">Impossible d'annuler l'article maintenant. Réessayez, s'il vous plait.</value>
-        <value xml:lang="it">Non è possibile annullare la riga in questo momento. Prego riprovare.</value>
-        <value xml:lang="nl">Cannot cancel item at this time; please try again.</value>
-        <value xml:lang="ro">Nu este posibila stergerea liniei in acest moment; te rogam incearca din nou.</value>
-        <value xml:lang="ru">Не могу отменить позицию; пожалуйста попробуйте снова.</value>
-        <value xml:lang="th">ไม่สามารถยกเลิกรายการในเวลานี้ กรุณาลองอีกครั้ง</value>
-        <value xml:lang="zh">没能取消明细；请重试。</value>
-        <value xml:lang="zh_CN">现在不能取消商品，请重试。</value>
-    </property>
-    <property key="checkevents.cart_empty">
-        <value xml:lang="de">Warenkorb ist leer.</value>
-        <value xml:lang="en">Cart is empty.</value>
-        <value xml:lang="es">El carro está vacío.</value>
-        <value xml:lang="fr">Le panier est vide</value>
-        <value xml:lang="it">Il carrello è vuoto.</value>
-        <value xml:lang="nl">Cart is empty.</value>
-        <value xml:lang="ro">Cosul este gol.</value>
-        <value xml:lang="ru">Корзина пустая.</value>
-        <value xml:lang="th">ตะกร้าว่าง</value>
-        <value xml:lang="zh">购物车是空的。</value>
-        <value xml:lang="zh_CN">购物车是空的。</value>
-    </property>
-    <property key="checkevents.insufficient_credit_available_on_account">
-        <value xml:lang="de">Ungenügende Deckung auf Konten.</value>
-        <value xml:lang="en">Insufficient credit available on accounts.</value>
-        <value xml:lang="es">No hay crédito suficiente en las cuentas.</value>
-        <value xml:lang="fr">Crédit disponible insuffisant sur les comptes.</value>
-        <value xml:lang="it">Credito disponibile Insufficiente sul conto.</value>
-        <value xml:lang="nl">Insufficient credit available on accounts.</value>
-        <value xml:lang="ro">Creditul disponibil in Cont este Insuficient.</value>
-        <value xml:lang="ru">Недостаточный кредит для этой учетной записи.</value>
-        <value xml:lang="th">เครดิตที่มีอยู่ไม่เพียงพอในบัญชี</value>
-        <value xml:lang="zh">账户信用不足。</value>
-        <value xml:lang="zh_CN">帐户上没有足够余额。</value>
-    </property>
-    <property key="checkevents.invalid_amount_set_for_billing_account">
-        <value xml:lang="de">Ungültiger Betrag für Rechnungskonto #${billingAccountId} eingesetzt .</value>
-        <value xml:lang="en">Invalid amount set for Billing Account #${billingAccountId}.</value>
-        <value xml:lang="es">El importe indicado no es válido para la cuenta de facturación #${billingAccountId}.</value>
-        <value xml:lang="fr">Montant retenu non valide pour facturer le compte n° ${billingAccountId}.</value>
-        <value xml:lang="it">Importo Invalido impostato per # Billing Account ${billingAccountId}.</value>
-        <value xml:lang="nl">Invalid amount set for Billing Account #${billingAccountId}.</value>
-        <value xml:lang="ro">Valoare Invalida setata pentru # Billing Account ${billingAccountId}.</value>
-        <value xml:lang="ru">Неверная сумма установлена для учетной записи №${billingAccountId}.</value>
-        <value xml:lang="th">การตั้งค่าจำนวนไม่มีผลสำหรับบัญชี #${billingAccountId}.</value>
-        <value xml:lang="zh">为账单账户 #${billingAccountId} 设置的金额无效。</value>
-        <value xml:lang="zh_CN">支付帐户 #${billingAccountId}.的金额设定无效。</value>
-    </property>
-    <property key="checkevents.invalid_amount_set_for_payment_method">
-        <value xml:lang="de">Es wurde ein ungültiger Betrag für diese Zahlungsweise eingesetzt.</value>
-        <value xml:lang="en">Invalid amount set for Payment method.</value>
-        <value xml:lang="es">El importe indicado no es válido para el método de pago.</value>
-        <value xml:lang="fr">Montant retenu non valide pour le moyen de paiement.</value>
-        <value xml:lang="it">Importo Invalido impostato per # metodo di Pagamento.</value>
-        <value xml:lang="nl">Invalid amount set for Payment method.</value>
-        <value xml:lang="ro">Valoare Invalida setata pentru # metoda de Plata.</value>
-        <value xml:lang="ru">Неверная сумма установлена для способа платежа.</value>
-        <value xml:lang="th">การตั้งค่าจำนวนไม่มีผลสำหรับวิธีการชำระเงิน</value>
-        <value xml:lang="zh">为支付方式设置的金额无效。</value>
-        <value xml:lang="zh_CN">支付方式的金额设定无效。</value>
-    </property>
-    <property key="checkevents.not_enough_available_on_account">
-        <value xml:lang="de">Nicht genug verfügbar auf Konto #{billingAccountId}.</value>
-        <value xml:lang="en">Not enough available on account #{billingAccountId}.</value>
-        <value xml:lang="es">No hay suficiente disponible en la cuenta #{billingAccountId}.</value>
-        <value xml:lang="fr">Disponibilités insuffisantes sur le compte n° {billingAccountId}.</value>
-        <value xml:lang="it">Non abbastanza diponibilità sul conto #{billingAccountId}.</value>
-        <value xml:lang="nl">Not enough available on account #{billingAccountId}.</value>
-        <value xml:lang="ro">Nu este destula disponibilitate in  cont #{billingAccountId}.</value>
-        <value xml:lang="ru">Недостаточно для учетной записи №{billingAccountId}.</value>
-        <value xml:lang="th">ไม่สามารถนำไปใช้ได้เพียงพอในบัญชี #{billingAccountId}.</value>
-        <value xml:lang="zh">账户 #{billingAccountId} 金额不够。</value>
-        <value xml:lang="zh_CN">帐户余额不足#{billingAccountId}.</value>
-    </property>
-    <property key="checkevents.payment_not_cover_this_order">
-        <value xml:lang="de">Gewählte Zahlweise deckt nicht diese Bestellung.</value>
-        <value xml:lang="en">Selected payment methods will not cover this order.</value>
-        <value xml:lang="es">Los métodos de pago elegidos no cubrirán este pedido.</value>
-        <value xml:lang="fr">Les modes de paiement choisis ne couvriront pas cette commande.</value>
-        <value xml:lang="it">Seleziona metodi di pagamento che copriranno questo ordine.</value>
-        <value xml:lang="nl">Selected payment methods will not cover this bestelling.</value>
-        <value xml:lang="ro">Selectioneaza metodele de plata care vor acoperi aceasta comanda.</value>
-        <value xml:lang="ru">Выбранный способ платежа не может удовлетворить этот заказ.</value>
-        <value xml:lang="th">เลือกวิธีการชำระเงินจะไม่ครอบคลุมถึงรายการสั่งซื้อสินค้านี้</value>
-        <value xml:lang="zh">所选的支付方式不够这个订单。</value>
-        <value xml:lang="zh_CN">选中的支付方式不足以支付该订单。</value>
-    </property>
-    <property key="checkhelper.could_not_create_order_invoking_service">
-        <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Aufruf des Service: ${service})</value>
-        <value xml:lang="en">ERROR: Could not create order (problem invoking the service: ${service})</value>
-        <value xml:lang="es">ERROR: No se pudo crear el pedido (problema invocando al servicio: ${service})</value>
-        <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'invocation du service : ${service})</value>
-        <value xml:lang="it">ERRORE: Non è possibile creare l'ordine (problema eseguendo il servizio: ${service})</value>
-        <value xml:lang="nl">ERROR: Could not create bestelling (problem invoking the service: ${service})</value>
-        <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (probleme la executarea serviciului: ${service})</value>
-        <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка вызова сервиса: ${service})</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อสินค้า (ปัญหาในการเรียกใช้บริการ: ${service})</value>
-        <value xml:lang="zh">错误：无法创建订单 (激活服务时出错： ${service})</value>
-        <value xml:lang="zh_CN">错误: 不能建立订单 (调用服务出错: ${service})</value>
-    </property>
-    <property key="checkhelper.could_not_create_order_parsing_totals">
-        <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Analysieren der Auftragsgesamtsummen).</value>
-        <value xml:lang="en">ERROR: Could not create order (problem parsing order totals).</value>
-        <value xml:lang="es">ERROR: No se pudo crear el pedido (problema en el análisis de los totales del pedido).</value>
-        <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'analyse des totaux de commandes).</value>
-        <value xml:lang="it">ERRORE: Non è possibile creare l'ordine (problema parsing totale ordine).</value>
-        <value xml:lang="nl">ERROR: Could not create bestelling (problem parsing bestelling totals).</value>
-        <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (problema parsing total comanda).</value>
-        <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка при анализе итогов).</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อสินค้า (ปัญหาในการวิเคราะห์ผลรวมในการสั่งซื้อ).</value>
-        <value xml:lang="zh">错误：无法创建订单 (解析订单合计时出错)。</value>
-        <value xml:lang="zh_CN">错误: 不能建立订单 (订单总额解析错误).</value>
-    </property>
-    <property key="checkhelper.database_error">
-        <value xml:lang="de">Datenbankfehler.</value>
-        <value xml:lang="en">Database error.</value>
-        <value xml:lang="es">Error de base de datos.</value>
-        <value xml:lang="fr">Erreur de base de données</value>
-        <value xml:lang="it">Errore Database.</value>
-        <value xml:lang="nl">Database error.</value>
-        <value xml:lang="ro">Eroare Database.</value>
-        <value xml:lang="ru">Ошибка базы данных.</value>
-        <value xml:lang="th">ฐานข้อมูลผิดพลาด</value>
-        <value xml:lang="zh">数据库错误。</value>
-        <value xml:lang="zh_CN">数据库错误.</value>
-    </property>
-    <property key="checkhelper.did_not_complete_order_following_occurred">
-        <value xml:lang="de">Auftrag nicht vervollständigt, folgender Fehler trat auf:</value>
-        <value xml:lang="en">Did not complete the order, the following occurred:</value>
-        <value xml:lang="es">No se completó el pedido, ocurrió lo siguiente:</value>
-        <value xml:lang="fr">La commande ne s'est pas terminée, car s'est produit :</value>
-        <value xml:lang="it">Non completare l'ordine, il seguente è occorso:</value>
-        <value xml:lang="nl">Did not complete the bestelling, the following occurred:</value>
-        <value xml:lang="ro">Nu completati comanda, au aparut urmatoarele :</value>
-        <value xml:lang="ru">Заказ не завершен, возможно по следующей причине:</value>
-        <value xml:lang="th">รายการสั่งซื้อสินค้าไม่เสร็จสมบูรณ์ , ตามที่เกิดขี้น:</value>
-        <value xml:lang="zh">没有完成订单，发生下列问题：</value>
-        <value xml:lang="zh_CN">未完成定单，发生下面错误：</value>
-    </property>
-    <property key="checkhelper.enter_amount_to_place_on_gift_card">
-        <value xml:lang="de">Bitte geben sie die Höhe des Betrages für den Gutschein an.</value>
-        <value xml:lang="en">Please enter the amount to place on your gift card.</value>
-        <value xml:lang="es">Por favor, indique el importe para su certificado de regalo.</value>
-        <value xml:lang="fr">S'il vous plaît entrer le montant à placer sur votre carte de cadeau.</value>
-        <value xml:lang="it">Prego inserisci l'importo da caricare sulla tua carta omaggio.</value>
-        <value xml:lang="nl">Please enter the amount to place on your gift card.</value>
-        <value xml:lang="ro">Te rugam sa introduci valoarea  pentru a putea plasa cartea ta de omagiu.</value>
-        <value xml:lang="ru">Пожалуйста введите сумму в место на вашей дисконтной карте.</value>
-        <value xml:lang="th">กรุณาเข้าสู่จำนวนแทนที่บนบัตรของขวัญของคุณ</value>
-        <value xml:lang="zh">请输入你的礼品卡要支付的金额。</value>
-        <value xml:lang="zh_CN">请输入礼品卡上的数量</value>
-    </property>
-    <property key="checkhelper.enter_gift_card_number">
-        <value xml:lang="de">Bitte geben Sie die Nummer des Gutscheins an.</value>
-        <value xml:lang="en">Please enter your gift card number.</value>
-        <value xml:lang="es">Por favor, indique el número del certificado de regalo.</value>
-        <value xml:lang="fr">S'il vous plaît entrer votre n° de carte de cadeau.</value>
-        <value xml:lang="it">Per favore inserisci il tuo numero della carta omaggio.</value>
-        <value xml:lang="nl">Please enter your gift card number.</value>
-        <value xml:lang="ro">Te rugam sa introduci numarul cartii tale de omagiu.</value>
-        <value xml:lang="ru">Пожалуйста введите номер вашей дисконтной карты.</value>
-        <value xml:lang="th">กรุณาเข้าสู่หมายเลขบัตรของขวัญของคุณ</value>
-        <value xml:lang="zh">请输入你的礼品卡号码。</value>
-        <value xml:lang="zh_CN">请输入礼品卡号码</value>
-    </property>
-    <property key="checkhelper.enter_gift_card_pin_number">
-        <value xml:lang="de">Bitte geben Sie die Pin-Nummer des Gutscheins an.</value>
-        <value xml:lang="en">Please enter your gift card pin number.</value>
-        <value xml:lang="es">Por favor, indique el código PIN del certificado de regalo.</value>
-        <value xml:lang="fr">S'il vous plaît entrer votre code de carte de cadeau.</value>
-        <value xml:lang="it">Per favore inserisci il tuo numero di pin della carta omaggio.</value>
-        <value xml:lang="nl">Please enter your gift card pin number.</value>
-        <value xml:lang="ro">Te rugam sa introduci numarul de pin al  cartii tale de omagiu.</value>
-        <value xml:lang="ru">Пожалуйста введите ПИН код вашей дисконтной карты.</value>
-        <value xml:lang="th">กรุณาเข้าสู่หมายเลขรหัสส่วนตัวบัตรของขวัญของคุณ</value>
-        <value xml:lang="zh">请输入你的礼品卡密码。</value>
-        <value xml:lang="zh_CN">请输入礼物PIN</value>
-    </property>
-    <property key="checkhelper.enter_shipping_address">
-        <value xml:lang="de">Bitte geben sie eine Lieferadresse an.</value>
-        <value xml:lang="en">Please enter a shipping address.</value>
-        <value xml:lang="es">Por favor, indique una dirección de envío.</value>
-        <value xml:lang="fr">S'il vous plaît entrez une adresse d'expédition.</value>
-        <value xml:lang="it">Per favore inserisci un'indirizzo per la spedizione.</value>
-        <value xml:lang="nl">Please enter a verzend address.</value>
-        <value xml:lang="ro">Te rugam sa introduci o adresa pentru expediere.</value>
-        <value xml:lang="ru">Пожалуйста введите адрес доставки.</value>
-        <value xml:lang="th">กรุณาเข้าสู่ที่อยู่การขนส่งสินค้า</value>
-        <value xml:lang="zh">请输入送货地址。</value>
-        <value xml:lang="zh_CN">请输入一个送货地址</value>
-    </property>
-    <property key="checkhelper.gift_card_does_not_exist">
-        <value xml:lang="de">Dieser Gutschein existiert nicht.</value>
-        <value xml:lang="en">This gift card does not exist.</value>
-        <value xml:lang="es">El certificado de regalo no existe</value>
-        <value xml:lang="fr">La carte cadeau n'existe pas</value>
-        <value xml:lang="it">Questa carta omaggio non esiste.</value>
-        <value xml:lang="nl">This gift card does not exist.</value>
-        <value xml:lang="ro">Aceasta carte de omagiu nu exista.</value>
-        <value xml:lang="ru">Эта дисконтная карта не существует.</value>
-        <value xml:lang="th">ไม่มีบัตรของขวัญ</value>
-        <value xml:lang="zh">这个礼品卡不存在。</value>
-    </property>
-    <property key="checkhelper.gift_card_has_no_value">
-        <value xml:lang="de">Dieser Gutschein hat keinen Wert mehr zugewiesen.</value>
-        <value xml:lang="en">This gift card no longer has any value.</value>
-        <value xml:lang="es">El certificado de regalo ya no es válido.</value>
-        <value xml:lang="fr">La carte cadeau n'a plus de valeur</value>
-        <value xml:lang="it">Questa carta omaggio non è più disponibile per qualsiasi valore.</value>
-        <value xml:lang="nl">This gift card no longer has any value.</value>
-        <value xml:lang="ro">Aceasta carte de omagiu nu mai este disponibila pentru nici-o valoare.</value>
-        <value xml:lang="ru">Эта дисконтная карта более не имеет значения.</value>
-        <value xml:lang="th">This gift card no longer has any value.</value>
-        <value xml:lang="zh">这个礼品卡没有钱了。</value>
-    </property>
-    <property key="checkhelper.insufficient_credit_available_on_account">
-        <value xml:lang="de">Ungenügende Deckung auf Konto.</value>
-        <value xml:lang="en">Insufficient credit available on account.</value>
-        <value xml:lang="es">Crédito insuficiente disponible en la cuenta.</value>
-        <value xml:lang="fr">Crédit insuffisant disponible sur le compte.</value>
-        <value xml:lang="it">Credito disponibile Insufficiente sul conto.</value>
-        <value xml:lang="nl">Insufficient credit available on account.</value>
-        <value xml:lang="ro">Credit disponibil Insuficient in cont.</value>
-        <value xml:lang="ru">Недостаточный кредит для учетной записи.</value>
-        <value xml:lang="th">เครดิตที่ใช้อยู่มีไม่เพียงพอในบัญชี</value>
-        <value xml:lang="zh">账户信用不足。</value>
-        <value xml:lang="zh_CN">帐户余额不足</value>
-    </property>
-    <property key="checkhelper.invalid_amount_for_gift_card">
-        <value xml:lang="de">Es wurde ein ungültiger Betrag für den Gutschein eingegeben.</value>
-        <value xml:lang="en">Invalid amount for gift card entered.</value>
-        <value xml:lang="es">El importe indicado no es válido para el certificado de regalo.</value>
-        <value xml:lang="fr">Montant entré invalide pour la carte de cadeau.</value>
-        <value xml:lang="it">Importo Invalido per la carta omaggio inserita.</value>
-        <value xml:lang="nl">Invalid amount for gift card entered.</value>
-        <value xml:lang="ro">Valoare Invalida pentru cartea de omagiu inserita.</value>
-        <value xml:lang="ru">Неверная сумма введена для дисконтной карты.</value>
-        <value xml:lang="th">ไม่มีผลจำนวนสำหรับการกรอกข้อมูลลงบัตรของขวัญ</value>
-        <value xml:lang="zh">为礼品卡输入的金额无效。</value>
-        <value xml:lang="zh_CN">礼品卡数量无效</value>
-    </property>
-    <property key="checkhelper.no_items_in_cart">
-        <value xml:lang="de">Es befinden sich keine Waren im Warenkorb.</value>
-        <value xml:lang="en">There are no items in the cart.</value>
-        <value xml:lang="es">No hay ítems en el carro.</value>
-        <value xml:lang="fr">Aucun article dans le panier.</value>
-        <value xml:lang="it">Non ci sono righe nel carrello.</value>
-        <value xml:lang="nl">There are no items in the cart.</value>
-        <value xml:lang="ro">Nu sunt linii in cos.</value>
-        <value xml:lang="ru">В корзине нет ни одной позиции.</value>
-        <value xml:lang="th">ไม่มีรายการในตะกร้า</value>
-        <value xml:lang="zh">购物车里没有明细。</value>
-        <value xml:lang="zh_CN">购物车是空的。</value>
-    </property>
-    <property key="checkhelper.problem_with_gift_card_information">
-        <value xml:lang="de">Problem mit Gutschein-Information(en).</value>
-        <value xml:lang="en">Problem with gift card information.</value>
-        <value xml:lang="es">Problema con la información del certificado de regalo.</value>
-        <value xml:lang="fr">Problème avec les informations de carte de cadeau.</value>
-        <value xml:lang="it">Problema con informazioni sulla carta omaggio.</value>
-        <value xml:lang="nl">Problem with gift card information.</value>
-        <value xml:lang="ro">Problema cu informatiile cartii de omagiu.</value>
-        <value xml:lang="ru">Проблема с информацией по дисконтной карте.</value>
-        <value xml:lang="th">ปัญหาเกี่ยวกับข้อมูลบัตรของขวัญ</value>
-        <value xml:lang="zh">礼品卡信息有问题。</value>
-        <value xml:lang="zh_CN">礼品卡信息有问题</value>
-    </property>
-    <property key="checkhelper.problems_getting_order_header">
-        <value xml:lang="de">Auftragskopf konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
-        <value xml:lang="en">Problems getting order header. Cannot check external gateways!</value>
-        <value xml:lang="es">Problema en la obtención del encabezado del pedido. ¡Gateways externos no se pueden comprobar!</value>
-        <value xml:lang="fr">Problème lors de l'obtention de l'entête de commande : ne peut vérifier avec aucune passerelle externe !</value>
-        <value xml:lang="it">Problema leggendo intestazione ordine. Non è possibile controllare gateways esterni!</value>
-        <value xml:lang="nl">Problems getting bestelling header. Cannot check external gateways!</value>
-        <value xml:lang="ro">Problema la citirea Antetului comenzii. Nu este posibila controlarea gateways externi!</value>
-        <value xml:lang="ru">Проблемы получения оглавления заказа. Не могу проверить внешний шлюз!</value>
-        <value xml:lang="th">ปัญหาเกี่ยวกับหัวข้อในการสั่งซื้อ. ไม่สามารถตรวจสอบวิธีการภายใน!</value>
-        <value xml:lang="zh">获得订单头时出现问题。无法检查外部网关！</value>
-        <value xml:lang="zh_CN">获得订单信息出错. 不能检查外部网关!</value>
-    </property>
-    <property key="checkhelper.problems_getting_payment_preference">
-        <value xml:lang="de">Bevorzugte Zahlweise konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
-        <value xml:lang="en">Problems getting payment preference. Cannot check external gateways!</value>
-        <value xml:lang="es">Problema en la obtención de la preferencia de pago. ¡Gateways externos no se pueden comprobar!</value>
-        <value xml:lang="fr">Problème lors de l'obtention de la préférence de paiement : ne peut vérifier avec aucune passerelle externe !</value>
-        <value xml:lang="it">Problema leggendo preferenza pagamento. Non è possibile controllare gateways esterni!</value>
-        <value xml:lang="nl">Problems getting payment preference. Cannot check external gateways!</value>
-        <value xml:lang="ro">Problema la citirea preferentelor de plata. Nu este posibila controlarea gateways esterni!</value>
-        <value xml:lang="ru">Проблемы получения предпочтений по платежу. Не могу проверить внешний шлюз!</value>
-        <value xml:lang="th">ปัญหาเกี่ยวกับสิทธิพิเศษการชำระเงิน. ไม่สามารถตรวจสอบวิธีการภายใน!</value>
-        <value xml:lang="zh">获得支付优先选择时出现问题。无法检查外部网关！</value>
-        <value xml:lang="zh_CN">获得支付偏好出错. 不能检查外部网关!</value>
-    </property>
-    <property key="checkhelper.problems_parsing_amount">
-        <value xml:lang="de">Problem bei der Mengenerfassung</value>
-        <value xml:lang="en">Problems parsing amount.</value>
-        <value xml:lang="es">Problemas al analizar el importe.</value>
-        <value xml:lang="fr">Problème lors de la saisie de la quantité.</value>
-        <value xml:lang="it">Problema parsing importo.</value>
-        <value xml:lang="nl">Problems parsing amount.</value>
-        <value xml:lang="ro">Problema parsing valoare.</value>
-        <value xml:lang="ru">Проблемы анализа суммы.</value>
-        <value xml:lang="th">ปัญหาเกี่ยวกับจำนวนไม่ผ่าน</value>
-        <value xml:lang="zh">解析金额时出现问题。</value>
-        <value xml:lang="zh_CN">解析数量出错</value>
-    </property>
-    <property key="checkhelper.problems_reading_database">
-        <value xml:lang="de">Datenbank-Lesefehler. Bitte versuchen sie es erneut.</value>
-        <value xml:lang="en">Problems reading the database, please try again.</value>
-        <value xml:lang="es">Problemas leyendo la base de datos, por favor inténtelo de nuevo.</value>
-        <value xml:lang="fr">Problèmes lors de la lecture de la base de données, s'il vous plaît réessayez.</value>
-        <value xml:lang="it">Problema nella lettura dal database, prego riprovare.</value>
-        <value xml:lang="nl">Problems reading the database, please try again.</value>
-        <value xml:lang="ro">Problema la citirea database, va rugam reincercati din nou.</value>
-        <value xml:lang="ru">Проблемы чтения из базы данных, пожалуйста, попробуйте снова.</value>
-        <value xml:lang="th">ปัญหาในการอ่านฐานข้อมูล กรุณาลองอีกครั้ง</value>
-        <value xml:lang="zh">读取数据库时出现问题，请重试。</value>
-        <value xml:lang="zh_CN">数据库读取错误</value>
-    </property>
-    <property key="checkhelper.sales_order_lines_lookup_failed">
-        <value xml:lang="de">Fehler: Abfragen der Kundenaufträge gescheitert.</value>
-        <value xml:lang="en">Error : </value>
-        <value xml:lang="es">Error: Ha fallado la consulta de líneas del pedido de venta.</value>
-        <value xml:lang="fr">Erreur : les lignes de commande ne semblent pas correctes.</value>
-        <value xml:lang="th">Error : ผิดพลาด !</value>
-    </property>
-    <property key="checkhelper.select_method_of_payment">
-        <value xml:lang="de">Bitte wählen sie eine Zahlweise.</value>
-        <value xml:lang="en">Please select a method of payment.</value>
-        <value xml:lang="es">Por favor, seleccione un método de pago.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez un moyen de paiement.</value>
-        <value xml:lang="it">Per favore selezionare un metodo di pagamento.</value>
-        <value xml:lang="nl">Please select a method of payment.</value>
-        <value xml:lang="ro">Va rugam selectionati o metoda de plata.</value>
-        <value xml:lang="ru">Пожалуйста выберите метод платежа.</value>
-        <value xml:lang="th">กรุณาเลือกวิธีการชำระเงิน</value>
-        <value xml:lang="zh">请选择支付方法。</value>
-        <value xml:lang="zh_CN">请选择支付类型</value>
-    </property>
-    <property key="checkhelper.select_shipping_destination">
-        <value xml:lang="de">Bitte wählen Sie eine Lieferadresse.</value>
-        <value xml:lang="en">Please Select a Shipping Destination.</value>
-        <value xml:lang="es">Por favor, seleccione una dirección de envío.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez une destination d'expédition.</value>
-        <value xml:lang="it">Per favore seleziona una destinazione per la spedizione.</value>
-        <value xml:lang="nl">Please Select a Shipping Destination.</value>
-        <value xml:lang="ro">Va rugam Selectionati o Destinatie de Expediere.</value>
-        <value xml:lang="ru">Пожалуйста выберите пункт доставки.</value>
-        <value xml:lang="th">กรุณาเลือกเป้าหมายการขนส่งสินค้า</value>
-        <value xml:lang="zh">请选择送货目的地。</value>
-        <value xml:lang="zh_CN">请选择送货地址</value>
-    </property>
-    <property key="checkhelper.select_shipping_method">
-        <value xml:lang="de">Bitte wählen Sie eine Liefermethode.</value>
-        <value xml:lang="en">Please Select a Shipping Method.</value>
-        <value xml:lang="es">Por favor, seleccione un método de envío.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez un moyen d'expédition.</value>
-        <value xml:lang="it">Per favore seleziona un metodo di spedizione.</value>
-        <value xml:lang="nl">Please Select a Shipping Method.</value>
-        <value xml:lang="ro">Va rugam Selectionati o Metoda de Expediere.</value>
-        <value xml:lang="ru">Пожалуйста выберите способ доставки.</value>
-        <value xml:lang="th">กรุณาเลือกวิธีการขนส่งสินค้า</value>
-        <value xml:lang="zh">请选择送货方法。</value>
-        <value xml:lang="zh_CN">请选择送货方式</value>
-    </property>
-    <property key="checkhelper.select_splitting_preference">
-        <value xml:lang="de">Bitte wählen Sie die bevorzugte Aufteilung.</value>
-        <value xml:lang="en">Please Select a Splitting Preference.</value>
-        <value xml:lang="es">Por favor, seleccione una preferencia de división.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez une préférence pour le fractionnement de l'expédition.</value>
-        <value xml:lang="it">Per favore seleziona una preferenza di suddivisione.</value>
-        <value xml:lang="nl">Please Select a Splitting Preference.</value>
-        <value xml:lang="ro">Va rugam selectionati o Preferinta de Divizare.</value>
-        <value xml:lang="ru">Пожалуйста укажите предпочтения разделения.</value>
-        <value xml:lang="th">กรุณาเลือกสิทธิพิเศษที่แตกต่าง</value>
-        <value xml:lang="zh">请选择拆分优先选择。</value>
-        <value xml:lang="zh_CN">请选择送货拆分偏好</value>
-    </property>
-    <property key="checkhelper.specify_if_order_is_gift">
-        <value xml:lang="de">Bitte geben sie an, ob diese Bestellung ein Geschenk ist.</value>
-        <value xml:lang="en">Please Specify Whether or Not This Order is a Gift.</value>
-        <value xml:lang="es">Por favor, especifique si este pedido es o no un regalo.</value>
-        <value xml:lang="fr">Spécifiez, s'il vous plaît, si cette commande est un cadeau.</value>
-        <value xml:lang="it">Per favore specificare se questo ordine è un'omaggio o no.</value>
-        <value xml:lang="nl">Please Specify Whether or Not This Bestelling is a Gift.</value>
-        <value xml:lang="ro">Va rugam Specificati daca aceasta comanda este sau nu este un Omagiu.</value>
-        <value xml:lang="ru">Пожалуйста укажите является ли это заказ подарком, или нет.</value>
-        <value xml:lang="th">กรุณาระบุไม่ว่าจะเป็นรายการสั่งซื้อสินค้านี้ในตระกร้าหรือไม่</value>
-        <value xml:lang="zh">请指出本订单是否是礼品。</value>
-        <value xml:lang="zh_CN">请指定该订单是否是礼品</value>
-    </property>
-    <property key="checkhelper.specify_if_shipAfterDate_is_date">
-        <value xml:lang="de">Bitte geben Sie 'Auslieferung nach Datum' als Datum an.</value>
-        <value xml:lang="en">Please specify ship after date as a date.</value>
-        <value xml:lang="es">Por favor indique la fecha de envío 'después de' como fecha.</value>
-        <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison après".</value>
-        <value xml:lang="it">Per favore inserire una data nel campo "consegna dopo".</value>
-        <value xml:lang="nl">Please specify ship after date as a date.</value>
-        <value xml:lang="ro">Va rugam specificati livrarea dupa data ca data.</value>
-        <value xml:lang="ru">Пожалуйста указывайте поставку после даты как дату.</value>
-        <value xml:lang="th">กรุณาระบุการขนส่งหลังจากวันที่</value>
-        <value xml:lang="zh">请指出最早送货日期。</value>
-        <value xml:lang="zh_CN">请指定发货后日期作为日期</value>
-    </property>
-    <property key="checkhelper.change_returned_cannot_be_greater_than_cash">
-        <value xml:lang="de">Das Rückgeld kann nicht grösser sein als der ursprüngliche Betrag.</value>
-        <value xml:lang="en">The change returned cannot be greater than the cash given.</value>
-        <value xml:lang="es">El cambio no puede ser mayor que el importe.</value>
-        <value xml:lang="fr">La monnaie rendue ne peut être supérieure au paiement.</value>
-    </property>
-    <property key="checkhelper.specify_if_shipBeforeDate_is_date">
-        <value xml:lang="de">Bitte geben Sie 'Auslieferung vor Datum' als Datum an.</value>
-        <value xml:lang="en">Please specify a ship before date as a date.</value>
-        <value xml:lang="es">Por favor indique la fecha de envío 'antes de' como fecha.</value>
-        <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison avant".</value>
-        <value xml:lang="it">Per favore inserire una data nel campo "consegna prima".</value>
-        <value xml:lang="nl">Please specify a ship before date as a date.</value>
-        <value xml:lang="ro">Va rugam specificati livrarea inainte de data ca data.</value>
-        <value xml:lang="ru">Пожалуйста указывайте поставку до даты как дату.</value>
-        <value xml:lang="th">กรุณาระบุการขนส่งก่อนวันที่</value>
-        <value xml:lang="zh">请指出最迟送货日期。</value>
-        <value xml:lang="zh_CN">请指定发货前日期作为日期</value>
-    </property>
-    <property key="checkhelper_sales_order_lines_lookup_failed">
-        <value xml:lang="de">FEHLER: Verkaufsauftrag Element Lookup fehlgeschlagen.</value>
-        <value xml:lang="en">ERROR: Sales Order Lines lookup failed.</value>
-        <value xml:lang="es">Error: Ha fallado la consulta de líneas del pedido de venta.</value>
-        <value xml:lang="fr">ERREUR : la vérification des lignes de commande de ventes a échouée.</value>
-        <value xml:lang="it">ERRORE: Righe Ordine Vendita ricerca fallita.</value>
-        <value xml:lang="nl">ERROR: Sales Bestelling Lines lookup failed.</value>
-        <value xml:lang="ro">EROARE: Linie Comanda Vanzare cautare falita.</value>
-        <value xml:lang="ru">ОШИБКА: Поиск строк заказа на продажу завершился неудачно.</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! การค้นหารายการขายผิดพลาด</value>
-        <value xml:lang="zh">错误：查找销售订单行失败。</value>
-        <value xml:lang="zh_CN">错误: 销售订单查找失败</value>
-    </property>
-    <property key="checkhelpertotalsdonotmatchordertotal">
-        <value xml:lang="de">Endsummen entsprechen nicht der Gesamtsumme des Auftrags.</value>
-        <value xml:lang="en">Totals do not match order total.</value>
-        <value xml:lang="es">Los totales no corresponden al total del pedido.</value>
-        <value xml:lang="fr">Les totaux ne correspondent pas au total de la commande.</value>
-        <value xml:lang="it">Totali non corrispondono al totale ordine.</value>
-        <value xml:lang="nl">Totals do not match bestelling total.</value>
-        <value xml:lang="ro">Totalurile nu corespund totalului comenzii.</value>
-        <value xml:lang="ru">Итоги не соответствуют итогам заказа.</value>
-        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">合计与订单合计不一致。</value>
-        <value xml:lang="zh_CN">总额与订单总和不符.</value>
-    </property>
-    <property key="fixed_asset_product_not_found">
-        <value xml:lang="de">Konnte zugewiesenes Mietobjekt für das Produkt mit der ID [{0}] nicht finden, kann nicht gemietet werden.</value>
-        <value xml:lang="en">Could not find a related rental fixed asset for the product with ID [{0}], cannot be rented.</value>
-        <value xml:lang="es">No se pudo encontrar un activo fijo de alquiler relacionado al producto con el código [{0}], no puede ser alquilado.</value>
-        <value xml:lang="fr">Aucun bien loué apparenté pour l'article de réf. [{0}], ne peut donc être loué.</value>
-        <value xml:lang="it">Non è possibile trovare un cespite relativo a beni in affitto per il prodotto con il codice [{0}], non può essere affittato.</value>
-        <value xml:lang="nl">Could not find a related rental fixed asset for the product with ID [{0}], cannot be rented.</value>
-        <value xml:lang="ro">Nu este posibila gasirea unui mijloc fix relativ la bunurile inchiriate pentru produsul cu codul [{0}], nu poate fi inchiriat.</value>
-        <value xml:lang="ru">Не смог найти связанные арендованные основные средства для продукта с кодом [{0}], не могут быть сданы в аренду.</value>
-        <value xml:lang="th">ไม่สามารถค้นหาการเช่าที่เกี่ยวข้องกับทรัพย์สินไม่หมุนเวียนสำหรับสินค้าด้วยรหัส [{0}], ไม่สามารถเช่า</value>
-        <value xml:lang="zh">无法为产品 [{0}] 找到相关的可租赁固定资产，无法租赁。</value>
-        <value xml:lang="zh_CN">不能为产品[{0}]找到一个相关的可被租用的固定资产，不能出租。</value>
-    </property>
-    <property key="help_also_interested_in">
-        <value xml:lang="de">Sie könnten auch an Folgendem interessiert sein:</value>
-        <value xml:lang="en">You might also be interested in :</value>
-        <value xml:lang="es">También le puede interesar :</value>
-        <value xml:lang="fr">Vous pourriez également être intéressé(e) par :</value>
-        <value xml:lang="it">Tu potresti essere interessato anche a :</value>
-        <value xml:lang="nl">You might also be interested in :</value>
-        <value xml:lang="ro">Tu ai putea sa fii interesat si de :</value>
-        <value xml:lang="ru">Вас также может заинтересовать следующая продукция:</value>
-        <value xml:lang="th">คุณน่าจะสนใจใน :</value>
-        <value xml:lang="zh">你可能还会对下列产品感兴趣：</value>
-        <value xml:lang="zh_CN">你可能也对这些感兴趣 :</value>
-    </property>
-    <property key="item.availableOk">
-        <value xml:lang="de">OK</value>
-        <value xml:lang="en">OK</value>
-        <value xml:lang="es">OK</value>
-        <value xml:lang="fr">OK</value>
-        <value xml:lang="it">OK</value>
-        <value xml:lang="ro">OK</value>
-        <value xml:lang="ru">OK</value>
-        <value xml:lang="th">ตกลง</value>
-        <value xml:lang="zh">确定</value>
-    </property>
-    <property key="item.availableQnt">
-        <value xml:lang="de">Menge verlangt: ${quantityReq}, Menge verfügbar: ${quantityAvail}</value>
-        <value xml:lang="en">Quantity requested: ${quantityReq} Quantity available: ${quantityAvail}</value>
-        <value xml:lang="es">Cantidad solicitada: ${quantityReg} Cantidad disponible: ${quantityAvail}</value>
-        <value xml:lang="fr">Quantité demandée: ${quantityReq} Quantité disponible: ${quantityAvail}</value>
-        <value xml:lang="it">Quantità richiesta: ${quantityReq} Quantità disponibile: ${quantityAvail}</value>
-        <value xml:lang="ro">Cantitatea ceruta: ${quantityReq} cantitatea disponibila: ${quantityAvail}</value>
-        <value xml:lang="ru">Количество запрашивается: ${quantityReq} Количество доступно: ${quantityAvail}</value>
-        <value xml:lang="th">จำนวนการร้องขอ: ${quantityReq} จำนวนที่มีอยู่: ${quantityAvail}</value>
-        <value xml:lang="zh">请求数量：${quantityReq} 可用数量：${quantityAvail}</value>
-    </property>
-    <property key="item.cannot_add_product_no_longer_available">
-        <value xml:lang="de">Versuch, Produkt ${productName} (Produkt ID: ${productId}) zum Warenkorb hinzuzufügen. Das Produkt ist nicht mehr zum Verkauf verfügbar, nicht hinzugefügt.</value>
-        <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product is no longer available for sale, so not adding.</value>
-        <value xml:lang="es">Se ha intentado añadir el producto ${productName} (códgio: ${productId}) al carro. Este producto ya no está a la venta y no se añade.</value>
-        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'est plus disponible à la vente, donc ne l'ajouter pas.</value>
-        <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è più disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
-        <value xml:lang="ro">Tentativa de adaugare a Produsului ${productName} (produs: ${productId}) in cos. Acest produs nu mai este disponibil pentru vinzarea, deci nu poate fi adaugat.</value>
-        <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт большее недоступен к заказу, поэтому не добавлен.</value>
-        <value xml:lang="th">พยายามเพิ่มสินค้า ${productName} (productId: ${productId}) ลงตระกร้า. สินค้านี้ไม่สามารถใช้ได้ในระยะยาวสำหรับการขาย, ดังนั้นไม่เพิ่ม.</value>
-        <value xml:lang="zh">尝试把产品 ${productName} (产品标识：${productId}) 添加到购物车。不再销售这个产品了，所以没有添加。</value>
-    </property>
-    <property key="item.cannot_add_product_not_configured_correctly">
-        <value xml:lang="de">Versuch, Produkt ${productName} (Produkt ID: ${productId}) zum Warenkorb hinzuzufügen, Das Produkt ist nicht korrekt konfiguriert, nicht zum Warenkorb hinzugefügt.</value>
-        <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart, not adding: the product is not configured correctly.</value>
-        <value xml:lang="es">Se ha intentado añadir el producto ${productName} (códgio: ${productId}) al carro. Este producto no está configurado correctamente y no se añade.</value>
-        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier, ne pas ajouter: l'article n'est pas configuré correctement.</value>
-        <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto: il prodotto non è configurato correttamente.</value>
-        <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos, nu va fi adaugat: produsul nu este configurat corect.</value>
-        <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину, не добавлен: продукт неправильно сконфигурирован.</value>
-        <value xml:lang="th">พยายามเพิ่มสิค้า ${productName} (productId: ${productId}) ลงตระกร้า, ไม่เพิ่ม: สินค้าไม่มีสิทธิพิเศษในตอนนี้</value>
-        <value xml:lang="zh">尝试把产品 ${productName} (产品标识：${productId}) 添加到购物车，没有添加：这个产品配置不正确。</value>
-    </property>
-    <property key="item.cannot_add_product_not_yet_available">
-        <value xml:lang="de">Versuch, Produkt ${productName} (Produkt ID: ${productId}) zum Warenkorb hinzuzufügen. Das Produkt ist noch nicht zum Verkauf freigegeben, nicht zum Warenkorb hinzugefügt.</value>
-        <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product has not yet been made available for sale, so not adding.</value>
-        <value xml:lang="es">Se ha intentado añadir el producto ${productName} (códgio: ${productId}) al carro. Este producto aún no está a la venta y no se añade.</value>
-        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'a pas été encore mis à disposition à la vente, donc ne pas ajouter.</value>
-        <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è stato ancora reso disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
-        <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos. Acest produs nu este inca disponibil pentru vanzare, asa ca nu poate fi adaugat.</value>
-        <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт пока недоступен, поэтому не добавлен.</value>
-        <value xml:lang="th">พยายามเพิ่มสินค้า ${productName} (productId: ${productId}) ลงตระกร้า. สินค้านี้ไม่ได้ถูกทำขึ้นใช้ประโยชน์สำหรับการขาย, ดังนั้นไม่เพิ่ม.</value>
-        <value xml:lang="zh">尝试把产品 ${productName} (产品标识：${productId}) 添加到购物车。这个产品还没有销售，所以没有添加。</value>
-    </property>
-    <property key="item.cannot_add_product_virtual">
-        <value xml:lang="de">Versuch, Virtuelles Produkt ${productName} (Product ID: ${productId}) zum Warenkorb hinzuzufügen. Produkt wurde nicht hinzugefügt.</value>
-        <value xml:lang="en">Tried to add the Virtual Product ${productName} (productId: ${productId}) to the cart, not adding.</value>
-        <value xml:lang="es">Se ha intentado añadir el producto virtual ${productName} (códgio: ${productId}) al carro. Este producto no se añade.</value>
-        <value xml:lang="fr">Vous avez essayé l'article virtuel ${productName} (productId: ${productId}) au panier, ne pas ajouter.</value>
-        <value xml:lang="it">Tentativo di aggiungere il Prodotto Virtuale ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto.</value>
-        <value xml:lang="ro">Tentativa de adaugare Produsul Virtual ${productName} (produs: ${productId}) in cos, nu va fi adaugat.</value>
-        <value xml:lang="ru">Была предпринята попытка добавить виртуальный продукт ${productName} (productId: ${productId}) в корзину, не добавлен.</value>
-        <value xml:lang="th">พยายามเพิ่มสินค้าจริง ${productName} (productId: ${productId}) ลงตระกร้า, ไม่เพิ่ม.</value>
-        <value xml:lang="zh">尝试把虚拟产品 ${productName} (产品标识：${productId}) 添加到购物车，没有添加。</value>
-    </property>
-    <property key="item.cannot_find_Fixed_Asset">
-        <value xml:lang="de">Dem Produkt zugewiesene Anlage nicht gefunden für das Produkt ${productId}</value>
-        <value xml:lang="en">Could not find a related Fixed Asset for the product: ${productId}</value>
-        <value xml:lang="es">No se puede encontrar un activo fijo relacionado con el producto: ${productId}</value>
-        <value xml:lang="fr">Aucun actif immobilisé pour l'article: ${productId}</value>
-        <value xml:lang="it">Non è possibile trovare un Cespite per il prodotto: ${productId}</value>
-        <value xml:lang="ro">Nu este posibila gasirea unui Mijloc fix pentru  produsul: ${productId}</value>
-        <value xml:lang="ru">Невозможно найти основные средства, связанные с продуктом: ${productId}</value>
-        <value xml:lang="th">ไม่สามารถค้นหาที่เกี่ยวข้องกับทรัพย์สินไม่หมุนเวียนสำหรับสินค้า: ${productId}</value>
-        <value xml:lang="zh">无法为这个产品找到相关的固定资产：${productId}</value>
-    </property>
-    <property key="item.fixed_Asset_not_found">
-        <value xml:lang="de">Anlage nicht gefunden. Anlage ID: ${fixedAssetId}</value>
-        <value xml:lang="en">fixed_Asset_not_found. Fixed AssetId: ${fixedAssetId}</value>
-        <value xml:lang="es">Activo fijo no encontrado. Código: ${fixedAssetId}</value>
-        <value xml:lang="fr">Actif immobilisé non trouvé. Réf. actif immobilisé: ${fixedAssetId}</value>
-        <value xml:lang="it">Cespite non trovato. Cespite: ${fixedAssetId}</value>
-        <value xml:lang="ro">Mijloc Fix negasit. Mijloc Fix: ${fixedAssetId}</value>
-        <value xml:lang="ru">ОС не найдены. Код ОС: ${fixedAssetId}</value>
-        <value xml:lang="th">ไม่พบทรัพย์สินไม่หมุนเวียน. รหัสทรัพย์สินไม่หมุนเวียน: ${fixedAssetId}</value>
-        <value xml:lang="zh">没有找到固定资产，固定资产标识：${fixedAssetId}</value>
-    </property>
-    <property key="item.maximum_number_of_person_renting">
-        <value xml:lang="de">Die maximale Anzahl Personen für dieses Objekt beträgt ${reservMaxPersons}, Sie haben aber ${reservPersons} verlangt!</value>
-        <value xml:lang="en">The maximum number of persons renting this object is ${reservMaxPersons} however you have requested: ${reservPersons} !</value>
-        <value xml:lang="es">El número máximo de personas para reservar este objeto es ${reservMaxPersons}. ¡No obstante ha solicitado: ${reverPersons}!</value>
-        <value xml:lang="fr">Le nombre maximum de personnes ppuvant louer cet objet est ${reservMaxPersons} cependant vous avez demandé: ${reservPersons} !</value>
-        <value xml:lang="it">Il numero massimo di persone che affittano questo oggetto è ${reservMaxPersons} comunque tu hai richiesto: ${reservPersons} !</value>
-        <value xml:lang="ro">Numarul maxim de persoane care inchiriaza acest obiect este ${reservMaxPersons} daca tu ai cerut: ${reservPersons} !</value>
-        <value xml:lang="ru">Максимальное количество персон арендующих данный объект ${reservMaxPersons}, но вы запросили: ${reservPersons} !</value>
-        <value xml:lang="th">จำนวนมากที่สุดของผู้ที่เช่าสิ่งของคือ ${reservMaxPersons} อย่างไรก็ตามคุณมีการร้องขอ: ${reservPersons} !</value>
-        <value xml:lang="zh">租用这个对象的最大人数是 ${reservMaxPersons} 而你要求的是：${reservPersons} ！</value>
-    </property>
-    <property key="item.missing_reservation_starting_date">
-        <value xml:lang="de">Das Startdatum der Reservation fehlt....</value>
-        <value xml:lang="en">The starting date of the reservation is missing....</value>
-        <value xml:lang="es">La fecha de inicio de la reserva falta ...</value>
-        <value xml:lang="fr">La date de départ de la réservation est manquante...</value>
-        <value xml:lang="it">La data di inizio prenotazione è mancante....</value>
-        <value xml:lang="ro">Data initiala de rezervare lipseste....</value>
-        <value xml:lang="ru">Отсутствует начальная дата резервирования....</value>
-        <value xml:lang="th">ไม่พบวันที่เริ่มจอง....</value>
-        <value xml:lang="zh">缺少预订的开始日期....</value>
-    </property>
-    <property key="item.notAvailable">
-        <value xml:lang="de">Leider an den angegebenen Terminen nicht verfügbar: ${resultMessage}. Element nicht zum Warenkorb hinzugefügt.</value>
-        <value xml:lang="en">I am sorry, not available at these dates: ${resultMessage} item not added to the shopping cart.....</value>
-        <value xml:lang="es">Lo siente no está disponible en estas fechas: ${resultMessage} ítem no añadido al carro ...</value>
-        <value xml:lang="fr">je suis désolé, pas disponible à ces dates: ${resultMessage}, article non ajouté au panier d'achats...</value>
-        <value xml:lang="it">Spiacente, nessuna disponibilità a queste date: ${resultMessage} prodotto non aggiunto al carrello.....</value>
-        <value xml:lang="ro">Imi pare rau, nici-o disponibilitate la aceste date: ${resultMessage} produs neadaugat in cos.....</value>
-        <value xml:lang="ru">Извините, не доступно в эти даты: ${resultMessage} позиция в корзину покупок не добавлена....</value>
-        <value xml:lang="th">ขอโทษค่ะ, วันที่สิ่งนี้ไม่สามารใช้ได้: ${resultMessage} ไม่เพิ่มรายการในบัตรซื้อของ.....</value>
-        <value xml:lang="zh">对不起，这些日期无效：${resultMessage} 没有把明细添加到购物车.....</value>
-    </property>
-    <property key="item.number_of_days">
-        <value xml:lang="de">Bitte geben Sie die Anzahl Tage an, 1 oder mehr...</value>
-        <value xml:lang="en">Please enter a number of days, 1, or more....</value>
-        <value xml:lang="es">Por favor, indique un número de días, 1 o más ...</value>
-        <value xml:lang="fr">S'il vous plaît entrer un nombre de jours, 1, ou plus...</value>
-        <value xml:lang="it">Per favore inserire un numero di giorni, 1, o più....</value>
-        <value xml:lang="ro">Va rugam introduceti un numar de zile, 1, sau mai mult....</value>
-        <value xml:lang="ru">Пожалуйста введите количество дней, 1, или больше....</value>
-        <value xml:lang="th">กรุณากรอกจำนวนของวัน , 1 , หรือมากกว่า....</value>
-        <value xml:lang="zh">请输入天数，1或更多....</value>
-    </property>
-    <property key="item.product_not_available">
-        <value xml:lang="de">Produkt nicht verfügbar, Produkt ID: ${productId}, Meldung: ${availableMessage}</value>
-        <value xml:lang="en">Product not available, ProductId: ${productId} message: ${availableMessage}</value>
-        <value xml:lang="es">El producto no está disponible, código: ${productId} mensaje: ${availableMessage}</value>
-        <value xml:lang="fr">Article non disponible, réf. : ${productId} message: ${availableMessage}</value>
-        <value xml:lang="it">Prodotto non disponibile, Prodotto: ${productId} messaggio: ${availableMessage}</value>
-        <value xml:lang="ro">Produsul nu este disponibil, Produs: ${productId} mesaj: ${availableMessage}</value>
-        <value xml:lang="ru">Продукт недоступен, код продукта: ${productId} сообщение: ${availableMessage}</value>
-        <value xml:lang="th">ไม่มีสินค้าอยู่, รหัสสินค้า: ${productId} ข้อความ: ${availableMessage}</value>
-        <value xml:lang="zh">产品无效，产品标识：${productId} 消息：${availableMessage}</value>
-    </property>
-    <property key="item.product_not_found">
-        <value xml:lang="de">Das Produkt mit der Nummer ${productId} konnte nicht gefunden werden.</value>
-        <value xml:lang="en">Product not found, not adding to cart. [productId: ${productId}]</value>
-        <value xml:lang="es">El producto no se ha encontrado, no se añade al carro. [código: ${productId}]</value>
-        <value xml:lang="fr">Article non trouvé, pas d'ajout dans le panier. [réf. : ${productId}]</value>
-        <value xml:lang="it">Prodotto non trovato, non verrà aggiunto al carrello. [prodotto: ${productId}]</value>
-        <value xml:lang="nl">Product not found, not adding to cart. [productId: ${productId}]</value>
-        <value xml:lang="pt_PT">Product not found, not adding to cart. [productId: ${productId}]</value>
-        <value xml:lang="ro">Produs negasit, nu va fi adaugat in cos. [prodotto: ${productId}]</value>
-        <value xml:lang="ru">Продукт не найден, не добавлен в корзину. [productId: ${productId}]</value>
-        <value xml:lang="th">ไม่พบสินค้า, ไม่เพิ่มลงตระกร้าt. [productId: ${productId}]</value>
-        <value xml:lang="zh">没有找到产品，没有添加到购物车。[产品标识：${productId}]</value>
-    </property>
-    <property key="item.reservation_from_tomorrow">
-        <value xml:lang="de">Sie können Reservationen frühestens mit einem Datum ab morgen durchführen</value>
-        <value xml:lang="en">You can only make reservation starting tomorrow....</value>
-        <value xml:lang="es">Sólo puede hacer una reserva que empiece mañana ...</value>
-        <value xml:lang="fr">Vous ne pouvez démarrer votre réservation que demain...</value>
-        <value xml:lang="it">Potrai effettuare la prenotazione solo da domani....</value>
-        <value xml:lang="ro">Poti sa faci rezervarea numai de maine ....</value>
-        <value xml:lang="ru">Резервирование возможно только начиная с завтрашнего дня....</value>
-        <value xml:lang="th">คุณสามารถเริ่มการจองได้พรุ่งนี้เท่านั้น....</value>
-        <value xml:lang="zh">你只能从明天开始预订....</value>
-    </property>
-    <property key="items.none">
-        <value xml:lang="de">FEHLER: Keine Produkte für den Auftrag vorhanden</value>
-        <value xml:lang="en">ERROR: There are no items to order</value>
-        <value xml:lang="es">ERROR: No hay artículos a pedir</value>
-        <value xml:lang="fr">ERREUR : Il n'y a pas d'article à commander</value>
-        <value xml:lang="it">ERRORE: Non ci sono articoli nell'ordine</value>
-        <value xml:lang="nl">ERROR: There are no items to bestelling</value>
-        <value xml:lang="pt_PT">ERRO: Não existem itens para encomendar</value>
-        <value xml:lang="ro">EROARE: Comanda nu are nici o linie inregistrata</value>
-        <value xml:lang="ru">ОШИБКА: в заказе нет позиций</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีรายการในรายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">错误：订单没有明细</value>
-        <value xml:lang="zh_CN">错误: 没有项目到订单</value>
-    </property>
-    <property key="product.no_longer_for_sale">
-        <value xml:lang="de">Sie haben versucht, das Produkt {0} (Produkt ID: {1}) zu bestellen. Dieses Produkt wird nicht mehr verkauft. Bitte entfernen Sie es aus dem Warenkorb.</value>
-        <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
-        <value xml:lang="es">Se ha intentado pedir el producto {0} (código: {1}). Este producto ya no está a la venta. Por favor retírelo de su pedido.</value>
-        <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'est plus disponible à la vente. S'il vous plaît, enlevez le de votre commande.</value>
-        <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è più disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
-        <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
-        <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto já se encontra indisponível para venda.Por favor remova-o desta encomenda.</value>
-        <value xml:lang="ro">Incercare de comandare produs {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
-        <value xml:lang="ru">Предпринята попытка заказать продукт {0} (productId: {1}). Этот продукт более недоступен. Пожалуйста, удалите его из заказа.</value>
-        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่สามารถใช้ประโยชน์ได้ในระยะยาวสำหรับการขาย. กรุณาลบรายการสั่งซื้อสินค้าของคุณ</value>
-        <value xml:lang="zh">尝试订购产品 {0} (产品标识：{1})。这个产品不再销售了。请把它从订单中删除。</value>
-        <value xml:lang="zh_CN">尝试订购产品 {0} (标识: {1}). 该产品不再销售. 请从订单中删除该产品</value>
-    </property>
-    <property key="product.not_found">
-        <value xml:lang="de">Kann das Produkt mit der ID [{0}] nicht finden. Da Produkt kann nicht eingekauft werden.</value>
-        <value xml:lang="en">Could not find the product with ID [{0}], cannot be purchased.</value>
-        <value xml:lang="es">No se pudo encontrar el producto con código [{0}], no se puede comprar.</value>
-        <value xml:lang="fr">L'article avec la réf. [{0}] n'a pas été trouvé , et ne peut donc être acheté.</value>
-        <value xml:lang="it">Non è possibile trovare il prodotto con codice [{0}], non possono essere acquisti.</value>
-        <value xml:lang="nl">Could not find the product with ID [{0}], cannot be purchased.</value>
-        <value xml:lang="pt_PT">Impossível encontrar o produto com essa identificação [{0}], não pode ser adquirido.</value>
-        <value xml:lang="ro">Nu este posibila gasirea produsului cu codul [{0}], nu se poate cumpara.</value>
-        <value xml:lang="ru">Не смог найти продукт с кодом [{0}], не может быть приобретен.</value>
-        <value xml:lang="th">ไม่สามารถค้นหาสินค้าด้วยรหัส  [{0}], ไม่สามารถสั่งซื้อ.</value>
-        <value xml:lang="zh">无法找到标识为 [{0}] 的产品，不能购买。</value>
-        <value xml:lang="zh_CN">不能找到产品 [{0}], 不能购买.</value>
-    </property>
-    <property key="product.not_yet_for_sale">
-        <value xml:lang="de">Sie haben versucht, das Produkt {0} (Produkt ID: {1}) zu bestellen. Dieses Produkt ist noch nicht im Verkauf. Bitte entfernen Sie es aus dem Warenkorb.</value>
-        <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product has not yet been made available for sale. Please remove from your order.</value>
-        <value xml:lang="es">Se ha intentado pedir el producto {0} (código: {1}). Este producto aún no está a la venta. Retírelo de su pedido por favor.</value>
-        <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'a pas encore été mis en vente. S'il vous plaît, enlevez le de votre commande.</value>
-        <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è ancora disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
-        <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product has not yet been made available for sale. Please remove from your order.</value>
-        <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto ainda está indisponível para venda. Por favor, remova-o desta encomenda.</value>
-        <value xml:lang="ro">Incercare de comandare a produsului {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
-        <value xml:lang="ru">Предпринята попытка заказать продукт {0} (productId: {1}). Этот продукт пока недоступен. Пожалуйста, удалите его из заказа.</value>
-        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่ได้ทำขึ้นสำหรับการขาย. กรุณาลบออกจากรายการสั่งซื้อสินค้าของคุณ.</value>
-        <value xml:lang="zh">尝试订购产品 {0} (产品标识：{1})。这个产品还没有销售。请把它从订单中删除。</value>
-        <value xml:lang="zh_CN">尝试订购产品 {0} (标识: {1}). 该产品不再为销售生产. 请从订单中删除该产品。</value>
-    </property>
-    <property key="product.out_of_stock">
-        <value xml:lang="de">Das Produkt {0} mit der ID {1} ist nicht an Lager. Bitte reduzieren Sie die Menge oder entfernen Sie das Produkt komplett aus dem Warenkorb.</value>
-        <value xml:lang="en">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this order.</value>
-        <value xml:lang="es">No hay existencias suficientes del producto {0} con el código {1}. Intente reducir la cantidad o elimine el producto de su pedido.</value>
-        <value xml:lang="fr">L'article {0} avec ID {1} n'est plus en stock. Essayez, s'il vous plaît, de réduire la quantité ou d'enlever l'article de cette commande, merci.</value>
-        <value xml:lang="it">Il prodotto {0} con codice {1} non è più in giacenza. Per favore prova a ridurre la quantità o rimuovi il prodotto da questo ordine.</value>
-        <value xml:lang="nl">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this bestelling.</value>
-        <value xml:lang="pt_PT">O produto {0} identificado como {1} já não se encontra em stock. Por favor tente reduzir a quantidade ou removê-lo desta encomenda.</value>
-        <value xml:lang="ro">Produsul {0} cu codul {1} nu mai este in stoc. Te rugam sa reduci cantitatea sau sa stergi produsul de la aceasta comanda.</value>
-        <value xml:lang="ru">Продукт {0} с кодом {1} больше недоступен на складе. Пожалуйста, попробуйте уменьшить количество или удалить этот продукт из заказа.</value>
-        <value xml:lang="th">สินค้า {0} ด้วยรหัส {1} ไม่มีในคลังสินค้าเป็นเวลานาน. กรุณาลองลดจำนวนหรือลบสินค้าออกจากรายการ </value>
-        <value xml:lang="zh">产品 {0} 标识 {1} 缺货。请减少它在订单中的数量或把它从订单中删除。</value>
-        <value xml:lang="zh_CN">产品 {0} 标识 {1} 不在仓库中.请尝试减少产品数量或从订单中删除该产品。</value>
-    </property>
-    <property key="shoppinglistevents.added_product_to_cart">
-        <value xml:lang="de">Produkt ${productId} zum Warenkorb hinzugefügt.</value>
-        <value xml:lang="en">Added product ${productId} to cart.</value>
-        <value xml:lang="es">El producto ${productId} se ha añadido al carro.</value>
-        <value xml:lang="fr">Ajout de l'article ${productId} au panier.</value>
-        <value xml:lang="it">Aggiunto l'articolo ${productId} al carrello.</value>
-        <value xml:lang="nl">Added product ${productId} to cart.</value>
-        <value xml:lang="ro">Adaugat ${productId} produs in  cos.</value>
-        <value xml:lang="ru">Продукт ${productId} добавлен в корзину.</value>
-        <value xml:lang="th">เพิ่มสินค้า ${productId} ลงตระกร้า.</value>
-        <value xml:lang="zh">把产品 ${productId} 添加到购物车。</value>
-        <value xml:lang="zh_CN">增加产品 ${productId} 到购物车.</value>
-    </property>
-    <property key="shoppinglistevents.cannot_create_new_shopping_list">
-        <value xml:lang="de">Eine neue Einkaufsliste kann nicht erzeugt werden.</value>
-        <value xml:lang="en">Cannot create new shopping list.</value>
-        <value xml:lang="es">No se puede crear una nueva lista de compras.</value>
-        <value xml:lang="fr">Impossible de créer une nouvelle liste d'achats.</value>
-        <value xml:lang="it">Non è possibile creare una nuova lista di acquisto.</value>
-        <value xml:lang="nl">Cannot create new shopping list.</value>
-        <value xml:lang="ro">Nu este posibila crearea unei noi liste de cumparari.</value>
-        <value xml:lang="ru">Не могу создать новый список покупок.</value>
-        <value xml:lang="th">ไม่สามารถเพิ่มรายการซื้อของใหม่</value>
-        <value xml:lang="zh">不能新建购物列表。</value>
-        <value xml:lang="zh_CN">不能建立新的购物列表</value>
-    </property>
-    <property key="shoppinglistevents.choose_shopping_list">
-        <value xml:lang="de">Bitte wählen Sie eine Einkaufsliste aus.</value>
-        <value xml:lang="en">Please choose a shopping list.</value>
-        <value xml:lang="es">Por favor, elija una lista de compras.</value>
-        <value xml:lang="fr">SVP, choisissez une liste d'achats.</value>
-        <value xml:lang="it">Scegliere una lista di acquisto, prego.</value>
-        <value xml:lang="nl">Please choose a shopping list.</value>
-        <value xml:lang="ro">Va rugam alegeti o lista de cumparari.</value>
-        <value xml:lang="ru">Пожалуйста выберите список покупок.</value>
-        <value xml:lang="th">กรุณาเลือกรายการซื้อของ</value>
-        <value xml:lang="zh">请选择购物列表。</value>
-        <value xml:lang="zh_CN">请选择一个购物列表.</value>
-    </property>
-    <property key="shoppinglistevents.error_adding_item_to_shopping_list">
-        <value xml:lang="de">Fehler beim Aufnehmen eines Artikels auf Einkaufsliste.</value>
-        <value xml:lang="en">Error adding item to shopping list.</value>
-        <value xml:lang="es">Error agregando ítem a la lista de compras.</value>
-        <value xml:lang="fr">Erreur lors de l'ajout de l'article à la liste d'achats.</value>
-        <value xml:lang="it">Errore nell'aggiunta di un articolo alla lista di acquisto.</value>
-        <value xml:lang="nl">Error adding item to shopping list.</value>
-        <value xml:lang="ro">Eroare la adaugarea unei linii la lista de cumparari.</value>
-        <value xml:lang="ru">Ошибка добавления позиции в список покупок.</value>
-        <value xml:lang="th">ผิดพลาด ! การเพิ่มรายการลงสู่รายการซื้อสินค้า</value>
-        <value xml:lang="zh">向购物列表添加明细时出错。</value>
-        <value xml:lang="zh_CN">加入项目到购物列表错误</value>
-    </property>
-    <property key="shoppinglistevents.error_getting_shopping_list_and_items">
-        <value xml:lang="de">Fehler beim Abfragen von Einkaufsliste und Artikel.</value>
-        <value xml:lang="en">Error getting shopping list and items.</value>
-        <value xml:lang="es">Error en la obtención de la lista de compra y los artículos.</value>
-        <value xml:lang="fr">Erreur lors de l'obtention de la liste d'achat et des articles.</value>
-        <value xml:lang="it">Errore leggendo la lista di acquisto e gli articoli.</value>
-        <value xml:lang="nl">Error getting shopping list and items.</value>
-        <value xml:lang="ro">Eroare la citirea listei de cumparari si liniile.</value>
-        <value xml:lang="ru">Ошибка получения списка покупок и позиций.</value>
-        <value xml:lang="th">ผิดพลาด ! การได้รับรายการซื้อสินค้าและรายการ</value>
-        <value xml:lang="zh">获得购物列表和明细时出错。</value>
-        <value xml:lang="zh_CN">得到购物列表及其项目错误。</value>
-    </property>
-    <property key="shoppinglistevents.no_items_added">
-        <value xml:lang="de">Es wurden keine Artikel hinzugefügt.</value>
-        <value xml:lang="en">No items were added.</value>
-        <value xml:lang="es">Ningún ítem se añadió.</value>
-        <value xml:lang="fr">Aucun article n'a été ajouté.</value>
-        <value xml:lang="it">Nessun articolo è stato aggiunto.</value>
-        <value xml:lang="nl">No items were added.</value>
-        <value xml:lang="ro">Nici-o linie nu a fost adaugata.</value>
-        <value xml:lang="ru">Позиции не были добавлены.</value>
-        <value xml:lang="th">ไม่มีการเพิ่มรายการ</value>
-        <value xml:lang="zh">没有添加明细。</value>
-        <value xml:lang="zh_CN">没有项目被添加</value>
-    </property>
-    <property key="shoppinglistevents.problem_adding_product_to_cart">
-        <value xml:lang="de">Produkt ${productId} konnte nicht in den Warenkorb gelegt werden.</value>
-        <value xml:lang="en">Could NOT add product ${productId} to cart.</value>
-        <value xml:lang="es">Imposible añadir el producto ${productid} al carro.</value>
-        <value xml:lang="fr">Impossible d'ajouter l'article ${productId} au panier</value>
-        <value xml:lang="it">NON è possibile aggiunge il prodotto ${productId} al carrello.</value>
-        <value xml:lang="nl">Could NOT add product ${productId} to cart.</value>
-        <value xml:lang="ro">NU este posibila adaugarea  produsului ${productId} in cos.</value>
-        <value xml:lang="ru">Не смог добавить продукт ${productId} в корзину.</value>
-        <value xml:lang="th">ไม่สามารถเพิ่มสินค้า ${productId} ลงตระกร้า.</value>
-        <value xml:lang="zh">无法把产品 ${productId} 添加到购物车。</value>
-        <value xml:lang="zh_CN">不能添加产品${productId}到购物车。</value>
-    </property>
-    <property key="shoppinglistevents.select_items_to_add_to_list">
-        <value xml:lang="de">Bitte wählen Sie Artikel zur Aufnahme in die Einkaufsliste aus.</value>
-        <value xml:lang="en">Please select item(s) to add to the shopping list.</value>
-        <value xml:lang="es">Por favor, seleccione ítems para agragar a la lista de compras.</value>
-        <value xml:lang="fr">Merci de sélectionner l'article(s) à ajouter à la liste d'achats.</value>
-        <value xml:lang="it">Per favore selezionare gli articoli da aggiungere alla lista di acquisto.</value>
-        <value xml:lang="nl">Please select item(s) to add to the shopping list.</value>
-        <value xml:lang="ro">Va rugam selectionati linia(le) de adaugat la lista de cumparari.</value>
-        <value xml:lang="ru">Пожалуйста выберите позицию(и) для добавления в корзину покупок.</value>
-        <value xml:lang="th">กรุณาเลือกรายการลงเพิ่มในรายการซื้อสินค้า</value>
-        <value xml:lang="zh">请选择要添加到购物列表的明细。</value>
-        <value xml:lang="zh_CN">请选择项目添加到购物列表。</value>
-    </property>
-    <property key="shoppinglistevents.shoppingListId_is_required_parameter">
-        <value xml:lang="de">shoppingListId ist ein notwendiger Parameter.</value>
-        <value xml:lang="en">shoppingListId is a required parameter.</value>
-        <value xml:lang="es">El código de la lista de compras es un parámetro requerido.</value>
-        <value xml:lang="fr">Une réf. de liste d'achat est requise.</value>
-        <value xml:lang="it">E' richiesto il riferimento alla lista di acquisto.</value>
-        <value xml:lang="nl">shoppingListId is a required parameter.</value>
-        <value xml:lang="ro">shoppingListId este un  parametru cerut.</value>
-        <value xml:lang="ru">shoppingListId - обязательный параметр.</value>
-        <value xml:lang="th">รหัสรายการซื้อสินค้าต้องการตัวแปร</value>
-        <value xml:lang="zh">购物列表标识是一个必须的参数。</value>
-        <value xml:lang="zh_CN">shoppingListId 是必须的参数</value>
     </property>
 </resource>

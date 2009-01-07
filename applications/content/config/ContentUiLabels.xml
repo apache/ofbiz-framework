@@ -127,7 +127,7 @@
         <value xml:lang="en">CompDoc</value>
         <value xml:lang="es">ComponerDoc</value>
         <value xml:lang="fr">Document composite</value>
-        <value xml:lang="it">Composizione Documenti</value>
+        <value xml:lang="it">Composizione documenti</value>
         <value xml:lang="ro">CompDoc</value>
         <value xml:lang="th">เอกสารคอมพิวเตอร์</value>
         <value xml:lang="zh">合成文档</value>
@@ -201,7 +201,7 @@
         <value xml:lang="en">OFBiz: Content Manager</value>
         <value xml:lang="es">OFBiz: Administración de Contenidos</value>
         <value xml:lang="fr">OFBiz: gestion de contenu</value>
-        <value xml:lang="it">OFBiz: Gestione Contenuti</value>
+        <value xml:lang="it">OFBiz: Gestione contenuti</value>
         <value xml:lang="ro">OFBiz: Gestiune Continut</value>
         <value xml:lang="th">OFBiz:หัวข้อการจัดการ</value>
         <value xml:lang="zh">OFBiz：内容管理</value>
@@ -237,6 +237,7 @@
         <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
+	<value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
     </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
@@ -244,7 +245,7 @@
         <value xml:lang="en">Content Manager Application</value>
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
-        <value xml:lang="it">Applicazione Gestione Contenuti</value>
+        <value xml:lang="it">Applicazione gestione contenuti</value>
         <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
         <value xml:lang="th">หัวข้อการจัดการที่นำไปประยุกต์ใช้</value>
         <value xml:lang="zh">内容管理应用程序</value>
@@ -255,7 +256,7 @@
         <value xml:lang="en">Content Setup</value>
         <value xml:lang="es">Administración de contenido</value>
         <value xml:lang="fr">Configuration du contenu</value>
-        <value xml:lang="it">Configurazione Contenuto</value>
+        <value xml:lang="it">Configurazione contenuto</value>
         <value xml:lang="ro">Configurare Continut</value>
         <value xml:lang="th">การจัดการแต่ละหัวข้อ</value>
         <value xml:lang="zh">内容设置</value>
@@ -273,7 +274,7 @@
         <value xml:lang="en">DataResource</value>
         <value xml:lang="es">Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
-        <value xml:lang="it">Risorsa Dati</value>
+        <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="ro">Resursa Date</value>
         <value xml:lang="th">ที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源</value>
@@ -350,7 +351,7 @@
         <value xml:lang="en">DataResource Setup</value>
         <value xml:lang="es">Administración de recurso de datos</value>
         <value xml:lang="fr">Configuration d'une ressource de données</value>
-        <value xml:lang="it">Configurazione Risorsa Dati</value>
+        <value xml:lang="it">Configurazione risorsa dati</value>
         <value xml:lang="ro">Configurare Resurse Date</value>
         <value xml:lang="th">ติดตั้งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源设置</value>
@@ -495,6 +496,7 @@
     </property>
     <property key="ContentGoToContent">
         <value xml:lang="en">Go to Content</value>
+	<value xml:lang="it">Vai al contenuto</value>
     </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
@@ -502,7 +504,7 @@
         <value xml:lang="en">Go to Data Resource</value>
         <value xml:lang="es">Ir al recurso de información</value>
         <value xml:lang="fr">Aller à la ressource de données</value>
-        <value xml:lang="it">Vai alla Risorsa Dati</value>
+        <value xml:lang="it">Vai alla risorsa dati</value>
         <value xml:lang="ro">Dute la Resursa Date</value>
         <value xml:lang="th">ไปยังแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">转到数据资源</value>
@@ -619,6 +621,7 @@
         <value xml:lang="de">Meta Auszeichnungen (Tags)</value>
         <value xml:lang="en">Meta Tags</value>
         <value xml:lang="fr">Méta-étiquettes</value>
+	<value xml:lang="it">Meta Tags</value>
     </property>
     <property key="ContentMimeType">
         <value xml:lang="ar">Mime Type</value>
@@ -642,6 +645,7 @@
         <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
         <value xml:lang="fr">Naviguer</value>
+	<value xml:lang="it">Naviga</value>
         <value xml:lang="th">หาเส้นทาง</value>
     </property>
     <property key="ContentOtherLayout">
@@ -685,9 +689,11 @@
         <value xml:lang="de">Pfad Alias</value>
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
+	<value xml:lang="it">Path alias</value>
     </property>
     <property key="ContentPathAliasList">
         <value xml:lang="en">Path Alias list</value>
+	<value xml:lang="it">Lista path alias</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
@@ -703,6 +709,7 @@
         <value xml:lang="de">Rasch untergeordneter Inhalt</value>
         <value xml:lang="en">Quick Sub-Content</value>
         <value xml:lang="fr">Sous-contenu rapide</value>
+	<value xml:lang="it">Sotto-contenuto veloce</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
     </property>
     <property key="ContentSubContent">
@@ -1139,6 +1146,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzusehen ("CONTENTMGR_UPDATE" oder "CONTENTMGR_ADMIN" benötigt).</value>
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_UPDATE" ou "CONTENTMGR_ADMIN" nécessaire)</value>
+	<value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina. (Necessario "CONTENTMGR_UPDATE" o "CONTENTMGR_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="zh">你没有浏览本页面的权限。(需要具备"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
     </property>
@@ -1227,7 +1235,7 @@
         <value xml:lang="en">WebSites</value>
         <value xml:lang="es">Sitios web</value>
         <value xml:lang="fr">Sites Web</value>
-        <value xml:lang="it">Siti Web</value>
+        <value xml:lang="it">Siti web</value>
         <value xml:lang="ro">Situri Web</value>
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">网站</value>
@@ -1551,7 +1559,7 @@
         <value xml:lang="en">Data Resource Id</value>
         <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Réf. de ressource de données</value>
-        <value xml:lang="it">Risorsa Dati</value>
+        <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="nl">ID databron</value>
         <value xml:lang="ro">Resurse Date</value>
         <value xml:lang="ru">Код ресурса данных</value>
@@ -1575,7 +1583,7 @@
         <value xml:lang="de">Datenressource</value>
         <value xml:lang="en">Data Resource</value>
         <value xml:lang="fr">Ressource de données</value>
-        <value xml:lang="it">Risorsa Dati</value>
+        <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="ro">Resursa Date</value>
         <value xml:lang="th">แหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源</value>
@@ -1599,7 +1607,7 @@
         <value xml:lang="en">Data Source Id</value>
         <value xml:lang="es">Código Fuente de datos</value>
         <value xml:lang="fr">Réf. de source de données</value>
-        <value xml:lang="it">Risorsa Dati</value>
+        <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="ro">Risursa Date</value>
         <value xml:lang="ru">Код источника данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -1764,6 +1772,10 @@
         <value xml:lang="th">Https ที่สามารถใช้ได้</value>
         <value xml:lang="zh">启用Https</value>
     </property>
+     <property key="FormFieldTitle_enumTypeId">
+        <value xml:lang="en">Enum Type Id</value>
+        <value xml:lang="it">Tipo enumerazione</value>
+    </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
         <value xml:lang="de">Dateierweiterung ID</value>
@@ -1773,6 +1785,10 @@
         <value xml:lang="ro">Extensie Fisier</value>
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
         <value xml:lang="zh">文件扩展标识</value>
+    </property>
+     <property key="FormFieldTitle_formatString">
+        <value xml:lang="en">Format String</value>
+        <value xml:lang="it">Formato Stringa</value>
     </property>
     <property key="FormFieldTitle_forumDescription">
         <value xml:lang="ar">وصف المنتدى</value>
@@ -2684,6 +2700,7 @@
         <value xml:lang="de">Arbeitseinsatz Inhalt hinzufügen</value>
         <value xml:lang="en">Add workeffort content</value>
         <value xml:lang="fr">Ajoutez un contenu de tâche</value>
+	<value xml:lang="it">Aggiorna contenuto impegno di lavoro</value>
         <value xml:lang="th">เพิ่มหัวข้อ workeffort</value>
         <value xml:lang="zh">新建人工服务内容</value>
     </property>
@@ -3206,7 +3223,7 @@
         <value xml:lang="de">CompDoc suchen</value>
         <value xml:lang="en">Find CompDoc</value>
         <value xml:lang="fr">Rechercher le document composite</value>
-        <value xml:lang="it">Ricerca Composizione Documenti</value>
+        <value xml:lang="it">Ricerca composizione documenti</value>
         <value xml:lang="ro">Cauta CompDoc</value>
         <value xml:lang="th">ค้นหาเอกสารคอมพิวเตอร์</value>
         <value xml:lang="zh">查找合成文档</value>

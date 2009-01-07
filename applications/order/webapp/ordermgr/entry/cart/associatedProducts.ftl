@@ -24,7 +24,7 @@ under the License.
 <#if associatedProducts?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.help_also_interested_in}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderHelpAlsoInterestedIn}</div>
     </div>
     <div class="screenlet-body">
     <table cellspacing="0" cellpadding="1" border="0">

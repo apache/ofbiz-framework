@@ -24,6 +24,7 @@
         <value xml:lang="en">ISO-8859-1</value>
         <value xml:lang="es">ISO-8859-1 Inglés</value>
         <value xml:lang="fr">ISO-8859-1</value>
+	<value xml:lang="it">ISO-8859-1</value>
         <value xml:lang="th">ISO-8859-1</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-10">
@@ -31,6 +32,7 @@
         <value xml:lang="en">ISO-8859-10</value>
         <value xml:lang="es">ISO-8859-10 ?</value>
         <value xml:lang="fr">ISO-8859-10</value>
+	<value xml:lang="it">ISO-8859-10</value>
         <value xml:lang="th">ISO-8859-10</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-2">
@@ -38,6 +40,7 @@
         <value xml:lang="en">ISO-8859-2</value>
         <value xml:lang="es">ISO-8859-2 ?</value>
         <value xml:lang="fr">ISO-8859-2</value>
+	<value xml:lang="it">ISO-8859-2</value>
         <value xml:lang="th">ISO-8859-2</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-3">
@@ -45,6 +48,7 @@
         <value xml:lang="en">ISO-8859-3</value>
         <value xml:lang="es">ISO-8859-3 ?</value>
         <value xml:lang="fr">ISO-8859-3</value>
+	<value xml:lang="it">ISO-8859-3</value>
         <value xml:lang="th">ISO-8859-3</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-4">
@@ -52,6 +56,7 @@
         <value xml:lang="en">ISO-8859-4</value>
         <value xml:lang="es">ISO-8859-4 ?</value>
         <value xml:lang="fr">ISO-8859-4</value>
+	<value xml:lang="it">ISO-8859-4</value>
         <value xml:lang="th">ISO-8859-4</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-5">
@@ -59,6 +64,7 @@
         <value xml:lang="en">ISO-8859-5</value>
         <value xml:lang="es">ISO-8859-5 ?</value>
         <value xml:lang="fr">ISO-8859-5</value>
+	<value xml:lang="it">ISO-8859-5</value>
         <value xml:lang="th">ISO-8859-5</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-6">
@@ -66,6 +72,7 @@
         <value xml:lang="en">ISO-8859-6</value>
         <value xml:lang="es">ISO-8859-6 Latino/árabe</value>
         <value xml:lang="fr">ISO-8859-6</value>
+	<value xml:lang="it">ISO-8859-6</value>
         <value xml:lang="th">ISO-8859-6</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-7">
@@ -73,6 +80,7 @@
         <value xml:lang="en">ISO-8859-7</value>
         <value xml:lang="es">ISO-8859-7 ?</value>
         <value xml:lang="fr">ISO-8859-7</value>
+	<value xml:lang="it">ISO-8859-7</value>
         <value xml:lang="th">ISO-8859-7</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-8">
@@ -80,6 +88,7 @@
         <value xml:lang="en">ISO-8859-8</value>
         <value xml:lang="es">ISO-8859-8 Latino/Hebreo</value>
         <value xml:lang="fr">ISO-8859-8</value>
+	<value xml:lang="it">ISO-8859-8</value>
         <value xml:lang="th">ISO-8859-8</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-9">
@@ -87,6 +96,7 @@
         <value xml:lang="en">ISO-8859-9</value>
         <value xml:lang="es">ISO-8859-9 ?</value>
         <value xml:lang="fr">ISO-8859-9</value>
+	<value xml:lang="it">ISO-8859-9</value>
         <value xml:lang="th">ISO-8859-9</value>
     </property>
     <property key="CharacterSet.description.US-ASCII">
@@ -94,6 +104,7 @@
         <value xml:lang="en">US-ASCII</value>
         <value xml:lang="es">US-ASCII</value>
         <value xml:lang="fr">US-ASCII</value>
+	<value xml:lang="it">US-ASCII</value>
         <value xml:lang="th">US-ASCII</value>
     </property>
     <property key="CharacterSet.description.UTF-16">
@@ -101,6 +112,7 @@
         <value xml:lang="en">UTF-16</value>
         <value xml:lang="es">Unicode 16 bit</value>
         <value xml:lang="fr">UTF-16</value>
+	<value xml:lang="it">UTF-16</value>
         <value xml:lang="th">UTF-16</value>
     </property>
     <property key="CharacterSet.description.UTF-8">
@@ -108,6 +120,7 @@
         <value xml:lang="en">UTF-8</value>
         <value xml:lang="es">Unicode 8 bit</value>
         <value xml:lang="fr">UTF-8</value>
+	<value xml:lang="it">UTF-8</value>
         <value xml:lang="th">UTF-8</value>
     </property>
     <property key="Content.contentName.LEFTBAR">
@@ -115,6 +128,7 @@
         <value xml:lang="en">LEFTBAR</value>
         <value xml:lang="es">Barra izquierda</value>
         <value xml:lang="fr">Barre gauche</value>
+	<value xml:lang="it">Barra sinistra</value>
         <value xml:lang="th">แถบทางซ้าย</value>
     </property>
     <property key="Content.contentName.OWNER_BLOG_CONTENT">
@@ -122,6 +136,7 @@
         <value xml:lang="en">OWNER_BLOG_CONTENT</value>
         <value xml:lang="es">Administrador del contenido del blog</value>
         <value xml:lang="fr">Propriétaire du contenu du Blog</value>
+	<value xml:lang="it">Propritario del contenuto del blog</value>
         <value xml:lang="th">เจ้าของหัวข้อ</value>
     </property>
     <property key="Content.contentName.TEMPLATE_IMAGE_LEFT">
@@ -129,6 +144,7 @@
         <value xml:lang="en">TEMPLATE_IMAGE_LEFT</value>
         <value xml:lang="es">Imagen izquierda</value>
         <value xml:lang="fr">Gabarit d'image gauche</value>
+	<value xml:lang="it">Template immagine di sinistra</value>
         <value xml:lang="th">รูปภาพทางซ้าย</value>
     </property>
     <property key="Content.contentName.TMPLT_IMG_CENTER">
@@ -136,12 +152,14 @@
         <value xml:lang="en">TMPLT_IMG_CENTER</value>
         <value xml:lang="es">Imagen centrada</value>
         <value xml:lang="fr">Gabarit d'image centre</value>
+	<value xml:lang="it">Template immagine di centro</value>
         <value xml:lang="th">รูปภาพตรงกลาง</value>
     </property>
     <property key="Content.description.10000">
         <value xml:lang="de">10000</value>
         <value xml:lang="en">10000</value>
         <value xml:lang="fr">10000</value>
+	<value xml:lang="it">10000</value>
         <value xml:lang="th">10000</value>
     </property>
     <property key="Content.description.NOCONTENTFOUND">
@@ -149,6 +167,7 @@
         <value xml:lang="en">NO CONTENT FOUND</value>
         <value xml:lang="es">No se encontró contenido</value>
         <value xml:lang="fr">Aucun contenu trouvé</value>
+	<value xml:lang="it">Nessun contenuto trovato</value>
         <value xml:lang="th">ไม่พบหัวข้อ</value>
     </property>
     <property key="Content.description.NOTEXTFOUND">
@@ -156,6 +175,7 @@
         <value xml:lang="en">NO TEXT FOUND</value>
         <value xml:lang="es">No se encontró texto</value>
         <value xml:lang="fr">Aucun texte trouvé</value>
+	<value xml:lang="it">Nessun testo trovato</value>
         <value xml:lang="th">ไม่พบตัวอักษร</value>
     </property>
     <property key="Content.description.TEMPLATE_MASTER">
@@ -163,6 +183,7 @@
         <value xml:lang="en">TEMPLATE_MASTER</value>
         <value xml:lang="es">Plantilla maestra</value>
         <value xml:lang="fr">Gabarit principal</value>
+	<value xml:lang="it">Template primario</value>
         <value xml:lang="th">TEMPLATE ต้นฉบับ</value>
     </property>
     <property key="Content.description.TP_BUSINESS">
@@ -170,6 +191,7 @@
         <value xml:lang="en">TP_BUSINESS</value>
         <value xml:lang="es">Negocio</value>
         <value xml:lang="fr">Gabarit "business"</value>
+	<value xml:lang="it">Template di business</value>
         <value xml:lang="th">TEMPLATE บริษัท</value>
     </property>
     <property key="Content.description.TP_LEGAL">
@@ -177,6 +199,7 @@
         <value xml:lang="en">TP_LEGAL</value>
         <value xml:lang="es">Legal</value>
         <value xml:lang="fr">Gabarit légal</value>
+	<value xml:lang="it">Template legale</value>
         <value xml:lang="th">TEMPLATE ที่ถูกต้องตามกฎหมาย</value>
     </property>
     <property key="Content.description.TP_TECHNICAL">
@@ -184,6 +207,7 @@
         <value xml:lang="en">TP_TECHNICAL</value>
         <value xml:lang="es">Técnico</value>
         <value xml:lang="fr">Gabarit technique</value>
+	<value xml:lang="it">Template tecnico</value>
         <value xml:lang="th">TEMPLATE เกี่ยวกับวิชาช่าง</value>
     </property>
     <property key="ContentAssocPredicate.description.categorizes">
@@ -191,6 +215,7 @@
         <value xml:lang="en">categorizes</value>
         <value xml:lang="es">Clasifica</value>
         <value xml:lang="fr">Classifie</value>
+	<value xml:lang="it">Categorie</value>
         <value xml:lang="th">จัดหมวดหมู่</value>
     </property>
     <property key="ContentAssocPredicate.description.defines">
@@ -198,6 +223,7 @@
         <value xml:lang="en">defines</value>
         <value xml:lang="es">Define</value>
         <value xml:lang="fr">Définit</value>
+	<value xml:lang="it">Definizione</value>
         <value xml:lang="th">กำหนด</value>
     </property>
     <property key="ContentAssocPredicate.description.extends">
@@ -205,6 +231,7 @@
         <value xml:lang="en">extends</value>
         <value xml:lang="es">amplía</value>
         <value xml:lang="fr">Etend</value>
+	<value xml:lang="it">Estendi</value>
         <value xml:lang="th">ยืดเวลาออกไป</value>
     </property>
     <property key="ContentAssocPredicate.description.member-of">
@@ -212,6 +239,7 @@
         <value xml:lang="en">member-of</value>
         <value xml:lang="es">es miembro de</value>
         <value xml:lang="fr">Est membre de</value>
+	<value xml:lang="it">Mrembro-di</value>
         <value xml:lang="th">สมาชิกของ</value>
     </property>
     <property key="ContentAssocPredicate.description.references">
@@ -219,6 +247,7 @@
         <value xml:lang="en">references</value>
         <value xml:lang="es">referencia</value>
         <value xml:lang="fr">Référence</value>
+	<value xml:lang="it">Riferimenti</value>
         <value xml:lang="th">อ้างอิง</value>
     </property>
     <property key="ContentAssocPredicate.description.related-to">
@@ -226,6 +255,7 @@
         <value xml:lang="en">related-to</value>
         <value xml:lang="es">se relaciona con</value>
         <value xml:lang="fr">Apparenté à</value>
+	<value xml:lang="it">Relativo-a</value>
         <value xml:lang="th">เกี่ยวข้องกัน</value>
     </property>
     <property key="ContentAssocPredicate.description.topifies">
@@ -233,6 +263,7 @@
         <value xml:lang="en">topifies</value>
         <value xml:lang="es">Archivos principales</value>
         <value xml:lang="fr">Transforme en sujet</value>
+	<value xml:lang="it">File principale</value>
         <value xml:lang="th">topifies</value>
     </property>
     <property key="ContentAssocType.description.ALTERNATE_LOCALE">
@@ -1114,6 +1145,7 @@
         <value xml:lang="de">Basis</value>
         <value xml:lang="en">ROOT</value>
         <value xml:lang="fr">Racine</value>
+	<value xml:lang="it">Radice</value>
         <value xml:lang="th">ต้นกำเนิด</value>
     </property>
     <property key="DataCategory.categoryName.TECHNOLOGY">
@@ -1364,6 +1396,7 @@
         <value xml:lang="en">BILL_OF_LADING</value>
         <value xml:lang="es">Cuenta de carga</value>
         <value xml:lang="fr">Connaissement</value>
+	<value xml:lang="it">Polizza di carico</value>
         <value xml:lang="th">รายการของสินค้า</value>
     </property>
     <property key="DocumentType.description.EXPORT_DOCUMENTATION">
@@ -1371,6 +1404,7 @@
         <value xml:lang="en">EXPORT_DOCUMENTATION</value>
         <value xml:lang="es">Documentación de exportación</value>
         <value xml:lang="fr">Documentation d'export</value>
+	<value xml:lang="it">Documentazione esportata</value>
         <value xml:lang="th">การเตรียมเอกสารส่งออก</value>
     </property>
     <property key="DocumentType.description.MANIFEST">
@@ -1378,6 +1412,7 @@
         <value xml:lang="en">MANIFEST</value>
         <value xml:lang="es">Manifiesto</value>
         <value xml:lang="fr">Manifeste</value>
+	<value xml:lang="it">Manifesto</value>
         <value xml:lang="th">รายการสินค้า</value>
     </property>
     <property key="DocumentType.description.OTHER_SHIP_DOCUMENT">
@@ -1385,6 +1420,7 @@
         <value xml:lang="en">OTHER_SHIP_DOCUMENT</value>
         <value xml:lang="es">Otros documentos de envíos</value>
         <value xml:lang="fr">Autre document expédié</value>
+	<value xml:lang="it">Altro documento di spedizione</value>
         <value xml:lang="zh">เอกสารการขนส่งอื่น ๆ</value>
     </property>
     <property key="DocumentType.description.PACKAGING_SLIP">
@@ -1392,6 +1428,7 @@
         <value xml:lang="en">PACKAGING_SLIP</value>
         <value xml:lang="es">Embalaje</value>
         <value xml:lang="fr">Fiche de conditionnement</value>
+	<value xml:lang="it">Lista di imballo</value>
         <value xml:lang="th">สลิปการห่อสินค้า</value>
     </property>
     <property key="DocumentType.description.PORT_CHARGE_DOCUMENT">
@@ -1399,6 +1436,7 @@
         <value xml:lang="en">PORT_CHARGE_DOCUMENT</value>
         <value xml:lang="es">Carga en puerto</value>
         <value xml:lang="fr">Document de chargement en port</value>
+	<value xml:lang="it">Documento di carico</value>
         <value xml:lang="th">เอกสารการเปลี่ยนพอร์ท</value>
     </property>
     <property key="DocumentType.description.SHIPPING_DOCUMENT">
@@ -1406,6 +1444,7 @@
         <value xml:lang="en">SHIPPING_DOCUMENT</value>
         <value xml:lang="es">Envío</value>
         <value xml:lang="fr">Document d'expédition</value>
+	<value xml:lang="it">Documento di spedizione</value>
         <value xml:lang="th">เอกสารการขนส่ง</value>
     </property>
     <property key="MetaDataPredicate.description.author-email">
@@ -1498,6 +1537,7 @@
         <value xml:lang="de">Microsoft Excel</value>
         <value xml:lang="en">Microsoft Excel</value>
         <value xml:lang="fr">Microsoft Excel</value>
+	<value xml:lang="it">Microsoft Excel</value>
         <value xml:lang="th">Microsoft Excel</value>
         <value xml:lang="zh">微软Excel</value>
     </property>
@@ -1505,6 +1545,7 @@
         <value xml:lang="de">Microsoft PowerPoint</value>
         <value xml:lang="en">Microsoft PowerPoint</value>
         <value xml:lang="fr">Microsoft PowerPoint</value>
+	<value xml:lang="it">Microsoft PowerPoint</value>
         <value xml:lang="th">Microsoft PowerPoint</value>
         <value xml:lang="zh">微软PowerPoint</value>
     </property>
@@ -1539,6 +1580,7 @@
         <value xml:lang="de">ZIP-komprimierte Datei</value>
         <value xml:lang="en">ZIP compressed file</value>
         <value xml:lang="fr">Dossier compressé ZIP</value>
+	<value xml:lang="it">File ZIP compresso</value>
         <value xml:lang="th">ZIP การบีบอัดไฟล์</value>
         <value xml:lang="zh">ZIP压缩文件</value>
     </property>
@@ -1591,6 +1633,7 @@
         <value xml:lang="de">Progressives JPEG/JPG Bild</value>
         <value xml:lang="en">Progressive JPEG/JPG Image</value>
         <value xml:lang="fr">Image progressive JPG/JPEG</value>
+	<value xml:lang="it">Immagine progressiva JPEG/JPG</value>
         <value xml:lang="th">รูปภาพที่พัฒนาขึ้น JPEG/JPG</value>
         <value xml:lang="zh">进步JPEG/JPG图像</value>
     </property>
@@ -1760,6 +1803,7 @@
         <value xml:lang="de">CSV - Comma Separated Value Text</value>
         <value xml:lang="en">Comma Separated Value Text </value>
         <value xml:lang="fr">Valeur de texte séparée par une virgule (CSV)</value>
+	<value xml:lang="it">Valore di testo separati da virgola</value>
         <value xml:lang="th">ใช้เครื่องหมายจุลภาคคั่นคาตัวอักษร</value>
         <value xml:lang="zh">逗号分隔文本</value>
     </property>

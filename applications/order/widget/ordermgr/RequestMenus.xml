@@ -22,19 +22,19 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
 
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ViewRequest" title="Overview" >
+        <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}">
             <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
-        <menu-item name="request" title="Request" >
+        <menu-item name="request" title="${uiLabelMap.OrderRequest}">
             <link target="request?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
-        <menu-item name="requestroles" title="Request Roles" >
+        <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
             <link target="requestroles?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
-        <menu-item name="requestitems" title="Request Items" >
+        <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
             <link target="/requestitems?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
-        <menu-item name="custRequestContent" title="Content">
+        <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
             <condition>
                 <and>
                     <not><if-empty field-name="custRequest"/></not>
@@ -51,22 +51,22 @@ under the License.
         <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
             <link target="request"/>
         </menu-item>
-        <menu-item name="createQuoteFromRequest" title="Create Quote from request" >
+        <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <link target="createQuoteFromCustRequest?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
 
     <menu name="editrequestitemmenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="requestitem">
+        <menu-item name="requestitem" title="${uiLabelMap.OrderRequestItem}">
             <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
-        <menu-item name="requestitemnotes" title="Request Item Notes" >
+        <menu-item name="requestitemnotes" title="${uiLabelMap.OrderRequestItemNotes}">
             <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
-        <menu-item name="requestitemquotes" title="Request Item Quotes" >
+        <menu-item name="requestitemquotes" title="${uiLabelMap.OrderRequestItemQuotes}">
             <link id="requestitemquotes" target="RequestItemQuotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
-        <menu-item name="workeffortrequirements" title="WorkEffort Requirements" >
+        <menu-item name="workeffortrequirements" title="${uiLabelMap.OrderRequestItemWorkEffort}">
             <link id="workeffortrequirements" target="requestitemrequirements?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
     </menu>
