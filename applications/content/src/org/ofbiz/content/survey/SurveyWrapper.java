@@ -678,14 +678,16 @@ public class SurveyWrapper {
                 GenericValue value;
                 while (((value = (GenericValue) eli.next()) != null)) {
                     String optionId = value.getString("surveyOptionSeqId");
-                    Long optCount = (Long) result.remove(optionId);
-                    if (optCount == null) {
-                        optCount = Long.valueOf(1);
-                    } else {
-                        optCount = Long.valueOf(1 + optCount.longValue());
+                    if (UtilValidate.isNotEmpty(optionId)) {
+                        Long optCount = (Long) result.remove(optionId);
+                        if (optCount == null) {
+                            optCount = Long.valueOf(1);
+                        } else {
+                            optCount = Long.valueOf(1 + optCount.longValue());
+                        }
+                        result.put(optionId, optCount);
+                        total++; // increment the count
                     }
-                    result.put(optionId, optCount);
-                    total++; // increment the count
                 }
     
                 eli.close();
