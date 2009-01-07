@@ -297,14 +297,14 @@
     <view-map name="otherCommunications" type="screen" page="component://myportal/widget/CommonScreens.xml#OtherCommunications"/>
     <view-map name="myCompanyComms" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="myTimesheet" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTimesheet"/>
-    <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPageScreens.xml#newEvent"/>
-    <view-map name="ViewCommunicationEvent" type="screen" page="component://myportal/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
-    <view-map name="ViewRequest" type="screen" page="component://myportal/widget/MyPageScreens.xml#ViewRequest"/>
-    <view-map name="EditRequest" type="screen" page="component://myportal/widget/MyPageScreens.xml#EditRequest"/>
-    <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPageScreens.xml#ListInvoices"/>
-    <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPageScreens.xml#ListProjects"/>
+    <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#newEvent"/>
+    <view-map name="ViewCommunicationEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ViewCommunicationEvent"/>
+    <view-map name="ViewRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ViewRequest"/>
+    <view-map name="EditRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditRequest"/>
+    <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListInvoices"/>
+    <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListProjects"/>
     <view-map name="custPreferences" type="screen" page="component://myportal/widget/CommonScreens.xml#custPreferences"/>
-    <view-map name="EditCommunicationEvent" type="screen" page="component://myportal/widget/MyPageScreens.xml#EditCommunicationEvent"/>
-    <view-map name="addAttachmentEmail" type="screen" page="component://myportal/widget/MyPageScreens.xml#addAttachmentEmail"/>
-    <view-map name="EditCustRequestContent" type="screen" page="component://myportal/widget/MyPageScreens.xml#EditCustRequestContent"/>   
+    <view-map name="EditCommunicationEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCommunicationEvent"/>
+    <view-map name="addAttachmentEmail" type="screen" page="component://myportal/widget/MyPortalScreens.xml#addAttachmentEmail"/>
+    <view-map name="EditCustRequestContent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCustRequestContent"/>   
 </site-conf>

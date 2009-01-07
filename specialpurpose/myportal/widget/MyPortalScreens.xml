@@ -34,7 +34,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet>
                                     <include-form name="newEvent"
-                                        location="component://mypage/widget/MyPortalForms.xml" />
+                                        location="component://myportal/widget/MyPortalForms.xml" />
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>
@@ -57,7 +57,7 @@ under the License.
                     <widgets>
                         <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
                             navigation-menu-name="MyTimesheetMenu" collapsible="true" name="timesheet">
-                            <include-menu name="MyTimesheetMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                            <include-menu name="MyTimesheetMenu" location="component://myportal/widget/MyPortalMenus.xml"/>
                             <section>
                                 <condition>
                                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
@@ -66,7 +66,7 @@ under the License.
                                     <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
-                                    <include-form name="EditWeekTimesheet" location="component://mypage/widget/MyPageForms.xml"/>
+                                    <include-form name="EditWeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </fail-widgets>
                             </section>
                         </screenlet>
@@ -82,7 +82,7 @@ under the License.
                                     <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
-                                    <include-form name="EditWeekTimesheet" location="component://mypage/widget/MyPageForms.xml"/>
+                                    <include-form name="EditWeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </fail-widgets>
                             </section>
                         </screenlet>
@@ -505,13 +505,9 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
-                            <include-form name="ListInvoices"  location="component://myportal/widget/MyPortalForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                    <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
+                        <include-form name="ListInvoices"  location="component://myportal/widget/MyPortalForms.xml"/>
+                    </screenlet>
            </widgets>
         </section>
     </screen>
@@ -559,7 +555,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-                                    <include-form location="component://myportal/widget/MyPortalForms.xml" name="MyPageNewEmail"/>
+                                    <include-form location="component://myportal/widget/MyPortalForms.xml" name="MyPortalNewEmail"/>
                                     <include-screen name="AttachFiletList"/>
                                 </screenlet>
                             </widgets>
@@ -670,8 +666,6 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
                         <iterate-section entry-name="project" list-name="projects">
                             <section>
                                 <actions>
@@ -737,8 +731,6 @@ under the License.
                                 <label style="h2" text="no projects found"></label>
                             </widgets>
                         </section>
-                    </decorator-section>
-                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -775,7 +767,7 @@ under the License.
         <section>
             <actions>
                 <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                    <field-map field-name="userPrefGroupTypeId" value="MyPage"/>
+                    <field-map field-name="userPrefGroupTypeId" value="MyPortal"/>
                 </service>
                 <!--  check if there are any customer requests for this user -->
                 <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
@@ -800,6 +792,221 @@ under the License.
                         </screenlet>
                     </widgets>
                 </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListCustRequests">        
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="status" from-field="parameters.status" default-value="open"/>
+                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
+                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="+priority"/>
+                    <order-by field-name="+custRequestDate"/>
+                </entity-condition>
+                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
+                        <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
+                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="like" value="${status}" />
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.MyOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
+                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                            <include-form name="ListCustRequests" location="component://myportal/widget/MyPortalForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListCustRequestsCompleted">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="status" from-field="parameters.status" default-value="open"/>
+                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
+                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="+priority"/>
+                    <order-by field-name="+custRequestDate"/>
+                </entity-condition>
+                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
+                        <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
+                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="like" value="${status}" />
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.MyCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
+                            <include-form name="ListCustRequestsCompleted" location="component://myportal/widget/MyPortalForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListPartyCommEvents">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="status" from-field="parameters.status" default-value="open"/>
+                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
+                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="+priority"/>
+                    <order-by field-name="+custRequestDate"/>
+                </entity-condition>
+                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
+                        <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
+                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="like" value="${status}" />
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                     <widgets>
+                        <screenlet title="${uiLabelMap.OtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
+                            <include-form name="ListOtherCompanyRequests" location="component://myportal/widget/MyPortalForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+                <section>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                            navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
+                            <include-menu name="communicationsMenu" location="component://myportal/widget/MyPortalMenus.xml" />
+                            <include-form name="ListPartyCommEvents" location="component://myportal/widget/MyPortalForms.xml" />
+                        </screenlet>    
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ContentList">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-and entity-name="PartyContent" list-name="partyContent">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/ContentList.ftl"/>
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
