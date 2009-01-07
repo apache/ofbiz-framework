@@ -240,6 +240,7 @@
         <value xml:lang="th">ถอน</value>
     </property>
     <property key="FinAccountType.description.BANK_ACCOUNT">
+        <value xml:lang="de">Bankkonto</value>
         <value xml:lang="en">Bank Account</value>
         <value xml:lang="fr">Compte bancaire</value>
         <value xml:lang="it">Conto Bancario</value>
@@ -247,6 +248,7 @@
         <value xml:lang="th">บัญชีธนาคาร</value>
     </property>
     <property key="FinAccountType.description.DEPOSIT_ACCOUNT">
+        <value xml:lang="de">Sparkonto</value>
         <value xml:lang="en">Deposit Account</value>
         <value xml:lang="fr">Dépôt sur compte</value>
         <value xml:lang="it">Conto Deposito</value>
@@ -254,6 +256,7 @@
         <value xml:lang="th">บัญชีเงินฝากประจำ</value>
     </property>
     <property key="FinAccountType.description.GIFTCERT_ACCOUNT">
+        <value xml:lang="de">Gutschrift</value
         <value xml:lang="en">Gift Certificate</value>
         <value xml:lang="fr">Chèque cadeau</value>
         <value xml:lang="it">Certificato Omaggio</value>
@@ -261,6 +264,7 @@
         <value xml:lang="th">ของขวัญที่มีใบรับรอง</value>
     </property>
     <property key="FinAccountType.description.INVESTMENT_ACCOUNT">
+        <value xml:lang="de">Finanzanlagenkonto</value>
         <value xml:lang="en">Investment Account</value>
         <value xml:lang="fr">Compte d'investissement</value>
         <value xml:lang="it">Conto Investimento</value>
@@ -268,6 +272,7 @@
         <value xml:lang="th">บัญชีเงินลงทุน</value>
     </property>
     <property key="FinAccountType.description.REPLENISH_ACCOUNT">
+        <value xml:lang="de">Konto auffüllen</value>
         <value xml:lang="en">Replenish Account</value>
         <value xml:lang="fr">Renflouer le compte</value>
         <value xml:lang="it">Conto Rifornimento</value>
@@ -275,6 +280,7 @@
         <value xml:lang="th">เติมบัญชี</value>
     </property>
     <property key="FinAccountType.description.SVCCRED_ACCOUNT">
+        <value xml:lang="de">Kreditkontogebrauch</value>
         <value xml:lang="en">Service Credit Account</value>
         <value xml:lang="fr">Compte de service crédit</value>
         <value xml:lang="it">Conto Servizio Credito</value>
@@ -1934,6 +1940,7 @@
         <value xml:lang="zh">客户退货</value>
     </property>
     <property key="InvoiceType.description.INTEREST_INVOICE">
+        <value xml:lang="de">Zinsen</value>
         <value xml:lang="en">Interest</value>
         <value xml:lang="fr">Intérêt</value>
         <value xml:lang="it">Interessi</value>
@@ -1941,6 +1948,7 @@
         <value xml:lang="th">ดอกเบี้ย</value>
     </property>
     <property key="InvoiceType.description.PURCHASE_INVOICE">
+        <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice</value>
         <value xml:lang="fr">Facture d'achat</value>
         <value xml:lang="it">Fattura di Acquisto</value>
@@ -2048,12 +2056,14 @@
         <value xml:lang="zh">到货付款</value>
     </property>
     <property key="PaymentMethodType.description.EXT_EBAY">
+        <value xml:lang="de">eBay</value>
         <value xml:lang="en">eBay</value>
         <value xml:lang="fr">eBay</value>
         <value xml:lang="it">eBay</value>
         <value xml:lang="th">อีเบย์</value>
     </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
+        <value xml:lang="de">Zahlung nicht im Netz</value>
         <value xml:lang="en">Offline Payment</value>
         <value xml:lang="fr">Paiement différé</value>
         <value xml:lang="it">Pagamento Offline</value>
@@ -2130,6 +2140,7 @@
         <value xml:lang="zh">个人支票</value>
     </property>
     <property key="PaymentType.description.COMMISSION_PAYMENT">
+        <value xml:lang="de">Kommissionszahlung</value>
         <value xml:lang="en">Commission Payment</value>
         <value xml:lang="fr">Paiement de commission</value>
         <value xml:lang="it">Pagamento Provvigioni</value>
@@ -2137,6 +2148,7 @@
         <value xml:lang="th">การชำระเงินค่านายหน้า</value>
     </property>
     <property key="PaymentType.description.CUSTOMER_DEPOSIT">
+        <value xml:lang="de">Vorkasse</value>
         <value xml:lang="en">Customer Deposit</value>
         <value xml:lang="fr">Dépôt de garantie client</value>
         <value xml:lang="it">Deposito Cliente</value>
@@ -2210,6 +2222,7 @@
         <value xml:lang="zh">所得税完税</value>
     </property>
     <property key="PaymentType.description.INTEREST_RECEIPT">
+        <value xml:lang="de">Zinsenbeleg</value>
         <value xml:lang="en">Interest Receipt</value>
         <value xml:lang="fr">Reçu d'intérêt</value>
         <value xml:lang="it">Ricevuta Interessi</value>
@@ -2217,6 +2230,7 @@
         <value xml:lang="th">ใบเสร็จรับเงินดอกเบี้ย</value>
     </property>
     <property key="PaymentType.description.PAYROLL_TAX_PAYMENT">
+        <value xml:lang="de">Lohnsummensteuerentrichtung</value>
         <value xml:lang="en">Payroll Tax Payment</value>
         <value xml:lang="fr">Paiement des charges sociales</value>
         <value xml:lang="it">Tassa sulle Paghe</value>
@@ -2237,6 +2251,7 @@
         <value xml:lang="zh">工资支票</value>
     </property>
     <property key="PaymentType.description.POS_PAID_IN">
+        <value xml:lang="de">Kassenauszahlung</value>
         <value xml:lang="en">POS Paid In</value>
         <value xml:lang="fr">Reçu en caisse</value>
         <value xml:lang="it">Pagamento POS Ingresso</value>
@@ -2244,6 +2259,7 @@
         <value xml:lang="th">ชำระ ณ จุดขาย</value>
     </property>
     <property key="PaymentType.description.POS_PAID_OUT">
+        <value xml:lang="de">Kassenauszahlung</value>
         <value xml:lang="en">POS Paid Out</value>
         <value xml:lang="fr">Sortie de caisse</value>
         <value xml:lang="it">Pagamento POS Uscita</value>
@@ -2251,6 +2267,7 @@
         <value xml:lang="th">ชำระนอกจุดขาย</value>
     </property>
     <property key="PaymentType.description.RECEIPT">
+        <value xml:lang="de">Quittung</value>
         <value xml:lang="en">Receipt</value>
         <value xml:lang="fr">Encaissement</value>
         <value xml:lang="it">Ricevute</value>

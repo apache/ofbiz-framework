@@ -371,7 +371,7 @@
     </property>
     <property key="AccountingAgreementDate">
         <value xml:lang="ar">تاريخ الإتفاق</value>
-        <value xml:lang="de">Vertragsdatum</value>
+        <value xml:lang="de">Vereinbarungsdatum</value>
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
         <value xml:lang="fr">Date de l'accord</value>
@@ -384,7 +384,7 @@
     </property>
     <property key="AccountingAgreementId">
         <value xml:lang="ar">رمز الإتفاق</value>
-        <value xml:lang="de">Vertrags-ID</value>
+        <value xml:lang="de">Vereinbarungs-ID</value>
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id acuerdo</value>
         <value xml:lang="fr">Réf. de l'accord</value>
@@ -512,7 +512,7 @@
     </property>
     <property key="AccountingAgreementTypeId">
         <value xml:lang="ar">رمز نوع الإتفاق</value>
-        <value xml:lang="de">Vertragsart-ID</value>
+        <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Agreement Type Id</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
         <value xml:lang="fr">Type d'accord</value>
@@ -655,12 +655,14 @@
         <value xml:lang="nl">OFBiz: Credit Manager</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
+        <value xml:lang="de">Lieferanten suchen</value>
         <value xml:lang="en">Find Vendors</value>
         <value xml:lang="fr">Chercher des vendeurs</value>
         <value xml:lang="it">Ricerca fornitori</value>
         <value xml:lang="nl">Vind verkopende relaties</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
+        <value xml:lang="de">Ergebnis der Lieferantensuche</value>
         <value xml:lang="en">Find Vendor Results</value>
         <value xml:lang="fr">Chercher des résultats de vendeurs</value>
         <value xml:lang="it">Risultati ricerce fornitori</value>
@@ -3179,7 +3181,7 @@
     </property>
     <property key="AccountingFixedAssetTypeId">
         <value xml:lang="ar">نوع الأصل</value>
-        <value xml:lang="de">Art des Vermögens</value>
+        <value xml:lang="de">Anlagenart</value>
         <value xml:lang="en">Asset Type</value>
         <value xml:lang="es">Tipo de activo</value>
         <value xml:lang="fr">Type d'actif</value>
@@ -3229,6 +3231,7 @@
     </property>
     <property key="AccountingGatewayResponse">
         <value xml:lang="ar">ممر الإجابة</value>
+        <value xml:lang="de">Schnittstellen-Antwort</value>
         <value xml:lang="en">Gateway Response</value>
         <value xml:lang="es">Respuesta de entrada</value>
         <value xml:lang="fr">Réponse du terminal de paiement</value>
@@ -3241,7 +3244,7 @@
     </property>
     <property key="AccountingGatewayResponses">
         <value xml:lang="ar">ممر الإجابات</value>
-        <value xml:lang="de">Schnittstellen-Antwort</value>
+        <value xml:lang="de">Schnittstellen-Antworten</value>
         <value xml:lang="en">Gateway Responses</value>
         <value xml:lang="es">Respuestas de entradas</value>
         <value xml:lang="fr">Réponses du terminal de paiement</value>
@@ -3380,7 +3383,7 @@
     </property>
     <property key="AccountingGlAccountDefault">
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
-        <value xml:lang="de">GL Konto Zahlungsverzug</value>
+        <value xml:lang="de">GL Standard Konto</value>
         <value xml:lang="en">GL Account defaults</value>
         <value xml:lang="es">Valores predeterminados de cuentas de LM</value>
         <value xml:lang="fr">Comptes par défaut</value>
@@ -6457,6 +6460,7 @@
     </property>
     <property key="AccountingShowAllPayments">
         <value xml:lang="ar">عرض كل التسديدات</value>
+        <value xml:lang="de">Zahlungen anzeigen</value>
         <value xml:lang="en">Show All Payments</value>
         <value xml:lang="es">Mostrar todos los pagos</value>
         <value xml:lang="fr">Afficher tous les paiements</value>
@@ -7422,7 +7426,7 @@
     </property>
     <property key="FormFieldTitle_agreementDate">
         <value xml:lang="ar">تاريخ الإتفاقية</value>
-        <value xml:lang="de">Vertragsdatum</value>
+        <value xml:lang="de">Vereinbarungsdatum</value>
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
         <value xml:lang="fr">Date de l'accord</value>
@@ -7435,7 +7439,7 @@
     </property>
     <property key="FormFieldTitle_agreementId">
         <value xml:lang="ar">دليل الإتفاقية</value>
-        <value xml:lang="de">Vereinbarung ID</value>
+        <value xml:lang="de">Vereinbarungs ID</value>
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id Acuerdo</value>
         <value xml:lang="fr">Réf. d'accord</value>
@@ -7798,7 +7802,7 @@
         <value xml:lang="zh">借方总账账户标识</value>
     </property>
     <property key="FormFieldTitle_defaultGlAccountId">
-        <value xml:lang="de">Zahlungsverzug GI-Konto ID</value>
+        <value xml:lang="de">Standard GL-Konto ID</value>
         <value xml:lang="en">Default Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
         <value xml:lang="fr">Réf. de compte par défaut</value>
@@ -8200,6 +8204,7 @@
         <value xml:lang="zh">产品标识的实例</value>
     </property>
     <property key="FormFieldTitle_invoiceAmount">
+        <value xml:lang="de">Rechnungsbetrag</value>
         <value xml:lang="en">Invoice Amount</value>
         <value xml:lang="fr">Montant</value>
         <value xml:lang="it">Importo fattura</value>
@@ -8210,6 +8215,7 @@
     </property>
     <property key="FormFieldTitle_invoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
+        <value xml:lang="de">Rechnungs-Datum</value>
         <value xml:lang="en">Invoice Date</value>
         <value xml:lang="es">Fecha Factura</value>
         <value xml:lang="fr">Date de facture</value>
@@ -9916,7 +9922,7 @@
         <value xml:lang="th">ตัวเลือกรายงานบัญชีโดยสรุป</value>
     </property>
     <property key="PageTitleFindAgreement">
-        <value xml:lang="de">Verträge finden</value>
+        <value xml:lang="de">Vereinbarungen finden</value>
         <value xml:lang="en">Find Agreements</value>
         <value xml:lang="es">Encontrar Acuerdos</value>
         <value xml:lang="fr">Recherche d'accords</value>
