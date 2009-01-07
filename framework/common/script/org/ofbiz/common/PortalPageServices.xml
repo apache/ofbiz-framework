@@ -22,8 +22,16 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="movePortletToPortalPage" short-description="Moves a PortalPortlet from the actual portalPage to a different one">
-        <entity-one entity-name="PortalPagePortlet" value-field="oldEntity" auto-field-map="true"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="oldEntity" auto-field-map="true"/>      
+        <entity-one entity-name="PortalPage" value-field="getOwnerUserLoginId" auto-field-map="true">
+            <field-map field-name="portalPageId" from-field="parameters.newPortalPageId"/>
+        </entity-one>    
         <check-errors/>
+        <if-compare field="getOwnerUserLoginId.ownerUserLoginId" value="_NA_" operator="equals">
+            <set field="parameters.portalPageId" from-field="parameters.newPortalPageId"/>
+            <call-simple-method method-name="copyIfRequiredSystemPage" xml-resource="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+            <set field="parameters.newPortalPageId" from-field="portalPageId"/>
+        </if-compare>
 
         <make-value value-field="newEntity" entity-name="PortalPagePortlet"/>
         <set field="newEntity.portalPortletId" from-field="parameters.portalPortletId"/>

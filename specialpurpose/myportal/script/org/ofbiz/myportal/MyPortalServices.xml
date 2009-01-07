@@ -122,21 +122,4 @@
             </then>
         </if>
     </simple-method>    
-    
-    <!--Create simple-method of getPortalPageId-->
-    <simple-method method-name="getMainPortalPageId" short-description="">
-        <entity-and entity-name="PortalPage" list="getPrivatePage">
-            <field-map field-name="parentPortalPageId" from-field="nullField"/>
-            <field-map field-name="originalPortalPageId" value="MYPORTAL"/>
-            <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
-        </entity-and>
-        <first-from-list entry="getPrivatePageId" list="getPrivatePage"/>
-        <if-empty field="getPrivatePageId">
-            <set field="portalPageId" value="MYPORTAL"/>
-        </if-empty>
-        <if-not-empty field="getPrivatePageId">
-            <set field="portalPageId" from-field="getPrivatePageId.portalPageId"/>
-        </if-not-empty>
-        <field-to-result field="portalPageId" result-name="portalPageId"/>
-    </simple-method>
 </simple-methods>

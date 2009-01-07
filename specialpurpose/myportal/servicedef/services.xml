@@ -28,12 +28,5 @@ under the License.
         <attribute name="custRequestId" type="String" mode="IN"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes include="nonpk" mode="OUT" optional="true"/>
-    </service>
-    
-    <service name="getMainPortalPageId" engine="simple"  auth="true" default-entity-name="PortalPage"
-        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="getMainPortalPageId">
-        <description>Send email to customer when customer request is Completed or Created. </description>
-        <attribute name="portalPageId" type="String" mode="OUT"/>
-    </service>
-    
+    </service>   
 </services>
