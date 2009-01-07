@@ -104,10 +104,10 @@ under the License.
                     <select name="moveToPortal" onchange="window.location=this[this.selectedIndex].value;">
                       <option value="">${uiLabelMap.CommonMoveToPortalPage}</option>
   
-                      <#list portalPages as portalPage>
-                        <#if (portalPage.portalPageName != portalPage.portalPageName)> 
-                          <option value="<@ofbizUrl>movePortletToPortalPage?${portletUrlLink}&amp;newPortalPageId=${portalPage.portalPageId}</@ofbizUrl>">${portalPage.portalPageName}</option>
-                        </#if>
+                      <#list portalPages as portalPageList>
+                      	<#if portalPage.portalPageId != portalPageList.portalPageId>
+                          <option value="<@ofbizUrl>movePortletToPortalPage?${portletUrlLink}&amp;newPortalPageId=${portalPageList.portalPageId}</@ofbizUrl>">${portalPageList.portalPageName}</option>
+                      	</#if>
                       </#list>                          
                     </select>
                     </li>

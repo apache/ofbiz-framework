@@ -47,7 +47,7 @@ under the License.
                 <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                     <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
                 <set field="appheaderTemplate" value="component://myportal/templates/appheader.ftl"/>
-                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
+                <set field="parameters.parentPortalPageId" value="MYPORTAL" global="true"/>
                 <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
                 <entity-one entity-name="PartyNameView" value-name="partyNameView">
@@ -142,8 +142,7 @@ under the License.
 	<screen name="main">
 	    <section>
 	        <actions>
-	            <service service-name="getMainPortalPageId" result-map-name="getMainPortalPageId"/>
-	            <set field="parameters.portalPageId" from-field="getMainPortalPageId.portalPageId"/>
+	            <set field="parameters.portalPageId" value="MYPORTAL"/>
 	            <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
 	            <set field="headerItem" from-field="parameters.portalPageId"/>
 	            <!--My Profile From Party-->

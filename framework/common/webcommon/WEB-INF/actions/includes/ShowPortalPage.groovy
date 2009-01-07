@@ -21,10 +21,15 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 
-portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : parameters.portalPageId]);
+portalPageId = parameters.portalPageId;
+if(!portalPageId){
+	portalPageId = parameters.parentPortalPageId;
+}
+
+portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : portalPageId]);
 // check if the user created a private page for a system page
 if (portalPage.ownerUserLoginId.equals("_NA_")) {
-	portalPages = delegator.findByAnd("PortalPage", [originalPortalPageId : parameters.portalPageId, ownerUserLoginId : parameters.userLogin.userLoginId]);
+	portalPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : parameters.userLogin.userLoginId]);
 	if (UtilValidate.isNotEmpty(portalPages)) {
 		portalPage = portalPages.get(0);
 	}
