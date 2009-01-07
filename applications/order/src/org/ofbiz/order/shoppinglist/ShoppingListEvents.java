@@ -64,7 +64,6 @@ public class ShoppingListEvents {
     
     public static final String module = ShoppingListEvents.class.getName();
     public static final String resource = "OrderUiLabels";
-    public static final String err_resource = "OrderErrorUiLabel";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final String PERSISTANT_LIST_NAME = "auto-save";
 
@@ -95,7 +94,7 @@ public class ShoppingListEvents {
         String errMsg = null;
 
         if (items == null || items.length == 0) {
-            errMsg = UtilProperties.getMessage(resource, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
                 
@@ -106,7 +105,7 @@ public class ShoppingListEvents {
                 newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "currencyUom", cart.getCurrency()));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems creating new ShoppingList", module);
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
 
@@ -122,7 +121,7 @@ public class ShoppingListEvents {
             
             // if no list was created throw an error
             if (shoppingListId == null || shoppingListId.equals("")) {            
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.shoppingListId_is_required_parameter", cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.shoppingListId_is_required_parameter", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
         } else if (!append) {
@@ -159,7 +158,7 @@ public class ShoppingListEvents {
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Problems creating ShoppingList item entity", module);
-                        errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
+                        errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
                         throw new IllegalArgumentException(errMsg);
                     }
 
@@ -204,7 +203,7 @@ public class ShoppingListEvents {
 
         // no list; no add
         if (shoppingListId == null) {
-            errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.choose_shopping_list", cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.choose_shopping_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
         
@@ -214,7 +213,7 @@ public class ShoppingListEvents {
         try {
             shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
             if (shoppingList == null) {
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
 
@@ -236,13 +235,13 @@ public class ShoppingListEvents {
 
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting ShoppingList and ShoppingListItem records", module);
-            errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
         
         // no items; not an error; just mention that nothing was added
         if (shoppingListItems == null || shoppingListItems.size() == 0) {
-            errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.no_items_added", cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.no_items_added", cart.getLocale());
             return errMsg;
         }
 
@@ -296,17 +295,17 @@ public class ShoppingListEvents {
                     cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg + "\n");
             } catch (CartItemModifyException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsAddingItemFromListToCart", cart.getLocale()));
                 Map messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg + "\n");
             } catch (ItemNotFoundException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProductNotFound", cart.getLocale()));
                 Map messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg + "\n");
             }
         }
@@ -344,7 +343,7 @@ public class ShoppingListEvents {
         try {
             result = dispatcher.runSync("updateShoppingListItem", serviceInMap);
         } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage(ShoppingListEvents.err_resource,"shoppingListEvents.error_calling_update", locale) + ": "  + e.toString();            
+            String errMsg = UtilProperties.getMessage(resource_error,"shoppingListEvents.error_calling_update", locale) + ": "  + e.toString();            
             request.setAttribute("_ERROR_MESSAGE_", errMsg);            
             String errorMsg = "Error calling the updateShoppingListItem in handleShoppingListItemVariant: " + e.toString();
             Debug.logError(e, errorMsg, module);

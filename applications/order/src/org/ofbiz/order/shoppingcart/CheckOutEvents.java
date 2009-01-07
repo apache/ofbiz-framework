@@ -64,7 +64,7 @@ public class CheckOutEvents {
         if (UtilValidate.isNotEmpty(cart)) {
             return "success";
         } else {
-            errMsg = UtilProperties.getMessage(resource, "checkevents.cart_empty", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", (cart != null ? cart.getLocale() : Locale.getDefault()));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -306,7 +306,7 @@ public class CheckOutEvents {
                         amount = new BigDecimal(amountStr);
                     } catch (NumberFormatException e) {
                         Debug.logError(e, module);
-                        errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_payment_method", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                        errMsg = UtilProperties.getMessage(resource_error, "checkevents.invalid_amount_set_for_payment_method", (cart != null ? cart.getLocale() : Locale.getDefault()));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return null;
                     }

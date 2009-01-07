@@ -253,7 +253,8 @@ under the License.
     <screen name="FindSurveyResponse">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindSurveyResponse"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+	        <set field="titleProperty" value="PageTitleFindSurveyResponse"/>
                 <set field="tabButtonItem" value="FindSurveyResponse"/>
                 <set field="labelTitleProperty" value="PageTitleFindSurveyResponse"/>
 

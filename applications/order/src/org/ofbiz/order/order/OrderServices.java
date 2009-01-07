@@ -222,7 +222,7 @@ public class OrderServices {
         // check to make sure we have something to order
         List orderItems = (List) context.get("orderItems");
         if (orderItems.size() < 1) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "items.none", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "items.none", locale));
         }
 
         // all this marketing pkg auto stuff is deprecated in favor of MARKETING_PKG_AUTO productTypeId and a BOM of MANUF_COMPONENT assocs
@@ -286,14 +286,14 @@ public class OrderServices {
             try {
                 product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", currentProductId));
             } catch (GenericEntityException e) {
-                String errMsg = UtilProperties.getMessage(resource, "product.not_found", new Object[] { currentProductId }, locale);
+                String errMsg = UtilProperties.getMessage(resource_error, "product.not_found", new Object[] { currentProductId }, locale);
                 Debug.logError(e, errMsg, module);
                 errorMessages.add(errMsg);
                 continue;
             }
 
             if (product == null) {
-                String errMsg = UtilProperties.getMessage(resource, "product.not_found", new Object[] { currentProductId }, locale);
+                String errMsg = UtilProperties.getMessage(resource_error, "product.not_found", new Object[] { currentProductId }, locale);
                 Debug.logError(errMsg, module);
                 errorMessages.add(errMsg);
                 continue;
@@ -302,7 +302,7 @@ public class OrderServices {
             if ("SALES_ORDER".equals(orderTypeId)) {
                 // check to see if introductionDate hasn't passed yet
                 if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
-                    String excMsg = UtilProperties.getMessage(resource, "product.not_yet_for_sale",
+                    String excMsg = UtilProperties.getMessage(resource_error, "product.not_yet_for_sale",
                             new Object[] { getProductName(product, itemName), product.getString("productId") }, locale);
                     Debug.logWarning(excMsg, module);
                     errorMessages.add(excMsg);
@@ -313,7 +313,7 @@ public class OrderServices {
             if ("SALES_ORDER".equals(orderTypeId)) {
                 // check to see if salesDiscontinuationDate has passed
                 if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
-                    String excMsg = UtilProperties.getMessage(resource, "product.no_longer_for_sale",
+                    String excMsg = UtilProperties.getMessage(resource_error, "product.no_longer_for_sale",
                             new Object[] { getProductName(product, itemName), product.getString("productId") }, locale);
                     Debug.logWarning(excMsg, module);
                     errorMessages.add(excMsg);
@@ -329,7 +329,7 @@ public class OrderServices {
                         errorMessages.add(invReqResult.get(ModelService.ERROR_MESSAGE));
                         errorMessages.addAll((List) invReqResult.get(ModelService.ERROR_MESSAGE_LIST));
                     } else if (!"Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
-                        String invErrMsg = UtilProperties.getMessage(resource, "product.out_of_stock",
+                        String invErrMsg = UtilProperties.getMessage(resource_error, "product.out_of_stock",
                                 new Object[] { getProductName(product, itemName), currentProductId }, locale);
                         Debug.logWarning(invErrMsg, module);
                         errorMessages.add(invErrMsg);

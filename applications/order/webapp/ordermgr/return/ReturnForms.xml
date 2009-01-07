@@ -29,8 +29,8 @@ under the License.
         </actions>
         <alt-target use-when="returnHeader==null" target="createReturn"/>     
         <auto-fields-service service-name="updateReturnHeader"/>        
-        <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
-        <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
+        <field use-when="returnHeader!=null" name="returnId" tooltip="${uiLabelMap.OrderReturnCannotBeChanged}"><display/></field>
+        <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="${uiLabelMap.OrderReturnCannotBeFound} ${returnId}"><text size="20" maxlength="20"/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
         <field name="currentStatusId" entry-name="statusId"><hidden/></field>
         <field name="returnHeaderTypeId" id-name="returnHeaderTypeId">
@@ -96,7 +96,7 @@ under the License.
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
             <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app"/>
         </field>
-        <field name="needsInventoryReceive" tooltip="If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.">
+        <field name="needsInventoryReceive" tooltip="${uiLabelMap.OrderReturnNecessaryReceiveInventoryMessage}">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
         <field name="createdBy"><display/></field>

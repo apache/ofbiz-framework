@@ -181,7 +181,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (product == null) {
             Map messageMap = UtilMisc.toMap("productId", productId );
 
-            String excMsg = UtilProperties.getMessage(resource, "item.product_not_found",
+            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found",
                                           messageMap , cart.getLocale() );
 
             Debug.logWarning(excMsg, module);
@@ -194,7 +194,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                             "productId", product.getString("productId"));            
 
-            String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_virtual",
+            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
                                           messageMap , cart.getLocale() );
                 
             Debug.logWarning(excMsg, module);
@@ -209,7 +209,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                                 "productId", product.getString("productId"));            
 
-                String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_not_configured_correctly",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
                                               messageMap , cart.getLocale() );
                 
                 Debug.logWarning(excMsg, module);
@@ -329,7 +329,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     
         if (product == null) {
             Map messageMap = UtilMisc.toMap("productId", productId );
-            String excMsg = UtilProperties.getMessage(resource, "item.product_not_found", messageMap , cart.getLocale() );
+            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale() );
     
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
@@ -419,7 +419,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                             "productId", product.getString("productId"));            
 
-            String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_virtual",
+            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
                                           messageMap , cart.getLocale() );
 
             Debug.logWarning(excMsg, module);
@@ -434,7 +434,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                                 "productId", product.getString("productId"));            
 
-                String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_not_yet_available",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_yet_available",
                                               messageMap , cart.getLocale() );            
 
                 Debug.logWarning(excMsg, module);
@@ -446,7 +446,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                                 "productId", product.getString("productId"));
 
-                String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_no_longer_available",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
                                               messageMap , cart.getLocale() );
 
                 Debug.logWarning(excMsg, module);
@@ -461,7 +461,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                                     "productId", product.getString("productId"));
 
-                    String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_no_longer_available",
+                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
                                                   messageMap , cart.getLocale() );
 
                     Debug.logWarning(excMsg, module);
@@ -475,7 +475,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (configWrapper == null || !configWrapper.isCompleted()) {                
                     Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
                                                     "productId", product.getString("productId"));
-                    String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_not_configured_correctly",
+                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
                                                   messageMap , cart.getLocale() );
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
@@ -486,20 +486,20 @@ public class ShoppingCartItem implements java.io.Serializable {
         // check to see if the product is a rental item
         if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
-                String excMsg = UtilProperties.getMessage(resource, "item.missing_reservation_starting_date",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date",
                                               cart.getLocale() );                
                 throw new CartItemModifyException(excMsg);
             }
 
             if (reservStart.before(UtilDateTime.nowTimestamp()))    {
-                String excMsg = UtilProperties.getMessage(resource, "item.reservation_from_tomorrow",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.reservation_from_tomorrow",
                                               cart.getLocale() );
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservStart(reservStart);
 
             if (reservLength.compareTo(BigDecimal.ONE) < 0)    {
-                String excMsg = UtilProperties.getMessage(resource, "item.number_of_days",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.number_of_days",
                                               cart.getLocale() );                
                 throw new CartItemModifyException(excMsg);
             }
@@ -510,7 +510,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                  if (reservMaxPersons.compareTo(reservPersons) < 0)    {
                      Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"), 
                                                      "reservPersons", reservPersons);
-                     String excMsg = UtilProperties.getMessage(resource, "item.maximum_number_of_person_renting",
+                     String excMsg = UtilProperties.getMessage(resource_error, "item.maximum_number_of_person_renting",
                                                    messageMap, cart.getLocale() );
                      
                      Debug.logInfo(excMsg,module);
@@ -534,7 +534,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if(isAvailable.compareTo("OK") != 0) {
                 Map messageMap = UtilMisc.toMap("productId", product.getString("productId"), 
                                                 "availableMessage", isAvailable);
-                String excMsg = UtilProperties.getMessage(resource, "item.product_not_available",
+                String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available",
                                               messageMap, cart.getLocale() );                
                 Debug.logInfo(excMsg, module);
                 throw new CartItemModifyException(isAvailable);
@@ -854,7 +854,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             selFixedAssetProduct = EntityUtil.filterByDate(allFixedAssetProduct, UtilDateTime.nowTimestamp(), "fromDate", "thruDate", true);
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("productId", productId);
-            String msg = UtilProperties.getMessage(resource, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());                                       
+            String msg = UtilProperties.getMessage(resource_error, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());                                       
             return msg;
         }
         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -862,7 +862,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             fixedAssetProduct = (GenericValue) firstOne.next();
         } else {
             Map messageMap = UtilMisc.toMap("productId", productId);
-            String msg = UtilProperties.getMessage(resource, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());
+            String msg = UtilProperties.getMessage(resource_error, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());
             return msg;
         }
 
@@ -872,12 +872,12 @@ public class ShoppingCartItem implements java.io.Serializable {
             fixedAsset = fixedAssetProduct.getRelatedOne("FixedAsset");
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
-            String msg = UtilProperties.getMessage(resource, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
+            String msg = UtilProperties.getMessage(resource_error, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
             return msg;
         }
         if (fixedAsset == null) {
             Map messageMap = UtilMisc.toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
-            String msg = UtilProperties.getMessage(resource, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
+            String msg = UtilProperties.getMessage(resource_error, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
             return msg;            
         }
         //Debug.logInfo("Checking availability for product: " + productId.toString() + " and related FixedAsset: " + fixedAssetProduct.getString("fixedAssetId"),module);
@@ -893,12 +893,12 @@ public class ShoppingCartItem implements java.io.Serializable {
         if(techDataCalendar == null) {            
             // no calendar ok, when not more that total capacity
             if (fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) >= 0) {
-                String msg = UtilProperties.getMessage(resource, "item.availableOk", cart.getLocale());
+                String msg = UtilProperties.getMessage(resource_error, "item.availableOk", cart.getLocale());
                 return msg;
             } else {
                 Map messageMap = UtilMisc.toMap("quantityReq", quantity,
                                                 "quantityAvail", fixedAsset.getString("productionCapacity"));
-                String msg = UtilProperties.getMessage(resource, "item.availableQnt", messageMap , cart.getLocale());
+                String msg = UtilProperties.getMessage(resource_error, "item.availableQnt", messageMap , cart.getLocale());
                 return msg;
             }
         }
@@ -943,12 +943,12 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         if (resultMessage.compareTo("") == 0) {        
-            String msg = UtilProperties.getMessage(resource, "item.availableOk", cart.getLocale());
+            String msg = UtilProperties.getMessage(resource_error, "item.availableOk", cart.getLocale());
             return msg;
         }
         else {
             Map messageMap = UtilMisc.toMap("resultMessage", resultMessage);
-            String msg = UtilProperties.getMessage(resource, "item.notAvailable", messageMap, cart.getLocale());
+            String msg = UtilProperties.getMessage(resource_error, "item.notAvailable", messageMap, cart.getLocale());
             return msg;            
         }
     }

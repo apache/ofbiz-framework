@@ -229,6 +229,10 @@
         <value xml:lang="en">Delete email</value>
         <value xml:lang="it">Cancella email</value>
     </property>
+    <property key="FormFieldTitle_destinationFacilityId">
+        <value xml:lang="en">Destination Facility Id</value>
+        <value xml:lang="it">Stabilimento destinazione</value>
+    </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="de">Ausgeschaltet Zeitpunkt</value>
         <value xml:lang="en">Disabled Date Time</value>
@@ -672,6 +676,10 @@
         <value xml:lang="nl">Oorsprong communicatie-actie</value>
         <value xml:lang="th">รหัสการติดต่อเดิม</value>
     </property>
+    <property key="FormFieldTitle_originContactMechId">
+        <value xml:lang="en">Origin Contact Mech Id</value>
+        <value xml:lang="it">Contatto origine</value>
+    </property>
     <property key="FormFieldTitle_otherLocal">
         <value xml:lang="en">Other Local</value>
         <value xml:lang="es">Otro local</value>
@@ -996,6 +1004,10 @@
         <value xml:lang="th">รหัสประเภทสถานะถึง</value>
         <value xml:lang="zh">角色类型标识到</value>
     </property>
+    <property key="FormFieldTitle_roleTypeList">
+        <value xml:lang="en">Role Type List</value>
+        <value xml:lang="it">Lista tipo ruolo</value>
+    </property>
     <property key="FormFieldTitle_salutation">
         <value xml:lang="de">Anrede</value>
         <value xml:lang="en">Salutation</value>
@@ -1103,6 +1115,10 @@
         <value xml:lang="it">Al nome</value>
         <value xml:lang="nl">T.a.v.</value>
         <value xml:lang="th">ถึงชื่อ</value>
+    </property>
+    <property key="FormFieldTitle_toPartyId">
+        <value xml:lang="en">To Party Id</value>
+        <value xml:lang="it">Al soggetto</value>
     </property>
     <property key="FormFieldTitle_totalInvoiceNotApplied">
         <value xml:lang="en">Total Invoice Not Applied</value>
