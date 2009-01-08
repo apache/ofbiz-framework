@@ -53,7 +53,7 @@ public class PreferenceServices {
 
     /**
      * Retrieves a single user preference from persistent storage. Call with
-     * userPrefTypeId and optional userLoginId. If userLoginId isn't
+     * userPrefTypeId and optional userPrefLoginId. If userPrefLoginId isn't
      * specified, then the currently logged-in user's userLoginId will be
      * used. The retrieved preference is contained in the <b>userPrefMap</b> element.
      * @param ctx The DispatchContext that this service is operating in.
@@ -106,7 +106,7 @@ public class PreferenceServices {
 
     /**
      * Retrieves a group of user preferences from persistent storage. Call with
-     * userPrefGroupTypeId and optional userLoginId. If userLoginId isn't
+     * userPrefGroupTypeId and optional userPrefLoginId. If userPrefLoginId isn't
      * specified, then the currently logged-in user's userLoginId will be
      * used. The retrieved preferences group is contained in the <b>userPrefMap</b> element.
      * @param ctx The DispatchContext that this service is operating in.
@@ -147,8 +147,8 @@ public class PreferenceServices {
 
     /**
      * Stores a single user preference in persistent storage. Call with
-     * userPrefTypeId, userPrefGroupTypeId, userPrefValue and optional userLoginId.
-     * If userLoginId isn't specified, then the currently logged-in user's
+     * userPrefTypeId, userPrefGroupTypeId, userPrefValue and optional userPrefLoginId.
+     * If userPrefLoginId isn't specified, then the currently logged-in user's
      * userLoginId will be used.
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
@@ -186,7 +186,7 @@ public class PreferenceServices {
 
     /**
      * Stores a user preference group in persistent storage. Call with
-     * userPrefMap, userPrefGroupTypeId and optional userLoginId. If userLoginId
+     * userPrefMap, userPrefGroupTypeId and optional userPrefLoginId. If userPrefLoginId
      * isn't specified, then the currently logged-in user's userLoginId will be
      * used.
      * @param ctx The DispatchContext that this service is operating in.
@@ -223,7 +223,7 @@ public class PreferenceServices {
 
     /**
      * Copies a user preference group. Call with
-     * fromUserLoginId, userPrefGroupTypeId and optional userLoginId. If userLoginId
+     * fromUserLoginId, userPrefGroupTypeId and optional userPrefLoginId. If userPrefLoginId
      * isn't specified, then the currently logged-in user's userLoginId will be
      * used.
      * @param ctx The DispatchContext that this service is operating in.
