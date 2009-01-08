@@ -178,8 +178,8 @@ if (entityFromCond && entityThruCond) {
 }
 
 reader = delegator.getModelReader();
-entityNames = reader.getEntityNames() as TreeSet;
-context.entityNames = entityNames;
+modelEntities = reader.getEntityCache().values() as TreeSet;
+context.modelEntities = modelEntities;
   
 if (tobrowser) {
     session.setAttribute("xmlrawdump_entitylist", passedEntityNames);

@@ -108,12 +108,17 @@ under the License.
       <table>
         <tr>
           <#assign entCount = 0>
-          <#assign check = parameters.checkAll?default("false")>
-          <#list entityNames as curEntityName>
+          <#assign checkAll = parameters.checkAll?default("false")>
+          <#list modelEntities as modelEntity>
             <#if entCount % 3 == 0>
               </tr><tr>
             </#if>
             <#assign entCount = entCount + 1>
+            <#assign check = checkAll/>
+            <#if checkAll == "true" && modelEntity.getClass().getName() == "org.ofbiz.entity.model.ModelViewEntity">
+                <#assign check = "false"/>
+            </#if>
+            <#assign curEntityName = modelEntity.getEntityName()/>
             <td><input type="checkbox" name="entityName" value="${curEntityName}"<#if check="true"> checked="checked"</#if>/>${curEntityName}</td>
           </#list>
         </tr>
