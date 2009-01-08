@@ -28,5 +28,15 @@ under the License.
         <attribute name="custRequestId" type="String" mode="IN"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes include="nonpk" mode="OUT" optional="true"/>
-    </service>   
+    </service>       
+    
+    <!-- check access in permission service -->
+    <service name="portalPermissionIsEmployee" engine="simple"
+        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsEmployee">
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="portalPermissionIsCustomer" engine="simple"
+        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsCustomer">
+        <implements service="permissionInterface"/>
+    </service>
 </services>
