@@ -121,5 +121,34 @@
                 </if-not-empty>
             </then>
         </if>
-    </simple-method>    
+    </simple-method>        
+    
+    <simple-method method-name="portalPermissionIsEmployee" short-description="check permission for Employee">
+        <set field="hasPermission" value="true" type="Boolean"/>
+        <set field="hasNoPermission" value="false" type="Boolean"/>
+        
+        <if-has-permission permission="MYPORTAL_EMPLOYEE">
+            <field-to-result field="hasPermission"/>
+            <return/>
+            <else>
+                <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                <return/>
+            </else>
+        </if-has-permission>
+    </simple-method>
+    
+    <simple-method method-name="portalPermissionIsCustomer" short-description="check permission for customer">
+        <set field="hasPermission" value="true" type="Boolean"/>
+        <set field="hasNoPermission" value="false" type="Boolean"/>
+        
+        <if-has-permission permission="MYPORTAL_CUSTOMER">
+            <field-to-result field="hasPermission"/>
+            <return/>
+            <else>
+                <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                <return/>
+            </else>
+        </if-has-permission>
+    </simple-method>
+    
 </simple-methods>
