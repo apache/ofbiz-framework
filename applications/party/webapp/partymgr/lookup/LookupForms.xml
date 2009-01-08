@@ -215,7 +215,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="requestParameters"/>
-            <set field="entityName" value="entityName"/>
+            <set field="entityName" value="PartyAndUserLoginAndPerson"/>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="display"/>-->
@@ -245,7 +245,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="requestParameters"/>
-            <set field="entityName" value="entityName"/>
+            <set field="entityName" value="UserLoginAndPartyDetails"/>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="smallSubmit">
