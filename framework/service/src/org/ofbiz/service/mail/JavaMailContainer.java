@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service.mail;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,6 @@ import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
@@ -254,27 +252,33 @@ public class JavaMailContainer implements Container {
                     Session session = entry.getValue();
                     try {
                         checkMessages(store, session);
-                    } catch (GeneralException e) {
-                        Debug.logError(e, "Mail service invocation error", module);
-                    } catch (MessagingException e) {
-                        Debug.logError(e, "Mail message error", module);
+                    } catch (Exception e) {
+                        // Catch all exceptions so the loop will continue running
+                        Debug.logError("Mail service invocation error for mail store " + store + ": " + e, module);
+                    }
+                    if (store.isConnected()) {
+                        try {
+                            store.close();
+                        } catch (Exception e) {}
                     }
                 }
             }
         }
 
-        protected void checkMessages(Store store, Session session) throws MessagingException, GeneralException {
-            store.connect();
+        protected void checkMessages(Store store, Session session) throws MessagingException {
+            if (!store.isConnected()) {
+                store.connect();
+            }
 
             // open the default folder
             Folder folder = store.getDefaultFolder();
-            if (folder == null) {
-                throw new MessagingException("No default folder available");
+            if (!folder.exists()) {
+                throw new MessagingException("No default (root) folder available");
             }
 
             // open the inbox
             folder = folder.getFolder(INBOX);
-            if (folder == null) {
+            if (!folder.exists()) {
                 throw new MessagingException("No INBOX folder available");
             }
 
@@ -283,7 +287,6 @@ public class JavaMailContainer implements Container {
             int totalMessages = folder.getMessageCount();
             if (totalMessages == 0) {
                 folder.close(false);
-                store.close();
                 return;
             }
 
@@ -317,7 +320,6 @@ public class JavaMailContainer implements Container {
 
             // expunge and close the folder
             folder.close(true);
-            store.close();
         }
 
         protected void processMessage(Message message, Session session) {
