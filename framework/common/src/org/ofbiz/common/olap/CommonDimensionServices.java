@@ -82,7 +82,7 @@ public class CommonDimensionServices {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date currentDate = calendar.getTime();
+        java.sql.Date currentDate = new java.sql.Date(calendar.getTimeInMillis());
         while (currentDate.compareTo(thruDate) <= 0) {
             GenericValue dateValue = null;
             try {
@@ -121,7 +121,7 @@ public class CommonDimensionServices {
                 return ServiceUtil.returnError(gee.getMessage());
             }
             calendar.add(Calendar.DATE, 1);
-            currentDate = calendar.getTime();
+            currentDate = new java.sql.Date(calendar.getTimeInMillis());
         }
         return ServiceUtil.returnSuccess();
     }
