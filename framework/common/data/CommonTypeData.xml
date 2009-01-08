@@ -36,7 +36,11 @@ under the License.
     <DataSourceType dataSourceTypeId="CONTENT_CREATION" description="Content and Data Resource Creation"/>
     <DataSource dataSourceId="USER_ENTRY" dataSourceTypeId="CONTENT_CREATION" description="User Entry"/>
     <DataSource dataSourceId="CONTEXT_INDUCTION" dataSourceTypeId="CONTENT_CREATION" description="Context Induction"/>
-
+    
+    <DataSourceType dataSourceTypeId="GEOPOINT_SUPPLIER" description="Name of GeoPoints publisher"/>
+    <DataSource dataSourceId="GEOPT_GOOGLE" dataSourceTypeId="GEOPOINT_SUPPLIER" description="Google as GeoPoint supplier"/>
+    <DataSource dataSourceId="GEOPT_YAHOO" dataSourceTypeId="GEOPOINT_SUPPLIER" description="Yahoo as GeoPoint supplier"/>
+        
     <StatusType statusTypeId="_NA_" description="Not Applicable"/>
     <StatusItem statusId="_NA_" statusTypeId="_NA_" statusCode="_NA_" sequenceId="0" description="Not Applicable"/>
 

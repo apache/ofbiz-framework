@@ -23,7 +23,7 @@ under the License.
     <!-- DataResource forms -->
     <form name="FindDataResource" target="findDataResource" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="dataResourceId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="dataResourceName"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="dataResourceTypeId">
@@ -84,7 +84,7 @@ under the License.
     <form name="LookupDataResource" target="LookupDataResource" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
             <field-group>

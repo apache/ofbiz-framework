@@ -82,7 +82,7 @@ under the License.
 
     <form name="FindContactLists" target="ListContactLists" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text size="20" maxlength="20"/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">

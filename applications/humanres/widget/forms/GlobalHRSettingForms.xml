@@ -84,7 +84,7 @@ under the License.
     </form>
     <form name="FindEmplPositionTypes" type="single" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="EmplPositionType" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="emplPositionTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="EmplPositionType" description="${description}" key-field-name="emplPositionTypeId"/>

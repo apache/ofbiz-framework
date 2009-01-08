@@ -32,7 +32,7 @@ under the License.
                 <list-options list-name="expressionTypeList" key-name="value" description="description"/>
             </drop-down>
         </field> -->
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 

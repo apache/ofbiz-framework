@@ -70,7 +70,7 @@ under the License.
             <set field="referredByPartyId" from-field="parameters.partyId"/>
         </actions>
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="statusId">
