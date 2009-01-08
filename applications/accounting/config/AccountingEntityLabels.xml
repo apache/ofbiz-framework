@@ -256,7 +256,7 @@
         <value xml:lang="th">บัญชีเงินฝากประจำ</value>
     </property>
     <property key="FinAccountType.description.GIFTCERT_ACCOUNT">
-        <value xml:lang="de">Gutschrift</value
+        <value xml:lang="de">Gutschrift</value>
         <value xml:lang="en">Gift Certificate</value>
         <value xml:lang="fr">Chèque cadeau</value>
         <value xml:lang="it">Certificato Omaggio</value>
