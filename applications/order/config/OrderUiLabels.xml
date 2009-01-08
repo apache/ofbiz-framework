@@ -9898,7 +9898,7 @@
     </property>
     <property key="PageTitleOrderInits">
         <value xml:lang="de">Auftrag initialisieren</value>
-        <value xml:lang="en">Order Initis</value>
+        <value xml:lang="en">Order Inits</value>
         <value xml:lang="es">Inicializar pedido</value>
         <value xml:lang="fr">Initialisation de commande</value>
         <value xml:lang="it">Inserimento ordine</value>
