@@ -41,6 +41,11 @@ public class PreferenceWorker {
      * User preference administrator permission. Currently set to "USERPREF_ADMIN".
      */
     public static final String ADMIN_PERMISSION = "USERPREF_ADMIN";
+    /** User login ID parameter name. Currently set to "userPrefLoginId". This
+     * parameter name is used in preference service definitions to specify a user login ID
+     * that is different than the currently logged in user.
+     */
+    public static final String LOGINID_PARAMETER_NAME = "userPrefLoginId";
 
     /** Default userLoginId. Currently set to "_NA_". This userLoginId is used to
      * retrieve default preferences when the user is not logged in.
@@ -80,7 +85,7 @@ public class PreferenceWorker {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId"); 
-            String userLoginIdArg = (String) context.get("userLoginId"); // is an optional parameters which defaults to the logged on user
+            String userLoginIdArg = (String) context.get(LOGINID_PARAMETER_NAME); // is an optional parameters which defaults to the logged on user
             if (userLoginIdArg == null || (userLoginIdArg != null && userLoginId.equals(userLoginIdArg))) {
                 hasPermission = true; // users can copy to their own preferences
             } else {
@@ -105,7 +110,7 @@ public class PreferenceWorker {
         boolean hasPermission = false;
         String mainAction = (String) context.get("mainAction");
         if ("VIEW".equals(mainAction)) {
-            if (DEFAULT_UID.equals(context.get("userLoginId"))) {
+            if (DEFAULT_UID.equals(context.get(LOGINID_PARAMETER_NAME))) {
                 hasPermission = true;
             } else {
                 hasPermission = isValidGetId(ctx, context);
@@ -148,7 +153,7 @@ public class PreferenceWorker {
 
     /**
      * Gets a valid userLoginId parameter from the context Map.
-     * <p>This method searches the context Map for a userLoginId key. If none is
+     * <p>This method searches the context Map for a userPrefLoginId key. If none is
      * found, the method attempts to get the current user's userLoginId. If the user
      * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
      * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
@@ -158,7 +163,7 @@ public class PreferenceWorker {
      * @return userLoginId String
      */
     public static String getUserLoginId(Map<String, ?> context, boolean returnDefault) {
-        String userLoginId = (String) context.get("userLoginId");
+        String userLoginId = (String) context.get(LOGINID_PARAMETER_NAME);
         if (UtilValidate.isEmpty(userLoginId)) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
@@ -177,9 +182,9 @@ public class PreferenceWorker {
      * can be retrieved by the current user:
      * <ul>
      * <li>If the user isn't logged in, then the method returns true</li>
-     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * <li>If the user is logged in and the userPrefLoginId specified in the context Map
      * matches the user's userLoginId, then the method returns true.</li>
-     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * <li>If the user is logged in and the userPrefLoginId specified in the context Map
      * is different than the user's userLoginId, then a security permission check is performed.
      * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a> permission then the
      *  method returns true.</li>
@@ -197,7 +202,7 @@ public class PreferenceWorker {
         } else {
             currentUserLoginId = userLogin.getString("userLoginId");
         }
-        String userLoginIdArg = (String) context.get("userLoginId");
+        String userLoginIdArg = (String) context.get(LOGINID_PARAMETER_NAME);
         if (!currentUserLoginId.equals(DEFAULT_UID) && !currentUserLoginId.equals(userLoginIdArg)
                 && userLoginIdArg != null) {
             Security security = ctx.getSecurity();
@@ -212,9 +217,9 @@ public class PreferenceWorker {
      * can be set by the current user:
      * <ul>
      * <li>If the user isn't logged in, then the method returns false</li>
-     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * <li>If the user is logged in and the userPrefLoginId specified in the context Map
      * matches the user's userLoginId, then the method returns true.</li>
-     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * <li>If the user is logged in and the userPrefLoginId specified in the context Map
      * is different than the user's userLoginId, then a security permission check is performed.
      * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a>
      * permission then the method returns true.</li>
@@ -229,7 +234,7 @@ public class PreferenceWorker {
             return false;
         }
         String currentUserLoginId = userLogin.getString("userLoginId");
-        String userLoginIdArg = (String) context.get("userLoginId");
+        String userLoginIdArg = (String) context.get(LOGINID_PARAMETER_NAME);
         if (!currentUserLoginId.equals(userLoginIdArg) && userLoginIdArg != null) {
             Security security = ctx.getSecurity();
             return security.hasPermission(ADMIN_PERMISSION, userLogin);
