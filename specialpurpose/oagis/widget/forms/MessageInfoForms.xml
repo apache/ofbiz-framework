@@ -35,7 +35,7 @@ under the License.
     <form name="FindMessageInfos" type="single" target="FindMessageInfo"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageInfo" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -76,7 +76,7 @@ under the License.
     <form name="FindMessageErrorInfos" type="single" target="FindMessageErrorInfo"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageErrorInfo" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

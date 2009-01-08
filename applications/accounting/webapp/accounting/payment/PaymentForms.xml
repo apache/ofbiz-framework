@@ -23,7 +23,7 @@ under the License.
 
     <form name="FindPayments" type="single" target="findPayments"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="paymentId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
         <field position="1" name="paymentTypeId">

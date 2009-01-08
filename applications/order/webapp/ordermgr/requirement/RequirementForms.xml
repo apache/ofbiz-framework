@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindRequirements" type="single" target="FindRequirements" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
