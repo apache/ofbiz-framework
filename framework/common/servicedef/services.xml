@@ -422,7 +422,7 @@ under the License.
     <service name="copyUserPrefGroup" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="copyUserPreferenceGroup" auth="true" use-transaction="true">
         <description>Copies the preferences from one userLoginId and preference group to another.
-            If no userLoginId is specified, preferences are copied to current user's preferences.</description>
+            If no userPrefLoginId is specified, preferences are copied to current user's preferences.</description>
         <permission-service service-name="preferenceCopyPermission"/>
         <attribute name="fromUserLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="userPrefGroupTypeId" type="String" mode="IN" optional="false"/>
