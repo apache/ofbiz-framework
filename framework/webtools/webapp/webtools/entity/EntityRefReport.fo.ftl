@@ -106,6 +106,9 @@ under the License.
                     <#if javaName.description?has_content>
                       <fo:block>${javaName.description}</fo:block>
                     </#if>
+                    <#if javaName.encrypted>
+                      <fo:block>[${uiLabelMap.WebtoolsEncrypted}]</fo:block>
+                    </#if>
                   </fo:table-cell>
                   <fo:table-cell padding="2pt">
                     <fo:block>${javaName.colName}</fo:block>
