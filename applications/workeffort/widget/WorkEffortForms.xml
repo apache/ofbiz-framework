@@ -110,7 +110,7 @@ under the License.
         <field name="estimatedCompletionDate" position="2"/>
         <field name="actualStartDate" position="1"/>
         <field name="actualCompletionDate" position="2"/>
-        <field name="tempExprId" title="${uiLabelMap.TemporalExpression}">
+        <field name="tempExprId">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="tempExprId" description="${tempExprId}" entity-name="TemporalExpression"/>
             </drop-down>

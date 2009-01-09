@@ -19,6 +19,14 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FormFieldTitle_accommodationMapId">
+         <value xml:lang="en">Accommodation Map Id</value>
+         <value xml:lang="it">Mappa alloggio</value>
+    </property>
+    <property key="FormFieldTitle_accommodationSpotId">
+        <value xml:lang="en">Accommodation Spot Id</value>
+        <value xml:lang="it">Luogo alloggio</value>
+    </property>
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
@@ -66,9 +74,14 @@
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
     </property>
+    <property key="FormFieldTitle_approvedByUserLoginId">
+        <value xml:lang="en">Approved By User Login Id</value>
+        <value xml:lang="it">Approvato dall'utente</value>
+    </property>
     <property key="FormFieldTitle_availabilityStatusId">
         <value xml:lang="en">Availability</value>
         <value xml:lang="fr">Disponibilité</value>
+        <value xml:lang="it">Disponibilità</value>
     </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="en">Client Party Id</value>
@@ -272,14 +285,30 @@
         <value xml:lang="it">Classifica</value>
         <value xml:lang="th">การประเมิณ</value>
     </property>
+    <property key="FormFieldTitle_reminderDateTime">
+        <value xml:lang="en">Reminder Date Time</value>
+        <value xml:lang="it">Data ora reminder</value>
+    </property>
+    <property key="FormFieldTitle_repeatInterval">
+        <value xml:lang="en">Repeat Interval</value>
+        <value xml:lang="it">Ripeti intervallo</value>
+    </property>
+    <property key="FormFieldTitle_recurrenceOffset">
+        <value xml:lang="en">Recurrence Offset</value>
+        <value xml:lang="it">Intervallo ricorrenza</value>
+    </property>
     <property key="FormFieldTitle_requirementDescription">
         <value xml:lang="en">Requirement Description</value>
         <value xml:lang="fr">Description de besoin</value>
-        <value xml:lang="it">Descrizione Fabbisogno</value>
+        <value xml:lang="it">Descrizione fabbisogno</value>
         <value xml:lang="nl">Omschrijving aanvraag</value>
         <value xml:lang="ro">Descriere Necesar</value>
         <value xml:lang="th">รายละเอียดความต้องการ</value>
         <value xml:lang="zh">需求描述</value>
+    </property>
+    <property key="FormFieldTitle_requirementStartDate">
+        <value xml:lang="en">Requirement Start Date</value>
+        <value xml:lang="it">Data inizio fabbisogno</value>
     </property>
     <property key="FormFieldTitle_reserv2ndPPPerc">
         <value xml:lang="en">Reserv2nd P P Perc</value>
@@ -338,6 +367,10 @@
         <value xml:lang="th">ชื่อบริการโหลด</value>
         <value xml:lang="zh">服务加载程序名称 </value>
     </property>
+    <property key="FormFieldTitle_showAsEnumId">
+        <value xml:lang="en">Show As Enum Id</value>
+        <value xml:lang="it">Mostra come enumerazione</value>
+    </property>
     <property key="FormFieldTitle_sourceReferenceId">
         <value xml:lang="en">Source Reference Id</value>
         <value xml:lang="fr">Réf. de la source</value>
@@ -374,6 +407,10 @@
         <value xml:lang="ro">Stare</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">状态</value>
+    </property>
+    <property key="FormFieldTitle_tempExprId">
+        <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="it">Espressione temporale</value>
     </property>
     <property key="FormFieldTitle_timeTransparency">
         <value xml:lang="en">Time Transparency</value>
@@ -423,7 +460,7 @@
     <property key="FormFieldTitle_workEffortAssocTypeId">
         <value xml:lang="en">Work Effort Assoc Type Id</value>
         <value xml:lang="fr">Réf. de type d'assoc. de la tâche</value>
-        <value xml:lang="it">Tipo Associazione Impegno di Lavoro</value>
+        <value xml:lang="it">Tipo associazione impegno di lavoro</value>
         <value xml:lang="nl">Activiteit Assoc Type Id</value>
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
         <value xml:lang="th">รหัสประเภกลุ่มงาน</value>
@@ -590,10 +627,12 @@
     <property key="PageTitleAddWorkEffortFixedAssetAssign">
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
+        <value xml:lang="it">Aggiungi assegnazione impegno di lavoro cespite</value>
     </property>
     <property key="PageTitleAddWorkEffortEventReminder">
         <value xml:lang="en">Add Work Effort Event Reminder</value>
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
+        <value xml:lang="it">Aggiungi evento reminder impegno di lavoro</value>
     </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="en">Add Work Effort Keyword</value>
@@ -952,10 +991,12 @@
     <property key="PageTitleListWorkEffortFixedAssetAssigns">
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
         <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
+        <value xml:lang="it">Assegnazioni impegno di lavoro cespite</value>
     </property>
     <property key="PageTitleListWorkEffortEventReminders">
         <value xml:lang="en">Work Effort Event Reminders</value>
         <value xml:lang="fr">Rappels d'évènements de tâche</value>
+        <value xml:lang="it">Evento reminders impegno di lavoro</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
@@ -1205,6 +1246,11 @@
         <value xml:lang="ru">Добавить задание</value>
         <value xml:lang="th">เพิ่มภารกิจ</value>
         <value xml:lang="zh">添加任务</value>
+    </property>
+    <property key="WorkEffortAgreementAppls">
+        <value xml:lang="en">Agreement Appls</value>
+        <value xml:lang="fr">Applications d'accords</value>
+        <value xml:lang="it">Applicazioni contratto</value>
     </property>
     <property key="WorkEffortAllPhases">
         <value xml:lang="en">All Phases</value>
@@ -1540,6 +1586,7 @@
         <value xml:lang="en">Completion date</value>
         <value xml:lang="es">Fecha de terminación</value>
         <value xml:lang="fr">Date d'achèvement</value>
+        <value xml:lang="it">Data completamento</value>
         <value xml:lang="th">สำเร็จวันที่</value>
     </property>
     <property key="WorkEffortContactMech">
@@ -1607,6 +1654,7 @@
     <property key="WorkEffortDelegateReason">
         <value xml:lang="en">Delegate Reason</value>
         <value xml:lang="fr">Raison de délégué</value>
+        <value xml:lang="it">Motivazione delega</value>
     </property>
     <property key="WorkEffortDeletePermissionError">
         <value xml:lang="en">Security Error: to run this operation you must have the WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN permission</value>
@@ -1783,10 +1831,12 @@
     <property key="WorkEffortEventReminder">
         <value xml:lang="en">Event Reminder</value>
         <value xml:lang="fr">Evènement de tâche</value>
+        <value xml:lang="it">Evento Reminder</value>
     </property>
     <property key="WorkEffortEventReminders">
         <value xml:lang="en">Event Reminders</value>
         <value xml:lang="fr">Evènements de tâche</value>
+        <value xml:lang="it">Evento Reminders</value>
     </property>
     <property key="WorkEffortExpectation">
         <value xml:lang="en">Expectation</value>
@@ -1937,6 +1987,7 @@
     <property key="WorkEffortKeywordRelevancy">
         <value xml:lang="en">Keyword  Relevancy</value>
         <value xml:lang="fr">Pertinence de mot-clé</value>
+        <value xml:lang="it">Rilevanza chiave</value>
         <value xml:lang="th">Keyword  Relevancy</value>
         <value xml:lang="zh">关键字关联</value>
     </property>
@@ -2160,6 +2211,7 @@
     <property key="WorkEffortNewRequest">
         <value xml:lang="en">New  Request</value>
         <value xml:lang="fr">Nouvelle demande</value>
+        <value xml:lang="it">Nuova richiesta</value>
         <value xml:lang="th">การร้องขอใหม่</value>
     </property>
     <property key="WorkEffortNewRequirement">
@@ -2254,6 +2306,7 @@
     <property key="WorkEffortNoNotesForThisRequestItem">
         <value xml:lang="en">No  Notes  For  This  RequestItem</value>
         <value xml:lang="fr">Aucune note pour cette demande d'article</value>
+        <value xml:lang="it">Nessuna nota per questa riga richiesta</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับรายการคำร้องนี้</value>
     </property>
     <property key="WorkEffortNoOpenRequirementsFound">
@@ -2292,6 +2345,7 @@
     <property key="WorkEffortNoRolesAssociatedRequest">
         <value xml:lang="en">No  Roles  Associated  Request</value>
         <value xml:lang="fr">Aucun rôle associé avec cette demande</value>
+        <value xml:lang="it">Nessun ruolo associato alla richiesta</value>
         <value xml:lang="th">ไม่มีสถานะกลุ่มคำร้อง</value>
     </property>
     <property key="WorkEffortNoTasksAssociatedRequirement">
@@ -2308,6 +2362,7 @@
     <property key="WorkEffortNoTasksAssociatedWithRequirement">
         <value xml:lang="en">No  Tasks  Associated  With  Requirement</value>
         <value xml:lang="fr">Aucune tâche associée avec cette demande</value>
+        <value xml:lang="it">Nessun compito associata con i fabbisogni</value>
         <value xml:lang="th">ไม่มีภารกิจด้วยกลุ่มความต้องการ</value>
     </property>
     <property key="WorkEffortNotInRolePermissionError">
@@ -2319,6 +2374,7 @@
     <property key="WorkEffortNoteMissing">
         <value xml:lang="en">Note is missing</value>
         <value xml:lang="fr">La note est manquante</value>
+        <value xml:lang="it">Nota mancante</value>
         <value xml:lang="th">ไม่พบข้อความ</value>
     </property>
     <property key="WorkEffortNotes">
@@ -2335,6 +2391,7 @@
     <property key="WorkEffortNotesForRequestItem">
         <value xml:lang="en">Notes  For  RequestItem</value>
         <value xml:lang="fr">Notes pour la ligne de demande</value>
+        <value xml:lang="it">Note per la riga richiesta</value>
         <value xml:lang="th">ข้อความสำหรับรายการคำร้อง</value>
     </property>
     <property key="WorkEffortOpenApplication">
@@ -2394,6 +2451,7 @@
     <property key="WorkEffortPartyAssignmentError">
         <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
         <value xml:lang="fr">L'acteur ${parameters.partyId} avec le rôle ${parameters.roleTypeId} est déjà affecté à la tâche de réf. ${parameters.workEffortId}</value>
+        <value xml:lang="it">Soggetto ${parameters.partyId} con il ruolo ${parameters.roleTypeId} è già stato assegnato all'impegno di lavoro ${parameters.workEffortId}, non aggiungerlo nuovamente</value>
     </property>
     <property key="WorkEffortPartyId">
         <value xml:lang="de">Teilnehmer ID</value>
@@ -2675,6 +2733,7 @@
     <property key="WorkEffortRequest">
         <value xml:lang="en">Request</value>
         <value xml:lang="fr">Demande</value>
+        <value xml:lang="it">Richiesta</value>
         <value xml:lang="th">การร้องขอ</value>
     </property>
     <property key="WorkEffortRequestItems">
@@ -2723,6 +2782,7 @@
     <property key="WorkEffortRequestRoles">
         <value xml:lang="en">Request  Roles</value>
         <value xml:lang="fr">Rôles de la demande</value>
+        <value xml:lang="it">Ruoli richiesta</value>
         <value xml:lang="th">สถานะการร้องขอ</value>
     </property>
     <property key="WorkEffortRequestTaker">
@@ -2969,6 +3029,7 @@
         <value xml:lang="en">Start Date</value>
         <value xml:lang="es">Fecha de comienzo</value>
         <value xml:lang="fr">Date de début</value>
+        <value xml:lang="it">Data inizio</value>
         <value xml:lang="th">เริ่มวันที่</value>
     </property>
     <property key="WorkEffortStatus">
@@ -3095,6 +3156,7 @@
     <property key="WorkEffortThruDate">
         <value xml:lang="en">ThruDate</value>
         <value xml:lang="fr">A la date</value>
+        <value xml:lang="it">Data fine</value>
         <value xml:lang="th">ถึงวันที่</value>
     </property>
     <property key="WorkEffortTimeBillFromParty">
@@ -3422,9 +3484,5 @@
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงสถานะของผู้ใช้</value>
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
-    </property>
-    <property key="WorkEffortAgreementAppls">
-        <value xml:lang="en">Agreement Appls</value>
-        <value xml:lang="fr">Applications d'accords</value>
     </property>
 </resource>
