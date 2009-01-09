@@ -21,7 +21,6 @@ package org.ofbiz.widget.form;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
@@ -48,39 +47,43 @@ import org.xml.sax.SAXException;
 public class FormFactory {
     
     public static final String module = FormFactory.class.getName();
-
-    public static final UtilCache<String, Map<String, ModelForm>> formLocationCache = new UtilCache<String, Map<String, ModelForm>>("widget.form.locationResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelForm>> formWebappCache = new UtilCache<String, Map<String, ModelForm>>("widget.form.webappResource", 0, 0, false);
+    public static final UtilCache<String, ModelForm> formLocationCache = new UtilCache<String, ModelForm>("widget.form.locationResource", 0, 0, false);
+    public static final UtilCache<String, ModelForm> formWebappCache = new UtilCache<String, ModelForm>("widget.form.webappResource", 0, 0, false);
     
     public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map<String, ModelForm> modelFormMap = formLocationCache.get(resourceName);
-        if (modelFormMap == null) {
-            synchronized (FormFactory.class) {
-                modelFormMap = formLocationCache.get(resourceName);
-                if (modelFormMap == null) {
-                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                    if (loader == null) {
-                        loader = FormFactory.class.getClassLoader();
-                    }
-                    
-                    URL formFileUrl = null;
-                    formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
-                    formLocationCache.put(resourceName, modelFormMap);
-                }
-            }
+        /*
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if (loader == null) {
+            loader = FormFactory.class.getClassLoader();
         }
-
-        return modelFormMap;
+        */
+        URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
+        Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+        return readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
     }
 
     public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelFormMap = getFormsFromLocation(resourceName, entityModelReader, dispatchContext);
-
-        ModelForm modelForm = (ModelForm) modelFormMap.get(formName);
+        String cacheKey = resourceName + "#" + formName;
+        ModelForm modelForm = formLocationCache.get(cacheKey);
+        if (modelForm == null) {
+            synchronized (formLocationCache) {
+                modelForm = formLocationCache.get(cacheKey);
+                if (modelForm == null) {
+                    /*
+                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                    if (loader == null) {
+                        loader = FormFactory.class.getClassLoader();
+                    }
+                    */
+                    URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
+                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+                    modelForm = createModelForm(formFileDoc, entityModelReader, dispatchContext, resourceName, formName);
+                    formLocationCache.put(cacheKey, modelForm);
+                }
+            }
+        }
         if (modelForm == null) {
             throw new IllegalArgumentException("Could not find form with name [" + formName + "] in class resource [" + resourceName + "]");
         }
@@ -90,47 +93,63 @@ public class FormFactory {
     public static ModelForm getFormFromWebappContext(String resourceName, String formName, HttpServletRequest request) 
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
-        String cacheKey = webappName + "::" + resourceName;
-        
-        
-        Map<String, ModelForm> modelFormMap = formWebappCache.get(cacheKey);
-        if (modelFormMap == null) {
-            synchronized (FormFactory.class) {
-                modelFormMap = formWebappCache.get(cacheKey);
-                if (modelFormMap == null) {
+        String cacheKey = webappName + "::" + resourceName + "::" + formName;
+        ModelForm modelForm = formWebappCache.get(cacheKey);
+        if (modelForm == null) {
+            synchronized (formWebappCache) {
+                modelForm = formWebappCache.get(cacheKey);
+                if (modelForm == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-                    
                     URL formFileUrl = servletContext.getResource(resourceName);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, delegator.getModelReader(), dispatcher.getDispatchContext(), cacheKey);
-                    formWebappCache.put(cacheKey, modelFormMap);
+                    Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
+                    modelForm = new ModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext());
+                    modelForm.setFormLocation(resourceName);
+                    formWebappCache.put(cacheKey, modelForm);
                 }
             }
         }
-        
-        ModelForm modelForm = (ModelForm) modelFormMap.get(formName);
         if (modelForm == null) {
             throw new IllegalArgumentException("Could not find form with name [" + formName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
         return modelForm;
     }
-    
+
     public static Map<String, ModelForm> readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
         Map<String, ModelForm> modelFormMap = new HashMap<String, ModelForm>();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
             Element rootElement = formFileDoc.getDocumentElement();
-            List formElements = UtilXml.childElementList(rootElement, "form");
-            Iterator formElementIter = formElements.iterator();
-            while (formElementIter.hasNext()) {
-                Element formElement = (Element) formElementIter.next();
-                ModelForm modelForm = new ModelForm(formElement, entityModelReader, dispatchContext);
-                modelForm.setFormLocation(formLocation);
-                modelFormMap.put(modelForm.getName(), modelForm);
+            List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
+            for (Element formElement : formElements) {
+                String formName = formElement.getAttribute("name");
+                String cacheKey = formLocation + "#" + formName;
+                ModelForm modelForm = formLocationCache.get(cacheKey);
+                if (modelForm == null) {
+                    synchronized (formLocationCache) {
+                        modelForm = formLocationCache.get(cacheKey);
+                        if (modelForm == null) {
+                            modelForm = createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
+                            formLocationCache.put(cacheKey, modelForm);
+                        }
+                    }
+                }
+                modelFormMap.put(formName, modelForm);
             }
         }
         return modelFormMap;
+    }
+
+    public static ModelForm createModelForm(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
+        Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
+        return createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
+    }
+
+    public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
+        ModelForm modelForm = new ModelForm(formElement, entityModelReader, dispatchContext);
+        modelForm.setFormLocation(formLocation);
+        return modelForm;
     }
 }
