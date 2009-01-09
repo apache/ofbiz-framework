@@ -26,10 +26,10 @@ under the License.
         
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">                 
             <if-empty field="parameters.vatTaxAuthGeoId">
-                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
+                <add-error><fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/></add-error>
             </if-empty>
             <if-empty field="parameters.vatTaxAuthPartyId">
-                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
+                <add-error><fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/></add-error>
             </if-empty>
             <check-errors/>
         </if-compare>  
@@ -65,10 +65,10 @@ under the License.
 
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">                 
             <if-empty field="store.vatTaxAuthGeoId">
-                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
+                <add-error><fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/></add-error>
             </if-empty>
             <if-empty field="store.vatTaxAuthPartyId">
-                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
+                <add-error><fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/></add-error>
             </if-empty>
             <check-errors/>
         </if-compare>
