@@ -821,6 +821,9 @@
         <value xml:lang="th">เป็นไปได้</value>
         <value xml:lang="zh">恢复</value>
     </property>
+    <property key="WebtoolsEncrypted">
+        <value xml:lang="en">Encrypted</value>
+    </property>
     <property key="WebtoolsEngineName">
         <value xml:lang="en">Engine Name</value>
         <value xml:lang="fr">Nom de moteur</value>

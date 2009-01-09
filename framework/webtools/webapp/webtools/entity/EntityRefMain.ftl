@@ -95,6 +95,9 @@ under the License.
                               <#if javaName.description?has_content>
                                 <div class="descriptiontext">${javaName.description}</div>
                               </#if>
+                              <#if javaName.encrypted>
+                                <div class="descriptiontext">[${uiLabelMap.WebtoolsEncrypted}]</div>
+                              </#if>
                             </td>
                             <td>${javaName.colName}</td>
                             <td>${javaName.type}</td>
