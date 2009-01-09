@@ -3366,6 +3366,21 @@
         <value xml:lang="th">ไม่ได้ใส่หมายเลขที่ใช้ติดต่อ</value>
         <value xml:lang="zh">找不到联系号码</value>
     </property>
+    <property key="PartyContactPurpose">
+        <value xml:lang="ar">هدف الصلة</value>
+        <value xml:lang="de">Kontaktzweck</value>
+        <value xml:lang="en">Contact Purpose</value>
+        <value xml:lang="es">Propósito del contacto</value>
+        <value xml:lang="fr">But du contact</value>
+        <value xml:lang="it">Scopo contatto</value>
+        <value xml:lang="nl">Kontakt Doel</value>
+        <value xml:lang="pt">Propóstio do Contacto</value>
+        <value xml:lang="ro">Functie Contact</value>
+        <value xml:lang="ru">Цель контакта</value>
+        <value xml:lang="th">เป้าหมายการติดต่อ</value>
+        <value xml:lang="zh">联系目的</value>
+        <value xml:lang="zh_CN">联络目的</value>
+    </property>
     <property key="PartyContactPurposes">
         <value xml:lang="cs">Účel kontaktu</value>
         <value xml:lang="de">Kontaktzweck</value>
@@ -3373,7 +3388,7 @@
         <value xml:lang="es">Propósitos Del Contacto</value>
         <value xml:lang="fr">Objets des coordonnées</value>
         <value xml:lang="hi_IN">सम्पर्क विषय</value>
-        <value xml:lang="it">Funzioni contatto</value>
+        <value xml:lang="it">Scopi contatto</value>
         <value xml:lang="ja">Contact Purposes</value>
         <value xml:lang="nl">Kontaktredenen</value>
         <value xml:lang="pt_PT">Objectivos de Contacto</value>
@@ -6501,13 +6516,15 @@
         <value xml:lang="zh">会员标识/用户登录标识</value>
     </property>
     <property key="PartyPartyId">
+        <value xml:lang="ar">دليل الصلة</value>
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
         <value xml:lang="it">Codice soggetto</value>
         <value xml:lang="nl">Relatie-ID</value>
-        <value xml:lang="pt_PT">ID da Secção</value>
+        <value xml:lang="pt">ID do Participante</value>
+	<value xml:lang="pt_PT">ID da Secção</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="ru">Код участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>

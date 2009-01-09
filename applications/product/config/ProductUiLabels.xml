@@ -19514,6 +19514,28 @@
         <value xml:lang="th">การเปลี่ยนแปลง</value>
         <value xml:lang="zh">变型</value>
     </property>
+    <property key="ProductVatTaxAuthGeoNotSet">
+        <value xml:lang="ar">جيو سلطة الضريبة المضافة غير موضوع</value>
+        <value xml:lang="en">Vat Tax Authority Geo not set.</value>
+        <value xml:lang="es">No se ha fijado la zona geográfica de la Autoridad Tributaria responsable del IVA</value>
+        <value xml:lang="fr">La réf. de zone de TVA manque</value>
+	<value xml:lang="it">Autorità tasse IVA geografia non impostata.</value>
+        <value xml:lang="pt">Vat Tax Authority Geo not set.</value>
+        <value xml:lang="ru">Не установлена страна налогового органа по НДС.</value>
+        <value xml:lang="th">ไม่มีการตั้งค่าภาษี</value>
+        <value xml:lang="zh">没有设置营业税税务机关地理位置。</value>
+    </property>
+    <property key="ProductVatTaxAuthPartyNotSet">
+        <value xml:lang="ar">طرف سلطة الضريبة المضافة غير موضوع</value>
+        <value xml:lang="en">Vat Tax Auth Party not set.</value>
+        <value xml:lang="es">No se ha fijado la Autoridad Tributaria responsable del IVA</value>
+        <value xml:lang="fr">La réf. de centre de TVA manque</value>
+	<value xml:lang="it">Soggetto autorità tasse IVA non impostato.</value>
+        <value xml:lang="pt">Vat Tax Auth Party not set.</value>
+        <value xml:lang="ru">Не установлен налоговый номер по НДС.</value>
+        <value xml:lang="th">ไม่มีการตั้งค่ากลุ่มภาษี</value>
+        <value xml:lang="zh">没有设置营业税税务机关会员。</value>
+    </property>
     <property key="ProductVendorPayments">
         <value xml:lang="de">Anbieter Zahlungen</value>
         <value xml:lang="en">Vendor Payments</value>
