@@ -153,15 +153,7 @@ under the License.
     </form>
     
     <!-- copy of form from CommForms.xml because of loop problem see jira issue: OFBIZ-1914 -->
-    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" list-name="commEvents">
-        <row-actions>
-            <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
-        </row-actions>
-        <field name="communicationEventId"><hidden/></field>
-        <field name="subject">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
-        </field>
-        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+    <form name="ListCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]"/>
@@ -172,9 +164,6 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]"/>
             </display-entity>
         </field>
-        <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
 
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"

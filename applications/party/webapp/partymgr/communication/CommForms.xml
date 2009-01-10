@@ -297,12 +297,12 @@ under the License.
         <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/>
             </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyIdTo}" description="[${partyIdTo}]"/>
             </display-entity>
         </field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
