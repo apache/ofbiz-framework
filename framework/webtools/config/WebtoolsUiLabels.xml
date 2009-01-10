@@ -1230,7 +1230,7 @@
     </property>
     <property key="WebtoolsImportFile">
         <value xml:lang="en">Import File</value>
-        <value xml:lang="fr">Fichiers d'import</value>
+        <value xml:lang="fr">Importer le fichier</value>
         <value xml:lang="it">Importa File</value>
         <value xml:lang="ro">Importa File</value>
         <value xml:lang="th">นำเข้าไฟล์</value>
@@ -1238,7 +1238,7 @@
     </property>
     <property key="WebtoolsImportText">
         <value xml:lang="en">Import Text</value>
-        <value xml:lang="fr">Texte d'import</value>
+        <value xml:lang="fr">Importer le texte</value>
         <value xml:lang="it">Importa Testo</value>
         <value xml:lang="ro">Importa Text</value>
         <value xml:lang="th">นำเข้าข้อความ</value>
@@ -1852,7 +1852,7 @@
     </property>
     <property key="WebtoolsMessage6">
         <value xml:lang="en">Absolute Filename of FreeMarker template file to filter data by (optional)</value>
-        <value xml:lang="fr">Nom absolu de fichier gabarit FreeMarker utilisé pour filtrer les données (facultatif)</value>
+        <value xml:lang="fr">Nom absolu de fichier template FreeMarker utilisé pour filtrer les données (facultatif)</value>
         <value xml:lang="it">Nome file assoluto di un file template FreeMarker per filtrare i dati da (opzionale)</value>
         <value xml:lang="ro">Nume file absolut al unui file template FreeMarker pentru filtrarea datelor dupa (optional)</value>
         <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
