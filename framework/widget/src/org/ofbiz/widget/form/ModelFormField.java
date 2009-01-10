@@ -2058,9 +2058,9 @@ public class ModelFormField {
                     isoCode = this.currency.expandString(context);
                 }
                 try {
-                	BigDecimal parsedRetVal = new BigDecimal(retVal);
+                    BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale, true);
                     retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
-                } catch (NumberFormatException e) {
+                } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
