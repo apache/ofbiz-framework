@@ -17,6 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#-- TODO: Convert hard-coded text to UI label properties -->
+
 <#if security.hasEntityPermission("PAYPROC", "_VIEW", session)>
   <div class='button-bar button-style-1'>
     <a href="<@ofbizUrl>paysetup</@ofbizUrl>" class='selected'>Payment&nbsp;Setup</a>
