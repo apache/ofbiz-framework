@@ -134,6 +134,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.15.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/json-lib-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
@@ -150,6 +151,5 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
