@@ -656,24 +656,23 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 try {
                     MapStack context = MapStack.create(templateContext);
                     context.put("locale", locale);
-
                     // prepare the map for preRenderedContent
-                    Map prc = FastMap.newInstance();
                     String textData = (String) context.get("textData");
-                    String mapKey = (String) context.get("mapKey");
-                    if (mapKey != null) {
-                        prc.put(mapKey, textData);
+                    if (UtilValidate.isNotEmpty(textData)) {
+                        Map prc = FastMap.newInstance();
+                        String mapKey = (String) context.get("mapKey");
+                        if (mapKey != null) {
+                            prc.put(mapKey, mapKey);
+                        }
+                        prc.put("body", textData); // used for default screen defs
+                        context.put("preRenderedContent", prc);
                     }
-                    prc.put("body", textData); // used for default screen defs
-                    context.put("preRenderedContent", prc);
-
                     // get the screen renderer; or create a new one
                     ScreenRenderer screens = (ScreenRenderer) context.get("screens");
                     if (screens == null) {
                         screens = new ScreenRenderer(out, context, new HtmlScreenRenderer());
                         screens.getContext().put("screens", screens);
                     }
-
                     // render the screen
                     ScreenStringRenderer renderer = screens.getScreenStringRenderer();
                     String combinedName = (String) dataResource.get("objectInfo");
