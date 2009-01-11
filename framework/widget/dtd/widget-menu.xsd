@@ -468,7 +468,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute name="field-name" use="required"/>
+        <xs:attribute name="field" use="required"/>
         <xs:attribute name="method" use="required"/>
         <xs:attribute name="class" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
@@ -478,7 +478,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute name="field-name" use="required"/>
+        <xs:attribute name="field" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -519,7 +519,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute name="field-name" use="required"/>
+        <xs:attribute name="field" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -533,7 +533,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="to-field-name"/>
+        <xs:attribute name="to-field"/>
         <xs:attribute name="type" default="String">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -560,7 +560,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute name="field-name" use="required"/>
+        <xs:attribute name="field" use="required"/>
         <xs:attribute name="expr" use="required"/>
     </xs:attributeGroup>
     <xs:element name="if-empty" substitutionGroup="AllConditionals">

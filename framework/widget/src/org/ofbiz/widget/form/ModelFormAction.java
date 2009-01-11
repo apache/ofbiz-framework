@@ -20,14 +20,13 @@ package org.ofbiz.widget.form;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.PatternSyntaxException;
 import java.util.TimeZone;
+import java.util.regex.PatternSyntaxException;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -297,10 +296,11 @@ public abstract class ModelFormAction {
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
+            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
+            if (this.resultMapNameAcsr.isEmpty()) this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
-            if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-name"))) {
-                if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator-name"))) {
+            if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list")) && UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-name"))) {
+                if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator")) && UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator-name"))) {
                     String lstNm = modelForm.getListName();
                     if (UtilValidate.isEmpty(lstNm)) {
                         lstNm = ModelForm.DEFAULT_FORM_RESULT_LIST_NAME;
@@ -308,10 +308,12 @@ public abstract class ModelFormAction {
                     this.resultMapListNameExdr = FlexibleStringExpander.getInstance(lstNm);
                 } else {
                     // this is deprecated, but support it for now anyway
-                    this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
+                    this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator"));
+                    if (this.resultMapListNameExdr.isEmpty()) this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
                 }
             } else {
-                this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
+                this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list"));
+                if (this.resultMapListNameExdr.isEmpty()) this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
             }
             
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
@@ -405,14 +407,15 @@ public abstract class ModelFormAction {
             // if (!useCache) UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
             
             // make list-name optional
-            if (UtilValidate.isEmpty(entityAndElement.getAttribute("list-name"))) {
+            if (UtilValidate.isEmpty(entityAndElement.getAttribute("list")) && UtilValidate.isEmpty(entityAndElement.getAttribute("list-name"))) {
                 String lstNm = modelForm.getListName();
                 if (UtilValidate.isEmpty(lstNm)) {
                     lstNm = ModelForm.DEFAULT_FORM_RESULT_LIST_NAME;
                 }
-                entityAndElement.setAttribute("list-name", lstNm);
+                entityAndElement.setAttribute("list", lstNm);
             }
-            this.actualListName = entityAndElement.getAttribute("list-name");
+            this.actualListName = entityAndElement.getAttribute("list");
+            if (UtilValidate.isEmpty(this.actualListName)) this.actualListName = entityAndElement.getAttribute("list-name");
             finder = new ByAndFinder(entityAndElement);
         }
         
@@ -447,14 +450,15 @@ public abstract class ModelFormAction {
             // if (!useCache) UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
             
             // make list-name optional
-            if (UtilValidate.isEmpty(entityConditionElement.getAttribute("list-name"))) {
+            if (UtilValidate.isEmpty(entityConditionElement.getAttribute("list")) && UtilValidate.isEmpty(entityConditionElement.getAttribute("list-name"))) {
                 String lstNm = modelForm.getListName();
                 if (UtilValidate.isEmpty(lstNm)) {
                     lstNm = ModelForm.DEFAULT_FORM_RESULT_LIST_NAME;
                 }
-                entityConditionElement.setAttribute("list-name", lstNm);
+                entityConditionElement.setAttribute("list", lstNm);
             }
-            this.actualListName = entityConditionElement.getAttribute("list-name");
+            this.actualListName = entityConditionElement.getAttribute("list");
+            if (UtilValidate.isEmpty(this.actualListName)) this.actualListName = entityConditionElement.getAttribute("list-name");
             finder = new ByConditionFinder(entityConditionElement);
         }
         

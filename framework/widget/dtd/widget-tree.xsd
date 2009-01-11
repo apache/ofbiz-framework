@@ -225,14 +225,14 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.service">
         <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="result-map-name"/>
+        <xs:attribute type="xs:string" name="result-map"/>
         <xs:attribute type="xs:string" name="auto-field-map" default="true">
             <xs:annotation><xs:documentation>This can be "true", "false" or the name of a Map in the context to use as the source Map for the service context.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="result-map-list-name"/>
-        <xs:attribute type="xs:string" name="result-map-list-iterator-name"/>
-        <xs:attribute type="xs:string" name="result-map-value-name"/>
-        <xs:attribute type="xs:string" name="value-name"/>
+        <xs:attribute type="xs:string" name="result-map-list"/>
+        <!-- deprecated, use result-map-list instead <xs:attribute type="xs:string" name="result-map-list-iterator-name"/> -->
+        <xs:attribute type="xs:string" name="result-map-value"/>
+        <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
 
     <xs:element name="entity-and">
@@ -246,8 +246,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="list-name" />
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="list" type="xs:string"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -294,7 +294,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-condition">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -320,8 +320,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="delegator-name"/>
-        <xs:attribute type="xs:string" name="list-name" />
+        <xs:attribute name="delegator-name" type="xs:string"/>
+        <xs:attribute name="list" type="xs:string"/>
         <xs:attribute name="result-set-type" default="scroll">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -341,8 +341,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-one">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="value-name"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="value-field" type="xs:string"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -405,7 +405,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.field-map">
         <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="env-name"/>
+        <xs:attribute type="xs:string" name="from-field"/>
         <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
     <xs:element name="out-field-map">
@@ -462,7 +462,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-expr">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required"/>
         <xs:attribute name="operator" default="equals">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -478,8 +478,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="env-name"/>
-        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute name="from-field" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="ignore-if-null" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -627,7 +627,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
         <xs:attribute type="xs:string" name="method" use="required"/>
         <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
@@ -637,7 +637,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field" type="xs:string" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -670,7 +670,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute name="format" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="if-compare-field" substitutionGroup="AllConditionals">
         <xs:complexType>
@@ -678,7 +678,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field" type="xs:string" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -692,7 +692,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-field-name"/>
+        <xs:attribute name="to-field" type="xs:string"/>
         <xs:attribute name="type" default="String">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -719,7 +719,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
         <xs:attribute type="xs:string" name="expr" use="required"/>
     </xs:attributeGroup>
     <xs:element name="if-empty" substitutionGroup="AllConditionals">
@@ -728,7 +728,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
 </xs:schema>
 <!--
@@ -740,7 +740,7 @@ under the License.
                 <label text="${description} [${productCategoryId}]" style="tabletext"/>
                 <sub-node node-name="ChildProductCategory">
                     <entity-and entity-name="ProductCategoryRollup">
-                        <constraint field-name="parentProductCategoryId" env-name="productCategoryId"/>
+                        <constraint field-name="parentProductCategoryId" from-field="productCategoryId"/>
                         <order-by field-name="sequenceNum"/>
                     </entity-many>
                 </sub-node>
@@ -753,7 +753,7 @@ under the License.
                 <label text="${description} [${productCategoryId}]" style="tableheadtext"/>
                 <sub-node node-name="ChildProductCategory">
                     <entity-and entity-name="ProductCategoryRollup">
-                        <constraint field-name="parentProductCategoryId" env-name="productCategoryId"/>
+                        <constraint field-name="parentProductCategoryId" from-field="productCategoryId"/>
                         <order-by field-name="sequenceNum"/>
                     </entity-many>
                     <out-field-map field-name="productCategoryId"/>
