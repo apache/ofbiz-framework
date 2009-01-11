@@ -46,10 +46,10 @@ under the License.
     <form name="ListExamples" type="list" list-name="listIt" paginate-target="FindExample" default-entity-name="Example" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="exampleCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="exampleCtx"/>
                 <field-map field-name="entityName" value="Example"/>
-                <field-map field-name="orderBy" env-name="parameters.sortField"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
         <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
@@ -75,8 +75,8 @@ under the License.
             <display>
                 <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
-                    <field-map field-name="exampleId" env-name="exampleId"/>
-                    <field-map field-name="statusId"  env-name="statusId"/>
+                    <field-map field-name="exampleId" from-field="exampleId"/>
+                    <field-map field-name="statusId"  from-field="statusId"/>
                 </in-place-editor>
             </display>
         </field>
@@ -84,8 +84,8 @@ under the License.
             <display>
                 <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
-                    <field-map field-name="exampleId" env-name="exampleId"/>
-                    <field-map field-name="statusId"  env-name="statusId"/>
+                    <field-map field-name="exampleId" from-field="exampleId"/>
+                    <field-map field-name="statusId"  from-field="statusId"/>
                 </in-place-editor>
             </display>
         </field>
@@ -94,8 +94,8 @@ under the License.
 
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="example.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="example.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="example==null" target="createExample"/>
@@ -163,7 +163,7 @@ under the License.
     <form name="ListExampleItems" type="list"  list-name="exampleItems"  target="updateExampleItem">
         <actions>
             <entity-condition entity-name="ExampleItem">
-                <condition-expr field-name="exampleId" env-name="exampleId"/>
+                <condition-expr field-name="exampleId" from-field="exampleId"/>
                 <order-by field-name="exampleItemSeqId"/>
             </entity-condition>
         </actions>
@@ -205,7 +205,7 @@ under the License.
     <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="example_updateExampleFeatureAppl">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
-                <condition-expr field-name="exampleId" env-name="exampleId"/>
+                <condition-expr field-name="exampleId" from-field="exampleId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-condition>
         </actions>
@@ -234,11 +234,31 @@ under the License.
     <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
         <field name="exampleId"><hidden/></field>
-        <field name="exampleFeatureId" id-name="exampleFeatureId">
-            <text/>
-            <on-field-event-update-area event-type="change" area-id="exampleFeatureId" area-target="findExampleFeatures"/>
+        
+        <!-- a nice combination of the lookup option and the auto-complete, but unfortunately still requires a custom companion controller.xml request to handle AJAX data retreival -->
+        <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
+            <lookup target-form-name="LookupExampleFeature"/>
+            <on-field-event-update-area event-type="change" area-id="AddExampleFeatureAppl_exampleFeatureId" area-target="findExampleFeatures"/>
         </field>
-        <!-- <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}" id-name="exampleFeatureId"><lookup target-form-name="LookupExampleFeature"/></field> -->
+        <!-- basic example of server-side AJAX enabled option, requires use of custom companion request in controller.xml file to get data for drop-down -->
+        <!--
+            <field name="exampleFeatureId">
+            <text/>
+            <on-field-event-update-area event-type="change" area-id="AddExampleFeatureAppl_exampleFeatureId" area-target="findExampleFeatures"/>
+            </field>
+        -->
+        <!-- most feature rich for autocomplete, ie partial text entry searches the full string, doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, you HAVE to know part of the ID or description in order to see options -->
+        <!--
+        <field name="exampleFeatureId">
+            <drop-down>
+                <auto-complete/>
+                <entity-options entity-name="ExampleFeature" description="${exampleFeatureId}: ${description}">
+                    <entity-order-by field-name="exampleFeatureId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        -->
+        
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleFeatureApplType" description="${description}">
@@ -248,5 +268,4 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-
 </forms>

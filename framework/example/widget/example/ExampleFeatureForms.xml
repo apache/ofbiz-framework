@@ -32,8 +32,8 @@ under the License.
     <form name="ListExampleFeatures" type="list" list-name="listIt" paginate-target="FindExampleFeature" default-entity-name="ExampleFeature"
         separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="exampleFeatureCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="exampleFeatureCtx"/>
                 <field-map field-name="entityName" value="ExampleFeature"/>
             </service>
         </actions>
@@ -45,8 +45,8 @@ under the License.
 
     <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="exampleFeature">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="example.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="example.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="exampleFeature==null" target="createExampleFeature"/>
@@ -71,7 +71,7 @@ under the License.
     <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="feature_updateExampleFeatureAppl">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
-                <condition-expr field-name="exampleFeatureId" env-name="exampleFeatureId"/>
+                <condition-expr field-name="exampleFeatureId" from-field="exampleFeatureId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-condition>
         </actions>
@@ -136,8 +136,8 @@ under the License.
     <form name="LookupListExampleFeature" list-name="listIt" title="" type="list"
         paginate-target="LookupExampleFeature">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="description"/>
                 <field-map field-name="entityName" value="ExampleFeature"/>
             </service>

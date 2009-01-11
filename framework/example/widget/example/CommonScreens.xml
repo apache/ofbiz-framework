@@ -62,7 +62,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Example"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
-                <entity-one entity-name="Example" value-name="example"/>
+                <entity-one entity-name="Example" value-field="example"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
@@ -71,7 +71,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="EXAMPLE" action="_VIEW"/>
-                                    <not><if-empty field-name="example"/></not>
+                                    <not><if-empty field="example"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -88,7 +88,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="example"/></not>
+                                        <not><if-empty field="example"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
@@ -119,7 +119,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="ExampleFeature"/>
                 <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
-                <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
+                <entity-one entity-name="ExampleFeature" value-field="exampleFeature"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${mainDecoratorLocation}">
@@ -128,7 +128,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="EXAMPLE" action="_VIEW"/>
-                                    <not><if-empty field-name="exampleFeature"/></not>
+                                    <not><if-empty field="exampleFeature"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -145,7 +145,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="exampleFeature"/></not>
+                                        <not><if-empty field="exampleFeature"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1">
