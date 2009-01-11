@@ -89,7 +89,7 @@ public class EntitySyncServices {
             esc.setSplitStartTime(); // just run this the first time, will be updated between each loop automatically
             while (esc.hasMoreTimeToSync()) {
                 
-                // TODO make sure the following message is commented out before commit:
+                // this will result in lots of log messages, so leaving commented out unless needed/wanted later
                 // Debug.logInfo("Doing runEntitySync split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
                 
                 esc.totalSplits++;

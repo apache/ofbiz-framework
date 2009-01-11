@@ -467,6 +467,13 @@ public class GenericValue extends GenericEntity implements Reusable {
                         if (allFieldsSet) {
                             if (Debug.infoOn()) Debug.logInfo("Creating place holder value : " + newValue, module);
 
+                            // inherit create and update times from this value in order to make this not seem like new/fresh data
+                            newValue.put(ModelEntity.CREATE_STAMP_FIELD, this.get(ModelEntity.CREATE_STAMP_FIELD));
+                            newValue.put(ModelEntity.CREATE_STAMP_TX_FIELD, this.get(ModelEntity.CREATE_STAMP_TX_FIELD));
+                            newValue.put(ModelEntity.STAMP_FIELD, this.get(ModelEntity.STAMP_FIELD));
+                            newValue.put(ModelEntity.STAMP_TX_FIELD, this.get(ModelEntity.STAMP_TX_FIELD));
+                            // set isFromEntitySync so that create/update stamp fields set above will be preserved
+                            newValue.setIsFromEntitySync(true);
                             // check the FKs for the newly created entity
                             newValue.checkFks(true);
                             newValue.create();
