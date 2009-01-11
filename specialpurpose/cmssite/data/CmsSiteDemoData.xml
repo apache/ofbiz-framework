@@ -58,6 +58,8 @@ under the License.
                 <hr/>
                 <div>This is the footer!</div>
             </div>
+            </body>
+            </html>
             ]]></textData>
     </ElectronicText>
     <Content contentId="CMSS_DEMO_FOOTER" contentTypeId="DOCUMENT" contentName="CMS Site Demo Footer" dataResourceId="CMSS_DEMO_FOOTER"/>
@@ -76,6 +78,7 @@ under the License.
                 <div><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
                 <div><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></div>
                 <div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></div>
+                <div><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></div>
             </div>
             ]]></textData>
     </ElectronicText>
@@ -108,6 +111,11 @@ under the License.
     <DataResource dataResourceId="CMSS_DEMO_PAGE1_FTR" dataResourceTypeId="SHORT_TEXT" objectInfo="This is a page specific footer for Demo Page 1"/>
     <Content contentId="CMSS_DEMO_PAGE1_FTR" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_2" dataResourceId="CMSS_DEMO_PAGE1_FTR"/>
     <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_FTR" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_SCREEN" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#testScreen"/>
+    <Content contentId="CMSS_DEMO_SCREEN" contentTypeId="DOCUMENT" contentName="CMS Site Demo screen/decorator example" dataResourceId="CMSS_DEMO_SCREEN"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_SCREEN" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    
 
     <!-- 
       CmsSite (WebSite)

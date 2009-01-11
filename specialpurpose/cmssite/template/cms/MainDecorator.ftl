@@ -17,18 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
 ${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)?if_exists)}
-</head>
-
-<body>
 ${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)?if_exists)}
 
 ${decoratedContent}
 
 ${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)?if_exists)}
-</body>
-</html>
