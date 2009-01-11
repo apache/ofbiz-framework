@@ -26,7 +26,7 @@ margin: 1em;
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.VisualThemes}</li>
+      <li class="h3">${uiLabelMap.CommonVisualThemes}</li>
       <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>
@@ -45,7 +45,7 @@ margin: 1em;
             <a href="<@ofbizUrl>setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description}</a>
           </td>
           <td>
-            <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.VisualThemeSelected}<#else>&nbsp;</#if>
+            <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.CommonVisualThemeSelected}<#else>&nbsp;</#if>
           </td>
           <td>
             <#if screenshots?has_content>
@@ -53,7 +53,7 @@ margin: 1em;
                 <a href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150"/></a>
               </#list>
            <#else>
-              ${uiLabelMap.VisualThemeNoScreenshots}
+              ${uiLabelMap.CommonVisualThemeNoScreenshots}
             </#if>
           </td>
         </tr>

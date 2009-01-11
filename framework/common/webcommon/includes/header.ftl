@@ -105,10 +105,10 @@ under the License.
         <li>
           <#if person?has_content>
             ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
+            <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
           <#elseif partyGroup?has_content>
             ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
+            <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
           <#else>
             ${uiLabelMap.CommonWelcome}!
           </#if>
@@ -131,17 +131,17 @@ under the License.
         <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
           <#if userLogin?exists>
             <p class="expanded">
-              <a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" class="buttontext">${uiLabelMap.VisualThemes}</a>
+              <a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonVisualThemes}</a>
               <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
             </p>
           </#if>
           <p>
           <#if person?has_content>
             ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
+            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
           <#elseif partyGroup?has_content>
             ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
+            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
           <#else>
             ${uiLabelMap.CommonWelcome}!
           </#if>
