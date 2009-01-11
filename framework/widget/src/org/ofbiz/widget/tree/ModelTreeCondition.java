@@ -19,7 +19,6 @@
 package org.ofbiz.widget.tree;
 
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,6 +26,12 @@ import java.util.TimeZone;
 
 import javolution.util.FastList;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -37,13 +42,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
 import org.ofbiz.security.Security;
-
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternCompiler;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
 import org.w3c.dom.Element;
 
 /**
@@ -235,7 +233,8 @@ public class ModelTreeCondition {
         
         public IfValidateMethod(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
@@ -297,7 +296,8 @@ public class ModelTreeCondition {
         
         public IfCompare(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -323,9 +323,8 @@ public class ModelTreeCondition {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
                 StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append((String) message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -346,8 +345,10 @@ public class ModelTreeCondition {
         
         public IfCompareField(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
+            if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -372,9 +373,8 @@ public class ModelTreeCondition {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
 
                 StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append((String) message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -394,7 +394,8 @@ public class ModelTreeCondition {
         
         public IfRegexp(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
@@ -428,7 +429,8 @@ public class ModelTreeCondition {
         
         public IfEmpty(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -451,6 +453,3 @@ public class ModelTreeCondition {
         }
     }
 }
-
-
-

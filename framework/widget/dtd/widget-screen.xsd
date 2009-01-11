@@ -196,7 +196,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
         <xs:attribute type="xs:string" name="method" use="required"/>
         <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
@@ -206,7 +206,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field" type="xs:string" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -220,7 +220,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="value" use="required"/>
+        <xs:attribute name="value" type="xs:string" use="required"/>
         <xs:attribute name="type" default="String">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -247,7 +247,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field" type="xs:string" use="required"/>
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -261,7 +261,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-field-name"/>
+        <xs:attribute name="to-field" type="xs:string"/>
         <xs:attribute name="type" default="String">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -288,7 +288,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
         <xs:attribute type="xs:string" name="expr" use="required"/>
     </xs:attributeGroup>
     <xs:element name="if-empty" substitutionGroup="AllConditionals">
@@ -297,7 +297,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
 
     <!-- ================ ACTIONS ================ -->
@@ -420,7 +420,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.service">
         <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="result-map-name"/>
+        <xs:attribute type="xs:string" name="result-map"/>
         <xs:attribute type="xs:string" name="auto-field-map" default="true">
             <xs:annotation><xs:documentation>This can be "true", "false" or the name of a Map in the context to use as the source Map for the service context.</xs:documentation></xs:annotation>
         </xs:attribute>
@@ -460,7 +460,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list" use="required"/>
         <xs:attribute name="result-set-type" default="scroll">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -518,7 +518,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="delegator-name"/>
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list" use="required"/>
         <xs:attribute name="result-set-type" default="scroll">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -538,8 +538,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-one">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="value-field" type="xs:string" use="required"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -563,10 +563,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related-one">
-        <xs:attribute name="value-name" type="xs:string" use="required"/>
+        <xs:attribute name="value-field" type="xs:string" use="required"/>
         <xs:attribute name="relation-name" type="xs:string" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
-        <xs:attribute type="xs:string" name="to-value-name" use="required"/>
+        <xs:attribute name="use-cache" type="xs:string" default="false"/>
+        <xs:attribute name="to-value-field" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="get-related" substitutionGroup="AllActions">
         <xs:complexType>
@@ -574,12 +574,12 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-field" use="required"/>
         <xs:attribute type="xs:string" name="relation-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="order-by-list-name"/>
+        <xs:attribute type="xs:string" name="map"/>
+        <xs:attribute type="xs:string" name="order-by-list"/>
         <xs:attribute type="xs:string" name="use-cache" default="false"/>
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list" use="required"/>
     </xs:attributeGroup>
     <xs:element name="condition-list">
         <xs:complexType>
@@ -643,7 +643,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="env-name"/>
+        <xs:attribute type="xs:string" name="from-field"/>
         <xs:attribute type="xs:string" name="value"/>
         <xs:attribute name="ignore-if-null" default="false">
             <xs:simpleType>

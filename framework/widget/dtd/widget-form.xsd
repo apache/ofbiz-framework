@@ -1440,12 +1440,12 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.service">
         <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="result-map-name"/>
+        <xs:attribute type="xs:string" name="result-map"/>
         <xs:attribute type="xs:string" name="auto-field-map" default="true">
             <xs:annotation><xs:documentation>This can be "true", "false" or the name of a Map in the context to use as the source Map for the service context.</xs:documentation></xs:annotation>
         </xs:attribute>
         <!-- this is deprecated and should not be used; use result-map-list-name instead: <xs:attribute type="xs:string" name="result-map-list-iterator-name"/> -->
-        <xs:attribute type="xs:string" name="result-map-list-name"/>
+        <xs:attribute type="xs:string" name="result-map-list"/>
     </xs:attributeGroup>
     <xs:element name="set" substitutionGroup="AllActions">
         <xs:complexType>
@@ -1502,8 +1502,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="list-name" use="optional"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="list" type="xs:string" use="optional"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1551,8 +1551,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-condition">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="list-name" use="optional"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="list" type="xs:string" use="optional"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1599,7 +1599,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.entity-one">
         <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="value-name"/>
+        <xs:attribute type="xs:string" name="value-field"/>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1624,7 +1624,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-expr">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required"/>
         <xs:attribute name="operator" default="equals">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1640,8 +1640,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="env-name"/>
-        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute name="from-field" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="ignore-if-null" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1701,7 +1701,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-object">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
     <xs:element name="field-map">
         <xs:complexType>
@@ -1710,7 +1710,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.field-map">
         <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="env-name"/>
+        <xs:attribute type="xs:string" name="from-field"/>
         <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
     <xs:element name="having-condition-list">

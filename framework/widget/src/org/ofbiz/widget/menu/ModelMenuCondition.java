@@ -100,10 +100,8 @@ public class ModelMenuCondition {
     
     public static List<MenuCondition> readSubConditions(ModelMenuItem modelMenuItem, Element conditionElement) {
         List<MenuCondition> condList = FastList.newInstance();
-        List subElementList = UtilXml.childElementList(conditionElement);
-        Iterator subElementIter = subElementList.iterator();
-        while (subElementIter.hasNext()) {
-            Element subElement = (Element) subElementIter.next();
+        List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
+        for (Element subElement: subElementList) {
             condList.add(readCondition(modelMenuItem, subElement));
         }
         return condList;
@@ -143,7 +141,7 @@ public class ModelMenuCondition {
     }
     
     public static class And extends MenuCondition {
-        protected List subConditions;
+        protected List<MenuCondition> subConditions;
         
         public And(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
@@ -152,9 +150,7 @@ public class ModelMenuCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                MenuCondition subCondition = (MenuCondition) subConditionIter.next();
+        	for (MenuCondition subCondition: this.subConditions) {
                 if (!subCondition.eval(context)) {
                     return false;
                 }
@@ -164,7 +160,7 @@ public class ModelMenuCondition {
     }
     
     public static class Xor extends MenuCondition {
-        protected List subConditions;
+        protected List<MenuCondition> subConditions;
         
         public Xor(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
@@ -174,9 +170,7 @@ public class ModelMenuCondition {
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                MenuCondition subCondition = (MenuCondition) subConditionIter.next();
+        	for (MenuCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     if (foundOneTrue) {
                         // now found two true, so return false
@@ -191,7 +185,7 @@ public class ModelMenuCondition {
     }
     
     public static class Or extends MenuCondition {
-        protected List subConditions;
+        protected List<MenuCondition> subConditions;
         
         public Or(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
@@ -200,9 +194,7 @@ public class ModelMenuCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                MenuCondition subCondition = (MenuCondition) subConditionIter.next();
+        	for (MenuCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     return true;
                 }
@@ -225,7 +217,7 @@ public class ModelMenuCondition {
         }
     }
 
-        public static class IfServicePermission extends MenuCondition {
+    public static class IfServicePermission extends MenuCondition {
         protected FlexibleStringExpander serviceExdr;
         protected FlexibleStringExpander actionExdr;
         protected FlexibleStringExpander resExdr;
@@ -337,7 +329,8 @@ public class ModelMenuCondition {
         
         public IfValidateMethod(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
@@ -399,7 +392,8 @@ public class ModelMenuCondition {
         
         public IfCompare(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -425,9 +419,8 @@ public class ModelMenuCondition {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
                 StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append((String) message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -448,8 +441,10 @@ public class ModelMenuCondition {
         
         public IfCompareField(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
+            if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -474,9 +469,8 @@ public class ModelMenuCondition {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
 
                 StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append((String) message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -496,7 +490,8 @@ public class ModelMenuCondition {
         
         public IfRegexp(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
@@ -553,6 +548,3 @@ public class ModelMenuCondition {
         }
     }
 }
-
-
-

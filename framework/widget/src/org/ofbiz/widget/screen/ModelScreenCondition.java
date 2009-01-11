@@ -20,7 +20,6 @@ package org.ofbiz.widget.screen;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,22 +27,29 @@ import java.util.TimeZone;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entityext.permission.EntityPermissionChecker;
-import org.ofbiz.minilang.operation.BaseCompare;
-import org.ofbiz.security.Security;
-import org.ofbiz.service.*;
-
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
 import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entityext.permission.EntityPermissionChecker;
+import org.ofbiz.minilang.operation.BaseCompare;
+import org.ofbiz.security.Security;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -322,7 +328,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfValidateMethod(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
@@ -384,7 +391,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfCompare(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -432,8 +440,10 @@ public class ModelScreenCondition implements Serializable {
         
         public IfCompareField(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
+            if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -479,7 +489,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfRegexp(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
@@ -513,7 +524,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfEmpty(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {

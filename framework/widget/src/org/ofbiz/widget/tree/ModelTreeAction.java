@@ -18,13 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.widget.tree;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.PatternSyntaxException;
 import java.util.TimeZone;
+import java.util.regex.PatternSyntaxException;
 
 import javolution.util.FastMap;
 
@@ -45,7 +44,6 @@ import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -213,7 +211,6 @@ public abstract class ModelTreeAction {
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
-        protected FlexibleStringExpander resultMapListIteratorNameExdr;
         protected FlexibleStringExpander resultMapValueNameExdr;
         protected FlexibleStringExpander valueNameExdr;
         protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
@@ -231,12 +228,16 @@ public abstract class ModelTreeAction {
         public void initService( Element serviceElement ) {
             
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
+            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
+            if (this.resultMapNameAcsr.isEmpty()) this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
-            this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
-            this.resultMapListIteratorNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
-            this.resultMapValueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-value-name"));
-            this.valueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("value-name"));
+            this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list"));
+            if (this.resultMapListNameExdr.isEmpty()) this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
+            if (this.resultMapListNameExdr.isEmpty()) this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
+            this.resultMapValueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-value"));
+            if (this.resultMapValueNameExdr.isEmpty()) this.resultMapValueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-value-name"));
+            this.valueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("value"));
+            if (this.valueNameExdr.isEmpty()) this.valueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("value-name"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
         
@@ -280,19 +281,20 @@ public abstract class ModelTreeAction {
                     context.putAll(result);
                 }
                 String resultMapListName = resultMapListNameExdr.expandString(context);
-                String resultMapListIteratorName = resultMapListIteratorNameExdr.expandString(context);
+                //String resultMapListIteratorName = resultMapListIteratorNameExdr.expandString(context);
                 String resultMapValueName = resultMapValueNameExdr.expandString(context);
                 String valueName = valueNameExdr.expandString(context);
                 
                 if (this.modelSubNode != null) {
                     //ListIterator iter = null;
-                    if (UtilValidate.isNotEmpty(resultMapListIteratorName)) {
-                        ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(result.get(resultMapListIteratorName));
-                        this.modelSubNode.setListIterator(listIt);
-                    } else if (UtilValidate.isNotEmpty(resultMapListName)) {
+                    if (UtilValidate.isNotEmpty(resultMapListName)) {
                         List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
-                        if (lst != null ) {
-                            this.modelSubNode.setListIterator(lst.listIterator());
+                        if (lst != null) {
+                        	if (lst instanceof ListIterator) {
+                                this.modelSubNode.setListIterator((ListIterator) lst);
+                        	} else {
+                        		this.modelSubNode.setListIterator(lst.listIterator());
+                        	}
                         }
                     }
                 } else {
@@ -319,8 +321,11 @@ public abstract class ModelTreeAction {
         
         public EntityOne(ModelTree.ModelNode modelNode, Element entityOneElement) {
             super (modelNode, entityOneElement);
-            this.valueName = UtilFormatOut.checkEmpty(entityOneElement.getAttribute("value-name"), null); 
-            entityOneElement.setAttribute( "value-name", this.valueName);
+            
+            this.valueName = UtilFormatOut.checkEmpty(entityOneElement.getAttribute("value"), entityOneElement.getAttribute("value-name"));
+            if (UtilValidate.isEmpty(this.valueName)) this.valueName = null;
+            entityOneElement.setAttribute("value", this.valueName);
+            
             finder = new PrimaryKeyFinder(entityOneElement);
         }
         
@@ -343,10 +348,12 @@ public abstract class ModelTreeAction {
             super (modelSubNode, entityAndElement);
             boolean useCache = "true".equalsIgnoreCase(entityAndElement.getAttribute("use-cache"));
             Document ownerDoc = entityAndElement.getOwnerDocument();
-            if (!useCache)
-                UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
-            this.listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list-name"), "_LIST_ITERATOR_"); 
+            if (!useCache) UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
+            
+            this.listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list"), entityAndElement.getAttribute("list-name")); 
+            if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
             entityAndElement.setAttribute( "list-name", this.listName);
+            
             finder = new ByAndFinder(entityAndElement);
         }
         
@@ -380,11 +387,12 @@ public abstract class ModelTreeAction {
             super (modelSubNode, entityConditionElement);
             Document ownerDoc = entityConditionElement.getOwnerDocument();
             boolean useCache = "true".equalsIgnoreCase(entityConditionElement.getAttribute("use-cache"));
-            if (!useCache)
-                UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
+            if (!useCache) UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
                
-            this.listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list-name"), "_LIST_ITERATOR_"); 
+            this.listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list"), entityConditionElement.getAttribute("list-name")); 
+            if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
             entityConditionElement.setAttribute( "list-name", this.listName);
+
             finder = new ByConditionFinder(entityConditionElement);
         }
         
