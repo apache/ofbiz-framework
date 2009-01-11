@@ -118,7 +118,7 @@ under the License.
     
         <if-empty field="uomConversion">
             <!-- if still no uom conversion entity, then no conversion is possible -->
-            <add-error><fail-property property="NoUomConversionFound" resource="CommonUiLabels"/></add-error>
+            <add-error><fail-property property="CommonNoUomConversionFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>        
         <else>
             <!-- Do custom conversion, if we have customMethodId -->
@@ -164,7 +164,7 @@ under the License.
         <entity-one entity-name="CustomMethod" value-field="customMethod" auto-field-map="true" use-cache="true"/>
         
         <if-empty field="customMethod.customMethodName">
-            <add-error> <fail-property property="NoCustomMethodName" resource="CommonUiLabels"/> </add-error>
+            <add-error> <fail-property property="CommonNoCustomMethodName" resource="CommonUiLabels"/> </add-error>
             <check-errors/>
         <else>
             <log level="verbose" message="calling custom method ${customMethod.customMethodName}"/>
@@ -198,7 +198,7 @@ under the License.
     <simple-method method-name="getVisualThemeResources" short-description="Get visual theme resources" login-required="false">
         <set field="visualThemeId" from-field="parameters.visualThemeId"/>
         <if-empty field="visualThemeId">
-            <add-error><fail-property property="VisualThemeIdNotFound" resource="CommonUiLabels"/></add-error>
+            <add-error><fail-property property="CommonVisualThemeIdNotFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>
         </if-empty>
         <set field="themeResources" from-field="parameters.themeResources"/>
@@ -208,14 +208,14 @@ under the License.
             <order-by field-name="sequenceId"/>
         </entity-condition>
         <if-empty field="resourceList">
-            <add-error><fail-property property="VisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
+            <add-error><fail-property property="CommonVisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>
         </if-empty>
         <iterate list="resourceList" entry="resourceRecord">
             <set field="resourceTypeEnumId" from-field="resourceRecord.resourceTypeEnumId"/>
             <set field="resourceValue" from-field="resourceRecord.resourceValue"/>
             <if-empty field="resourceValue">
-                <property-to-field field="warningMsg" property="VisualThemeInvalidRecord" resource="CommonUiLabels"/>
+                <property-to-field field="warningMsg" property="CommonVisualThemeInvalidRecord" resource="CommonUiLabels"/>
                 <log level="warning" message="${warningMsg}"/>
                 <else>
                     <set field="themeResources.${resourceTypeEnumId}[]" from-field="resourceValue"/>

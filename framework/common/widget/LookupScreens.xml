@@ -89,7 +89,7 @@ under the License.
     <screen name="LookupVisualThemes">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.VisualThemes}"/>
+                <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
                 <entity-condition entity-name="VisualTheme" list-name="visualThemes"/>
             </actions>
             <widgets>
