@@ -1089,9 +1089,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:double" name="frequency" default="0.4"/>
-        <xs:attribute type="xs:positiveInteger" name="min-chars" default="1"/>
-        <xs:attribute type="xs:positiveInteger" name="choices" default="10"/>
+        <xs:attribute name="frequency" type="xs:double" default="0.4"/>
+        <xs:attribute name="min-chars" type="xs:positiveInteger" default="1"/>
+        <xs:attribute name="choices" type="xs:positiveInteger" default="10"/>
         <xs:attribute name="partial-search" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1100,7 +1100,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:positiveInteger" name="partial-chars" default="2"/>
+        <xs:attribute name="partial-chars" type="xs:positiveInteger" default="1"/>
         <xs:attribute name="ignore-case" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1109,7 +1109,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="full-search" default="false">
+        <xs:attribute name="full-search" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
