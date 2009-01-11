@@ -16,6 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${(decoratedContent.subcontent.title.render)?default("CMS Site Generic Title (Set subcontent 'title' on your content!)")}</title>
     <link rel="shortcut icon" href="/images/ofbiz.ico" />    
@@ -30,3 +34,6 @@ under the License.
     
     <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)?default("")}"/>
     <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)?default("")}"/>
+</head>
+<body>
+    
