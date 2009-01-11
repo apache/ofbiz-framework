@@ -1076,7 +1076,11 @@ public class ModelFormField {
     }
 
     public String getIdName() {
-        return idName;
+    	if (UtilValidate.isNotEmpty(idName)) {
+            return idName;
+    	} else {
+    		return this.modelForm.getName() + "_" + this.getFieldName();
+    	}
     }
     
     public String getHeaderLink() {
@@ -3257,12 +3261,18 @@ public class ModelFormField {
         protected FlexibleStringExpander formName;
         protected String descriptionFieldName;
         protected String targetParameter;
+        protected SubHyperlink subHyperlink;
         
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
             this.descriptionFieldName = element.getAttribute("description-field-name");
             this.targetParameter = element.getAttribute("target-parameter");
+
+            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
+            if (subHyperlinkElement != null) {
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+            }
         }
 
         public LookupField(int fieldSource, ModelFormField modelFormField) {
@@ -3298,6 +3308,10 @@ public class ModelFormField {
 
         public void setDescriptionFieldName(String str) {
             this.descriptionFieldName = str;
+        }
+        
+        public SubHyperlink getSubHyperlink() {
+        	return this.subHyperlink;
         }
     }
 

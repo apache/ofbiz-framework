@@ -711,7 +711,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelForm modelForm = modelFormField.getModelForm();
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         boolean ajaxEnabled = autoComplete != null && this.javaScriptEnabled;
-        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -767,7 +767,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             
             if (UtilValidate.isNotEmpty(currentValue)) {
                 writer.append(" value=\"");
-                String explicitDescription = dropDownField.getCurrentDescription(context);
+                //String explicitDescription = dropDownField.getCurrentDescription(context);
                 writer.append(currentValue);
                 writer.append('"');
             }
@@ -778,20 +778,22 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
             writer.append("var data = {");
-            Iterator optionValueIter = allOptionValues.iterator();
             int count = 0;
-            while (optionValueIter.hasNext()) {
+            for (ModelFormField.OptionValue optionValue: allOptionValues) {
             	count++;
-                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
-                writer.append(""+optionValue.getKey()+": ");
-                writer.append(" '"+optionValue.getDescription()+"'");
+                writer.append("" + optionValue.getKey() + ": ");
+                writer.append(" '" + optionValue.getDescription() + "'");
                 if (count != allOptionValues.size()) {
                 	writer.append(", ");
                 }
             }
             writer.append("};");
             appendWhitespace(writer);
-            writer.append("ajaxAutoCompleteDropDown('"+textFieldIdName+"', '"+idName+"', data, {autoSelect: "+autoComplete.getAutoSelect()+", frequency: "+autoComplete.getFrequency()+", minChars: "+autoComplete.getMinChars()+", choices: "+autoComplete.getChoices()+", partialSearch: "+autoComplete.getPartialSearch()+", partialChars: "+autoComplete.getPartialChars()+", ignoreCase: "+autoComplete.getIgnoreCase()+", fullSearch: "+autoComplete.getFullSearch()+"});");
+            writer.append("ajaxAutoCompleteDropDown('" + textFieldIdName + "', '" + idName + "', data, {autoSelect: " + 
+            		autoComplete.getAutoSelect() + ", frequency: " + autoComplete.getFrequency() + ", minChars: " + autoComplete.getMinChars() + 
+            		", choices: " + autoComplete.getChoices() + ", partialSearch: " + autoComplete.getPartialSearch() + 
+            		", partialChars: " + autoComplete.getPartialChars() + ", ignoreCase: " + autoComplete.getIgnoreCase() + 
+            		", fullSearch: " + autoComplete.getFullSearch() + "});");
             appendWhitespace(writer);
             writer.append("</script>");
         } else {
@@ -2178,14 +2180,39 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append('"');
         }
 
-        if (!lookupField.getClientAutocompleteField()) {
+        String idName = modelFormField.getIdName();
+        if (UtilValidate.isNotEmpty(idName)) {
+            writer.append(" id=\"");
+            writer.append(idName);
+            writer.append('"');
+        }
+
+        List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
+        boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
+        if (!lookupField.getClientAutocompleteField() || ajaxEnabled) {
             writer.append(" autocomplete=\"off\"");
         }
 
         writer.append("/>");
+        
+        this.addAsterisks(writer, context, modelFormField);
 
-        String descriptionFieldName = lookupField.getDescriptionFieldName();
+        this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
+
+        this.appendTooltip(writer, context, modelFormField);
+
+        if (ajaxEnabled) {
+            appendWhitespace(writer);
+            writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(writer);
+            writer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
+            appendWhitespace(writer);
+            writer.append("</script>");
+        }
+        appendWhitespace(writer);
+
         // add lookup pop-up button 
+        String descriptionFieldName = lookupField.getDescriptionFieldName();
         if (UtilValidate.isNotEmpty(descriptionFieldName)) {
             writer.append("<a href=\"javascript:call_fieldlookup3(document.");
             writer.append(modelFormField.getModelForm().getCurrentFormName(context));
