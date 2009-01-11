@@ -73,7 +73,7 @@ under the License.
             <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
-        <field name="invoiceDate"><display/></field>
+        <field name="invoiceDate"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="description"><display/></field>
         <field name="partyIdFrom">
@@ -82,7 +82,6 @@ under the License.
         <field name="partyIdTo" parameter-name="partyId">
             <hyperlink target="/partymgr/control/PartyFinancialHistory?partyId=${partyId}" target-type="inter-app" description="${partyNameResultTo.fullName} [${partyId}]"/>
         </field>
-        <field name="invoiceDate"><display description="${date:dateStr(invoiceDate)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
