@@ -66,7 +66,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
-                <entity-one entity-name="Example" value-name="example"/>
+                <entity-one entity-name="Example" value-field="example"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
@@ -84,7 +84,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
-                <entity-one entity-name="Example" value-name="example"/>
+                <entity-one entity-name="Example" value-field="example"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
