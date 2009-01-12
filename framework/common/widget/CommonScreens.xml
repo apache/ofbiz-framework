@@ -120,7 +120,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
@@ -135,7 +135,7 @@ under the License.
                 <property-to-field resource="general" property="defaultOrganizationPartyId" field="defaultOrganizationPartyIdProperties"/>
                 <set field="defaultOrganizationPartyId" value="${bsh:&quot;DEFAULT&quot;.equals(userPreferences.get(&quot;ORGANIZATION_PARTY&quot;))?defaultOrganizationPartyIdProperties:userPreferences.get(&quot;ORGANIZATION_PARTY&quot;)}" global="true"/>
                 <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
-                <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
+                <entity-one entity-name="PartyAcctgPrefAndGroup" value-name="orgParty">
                     <field-map field-name="partyId" env-name="defaultOrganizationPartyId"/>
                 </entity-one>
                 <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="defaultCurrencyUomId" global="true"/>
@@ -150,14 +150,24 @@ under the License.
                 <!-- render appheader: both menu widget style and ftl template style menus are supported-->
                 <section>
                     <condition>
-                        <if-empty field="applicationMenuName"/>
+                        <not><if-empty field-name="userLogin"/></not>
                     </condition>
                     <widgets>
-                        <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                        <section>
+                            <condition>
+                                <if-empty field-name="applicationMenuName"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="apptitle">${parameters.applicationTitle}</label>
+                                <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
+                            </fail-widgets>
+                        </section>
                     </widgets>
                     <fail-widgets>
-                        <label style="apptitle">${applicationTitle}</label>
-                        <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
+                        <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/>
                     </fail-widgets>
                 </section>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
@@ -180,7 +190,7 @@ under the License.
                 <!-- render footer -->
                 <section>
                     <condition>
-                        <if-empty field="applicationFooterTemplate"/>
+                        <if-empty field-name="applicationFooterTemplate"/>
                     </condition>
                     <widgets>
                         <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
@@ -388,7 +398,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-empty field="titleProperty"/>
+                        <if-empty field-name="titleProperty"/>
                     </condition>
                     <widgets>
                         <container style="h1">
