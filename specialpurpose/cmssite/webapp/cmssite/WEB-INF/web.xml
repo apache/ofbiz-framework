@@ -44,6 +44,11 @@ under the License.
         <param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
     </context-param>
+    <context-param>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://cmssite/widget/CmssiteScreens.xml</param-value>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+    </context-param>
     
     <filter>
         <filter-name>ContextFilter</filter-name>
