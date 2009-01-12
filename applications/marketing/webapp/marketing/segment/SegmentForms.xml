@@ -30,12 +30,12 @@ under the License.
                 <field-map field-name="noConditionFind" value="Y"/>
             </service>
         </actions>
-        <field name="segmentGroupId" widget-style="buttontext" title="${uiLabelMap.SegmentGroupSegmentGroupId}">
+        <field name="segmentGroupId" widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
             <hyperlink also-hidden="false" description="${segmentGroupId}" target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
         </field>
-        <field name="segmentGroupTypeId" title="${uiLabelMap.SegmentGroupSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType" description="${description}"/></field>
+        <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType" description="${description}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="productStoreId" title="${uiLabelMap.SegmentGroupProductStoreId}"><display/></field>
+        <field name="productStoreId" title="${uiLabelMap.MarketingSegmentGroupProductStoreId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSegmentGroup?segmentGroupId=${segmentGroupId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -45,11 +45,11 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="segmentGroup==null" target="createSegmentGroup"/>
         
-        <field use-when="segmentGroup!=null" name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="segmentGroup==null&amp;&amp;segmentGroupId==null" name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}"><ignored/></field>
-        <field use-when="segmentGroup==null&amp;&amp;segmentGroupId!=null" name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${segmentGroupId}]"><display/></field>
+        <field use-when="segmentGroup!=null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="segmentGroup==null&amp;&amp;segmentGroupId==null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}"><ignored/></field>
+        <field use-when="segmentGroup==null&amp;&amp;segmentGroupId!=null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${segmentGroupId}]"><display/></field>
 
-        <field name="segmentGroupTypeId" title="${uiLabelMap.SegmentGroupSegmentGroupTypeId}">
+        <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="SegmentGroupType" key-field-name="segmentGroupTypeId">
                     <entity-order-by field-name="description"/>
@@ -101,7 +101,7 @@ under the License.
         
         <field name="segmentGroupId"><hidden/></field>
         
-        <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><lookup target-form-name="LookupGeo"/></field>
+        <field name="geoId" title="${uiLabelMap.MarketingSegmentGroupGeoId}"><lookup target-form-name="LookupGeo"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="listSegmentGroupGeo" list-name="segmentGroupGeos" target="" title="" type="list" paginate-target="listSegmentGroupGeo"
@@ -112,7 +112,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="segmentGroupId"><hidden/></field>
-        <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
+        <field name="geoId" title="${uiLabelMap.MarketingSegmentGroupGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSegmentGroupGeo?segmentGroupId=${segmentGroupId}&amp;geoId=${geoId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>

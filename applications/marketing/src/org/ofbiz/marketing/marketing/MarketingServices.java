@@ -62,7 +62,7 @@ public class MarketingServices {
             Map<String, Object> input = UtilMisc.<String, Object>toMap("contactListId", contactListId);
             GenericValue contactList = delegator.findByPrimaryKey("ContactList", input);
             if (contactList == null) {
-                String error = UtilProperties.getMessage(resourceMarketing, "ContactListNotFound", input, locale);
+                String error = UtilProperties.getMessage(resourceMarketing, "MarketingContactListNotFound", input, locale);
                 return ServiceUtil.returnError(error);
             }
 

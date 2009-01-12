@@ -57,7 +57,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link text="${uiLabelMap.SegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
+                                                <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
                                                 <include-form name="FindSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
                                             </widgets>
                                         </section>
@@ -96,7 +96,7 @@ under the License.
                                     <condition><not><if-empty field-name="segmentGroupId"/></not></condition>
                                     <widgets>
                                         <include-menu location="component://marketing/webapp/marketing/segment/SegmentMenus.xml" name="SegmentGroupTabBar"/>
-                                        <container><link text="${uiLabelMap.SegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
+                                        <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
                                     </widgets>
                                 </section>
 
@@ -176,7 +176,7 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <screenlet id="AddSegmentGroupClassPanel" title="${uiLabelMap.SegmentGroupClassCreate}" collapsible="true">
+                                <screenlet id="AddSegmentGroupClassPanel" title="${uiLabelMap.MarketingSegmentGroupClassCreate}" collapsible="true">
                                     <include-form name="AddSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
                                 </screenlet>
                                 <include-form name="listSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>

@@ -318,7 +318,7 @@ under the License.
 
     <form name="LookupCommEvent" type="single" target="LookupCommEvent"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}"><text-find/></field>
+        <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
@@ -328,7 +328,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
@@ -366,7 +366,7 @@ under the License.
                 <field-map field-name="entityName" value="CommunicationEvent"/>
             </service>
         </actions>
-        <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}" widget-style="smallSubmit">
+        <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${communicationEventId}" target="javascript:set_value('${communicationEventId}')" target-type="plain"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}">
@@ -376,7 +376,7 @@ under the License.
             <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="custRequestId" position="1" title="${uiLabelMap.PartyServicemgntCustRequestId}"><display/></field>

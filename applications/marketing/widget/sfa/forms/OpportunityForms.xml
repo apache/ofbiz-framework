@@ -102,7 +102,7 @@ under the License.
             </drop-down>
         </field>
         <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text size="25"/></field>
-        <field name="dataSourceId" position="2" title="${uiLabelMap.DataSourceLabel}">
+        <field name="dataSourceId" position="2" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="SLSOPP_SRC"/>
@@ -115,7 +115,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description" title="${uiLabelMap.SegmentGroupDescription}"><textarea/></field>
+        <field name="description" title="${uiLabelMap.MarketingSegmentGroupDescription}"><textarea/></field>
         <field name="nextStep" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
@@ -131,9 +131,9 @@ under the License.
         <field name="estimatedCloseDate" position="1" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="opportunityStageId" position="2" title="${uiLabelMap.SfaInitialStage}"><display/></field>
         <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><display/></field>
-        <field name="dataSourceId" position="2" title="${uiLabelMap.DataSourceLabel}"><display/></field>
+        <field name="dataSourceId" position="2" title="${uiLabelMap.SfaDataSourceLabel}"><display/></field>
         <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}"><display/></field>
-        <field name="description" position="1" title="${uiLabelMap.SegmentGroupDescription}"><display/></field>
+        <field name="description" position="1" title="${uiLabelMap.MarketingSegmentGroupDescription}"><display/></field>
         <field name="nextStep" position="1" title="${uiLabelMap.SfaNextStep}"><display/></field>
     </form>
 </forms>

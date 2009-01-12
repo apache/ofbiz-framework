@@ -48,7 +48,7 @@ under the License.
       </div>
     </div>
     <div class="center right">
-      <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.AccountInformation}</div></div>
+      <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommerceAccountInformation}</div></div>
       <div id="userNameAndPasswordPanel">
         <div class="form-row">
           <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}* <span id="advice-required-username" style="display: none" class="errorMessage">(required)</span></label></div>
