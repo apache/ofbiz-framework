@@ -19,10 +19,13 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-     <menu name="CommonAppBarMenu" default-menu-item-name="main" id="app-navigation" type="simple"
+    <menu name="CommonAppBarMenu" default-menu-item-name="main" id="app-navigation" type="simple" title="${applicationTitle}&amp;nbsp;"
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
-         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
-         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="main"/>
+        </menu-item>
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
              <condition><not><if-empty field-name="userLogin"/></not></condition>
              <link target="logout"/>
          </menu-item>
