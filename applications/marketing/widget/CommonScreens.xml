@@ -26,6 +26,7 @@ under the License.
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.MarketingCompanyName" global="true"/>
@@ -69,7 +70,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="ContactListTabBar" location="component://marketing/webapp/marketing/contact/ContactListMenus.xml"/>
                                         <container>
-                                            <label style="h1">${uiLabelMap.ContactList} ${contactList.contactListName} [${contactListId}]</label>
+                                            <label style="h1">${uiLabelMap.MarketingContactList} ${contactList.contactListName} [${contactListId}]</label>
                                         </container>
                                     </widgets>
                                 </section>

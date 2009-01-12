@@ -21,9 +21,9 @@ under the License.
     <menu name="MarketingAppBar" title="${uiLabelMap.MarketingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="FindDataSource"/></menu-item>
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>
-        <menu-item name="Tracking" title="${uiLabelMap.Tracking}"><link target="FindTrackingCode"/></menu-item>
-        <menu-item name="Segment" title="${uiLabelMap.Segment}"><link target="FindSegmentGroup"/></menu-item>
-        <menu-item name="ContactList" title="${uiLabelMap.ContactList}"><link target="FindContactLists"/></menu-item>
+        <menu-item name="Tracking" title="${uiLabelMap.MarketingTracking}"><link target="FindTrackingCode"/></menu-item>
+        <menu-item name="Segment" title="${uiLabelMap.MarketingSegment}"><link target="FindSegmentGroup"/></menu-item>
+        <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}"><link target="FindContactLists"/></menu-item>
         <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="MarketingReport"/></menu-item>
     </menu>
 </menus>

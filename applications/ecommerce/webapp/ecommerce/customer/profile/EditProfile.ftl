@@ -51,7 +51,7 @@ under the License.
       </div>
 
       <div class="center right">
-        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.AccountInformation}</div></div>
+        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommerceAccountInformation}</div></div>
         <div class="screenlet-body">
           <div class="form-row">
             <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}*</label></div>

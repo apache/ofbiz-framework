@@ -59,6 +59,7 @@ under the License.
    <screen name="EditMarketingCampaign">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" />
                 <set field="titleProperty" value="PageTitleEditMarketingCampaign"/>
                 <set field="campaignTabButtonItem" value="MarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaign"/>

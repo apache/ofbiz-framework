@@ -24,13 +24,13 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCode==null" target="createTrackingCode"/>
         
-        <field use-when="trackingCode!=null" name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="trackingCode==null&amp;&amp;trackingCodeId==null" name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><text/></field>
-        <field use-when="trackingCode==null&amp;&amp;trackingCodeId!=null" name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeId}]"><display/></field>
+        <field use-when="trackingCode!=null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="trackingCode==null&amp;&amp;trackingCodeId==null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text/></field>
+        <field use-when="trackingCode==null&amp;&amp;trackingCodeId!=null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeId}]"><display/></field>
 
-        <field name="description" title="${uiLabelMap.TrackingCodeDescription}"><text/></field>
-        <field name="comments" title="${uiLabelMap.TrackingCodeComments}"><textarea/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}">
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><text/></field>
+        <field name="comments" title="${uiLabelMap.MarketingTrackingCodeComments}"><textarea/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
@@ -44,7 +44,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="prodCatalogId" title="${uiLabelMap.TrackingCodeDefaultProdCatalogId}" tooltip="${uiLabelMap.TrackingCodeNoOverrideIfEmpty}">
+        <field name="prodCatalogId" title="${uiLabelMap.MarketingTrackingCodeDefaultProdCatalogId}" tooltip="${uiLabelMap.MarketingTrackingCodeNoOverrideIfEmpty}">
             <drop-down allow-empty="true">
                 <entity-options description="${catalogName}" entity-name="ProdCatalog" key-field-name="prodCatalogId">
                     <entity-order-by field-name="catalogName"/>
@@ -54,13 +54,13 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
  
-        <field name="redirectUrl" title="${uiLabelMap.TrackingCodeRedirectUrl}" tooltip="${uiLabelMap.TrackingCodeNoRedirectIfEmpty}"><text size="40"/></field>
-        <field name="overrideLogo" title="${uiLabelMap.TrackingCodeOverrideLogo}" tooltip="${uiLabelMap.TrackingCodeNoOverrideIfEmpty}"><text size="60"/></field>
-        <field name="overrideCss" title="${uiLabelMap.TrackingCodeOverrideCss}" tooltip="${uiLabelMap.TrackingCodeNoOverrideIfEmpty}"><text size="60"/></field>
-        <field name="trackableLifetime" title="${uiLabelMap.TrackingCodeTrackableLifetime}" tooltip="${uiLabelMap.TrackingCodeInSeconds}"><text size="10"/></field>
-        <field name="billableLifetime" title="${uiLabelMap.TrackingCodeBillableLifetime}" tooltip="${uiLabelMap.TrackingCodeInSeconds}"><text size="10"/></field>
-        <field name="groupId" title="${uiLabelMap.TrackingCodeGroupId}"><text size="10"/></field>
-        <field name="subgroupId" title="${uiLabelMap.TrackingCodeSubgroupId}"><text size="10"/></field>
+        <field name="redirectUrl" title="${uiLabelMap.MarketingTrackingCodeRedirectUrl}" tooltip="${uiLabelMap.MarketingTrackingCodeNoRedirectIfEmpty}"><text size="40"/></field>
+        <field name="overrideLogo" title="${uiLabelMap.MarketingTrackingCodeOverrideLogo}" tooltip="${uiLabelMap.MarketingTrackingCodeNoOverrideIfEmpty}"><text size="60"/></field>
+        <field name="overrideCss" title="${uiLabelMap.MarketingTrackingCodeOverrideCss}" tooltip="${uiLabelMap.MarketingTrackingCodeNoOverrideIfEmpty}"><text size="60"/></field>
+        <field name="trackableLifetime" title="${uiLabelMap.MarketingTrackingCodeTrackableLifetime}" tooltip="${uiLabelMap.MarketingTrackingCodeInSeconds}"><text size="10"/></field>
+        <field name="billableLifetime" title="${uiLabelMap.MarketingTrackingCodeBillableLifetime}" tooltip="${uiLabelMap.MarketingTrackingCodeInSeconds}"><text size="10"/></field>
+        <field name="groupId" title="${uiLabelMap.MarketingTrackingCodeGroupId}"><text size="10"/></field>
+        <field name="subgroupId" title="${uiLabelMap.MarketingTrackingCodeSubgroupId}"><text size="10"/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
@@ -72,11 +72,11 @@ under the License.
         <actions>
             <entity-condition entity-name="TrackingCode"/>
         </actions>
-        <field name="trackingCodeId"  widget-style="buttontext" title="${uiLabelMap.TrackingCodeTrackingCodeId}">
+        <field name="trackingCodeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}">
             <hyperlink target="EditTrackingCode?trackingCodeId=${trackingCodeId}" description="${trackingCodeId}" also-hidden="false"/>
         </field>
-        <field name="description" title="${uiLabelMap.TrackingCodeDescription}"><display/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><display/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
         <field name="prodCatalogId"><display-entity description="${catalogName}" entity-name="ProdCatalog"/></field>
 
@@ -92,9 +92,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCodeOrder==null" target="createTrackingCodeOrder"/>
         
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><display/></field>
-        <field name="orderId" title="${uiLabelMap.TrackingCodeOrderOrderId}"><display/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}">
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><display/></field>
+        <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><display/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
@@ -102,7 +102,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="isBillable" title="${uiLabelMap.TrackingCodeOrderIsBilliable}">
+        <field name="isBillable" title="${uiLabelMap.MarketingTrackingCodeOrderIsBilliable}">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
@@ -113,9 +113,9 @@ under the License.
         
     <form name="FindTrackingCodeOrders" type="single" target="ListTrackingCodeOrders" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><text-find/></field>
-        <field name="orderId" title="${uiLabelMap.TrackingCodeOrderOrderId}"><lookup target-form-name="LookupOrderName"/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}">
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text-find/></field>
+        <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><lookup target-form-name="LookupOrderName"/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
@@ -135,20 +135,20 @@ under the License.
             </service>
         </actions>
         
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><display/></field>
-        <field name="orderId" title="${uiLabelMap.TrackingCodeOrderOrderId}"><display-entity entity-name="OrderHeader" description="${orderDate} [${orderId}]"/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType" description="${description}"/></field>
-        <field name="isBillable" title="${uiLabelMap.TrackingCodeOrderIsBilliable}"><display/></field>
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><display/></field>
+        <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><display-entity entity-name="OrderHeader" description="${orderDate} [${orderId}]"/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType" description="${description}"/></field>
+        <field name="isBillable" title="${uiLabelMap.MarketingTrackingCodeOrderIsBilliable}"><display/></field>
     </form>
 
     <form name="EditTrackingCodeVisit" default-map-name="visit" target="updateTrackingCodeVisit" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createTrackingCodeVisit" use-when="visit==null"/>
-        <field name="tackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><display/></field>
-        <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}"><display/></field>
+        <field name="tackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><display/></field>
+        <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         
-        <field name="sourceEnumId" title="${uiLabelMap.TrackingCodeVisitSourceEnumId}">
+        <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value=" TRACKINGCODE_SRC"/>
@@ -160,10 +160,10 @@ under the License.
     </form>
     <form name="FindTrackingCodeVisits" target="ListTrackingCodeVisits" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><text/></field>
-        <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}"><lookup target-form-name="LookupVisit"/></field>
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text/></field>
+        <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}"><lookup target-form-name="LookupVisit"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
-        <field name="sourceEnumId" title="${uiLabelMap.TrackingCodeVisitSourceEnumId}">
+        <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value=" TRACKINGCODE_SRC"/>
@@ -181,10 +181,10 @@ under the License.
                 <field-map field-name="orderBy" value="-fromDate"/>
             </service>
         </actions>
-        <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}">
+        <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}">
             <hyperlink description="${visitId}" target="/partymgr/control/visitdetail?visitId=${visitId}&amp;DONE_PAGE=${donePage}" target-type="inter-app"/>
         </field>
-        <field name="sourceEnumId" title="${uiLabelMap.TrackingCodeVisitSourceEnumId}">
+        <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <display-entity description="${description} [${enumCode}]" entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -192,16 +192,16 @@ under the License.
     
     <form name="LookupTrackingCode" default-map-name="trackingCode" target="LookupTrackingCode" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}"><text-find/></field>
-        <field name="description" title="${uiLabelMap.TrackingCodeDescription}"><text-find/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}">
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text-find/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><text-find/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="prodCatalogId" title="${uiLabelMap.TrackingCodeProdCatalogId}">
+        <field name="prodCatalogId" title="${uiLabelMap.MarketingTrackingCodeProdCatalogId}">
             <drop-down>
                 <entity-options description="${catalogName}" entity-name="ProdCatalog" key-field-name="prodCatalogId">
                     <entity-order-by field-name="catalogName"/>
@@ -225,19 +225,19 @@ under the License.
                 <field-map env-name="entityName" field-name="entityName"/>
             </service>
         </actions>
-        <field name="trackingCodeId" title="${uiLabelMap.TrackingCodeTrackingCodeId}" widget-style="buttontext">
+        <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${trackingCodeId}" target="javascript:set_value('${trackingCodeId}')" target-type="plain"/>
         </field>
-        <field name="description" title="${uiLabelMap.TrackingCodeDescription}"><display/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
-        <field name="prodCatalogId" title="${uiLabelMap.TrackingCodeProdCatalogId}"><display-entity description="${catalogName}" entity-name="ProdCatalog"/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><display/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
+        <field name="prodCatalogId" title="${uiLabelMap.MarketingTrackingCodeProdCatalogId}"><display-entity description="${catalogName}" entity-name="ProdCatalog"/></field>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
     </form>
     
     <form name="LookupVisit" target="LookupVisit" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}"><text-find/></field>
-        <field name="partyId" title="${uiLabelMap.TrackingCodeVisitPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}"><text-find/></field>
+        <field name="partyId" title="${uiLabelMap.MarketingTrackingCodeVisitPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
@@ -250,34 +250,34 @@ under the License.
                 <field-map env-name="entityName" field-name="entityName"/>
             </service>
         </actions>
-        <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}" widget-style="buttontext">
+        <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${visitId}" target="javascript:set_value('${visitId}')" target-type="plain"/>
         </field>
-        <field name="partyId" title="${uiLabelMap.TrackingCodeVisitPartyId}">
+        <field name="partyId" title="${uiLabelMap.MarketingTrackingCodeVisitPartyId}">
             <display-entity description="${partyId}" entity-name="Party" key-field-name="partyId"/>
         </field>
-        <field name="visitorId" title="${uiLabelMap.TrackingCodeVisitVisitorId}">
+        <field name="visitorId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitorId}">
             <display-entity description="${partyId} ${userLoginId} [${visitorId}]" entity-name="Visitor" key-field-name="visitorId"/>
         </field>
-        <field name="contactMechTypeId" title="${uiLabelMap.TrackingCodeVisitContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.TrackingCodeVisitRoleTypeId}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="userLoginId" title="${uiLabelMap.TrackingCodeVisitUserLoginId}"><display/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitRoleTypeId}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="userLoginId" title="${uiLabelMap.MarketingTrackingCodeVisitUserLoginId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="clientIpAddress" title="${uiLabelMap.TrackingCodeVisitClientIpAddress}"><display/></field>
-        <field name="clientHostName" title="${uiLabelMap.TrackingCodeVisitClientHostName}"><display/></field>
-        <field name="webappName" title="${uiLabelMap.TrackingCodeVisitWebappName}"><display/></field>
-        <field name="sessionId" title="${uiLabelMap.TrackingCodeVisitSessionId}"><display/></field>
+        <field name="clientIpAddress" title="${uiLabelMap.MarketingTrackingCodeVisitClientIpAddress}"><display/></field>
+        <field name="clientHostName" title="${uiLabelMap.MarketingTrackingCodeVisitClientHostName}"><display/></field>
+        <field name="webappName" title="${uiLabelMap.MarketingTrackingCodeVisitWebappName}"><display/></field>
+        <field name="sessionId" title="${uiLabelMap.MarketingTrackingCodeVisitSessionId}"><display/></field>
     </form>
     <form name="EditTrackingCodeType" type="single" target="updateTrackingCodeType" title="" default-map-name="trackingCodeType"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCodeType==null" target="createTrackingCodeType"/>
         
-        <field use-when="trackingCodeType!=null" name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId==null" name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}"><text/></field>
-        <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId!=null" name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeTypeId}]"><display/></field>
+        <field use-when="trackingCodeType!=null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId==null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><text/></field>
+        <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId!=null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeTypeId}]"><display/></field>
 
-        <field name="description" title="${uiLabelMap.TrackingCodeTypeDescription}"><text/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
@@ -288,10 +288,10 @@ under the License.
         <actions>
             <entity-condition entity-name="TrackingCodeType"/>
         </actions>
-        <field name="trackingCodeTypeId"  widget-style="buttontext" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}">
+        <field name="trackingCodeTypeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <hyperlink target="EditTrackingCodeType?trackingCodeTypeId=${trackingCodeTypeId}" description="${trackingCodeTypeId}" also-hidden="false"/>
         </field>
-        <field name="description" title="${uiLabelMap.TrackingCodeTypeDescription}"><display/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
 
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="deleteTrackingCodeType?trackingCodeTypeId=${trackingCodeTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -299,8 +299,8 @@ under the License.
     </form>
     <form name="LookupTrackingCodeType" default-map-name="trackingCode" target="LookupTrackingCodeType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}"><text-find/></field>
-        <field name="description" title="${uiLabelMap.TrackingCodeTypeDescription}"><text-find/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><text-find/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListLookupTrackingCodeType" target="" title="" type="list"
@@ -311,9 +311,9 @@ under the License.
                 <field-map env-name="entityName" field-name="entityName"/>
             </service>
         </actions>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.TrackingCodeTrackingCodeTypeId}" widget-style="buttontext">
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${trackingCodeTypeId}" target="javascript:set_value('${trackingCodeTypeId}')" target-type="plain"/>
         </field>
-        <field name="description" title="${uiLabelMap.TrackingCodeTypeDescription}"><display/></field>
+        <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
     </form>
 </forms>

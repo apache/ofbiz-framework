@@ -19,235 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AccountAnnualRevenue">
-        <value xml:lang="de">Jahreseinkommen</value>
-        <value xml:lang="en">Annual Revenue</value>
-        <value xml:lang="es">Ingresos anuales</value>
-        <value xml:lang="fr">Revenu annuel</value>
-    </property>
-    <property key="AccountInformation">
-        <value xml:lang="en">Account Information</value>
-        <value xml:lang="fr">Information sur le compte</value>
-    </property>
-    <property key="AccountName">
-        <value xml:lang="de">Kontoname</value>
-        <value xml:lang="en">Account Name</value>
-        <value xml:lang="fr">Nom du compte</value>
-    </property>
-    <property key="AccountTickerSymbol">
-        <value xml:lang="en">Ticker Symbol</value>
-        <value xml:lang="es">Símbolo ticker</value>
-        <value xml:lang="fr">Symbole téléscripteur</value>
-    </property>
-    <property key="ContactList">
-        <value xml:lang="en">Contact List</value>
-        <value xml:lang="es">Lista de contactos</value>
-        <value xml:lang="fr">Liste de contacts</value>
-        <value xml:lang="it">Lista Contatto</value>
-        <value xml:lang="ro">Lista Contact</value>
-        <value xml:lang="th">รายการติดต่อ</value>
-        <value xml:lang="zh">联系列表</value>
-    </property>
-    <property key="ContactListCommEventCreate">
-        <value xml:lang="en">Create New Contact List Comm Event</value>
-        <value xml:lang="es">Crear evento de comunicación</value>
-        <value xml:lang="fr">Nouvel évènement de communication de la liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto Evento Comunicazione</value>
-        <value xml:lang="ro">Creare Noua Lista Contact Eveniment Comunicatie</value>
-        <value xml:lang="th">สร้างรายการผลการติดต่อใหม่</value>
-        <value xml:lang="zh">新建联系列表沟通事件</value>
-    </property>
-    <property key="ContactListCommEventId">
-        <value xml:lang="en">Communication Event Id</value>
-        <value xml:lang="es">Código de evento</value>
-        <value xml:lang="fr">Réf. d'évènement de communication</value>
-        <value xml:lang="it">Codice Evento Comunicazione</value>
-        <value xml:lang="ro">Cod Eveniment Comunicatie</value>
-        <value xml:lang="th">รหัสผลการติดต่อ</value>
-        <value xml:lang="zh">沟通事件标识</value>
-    </property>
-    <property key="ContactListCommEventTypeId">
-        <value xml:lang="en">Communication Event Type Id</value>
-        <value xml:lang="es">Tipo de evento</value>
-        <value xml:lang="fr">Réf. du type d'événement de communication</value>
-        <value xml:lang="it">Tipo Evento Comunicazione</value>
-        <value xml:lang="ro">Tip Eveniment Comunicatie</value>
-        <value xml:lang="th">รหัสประเภทผลการติดต่อ</value>
-        <value xml:lang="zh">沟通事件类型标识</value>
-    </property>
-    <property key="ContactListContactListId">
-        <value xml:lang="en">Contact List Id</value>
-        <value xml:lang="es">Código de lista</value>
-        <value xml:lang="fr">Réf. de la liste de contact</value>
-        <value xml:lang="it">Codice Lista Contatto</value>
-        <value xml:lang="ro">Cod Lista Contact</value>
-        <value xml:lang="th">รหัสรายการติดต่อ</value>
-        <value xml:lang="zh">联系列表标识</value>
-    </property>
-    <property key="ContactListContactListName">
-        <value xml:lang="en">Contact List Name</value>
-        <value xml:lang="es">Nombre de lista</value>
-        <value xml:lang="fr">Nom de la liste de contact</value>
-        <value xml:lang="it">Nome Lista Contatto</value>
-        <value xml:lang="ro">Nume Lista Contact</value>
-        <value xml:lang="th">รายชื่อที่ติดต่อ</value>
-        <value xml:lang="zh">联系列表名称</value>
-    </property>
-    <property key="ContactListContactListTypeId">
-        <value xml:lang="en">Contact List Type Id</value>
-        <value xml:lang="es">Tipo de lista</value>
-        <value xml:lang="fr">Réf. du type de liste de contact</value>
-        <value xml:lang="it">Tipo Lista Contatto</value>
-        <value xml:lang="ro">Tip Lista Contact</value>
-        <value xml:lang="th">รหัสประเภทรายการติดต่อ</value>
-        <value xml:lang="zh">联系列表类型标识</value>
-    </property>
-    <property key="ContactListContactMechTypeId">
-        <value xml:lang="en">Contact Mechanism Type Id</value>
-        <value xml:lang="es">Mecanismo de contacto</value>
-        <value xml:lang="fr">Type de mécanisme de contact </value>
-        <value xml:lang="it">Tipo Contatto</value>
-        <value xml:lang="ro">Tip Contact</value>
-        <value xml:lang="th">รหัสประเภทวิธีการติดต่อ</value>
-        <value xml:lang="zh">联系方式类型标识</value>
-    </property>
-    <property key="ContactListCreate">
-        <value xml:lang="en">Create New Contact List</value>
-        <value xml:lang="es">Crear nueva lista de contactos</value>
-        <value xml:lang="fr">Nouvelle liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto</value>
-        <value xml:lang="ro">Creare Noua Lista Contact</value>
-        <value xml:lang="th">สร้างรายการติดต่อใหม่</value>
-        <value xml:lang="zh">新建联系列表</value>
-    </property>
-    <property key="ContactListFindContactLists">
-        <value xml:lang="en">Find Contact Lists</value>
-        <value xml:lang="fr">Rechercher les listes de contact</value>
-        <value xml:lang="it">Ricerca Liste Contatto</value>
-        <value xml:lang="ro">Cauta Liste Contact</value>
-        <value xml:lang="th">ค้นหารายการติดต่อ</value>
-        <value xml:lang="zh">查找联系列表</value>
-    </property>
-    <property key="ContactListIsPublic">
-        <value xml:lang="en">Is Public ?</value>
-        <value xml:lang="es">Es pública ?</value>
-        <value xml:lang="fr">Est publique ?</value>
-        <value xml:lang="it">E' Pubblico ?</value>
-        <value xml:lang="ro">Este Public ?</value>
-        <value xml:lang="th">เป็นสาธารณะ ?</value>
-        <value xml:lang="zh">公开吗?</value>
-    </property>
-    <property key="ContactListIsSingleUse">
-        <value xml:lang="en">Is Single Use ?</value>
-        <value xml:lang="fr">Est à usage unique ?</value>
-        <value xml:lang="it">E' Uso Singolo ?</value>
-        <value xml:lang="ro">Este pentru un unic utilizatir?</value>
-        <value xml:lang="th">ใช้ได้ครั้งเดียว ?</value>
-        <value xml:lang="zh">单一用途吗?</value>
-    </property>
-    <property key="ContactListNotFound">
-        <value xml:lang="en">Could not find email list [${contactListId}].</value>
-        <value xml:lang="fr">Aucune liste de courriel [${contactListId}] trouvée.</value>
-        <value xml:lang="it">Non è possibile trovare la lista e-mail [${contactListId}].</value>
-        <value xml:lang="ro">Nu este posibila gasirea listei e-mail [${contactListId}].</value>
-        <value xml:lang="th">ไม่สามารถค้นหารายการติดต่อ [${contactListId}]</value>
-        <value xml:lang="zh">无法找到电子邮件列表 [${contactListId}]。</value>
-    </property>
-    <property key="ContactListOptInVerifyCode">
-        <value xml:lang="en">Opt-In Verify Code</value>
-        <value xml:lang="es">Código de verificación Opt-in</value>
-        <value xml:lang="fr">Code de vérification d'inscription volontaire (Opt-in)</value>
-        <value xml:lang="it">Codice Verifica Opt-In</value>
-        <value xml:lang="ro">Cod Verificare Opt-In</value>
-        <value xml:lang="th">ทางเลือกในการตรวจสอบรหัส</value>
-        <value xml:lang="zh">兴趣验证码</value>
-    </property>
-    <property key="ContactListOwnerPartyId">
-        <value xml:lang="en">Owner Party Id</value>
-        <value xml:lang="es">Propietario</value>
-        <value xml:lang="fr">Réf. d'acteur propriétaire</value>
-        <value xml:lang="it">Codice Soggetto Proprietario</value>
-        <value xml:lang="ro">Cod Subiect Proprietar</value>
-        <value xml:lang="th">รหัสของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">拥有人会员标识</value>
-    </property>
-    <property key="ContactListParty">
-        <value xml:lang="en">Contact List Party</value>
-        <value xml:lang="es">Participantes</value>
-        <value xml:lang="fr">Abonné à la liste de contact</value>
-        <value xml:lang="it">Lista Contatti Soggetti</value>
-        <value xml:lang="ro">Lista Contacte Subiecti</value>
-        <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">联系列表会员</value>
-    </property>
-    <property key="ContactListPartyCreate">
-        <value xml:lang="en">Create New Contact List Party</value>
-        <value xml:lang="es">Asociar participante</value>
-        <value xml:lang="fr">Créer un nouvel abonné à  la liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto Soggetto</value>
-        <value xml:lang="ro">Creare Noua Lista Contact Subiect</value>
-        <value xml:lang="th">สร้างรายการติดต่อกลุ่มผู้ใช้ใหม่</value>
-        <value xml:lang="zh">新建联系列表会员</value>
-    </property>
-    <property key="ContactListPartyId">
-        <value xml:lang="de">Teilnehmer ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="ro">Cod Subiect</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="ContactListPreferredContactMech">
-        <value xml:lang="en">Preferred Contact Mechanism</value>
-        <value xml:lang="es">Mecanismo de contacto</value>
-        <value xml:lang="fr">Mécanisme de contact favori</value>
-        <value xml:lang="it">Contatto Preferito</value>
-        <value xml:lang="ro">Contact Preferit</value>
-        <value xml:lang="th">วิธีการติดติดต่อลำดับแรก</value>
-        <value xml:lang="zh">优先使用的联系方式</value>
-    </property>
-    <property key="ContactListVerifyEmailFrom">
-        <value xml:lang="en">Verify Email From</value>
-        <value xml:lang="es">E-mail de verificación</value>
-        <value xml:lang="fr">Adresse courriel de vérification</value>
-        <value xml:lang="it">Verifica Email Da</value>
-        <value xml:lang="ro">Verifica Email De la</value>
-        <value xml:lang="th">ตรวจสอบอีเมล์จาก</value>
-        <value xml:lang="zh">验证电子邮件来自</value>
-    </property>
-    <property key="ContactListVerifyEmailScreen">
-        <value xml:lang="en">Verify Email Screen</value>
-        <value xml:lang="es">Pantalla de verificación</value>
-        <value xml:lang="fr">Ecran de vérification du courriel</value>
-        <value xml:lang="it">Verifica Email Videata</value>
-        <value xml:lang="ro">Verifica Email Videata</value>
-        <value xml:lang="th">ตรวจสอบอีเมล์</value>
-        <value xml:lang="zh">验证电子邮件屏幕</value>
-    </property>
-    <property key="ContactListVerifyEmailSubject">
-        <value xml:lang="en">Verify Email Subject</value>
-        <value xml:lang="es">Título del mensaje</value>
-        <value xml:lang="fr">Sujet du courriel de vérification</value>
-        <value xml:lang="it">Verifica Email Soggetto</value>
-        <value xml:lang="ro">Verifica Email Subiect</value>
-        <value xml:lang="th">ตรวจสอบหัวข้ออีเมล์</value>
-        <value xml:lang="zh">验证电子邮件主题</value>
-    </property>
-    <property key="ContactListVerifyEmailWebSiteId">
-        <value xml:lang="en">Verify Email WebSite Id</value>
-        <value xml:lang="es">Sitio web de verificación</value>
-        <value xml:lang="fr">Réf. du site Internet du courriel de vérification</value>
-        <value xml:lang="it">Verifica Email Sito Web</value>
-        <value xml:lang="ro">Verifica Email Sit Web</value>
-        <value xml:lang="th">ตรวจสอบรหัสอีเมล์ในเว็บไซต์</value>
-        <value xml:lang="zh">验证电子邮件站点标识</value>
-    </property>
-    <property key="DataSourceLabel">
-        <value xml:lang="en">Source</value>
-        <value xml:lang="fr">Origine</value>
-    </property>
     <property key="FormFieldTitle_actualCost">
         <value xml:lang="en">Actual Cost</value>
         <value xml:lang="fr">Coût réel</value>
@@ -264,6 +35,10 @@
         <value xml:lang="th">งบประมาณ</value>
         <value xml:lang="zh">已预算的费用</value>
     </property>
+    <property key="FormFieldTitle_convertedLeads">
+        <value xml:lang="en">Converted Leads</value>
+        <value xml:lang="it">Leads convertiti</value>
+    </property>
     <property key="FormFieldTitle_custReqestId">
         <value xml:lang="en">Cust Reqest Id</value>
         <value xml:lang="fr">Réf. de requête de client</value>
@@ -272,6 +47,26 @@
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求标识</value>
     </property>
+    <property key="FormFieldTitle_expectedResponsePercent">
+        <value xml:lang="en">Expected Response Percent</value>
+        <value xml:lang="it">Percentuale risposta aspettata</value>
+    </property>
+    <property key="FormFieldTitle_expectedRevenue">
+        <value xml:lang="en">Expected Revenue</value>
+        <value xml:lang="it">Entrate aspettata</value>
+    </property>
+    <property key="FormFieldTitle_estimatedCost">
+        <value xml:lang="en">Estimated Cost</value>
+        <value xml:lang="it">Costo stimato</value>
+    </property>
+    <property key="FormFieldTitle_isActive">
+        <value xml:lang="en">Is Active</value>
+        <value xml:lang="it">E' attivo</value>
+    </property>
+    <property key="FormFieldTitle_numSent">
+        <value xml:lang="en">Num Sent</value>
+        <value xml:lang="it">Num. Invio</value>
+    </property>
     <property key="FormFieldTitle_prodCatalogId">
         <value xml:lang="en">Product Catalog Id</value>
         <value xml:lang="fr">Réf. de catalogue</value>
@@ -279,6 +74,10 @@
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
         <value xml:lang="zh">产品目录标识</value>
+    </property>
+    <property key="FormFieldTitle_startDate">
+        <value xml:lang="en">Start Date</value>
+        <value xml:lang="it">Data inizio</value>
     </property>
     <property key="MarketingCampaign">
         <value xml:lang="en">Marketing Campaign</value>
@@ -310,6 +109,7 @@
     <property key="MarketingCampaignInvalidEmailInput">
         <value xml:lang="en">Invalid email address entered.</value>
         <value xml:lang="fr">Entrée d'adresse courriel invalide</value>
+        <value xml:lang="it">Indirizzo email inserito invalido.</value>
         <value xml:lang="th">เข้าสู่ที่อยู่ของอีเมล์ไม่ได้</value>
         <value xml:lang="zh">输入的电子邮件地址无效。</value>
     </property>
@@ -353,7 +153,7 @@
         <value xml:lang="en">OFBiz: Marketing Manager</value>
         <value xml:lang="es">OFBiz: Gestión de Marketing</value>
         <value xml:lang="fr">OFBiz: Gestion du Marketing</value>
-        <value xml:lang="it">OFBiz: Gestione Vendite</value>
+        <value xml:lang="it">OFBiz: Gestione vendite</value>
         <value xml:lang="ro">OFBiz: Gestione Vendite</value>
         <value xml:lang="th">OFBiz: การจัดการทางการตลาด</value>
         <value xml:lang="zh">OFBiz: 市场宣传管理</value>
@@ -373,6 +173,211 @@
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value><!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh_CN">OFBiz的一部分</value>
+    </property>
+    <property key="MarketingContactList">
+        <value xml:lang="en">Contact List</value>
+        <value xml:lang="es">Lista de contactos</value>
+        <value xml:lang="fr">Liste de contacts</value>
+        <value xml:lang="it">Lista Contatto</value>
+        <value xml:lang="ro">Lista Contact</value>
+        <value xml:lang="th">รายการติดต่อ</value>
+        <value xml:lang="zh">联系列表</value>
+    </property>
+    <property key="MarketingContactListCommEventCreate">
+        <value xml:lang="en">Create New Contact List Comm Event</value>
+        <value xml:lang="es">Crear evento de comunicación</value>
+        <value xml:lang="fr">Nouvel évènement de communication de la liste de contact</value>
+        <value xml:lang="it">Creare Nuova Lista Contatto Evento Comunicazione</value>
+        <value xml:lang="ro">Creare Noua Lista Contact Eveniment Comunicatie</value>
+        <value xml:lang="th">สร้างรายการผลการติดต่อใหม่</value>
+        <value xml:lang="zh">新建联系列表沟通事件</value>
+    </property>
+    <property key="MarketingContactListCommEventId">
+        <value xml:lang="en">Communication Event Id</value>
+        <value xml:lang="es">Código de evento</value>
+        <value xml:lang="fr">Réf. d'évènement de communication</value>
+        <value xml:lang="it">Codice Evento Comunicazione</value>
+        <value xml:lang="ro">Cod Eveniment Comunicatie</value>
+        <value xml:lang="th">รหัสผลการติดต่อ</value>
+        <value xml:lang="zh">沟通事件标识</value>
+    </property>
+    <property key="MarketingContactListCommEventTypeId">
+        <value xml:lang="en">Communication Event Type Id</value>
+        <value xml:lang="es">Tipo de evento</value>
+        <value xml:lang="fr">Réf. du type d'événement de communication</value>
+        <value xml:lang="it">Tipo Evento Comunicazione</value>
+        <value xml:lang="ro">Tip Eveniment Comunicatie</value>
+        <value xml:lang="th">รหัสประเภทผลการติดต่อ</value>
+        <value xml:lang="zh">沟通事件类型标识</value>
+    </property>
+    <property key="MarketingContactListContactListId">
+        <value xml:lang="en">Contact List Id</value>
+        <value xml:lang="es">Código de lista</value>
+        <value xml:lang="fr">Réf. de la liste de contact</value>
+        <value xml:lang="it">Codice Lista Contatto</value>
+        <value xml:lang="ro">Cod Lista Contact</value>
+        <value xml:lang="th">รหัสรายการติดต่อ</value>
+        <value xml:lang="zh">联系列表标识</value>
+    </property>
+    <property key="MarketingContactListContactListName">
+        <value xml:lang="en">Contact List Name</value>
+        <value xml:lang="es">Nombre de lista</value>
+        <value xml:lang="fr">Nom de la liste de contact</value>
+        <value xml:lang="it">Nome Lista Contatto</value>
+        <value xml:lang="ro">Nume Lista Contact</value>
+        <value xml:lang="th">รายชื่อที่ติดต่อ</value>
+        <value xml:lang="zh">联系列表名称</value>
+    </property>
+    <property key="MarketingContactListContactListTypeId">
+        <value xml:lang="en">Contact List Type Id</value>
+        <value xml:lang="es">Tipo de lista</value>
+        <value xml:lang="fr">Réf. du type de liste de contact</value>
+        <value xml:lang="it">Tipo Lista Contatto</value>
+        <value xml:lang="ro">Tip Lista Contact</value>
+        <value xml:lang="th">รหัสประเภทรายการติดต่อ</value>
+        <value xml:lang="zh">联系列表类型标识</value>
+    </property>
+    <property key="MarketingContactListContactMechTypeId">
+        <value xml:lang="en">Contact Mechanism Type Id</value>
+        <value xml:lang="es">Mecanismo de contacto</value>
+        <value xml:lang="fr">Type de mécanisme de contact </value>
+        <value xml:lang="it">Tipo Contatto</value>
+        <value xml:lang="ro">Tip Contact</value>
+        <value xml:lang="th">รหัสประเภทวิธีการติดต่อ</value>
+        <value xml:lang="zh">联系方式类型标识</value>
+    </property>
+    <property key="MarketingContactListCreate">
+        <value xml:lang="en">Create New Contact List</value>
+        <value xml:lang="es">Crear nueva lista de contactos</value>
+        <value xml:lang="fr">Nouvelle liste de contact</value>
+        <value xml:lang="it">Creare Nuova Lista Contatto</value>
+        <value xml:lang="ro">Creare Noua Lista Contact</value>
+        <value xml:lang="th">สร้างรายการติดต่อใหม่</value>
+        <value xml:lang="zh">新建联系列表</value>
+    </property>
+    <property key="MarketingContactListFindContactLists">
+        <value xml:lang="en">Find Contact Lists</value>
+        <value xml:lang="fr">Rechercher les listes de contact</value>
+        <value xml:lang="it">Ricerca Liste Contatto</value>
+        <value xml:lang="ro">Cauta Liste Contact</value>
+        <value xml:lang="th">ค้นหารายการติดต่อ</value>
+        <value xml:lang="zh">查找联系列表</value>
+    </property>
+    <property key="MarketingContactListIsPublic">
+        <value xml:lang="en">Is Public ?</value>
+        <value xml:lang="es">Es pública ?</value>
+        <value xml:lang="fr">Est publique ?</value>
+        <value xml:lang="it">E' Pubblico ?</value>
+        <value xml:lang="ro">Este Public ?</value>
+        <value xml:lang="th">เป็นสาธารณะ ?</value>
+        <value xml:lang="zh">公开吗?</value>
+    </property>
+    <property key="MarketingContactListIsSingleUse">
+        <value xml:lang="en">Is Single Use ?</value>
+        <value xml:lang="fr">Est à usage unique ?</value>
+        <value xml:lang="it">E' Uso Singolo ?</value>
+        <value xml:lang="ro">Este pentru un unic utilizatir?</value>
+        <value xml:lang="th">ใช้ได้ครั้งเดียว ?</value>
+        <value xml:lang="zh">单一用途吗?</value>
+    </property>
+    <property key="MarketingContactListNotFound">
+        <value xml:lang="en">Could not find email list [${contactListId}].</value>
+        <value xml:lang="fr">Aucune liste de courriel [${contactListId}] trouvée.</value>
+        <value xml:lang="it">Non è possibile trovare la lista e-mail [${contactListId}].</value>
+        <value xml:lang="ro">Nu este posibila gasirea listei e-mail [${contactListId}].</value>
+        <value xml:lang="th">ไม่สามารถค้นหารายการติดต่อ [${contactListId}]</value>
+        <value xml:lang="zh">无法找到电子邮件列表 [${contactListId}]。</value>
+    </property>
+    <property key="MarketingContactListOptInVerifyCode">
+        <value xml:lang="en">Opt-In Verify Code</value>
+        <value xml:lang="es">Código de verificación Opt-in</value>
+        <value xml:lang="fr">Code de vérification d'inscription volontaire (Opt-in)</value>
+        <value xml:lang="it">Codice Verifica Opt-In</value>
+        <value xml:lang="ro">Cod Verificare Opt-In</value>
+        <value xml:lang="th">ทางเลือกในการตรวจสอบรหัส</value>
+        <value xml:lang="zh">兴趣验证码</value>
+    </property>
+    <property key="MarketingContactListOwnerPartyId">
+        <value xml:lang="en">Owner Party Id</value>
+        <value xml:lang="es">Propietario</value>
+        <value xml:lang="fr">Réf. d'acteur propriétaire</value>
+        <value xml:lang="it">Codice Soggetto Proprietario</value>
+        <value xml:lang="ro">Cod Subiect Proprietar</value>
+        <value xml:lang="th">รหัสของกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">拥有人会员标识</value>
+    </property>
+    <property key="MarketingContactListParty">
+        <value xml:lang="en">Contact List Party</value>
+        <value xml:lang="es">Participantes</value>
+        <value xml:lang="fr">Abonné à la liste de contact</value>
+        <value xml:lang="it">Lista Contatti Soggetti</value>
+        <value xml:lang="ro">Lista Contacte Subiecti</value>
+        <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">联系列表会员</value>
+    </property>
+    <property key="MarketingContactListPartyCreate">
+        <value xml:lang="en">Create New Contact List Party</value>
+        <value xml:lang="es">Asociar participante</value>
+        <value xml:lang="fr">Créer un nouvel abonné à  la liste de contact</value>
+        <value xml:lang="it">Creare Nuova Lista Contatto Soggetto</value>
+        <value xml:lang="ro">Creare Noua Lista Contact Subiect</value>
+        <value xml:lang="th">สร้างรายการติดต่อกลุ่มผู้ใช้ใหม่</value>
+        <value xml:lang="zh">新建联系列表会员</value>
+    </property>
+    <property key="MarketingContactListPartyId">
+        <value xml:lang="de">Teilnehmer ID</value>
+        <value xml:lang="en">Party Id</value>
+        <value xml:lang="es">Código de participante</value>
+        <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
+        <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="ro">Cod Subiect</value>
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员标识</value>
+    </property>
+    <property key="MarketingContactListPreferredContactMech">
+        <value xml:lang="en">Preferred Contact Mechanism</value>
+        <value xml:lang="es">Mecanismo de contacto</value>
+        <value xml:lang="fr">Mécanisme de contact favori</value>
+        <value xml:lang="it">Contatto Preferito</value>
+        <value xml:lang="ro">Contact Preferit</value>
+        <value xml:lang="th">วิธีการติดติดต่อลำดับแรก</value>
+        <value xml:lang="zh">优先使用的联系方式</value>
+    </property>
+    <property key="MarketingContactListVerifyEmailFrom">
+        <value xml:lang="en">Verify Email From</value>
+        <value xml:lang="es">E-mail de verificación</value>
+        <value xml:lang="fr">Adresse courriel de vérification</value>
+        <value xml:lang="it">Verifica Email Da</value>
+        <value xml:lang="ro">Verifica Email De la</value>
+        <value xml:lang="th">ตรวจสอบอีเมล์จาก</value>
+        <value xml:lang="zh">验证电子邮件来自</value>
+    </property>
+    <property key="MarketingContactListVerifyEmailScreen">
+        <value xml:lang="en">Verify Email Screen</value>
+        <value xml:lang="es">Pantalla de verificación</value>
+        <value xml:lang="fr">Ecran de vérification du courriel</value>
+        <value xml:lang="it">Verifica Email Videata</value>
+        <value xml:lang="ro">Verifica Email Videata</value>
+        <value xml:lang="th">ตรวจสอบอีเมล์</value>
+        <value xml:lang="zh">验证电子邮件屏幕</value>
+    </property>
+    <property key="MarketingContactListVerifyEmailSubject">
+        <value xml:lang="en">Verify Email Subject</value>
+        <value xml:lang="es">Título del mensaje</value>
+        <value xml:lang="fr">Sujet du courriel de vérification</value>
+        <value xml:lang="it">Verifica Email Soggetto</value>
+        <value xml:lang="ro">Verifica Email Subiect</value>
+        <value xml:lang="th">ตรวจสอบหัวข้ออีเมล์</value>
+        <value xml:lang="zh">验证电子邮件主题</value>
+    </property>
+    <property key="MarketingContactListVerifyEmailWebSiteId">
+        <value xml:lang="en">Verify Email WebSite Id</value>
+        <value xml:lang="es">Sitio web de verificación</value>
+        <value xml:lang="fr">Réf. du site Internet du courriel de vérification</value>
+        <value xml:lang="it">Verifica Email Sito Web</value>
+        <value xml:lang="ro">Verifica Email Sit Web</value>
+        <value xml:lang="th">ตรวจสอบรหัสอีเมล์ในเว็บไซต์</value>
+        <value xml:lang="zh">验证电子邮件站点标识</value>
     </property>
     <property key="MarketingConversionRate">
         <value xml:lang="en">Conversion Rate</value>
@@ -396,10 +401,12 @@
         <value xml:lang="en">No of Employees</value>
         <value xml:lang="es">Nº Empleados</value>
         <value xml:lang="fr">N° des employés</value>
+        <value xml:lang="it">N. di impiegati</value>
     </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
+        <value xml:lang="it">Ricerca utenze SFA</value>
     </property>
     <property key="MarketingMainPage">
         <value xml:lang="de">Haupt</value>
@@ -415,7 +422,7 @@
         <value xml:lang="en">Marketing Manager Application</value>
         <value xml:lang="es">Gestión de Marketing</value>
         <value xml:lang="fr">Application de gestion marketing</value>
-        <value xml:lang="it">Applicazione Gestione Vendite</value>
+        <value xml:lang="it">Applicazione gestione vendite</value>
         <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
         <value xml:lang="zh">市场管理应用程序</value>
@@ -423,7 +430,7 @@
     <property key="MarketingManagerWelcome">
         <value xml:lang="en">Welcome to the Marketing Manager!</value>
         <value xml:lang="fr">Bienvenue dans l'application de gestion du marketing !</value>
-        <value xml:lang="it">Benvenuto nell'Applicazione Gestione Vendite!</value>
+        <value xml:lang="it">Benvenuto nell'applicazione gestione vendite!</value>
         <value xml:lang="th">ยินดีต้อนรับสู่การจัดการทางการตลาด</value>
     </property>
     <property key="MarketingOrderAmount">
@@ -463,11 +470,370 @@
         <value xml:lang="th">รายงาน</value>
         <value xml:lang="zh">报告</value>
     </property>
+    <property key="MarketingSegment">
+        <value xml:lang="en">Segment</value>
+        <value xml:lang="es">Segmentos</value>
+        <value xml:lang="fr">Segment</value>
+        <value xml:lang="it">Segmento</value>
+        <value xml:lang="ro">Segment</value>
+        <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="zh">分区</value>
+    </property>
+    <property key="MarketingSegmentGroupClassCreate">
+        <value xml:lang="en">Create New Segment Group Classification</value>
+        <value xml:lang="es">Nueva clasificación de segmento</value>
+        <value xml:lang="fr">Créer une nouvelle classification de groupe de segment</value>
+        <value xml:lang="it">Creare Nuova Classificazione Gruppo Segmento</value>
+        <value xml:lang="ro">Creare Noua Clasificare Grup Segment</value>
+        <value xml:lang="th">สร้างการจัดแบ่งประเภทของกลุ่มใหม่</value>
+        <value xml:lang="zh">新建分区组分类</value>
+    </property>
+    <property key="MarketingSegmentGroupCreate">
+        <value xml:lang="en">Create New Segment Group</value>
+        <value xml:lang="es">Nuevo segmento</value>
+        <value xml:lang="fr">Créer un nouveau groupe de segment</value>
+        <value xml:lang="it">Creare Nuovo Gruppo Segmento</value>
+        <value xml:lang="ro">Creare Nou Grup Segment</value>
+        <value xml:lang="th">สร้างส่วนของกลุ่มใหม่</value>
+        <value xml:lang="zh">新建分区组</value>
+    </property>
+    <property key="MarketingSegmentGroupDescription">
+        <value xml:lang="de">Beschreibung</value>
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoAbbr">
+        <value xml:lang="en">Abbreviation</value>
+        <value xml:lang="es">Abreviación</value>
+        <value xml:lang="fr">Abbréviation</value>
+        <value xml:lang="it">Abbreviazione</value>
+        <value xml:lang="ro">Abreviere</value>
+        <value xml:lang="th">ชื่อย่อ</value>
+        <value xml:lang="zh">缩写</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoCode">
+        <value xml:lang="en">Code</value>
+        <value xml:lang="es">Código</value>
+        <value xml:lang="fr">Code</value>
+        <value xml:lang="it">Codice</value>
+        <value xml:lang="ro">Cod</value>
+        <value xml:lang="th">รหัส</value>
+        <value xml:lang="zh">代码</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoCreate">
+        <value xml:lang="en">Create New Segment Group Geo</value>
+        <value xml:lang="es">Nueva ubicación</value>
+        <value xml:lang="fr">Créer une nouvelle zone géographique de groupe de segment</value>
+        <value xml:lang="it">Creare Nuovo Gruppo Segmento Geografia</value>
+        <value xml:lang="ro">Creare Nou Grup Segment Geografie</value>
+        <value xml:lang="th">สร้างส่วนของโครงสร้างกลุ่มใหม่</value>
+        <value xml:lang="zh">新建分区组地理</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoId">
+        <value xml:lang="en">Geo ID</value>
+        <value xml:lang="es">Código ubicación</value>
+        <value xml:lang="fr">Réf. de zone géographique</value>
+        <value xml:lang="it">Codice Geografia</value>
+        <value xml:lang="ro">Cod Geografie</value>
+        <value xml:lang="th">รหัสโครงสร้าง</value>
+        <value xml:lang="zh">地理标识</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoName">
+        <value xml:lang="en">Name</value>
+        <value xml:lang="es">Nombre</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="ro">Nome</value>
+        <value xml:lang="th">ชื่อ</value>
+        <value xml:lang="zh">名称</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoSecCode">
+        <value xml:lang="en">Secondary Code</value>
+        <value xml:lang="es">Código secundario</value>
+        <value xml:lang="fr">Code secondaire</value>
+        <value xml:lang="it">Codice Secondario</value>
+        <value xml:lang="ro">Cod Secundar</value>
+        <value xml:lang="th">รหัสที่สอง</value>
+        <value xml:lang="zh">第二代码</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoTypeId">
+        <value xml:lang="en">Geo Type ID</value>
+        <value xml:lang="es">Tipo de ubicación</value>
+        <value xml:lang="fr">Réf. de type de zone géographique</value>
+        <value xml:lang="it">Tipo Geografia</value>
+        <value xml:lang="ro">Tip Geografie</value>
+        <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
+        <value xml:lang="zh">地理类型标识</value>
+    </property>
+    <property key="MarketingSegmentGroupNoSegmentGroupFoundWithId">
+        <value xml:lang="en">No SegmentGroup found with ID:</value>
+        <value xml:lang="es">No se encontraron segmentos con el ID:</value>
+        <value xml:lang="fr">Aucun groupe de segment trouvé pour la réf. : </value>
+        <value xml:lang="it">Nessun Gruppo Segmento trovato con il codice:</value>
+        <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
+        <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
+        <value xml:lang="zh">没有找到分区组，标识：</value>
+    </property>
+    <property key="MarketingSegmentGroupProductStoreId">
+        <value xml:lang="de">Produktgeschäfts-ID</value>
+        <value xml:lang="en">Product Store Id</value>
+        <value xml:lang="es">Tienda</value>
+        <value xml:lang="fr">Réf. de centre de profit</value>
+        <value xml:lang="it">Codice Negozio</value>
+        <value xml:lang="ro">Cod Magazin</value>
+        <value xml:lang="th">รหัสคลังสินค้า</value>
+        <value xml:lang="zh">产品店铺标识</value>
+    </property>
+    <property key="MarketingSegmentGroupRoleCreate">
+        <value xml:lang="en">Create New Segment Group Role</value>
+        <value xml:lang="es">Nuevo rol de segmento</value>
+        <value xml:lang="fr">Créer un nouveau rôle de groupe de segment</value>
+        <value xml:lang="it">Creare Nuovo Ruolo Gruppo Segmento</value>
+        <value xml:lang="ro">Creare Nou Rol Grup Segment</value>
+        <value xml:lang="th">สร้างสถานะของกลุ่มใหม่</value>
+        <value xml:lang="zh">新建分区组角色</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroup">
+        <value xml:lang="en">Segment</value>
+        <value xml:lang="es">Segmentos</value>
+        <value xml:lang="fr">Segment</value>
+        <value xml:lang="it">Segmento</value>
+        <value xml:lang="ro">Segment</value>
+        <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="zh">分区</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupClassification">
+        <value xml:lang="en">Classification</value>
+        <value xml:lang="es">Clasificación</value>
+        <value xml:lang="fr">Classification</value>
+        <value xml:lang="it">Classificazione</value>
+        <value xml:lang="ro">Clasificare</value>
+        <value xml:lang="th">จัดแบ่งประเภทหมวดหมู่</value>
+        <value xml:lang="zh">分类</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupGeo">
+        <value xml:lang="de">Gebiet</value>
+        <value xml:lang="en">Geo</value>
+        <value xml:lang="es">Ubicación</value>
+        <value xml:lang="fr">Zone géographique</value>
+        <value xml:lang="it">Geografia</value>
+        <value xml:lang="ro">Geografie</value>
+        <value xml:lang="th">โครงสร้าง</value>
+        <value xml:lang="zh">地理</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupId">
+        <value xml:lang="en">Segment Group Id</value>
+        <value xml:lang="es">Código de segmento</value>
+        <value xml:lang="fr">Réf. du groupe de segment</value>
+        <value xml:lang="it">Codice Gruppo Segmento</value>
+        <value xml:lang="ro">Cod Grup Segment</value>
+        <value xml:lang="th">รหัสส่วนของกลุ่ม</value>
+        <value xml:lang="zh">分区组标识</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupLookup">
+        <value xml:lang="en">Find</value>
+        <value xml:lang="es">Buscar</value>
+        <value xml:lang="fr">Rechercher</value>
+        <value xml:lang="it">Ricerca</value>
+        <value xml:lang="ro">Cauta</value>
+        <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="zh">查找</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupRole">
+        <value xml:lang="de">Funktion</value>
+        <value xml:lang="en">Role</value>
+        <value xml:lang="es">Rol</value>
+        <value xml:lang="fr">Rôle</value>
+        <value xml:lang="it">Ruolo</value>
+        <value xml:lang="ro">Rol</value>
+        <value xml:lang="th">สถานะ</value>
+        <value xml:lang="zh">角色</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupType">
+        <value xml:lang="de">Art</value>
+        <value xml:lang="en">Type</value>
+        <value xml:lang="es">Tipo</value>
+        <value xml:lang="fr">Type</value>
+        <value xml:lang="it">Tipo</value>
+        <value xml:lang="ro">Tip</value>
+        <value xml:lang="th">ประเภท</value>
+        <value xml:lang="zh">类型</value>
+    </property>
+    <property key="MarketingSegmentGroupSegmentGroupTypeId">
+        <value xml:lang="en">Segment Group Type Id</value>
+        <value xml:lang="es">Tipo de segmento</value>
+        <value xml:lang="fr">Réf. du type de groupe de segment</value>
+        <value xml:lang="it">Tipo Gruppo Segmento</value>
+        <value xml:lang="ro">Tip Grup Segment</value>
+        <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
+        <value xml:lang="zh">分区组类型标识</value>
+    </property>
     <property key="MarketingServiceError">
         <value xml:lang="en">There was a problem processing your request.  Please try again.  If the problem persists, please contact us.</value>
         <value xml:lang="fr">Il y a eu un problème durant le traitement de votre demande. SVP, essayez encore. Si le problème persiste, contactez-nous, merci.</value>
+        <value xml:lang="it">C'è stato un problema durante l'esecuzione della tua richiesta.  Perfavore riprovare.  Se il problema persiste, perfavore contattaci.</value>
         <value xml:lang="th">มีปัญหาในการประมวลผลคำร้องของคุณ กรุณาลองอีกครั้ง ถ้ายังเกิดปัญหาเหมือนเดิม กรุณาติดต่อเรา</value>
         <value xml:lang="zh">处理你的请求时出错。请重试。如果仍然出错，请与我们联系。</value>
+    </property>
+    <property key="MarketingTracking">
+        <value xml:lang="en">Tracking</value>
+        <value xml:lang="es">Seguimiento</value>
+        <value xml:lang="fr">Suivi</value>
+        <value xml:lang="it">Tracciatura</value>
+        <value xml:lang="ro">Traseu</value>
+        <value xml:lang="th">การติดตาม</value>
+        <value xml:lang="zh">跟踪</value>
+    </property>
+    <property key="MarketingTrackingCode">
+        <value xml:lang="en">Tracking Code</value>
+        <value xml:lang="es">Seguimiento</value>
+        <value xml:lang="fr">Code de suivi</value>
+        <value xml:lang="it">Codice Tracciatura</value>
+        <value xml:lang="ro">Cod Traseu</value>
+        <value xml:lang="th">รหัส Tracking</value>
+        <value xml:lang="zh">跟踪码</value>
+    </property>
+    <property key="MarketingTrackingCodeBillableLifetime">
+        <value xml:lang="en">Billable Lifetime</value>
+        <value xml:lang="es">Tiempo de facturación</value>
+        <value xml:lang="fr">Durée de vie facturable</value>
+        <value xml:lang="it">Tempo di Vita Fatturabile</value>
+        <value xml:lang="ro">Timp de Viata Facturabila</value>
+        <value xml:lang="th">ใบเสร็จรับเงินใช้ได้ตลอดเวลา</value>
+        <value xml:lang="zh">可记账期限</value>
+    </property>
+    <property key="MarketingTrackingCodeComments">
+        <value xml:lang="de">Kommentare</value>
+        <value xml:lang="en">Comments</value>
+        <value xml:lang="es">Comentarios</value>
+        <value xml:lang="fr">Commentaires</value>
+        <value xml:lang="it">Commenti</value>
+        <value xml:lang="ro">Comentarii</value>
+        <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="zh">评论</value>
+    </property>
+    <property key="MarketingTrackingCodeCreate">
+        <value xml:lang="en">Create Tracking Code</value>
+        <value xml:lang="es">Crear seguimiento</value>
+        <value xml:lang="fr">Nouveau code de suivi</value>
+        <value xml:lang="it">Creare Codice Tracciatura</value>
+        <value xml:lang="ro">Creare Cod Traseu</value>
+        <value xml:lang="th">สร้างรหัส Tracking</value>
+        <value xml:lang="zh">新建跟踪码</value>
+    </property>
+    <property key="MarketingTrackingCodeDefaultProdCatalogId">
+        <value xml:lang="en">Default Product Catalog Id</value>
+        <value xml:lang="es">Catálogo</value>
+        <value xml:lang="fr">Réf. du catalogue produit par défault</value>
+        <value xml:lang="it">Codice Catalogo Default</value>
+        <value xml:lang="ro">Cod Catalog Default</value>
+        <value xml:lang="th">รหัสหมวดหมู่สินค้าทั่วไป</value>
+        <value xml:lang="zh">缺省产品目录标识</value>
+    </property>
+    <property key="MarketingTrackingCodeDescription">
+        <value xml:lang="de">Beschreibung</value>
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="MarketingTrackingCodeGroupId">
+        <value xml:lang="en">Group Id</value>
+        <value xml:lang="es">Grupo</value>
+        <value xml:lang="fr">Réf. du groupe</value>
+        <value xml:lang="it">Codice Gruppo</value>
+        <value xml:lang="ro">Cod Grup</value>
+        <value xml:lang="th">รหัสกลุ่ม</value>
+        <value xml:lang="zh">组标识</value>
+    </property>
+    <property key="MarketingTrackingCodeInSeconds">
+        <value xml:lang="en">Seconds</value>
+        <value xml:lang="es">Segundos</value>
+        <value xml:lang="fr">Secondes</value>
+        <value xml:lang="it">Secondi</value>
+        <value xml:lang="ro">Secunde</value>
+        <value xml:lang="th">ลำดับที่สอง</value>
+        <value xml:lang="zh">秒</value>
+    </property>
+    <property key="MarketingTrackingCodeNoOverrideIfEmpty">
+        <value xml:lang="en">No override (co-brand) if empty</value>
+        <value xml:lang="es">Si este campo queda vacío no se reemplazará</value>
+        <value xml:lang="fr">Aucun remplacement (marque associée) si vide</value>
+        <value xml:lang="it">Nessuna sovrapposizione (co-brand) se vuoto</value>
+        <value xml:lang="ro">Nu se poate suprascrie (marca-asociata) daca este gol.</value>
+        <value xml:lang="th">ไม่มีการยกเลิก (ยี่ห้อสินค้าร่วมกัน) ถ้าว่าง</value>
+        <value xml:lang="zh">如果为空，不作替代 (联合品牌)</value>
+    </property>
+    <property key="MarketingTrackingCodeNoRedirectIfEmpty">
+        <value xml:lang="en">No redirect if empty</value>
+        <value xml:lang="es">Si este campo queda vacío no habrá redirección</value>
+        <value xml:lang="fr">Aucune redirection si vide</value>
+        <value xml:lang="it">Nessun redirect se vuoto</value>
+        <value xml:lang="ro">Daca este gol nu poate fi redirectionat</value>
+        <value xml:lang="th">ไม่มีการเปลี่ยนถ้าว่าง</value>
+        <value xml:lang="zh">如果为空，不重定向</value>
+    </property>
+    <property key="MarketingTrackingCodeOrder">
+        <value xml:lang="en">Tracking Code Orders</value>
+        <value xml:lang="es">Órdenes de seguimiento</value>
+        <value xml:lang="fr">Codes de suivi des commandes</value>
+        <value xml:lang="it">Codice Tracciatura Ordini</value>
+        <value xml:lang="ro">Cod Traseu Comenzi</value>
+        <value xml:lang="th">รหัส Tracking การสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">跟踪码定订单</value>
+    </property>
+    <property key="MarketingTrackingCodeOrderIsBilliable">
+        <value xml:lang="en">Is Billable ?</value>
+        <value xml:lang="es">Es facturable ?</value>
+        <value xml:lang="fr">Facturable ?</value>
+        <value xml:lang="it">E' Fatturabile ?</value>
+        <value xml:lang="ro">Este Facturabil ?</value>
+        <value xml:lang="th">เป็นใบเสร็จที่ใช้ได้ ?</value>
+        <value xml:lang="zh">可记账吗?</value>
+    </property>
+    <property key="MarketingTrackingCodeOrderOrderId">
+        <value xml:lang="en">Order Id</value>
+        <value xml:lang="es">Código de orden</value>
+        <value xml:lang="fr">Réf. de l'ordre</value>
+        <value xml:lang="it">Numero Ordine</value>
+        <value xml:lang="ro">Numar Comanda</value>
+        <value xml:lang="th">รหัสการสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">订单标识</value>
+    </property>
+    <property key="MarketingTrackingCodeOverrideCss">
+        <value xml:lang="en">Override CSS URL</value>
+        <value xml:lang="es">CSS</value>
+        <value xml:lang="fr">URL de la CSS de remplacement</value>
+        <value xml:lang="it">Sostituzione URL CSS</value>
+        <value xml:lang="ro">Substitutie URL CSS</value>
+        <value xml:lang="th">ยกเลิก CSS URL</value>
+        <value xml:lang="zh">替代风格页网址</value>
+    </property>
+    <property key="MarketingTrackingCodeOverrideLogo">
+        <value xml:lang="en">Override Logo URL</value>
+        <value xml:lang="es">Logo</value>
+        <value xml:lang="fr">URL de l'image logo de remplacement</value>
+        <value xml:lang="it">Sostituzione URL Logo</value>
+        <value xml:lang="ro">Substitutie URL Logo</value>
+        <value xml:lang="th">ยกเลิกโลโก้ URL</value>
+        <value xml:lang="zh">替代徽标网址</value>
+    </property>
+    <property key="MarketingTrackingCodeRedirectUrl">
+        <value xml:lang="en">Redirect URL</value>
+        <value xml:lang="es">URL</value>
+        <value xml:lang="fr">URL de redirection</value>
+        <value xml:lang="it">Ridirezione URL</value>
+        <value xml:lang="ro">Redirectie URL</value>
+        <value xml:lang="th">เปลี่ยน URL</value>
+        <value xml:lang="zh">重定向网址</value>
     </property>
     <property key="MarketingTrackingCodeReportTitle">
         <value xml:lang="en">Tracking Code Report</value>
@@ -477,6 +843,171 @@
         <value xml:lang="ro">Tiparire Cod Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
         <value xml:lang="zh">跟踪码报告</value>
+    </property>
+    <property key="MarketingTrackingCodeSubgroupId">
+        <value xml:lang="en">Sub-Group Id</value>
+        <value xml:lang="es">Sub-grupo</value>
+        <value xml:lang="fr">Réf. du sous-groupe</value>
+        <value xml:lang="it">Codice Sotto-Gruppo</value>
+        <value xml:lang="ro">Cod Sub-Grup</value>
+        <value xml:lang="th">รหัสกลุ่มย่อย</value>
+        <value xml:lang="zh">下级组标识</value>
+    </property>
+    <property key="MarketingTrackingCodeTrackableLifetime">
+        <value xml:lang="en">Trackable Lifetime</value>
+        <value xml:lang="es">Tiempo de vida</value>
+        <value xml:lang="fr">Durée de vie du suivi</value>
+        <value xml:lang="it">Tracciatura Tempo di Vita</value>
+        <value xml:lang="ro">Traseu Timp de Viata</value>
+        <value xml:lang="th">เส้นทางที่ใช้ได้ตลอดเวลา</value>
+        <value xml:lang="zh">可跟踪期限</value>
+    </property>
+    <property key="MarketingTrackingCodeTrackingCodeId">
+        <value xml:lang="en">Tracking Code Id</value>
+        <value xml:lang="es">Código</value>
+        <value xml:lang="fr">Réf. du code de suivi</value>
+        <value xml:lang="it">Codice Tracciatura</value>
+        <value xml:lang="ro">Code Traseu</value>
+        <value xml:lang="th">รหัส Tracking</value>
+        <value xml:lang="zh">跟踪码标识</value>
+    </property>
+    <property key="MarketingTrackingCodeTrackingCodeTypeId">
+        <value xml:lang="en">Tracking Code Type Id</value>
+        <value xml:lang="es">Tipo de código</value>
+        <value xml:lang="fr">Type de code de suivi</value>
+        <value xml:lang="it">Tipo Tracciatura</value>
+        <value xml:lang="ro">Tip Traseu</value>
+        <value xml:lang="th">รหัสประเภทรหัส Tracking</value>
+        <value xml:lang="zh">跟踪码类型标识</value>
+    </property>
+    <property key="MarketingTrackingCodeType">
+        <value xml:lang="en">Tracking Code Type</value>
+        <value xml:lang="es">Tipo de seguimiento</value>
+        <value xml:lang="fr">Type de code de suivi</value>
+        <value xml:lang="it">Tipo Codice Tracciatura</value>
+        <value xml:lang="ro">Tip Cod Traseu</value>
+        <value xml:lang="th">ประเภทรหัส Tracking</value>
+        <value xml:lang="zh">跟踪码类型</value>
+    </property>
+    <property key="MarketingTrackingCodeTypeCreate">
+        <value xml:lang="en">Create Tracking Code Type</value>
+        <value xml:lang="es">Crear tipo de seguimiento</value>
+        <value xml:lang="fr">Nouveau type de code de suivi</value>
+        <value xml:lang="it">Creare Tipo Tracciatura</value>
+        <value xml:lang="ro">Creare Tip Traseu</value>
+        <value xml:lang="th">สร้างประเภทรหัส Tracking</value>
+        <value xml:lang="zh">新建跟踪码类型</value>
+    </property>
+    <property key="MarketingTrackingCodeTypeDescription">
+        <value xml:lang="de">Beschreibung</value>
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="MarketingTrackingCodeVisit">
+        <value xml:lang="en">Tracking Code Visits</value>
+        <value xml:lang="es">Visitas de seguimiento</value>
+        <value xml:lang="fr">Codes de suivi des visites</value>
+        <value xml:lang="it">Codice Tracciatura Visite</value>
+        <value xml:lang="ro">Cod Traseu Vizite</value>
+        <value xml:lang="th">รหัส Tracking ของการเยี่ยมชม</value>
+        <value xml:lang="zh">跟踪码访问</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitClientHostName">
+        <value xml:lang="en">Client Hostname</value>
+        <value xml:lang="es">Host</value>
+        <value xml:lang="fr">Nom d'hôte du client</value>
+        <value xml:lang="it">Nome Host Client</value>
+        <value xml:lang="ro">Nume Host Client</value>
+        <value xml:lang="th">ชื่อเจ้าของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
+        <value xml:lang="zh">客户端主机名</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitClientIpAddress">
+        <value xml:lang="en">Client IP Address</value>
+        <value xml:lang="es">Dirección IP</value>
+        <value xml:lang="fr">Adresse IP du client</value>
+        <value xml:lang="it">Indirizzo IP Client</value>
+        <value xml:lang="ro">Adresa IP Client</value>
+        <value xml:lang="th">ที่อยู่ IP ของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
+        <value xml:lang="zh">客户端IP地址</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitContactMechTypeId">
+        <value xml:lang="en">Contact Mechanism Type</value>
+        <value xml:lang="es">Mecanismo de contacto</value>
+        <value xml:lang="fr">Type de coordonnées</value>
+        <value xml:lang="it">Tipo Contatto</value>
+        <value xml:lang="ro">Tip Contact</value>
+        <value xml:lang="th">ประเภทวิธีการสื่อสาร</value>
+        <value xml:lang="zh">联系方式类型</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitPartyId">
+        <value xml:lang="de">Teilnehmer ID</value>
+        <value xml:lang="en">Party Id</value>
+        <value xml:lang="es">Participante</value>
+        <value xml:lang="fr">Réf. de l'acteur</value>
+        <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="ro">Cod Subiect</value>
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitRoleTypeId">
+        <value xml:lang="de">Funktionstyp ID</value>
+        <value xml:lang="en">Role Type Id</value>
+        <value xml:lang="es">Tipo de rol</value>
+        <value xml:lang="fr">Type de rôle</value>
+        <value xml:lang="it">Tipo Ruolo</value>
+        <value xml:lang="ro">Tip Rol</value>
+        <value xml:lang="th">รหัสประเภทสถานะ</value>
+        <value xml:lang="zh">角色类型标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitSessionId">
+        <value xml:lang="en">Session Id</value>
+        <value xml:lang="es">Código de sesión</value>
+        <value xml:lang="fr">Réf. de la session</value>
+        <value xml:lang="it">Numero Sessione</value>
+        <value xml:lang="ro">Numar Seziune</value>
+        <value xml:lang="th">รหัสการประชุม</value>
+        <value xml:lang="zh">会话标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitSourceEnumId">
+        <value xml:lang="en">Source Id</value>
+        <value xml:lang="es">Código de fuente de la visita</value>
+        <value xml:lang="fr">Réf. de l'origine</value>
+        <value xml:lang="it">Numero Origine</value>
+        <value xml:lang="ro">Numar Origine</value>
+        <value xml:lang="th">รหัสแหล่งที่มา</value>
+        <value xml:lang="zh">源标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitVisitId">
+        <value xml:lang="en">Visit Id</value>
+        <value xml:lang="es">Código de visita</value>
+        <value xml:lang="fr">Réf. de la visite</value>
+        <value xml:lang="it">Numero Visita</value>
+        <value xml:lang="ro">Numar Vizita</value>
+        <value xml:lang="th">รหัสการเยี่ยมชม</value>
+        <value xml:lang="zh">访问标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitVisitorId">
+        <value xml:lang="en">Visitor Id</value>
+        <value xml:lang="es">Código de visitante</value>
+        <value xml:lang="fr">Réf. du visiteur</value>
+        <value xml:lang="it">Codice Visitatore</value>
+        <value xml:lang="ro">Cod Vizita</value>
+        <value xml:lang="th">รหัสผู้เยี่ยมชม</value>
+        <value xml:lang="zh">访问者标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitWebappName">
+        <value xml:lang="en">Webapp Name</value>
+        <value xml:lang="es">Nombre de aplicación web</value>
+        <value xml:lang="fr">Nom de l'application Web</value>
+        <value xml:lang="it">Nome Applicazione Web</value>
+        <value xml:lang="ro">Nume Aplicatie Web</value>
+        <value xml:lang="th">ชื่อโปรแกรมประยุต์บนเว็บ</value>
+        <value xml:lang="zh">Web应用名称</value>
     </property>
     <property key="MarketingViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
@@ -498,6 +1029,7 @@
     <property key="PageTitleAccountSummary">
         <value xml:lang="en">Account Summary</value>
         <value xml:lang="fr">Résumé de compte</value>
+        <value xml:lang="it">Sommario utente</value>
     </property>
     <property key="PageTitleAddContactList">
         <value xml:lang="en">Add Contact List</value>
@@ -539,36 +1071,42 @@
         <value xml:lang="en">Create New Account</value>
         <value xml:lang="es">Crear nueva cuenta</value>
         <value xml:lang="fr">Créer un nouveau compte</value>
+        <value xml:lang="it">Creare una nuova utenza</value>
     </property>
     <property key="PageTitleCreateContact">
         <value xml:lang="en">Create New Contact</value>
         <value xml:lang="es">Crear nuevo contacto</value>
         <value xml:lang="fr">Créer un nouveau contact</value>
+        <value xml:lang="it">Creare un nuovo contatto</value>
     </property>
     <property key="PageTitleCreateContactFromVCard">
         <value xml:lang="en">Create contact from vCard</value>
         <value xml:lang="fr">Créer un contact depuis la vCard</value>
+        <value xml:lang="it">Creare contatto dalla vCard</value>
     </property>
     <property key="PageTitleCreateLead">
         <value xml:lang="en">Create New Lead</value>
         <value xml:lang="es">Crear nuevo lead</value>
         <value xml:lang="fr">Créer un nouveau prospect</value>
+        <value xml:lang="it">Creare nuovo lead</value>
     </property>
     <property key="PageTitleCreateLeadFromVCard">
         <value xml:lang="en">Create Lead from vCard</value>
         <value xml:lang="es">Crear nuevo lead desde vCard</value>
         <value xml:lang="fr">Créer un prospect depuis la vCard</value>
+        <value xml:lang="it">Creare lead dalla vCard</value>
     </property>
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
         <value xml:lang="es">Editar cuenta</value>
         <value xml:lang="fr">Modifier le compte</value>
+        <value xml:lang="it">Aggiornare utente</value>
     </property>
     <property key="PageTitleEditContactList">
         <value xml:lang="en">Edit Contact List</value>
         <value xml:lang="es">Editar lista de contactos</value>
         <value xml:lang="fr">Modifier la liste de contact</value>
-        <value xml:lang="it">Aggiorna Lista Contatto</value>
+        <value xml:lang="it">Aggiorna lista contatto</value>
         <value xml:lang="ro">Editeaza Lista Contacte</value>
         <value xml:lang="th">แก้ไขรายการติดต่อ</value>
         <value xml:lang="zh">编辑联系列表</value>
@@ -612,10 +1150,12 @@
     <property key="PageTitleEditSalesForecast">
         <value xml:lang="en">Edit Sales Forecast</value>
         <value xml:lang="fr">Modifier la prévision de ventes</value>
+        <value xml:lang="it">Aggiorna previsioni di vendita</value>
     </property>
     <property key="PageTitleEditSalesForecastDetail">
         <value xml:lang="en">Edit Sales Forecast Detail</value>
         <value xml:lang="fr">Modifier le détail de la prévision de ventes</value>
+        <value xml:lang="it">Aggiorna dettagli previsioni di vendita</value>
     </property>
     <property key="PageTitleEditSegmentGroup">
         <value xml:lang="en">Edit Segment Group</value>
@@ -728,6 +1268,7 @@
     <property key="PageTitleFindSalesForecast">
         <value xml:lang="en">Find Sales Forecast</value>
         <value xml:lang="fr">Rechercher la prévision des ventes</value>
+        <value xml:lang="it">Ricerca previsioni di vendita</value>
     </property>
     <property key="PageTitleFindSegmentGroup">
         <value xml:lang="en">Find Segment Group</value>
@@ -905,6 +1446,7 @@
     <property key="PageTitleLookupSalesForecast">
         <value xml:lang="en">Lookup Sales Forecast</value>
         <value xml:lang="fr">Consulter la prévision des ventes</value>
+        <value xml:lang="it">Ricerca previsioni di vendita</value>
     </property>
     <property key="PageTitleLookupSegmentGroup">
         <value xml:lang="en">Lookup Segment Group</value>
@@ -950,760 +1492,296 @@
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="zh">优先使用的联系方式</value>
     </property>
-    <property key="Segment">
-        <value xml:lang="en">Segment</value>
-        <value xml:lang="es">Segmentos</value>
-        <value xml:lang="fr">Segment</value>
-        <value xml:lang="it">Segmento</value>
-        <value xml:lang="ro">Segment</value>
-        <value xml:lang="th">กลุ่ม</value>
-        <value xml:lang="zh">分区</value>
-    </property>
-    <property key="SegmentGroupClassCreate">
-        <value xml:lang="en">Create New Segment Group Classification</value>
-        <value xml:lang="es">Nueva clasificación de segmento</value>
-        <value xml:lang="fr">Créer une nouvelle classification de groupe de segment</value>
-        <value xml:lang="it">Creare Nuova Classificazione Gruppo Segmento</value>
-        <value xml:lang="ro">Creare Noua Clasificare Grup Segment</value>
-        <value xml:lang="th">สร้างการจัดแบ่งประเภทของกลุ่มใหม่</value>
-        <value xml:lang="zh">新建分区组分类</value>
-    </property>
-    <property key="SegmentGroupCreate">
-        <value xml:lang="en">Create New Segment Group</value>
-        <value xml:lang="es">Nuevo segmento</value>
-        <value xml:lang="fr">Créer un nouveau groupe de segment</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Segmento</value>
-        <value xml:lang="ro">Creare Nou Grup Segment</value>
-        <value xml:lang="th">สร้างส่วนของกลุ่มใหม่</value>
-        <value xml:lang="zh">新建分区组</value>
-    </property>
-    <property key="SegmentGroupDescription">
-        <value xml:lang="de">Beschreibung</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="es">Descripción</value>
-        <value xml:lang="fr">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh">描述</value>
-    </property>
-    <property key="SegmentGroupGeoAbbr">
-        <value xml:lang="en">Abbreviation</value>
-        <value xml:lang="es">Abreviación</value>
-        <value xml:lang="fr">Abbréviation</value>
-        <value xml:lang="it">Abbreviazione</value>
-        <value xml:lang="ro">Abreviere</value>
-        <value xml:lang="th">ชื่อย่อ</value>
-        <value xml:lang="zh">缩写</value>
-    </property>
-    <property key="SegmentGroupGeoCode">
-        <value xml:lang="en">Code</value>
-        <value xml:lang="es">Código</value>
-        <value xml:lang="fr">Code</value>
-        <value xml:lang="it">Codice</value>
-        <value xml:lang="ro">Cod</value>
-        <value xml:lang="th">รหัส</value>
-        <value xml:lang="zh">代码</value>
-    </property>
-    <property key="SegmentGroupGeoCreate">
-        <value xml:lang="en">Create New Segment Group Geo</value>
-        <value xml:lang="es">Nueva ubicación</value>
-        <value xml:lang="fr">Créer une nouvelle zone géographique de groupe de segment</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Segmento Geografia</value>
-        <value xml:lang="ro">Creare Nou Grup Segment Geografie</value>
-        <value xml:lang="th">สร้างส่วนของโครงสร้างกลุ่มใหม่</value>
-        <value xml:lang="zh">新建分区组地理</value>
-    </property>
-    <property key="SegmentGroupGeoId">
-        <value xml:lang="en">Geo ID</value>
-        <value xml:lang="es">Código ubicación</value>
-        <value xml:lang="fr">Réf. de zone géographique</value>
-        <value xml:lang="it">Codice Geografia</value>
-        <value xml:lang="ro">Cod Geografie</value>
-        <value xml:lang="th">รหัสโครงสร้าง</value>
-        <value xml:lang="zh">地理标识</value>
-    </property>
-    <property key="SegmentGroupGeoName">
-        <value xml:lang="en">Name</value>
-        <value xml:lang="es">Nombre</value>
-        <value xml:lang="fr">Nom</value>
-        <value xml:lang="it">Nome</value>
-        <value xml:lang="ro">Nome</value>
-        <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">名称</value>
-    </property>
-    <property key="SegmentGroupGeoSecCode">
-        <value xml:lang="en">Secondary Code</value>
-        <value xml:lang="es">Código secundario</value>
-        <value xml:lang="fr">Code secondaire</value>
-        <value xml:lang="it">Codice Secondario</value>
-        <value xml:lang="ro">Cod Secundar</value>
-        <value xml:lang="th">รหัสที่สอง</value>
-        <value xml:lang="zh">第二代码</value>
-    </property>
-    <property key="SegmentGroupGeoTypeId">
-        <value xml:lang="en">Geo Type ID</value>
-        <value xml:lang="es">Tipo de ubicación</value>
-        <value xml:lang="fr">Réf. de type de zone géographique</value>
-        <value xml:lang="it">Tipo Geografia</value>
-        <value xml:lang="ro">Tip Geografie</value>
-        <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
-        <value xml:lang="zh">地理类型标识</value>
-    </property>
-    <property key="SegmentGroupNoSegmentGroupFoundWithId">
-        <value xml:lang="en">No SegmentGroup found with ID:</value>
-        <value xml:lang="es">No se encontraron segmentos con el ID:</value>
-        <value xml:lang="fr">Aucun groupe de segment trouvé pour la réf. : </value>
-        <value xml:lang="it">Nessun Gruppo Segmento trovato con il codice:</value>
-        <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
-        <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
-        <value xml:lang="zh">没有找到分区组，标识：</value>
-    </property>
-    <property key="SegmentGroupProductStoreId">
-        <value xml:lang="de">Produktgeschäfts-ID</value>
-        <value xml:lang="en">Product Store Id</value>
-        <value xml:lang="es">Tienda</value>
-        <value xml:lang="fr">Réf. de centre de profit</value>
-        <value xml:lang="it">Codice Negozio</value>
-        <value xml:lang="ro">Cod Magazin</value>
-        <value xml:lang="th">รหัสคลังสินค้า</value>
-        <value xml:lang="zh">产品店铺标识</value>
-    </property>
-    <property key="SegmentGroupRoleCreate">
-        <value xml:lang="en">Create New Segment Group Role</value>
-        <value xml:lang="es">Nuevo rol de segmento</value>
-        <value xml:lang="fr">Créer un nouveau rôle de groupe de segment</value>
-        <value xml:lang="it">Creare Nuovo Ruolo Gruppo Segmento</value>
-        <value xml:lang="ro">Creare Nou Rol Grup Segment</value>
-        <value xml:lang="th">สร้างสถานะของกลุ่มใหม่</value>
-        <value xml:lang="zh">新建分区组角色</value>
-    </property>
-    <property key="SegmentGroupSegmentGroup">
-        <value xml:lang="en">Segment</value>
-        <value xml:lang="es">Segmentos</value>
-        <value xml:lang="fr">Segment</value>
-        <value xml:lang="it">Segmento</value>
-        <value xml:lang="ro">Segment</value>
-        <value xml:lang="th">กลุ่ม</value>
-        <value xml:lang="zh">分区</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupClassification">
-        <value xml:lang="en">Classification</value>
-        <value xml:lang="es">Clasificación</value>
-        <value xml:lang="fr">Classification</value>
-        <value xml:lang="it">Classificazione</value>
-        <value xml:lang="ro">Clasificare</value>
-        <value xml:lang="th">จัดแบ่งประเภทหมวดหมู่</value>
-        <value xml:lang="zh">分类</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupGeo">
-        <value xml:lang="de">Gebiet</value>
-        <value xml:lang="en">Geo</value>
-        <value xml:lang="es">Ubicación</value>
-        <value xml:lang="fr">Zone géographique</value>
-        <value xml:lang="it">Geografia</value>
-        <value xml:lang="ro">Geografie</value>
-        <value xml:lang="th">โครงสร้าง</value>
-        <value xml:lang="zh">地理</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupId">
-        <value xml:lang="en">Segment Group Id</value>
-        <value xml:lang="es">Código de segmento</value>
-        <value xml:lang="fr">Réf. du groupe de segment</value>
-        <value xml:lang="it">Codice Gruppo Segmento</value>
-        <value xml:lang="ro">Cod Grup Segment</value>
-        <value xml:lang="th">รหัสส่วนของกลุ่ม</value>
-        <value xml:lang="zh">分区组标识</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupLookup">
-        <value xml:lang="en">Find</value>
-        <value xml:lang="es">Buscar</value>
-        <value xml:lang="fr">Rechercher</value>
-        <value xml:lang="it">Ricerca</value>
-        <value xml:lang="ro">Cauta</value>
-        <value xml:lang="th">ค้นหา</value>
-        <value xml:lang="zh">查找</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupRole">
-        <value xml:lang="de">Funktion</value>
-        <value xml:lang="en">Role</value>
-        <value xml:lang="es">Rol</value>
-        <value xml:lang="fr">Rôle</value>
-        <value xml:lang="it">Ruolo</value>
-        <value xml:lang="ro">Rol</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">角色</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupType">
-        <value xml:lang="de">Art</value>
-        <value xml:lang="en">Type</value>
-        <value xml:lang="es">Tipo</value>
-        <value xml:lang="fr">Type</value>
-        <value xml:lang="it">Tipo</value>
-        <value xml:lang="ro">Tip</value>
-        <value xml:lang="th">ประเภท</value>
-        <value xml:lang="zh">类型</value>
-    </property>
-    <property key="SegmentGroupSegmentGroupTypeId">
-        <value xml:lang="en">Segment Group Type Id</value>
-        <value xml:lang="es">Tipo de segmento</value>
-        <value xml:lang="fr">Réf. du type de groupe de segment</value>
-        <value xml:lang="it">Tipo Gruppo Segmento</value>
-        <value xml:lang="ro">Tip Grup Segment</value>
-        <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
-        <value xml:lang="zh">分区组类型标识</value>
-    </property>
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
         <value xml:lang="fr">Comptes</value>
+        <value xml:lang="it">Utenze</value>
     </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="en">Add Sales Forcast Detail</value>
         <value xml:lang="fr">Ajouter le détail de la prévision des ventes</value>
+        <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
     </property>
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau contact par import d'une vCard</value>
+        <value xml:lang="it">Creazione automatica di un nuovo contatto importando una vCard</value>
     </property>
     <property key="SfaAutoCreateLeadByImportingVCard">
         <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
         <value xml:lang="es">Crear nuevo lead automaticamente importando vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
+        <value xml:lang="it">Creazione automatica di un nuovo lead importando una vCard</value>
     </property>
     <property key="SfaAccountName">
         <value xml:lang="de">Kontoname</value>
         <value xml:lang="en">Account Name</value>
         <value xml:lang="es">Nombre de cuenta</value>
         <value xml:lang="fr">Nom de compte</value>
+        <value xml:lang="it">Nome utente</value>
     </property>
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagnes de ventes</value>
+        <value xml:lang="it">Campagne</value>
     </property>
     <property key="SfaCloneLead">
         <value xml:lang="en">Clone Lead</value>
         <value xml:lang="es">Clonar lead</value>
         <value xml:lang="fr">Dupliquer un prospect</value>
+        <value xml:lang="it">Clona lead</value>
     </property>
     <property key="SfaCloseDate">
         <value xml:lang="en">Close Date</value>
         <value xml:lang="es">Fecha de cierre</value>
         <value xml:lang="fr">Fermer la date</value>
+        <value xml:lang="it">Data di chiusura</value>
     </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
         <value xml:lang="fr">OFBiz: gestion des ventes</value>
+        <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
     </property>
     <property key="SfaCanNotMergeSameContact">
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
         <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
+        <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
     </property>
     <property key="SfaCanNotMergeSameLeads">
         <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
         <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
         <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
+        <value xml:lang="it">Fallito il merce dei leads. Tu devi selezionare lo stesso lead per fare il merge.</value>
     </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
         <value xml:lang="fr">Concurrents &amp; Associés</value>
+        <value xml:lang="it">Competitori e soci</value>
     </property>
     <property key="SfaContact">
         <value xml:lang="en">Contact</value>
         <value xml:lang="fr">Contact</value>
+        <value xml:lang="it">Contatto</value>
     </property>
     <property key="SfaContacts">
         <value xml:lang="en">Contacts</value>
         <value xml:lang="fr">Contacts</value>
+        <value xml:lang="it">Contatti</value>
     </property>
     <property key="SfaConvertLead">
         <value xml:lang="en">Convert Lead</value>
         <value xml:lang="es">Convertir lead</value>
         <value xml:lang="fr">Convertir le prospect</value>
+        <value xml:lang="it">Converti lead</value>
     </property>
     <property key="SfaCreateContactForLead">
         <value xml:lang="en">Create contact for lead</value>
         <value xml:lang="es">Crear contacto para lead</value>
         <value xml:lang="fr">Créer un contact pour le prospect</value>
+        <value xml:lang="it">Creare contatto per il lead</value>
     </property>
     <property key="SfaCreateContactFromVCard">
         <value xml:lang="en">Create from vCard</value>
         <value xml:lang="fr">Créer depuis la vCard</value>
+        <value xml:lang="it">Creare contatto dalla vCard</value>
     </property>
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
         <value xml:lang="fr">Documents</value>
+        <value xml:lang="it">Documenti</value>
+    </property>
+    <property key="SfaDataSourceLabel">
+        <value xml:lang="en">Source</value>
+        <value xml:lang="fr">Origine</value>
+        <value xml:lang="it">Origine</value>
     </property>
     <property key="SfaEditOpportunity">
         <value xml:lang="en">Edit Opportunity</value>
         <value xml:lang="fr">Modifier l'opportunité</value>
+        <value xml:lang="it">Aggiorna opportunità</value>
     </property>
     <property key="SfaEditSalesForecast">
         <value xml:lang="en">Create/Update Sales Forecast</value>
         <value xml:lang="fr">Créer/Mise à jour des prévisions de ventes</value>
+        <value xml:lang="it">Crea/Aggiorna previsioni di vendita</value>
     </property>
     <property key="SfaEstimatedAmount">
         <value xml:lang="en">Estimated Amount</value>
         <value xml:lang="fr">Montant estimé</value>
+        <value xml:lang="it">Importo stimato</value>
     </property>
     <property key="SfaEvents">
         <value xml:lang="en">Events</value>
         <value xml:lang="fr">Évènements</value>
+        <value xml:lang="it">Eventi</value>
     </property>
     <property key="SfaFindContacts">
         <value xml:lang="en">Find Contacts</value>
         <value xml:lang="fr">Rechercher les contacts</value>
+        <value xml:lang="it">Ricerca contatti</value>
     </property>
     <property key="SfaFindLeads">
         <value xml:lang="en">Find Leads</value>
         <value xml:lang="es">Buscar leads</value>
         <value xml:lang="fr">Recherchers les prospects</value>
+        <value xml:lang="it">Ricerca leads</value>
     </property>
     <property key="SfaFindOpportunities">
         <value xml:lang="en">Find Opportunities</value>
         <value xml:lang="es">Buscar oportunidades</value>
         <value xml:lang="fr">Rechercher les opportunités</value>
+        <value xml:lang="it">Ricerca opportunità</value>
     </property>
     <property key="SfaFindResults">
         <value xml:lang="en">Find Results</value>
         <value xml:lang="es">Buscar resultados</value>
         <value xml:lang="fr">Rechercher les résultats</value>
+        <value xml:lang="it">Ricerca risultati</value>
     </property>
     <property key="SfaFirstContact">
         <value xml:lang="en">First Contact</value>
         <value xml:lang="es">Primer contacto</value>
         <value xml:lang="fr">Premier contact</value>
+        <value xml:lang="it">Primo contatto</value>
     </property>
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>
         <value xml:lang="es">Previsión</value>
         <value xml:lang="fr">Prévision</value>
+        <value xml:lang="it">Previsioni</value>
     </property>
     <property key="SfaImportLead">
         <value xml:lang="en">Import Lead</value>
         <value xml:lang="es">Importar lead</value>
         <value xml:lang="fr">Importer le prospect</value>
+        <value xml:lang="it">Importo lead</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
         <value xml:lang="fr">Compte initial</value>
+        <value xml:lang="it">Utente iniziale</value>
     </property>
     <property key="SfaInitialStage">
         <value xml:lang="en">Initial Stage</value>
         <value xml:lang="fr">Phase initiale</value>
+        <value xml:lang="it">Stage iniziale</value>
     </property>
     <property key="SfaLead">
         <value xml:lang="en">Lead</value>
         <value xml:lang="fr">Prospect</value>
+        <value xml:lang="it">Lead</value>
     </property>
     <property key="SfaLeads">
         <value xml:lang="en">Leads</value>
         <value xml:lang="fr">Prospects</value>
+        <value xml:lang="it">Leads</value>
     </property>
     <property key="SfaLeadSource">
         <value xml:lang="en">Lead Source</value>
         <value xml:lang="fr">Origine du prospect</value>
+        <value xml:lang="it">Lead origine</value>
     </property>
     <property key="SfaListSalesForecastDetail">
         <value xml:lang="en">List Sales Forecast Details</value>
         <value xml:lang="fr">Liste des détails de prévision des ventes</value>
+        <value xml:lang="it">Lista dettagli previsioni di vendita</value>
     </property>
     <property key="SfaManagerApplication">
         <value xml:lang="en">SFA Manager Application</value>
         <value xml:lang="fr">Application de gestion des ventes</value>
+        <value xml:lang="it">Applicazione gestione forze esterne</value>
     </property>
     <property key="SfaManagerWelcome">
         <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;design document&lt;/a&gt; and &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
         <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;Un &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;document d'analyse détaillée&lt;/a&gt; et &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;un document de gestion de projet Jira&lt;/a&gt; sont disponibles</value>
+        <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne. Questa è un'applicazione in sviluppo e non è ancora completata.&lt;br/&gt;&lt;br/&gt;Un &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;design document&lt;/a&gt; e &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;documenti di Jira&lt;/a&gt; sono disponibili.</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
         <value xml:lang="fr">Fusionner les contacts</value>
+        <value xml:lang="it">Merge Contatti</value>
     </property>
     <property key="SfaMergeLeads">
         <value xml:lang="en">Merge Leads</value>
         <value xml:lang="fr">Fusionner les prospects</value>
+        <value xml:lang="it">Merge Leads</value>
     </property>
     <property key="SfaNextStep">
         <value xml:lang="en">Next Step</value>
         <value xml:lang="fr">Prochaine étape</value>
+        <value xml:lang="it">Passo successivo</value>
     </property>
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
         <value xml:lang="fr">Aucun prospect sélectionné pour la fusion</value>
+        <value xml:lang="it">Nessun leads selezionato da fare merge</value>
     </property>
     <property key="SfaOpportunities">
         <value xml:lang="en">Opportunities</value>
         <value xml:lang="fr">Opportunités</value>
+        <value xml:lang="it">Opportunità</value>
     </property>
     <property key="SfaOpportunityId">
         <value xml:lang="en">Opportunity ID</value>
         <value xml:lang="fr">Réf. d'opportunité</value>
+        <value xml:lang="it">N. Opportunità</value>
     </property>
     <property key="SfaOpportunityInfo">
         <value xml:lang="en">Opportunity Information</value>
         <value xml:lang="fr">Information sur l'opportunité</value>
+        <value xml:lang="it">Informazioni oppportunità</value>
     </property>
     <property key="SfaOpportunityName">
         <value xml:lang="en">Opportunity Name</value>
         <value xml:lang="fr">Nom d'opportunité</value>
+        <value xml:lang="it">Nome opportunità</value>
     </property>
     <property key="SfaOpportunitySummary">
         <value xml:lang="en">Opportunity Summary</value>
         <value xml:lang="fr">Résumé d'opportunité</value>
+        <value xml:lang="it">Sommario opportunità</value>
     </property>
     <property key="SfaProbability">
         <value xml:lang="en">Probability(%)</value>
         <value xml:lang="fr">Probabilité (%)</value>
+        <value xml:lang="it">Probabilità(%)</value>
     </property>
     <property key="SfaQuickAddContact">
         <value xml:lang="en">Quick Add Contact</value>
         <value xml:lang="fr">Ajout rapide d'un contact</value>
+        <value xml:lang="it">Aggiunta veloce contatto</value>
     </property>
     <property key="SfaQuickAddLead">
         <value xml:lang="en">Quick Add Lead</value>
         <value xml:lang="fr">Ajout rapide d'un prospect</value>
+        <value xml:lang="it">Aggiunta veloce lead</value>
     </property>
     <property key="SfaSalesForecast">
         <value xml:lang="en">Sales Forecast</value>
         <value xml:lang="fr">Prévision des ventes</value>
+        <value xml:lang="it">Previsioni di vendita</value>
     </property>
     <property key="SfaSecondContact">
         <value xml:lang="en">Second Contact</value>
         <value xml:lang="fr">Deuxième contact</value>
+        <value xml:lang="it">Secondo contatto</value>
     </property>
     <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
         <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
         <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
+        <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
     </property>
     <property key="SfaType">
         <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>
         <value xml:lang="fr">Type</value>
+        <value xml:lang="it">Tipo</value>
     </property>
     <property key="SfaUploadVCard">
         <value xml:lang="en">Upload vCard</value>
         <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
-    </property>
-    <property key="Tracking">
-        <value xml:lang="en">Tracking</value>
-        <value xml:lang="es">Seguimiento</value>
-        <value xml:lang="fr">Suivi</value>
-        <value xml:lang="it">Tracciatura</value>
-        <value xml:lang="ro">Traseu</value>
-        <value xml:lang="th">การติดตาม</value>
-        <value xml:lang="zh">跟踪</value>
-    </property>
-    <property key="TrackingCode">
-        <value xml:lang="en">Tracking Code</value>
-        <value xml:lang="es">Seguimiento</value>
-        <value xml:lang="fr">Code de suivi</value>
-        <value xml:lang="it">Codice Tracciatura</value>
-        <value xml:lang="ro">Cod Traseu</value>
-        <value xml:lang="th">รหัส Tracking</value>
-        <value xml:lang="zh">跟踪码</value>
-    </property>
-    <property key="TrackingCodeBillableLifetime">
-        <value xml:lang="en">Billable Lifetime</value>
-        <value xml:lang="es">Tiempo de facturación</value>
-        <value xml:lang="fr">Durée de vie facturable</value>
-        <value xml:lang="it">Tempo di Vita Fatturabile</value>
-        <value xml:lang="ro">Timp de Viata Facturabila</value>
-        <value xml:lang="th">ใบเสร็จรับเงินใช้ได้ตลอดเวลา</value>
-        <value xml:lang="zh">可记账期限</value>
-    </property>
-    <property key="TrackingCodeComments">
-        <value xml:lang="de">Kommentare</value>
-        <value xml:lang="en">Comments</value>
-        <value xml:lang="es">Comentarios</value>
-        <value xml:lang="fr">Commentaires</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="ro">Comentarii</value>
-        <value xml:lang="th">ความคิดเห็น</value>
-        <value xml:lang="zh">评论</value>
-    </property>
-    <property key="TrackingCodeCreate">
-        <value xml:lang="en">Create Tracking Code</value>
-        <value xml:lang="es">Crear seguimiento</value>
-        <value xml:lang="fr">Nouveau code de suivi</value>
-        <value xml:lang="it">Creare Codice Tracciatura</value>
-        <value xml:lang="ro">Creare Cod Traseu</value>
-        <value xml:lang="th">สร้างรหัส Tracking</value>
-        <value xml:lang="zh">新建跟踪码</value>
-    </property>
-    <property key="TrackingCodeDefaultProdCatalogId">
-        <value xml:lang="en">Default Product Catalog Id</value>
-        <value xml:lang="es">Catálogo</value>
-        <value xml:lang="fr">Réf. du catalogue produit par défault</value>
-        <value xml:lang="it">Codice Catalogo Default</value>
-        <value xml:lang="ro">Cod Catalog Default</value>
-        <value xml:lang="th">รหัสหมวดหมู่สินค้าทั่วไป</value>
-        <value xml:lang="zh">缺省产品目录标识</value>
-    </property>
-    <property key="TrackingCodeDescription">
-        <value xml:lang="de">Beschreibung</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="es">Descripción</value>
-        <value xml:lang="fr">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh">描述</value>
-    </property>
-    <property key="TrackingCodeGroupId">
-        <value xml:lang="en">Group Id</value>
-        <value xml:lang="es">Grupo</value>
-        <value xml:lang="fr">Réf. du groupe</value>
-        <value xml:lang="it">Codice Gruppo</value>
-        <value xml:lang="ro">Cod Grup</value>
-        <value xml:lang="th">รหัสกลุ่ม</value>
-        <value xml:lang="zh">组标识</value>
-    </property>
-    <property key="TrackingCodeInSeconds">
-        <value xml:lang="en">Seconds</value>
-        <value xml:lang="es">Segundos</value>
-        <value xml:lang="fr">Secondes</value>
-        <value xml:lang="it">Secondi</value>
-        <value xml:lang="ro">Secunde</value>
-        <value xml:lang="th">ลำดับที่สอง</value>
-        <value xml:lang="zh">秒</value>
-    </property>
-    <property key="TrackingCodeNoOverrideIfEmpty">
-        <value xml:lang="en">No override (co-brand) if empty</value>
-        <value xml:lang="es">Si este campo queda vacío no se reemplazará</value>
-        <value xml:lang="fr">Aucun remplacement (marque associée) si vide</value>
-        <value xml:lang="it">Nessuna sovrapposizione (co-brand) se vuoto</value>
-        <value xml:lang="ro">Nu se poate suprascrie (marca-asociata) daca este gol.</value>
-        <value xml:lang="th">ไม่มีการยกเลิก (ยี่ห้อสินค้าร่วมกัน) ถ้าว่าง</value>
-        <value xml:lang="zh">如果为空，不作替代 (联合品牌)</value>
-    </property>
-    <property key="TrackingCodeNoRedirectIfEmpty">
-        <value xml:lang="en">No redirect if empty</value>
-        <value xml:lang="es">Si este campo queda vacío no habrá redirección</value>
-        <value xml:lang="fr">Aucune redirection si vide</value>
-        <value xml:lang="it">Nessun redirect se vuoto</value>
-        <value xml:lang="ro">Daca este gol nu poate fi redirectionat</value>
-        <value xml:lang="th">ไม่มีการเปลี่ยนถ้าว่าง</value>
-        <value xml:lang="zh">如果为空，不重定向</value>
-    </property>
-    <property key="TrackingCodeOrder">
-        <value xml:lang="en">Tracking Code Orders</value>
-        <value xml:lang="es">Órdenes de seguimiento</value>
-        <value xml:lang="fr">Codes de suivi des commandes</value>
-        <value xml:lang="it">Codice Tracciatura Ordini</value>
-        <value xml:lang="ro">Cod Traseu Comenzi</value>
-        <value xml:lang="th">รหัส Tracking การสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">跟踪码定订单</value>
-    </property>
-    <property key="TrackingCodeOrderIsBilliable">
-        <value xml:lang="en">Is Billable ?</value>
-        <value xml:lang="es">Es facturable ?</value>
-        <value xml:lang="fr">Facturable ?</value>
-        <value xml:lang="it">E' Fatturabile ?</value>
-        <value xml:lang="ro">Este Facturabil ?</value>
-        <value xml:lang="th">เป็นใบเสร็จที่ใช้ได้ ?</value>
-        <value xml:lang="zh">可记账吗?</value>
-    </property>
-    <property key="TrackingCodeOrderOrderId">
-        <value xml:lang="en">Order Id</value>
-        <value xml:lang="es">Código de orden</value>
-        <value xml:lang="fr">Réf. de l'ordre</value>
-        <value xml:lang="it">Numero Ordine</value>
-        <value xml:lang="ro">Numar Comanda</value>
-        <value xml:lang="th">รหัสการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">订单标识</value>
-    </property>
-    <property key="TrackingCodeOverrideCss">
-        <value xml:lang="en">Override CSS URL</value>
-        <value xml:lang="es">CSS</value>
-        <value xml:lang="fr">URL de la CSS de remplacement</value>
-        <value xml:lang="it">Sostituzione URL CSS</value>
-        <value xml:lang="ro">Substitutie URL CSS</value>
-        <value xml:lang="th">ยกเลิก CSS URL</value>
-        <value xml:lang="zh">替代风格页网址</value>
-    </property>
-    <property key="TrackingCodeOverrideLogo">
-        <value xml:lang="en">Override Logo URL</value>
-        <value xml:lang="es">Logo</value>
-        <value xml:lang="fr">URL de l'image logo de remplacement</value>
-        <value xml:lang="it">Sostituzione URL Logo</value>
-        <value xml:lang="ro">Substitutie URL Logo</value>
-        <value xml:lang="th">ยกเลิกโลโก้ URL</value>
-        <value xml:lang="zh">替代徽标网址</value>
-    </property>
-    <property key="TrackingCodeRedirectUrl">
-        <value xml:lang="en">Redirect URL</value>
-        <value xml:lang="es">URL</value>
-        <value xml:lang="fr">URL de redirection</value>
-        <value xml:lang="it">Ridirezione URL</value>
-        <value xml:lang="ro">Redirectie URL</value>
-        <value xml:lang="th">เปลี่ยน URL</value>
-        <value xml:lang="zh">重定向网址</value>
-    </property>
-    <property key="TrackingCodeSubgroupId">
-        <value xml:lang="en">Sub-Group Id</value>
-        <value xml:lang="es">Sub-grupo</value>
-        <value xml:lang="fr">Réf. du sous-groupe</value>
-        <value xml:lang="it">Codice Sotto-Gruppo</value>
-        <value xml:lang="ro">Cod Sub-Grup</value>
-        <value xml:lang="th">รหัสกลุ่มย่อย</value>
-        <value xml:lang="zh">下级组标识</value>
-    </property>
-    <property key="TrackingCodeTrackableLifetime">
-        <value xml:lang="en">Trackable Lifetime</value>
-        <value xml:lang="es">Tiempo de vida</value>
-        <value xml:lang="fr">Durée de vie du suivi</value>
-        <value xml:lang="it">Tracciatura Tempo di Vita</value>
-        <value xml:lang="ro">Traseu Timp de Viata</value>
-        <value xml:lang="th">เส้นทางที่ใช้ได้ตลอดเวลา</value>
-        <value xml:lang="zh">可跟踪期限</value>
-    </property>
-    <property key="TrackingCodeTrackingCodeId">
-        <value xml:lang="en">Tracking Code Id</value>
-        <value xml:lang="es">Código</value>
-        <value xml:lang="fr">Réf. du code de suivi</value>
-        <value xml:lang="it">Codice Tracciatura</value>
-        <value xml:lang="ro">Code Traseu</value>
-        <value xml:lang="th">รหัส Tracking</value>
-        <value xml:lang="zh">跟踪码标识</value>
-    </property>
-    <property key="TrackingCodeTrackingCodeTypeId">
-        <value xml:lang="en">Tracking Code Type Id</value>
-        <value xml:lang="es">Tipo de código</value>
-        <value xml:lang="fr">Type de code de suivi</value>
-        <value xml:lang="it">Tipo Tracciatura</value>
-        <value xml:lang="ro">Tip Traseu</value>
-        <value xml:lang="th">รหัสประเภทรหัส Tracking</value>
-        <value xml:lang="zh">跟踪码类型标识</value>
-    </property>
-    <property key="TrackingCodeType">
-        <value xml:lang="en">Tracking Code Type</value>
-        <value xml:lang="es">Tipo de seguimiento</value>
-        <value xml:lang="fr">Type de code de suivi</value>
-        <value xml:lang="it">Tipo Codice Tracciatura</value>
-        <value xml:lang="ro">Tip Cod Traseu</value>
-        <value xml:lang="th">ประเภทรหัส Tracking</value>
-        <value xml:lang="zh">跟踪码类型</value>
-    </property>
-    <property key="TrackingCodeTypeCreate">
-        <value xml:lang="en">Create Tracking Code Type</value>
-        <value xml:lang="es">Crear tipo de seguimiento</value>
-        <value xml:lang="fr">Nouveau type de code de suivi</value>
-        <value xml:lang="it">Creare Tipo Tracciatura</value>
-        <value xml:lang="ro">Creare Tip Traseu</value>
-        <value xml:lang="th">สร้างประเภทรหัส Tracking</value>
-        <value xml:lang="zh">新建跟踪码类型</value>
-    </property>
-    <property key="TrackingCodeTypeDescription">
-        <value xml:lang="de">Beschreibung</value>
-        <value xml:lang="en">Description</value>
-        <value xml:lang="es">Descripción</value>
-        <value xml:lang="fr">Description</value>
-        <value xml:lang="it">Descrizione</value>
-        <value xml:lang="ro">Descriere</value>
-        <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh">描述</value>
-    </property>
-    <property key="TrackingCodeVisit">
-        <value xml:lang="en">Tracking Code Visits</value>
-        <value xml:lang="es">Visitas de seguimiento</value>
-        <value xml:lang="fr">Codes de suivi des visites</value>
-        <value xml:lang="it">Codice Tracciatura Visite</value>
-        <value xml:lang="ro">Cod Traseu Vizite</value>
-        <value xml:lang="th">รหัส Tracking ของการเยี่ยมชม</value>
-        <value xml:lang="zh">跟踪码访问</value>
-    </property>
-    <property key="TrackingCodeVisitClientHostName">
-        <value xml:lang="en">Client Hostname</value>
-        <value xml:lang="es">Host</value>
-        <value xml:lang="fr">Nom d'hôte du client</value>
-        <value xml:lang="it">Nome Host Client</value>
-        <value xml:lang="ro">Nume Host Client</value>
-        <value xml:lang="th">ชื่อเจ้าของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
-        <value xml:lang="zh">客户端主机名</value>
-    </property>
-    <property key="TrackingCodeVisitClientIpAddress">
-        <value xml:lang="en">Client IP Address</value>
-        <value xml:lang="es">Dirección IP</value>
-        <value xml:lang="fr">Adresse IP du client</value>
-        <value xml:lang="it">Indirizzo IP Client</value>
-        <value xml:lang="ro">Adresa IP Client</value>
-        <value xml:lang="th">ที่อยู่ IP ของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
-        <value xml:lang="zh">客户端IP地址</value>
-    </property>
-    <property key="TrackingCodeVisitContactMechTypeId">
-        <value xml:lang="en">Contact Mechanism Type</value>
-        <value xml:lang="es">Mecanismo de contacto</value>
-        <value xml:lang="fr">Type de coordonnées</value>
-        <value xml:lang="it">Tipo Contatto</value>
-        <value xml:lang="ro">Tip Contact</value>
-        <value xml:lang="th">ประเภทวิธีการสื่อสาร</value>
-        <value xml:lang="zh">联系方式类型</value>
-    </property>
-    <property key="TrackingCodeVisitPartyId">
-        <value xml:lang="de">Teilnehmer ID</value>
-        <value xml:lang="en">Party Id</value>
-        <value xml:lang="es">Participante</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="ro">Cod Subiect</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="TrackingCodeVisitRoleTypeId">
-        <value xml:lang="de">Funktionstyp ID</value>
-        <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="es">Tipo de rol</value>
-        <value xml:lang="fr">Type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="ro">Tip Rol</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
-    <property key="TrackingCodeVisitSessionId">
-        <value xml:lang="en">Session Id</value>
-        <value xml:lang="es">Código de sesión</value>
-        <value xml:lang="fr">Réf. de la session</value>
-        <value xml:lang="it">Numero Sessione</value>
-        <value xml:lang="ro">Numar Seziune</value>
-        <value xml:lang="th">รหัสการประชุม</value>
-        <value xml:lang="zh">会话标识</value>
-    </property>
-    <property key="TrackingCodeVisitSourceEnumId">
-        <value xml:lang="en">Source Id</value>
-        <value xml:lang="es">Código de fuente de la visita</value>
-        <value xml:lang="fr">Réf. de l'origine</value>
-        <value xml:lang="it">Numero Origine</value>
-        <value xml:lang="ro">Numar Origine</value>
-        <value xml:lang="th">รหัสแหล่งที่มา</value>
-        <value xml:lang="zh">源标识</value>
-    </property>
-    <property key="TrackingCodeVisitVisitId">
-        <value xml:lang="en">Visit Id</value>
-        <value xml:lang="es">Código de visita</value>
-        <value xml:lang="fr">Réf. de la visite</value>
-        <value xml:lang="it">Numero Visita</value>
-        <value xml:lang="ro">Numar Vizita</value>
-        <value xml:lang="th">รหัสการเยี่ยมชม</value>
-        <value xml:lang="zh">访问标识</value>
-    </property>
-    <property key="TrackingCodeVisitVisitorId">
-        <value xml:lang="en">Visitor Id</value>
-        <value xml:lang="es">Código de visitante</value>
-        <value xml:lang="fr">Réf. du visiteur</value>
-        <value xml:lang="it">Codice Visitatore</value>
-        <value xml:lang="ro">Cod Vizita</value>
-        <value xml:lang="th">รหัสผู้เยี่ยมชม</value>
-        <value xml:lang="zh">访问者标识</value>
-    </property>
-    <property key="TrackingCodeVisitWebappName">
-        <value xml:lang="en">Webapp Name</value>
-        <value xml:lang="es">Nombre de aplicación web</value>
-        <value xml:lang="fr">Nom de l'application Web</value>
-        <value xml:lang="it">Nome Applicazione Web</value>
-        <value xml:lang="ro">Nume Aplicatie Web</value>
-        <value xml:lang="th">ชื่อโปรแกรมประยุต์บนเว็บ</value>
-        <value xml:lang="zh">Web应用名称</value>
+        <value xml:lang="it">Carica vCard</value>
     </property>
 </resource>

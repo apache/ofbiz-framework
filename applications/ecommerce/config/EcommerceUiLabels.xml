@@ -33,6 +33,11 @@
         <value xml:lang="th">บัญชีของคุณลอกอินเข้าสู่ระบบคือ</value>
         <value xml:lang="zh">你登录的账户是：</value>
     </property>
+    <property key="EcommerceAccountInformation">
+        <value xml:lang="en">Account Information</value>
+        <value xml:lang="fr">Information sur le compte</value>
+	    <value xml:lang="it">Informazioni utente</value>
+    </property>
     <property key="EcommerceActive">
         <value xml:lang="cs">Váš E-mail</value>
         <value xml:lang="de">Aktiv</value>

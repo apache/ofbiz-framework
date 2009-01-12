@@ -23,10 +23,10 @@ under the License.
     <!-- SegmentGroup Lookup forms -->
     <form name="LookupSegmentGroup" target="LookupSegmentGroup" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}"><text-find/></field>
-        <field name="segmentGroupTypeId" title="${uiLabelMap.SegmentGroupSegmentGroupTypeId}"><text-find/></field>
+        <field name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}"><text-find/></field>
+        <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
-        <field name="productStoreId" title="${uiLabelMap.SegmentGroupProductStoreId}"><text-find/></field>
+        <field name="productStoreId" title="${uiLabelMap.MarketingSegmentGroupProductStoreId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -38,12 +38,12 @@ under the License.
                 <field-map field-name="entityName" value="SegmentGroup"/>
             </service>
         </actions>
-        <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.SegmentGroupSegmentGroupId}">
+        <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
             <hyperlink also-hidden="false" target-type="plain" description="${segmentGroupId}" target="javascript:set_value('${segmentGroupId}')"/>
         </field>
-        <field name="segmentGroupTypeId" title="${uiLabelMap.SegmentGroupSegmentGroupTypeId}"><display/></field>
+        <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="productStoreId" title="${uiLabelMap.SegmentGroupProductStoreId}"><display/></field>
+        <field name="productStoreId" title="${uiLabelMap.MarketingSegmentGroupProductStoreId}"><display/></field>
     </form>
     
     <form name="listSegmentGroupClass" list-name="listIt" target="" title="" type="list" paginate-target="listSegmentGroupClass"
@@ -53,7 +53,7 @@ under the License.
                 <field-map field-name="segmentGroupId" />
             </entity-and>
         </actions>
-        <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.SegmentGroupSegmentGroupId}">
+        <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
             <hyperlink also-hidden="false" target-type="intra-app" description="${segmentGroupId}" target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.SegmentGroupPartyClassificationGroupId}"><display/></field>

@@ -83,7 +83,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link  text="${uiLabelMap.TrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <container><link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
                                                 <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                             </widgets>
                                         </section>
@@ -135,7 +135,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link text="${uiLabelMap.TrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container><link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
                                         <include-form name="ListTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                     </widgets>
                                 </section>
@@ -231,7 +231,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.TrackingCodeTrackingCodeId}=${trackingCodeId}"/>
+                                    <label text="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -336,7 +336,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCodeFor} ${uiLabelMap.TrackingCodeTrackingCodeId}=${trackingCodeId}"/>
+                                    <label text="${uiLabelMap.PageTitleListTrackingCodeFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -455,7 +455,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link  text="${uiLabelMap.TrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <container><link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
                                                 <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                             </widgets>
                                         </section>
@@ -508,7 +508,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link text="${uiLabelMap.TrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container><link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
                                         <include-form name="ListTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                     </widgets>
                                 </section>
