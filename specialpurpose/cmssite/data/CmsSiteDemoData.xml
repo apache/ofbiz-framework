@@ -79,6 +79,7 @@ under the License.
                 <div><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></div>
                 <div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></div>
                 <div><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></div>
+                <div><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with belog using screen decorator</a></div>
             </div>
             ]]></textData>
     </ElectronicText>
@@ -116,7 +117,11 @@ under the License.
     <Content contentId="CMSS_DEMO_SCREEN" contentTypeId="DOCUMENT" contentName="CMS Site Demo screen/decorator example" dataResourceId="CMSS_DEMO_SCREEN"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_SCREEN" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     
-
+    <DataResource dataResourceId="CMSS_DEMO_BLOG" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#blogScreen"/>
+    <Content contentId="CMSS_DEMO_BLOG" contentTypeId="DOCUMENT" contentName="CMS Site Demo blog screen example" dataResourceId="CMSS_DEMO_BLOG"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_BLOG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    
+    
     <!-- 
       CmsSite (WebSite)
        |___(WebSiteContent of type DEFAULT_PAGE)_____> CMSS_DEMO_HOME (Content of type DOCUMENT with decorator CMSS_DEC)

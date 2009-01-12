@@ -22,6 +22,15 @@
 
     <screen name="main-decorator">
         <section>
+            <actions>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <platform-specific><html>
                     <html-template location="component://cmssite/template/cms/HtmlHead.ftl"/>
@@ -45,6 +54,34 @@
             </widgets>
         </section>
     </screen>
-
-
+ 
+    <screen name="blogScreen">
+        <section>
+            <actions>
+                <property-to-field property="blog.view.size" field="blogViewSize" resource="blog" default="20"/>
+                <set field="blogContentId" value="BLOGROOTMADMAX"/>
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list-name="blogList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentIdStart" operator="equals" env-name="blogContentId"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                        <condition-expr field-name="statusId" operator="equals" value="CTNT_PUBLISHED"/>
+                    </condition-list>
+                    <order-by field-name="caFromDate DESC"/>
+                </entity-condition>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <platform-specific><html>
+                            <html-template location="component://cmssite/template/cms/BlogList.ftl"/>
+                        </html></platform-specific>
+                </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    
 </screens>
