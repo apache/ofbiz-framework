@@ -78,11 +78,12 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- need to at least define a name for each component to use -->
     <!-- defining:
-                  seed     = OFBiz and External Seed Data
-                  demo     = OFBiz Only Demo Data
-                  ext      = External General Data (custom)
-                  ext-test = External Test Data (custom)
-                  ext-demo = External Demo Data (custom)
+        seed         = OFBiz and External Seed Data - to be maintained along with source and updated whenever a system deployment is updated
+        seed-initial = OFBiz and External Seed Data - to be maintained along with source like other seed data, but only loaded initially and not updated when a system is updated except manually reviewing each line
+        demo         = OFBiz Only Demo Data
+        ext          = External General Data (custom)
+        ext-test     = External Test Data (custom)
+        ext-demo     = External Demo Data (custom)
     -->
     <entity-data-reader name="seed"/>
     <entity-data-reader name="seed-initial"/>
