@@ -147,7 +147,7 @@ under the License.
     <screen name="FindBom">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindProductBom"/>
+                <set field="titleProperty" value="PageTitleFindBom"/>
                 <set field="tabButtonItem" value="findBom"/>
                 <set field="labelTitleProperty" value="findBom"/>
                 <set field="headerItem" value="bom"/>

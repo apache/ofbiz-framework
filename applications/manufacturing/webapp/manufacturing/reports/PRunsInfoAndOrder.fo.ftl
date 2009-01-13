@@ -47,7 +47,7 @@ under the License.
         <fo:flow flow-name="xsl-region-body">
             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
             <fo:block line-height="20pt" font-weight="bold" font-size="18pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                ${uiLabelMap.CommonHardware}
+                ${uiLabelMap.ManufacturingHardware}
             </fo:block>
 
             <fo:block line-height="10pt" font-weight="bold" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
@@ -61,13 +61,13 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CustomerOrderId}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.OrderOrderId}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${productionRun.productionRunOrder.orderId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.estimatedCompletionDate}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
@@ -82,7 +82,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CommonCustomer}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.PartyParty}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${productionRun.customer.partyId} - ${productionRun.customer.firstName} - ${productionRun.address.city}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
@@ -103,7 +103,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CommonRequester} :</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingRequester} :</fo:inline>
                                 <fo:inline font-size="10pt">__________________</fo:inline>
                             </fo:block>
                         </fo:table-cell>
@@ -159,13 +159,13 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                    ${uiLabelMap.CommonReleasedNote}
+                    ${uiLabelMap.ManufacturingReleased}
             </fo:block>
         </fo:table-cell>
 <!--
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                    ${uiLabelMap.CommonNote}
+                    ${uiLabelMap.ManufacturingReleasedNote}
             </fo:block>
         </fo:table-cell>
 -->        
