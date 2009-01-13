@@ -43,6 +43,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.GoogleBaseApplication" global="true"/>
                 <set field="applicationMenuName" value="GoogleBaseAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://googlebase/widget/GoogleBaseMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.GoogleBaseApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

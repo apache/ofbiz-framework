@@ -33,6 +33,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.EbayApplication" global="true"/>
                 <set field="applicationMenuName" value="EbayAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://ebay/widget/EbayMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.EbayApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

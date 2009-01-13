@@ -45,6 +45,7 @@ under the License.
                 <set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/>
                 <set field="parameters.parentPortalPageId" value="EXAMPLE"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
+                <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
