@@ -96,7 +96,7 @@ under the License.
     <screen name="CommonTimesheetDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="${parameters.donePage}"/>
+                <set field="headerItem" value="${parameters.portalPageId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -109,7 +109,7 @@ under the License.
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="${parameters.donePage}"/>
+                <set field="headerItem" value="${parameters.portalPageId}"/>
                 <entity-one entity-name="CommunicationEvent" value-name="commEvent">
                     <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
                 </entity-one>
@@ -129,7 +129,7 @@ under the License.
     <screen name="CommonMyTaskDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="${parameters.donePage}"/>
+                <set field="headerItem" value="${parameters.portalPageId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -189,5 +189,40 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>          
+    </screen>
+    
+    <screen name="MyCompanyComms">
+        <section>
+            <actions>
+                <set field="portalPageId" from-field="portalPageId" default-value="parameters.portalPageId"/>
+                <set field="headerItem" from-field="parameters.portalPageId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="MyCompanyComms"
+                            location="component://myportal/widget/MyPortalScreens.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="MyTimesheet">
+        <section>
+            <actions>
+                <set field="headerItem" value="myTimesheet" />
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="MyTimesheet"
+                            location="component://myportal/widget/MyPortalScreens.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

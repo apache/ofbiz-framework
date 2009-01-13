@@ -22,7 +22,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="MyCompanyCommsMenu">
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
-            <link target="newEvent?donePage=${parameters.donePage}"/>
+            <link target="newEvent?portalPageId=${parameters.portalPageId}"/>
         </menu-item>
     </menu>
     <menu name="communicationsMenu">
@@ -31,20 +31,20 @@ under the License.
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>      
             <link
-                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
             </condition>      
             <link
-                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
+                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;portalPageId=${parameters.portalPageId}" />
         </menu-item>
         <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
             <condition>
                 <if-compare field-name="parameters.all" operator="equals" value="true" />
             </condition>
-            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=false" />
+            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=false" />
         </menu-item>
         <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
             <condition>
@@ -53,7 +53,7 @@ under the License.
                     <if-empty field-name="parameters.all"/>
                 </or>
             </condition>
-            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=true" />
+            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=true" />
         </menu-item>
     </menu>    
     
@@ -90,19 +90,19 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>
-            <link target="EditCommunicationEvent?donePage=${parameters.donePage}"/>
+            <link target="EditCommunicationEvent?portalPageId=${parameters.portalPageId}"/>
         </menu-item>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>
-            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
             </condition>
-            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}"/>
+            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;portalPageId=${parameters.portalPageId}"/>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
@@ -114,7 +114,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
-            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;parentCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;parentCommEventId=${parameters.communicationEventId}&amp;portalPageId=${parameters.portalPageId}"/>
         </menu-item>
         <menu-item name="forward" title="${uiLabelMap.Forward}">
             <condition>
@@ -126,7 +126,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
-            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;originalCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;originalCommEventId=${parameters.communicationEventId}&amp;portalPageId=${parameters.portalPageId}"/>
         </menu-item>
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
