@@ -41,7 +41,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>                
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>                
+                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/> 
+                <set field="applicationTitle" value="${uiLabelMap.ContentContentManagerApplication}"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
@@ -237,7 +238,14 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="parameters.webSiteId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container style="widget-container">
                                     <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
                                 </container>
