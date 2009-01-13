@@ -53,6 +53,7 @@ under the License.
                 <entity-one entity-name="PartyNameView" value-name="partyNameView">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                 </entity-one>
+                <set field="applicationTitle" value="${uiLabelMap.TitlePageMyportalForNoLogin}"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
