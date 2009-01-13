@@ -41,6 +41,7 @@ under the License.
                 <set field="activeApp" value="catalogmgr" global="true"/>
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://product/widget/catalog/Menus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.ProductCatalogManagerApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

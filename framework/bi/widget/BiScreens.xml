@@ -32,6 +32,7 @@ under the License.
                 <set field="activeApp" value="bi" global="true"/>
                 <set field="applicationMenuName" value="BiAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://bi/widget/BiMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.BusinessIntelligenceApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

@@ -39,6 +39,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="facilitymgr" global="true"/>
                 <set field="appheaderTemplate" value="component://product/webapp/facility/includes/appheader.ftl" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.ProductFacilityManagerApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
