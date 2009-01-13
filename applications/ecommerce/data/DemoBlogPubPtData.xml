@@ -20,19 +20,6 @@ under the License.
 
 <entity-engine-xml>
 
-
- <Content contentId="BLOGROOT"  contentTypeId="WEB_SITE_PUB_PT" 
- ownerContentId=""
- contentName="Blog Root" 
- description="Blog Root" 
- childBranchCount="1" 
- childLeafCount="1" 
- createdByUserLogin="admin" 
- lastModifiedByUserLogin="admin" 
- createdDate="2004-10-16 17:32:31.285" 
- lastModifiedDate="2004-10-16 17:32:31.291" /> 
-
-
 <Content contentId="BLOGROOTBIGAL"  contentTypeId="WEB_SITE_PUB_PT" 
  ownerContentId="BLOGROOT"
  contentName="Big Al" 
