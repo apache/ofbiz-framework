@@ -58,7 +58,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="6pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="6pt">${uiLabelMap.estimatedCompletionDate}:</fo:inline>
+                                <fo:inline font-size="6pt">${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>     
@@ -72,7 +72,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>     
                             <fo:block line-height="6pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="6pt">${uiLabelMap.estimatedCompletionDate}:</fo:inline>
+                                <fo:inline font-size="6pt">${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -121,7 +121,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="6pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="6pt">${uiLabelMap.CommonPrintoutDate}:</fo:inline>
+                                <fo:inline font-size="6pt">${uiLabelMap.ManufacturingPrintoutDate}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -135,7 +135,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="6pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="6pt">${uiLabelMap.CommonPrintoutDate}:</fo:inline>
+                                <fo:inline font-size="6pt">${uiLabelMap.ManufacturingPrintoutDate}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -284,7 +284,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="9pt">${uiLabelMap.CommonLabelNumber} : ${stackInfo.stackNum} di ${stackInfo.numOfStacks}</fo:inline>
+                                <fo:inline font-size="9pt">${uiLabelMap.ManufacturingLabelNumber} : ${stackInfo.stackNum} di ${stackInfo.numOfStacks}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

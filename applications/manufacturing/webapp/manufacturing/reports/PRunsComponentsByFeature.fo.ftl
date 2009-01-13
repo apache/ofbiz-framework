@@ -58,7 +58,7 @@ under the License.
             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
 
             <fo:block line-height="20pt" font-weight="bold" font-size="18pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                ${uiLabelMap.PickingListFx}
+                ${uiLabelMap.ManufacturingPickingListFx}
             </fo:block>
 
             <fo:table text-align="left" table-layout="fixed">
@@ -94,7 +94,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CommonPrintoutDate}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPrintoutDate}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
@@ -115,11 +115,11 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                              <#if mrpName?exists>                
-                                <fo:inline font-size="10pt">${uiLabelMap.PickingPeriod} :</fo:inline>
+                              <#if mrpName?exists>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPickingPeriod} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${mrpName?if_exists}</fo:inline>
                               <#else>
-                                <fo:inline font-size="10pt">${uiLabelMap.PickingDate} :</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPickingDate} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${shipment.estimatedShipDate?if_exists}</fo:inline>
                               </#if>
                             </fo:block>
@@ -159,7 +159,7 @@ under the License.
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
                 <#if showLocation == "Y"> 
-                    ${uiLabelMap.CommonQtyM2}
+                    ${uiLabelMap.ManufacturingQtyM2}
                 <#else>
                     ${uiLabelMap.CommonQuantity}
                 </#if>
@@ -168,7 +168,7 @@ under the License.
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
                 <#if showLocation == "Y"> 
-                    ${uiLabelMap.PanelNumber}
+                    ${uiLabelMap.ManufacturingPanelNumber}
                 <#else>
                     ${uiLabelMap.ProductFacilityLocation}
                 </#if>

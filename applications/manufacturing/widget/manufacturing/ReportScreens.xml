@@ -59,6 +59,8 @@ under the License.
             <actions>
                 <set field="title" value="Cutting List Report"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 
                 <script location="component://manufacturing/widget/manufacturing/CuttingListReport.groovy"/>
@@ -75,6 +77,8 @@ under the License.
             <actions>
                 <set field="title" value="MRPPRunsProductsByFeature"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="mrpName" from-field="parameters.mrpName"/>
                 <set field="planName" value="MRP_${mrpName}"/>
@@ -104,6 +108,8 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <entity-one entity-name="Shipment" value-name="shipment"/>
@@ -122,6 +128,8 @@ under the License.
             <actions>
                 <set field="title" value="MRPPRunsComponentsByFeature"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="mrpName" from-field="parameters.mrpName"/>
                 <set field="planName" value="MRP_${mrpName}"/>
@@ -153,6 +161,8 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <entity-one entity-name="Shipment" value-name="shipment"/>
@@ -180,6 +190,7 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsStacks.groovy"/>
@@ -204,6 +215,7 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PackageContentsAndOrder.groovy"/>
@@ -229,6 +241,7 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsAndOrder.groovy"/>
@@ -253,6 +266,7 @@ under the License.
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsInfoAndOrder.groovy"/>
@@ -271,6 +285,7 @@ under the License.
                 <set field="title" value="ShipmentPlanStockReport"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentPlanStockReport.groovy"/>
@@ -289,6 +304,7 @@ under the License.
                 <set field="title" value="ShipmentLabel"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.groovy"/>
@@ -307,6 +323,7 @@ under the License.
                 <set field="title" value="ShipmentWorkEffortTasks"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentWorkEffortTasks.groovy"/>

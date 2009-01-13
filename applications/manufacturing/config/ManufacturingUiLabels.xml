@@ -185,8 +185,7 @@
         <value xml:lang="fr">Réf. de décalage du type de compte (GL)</value>
         <value xml:lang="it">Tipo Intervallo Conto Contabilità Generale</value>
         <value xml:lang="ro">Tip Interval Cont Contabil General</value>
-        <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป
-        </value>
+        <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป</value>
         <value xml:lang="zh">冲销总账账户类型标识</value>
     </property>
     <property key="FormFieldTitle_perMilliSecond">
@@ -196,7 +195,7 @@
         <value xml:lang="fr">Par millisecondes</value>
         <value xml:lang="it">Per Milli Secondi</value>
         <value xml:lang="ro">Pe Milisecunde</value>
-        <value xml:lang="th">ต่อพันวินาที                </value>
+        <value xml:lang="th">ต่อพันวินาที</value>
         <value xml:lang="zh">每毫秒</value>
     </property>
     <property key="FormFieldTitle_productFeature">
@@ -605,6 +604,7 @@
         <value xml:lang="en">Approve Requirements</value>
         <value xml:lang="es">Aprobar requisitos</value>
         <value xml:lang="fr">Approuver les besoins</value>
+        <value xml:lang="it">Approva fabbisogni</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
     </property>
     <property key="ManufacturingAssociatedProductionRuns">
@@ -682,8 +682,7 @@
         <value xml:lang="fr">Cette réf. de jour exclu existe déjà</value>
         <value xml:lang="it">Codice Capacità Calendario Produzione già esistente</value>
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
-        <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่
-        </value>
+        <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
         <value xml:lang="zh">非工作日标识已存在</value>
     </property>
     <property key="ManufacturingCalendarExceptionDayUseCalendar">
@@ -713,8 +712,7 @@
         <value xml:lang="fr">Cette réf. de semaine exclue existe déjà</value>
         <value xml:lang="it">Codice Calendario Settimanale Produzione Speciale è gia esistente</value>
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
-        <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่
-        </value>
+        <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
         <value xml:lang="zh">非工作周标识已存在</value>
     </property>
     <property key="ManufacturingCalendarExceptionWeekUseCalendar">
@@ -943,6 +941,7 @@
     </property>
     <property key="ManufacturingCreateBom">
         <value xml:lang="en">Create Bom</value>
+        <value xml:lang="it">Creare distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
     </property>
     <property key="ManufacturingCreateCalendar">
@@ -982,12 +981,12 @@
         <value xml:lang="fr">Erreur de sécurité : Pour exécuter cette opération vous devez avoir l'autorisation MANUFACTURING_CREATE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
-        <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน
-        </value>
+        <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误：要执行这个操作，你必须有MANUFACTURING_CREATE或MANUFACTURING_ADMIN权限</value>
     </property>
     <property key="ManufacturingCreateProductBom">
         <value xml:lang="en">Create Bill Of Material</value>
+        <value xml:lang="it">Creazione distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
     </property>
     <property key="ManufacturingCreateProductionRun">
@@ -1455,6 +1454,7 @@
         <value xml:lang="en">Inventory Event Planned</value>
         <value xml:lang="es">Movimiento de stock planeado</value>
         <value xml:lang="fr">Mouvements de stock planifiés</value>
+        <value xml:lang="it">Evento inventario pianificato</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件</value>
@@ -1464,6 +1464,7 @@
         <value xml:lang="en">Inventory Event Planned Create Error</value>
         <value xml:lang="es">No se pudo crear un movimiento de stock</value>
         <value xml:lang="fr">Inventaire d'événements planifié créé une erreur</value>
+        <value xml:lang="it">Errore creazione evento inventario pianificato</value>
         <value xml:lang="ro">Nu este posibila crearea unui record in InventoryEventPlanned</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้างการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">无法在已计划的库存事件中新建记录</value>
@@ -1473,6 +1474,7 @@
         <value xml:lang="en">Inventory Event Planned Not Exist</value>
         <value xml:lang="es">Movimiento de stock no existe</value>
         <value xml:lang="fr">Inventaire d'événements planifié n'existe pas</value>
+        <value xml:lang="it">Evento inventario pianificato non esiste</value>
         <value xml:lang="ro">InventoryEventPlanned nu exista</value>
         <value xml:lang="th">ไม่มีการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件不存在</value>
@@ -1482,6 +1484,7 @@
         <value xml:lang="en">Inventory Event Planned Not Update</value>
         <value xml:lang="es">Movimiento de stock no puede ser actualizado</value>
         <value xml:lang="fr">Inventaire d'événements planifié n'est pas mis à jour</value>
+        <value xml:lang="it">Evento inventario pianificato non aggiornato</value>
         <value xml:lang="ro">InventoryEventPlanned nu poate  fi actualizat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนแปลงการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件无法更新</value>
@@ -1594,6 +1597,7 @@
     <property key="ManufacturingListOfProductionRunNotes">
         <value xml:lang="en">List Of Production Run Notes</value>
         <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
+        <value xml:lang="it">Lista note ordine di produzione</value>
     </property>
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="de">Arbeitsgänge</value>
@@ -2274,6 +2278,7 @@
         <value xml:lang="en">Production Run Print Documents</value>
         <value xml:lang="es">Documentos de impresión orden de producción</value>
         <value xml:lang="fr">Documents d'impression de l'ordre de fabrication</value>
+        <value xml:lang="it">Stampa documento ordine di produzione</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
     </property>
     <property key="ManufacturingProductionRunProductComponent">
@@ -2489,6 +2494,7 @@
         <value xml:lang="en">Requirement By Date</value>
         <value xml:lang="es">Requisitos por fecha</value>
         <value xml:lang="fr">Besoin de fabrication par date</value>
+        <value xml:lang="it">Fabbisogni per data</value>
         <value xml:lang="th">ความต้องการโดยวัน</value>
     </property>
     <property key="ManufacturingRequirementId">
@@ -2496,6 +2502,7 @@
         <value xml:lang="en">Requirement Id</value>
         <value xml:lang="es">Código de requisito</value>
         <value xml:lang="fr">Réf. de besoin de fabrication</value>
+        <value xml:lang="it">Fabbisogno</value>
         <value xml:lang="th">รหัสความต้องการ</value>
     </property>
     <property key="ManufacturingRequirementStartDate">
@@ -2503,6 +2510,7 @@
         <value xml:lang="en">Requirement Start Date</value>
         <value xml:lang="es">Fecha de comienzo del requisito</value>
         <value xml:lang="fr">Date de début de besoin de fabrication</value>
+        <value xml:lang="it">Data inizio fabbisogno</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
     </property>
     <property key="ManufacturingReturnMaterials">
@@ -2916,6 +2924,7 @@
         <value xml:lang="en">Time Period</value>
         <value xml:lang="es">Intervalo de tiempo</value>
         <value xml:lang="fr">Période de temps</value>
+        <value xml:lang="it">Periodo temporale</value>
         <value xml:lang="th">ระยะเวลา</value>
     </property>
     <property key="ManufacturingToDate">
@@ -3274,6 +3283,7 @@
     <property key="PageTitleFindBom">
         <value xml:lang="en">Find Bill Of Materials</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
+        <value xml:lang="it">Ricerca distinta base</value>
     </property>
     <property key="PageTitleFindCalendar">
         <value xml:lang="de">Kalender suchen</value>
@@ -3402,70 +3412,5 @@
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="th">ค้นหาสินค้าที่มีอยู่จริง</value>
         <value xml:lang="zh">查找虚拟产品</value>
-    </property>
-    <property key="ProductionRunSimulation">
-        <value xml:lang="en">Production Run Simulation</value>
-        <value xml:lang="es">Simulacion de orden de producción</value>
-    </property>
-    <property key="ProductionRunSimulationBreakdown">
-        <value xml:lang="en">Production Run Simulation Breakdown</value>
-        <value xml:lang="es">Desglose de la simulación de producción</value>
-    </property>
-    <property key="Quantity">
-        <value xml:lang="en">Quantity</value>
-        <value xml:lang="es">Cantidad</value>
-    </property>
-    <property key="TotalCost">
-        <value xml:lang="en">Total cost</value>
-        <value xml:lang="es">Coste total</value>
-    </property>
-    <property key="CostPerUnit">
-        <value xml:lang="en">Cost per unit</value>
-        <value xml:lang="es">Coste por unidad</value>
-    </property>
-    <property key="TotalCostPerUnit">
-        <value xml:lang="en">Total cost per unit</value>
-        <value xml:lang="es">Coste total por unidad</value>
-    </property>
-    <property key="Id">
-        <value xml:lang="en">Id</value>
-        <value xml:lang="es">Código</value>
-    </property>
-    <property key="Name">
-        <value xml:lang="en">Name</value>
-        <value xml:lang="es">Nombre</value>
-    </property>
-    <property key="Duration">
-        <value xml:lang="en">Duration</value>
-        <value xml:lang="es">Duracion</value>
-    </property>
-    <property key="Cost">
-        <value xml:lang="en">Cost</value>
-        <value xml:lang="es">Coste</value>
-    </property>
-    <property key="ProductId">
-        <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
-        <value xml:lang="es">Código de producto</value>
-    </property>
-    <property key="Breakdown">
-        <value xml:lang="en">Breakdown</value>
-        <value xml:lang="es">Desglose</value>
-    </property>
-    <property key="ProductionRun">
-        <value xml:lang="en">Production Run</value>
-        <value xml:lang="es">Tirada</value>
-    </property>
-    <property key="Materials">
-        <value xml:lang="en">Materials</value>
-        <value xml:lang="es">Materiales</value>
-    </property>
-    <property key="Stock">
-        <value xml:lang="en">Stock</value>
-        <value xml:lang="es">Stock</value>
-    </property>
-    <property key="NA">
-        <value xml:lang="en">N/A</value>
-        <value xml:lang="es">n/d</value>
     </property>
 </resource>

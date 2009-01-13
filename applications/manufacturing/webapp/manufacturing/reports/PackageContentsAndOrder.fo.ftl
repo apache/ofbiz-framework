@@ -72,7 +72,7 @@ Doc.B
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle dell'etichetta - 1° riga   -->
+<!--  nota: righe o celle dell'etichetta - 1ï¿½ riga   -->
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
               <fo:table-column column-width="4.00cm"/>
@@ -105,7 +105,7 @@ Doc.B
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle dell'etichetta - 2° riga   -->
+<!--  nota: righe o celle dell'etichetta - 2ï¿½ riga   -->
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="2.00cm"/>
               <fo:table-column column-width="3.00cm"/>
@@ -118,7 +118,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.CustomerOrderId} :</fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.OrderOrderId} :</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>     
@@ -146,7 +146,7 @@ Doc.B
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle dell'etichetta - 3° riga  -->
+<!--  nota: righe o celle dell'etichetta - 3ï¿½ riga  -->
 
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="2.00cm"/>
@@ -160,7 +160,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.CommonDestination}:</fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.ManufacturingDestination}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -175,7 +175,7 @@ Doc.B
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle dell'etichetta - 4° riga  -->
+<!--  nota: righe o celle dell'etichetta - 4ï¿½ riga  -->
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="2.00cm"/>
               <fo:table-column column-width="3.00cm"/>
@@ -188,7 +188,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.CommonCustomer}</fo:inline> 
+                                <fo:inline font-size="8pt">${uiLabelMap.PartyParty}</fo:inline> 
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -204,7 +204,7 @@ Doc.B
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle dell'etichetta - 5° riga  -->
+<!--  nota: righe o celle dell'etichetta - 5ï¿½ riga  -->
 
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="2.00cm"/>
@@ -218,12 +218,12 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.CommonReference} :</fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.ManufacturingReference} :</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="10pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">{CommonReference}</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingReference}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -255,12 +255,12 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="8pt">${uiLabelMap.CommonCustomLength}</fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.ManufacturingCustomLength}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="8pt">${uiLabelMap.CommonMeasure}</fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.CommonMeasures}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

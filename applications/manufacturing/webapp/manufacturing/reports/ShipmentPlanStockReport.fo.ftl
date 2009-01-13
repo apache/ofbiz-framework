@@ -53,7 +53,7 @@ under the License.
                                     <fo:block>${uiLabelMap.estimatedCompletionDate}: <#if estimatedReadyDatePar?has_content>${estimatedReadyDatePar}</#if></fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt">                                     
-                                    <fo:block>${uiLabelMap.FacilityEstimatedShipDate}: <#if estimatedShipDatePar?has_content>${estimatedShipDatePar}</#if></fo:block>
+                                    <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}: <#if estimatedShipDatePar?has_content>${estimatedShipDatePar}</#if></fo:block>
                                 </fo:table-cell>                                    
                             </fo:table-row>
                         </fo:table-header>                          

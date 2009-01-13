@@ -88,7 +88,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CommonPrintoutDate}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPrintoutDate}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
@@ -110,7 +110,7 @@ under the License.
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
                                 <#if shipment?exists>
-                                <fo:inline font-size="10pt">${uiLabelMap.FacilityEstimatedShipDate} :</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingEstimatedShipDate} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${shipment.estimatedShipDate?if_exists}</fo:inline>
                                 <#else>
                                 <fo:inline font-size="10pt">${uiLabelMap.PickingPeriod} :</fo:inline>
@@ -175,7 +175,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                ${uiLabelMap.ProductProductBrandName}
+                ${uiLabelMap.ManufacturingProductBrandName}
             </fo:block>
         </fo:table-cell>
     </fo:table-row>

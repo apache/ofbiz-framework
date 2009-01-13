@@ -135,7 +135,7 @@ under the License.
                                     <fo:block>${uiLabelMap.ProductShipmentPlan}</fo:block>
                                 </fo:table-cell>                                                       
                                 <fo:table-cell padding="2pt">
-                                    <fo:block>${uiLabelMap.FacilityEstimatedShipDate}</fo:block>
+                                    <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}</fo:block>
                                 </fo:table-cell>                            
                             </fo:table-row>                                                                           
                             <fo:table-row>
