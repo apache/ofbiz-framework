@@ -21,29 +21,6 @@
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="CommonBlog">
-        <section>
-            <actions>
-                <set field="currentMenuItemName" from-field="currentMenuItemName" default-value="all" from-scope="user"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="leftbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
-                <set field="rightbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
-
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="blogs">                            
-                            <include-screen name="CommonBlogTitle"/>
-                            <decorator-section-include name="body"/>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonBlogTitle">
         <section>
             <condition>
@@ -125,7 +102,7 @@
                     </actions>
                     <widgets/>
                 </section>
-                <decorator-screen name="CommonBlog">
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <iterate-section list-name="blogList" entry-name="blog" view-size="${blogViewSize}" paginate="true" paginate-target="MainBlog?blogContentId=${blogContentId}&amp;ownerContentId=${parameters.ownerContentId}">
                             <section name="firstBlog">
@@ -189,7 +166,7 @@
                         <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
                     </condition>
                     <widgets>
-                        <decorator-screen name="CommonBlog">
+                        <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <include-form name="CreateArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
                             </decorator-section>
@@ -264,7 +241,7 @@
                         </entity-one>
                     </actions>
                     <widgets>
-                        <decorator-screen name="CommonBlog">
+                        <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
                             </decorator-section>
@@ -298,7 +275,7 @@
                 <set field="upPerm.contentId" from-field="articleContentId"/>                 
             </actions>
             <widgets>
-                <decorator-screen name="CommonBlog">
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label text="&lt;p/&gt;"/>
                         <container style="bloghr">
@@ -359,7 +336,7 @@
                 <set field="rsp.contentName" value="${content.contentName}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonBlog">
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label text="&lt;p/&gt;"/>
                         <container style="bloghr">
@@ -449,7 +426,7 @@
             <actions/>
 
             <widgets>
-                <decorator-screen name="CommonBlog">
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="findBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                         <include-form name="listFindBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
@@ -502,7 +479,7 @@
 
             </actions>
             <widgets>
-                <decorator-screen name="CommonBlog">
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label text="Latest Responses"/>
                         <iterate-section list-name="responseList" entry-name="rsp">

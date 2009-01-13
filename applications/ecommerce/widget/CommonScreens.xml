@@ -196,6 +196,28 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonBlog">
+        <section>
+            <actions>
+                <set field="currentMenuItemName" from-field="currentMenuItemName" default-value="all" from-scope="user"/>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="leftbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
+                <set field="rightbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <container style="blogs">                            
+                            <include-screen name="CommonBlogTitle" location="component://ecommerce/widget/blog/BlogScreens.xml"/>
+                            <decorator-section-include name="body"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <!-- Column Included Screens -->
     <screen name="language">
         <section>
