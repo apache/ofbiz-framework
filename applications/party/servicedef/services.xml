@@ -793,8 +793,6 @@ under the License.
     <service name="sendEmailDated" engine="simple" use-transaction="false"
         location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendEmailDated" auth="true">
         <description>Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email</description>
-        <attribute name="cookie" mode="IN" type="Integer" optional="true"/>
-        <attribute name="runtimeDataId" mode="IN" type="String" optional="false"></attribute>
     </service>
     
     
