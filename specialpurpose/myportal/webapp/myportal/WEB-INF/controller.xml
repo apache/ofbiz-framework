@@ -40,8 +40,8 @@
     <request-map uri="updateTimesheet">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
+        <response name="success" type="view" value="getToNextDonePage"/>
+        <response name="error" type="view" value="getToNextDonePage"/>
     </request-map>
     <request-map uri="updateTimesheetKey">
         <security https="true" auth="true"/>
@@ -125,28 +125,6 @@
         <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
         <response name="success" type="request" value="getToNextDonePage"/>
         <response name="error" type="view" value="main"/>
-    </request-map>
-    
-    <!-- PREFERENCES -->
-    <request-map uri="preferences">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="preferences"/>
-    </request-map>
-    <request-map uri="updatePreferences">
-        <security https="true" auth="true"/>
-        <event invoke="updatePreferences" path="org/ofbiz/myportal/Events.xml" type="simple"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="preferences"/>
-    </request-map>
-    <request-map uri="custPreferences">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="custPreferences"/>
-    </request-map>
-    <request-map uri="updateCustPreferences">
-        <security https="true" auth="true"/>
-        <event invoke="updateCustPreferences" path="org/ofbiz/myportal/Events.xml" type="simple"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="custPreferences"/>
     </request-map>
     
     <!-- OTHER COMMUNICATIONS -->

@@ -23,8 +23,8 @@ under the License.
         <screen name="newEvent">
         <section>
             <actions>
-                <set field="donePage" from-field="donePage" default-value="myCompanyComms"/>
-                <set field="headerItem" from-field="parameters.donePage"/>
+                <set field="portalPageId" from-field="parameters.portalPageId" default-value="myCompanyComms"/>
+                <set field="headerItem" from-field="parameters.portalPageId"/>
             </actions>
             <widgets>
                 <section>
@@ -46,7 +46,7 @@ under the License.
     <screen name="MyTimesheet">
         <section>
             <actions>
-                <set field="donePage" value="parameters.portalPageId"/>
+                <set field="portalPageId" value="parameters.portalPageId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>
             <widgets>
@@ -94,7 +94,7 @@ under the License.
     <screen name="MyTasks">
         <section>
             <actions>
-                <set field="donePage" value="myTasks"/>
+                <set field="portalPageId" value="myTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign"
                     list-name="tasks" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId" />
@@ -166,7 +166,7 @@ under the License.
     <screen name="MyCompanyComms">
         <section>
             <actions>
-                <set field="donePage" from-field="donePage" default-value="myCompanyComms"/>
+                <set field="portalPageId" from-field="parameters.portalPageId" default-value="myCompanyComms"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.CompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
@@ -180,7 +180,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
-                <set field="donePage" value="myCommunications"/>
+                <set field="portalPageId" value="myCommunications"/>
             </actions>
             <widgets>
                 <include-screen name="Communications"/>
@@ -272,7 +272,7 @@ under the License.
     <screen name="OtherCommunications">
         <section>
             <actions>
-                <set field="donePage" value="otherCommunications"/>
+                <set field="portalPageId" value="otherCommunications"/>
                 <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
                     <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
@@ -295,12 +295,12 @@ under the License.
     <screen name="ViewCommunicationEvent">
         <section>
             <actions>
-                <set field="donePage" value="${parameters.donePage}"/>
+                <set field="portalPageId" value="${parameters.portalPageId}"/>
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
-                <set field="headerItem" value="donePage" />
+                <set field="headerItem" from-field="parameters.portalPageId" />
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
@@ -328,7 +328,7 @@ under the License.
                                         <field-map field-name="communicationEventId"
                                             env-name="communicationEvent.parentCommEventId" />
                                     </entity-one>
-                                    <set field="donePage" from-field="parameters.donePage"/>
+                                    <set field="portalPageId" from-field="parameters.portalPageId"/>
                                 </actions>
                                 <widgets>
                                     <include-screen name="commEvent"
@@ -340,7 +340,7 @@ under the License.
                             <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
                                 <actions>
-                                    <set field="donePage" value="${parameters.donePage}"/>
+                                    <set field="portalPageId" value="${parameters.portalPageId}"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
@@ -351,7 +351,7 @@ under the License.
                             </section>
                             <section>
                                 <actions>
-                                    <set field="donePage" value="${parameters.donePage}"/>
+                                    <set field="portalPageId" value="${parameters.portalPageId}"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
@@ -536,6 +536,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="tabButtonItem" value="CommunicationEvent" />
+                <set field="portalPageId" from-field="parameters.portalPageId" default-value="parameters.portalPageId"/>
+                <set field="headerItem" from-field="parameters.portalPageId"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>

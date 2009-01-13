@@ -165,10 +165,10 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getToNextDonePage" short-description="return the requestValue 'donePage' as a resultcode to the controller">
-        <set field="donePage" from-field="parameters.donePage" default-value="${parameters.DONE_PAGE}"/>
-        <if-not-empty field="donePage">
-            <log level="info" message="Next request: ${donePage}"/>
-            <return response-code="${donePage}"/>
+        <set field="portalPageId" from-field="parameters.portalPageId"/>
+        <if-not-empty field="portalPageId">
+            <log level="info" message="Next request: ${portalPageId}"/>
+            <return response-code="parameters.portalPageId"/>
             <else>
                 <log level="info" message="Next 'donePage' variable not provided, returning 'error'"/>
                 <return response-code="error"/>

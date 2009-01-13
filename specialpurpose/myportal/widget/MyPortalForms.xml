@@ -62,7 +62,7 @@ under the License.
                 <order-by field-name="actualStartDate"/>
             </entity-condition>
         </actions>
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="deleteEventKey"/>
+        <alt-target use-when="headerItem.equals(&quot;main&quot;)" target="deleteEventKey"/>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -71,7 +71,7 @@ under the License.
     </form>
     
     <form name="newEvent" type="single" target="createEvent">
-        <field name="donePage"><hidden/></field>
+        <field name="portalPageId"><hidden/></field>
         <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
