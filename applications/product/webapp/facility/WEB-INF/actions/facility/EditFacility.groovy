@@ -19,7 +19,7 @@
 
 import org.ofbiz.entity.condition.*;
 
-facilityId = request.getParameter("facilityId");
+facilityId = parameters.facilityId;
 if (!facilityId && request.getAttribute("facilityId")) {
   facilityId = request.getAttribute("facilityId");
 }

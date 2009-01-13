@@ -40,6 +40,16 @@ under the License.
         <field name="description"><display/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FacilitySearchResults"/>
     </form>
+    
+    <form name="FindFacility10" type="single" target="EditFacility"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="facilityId">
+            <drop-down allow-empty="false">
+                <entity-options description="${facilityName}" entity-name="Facility" key-field-name="facilityId"/>
+            </drop-down>
+        </field>
+        <field name="selectButton"><submit button-type="button"/></field>
+    </form>
 
     <form name="FindFacilityOptions" extends="lookupFacility" extends-resource="component://product/webapp/facility/lookup/FieldLookupForms.xml" target="FindFacility">
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
