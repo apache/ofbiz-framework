@@ -60,14 +60,13 @@
             </then>
         </if>
 
-        <if>
+        <!--if>
             <condition>
                 <not>
                     <if-empty field="parameters.uploadedFile"/>
                 </not>
             </condition>
             <then>
-                <!-- create image data -->
                 <set field="createImage.dataResourceTypeId" value="LOCAL_FILE"/>
                 <set field="createImage.dataTemplateTypeId" value="NONE"/>
                 <set field="createImage.mapKey" value="IMAGE"/>
@@ -93,7 +92,7 @@
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
                 </if-empty>
             </then>
-        </if>
+        </if-->
 
         <if>
             <condition>
@@ -132,18 +131,12 @@
         <!-- we should have a primary (at least) contentId -->
         <if>
             <condition>
-                <and>
-                    <not>
-                        <if-empty field="contentId"/>
-                    </not>
-                    <not>
-                        <if-empty field="parameters.summaryData"/>
-                    </not>
-                </and>
+                    <if-empty field="contentId"/>
             </condition>
             <then>
                 <!-- create the summary data -->
                 <set field="createSummary.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="createSummary.contentPurposeTypeId" value="ARTICLE"/>
                 <set field="createSummary.dataTemplateTypeId" value="NONE"/>
                 <set field="createSummary.mapKey" value="SUMMARY"/>
 
@@ -156,10 +149,12 @@
                 <set field="createSummary.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createSummary.partyId" from-field="userLogin.partyId"/>
 
-                <call-service service-name="createTextContent" in-map-name="createSummary"/>
+                <call-service service-name="createTextContent" in-map-name="createSummary">
+                    <result-to-field result-name="contentId" field="contentId"/>
+                </call-service>
             </then>
         </if>
-
+<log level="always" message="==========contentId: ${contentId} created"/>
         <field-to-result field="contentId"/>
     </simple-method>
 

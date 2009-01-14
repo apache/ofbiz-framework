@@ -75,6 +75,7 @@
         <make-value value-field="assoc" entity-name="ContentAssoc"/>
         <set-nonpk-fields value-field="assoc" map="parameters"/>
         <set-pk-fields value-field="assoc" map="parameters"/>
+        
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
 
         <now-timestamp field="nowTimestamp"/>
@@ -875,7 +876,8 @@
         <remove-value value-field="commEventContentAssoc" />
     </simple-method>
 
-    <simple-method method-name="createContentAndAssoc" short-description="Create content and associate with other content">
+    <!-- simply use createContent and the accoc will be created too" the service below +aca will create 2 contentAssocs-->
+    <!--simple-method method-name="createContentAndAssoc" short-description="Create content and associate with other content">
         <set-service-fields service-name="createContent" map="parameters" to-map="contentData"/>
         <call-service service-name="createContent" in-map-name="contentData">
             <result-to-field result-name="contentId" field="newContentId"/>
@@ -889,7 +891,7 @@
             </call-service>
             <field-to-result field="newContentId" result-name="contentId"/>
         </if-not-empty>
-    </simple-method>
+    </simple-method-->
     
     <!-- retrieve Data resource information -->
     <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">        

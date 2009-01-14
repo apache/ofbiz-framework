@@ -308,7 +308,9 @@
     </service>
 
     <!-- Complex Contentservices -->
-    <service name="createContentAndAssoc" default-entity-name="Content" engine="simple"
+    
+    <!-- simply use createContent and the accoc will be created too" -->
+        <!--service name="createContentAndAssoc" default-entity-name="Content" engine="simple"
             location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAndAssoc" auth="true">
         <description>Create a Content with a ContentAssoc</description>
         <auto-attributes entity-name="Content" include="all" mode="IN" optional="true">
@@ -324,7 +326,7 @@
         <attribute mode="INOUT" entity-name="ContentAssoc" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="INOUT" entity-name="ContentAssoc" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="IN" name="contentTypeId" optional="false" type="String"/>
-    </service>
+    </service-->
 
     <service name="getAssocAndContentAndDataResourceCache" default-entity-name="ContentAssocDataResourceViewFrom"
         engine="java" location="org.ofbiz.content.content.ContentServicesComplex"
