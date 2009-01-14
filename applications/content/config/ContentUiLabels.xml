@@ -74,6 +74,21 @@
         <value xml:lang="th">คุณสมบัติ</value>
         <value xml:lang="zh">属性</value>
     </property>
+    <property key="ContentBlog">
+        <value xml:lang="en">Blog</value>
+    </property>
+    <property key="ContentBlogActicle">
+        <value xml:lang="en">Article</value>
+    </property>
+    <property key="ContentBlogActicleList">
+        <value xml:lang="en">List of Blog articles</value>
+    </property>
+    <property key="ContentBlogList">
+        <value xml:lang="en">List of Blogs</value>
+    </property>
+    <property key="ContentBlogEdit">
+        <value xml:lang="en">Edit a Blog</value>
+    </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
         <value xml:lang="de">CMS</value>

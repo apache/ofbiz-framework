@@ -63,6 +63,117 @@ under the License.
         <response name="error" type="view" value="error"/>
     </request-map>    
 
+    <!-- ================ Blog Requests ================= -->
+    <request-map uri="blogMain">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="blogMain"/>
+    </request-map>
+    <request-map uri="editBlog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="updateBlog">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createContent"/>
+        <response name="success" type="view" value="blogMain"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="newBlog">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createContent"/>
+        <response name="success" type="view" value="blogMain"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="blogContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="blogContent"/>
+    </request-map>
+    <request-map uri="NewArticle">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewArticle"/>
+    </request-map>
+    <request-map uri="createBlogArticle">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="postBlogEntry"/>
+        <response name="success" type="view" value="blogContent"/>
+        <response name="error" type="view" value="NewArticle"/>
+    </request-map>
+    <request-map uri="ViewArticle">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewArticle"/>
+    </request-map>
+    <request-map uri="ViewBlogRss">
+        <security https="true" auth="true"/>
+        <event type="rome" invoke="generateBlogRssFeed"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    <request-map uri="ViewResponse">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewResponse"/>
+    </request-map>
+    <request-map uri="LatestResponses">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LatestResponses"/>
+    </request-map>
+    <request-map uri="EditArticle">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditArticle"/>
+    </request-map>
+    <request-map uri="EditBlogImage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditBlogImage"/>
+    </request-map>
+    <request-map uri="EditBlogText">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditBlogText"/>
+    </request-map>
+    <request-map uri="RespondBlog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="RespondBlog"/>
+    </request-map>
+    <request-map uri="persistBlogSummary">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="persistBlogText">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="persistBlogImage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+    <request-map uri="createBlogResponse">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTextContent"/>
+        <response name="success" type="view" value="ViewResponse"/>
+        <response name="error" type="view" value="ViewResponse"/>
+    </request-map>
+    <request-map uri="updateBlogResponse">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="updateTextContent"/>
+        <response name="success" type="view" value="ViewResponse"/>
+        <response name="error" type="view" value="ViewResponse"/>
+    </request-map>
+    <request-map uri="defaultcontent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="defaultcontent"/>
+    </request-map>
+    <request-map uri="showcontenttree">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showcontenttree"/>
+    </request-map>
+    <request-map uri="viewcontent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewcontent"/>
+    </request-map>
     <!-- ================ Forum Requests ================= -->
     <request-map uri="findForumGroups">
         <security https="true" auth="true"/>
@@ -1665,6 +1776,19 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
+    
+    <view-map name="blogMain" page="component://content/widget/forum/BlogScreens.xml#BlogMain" type="screen"/>
+    <view-map name="blogContent" page="component://content/widget/forum/BlogScreens.xml#BlogContent" type="screen"/>
+    <view-map name="ViewArticle" page="component://content/widget/forum/BlogScreens.xml#ViewArticle" type="screen"/>
+    <view-map name="EditBlog" type="screen" page="component://content/widget/forum/BlogScreens.xml#EditBlog"/>
+    <view-map name="NewArticle" page="component://content/widget/forum/BlogScreens.xml#NewArticle" type="screen"/>
+    <view-map name="EditArticle" page="component://content/widget/forum/BlogScreens.xml#EditArticle" type="screen"/>
+    <view-map name="ViewResponse" page="component://content/widget/forum/BlogScreens.xml#BlogMain" type="screen"/>
+    <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#AddBlogResponse"/>
+    <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
+    <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
+    <view-map name="EditBlogResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
+    <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
     
     <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>
     <view-map name="ForumGroupRoles" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles" type="screen"/>
