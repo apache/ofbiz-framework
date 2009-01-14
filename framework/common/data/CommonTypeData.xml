@@ -110,7 +110,8 @@ under the License.
     <Enumeration enumId="VT_HDR_JAVASCRIPT" description="Header JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="07"/>
     <Enumeration enumId="VT_FTR_TMPLT_LOC" description="Footer Template Location" enumTypeId="VT_RES_TYPE" sequenceId="08"/>
     <Enumeration enumId="VT_FTR_JAVASCRIPT" description="Footer JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="09"/>
-    <Enumeration enumId="VT_SCREENSHOT" description="Theme Preview Screenshot" enumTypeId="VT_RES_TYPE" sequenceId="10"/>
+    <Enumeration enumId="VT_NAV_TMPLT_LOC" description="Main Navigation Template Location" enumTypeId="VT_RES_TYPE" sequenceId="10"/>
+    <Enumeration enumId="VT_SCREENSHOT" description="Theme Preview Screenshot" enumTypeId="VT_RES_TYPE" sequenceId="11"/>
     <VisualTheme visualThemeId="DEFAULT" description="OFBiz Standard Floating Layout"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/maincss.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/images/mainrtl.css" sequenceId="01"/>
@@ -118,6 +119,7 @@ under the License.
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.jpg" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://common/webcommon/includes/appbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/default-screenshot.gif" sequenceId="01"/>
 
     <!-- Uom Conversion Purposes -->

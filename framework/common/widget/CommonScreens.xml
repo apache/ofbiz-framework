@@ -132,6 +132,7 @@ under the License.
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
                 <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/header.ftl"/>
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/footer.ftl"/>
+                <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/appbar.ftl"/>
                 <property-to-field resource="general" property="defaultOrganizationPartyId" field="defaultOrganizationPartyIdProperties"/>
                 <set field="defaultOrganizationPartyId" value="${bsh:&quot;DEFAULT&quot;.equals(userPreferences.get(&quot;ORGANIZATION_PARTY&quot;))?defaultOrganizationPartyIdProperties:userPreferences.get(&quot;ORGANIZATION_PARTY&quot;)}" global="true"/>
                 <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
@@ -145,7 +146,7 @@ under the License.
                 <!-- render header -->
                 <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
                 <!-- render appbar -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/appbar.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
                 
                 <!-- render appheader: both menu widget style and ftl template style menus are supported-->
                 <section>
