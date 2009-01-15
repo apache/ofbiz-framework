@@ -424,7 +424,7 @@ public class TaxwareUTL {
                                 "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
-                if (rec.getBigDecimal("TAX_AMT_CITY")..compareTo(BigDecimal.ZERO) > 0) {
+                if (rec.getBigDecimal("TAX_AMT_CITY").compareTo(BigDecimal.ZERO) > 0) {
                 	BigDecimal rate = rec.getBigDecimal("TAX_RATE_CITY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_CITY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_CITY") != null ? rec.getString("JUR_CITY").trim() : "";
