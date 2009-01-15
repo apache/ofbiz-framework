@@ -934,11 +934,20 @@ display: inline; /* IE Fix */
 
 #main-navigation ul li {
 float: left;
+background-image: url(/images/tabs/main_uns_left.gif);
+}
+
+#main-navigation ul li:hover {
+background-image: url(/images/tabs/main_sel_left.gif);
+}
+
+#main-navigation ul li.selected {
+background-image: url(/images/tabs/main_sel_left.gif);
 }
 
 #main-navigation ul a {
-background-image: url(/images/tabs/main_uns_left.gif);
-background-position: top left;
+background-image: url(/images/tabs/main_uns_right.gif);
+background-position: top right;
 background-repeat: no-repeat;
 border-bottom: solid #989898 0.01em;
 color: #000000;
@@ -955,8 +964,8 @@ color: #D4D0C8;
 #main-navigation ul a:hover,
 #main-navigation ul .selected a,
 #main-navigation ui .selected a:hover {
-background-image: url(/images/tabs/main_sel_left.gif);
-background-position: top left;
+background-image: url(/images/tabs/main_sel_right.gif);
+background-position: top right;
 background-repeat: no-repeat;
 border-bottom: solid #D4D0C8 0.01em;
 color: #000099;
