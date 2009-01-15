@@ -48,7 +48,7 @@
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
-        <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Perfavore inserire nuovamente</value>
+        <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
     </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
