@@ -404,7 +404,7 @@
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
         <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant de modifier les tarifs</value>
-        <value xml:lang="it">Perfavore impostare un fornitore in Agreement.partyIdTo e una valuta in AgreementItem prima di aggiornare il prezzo di listino</value>
+        <value xml:lang="it">Per favore impostare un fornitore in Agreement.partyIdTo e una valuta in AgreementItem prima di aggiornare il prezzo di listino</value>
         <value xml:lang="nl">Zet een leverancier in de overeenkomst, PartyIDTo en een valuta in het item van de overeenkomst voordat de prijslijst wordt aangepast</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา</value>
     </property>

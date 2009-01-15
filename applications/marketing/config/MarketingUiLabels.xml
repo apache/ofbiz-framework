@@ -676,7 +676,7 @@
     <property key="MarketingServiceError">
         <value xml:lang="en">There was a problem processing your request.  Please try again.  If the problem persists, please contact us.</value>
         <value xml:lang="fr">Il y a eu un problème durant le traitement de votre demande. SVP, essayez encore. Si le problème persiste, contactez-nous, merci.</value>
-        <value xml:lang="it">C'è stato un problema durante l'esecuzione della tua richiesta.  Perfavore riprovare.  Se il problema persiste, perfavore contattaci.</value>
+        <value xml:lang="it">C'è stato un problema durante l'esecuzione della tua richiesta. Prego riprovare. Se il problema persiste, contattaci, grazie.</value>
         <value xml:lang="th">มีปัญหาในการประมวลผลคำร้องของคุณ กรุณาลองอีกครั้ง ถ้ายังเกิดปัญหาเหมือนเดิม กรุณาติดต่อเรา</value>
         <value xml:lang="zh">处理你的请求时出错。请重试。如果仍然出错，请与我们联系。</value>
     </property>

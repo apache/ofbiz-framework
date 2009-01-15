@@ -8482,7 +8482,7 @@
         <value xml:lang="en">Create Rule</value>
         <value xml:lang="es">Crear Regla</value>
         <value xml:lang="fr">Création d'une règle</value>
-        <value xml:lang="it">Creare Ruolo</value>
+        <value xml:lang="it">Creare regola</value>
         <value xml:lang="ro">Creare Rol</value>
         <value xml:lang="ru">Создать роль</value>
         <value xml:lang="th">สร้างข้อบังคับ</value>
@@ -16769,7 +16769,7 @@
         <value xml:lang="en">Rule ID</value>
         <value xml:lang="es">Código de regla</value>
         <value xml:lang="fr">Réf. de la règle</value>
-        <value xml:lang="it">Codice Ruolo</value>
+        <value xml:lang="it">Codice regola</value>
         <value xml:lang="ro">Cod Rol</value>
         <value xml:lang="ru">Код правила</value>
         <value xml:lang="th">รหัสสถานะ</value>
@@ -16780,7 +16780,7 @@
         <value xml:lang="en">Rule Name</value>
         <value xml:lang="es">Nombre de la regla</value>
         <value xml:lang="fr">Nom de la règle</value>
-        <value xml:lang="it">Nome Ruolo</value>
+        <value xml:lang="it">Nome regola</value>
         <value xml:lang="ro">Nume Rol</value>
         <value xml:lang="ru">Имя правила</value>
         <value xml:lang="th">ชื่อสถานะ</value>
@@ -16791,7 +16791,7 @@
         <value xml:lang="en">Rule Name, Description, From Date, Thru Date</value>
         <value xml:lang="es">Nombre de la regla, Fecha de inicio, Fecha de fin</value>
         <value xml:lang="fr">Nom de la règle, description, de la date, jusqu'à la date</value>
-        <value xml:lang="it">Nome Ruolo, Descrizione, Da Data, A Data</value>
+        <value xml:lang="it">Nome regola, descrizione, da data, a data</value>
         <value xml:lang="ro">Nume Rol, Descriere, De la Data, La Data</value>
         <value xml:lang="ru">Имя правила, Описание, Дата начала, До даты</value>
         <value xml:lang="th">ชื่อข้อบังคับ, คำอธิบาย, จากวันที่, ถึงวันที่</value>

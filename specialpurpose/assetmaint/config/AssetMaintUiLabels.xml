@@ -46,7 +46,7 @@
     <property key="AssetMaintInvalidPartProductIdError">
         <value xml:lang="en">"Part Id ${productId} provided is invalid please check and try again"</value>
         <value xml:lang="fr">"La réf. de piéce ${productId} fournie n'est pas valable, SVP recommencez"</value>
-        <value xml:lang="it">"Codice Parte ${productId} fornito non è valido perfavore controllare e provare nuovamente"</value>
+        <value xml:lang="it">"Il Codice Parte ${productId} fornito non è valido per favore controllare e provare nuovamente"</value>
         <value xml:lang="th">รหัสส่วน ${productId} ใช้ไม่ได้ กรุณาตรวจสอบและลองอีกครั้ง</value>
     </property>
     <property key="AssetMaintLowPartInventoryError">
