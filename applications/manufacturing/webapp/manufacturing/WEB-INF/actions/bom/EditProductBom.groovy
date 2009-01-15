@@ -65,10 +65,10 @@ Collection formulae = delegator.findByAnd("CustomMethod", [customMethodTypeId : 
 context.formulae = formulae;
 
 if (product) {
-    assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum"]);
+    assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"]);
     if (assocFromProducts) context.assocFromProducts = assocFromProducts;
 
-    assocToProducts = product.getRelatedByAnd("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]));
+    assocToProducts = product.getRelated("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"]);
     if (assocToProducts) context.assocToProducts = assocToProducts;
 }
 
