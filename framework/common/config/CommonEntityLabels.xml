@@ -865,7 +865,7 @@
     <property key="Enumeration.description.ODRSQ_STANDARD">
         <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System)</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
-        <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, fait par le système)</value>
+        <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, générés par le système)</value>
         <value xml:lang="it">Normale (più veloce, potrebbe esserci pause, per il sistema)</value>
         <value xml:lang="pt">Standard (mas rápido, pode ter intervalos, por sistema)</value>
         <value xml:lang="ro">Normal (mai repede, pot sa apara pauze, in sistem)</value>
@@ -10735,7 +10735,7 @@
         <value xml:lang="de">Quadratmeile</value>
         <value xml:lang="en">Square Mile</value>
         <value xml:lang="es">Milla cuadrada</value>
-        <value xml:lang="fr">Mille carré (2,59 km2)</value>
+        <value xml:lang="fr">Mille carré (2,59 km²)</value>
         <value xml:lang="it">Miglia quadrato</value>
         <value xml:lang="pt">Milha Quadrada</value>
         <value xml:lang="ro">Mila Patrata</value>
@@ -10747,7 +10747,7 @@
         <value xml:lang="de">Quadratmillimeter</value>
         <value xml:lang="en">Square Millimeter</value>
         <value xml:lang="es">Milímetro cuadrado</value>
-        <value xml:lang="fr">Millimètre carré (mm2)</value>
+        <value xml:lang="fr">Millimètre carré (mm²)</value>
         <value xml:lang="it">Millimetro quadrato</value>
         <value xml:lang="pt">Milímetro Quadrado</value>
         <value xml:lang="ro">Milimetru Patrat</value>
@@ -12074,7 +12074,7 @@
         <value xml:lang="de">Fathom</value>
         <value xml:lang="en">Fathom</value>
         <value xml:lang="es">Fathom</value>
-        <value xml:lang="fr">Toise</value>
+        <value xml:lang="fr">Brasse (1,8288 m)</value>
         <value xml:lang="it">Fathom</value>
         <value xml:lang="pt">Fathom</value>
         <value xml:lang="ro">Fathom</value>
@@ -12086,7 +12086,7 @@
         <value xml:lang="de">Fuss</value>
         <value xml:lang="en">Foot</value>
         <value xml:lang="es">Pie</value>
-        <value xml:lang="fr">Pied</value>
+        <value xml:lang="fr">Pied (30,48 cm)</value>
         <value xml:lang="it">Piede</value>
         <value xml:lang="pt">Pé</value>
         <value xml:lang="ro">Piede</value>
@@ -12109,7 +12109,7 @@
     <property key="Uom.description.LEN_hand">
         <value xml:lang="en">Hand (horse's height)</value>
         <value xml:lang="es">Mano (altura de caballo)</value>
-        <value xml:lang="fr">Main (taille de cheval)</value>
+        <value xml:lang="fr">Main (10,16 cm)</value>
         <value xml:lang="it">Mano (altezza cavallo)</value>
         <value xml:lang="pt">Hand (horse's height)</value>
         <value xml:lang="ro">Mano (Inaltime cal)</value>
@@ -12121,7 +12121,7 @@
         <value xml:lang="de">Zoll</value>
         <value xml:lang="en">Inch</value>
         <value xml:lang="es">Pulgada</value>
-        <value xml:lang="fr">Pouce</value>
+        <value xml:lang="fr">Pouce (2,54 cm)</value>
         <value xml:lang="it">Pollice</value>
         <value xml:lang="pt">Polegada</value>
         <value xml:lang="ro">Inch</value>
@@ -12145,7 +12145,7 @@
         <value xml:lang="de">Meile (League)</value>
         <value xml:lang="en">League</value>
         <value xml:lang="es">Milla (League)</value>
-        <value xml:lang="fr">Ligue</value>
+        <value xml:lang="fr">Lieue (http://en.wikipedia.org/wiki/League_(unit))</value>
         <value xml:lang="it">Lega</value>
         <value xml:lang="pt">Légua</value>
         <value xml:lang="ro">Lega</value>
@@ -12156,7 +12156,7 @@
     <property key="Uom.description.LEN_lnG">
         <value xml:lang="en">Link (Gunter's)</value>
         <value xml:lang="es">Link (de Gunter)</value>
-        <value xml:lang="fr">Lien (de Gunter)</value>
+        <value xml:lang="fr">Lien (de Gunter =  0,201168 m)</value>
         <value xml:lang="it">Link (Gunter's)</value>
         <value xml:lang="pt">Link (Gunter's)</value>
         <value xml:lang="ro">Link (Gunter's)</value>
@@ -12167,7 +12167,7 @@
     <property key="Uom.description.LEN_lnR">
         <value xml:lang="en">Link (Ramden's)</value>
         <value xml:lang="es">Link (de Ramden)</value>
-        <value xml:lang="fr">Lien (de Randem)</value>
+        <value xml:lang="fr">Lien (de Randem = 0,3048 m)</value>
         <value xml:lang="it">Link (Ramden's)</value>
         <value xml:lang="pt">Link (Ramden's)</value>
         <value xml:lang="ro">Link (Ramden's)</value>
@@ -12191,7 +12191,7 @@
         <value xml:lang="de">Meile (Land)</value>
         <value xml:lang="en">Mile (statute/land)</value>
         <value xml:lang="es">Milla terrestre</value>
-        <value xml:lang="fr">Mille (Statut/terre)</value>
+        <value xml:lang="fr">Mille (terrestre = 1,609 km)</value>
         <value xml:lang="it">Miglio (terra)</value>
         <value xml:lang="pt">Milha (statute/land)</value>
         <value xml:lang="ro">Mila (Pamant)</value>
@@ -12227,7 +12227,7 @@
         <value xml:lang="de">Meile (nautisch)</value>
         <value xml:lang="en">Mile (nautical/sea)</value>
         <value xml:lang="es">Milla náutica</value>
-        <value xml:lang="fr">Mille (nautique/mer)</value>
+        <value xml:lang="fr">Mille (nautique = 1,852 km)</value>
         <value xml:lang="it">Miglio (nautico)</value>
         <value xml:lang="pt">Milha (nautical/sea)</value>
         <value xml:lang="ro">Miglio (nautica)</value>
@@ -12239,7 +12239,7 @@
         <value xml:lang="de">Pica (Schriftsatzmass)</value>
         <value xml:lang="en">Pica (type size)</value>
         <value xml:lang="es">Pica (tamaño de fuente)</value>
-        <value xml:lang="fr">Pica (type taille)</value>
+        <value xml:lang="fr">Pica (4,23333333 mm)</value>
         <value xml:lang="it">Pica (tipo misura)</value>
         <value xml:lang="pt">Pica (type size)</value>
         <value xml:lang="ro">Pica (tip masura)</value>
@@ -12251,7 +12251,7 @@
         <value xml:lang="de">Punkt (Schriftsatzmass)</value>
         <value xml:lang="en">Point (type size)</value>
         <value xml:lang="es">Punto (tamaño de fuente)</value>
-        <value xml:lang="fr">Point(type taille)</value>
+        <value xml:lang="fr">Point (1/12 pica)</value>
         <value xml:lang="it">Punto (tipo misura)</value>
         <value xml:lang="pt">Ponto (type size)</value>
         <value xml:lang="ro">Punct (tip masura)</value>
@@ -12274,7 +12274,7 @@
         <value xml:lang="de">Mikrometer</value>
         <value xml:lang="en">Micrometer (Micron)</value>
         <value xml:lang="es">Micrómetro</value>
-        <value xml:lang="fr">Micromètre</value>
+        <value xml:lang="fr">Micromètre (Micron)</value>
         <value xml:lang="it">Micrometro (Micron)</value>
         <value xml:lang="pt">Micrómetro (Micron)</value>
         <value xml:lang="ro">Micrometru (Micron)</value>
@@ -12286,7 +12286,7 @@
         <value xml:lang="de">Yard</value>
         <value xml:lang="en">Yard</value>
         <value xml:lang="es">Yarda</value>
-        <value xml:lang="fr">Yard</value>
+        <value xml:lang="fr">Yard (0,9144 m)</value>
         <value xml:lang="it">Iarda</value>
         <value xml:lang="pt">Jarda</value>
         <value xml:lang="ro">Iard</value>
