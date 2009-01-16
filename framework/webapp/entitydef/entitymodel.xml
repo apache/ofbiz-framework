@@ -234,7 +234,6 @@ under the License.
             title="Web Site Entity">
       <field name="webSiteId" type="id-ne"></field>
       <field name="siteName" type="name"></field>
-      <field name="allowProductStoreChange" type="indicator"></field>
       <field name="httpHost" type="long-varchar"></field>
       <field name="httpPort" type="very-short"></field>
       <field name="httpsHost" type="long-varchar"></field>
