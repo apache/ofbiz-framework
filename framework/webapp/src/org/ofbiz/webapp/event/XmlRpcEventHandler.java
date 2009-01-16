@@ -39,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Map;
 import java.util.Locale;
-import java.util.Iterator;
 
 import javolution.util.FastMap;
 
@@ -52,12 +51,24 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     public static final String dispatcherName = "xmlrpc-dispatcher";
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
+
+    private Boolean enabledForExtensions = null;
+    private Boolean enabledForExceptions = null;
             
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
-        this.setHandlerMapping(new ServiceRpcHandler());        
+        this.setHandlerMapping(new ServiceRpcHandler());
+
+        String extensionsEnabledString = context.getInitParameter("xmlrpc.enabledForExtensions");
+        if (UtilValidate.isNotEmpty(extensionsEnabledString)) {
+            enabledForExtensions = Boolean.valueOf(extensionsEnabledString);
+        }
+        String exceptionsEnabledString = context.getInitParameter("xmlrpc.enabledForExceptions");
+        if (UtilValidate.isNotEmpty(exceptionsEnabledString)) {
+            enabledForExceptions = Boolean.valueOf(exceptionsEnabledString);
+        }
     }
 
     public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
@@ -120,7 +131,14 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         result.setEncoding(req.getCharacterEncoding());
         //result.setEnabledForExceptions(serverConfig.isEnabledForExceptions());
         HttpUtil.parseAuthorization(result, req.getHeader("Authorization"));
-        
+
+        // context overrides
+        if (enabledForExtensions != null) {
+            result.setEnabledForExtensions(enabledForExtensions);
+        }
+        if (enabledForExceptions != null) {
+            result.setEnabledForExtensions(enabledForExceptions);
+        }
         return result;
     }
 
