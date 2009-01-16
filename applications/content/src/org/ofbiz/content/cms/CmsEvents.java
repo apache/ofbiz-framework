@@ -104,7 +104,7 @@ public class CmsEvents {
             }
         } // if called through the default request, there is no request in pathinfo
 
-
+    	Debug.log("========pathinfo: " + pathInfo);
         // if path info is null; check for a default content
         if (pathInfo == null) {
             List<GenericValue> defaultContents = null;
@@ -182,6 +182,7 @@ public class CmsEvents {
                     contentId = pathInfo;
                 }
             }
+        	Debug.log("========contentId: " + contentId);
 
             // verify the request content is associated with the current website
             boolean websiteOk;
@@ -238,8 +239,11 @@ public class CmsEvents {
             } else {
             	String contentName = null;
             	String siteName = null;
-            	try { 
-            		contentName = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId)).getString("contentName");
+            	try {
+            		GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            		if (UtilValidate.isNotEmpty(content)) {
+            			contentName = content.getString("contentName");
+            		}
             		siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);

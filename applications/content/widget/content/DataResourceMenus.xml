@@ -109,7 +109,16 @@ under the License.
         </menu-item>
         <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceImage}" >
             <condition>
-                <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
+                <or>
+                    <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
+                    <and>
+                        <if-compare field-name="currentValue.dataResourceTypeId" operator="contains" value="FILE"/>
+                        <or>
+                            <if-compare field-name="currentValue.mimeTypeId" operator="contains" value="image"/>
+                            <if-compare field-name="currentValue.mimeTypeId" operator="contains" value="Image"/>
+                        </or>
+                    </and>
+                </or>
             </condition>
             <link target="UploadImage?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>

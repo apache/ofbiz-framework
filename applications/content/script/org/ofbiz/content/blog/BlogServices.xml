@@ -60,7 +60,8 @@
             </then>
         </if>
 
-        <!--if>
+        <log level="always" message="=========${parameters.uploadedFile}"></log>
+        <if>
             <condition>
                 <not>
                     <if-empty field="parameters.uploadedFile"/>
@@ -70,8 +71,7 @@
                 <set field="createImage.dataResourceTypeId" value="LOCAL_FILE"/>
                 <set field="createImage.dataTemplateTypeId" value="NONE"/>
                 <set field="createImage.mapKey" value="IMAGE"/>
-
-                <set field="createMain.ownerContentId" from-field="ownerContentId"/>
+                <set field="createImage.ownerContentId" from-field="ownerContentId"/>
                 <set field="createImage.contentName" from-field="parameters.contentName"/>
                 <set field="createImage.description" from-field="parameters.description"/>
                 <set field="createImage.statusId" from-field="parameters.statusId"/>
@@ -92,7 +92,7 @@
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
                 </if-empty>
             </then>
-        </if-->
+        </if>
 
         <if>
             <condition>
@@ -103,6 +103,7 @@
             <then>
                 <!-- create text data -->
                 <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="createText.contentPurposeTypeId" value="ARTICLE"/>
                 <set field="createText.dataTemplateTypeId" value="NONE"/>
                 <set field="createText.mapKey" value="MAIN"/>
 
@@ -131,8 +132,14 @@
         <!-- we should have a primary (at least) contentId -->
         <if>
             <condition>
-                    <if-empty field="contentId"/>
-            </condition>
+               <and>
+                    <not>
+                        <if-empty field="contentId"/>
+                    </not>
+                    <not>
+                        <if-empty field="parameters.summaryData"/>
+                    </not>
+                </and>            </condition>
             <then>
                 <!-- create the summary data -->
                 <set field="createSummary.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
@@ -169,7 +176,7 @@
             <order-by field-name="caFromDate DESC"/>
         </entity-condition>
 
-        <log level="info" message="unfilteredList: ${unfilteredList}"/>
+        <!--log level="info" message="unfilteredList: ${unfilteredList}"/-->
 
         <set field="mapIn.targetOperationList[]" value="CONTENT_VIEW"/>
         <set field="mapIn.targetOperationList[]" value="CONTENT_UPDATE"/>
@@ -179,17 +186,17 @@
             <set-nonpk-fields value-field="content" map="view"/>
             <set-pk-fields value-field="content" map="view"/>
             <set field="mapIn.currentContent" from-field="content"/>
-            <log level="info" message="mapIn: ${mapIn}"/>
+            <!--log level="info" message="mapIn: ${mapIn}"/-->
             <call-service service-name="checkContentPermission" in-map-name="mapIn">
                 <result-to-field result-name="permissionStatus" field="permissionStatus"/>
             </call-service>
-            <log level="info" message="permissionStatus: ${permissionStatus}"/>
+            <!--log level="info" message="permissionStatus: ${permissionStatus}"/-->
             <if-compare operator="equals" field="permissionStatus" value="granted">
                 <set field="blogList[]" from-field="view"/>
             </if-compare>
         </iterate>
 
-        <log level="info" message="blogList: ${blogList}"/>
+        <!--log level="info" message="blogList: ${blogList}"/-->
         <field-to-result field="blogList" result-name="blogList"/>
     </simple-method>
 </simple-methods>
