@@ -49,11 +49,11 @@
                                 <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
                             </condition>
                             <widgets>
-                                <link text="Add New" target="NewArticle?blogContentId=${blogContentId}" style="buttontext"/>
+                                <link text="Add New" target="NewBlogArticle?blogContentId=${blogContentId}" style="buttontext"/>
                             </widgets>
                         </section>
 
-                        <link target="ViewBlogRss?blogContentId=${blogContent.contentId}&amp;mainLinkReq=MainBlog&amp;entryLinkReq=ViewArticle" target-window="_blank">
+                        <link target="ViewBlogRss?blogContentId=${blogContent.contentId}&amp;mainLinkReq=MainBlog&amp;entryLinkReq=ViewBlogArticle" target-window="_blank">
                             <image src="/images/feed-icon-14x14.png" id="feedIcon" height="12px"/>
                         </link>
                     </container>
@@ -69,7 +69,6 @@
         <section>
             <actions>
                 <set field="MainColumnStyle" value="nocolumns"/>
-                <property-to-field property="blog.view.size" field="blogViewSize" resource="blog" default="10"/>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
                 <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list-name="blogList">
                     <condition-list combine="and">
@@ -80,7 +79,6 @@
                     </condition-list>
                     <order-by field-name="caFromDate DESC"/>
                 </entity-condition>
-                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
 
                 <!-- permission fields -->
                 <set field="upPerm.contentId" from-field="blogContentId"/>
@@ -113,7 +111,7 @@
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <label text="&lt;p/&gt;"/>
-                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader" url-mode="inter-app"/>
+                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
                                         <!--
                                             <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
                                         -->
@@ -133,7 +131,7 @@
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <label text="&lt;p/&gt;"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
-                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader" url-mode="inter-app"/>
+                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader" url-mode="inter-app"/>
                                         <!--
                                             <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
                                         -->
@@ -155,7 +153,6 @@
         <section>
             <actions>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
-                
                 <set field="crPerm.ownerContentId" from-field="parameters.blogContentId"/>
                 <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
                 <set field="crPerm.contentPurposeTypeId" value="ARTICLE"/>
@@ -288,7 +285,7 @@
                                 </condition>
                                 <widgets>
                                     <container style="rightjustify">
-                                        <link text="Edit" target="EditArticle?contentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="buttontext"/>
+                                        <link text="Edit" target="EditBlogArticle?contentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="buttontext"/>
                                     </container>
                                 </widgets>
                             </section>
@@ -341,7 +338,7 @@
                         <label text="&lt;p/&gt;"/>
                         <container style="bloghr">
                             <container style="leftjustify">
-                                <link text="${article.contentName}: ${article.description}" target="ViewArticle?articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="blogtitle"/>
+                                <link text="${article.contentName}: ${article.description}" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="blogtitle"/>
                                 <label text=" --&gt; ${content.contentName}: ${content.description}" style="blogtitle"/>
                             </container>
                             <section>
@@ -536,8 +533,8 @@
         <section>
             <widgets>
                 <container>
-                    <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                    <link text="View Blog Article" target="ViewArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                    <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
+                    <link text="View Blog Article" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                     <container style="responsetext">
                         <label text="${rsp.description}" style="responsetext"/>
                         <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>
