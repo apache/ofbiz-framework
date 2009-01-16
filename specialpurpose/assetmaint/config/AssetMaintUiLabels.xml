@@ -17,24 +17,25 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AssetMaintApplication">
         <value xml:lang="de">Vermögensverwaltungsanwendung</value>
         <value xml:lang="en">Asset Maintenance Application</value>
         <value xml:lang="fr">Application de maintenance des biens</value>
-        <value xml:lang="it">Applicazione Manutenzione Beni</value>
+        <value xml:lang="it">Applicazione gestione cespiti</value>
         <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
     </property>
     <property key="AssetMaintCompanyName">
         <value xml:lang="en">OFBiz: Asset Maintenance</value>
         <value xml:lang="fr">OFBiz : maintenance des biens</value>
-        <value xml:lang="it">OFBiz: Manutenzione Beni</value>
+        <value xml:lang="it">OFBiz: Gestione cespiti</value>
         <value xml:lang="th">OFBiz: การบำรุงรักษา</value>
     </property>
     <property key="AssetMaintCompanySubtitle">
         <value xml:lang="en">Maintenance Department</value>
         <value xml:lang="fr">Service de maintenance</value>
-        <value xml:lang="it">Manutenzione Dipartimento</value>
+        <value xml:lang="it">Manutenzione dipartimento</value>
         <value xml:lang="th">แผนกการดูแลรักษา</value>
     </property>
     <property key="AssetMaintItemIssuance">
@@ -52,51 +53,58 @@
     <property key="AssetMaintLowPartInventoryError">
         <value xml:lang="en">"Available Inventory level for ${productId} is ${quantity}"</value>
         <value xml:lang="fr">"Le niveau de stock disponible pour ${productId} est ${quantity"</value>
-        <value xml:lang="it">"Livello Inventario Disponibile per ${productId} è ${quantity}"</value>
+        <value xml:lang="it">"Livello inventario disponibile per ${productId} è ${quantity}"</value>
         <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
     </property>
     <property key="AssetMaintParentWorkEffort">
         <value xml:lang="en">Parent Work Effort</value>
         <value xml:lang="fr">"Tâche parente"</value>
+        <value xml:lang="it">Impegno di lavoro padre</value>
+    </property>
+    <property key="AssetMaintPartId">
+        <value xml:lang="en">Part Id</value>
+        <value xml:lang="it">Codice parte</value>
     </property>
     <property key="AssetMaintProductMaint">
         <value xml:lang="en">Product Maint</value>
         <value xml:lang="fr">Maintenance</value>
+        <value xml:lang="it">Manutenzione prodotto</value>
     </property>
     <property key="AssetMaintViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
         <value xml:lang="fr">Afficher l'erreur d'autorisation</value>
+        <value xml:lang="it">Mostra errore permesso</value>
         <value xml:lang="th">แสดงข้อผิดพลาดในการอนุญาต</value>
     </property>
     <property key="PageTitleAddItemIssuance">
         <value xml:lang="en">Add Item Issuance</value>
         <value xml:lang="fr">Ajouter une émission d'article</value>
-        <value xml:lang="it">Aggiungi Riga Prelievo</value>
+        <value xml:lang="it">Aggiungi riga prelievo</value>
         <value xml:lang="th">เพิ่มรายการที่ออกมา</value>
     </property>
     <property key="PageTitleChildWorkEfforts">
         <value xml:lang="en">Task Breakdown</value>
         <value xml:lang="fr">Décomposition de tâche</value>
-        <value xml:lang="it">Compito Breakdown</value>
+        <value xml:lang="it">Compito breakdown</value>
         <value xml:lang="th">งานหยุด</value>
     </property>
     <property key="PageTitleFindFixedAssetMaints">
         <value xml:lang="de">Verwaltungen finden</value>
         <value xml:lang="en">Find Maintenances</value>
         <value xml:lang="fr">Chercher des maintenances</value>
-        <value xml:lang="it">Ricerca Manutenzioni</value>
+        <value xml:lang="it">Ricerca manutenzioni</value>
         <value xml:lang="th">ค้นหาการบำรุงรักษา</value>
     </property>
     <property key="PageTitleFindFixedAssets">
         <value xml:lang="en">Find Equipments</value>
         <value xml:lang="fr">Chercher des équipements</value>
-        <value xml:lang="it">Ricerca Cespite</value>
+        <value xml:lang="it">Ricerca cespite</value>
         <value xml:lang="th">ค้นหาเครื่องมือ</value>
     </property>
     <property key="PageTitleListItemIssuance">
         <value xml:lang="en">Parts List</value>
         <value xml:lang="fr">Liste des pièces</value>
-        <value xml:lang="it">Lista Soggetti</value>
+        <value xml:lang="it">Lista soggetti</value>
         <value xml:lang="th">ส่วนหนึ่งของรายการ</value>
     </property>
 </resource>

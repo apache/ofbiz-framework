@@ -97,14 +97,14 @@ public class PaidInOut extends XPage {
         m_comboModel = new DefaultComboBoxModel();
         List<GenericValue> posPaidReasons = FastList.newInstance();
         if (m_type.equals("IN")) { 
-            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidInTitle", locale));
+            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosPaidInTitle", locale));
             try {
                 posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_IN"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
         } else { // OUT
-            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidOutTitle", locale));
+            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosPaidOutTitle", locale));
             try {
                 posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_OUT"));
             } catch (GenericEntityException e) {
@@ -114,7 +114,7 @@ public class PaidInOut extends XPage {
             m_comboModel.addElement(reason.get("description", locale));
         }
         m_reasonCombo.setModel(m_comboModel);
-        m_reasonCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "CreateOrChooseReasonInOut", locale));
+        m_reasonCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosCreateOrChooseReasonInOut", locale));
 
         m_dialog.pack();
         m_reasonCombo.requestFocusInWindow();

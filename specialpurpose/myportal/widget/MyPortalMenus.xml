@@ -40,13 +40,13 @@ under the License.
             <link
                 target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;portalPageId=${parameters.portalPageId}" />
         </menu-item>
-        <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
+        <menu-item name="openEvents" title="${uiLabelMap.MyPageOpenEvents}">
             <condition>
                 <if-compare field-name="parameters.all" operator="equals" value="true" />
             </condition>
             <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=false" />
         </menu-item>
-        <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
+        <menu-item name="allOtherEvents" title="${uiLabelMap.MyPageAllEvents}">
             <condition>
                 <or>
                     <if-compare field-name="parameters.all" operator="equals" value="false" />
@@ -62,7 +62,7 @@ under the License.
     </menu>
     
     <menu name="MyTimesheetMenu">
-        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="setToComplete" title="${uiLabelMap.MyPageToComplete}">
             <condition>
                 <and>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
@@ -71,7 +71,7 @@ under the License.
             </condition>
             <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
-        <menu-item name="setToCompleteKey" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="setToCompleteKey" title="${uiLabelMap.MyPageToComplete}">
             <condition>
                 <and>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>

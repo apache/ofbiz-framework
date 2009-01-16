@@ -297,10 +297,6 @@
         <value xml:lang="ru">Существующий заказчик</value>
         <value xml:lang="th">ลูกค้าที่มีอยู่</value>
     </property>
-    <property key="FormFieldTitle_externalId">
-        <value xml:lang="en">External Id</value>
-        <value xml:lang="it">Codice esterno</value>
-    </property>
     <property key="FormFieldTitle_firstName">
         <value xml:lang="de">Vorname</value>
         <value xml:lang="en">First Name</value>
@@ -6524,7 +6520,7 @@
         <value xml:lang="it">Codice soggetto</value>
         <value xml:lang="nl">Relatie-ID</value>
         <value xml:lang="pt">ID do Participante</value>
-	<value xml:lang="pt_PT">ID da Secção</value>
+        <value xml:lang="pt_PT">ID da Secção</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="ru">Код участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>

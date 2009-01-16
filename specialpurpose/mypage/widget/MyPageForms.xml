@@ -30,7 +30,7 @@ under the License.
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonRemove}"/></field>
         <!-- better set to complete on the timesheet -->
-        <!-- field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonStatustoComplete}"/></field-->
+        <!-- field name="toComplete" title="${uiLabelMap.MyPageToComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.MyPageToComplete}"/></field-->
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
@@ -54,8 +54,8 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="actualStartDate" title="Date"><display type="date"/></field>
-        <field name="delete"><submit button-type="text-link"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.MyPageTaskActStartDate}"><display type="date"/></field>
+        <field name="delete" title="${uiLabelMap.FormFieldTitle_deleteButton}"><submit button-type="text-link"/></field>
     </form>
     
     <form name="newEvent" type="single" target="createEvent">
@@ -64,17 +64,17 @@ under the License.
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="actualStartDate"><date-time type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.MyPageTaskActStartDate}"><date-time type="date"/></field>
         <field name="add"><submit/></field>
     </form>
 
     <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
         <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
-        <field name="myCommunications"><check/></field>
-        <field name="otherCommunications"><check/></field>
-        <field name="myCompanyComms"><check/></field>
-        <field name="myTasks"><check/></field>
-        <field name="myTimesheet"><check/></field>
+        <field name="myCommunications" title="${uiLabelMap.MyPageCommunications}"><check/></field>
+        <field name="otherCommunications" title="${uiLabelMap.MyPageOtherCommunications}"><check/></field>
+        <field name="myCompanyComms" title="${uiLabelMap.MyPageCompanyComms}"><check/></field>
+        <field name="myTasks" title="${uiLabelMap.MyPageTasks}"><check/></field>
+        <field name="myTimesheet" title="${uiLabelMap.MyPageTimeSheets}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
     
@@ -98,7 +98,7 @@ under the License.
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
+                <sub-hyperlink description="${uiLabelMap.MyPageToComplete}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
             </display-entity>
         </field>
         <field name="createdStamp" entry-name="entryDate"/>
@@ -145,11 +145,11 @@ under the License.
             </drop-down>
         </field>
         <field name="updateButton" widget-style="smallSubmit"><submit /></field>
-        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanEndDate}"><display type="date"/></field>
-        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActEndDate}"><display type="date"/></field>
+        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskPlanStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskPlanEndDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskActStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskActEndDate}"><display type="date"/></field>
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>

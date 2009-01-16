@@ -27,13 +27,13 @@ under the License.
             </condition>
             <link target="main?donePage=main"/>
         </menu-item>
-        <menu-item name="viewprofile" title="${uiLabelMap.MyProfile}">
+        <menu-item name="viewprofile" title="${uiLabelMap.MyPageProfile}">
             <condition>
                 <not><if-empty field-name="userLogin"/></not>
             </condition>
             <link target="viewprofile?partyId=${userLogin.partyId}"/>
         </menu-item>
-        <menu-item name="myCommunications" title="${uiLabelMap.MyCommunications}">
+        <menu-item name="myCommunications" title="${uiLabelMap.MyPageCommunications}">
             <condition>
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
@@ -42,7 +42,7 @@ under the License.
             </condition>
             <link target="myCommunications?donePage=myCommunications"/>
         </menu-item>
-        <menu-item name="otherCommunications" title="${uiLabelMap.OtherCommunications}">
+        <menu-item name="otherCommunications" title="${uiLabelMap.MyPageOtherCommunications}">
             <condition>
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
@@ -55,7 +55,7 @@ under the License.
             </condition>
             <link target="otherCommunications?donePage=otherCommunications"/>
         </menu-item>
-        <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
+        <menu-item name="myCompanyComms" title="${uiLabelMap.MyPageCompanyComms}">
             <condition>
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
@@ -68,7 +68,7 @@ under the License.
             </condition>
             <link target="myCompanyComms"/>
         </menu-item>
-        <menu-item name="myTimesheet" title="${uiLabelMap.MyTimeSheets}">
+        <menu-item name="myTimesheet" title="${uiLabelMap.MyPageTimeSheets}">
             <condition>
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
@@ -81,7 +81,7 @@ under the License.
             </condition>
             <link target="myTimesheet?donePage=myTimeSheet"/>
         </menu-item>
-        <menu-item name="myTasks" title="${uiLabelMap.MyTasks}">
+        <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}">
             <condition>
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
@@ -158,13 +158,13 @@ under the License.
             <link
                 target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
         </menu-item>
-        <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
+        <menu-item name="openEvents" title="${uiLabelMap.MyPageOpenEvents}">
             <condition>
                 <if-compare field-name="parameters.all" operator="equals" value="true" />
             </condition>
             <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=false" />
         </menu-item>
-        <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
+        <menu-item name="allOtherEvents" title="${uiLabelMap.MyPageAllEvents}">
             <condition>
                 <or>
                     <if-compare field-name="parameters.all" operator="equals" value="false" />
@@ -176,11 +176,11 @@ under the License.
     </menu>    
     
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
+        <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
     
     <menu name="MyTimesheetMenu">
-        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="setToComplete" title="${uiLabelMap.MyPageToComplete}">
             <condition>
                 <and>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
@@ -189,7 +189,7 @@ under the License.
             </condition>
             <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
-        <menu-item name="setToCompleteKey" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="setToCompleteKey" title="${uiLabelMap.MyPageToComplete}">
             <condition>
                 <and>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>

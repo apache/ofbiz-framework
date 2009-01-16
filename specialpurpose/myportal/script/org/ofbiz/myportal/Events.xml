@@ -85,7 +85,7 @@ under the License.
                     include-user-login="false"/>
                 <else>
                     <add-error>
-                        <fail-property property="NoAccess" resource="MyPortalUiLabels"/>
+                        <fail-property property="MyPageNoAccess" resource="MyPortalUiLabels"/>
                     </add-error>
                 </else>
             </if-compare>

@@ -17,18 +17,12 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="FrameworkShark">
-        <value xml:lang="en">Framework Shark</value>
-        <value xml:lang="fr">Shark workflow engine : moteur de gestion des flux de travail</value>
-        <value xml:lang="it">Applicazione Flussi di Lavoro</value>
-        <value xml:lang="ro">Aplictie Fluxuri de Lucru</value>
-        <value xml:lang="th">Framework Shark</value>
-    </property>
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="SharkCompanyName">
         <value xml:lang="en">OFBiz: Shark</value>
         <value xml:lang="fr">OFBiz : Shark</value>
-        <value xml:lang="it">OFBiz: Flussi di Lavoro</value>
+        <value xml:lang="it">OFBiz: Flussi di lavoro</value>
         <value xml:lang="ro">OFBiz: Fluxuri de Lucru</value>
         <value xml:lang="th">OFBiz: Shark</value>
     </property>
@@ -38,7 +32,7 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value><!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Parte del progetto open source Open For Business Family</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value><!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value><!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
@@ -48,10 +42,17 @@
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
+    <property key="SharkFramework">
+        <value xml:lang="en">Framework Shark</value>
+        <value xml:lang="fr">Shark workflow engine : moteur de gestion des flux de travail</value>
+        <value xml:lang="it">Applicazione flussi di lavoro</value>
+        <value xml:lang="ro">Aplictie Fluxuri de Lucru</value>
+        <value xml:lang="th">Framework Shark</value>
+    </property>
     <property key="SharkMainPage">
         <value xml:lang="en">Shark Manager Main Page</value>
         <value xml:lang="fr">Shark : page principale</value>
-        <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="it">Pagina principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลักของการจัดการ Shark</value>
     </property>

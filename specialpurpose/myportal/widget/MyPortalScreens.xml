@@ -169,7 +169,7 @@ under the License.
                 <set field="portalPageId" from-field="parameters.portalPageId" default-value="myCompanyComms"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.CompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
+                <screenlet title="${uiLabelMap.MyPageCompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
                     <include-menu name="MyCompanyCommsMenu" location="component://myportal/widget/MyPortalMenus.xml"/>
                     <include-form name="MyCompanyComms" location="component://myportal/widget/MyPortalForms.xml"/>
                 </screenlet>
@@ -231,7 +231,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                <screenlet title="${uiLabelMap.MyPageCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                     navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
                     name="myComms">
                     <include-menu name="communicationsMenu"
@@ -243,13 +243,13 @@ under the License.
                             </not>
                         </condition>
                         <widgets>
-                            <label style="h2" text="${uiLabelMap.EmailsFromUnknownOrigin}"></label>
+                            <label style="h2" text="${uiLabelMap.MyPageEmailsFromUnknownOrigin}"></label>
                             <include-form
                                 location="component://myportal/widget/MyPortalForms.xml"
                                 name="ListMyUnknownPartyEmails" />
                         </widgets>
                     </section>
-                    <label style="h2" text="${uiLabelMap.EmailsFromKnownOrigin}"></label>
+                    <label style="h2" text="${uiLabelMap.MyPageEmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents"
                         location="component://myportal/widget/MyPortalForms.xml" />
                     <section>
@@ -310,7 +310,7 @@ under the License.
                             <section>
                                 <widgets>
                                     <label style="h1"
-                                        text="${uiLabelMap.CommunicationEventId} ${parameters.communicationEventId}"></label>
+                                        text="${uiLabelMap.MyPageCommunicationEventId} ${parameters.communicationEventId}"></label>
                                     <include-screen name="commEvent" 
                                             location="component://party/widget/partymgr/CommunicationScreens.xml" />
                                 </widgets>
@@ -789,7 +789,7 @@ under the License.
                         <not><if-empty field-name="custRequests"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList">
+                        <screenlet title="${uiLabelMap.MyPageIncomingCustRequests}" navigation-form-name="ListRequestList">
                             <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -914,7 +914,7 @@ under the License.
             <widgets>
                 <section>
                     <widgets>
-                        <screenlet title="${uiLabelMap.MyCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
+                        <screenlet title="${uiLabelMap.MyPageCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
                             <include-form name="ListCustRequestsCompleted" location="component://myportal/widget/MyPortalForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -976,14 +976,14 @@ under the License.
             <widgets>
                 <section>
                      <widgets>
-                        <screenlet title="${uiLabelMap.OtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
+                        <screenlet title="${uiLabelMap.MyPageOtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
                             <include-form name="ListOtherCompanyRequests" location="component://myportal/widget/MyPortalForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
                 <section>
                     <widgets>
-                        <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                        <screenlet title="${uiLabelMap.MyPageCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                             navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
                             <include-menu name="communicationsMenu" location="component://myportal/widget/MyPortalMenus.xml" />
                             <include-form name="ListPartyCommEvents" location="component://myportal/widget/MyPortalForms.xml" />

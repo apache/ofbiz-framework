@@ -45,12 +45,12 @@ public class Output {
 
     public void setLock(boolean lock) {
         if (lock) {
-            this.print(UtilProperties.getMessage(PosTransaction.resource,"ULOGIN",defaultLocale));
+            this.print(UtilProperties.getMessage(PosTransaction.resource,"PosULogin",defaultLocale));
         } else {
             if (PosTransaction.getCurrentTx(session).isOpen()) {
-                this.print(UtilProperties.getMessage(PosTransaction.resource,"ISOPEN",defaultLocale));
+                this.print(UtilProperties.getMessage(PosTransaction.resource,"PosIsOpen",defaultLocale));
             } else {
-                this.print(UtilProperties.getMessage(PosTransaction.resource,"ISCLOSED",defaultLocale));
+                this.print(UtilProperties.getMessage(PosTransaction.resource,"PosIsClosed",defaultLocale));
             }
         }
     }

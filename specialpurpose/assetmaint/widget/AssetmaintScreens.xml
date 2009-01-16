@@ -136,6 +136,7 @@
     <screen name="EditWorkEfforts">
         <section>
             <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditWorkEffort"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.groovy"/>

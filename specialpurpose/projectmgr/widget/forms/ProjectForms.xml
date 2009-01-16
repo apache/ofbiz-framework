@@ -109,7 +109,7 @@
         <field name="timesheetId"><hyperlink description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/></field>
         <field name="hours"><display/></field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}"/></field>
-        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="fromDate"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="listIt" paginate-target="FindProject"
@@ -173,10 +173,10 @@
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="estimatedStartDate"><display type="date"/></field>
+        <field name="estimatedCompletionDate"><display type="date"/></field>
+        <field name="actualStartDate"><display type="date"/></field>
+        <field name="actualCompletionDate"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="createdStamp"><display type="date"/></field>

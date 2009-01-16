@@ -216,25 +216,25 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
             operator.refresh();
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
-                    output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale)
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"PosChange",defaultLocale)
                             + UtilFormatOut.formatPrice(trans.getTotalDue().negate().doubleValue()));
                 } else if (input.isFunctionSet("TOTAL")) {
                     if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue().doubleValue()));
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosTotalD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue().doubleValue()));
                     } else {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PAYFIN",defaultLocale));
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosPayFin",defaultLocale));
                     }
                 } else {
                     if (PosTransaction.getCurrentTx(session).isOpen()) {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"ISOPEN",defaultLocale));
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosIsOpen",defaultLocale));
                     } else {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"ISCLOSED",defaultLocale));
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosIsClosed",defaultLocale));
                     }
                 }
             }
             //journal.focus();
         } else {
-            output.print(UtilProperties.getMessage(PosTransaction.resource,"ULOGIN",defaultLocale));
+            output.print(UtilProperties.getMessage(PosTransaction.resource,"PosULogin",defaultLocale));
             //input.focus();
         }
 

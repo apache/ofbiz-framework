@@ -67,7 +67,7 @@ public class PaymentEvents {
         } else if (paymentCheck == PosTransaction.EXTERNAL_PAYMENT) {
             if (ckInfo == null) {
                 input.setFunction("CHECK");
-                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"REFNUM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosRefNum",Locale.getDefault()));
                 return;
             } else {
                 processExternalPayment(pos, "PERSONAL_CHECK", ckInfo[1]);
@@ -92,7 +92,7 @@ public class PaymentEvents {
         } else if (paymentCheck == PosTransaction.EXTERNAL_PAYMENT) {
             if (gcInfo == null) {
                 input.setFunction("GIFTCARD");
-                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"REFNUM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosRefNum",Locale.getDefault()));
                 clearInputPaymentFunctions(pos);
                 return;
             } else {
@@ -124,7 +124,7 @@ public class PaymentEvents {
         } else if (paymentCheck == PosTransaction.EXTERNAL_PAYMENT) {
             if (crtInfo == null) {
                 input.setFunction("CREDIT");
-                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"REFNUM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosRefNum",Locale.getDefault()));
                 return;
             } else {
                 processExternalPayment(pos, "CREDIT_CARD", crtInfo[1]);
@@ -138,7 +138,7 @@ public class PaymentEvents {
             input.clearLastFunction();
             input.setFunction("TOTAL");
             input.setFunction("CREDIT");
-            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"CREDNO",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredNo",Locale.getDefault()));
         } else {
             Debug.log("Credit Func Info : " + crtInfo[1], module);
             if (msrInfo == null && (creditExpirationInfo == null))  {
@@ -147,7 +147,7 @@ public class PaymentEvents {
                     input.clearLastFunction();
                     input.setFunction("CREDIT");
                     input.setFunction("CREDITEXP");
-                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"CREDEX",Locale.getDefault()));
+                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredex",Locale.getDefault()));
                 } else {
                     Debug.log("Invalid card number - " + input.value(), module);
                     clearInputPaymentFunctions(pos);
@@ -161,7 +161,7 @@ public class PaymentEvents {
                     input.clearLastFunction();
                     input.setFunction("CREDITEXP");
                     input.setFunction("SECURITYCODE");
-                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"SECURITYCODE",Locale.getDefault()));
+                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosSecurityCode",Locale.getDefault()));
                 } else {
                     Debug.log("Invalid expiration date", module);
                     clearInputPaymentFunctions(pos);
@@ -176,7 +176,7 @@ public class PaymentEvents {
                     input.clearLastFunction();
                     input.setFunction("SECURITYCODE");
                     input.setFunction("POSTALCODE");
-                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"POSTALCODE",Locale.getDefault()));
+                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosPostalCodePosProcessing",Locale.getDefault()));
                 } else {
                     clearInputPaymentFunctions(pos);
                     input.clearInput();
@@ -244,12 +244,12 @@ public class PaymentEvents {
                         pos.refresh();
                         break;
                     case 1: // card number only found
-                        pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"CREDEX",Locale.getDefault()));
+                        pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredex",Locale.getDefault()));
                         break;
                     default:
                         Debug.log("Hit the default switch case [" + allInfo + "] refreshing.", module);
                         input.clearFunction("MSRINFO");
-                        pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"CREDNO",Locale.getDefault()));
+                        pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredNo",Locale.getDefault()));
                         break;
                 }
             }
@@ -277,7 +277,7 @@ public class PaymentEvents {
         Input input = pos.getInput();
         String refNum = input.value();
         if (refNum == null) {
-            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"REFNUM",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosRefNum",Locale.getDefault()));
             return;
         }
         input.clearInput();
@@ -330,7 +330,7 @@ public class PaymentEvents {
         if (UtilValidate.isNotEmpty(idx) && UtilValidate.isEmpty(sku)) {
             String refNum = pos.getInput().value();
             if (UtilValidate.isEmpty(refNum)) {
-                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"REFNUM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosRefNum",Locale.getDefault()));
                 pos.getInput().setFunction("REFNUM");
             } else {
                 int index = -1;
@@ -352,7 +352,7 @@ public class PaymentEvents {
     public static synchronized void processSale(PosScreen pos) {
         pos.setWaitCursor();
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        PosScreen.currentScreen.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"Processing",Locale.getDefault()));
+        PosScreen.currentScreen.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosProcessing",Locale.getDefault()));
 
         if (trans.isEmpty()) {
             PosScreen newPos = pos.showPage("pospanel");

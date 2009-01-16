@@ -66,7 +66,7 @@ public class LoadSale extends XPage {
 
     public void openDlg() {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/loadsale");
-        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "LoadASale", Locale.getDefault()));
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosLoadASale", Locale.getDefault()));
         m_salesList = (XList) m_dialog.findComponent("salesList");
         XEventHelper.addMouseHandler(this, m_salesList, "saleDoubleClick");
 
@@ -92,7 +92,7 @@ public class LoadSale extends XPage {
         m_salesList.setVisibleRowCount(-1);
         m_salesList.ensureIndexIsVisible(m_salesList.getItemCount());     
         m_salesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        m_salesList.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "LoadSaleListDblClickTip", Locale.getDefault()));
+        m_salesList.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosLoadSaleListDblClickTip", Locale.getDefault()));
 
         m_dialog.pack();
         m_salesList.requestFocusInWindow();

@@ -43,7 +43,7 @@ public class PromoEvents {
         if (lastFunc == null || !"PROMOCODE".equals(lastFunc[0])) {
             Output output = pos.getOutput();
             input.setFunction("PROMOCODE");
-            output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTPROMOCODE",Locale.getDefault()));
+            output.print(UtilProperties.getMessage(PosTransaction.resource,"PosEntPromoCode",Locale.getDefault()));
         } else if ("PROMOCODE".equals(lastFunc[0])) {
             String promoCode = input.value();
             if (UtilValidate.isNotEmpty(promoCode)) {

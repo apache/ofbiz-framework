@@ -18,59 +18,69 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
     <property key="IsMgrApplication">
         <value xml:lang="en">Information Systems Management Application</value>
         <value xml:lang="fr">Gestion du parc informatique</value>
+        <value xml:lang="it">Applicazione gestione sistemi informativi</value>
     </property>
     <property key="IsMgrCompanyName">
         <value xml:lang="en">OFBiz: Is Manager</value>
         <value xml:lang="fr">OFBiz: application de gestion du parc informatique</value>
+        <value xml:lang="it">OFBiz: Gestione sistemi informativi</value>
     </property>
     <property key="IsMgrCompanySubtitle">
         <value xml:lang="en">Information Systems Department</value>
         <value xml:lang="fr">Département du système d'information</value>
+        <value xml:lang="it">Dipartimento sistemi informativi</value>
     </property>
-    
     <property key="IsMgrComputerHardware">
         <value xml:lang="en">Hardware</value>
         <value xml:lang="fr">Matériel informatique</value>
+        <value xml:lang="it">Hardware</value>
     </property>
     <property key="IsMgrComputerSoftware">
         <value xml:lang="en">Software</value>
         <value xml:lang="fr">Logiciels</value>
+        <value xml:lang="it">Software</value>
     </property>
-    
     <property key="IsMgrNewComputerHardware">
         <value xml:lang="en">New Hardware</value>
         <value xml:lang="fr">Nouveau matériel informatique</value>
+        <value xml:lang="it">Nuovo hardware</value>
     </property>
     <property key="IsMgrNewComputerSoftware">
         <value xml:lang="en">New Software</value>
         <value xml:lang="fr">Nouveau logiciel</value>
+        <value xml:lang="it">Nuovo software</value>
     </property>
     <property key="IsMgrHardwareAccessories">
         <value xml:lang="en">Accessories</value>
         <value xml:lang="fr">Accessoires</value>
+        <value xml:lang="it">Accessori</value>
     </property>
     <property key="IsMgrInstalledSoftware">
         <value xml:lang="en">Installed Software</value>
         <value xml:lang="fr">Logiciels installés</value>
+        <value xml:lang="it">Software installati</value>
     </property>
     <property key="IsMgrFindComputerHardware">
         <value xml:lang="en">Find Hardware</value>
         <value xml:lang="fr">Rechercher du matériel informatique</value>
+        <value xml:lang="it">Ricerca hardware</value>
     </property>
     <property key="IsMgrFindComputerSoftware">
         <value xml:lang="en">Find Software</value>
         <value xml:lang="fr">Rechercher du logiciel</value>
+        <value xml:lang="it">Ricerca software</value>
     </property>
     <property key="PageTitleEditComputerHardware">
         <value xml:lang="en">Edit Hardware</value>
         <value xml:lang="fr">Modifier le matériel informatique</value>
+        <value xml:lang="it">Aggiorna hardware</value>
     </property>
     <property key="PageTitleEditComputerSoftware">
         <value xml:lang="en">Edit Software</value>
         <value xml:lang="fr">Modifier le logiciel</value>
+        <value xml:lang="it">Aggiorna software</value>
     </property>
-</resource>    
+</resource>

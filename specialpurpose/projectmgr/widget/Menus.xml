@@ -86,7 +86,7 @@
             </condition>
             <link target="projectView?projectId=${projectId}"/>
         </menu-item>
-        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}">
+        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditProject}">
             <condition>
                 <and>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
@@ -376,7 +376,7 @@
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
         </menu-item>
-        <menu-item name="custRequestContent" title="Content">
+        <menu-item name="custRequestContent" title="${uiLabelMap.CommonContent}">
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>

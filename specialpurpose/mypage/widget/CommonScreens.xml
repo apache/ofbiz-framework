@@ -35,7 +35,7 @@ under the License.
                 <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.MyInformation" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPageInformation" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
@@ -219,7 +219,7 @@ under the License.
                         <not><if-empty field-name="custRequests"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList" >
+                        <screenlet title="${uiLabelMap.MyPageIncomingCustRequests}" navigation-form-name="ListRequestList" >
                             <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -332,11 +332,11 @@ under the License.
                 </service>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.MyOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
+                <screenlet title="${uiLabelMap.MyPageOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
                     <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                     <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
-                <screenlet title="${uiLabelMap.MyCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
+                <screenlet title="${uiLabelMap.MyPageCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
                     <include-form name="ListCustRequestsCompleted" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
                 <section>
@@ -344,12 +344,12 @@ under the License.
                         <not><if-empty field-name="companyCustRequests"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.OtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
+                        <screenlet title="${uiLabelMap.MyPageOtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
                             <include-form name="ListOtherCompanyRequests" location="component://mypage/widget/MyPageForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
-                <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                <screenlet title="${uiLabelMap.MyPageCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                     navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
                     <include-menu name="communicationsMenu" location="component://mypage/widget/MyPageMenus.xml" />
                     <include-form name="ListPartyCommEvents" location="component://mypage/widget/MyPageForms.xml" />
@@ -361,7 +361,7 @@ under the License.
     <screen name="mainNoAccess">
         <section>
             <widgets>
-                <screenlet title="${uiLabelMap.CommonNoAccess}" navigation-form-name="ListRequestList" >
+                <screenlet title="${uiLabelMap.MyPageNoAccess}" navigation-form-name="ListRequestList" >
                     <container>
                         <label style="h1" text="${uiLabelMap.MyPageNoAccess1}"></label>
                     </container>

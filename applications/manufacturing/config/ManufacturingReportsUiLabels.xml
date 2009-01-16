@@ -55,15 +55,6 @@
         <value xml:lang="th">เป้าหมาย</value>
         <value xml:lang="zh">目的地</value>
     </property>
-    <property key="ManufacturingEstimatedCompletionDate">
-        <value xml:lang="en">Completion Date</value>
-        <value xml:lang="es">Fecha estimada de términación</value>
-        <value xml:lang="fr">Date d'achèvement</value>
-        <value xml:lang="it">Data Completamenteo Stimata</value>
-        <value xml:lang="ro">Data Complet Stimata</value>
-        <value xml:lang="th">วันที่ทำเสร็จ</value>
-        <value xml:lang="zh">完成日期</value>
-    </property>
     <property key="ManufacturingEstimatedShipDate">
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de Términación</value>

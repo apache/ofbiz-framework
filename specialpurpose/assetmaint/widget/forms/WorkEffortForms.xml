@@ -165,7 +165,7 @@
         <field name="workEffortName" entry-name="workEffortToName" title="${uiLabelMap.CommonName}">
             <hyperlink also-hidden="false" description="${workEffortToName}" target="EditWorkEfforts?workEffortId=${workEffortIdTo}&amp;workEffortIdFrom=${workEffortId}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=${workEffortAssocTypeId}"/>
         </field>
-        <field name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}">
+        <field name="workEffortAssocTypeId">
             <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
         </field>
         <field name="currentStatusId" entry-name="workEffortToCurrentStatusId" title="${uiLabelMap.CommonStatus}">
@@ -174,8 +174,8 @@
         <field name="workEffortPurposeTypeId" entry-name="workEffortToWorkEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
             <display-entity entity-name="WorkEffortPurposeType" description="${description}"/>
         </field>
-        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display/></field>
-        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display/></field>
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate"><display/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate"><display/></field>
     </form>
 
     <!-- TimeEntry -->

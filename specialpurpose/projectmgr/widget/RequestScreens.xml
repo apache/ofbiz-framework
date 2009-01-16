@@ -38,7 +38,7 @@ under the License.
                             <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.ReviewedCustomerRequestTaskList}" navigation-form-name="ListRequestsWorkEffortForm">
+                        <screenlet title="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}" navigation-form-name="ListRequestsWorkEffortForm">
                             <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                         </screenlet>
                     </decorator-section>

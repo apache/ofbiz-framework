@@ -87,11 +87,11 @@ public class SecurityEvents {
         String text = input.value();
         if (func != null && func[0].equals(loginFunc)) {
             if (UtilValidate.isEmpty(func[1]) && UtilValidate.isEmpty(text)) {
-                output.print(UtilProperties.getMessage(PosTransaction.resource,"ULOGIN",Locale.getDefault()));
+                output.print(UtilProperties.getMessage(PosTransaction.resource,"PosULogin",Locale.getDefault()));
                 input.setFunction(loginFunc);
                 input.setPasswordInput( false);
             } else if (UtilValidate.isEmpty(func[1])) {
-                output.print(UtilProperties.getMessage(PosTransaction.resource,"UPASSW",Locale.getDefault()));
+                output.print(UtilProperties.getMessage(PosTransaction.resource,"PosUPassw",Locale.getDefault()));
                 input.setFunction(loginFunc);
                 input.setPasswordInput( true);
             } else {
@@ -106,7 +106,7 @@ public class SecurityEvents {
                     } catch (XuiSession.UserLoginFailure e) {
                         input.clear();
                         input.setFunction(loginFunc);
-                        output.print(e.getMessage() + " " +  UtilProperties.getMessage(PosTransaction.resource,"ULOGIN",Locale.getDefault()));
+                        output.print(e.getMessage() + " " +  UtilProperties.getMessage(PosTransaction.resource,"PosULogin",Locale.getDefault()));
                     }
                     if (passed) {
                         input.clear();
@@ -125,7 +125,7 @@ public class SecurityEvents {
                     if (mgrUl != null) {
                         boolean isMgr = session.hasRole(mgrUl, "MANAGER");
                         if (!isMgr) {
-                            output.print(UtilProperties.getMessage(PosTransaction.resource,"UserNotmanager",Locale.getDefault()));
+                            output.print(UtilProperties.getMessage(PosTransaction.resource,"PosUserNotManager",Locale.getDefault()));
                             input.clear();
                         } else {
                             ManagerEvents.mgrLoggedIn = true;
