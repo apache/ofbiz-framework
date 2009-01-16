@@ -38,6 +38,7 @@
     </property>
     <property key="getPreference.permissionError">
         <value xml:lang="en">Permissions error while getting user preferences</value>
+        <value xml:lang="fr">Erreur de permissions tout en obtenant des préférences d'utilisateur</value>
     </property>
     <property key="getPreference.readFailure">
         <value xml:lang="de">Benutzereinstellungen konnte nicht geholt werden, Lesefehler: {0}</value>
