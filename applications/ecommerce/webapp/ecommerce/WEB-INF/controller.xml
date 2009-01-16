@@ -1361,13 +1361,13 @@ under the License.
     </request-map>
     
     <request-map uri="createBlogResponse">
-        <security https="false" auth="true"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="createTextContent"/>
         <response name="success" type="view" value="ViewResponse"/>
         <response name="error" type="view" value="ViewResponse"/>
     </request-map>
     <request-map uri="updateBlogResponse">
-        <security https="false" auth="true"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="updateTextContent"/>
         <response name="success" type="view" value="ViewResponse"/>
         <response name="error" type="view" value="ViewResponse"/>

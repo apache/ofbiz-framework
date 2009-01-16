@@ -49,7 +49,7 @@
                                 <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
                             </condition>
                             <widgets>
-                                <link text="Add New" target="NewArticle?blogContentId=${blogContentId}" style="buttontext" url-mode="inter-app"/>
+                                <link text="Add New" target="NewArticle?blogContentId=${blogContentId}" style="buttontext"/>
                             </widgets>
                         </section>
 
