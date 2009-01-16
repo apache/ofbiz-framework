@@ -57,7 +57,7 @@ import org.ofbiz.base.util.UtilDateTime;
  * <tr><td><code>date:dateStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date <code>String</code> (yyyy-mm-dd).</td></tr>
  * <tr><td><code>date:dateTimeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date-time <code>String</code> (yyyy-mm-dd hh:mm).</td></tr>
  * <tr><td><code>date:timeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a time <code>String</code> (hh:mm).</td></tr>
- * <tr><td><code>date:nowTimestamp()</code></td><td>Returns <code>Timestamp </code> for right now<code>String</code>.</td></tr>
+ * <tr><td><code>date:nowTimestamp()</code></td><td>Returns <code>Timestamp </code> for right now.</td></tr>
  * <tr><td colspan="2"><b><code>math:</code> maps to <code>java.lang.Math</code></b></td></tr>
  * <tr><td><code>math:absDouble(double)</code></td><td>Returns the absolute value of a <code>double</code> value.</td></tr>
  * <tr><td><code>math:absFloat(float)</code></td><td>Returns the absolute value of a <code>float</code> value.</td></tr>
