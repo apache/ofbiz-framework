@@ -196,7 +196,7 @@
         <value xml:lang="de">Ein User mit dem Usernamen "${userLoginId}" konnte nicht gefunden werden, bitte erneut eingeben.</value>
         <value xml:lang="en">A user with the Username "${userLoginId}" was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
-        <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, taper le de nouveau SVP.</value>
+        <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, entrez le de nouveau SVP.</value>
         <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo dinuovo.</value>
         <value xml:lang="nl">A user with the username "${userLoginId}" was not found, please re-enter.</value>
         <value xml:lang="ro">Utilizatorul cu nume "${userLoginId}" nu a fost gasit, va rog re-introduceti.</value>
@@ -208,7 +208,7 @@
         <value xml:lang="de">Username konnte nicht gefunden werden, bitte erneut eingeben.</value>
         <value xml:lang="en">The Username was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
-        <value xml:lang="fr">Le nom d'utilisateur est inconnu, taper le de nouveau SVP.</value>
+        <value xml:lang="fr">Le nom d'utilisateur est inconnu, entrez le de nouveau, SVP.</value>
         <value xml:lang="it">L'utente non è stato trovato, prego inserirlo dinuovo.</value>
         <value xml:lang="nl">De gebruikersnaam is niet gevonden,toets aub opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator nu a fost gasit, va rugam reintroduceti.</value>
@@ -514,7 +514,7 @@
         <value xml:lang="de">Passwort falsch.</value>
         <value xml:lang="en">Password incorrect.</value>
         <value xml:lang="es">Password incorrecto</value>
-        <value xml:lang="fr">Mot de passe inexact.</value>
+        <value xml:lang="fr">Mot de passe incorrect.</value>
         <value xml:lang="it">Password non corretta.</value>
         <value xml:lang="nl">Wachtwoord niet juist.</value>
         <value xml:lang="ro">Parola incorecta.</value>
