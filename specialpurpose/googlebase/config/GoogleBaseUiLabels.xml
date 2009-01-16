@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actionType">
         <value xml:lang="en">Action Type</value>
         <value xml:lang="fr">Type d'action</value>
@@ -208,6 +209,7 @@
     <property key="productsExportToGoogle.invalidCountryCode">
         <value xml:lang="en">Country Code must be either US, UK or DE.</value>
         <value xml:lang="fr">Code de pays doit être l'un ou l'autre US, UK ou DE</value>
+        <value xml:lang="it">Codice paese deve essere US, UK o DE.</value>
         <value xml:lang="th">รหัสประเทศต้องเป็น US , UK หรือไม่ก็ DE</value>
     </property>
     <property key="productsExportToGoogle.missingParameterProductCategoryId">

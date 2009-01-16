@@ -69,6 +69,7 @@ under the License.
     <screen name="EditProject">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditProject"/>
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
@@ -421,7 +422,8 @@ under the License.
     <screen name="EditPartySkills">
         <section>
             <actions>
-                <set field="tabButtonItem" value="parties"/>                
+                <set field="titleProperty" value="ProjectMgrEditPartySkill"/>
+                <set field="tabButtonItem" value="parties"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
             </actions>
@@ -616,14 +618,14 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrResources}">
-                    <label style="h3" text="Providers"></label>
+                    <label style="h3" title="${uiLabelMap.ProjectMgrProviders}"/>
                     <include-form name="ListProjectProviderParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     <section>
                         <condition>
                             <not><if-empty field-name="clientAssigns"/></not>
                         </condition>
                         <widgets>
-                            <label style="h3" text="ClientContacts"></label>
+                            <label style="h3" text="${uiLabelMap.ProjectMgrClientContacts}"></label>
                             <include-form name="ListProjectClientParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </widgets>
                     </section>
@@ -632,7 +634,7 @@ under the License.
                             <not><if-empty field-name="companyAssigns"/></not>
                         </condition>
                         <widgets>
-                            <label style="h3" text="Companies"></label>
+                            <label style="h3" text="${uiLabelMap.ProjectMgrCompanies}"></label>
                             <include-form name="ListProjectCompanyParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </widgets>
                     </section>
@@ -1083,6 +1085,7 @@ under the License.
     <screen name="ListProjectContent">
         <section>
             <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
                 <set field="parameters.workEffortId" from-field="parameters.projectId"/>
             </actions>
             <widgets>

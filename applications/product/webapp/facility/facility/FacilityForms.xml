@@ -48,7 +48,7 @@ under the License.
                 <entity-options description="${facilityName}" entity-name="Facility" key-field-name="facilityId"/>
             </drop-down>
         </field>
-        <field name="selectButton"><submit button-type="button"/></field>
+        <field name="selectButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
     <form name="FindFacilityOptions" extends="lookupFacility" extends-resource="component://product/webapp/facility/lookup/FieldLookupForms.xml" target="FindFacility">

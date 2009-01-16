@@ -8551,7 +8551,7 @@
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur organisation</value>
-        <value xml:lang="it">Codice Soggetto Organizzazione</value>
+        <value xml:lang="it">Soggetto organizzazione</value>
         <value xml:lang="nl">Relatie-ID organisatie</value>
         <value xml:lang="ro">Cod Subiect Organizare</value>
         <value xml:lang="ru">Код организации</value>

@@ -52,7 +52,7 @@ public class SaveSale extends XPage {
     // New button for Save and Print funtion
     protected XButton m_saveAndPrint = null;
     protected static PosTransaction m_trans = null;
-    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"DateTimeFormat",Locale.getDefault()));
+    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"PosDateTimeFormat",Locale.getDefault()));
     private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls).  For that in Eclipse use Source/Generate Getters and setters
@@ -67,7 +67,7 @@ public class SaveSale extends XPage {
         m_saleName = (XEdit) m_dialog.findComponent("saleName");        
         //m_dialog.setM_focused(m_saleName); 
         m_saleName.setText(m_pos.session.getUserId() + " " + sdf.format(new Date()));
-        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "SaveASale", Locale.getDefault()));
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosSaveASale", Locale.getDefault()));
 
         m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
         m_save = (XButton) m_dialog.findComponent("BtnSave");

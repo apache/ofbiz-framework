@@ -55,14 +55,6 @@
         <value xml:lang="en">Expected Revenue</value>
         <value xml:lang="it">Entrate aspettata</value>
     </property>
-    <property key="FormFieldTitle_estimatedCost">
-        <value xml:lang="en">Estimated Cost</value>
-        <value xml:lang="it">Costo stimato</value>
-    </property>
-    <property key="FormFieldTitle_isActive">
-        <value xml:lang="en">Is Active</value>
-        <value xml:lang="it">E' attivo</value>
-    </property>
     <property key="FormFieldTitle_numSent">
         <value xml:lang="en">Num Sent</value>
         <value xml:lang="it">Num. Invio</value>
@@ -74,10 +66,6 @@
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
         <value xml:lang="zh">产品目录标识</value>
-    </property>
-    <property key="FormFieldTitle_startDate">
-        <value xml:lang="en">Start Date</value>
-        <value xml:lang="it">Data inizio</value>
     </property>
     <property key="MarketingCampaign">
         <value xml:lang="en">Marketing Campaign</value>
@@ -507,24 +495,6 @@
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">描述</value>
     </property>
-    <property key="MarketingSegmentGroupGeoAbbr">
-        <value xml:lang="en">Abbreviation</value>
-        <value xml:lang="es">Abreviación</value>
-        <value xml:lang="fr">Abbréviation</value>
-        <value xml:lang="it">Abbreviazione</value>
-        <value xml:lang="ro">Abreviere</value>
-        <value xml:lang="th">ชื่อย่อ</value>
-        <value xml:lang="zh">缩写</value>
-    </property>
-    <property key="MarketingSegmentGroupGeoCode">
-        <value xml:lang="en">Code</value>
-        <value xml:lang="es">Código</value>
-        <value xml:lang="fr">Code</value>
-        <value xml:lang="it">Codice</value>
-        <value xml:lang="ro">Cod</value>
-        <value xml:lang="th">รหัส</value>
-        <value xml:lang="zh">代码</value>
-    </property>
     <property key="MarketingSegmentGroupGeoCreate">
         <value xml:lang="en">Create New Segment Group Geo</value>
         <value xml:lang="es">Nueva ubicación</value>
@@ -533,42 +503,6 @@
         <value xml:lang="ro">Creare Nou Grup Segment Geografie</value>
         <value xml:lang="th">สร้างส่วนของโครงสร้างกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组地理</value>
-    </property>
-    <property key="MarketingSegmentGroupGeoId">
-        <value xml:lang="en">Geo ID</value>
-        <value xml:lang="es">Código ubicación</value>
-        <value xml:lang="fr">Réf. de zone géographique</value>
-        <value xml:lang="it">Codice Geografia</value>
-        <value xml:lang="ro">Cod Geografie</value>
-        <value xml:lang="th">รหัสโครงสร้าง</value>
-        <value xml:lang="zh">地理标识</value>
-    </property>
-    <property key="MarketingSegmentGroupGeoName">
-        <value xml:lang="en">Name</value>
-        <value xml:lang="es">Nombre</value>
-        <value xml:lang="fr">Nom</value>
-        <value xml:lang="it">Nome</value>
-        <value xml:lang="ro">Nome</value>
-        <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">名称</value>
-    </property>
-    <property key="MarketingSegmentGroupGeoSecCode">
-        <value xml:lang="en">Secondary Code</value>
-        <value xml:lang="es">Código secundario</value>
-        <value xml:lang="fr">Code secondaire</value>
-        <value xml:lang="it">Codice Secondario</value>
-        <value xml:lang="ro">Cod Secundar</value>
-        <value xml:lang="th">รหัสที่สอง</value>
-        <value xml:lang="zh">第二代码</value>
-    </property>
-    <property key="MarketingSegmentGroupGeoTypeId">
-        <value xml:lang="en">Geo Type ID</value>
-        <value xml:lang="es">Tipo de ubicación</value>
-        <value xml:lang="fr">Réf. de type de zone géographique</value>
-        <value xml:lang="it">Tipo Geografia</value>
-        <value xml:lang="ro">Tip Geografie</value>
-        <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
-        <value xml:lang="zh">地理类型标识</value>
     </property>
     <property key="MarketingSegmentGroupNoSegmentGroupFoundWithId">
         <value xml:lang="en">No SegmentGroup found with ID:</value>

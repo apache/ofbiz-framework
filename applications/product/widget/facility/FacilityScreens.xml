@@ -65,7 +65,7 @@ under the License.
                                         <if-compare field-name="showScreen" value="ten" operator="equals"/>
                                     </condition>
                                     <widgets>
-                                        <label text="Facility Selection" style="h1"/>
+                                        <label text="${uiLabelMap.FacilitySelection}" style="h1"/>
                                         <section>
                                             <condition>
                                                 <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>

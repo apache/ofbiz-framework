@@ -18,7 +18,7 @@ under the License.
 -->
 <#assign selected = headerItem?default("void")>
 <div id="app-navigation">
-    <h2>${uiLabelMap.FrameworkShark}</h2>
+    <h2>${uiLabelMap.SharkFramework}</h2>
     <ul>                               
         <#if userLogin?has_content>
             <li<#if selected == "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.WorkEffortTaskList}</a></li>     

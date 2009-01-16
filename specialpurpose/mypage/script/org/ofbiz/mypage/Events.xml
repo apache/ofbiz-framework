@@ -19,8 +19,8 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-	<simple-method method-name="updatePreferences"
-		short-description="Update the user preferences">
+    <simple-method method-name="updatePreferences"
+        short-description="Update the user preferences">
         <if-compare operator="equals" value="Y" field="parameters.myCompanyComms">
             <set field="parameters.userPrefMap.myCompanyComms" value="Y" />
             <else>
@@ -51,11 +51,11 @@ under the License.
                 <set field="parameters.userPrefMap.otherCommunications" value="N" />
             </else>
         </if-compare>
-		<set-service-fields service-name="setUserPreferenceGroup"
-			map="parameters" to-map="inMap" />
-		<call-service service-name="setUserPreferenceGroup"
-			in-map-name="inMap" />
-	</simple-method>
+        <set-service-fields service-name="setUserPreferenceGroup"
+            map="parameters" to-map="inMap" />
+        <call-service service-name="setUserPreferenceGroup"
+            in-map-name="inMap" />
+    </simple-method>
 
     <simple-method method-name="updateCustPreferences" short-description="Update the customer preferences">
         <if-compare operator="equals" value="Y" field="parameters.sendCustRequestEmail">
@@ -70,31 +70,31 @@ under the License.
                 in-map-name="inMap" />
     </simple-method>
     
-	<simple-method method-name="setCommEventToRead"
-		short-description="">
-		<entity-one entity-name="CommunicationEventRole"
-			value-field="eventRole" />
-		<if-compare operator="equals" value="COM_ROLE_CREATED"
-			field="eventRole.statusId">
-			<call-simple-method method-name="checkCommEventAccess" />
-			<if-compare operator="equals" value="true" field="found">
-				<entity-one entity-name="UserLogin" value-field="userLogin">
-					<field-map field-name="userLoginId" value="system" />
-				</entity-one>
-				<set-service-fields service-name="setCommunicationEventRoleStatus"
-					map="parameters" to-map="updStat" />
-				<set field="updStat.statusId" value="COM_ROLE_READ" />
-				<set field="updStat.userLogin" from-field="userLogin" />
-				<call-service service-name="setCommunicationEventRoleStatus"
-					in-map-name="updStat" include-user-login="false" />
-				<else>
-					<add-error>
-						<fail-property property="NoAccess" resource="MyPageUiLabels" />
-					</add-error>
-				</else>
-			</if-compare>
-		</if-compare>
-	</simple-method>
+    <simple-method method-name="setCommEventToRead"
+        short-description="">
+        <entity-one entity-name="CommunicationEventRole"
+            value-field="eventRole" />
+        <if-compare operator="equals" value="COM_ROLE_CREATED"
+            field="eventRole.statusId">
+            <call-simple-method method-name="checkCommEventAccess" />
+            <if-compare operator="equals" value="true" field="found">
+                <entity-one entity-name="UserLogin" value-field="userLogin">
+                    <field-map field-name="userLoginId" value="system" />
+                </entity-one>
+                <set-service-fields service-name="setCommunicationEventRoleStatus"
+                    map="parameters" to-map="updStat" />
+                <set field="updStat.statusId" value="COM_ROLE_READ" />
+                <set field="updStat.userLogin" from-field="userLogin" />
+                <call-service service-name="setCommunicationEventRoleStatus"
+                    in-map-name="updStat" include-user-login="false" />
+                <else>
+                    <add-error>
+                        <fail-property property="MyPageNoAccess" resource="MyPageUiLabels" />
+                    </add-error>
+                </else>
+            </if-compare>
+        </if-compare>
+    </simple-method>
 
     <simple-method method-name="checkCommEventAccess" short-description="check if the user has access to the email of this party">
         <set field="found" value="false"/>

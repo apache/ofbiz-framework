@@ -95,6 +95,10 @@
         <value xml:lang="zh">使用缺省值：没有其它可用的送货方式。</value>
         <value xml:lang="zh_CN">使用默认: 没有其他送货方式</value>
     </property>
+    <property key="FacilitySelection">
+        <value xml:lang="en">Facility Selection</value>
+        <value xml:lang="it">Seleziona stabilimento</value>
+    </property>
     <property key="FacilityShipAvailable">
         <value xml:lang="de">Bitte liefern Sie meine bestellten Artikel sobald sie verfügbar sind (Sie dürfen zusätzliche Lieferungskosten  erheben).</value>
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
@@ -1131,7 +1135,7 @@
     </property>
     <property key="FormFieldTitle_estimatedCost">
         <value xml:lang="de">Geschätzte Kosten</value>
-        <value xml:lang="en">Estimated Cost</value>
+        <value xml:lang="en">Estimated cost</value>
         <value xml:lang="es">Coste estimado</value>
         <value xml:lang="fr">Coût estimé</value>
         <value xml:lang="it">Costo stimato</value>
@@ -2729,9 +2733,18 @@
         <value xml:lang="th">ได้รับโดยรหัสการลอกอินเข้าสู่ระบบของผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_recurrenceInfoId">
+        <value xml:lang="de">Wiederholung Info ID</value>
         <value xml:lang="en">Recurrence Info Id</value>
-        <value xml:lang="it">Informazione ricorrente</value>
+        <value xml:lang="es">Código Información de repetición</value>
+        <value xml:lang="fr">Réf. d'information récurrente</value>
+        <value xml:lang="it">Informazioni ricorrenti</value>
+        <value xml:lang="nl">Herhaling Info Id</value>
+        <value xml:lang="ro">Informatii Recurente</value>
+        <value xml:lang="ru">Код информации о возврате</value>
+        <value xml:lang="th">รหัสการคืนข้อมูล</value>
+        <value xml:lang="zh">重复使用信息标识</value>
     </property>
+    
     <property key="FormFieldTitle_rejectionId">
         <value xml:lang="de">Ablehnung ID</value>
         <value xml:lang="en">Rejection Id</value>
@@ -19519,7 +19532,7 @@
         <value xml:lang="en">Vat Tax Authority Geo not set.</value>
         <value xml:lang="es">No se ha fijado la zona geográfica de la Autoridad Tributaria responsable del IVA</value>
         <value xml:lang="fr">La réf. de zone de TVA manque</value>
-	<value xml:lang="it">Autorità tasse IVA geografia non impostata.</value>
+        <value xml:lang="it">Autorità tasse IVA geografia non impostata.</value>
         <value xml:lang="pt">Vat Tax Authority Geo not set.</value>
         <value xml:lang="ru">Не установлена страна налогового органа по НДС.</value>
         <value xml:lang="th">ไม่มีการตั้งค่าภาษี</value>
@@ -19530,7 +19543,7 @@
         <value xml:lang="en">Vat Tax Auth Party not set.</value>
         <value xml:lang="es">No se ha fijado la Autoridad Tributaria responsable del IVA</value>
         <value xml:lang="fr">La réf. de centre de TVA manque</value>
-	<value xml:lang="it">Soggetto autorità tasse IVA non impostato.</value>
+        <value xml:lang="it">Soggetto autorità tasse IVA non impostato.</value>
         <value xml:lang="pt">Vat Tax Auth Party not set.</value>
         <value xml:lang="ru">Не установлен налоговый номер по НДС.</value>
         <value xml:lang="th">ไม่มีการตั้งค่ากลุ่มภาษี</value>

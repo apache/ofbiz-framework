@@ -44,7 +44,7 @@ public class Journal {
     protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
     
     private static String[] field = { "sku", "desc", "qty", "price" };
-    private static String[] name = { "SKU", "ITEM", "QTY", "AMT" };
+    private static String[] name = { "PosSku", "PosItem", "PosQty", "PosAmt" };
     private static int[] width = { 100, 170, 50, 90};
     private Locale defaultLocale = Locale.getDefault();
 

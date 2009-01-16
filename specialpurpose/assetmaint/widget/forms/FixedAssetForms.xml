@@ -112,7 +112,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productId" title="Part Id*" required-field="true"><lookup target-form-name="LookupPartsProduct"/></field>
+        <field name="productId" title="${uiLabelMap.AssetMaintPartId}*" required-field="true"><lookup target-form-name="LookupPartsProduct"/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}*"><text size="10"/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="fixedAssetId"><hidden/></field>
@@ -121,7 +121,7 @@
 
     <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <field name="productId" title="Part Id"><display/></field>
+        <field name="productId" title="${uiLabelMap.AssetMaintPartId}"><display/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}"><display/></field>
         <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="comments" position="1" title="${uiLabelMap.CommonComments}"><display/></field>

@@ -118,7 +118,7 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Phase: ${phaseName} Project: ${projectName}"/>
+                                        <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] ${uiLabelMap.ProjectMgrPhaseName}: ${phaseName} ${uiLabelMap.ProjectMgrProjectName}: ${projectName}"/>
                                         <link style="h1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
                                     </widgets>                                    
                                 </section>

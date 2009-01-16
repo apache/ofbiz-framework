@@ -154,7 +154,7 @@ under the License.
         <field name="custRequestId">
             <hyperlink target="ViewRequest?custRequestId=${custRequestId}" description="${custRequestName} [${custRequestId}]"/>
          </field>
-        <field name="projectId" map-name="sResult">
+        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult">
             <hyperlink target="projectView?projectId=${sResult.projectId}" description="${sResult.projectName} [${sResult.projectId}]"/>
         </field>
         <field name="phaseId" map-name="sResult">

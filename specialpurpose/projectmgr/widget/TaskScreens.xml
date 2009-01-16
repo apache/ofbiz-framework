@@ -610,7 +610,7 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.TaskContentList}">
+                                <screenlet title="${uiLabelMap.ProjectMgrTaskContentList}">
                                     <container><link target="EditTaskContents?workEffortId=${workEffortId}" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit"/></container>
                                     <include-form name="ListContents" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                 </screenlet>

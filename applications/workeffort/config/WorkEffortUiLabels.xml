@@ -306,10 +306,6 @@
         <value xml:lang="th">รายละเอียดความต้องการ</value>
         <value xml:lang="zh">需求描述</value>
     </property>
-    <property key="FormFieldTitle_requirementStartDate">
-        <value xml:lang="en">Requirement Start Date</value>
-        <value xml:lang="it">Data inizio fabbisogno</value>
-    </property>
     <property key="FormFieldTitle_reserv2ndPPPerc">
         <value xml:lang="en">Reserv2nd P P Perc</value>
         <value xml:lang="fr">% d'augmentation pour une 2d personne</value>
@@ -407,10 +403,6 @@
         <value xml:lang="ro">Stare</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">状态</value>
-    </property>
-    <property key="FormFieldTitle_tempExprId">
-        <value xml:lang="en">Temporal Expression</value>
-        <value xml:lang="it">Espressione temporale</value>
     </property>
     <property key="FormFieldTitle_timeTransparency">
         <value xml:lang="en">Time Transparency</value>

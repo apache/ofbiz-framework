@@ -247,16 +247,6 @@
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
     </property>
-    <property key="FormFieldTitle_requirementStartDate">
-        <value xml:lang="de">Bedarfs-Start-Datum</value>
-        <value xml:lang="en">Requirement Start Date</value>
-        <value xml:lang="es">Fecha de comienzo del requisito</value>
-        <value xml:lang="fr">Date de début de besoin</value>
-        <value xml:lang="it">Data Inizio Fabbisogno</value>
-        <value xml:lang="ro">Data Initiala Necesar</value>
-        <value xml:lang="th">วันที่ต้องการเริ่มต้น</value>
-        <value xml:lang="zh">需求开始日期</value>
-    </property>
     <property key="FormFieldTitle_routingId">
         <value xml:lang="de">Arbeitsplan-Nr.</value>
         <value xml:lang="en">routingId</value>
