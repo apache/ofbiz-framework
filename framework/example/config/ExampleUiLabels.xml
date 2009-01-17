@@ -31,10 +31,12 @@
     <property key="ExampleAjaxIntro">
         <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
         <value xml:lang="fr">Pour utiliser cette démonstration Ajax, vous devez avoir activé Javascript </value>
+        <value xml:lang="it">Per usare questa dimostrazione Ajax, tu devi avere JavaScript abilitato sul tuo browser.</value>
     </property>
     <property key="ExampleAjaxExamples">
         <value xml:lang="en">Ajax Examples</value>
         <value xml:lang="fr">Exemples Ajax</value>
+        <value xml:lang="it">Esempi Ajax</value>
     </property>    
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
@@ -64,7 +66,7 @@
     <property key="ExampleExampleId">
         <value xml:lang="en">Example ID</value>
         <value xml:lang="fr">Réf. exemple</value>
-        <value xml:lang="it">Codice Esempio</value>
+        <value xml:lang="it">Codice esempio</value>
         <value xml:lang="ro">Cod Exemplu</value>
         <value xml:lang="ru">Код примера</value>
         <value xml:lang="th">รหัสตัวอย่าง</value>
@@ -142,16 +144,18 @@
     <property key="ExampleFopFonts">
         <value xml:lang="en">This will print a simple PDF file which will show the FOP fonts avalaible in OFBiz</value>
         <value xml:lang="fr">Impression d'un simple fichier PDF qui montre les polices FOP disponibles dans OFBiz</value>
+        <value xml:lang="it">Questo stampa un file PDF semplice che mostrerà i font FOP disponibili in OFBiz</value>
     </property>    
     <property key="ExampleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
         <value xml:lang="fr">Exemple de Form Widget</value>
+        <value xml:lang="it">Esempi form widget</value>
         <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
         <value xml:lang="fr">Exemple de page principale</value>
-        <value xml:lang="it">Pagina Principale Esempi</value>
+        <value xml:lang="it">Pagina principale esempi</value>
         <value xml:lang="th">ตัวอย่างหน้าหลัก</value>
     </property>
     <property key="ExampleMessage">
@@ -184,6 +188,7 @@
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
         <value xml:lang="fr">Exemple d'origine</value>
+        <value xml:lang="it">Esempio originale</value>
         <value xml:lang="ru">Оригинальный пример</value>
         <value xml:lang="th">ตัวอย่างเดิม</value>
     </property>
@@ -228,6 +233,7 @@
     <property key="PageTitleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
         <value xml:lang="fr">Exemple Form Widget</value>
+        <value xml:lang="it">Esempio form widget</value>
         <value xml:lang="th">ตัวอย่าง Widget</value>
     </property>
     <property key="PageTitleEditExample">

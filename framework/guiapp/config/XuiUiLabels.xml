@@ -17,20 +17,24 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="UnableToLogIn">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="XuiUnableToLogIn">
         <value xml:lang="en">Unable to log in; XUI not configured properly</value>
         <value xml:lang="fr">Impossible de continuer : XUI n'est pas configuré correctement</value>
+        <value xml:lang="it">Non è possibile fare il log in; XUI non configurato propriamente</value>
         <value xml:lang="th">ไม่สามารถเข้าสู่ระบบได้ : XUI ไม่สามารถจัดการข้อมูลได้อย่างถูกต้อง</value>
     </property>
-    <property key="UserLoginNotValid">
+    <property key="XuiUserLoginNotValid">
         <value xml:lang="en">UserLogin returned not valid (null)</value>
         <value xml:lang="fr">Identifiant de connexion retourné non valide (null)</value>
+        <value xml:lang="it">UserLogin restituito non valido (null)</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ถูกต้อง (ค่าว่าง)</value>
     </property>
-    <property key="UsernameDoesNotMatchLoggedUser">
+    <property key="XuiUsernameDoesNotMatchLoggedUser">
         <value xml:lang="en">User name does not match already logged in user!</value>
         <value xml:lang="fr">Cet identifiant ne correspond pas à celui en cours !</value>
+        <value xml:lang="it">Nome utente non confrontato per l'utente autenticato!</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ตรงกับข้อมูลที่บันทึกไว้กรุณาตรวจสอบ</value>
     </property>
 </resource>

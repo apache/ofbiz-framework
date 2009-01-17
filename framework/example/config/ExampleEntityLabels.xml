@@ -69,10 +69,12 @@
     </property>
     <property key="FieldDescription.exampleTypeId">
         <value xml:lang="en">Example Type ID</value>
+        <value xml:lang="it">Tipo esempio</value>
         <value xml:lang="th">รหัสประเภทตัวอย่าง</value>
     </property>
     <property key="FieldDescription.exampleItemSeqId">
         <value xml:lang="en">Example Item sequence ID</value>
+        <value xml:lang="it">Riga esempio</value>
         <value xml:lang="th">รหัสลำดับตัวอย่างสินค้า</value>
     </property>
     <property key="FieldDescription.amount">
@@ -124,18 +126,18 @@
         <value xml:lang="th">ตัวอักษรอื่น ๆ</value>
     </property>
     <property key="FieldDescription.Example.exampleId">
-        <value xml:lang="en">A unique Example ID. If you don't assign an
-            ID, one will be generated automatically</value>
+        <value xml:lang="en">A unique Example ID. If you don't assign an ID, one will be generated automatically</value>
+        <value xml:lang="it">Un codice esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่าง ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
     </property>
     <property key="FieldDescription.ExampleItem.exampleItemSeqId">
-        <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an
-            ID, one will be generated automatically</value>
+        <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an ID, one will be generated automatically</value>
+        <value xml:lang="it">Un codice riga esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างสินค้า ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
     </property>
     <property key="FieldDescription.ExampleType.exampleTypeId">
-        <value xml:lang="en">A unique Example Type ID. If you don't assign an
-            ID, one will be generated automatically</value>
+        <value xml:lang="en">A unique Example Type ID. If you don't assign an ID, one will be generated automatically</value>
+        <value xml:lang="it">Un tipo esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างประเภท ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
     </property>
 </resource>

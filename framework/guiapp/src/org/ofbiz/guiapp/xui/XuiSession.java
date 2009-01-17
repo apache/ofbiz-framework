@@ -112,7 +112,7 @@ public class XuiSession {
         // if already logged in; verify for lock. Depends on SAME_LOGIN, false by default
         if (this.userLogin != null) {            
             if (IS_SAME_LOGIN == true && !userLogin.getString("userLoginId").equals(username)) { 
-                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UsernameDoesNotMatchLoggedUser", locale));
+                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "XuiUsernameDoesNotMatchLoggedUser", locale));
             }
         }
         this.userLogin = this.checkLogin(username, password);
@@ -121,7 +121,7 @@ public class XuiSession {
     public GenericValue checkLogin(String username, String password) throws UserLoginFailure {
         // check the required parameters and objects
         if (dispatcher == null) {
-            throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UnableToLogIn", locale));
+            throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "XuiUnableToLogIn", locale));
         }
         if (UtilValidate.isEmpty(username)) {
             throw new UserLoginFailure(UtilProperties.getMessage("PartyUiLabels", "PartyUserNameMissing", locale));
@@ -147,7 +147,7 @@ public class XuiSession {
         } else {
             GenericValue ul = (GenericValue) result.get("userLogin");
             if (ul == null) {
-                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UserLoginNotValid", locale));
+                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "XuiUserLoginNotValid", locale));
             }
             return ul;
         }
