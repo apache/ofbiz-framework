@@ -41,7 +41,7 @@ under the License.
             <link target="EditExampleFeatureAppls?exampleId=${exampleId}"/>
         </menu-item>
         <menu-item name="EditExampleHelp" title="${uiLabelMap.CommonHelp}">
-            <link target="help?topic=EditExampleHelp" target-window="_blank"/>
+            <link target="help?topic=ExampleEditHelp" target-window="_blank"/>
         </menu-item>
     </menu>
 

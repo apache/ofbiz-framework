@@ -22,18 +22,18 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Geo Lookup forms -->
     <form name="LookupGeo" target="LookupGeo" title="" type="single">
-        <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><text-find/></field>
-        <field name="geoTypeId" title="${uiLabelMap.SegmentGroupGeoTypeId}">
+        <field name="geoId" title="${uiLabelMap.CommonSegmentGroupGeoId}"><text-find/></field>
+        <field name="geoTypeId" title="${uiLabelMap.CommonSegmentGroupGeoTypeId}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="geoName" title="${uiLabelMap.SegmentGroupGeoName}"><text-find/></field>
-        <field name="geoCode" title="${uiLabelMap.SegmentGroupGeoCode}"><text-find/></field>
-        <field name="geoSecCode" title="${uiLabelMap.SegmentGroupGeoSecCode}"><text-find/></field>
-        <field name="geoAbbr" title="${uiLabelMap.SegmentGroupGeoAbbr}"><text-find/></field>
+        <field name="geoName" title="${uiLabelMap.CommonSegmentGroupGeoName}"><text-find/></field>
+        <field name="geoCode" title="${uiLabelMap.CommonSegmentGroupGeoCode}"><text-find/></field>
+        <field name="geoSecCode" title="${uiLabelMap.CommonSegmentGroupGeoSecCode}"><text-find/></field>
+        <field name="geoAbbr" title="${uiLabelMap.CommonSegmentGroupGeoAbbr}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -45,15 +45,15 @@ under the License.
                 <field-map field-name="orderBy" value="geoName"/>
             </service>
         </actions>
-        <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.SegmentGroupGeoId}">
+        <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonSegmentGroupGeoId}">
             <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_value('${geoId}')"/>
         </field>
-        <field name="geoTypeId" title="${uiLabelMap.SegmentGroupGeoTypeId}">
+        <field name="geoTypeId" title="${uiLabelMap.CommonSegmentGroupGeoTypeId}">
             <display-entity key-field-name="geoTypeId" entity-name="GeoType" description="${description}"/>
         </field>
-        <field name="geoName" title="${uiLabelMap.SegmentGroupGeoName}"><display/></field>
-        <field name="geoCode" title="${uiLabelMap.SegmentGroupGeoCode}"><display/></field>
-        <field name="geoSecCode" title="${uiLabelMap.SegmentGroupGeoSecCode}"><display/></field>
-        <field name="geoAbbr" title="${uiLabelMap.SegmentGroupGeoAbbr}"><display/></field>
+        <field name="geoName" title="${uiLabelMap.CommonSegmentGroupGeoName}"><display/></field>
+        <field name="geoCode" title="${uiLabelMap.CommonSegmentGroupGeoCode}"><display/></field>
+        <field name="geoSecCode" title="${uiLabelMap.CommonSegmentGroupGeoSecCode}"><display/></field>
+        <field name="geoAbbr" title="${uiLabelMap.CommonSegmentGroupGeoAbbr}"><display/></field>
     </form>
 </forms>

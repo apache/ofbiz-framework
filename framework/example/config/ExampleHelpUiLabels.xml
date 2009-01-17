@@ -17,8 +17,10 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="EditExampleHelp">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ExampleEditHelp">
         <value xml:lang="en">An example of a Help screen.</value>
+        <value xml:lang="it">Un esempio di schermata di aiuto.</value>
     </property>
 </resource>

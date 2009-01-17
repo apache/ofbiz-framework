@@ -24,7 +24,7 @@
         <value xml:lang="en">Begins With</value>
         <value xml:lang="es">Inicia con</value>
         <value xml:lang="fr">commence par</value>
-        <value xml:lang="it">Inizia Con</value>
+        <value xml:lang="it">Inizia con</value>
         <value xml:lang="nl">Begint met</value>
         <value xml:lang="ro">Incepe Cu</value>
         <value xml:lang="ru">Начинается с</value>
@@ -63,7 +63,7 @@
         <value xml:lang="en">Greater Than</value>
         <value xml:lang="es">Mayor que</value>
         <value xml:lang="fr">plus grand</value>
-        <value xml:lang="it">Maggiore Di</value>
+        <value xml:lang="it">Maggiore di</value>
         <value xml:lang="nl">Groter dan</value>
         <value xml:lang="ro">Mai Mare decat</value>
         <value xml:lang="ru">Больше чем</value>
@@ -76,7 +76,7 @@
         <value xml:lang="en">Greater Than Equals</value>
         <value xml:lang="es">Mayor igual que</value>
         <value xml:lang="fr">plus grand ou égal</value>
-        <value xml:lang="it">Maggiore Uguale</value>
+        <value xml:lang="it">Maggiore uguale</value>
         <value xml:lang="nl">Groter of gelijk aan</value>
         <value xml:lang="ro">Mai Mare sau Egal</value>
         <value xml:lang="ru">Больше чем равно</value>
@@ -89,7 +89,7 @@
         <value xml:lang="en">Greater Than From Day Start</value>
         <value xml:lang="es">Mayor que el día</value>
         <value xml:lang="fr">plus grand que le jour</value>
-        <value xml:lang="it">Maggiore Del Giorno di Inizio</value>
+        <value xml:lang="it">Maggiore del giorno di inizio</value>
         <value xml:lang="nl">Later dan de begin dag</value>
         <value xml:lang="ro">Mai Mare decat ziua Initiala</value>
         <value xml:lang="ru">Больше чем на дату начала</value>
@@ -102,7 +102,7 @@
         <value xml:lang="en">Ignore Case</value>
         <value xml:lang="es">Ignorar mayusculas</value>
         <value xml:lang="fr">Ignorer la casse (maj/min)</value>
-        <value xml:lang="it">Ignora Maiuscole/Minuscole</value>
+        <value xml:lang="it">Ignora maiuscole/minuscole</value>
         <value xml:lang="nl">negeer gr/kl letters</value>
         <value xml:lang="ro">Ignora Majuscule/Minuscule</value>
         <value xml:lang="ru">Игнорировать регистр</value>
@@ -115,7 +115,7 @@
         <value xml:lang="en">Is Empty</value>
         <value xml:lang="es">Vacio</value>
         <value xml:lang="fr">est vide</value>
-        <value xml:lang="it">E' Vuoto</value>
+        <value xml:lang="it">E' vuoto</value>
         <value xml:lang="nl">Niet gevuld</value>
         <value xml:lang="ro">Este Gol</value>
         <value xml:lang="ru">Является пустым</value>
@@ -128,7 +128,7 @@
         <value xml:lang="en">Less Than</value>
         <value xml:lang="es">Menor que</value>
         <value xml:lang="fr">plus petit</value>
-        <value xml:lang="it">Minore Di</value>
+        <value xml:lang="it">Minore di</value>
         <value xml:lang="nl">Minder dan</value>
         <value xml:lang="ro">Mai Mic Decat</value>
         <value xml:lang="ru">Меньше чем</value>
@@ -141,7 +141,7 @@
         <value xml:lang="en">Less Than Equals</value>
         <value xml:lang="es">Menor que</value>
         <value xml:lang="fr">plus petit ou égal</value>
-        <value xml:lang="it">Minore Uguale</value>
+        <value xml:lang="it">Minore uguale</value>
         <value xml:lang="nl">minder of gelijk aan</value>
         <value xml:lang="ro">Mai Mic sau Egal</value>
         <value xml:lang="ru">Меньше чем равно</value>
@@ -150,7 +150,7 @@
     </property>
     <property key="not_equal">
         <value xml:lang="en">Not Equal</value>
-        <value xml:lang="it">Diverso Da</value>
+        <value xml:lang="it">Diverso da</value>
         <value xml:lang="th">ไม่เท่ากับ</value>
     </property>
     <property key="same_day">
@@ -159,7 +159,7 @@
         <value xml:lang="en">Same Day</value>
         <value xml:lang="es">Igual</value>
         <value xml:lang="fr">même jour</value>
-        <value xml:lang="it">Stesso Giorno</value>
+        <value xml:lang="it">Stesso giorno</value>
         <value xml:lang="nl">Zelfde dag</value>
         <value xml:lang="ro">Aceiasi Zi</value>
         <value xml:lang="ru">Тот-же день</value>
@@ -172,7 +172,7 @@
         <value xml:lang="en">Up Thru Day</value>
         <value xml:lang="es">Hasta el día</value>
         <value xml:lang="fr">Inclus ce jour</value>
-        <value xml:lang="it">Fino Al Giorno</value>
+        <value xml:lang="it">Fino al giorno</value>
         <value xml:lang="nl">t/m datum</value>
         <value xml:lang="ro">Pana in Ziua</value>
         <value xml:lang="ru">До дня</value>
@@ -185,7 +185,7 @@
         <value xml:lang="en">Up To Day</value>
         <value xml:lang="es">Hasta</value>
         <value xml:lang="fr">Jusqu'au jour</value>
-        <value xml:lang="it">Fino Ad Oggi</value>
+        <value xml:lang="it">Fino ad oggi</value>
         <value xml:lang="nl">tot de datum</value>
         <value xml:lang="ro">Pana Astazi</value>
         <value xml:lang="ru">На день</value>
