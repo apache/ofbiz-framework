@@ -7686,56 +7686,56 @@
     <property key="StatusItem.description.WIP_INCOMING_DONE">
         <value xml:lang="en">WIP_INCOMING_DONE</value>
         <value xml:lang="es">Entrante terminado</value>
-        <value xml:lang="fr">Wip: article entrant d'inventaire effectué</value>
+        <value xml:lang="fr">En cours : article entrant d'inventaire effectué</value>
         <value xml:lang="it">Entrata terminata</value>
         <value xml:lang="th">WIP_INCOMING_DONE</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_FULFIL">
         <value xml:lang="en">WIP_INCOMING_FULFIL</value>
         <value xml:lang="es">Entrante en cumplimiento</value>
-        <value xml:lang="fr">Wip : accomplissement d'article entrant</value>
+        <value xml:lang="fr">En cours : accomplissement d'article entrant</value>
         <value xml:lang="it">Entrata in completamento</value>
         <value xml:lang="th">WIP_INCOMING_FULFIL</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_PLAN">
         <value xml:lang="en">WIP_INCOMING_PLAN</value>
         <value xml:lang="es">Entrante planificado</value>
-        <value xml:lang="fr">Wip : article entrant prévu</value>
+        <value xml:lang="fr">En cours : article entrant prévu</value>
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_RES">
         <value xml:lang="en">WIP_INCOMING_RES</value>
         <value xml:lang="es">Entrante reservado</value>
-        <value xml:lang="fr">Wip  : article entrant d'inventaire réservé</value>
+        <value xml:lang="fr">En cours : article entrant d'inventaire réservé</value>
         <value xml:lang="it">Entrata riservata</value>
         <value xml:lang="th">WIP_INCOMING_RES</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_DONE">
         <value xml:lang="en">WIP_OUTGOING_DONE</value>
         <value xml:lang="es">Saliente terminado</value>
-        <value xml:lang="fr">Wip  : article sortant d'inventaire effectué</value>
+        <value xml:lang="fr">En cours : article sortant d'inventaire effectué</value>
         <value xml:lang="it">Uscita terminata</value>
         <value xml:lang="th">WIP_OUTGOING_DONE</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_FULFIL">
         <value xml:lang="en">WIP_OUTGOING_FULFIL</value>
         <value xml:lang="es">Saliente en cumplimiento</value>
-        <value xml:lang="fr">Wip : accomplissement d'article sortant</value>
+        <value xml:lang="fr">En cours : accomplissement d'article sortant</value>
         <value xml:lang="it">Uscita in completamento</value>
         <value xml:lang="th">WIP_OUTGOING_FULFIL</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_PLAN">
         <value xml:lang="en">WIP_OUTGOING_PLAN</value>
         <value xml:lang="es">Saliente planificado</value>
-        <value xml:lang="fr">Wip : article sortant prévu</value>
+        <value xml:lang="fr">En cours : article sortant prévu</value>
         <value xml:lang="it">Uscita pianificata</value>
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_RES">
         <value xml:lang="en">WIP_OUTGOING_RES</value>
         <value xml:lang="es">Saliente</value>
-        <value xml:lang="fr">Wip  : article sortant d'inventaire réservé</value>
+        <value xml:lang="fr">En cours : article sortant d'inventaire réservé</value>
         <value xml:lang="it">Uscita riservata</value>
         <value xml:lang="th">WIP_OUTGOING_RES</value>
     </property>
