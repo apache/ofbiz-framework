@@ -54,7 +54,7 @@
     </property>
     <property key="DataSource.description.ECOMMERCE_SITE">
         <value xml:lang="en">ECOMMERCE_SITE</value>
-        <value xml:lang="fr">Site de e-commerce</value>
+        <value xml:lang="fr">Site de commerce électronique</value>
         <value xml:lang="it">Sito ecommerce</value>
         <value xml:lang="th">ไซต์ ECOMMERCE</value>
         <value xml:lang="zh">商业网站形象维护</value>
@@ -10639,7 +10639,7 @@
         <value xml:lang="de">Morgen (Fläche)</value>
         <value xml:lang="en">Acre</value>
         <value xml:lang="es">Acre</value>
-        <value xml:lang="fr">Demi-hectare (surface 5 000 m2)</value>
+        <value xml:lang="fr">Demi-hectare (surface 5 000 m²)</value>
         <value xml:lang="it">Acro</value>
         <value xml:lang="pt">Acre</value>
         <value xml:lang="ro">Acru</value>
@@ -10651,7 +10651,7 @@
         <value xml:lang="de">Ar (Fläche)</value>
         <value xml:lang="en">Are</value>
         <value xml:lang="es">Área (100m2)</value>
-        <value xml:lang="fr">Are (10m x 10m = 100m2)</value>
+        <value xml:lang="fr">Are (10m x 10m = 100m²)</value>
         <value xml:lang="it">Are</value>
         <value xml:lang="pt">Are</value>
         <value xml:lang="ro">Ar</value>
@@ -10663,7 +10663,7 @@
         <value xml:lang="de">Quadratzentimeter</value>
         <value xml:lang="en">Square Centimeter</value>
         <value xml:lang="es">Centímetro cuadrado</value>
-        <value xml:lang="fr">Centimètre carré (cm2)</value>
+        <value xml:lang="fr">Centimètre carré (cm²)</value>
         <value xml:lang="it">Centimetro quadrato</value>
         <value xml:lang="pt">Centímetro Quadrado</value>
         <value xml:lang="ro">Centimetru Patrat</value>
@@ -10675,7 +10675,7 @@
         <value xml:lang="de">Quadratfuss</value>
         <value xml:lang="en">Square Foot</value>
         <value xml:lang="es">Pie cuadrado</value>
-        <value xml:lang="fr">Pied carré (30,48 cm x 30,48 cm)</value>
+        <value xml:lang="fr">Pied carré (30,48 cm²)</value>
         <value xml:lang="it">Piede quadrato</value>
         <value xml:lang="pt">Pé Quadrado</value>
         <value xml:lang="ro">Picior Patrat</value>
@@ -10687,7 +10687,7 @@
         <value xml:lang="de">Hektare</value>
         <value xml:lang="en">Hectare</value>
         <value xml:lang="es">Hectárea</value>
-        <value xml:lang="fr">Hectare (100 m x 100 m = 10 000 m2)</value>
+        <value xml:lang="fr">Hectare (100 m x 100 m = 10 000 m²)</value>
         <value xml:lang="it">Ettaro</value>
         <value xml:lang="pt">Hectare</value>
         <value xml:lang="ro">Hectar</value>
@@ -10699,7 +10699,7 @@
         <value xml:lang="de">Quadratzoll</value>
         <value xml:lang="en">Square Inch</value>
         <value xml:lang="es">Pulgada cuadrada</value>
-        <value xml:lang="fr">Pouce carré (6.5 cm2)</value>
+        <value xml:lang="fr">Pouce carré (6.5 cm²)</value>
         <value xml:lang="it">Pollice quadrato</value>
         <value xml:lang="pt">Polegada Quadrada</value>
         <value xml:lang="ro">Inch Patrat</value>
@@ -10711,7 +10711,7 @@
         <value xml:lang="de">Quadratkilometer</value>
         <value xml:lang="en">Square Kilometer</value>
         <value xml:lang="es">Kilómetro cuadrado</value>
-        <value xml:lang="fr">Kilomètre carré ((km2) = 100 hectares (ha) = 10000 ares (a) = 1000000 mètres carré (m2))</value>
+        <value xml:lang="fr">Kilomètre carré (km² = 100 hectares (ha) = 10000 ares (a) = 1 000 000 mètres carré (m²))</value>
         <value xml:lang="it">Chilometro quadrato</value>
         <value xml:lang="pt">Kilómetro Quadrado</value>
         <value xml:lang="ro">Kilometru Patrat</value>
@@ -10723,7 +10723,7 @@
         <value xml:lang="de">Quadratmeter</value>
         <value xml:lang="en">Square Meter</value>
         <value xml:lang="es">Metro cuadrado</value>
-        <value xml:lang="fr">Mètre carré (m2)</value>
+        <value xml:lang="fr">Mètre carré (m²)</value>
         <value xml:lang="it">Metroquadro</value>
         <value xml:lang="pt">Metro Quadrado</value>
         <value xml:lang="ro">Metru Patrat</value>
@@ -10758,7 +10758,7 @@
     <property key="Uom.description.AREA_rd2">
         <value xml:lang="en">Square Rod</value>
         <value xml:lang="es">Rod cuadrado</value>
-        <value xml:lang="fr">Rod carré (1/160 acre)</value>
+        <value xml:lang="fr">Rod carré (1/160 acre = 25,29285 m²)</value>
         <value xml:lang="it">Rod quadrato</value>
         <value xml:lang="pt">Rod Quadrado</value>
         <value xml:lang="ro">Rod Patrat</value>
@@ -10769,7 +10769,7 @@
     <property key="Uom.description.AREA_yd2">
         <value xml:lang="de">Quadratyard (Fläche)</value>
         <value xml:lang="en">Square Yard</value>
-        <value xml:lang="fr">Yard carré (0,9144 m2)</value>
+        <value xml:lang="fr">Yard carré (0,9144 m²)</value>
         <value xml:lang="it">Iarda quadrato</value>
         <value xml:lang="pt">Jarda Quadrada</value>
         <value xml:lang="ro">Iard Patrat</value>
@@ -11338,7 +11338,6 @@
         <value xml:lang="en">Djibouti Franc</value>
         <value xml:lang="fr">Franc de Djibouti</value>
         <value xml:lang="it">Franco Djibouti</value>
-        <value xml:lang="nl"></value>
         <value xml:lang="pt">Djibouti Franc</value>
         <value xml:lang="ro">Franc Djibouti</value>
         <value xml:lang="ru">Франк Джибути</value>
@@ -11484,7 +11483,7 @@
         <value xml:lang="de">Kalorie (@15.5c)</value>
         <value xml:lang="en">Calorie (@15.5c)</value>
         <value xml:lang="es">Caloría (@15.5c)</value>
-        <value xml:lang="fr">Calorie (@15.5c)</value>
+        <value xml:lang="fr">Calorie (à 15.5°c)</value>
         <value xml:lang="it">Calorie (@15.5c)</value>
         <value xml:lang="pt">Caloria (@15.5c)</value>
         <value xml:lang="ro">Calorie (@15.5c)</value>
@@ -12015,7 +12014,7 @@
     <property key="Uom.description.LEN_chG">
         <value xml:lang="en">Chain (Gunter's/surveyor's)</value>
         <value xml:lang="es">Chain (de Gunter/Inspector)</value>
-        <value xml:lang="fr">Chaîne (de Gunter/Expert)</value>
+        <value xml:lang="fr">Chaîne (de Gunter/Inspecteur = 20,1168 m)</value>
         <value xml:lang="it">Chain (Gunter's/surveyor's)</value>
         <value xml:lang="pt">Chain (Gunter's/surveyor's)</value>
         <value xml:lang="ro">Chain (Gunter's/surveyor's)</value>
@@ -12026,7 +12025,7 @@
     <property key="Uom.description.LEN_chR">
         <value xml:lang="en">Chain (Ramden's/engineer's)</value>
         <value xml:lang="es">Chain (de Ramden/Ingeniero)</value>
-        <value xml:lang="fr">Chaîne (de Gunter/Ingénieur)</value>
+        <value xml:lang="fr">Chaîne (de Ramden/Ingénieur = 30,48 m)</value>
         <value xml:lang="it">Chain (Ramden's/engineer's)</value>
         <value xml:lang="pt">Chain (Ramden's/engineer's)</value>
         <value xml:lang="ro">Chain (Ramden's/engineer's)</value>
@@ -12098,7 +12097,7 @@
         <value xml:lang="de">Furlong</value>
         <value xml:lang="en">Furlong</value>
         <value xml:lang="es">Furlong</value>
-        <value xml:lang="fr">Furlong</value>
+        <value xml:lang="fr">Furlong (201,168 m)</value>
         <value xml:lang="it">Furlong</value>
         <value xml:lang="pt">Furlong</value>
         <value xml:lang="ro">Furlong</value>
@@ -12145,7 +12144,7 @@
         <value xml:lang="de">Meile (League)</value>
         <value xml:lang="en">League</value>
         <value xml:lang="es">Milla (League)</value>
-        <value xml:lang="fr">Lieue (http://en.wikipedia.org/wiki/League_(unit))</value>
+        <value xml:lang="fr">Lieue (4,8 km si terrestre ou 5,6 km si nautique)</value>
         <value xml:lang="it">Lega</value>
         <value xml:lang="pt">Légua</value>
         <value xml:lang="ro">Lega</value>
@@ -12262,7 +12261,7 @@
     <property key="Uom.description.LEN_rd">
         <value xml:lang="en">Rod</value>
         <value xml:lang="es">Rod</value>
-        <value xml:lang="fr">Règle</value>
+        <value xml:lang="fr">Rod (5,0292 m)</value>
         <value xml:lang="it">Rod</value>
         <value xml:lang="pt">Rod</value>
         <value xml:lang="ro">Rod</value>
@@ -12950,7 +12949,7 @@
         <value xml:lang="de">Leone</value>
         <value xml:lang="en">Leone</value>
         <value xml:lang="es">Leone</value>
-        <value xml:lang="fr">Sierra Leone</value>
+        <value xml:lang="fr">Leone</value>
         <value xml:lang="it">Leone</value>
         <value xml:lang="pt">Leone</value>
         <value xml:lang="ro">Leone</value>
@@ -12962,7 +12961,7 @@
         <value xml:lang="de">Peru</value>
         <value xml:lang="en">Peru</value>
         <value xml:lang="es">Perú</value>
-        <value xml:lang="fr">Pérou</value>
+        <value xml:lang="fr">Nouveau sol (Pérou)</value>
         <value xml:lang="it">Peru</value>
         <value xml:lang="pt">Peru</value>
         <value xml:lang="ro">Peru</value>
@@ -13006,7 +13005,7 @@
     <property key="Uom.description.SUR">
         <value xml:lang="de">Rubel Russland (alt)</value>
         <value xml:lang="en">Russian Ruble (old)</value>
-        <value xml:lang="fr">Rouble russe (vieux)</value>
+        <value xml:lang="fr">Rouble russe (ancien)</value>
         <value xml:lang="it">Rublo Russo (vecchio)</value>
         <value xml:lang="pt">Russian Ruble (old)</value>
         <value xml:lang="ro">Rublo Russo (vechi)</value>
@@ -13135,7 +13134,7 @@
         <value xml:lang="de">Zeit in Jahrtausenden</value>
         <value xml:lang="en">Time in Millenia</value>
         <value xml:lang="es">Tiempo en milenios</value>
-        <value xml:lang="fr">Temps en millennium</value>
+        <value xml:lang="fr">Temps en millénaires</value>
         <value xml:lang="it">Tempo in Millenni</value>
         <value xml:lang="pt">Tempo em Milénios</value>
         <value xml:lang="ro">Timp in Milenii</value>
@@ -13194,7 +13193,7 @@
     <property key="Uom.description.TF_score">
         <value xml:lang="en">Time in Scores</value>
         <value xml:lang="es">Tiempo en notas</value>
-        <value xml:lang="fr">Temps en points</value>
+        <value xml:lang="fr">Temps en double-décade (ou 4 lustres)</value>
         <value xml:lang="it">Tempo in Segni</value>
         <value xml:lang="pt">Tempo em Instantes</value>
         <value xml:lang="ro">Timp in Puncte</value>
@@ -13426,7 +13425,7 @@
         <value xml:lang="de">Kubikfuss</value>
         <value xml:lang="en">Cubic foot</value>
         <value xml:lang="es">Pie cúbico</value>
-        <value xml:lang="fr">Pied cubique</value>
+        <value xml:lang="fr">Pied cubique (28,316846592 l)</value>
         <value xml:lang="it">Piede Cubo</value>
         <value xml:lang="pt">Pé Cúbico</value>
         <value xml:lang="ro">Picior Cub</value>
@@ -13438,7 +13437,7 @@
         <value xml:lang="de">Kubikzoll</value>
         <value xml:lang="en">Cubic inch</value>
         <value xml:lang="es">Pulgada cúbica</value>
-        <value xml:lang="fr">Pouce cubique</value>
+        <value xml:lang="fr">Pouce cubique (16,387 cm³)</value>
         <value xml:lang="it">Pollice Cubo</value>
         <value xml:lang="pt">Polegada Cúbica</value>
         <value xml:lang="ro">Inch Cub</value>
@@ -13509,7 +13508,7 @@
         <value xml:lang="de">Esslöffel</value>
         <value xml:lang="en">Tablespoon</value>
         <value xml:lang="es">Cuchara</value>
-        <value xml:lang="fr">Cuillèrée</value>
+        <value xml:lang="fr">Tablespoon (14,78676478125 ml)</value>
         <value xml:lang="it">Cucchiaiata</value>
         <value xml:lang="pt">Colher de Mesa</value>
         <value xml:lang="ro">Lingura</value>
@@ -13522,7 +13521,7 @@
         <value xml:lang="en">Barrel (US)</value>
         <value xml:lang="es">Barril (EE.UU.)</value>
         <value xml:lang="fr">Baril (US)</value>
-        <value xml:lang="it">Barile (US)</value>
+        <value xml:lang="it">Barile US (158,9873 l)</value>
         <value xml:lang="pt">Barril (US)</value>
         <value xml:lang="ro">Baril (US)</value>
         <value xml:lang="ru">Баррель (США)</value>
@@ -13533,7 +13532,7 @@
         <value xml:lang="de">Tasse</value>
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
-        <value xml:lang="fr">Tasse</value>
+        <value xml:lang="fr">Cup (236,59 cm³)</value> <!-- a very good link : http://unit-converter.org -->
         <value xml:lang="it">Tazza</value>
         <value xml:lang="pt">Taça</value>
         <value xml:lang="ro">Cupa</value>
@@ -13545,7 +13544,7 @@
         <value xml:lang="de">Dram (US)</value>
         <value xml:lang="en">Dram (US)</value>
         <value xml:lang="es">Dram (EE.UU.)</value>
-        <value xml:lang="fr">Dram (US)</value>
+        <value xml:lang="fr">Dram (US = 3,696691 ml ou cm³)</value>
         <value xml:lang="it">Dram (US)</value>
         <value xml:lang="pt">Dram (US)</value>
         <value xml:lang="ro">Dram (US)</value>
@@ -13557,7 +13556,7 @@
         <value xml:lang="de">Gallone (UK)</value>
         <value xml:lang="en">Gallon (UK)</value>
         <value xml:lang="es">Galón (UK)</value>
-        <value xml:lang="fr">Gallon (UK)(= 4,5 litres)</value>
+        <value xml:lang="fr">Gallon (UK)(3,7854 l)</value>
         <value xml:lang="it">Gallone (UK)</value>
         <value xml:lang="pt">Galão (UK)</value>
         <value xml:lang="ro">Gallon (UK)</value>
@@ -13569,7 +13568,7 @@
         <value xml:lang="de">Gallone (US)</value>
         <value xml:lang="en">Gallon (US)</value>
         <value xml:lang="es">Galón (EE.UU.)</value>
-        <value xml:lang="fr">Gallon (US)(4,5 litres)</value>
+        <value xml:lang="fr">Gallon (US)(4,4049 l)</value>
         <value xml:lang="it">Gallone (US)</value>
         <value xml:lang="pt">Galão (US)</value>
         <value xml:lang="ro">Gallon (US)</value>
@@ -13581,7 +13580,7 @@
         <value xml:lang="de">Gill (1/4 UK Pinte)</value>
         <value xml:lang="en">Gill (1/4 UK pint)</value>
         <value xml:lang="es">Gill (1/4 pinta UK)</value>
-        <value xml:lang="fr">Gill (1/4 pint UK)</value>
+        <value xml:lang="fr">Gill (1/4 pint UK = 142,07 cm³)</value>
         <value xml:lang="it">Gill (1/4 UK pinta)</value>
         <value xml:lang="pt">Gill (1/4 UK pint)</value>
         <value xml:lang="ro">Gill (1/4 UK pinta)</value>
@@ -13605,7 +13604,7 @@
         <value xml:lang="de">Unze, Flüssigkeit (UK)</value>
         <value xml:lang="en">Ounce, fluid (UK)</value>
         <value xml:lang="es">Onza, líquido (UK)</value>
-        <value xml:lang="fr">Once, fluide (UK)</value>
+        <value xml:lang="fr">Once, fluide (UK = 28,413 cm³)</value>
         <value xml:lang="it">Oncia, fluida (UK)</value>
         <value xml:lang="pt">Onça, fluído (UK)</value>
         <value xml:lang="ro">Ounce, fluida (UK)</value>
@@ -13617,7 +13616,7 @@
         <value xml:lang="de">Unze, Flüssigkeit (US)</value>
         <value xml:lang="en">Ounce, fluid (US)</value>
         <value xml:lang="es">Onza, líquido (EE.UU.)</value>
-        <value xml:lang="fr">Once, fluide (US)</value>
+        <value xml:lang="fr">Once, fluide (US = 29,574 cm³)</value>
         <value xml:lang="it">Oncia, fluida (US)</value>
         <value xml:lang="pt">Onça, fluído (US)</value>
         <value xml:lang="ro">Ounce, fluida (US)</value>
@@ -13629,7 +13628,7 @@
         <value xml:lang="de">Pinte (UK)</value>
         <value xml:lang="en">Pint (UK)</value>
         <value xml:lang="es">Pinta (UK)</value>
-        <value xml:lang="fr">Pinte (UK)</value>
+        <value xml:lang="fr">Pinte (UK = 0,56826 l)</value>
         <value xml:lang="it">Pinta (UK)</value>
         <value xml:lang="pt">Pint (UK)</value>
         <value xml:lang="ro">Pint (UK)</value>
@@ -13641,7 +13640,7 @@
         <value xml:lang="de">Pinte (US)</value>
         <value xml:lang="en">Pint (US)</value>
         <value xml:lang="es">Pinta (EE.UU.)</value>
-        <value xml:lang="fr">Pinte (US)</value>
+        <value xml:lang="fr">Pinte (US = 0,47318 l)</value>
         <value xml:lang="it">Pinta (US)</value>
         <value xml:lang="pt">Pint (US)</value>
         <value xml:lang="ro">Pint (US)</value>
@@ -13653,7 +13652,7 @@
         <value xml:lang="de">Quart</value>
         <value xml:lang="en">Quart</value>
         <value xml:lang="es">Cuarto</value>
-        <value xml:lang="fr">Quart</value>
+        <value xml:lang="fr">Quart (1,1365 l)</value>
         <value xml:lang="it">Quarto</value>
         <value xml:lang="pt">Quarto</value>
         <value xml:lang="ro">Quart</value>
@@ -13665,7 +13664,7 @@
         <value xml:lang="de">Teelöffel</value>
         <value xml:lang="en">Teaspoon</value>
         <value xml:lang="es">Cucharadita</value>
-        <value xml:lang="fr">Cuillère à thé</value>
+        <value xml:lang="fr">Teaspoon (5 cm³)</value>
         <value xml:lang="it">Cucchiaino</value>
         <value xml:lang="pt">Colher de Chá</value>
         <value xml:lang="ro">Lingurita</value>
