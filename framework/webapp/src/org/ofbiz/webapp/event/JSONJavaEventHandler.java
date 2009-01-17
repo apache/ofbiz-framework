@@ -54,7 +54,7 @@ public class JSONJavaEventHandler implements EventHandler {
         Map<String, Object> attrMap = getAttributesAsMap(request);
 
         // create a JSON Object for return
-        JSONObject json = JSONObject.fromMap(attrMap);
+        JSONObject json = JSONObject.fromObject(attrMap);
         String jsonStr = json.toString();
         if (jsonStr == null) {
             throw new EventHandlerException("JSON Object was empty; fatal error!");
