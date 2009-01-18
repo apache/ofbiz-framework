@@ -1059,12 +1059,24 @@
 
     <!-- blog services -->
     <service name="postBlogEntry" engine="simple" transaction-timeout="300" auth="true"
-            location="org/ofbiz/content/blog/BlogServices.xml" invoke="postBlogEntry">
+        location="org/ofbiz/content/blog/BlogServices.xml" invoke="postBlogEntry">
         <description>Creates content records for a blog entry</description>
         <implements service="createContentFromUploadedFile" optional="true"/>
         <implements service="createTextContent" optional="true"/>
         <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="getBlogEntry" engine="simple" transaction-timeout="300" auth="true"
+        location="org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">
+        <description>Creates content records for a blog entry</description>
+        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentName" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="description" type="String" mode="OUT" optional="true"/>
+        <attribute name="templateDataResourceId" type="String" mode="OUT" optional="true"/>
+        <attribute name="summary" type="String" mode="OUT" optional="true"/>
+        <attribute name="article" type="String" mode="OUT" optional="true"/>
+        <attribute name="imageDataResourceId" type="String" mode="OUT" optional="true"/>
     </service>
     <!-- TO BE REMOVED
     <service name="updateBlogEntry" engine="simple" transaction-timeout="300" auth="true"

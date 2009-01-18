@@ -27,7 +27,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="createContent">
         <description>Create a Content</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <!-- TODO: the following fields are deprecated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
@@ -119,7 +118,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContent">
         <description>Update a Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <implements service="updateContentAssoc" optional="true"/>
         <auto-attributes entity-name="Content" include="pk" mode="INOUT" optional="false"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -241,7 +239,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAssoc">
         <description>Create a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
         <!-- deprecated fields to be removed -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
@@ -260,7 +257,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentAssoc">
         <description>Update a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <!-- deprecated fields to be removed -->
@@ -277,7 +273,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssoc">
         <description>Remove ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <!-- deprecated fields to be removed -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
@@ -303,7 +298,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentRole">
         <description>Create a ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -312,7 +306,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentRole">
         <description>Update a ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -320,7 +313,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="roleTypeId" optional="false" type="String"/>
         <attribute mode="IN" name="partyId" optional="false" type="String"/>
@@ -329,7 +321,6 @@
             location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentRole">
         <description>Remove ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <implements service="genericContentPermission" optional="true"/>
         <auto-attributes entity-name="ContentRole" include="pk" mode="IN" optional="false"/>
     </service>
 </services>

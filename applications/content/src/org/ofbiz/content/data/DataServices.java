@@ -197,19 +197,22 @@ public class DataServices {
 
             // obtain a reference to the file
             File file = null;
-            if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.equals("LOCAL_FILE")) {
+            if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.equals("LOCAL_FILE") || dataResourceTypeId.equals("LOCAL_FILE_BIN")) {
                 file = new File(objectInfo);
                 if (!file.isAbsolute()) {
                     return ServiceUtil.returnError("DataResource LOCAL_FILE does not point to an absolute location");
                 }
-            } else if (dataResourceTypeId.equals("OFBIZ_FILE")) {
+            } else if (dataResourceTypeId.equals("OFBIZ_FILE") || dataResourceTypeId.equals("OFBIZ_FILE_BIN")) {
                 prefix = System.getProperty("ofbiz.home");
                 if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                     sep = "/";
                 }
                 file = new File(prefix + sep + objectInfo);
-            } else if (dataResourceTypeId.equals("CONTEXT_FILE")) {
+            } else if (dataResourceTypeId.equals("CONTEXT_FILE") || dataResourceTypeId.equals("CONTEXT_FILE_BIN")) {
                 prefix = (String) context.get("rootDir");
+                if (UtilValidate.isEmpty(prefix)) {
+                    return ServiceUtil.returnError("Cannot find CONTEXT_FILE with an empty context root!");
+                }
                 if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                     sep = "/";
                 }

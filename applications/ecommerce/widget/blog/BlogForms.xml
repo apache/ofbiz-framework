@@ -246,33 +246,33 @@
         </sort-order>
     </form>
 
-    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" skip-end="true" 
+    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" skip-end="true" default-map-name="blogEntry"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="contentId" entry-name="articleContentId" title="Blog ID" use-when="contentId!=null||contentId==&quot;&quot;">
+        <field name="contentId" title="Blog ID" use-when="contentId!=null&amp;&amp;contentId!=&quot;&quot;">
             <display/>
         </field>
-        <field name="contentName" title="Short title" map-name="content">
+        <field name="contentName" title="Short title">
             <text size="40"/>
         </field>
-        <field name="description" title="Slightly longer title (250 chars max)" map-name="content">
+        <field name="description" title="Slightly longer title (250 chars max)">
             <textarea cols="40" rows="2"/>
         </field>
-        <field name="summaryData" title="Summary" map-name="summaryText" entry-name="textData" widget-style="inputBox dojo-ResizableTextArea">
+        <field name="summaryData" title="Summary" entry-name="summary" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="4"/>
         </field>
-        <field name="textData" title="Article" map-name="mainText" widget-style="inputBox dojo-ResizableTextArea">
+        <field name="textData" title="Article" entry-name="article" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="12"/>
         </field>
         <field name="uploadedFile" title="Image">
             <file size="25"/>
         </field>
-        <field name="dataResourceId" title="Template" map-name="content">
+        <field name="dataResourceId" title="Template" entry-name="templateDataResourceId">
             <drop-down allow-empty="true">
                 <option key="BLOG_TPL_TOPLEFT" description="Top Left"/>
                 <option key="BLOG_TPL_TOPCENTER" description="Top Center"/>
             </drop-down>
         </field>
-        <field name="statusId" title="Status" map-name="content">
+        <field name="statusId" title="Status">
             <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="Publish"/>
                 <option key="CTNT_INITIAL_DRAFT" description="Preview"/>

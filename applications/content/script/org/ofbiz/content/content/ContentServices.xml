@@ -895,9 +895,7 @@
     
     <!-- retrieve Data resource information -->
     <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">        
-        <entity-one entity-name="DataResource" value-field="resultData.dataResource">
-            <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
-        </entity-one>
+        <entity-one entity-name="DataResource" value-field="resultData.dataResource"/>
         <if-not-empty field="resultData.dataResource">
             <if-compare field="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
                 <get-related-one value-field="resultData.dataResource" relation-name="ElectronicText" 
