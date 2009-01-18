@@ -25,7 +25,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindPayment"/>
                 <set field="headerItem" value="payments"/>
-                <set field="tabButtonItem" value="payments"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

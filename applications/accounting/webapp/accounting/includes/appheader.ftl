@@ -31,7 +31,7 @@ under the License.
     <li<#if selected == "billingaccount"> class="selected"</#if>><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.AccountingBillingMenu}</a></li>
     <li<#if selected == "FindFinAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindFinAccount</@ofbizUrl>">${uiLabelMap.AccountingFinAccount}</a></li>
     <li<#if selected == "TaxAuthorities"> class="selected"</#if>><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>">${uiLabelMap.AccountingTaxAuthorities}</a></li>
-    <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
+    <li<#if selected == "agreements"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
     <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
     <li<#if selected == "GlobalGLSettings"> class="selected"</#if>><a href="<@ofbizUrl>globalGLSettings</@ofbizUrl>">${uiLabelMap.AccountingGlobalGLSettings}</a></li>    
     <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingGeneralLedger}</a></li>

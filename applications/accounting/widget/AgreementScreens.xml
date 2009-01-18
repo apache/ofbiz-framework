@@ -69,8 +69,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindAgreement"/>
-                <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="agreement"/>
+                <set field="headerItem" value="agreements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
