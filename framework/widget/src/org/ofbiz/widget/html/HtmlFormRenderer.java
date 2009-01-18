@@ -698,6 +698,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("\" value=\"Timestamp\"/>");
         }
 
+        this.addAsterisks(writer, context, modelFormField);
+
         this.appendTooltip(writer, context, modelFormField);
 
         //appendWhitespace(writer);
@@ -2195,22 +2197,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         writer.append("/>");
         
-        this.addAsterisks(writer, context, modelFormField);
-
-        this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
-
-        this.appendTooltip(writer, context, modelFormField);
-
-        if (ajaxEnabled) {
-            appendWhitespace(writer);
-            writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
-            appendWhitespace(writer);
-            writer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
-            appendWhitespace(writer);
-            writer.append("</script>");
-        }
-        appendWhitespace(writer);
-
         // add lookup pop-up button 
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         if (UtilValidate.isNotEmpty(descriptionFieldName)) {
@@ -2248,8 +2234,20 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         this.appendContentUrl(writer, "/images/fieldlookup.gif");
         writer.append("\" width=\"15\" height=\"14\" border=\"0\" alt=\"Lookup\"/></a>");
 
+        this.addAsterisks(writer, context, modelFormField);
+        
         this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
         this.appendTooltip(writer, context, modelFormField);
+
+        if (ajaxEnabled) {
+            appendWhitespace(writer);
+            writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(writer);
+            writer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
+            appendWhitespace(writer);
+            writer.append("</script>");
+        }
+        appendWhitespace(writer);
 
         //appendWhitespace(writer);
     }
