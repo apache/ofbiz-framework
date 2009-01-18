@@ -63,8 +63,8 @@ under the License.
     <form name="ListContent" target="" title="" list-name="listIt" type="list" paginate-target="findContent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Content"/>
                 <field-map field-name="orderBy" value="contentId"/>
             </service>
@@ -100,8 +100,8 @@ under the License.
     <form name="ListLookupContent" extends="ListContent" type="list" list-name="listIt" paginate-target="LookupContent"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Content"/>
                 <field-map field-name="orderBy" value="contentId"/>
             </service>
@@ -116,8 +116,8 @@ under the License.
     <form name="EditContent" target="updateContent" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="currentValue.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="currentValue.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="currentValue==null" target="createContent"/>
@@ -218,10 +218,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="ContentAssoc" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
-                <field-map env-name="contentIdTo" field-name="contentIdTo" />
-                <field-map env-name="contentAssocTypeId" field-name="contentAssocTypeId" />
-                <field-map env-name="fromDate" field-name="fromDate" />
+                <field-map from-field="contentId" field-name="contentId" />
+                <field-map from-field="contentIdTo" field-name="contentIdTo" />
+                <field-map from-field="contentAssocTypeId" field-name="contentAssocTypeId" />
+                <field-map from-field="fromDate" field-name="fromDate" />
             </entity-one>
         </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
@@ -262,7 +262,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentAssoc" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <!--auto-fields-entity entity-name="ContentAssoc" default-field-type="display"/-->
@@ -287,7 +287,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentAssoc" use-cache="true">
-                <field-map env-name="contentId" field-name="contentIdTo" />
+                <field-map from-field="contentId" field-name="contentIdTo" />
             </entity-and>
         </actions>
         <field name="contentId">
@@ -336,7 +336,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentRole" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateContentRole" default-field-type="display" />
@@ -368,7 +368,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentPurpose" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateContentPurpose" default-field-type="display" />
@@ -391,7 +391,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">  
         <actions>
             <entity-and entity-name="ContentAttribute" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateContentAttribute" default-field-type="display" />
@@ -425,7 +425,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentMetaData" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId" />
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateContentMetaData" default-field-type="edit" />
@@ -475,8 +475,8 @@ under the License.
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
-                <field-map env-name="contentId" field-name="contentId" />
+            <entity-and entity-name="WorkEffortContent" use-cache="true" list="workEffortContents">
+                <field-map from-field="contentId" field-name="contentId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
