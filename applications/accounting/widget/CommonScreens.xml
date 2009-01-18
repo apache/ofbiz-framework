@@ -36,7 +36,8 @@ under the License.
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
                 <set field="activeApp" value="accounting" global="true"/>
-                <set field="appheaderTemplate" value="component://accounting/webapp/accounting/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://accounting/widget/Menus.xml" global="true"/> 
                 <set field="applicationTitle" value="${uiLabelMap.AccountingManagerApplication}" global="true"/>
             </actions>
             <widgets>
