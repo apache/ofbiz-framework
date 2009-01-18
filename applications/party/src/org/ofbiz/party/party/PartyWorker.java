@@ -125,6 +125,20 @@ public class PartyWorker {
         }
     }
 
+    public static GenericValue findPartyLatestGeoPoint(String partyId, GenericDelegator delegator) {
+        try {
+            List<GenericValue> gptList = delegator.findByAnd("PartyAndGeoPoint", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+            if (UtilValidate.isNotEmpty(gptList)) {
+                gptList = EntityUtil.filterByDate(gptList);
+                return EntityUtil.getFirst(gptList);
+            }
+            return null;
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error while finding latest GeoPoint for party with ID [" + partyId + "] " + e.toString(), module);
+            return null;
+        }
+    }
+
     public static GenericValue findPartyLatestPostalAddress(String partyId, GenericDelegator delegator) {
         GenericValue pcm = findPartyLatestContactMech(partyId, "POSTAL_ADDRESS", delegator);
         if (pcm != null) {
@@ -132,6 +146,22 @@ public class PartyWorker {
                 return pcm.getRelatedOne("PostalAddress");
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
+            }
+        }
+        return null;
+    }
+
+    public static GenericValue findPartyLatestPostalAddressGeoPoint(String partyId, GenericDelegator delegator) {
+        GenericValue latestPostalAddress = findPartyLatestPostalAddress(partyId, delegator);
+        if (latestPostalAddress  != null) {
+            try {
+                GenericValue latestGeoPoint =  latestPostalAddress.getRelatedOne("GeoPoint");
+                if (latestGeoPoint  != null) {
+                    return latestGeoPoint;
+                }
+                return null;
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error while finding latest GeoPoint for party with ID [" + partyId + "]: " + e.toString(), module);
             }
         }
         return null;

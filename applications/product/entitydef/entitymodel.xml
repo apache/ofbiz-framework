@@ -902,6 +902,47 @@ under the License.
         <field name="description" type="description"></field>
         <prim-key field="containerTypeId"/>
     </entity>
+    <entity entity-name="ContainerGeoPoint" package-name="org.ofbiz.product.facility" title="Container Geo Location with history">
+      <field name="containerId" type="id-ne"></field>
+      <field name="geoPointId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="containerId"/>
+      <prim-key field="geoPointId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CONTNRGEOPT_CONTNR" rel-entity-name="Container">
+        <key-map field-name="containerId"/>
+      </relation>
+      <relation type="one" fk-name="CONTNRGEOPT_GEOPT" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ContainerAndGeoPoint" package-name="org.ofbiz.product.facility"  title="Container and Geo Point View Entity">
+      <member-entity entity-alias="CT" entity-name="Container"/>
+      <member-entity entity-alias="CTGPT" entity-name="ContainerGeoPoint"/>
+      <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
+      <alias-all entity-alias="GPT"/>    
+      <alias entity-alias="CT" name="containerId"/>
+      <alias entity-alias="CTGPT" name="fromDate"/>
+      <alias entity-alias="CTGPT" name="thruDate"/>
+      <view-link entity-alias="CT" rel-entity-alias="CTGPT">
+        <key-map field-name="containerId"/>
+      </view-link>
+      <view-link entity-alias="CTGPT" rel-entity-alias="GPT">
+        <key-map field-name="geoPointId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="ContainerGeoPoint">
+        <key-map field-name="containerId"/>
+        <key-map field-name="geoPointId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Container">
+        <key-map field-name="containerId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>
+    </view-entity>
+  
     <entity entity-name="Facility" package-name="org.ofbiz.product.facility" title="Facility Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="facilityTypeId" type="id"></field>
@@ -917,6 +958,7 @@ under the License.
         <field name="closedDate" type="date-time"></field>
         <field name="description" type="description"></field>
         <field name="defaultWeightUomId" type="id"></field>
+        <field name="geoPointId" type="id"></field>
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="FACILITY_FCTYP" rel-entity-name="FacilityType">
             <key-map field-name="facilityTypeId"/>
@@ -942,6 +984,9 @@ under the License.
         </relation>
         <relation type="many" rel-entity-name="FacilityTypeAttr">
             <key-map field-name="facilityTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_GEOPT" title="Geo Point" rel-entity-name="GeoPoint">
+          <key-map field-name="geoPointId"/>
         </relation>
     </entity>
     <view-entity entity-name="FacilityAndContactMech" package-name="org.ofbiz.product.facility" title="Facility and Contact Mech View Entity">
@@ -1138,6 +1183,53 @@ under the License.
             <key-map field-name="locationTypeEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
+    <entity entity-name="FacilityLocationGeoPoint" package-name="org.ofbiz.product.facility" title="Facility Location Geo Location with history">
+        <field name="facilityId" type="id-ne"></field>
+        <field name="locationSeqId" type="id-ne"></field>
+        <field name="geoPointId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="facilityId"/>
+        <prim-key field="locationSeqId"/>
+        <prim-key field="geoPointId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FACLOCGEOPT_FACLOC" rel-entity-name="FacilityLocation">
+            <key-map field-name="facilityId"/>
+            <key-map field-name="locationSeqId"/>
+        </relation>
+        <relation type="one" fk-name="FACLOCGEOPT_GEOPT" rel-entity-name="GeoPoint">
+            <key-map field-name="geoPointId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="FacilityLocationAndGeoPoint" package-name="org.ofbiz.product.facility"  title="Facility Location and Geo Point View Entity">
+      <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
+      <member-entity entity-alias="FLGPT" entity-name="FacilityLocationGeoPoint"/>
+      <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
+      <alias-all entity-alias="GPT"/>    
+      <alias entity-alias="FL" name="facilityId"/>
+      <alias entity-alias="FL" name="locationSeqId"/>
+      <alias entity-alias="FLGPT" name="fromDate"/>
+      <alias entity-alias="FLGPT" name="thruDate"/>
+      <view-link entity-alias="FL" rel-entity-alias="FLGPT">
+        <key-map field-name="facilityId"/>
+        <key-map field-name="locationSeqId"/>
+      </view-link>
+      <view-link entity-alias="FLGPT" rel-entity-alias="GPT">
+        <key-map field-name="geoPointId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="FacilityLocationGeoPoint">
+        <key-map field-name="facilityId"/>
+        <key-map field-name="locationSeqId"/>
+        <key-map field-name="geoPointId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="FacilityLocation">
+        <key-map field-name="facilityId"/>
+        <key-map field-name="locationSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>
+    </view-entity>  
     <entity entity-name="FacilityParty" package-name="org.ofbiz.product.facility" title="Facility Party Entity">
         <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>

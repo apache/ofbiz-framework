@@ -119,6 +119,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/googlemap.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>

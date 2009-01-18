@@ -1875,6 +1875,10 @@
         <value xml:lang="zh">元素找到了</value>
         <value xml:lang="zh_CN">没找到</value>
     </property>
+    <property key="CommonElevation">
+        <value xml:lang="en">Elevation: </value>
+        <value xml:lang="fr">Elévation : </value>
+    </property>    
     <property key="CommonEmail">
         <value xml:lang="ar">البريد الإلكتروني</value>
         <value xml:lang="de">E-Mail</value>
@@ -2686,6 +2690,10 @@
         <value xml:lang="ru">Geo</value>
         <value xml:lang="th">Geo</value>
     </property>
+    <property key="CommonGeoLocation">
+        <value xml:lang="en">Geolocation</value>
+        <value xml:lang="fr">Géolocalisation</value>
+    </property>            
     <property key="CommonGeos">
         <value xml:lang="de">Geo</value>
         <value xml:lang="en">Geos</value>
@@ -3229,6 +3237,10 @@
         <value xml:lang="zh">最后更新</value>
         <value xml:lang="zh_CN">最后更新</value>
     </property>
+    <property key="CommonLatitude">
+        <value xml:lang="en">Latitude: </value>
+        <value xml:lang="fr">Latitude : </value>
+    </property>
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
         <value xml:lang="en">less than</value>
@@ -3298,6 +3310,10 @@
         <value xml:lang="zh">全部列表</value>
         <value xml:lang="zh_CN">所有列表</value>
     </property>
+    <property key="CommonLoading">
+        <value xml:lang="en">Loading...</value>
+        <value xml:lang="fr">Chargement...</value>
+    </property>
     <property key="CommonLocalisation">
         <value xml:lang="en">Localisation</value>
         <value xml:lang="es">Opciones locales</value>
@@ -3355,6 +3371,10 @@
         <value xml:lang="zh">退出</value>
         <value xml:lang="zh_CN">注销</value>
     </property>
+    <property key="CommonLongitude">
+        <value xml:lang="en">Longitude: </value>
+        <value xml:lang="fr">Longitude : </value>
+    </property>
     <property key="CommonLookup">
         <value xml:lang="ar">البحث</value>
         <value xml:lang="de">Ansehen</value>
@@ -3400,6 +3420,10 @@
         <value xml:lang="ru">Мужской</value>
         <value xml:lang="th">เพศชาย</value>
         <value xml:lang="zh">男</value>
+    </property>
+    <property key="CommonManagePortalPages">
+        <value xml:lang="en">Manage Portal Pages...</value>
+        <value xml:lang="it">Gestione pagine...</value>
     </property>
     <property key="CommonManager">
         <value xml:lang="ar">مدير</value>
@@ -5462,6 +5486,60 @@
         <value xml:lang="zh">安全</value>
         <value xml:lang="zh_CN">安全</value>
     </property>
+    <property key="CommonSegmentGroupGeoAbbr">
+        <value xml:lang="en">Abbreviation</value>
+        <value xml:lang="es">Abreviación</value>
+        <value xml:lang="fr">Abbréviation</value>
+        <value xml:lang="it">Abbreviazione</value>
+        <value xml:lang="ro">Abreviere</value>
+        <value xml:lang="th">ชื่อย่อ</value>
+        <value xml:lang="zh">缩写</value>
+    </property>
+    <property key="CommonSegmentGroupGeoCode">
+        <value xml:lang="en">Code</value>
+        <value xml:lang="es">Código</value>
+        <value xml:lang="fr">Code</value>
+        <value xml:lang="it">Codice</value>
+        <value xml:lang="ro">Cod</value>
+        <value xml:lang="th">รหัส</value>
+        <value xml:lang="zh">代码</value>
+    </property>
+    <property key="CommonSegmentGroupGeoId">
+        <value xml:lang="en">Geo ID</value>
+        <value xml:lang="es">Código ubicación</value>
+        <value xml:lang="fr">Réf. de zone géographique</value>
+        <value xml:lang="it">Codice Geografia</value>
+        <value xml:lang="ro">Cod Geografie</value>
+        <value xml:lang="th">รหัสโครงสร้าง</value>
+        <value xml:lang="zh">地理标识</value>
+    </property>
+    <property key="CommonSegmentGroupGeoName">
+        <value xml:lang="en">Name</value>
+        <value xml:lang="es">Nombre</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="ro">Nome</value>
+        <value xml:lang="th">ชื่อ</value>
+        <value xml:lang="zh">名称</value>
+    </property>
+    <property key="CommonSegmentGroupGeoSecCode">
+        <value xml:lang="en">Secondary Code</value>
+        <value xml:lang="es">Código secundario</value>
+        <value xml:lang="fr">Code secondaire</value>
+        <value xml:lang="it">Codice Secondario</value>
+        <value xml:lang="ro">Cod Secundar</value>
+        <value xml:lang="th">รหัสที่สอง</value>
+        <value xml:lang="zh">第二代码</value>
+    </property>
+    <property key="CommonSegmentGroupGeoTypeId">
+        <value xml:lang="en">Geo Type ID</value>
+        <value xml:lang="es">Tipo de ubicación</value>
+        <value xml:lang="fr">Réf. de type de zone géographique</value>
+        <value xml:lang="it">Tipo Geografia</value>
+        <value xml:lang="ro">Tip Geografie</value>
+        <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
+        <value xml:lang="zh">地理类型标识</value>
+    </property>
     <property key="CommonSelect">
         <value xml:lang="ar">إختر</value>
         <value xml:lang="de">Auswählen</value>
@@ -5526,10 +5604,6 @@
     <property key="CommonSelectPortalPage">
         <value xml:lang="en">Select Portal Page...</value>
         <value xml:lang="it">Seleziona pagina...</value>
-    </property>
-    <property key="CommonManagePortalPages">
-        <value xml:lang="en">Manage Portal Pages...</value>
-        <value xml:lang="it">Gestione pagine...</value>
     </property>
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>

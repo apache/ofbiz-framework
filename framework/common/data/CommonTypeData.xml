@@ -40,7 +40,9 @@ under the License.
     <DataSourceType dataSourceTypeId="GEOPOINT_SUPPLIER" description="Name of GeoPoints publisher"/>
     <DataSource dataSourceId="GEOPT_GOOGLE" dataSourceTypeId="GEOPOINT_SUPPLIER" description="Google as GeoPoint supplier"/>
     <DataSource dataSourceId="GEOPT_YAHOO" dataSourceTypeId="GEOPOINT_SUPPLIER" description="Yahoo as GeoPoint supplier"/>
-        
+    <DataSource dataSourceId="GEOPT_MICROSOFT" dataSourceTypeId="GEOPOINT_SUPPLIER" description="Microsoft as GeoPoint supplier"/>
+    <DataSource dataSourceId="GEOPT_MAPTP" dataSourceTypeId="GEOPOINT_SUPPLIER" description="MapTP a GeoPoint supplier"/>
+    
     <StatusType statusTypeId="_NA_" description="Not Applicable"/>
     <StatusItem statusId="_NA_" statusTypeId="_NA_" statusCode="_NA_" sequenceId="0" description="Not Applicable"/>
 

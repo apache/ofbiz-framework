@@ -1102,7 +1102,7 @@ under the License.
     <request-map uri="LookupEmploymentApp"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmploymentApp"/></request-map>
     <request-map uri="LookupEmplPosition"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmplPosition"/></request-map>
     
-    <!-- Financail History Report-->
+    <!-- Financial History Report-->
     <request-map uri="PartyFinancialHistory">
          <security https="true" auth="true"/>
          <response name="success" type="view" value="PartyFinancialHistory"/>
@@ -1120,6 +1120,14 @@ under the License.
         <response name="success" type="view" value="Preferences"/>
         <response name="error" type="view" value="Preferences"/>
     </request-map>
+
+    <!-- GeoLocation-->
+    <request-map uri="PartyGeoLocation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PartyGeoLocation"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
+    
     <!-- end of request mappings -->
         
     <!-- View Mappings -->
@@ -1234,5 +1242,6 @@ under the License.
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
     <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
     <view-map name="Preferences" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#Preferences"/>
+    <view-map name="PartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyGeoLocation"/>
     <!-- end of view mappings -->
 </site-conf>
