@@ -20,6 +20,13 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
+    <menu name="AssetMaintAppBar" title="${uiLabelMap.AssetMaintApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
+        <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
+        <menu-item name="fixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}"><link target="findFixedAssetMaints"/></menu-item>
+        <menu-item name="facility" title="${uiLabelMap.ProductFacility}"><link target="FindFacility"/></menu-item>
+    </menu>
     
     <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
