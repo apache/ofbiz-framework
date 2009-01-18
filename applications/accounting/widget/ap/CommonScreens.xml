@@ -187,13 +187,23 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="button-bar"><link target="editVendor" text="${uiLabelMap.CommonNew} ${uiLabelMap.PartyVendor}" style="buttontext"/></container>
-                        <screenlet name="findVendors" collapsible="true" title="${uiLabelMap.AccountingApPageTitleFindVendors}">
-                            <include-form name="FindVendors" location="component://accounting/widget/ap/forms/VendorForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.AccountingApPageTitleFindVendorResults}" navigation-form-name="ListVendors">
-                            <include-form name="ListVendors" location="component://accounting/widget/ap/forms/VendorForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar">
+                                            <link target="editVendor" text="${uiLabelMap.CommonNew} ${uiLabelMap.PartyVendor}" style="buttontext"/>
+                                        </container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindVendors" location="component://accounting/widget/ap/forms/VendorForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListVendors" location="component://accounting/widget/ap/forms/VendorForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
