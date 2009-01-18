@@ -1877,7 +1877,7 @@
     </property>
     <property key="CommonElevation">
         <value xml:lang="en">Elevation: </value>
-        <value xml:lang="fr">Elévation : </value>
+        <value xml:lang="fr">Altitude/Hauteur : </value>
     </property>    
     <property key="CommonEmail">
         <value xml:lang="ar">البريد الإلكتروني</value>
