@@ -19,20 +19,10 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-     <menu name="ArAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.AccountingArManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
-         <menu-item name="main" title="${uiLabelMap.AccountingMainMenu}"><link target="main"/></menu-item>
-         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
-         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
-         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
-         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="ListReports"/></menu-item>
-         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-             <condition><not><if-empty field-name="userLogin"/></not></condition>
-             <link target="logout"/>
-         </menu-item>
-         <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-             <condition><if-empty field-name="userLogin"/></condition>
-             <link target="${checkLoginUrl}"/>
-         </menu-item>
-     </menu>
+    <menu name="ArAppBar" title="${uiLabelMap.AccountingArManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
+        <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
+        <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="ListReports"/></menu-item>
+    </menu>
 </menus>

@@ -24,8 +24,7 @@ under the License.
     <screen name="ListReports">
         <section>
             <actions>
-                <set field="headerItem" value="${uiLabelMap.CommonList} ${uiLabelMap.AccountingReports}"/>
-                <set field="tabButtonItem" value="reports"/>
+                <set field="headerItem" value="reports"/>
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
             </actions>
             <widgets>

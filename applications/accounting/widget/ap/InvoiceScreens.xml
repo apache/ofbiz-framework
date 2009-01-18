@@ -24,7 +24,7 @@ under the License.
     <screen name="ListReports">
         <section>
             <actions>
-                <set field="tabButtonItem" value="reports"/>
+                <set field="headerItem" value="reports"/>
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
