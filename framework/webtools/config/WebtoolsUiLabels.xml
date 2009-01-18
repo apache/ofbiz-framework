@@ -143,7 +143,7 @@
         <value xml:lang="en">Framework Web Tools</value>
         <value xml:lang="es">Framework Herramientas Web</value>
         <value xml:lang="fr">Outils web du Framework</value>
-        <value xml:lang="it">Applicazione Strumenti Web</value>
+        <value xml:lang="it">Applicazione strumenti web</value>
         <value xml:lang="ro">Aplicatie Instrumente Web</value>
         <value xml:lang="th">โครงสร้างของเครื่องมือเว็บ</value>
         <value xml:lang="zh">Web工具</value>
@@ -450,6 +450,7 @@
     <property key="WebtoolsCannotViewArtifactInfoPages">
         <value xml:lang="en">Cannot view Artifact Info pages without ARTIFACT_INFO_VIEW permission.</value>
         <value xml:lang="fr">Impossible de voir les pages sur les info à propos des éléments d'OFBiz sans l'autorisation ARTIFACT_INFO_VIEW.</value>
+        <value xml:lang="it">Non è possibile visualizzare le pagine senza avere il permesso ARTIFACT_INFO_VIEW.</value>
     </property>    
     <property key="WebtoolsCertsCert">
         <value xml:lang="en">Cert</value>
@@ -493,6 +494,7 @@
     <property key="WebtoolsCheckDataOnly">
         <value xml:lang="en">Check Data Only (nothing changed in database)</value>
         <value xml:lang="fr">Vérifier seulement les données (rien ne sera changé dans la base de données)</value>
+        <value xml:lang="it">Controlla solo i dati (nessuna modifica al database)</value>
         <value xml:lang="th">ตรวจสอบเฉพาะข้อมูล (ไม่มีการเปลี่ยนแปลงในฐานข้อมูล)</value>
     </property>
     <property key="WebtoolsCheckUpdateDatabase">
@@ -543,7 +545,7 @@
         <value xml:lang="en">OFBiz: Web Tools</value>
         <value xml:lang="es">OFBiz: Herramientas Web</value>
         <value xml:lang="fr">OFBiz: outils web</value>
-        <value xml:lang="it">OFBiz: Strumenti Web</value>
+        <value xml:lang="it">OFBiz: Strumenti web</value>
         <value xml:lang="ro">OFBiz: Instrumente Web</value>
         <value xml:lang="th">OFBiz: เครื่องมือจัดการเว็บไซต์</value>
         <value xml:lang="zh">OFBiz: Web工具</value>
@@ -823,6 +825,7 @@
     </property>
     <property key="WebtoolsEncrypted">
         <value xml:lang="en">Encrypted</value>
+        <value xml:lang="it">Criptato</value>
     </property>
     <property key="WebtoolsEngineName">
         <value xml:lang="en">Engine Name</value>
@@ -1032,6 +1035,7 @@
     <property key="WebtoolsExportEntityEoModelBundle">
         <value xml:lang="en">Export Entity EOModelBundle</value>
         <value xml:lang="fr">Exporter l'entité EOModelBundle</value>
+        <value xml:lang="it">Esporta entità EOModelBundle</value>
         <value xml:lang="th">ส่งออก Entity EOModelBundle</value>
     </property>
     <property key="WebtoolsExportFromDataSource">
@@ -1184,6 +1188,7 @@
     <property key="WebtoolsGeneralArtifactInfoTools">
         <value xml:lang="en">General Artifact Info Tools</value>
         <value xml:lang="fr">Outils généraux pour les info à propos des éléments d'OFBiz</value>
+        <value xml:lang="it">Strumento per informazioni generali su artifatti</value>
     </property>
     <property key="WebtoolsGeneralJavaThreads">
         <value xml:lang="en">General Java Threads</value>
@@ -1285,11 +1290,13 @@
     <property key="WebtoolsIndexFieldList">
         <value xml:lang="en">Index Field List</value>
         <value xml:lang="fr">Liste d'index classé</value>
+        <value xml:lang="it">Lista campo indice</value>
         <value xml:lang="th">รายการตัววัด</value>
     </property>
     <property key="WebtoolsIndexName">
         <value xml:lang="en">Index Name</value>
         <value xml:lang="fr">Nom d'index</value>
+        <value xml:lang="it">Nome indice</value>
         <value xml:lang="th">ชื่อตัววัด</value>
     </property>
     <property key="WebtoolsInduceModelXMLFromDatabase">
@@ -1313,8 +1320,7 @@
         <value xml:lang="fr">Le niveau "Info" désigne les messages qui montrentla progression de l'application à un niveau de détail assez grossier.</value>
         <value xml:lang="it">Il livello Informativo designa messggi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
         <value xml:lang="ro">Nivelul Informativ desemneaza mesaje ce evidentiaza statul de executie al aplicatiei de jos nivel.</value>
-        <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ
-        </value>
+        <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">Info（信息）级别会粗粒地指出那些突出应用程序进行情况的信息。</value>
     </property>
     <property key="WebtoolsInterval">
@@ -1399,11 +1405,12 @@
         <value xml:lang="de">Logdatei</value>
         <value xml:lang="en">Logfile</value>
         <value xml:lang="fr">Fichier de Log</value>
+        <value xml:lang="it">File di log</value>
     </property>
     <property key="WebtoolsLabelManager">
         <value xml:lang="en">Label Manager</value>
         <value xml:lang="fr">Gestionnaire de traduction</value>
-        <value xml:lang="it">Gestione delle Label</value>
+        <value xml:lang="it">Gestione delle label</value>
     </property>
     <property key="WebtoolsLabelManagerAddNew">
         <value xml:lang="en">Add New Label</value>
@@ -1483,7 +1490,7 @@
     <property key="WebtoolsLabelManagerWarningMessage">
         <value xml:lang="en">There are some labels with more than translation for the same language</value>
         <value xml:lang="fr">Il y a des traduction dupliquées pour le même langage</value>
-        <value xml:lang="it">Ci sono alcune label con pi‚àöœÄ di una traduzione per la stessa lingua</value>
+        <value xml:lang="it">Ci sono alcune label con più di una traduzione per la stessa lingua</value>
     </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="en">LHS map name</value>
@@ -2274,7 +2281,7 @@
     <property key="WebtoolsPopupWebToolsMain">
         <value xml:lang="en">Pop up WebTools Main</value>
         <value xml:lang="fr">Page d'accueil des outils web</value>
-        <value xml:lang="it">Pop up Pagina Principale Strumenti Web</value>
+        <value xml:lang="it">Pop up pagina principale strumenti web</value>
         <value xml:lang="th">Pop up หน้าหลักเครื่องมือพัฒนาเว็บ</value>
         <value xml:lang="zh">弹出Web工具首页</value>
     </property>
@@ -2515,36 +2522,43 @@
     <property key="WebtoolsSecasIgnoreError">
         <value xml:lang="en">Ignore Error</value>
         <value xml:lang="fr">Ignorer en cas d'erreur</value>
+        <value xml:lang="it">Ignora errore</value>
         <value xml:lang="th">มองข้ามข้อผิดพลาด</value>
     </property>
     <property key="WebtoolsSecasIgnoreFailure">
         <value xml:lang="en">Ignore Failure</value>
         <value xml:lang="fr">Ignorer en cas d'échec</value>
+        <value xml:lang="it">Ignore fallimento</value>
         <value xml:lang="th">ละเลยความล้มเหลว</value>
     </property>
     <property key="WebtoolsSecasPersist">
         <value xml:lang="en">Persist</value>
         <value xml:lang="fr">Faire persister</value>
+        <value xml:lang="it">Persiste</value>
         <value xml:lang="th">ยังคงอยู่</value>
     </property>
     <property key="WebtoolsSecasResultMapName">
         <value xml:lang="en">Result Map Name</value>
         <value xml:lang="fr">Nom de Map de résultat</value>
+        <value xml:lang="it">Risultato nome mappa</value>
         <value xml:lang="th">ผลลัพธ์ของชื่อแผนที่</value>
     </property>
     <property key="WebtoolsSecasResultToContext">
         <value xml:lang="en">Result To Context</value>
         <value xml:lang="fr">Résultat vers le contexte</value>
+        <value xml:lang="it">Risultato nel contesto</value>
         <value xml:lang="th">ผลลัพธ์สำหรับ Context</value>
     </property>
     <property key="WebtoolsSecasResultToResult">
         <value xml:lang="en">Result To Result</value>
         <value xml:lang="fr">Résultat vers le résultat</value>
+        <value xml:lang="it">Risultato in Result</value>
         <value xml:lang="th">ผลลัพธ์สำหรับผลที่ได้</value>
     </property>
     <property key="WebtoolsSecasServiceMode">
         <value xml:lang="en">Service Mode</value>
         <value xml:lang="fr">Mode du service</value>
+        <value xml:lang="it">Modo servizio</value>
         <value xml:lang="th">โหมด Service</value>
     </property>
     <property key="WebtoolsSelectDispatcher">
@@ -2560,8 +2574,7 @@
         <value xml:lang="fr">Outils de statistiques des visites au serveur</value>
         <value xml:lang="it">Strumenti per Statistiche Server Hit</value>
         <value xml:lang="ro">Instrumente pentru Statistica Server Hit</value>
-        <value xml:lang="th">เครื่องมือการให้บริการทางสถิติ
-        </value>
+        <value xml:lang="th">เครื่องมือการให้บริการทางสถิติ</value>
         <value xml:lang="zh">服务器击中统计工具</value>
     </property>
     <property key="WebtoolsService">
@@ -2676,8 +2689,7 @@
         <value xml:lang="en">Show Only Periods with Organization Party ID</value>
         <value xml:lang="fr">Montrer seulement les périodes ayant la réf. d'acteur de l'organisation</value>
         <value xml:lang="it">Mostra Solo Periodi con Organizzazioni</value>
-        <value xml:lang="th">แสดงช่วงเวลากับรหัสองค์กรกลุ่มผู้ใช้อย่างเดียว
-        </value>
+        <value xml:lang="th">แสดงช่วงเวลากับรหัสองค์กรกลุ่มผู้ใช้อย่างเดียว</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="en">Show wsdl</value>
@@ -2764,8 +2776,7 @@
         <value xml:lang="en">Server Statistic Bins History Page</value>
         <value xml:lang="fr">Page historique des blocs de statistiques du serveur</value>
         <value xml:lang="it">Pagina Storia Statistiche Server Bins</value>
-        <value xml:lang="th">หน้าข้อมูลสถิติขยะ
-        </value>
+        <value xml:lang="th">หน้าข้อมูลสถิติขยะ</value>
     </property>
     <property key="WebtoolsStatsClearSince">
         <value xml:lang="en">Clear Since Start Stats</value>
@@ -2979,6 +2990,10 @@
         <value xml:lang="th">ตาราง</value>
         <value xml:lang="zh">数据库表</value>
     </property>
+    <property key="WebtoolsTemporalExpression">
+        <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="it">Espressioni temporali</value>
+    </property>
     <property key="WebtoolsTestResults">
         <value xml:lang="en">Test Results</value>
         <value xml:lang="fr">Résultats des tests</value>
@@ -3135,6 +3150,7 @@
     <property key="WebtoolsUsage">
         <value xml:lang="en">Usage</value>
         <value xml:lang="fr">Consommation</value>
+        <value xml:lang="it">Uso</value>
         <value xml:lang="th">วิธีใช้</value>
     </property>
     <property key="WebtoolsUseFileStore">

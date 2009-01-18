@@ -44,7 +44,7 @@ under the License.
         <menu-item name="ArtifactInfo" title="${uiLabelMap.WebtoolsArtifactInfo}">
             <link target="ArtifactInfo"/>
         </menu-item>
-        <menu-item name="tempexpr" title="${uiLabelMap.TemporalExpression}">
+        <menu-item name="tempexpr" title="${uiLabelMap.WebtoolsTemporalExpression}">
             <link target="findTemporalExpression"/>
         </menu-item>
         <menu-item name="stats" title="${uiLabelMap.WebtoolsStatsSinceServerStart}">

@@ -17,13 +17,14 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ModelService.following_required_parameter_missing">
         <value xml:lang="de">Der folgende benötigte Parameter fehlt:</value>
         <value xml:lang="en">The following required parameter is missing:</value>
         <value xml:lang="es">Se necesita ingresar el siguiente parametro :</value>
         <value xml:lang="fr">Le paramètre requis suivant manque :</value>
-        <value xml:lang="it">Il seguente parametro richiesto 濨 mancante:</value>
+        <value xml:lang="it">Il seguente parametro richiesto è mancante:</value>
         <value xml:lang="nl">De volgende vereiste parameters werden niet gevonden:</value>
         <value xml:lang="ro">Parametrul Cerut lipseste:</value>
         <value xml:lang="th">กรุณากรอกข้อมูลให้ครบถ้วน</value>
@@ -56,7 +57,7 @@
         <value xml:lang="en">Party ID missing</value>
         <value xml:lang="es">No existe el código de Participante</value>
         <value xml:lang="fr">Il manque la Party ID</value>
-        <value xml:lang="it">Codice Soggetto mancante</value>
+        <value xml:lang="it">Soggetto è mancante</value>
         <value xml:lang="nl">Relatie nummer van deze partij is niet gevonden</value>
         <value xml:lang="ro">Cod Subiect Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>

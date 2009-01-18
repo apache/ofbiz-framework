@@ -104,7 +104,7 @@
         <value xml:lang="en">Invalid format for SERVICE_INTERVAL</value>
         <value xml:lang="es">Formato invalido de intervalo de sevicio</value>
         <value xml:lang="fr">Format invalide pour SERVICE_INTERVAL</value>
-        <value xml:lang="it">Invalid format for SERVICE_INTERVAL</value>
+        <value xml:lang="it">Formato invalido per SERVICE_INTERVAL</value>
         <value xml:lang="ro">Format Invalid pentru SERVICE_INTERVAL</value>
         <value xml:lang="ru">Неверный формат SERVICE_INTERVAL</value>
         <value xml:lang="th">รูปแบบไม่ถูกต้องสำหรับ SERVICE_INTERVAL</value>
@@ -171,6 +171,7 @@
         <value xml:lang="de">Keine 'previous fields' auf der Session gefunden</value>
         <value xml:lang="en">No previous fields found in session</value>
         <value xml:lang="fr">Aucun champ précédent appartenant à la session</value>
+        <value xml:lang="it">Nessun campo precedentemente trovato in questa sessione</value>
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
         <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
         </value>
@@ -217,8 +218,7 @@
         <value xml:lang="it">ServiceEventHandler ha lanciato una eccezione</value>
         <value xml:lang="ro">ServiceEventHandler a lansat o exceptie</value>
         <value xml:lang="ru">ServiceEventHandler вызвал исключение</value>
-        <value xml:lang="th">ข้อยกเว้นของ ServiceEventHandler
-        </value>
+        <value xml:lang="th">ข้อยกเว้นของ ServiceEventHandler</value>
         <value xml:lang="zh">ServiceEventHandler抛出一个意外错误</value>
     </property>
     <property key="coreEvents.service_name_not_find">
@@ -257,10 +257,12 @@
     <property key="protectedviewevents.blocked_message">
         <value xml:lang="en">This is the blocked message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message de bloquage (à adapter).</value>
+        <value xml:lang="it">Questo è il messaggio bloccante (che deve essere adattato).</value>
     </property>
     <property key="protectedviewevents.tarpitted_message">
         <value xml:lang="en">This is the tarpitted message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message d'engluage (à adapter).</value>
+        <value xml:lang="it">Questo è il messaggio (che deve essere adattato).</value>
     </property>
     <property key="requestHandler.error_call_event">
         <value xml:lang="de">Fehler beim Aufruf eines Events</value>

@@ -22,6 +22,7 @@
     <property key="foundgenericWebEvent.conversion_failed">
         <value xml:lang="en">conversion failed</value>
         <value xml:lang="fr">La conversion a échoué. "${fval}" est erroné</value>
+        <value xml:lang="it">conversione fallita</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
     </property>
     <property key="genericWebEvent.already_exists_pk">
@@ -36,6 +37,7 @@
     <property key="genericWebEvent.conversion_failed">
         <value xml:lang="en">conversion failed</value>
         <value xml:lang="fr">La conversion a échoué</value>
+        <value xml:lang="it">conversione fallita</value>
         <value xml:lang="ro">conversie falita: "${fval}" nu este valida</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
         <value xml:lang="zh">无法转换："${fval}"无效</value>
@@ -116,6 +118,7 @@
         <value xml:lang="en">You do not have sufficient permissions to</value>
         <value xml:lang="es">No cuenta con suficientes permisos</value>
         <value xml:lang="fr">Vous n'avez pas d'autorisations suffisantes pour </value>
+        <value xml:lang="it">Tu non hai sufficienti permessi per</value>
         <value xml:lang="ro">Tu nu ai suficiente drepturi pentru </value>
         <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง</value>
         <value xml:lang="zh">你没有足够的权限</value>
@@ -142,7 +145,7 @@
         <value xml:lang="en">Update Mode specified (${updateMode}) was not valid</value>
         <value xml:lang="es">Modo de actualización (${updateMode}) invalido</value>
         <value xml:lang="fr">Le mode de mise à jour (${updateMode}) spécifié est erroné</value>
-        <value xml:lang="it">Modo Aggiornamento specificato (${updateMode}) non è valido</value>
+        <value xml:lang="it">Modo aggiornamento specificato (${updateMode}) non è valido</value>
         <value xml:lang="ro">Modul de  Actualizare specificat (${updateMode}) nu este valid</value>
         <value xml:lang="th">อัพเดทการระบุโหมด (${updateMode}) ไม่มีค่า</value>
         <value xml:lang="zh">指定的更新方法(${updateMode})无效</value>
@@ -151,7 +154,7 @@
         <value xml:lang="en">Update Mode was not specified, but is required</value>
         <value xml:lang="es">Modo de actualización no especificado, pero requerido</value>
         <value xml:lang="fr">Le mode de mise à jour n'a pas ete spécifié, mais il est nécessaire</value>
-        <value xml:lang="it">Modo Aggiornamento non è stato specificato, ma è richiesto</value>
+        <value xml:lang="it">Modo aggiornamento non è stato specificato, ma è richiesto</value>
         <value xml:lang="ro">Mod Actualizare nu a fost specificat, dar este cerut.</value>
         <value xml:lang="th">ไม่ระบุการอัพเดทโหมด , แต่ต้องการ</value>
         <value xml:lang="zh">没有指定更新方法，而这是必须的</value>
