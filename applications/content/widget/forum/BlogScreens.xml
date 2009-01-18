@@ -48,7 +48,28 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="blogDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="commonBlogDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.blogContentId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="blog" location="component://content/widget/content/ContentMenus.xml"/>
+                                <include-menu name="blogSub" location="component://content/widget/content/ContentMenus.xml"/>
+                            </widgets>
+                        </section>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="BlogMain">
         <section>
             <actions>
@@ -83,11 +104,12 @@ under the License.
     <screen name="EditBlog">
         <section>
             <actions>
+                <set field="tabButtonItem" value="EditBlog"/>
                 <set field="contentId" from-field="parameters.blogContentId"/>
                 <entity-one entity-name="Content" value-name="content"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonBlogDecorator">
+                <decorator-screen name="blogDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentBlogEdit}">
                             <include-form name="EditBlog" location="component://content/widget/forum/BlogForms.xml"/>
@@ -115,7 +137,7 @@ under the License.
                 <decorator-screen name="commonBlogDecorator">
                     <decorator-section name="body">
                         <include-menu name="blogArtSub" location="component://content/widget/content/ContentMenus.xml"/>
-                        <screenlet title="${uiLabelMap.ContentBlogActicleList}">
+                        <screenlet title="${uiLabelMap.ContentBlogActicleList}" navigation-form-name="BlogContent">
                             <include-form name="BlogContent" location="component://content/widget/forum/BlogForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -230,57 +252,15 @@ under the License.
     <screen name="ViewArticle">
         <section>
             <actions>
-                <set field="articleContentId" from-field="parameters.articleContentId"/>
-                <set field="ownerContentId" from-field="parameters.ownerContentId"/>
-                <set field="blogContentId" from-field="parameters.blogContentId"/>
                 <entity-one entity-name="Content" value-name="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="articleContentId"/>
+                    <field-map field-name="contentId" env-name="parameters.articleContentId"/>
                 </entity-one>
-                <set field="enableEdit" value="false"/>
-                <property-to-field property="root.publish.point.blog" field="webPutPt" resource="blog"/>
-                <set field="rsp.contentName" value="RE: ${content.contentName}"/>
-                
-                <!-- for permission service -->
-                <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
-                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
-                <set field="upPerm.ownerContentId" from-field="ownerContentId"/>
-                <set field="upPerm.contentId" from-field="articleContentId"/>                 
             </actions>
             <widgets>
                 <decorator-screen name="commonBlogDecorator">
                     <decorator-section name="body">
-                        <label text="&lt;p/&gt;"/>
-                        <container style="bloghr">
-                            <container style="leftjustify">
-                                <label text="${content.contentName}: ${content.description}" style="blogtitle"/>
-                            </container>
-                            <section>
-                                <condition>
-                                    <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>                                    
-                                </condition>
-                                <widgets>
-                                    <container style="rightjustify">
-                                        <link text="Edit" target="EditArticle?contentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="buttontext"/>
-                                    </container>
-                                </widgets>
-                            </section>
-                        </container>
-                        <container style="blogcontentwrapper">
-                            <container style="resposetext">
-                                <label text="Posted: ${content.createdDate}" style="responsetext"/>
-                                <label text="&lt;p/&gt;"/>
-                            </container>
-                            <content content-id="${articleContentId}"/>
-                        </container>
-                        
-                        <label text="&lt;p/&gt;"/>
-                        <include-screen name="BlogResponses"/>
-                        <label text="&lt;p/&gt;"/>
-                        <!--
-                            <link text="Latest" target="LatestResponses?ownerContentId=${webPubPt}" />
-                        -->
-                        <include-screen name="AddBlogResponse"/>
-                        <label text="&lt;p/&gt;"/>                                                
+                        <label text="${content.contentName}: ${content.description}" style="h2"/>
+                        <content content-id="${parameters.articleContentId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

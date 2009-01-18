@@ -41,7 +41,7 @@ under the License.
             <set field="newEntity.dataTemplateTypeId" value="NONE"/>
         </if-empty>
 
-        <if-empty field="content.statusId">
+        <if-empty field="parameters.statusId">
             <!-- get the first status item -->
             <entity-and entity-name="StatusItem" list="contentStatus">
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
@@ -52,29 +52,22 @@ under the License.
         </if-empty>
 
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataResourceId" map-name="newEntity"/>
+        <field-to-result field="dataResourceId"/>
     </simple-method>
 
     <simple-method method-name="updateDataResource" short-description="Update a Data Resource">
-        <make-value entity-name="DataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-
-        <to-string map-name="parameters" field-name="locale" />
+        <entity-one entity-name="DataResource" value-field="lookedUpValue"/>
+        <to-string field="parameters.locale"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
         <now-timestamp field="nowTimestamp"/>
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>
-
         <store-value value-field="lookedUpValue"/>
-        <field-to-result field="dataResourceId" map-name="lookedUpValue"/>
+        <field-to-result field="parameters.dataResourceId" result-name="dataResourceId"/>
     </simple-method>
 
     <simple-method method-name="deleteDataResource" short-description="Delete a Data Resource">        
-        <make-value entity-name="DataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
+        <entity-one entity-name="DataResource" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -83,9 +76,8 @@ under the License.
         <make-value entity-name="DataCategory" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataCategoryId" map-name="newEntity"/>
+        <field-to-result field="newEntity.dataCategoryId" result-name="dataCategoryId"/>
     </simple-method>
     <simple-method method-name="updateDataCategory" short-description="Update a Data Category">
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
@@ -194,7 +186,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataCategoryId" map-name="newEntity"/>
+        <field-to-result result-name="dataCategoryId" field="newEntity.dataCategoryId"/>
     </simple-method>
     <simple-method method-name="updateDataCategory" short-description="Update Data Category">
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
@@ -216,7 +208,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataResourceTypeId" map-name="newEntity"/>
+        <field-to-result result-name="dataResourceTypeId" field="newEntity.dataResourceTypeId"/>
     </simple-method>
     <simple-method method-name="updateDataResourceType" short-description="Update Data Resource Type">
         <make-value entity-name="DataResourceType" value-field="lookupKeyValue"/>
@@ -280,7 +272,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="characterSetId" map-name="newEntity"/>
+        <field-to-result result-name="characterSetId" field="newEntity.characterSetId"/>
     </simple-method>
     <simple-method method-name="updateCharacterSet" short-description="Update Character Set">
         <make-value entity-name="CharacterSet" value-field="lookupKeyValue"/>
@@ -302,7 +294,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="fileExtensionId" map-name="newEntity"/>
+        <field-to-result result-name="fileExtensionId" field="newEntity.fileExtensionId"/>
     </simple-method>
     <simple-method method-name="updateFileExtension" short-description="Update Data Resource Role">
         <make-value entity-name="FileExtension" value-field="lookupKeyValue"/>
@@ -324,7 +316,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="metaDataPredicateId" map-name="newEntity"/>
+        <field-to-result result-name="metaDataPredicateId" field="newEntity.metaDataPredicateId"/>
     </simple-method>
     <simple-method method-name="updateMetaDataPredicate" short-description="Update Data Resource Role">
         <make-value entity-name="MetaDataPredicate" value-field="lookupKeyValue"/>
@@ -346,7 +338,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="mimeTypeId" map-name="newEntity"/>
+        <field-to-result result-name="mimeTypeId" field="newEntity.mimeTypeId"/>
     </simple-method>
     <simple-method method-name="updateMimeType" short-description="Update MimeType">
         <make-value entity-name="MimeType" value-field="lookupKeyValue"/>
@@ -388,9 +380,8 @@ under the License.
         <make-value entity-name="ElectronicText" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataResourceId" map-name="newEntity"/> 
+        <field-to-result result-name="dataResourceId" field="newEntity.dataResourceId"/> 
     </simple-method>
 
     <simple-method method-name="updateElectronicText" short-description="Update Electronic Text">
@@ -400,7 +391,7 @@ under the License.
 
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-        <field-to-result field="dataResourceId" map-name="lookedUpValue"/>
+        <field-to-result result-name="dataResourceId" field="lookedUpValue.dataResourceId"/>
     </simple-method>
     <simple-method method-name="removeElectronicText" short-description="Remove Electronic Text">
         <make-value entity-name="ElectronicText" value-field="lookupKeyValue"/>
@@ -510,9 +501,7 @@ under the License.
         
         <if-empty field="currentContent">
             <if-not-empty field="parameters.contentId">
-                <set field="contextA.contentId" from-field="parameters.contentId" />
-                <find-by-primary-key value-field="currentContent" entity-name="Content"
-                         map-name="contextA" use-cache="true" />
+                <entity-one entity-name="Content" value-field="currentContent" use-cache="true"/>
             </if-not-empty>
             <if-empty field="currentContent">
                 <add-error>
@@ -527,10 +516,10 @@ under the License.
                 </add-error>
         </if-empty>
         <check-errors/>
-        <field-to-result field="currentContent.dataResourceId" result-name="dataResourceId"/>    
-        <set field="contextB.dataResourceId" from-field="currentContent.dataResourceId" />
-        <find-by-primary-key value-field="eText" entity-name="ElectronicText"
-                         map-name="contextB" use-cache="true" />
+        <field-to-result field="currentContent.dataResourceId" result-name="dataResourceId"/>
+        <entity-one entity-name="ElectronicText" value-field="eText">
+            <field-map field-name="dataResourceId" from-field="currentContent.dataResourceId"/>
+        </entity-one>
         <if-empty field="eText">
                 <add-error>
                     <fail-message message="Electronic Text not found." />
@@ -562,14 +551,14 @@ under the License.
                 <then>
                     <if>
                         <condition>
-                            <if-regexp field-name="parameters._uploadedFile_contentType" expr="image.*"/>
+                            <if-regexp field="parameters._uploadedFile_contentType" expr="image.*"/>
                         </condition>
                         <then>
                             <set field="parameters.dataResourceTypeId" value="IMAGE_OBJECT"/>
                         </then>
                         <else-if>
                             <condition>
-                                <if-regexp field-name="parameters._uploadedFile_contentType" expr="video.*"/>
+                                <if-regexp field="parameters._uploadedFile_contentType" expr="video.*"/>
                             </condition>
                             <then>
                                 <set field="parameters.dataResourceTypeId" value="VIDEO_OBJECT"/>
@@ -577,7 +566,7 @@ under the License.
                         </else-if>
                         <else-if>
                             <condition>
-                                <if-regexp field-name="parameters._uploadedFile_contentType" expr="audio.*"/>
+                                <if-regexp field="parameters._uploadedFile_contentType" expr="audio.*"/>
                             </condition>
                             <then>
                                 <set field="parameters.dataResourceTypeId" value="AUDIO_OBJECT"/>
@@ -649,9 +638,7 @@ under the License.
 
     <!-- save LOCAL_FILE data -->
     <simple-method method-name="saveLocalFileDateResource" short-description="Attach an uploaded file to a data resource as LOCAL_FILE">
-        <entity-one entity-name="DataResource" value-field="dataResource">
-            <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
-        </entity-one>
+        <entity-one entity-name="DataResource" value-field="dataResource"/>
         <if-empty field="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
@@ -672,8 +659,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result field="dataResourceId" map-name="dataResource"/>
-                        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -703,8 +690,8 @@ under the License.
         <set from-field="dataResource" field="fileCtx.dataResource"/>
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
 
-        <field-to-result field="dataResourceId" map-name="dataResource"/>
-        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
     </simple-method>
 
     <!-- save OTHER_OBJECT data -->
@@ -732,8 +719,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result field="dataResourceId" map-name="dataResource"/>
-                        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -759,8 +746,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result field="dataResourceId" map-name="dataResource"/>
-        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
     </simple-method>
 
     <!-- save IMAGE_OBJECT data -->
@@ -788,8 +775,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result field="dataResourceId" map-name="dataResource"/>
-                        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -815,8 +802,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result field="dataResourceId" map-name="dataResource"/>
-        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
     </simple-method>
 
     <!-- save VIDEO_OBJECT data -->
@@ -844,8 +831,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result field="dataResourceId" map-name="dataResource"/>
-                        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -871,8 +858,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result field="dataResourceId" map-name="dataResource"/>
-        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
     </simple-method>
 
     <!-- save AUDIO_OBJECT data -->
@@ -900,8 +887,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result field="dataResourceId" map-name="dataResource"/>
-                        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -927,7 +914,7 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result field="dataResourceId" map-name="dataResource"/>
-        <field-to-result field="mimeTypeId" map-name="dataResource"/>
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
     </simple-method>
 </simple-methods>

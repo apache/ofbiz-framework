@@ -102,7 +102,7 @@
                 </section>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <iterate-section list-name="blogList" entry-name="blog" view-size="${blogViewSize}" paginate="true" paginate-target="MainBlog?blogContentId=${blogContentId}&amp;ownerContentId=${parameters.ownerContentId}">
+                        <iterate-section list-name="blogList" entry-name="blog" paginate="true" paginate-target="MainBlog">
                             <section name="firstBlog">
                                 <condition>
                                     <if-compare field-name="itemIndex" operator="equals" type="Integer" value="0"/>
@@ -131,7 +131,7 @@
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <label text="&lt;p/&gt;"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
-                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader" url-mode="inter-app"/>
+                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
                                         <!--
                                             <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
                                         -->
@@ -192,50 +192,7 @@
                         <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
                     </condition>
                     <actions>
-                        <set field="contentId" from-field="parameters.articleContentId"/>
-
-                        <entity-one entity-name="Content" value-name="content">
-                            <field-map env-name="contentId" field-name="contentId"/>
-                        </entity-one>
-
-                        <set field="content.contentId" from-field="content.contentId" default-value="${parameters.contentId}"/>
-                        <set field="content.ownerContentId" from-field="content.ownerContentId" default-value="${parameters.blogContentId}"/>
-                        <set field="content.contentTypeId" value="DOCUMENT"/>
-                        <set field="thisContentId" from-field="content.contentId"/>
-
-                        <!-- see if the main text is directly attached to the article (no template -->
-                        <entity-one entity-name="ElectronicText" value-name="mainText" use-cache="true">
-                            <field-map env-name="content.dataResourceId" field-name="dataResourceId"/>
-                        </entity-one>
-
-                        <!-- get the summary sub-content -->
-                        <set field="summaryMapKey" value="SUMMARY"/>
-                        <service service-name="getSubContent" result-map-name="result" auto-field-map="false">
-                            <field-map field-name="contentId" env-name="content.contentId"/>
-                            <field-map field-name="mapKey" env-name="summaryMapKey"/>
-                        </service>
-                        <entity-one entity-name="ElectronicText" value-name="summaryText" use-cache="false">
-                            <field-map field-name="dataResourceId" env-name="result.view.dataResourceId"/>
-                        </entity-one>
-
-                        <!-- get the image sub-content -->
-                        <set field="imageMapKey" value="IMAGE"/>
-                        <service service-name="getSubContent" result-map-name="imageResult" auto-field-map="false">
-                            <field-map field-name="contentId" env-name="content.contentId"/>
-                            <field-map field-name="mapKey" env-name="imageMapKey"/>
-                        </service>
-                        <set field="imageContent" from-field="imageResult.view" type="Object"/>
-
-                        <!-- the final main text if it doesn't already exist -->
-                        <set field="mainMapKey" value="MAIN"/>
-                        <service service-name="getSubContent" result-map-name="textResult" auto-field-map="false">
-                            <field-map field-name="contentId" env-name="content.contentId"/>
-                            <field-map field-name="mapKey" env-name="mainMapKey"/>
-                        </service>
-                        <set field="textContent" from-field="textResult.view" type="Object"/>
-                        <entity-one entity-name="ElectronicText" value-name="mainText" use-cache="true">
-                            <field-map env-name="textResult.view.dataResourceId" field-name="dataResourceId"/>
-                        </entity-one>
+                        <service service-name="getBlogEntry" result-map-name="blogEntry" auto-field-map="true"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
@@ -255,7 +212,7 @@
     <screen name="ViewArticle">
         <section>
             <actions>
-                <set field="articleContentId" from-field="parameters.articleContentId"/>
+                <set field="articleContentId" from-field="parameters.articleContentId" default-value="${parameters.contentId}"/>
                 <set field="ownerContentId" from-field="parameters.ownerContentId"/>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
                 <entity-one entity-name="Content" value-name="content" use-cache="true">
@@ -291,7 +248,7 @@
                             </section>
                         </container>
                         <container style="blogcontentwrapper">
-                            <container style="resposetext">
+                            <container style="responsetext">
                                 <label text="Posted: ${content.createdDate}" style="responsetext"/>
                                 <label text="&lt;p/&gt;"/>
                             </container>

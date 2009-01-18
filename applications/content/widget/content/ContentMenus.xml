@@ -133,6 +133,17 @@ under the License.
             <link target="WebSiteCms?webSiteId=${parameters.webSiteId}"/>
         </menu-item>
     </menu>
+    <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
+        title="" type="simple">
+        <menu-item name="EditBlog" title="${uiLabelMap.CommonEdit}">
+            <link target="editBlog?blogContentId=${parameters.blogContentId}"/>
+        </menu-item>
+        <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
+            <link target="EditContentRole?contentId=${parameters.blogContentId}"/>
+        </menu-item>
+    </menu>
+
     <menu name="blogSub" menu-container-style="button-bar button-style-2" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
