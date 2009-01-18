@@ -32,6 +32,7 @@ import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppingcart.WebShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * ProductStoreWorker - Worker class for store related functionality
@@ -75,6 +76,16 @@ public class ProductStoreCartAwareEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
         if (productStore == null) {
             throw new IllegalArgumentException("Cannot set session ProductStore, passed productStoreId [" + productStoreId + "] is not valid/not found.");
+        }
+        
+        // make sure ProductStore change is allowed for the WebSite
+        GenericValue webSite = WebSiteWorker.getWebSite(request);
+        if (productStore == null) {
+            throw new IllegalArgumentException("Cannot set session ProductStore, could not find WebSite record based on web.xml setting.");
+        }
+        String allowProductStoreChange = webSite.getString("allowProductStoreChange");
+        if (!"Y".equals(allowProductStoreChange)) {
+            throw new IllegalArgumentException("Cannot set session ProductStore, changing ProductStore not allowed for WebSite [" + webSite.getString("webSite") + "].");
         }
         
         // set the productStoreId in the session (we know is different by this point)
