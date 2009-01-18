@@ -22,7 +22,7 @@
     <property key="SecurityGroup.description.BIZADMIN">
         <value xml:lang="en">Full Business Applications permission group, has all business app admin permissions, not technical permissions.</value>
         <value xml:lang="es">Permisos completos para las Aplicaciones de Negocio, no posee permisos técnicos.</value>
-        <value xml:lang="fr">Groupe d'autorisation complète des applications au niveau business, ayant toutes les autorisations d'administration au niveau business, sans autorisations techniques.</value>
+        <value xml:lang="fr">Groupe à autorisation complète sur les applications de gestion : ayant toutes les autorisations d'administration des application de gestion, sans autorisations techniques.</value>
         <value xml:lang="it">Gruppo permesso applicazioni full busines, hai tutti i permessi amministratore sulle applicazioni, nessun permesso tecnico.</value>
         <value xml:lang="ru">Полная группа прав 'Деловые приложения', содержит все права для администрирования деловых приложений, нет технических прав.</value>
     </property>
@@ -61,7 +61,7 @@
     <property key="SecurityGroup.description.ORDERADMIN">
         <value xml:lang="en">Order Admin group, has all order permissions.</value>
         <value xml:lang="es">Administrador de Órdenes, tiene todos los permisos de Órdenes.</value>
-        <value xml:lang="fr">Groupe d'administration des commandes, ayant toutes les permissions sur les commandes.</value>
+        <value xml:lang="fr">Groupe d'administration des commandes, ayant toutes les autorisations  sur les commandes.</value>
         <value xml:lang="it">Gruppo amministratore ordini, ha tutti i permessi ordini.</value>
         <value xml:lang="ru">Группа 'Администратор заказов', содержит все права на заказ.</value>
         <value xml:lang="th">คำสั่งซื้อสินค้าของกลุ่มผู้ดูแลระบบ, มีการอนุญาตคำสั่งซื้อสินค้าทั้งหมด.</value>
@@ -77,7 +77,7 @@
     <property key="SecurityGroup.description.ORDERENTRY">
         <value xml:lang="en">Order Entry Admin group; permissions for creating orders.</value>
         <value xml:lang="es">Administrador de Entrada de Órdenes, tiene permisos para crear Órdenes.</value>
-        <value xml:lang="fr">Groupe d'administration d'entrée de commande,  autorisations pour créer des commandes.</value>
+        <value xml:lang="fr">Groupe d'administration de saisie de commande,  autorisations pour créer des commandes.</value>
         <value xml:lang="it">Gruppo amministratore inserimento ordini, ha tutti i permessi per creare ordini.</value>
         <value xml:lang="ru">Грппа 'Администратор ввода заказов'; права для создания заказов.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบกรอกข้อมูลคำสั่งซื้อสินค้า ; การอนุญาตสำหรับการสร้างคำสั่งซื้อสินค้า</value>
@@ -85,7 +85,7 @@
     <property key="SecurityGroup.description.ORDERENTRY_ALL">
         <value xml:lang="en">Order entry permission for all stores. No special role is needed.</value>
         <value xml:lang="es">Permisos para entrada de Órdenes para todas las tiendas. No es necesario un rol especial.</value>
-        <value xml:lang="fr">Autorisation d'entrée de commande pour tous les centres de profit.  Aucun rôle spécial n'est nécessaire.</value>
+        <value xml:lang="fr">Autorisation de saisie de commande pour tous les centres de profit.  Aucun rôle spécial n'est nécessaire.</value>
         <value xml:lang="it">Gruppo amministratore inserimento ordini per tutti i negozi, nessun ruolo è necessario.</value>
         <value xml:lang="ru">Права на ввод заказов для всех торговых точек. Специальные роли не требуются.</value>
         <value xml:lang="th">การอนุญาตการกรอกข้อมูลคำสั่งซื้อสินค้าสำหรับคลังทั้งหมด. ไม่มีสถานะพิเศษที่ต้องการ</value>
@@ -93,7 +93,7 @@
     <property key="SecurityGroup.description.ORDERPROC">
         <value xml:lang="en">Admin group for restricted order processing.</value>
         <value xml:lang="es">Administrador para procesamiento de Órdenes restringido.</value>
-        <value xml:lang="fr">Groupe d'administration pour le traitement de commande restreinte.</value>
+        <value xml:lang="fr">Groupe d'administration pour le traitement restreint de commande.</value>
         <value xml:lang="it">Gruppo amministratore con permessi ridotti all'avanzamento ordini.</value>
         <value xml:lang="ru">Административная группа для ограниченной обработки заказов.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบสำหรับจำกัดการประมวลผลคำสั่งซื้อสินค้า</value>
@@ -101,7 +101,7 @@
     <property key="SecurityGroup.description.ORDERPURCH">
         <value xml:lang="en">Order entry with purchasing permissions.</value>
         <value xml:lang="es">Entrada de Órdenes con permisos de compra.</value>
-        <value xml:lang="fr">Entrée de commande avec des autorisations d'achat.</value>
+        <value xml:lang="fr">Saisie de commande avec autorisations d'achat.</value>
         <value xml:lang="it">Inserimento ordini con permessi acquisto ordini.</value>
         <value xml:lang="ru">Ввод заказов с правами на закупку.</value>
         <value xml:lang="th">การกรอกข้อมูลคำสั่งซื้อสินค้าด้วยการอนุญาตการสั่งซื้อ</value>
@@ -109,7 +109,7 @@
     <property key="SecurityGroup.description.ORDERSUPPLIER_LTD">
         <value xml:lang="en">Limited Order Admin group for Supplier Agents.</value>
         <value xml:lang="es">Administrador Limitado de Órdenes para Agentes Proveedores.</value>
-        <value xml:lang="fr">Groupe d'administration de commande limitée pour agents fournisseurs</value>
+        <value xml:lang="fr">Groupe d'administration de commande limitée pour les  fournisseurs</value>
         <value xml:lang="it">Gruppo amministratore ordini limitato per agenti.</value>
         <value xml:lang="ru">Группа 'Ограниченный администратор заказов' для Агентов поставщика.</value>
         <value xml:lang="th">คำสั่งซื้อสินค้าจำกัดขงกลุ่มผู้ดูแลระบบสำหรับตัวแทนผู้จัดหาสิ่งของ</value>
@@ -117,7 +117,7 @@
     <property key="SecurityGroup.description.PARTYADMIN">
         <value xml:lang="en">Party Admin group, has all party permissions.</value>
         <value xml:lang="es">Administrador de Entidades, tiene todos los permisos de Entidad.</value>
-        <value xml:lang="fr">Groupe d'administration d'acteur, ayant toutes les autorisations d'acteur.</value>
+        <value xml:lang="fr">Groupe d'administration d'acteur, ayant toutes les autorisations sur les acteurs.</value>
         <value xml:lang="it">Gruppo amministratore soggetti, ha tutti i permessi soggetti.</value>
         <value xml:lang="ru">Группа 'Администратор участников', содержит все права на участников.</value>
         <value xml:lang="th">กลุ่มผู้ใช้กลุ่มผู้ดูแลระบบ , มีการอนุญาตกลุ่มผู้ใช้ทั้งหมด</value>
@@ -125,7 +125,7 @@
     <property key="SecurityGroup.description.POSCLERK">
         <value xml:lang="en">POS Clerk</value>
         <value xml:lang="es">Cajero</value>
-        <value xml:lang="fr">POS commis</value>
+        <value xml:lang="fr">Employé POS</value>
         <value xml:lang="it">Impiegato POS</value>
         <value xml:lang="ru">Служащий POS</value>
         <value xml:lang="th">พนักงาน ณ.จุดขาย</value>
@@ -133,7 +133,7 @@
     <property key="SecurityGroup.description.VIEWADMIN">
         <value xml:lang="en">Demo Admin group, has all view permissions.</value>
         <value xml:lang="es">Demo de Administración, tiene todos los permisos de visualización.</value>
-        <value xml:lang="fr">Groupe d'administrateurs de démonstration, ayant toutes les autorisations de vue.</value>
+        <value xml:lang="fr">Groupe d'administration de démonstration, ayant toutes les autorisations de visualisation.</value>
         <value xml:lang="it">Gruppo amministratore demo, ha tutti i permessi in visualizzazione.</value>
         <value xml:lang="ru">Группа 'Демо администратор', содержит все права на просмотр.</value>
         <value xml:lang="th">ตัวอย่างกลุ่มผู้ดูแลระบบ, มีการอนุญาตการแสดงทั้งหมด</value>
@@ -141,7 +141,7 @@
     <property key="SecurityGroup.description.SECURITYADMIN">
         <value xml:lang="en">Security Admin group, has all permissions to modify security settings in party manager.</value>
         <value xml:lang="es">Grupo de administradores de seguridad, tiene todos los permisos para modificar ajustes de seguridad en el gestor de participantes.</value>
-        <value xml:lang="fr">Groupe d'administrateurs de sécurité, ayant toutes les autorisations pour modifier les paramètres de sécurité dans le gestionnaire d'acteur.</value>
+        <value xml:lang="fr">Groupe d'administration de sécurité, ayant toutes les autorisations pour modifier les paramètres de sécurité dans la gestion d'acteur.</value>
         <value xml:lang="it">Gruppo amministratore sicurezza, ha tutti i permessi per modificare le impostazioni sicurezza nella gestione soggetti.</value>
     </property>
     <property key="SecurityGroup.description.CONTENT_USER">
@@ -153,13 +153,13 @@
     <property key="SecurityGroup.description.WORKEFFORT_USER">
         <value xml:lang="en">WorkEffort user group; all limited workeffort permissions.</value>
         <value xml:lang="es">Grupo de usuarios de esfuerzos de trabajo; todos los permisos de esfuerzo de trabajo limitados</value>
-        <value xml:lang="fr">Groupe d'utilisateurs d'effort de travail, toutes autorisations d'efforts de travail limitées.</value>
+        <value xml:lang="fr">Groupe d'utilisateurs des tâches, toutes autorisations limitées sur les tâches.</value>
         <value xml:lang="it">Gruppo utente impiegno di lavoro, ha tutti i permessi limitati agli impegni di lavoro.</value>
     </property>
     <property key="SecurityPermission description.ENTITY_SYNC_ADMIN">
         <value xml:lang="en">Use the Entity Sync Admin pages.</value>
         <value xml:lang="es">Usar las páginas de Administración de Sincronización de Entidad.</value>
-        <value xml:lang="fr">Utiliser les pages d'administrateur de synchronisation de l'entité.</value>
+        <value xml:lang="fr">Utiliser les pages d'administration de synchronisation d'entités.</value>
         <value xml:lang="it">Usare le pagine di amministrazione per la sincronizzazione dei dati.</value>
         <value xml:lang="ru">Использование страниц Администрирование синхронизации сущностей.</value>
         <value xml:lang="th">Use the Entity Sync Admin pages.</value>
@@ -167,7 +167,7 @@
     <property key="SecurityPermission description.EXAMPLE_ADMIN">
         <value xml:lang="en">ALL operations in the Example Management Screens.</value>
         <value xml:lang="es">TODAS las operaciones en las pantallas de Administración de Ejemplo.</value>
-        <value xml:lang="fr">TOUTES les opérations dans les écrans de gestion d'exemple.</value>
+        <value xml:lang="fr">TOUTES les opérations dans les écrans d'exemples.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione degli Esempio.</value>
         <value xml:lang="ru">Все операции в приложении Управление примерами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในหน้าจอการจัดการตัวอย่าง</value>
@@ -175,7 +175,7 @@
     <property key="SecurityPermission description.EXAMPLE_CREATE">
         <value xml:lang="en">Create operations in the Example Management Screens.</value>
         <value xml:lang="es">Operaciones de Creación en las pantallas de Administración de Ejemplo.</value>
-        <value xml:lang="fr">Créer les opérations dans les écrans de gestion d'exemple</value>
+        <value xml:lang="fr">Opérations de création dans les écrans d'exemples</value>
         <value xml:lang="it">Operazioni di creazione nella gestione Esempi.</value>
         <value xml:lang="ru">Операции создания в приложении Управление примерами.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการตัวอย่าง</value>
@@ -183,7 +183,7 @@
     <property key="SecurityPermission description.EXAMPLE_DELETE">
         <value xml:lang="en">Delete operations in the Example Management Screens.</value>
         <value xml:lang="es">Operaciones de Eliminación en las pantallas de Administración de Ejemplo.</value>
-        <value xml:lang="fr">Supprimer les opérations dans les écrans de gestion d'exemple.</value>
+        <value xml:lang="fr">Opérations de suppression dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione Esempi.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление примерами.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการตัวอย่าง</value>
@@ -191,7 +191,7 @@
     <property key="SecurityPermission description.EXAMPLE_UPDATE">
         <value xml:lang="en">Update operations in the Example Management Screens.</value>
         <value xml:lang="es">Operaciones de Actualización en las pantallas de Administración de Ejemplo.</value>
-        <value xml:lang="fr">Mettre à jour les opérations dans les écrans de gestion d'exemple.</value>
+        <value xml:lang="fr">Opérations de mise à jour dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione Esempi.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление примерами.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการตัวอย่าง</value>
@@ -199,7 +199,7 @@
     <property key="SecurityPermission description.EXAMPLE_VIEW">
         <value xml:lang="en">View operations in the Example Management Screens.</value>
         <value xml:lang="es">Operaciones de Visualización en las pantallas de Administración de Ejemplo.</value>
-        <value xml:lang="fr">Voir les opérations dans les écrans de gestion d'exemple.</value>
+        <value xml:lang="fr">Voir les opérations dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione Esempi.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление примерами.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการตัวอย่าง</value>
@@ -207,7 +207,7 @@
     <property key="SecurityPermission.description.ACCOUNTING_ADMIN">
         <value xml:lang="en">ALL operations in the Accounting Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Contabilidad.</value>
-        <value xml:lang="fr">TOUTES les opérations dans le gestionnaire de comptabilité.</value>
+        <value xml:lang="fr">TOUTES les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione della contabilità.</value>
         <value xml:lang="ru">Все операции в приложении Управление учетом.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการบัญชี</value>
@@ -223,7 +223,7 @@
     <property key="SecurityPermission.description.ACCOUNTING_CREATE">
         <value xml:lang="en">Create operations in the Accounting Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Contabilidad.</value>
-        <value xml:lang="fr">Créer les opérations dans le gestionnaire de comptabilité.</value>
+        <value xml:lang="fr">Opérations de création dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione della contabilità.</value>
         <value xml:lang="ru">Операции создания в приложении Управление учетом.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการบัญชี</value>
@@ -231,7 +231,7 @@
     <property key="SecurityPermission.description.ACCOUNTING_DELETE">
         <value xml:lang="en">Delete operations in the Accounting Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Contabilidad.</value>
-        <value xml:lang="fr">Supprimer les opérations dans le gestionnaire de comptabilité.</value>
+        <value xml:lang="fr">Opérations de suppression dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione della contabilità.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление учетом.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการบัญชี</value>
@@ -247,7 +247,7 @@
     <property key="SecurityPermission.description.ACCOUNTING_UPDATE">
         <value xml:lang="en">Update operations in the Accounting Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Contabilidad.</value>
-        <value xml:lang="fr">Metre à jour les opérations dans le gestionnaire de comptabilité.</value>
+        <value xml:lang="fr">Metre à jour les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione della contabilità.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление учетом.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการบัญชี</value>
@@ -255,7 +255,7 @@
     <property key="SecurityPermission.description.ACCOUNTING_VIEW">
         <value xml:lang="en">View operations in the Accounting Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Contabilidad.</value>
-        <value xml:lang="fr">Voir les opérations dans le gestionnaire de comptabilité.</value>
+        <value xml:lang="fr">Voir les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione della contabilità.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление учетом.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการบัญชี</value>
@@ -335,7 +335,7 @@
     <property key="SecurityPermission.description.CATALOG_PRICE_MAINT">
         <value xml:lang="en">Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules.</value>
         <value xml:lang="es">Se requiere un permiso, además de otros permisos aplicables, para mantener la información de precios de productos incluyendo, precios, promociones y reglas de precios.</value>
-        <value xml:lang="fr">L'autorisation a exigé, en plus d'autres autorisations applicables, de maintenir l'information des prix de produit comprenant des prix, des promotions, et des règles de prix.</value>
+        <value xml:lang="fr">Autorisation exigée, en plus d'autres autorisations applicables, pour mettre à jour l'information sur les prix de produit, comprenant des prix, des promotions, et des règles de prix.</value>
         <value xml:lang="it">Permesso richiesto, in aggiunya agli altri permessi applicabili, per manutenere le informazioni sui prezzi prodotti, promozioni, e regole prezzi.</value>
         <value xml:lang="ru">Дополнительные права для редактирования ценовой информации, включая цены, акции и правила ценообразования.</value>
         <value xml:lang="th">ต้องการการอนุญาต, ในการเพิ่มถึงการอนุญาตการปฏิบัติอื่น ๆ, ถึงการรักษาราคาสินค้าข้อมูลการรวมราคา,โปรโมชัน,และข้อบังคับราคา</value>
@@ -391,7 +391,7 @@
     <property key="SecurityPermission.description.CONTENTMGR_CREATE">
         <value xml:lang="en">Create operations in the Content Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Contenido.</value>
-        <value xml:lang="fr">Opérations créees en gestion de catalogue.</value>
+        <value xml:lang="fr">Création d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione contenuti.</value>
         <value xml:lang="ru">Операции создания в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การสร้างการทำงานในการจัดการหัวข้อ</value>
@@ -399,7 +399,7 @@
     <property key="SecurityPermission.description.CONTENTMGR_DELETE">
         <value xml:lang="en">Delete operations in the Content Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Contenido.</value>
-        <value xml:lang="fr">Opérations de suppression en gestion de catalogue.</value>
+        <value xml:lang="fr">Suppression d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione contenuti.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การลบการทำงานในการจัดการหัวข้อ</value>
@@ -407,7 +407,7 @@
     <property key="SecurityPermission.description.CONTENTMGR_UPDATE">
         <value xml:lang="en">Update operations in the Content Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Contenido.</value>
-        <value xml:lang="fr">Opérations de mise à jour en gestion de catalogue.</value>
+        <value xml:lang="fr">Mise à jour d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione contenuti.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการหัวข้อ</value>
@@ -415,7 +415,7 @@
     <property key="SecurityPermission.description.CONTENTMGR_VIEW">
         <value xml:lang="en">View operations in the Content Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Contenido.</value>
-        <value xml:lang="fr">Opérations de visualisation en gestion de catalogue.</value>
+        <value xml:lang="fr">Visualisation d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione contenuti.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการหัวข้อ</value>
@@ -431,7 +431,7 @@
     <property key="SecurityPermission.description.ENTITY_DATA_ADMIN">
         <value xml:lang="en">ALL with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">TODO dentro de las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">TOUT avec les pages de maintenance de l'entité de données.</value>
+        <value xml:lang="fr">TOUT avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Tutte le pagine nella gestione dei dati entità.</value>
         <value xml:lang="ru">Все права для страниц Обслуживание файлов данных.</value>
         <value xml:lang="th">ทั้งหมดด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
@@ -439,7 +439,7 @@
     <property key="SecurityPermission.description.ENTITY_DATA_CREATE">
         <value xml:lang="en">Create with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">Creación con las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">Créer avec les pages de maintenance de données de l'entité.</value>
+        <value xml:lang="fr">Créer avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per creare dati entità.</value>
         <value xml:lang="ru">Создание для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">สร้างด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
@@ -447,7 +447,7 @@
     <property key="SecurityPermission.description.ENTITY_DATA_DELETE">
         <value xml:lang="en">Delete with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">Eliminación con las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">Supprimer avec les pages de maintenance de données de l'entité.</value>
+        <value xml:lang="fr">Supprimer avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per eliminare dati entità.</value>
         <value xml:lang="ru">Удаление для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">ลบด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
@@ -455,7 +455,7 @@
     <property key="SecurityPermission.description.ENTITY_DATA_UPDATE">
         <value xml:lang="en">Update with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">Actualización con las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">Mettre à jour avec les pages de maintenance de données de l'entité.</value>
+        <value xml:lang="fr">Mettre à jour avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per aggiornare dati entità.</value>
         <value xml:lang="ru">Обновление для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">อัพเดทด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
@@ -463,7 +463,7 @@
     <property key="SecurityPermission.description.ENTITY_DATA_VIEW">
         <value xml:lang="en">View with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">Visualización con las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">Visualiser avec les pages de maintenance de données de l'entité.</value>
+        <value xml:lang="fr">Visualiser avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per visualizzare dati entità.</value>
         <value xml:lang="ru">Просмотр для страниц  Обслуживание данных сущностей.</value>
         <value xml:lang="th">แสดงด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
@@ -471,7 +471,7 @@
     <property key="SecurityPermission.description.ENTITY_MAINT">
         <value xml:lang="en">Use the Entity Maintenance pages.</value>
         <value xml:lang="es">Usar las páginas de Mantenimiento de Datos de Entidad.</value>
-        <value xml:lang="fr">Utiliser avec les pages de maintenance de l'entité.</value>
+        <value xml:lang="fr">Utiliser les pages de maintenance d'entité.</value>
         <value xml:lang="it">Pagine per gestire le entità.</value>
         <value xml:lang="ru">Использование страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพเอนทิตี</value>
@@ -487,7 +487,7 @@
     <property key="SecurityPermission.description.FACILITY_ADMIN">
         <value xml:lang="en">ALL operations in the Facility Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">TOUTES opérations en gestion de service.</value>
+        <value xml:lang="fr">TOUTES opérations en gestion d'entreposage.</value>
         <value xml:lang="it">Tutte le pagine nella gestione stabilimenti.</value>
         <value xml:lang="ru">Все операции в приложении Управление объектами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการคลังสินค้า</value>
@@ -495,7 +495,7 @@
     <property key="SecurityPermission.description.FACILITY_CREATE">
         <value xml:lang="en">Create operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Créer les opérations en gestion de service.</value>
+        <value xml:lang="fr">Opérations de création en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции создания в приложении Управление объектами.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการคลังสินค้า</value>
@@ -503,7 +503,7 @@
     <property key="SecurityPermission.description.FACILITY_DELETE">
         <value xml:lang="en">Delete operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Supprimer les opérations en gestion de service.</value>
+        <value xml:lang="fr">Opérations de suppression en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление объектами.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการคลังสินค้า</value>
@@ -511,7 +511,7 @@
     <property key="SecurityPermission.description.FACILITY_ROLE_UPDATE">
         <value xml:lang="en">Limited update operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Opérations de mise à jour limitée en gestion de service.</value>
+        <value xml:lang="fr">Opérations de mise à jour limitée en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di aggiornamento limitate nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции ограниченного обновления в приложении Управление объектами.</value>
         <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการคลังสินค้า</value>
@@ -519,7 +519,7 @@
     <property key="SecurityPermission.description.FACILITY_ROLE_VIEW">
         <value xml:lang="en">Limited view operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Visualización Limitada en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Opérations de visualisation limitée en gestion de service.</value>
+        <value xml:lang="fr">Opérations de visualisation limitée en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di visualizzazione limitate nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции ограниченного просмотра в Управление объектами.</value>
         <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการคลังสินค้า</value>
@@ -527,7 +527,7 @@
     <property key="SecurityPermission.description.FACILITY_UPDATE">
         <value xml:lang="en">Update operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Opérations d'actualisation en gestion de service.</value>
+        <value xml:lang="fr">Opérations d'actualisation en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление объектами.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการคลังสินค้า</value>
@@ -535,7 +535,7 @@
     <property key="SecurityPermission.description.FACILITY_VIEW">
         <value xml:lang="en">View operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Establecimientos.</value>
-        <value xml:lang="fr">Opérations de visualisation en gestion de service.</value>
+        <value xml:lang="fr">Opérations de visualisation en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление объектами.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการคลังสินค้า</value>
@@ -647,7 +647,7 @@
     <property key="SecurityPermission.description.OFBTOOLS_VIEW">
         <value xml:lang="en">Permission to access the Stock OFBiz Manager Applications.</value>
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
-        <value xml:lang="fr">Autorisation d'accéder aux applications de gestion de stock OFBiz.</value>
+        <value xml:lang="fr">Autorisation d'accéder aux applications de gestion d'OFBiz existant par défaut.</value>
         <value xml:lang="it">Permesso per accedere alle applicazione di gestione strumenti OFBiz.</value>
         <value xml:lang="ru">Права доступа к меню Инструменты.</value>
         <value xml:lang="th">Permission to access the Stock OFBiz Manager Applications.</value>
@@ -679,7 +679,7 @@
     <property key="SecurityPermission.description.ORDERMGR_CREATE">
         <value xml:lang="en">Create operations in the Order Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Créer les opérations en gestion de commandes</value>
+        <value xml:lang="fr">Opérations de création en gestion de commandes</value>
         <value xml:lang="it">Operazioni di creazione nella gestione ordini.</value>
         <value xml:lang="ru">Операции создания в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -695,7 +695,7 @@
     <property key="SecurityPermission.description.ORDERMGR_DELETE">
         <value xml:lang="en">Delete operations in the Order Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Supprimer les opérations en gestion de commandes</value>
+        <value xml:lang="fr">Opérations de suppression en gestion de commandes</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione ordini.</value>
         <value xml:lang="ru">Операции удаления  в приложении Управление заказами.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -719,7 +719,7 @@
     <property key="SecurityPermission.description.ORDERMGR_PURCHASE_ENTRY">
         <value xml:lang="en">Purchase Order Entry in the Order Manager.</value>
         <value xml:lang="es">Entrada de Órdenes de Compra en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Entrée de commande d'achat en gestion de commandes</value>
+        <value xml:lang="fr">Saisie de commande d'achat en gestion de commandes</value>
         <value xml:lang="it">Operazioni di inserimento ordini di acquisto nella gestione ordini.</value>
         <value xml:lang="ru">Ввод закупочного заказа в приложении Управление заказами.</value>
         <value xml:lang="th">การเข้าสู่รายการสั่งซื้อในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -735,7 +735,7 @@
     <property key="SecurityPermission.description.ORDERMGR_QUOTE_PRICE">
         <value xml:lang="en">Quote price manager in the Order Manager.</value>
         <value xml:lang="es">Administrar de precios de Cotizaciones en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Gestion de taux de prix en gestion de commandes</value>
+        <value xml:lang="fr">Gestion des prix des devis en gestion de commandes</value>
         <value xml:lang="it">Gestione prezzi preventivi nella gestione ordini.</value>
         <value xml:lang="ru">Менеджер ценовых предложений в приложении Управление заказами.</value>
         <value xml:lang="th">การจัดการการแจ้งราคาในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -783,7 +783,7 @@
     <property key="SecurityPermission.description.ORDERMGR_SALES_CREATE">
         <value xml:lang="en">Create sales orders for all stores in the Order Manager.</value>
         <value xml:lang="es">Crear órdenes de venta para todas las tiendas en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Créer des commandes de soldes pour tous les magasins en gestion de commandes</value>
+        <value xml:lang="fr">Créer des commandes de vente pour tous les centres de profit en gestion de commandes</value>
         <value xml:lang="it">Creazionei ordini di vendita per tutti i negozi nella gestione ordini.</value>
         <value xml:lang="ru">Создание сбытовых заказов для всех торговых точек в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างรายการขายสำหรับคลังทั้งหมดในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -791,7 +791,7 @@
     <property key="SecurityPermission.description.ORDERMGR_SALES_ENTRY">
         <value xml:lang="en">Sales Order Entry in the Order Manager.</value>
         <value xml:lang="es">Entrada de Órdenes de Venta en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Entrée de commande de soldes en gestion de commandes</value>
+        <value xml:lang="fr">Saisie de commande de vente en gestion de commandes</value>
         <value xml:lang="it">Inserimento ordini di vendita nella gestione ordini.</value>
         <value xml:lang="ru">Ввод сбытьвого заказа в приложении Управление заказами.</value>
         <value xml:lang="th">การเข้าสู่รายการขายในการจัดการรายการสั่งซื้อสินค้า</value>
@@ -799,7 +799,7 @@
     <property key="SecurityPermission.description.ORDERMGR_SALES_PRICEMOD">
         <value xml:lang="en">Price change permission for sales orders.</value>
         <value xml:lang="es">Permisos de cambio de precios para órdenes de venta.</value>
-        <value xml:lang="fr">Autorisation de changer le prix pour des commandes de soldes</value>
+        <value xml:lang="fr">Autorisation de changer le prix pour des commandes de vente</value>
         <value xml:lang="it">Permesso di cambio prezzo per ordini di vendita.</value>
         <value xml:lang="ru">Права на изменение цены в сбытовых заказах.</value>
         <value xml:lang="th">การอนุญาตการเปลี่ยนแปลงราคาสำหรับรายการขาย</value>
@@ -831,7 +831,7 @@
     <property key="SecurityPermission.description.PARTYMGR_ADMIN">
         <value xml:lang="en">ALL operations in the Party Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">TOUTES les opérations en gestion d'acteur</value>
+        <value xml:lang="fr">TOUTES les opérations en gestion d'acteurs</value>
         <value xml:lang="it">Tutte le operazioni nella gestione soggetti.</value>
         <value xml:lang="ru">Все операции в приложении Управление участниками</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการกลุ่มผู้ใช้</value>
@@ -863,7 +863,7 @@
     <property key="SecurityPermission.description.PARTYMGR_CREATE">
         <value xml:lang="en">Create operations in the Party Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer des opérations en gestion d'acteur</value>
+        <value xml:lang="fr">Opérations de création en gestion d'acteurs</value>
         <value xml:lang="it">Operazioni di creazione nella gestione soggetti.</value>
         <value xml:lang="ru">Операции создания в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการกลุ่มผู้ใช้</value>
@@ -871,7 +871,7 @@
     <property key="SecurityPermission.description.PARTYMGR_DELETE">
         <value xml:lang="en">Delete operations in the Party Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Supprimer des opérations en gestion d'acteur</value>
+        <value xml:lang="fr">Opérations de suppression en gestion d'acteurs</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione soggetti.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление участниками.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการกลุ่มผู้ใช้</value>
@@ -879,7 +879,7 @@
     <property key="SecurityPermission.description.PARTYMGR_GRP_UPDATE">
         <value xml:lang="en">Update PartyGroup or Person detail information.</value>
         <value xml:lang="es">Actualizar información detallada de Grupo de Entidad o Persona.</value>
-        <value xml:lang="fr">Mettre à jour l'information détaillée des groupes d'acteurs ou de personne</value>
+        <value xml:lang="fr">Mettre à jour l'information détaillée des groupes d'acteurs ou de personnes</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione soggetti.</value>
         <value xml:lang="ru">Обновление подробной информации о групповом участнике и персоне.</value>
         <value xml:lang="th">อัพเดทกลุ่มผู้ใช้หรือข้อมูลรายละเอียดบุคคล</value>
@@ -887,7 +887,7 @@
     <property key="SecurityPermission.description.PARTYMGR_NOTE">
         <value xml:lang="en">Create notes in the Party Manager.</value>
         <value xml:lang="es">Crear notas en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer les notes en gestion d'acteur</value>
+        <value xml:lang="fr">Créer les notes en gestion d'acteurs</value>
         <value xml:lang="it">Creare note nella gestione soggetti.</value>
         <value xml:lang="ru">Создание примечаний в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างขัอความในการจัดการกลุ่มผู้ใช้</value>
@@ -895,7 +895,7 @@
     <property key="SecurityPermission.description.PARTYMGR_PCM_CREATE">
         <value xml:lang="en">Create party contact mechs in the Party Manager.</value>
         <value xml:lang="es">Crear mecanismos de contacto en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer des mécanismes de contact d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Créer des coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Creare contatti nella gestione soggetti.</value>
         <value xml:lang="ru">Создание контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -903,7 +903,7 @@
     <property key="SecurityPermission.description.PARTYMGR_PCM_DELETE">
         <value xml:lang="en">Delete party contact mechs in the Party Manager.</value>
         <value xml:lang="es">Eliminar mecanismos de contacto en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Supprimer des mécanismes de contact d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Supprimer des coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare contatti nella gestione soggetti.</value>
         <value xml:lang="ru">Удаление контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">ลบวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -911,7 +911,7 @@
     <property key="SecurityPermission.description.PARTYMGR_PCM_UPDATE">
         <value xml:lang="en">Update party contact mechs in the Party Manager.</value>
         <value xml:lang="es">Actualizar mecanismos de contacto en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Mise en jour des mécanismes de contact d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Mise en jour de coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare contatti nella gestione soggetti.</value>
         <value xml:lang="ru">Обновление контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -919,7 +919,7 @@
     <property key="SecurityPermission.description.PARTYMGR_QAL_CREATE">
         <value xml:lang="en">Create party quals in the Party Manager.</value>
         <value xml:lang="es">Crear calificaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer des qualifications d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Créer des qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Creare qualificazione soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Создание свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
@@ -927,7 +927,7 @@
     <property key="SecurityPermission.description.PARTYMGR_QAL_DELETE">
         <value xml:lang="en">Delete party quals in the Party Manager.</value>
         <value xml:lang="es">Eliminar calificaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Supprimer des qualifications d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Supprimer des qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Eliminare qualificazione soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Удаление свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">ลบกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
@@ -935,7 +935,7 @@
     <property key="SecurityPermission.description.PARTYMGR_QAL_UPDATE">
         <value xml:lang="en">Update party quals in the Party Manager.</value>
         <value xml:lang="es">Actualizar calificaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Mise en jour des qualifications d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Mise en jour de qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare qualificazione soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Обновление свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
@@ -943,7 +943,7 @@
     <property key="SecurityPermission.description.PARTYMGR_REL_CREATE">
         <value xml:lang="en">Create party relationships in the Party Manager.</value>
         <value xml:lang="es">Crear relaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer des relations d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Créer des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Creare rapporti soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Создание отношений в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -951,7 +951,7 @@
     <property key="SecurityPermission.description.PARTYMGR_REL_DELETE">
         <value xml:lang="en">Delete party relationships in the Party Manager.</value>
         <value xml:lang="es">Eliminar relaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Supprimer des relations d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Supprimer des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare rapporti soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Удаление отношений в приложении Управление участниками.</value>
         <value xml:lang="th">ลบความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -959,7 +959,7 @@
     <property key="SecurityPermission.description.PARTYMGR_REL_UPDATE">
         <value xml:lang="en">Update party relationships in the Party Manager.</value>
         <value xml:lang="es">Actualizar relaciones en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Mettre à jour des qualifications d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Mettre à jour des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare rapporti soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Обновление отношений в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -967,7 +967,7 @@
     <property key="SecurityPermission.description.PARTYMGR_ROLE_CREATE">
         <value xml:lang="en">Create party roles in the Party Manager.</value>
         <value xml:lang="es">Crear roles en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Créer des rôles d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Créer des rôles d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Creare ruoli soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Создание ролей в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -975,7 +975,7 @@
     <property key="SecurityPermission.description.PARTYMGR_ROLE_DELETE">
         <value xml:lang="en">Delete party roles in the Party Manager.</value>
         <value xml:lang="es">Eliminar roles en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Supprimer des rôles d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Supprimer des rôles d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare ruoli soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Удаление ролей в приложении Управление участниками.</value>
         <value xml:lang="th">ลบสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -983,7 +983,7 @@
     <property key="SecurityPermission.description.PARTYMGR_SRC_CREATE">
         <value xml:lang="en">Create party to data source relations.</value>
         <value xml:lang="es">Crear relaciones de orígen entidad a dato.</value>
-        <value xml:lang="fr">Créer des relations de la source de données à l'acteur</value>
+        <value xml:lang="fr">Créer des relations de source de données à acteur</value>
         <value xml:lang="it">Creare rapporti sorgenti dati soggetti.</value>
         <value xml:lang="ru">Создание отношений участника и источника данных.</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้ถึงความสัมพันธ์ของแหล่งข้อมูล</value>
@@ -991,7 +991,7 @@
     <property key="SecurityPermission.description.PARTYMGR_STS_UPDATE">
         <value xml:lang="en">Update party status in the Party Manager.</value>
         <value xml:lang="es">Actualizar estados en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Mettre à jour des statuts d'acteur en gestion d'acteur</value>
+        <value xml:lang="fr">Mettre à jour des statuts d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare stato soggetti nella gestione soggetti.</value>
         <value xml:lang="ru">Обновление статуса участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
@@ -999,7 +999,7 @@
     <property key="SecurityPermission.description.PARTYMGR_UPDATE">
         <value xml:lang="en">Update operations in the Party Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Mettre à jour des opérations en gestion d'acteur</value>
+        <value xml:lang="fr">Opérations de mise à jour des en gestion d'acteurs</value>
         <value xml:lang="it">Operazione di aggiornamento nella gestione soggetti.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการกลุ่มผู้ใช้</value>
@@ -1007,7 +1007,7 @@
     <property key="SecurityPermission.description.PARTYMGR_VIEW">
         <value xml:lang="en">View operations in the Party Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Entidades.</value>
-        <value xml:lang="fr">Visualiser des opérations en gestion d'acteur</value>
+        <value xml:lang="fr">Opérations de visualisation en gestion d'acteurs</value>
         <value xml:lang="it">Operazione di visualizzazione nella gestione soggetti.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление участниками.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการกลุ่มผู้ใช้</value>
@@ -1023,7 +1023,7 @@
     <property key="SecurityPermission.description.PAYPROC_CREATE">
         <value xml:lang="en">Create operations in the Payment Processors Setup.</value>
         <value xml:lang="es">Operaciones de Creación en el Procesador de Pagos.</value>
-        <value xml:lang="fr">Créer les opérations dans l'organisation des processeurs de paiement</value>
+        <value xml:lang="fr">Opérations de création l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di creazione nella configurazione processori pagamenti.</value>
         <value xml:lang="ru">Операции создания в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">สร้างการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
@@ -1031,7 +1031,7 @@
     <property key="SecurityPermission.description.PAYPROC_DELETE">
         <value xml:lang="en">Delete operations in the Payment Processors Setup.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Procesador de Pagos.</value>
-        <value xml:lang="fr">Supprimer les opérations dans l'organisation des processeurs de paiement</value>
+        <value xml:lang="fr">Opérations de suppression dans l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di cancellazione nella configurazione processori pagamenti.</value>
         <value xml:lang="ru">Операции удаления в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">ลบการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
@@ -1039,7 +1039,7 @@
     <property key="SecurityPermission.description.PAYPROC_VIEW">
         <value xml:lang="en">View operations in the Payment Processors Setup.</value>
         <value xml:lang="es">Operaciones de Visualización en el Procesador de Pagos.</value>
-        <value xml:lang="fr">Visualiser les opérations dans l'organisation des processeurs de paiement</value>
+        <value xml:lang="fr">Opérations de visualisation dans l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di visualizzazione nella configurazione processori pagamenti.</value>
         <value xml:lang="ru">Операции просмотра в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">แสดงการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
@@ -1087,7 +1087,7 @@
     <property key="SecurityPermission.description.PERIOD_MAINT">
         <value xml:lang="en">Use the Period Maintenance pages.</value>
         <value xml:lang="es">Usar las páginas de Mantenimiento de Períodos.</value>
-        <value xml:lang="fr">Utiliser les pages d'entretien de période</value>
+        <value xml:lang="fr">Utiliser les pages de gestion des périodes de temps</value>
         <value xml:lang="it">Usare le pagine di manutenzione periodi.</value>
         <value xml:lang="ru">Использование страниц Обслуживание периода.</value>
         <value xml:lang="th">ใช้หน้าการรักษาช่วงเวลา</value>
@@ -1103,7 +1103,7 @@
     <property key="SecurityPermission.description.SECURITY_CREATE">
         <value xml:lang="en">Create operations in the Security Management Screens.</value>
         <value xml:lang="es">Operaciones de Creación en las pantallas de Administración de Seguridad.</value>
-        <value xml:lang="fr">Créer les opérations dans les écrans de gestion de sécurité</value>
+        <value xml:lang="fr">Opérations de création les dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di creazione nella gestione della sicurezza.</value>
         <value xml:lang="ru">Операции создания в приложении Управление безопасностью.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการความปลอดภัย</value>
@@ -1111,7 +1111,7 @@
     <property key="SecurityPermission.description.SECURITY_DELETE">
         <value xml:lang="en">Delete operations in the Security Management Screens.</value>
         <value xml:lang="es">Operaciones de Eliminación en las pantallas de Administración de Seguridad.</value>
-        <value xml:lang="fr">Supprimer les opérations dans les écrans de gestion de sécurité</value>
+        <value xml:lang="fr">Opérations de suppression dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione della sicurezza.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление безопасностью.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการความปลอดภัย</value>
@@ -1119,7 +1119,7 @@
     <property key="SecurityPermission.description.SECURITY_UPDATE">
         <value xml:lang="en">Update operations in the Security Management Screens.</value>
         <value xml:lang="es">Operaciones de Actualización en las pantallas de Administración de Seguridad.</value>
-        <value xml:lang="fr">Mettre à jour les opérations dans les écrans de gestion de sécurité</value>
+        <value xml:lang="fr">Opérations de mise à jour dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione della sicurezza.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление безопасностью.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการความปลอดภัย</value>
@@ -1127,7 +1127,7 @@
     <property key="SecurityPermission.description.SECURITY_VIEW">
         <value xml:lang="en">View operations in the Security Management Screens.</value>
         <value xml:lang="es">Operaciones de Visualización en las pantallas de Administración de Seguridad.</value>
-        <value xml:lang="fr">Visualiser les opérations dans les écrans de gestion de sécurité</value>
+        <value xml:lang="fr">Opérations de visualisation dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione della sicurezza.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление безопасностью.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการความปลอดภัย</value>
@@ -1143,7 +1143,7 @@
     <property key="SecurityPermission.description.SERVER_STATS_VIEW">
         <value xml:lang="en">View the Server Statistics pages.</value>
         <value xml:lang="es">Ver las páginas de Estadísticas del Servidor.</value>
-        <value xml:lang="fr">Visualiser les opérations dans les écrans de gestion de sécurité</value>
+        <value xml:lang="fr">Visualiser les pages de statistiques du serveur</value>
         <value xml:lang="it">Mostra pagine statistiche server.</value>
         <value xml:lang="ru">Просмотр статистики по работе сервера.</value>
         <value xml:lang="th">แสดงหน้าจอสถิติผู้ให้บริการ</value>
@@ -1159,7 +1159,7 @@
     <property key="SecurityPermission.description.SERVICE_MAINT">
         <value xml:lang="en">Use the Service Maintenance pages.</value>
         <value xml:lang="es">Usar las páginas de Mantenimiento de Servicios.</value>
-        <value xml:lang="fr">Utiliser les pages du service d'entretien.</value>
+        <value xml:lang="fr">Utiliser les pages du service de maintenance.</value>
         <value xml:lang="it">Usare le pagine di manutenzione servizi.</value>
         <value xml:lang="ru">Использование страниц приложения Обслуживание служб.</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพการบริการ</value>
@@ -1175,7 +1175,7 @@
     <property key="SecurityPermission.description.SHIPRATE_CREATE">
         <value xml:lang="en">Create operations in the Shipping Rate Editor.</value>
         <value xml:lang="es">Operaciones de Creación en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Créer les opérations dans l'éditeur de taux d'expédition.</value>
+        <value xml:lang="fr">Opérations de création dans l'éditeur de taux d'expédition.</value>
         <value xml:lang="it">Operazioni di creazione nelle percentuali di spedizione.</value>
         <value xml:lang="ru">Операции создания в Редакторе рейтинга поставки.</value>
         <value xml:lang="th">สร้างการทำงานในการแก้ไขอัตราการขนส่ง</value>
@@ -1183,7 +1183,7 @@
     <property key="SecurityPermission.description.SHIPRATE_DELETE">
         <value xml:lang="en">Delete operations in the Shipping Rate Editor.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Supprimer les opérations dans l'éditeur de taux d'expédition.</value>
+        <value xml:lang="fr">Opérations de suppression dans l'éditeur de taux d'expédition.</value>
         <value xml:lang="it">Operazioni di cancellazione nelle percentuali di spedizione.</value>
         <value xml:lang="ru">Операции удаления в Редакторе рейтинга поставки.</value>
         <value xml:lang="th">ลบการทำงานในการแก้ไขอัตราการขนส่ง</value>
@@ -1191,7 +1191,7 @@
     <property key="SecurityPermission.description.SHIPRATE_VIEW">
         <value xml:lang="en">View operations in the Shipping Rate Editor.</value>
         <value xml:lang="es">Operaciones de Visualización en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Visualiser les opérations dans l'éditeur de taux d'expédition.</value>
+        <value xml:lang="fr">Opérations de visualisation dans l'éditeur de taux d'expédition.</value>
         <value xml:lang="it">Operazioni di visualizzazione nelle percentuali di spedizione.</value>
         <value xml:lang="ru">Операции просмотра в Редакторе рейтинга поставки.</value>
         <value xml:lang="th">แสดงการทำงานในการแก้ไขอัตราการขนส่ง</value>
@@ -1207,7 +1207,7 @@
     <property key="SecurityPermission.description.TAXRATE_CREATE">
         <value xml:lang="en">Create operations in the Tax Rate Editor.</value>
         <value xml:lang="es">Operaciones de Creación el Editor de Tasas Impositivas.</value>
-        <value xml:lang="fr">Créer les opérations dans l'éditeur de taux de taxe.</value>
+        <value xml:lang="fr">Opérations de création dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di creazione nelle percentuali delle tasse.</value>
         <value xml:lang="ru">Операции создания в Редакторе налоговых ставок.</value>
         <value xml:lang="th">สร้างการทำงานในการแก้ไขอัตราภาษี</value>
@@ -1215,7 +1215,7 @@
     <property key="SecurityPermission.description.TAXRATE_DELETE">
         <value xml:lang="en">Delete operations in the Tax Rate Editor.</value>
         <value xml:lang="es">Operaciones de Eliminación el Editor de Tasas Impositivas.</value>
-        <value xml:lang="fr">Supprimer les opérations dans l'éditeur de taux de taxe.</value>
+        <value xml:lang="fr">Opérations de suppression dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di cancellazione nelle percentuali delle tasse.</value>
         <value xml:lang="ru">Операции удаления в Редакторе налоговых ставок.</value>
         <value xml:lang="th">ลบการทำงานในการแก้ไขอัตราภาษี</value>
@@ -1223,7 +1223,7 @@
     <property key="SecurityPermission.description.TAXRATE_VIEW">
         <value xml:lang="en">View operations in the Tax Rate Editor.</value>
         <value xml:lang="es">Operaciones de Visualización el Editor de Tasas Impositivas.</value>
-        <value xml:lang="fr">Visualiser les opérations dans l'éditeur de taux de taxe.</value>
+        <value xml:lang="fr">Opérations de visualisation dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di visualizzazione nelle percentuali delle tasse.</value>
         <value xml:lang="ru">Операции просмотра в Редакторе налоговых ставок.</value>
         <value xml:lang="th">แสดงการทำงานในการแก้ไขอัตราภาษี</value>
@@ -1231,7 +1231,7 @@
     <property key="SecurityPermission.description.UTIL_CACHE_EDIT">
         <value xml:lang="en">Edit a UtilCache instance.</value>
         <value xml:lang="es">Editar una instancia de UtilCache.</value>
-        <value xml:lang="fr">Modifier une instance de UtilCache.</value>
+        <value xml:lang="fr">Modifier une instance de cache.</value>
         <value xml:lang="it">Aggiornare una instanza della cache.</value>
         <value xml:lang="ru">Изменение экземпляра UtilCache.</value>
         <value xml:lang="th">Edit a UtilCache instance.</value>
@@ -1239,7 +1239,7 @@
     <property key="SecurityPermission.description.UTIL_CACHE_VIEW">
         <value xml:lang="en">View a UtilCache instance.</value>
         <value xml:lang="es">Ver una instancia de UtilCache.</value>
-        <value xml:lang="fr">Visualiser une instance de UtilCache.</value>
+        <value xml:lang="fr">Visualiser une instance de cache.</value>
         <value xml:lang="it">Visualizzare una instanza della cache.</value>
         <value xml:lang="ru">Просмотр экземпляра UtilCache.</value>
         <value xml:lang="th">View a UtilCache instance.</value>
@@ -1247,7 +1247,7 @@
     <property key="SecurityPermission.description.UTIL_DEBUG_EDIT">
         <value xml:lang="en">Edit a UtilDebug instance.</value>
         <value xml:lang="es">Editar una instancia de UtilDebug</value>
-        <value xml:lang="fr">Modifier une instance de UtilDebug.</value>
+        <value xml:lang="fr">Modifier une instance de débogage.</value>
         <value xml:lang="it">Aggiornare una instanza di debug.</value>
         <value xml:lang="ru">Изменение экземпляра UtilDebug.</value>
         <value xml:lang="th">Edit a UtilDebug instance.</value>
@@ -1255,7 +1255,7 @@
     <property key="SecurityPermission.description.UTIL_DEBUG_VIEW">
         <value xml:lang="en">View a UtilDebug instance.</value>
         <value xml:lang="es">Ver una instancia de UtilDebug</value>
-        <value xml:lang="fr">Visualiser une instance de UtilDebug.</value>
+        <value xml:lang="fr">Visualiser une instance de débogage.</value>
         <value xml:lang="it">Visualizzzare una instanza di debug.</value>
         <value xml:lang="ru">Просмотр экземпляра UtilDebug.</value>
         <value xml:lang="th">View a UtilDebug instance.</value>
@@ -1263,7 +1263,7 @@
     <property key="SecurityPermission.description.WEBTOOLS_VIEW">
         <value xml:lang="en">Permission to access the WebTools Menu.</value>
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
-        <value xml:lang="fr">Autorisation pour accèder au menu Webtools.</value>
+        <value xml:lang="fr">Autorisation pour accèder au menu Adm. Sys.</value>
         <value xml:lang="it">Permessi di accedere ai menu strumenti web.</value>
         <value xml:lang="ru">Права на доступ к меню Инструменты.</value>
         <value xml:lang="th">การอนุญาตถึงสิทธ์ในการเข้าเมนูเว็บทูล</value>
@@ -1271,7 +1271,7 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_ADMIN">
         <value xml:lang="en">ALL operations in the Work Effort Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Esfuerzos de Trabajo.</value>
-        <value xml:lang="fr">TOUTES opérations en gestion d'effort de travail.</value>
+        <value xml:lang="fr">TOUTES opérations en gestion de tâche.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Все операции в приложении Организатор.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการความพยายามในการทำงาน</value>
@@ -1279,7 +1279,7 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_CREATE">
         <value xml:lang="en">Create operations in the Work Effort Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Esfuerzos de Trabajo.</value>
-        <value xml:lang="fr">Créer les opérations en gestion d'effort de travail.</value>
+        <value xml:lang="fr">Opérations de création en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Операции создания в приложении Организатор.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการความพยายามในการทำงาน</value>
@@ -1287,7 +1287,7 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_DELETE">
         <value xml:lang="en">Delete operations in the Work Effort Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Esfuerzos de Trabajo.</value>
-        <value xml:lang="fr">Supprimer les opérations en gestion d'effort de travail.</value>
+        <value xml:lang="fr">Opérations de suppression en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Операции удаления в приложении Организатор.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการความพยายามในการทำงาน</value>
@@ -1295,7 +1295,7 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_UPDATE">
         <value xml:lang="en">Update operations in the Work Effort Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Esfuerzos de Trabajo.</value>
-        <value xml:lang="fr">Mettre à jour les opérations en gestion d'effort de travail.</value>
+        <value xml:lang="fr">Opérations de mise à jour en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Операции обновления в приложении Организатор.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการความพยายามในการทำงาน</value>
@@ -1303,7 +1303,7 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_VIEW">
         <value xml:lang="en">View operations in the Work Effort Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Esfuerzos de Trabajo.</value>
-        <value xml:lang="fr">Visualiser les opérations en gestion d'effort de travail.</value>
+        <value xml:lang="fr">Opérations de visualisation en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Операции просмотра в приложении Организатор.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการความพยายามในการทำงาน</value>
@@ -1311,7 +1311,7 @@
     <property key="SecurityPermission.description.WORKFLOW_MAINT">
         <value xml:lang="en">Use the Workflow Maintenance pages.</value>
         <value xml:lang="es">Usar las páginas de Mantenimiento de Flujo de Trabajo.</value>
-        <value xml:lang="fr">Utiliser les pages d'entretien de flux de travail.</value>
+        <value xml:lang="fr">Utiliser les pages d'entretien du Workflow.</value>
         <value xml:lang="it">Usare le pagine di gestion flussi di lavoro.</value>
         <value xml:lang="ru">Использование приложения Обслуживание процессов(WF).</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพขั้นตอนการทำงาน</value>

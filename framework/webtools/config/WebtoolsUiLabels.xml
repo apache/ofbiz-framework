@@ -319,7 +319,7 @@
     </property>
     <property key="WebtoolsAddCustomTimePeriod">
         <value xml:lang="en">Add Custom Time Period</value>
-        <value xml:lang="fr">Ajouter un exercice comptable</value>
+        <value xml:lang="fr">Ajouter une période de temps</value>
         <value xml:lang="it">Aggiungi Periodi di Tempo Personalizzati</value>
         <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
     </property>
@@ -802,7 +802,7 @@
     </property>
     <property key="WebtoolsEditCustomTimePeriods">
         <value xml:lang="en">Edit Custom Time Periods</value>
-        <value xml:lang="fr">Modifier les exercices comptables</value>
+        <value xml:lang="fr">Modifier les périodes de temps</value>
         <value xml:lang="it">Aggiorna Periodi di Tempo Personalizzati</value>
         <value xml:lang="ro">Actualizeaza Perioadele de Timp Personalizate</value>
         <value xml:lang="th">แก้ไขการกำหนดเวลา</value>
@@ -1796,7 +1796,7 @@
     </property>
     <property key="WebtoolsMessage27">
         <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
-        <value xml:lang="fr">Aucun un exercice comptable sélectionné; la période "fille" ci-dessous n'a aucune période parente.</value>
+        <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
         <value xml:lang="it">Nessun Periodo di Tempo Personalizzati Attuale Selezionato; "Periodi Figli" sotto non hanno Periodo Padre.</value>
         <value xml:lang="th">ไม่มีลูกค้าในช่วงเวลาที่เลือก; "Children" ด้านล่างนี้ไม่มีกลุ่มช่วงเวลา
         </value>
