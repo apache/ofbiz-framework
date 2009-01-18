@@ -4056,7 +4056,7 @@ under the License.
     </entity>
     <extend-entity entity-name="WebSite">
         <field name="productStoreId" type="id"></field>
-        <field name="allowProductStoreChange" type="indicator"></field>
+        <field name="allowProductStoreChange" type="indicator"><description>Allow change of ProductStore for this WebSite (webapp). Defaults to N (no).</description></field>
         <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
