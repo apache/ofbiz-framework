@@ -22,15 +22,19 @@
         <value xml:lang="de">Fehler: </value>
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
+        <value xml:lang="it">Errore: </value>
     </property>
     <property key="check.error.suffix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Suffix error:</value>
+        <value xml:lang="it">Suffisso errore:</value>
     </property>
     <property key="check.message.prefix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Prefix message:</value>
+        <value xml:lang="it">Prefisso messaggio:</value>
     </property>
     <property key="check.message.suffix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Suffix message:</value>
+        <value xml:lang="it">Suffisso messaggio:</value>
     </property>
     <property key="service.default.message">
         <value xml:lang="de">Aktion erfolgreich ausgeführt.</value>
@@ -47,20 +51,26 @@
         <value xml:lang="de">Fehler: </value>
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
+        <value xml:lang="it">Errore: </value>
     </property>
     <property key="service.error.suffix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Suffix error:</value>
+        <value xml:lang="it">Errore suffisso:</value>
     </property>
     <property key="service.message.prefix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Prefix message:</value>
+        <value xml:lang="it">Messaggio prefisso:</value>
     </property>
     <property key="service.message.suffix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Suffix message:</value>
+        <value xml:lang="it">Messaggio suffisso:</value>
     </property>
     <property key="service.success.prefix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Prefix:</value>
+        <value xml:lang="it">Prefisso:</value>
     </property>
     <property key="service.success.suffix">
-        <value xml:lang="en"></value>
+        <value xml:lang="en">Suffix:</value>
+        <value xml:lang="it">Suffisso:</value>
     </property>
 </resource>
