@@ -40,7 +40,8 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="manufacturing" global="true"/>
-                <set field="appheaderTemplate" value="component://manufacturing/webapp/manufacturing/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="ManufacturingAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://manufacturing/widget/manufacturing/Menus.xml" global="true"/> 
                 <set field="applicationTitle" value="${uiLabelMap.ManufacturingManagerApplication}" global="true"/>
             </actions>
             <widgets>

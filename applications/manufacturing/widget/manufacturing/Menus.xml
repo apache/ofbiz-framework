@@ -21,6 +21,64 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
+    <menu name="ManufacturingAppBar" title="${uiLabelMap.AccountingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="jobshop" title="${uiLabelMap.ManufacturingJobShop}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindProductionRun"/>
+        </menu-item>
+        <menu-item name="routing" title="${uiLabelMap.ManufacturingRouting}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindRouting"/>
+        </menu-item>
+        <menu-item name="routingTask" title="${uiLabelMap.ManufacturingRoutingTask}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindRoutingTask"/>
+        </menu-item>
+        <menu-item name="calendar" title="${uiLabelMap.ManufacturingCalendar}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindCalendar"/>
+        </menu-item>
+        <menu-item name="costs" title="${uiLabelMap.ManufacturingCostCalcs}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="EditCostCalcs"/>
+        </menu-item>
+        <menu-item name="bom" title="${uiLabelMap.ManufacturingBillOfMaterials}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindBom"/>
+        </menu-item>
+        <menu-item name="mrp" title="${uiLabelMap.ManufacturingMrp}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="FindInventoryEventPlan"/>
+        </menu-item>
+        <menu-item name="ShipmentPlans" title="${uiLabelMap.ManufacturingShipmentPlans}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="WorkWithShipmentPlans"/>
+        </menu-item>
+        <menu-item name="ManufacturingReports" title="${uiLabelMap.ManufacturingReports}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="ManufacturingReports"/>
+        </menu-item>
+    </menu>
+
+
     <menu name="BomTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="findBom" title="${uiLabelMap.CommonFind}">
             <link target="FindBom"/>
