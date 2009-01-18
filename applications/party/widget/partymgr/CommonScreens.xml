@@ -46,7 +46,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="activeApp" value="partymgr" global="true"/>
-                <set field="appheaderTemplate" value="component://party/webapp/partymgr/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="PartyAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://party/widget/Menus.xml" global="true"/> 
                 <set field="applicationTitle" value="${uiLabelMap.PartyManagerApplication}" global="true"/>
             </actions>
             <widgets>

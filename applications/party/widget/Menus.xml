@@ -21,6 +21,33 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
+    <menu name="PartyAppBar" title="${uiLabelMap.PartyManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}"><link target="findparty"/></menu-item>
+        <menu-item name="create" title="${uiLabelMap.CommonCreate}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
+            <link target="createnew"/>
+        </menu-item>
+        <menu-item name="link" title="${uiLabelMap.PartyLink}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_UPDATE"/>
+            </condition>
+            <link target="linkparty"/>
+        </menu-item>
+        <menu-item name="comm" title="${uiLabelMap.PartyCommunications}"><link target="FindCommunicationEvents"/></menu-item>
+        <menu-item name="visits" title="${uiLabelMap.PartyVisits}"><link target="showvisits"/></menu-item>
+        <menu-item name="classification" title="${uiLabelMap.PartyClassifications}"><link target="showclassgroups"/></menu-item>
+        <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+            </condition>
+            <link target="FindSecurityGroup"/>
+        </menu-item>
+        <menu-item name="addrmap" title="${uiLabelMap.PageTitleAddressMatchMap}"><link target="addressMatchMap"/></menu-item>
+        <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="partyInvitation"/></menu-item>
+    </menu>
+
     <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSecurityGroup" title="${uiLabelMap.PartySecurityGroups}">
