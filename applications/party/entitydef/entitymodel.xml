@@ -1150,6 +1150,7 @@ under the License.
       <field name="stateProvinceGeoId" type="id"></field>
       <field name="countyGeoId" type="id"></field>
       <field name="postalCodeGeoId" type="id"></field>
+      <field name="geoPointId" type="id"></field>
       <prim-key field="contactMechId"/>
       <relation type="one" fk-name="POST_ADDR_CMECH" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
@@ -1165,6 +1166,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
         <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_GEOPT" title="Geo Point" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
       </relation>
       <index name="ADDRESS1_IDX">
         <index-field name="address1"/>
@@ -2638,5 +2642,49 @@ under the License.
       <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
         <key-map field-name="partyId"/>
       </view-link>
+    </view-entity>
+    <entity entity-name="PartyGeoPoint" 
+        package-name="org.ofbiz.party.party" 
+        title="Party Geo Location with history">
+      <field name="partyId" type="id-ne"></field>
+      <field name="geoPointId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="geoPointId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTYGEOPT_PARTY" rel-entity-name="Party">
+          <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTYGEOPT_GEOPT" rel-entity-name="GeoPoint">
+          <key-map field-name="geoPointId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PartyAndGeoPoint"
+        package-name="org.ofbiz.party.party"
+        title="Party and Geo Point View Entity">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="PGPT" entity-name="PartyGeoPoint"/>
+      <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
+      <alias-all entity-alias="GPT"/>    
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PGPT" name="fromDate"/>
+      <alias entity-alias="PGPT" name="thruDate"/>
+      <view-link entity-alias="PTY" rel-entity-alias="PGPT">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PGPT" rel-entity-alias="GPT">
+        <key-map field-name="geoPointId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="PartyGeoPoint">
+        <key-map field-name="partyId"/>
+        <key-map field-name="geoPointId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>
     </view-entity>
 </entitymodel>

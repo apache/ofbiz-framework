@@ -999,6 +999,48 @@ under the License.
         </relation>
     </entity>
 
+    <entity entity-name="FixedAssetGeoPoint" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Geo Location with history">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="geoPointId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="geoPointId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FXDASTGEOPT_FXDAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTGEOPT_GEOPT" rel-entity-name="GeoPoint">
+            <key-map field-name="geoPointId"/>
+        </relation>
+    </entity>
+  
+    <view-entity entity-name="FixedAssetAndGeoPoint" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset and Geo Point View Entity">
+      <member-entity entity-alias="FA" entity-name="FixedAsset"/>
+      <member-entity entity-alias="FAGPT" entity-name="FixedAssetGeoPoint"/>
+      <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
+      <alias-all entity-alias="GPT"/>    
+      <alias entity-alias="FA" name="fixedAssetId"/>
+      <alias entity-alias="FAGPT" name="fromDate"/>
+      <alias entity-alias="FAGPT" name="thruDate"/>
+      <view-link entity-alias="FA" rel-entity-alias="FAGPT">
+        <key-map field-name="fixedAssetId"/>
+      </view-link>
+      <view-link entity-alias="FAGPT" rel-entity-alias="GPT">
+          <key-map field-name="geoPointId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="FixedAssetGeoPoint">
+        <key-map field-name="fixedAssetId"/>
+        <key-map field-name="geoPointId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>
+    </view-entity>  
+  
   <entity entity-name="AccommodationClass" 
     package-name="org.ofbiz.accounting.fixedasset"
     title="Accommodation Class">
