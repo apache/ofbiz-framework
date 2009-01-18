@@ -1828,7 +1828,7 @@
         <value xml:lang="fr">Créer la transaction de vente</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="nl">Maak transatie voor verkoopadministratie</value>
-        <value xml:lang="th">สร้างบัญชีร£ายการขาย</value>
+        <value xml:lang="th">สร้างบัญชีรายการขาย</value>
     </property>
     <property key="AccountingCreditCard">
         <value xml:lang="ar">بطاقة قرض</value>
