@@ -68,13 +68,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
-                        <screenlet title="${uiLabelMap.PageTitleFindInvoice}">
-                            <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
-                            <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
