@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -187,7 +187,7 @@
     </property>
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
-        <value xml:lang="fr">Exemple d'origine</value>
+        <value xml:lang="fr">Exemple original</value>
         <value xml:lang="it">Esempio originale</value>
         <value xml:lang="ru">Оригинальный пример</value>
         <value xml:lang="th">ตัวอย่างเดิม</value>
@@ -219,7 +219,7 @@
         <value xml:lang="th">ยินดีต้อนรับสู่ตัวอย่างโปรแกรม!</value>
         <value xml:lang="zh">欢迎使用样例应用！</value>
     </property>
-    
+
     <!-- Page Titles -->
     <property key="PageTitleFindExample">
         <value xml:lang="en">Find Example</value>
@@ -232,7 +232,7 @@
     </property>
     <property key="PageTitleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
-        <value xml:lang="fr">Exemple Form Widget</value>
+        <value xml:lang="fr">Exemples Form Widget</value>
         <value xml:lang="it">Esempio form widget</value>
         <value xml:lang="th">ตัวอย่าง Widget</value>
     </property>
@@ -299,7 +299,7 @@
         <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
         <value xml:lang="zh">查找样例特征</value>
     </property>
-    
+
     <!-- Form Field Labels -->
     <property key="FormFieldTitle_exampleName">
         <value xml:lang="en">Example Name</value>
@@ -333,7 +333,7 @@
         <value xml:lang="fr">Une autre date</value>
         <value xml:lang="it">Altra Data</value>
         <value xml:lang="th">วันที่อื่น ๆ</value>
-    </property>   
+    </property>
     <property key="FormFieldTitle_anotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="fr">Un autre texte</value>
