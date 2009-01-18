@@ -873,7 +873,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 mimeContext.put("dataResource", dataResource);
                 mimeContext.put("textData", textData);
                 
-                String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, context);
+                String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, mimeContext);
                 out.append(mimeString);
             } else {
                 out.append(textData);
