@@ -31,12 +31,13 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="activeApp" value="assetmaint" global="true"/>
-                <set field="appheaderTemplate" value="component://assetmaint/webapp/assetmaint/includes/appbar.ftl" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AssetMaintCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AssetMaintCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
+                <set field="applicationMenuName" value="AssetMaintAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://assetmaint/widget/Menus.xml" global="true"/> 
                 <set field="applicationTitle" value="${uiLabelMap.AssetMaintApplication}"/>
             </actions>
             <widgets>
