@@ -12543,7 +12543,7 @@
         <value xml:lang="en">New Facility</value>
         <value xml:lang="es">Nuevo almacén</value>
         <value xml:lang="fr">Nouveau lieu de stockage</value>
-        <value xml:lang="it">Nuova Stabilimento</value>
+        <value xml:lang="it">Nuovo stabilimento</value>
         <value xml:lang="ro">Nou Compartiment</value>
         <value xml:lang="ru">Новый объект</value>
         <value xml:lang="th">คลังสินค้าใหม่</value>
@@ -16840,7 +16840,7 @@
         <value xml:lang="en">Search feature type</value>
         <value xml:lang="es">Buscar tipo de característica</value>
         <value xml:lang="fr">Rechercher le type de la caractéristique</value>
-        <value xml:lang="it">Ricerca tipo carattteristica</value>
+        <value xml:lang="it">Ricerca tipo di caratteristica</value>
     </property>
     <property key="ProductSelectableFeatures">
         <value xml:lang="de">Auswählbare Merkmale</value>

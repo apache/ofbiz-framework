@@ -2453,7 +2453,7 @@
         <value xml:lang="en">Find Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
         <value xml:lang="fr">Liste des immobilisations</value>
-        <value xml:lang="it">Lista Cespiti</value>
+        <value xml:lang="it">Lista cespiti</value>
         <value xml:lang="nl">Vind vaste activa</value>
         <value xml:lang="ro">Lista Mijloace Fixe</value>
         <value xml:lang="ru">Список основных средств</value>
@@ -2465,7 +2465,7 @@
         <value xml:lang="en">Find Invoices</value>
         <value xml:lang="es">Encontrar Facturas</value>
         <value xml:lang="fr">Rechercher des factures</value>
-        <value xml:lang="it">Ricerca Fatture</value>
+        <value xml:lang="it">Ricerca fatture</value>
         <value xml:lang="nl">Vind facturen</value>
         <value xml:lang="pt_BR">Procurar Faturas</value>
         <value xml:lang="pt_PT">Procurar Facturas</value>
@@ -2479,7 +2479,7 @@
         <value xml:lang="en">Find Payment</value>
         <value xml:lang="es">Encontrar Pago</value>
         <value xml:lang="fr">Rechercher un paiement</value>
-        <value xml:lang="it">Ricerca Pagamento</value>
+        <value xml:lang="it">Ricerca pagamento</value>
         <value xml:lang="nl">Vind betaling</value>
         <value xml:lang="ro">Cauta Plata</value>
         <value xml:lang="ru">Найти платеж</value>
@@ -2492,7 +2492,7 @@
         <value xml:lang="en">Find Payments</value>
         <value xml:lang="es">Encontrar Pagos</value>
         <value xml:lang="fr">Rechercher des paiements</value>
-        <value xml:lang="it">Ricerca Pagamenti</value>
+        <value xml:lang="it">Ricerca pagamenti</value>
         <value xml:lang="nl">Vind betalingen</value>
         <value xml:lang="ro">Cauta Plati</value>
         <value xml:lang="ru">Поиск платежей</value>
@@ -2742,7 +2742,7 @@
         <value xml:lang="en">Fixed Asset Id</value>
         <value xml:lang="es">Id Activo Fijo</value>
         <value xml:lang="fr">Réf. de l'immobilisation</value>
-        <value xml:lang="it">Codice Cespite</value>
+        <value xml:lang="it">Codice cespite</value>
         <value xml:lang="nl">Vaste activa ID</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="ru">Код ОС</value>
@@ -2837,7 +2837,7 @@
         <value xml:lang="en">Interval Meter Type</value>
         <value xml:lang="es">Intervalo Tipo de Contador</value>
         <value xml:lang="fr">Type d'intervalle de mesure</value>
-        <value xml:lang="it">Tipo Contatore Intervallo</value>
+        <value xml:lang="it">Tipo contatore intervallo</value>
         <value xml:lang="nl">Type intervalmeter</value>
         <value xml:lang="ro">Tip Contor Interval</value>
         <value xml:lang="ru">Ед. изм. интервала</value>
@@ -2850,7 +2850,7 @@
         <value xml:lang="en">Interval Quantity</value>
         <value xml:lang="es">Cantidad de Intervalo</value>
         <value xml:lang="fr">Quantité d'intervalles</value>
-        <value xml:lang="it">Quantità Intervallo</value>
+        <value xml:lang="it">Quantità intervallo</value>
         <value xml:lang="nl">Intervalhoeveelheden</value>
         <value xml:lang="ro">Interval Cantitate</value>
         <value xml:lang="ru">Интервал</value>
@@ -2862,7 +2862,7 @@
         <value xml:lang="en">Interval Uom</value>
         <value xml:lang="es">Intervalo Uom</value>
         <value xml:lang="fr">Unité de l'intervalle</value>
-        <value xml:lang="it">Udm Intervallo</value>
+        <value xml:lang="it">Udm intervallo</value>
         <value xml:lang="nl">Interval UoM</value>
         <value xml:lang="ro">Udm Interval</value>
         <value xml:lang="ru">Ед. изм. интервала</value>
@@ -2952,7 +2952,7 @@
         <value xml:lang="en">Maintenance Type</value>
         <value xml:lang="es">Tipo de mantenimiento</value>
         <value xml:lang="fr">Type de maintenance</value>
-        <value xml:lang="it">Tipo Manutenzione</value>
+        <value xml:lang="it">Tipo manutenzione</value>
         <value xml:lang="nl">Onderhoudtype</value>
         <value xml:lang="ro">Tip Intretinere</value>
         <value xml:lang="ru">Тип обслуживания</value>
@@ -2998,7 +2998,7 @@
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de Activo Fijo</value>
         <value xml:lang="fr">Nom de l'immobilisation</value>
-        <value xml:lang="it">Nome Cespite</value>
+        <value xml:lang="it">Nome cespite</value>
         <value xml:lang="nl">Naam vaste activa</value>
         <value xml:lang="ro">Nume Mijloc Fix</value>
         <value xml:lang="ru">Название ОС</value>
@@ -3189,7 +3189,7 @@
         <value xml:lang="en">Asset Type</value>
         <value xml:lang="es">Tipo de activo</value>
         <value xml:lang="fr">Type d'actif</value>
-        <value xml:lang="it">Tipo Cespite</value>
+        <value xml:lang="it">Tipo cespite</value>
         <value xml:lang="nl">Activatype</value>
         <value xml:lang="ro">Tip Mijloace </value>
         <value xml:lang="ru">Тип активов</value>
@@ -4673,7 +4673,7 @@
         <value xml:lang="en">New Maintenance</value>
         <value xml:lang="es">Nuevo mantenimiento</value>
         <value xml:lang="fr">Créer une maintenance</value>
-        <value xml:lang="it">Nuova Manutenzione</value>
+        <value xml:lang="it">Nuova manutenzione</value>
         <value xml:lang="nl">Nieuw onderhoud</value>
         <value xml:lang="ro">Noua Intretinere</value>
         <value xml:lang="ru">Новый регламент обслуживания</value>
@@ -8448,7 +8448,7 @@
         <value xml:lang="en">Maint Hist Seq Id</value>
         <value xml:lang="es">Id Sec Hist Mant</value>
         <value xml:lang="fr">Séquence historique de maintenance</value>
-        <value xml:lang="it">Sequenza Manutenzione</value>
+        <value xml:lang="it">Sequenza manutenzione</value>
         <value xml:lang="nl">Volgnummer onderhoudhistorie</value>
         <value xml:lang="ro">Secventa Intretinere</value>
         <value xml:lang="ru">Ист. обсл. код</value>
@@ -8622,7 +8622,7 @@
         <value xml:lang="en">Fixed Asset Parent Id</value>
         <value xml:lang="es">Id Padre Activo Fijo</value>
         <value xml:lang="fr">Immobilisation parente</value>
-        <value xml:lang="it">Cespite Padre</value>
+        <value xml:lang="it">Cespite padre</value>
         <value xml:lang="nl">Ouder-ID vaste activa</value>
         <value xml:lang="ro">Mijloc Fix Parinte</value>
         <value xml:lang="ru">Родительский код ОС</value>
