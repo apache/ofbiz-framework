@@ -31,7 +31,7 @@
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Véritable date d'achèvement</value>
-        <value xml:lang="it">Data Completamento Attuale</value>
+        <value xml:lang="it">Data completamento attuale</value>
         <value xml:lang="nl">Actual Completion Date</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
         <value xml:lang="th">วันที่สำเร็จตามความจริง</value>
@@ -68,7 +68,7 @@
         <value xml:lang="en">Actual Start Date</value>
         <value xml:lang="es">Fecha de comienzo real</value>
         <value xml:lang="fr">Date de début réelle</value>
-        <value xml:lang="it">Data Inizio Attuale</value>
+        <value xml:lang="it">Data inizio attuale</value>
         <value xml:lang="nl">Actual Start Date</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
@@ -105,7 +105,7 @@
         <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date d'achèvement estimée</value>
-        <value xml:lang="it">Data Completamento Stimata</value>
+        <value xml:lang="it">Data completamento stimata</value>
         <value xml:lang="nl">Estimated Completion Date</value>
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
@@ -1123,7 +1123,7 @@
         <value xml:lang="de">Liste der Aufgaben und Aktivitäten ansehen</value>
         <value xml:lang="en">View Activity and Task List</value>
         <value xml:lang="fr">Voir l'activité et la liste de la tâche</value>
-        <value xml:lang="it">Mostra Attività e Lista Compiti</value>
+        <value xml:lang="it">Mostra attività e lista compiti</value>
         <value xml:lang="nl">View Activity and Task List</value>
         <value xml:lang="ro">Afiseaza Activitate si Lista Sarcini</value>
         <value xml:lang="th">แสดงกิจกรรมและรายการงาน</value>
@@ -1288,7 +1288,7 @@
         <value xml:lang="en">Assigned Tasks</value>
         <value xml:lang="es">Tareas asignadas</value>
         <value xml:lang="fr">Tâches assignées</value>
-        <value xml:lang="it">Compiti Assegnati</value>
+        <value xml:lang="it">Compiti assegnati</value>
         <value xml:lang="nl">Assigned Tasks</value>
         <value xml:lang="ro">Sarcini Atribuite</value>
         <value xml:lang="ru">Назначенные задания</value>
@@ -1759,7 +1759,7 @@
         <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date estimée d'achèvement</value>
-        <value xml:lang="it">Data Completamento Stimata</value>
+        <value xml:lang="it">Data completamento stimata</value>
         <value xml:lang="nl">Estimated Completion Date</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
@@ -2210,7 +2210,7 @@
         <value xml:lang="en">New Requirement</value>
         <value xml:lang="es">Nuevo requerimiento</value>
         <value xml:lang="fr">Nouveau besoin</value>
-        <value xml:lang="it">Nuovo Fabbisogno</value>
+        <value xml:lang="it">Nuovo fabbisogno</value>
         <value xml:lang="nl">New Requirement</value>
         <value xml:lang="ro">Necesar</value>
         <value xml:lang="ru">Новое требование</value>
@@ -2222,7 +2222,7 @@
         <value xml:lang="en">New Task</value>
         <value xml:lang="es">Nueva tarea</value>
         <value xml:lang="fr">Nouvelle tâche</value>
-        <value xml:lang="it">Nuovo Compito</value>
+        <value xml:lang="it">Nuovo compito</value>
         <value xml:lang="nl">New Task</value>
         <value xml:lang="ro">Noua Sarcina</value>
         <value xml:lang="ru">Новое задание</value>
@@ -2233,7 +2233,7 @@
         <value xml:lang="en">Next Day</value>
         <value xml:lang="es">Siguiente día</value>
         <value xml:lang="fr">Jour suivant</value>
-        <value xml:lang="it">Giorno Successivo</value>
+        <value xml:lang="it">Giorno successivo</value>
         <value xml:lang="nl">Next Day</value>
         <value xml:lang="ro">Zi Succesiva</value>
         <value xml:lang="ru">Следующий день</value>
@@ -2244,7 +2244,7 @@
         <value xml:lang="en">Next Month</value>
         <value xml:lang="es">Siguiente mes</value>
         <value xml:lang="fr">Mois suivant</value>
-        <value xml:lang="it">Mese Successivo</value>
+        <value xml:lang="it">Mese successivo</value>
         <value xml:lang="nl">Next Month</value>
         <value xml:lang="ro">Luna Succesiva</value>
         <value xml:lang="ru">Следующий месяц</value>
@@ -2255,7 +2255,7 @@
         <value xml:lang="en">Next Week</value>
         <value xml:lang="es">Siguiente semana</value>
         <value xml:lang="fr">Semaine suivante</value>
-        <value xml:lang="it">Settimana Successiva</value>
+        <value xml:lang="it">Settimana successiva</value>
         <value xml:lang="nl">Next Week</value>
         <value xml:lang="ro">Saptamana Succesiva</value>
         <value xml:lang="ru">Следующая неделя</value>
@@ -2266,7 +2266,7 @@
         <value xml:lang="en">No Contact Information On File</value>
         <value xml:lang="es">No hay información de contacto en el archivo</value>
         <value xml:lang="fr">Aucune coordonnée dans le dossier</value>
-        <value xml:lang="it">Nessun Informazione Contatto Sul File</value>
+        <value xml:lang="it">Nessun informazione contatto in archivio</value>
         <value xml:lang="nl">No Contact Information On File</value>
         <value xml:lang="ro">Nici-o Informatie Contact in Fisier</value>
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
@@ -2277,7 +2277,7 @@
         <value xml:lang="en">No Events Found</value>
         <value xml:lang="es">No se encontraron los eventos</value>
         <value xml:lang="fr">Pas d'évènement trouvés</value>
-        <value xml:lang="it">Nessun Evento Trovato</value>
+        <value xml:lang="it">Nessun evento trovato</value>
         <value xml:lang="nl">No Events Found</value>
         <value xml:lang="ro">Nici-un Eveniment Gasit</value>
         <value xml:lang="ru">Событий не найдено</value>
@@ -3082,7 +3082,7 @@
         <value xml:lang="en">Task List</value>
         <value xml:lang="es">Lista de tareas</value>
         <value xml:lang="fr">Liste de tâche</value>
-        <value xml:lang="it">Lista Compito</value>
+        <value xml:lang="it">Lista compiti</value>
         <value xml:lang="nl">Takenlijst</value>
         <value xml:lang="ro">Lista Sarcina</value>
         <value xml:lang="ru">Задания</value>
@@ -3094,7 +3094,7 @@
         <value xml:lang="en">TaskName</value>
         <value xml:lang="es">Nombre de tarea</value>
         <value xml:lang="fr">Nom de tâche</value>
-        <value xml:lang="it">Nome Compito</value>
+        <value xml:lang="it">Nome compito</value>
         <value xml:lang="nl">Taaknaam</value>
         <value xml:lang="ro">Nume Sarcina</value>
         <value xml:lang="ru">Имя задания</value>
@@ -3105,7 +3105,7 @@
         <value xml:lang="en">TaskStatus</value>
         <value xml:lang="es">Estado de tarea</value>
         <value xml:lang="fr">Statut de la tâche</value>
-        <value xml:lang="it">Stato Compito</value>
+        <value xml:lang="it">Stato compito</value>
         <value xml:lang="nl">TaskStatus</value>
         <value xml:lang="ro">Stare Sarcina</value>
         <value xml:lang="ru">Статус задания</value>
@@ -3127,7 +3127,7 @@
         <value xml:lang="en">This Month</value>
         <value xml:lang="es">Este mes</value>
         <value xml:lang="fr">Ce mois</value>
-        <value xml:lang="it">Questo Mese</value>
+        <value xml:lang="it">Questo mese</value>
         <value xml:lang="nl">Deze maand</value>
         <value xml:lang="ro">Luna Curenta</value>
         <value xml:lang="ru">Текущий месяц</value>
@@ -3138,7 +3138,7 @@
         <value xml:lang="en">This Week</value>
         <value xml:lang="es">Esta semana</value>
         <value xml:lang="fr">Cette semaine</value>
-        <value xml:lang="it">Questa Settimana</value>
+        <value xml:lang="it">Questa settimana</value>
         <value xml:lang="nl">Deze week</value>
         <value xml:lang="ro">Saptamana Curenta</value>
         <value xml:lang="ru">Текущая неделя</value>
@@ -3154,7 +3154,7 @@
     <property key="WorkEffortTimeBillFromParty">
         <value xml:lang="en">Bill From Party</value>
         <value xml:lang="fr">Acteur facturant</value>
-        <value xml:lang="it">Fatturare Dal Soggetto</value>
+        <value xml:lang="it">Fatturare dal soggetto</value>
         <value xml:lang="nl">Rekening van relatie</value>
         <value xml:lang="ro">Facturare De La Subiectul</value>
         <value xml:lang="th">ใบเสร็จรับเงินจากกลุ่มผู้ใช้</value>
@@ -3163,7 +3163,7 @@
     <property key="WorkEffortTimeBillToParty">
         <value xml:lang="en">Bill To Party</value>
         <value xml:lang="fr">Acteur facturé</value>
-        <value xml:lang="it">Fatturare Al Soggetto</value>
+        <value xml:lang="it">Fatturare al soggetto</value>
         <value xml:lang="nl">Faktuur aan relatie</value>
         <value xml:lang="ro">Facturare la Subiectul </value>
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
