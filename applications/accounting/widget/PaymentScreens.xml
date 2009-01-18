@@ -47,6 +47,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPayment"/>
+                <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="editPayment"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />

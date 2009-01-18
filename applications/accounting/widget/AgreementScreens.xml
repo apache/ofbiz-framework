@@ -113,7 +113,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreement"/>
-                <set field="headerItem" value="agreement"/>
+                <set field="headerItem" value="agreements"/>
                 <set field="tabButtonItem" value="AgreementMain"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-name="agreement"/>
