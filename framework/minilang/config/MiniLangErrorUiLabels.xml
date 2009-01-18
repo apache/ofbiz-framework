@@ -22,7 +22,7 @@
         <value xml:lang="de">Fehler beim Starten der Transaktion, Methode konnte nicht verarbeitet werden</value>
         <value xml:lang="en">Error trying to begin transaction, could not process method</value>
         <value xml:lang="es">Error trying to begin transaction, could not process method</value>
-        <value xml:lang="fr">La transaction ne peut de00E9buter, une erreur est survenue    </value>
+        <value xml:lang="fr">La transaction ne peut débuter, une erreur est survenue</value>
         <value xml:lang="it">Errore provando a iniziare una transazione, non è possibile eseguire il metodo</value>
         <value xml:lang="ro">Eroare la incercarea de a initia  o</value>
         <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
