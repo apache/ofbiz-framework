@@ -1334,14 +1334,14 @@ under the License.
 
     <request-map uri="createBlogArticle">
         <security https="true" auth="true"/>
-        <event type="service" invoke="postBlogEntry"/>
+        <event type="service" invoke="createBlogEntry"/>
         <response name="success" type="view" value="ViewBlogArticle"/>
         <response name="error" type="view" value="EditBlogArticle"/>
     </request-map>
     
     <request-map uri="updateBlogArticle">
         <security https="true" auth="true"/>
-        <event type="service" invoke="persistBlogAll"/>
+        <event type="service" invoke="updateBlogEntry"/>
         <response name="success" type="view" value="ViewBlogArticle"/>
         <response name="error" type="view" value="EditBlogArticle"/>
     </request-map>

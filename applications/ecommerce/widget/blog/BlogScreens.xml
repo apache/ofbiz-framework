@@ -111,7 +111,7 @@
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <label text="&lt;p/&gt;"/>
-                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
+                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?contentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
                                         <!--
                                             <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
                                         -->
@@ -131,7 +131,7 @@
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <label text="&lt;p/&gt;"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
-                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
+                                        <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle?contentId=${blog.contentId}&amp;blogContentId=${blogContentId}" style="blogheader"/>
                                         <!--
                                             <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
                                         -->
@@ -152,7 +152,6 @@
     <screen name="NewArticle">
         <section>
             <actions>
-                <set field="blogContentId" from-field="parameters.blogContentId"/>
                 <set field="crPerm.ownerContentId" from-field="parameters.blogContentId"/>
                 <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
                 <set field="crPerm.contentPurposeTypeId" value="ARTICLE"/>
@@ -165,7 +164,7 @@
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
-                                <include-form name="CreateArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
+                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -181,28 +180,29 @@
         <section>
             <actions>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
-
                 <set field="upPerm.contentId" from-field="parameters.blogContentId"/>
                 <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
                 <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
+                <set field="contentId" from-field="parameters.contentId"/>
             </actions>
             <widgets>
                 <section>
-                    <condition>
-                        <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
-                    </condition>
+                    <!--condition>
+                        <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
+                    </condition-->
                     <actions>
                         <service service-name="getBlogEntry" result-map-name="blogEntry" auto-field-map="true"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
+                                <sub-content content-id="${parameters.contentId}" map-key="IMAGE"/>
                                 <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
-                        <label text="Permissions failed."></label>
+                        <label text="Permissions failed to edit Article: ${contentId} in Blog: ${blogContentId}"></label>
                     </fail-widgets>
                 </section>
             </widgets>

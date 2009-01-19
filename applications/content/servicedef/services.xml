@@ -1058,49 +1058,44 @@
     </service>
 
     <!-- blog services -->
-    <service name="postBlogEntry" engine="simple" transaction-timeout="300" auth="true"
-        location="org/ofbiz/content/blog/BlogServices.xml" invoke="postBlogEntry">
+    <service name="createBlogEntry" engine="simple" auth="true"
+        location="org/ofbiz/content/blog/BlogServices.xml" invoke="createBlogEntry">
         <description>Creates content records for a blog entry</description>
-        <implements service="createContentFromUploadedFile" optional="true"/>
-        <implements service="createTextContent" optional="true"/>
-        <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
+        <implements service="uploadFileInterface" optional="true"/>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="contentName" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="getBlogEntry" engine="simple" transaction-timeout="300" auth="true"
+    <service name="updateBlogEntry" engine="simple" auth="true"
+        location="org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
+        <description>Updates content records for a blog entry</description>
+        <implements service="uploadFileInterface" optional="true"/>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentName" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="getBlogEntry" engine="simple" auth="true"
         location="org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">
-        <description>Creates content records for a blog entry</description>
+        <description>Retrieves content records for a blog entry</description>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentName" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
         <attribute name="description" type="String" mode="OUT" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="OUT" optional="true"/>
-        <attribute name="summary" type="String" mode="OUT" optional="true"/>
-        <attribute name="article" type="String" mode="OUT" optional="true"/>
+        <attribute name="summaryData" type="String" mode="OUT" optional="true"/>
+        <attribute name="articleData" type="String" mode="OUT" optional="true"/>
         <attribute name="imageDataResourceId" type="String" mode="OUT" optional="true"/>
-    </service>
-    <!-- TO BE REMOVED
-    <service name="updateBlogEntry" engine="simple" transaction-timeout="300" auth="true"
-            location="org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
-        <description>Creates content records for a blog entry</description>
-        <implements service="createContentFromUploadedFile" optional="true"/>
-        <implements service="createTextContent" optional="true"/>
-        <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true"/>
-    </service>
-    -->
-
-    <service name="persistBlogAll" engine="java" location="org.ofbiz.content.blog.BlogServices" invoke="persistBlogAll"
-         auth="true"  transaction-timeout="72000">
-        <implements service="persistContentAndAssoc"/>
-        <attribute type="String" mode="IN" name="summaryData" optional="true"/>
-        <attribute type="String" mode="IN" name="mainData" optional="true"/>
-        <attribute type="String" mode="IN" name="drMimeTypeId_TEXT" optional="true"/>
-        <attribute type="String" mode="IN" name="drMimeTypeId_IMAGE" optional="true"/>
-        <attribute type="String" mode="IN" name="templateId" optional="true"/>
-        <attribute type="String" mode="INOUT" name="textContentId" optional="true"/>
-        <attribute type="String" mode="INOUT" name="imageContentId" optional="true"/>
-        <attribute type="String" mode="INOUT" name="textDataResourceId" optional="true"/>
-        <attribute type="String" mode="INOUT" name="imageDataResourceId" optional="true"/>
     </service>
     <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="org/ofbiz/content/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
          auth="true"  transaction-timeout="72000">
