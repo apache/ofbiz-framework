@@ -74,10 +74,9 @@ under the License.
         <field position="2" name="salesDiscontinuationDate" title="${uiLabelMap.ProductSalesThruDate}" red-when="before-now"><date-time/></field>
         <field position="3" name="supportDiscontinuationDate" title="${uiLabelMap.ProductSupportThruDate}" red-when="before-now"><date-time/></field>
 
-        <!-- commented out in ShoppingCartItem.java -->
-        <!--field name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}">
+        <field name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
-            </field-->
+            </field>
         <field position="1" name="requirementMethodEnumId" title="${uiLabelMap.ProductRequirementMethodEnumId}"> 
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
@@ -87,11 +86,10 @@ under the License.
             </drop-down>
         </field>
 
-        <field position="1" name="requireInventory" title="${uiLabelMap.ProductRequireInventory}" tooltip="${uiLabelMap.ProductInventoryRequiredProduct}">
+        <field name="requireInventory" title="${uiLabelMap.ProductRequireInventory}" tooltip="${uiLabelMap.ProductInventoryRequiredProduct}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <!-- Not used anywhere, moreover maybe replaced by cannot_add_product_no_longer_available in ShoppingCartItem.java (but commented out)-->
-        <!--field position="2" name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field-->
+        <field name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
 
         <field position="1" name="ratingTypeEnum" title="${uiLabelMap.ProductRatingTypeEnum}">
             <drop-down allow-empty="true">
@@ -240,7 +238,7 @@ under the License.
                 <sort-field name="supportDiscontinuationDate"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonInventory}" collapsible="true" initially-collapsed="true">
-                <!--sort-field name="salesDiscWhenNotAvail"/--> <!-- commented out in ShoppingCartItem.java -->
+                <sort-field name="salesDiscWhenNotAvail"/> 
                 <sort-field name="requirementMethodEnumId"/>
                 <sort-field name="requireInventory"/>
                 <sort-field name="inventoryMessage"/>                
@@ -596,8 +594,8 @@ under the License.
     <form name="ListAssociatedContentInfos" type="list" title="" list-name="contentInfos"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-and entity-name="ContentAssocDataResourceViewTo" list-name="contentInfos">
-                <field-map field-name="contentIdStart" env-name="contentId"/>
+            <entity-and entity-name="ContentAssocDataResourceViewTo" list="contentInfos">
+                <field-map field-name="contentIdStart" from-field="contentId"/>
             </entity-and>
         </actions>
         <field name="caContentAssocTypeId">
@@ -1186,7 +1184,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductMaint">
-                <condition-expr field-name="productId" env-name="productId"/>
+                <condition-expr field-name="productId" from-field="productId"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateProductMaint"/>
@@ -1249,7 +1247,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductMeter">
-                <condition-expr field-name="productId" env-name="productId"/>
+                <condition-expr field-name="productId" from-field="productId"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateProductMeter"/>
@@ -1300,7 +1298,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductGeo">
-                <condition-expr field-name="productId" env-name="productId"/>
+                <condition-expr field-name="productId" from-field="productId"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateProductGeo"/>
@@ -1389,8 +1387,8 @@ under the License.
     <form name="ListProductFeatureApplAttrs" type="list" list-name="productFeatureApplAttrs" target="EditProductFeatureAppl"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="ProductFeatureApplAttr" list-name="productFeatureApplAttrs">
-                <condition-expr field-name="productId" env-name="productId"/>
+            <entity-condition entity-name="ProductFeatureApplAttr" list="productFeatureApplAttrs">
+                <condition-expr field-name="productId" from-field="productId"/>
             </entity-condition>
         </actions>
         <auto-fields-entity entity-name="ProductFeatureApplAttr" default-field-type="display"/>
@@ -1409,7 +1407,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
-                <condition-expr field-name="productId" env-name="productId"/>
+                <condition-expr field-name="productId" from-field="productId"/>
                 <order-by field-name="subscriptionResourceId"/>
             </entity-condition>
         </actions>
@@ -1496,7 +1494,7 @@ under the License.
     <form name="ListSupplierProductAgreements" type="list" list-name="supplierProductAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
-            <entity-one entity-name="Agreement" value-name="agreement"/>
+            <entity-one entity-name="Agreement" value-field="agreement"/>
         </row-actions>
         <field name="agreementId" widget-style="buttontext">
             <hyperlink target="/accounting/control/EditAgreement?agreementId=${agreementId}" target-type="inter-app" 
@@ -1567,8 +1565,8 @@ under the License.
     <form name="ListProductWorkEfforts" type="list" target="updateWorkEffortGoodStandard" list-name="productWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="productWorkEfforts">
-                <field-map env-name="productId" field-name="productId" />
+            <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="productWorkEfforts">
+                <field-map from-field="productId" field-name="productId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
@@ -1624,12 +1622,12 @@ under the License.
     <form name="UpdateProductFacilityLocations" type="list" target="updateProductFacilityLocation" title="" list-name="productFacilityLocations"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
-            <entity-one entity-name="FacilityLocation" value-name="facilityLocation">
+            <entity-one entity-name="FacilityLocation" value-field="facilityLocation">
                 <field-map field-name="facilityId"/>
                 <field-map field-name="locationSeqId"/>
             </entity-one>
-            <entity-one entity-name="Enumeration" value-name="locationType">
-                <field-map field-name="enumId" env-name="facilityLocation.locationTypeEnumId"/>
+            <entity-one entity-name="Enumeration" value-field="locationType">
+                <field-map field-name="enumId" from-field="facilityLocation.locationTypeEnumId"/>
             </entity-one>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;facilityId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(facilityId)));}" type="Boolean"/>
         </row-actions>
@@ -1729,8 +1727,8 @@ under the License.
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title=""
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
-                <condition-expr field-name="productId" env-name="productId"/>
+            <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
+                <condition-expr field-name="productId" from-field="productId"/>
                 <order-by field-name="productId" />
             </entity-condition>
         </actions>      
