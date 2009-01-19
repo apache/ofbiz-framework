@@ -527,6 +527,7 @@
     <property key="CommonAnyStateProvince">
         <value xml:lang="en">Any State/Province</value>
         <value xml:lang="es">Cualquier estado/provincia</value>
+        <value xml:lang="fr">Tous état/province</value>
         <value xml:lang="it">Qualsiasi stato/provincia</value>
     </property>
     <property key="CommonAnyStore">
@@ -1171,6 +1172,7 @@
     <property key="CommonCollapse">
         <value xml:lang="en">Collapse</value>
         <value xml:lang="es">Colapsar</value>
+        <value xml:lang="fr">Replier</value>
         <value xml:lang="it">Collassato</value>
         <value xml:lang="th">ล้มเหลว</value>
     </property>
@@ -1253,6 +1255,7 @@
     </property>
     <property key="CommonConfigure">
         <value xml:lang="en">Configure:</value>
+        <value xml:lang="fr">Configurer:</value>
         <value xml:lang="it">Configura:</value>
     </property>
     <property key="CommonConfirm">
@@ -1579,7 +1582,7 @@
         <value xml:lang="en">Dashboard</value>
         <value xml:lang="fr">Tableau de bord</value>
         <value xml:lang="it">Cruscotto</value>
-    </property>    
+    </property>
     <property key="CommonDatabaseProblem">
         <value xml:lang="ar">مشكلة قاعدة بيانات</value>
         <value xml:lang="de">Datenbankproblem</value>
@@ -1817,6 +1820,7 @@
         <value xml:lang="de">Distanz</value>
         <value xml:lang="en">Distance</value>
         <value xml:lang="es">Distancia</value>
+        <value xml:lang="fr">Distance</value>
         <value xml:lang="it">Distanza</value>
         <value xml:lang="pt">Distância</value>
         <value xml:lang="ro">Distanta</value>
@@ -2528,6 +2532,7 @@
         <value xml:lang="de">Frame Warnung</value>
         <value xml:lang="en">Frame Alert</value>
         <value xml:lang="es">Alerta de Frame</value>
+        <value xml:lang="fr">Alerte de frame</value>
         <value xml:lang="it">Avviso frame</value>
         <value xml:lang="pt">Alerta no Frame</value>
         <value xml:lang="ru">Предупреждение</value>
@@ -2539,6 +2544,7 @@
         <value xml:lang="de">Dieses Dokument wurde mit Frames erstellt. Falls Sie diese Meldung sehen, unterstützt Ihr Web-Browser keine Frames.</value>
         <value xml:lang="en">This document is designed to be viewed using the frames feature. If you see this message, you are using a non-frame-capable web client.</value>
         <value xml:lang="es">Debe habilitar frames para ver este documento.</value>
+        <value xml:lang="fr">Ce document est conçu pour être vu en utilisant les frames. Si vous voyez ce message, vous utilisez un navigateur un frame ne gérant pas les frames</value>
         <value xml:lang="it">Questo documento è disegnato per essere visualizzato usando i frames. Se vedi questo messaggio, tu stai usando un client web senza capacità frame.</value>
         <value xml:lang="pt">Este documento destina-se a ser visto utilizando frames. Se estiver a vêr esta mensagem, então está autilizar um browser que não suporta frames.</value>
         <value xml:lang="ru">Этот документ разработан с использованием фреймов. Если вы видите это сообщение, значит вы используете программу просмотра которая не поддерживает фреймы.</value>
@@ -2693,7 +2699,7 @@
     <property key="CommonGeoLocation">
         <value xml:lang="en">Geolocation</value>
         <value xml:lang="fr">Géolocalisation</value>
-    </property>            
+    </property>
     <property key="CommonGeos">
         <value xml:lang="de">Geo</value>
         <value xml:lang="en">Geos</value>
@@ -2726,6 +2732,7 @@
         <value xml:lang="de">Global</value>
         <value xml:lang="en">Global</value>
         <value xml:lang="es">Global</value>
+        <value xml:lang="fr">Global</value>
         <value xml:lang="it">Globale</value>
         <value xml:lang="pt">Global</value>
         <value xml:lang="ro">Global</value>
@@ -3181,7 +3188,7 @@
         <value xml:lang="th">มิถุนายน</value>
         <value xml:lang="zh">六月</value>
         <value xml:lang="zh_CN">六月</value>
-    </property>    
+    </property>
     <property key="CommonLanguageTitle">
         <value xml:lang="ar">اللغة</value>
         <value xml:lang="cs">Jazyk</value>
@@ -3423,6 +3430,7 @@
     </property>
     <property key="CommonManagePortalPages">
         <value xml:lang="en">Manage Portal Pages...</value>
+        <value xml:lang="fr">Gérez les pages du portail...</value>
         <value xml:lang="it">Gestione pagine...</value>
     </property>
     <property key="CommonManager">
@@ -3627,7 +3635,7 @@
         <value xml:lang="en">Miscellaneous</value>
         <value xml:lang="fr">Divers</value>
         <value xml:lang="it">Varie</value>
-    </property>    
+    </property>
     <property key="CommonModify">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Bearbeiten</value>
@@ -3763,7 +3771,7 @@
         <value xml:lang="en">My Personal Page</value>
         <value xml:lang="fr">Ma propre page</value>
         <value xml:lang="it">Mia pagina personale</value>
-    </property>    
+    </property>
     <property key="CommonMyStatus">
         <value xml:lang="ar">حالتي</value>
         <value xml:lang="de">Mein Status</value>
@@ -4503,6 +4511,7 @@
     <property key="CommonParent">
         <value xml:lang="en">Parent</value>
         <value xml:lang="es">Precursor</value>
+        <value xml:lang="fr">Parent</value>
         <value xml:lang="it">Padre</value>
     </property>
     <property key="CommonPartyID">
@@ -4585,6 +4594,7 @@
     <property key="CommonPdf">
         <value xml:lang="en">Pdf</value>
         <value xml:lang="es">Pdf</value>
+        <value xml:lang="fr">PDF</value>
         <value xml:lang="it">Pdf</value>
     </property>
     <property key="CommonPerform">
@@ -4751,6 +4761,7 @@
         <value xml:lang="de">Druckansicht</value>
         <value xml:lang="en">Printer Friendly</value>
         <value xml:lang="es">Vista de impresión</value>
+        <value xml:lang="fr">Adapté à l'impression</value>
         <value xml:lang="it">Stampa amichevole</value>
     </property>
     <property key="CommonPriority">
@@ -5603,6 +5614,7 @@
     </property>
     <property key="CommonSelectPortalPage">
         <value xml:lang="en">Select Portal Page...</value>
+        <value xml:lang="fr">Sélectionner la page du portail...</value>
         <value xml:lang="it">Seleziona pagina...</value>
     </property>
     <property key="CommonSelected">
@@ -5784,6 +5796,7 @@
     </property>
     <property key="CommonSetColumnWidth">
         <value xml:lang="en">Set Column Width...</value>
+        <value xml:lang="fr">Définir la largeur de colonne ...</value>
         <value xml:lang="it">Larghezza colonna...</value>
     </property>
     <property key="CommonSetNowEmpty">
@@ -6678,6 +6691,7 @@
         <value xml:lang="de">Wahr</value>
         <value xml:lang="en">True</value>
         <value xml:lang="es">Verdadero</value>
+        <value xml:lang="fr">Vrai</value>
         <value xml:lang="it">Vero</value>
         <value xml:lang="pt">Verdadeiro</value>
         <value xml:lang="ro">Adevarat</value>
@@ -7223,7 +7237,7 @@
         <value xml:lang="en">Welcome to the OFBiz dashboard</value>
         <value xml:lang="fr">Bienvenue sur le tableau de bord d'OFBiz</value>
         <value xml:lang="it">Benvenuto al cruscotto di OFBiz</value>
-    </property>    
+    </property>
     <property key="CommonWhere">
         <value xml:lang="ar">أين</value>
         <value xml:lang="cs">Kde</value>
@@ -7632,7 +7646,7 @@
         <value xml:lang="ru">Код способа контакта</value>
         <value xml:lang="th">รหัสวิธีการติดต่อ</value><!--value xml:lang="th">รหัสการติดต่อการทำงาน</value-->
         <value xml:lang="zh">联系方式标识</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_createButton">
         <value xml:lang="ar">استحداث</value>
         <value xml:lang="de">Erstellen</value>
@@ -7731,6 +7745,7 @@
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="pt">Descrição</value>
@@ -7738,7 +7753,7 @@
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="ar">تاريخ الفاعلية</value>
         <value xml:lang="de">Effektives Datum</value>
@@ -7746,7 +7761,7 @@
         <value xml:lang="es">Fecha efectiva</value>          <!--value xml:lang="es">Fecha efectivo</value-->
         <value xml:lang="fr">Date d'effet</value>
         <value xml:lang="it">Data effettiva</value>
-        <value xml:lang="nl">Effectieve Datum</value>        <!--value xml:lang="nl">Werkelijke datum</value-->        
+        <value xml:lang="nl">Effectieve Datum</value>        <!--value xml:lang="nl">Werkelijke datum</value-->
         <value xml:lang="pt">Data Efectiva</value>
         <value xml:lang="ro">Data Efectiva</value>
         <value xml:lang="ru">Дата вступления в силу</value>   <!--value xml:lang="ru">Дата вст. в силу</value-->
@@ -7929,7 +7944,7 @@
         <value xml:lang="ar">الرمز الجغرافي للسلطة الضريبية</value>
         <value xml:lang="en">Tax Auth Geo ID</value>
         <value xml:lang="es">Código Geo Autoridad Tributaria</value>
-        <value xml:lang="fr">Ref. géo. d'aministration fiscale</value>
+        <value xml:lang="fr">Réf. géo. d'administration fiscale</value>
         <value xml:lang="it">Codice autorità tasse geografia</value>
         <value xml:lang="nl">Belasting Gebied</value>
         <value xml:lang="pt">Taxa Auth Geo ID</value>
@@ -7940,6 +7955,7 @@
     </property>
     <property key="FormFieldTitle_tempExprId">
         <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressione temporale</value>
     </property>
     <property key="FormFieldTitle_thruDate">
@@ -8007,6 +8023,7 @@
     <property key="Google Base">
         <value xml:lang="de">Google Base</value>
         <value xml:lang="en">Google Base</value>
+        <value xml:lang="fr">Google Base</value>
         <value xml:lang="es">Google Base</value>
         <value xml:lang="it">Google base</value>
         <value xml:lang="th">Google Base</value>
@@ -8063,6 +8080,7 @@
     </property>
     <property key="MyPortal">
         <value xml:lang="en">My Portal</value>
+        <value xml:lang="fr">Mon portail</value>
         <value xml:lang="it">Mio portale</value>
     </property>
     <property key="Marketing">
@@ -8084,6 +8102,7 @@
         <value xml:lang="de">Oagis</value>
         <value xml:lang="en">Oagis</value>
         <value xml:lang="es">Oagis</value>
+        <value xml:lang="fr">Oagis</value>
         <value xml:lang="it">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
     </property>
@@ -8264,7 +8283,7 @@
         <value xml:lang="de">Shark</value>
         <value xml:lang="en">Shark</value>
         <value xml:lang="es">Procesos de Trabajo</value>
-        <value xml:lang="fr">Work-Flow</value>
+        <value xml:lang="fr">Shark (WorkFlow)</value>
         <value xml:lang="it">Flussi di lavoro</value>
         <value xml:lang="pt">Shark</value>
         <value xml:lang="ro">Fluxuri de Lucru</value>
@@ -8274,6 +8293,7 @@
     </property>
     <property key="Web Pos">
         <value xml:lang="en">Web Pos</value>
+        <value xml:lang="fr">POS Web</value>
         <value xml:lang="it">POS web</value>
     </property>
     <property key="WebTools">

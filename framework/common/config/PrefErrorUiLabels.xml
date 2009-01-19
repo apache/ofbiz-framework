@@ -62,6 +62,7 @@
     <property key="setPreference.writeFailure">
         <value xml:lang="de">Benutzereinstellungen konnten nicht gespeichert werden, Schreibfehler: {0}</value>
         <value xml:lang="en">Could not set user preferences (write failure): {0}</value>
+        <value xml:lang="fr">Impossible de définir les préférences de l'utilisateur (erreur d'écriture): {0}</value>
         <value xml:lang="it">Non è possibile ottenere le preferenze utente (scrittura fallita): {0}</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าสิทธิพิเศษของผู้ใช้ (เขียนล้มเหลว): {0}</value>
     </property>

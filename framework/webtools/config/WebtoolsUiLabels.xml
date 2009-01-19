@@ -361,7 +361,7 @@
         <value xml:lang="ro">Tot</value>
         <value xml:lang="th">ทั้งหมด</value>
         <value xml:lang="zh">全部</value>
-    </property>    
+    </property>
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="en">Artifact Info</value>
         <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
@@ -451,7 +451,7 @@
         <value xml:lang="en">Cannot view Artifact Info pages without ARTIFACT_INFO_VIEW permission.</value>
         <value xml:lang="fr">Impossible de voir les pages sur les info à propos des éléments d'OFBiz sans l'autorisation ARTIFACT_INFO_VIEW.</value>
         <value xml:lang="it">Non è possibile visualizzare le pagine senza avere il permesso ARTIFACT_INFO_VIEW.</value>
-    </property>    
+    </property>
     <property key="WebtoolsCertsCert">
         <value xml:lang="en">Cert</value>
         <value xml:lang="fr">Certificat</value>
@@ -825,6 +825,7 @@
     </property>
     <property key="WebtoolsEncrypted">
         <value xml:lang="en">Encrypted</value>
+        <value xml:lang="fr">Encrypté</value>
         <value xml:lang="it">Criptato</value>
     </property>
     <property key="WebtoolsEngineName">
@@ -940,6 +941,7 @@
     </property>
     <property key="WebtoolsEntityReferenceInteractiveVersion">
         <value xml:lang="en">Interactive Version</value>
+        <value xml:lang="fr">Version interactive</value>
         <value xml:lang="it">Versione Interattiva</value>
     </property>
     <property key="WebtoolsEntityReferenceMainPage">
@@ -2992,6 +2994,7 @@
     </property>
     <property key="WebtoolsTemporalExpression">
         <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressioni temporali</value>
     </property>
     <property key="WebtoolsTestResults">
@@ -2999,7 +3002,7 @@
         <value xml:lang="fr">Résultats des tests</value>
         <value xml:lang="it">Risultati Test</value>
         <value xml:lang="th">ผลการทดสอบ</value>
-    </property>    
+    </property>
     <property key="WebtoolsThisThread">
         <value xml:lang="en">This Thread</value>
         <value xml:lang="fr">Cette Thread</value>

@@ -21,10 +21,12 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_accommodationMapId">
          <value xml:lang="en">Accommodation Map Id</value>
+         <value xml:lang="fr">Réf. de plan de logement</value>
          <value xml:lang="it">Mappa alloggio</value>
     </property>
     <property key="FormFieldTitle_accommodationSpotId">
         <value xml:lang="en">Accommodation Spot Id</value>
+        <value xml:lang="fr">Réf. de lieu de logement</value>
         <value xml:lang="it">Luogo alloggio</value>
     </property>
     <property key="FormFieldTitle_actualCompletionDate">
@@ -76,6 +78,7 @@
     </property>
     <property key="FormFieldTitle_approvedByUserLoginId">
         <value xml:lang="en">Approved By User Login Id</value>
+        <value xml:lang="fr">Approuvé par la réf. d'utilisateur de connexion</value>
         <value xml:lang="it">Approvato dall'utente</value>
     </property>
     <property key="FormFieldTitle_availabilityStatusId">
@@ -287,14 +290,17 @@
     </property>
     <property key="FormFieldTitle_reminderDateTime">
         <value xml:lang="en">Reminder Date Time</value>
+        <value xml:lang="fr">Date heure de rappel</value>
         <value xml:lang="it">Data ora reminder</value>
     </property>
     <property key="FormFieldTitle_repeatInterval">
         <value xml:lang="en">Repeat Interval</value>
+        <value xml:lang="fr">Répéter intervalle</value>
         <value xml:lang="it">Ripeti intervallo</value>
     </property>
     <property key="FormFieldTitle_recurrenceOffset">
         <value xml:lang="en">Recurrence Offset</value>
+        <value xml:lang="fr">Récurrence de décalage</value>
         <value xml:lang="it">Intervallo ricorrenza</value>
     </property>
     <property key="FormFieldTitle_requirementDescription">
@@ -365,6 +371,7 @@
     </property>
     <property key="FormFieldTitle_showAsEnumId">
         <value xml:lang="en">Show As Enum Id</value>
+        <value xml:lang="fr">Montrer comme une ref. d'énumération </value>
         <value xml:lang="it">Mostra come enumerazione</value>
     </property>
     <property key="FormFieldTitle_sourceReferenceId">
@@ -3169,7 +3176,6 @@
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
         <value xml:lang="zh">账单到会员</value>
     </property>
-    
     <property key="WorkEffortTimesheet">
         <value xml:lang="en">Timesheet</value>
         <value xml:lang="es">Hoja de tiempos</value>

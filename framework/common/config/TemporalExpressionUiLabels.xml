@@ -56,6 +56,7 @@
     </property>
     <property key="TemporalExpressionOccurrence">
         <value xml:lang="en">Occurrence</value>
+        <value xml:lang="fr">Occurrence</value>
         <value xml:lang="it">Occorrenze</value>
     </property>
     <property key="TemporalExpressionMaintenance">

@@ -27,6 +27,7 @@
     </property>
     <property key="FormFieldTitle_clientBillingPartyId">
         <value xml:lang="en">Client Billing Party Id</value>
+        <value xml:lang="fr">Réf. de facturation client</value>
         <value xml:lang="it">Soggetto fatturazione</value>
     </property>
     <property key="FormFieldTitle_complete">
@@ -49,6 +50,7 @@
     </property>
     <property key="FormFieldTitle_nonBilledHours">
         <value xml:lang="en">Non Billed Hours</value>
+        <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="it">Ore non fatturate</value>
     </property>
     <property key="FormFieldTitle_parentProjectName">
@@ -65,6 +67,7 @@
     </property>
     <property key="FormFieldTitle_phaseId">
         <value xml:lang="en">Phase Id</value>
+        <value xml:lang="fr">Réf. de phase</value>
         <value xml:lang="it">Fase</value>
     </property>
     <property key="FormFieldTitle_phaseName">
@@ -543,16 +546,18 @@
     </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="en">Check Complete</value>
-        <value xml:lang="fr">Marquée comme terminé</value>
+        <value xml:lang="fr">Marqué(e) comme terminé(e)</value>
         <value xml:lang="it">Controllo completato</value>
         <value xml:lang="zh">是否完成</value>
     </property>
     <property key="ProjectMgrClientContacts">
         <value xml:lang="en">Client Contacts</value>
+        <value xml:lang="fr">Contacts de client</value>
         <value xml:lang="it">Contatti cliente</value>
     </property>
     <property key="ProjectMgrCompanies">
         <value xml:lang="en">Companies</value>
+        <value xml:lang="fr">Compagnie</value>
         <value xml:lang="it">Aziende</value>
     </property>
     <property key="ProjectMgrCompanyName">
@@ -778,6 +783,7 @@
     </property>
     <property key="ProjectMgrNonBilledActualHours">
         <value xml:lang="en">Act Hrs not billed</value>
+        <value xml:lang="fr">Heures réelles non facturées</value>
         <value xml:lang="it">Ore attuali non fatturate</value>
     </property>
     <property key="ProjectMgrNoPhasesYet">
@@ -914,6 +920,7 @@
     </property>
     <property key="ProjectMgrProjects">
         <value xml:lang="en">Projects</value>
+        <value xml:lang="fr">Projets</value>
         <value xml:lang="it">Progetti</value>
     </property>
     <property key="ProjectMgrProjectSummary">
@@ -932,6 +939,7 @@
     </property>
     <property key="ProjectMgrProviders">
         <value xml:lang="en">Providers</value>
+        <value xml:lang="fr">Fournisseurs</value>
         <value xml:lang="it">Providers</value>
     </property>
     <property key="ProjectMgrQuickAssignPartyId">

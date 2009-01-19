@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,14 +26,17 @@
     </property>
     <property key="check.error.suffix">
         <value xml:lang="en">Suffix error:</value>
+        <value xml:lang="fr">Erreur suffixe: </value>
         <value xml:lang="it">Suffisso errore:</value>
     </property>
     <property key="check.message.prefix">
         <value xml:lang="en">Prefix message:</value>
+        <value xml:lang="fr">Message préfixe: </value>
         <value xml:lang="it">Prefisso messaggio:</value>
     </property>
     <property key="check.message.suffix">
         <value xml:lang="en">Suffix message:</value>
+        <value xml:lang="fr">Message suffixe: </value>
         <value xml:lang="it">Suffisso messaggio:</value>
     </property>
     <property key="service.default.message">
@@ -55,22 +58,27 @@
     </property>
     <property key="service.error.suffix">
         <value xml:lang="en">Suffix error:</value>
+        <value xml:lang="fr">Erreur suffixe: </value>
         <value xml:lang="it">Errore suffisso:</value>
     </property>
     <property key="service.message.prefix">
         <value xml:lang="en">Prefix message:</value>
+        <value xml:lang="fr">Message préfixe: </value>
         <value xml:lang="it">Messaggio prefisso:</value>
     </property>
     <property key="service.message.suffix">
         <value xml:lang="en">Suffix message:</value>
+        <value xml:lang="fr">Message suffixe: </value>
         <value xml:lang="it">Messaggio suffisso:</value>
     </property>
     <property key="service.success.prefix">
         <value xml:lang="en">Prefix:</value>
+        <value xml:lang="fr">Préfixe: </value>
         <value xml:lang="it">Prefisso:</value>
     </property>
     <property key="service.success.suffix">
         <value xml:lang="en">Suffix:</value>
+        <value xml:lang="fr">Suffixe: </value>
         <value xml:lang="it">Suffisso:</value>
     </property>
 </resource>

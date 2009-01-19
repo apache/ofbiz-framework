@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_addNote">
         <value xml:lang="en">Add Note</value>
+        <value xml:lang="fr">Ajouter une note</value>
         <value xml:lang="it">Aggiungi nota</value>
     </property>
     <property key="FormFieldTitle_amountTotal">
@@ -101,6 +102,7 @@
     </property>
     <property key="FormFieldTitle_configId">
         <value xml:lang="en">Config Id</value>
+        <value xml:lang="fr">Réf. de configuration</value>
         <value xml:lang="it">Configurazione</value>
     </property>
     <property key="FormFieldTitle_countryGeoId">
@@ -129,6 +131,7 @@
     </property>
     <property key="FormFieldTitle_custRequestId">
         <value xml:lang="en">Cust Request Id</value>
+        <value xml:lang="fr">Réf. de demande client</value>
         <value xml:lang="it">Richiesta soggetto</value>
     </property>
     <property key="FormFieldTitle_custRequestItemSeqId">
@@ -423,10 +426,12 @@
     </property>
     <property key="FormFieldTitle_needsInventoryReceive">
         <value xml:lang="en">Needs Inventory Receive</value>
+        <value xml:lang="fr">Nécessite une réception d'inventaire</value>
         <value xml:lang="it">Necessario ricevere inventario</value>
     </property>
     <property key="FormFieldTitle_newCreditCard">
         <value xml:lang="en">New Credit Card</value>
+        <value xml:lang="fr">Nouvelle carte de crédit</value>
         <value xml:lang="it">Nuova carta di credito</value>
     </property>
     <property key="FormFieldTitle_noteInfo">
@@ -440,7 +445,7 @@
         <value xml:lang="ru">Информация</value>
         <value xml:lang="th">ข้อมูลข้อความ</value>
         <value xml:lang="zh">便笺信息</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_openDateTime">
         <value xml:lang="de">Öffnungsdatum &amp; -uhrzeit</value>
         <value xml:lang="en">Open Date Time</value>
@@ -754,6 +759,7 @@
     </property>
     <property key="FormFieldTitle_returnHeaderTypeId">
         <value xml:lang="en">Return HeaderType Id</value>
+        <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>
     </property>
     <property key="FormFieldTitle_salesTaxAmount">
@@ -1647,6 +1653,7 @@
         <value xml:lang="de">Sie können die Menge auf dem Aktionselement ${productName} (Produkt ID: ${productId}) nicht ändern, Menge nicht angepasst.</value>
         <value xml:lang="en">Sorry, you can't change the quantity on the promotion item ${productName} (product ID: ${productId}, not setting quantity.</value>
         <value xml:lang="es">No puede cambiar la cantidad del ítem de promoción ${productName} (código de producto: ${productId}, no se pone cantidad).</value>
+        <value xml:lang="fr">Désolé, vous ne pouvez pas changer la quantité d'un article en promotion ${productName} (product ID: ${productId}, quantité inchangée.</value>
         <value xml:lang="it">Spiacente, non puoi cambiare la quantità del prodotto in promozione ${productName} (prodotto: ${productId}.</value>
     </property>
     <property key="OrderCaptureService">
@@ -1975,6 +1982,7 @@
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
         <value xml:lang="es">Contenido</value>
+        <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
     </property>
     <property key="OrderContinueToFinalOrderReview">
@@ -2199,6 +2207,7 @@
         <value xml:lang="de">Neue Offerte aus der Anfrage erstellen</value>
         <value xml:lang="en">Create Quote from request</value>
         <value xml:lang="es">Crear nuevo presupuesto desde petición</value>
+        <value xml:lang="fr">Créer un devis depuis la demande</value>
         <value xml:lang="it">Crea preventivo dalla richiesta</value>
     </property>
     <property key="OrderCreateQuoteFromShoppingList">
@@ -2437,6 +2446,7 @@
         <value xml:lang="de">Nicht genügend vorhanden (Sie haben ${requestedQuantity}) vom Produkt ${productName} (Produkt ID: ${productId}) angegeben, Produkt nicht zum Warenkorb hinzugefügt. Reduzieren Sie die Menge oder nehmen Sie Kontakt mit dem Kundendienst auf.</value>
         <value xml:lang="en">Sorry, we do not have enough (you tried ${requestedQuantity}) of the product ${productName} (product ID: ${productId}) in stock, not adding to cart. Please try a lower quantity, try again later, or call customer service for more information.</value>
         <value xml:lang="es">Lo sentimos pero no hay suficiente en stock del producto ${productName} [${productId}], el producto no se ha añadido al carro. Por favor reduzca la cantidad o póngase en contacto con atención al cliente.</value>
+        <value xml:lang="fr">Désolé, nous n'en avons pas assez (vous avez essayé ${requestedQuantity} du produit ${productName}en stock (product ID: ${productId}), non ajouté au panier. SVP essayez une quantité inférieure, essayez de nouveau plus tard, ou appelez le service client pour plus d'information</value>
         <value xml:lang="it">Spiacente, al momento non disponiamo in magazzino di ${requestedQuantity} pezzi del prodotto ${productName} (product ID: ${productId}), questi non saranno aggiunti al carrello. Puoi provare a richiedere una quantità minore, a riprovare più tardi, o contattare il servizio assistenza clienti.</value>
     </property>
     <property key="OrderDoPromotions">

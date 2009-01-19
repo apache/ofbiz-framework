@@ -22,6 +22,7 @@
     <property key="FormFieldTitle_annualRevenue">
         <value xml:lang="en">Annual revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
+        <value xml:lang="fr">Revenu annuel</value>
         <value xml:lang="it">Revisione annuale</value>
     </property>
     <property key="FormFieldTitle_birthDate">
@@ -69,7 +70,7 @@
         <value xml:lang="de">Kontaktmechanismus Detail</value>
         <value xml:lang="en">Contach Mech Detail</value>
         <value xml:lang="es">Detalles de mec. de contacto</value>
-        <value xml:lang="fr">Détail des coordonées</value>
+        <value xml:lang="fr">Détail des coordonnées</value>
         <value xml:lang="it">Dettagli Contatto</value>
         <value xml:lang="nl">Details contactmech</value>
         <value xml:lang="ro">Detaliu Contact</value>
@@ -227,10 +228,12 @@
     </property>
     <property key="FormFieldTitle_deleteEmail">
         <value xml:lang="en">Delete email</value>
+        <value xml:lang="fr">Supprimer le courriel</value>
         <value xml:lang="it">Cancella email</value>
     </property>
     <property key="FormFieldTitle_destinationFacilityId">
         <value xml:lang="en">Destination Facility Id</value>
+        <value xml:lang="fr">Réf. de lieu de stockage de destination</value>
         <value xml:lang="it">Stabilimento destinazione</value>
     </property>
     <property key="FormFieldTitle_disabledDateTime">
@@ -360,7 +363,7 @@
         <value xml:lang="de">Gruppenname lokal</value>
         <value xml:lang="en">Group Name Local</value>
         <value xml:lang="es">Nombre local del grupo</value>
-        <value xml:lang="fr">Nom du groupe local</value>
+        <value xml:lang="fr">Nom de groupe local</value>
         <value xml:lang="it">Nome Gruppo Locale</value>
         <value xml:lang="nl">Groepnaam lokaal</value>
         <value xml:lang="ro">Nume Grup Local</value>
@@ -496,6 +499,7 @@
     </property>
     <property key="FormFieldTitle_messageId">
         <value xml:lang="en">Message Id</value>
+        <value xml:lang="fr">Réf. de message</value>
         <value xml:lang="it">Messaggio</value>
     </property>
     <property key="FormFieldTitle_middleName">
@@ -513,6 +517,7 @@
     <property key="FormFieldTitle_middleNameLocal">
         <value xml:lang="en">Middle Name Local</value>
         <value xml:lang="es">Segundo nombre local</value>
+        <value xml:lang="fr">Nom intermédiaire local</value>
         <value xml:lang="it">Secondo nome</value>
     </property>
     <property key="FormFieldTitle_monthsWithEmployer">
@@ -600,11 +605,13 @@
     </property>
     <property key="FormFieldTitle_noteName">
         <value xml:lang="en">Note Name</value>
+        <value xml:lang="fr">Nom de la note</value>
         <value xml:lang="it">Nome nota</value>
     </property>
     <property key="FormFieldTitle_numEmployees">
         <value xml:lang="en">Number of employees</value>
         <value xml:lang="es">Número de empleados</value>
+        <value xml:lang="fr">Nombre d'employés</value>
         <value xml:lang="it">Numero di impiegati</value>
     </property>
     <property key="FormFieldTitle_occupation">
@@ -674,11 +681,13 @@
     </property>
     <property key="FormFieldTitle_originContactMechId">
         <value xml:lang="en">Origin Contact Mech Id</value>
+        <value xml:lang="fr">Réf. de coordonnées d'origine</value>
         <value xml:lang="it">Contatto origine</value>
     </property>
     <property key="FormFieldTitle_otherLocal">
         <value xml:lang="en">Other Local</value>
         <value xml:lang="es">Otro local</value>
+        <value xml:lang="fr">Autre local</value>
         <value xml:lang="it">Altro locale</value>
     </property>
     <property key="FormFieldTitle_paAddress1">
@@ -710,6 +719,7 @@
     </property>
     <property key="FormFieldTitle_partyContentTypeId">
         <value xml:lang="en">Parent Content Type Id</value>
+        <value xml:lang="fr">Réf. de type de contenu parent</value>
         <value xml:lang="it">Tipo contenuto padre</value>
     </property>
     <property key="FormFieldTitle_parentCommEventId">
@@ -890,6 +900,7 @@
     </property>
     <property key="FormFieldTitle_percentageUsed">
         <value xml:lang="en">Percentage Used</value>
+        <value xml:lang="fr">Pourcentage utilisé</value>
         <value xml:lang="it">Percentuale usata</value>
     </property>
     <property key="FormFieldTitle_percentComplete">
@@ -1002,6 +1013,7 @@
     </property>
     <property key="FormFieldTitle_roleTypeList">
         <value xml:lang="en">Role Type List</value>
+        <value xml:lang="fr">Liste de type de rôle</value>
         <value xml:lang="it">Lista tipo ruolo</value>
     </property>
     <property key="FormFieldTitle_salutation">
@@ -1101,6 +1113,7 @@
     <property key="FormFieldTitle_tickerSymbol">
         <value xml:lang="en">Ticker symbol</value>
         <value xml:lang="es">Simbolo ticker</value>
+        <value xml:lang="fr">symbole de téléscripteur </value>
         <value xml:lang="it">Simbolo ticker</value>
     </property>
     <property key="FormFieldTitle_toName">
@@ -1114,6 +1127,7 @@
     </property>
     <property key="FormFieldTitle_toPartyId">
         <value xml:lang="en">To Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur destinataire</value>
         <value xml:lang="it">Al soggetto</value>
     </property>
     <property key="FormFieldTitle_totalInvoiceNotApplied">
@@ -1852,7 +1866,7 @@
         <value xml:lang="en">Protected Views For SecurityGroup</value>
         <value xml:lang="fr">Vues protégées pour le groupe de sécurité</value>
         <value xml:lang="it">Viste protette per gruppo sicurezza</value>
-    </property>    
+    </property>
     <property key="PageTitleViewPartyRole">
         <value xml:lang="de">Akteur Rollen anzeigen</value>
         <value xml:lang="en">View Party Roles</value>
@@ -5519,12 +5533,12 @@
         <value xml:lang="en">Maximum number of visits</value>
         <value xml:lang="fr">Nombre maximum de visites</value>
         <value xml:lang="it">Massimo numero di visite</value>
-    </property>    
+    </property>
     <property key="PartyMaxHitDuration">
         <value xml:lang="en">Duration during which the visits are considered (in seconds)</value>
         <value xml:lang="fr">Durée pendant laquelle les visites sont considérées (en secondes)</value>
         <value xml:lang="it">Durata nella quale le visite sono considerate (in secondi)</value>
-    </property>        
+    </property>
     <property key="PartyMechPurposeTypeNotFound">
         <value xml:lang="de">Zweck Typ nicht gefunden mit der ID</value>
         <value xml:lang="en">Purpose Type not found with ID</value>
@@ -8144,11 +8158,11 @@
         <value xml:lang="th">ผู้จัดหา</value>
         <value xml:lang="zh">供货商</value>
     </property>
-    <property key="PartyTarpitDuration"> 
+    <property key="PartyTarpitDuration">
         <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
         <value xml:lang="fr">Durée pendant laquelle la vue ne sera plus accessible (en secondes)</value>
         <value xml:lang="it">Durata durante la quale la vista non è accessibile (in secondi)</value>
-    </property>    
+    </property>
     <property key="PartyTaxAddInfo">
         <value xml:lang="de">Steuerangaben hinzufügen</value>
         <value xml:lang="en">Add Tax Info</value>
