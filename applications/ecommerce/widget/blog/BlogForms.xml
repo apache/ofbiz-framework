@@ -190,25 +190,18 @@
         </sort-order>
     </form>
 
-    <form name="CreateArticle" target="createBlogArticle" title="" type="upload" skip-end="true" 
+    <form name="EditArticle" target="createBlogArticle" title="" type="upload" skip-end="true" default-map-name="blogEntry"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="contentName" title="Short title">
-            <text size="40"/>
-        </field>
-        <field name="description" title="Slightly longer title (250 chars max)">
-            <textarea cols="40" rows="2"/>
-        </field>
-        <field name="summaryData" title="Summary" widget-style="inputBox dojo-ResizableTextArea">
-            <textarea cols="60" rows="4"/>
-        </field>
-        <field name="textData" title="Article" widget-style="inputBox dojo-ResizableTextArea">
-            <textarea cols="60" rows="12"/>
-        </field>
-        <field name="uploadedFile" title="Image">
-            <file size="25"/>
-        </field>
-        <field name="dataResourceId" title="Template">
-            <drop-down allow-empty="true">                
+        <alt-target use-when="contentId!=void" target="updateBlogArticle"/>
+        <field name="blogContentId"><hidden value="${parameters.blogContentId}"/></field>
+        <field name="contentId" title="Blog entry Id" use-when="contentId!=void"><display/></field>
+        <field name="contentName" title="Short title"><text size="40"/></field>
+        <field name="description" title="Slightly longer title (250 chars max)"><textarea cols="40" rows="2"/></field>
+        <field name="summaryData" title="Summary" widget-style="inputBox dojo-ResizableTextArea"><textarea cols="60" rows="4"/></field>
+        <field name="articleData" title="Article" widget-style="inputBox dojo-ResizableTextArea"><textarea cols="60" rows="12"/></field>
+        <field name="uploadedFile" title="Image"><file size="25"/></field>
+        <field name="templateDataResourceId" title="Template">
+            <drop-down>
                 <option key="BLOG_TPL_TOPLEFT" description="Top Left"/>
                 <option key="BLOG_TPL_TOPCENTER" description="Top Center"/>
             </drop-down>
@@ -219,85 +212,7 @@
                 <option key="CTNT_INITIAL_DRAFT" description="Preview"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field name="contentPurposeString">
-            <hidden value="ARTICLE"/>
-        </field>
-        <field name="contentAssocTypeId">
-            <hidden value="PUBLISH_LINK"/>
-        </field>
-        <field name="blogContentId" entry-name="blogContentId">
-            <hidden/>
-        </field>
-        <field name="contentIdFrom" entry-name="blogContentId">
-            <hidden/>
-        </field>
-        <sort-order>            
-            <sort-field name="contentName"/>
-            <sort-field name="description"/>
-            <sort-field name="summaryData"/>
-            <sort-field name="textData"/>
-            <sort-field name="uploadedFile"/>
-            <sort-field name="dataResourceId"/> 
-            <sort-field name="statusId"/>
-            <sort-field name="submitButton"/>
-        </sort-order>
-    </form>
-
-    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" skip-end="true" default-map-name="blogEntry"
-        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="contentId" title="Blog ID" use-when="contentId!=null&amp;&amp;contentId!=&quot;&quot;">
-            <display/>
-        </field>
-        <field name="contentName" title="Short title">
-            <text size="40"/>
-        </field>
-        <field name="description" title="Slightly longer title (250 chars max)">
-            <textarea cols="40" rows="2"/>
-        </field>
-        <field name="summaryData" title="Summary" entry-name="summary" widget-style="inputBox dojo-ResizableTextArea">
-            <textarea cols="60" rows="4"/>
-        </field>
-        <field name="textData" title="Article" entry-name="article" widget-style="inputBox dojo-ResizableTextArea">
-            <textarea cols="60" rows="12"/>
-        </field>
-        <field name="uploadedFile" title="Image">
-            <file size="25"/>
-        </field>
-        <field name="dataResourceId" title="Template" entry-name="templateDataResourceId">
-            <drop-down allow-empty="true">
-                <option key="BLOG_TPL_TOPLEFT" description="Top Left"/>
-                <option key="BLOG_TPL_TOPCENTER" description="Top Center"/>
-            </drop-down>
-        </field>
-        <field name="statusId" title="Status">
-            <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
-                <option key="CTNT_PUBLISHED" description="Publish"/>
-                <option key="CTNT_INITIAL_DRAFT" description="Preview"/>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field name="contentPurposeString">
-            <hidden value="ARTICLE"/>
-        </field>
-        <field name="blogContentId" entry-name="blogContentId">
-            <hidden/>
-        </field>
-        <sort-order>
-            <sort-field name="contentId"/>
-            <sort-field name="contentName"/>
-            <sort-field name="description"/>
-            <sort-field name="summaryData"/>
-            <sort-field name="textData"/>
-            <sort-field name="uploadedFile"/>
-            <sort-field name="dataResourceId"/>
-            <sort-field name="statusId"/>
-            <sort-field name="submitButton"/>
-        </sort-order>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true" 

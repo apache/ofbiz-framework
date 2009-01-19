@@ -19,25 +19,22 @@
   -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="postBlogEntry" short-description="Post a new Blog Entry">
-        <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
+    <simple-method method-name="createBlogEntry" short-description="Create a new Blog Entry">
+        <set field="contentAssocTypeId" value="PUBLISH_LINK"/>
         <set field="ownerContentId" from-field="parameters.blogContentId"/>
-        <set field="contentIdFrom" from-field="parameters.blogContentId"/>         
+        <set field="contentIdFrom" from-field="parameters.blogContentId"/>
+        <if-empty field="parameters.statusId">
+            <set field="parameters.statusId" value="CTNT_INITIAL_DRAFT"/>
+        </if-empty>
+        <if-empty field="parameters.templateDataResourceId">
+            <set field="parameters.templateDataResourceId" value="BLOG_TPL_TOPLEFT"/>
+        </if-empty>
+        
         <!-- determine of we need to create complex template structure or simple content structure -->
-        <if>
-            <condition>
-                <and>
-                    <not>
-                        <if-empty field="parameters._uploadedFile_fileName"/>
-                    </not>
-                    <not>
-                        <if-empty field="parameters.textData"/>
-                    </not>
-                </and>
-            </condition>
-            <then>
+        <if-not-empty field="parameters._uploadedFile_fileName">
+            <if-not-empty field="parameters.articleData">
                 <!-- complex template structure (image & text) -->
-                <set field="createMain.dataResourceId" from-field="parameters.dataResourceId"/>
+                <set field="createMain.dataResourceId" from-field="parameters.templateDataResourceId"/>
                 <set field="createMain.contentAssocTypeId"  from-field="contentAssocTypeId"/>
                 <set field="createMain.contentName" from-field="parameters.contentName"/>
                 <set field="createMain.description" from-field="parameters.description"/>
@@ -53,87 +50,62 @@
                 <!-- reset contentIdFrom to new contentId -->
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
                 <set field="contentIdFrom" from-field="contentId"/>                                
-            </then>
-        </if>
+            </if-not-empty>
+        </if-not-empty>
+
+        <if-not-empty field="parameters._uploadedFile_fileName">
+            <!-- upload a picture -->
+            <set field="createImage.dataResourceTypeId" value="LOCAL_FILE"/>
+            <set field="createImage.dataTemplateTypeId" value="NONE"/>
+            <set field="createImage.mapKey" value="IMAGE"/>
+            <set field="createImage.ownerContentId" from-field="ownerContentId"/>
+            <set field="createImage.contentName" from-field="parameters.contentName"/>
+            <set field="createImage.description" from-field="parameters.description"/>
+            <set field="createImage.statusId" from-field="parameters.statusId"/>
+            <set field="createImage.contentAssocTypeId"  from-field="contentAssocTypeId"/>
+            <set field="createImage.contentIdFrom" from-field="contentIdFrom"/>
+            <set field="createImage.partyId" from-field="userLogin.partyId"/>
+            <set field="createImage.isPublic" value="Y"/>
+            <set field="createImage.uploadedFile" from-field="parameters.uploadedFile"/>
+            <set field="createImage._uploadedFile_fileName" from-field="parameters._uploadedFile_fileName"/>
+            <set field="createImage._uploadedFile_contentType" from-field="parameters._uploadedFile_contentType"/>
+            <call-service service-name="createContentFromUploadedFile" in-map-name="createImage">
+                <result-to-field result-name="contentId" field="imageContentId"/>
+            </call-service>
+            <if-empty field="contentId">
+                <set field="contentIdFrom" from-field="imageContentId"/>
+                <set field="contentId" from-field="imageContentId"/>
+                <set field="contentAssocTypeId" value="SUB_CONTENT"/>
+            </if-empty>
+        </if-not-empty>
         
-        <if>
-            <condition>
-                <not>
-                    <if-empty field="parameters._uploadedFile_fileName"/>
-                </not>
-            </condition>
-            <then>
-                <!-- upload a picture -->
-                <set field="createImage.dataResourceTypeId" value="LOCAL_FILE"/>
-                <set field="createImage.dataTemplateTypeId" value="NONE"/>
-                <set field="createImage.mapKey" value="IMAGE"/>
-                <set field="createImage.ownerContentId" from-field="ownerContentId"/>
-                <set field="createImage.contentName" from-field="parameters.contentName"/>
-                <set field="createImage.description" from-field="parameters.description"/>
-                <set field="createImage.statusId" from-field="parameters.statusId"/>
-                <set field="createImage.contentAssocTypeId"  from-field="contentAssocTypeId"/>
-                <set field="createImage.contentIdFrom" from-field="contentIdFrom"/>
-                <set field="createImage.partyId" from-field="userLogin.partyId"/>
-                <set field="createImage.isPublic" value="Y"/>
-                <set field="createImage.uploadedFile" from-field="parameters.uploadedFile"/>
-                <set field="createImage._uploadedFile_fileName" from-field="parameters._uploadedFile_fileName"/>
-                <set field="createImage._uploadedFile_contentType" from-field="parameters._uploadedFile_contentType"/>
-                <call-service service-name="createContentFromUploadedFile" in-map-name="createImage">
-                    <result-to-field result-name="contentId" field="imageContentId"/>
-                </call-service>
-                <if-empty field="contentId">
-                    <set field="contentIdFrom" from-field="imageContentId"/>
-                    <set field="contentId" from-field="imageContentId"/>
-                    <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                </if-empty>
-            </then>
-        </if>
+        <if-not-empty field="parameters.articleData">
+            <!-- create text data -->
+            <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+            <set field="createText.contentPurposeTypeId" value="ARTICLE"/>
+            <set field="createText.dataTemplateTypeId" value="NONE"/>
+            <set field="createText.mapKey" value="MAIN"/>
+            <set field="createText.ownerContentId" from-field="ownerContentId"/>
+            <set field="createText.contentName" from-field="parameters.contentName"/>
+            <set field="createText.description" from-field="parameters.description"/>
+            <set field="createText.statusId" from-field="parameters.statusId"/>
+            <set field="createText.contentAssocTypeId"  from-field="contentAssocTypeId"/>
+            <set field="createText.textData" from-field="parameters.articleData"/>
+            <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
+            <set field="createText.partyId" from-field="userLogin.partyId"/>
+            <log level="always" message="calling createTextContent with map: ${createText}"/>
+            <call-service service-name="createTextContent" in-map-name="createText">
+                <result-to-field result-name="contentId" field="textContentId"/>
+            </call-service>
+            <if-empty field="contentId">
+                <set field="contentIdFrom" from-field="textContentId"/>
+                <set field="contentId" from-field="textContentId"/>
+                <set field="contentAssocTypeId" value="SUB_CONTENT"/>
+            </if-empty>
+        </if-not-empty>
         
-        <if>
-            <condition>
-                <not>
-                    <if-empty field="parameters.textData"/>
-                </not>
-            </condition>
-            <then>
-                <!-- create text data -->
-                <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
-                <set field="createText.contentPurposeTypeId" value="ARTICLE"/>
-                <set field="createText.dataTemplateTypeId" value="NONE"/>
-                <set field="createText.mapKey" value="MAIN"/>
-                <set field="createText.ownerContentId" from-field="ownerContentId"/>
-                <set field="createText.contentName" from-field="parameters.contentName"/>
-                <set field="createText.description" from-field="parameters.description"/>
-                <set field="createText.statusId" from-field="parameters.statusId"/>
-                <set field="createText.contentAssocTypeId"  from-field="contentAssocTypeId"/>
-                <set field="createText.textData" from-field="parameters.textData"/>
-                <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
-                <set field="createText.partyId" from-field="userLogin.partyId"/>
-                <log level="always" message="calling createTextContent with map: ${createText}"/>
-                <call-service service-name="createTextContent" in-map-name="createText">
-                    <result-to-field result-name="contentId" field="textContentId"/>
-                </call-service>
-                <if-empty field="contentId">
-                    <set field="contentIdFrom" from-field="textContentId"/>
-                    <set field="contentId" from-field="textContentId"/>
-                    <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                </if-empty>
-            </then>
-        </if>
-        
-        <!-- we should have a primary (at least) contentId -->
-        <if>
-            <condition>
-                <and>
-                    <not>
-                        <if-empty field="contentId"/>
-                    </not>
-                    <not>
-                        <if-empty field="parameters.summaryData"/>
-                    </not>
-                </and>            
-            </condition>
-            <then>
+        <if-not-empty field="contentId">
+            <if-not-empty field="parameters.summaryData">
                 <!-- create the summary data -->
                 <set field="createSummary.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
                 <set field="createSummary.contentPurposeTypeId" value="ARTICLE"/>
@@ -148,11 +120,100 @@
                 <set field="createSummary.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createSummary.partyId" from-field="userLogin.partyId"/>
                 <call-service service-name="createTextContent" in-map-name="createSummary"/>
+            </if-not-empty>
+        </if-not-empty>
+
+        <field-to-result field="contentId"/>
+        <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
+    </simple-method>
+
+    <simple-method method-name="updateBlogEntry" short-description="Update a existing Blog Entry">
+        <set field="showNoResult" value="Y"/>
+        <call-simple-method method-name="getBlogEntry"/>
+        <if>
+            <condition>
+                <or>
+                    <if-compare-field field="parameters.contentName" operator="not-equals" to-field="contentName"/>                
+                    <if-compare-field field="parameters.description" operator="not-equals" to-field="description"/>                
+                    <if-compare-field field="parameters.templateDataResourceId" operator="not-equals" to-field="templateDataResourceId"/>                
+                    <if-compare-field field="parameters.statusId" operator="not-equals" to-field="statusId"/>                
+                </or>
+            </condition>
+            <then>
+                <set-service-fields service-name="updateContent" map="parameters" to-map="updContent"/>
+                <set field="updContent.dataResourceId" from-field="parameters.templateDataResourceId"/>
+                <call-service service-name="updateContent" in-map-name="updContent"/>
             </then>
         </if>
-        <field-to-result field="contentId"/>
+
+        <!-- new article text -->
+        <if-empty field="articleText">
+            <if-not-empty field="parameters.articleData">
+                <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="createText.contentPurposeTypeId" value="ARTICLE"/>
+                <set field="createText.dataTemplateTypeId" value="NONE"/>
+                <set field="createText.mapKey" value="MAIN"/>
+                <set field="createSummary.ownerContentId" from-field="parameters.contentId"/>
+                <set field="createSummary.contentName" from-field="parameters.contentName" default-value="${contentName}"/>
+                <set field="createSummary.description" from-field="parameters.description" default-value="${description}"/>
+                <set field="createSummary.statusId" from-field="parameters.statusId" default-value="${statusId}"/>
+                <set field="createSummary.contentAssocTypeId" value="SUB_CONTENT"/>
+                <set field="createText.textData" from-field="parameters.articleData"/>
+                <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
+                <set field="createText.partyId" from-field="userLogin.partyId"/>
+                <log level="always" message="calling createTextContent with map: ${createText}"/>
+                <call-service service-name="createTextContent" in-map-name="createText"/>
+            </if-not-empty>
+        </if-empty>
+        
+        <!-- update article text -->        
+        <if-not-empty field="articleText">
+            <if-compare-field field="parameters.articleData" operator="not-equals" to-field="articleData">
+                <set field="articleText.textData" from-field="parameters.articleData"/>
+                <store-value value-field="articleText"/>
+            </if-compare-field>
+        </if-not-empty>
+        
+        <!-- update summary text -->        
+        <if-not-empty field="summaryText">
+            <if-compare-field field="parameters.summaryData" operator="not-equals" to-field="summaryData">
+                <set field="summaryText.textData" from-field="parameters.summaryData"/>
+                <store-value value-field="summaryText"/>
+            </if-compare-field>
+        </if-not-empty>
+        
+        <if-not-empty field="parameters._uploadedFile_fileName">
+            <if-not-empty field="imageContent">
+                <entity-and entity-name="ContentAssoc" list="oldAssocs" filter-by-date="true">
+                    <field-map field-name="contentId" from-field="contentId"/>
+                    <field-map field-name="contentIdTo" from-field="imageContent.contentId"/>
+                    <field-map field-name="mapKey" value="IMAGE"/>
+                </entity-and>
+                <first-from-list entry="oldAssoc" list="oldAssocs"/>
+                <now-date-to-env field="oldAssoc.thruDate"/>
+                <store-value value-field="oldAssoc"/>
+            </if-not-empty>
+            <!-- upload a picture -->
+            <set field="createImage.dataResourceTypeId" value="LOCAL_FILE"/>
+            <set field="createImage.dataTemplateTypeId" value="NONE"/>
+            <set field="createImage.mapKey" value="IMAGE"/>
+            <set field="createImage.ownerContentId" from-field="parameters.contentId"/>
+            <set field="createImage.contentName" from-field="parameters.contentName" default-value="${contentName}"/>
+            <set field="createImage.description" from-field="parameters.description" default-value="${description}"/>
+            <set field="createImage.statusId" from-field="parameters.statusId" default-value="${statusId}"/>
+            <set field="createImage.contentAssocTypeId"  value="SUB_CONTENT"/>
+            <set field="createImage.contentIdFrom" from-field="parameters.contentId"/>
+            <set field="createImage.partyId" from-field="userLogin.partyId"/>
+            <set field="createImage.isPublic" value="Y"/>
+            <set field="createImage.uploadedFile" from-field="parameters.uploadedFile"/>
+            <set field="createImage._uploadedFile_fileName" from-field="parameters._uploadedFile_fileName"/>
+            <set field="createImage._uploadedFile_contentType" from-field="parameters._uploadedFile_contentType"/>
+            <call-service service-name="createContentFromUploadedFile" in-map-name="createImage"/>
+        </if-not-empty>
+        <field-to-result field="parameters.contentId" result-name="contentId"/>
+        <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
     </simple-method>
-    
+
     <simple-method method-name="getOwnedOrPublishedBlogEntries" short-description="Get blog entries that the user owns or are published">
         <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="unfilteredList">
             <condition-list combine="and">
@@ -183,36 +244,49 @@
             </if-compare>
         </iterate>
         <field-to-result field="blogList" result-name="blogList"/>
+        <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
     </simple-method>
 
     <simple-method method-name="getBlogEntry" short-description="Get all the info for a blog article">
         <entity-one entity-name="Content" value-field="content"/>
-        <field-to-result field="content.contentId" result-name="contentId"/>
-        <field-to-result field="content.contentName" result-name="contentName"/>
-        <field-to-result field="content.description" result-name="description"/>
-        <field-to-result field="content.statusId" result-name="statusId"/>
-        <field-to-result field="content.datResourceId" result-name="templateDataResourceId"/>
-        <get-related value-field="Content" relation-name="ContentAssoc" list="rawAssocs"/>
+        <get-related value-field="content" relation-name="FromContentAssoc" list="rawAssocs"/>
         <filter-list-by-date list="rawAssocs" to-list="assocs"/>
         <iterate entry="assoc" list="assocs">
             <if-compare field="assoc.mapKey" value="MAIN" operator="equals">
-                <get-related-one value-field="assoc" relation-name="Content" to-value-field="content"/>
-                <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="text"/>
-                <field-to-result field="text.textData" result-name="article"/>
+                <get-related-one value-field="assoc" relation-name="ToContent" to-value-field="mainContent"/>
+                <get-related-one value-field="mainContent" relation-name="DataResource" to-value-field="dataResource"/>
+                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="articleText"/>
             </if-compare>
             <if-compare field="assoc.mapKey" value="SUMMARY" operator="equals">
-                <get-related-one value-field="assoc" relation-name="Content" to-value-field="content"/>
-                <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="text"/>
-                <field-to-result field="text.textData" result-name="summary"/>
+                <get-related-one value-field="assoc" relation-name="ToContent" to-value-field="summaryContent"/>
+                <get-related-one value-field="summaryContent" relation-name="DataResource" to-value-field="dataResource"/>
+                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="summaryText"/>
             </if-compare>
             <if-compare field="assoc.mapKey" value="IMAGE" operator="equals">
-                <get-related-one value-field="assoc" relation-name="Content" to-value-field="content"/>
-                <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-                <field-to-result field="dataResource.dataResourceId" result-name="imageDataResourceId"/>
+                <get-related-one value-field="assoc" relation-name="ToContent" to-value-field="imageContent"/>
             </if-compare>
         </iterate>
+        <if-empty field="showNoResult">
+            <field-to-result field="content.contentId" result-name="contentId"/>
+            <field-to-result field="content.contentName" result-name="contentName"/>
+            <field-to-result field="content.description" result-name="description"/>
+            <field-to-result field="content.statusId" result-name="statusId"/>
+            <field-to-result field="content.dataResourceId" result-name="templateDataResourceId"/>
+            <field-to-result field="articleText.textData" result-name="articleData"/>
+            <field-to-result field="summaryText.textData" result-name="summaryData"/>
+            <field-to-result field="imageContent.dataResourceId" result-name="imageDataResourceId"/>
+            <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
+            <else>
+                <set from-field="content.contentId" field="contentId"/>
+                <set from-field="content.contentName" field="contentName"/>
+                <set from-field="content.description" field="description"/>
+                <set from-field="content.statusId" field="statusId"/>
+                <set from-field="content.dataResourceId" field="templateDataResourceId"/>
+                <set from-field="articleText.textData" field="articleData"/>
+                <set from-field="summaryText.textData" field="summaryData"/>
+                <set from-field="imageContent.dataResourceId" field="imageDataResourceId"/>
+            </else>
+        </if-empty>
     </simple-method>
 
 </simple-methods>
