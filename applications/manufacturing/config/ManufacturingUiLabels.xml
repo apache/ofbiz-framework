@@ -619,7 +619,7 @@
         <value xml:lang="de">Stücklistensimulation</value>
         <value xml:lang="en">Bom Simulation</value>
         <value xml:lang="es">Simulación de materiales</value>
-        <value xml:lang="fr">Simulation de BOM</value>
+        <value xml:lang="fr">Simulation de nomenclature</value>
         <value xml:lang="it">Simulazione Distinta Base</value>
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
@@ -629,7 +629,7 @@
         <value xml:lang="de">Stücklistenart</value>
         <value xml:lang="en">Bom Type</value>
         <value xml:lang="es">Tipo de lista de materiales</value>
-        <value xml:lang="fr">type de BOM</value>
+        <value xml:lang="fr">Type de nomenclature</value>
         <value xml:lang="it">Tipo Distinta Base</value>
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
@@ -903,7 +903,7 @@
         <value xml:lang="de">Stückliste kopieren</value>
         <value xml:lang="en">Copy BOM</value>
         <value xml:lang="es">Copiar Lista de materiales</value>
-        <value xml:lang="fr">Copie du BOM</value>
+        <value xml:lang="fr">Copie de la nomenclature</value>
         <value xml:lang="it">Copia Distinte Base</value>
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
@@ -931,6 +931,7 @@
     </property>
     <property key="ManufacturingCreateBom">
         <value xml:lang="en">Create Bom</value>
+        <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creare distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
     </property>
@@ -976,6 +977,7 @@
     </property>
     <property key="ManufacturingCreateProductBom">
         <value xml:lang="en">Create Bill Of Material</value>
+        <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creazione distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
     </property>
@@ -1623,7 +1625,7 @@
         <value xml:lang="de">Fehler beim anzeigen der Stückliste</value>
         <value xml:lang="en">Error while listing the Bill of Material</value>
         <value xml:lang="es">Error al cargar la lista de materiales</value>
-        <value xml:lang="fr">Erreur tout en énumérant les nomenclatures</value>
+        <value xml:lang="fr">Erreur durant l'énumération des nomenclatures</value>
         <value xml:lang="it">Errore durante la lista delle Distinte Base</value>
         <value xml:lang="ro">Eroare in timpul listarii Listei de repere ManufacturingListOfProductionRunComponents=Lista Componentelor Comenzii de Productie</value>
         <value xml:lang="th">เกิดความผิดพลาดขณะที่ลงรายการของสินค้า</value>
@@ -3272,6 +3274,7 @@
     </property>
     <property key="PageTitleFindBom">
         <value xml:lang="en">Find Bill Of Materials</value>
+        <value xml:lang="fr">Rechercher une nomenclature</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
         <value xml:lang="it">Ricerca distinta base</value>
     </property>

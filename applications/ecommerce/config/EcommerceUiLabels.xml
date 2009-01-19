@@ -585,7 +585,8 @@
     <property key="EcommerceEditProfile">
         <value xml:lang="de">Profil bearbeiten</value>
         <value xml:lang="en">Edit Profile</value>
-	<value xml:lang="it">Aggiorna profilo</value>
+        <value xml:lang="fr">Modifier le profil</value>
+	    <value xml:lang="it">Aggiorna profilo</value>
     </property>
     <property key="EcommerceEmptyBody">
         <value xml:lang="de">Leerer Meldungstext</value>
@@ -1266,6 +1267,7 @@
     </property>
     <property key="EcommerceLocation">
         <value xml:lang="en">Location</value>
+        <value xml:lang="fr">Emplacement</value>
         <value xml:lang="it">Luogo</value>
     </property>
     <property key="EcommerceLoggedToPost">
@@ -1379,7 +1381,8 @@
     <property key="EcommerceManageAddresses">
         <value xml:lang="de">Adressen verwalten</value>
         <value xml:lang="en">Manage Addresses</value>
-	<value xml:lang="it">Gestione indirizzi</value>
+        <value xml:lang="fr">Gérer les adresses</value>
+	    <value xml:lang="it">Gestione indirizzi</value>
     </property>
     <property key="EcommerceMessage1">
         <value xml:lang="de">Bedaure, es scheint als ob die angegebene Produkt ID</value>
@@ -1458,16 +1461,19 @@
     <property key="EcommerceMyAccount">
         <value xml:lang="de">Mein Konto</value>
         <value xml:lang="en">My Account</value>
+        <value xml:lang="fr">Mon compte</value>
         <value xml:lang="it">Il mio account</value>
     </property>
     <property key="EcommerceMyDefaultBillingAddress">
         <value xml:lang="de">Diese Adresse als Standard Rechnungsadresse verwenden</value>
         <value xml:lang="en">Make this my default billing address</value>
+        <value xml:lang="fr">Faites de ceci mon adresse de facturation par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di fatturazione predefinito</value>
     </property>
     <property key="EcommerceMyDefaultShippingAddress">
         <value xml:lang="de">Diese Adresse als Standard Lieferadresse verwenden</value>
         <value xml:lang="en">Make this my default shipping address</value>
+        <value xml:lang="fr">Faites de ceci mon adresse d'expédition par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di spedizione predefinito</value>
     </property>
     <property key="EcommerceNbrOfDays">
@@ -1707,6 +1713,7 @@
     <property key="EcommerceNotExists">
         <value xml:lang="de">Existiert nicht</value>
         <value xml:lang="en">Not Exists</value>
+        <value xml:lang="fr">N'existe pas</value>
         <value xml:lang="it">Non esiste</value>
     </property>
     <property key="EcommerceNotYetKnown">
@@ -1723,7 +1730,7 @@
     <property key="EcommerceOnePageCheckout">
         <value xml:lang="de">Bezahlvorgang auf einer Seite</value>
         <value xml:lang="en">One Page Checkout</value>
-        <value xml:lang="fr">Paiment sur une seule page</value>
+        <value xml:lang="fr">Paiement sur une seule page</value>
         <value xml:lang="it">Acquisto su pagina singola</value>
     </property>
     <property key="EcommerceOrderConfirmation">

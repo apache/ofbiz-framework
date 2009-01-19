@@ -97,6 +97,7 @@
     </property>
     <property key="FacilitySelection">
         <value xml:lang="en">Facility Selection</value>
+        <value xml:lang="fr">Choix du lieu de stockage</value>
         <value xml:lang="it">Seleziona stabilimento</value>
     </property>
     <property key="FacilityShipAvailable">
@@ -2400,11 +2401,13 @@
     </property>
     <property key="FormFieldTitle_productFeatureIdTo">
         <value xml:lang="en">Product Feature Id To</value>
+        <value xml:lang="fr">Réf. de caractéristique de produit dest.</value>
         <value xml:lang="it">Caratteristica prodotto a</value>
     </property>
     <property key="FormFieldTitle_productFeatureIactnTypeId">
         <value xml:lang="de">Interaktionstyp</value>
         <value xml:lang="en">Interaction Type</value>
+        <value xml:lang="fr">Type d'interaction</value>
         <value xml:lang="es">Código Tipo de interacción</value>
         <value xml:lang="it">Tipo interattivo</value>
     </property>
@@ -2744,7 +2747,6 @@
         <value xml:lang="th">รหัสการคืนข้อมูล</value>
         <value xml:lang="zh">重复使用信息标识</value>
     </property>
-    
     <property key="FormFieldTitle_rejectionId">
         <value xml:lang="de">Ablehnung ID</value>
         <value xml:lang="en">Rejection Id</value>
@@ -6848,6 +6850,7 @@
         <value xml:lang="de">ATP/Verfügbare Menge</value>
         <value xml:lang="en">Atp/Qoh</value>
         <value xml:lang="es">ATP/QOH</value>
+        <value xml:lang="fr">ATP/QOH</value>
         <value xml:lang="it">ATP/QOH</value>
         <value xml:lang="th">Atp/Qoh</value>
     </property>
@@ -7007,6 +7010,7 @@
         <value xml:lang="de">Basis</value>
         <value xml:lang="en">Base</value>
         <value xml:lang="es">Base</value>
+        <value xml:lang="fr">Base</value>
         <value xml:lang="it">Base</value>
         <value xml:lang="ro">Baza</value>
         <value xml:lang="ru">Base</value>
@@ -7812,6 +7816,7 @@
         <value xml:lang="de">Kommissionen</value>
         <value xml:lang="en">Commissions</value>
         <value xml:lang="es">Comisiones</value>
+        <value xml:lang="fr">Commissions</value>
         <value xml:lang="it">Provvigioni</value>
         <value xml:lang="ru">Комиссионные</value>
         <value xml:lang="th">ค่าคอมมิชชัน</value>
@@ -8720,7 +8725,7 @@
         <value xml:lang="en">Default Shipment Box Type Id</value>
         <value xml:lang="fr">Réf. de carton d'emballage par défaut</value>
         <value xml:lang="it">Default tipo scatola di spedizione</value>
-    </property>    
+    </property>
     <property key="ProductDefaultsTo">
         <value xml:lang="de">Standartwert</value>
         <value xml:lang="en">Defaults to</value>
@@ -11167,6 +11172,7 @@
         <value xml:lang="de">Nicht verfügbar</value>
         <value xml:lang="en">Not Avail</value>
         <value xml:lang="es">No disponible</value>
+        <value xml:lang="fr">Non disponible</value>
         <value xml:lang="it">Non disponibile</value>
         <value xml:lang="ru">Не дост</value>
         <value xml:lang="th">ไม่นำมาใช้</value>
@@ -11517,7 +11523,7 @@
         <value xml:lang="ru">Ключевые слова</value>
         <value xml:lang="th">คำหลัก</value>
         <value xml:lang="zh">关键字</value>
-    </property>    
+    </property>
     <property key="ProductLabel">
         <value xml:lang="de">Etikette</value>
         <value xml:lang="en">Label</value>
@@ -13617,6 +13623,7 @@
         <value xml:lang="de">ANMERKUNG: Es werden nur die ersten ${viewSize} von ${listSize} Produkten angezeigt. Um die restlichen Anzuzeigen verwenden Sie den Produkt-Bereich dieser Kategorie.</value>
         <value xml:lang="en">NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</value>
         <value xml:lang="es">NOTA: Sólo se muestran los primeros ${viewSize} de ${listSize} productos. Para ver el resto debe usar la pestaña de productos de esta categoría.</value>
+        <value xml:lang="fr">NOTE: Montre seulement les ${viewSize} premiers des ${listSize} produits. Pour voir le reste, utiliser le bouton "Articles" pour cette catégorie</value>
         <value xml:lang="it">NOTA: Sono elencati solo ${viewSize} di ${listSize} prodotti. Per visualizzare gli altri, usa il pannello Prodotti di questa categoria.</value>
     </property>
     <property key="ProductOpenQuantity">
@@ -17693,7 +17700,7 @@
         <value xml:lang="es">Cant. envío</value>
         <value xml:lang="fr">Qté expédiée</value>
         <value xml:lang="it">Qnt. spedita</value>
-    </property>        
+    </property>
     <property key="ProductShipmentQuickComplete">
         <value xml:lang="de">Rasches Abschliessen Direktlieferung</value>
         <value xml:lang="en">Quick Complete Drop Shipment</value>
@@ -19604,7 +19611,7 @@
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (нужны права "CATALOG_VIEW" или "CATALOG_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตในการแสดงหน้านี้. ("CATALOG_VIEW" หรือ "CATALOG_ADMIN" ต้องการ)</value>
         <value xml:lang="zh">你没有权限浏览本页面。 (需要"CATALOG_VIEW" 或 "CATALOG_ADMIN")</value>
-    </property>    
+    </property>
     <property key="ProductVirtualFieldGroup">
         <value xml:lang="en">Virtual Product</value>
         <value xml:lang="fr">Article virtuel</value>

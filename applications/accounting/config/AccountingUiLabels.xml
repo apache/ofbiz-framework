@@ -656,6 +656,7 @@
     </property>
     <property key="AccountingApPageTitleEditVendor">
         <value xml:lang="en">Edit Vendor</value>
+        <value xml:lang="fr">Modifier le vendeur</value>
         <value xml:lang="it">Aggiorna fornitore</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
@@ -3149,7 +3150,7 @@
         <value xml:lang="ru">Основные средства</value>
         <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产</value>
-    </property>    
+    </property>
     <property key="AccountingFixedAssetStdCostAlreadyExists">
         <value xml:lang="ar">السعر المعياري موجود</value>
         <value xml:lang="en">Standard Cost already Exists</value>
@@ -7997,7 +7998,7 @@
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产标识</value>
     </property>
-    
+
     <property key="FormFieldTitle_fixedAssetName">
         <value xml:lang="ar">إسم الأصل الثابت</value>
         <value xml:lang="de">Anlagename</value>
@@ -8215,6 +8216,7 @@
     </property>
     <property key="FormFieldTitle_invoiceParentTypeId">
         <value xml:lang="en">Invoice Parent Type Id</value>
+        <value xml:lang="fr">Réf. de type de facture parent</value>
         <value xml:lang="it">Tipo fattura padre</value>
     </property>
     <property key="FormFieldTitle_invoiceDate">
@@ -8615,6 +8617,7 @@
     </property>
     <property key="FormFieldTitle_paymentParentTypeId">
         <value xml:lang="en">Payment Parent Type Id</value>
+        <value xml:lang="fr">Réf. de type de paiement parent</value>
         <value xml:lang="it">Tipo pagamento padre</value>
     </property>
     <property key="FormFieldTitle_parentFixedAssetId">
@@ -9398,6 +9401,7 @@
     </property>
     <property key="FormFieldTitle_unAppliedAmount">
         <value xml:lang="en">Un Applied Amount</value>
+        <value xml:lang="fr">Montant non appliqué</value>
         <value xml:lang="it">Importo non applicato</value>
     </property>
     <property key="FormFieldTitle_useInvoiceIdForReturns">

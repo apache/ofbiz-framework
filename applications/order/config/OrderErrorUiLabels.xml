@@ -230,7 +230,8 @@
     <property key="OrderCouldNotInitPurchaseOrder">
         <value xml:lang="en">Could not init an empty purchase order.</value>
         <value xml:lang="es">No se pudo inicializar un pedido de compra vacío.</value>
-	<value xml:lang="it">Non è possibile inizializzare un'ordine di acquisto vuoto.</value>
+        <value xml:lang="fr">Impossible d'initialiser un ordre d'achat vide</value>
+	    <value xml:lang="it">Non è possibile inizializzare un'ordine di acquisto vuoto.</value>
         <value xml:lang="ru">Невозможно инициализировать пустой закупочный заказ.</value>
         <value xml:lang="th">ไม่สามารถเริ่มดำเนินการรายการสั่งซื้อว่าง</value>
     </property>
@@ -2225,9 +2226,9 @@
     </property>
     <property key="OrderSupplierFinancialDataError">
         <value xml:lang="en">Supplier Financial Data</value>
-	<value xml:lang="es">Datos financieros de proveedor</value>
-        <value xml:lang="fr">Donnée financière du fournisseur</value>        
-	<value xml:lang="it">Dati finanziari fornitore</value>
+	    <value xml:lang="es">Datos financieros de proveedor</value>
+        <value xml:lang="fr">Donnée financière du fournisseur</value>
+	    <value xml:lang="it">Dati finanziari fornitore</value>
         <value xml:lang="th">ข้อมูลการเงินผู้จัดหาสิ่งของ</value>
     </property>
     <property key="OrderTheQuoteIsAlreadyInTheCartNotAdding">
@@ -2680,7 +2681,6 @@
         <value xml:lang="th">เพิ่ม ${totalQuantity} รายการลงตระกร้า</value>
         <value xml:lang="zh">把 ${totalQuantity} 明细添加到购物车。</value>
     </property>
-    
     <property key="cart.agreement_not_specified_to_add_from">
         <value xml:lang="de">Kein Vertrag angegeben, aus dem hinzugefügt werden kann.</value>
         <value xml:lang="en">No agreement specified to add from.</value>
@@ -2815,7 +2815,7 @@
         <value xml:lang="ru">Количество должно быть положительным числом</value>
         <value xml:lang="th">จำนวนต้องเป็นตัวเลขจำนวนบวกเท่านั้น</value>
         <value xml:lang="zh">数量必须是一个正数</value>
-    </property>    
+    </property>
     <property key="checkevents.cannot_cancel_item">
         <value xml:lang="de">Ware kann zur Zeit nicht gelöscht werden; Bitte versuchen sie es erneut.</value>
         <value xml:lang="en">Cannot cancel item at this time; please try again.</value>
@@ -2906,7 +2906,7 @@
         <value xml:lang="th">เลือกวิธีการชำระเงินจะไม่ครอบคลุมถึงรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">所选的支付方式不够这个订单。</value>
         <value xml:lang="zh_CN">选中的支付方式不足以支付该订单。</value>
-    </property>    
+    </property>
     <property key="checkhelper.could_not_create_order_invoking_service">
         <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Aufruf des Service: ${service})</value>
         <value xml:lang="en">ERROR: Could not create order (problem invoking the service: ${service})</value>
@@ -3283,7 +3283,7 @@
         <value xml:lang="th">ไม่สามารถค้นหาการเช่าที่เกี่ยวข้องกับทรัพย์สินไม่หมุนเวียนสำหรับสินค้าด้วยรหัส [{0}], ไม่สามารถเช่า</value>
         <value xml:lang="zh">无法为产品 [{0}] 找到相关的可租赁固定资产，无法租赁。</value>
         <value xml:lang="zh_CN">不能为产品[{0}]找到一个相关的可被租用的固定资产，不能出租。</value>
-    </property>    
+    </property>
     <property key="item.availableOk">
         <value xml:lang="de">OK</value>
         <value xml:lang="en">OK</value>

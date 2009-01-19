@@ -63,6 +63,7 @@
     </property>
     <property key="AssetMaintPartId">
         <value xml:lang="en">Part Id</value>
+        <value xml:lang="fr">Réf. de la pièce</value>
         <value xml:lang="it">Codice parte</value>
     </property>
     <property key="AssetMaintProductMaint">

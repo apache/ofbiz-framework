@@ -37,6 +37,7 @@
     </property>
     <property key="FormFieldTitle_convertedLeads">
         <value xml:lang="en">Converted Leads</value>
+        <value xml:lang="fr">Prospects convertis</value>
         <value xml:lang="it">Leads convertiti</value>
     </property>
     <property key="FormFieldTitle_custReqestId">
@@ -49,14 +50,17 @@
     </property>
     <property key="FormFieldTitle_expectedResponsePercent">
         <value xml:lang="en">Expected Response Percent</value>
+        <value xml:lang="fr">Pourcentage de réponse prévu</value>
         <value xml:lang="it">Percentuale risposta aspettata</value>
     </property>
     <property key="FormFieldTitle_expectedRevenue">
         <value xml:lang="en">Expected Revenue</value>
+        <value xml:lang="fr">Revenu prévu</value>
         <value xml:lang="it">Entrate aspettata</value>
     </property>
     <property key="FormFieldTitle_numSent">
         <value xml:lang="en">Num Sent</value>
+        <value xml:lang="fr">N° envoyé</value>
         <value xml:lang="it">Num. Invio</value>
     </property>
     <property key="FormFieldTitle_prodCatalogId">
@@ -955,6 +959,7 @@
     <property key="MarketingVisits">
         <value xml:lang="en">Visits</value>
         <value xml:lang="es">Visitas</value>
+        <value xml:lang="fr">Visites</value>
         <value xml:lang="it">Visite</value>
         <value xml:lang="ro">Vizite</value>
         <value xml:lang="th">การเยี่ยมชม</value>

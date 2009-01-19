@@ -23,7 +23,7 @@
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
         <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="es">Error: Los eventos de comunicación deben tener un e-mail asociado</value>
-        <value xml:lang="fr">ERREUR: la réf. d'événement de communication doit avoir une coordonnée qui est un courriel pour événement de communication</value>
+        <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un courriel pour évènement de communication</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che è un'evento comunicazione email</value>
         <value xml:lang="nl">Fout: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii Trebbie sa aibe un contact mech din moment ce este un cod eveniment de  comunicatie email</value>
@@ -632,6 +632,7 @@
         <value xml:lang="de">Akteurgruppe kann nicht erstellt werden. Eine Akteurgruppe mit dieser ID existiert bereits.</value>
         <value xml:lang="en">Cannot create party group, a party group with the specified party ID already exists.</value>
         <value xml:lang="es">No se puede crear un grupo participante, el código está en uso</value>
+        <value xml:lang="fr">Impossible de créer ce groupe d'acteur. Un groupe d'acteur avec la même réf. existe déjà.</value>
         <value xml:lang="it">Non è possibile creare gruppo soggetto, un gruppo soggetto con il codice soggetto specificato esiste già.</value>
         <value xml:lang="nl">Cannot create party group, a party group with the specified party ID already exists.</value>
         <value xml:lang="ro">Nu este posibila crearea grupului Subiect, un grup Subiect cu codul Subiect specificat exista deja.</value>
@@ -908,7 +909,7 @@
         <value xml:lang="de">Person erfolgreich aktualisiert.</value>
         <value xml:lang="en">Person successfully updated.</value>
         <value xml:lang="es">Actualización finalizada correctamente</value>
-        <value xml:lang="fr">Personne mise à jours avec succès.</value>
+        <value xml:lang="fr">Personne mise à jour avec succès.</value>
         <value xml:lang="it">Persona aggiornata con successo.</value>
         <value xml:lang="nl">Persoon succesvol toegevoegd.</value>
         <value xml:lang="pt_PT">Indivíduo actualizado com sucesso.</value>

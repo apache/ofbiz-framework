@@ -214,6 +214,7 @@
     </property>
     <property key="PosEntPromoCode">
         <value xml:lang="en">Enter Promo Code:</value>
+        <value xml:lang="fr">Entrez le code promo:</value>
         <value xml:lang="it">Inserire codice promozione:</value>
     </property>
     <property key="PosGiftCard">

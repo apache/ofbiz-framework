@@ -76,18 +76,23 @@
     </property>
     <property key="ContentBlog">
         <value xml:lang="en">Blog</value>
+        <value xml:lang="fr">Blog</value>
     </property>
     <property key="ContentBlogActicle">
         <value xml:lang="en">Article</value>
+        <value xml:lang="fr">Article</value>
     </property>
     <property key="ContentBlogActicleList">
         <value xml:lang="en">List of Blog articles</value>
+        <value xml:lang="fr">Liste des articles du blog</value>
     </property>
     <property key="ContentBlogList">
         <value xml:lang="en">List of Blogs</value>
+        <value xml:lang="fr">Liste des blogs</value>
     </property>
     <property key="ContentBlogEdit">
         <value xml:lang="en">Edit a Blog</value>
+        <value xml:lang="fr">Modifier un blog</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -252,7 +257,7 @@
         <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
-	<value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
+	    <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
     </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
@@ -493,12 +498,14 @@
     <property key="ContentForumMessage">
         <value xml:lang="de">Meldung</value>
         <value xml:lang="en">Message</value>
+        <value xml:lang="fr">Message</value>
         <value xml:lang="it">Messaggio</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
     <property key="ContentForumMessages">
         <value xml:lang="de">Meldungen</value>
         <value xml:lang="en">Messages</value>
+        <value xml:lang="fr">Messages</value>
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
@@ -511,12 +518,14 @@
     </property>
     <property key="ContentGoToContent">
         <value xml:lang="en">Go to Content</value>
-	<value xml:lang="it">Vai al contenuto</value>
+        <value xml:lang="fr">Aller au contenu</value>
+	    <value xml:lang="it">Vai al contenuto</value>
     </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
         <value xml:lang="de">Gehe zur Datenressource</value>
         <value xml:lang="en">Go to Data Resource</value>
+        <value xml:lang="fr">Aller à la source de données</value>
         <value xml:lang="es">Ir al recurso de información</value>
         <value xml:lang="fr">Aller à la ressource de données</value>
         <value xml:lang="it">Vai alla risorsa dati</value>
@@ -704,11 +713,12 @@
         <value xml:lang="de">Pfad Alias</value>
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
-	<value xml:lang="it">Path alias</value>
+	    <value xml:lang="it">Path alias</value>
     </property>
     <property key="ContentPathAliasList">
         <value xml:lang="en">Path Alias list</value>
-	<value xml:lang="it">Lista path alias</value>
+        <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
+	    <value xml:lang="it">Lista path alias</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
@@ -724,7 +734,7 @@
         <value xml:lang="de">Rasch untergeordneter Inhalt</value>
         <value xml:lang="en">Quick Sub-Content</value>
         <value xml:lang="fr">Sous-contenu rapide</value>
-	<value xml:lang="it">Sotto-contenuto veloce</value>
+	    <value xml:lang="it">Sotto-contenuto veloce</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
     </property>
     <property key="ContentSubContent">
@@ -1789,6 +1799,7 @@
     </property>
      <property key="FormFieldTitle_enumTypeId">
         <value xml:lang="en">Enum Type Id</value>
+        <value xml:lang="fr">Réf. de type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
     </property>
     <property key="FormFieldTitle_fileExtensionId">
@@ -1803,6 +1814,7 @@
     </property>
      <property key="FormFieldTitle_formatString">
         <value xml:lang="en">Format String</value>
+        <value xml:lang="fr">Format chaîne de caractères</value>
         <value xml:lang="it">Formato Stringa</value>
     </property>
     <property key="FormFieldTitle_forumDescription">
