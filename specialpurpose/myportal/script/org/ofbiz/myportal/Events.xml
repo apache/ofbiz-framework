@@ -312,4 +312,87 @@ under the License.
             request-name="communicationEventTypeId"/>
         <field-to-request field="communicationEventId" request-name="communicationEventId"/>
     </simple-method>
+    
+    <simple-method method-name="createRegister"
+        short-description="Create person when new register" login-required="false">
+        <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="FirstName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.lastName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="LastName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.USERNAME"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyUserNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty> 
+        <call-bsh><![CDATA[
+            parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
+        ]]></call-bsh>
+        <call-object-method obj-field="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="PASSWORD" ret-map-name="parameters"/>
+        <call-object-method obj-field="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="CONFIRM_PASSWORD" ret-map-name="parameters"/>
+        <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
+            <call-object-method obj-field="captcha" obj-map-name="parameters" method-name="toLowerCase" ret-field="captcha" ret-map-name="parameters"/>
+            <call-object-method obj-field="captchaCode" obj-map-name="parameters" method-name="toLowerCase" ret-field="captchaCode" ret-map-name="parameters"/>
+            <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">                
+   
+                <!-- Create Person -->
+                <set field="parameters.statusId" value="PARTY_ENABLED"/>
+                <make-value entity-name="Party" value-field="newEntity"/>
+                <set-pk-fields map="parameters" value-field="newEntity"/>
+                <make-next-seq-id value-field="newEntity" seq-field-name="partyId"/>
+                <set field="newEntity.partyTypeId" value="PERSON"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
+                <create-value value-field="newEntity"/>
+                
+                <make-value entity-name="PartyStatus" value-field="newEntity2"/>
+                <set field="newEntity2.partyId" from-field="newEntity.partyId"/>
+                <set field="newEntity2.statusId" from-field="newEntity.statusId"/>
+                <set field="newEntity2.statusDate" from-field="newEntity.createdStamp"/>
+                <create-value value-field="newEntity2"/>  
+                
+                <make-value entity-name="Person" value-field="newEntity3"/>
+                <set field="newEntity3.partyId" from-field="newEntity.partyId"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity3"/>
+                <create-value value-field="newEntity3"/>                
+                
+                <!-- Create the UserLogin Record -->
+                <call-map-processor in-map-name="parameters" out-map-name="userLoginContext">
+                    <simple-map-processor name="newUserLogin">
+                        <process field="USERNAME"><copy to-field="userLoginId"/></process>
+                        <process field="PASSWORD"><copy to-field="currentPassword"/></process>
+                        <process field="CONFIRM_PASSWORD"><copy to-field="currentPasswordVerify"/></process>
+                        <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <set field="userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId" />
+                <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
+                <if-not-empty field="existingUserLogin">
+                    <set field="errorMessage" value="Username in use, please choose another." />
+                    <field-to-list field="errorMessage" list="error_list"/>
+                    <check-errors error-list-name="error_list" error-code="resultPage"/>
+                    <else>
+                        <make-value entity-name="UserLogin" value-field="newUserLogin"/>
+                        <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId"/>
+                        <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword" />
+                        <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint" />                
+                        <!-- Check the password, etc for validity -->
+                        <call-bsh><![CDATA[
+                            String password = (String) userLoginContext.get("currentPassword");
+                            String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
+                            String passwordHint = (String) userLoginContext.get("passwordHint");
+                            org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+                            boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
+                            if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
+                            ]]></call-bsh>
+                        <set field="newUserLogin.partyId" from-field="newEntity.partyId" />
+                        <create-value value-field="newUserLogin"/>
+                    </else>
+                </if-not-empty>                
+                <set field="partyId" from-field="newEntity.partyId"/>
+                <field-to-request field="partyId" request-name="partyId"/>
+                <return response-code="resultPage"/>
+                <else>
+                    <property-to-field field="errorMessage" resource="MyPortalUiLabels" property="CaptchaMissingError"/><field-to-list field="errorMessage" list="error_list"/>
+                </else>
+            </if-compare>
+            <else>
+                <property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMatchError"/><field-to-list field="errorMessage" list="error_list"/>
+            </else>
+        </if-compare>      
+        <check-errors error-list-name="error_list" error-code="resultPage"/>
+    </simple-method>
 </simple-methods>

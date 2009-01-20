@@ -18,6 +18,18 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CaptchaMissingError">
+        <value xml:lang="en">Verify code captcha is missing or wrong</value>
+        <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
+    </property>
+    <property key="FirstName_Missing">
+        <value xml:lang="en">Your firstName is missing</value>
+        <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
+    </property>
+    <property key="LastName_Missing">
+        <value xml:lang="en">Your lastname is missing</value>
+        <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
+    </property>
     <property key="MyPortalDashboard">
         <value xml:lang="en">My Portal</value>
         <value xml:lang="fr">Mon portail</value>
@@ -30,6 +42,10 @@
         <value xml:lang="it">Invia email ad ogni cliente per le modifiche sulla richiesta</value>
         <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
     </property>
+    <property key="NewRegistration">
+        <value xml:lang="en">New Registration </value>
+        <value xml:lang="th">ลงทะเบียน </value>
+    </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>
         <value xml:lang="it">Mio portale per : </value>
@@ -40,5 +56,25 @@
         <value xml:lang="fr">Ma page de portail</value>
         <value xml:lang="it">Pagina mio portale</value>
         <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
+    </property>
+    <property key="PicCaptcha">
+        <value xml:lang="en">Code Captcha</value>
+        <value xml:lang="th">รหัสตรวจสอบ</value>
+    </property>
+    <property key="RegisterComplete">
+        <value xml:lang="en">Register of new person is complete...Please </value>
+        <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
+    </property>
+    <property key="RegisterForCustomer">
+        <value xml:lang="en">Register for customer</value>
+        <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
+    </property>
+    <property key="VerifyCaptcha">
+        <value xml:lang="en">Verify captcha code</value>
+        <value xml:lang="th">ใส่รหัสตามรูป</value>
+    </property>
+    <property key="UserLogin">
+        <value xml:lang="en">User Login</value>
+        <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
     </property>
 </resource>

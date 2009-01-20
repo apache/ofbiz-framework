@@ -31,7 +31,7 @@ under the License.
          </menu-item>
          <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
              <condition><if-empty field-name="userLogin"/></condition>
-             <link target="${checkLoginUrl}"/>
+             <link target="logout"/>
          </menu-item>
      </menu>
      
