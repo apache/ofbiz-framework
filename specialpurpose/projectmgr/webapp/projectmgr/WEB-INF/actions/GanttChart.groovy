@@ -22,6 +22,10 @@ import java.lang.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import java.math.*;
 
 projectId = parameters.projectId;
@@ -62,7 +66,12 @@ if (phases){
         }
         newPhase.workEffortTypeId = "PHASE";
         ganttList.add(newPhase);
-        tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId], ["workEffortName"]);
+        cond = EntityCondition.makeCondition(
+                [
+                EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELLED"),
+                EntityCondition.makeCondition("workEffortParentId", EntityOperator.EQUALS, phase.phaseId)
+                ], EntityOperator.AND);
+        tasks = delegator.findList("WorkEffort", cond, null, ["workEffortName"], null, false);
         if (tasks){
             tasks.each { task ->
                 resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
@@ -70,7 +79,7 @@ if (phases){
                 taskInfo.taskNr = task.workEffortId;
                 taskInfo.phaseNr = phase.phaseId;
                 if (taskInfo.plannedHours && !taskInfo.currentStatusId.equals("PTS_COMPLETED") && taskInfo.plannedHours > taskInfo.actualHours) {
-                	taskInfo.resource = taskInfo.plannedHours + " Hrs";
+                    taskInfo.resource = taskInfo.plannedHours + " Hrs";
                 } else {
                     taskInfo.resource = taskInfo.actualHours + " Hrs";
                 }
@@ -78,11 +87,11 @@ if (phases){
                 if (taskInfo.currentStatusId.equals("PTS_COMPLETED")) {
                     taskInfo.completion = 100;
                 } else {
-                	if (taskInfo.actualHours && taskInfo.plannedHours) {
-                		taskInfo.completion = new BigDecimal(taskInfo.actualHours * 100 / taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP);
-                	} else {
-                		taskInfo.completion = 0;
-                	}
+                    if (taskInfo.actualHours && taskInfo.plannedHours) {
+                        taskInfo.completion = new BigDecimal(taskInfo.actualHours * 100 / taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP);
+                    } else {
+                        taskInfo.completion = 0;
+                    }
                 }
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
@@ -102,9 +111,9 @@ if (phases){
                 taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
                 taskInfo.workEffortTypeId = "TASK";
                 if (security.hasEntityPermission("PROJECTMGR", "_READ", session) || security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)) {
-                	taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
+                    taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
                 } else {
-                	taskInfo.url = ""; 
+                    taskInfo.url = ""; 
                 }
                 
                 // dependency can only show one in the ganttchart, so onl show the latest one..
@@ -112,13 +121,13 @@ if (phases){
                 latestTaskId = "";
                 Timestamp latestDate = null;
                 preTasks.each { preTask ->
-                	wf = preTask.getRelatedOne("FromWorkEffort");
-                	if (wf.estimatedStartDate) {
-                		if (!latestDate || latestDate.before(wf.estimatedStartDate)) {
-                			latestTaskId = wf.workEffortId;
-                			latestDate = wf.estimatedStartDate;
-                		}
-                	}
+                    wf = preTask.getRelatedOne("FromWorkEffort");
+                    if (wf.estimatedStartDate) {
+                        if (!latestDate || latestDate.before(wf.estimatedStartDate)) {
+                            latestTaskId = wf.workEffortId;
+                            latestDate = wf.estimatedStartDate;
+                        }
+                    }
                 }
                 if (latestDate) {
                     taskInfo.preDecessor = latestTaskId;
