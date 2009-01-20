@@ -192,6 +192,12 @@ under the License.
         <response name="success" type="view" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
+    <request-map uri="createInvoiceItemPayrol">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createInvoiceItemPayrol" path="org/ofbiz/accounting/invoice/InvoiceEvents.xml"/>
+        <response name="success" type="view" value="listInvoiceItems"/>
+        <response name="error" type="view" value="listInvoiceItems"/>
+    </request-map>
     <request-map uri="updateInvoiceItem">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateInvoiceItem"/>

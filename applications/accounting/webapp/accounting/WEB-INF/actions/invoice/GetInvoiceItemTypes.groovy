@@ -51,6 +51,17 @@ if ("SALES_INVOICE".equals(invoice.invoiceTypeId)) {
     itemTypesCond = EntityCondition.makeCondition(itemTypes, EntityOperator.OR);
     invoiceItemTypes = delegator.findList("InvoiceItemType", itemTypesCond, null, ["parentTypeId", "invoiceItemTypeId"], null, false);
     glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", [organizationPartyId : invoice.partyId]);
+} else if ("PAYROL_INVOICE".equals(invoice.invoiceTypeId)) {
+    List itemTypes = FastList.newInstance();
+    itemTypes.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PAYROL_EARN_HOURS"));
+    itemTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PAYROL_EARN_HOURS"));
+    itemTypes.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PAYROL_DD_FROM_GROSS"));
+    itemTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PAYROL_DD_FROM_GROSS"));
+    itemTypes.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PAYROL_TAXES"));
+    itemTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PAYROL_TAXES"));
+    itemTypesCond = EntityCondition.makeCondition(itemTypes, EntityOperator.OR);
+    invoiceItemTypes = delegator.findList("InvoiceItemType", itemTypesCond, null, ["parentTypeId", "invoiceItemTypeId"], null, false);
+    glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", [organizationPartyId : invoice.partyId]);
 } else {
     map = delegator.findByAndCache("InvoiceItemTypeMap", [invoiceTypeId : invoice.invoiceTypeId]);
     invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", map);

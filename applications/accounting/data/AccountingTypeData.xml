@@ -576,6 +576,46 @@ under the License.
     
     <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_CHRG" invoiceItemTypeId="INV_INTRST_CHRG"/>
 
+<!--New invoiceType: "Payrol"-->
+    <InvoiceType description="Payrol" hasTable="N" invoiceTypeId="PAYROL_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
+<!--    invoiceItem Types:-->
+    <InvoiceItemType description="Payrol" hasTable="N" invoiceItemTypeId="PAYROL" parentTypeId=""/><!-- to group the itemType parentId's -->
+    
+    <InvoiceItemType description="Earnings and Hours" hasTable="N" invoiceItemTypeId="PAYROL_EARN_HOURS" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Sick Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Vacation Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_VAC" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Sick Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_SICK" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Bonus" hasTable="N" invoiceItemTypeId="PAYROL_BONUS" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Commission" hasTable="N" invoiceItemTypeId="PAYROL_COMMISSION" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Advance Pay" hasTable="N" invoiceItemTypeId="PAYROL_ADV_PAY" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Mileage Reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_MIL_REIMB" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Office Exp. reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Pay Period adj(over pay)" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS" />
+    
+    <InvoiceItemType description="Deductions from Gross" hasTable="N" invoiceItemTypeId="PAYROL_DD_FROM_GROSS" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>/>
+    <InvoiceItemType description="125*PPO (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125PPO" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="125*HSA Contribution (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125HSA" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="401K Emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_401K" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Advance Repayment" hasTable="N" invoiceItemTypeId="PAYROL_DD_REPAY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Charity Donation" hasTable="N" invoiceItemTypeId="PAYROL_DD_CHAR_DONAT" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Child Support Garnishment" hasTable="N" invoiceItemTypeId="PAYROL_DD_CHILD_SUPP" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Miscellaneous Deduction" hasTable="N" invoiceItemTypeId="PAYROL_DD_MISC" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Roth 401k Emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_ROTH_401K" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Simple IRA emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_SIMP_IRA" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Union Dues" hasTable="N" invoiceItemTypeId="PAYROL_DD_UNION" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Unpaid Salary Time off." hasTable="N" invoiceItemTypeId="PAYROL_DD_SAL_TIMOFF" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Wage Garnishment" hasTable="N" invoiceItemTypeId="PAYROL_DD_WAG_GARN" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    
+    <InvoiceItemType description="Taxes" hasTable="N" invoiceItemTypeId="PAYROL_TAXES" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="Federal Witholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_FEDERAL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="Social Security Employee" hasTable="N" invoiceItemTypeId="PAYROL_SOC_SEC_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="Medicare Employee" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MED_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="MD Withholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MD_WITHOL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    
     <!-- An Enumeration to identify the taxable invoice item types.  For these, the only important fields are enumId and enumTypeId. -->
     <EnumerationType description="Taxable Invoice Item Types" enumTypeId="TAXABLE_INV_ITM_TY" hasTable="N" parentTypeId=""/>
     <Enumeration description="Sales Invoice Sales Tax" enumCode="INV_SALES_TAX" enumId="INV_SALES_TAX" sequenceId="01" enumTypeId="TAXABLE_INV_ITM_TY"/>

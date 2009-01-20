@@ -38,7 +38,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="parameters.invoiceId"/></not></condition>
+                                    <condition><not><if-empty field="parameters.invoiceId"/></not></condition>
                                     <widgets>
                                         <include-menu name="InvoiceTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -93,7 +93,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingCreateNewInvoice"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -143,8 +143,8 @@ under the License.
                 <set field="tabButtonItem" value="editInvoice"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
-                <entity-one entity-name="Invoice" value-name="invoice"/>
-                <entity-one entity-name="InvoiceType" value-name="invoiceType">
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-one entity-name="InvoiceType" value-field="invoiceType">
                     <field-map field-name="invoiceTypeId" env-name="invoice.invoiceTypeId"/>
                 </entity-one>
             </actions>
@@ -153,7 +153,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                                <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -200,20 +200,20 @@ under the License.
                 <set field="titleProperty" value="PageTitleInvoiceOverview"/>
                 <set field="tabButtonItem" value="invoiceOverview"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
-                <entity-and entity-name="InvoiceRole" list-name="invoiceRoles">
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceRole" list="invoiceRoles">
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
-                <entity-and entity-name="InvoiceStatus" list-name="invoiceStatus">
+                <entity-and entity-name="InvoiceStatus" list="invoiceStatus">
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="statusDate"/>
                 </entity-and>
-                <entity-and entity-name="InvoiceTerm" list-name="invoiceTerms">
+                <entity-and entity-name="InvoiceTerm" list="invoiceTerms">
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceTermId"/>
                 </entity-and>
-                <entity-and entity-name="TimeEntry" list-name="timeEntries">
+                <entity-and entity-name="TimeEntry" list="timeEntries">
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
@@ -228,7 +228,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                                <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceHeader}">
@@ -304,8 +304,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListInvoices"/>
                 <set field="tabButtonItem" value="invoiceStatus"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice" auto-field-map="true"/>
-                <entity-and entity-name="InvoiceStatus" list-name="invoiceStatus">
+                <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
+                <entity-and entity-name="InvoiceStatus" list="invoiceStatus">
                     <field-map env-name="invoice.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="statusDate"/>
                 </entity-and>
@@ -340,7 +340,7 @@ under the License.
                 <set field="tabButtonItem" value="editInvoiceApplications"/>
                 
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/ListNotAppliedPayments.groovy"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
@@ -352,7 +352,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field-name="notAppliedAmount" operator="greater" value="0"/>
+                                <if-compare field="notAppliedAmount" operator="greater" value="0"/>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
@@ -360,7 +360,7 @@ under the License.
                                 </screenlet>
                                 <section>
                                     <condition>
-                                        <if-empty field-name="invoiceApplications"/>
+                                        <if-empty field="invoiceApplications"/>
                                     </condition>
                                     <widgets>
                                         <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
@@ -369,15 +369,15 @@ under the License.
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field-name="payments"/></not>
-                                            <not><if-empty field-name="paymentsActualCurrency"/></not>
+                                            <not><if-empty field="payments"/></not>
+                                            <not><if-empty field="paymentsActualCurrency"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}] ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]">
                                         <section>
                                             <condition>
-                                                <not><if-empty field-name="payments"/></not>
+                                                <not><if-empty field="payments"/></not>
                                             </condition>
                                             <widgets>
                                                 <include-form name="ListPaymentsNotApplied" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
@@ -385,7 +385,7 @@ under the License.
                                         </section>
                                         <section>
                                             <condition>
-                                                <not><if-empty field-name="paymentsActualCurrency"/></not>
+                                                <not><if-empty field="paymentsActualCurrency"/></not>
                                             </condition>
                                             <widgets>
                                                 <include-form name="ListPaymentsNotAppliedForeignCurrency" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
@@ -415,7 +415,7 @@ under the License.
                                 </screenlet>
                                 <section>
                                     <condition>
-                                        <if-empty field-name="invoiceApplications"/>
+                                        <if-empty field="invoiceApplications"/>
                                     </condition>
                                     <widgets>
                                         <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
@@ -437,13 +437,17 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <set field="invoiceItemSeqd" from-field="parameters.invoiceItemSeqId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
-                <entity-one entity-name="Invoice" value-name="invoice"/>
-                <entity-one entity-name="InvoiceItem" value-name="invoiceItem"/>
-                <entity-and entity-name="InvoiceItem" list-name="invoiceItems">
+                <entity-one entity-name="Invoice" value-field="invoice" />
+                <entity-one entity-name="InvoiceItem" value-field="invoiceItem"/>
+                <entity-and entity-name="InvoiceItem" list="invoiceItems">
                     <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetInvoiceItemTypes.groovy"/>
+                <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
+                    <condition-expr field-name="parentTypeId" value="PAYROL"/>
+                </entity-condition>
+                <entity-condition entity-name="InvoiceItemType" list="PayrolList"></entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -470,9 +474,15 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <condition>
+                                        <not><if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/></not>
+                                    </condition>
+                                    <widgets>  
                                         <include-form name="EditInvoiceItem" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
+                                    <fail-widgets>
+                                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/invoice/InvoiceItemsPayrol.ftl"/></html></platform-specific>
+                                    </fail-widgets>
                                 </section>
                             </container>
                         </container>
@@ -488,8 +498,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListInvoiceTimeEntries"/>
                 <set field="tabButtonItem" value="EditInvoiceTimeEntries"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
-                <entity-and entity-name="TimeEntry" list-name="timeEntries">
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="TimeEntry" list="timeEntries">
                     <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     <order-by field-name="timeEntryId"/>
                 </entity-and>
@@ -523,8 +533,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListInvoiceRoles"/>
                 <set field="tabButtonItem" value="invoiceRoles"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
-                <entity-and entity-name="InvoiceRole" list-name="invoiceRoles">
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceRole" list="invoiceRoles">
                     <field-map env-name="invoiceId" field-name="invoiceId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
@@ -547,7 +557,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleSendInvoicePerEmail"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
                 <set field="tabButtonItem" value="sendPerEmail"/>
             </actions>
             <widgets>
