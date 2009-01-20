@@ -196,10 +196,9 @@ under the License.
             </drop-down>
         </field> 
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
-            <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-                    <entity-order-by field-name="partyId"/>
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
+                <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
+                    <entity-order-by field-name="groupName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -220,10 +219,9 @@ under the License.
             </drop-down>
         </field> 
         <field position="1" name="organizationPartyId" parameter-name="partyId">
-            <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-                    <entity-order-by field-name="partyId"/>
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
+                <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
+                    <entity-order-by field-name="groupName"/>
                 </entity-options>
             </drop-down>
         </field>
