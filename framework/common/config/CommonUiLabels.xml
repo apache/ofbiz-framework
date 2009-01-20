@@ -3979,6 +3979,10 @@
         <value xml:lang="zh">不包含</value>
         <value xml:lang="zh_CN">不包含</value>
     </property>
+    <property key="CommonNoGeolocationAvailable">
+        <value xml:lang="en">No Geolocation Available</value>
+        <value xml:lang="fr">Aucune géolocalisation disponible</value>
+    </property>    
     <property key="CommonNoUomConversionFound">
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
         <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
