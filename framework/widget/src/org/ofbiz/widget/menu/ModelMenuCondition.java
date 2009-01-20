@@ -19,7 +19,6 @@
 package org.ofbiz.widget.menu;
 
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -44,7 +43,11 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -525,7 +528,8 @@ public class ModelMenuCondition {
         
         public IfEmpty(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
+            if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {
