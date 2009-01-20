@@ -61,7 +61,7 @@ public class CheckOutEvents {
         //Locale locale = UtilHttp.getLocale(request);
         String errMsg = null;
 
-        if (UtilValidate.isNotEmpty(cart)) {
+        if (cart != null && cart.size() > 0) {
             return "success";
         } else {
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", (cart != null ? cart.getLocale() : Locale.getDefault()));
