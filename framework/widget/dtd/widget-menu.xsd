@@ -569,6 +569,6 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute name="field-name" use="required"/>
+        <xs:attribute name="field" use="required"/>
     </xs:attributeGroup>
 </xs:schema>
