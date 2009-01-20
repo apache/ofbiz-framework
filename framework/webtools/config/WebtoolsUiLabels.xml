@@ -1585,7 +1585,7 @@
     </property>
     <property key="WebtoolsLogging">
         <value xml:lang="en">Logging</value>
-        <value xml:lang="fr">Voir la Log</value>
+        <value xml:lang="fr">Voir la log</value>
         <value xml:lang="it">Log</value>
         <value xml:lang="th">Logging</value>
     </property>
@@ -2615,7 +2615,7 @@
     </property>
     <property key="WebtoolsServiceEngineTools">
         <value xml:lang="en">Service Engine Tools</value>
-        <value xml:lang="fr">Outils du Service Engine</value>
+        <value xml:lang="fr">Outils du moteur de services</value>
         <value xml:lang="it">Strumenti per Engine Servizi</value>
         <value xml:lang="ro">Instrumente pentru Engin Service</value>
         <value xml:lang="th">เครื่องมือ Service Engine </value>

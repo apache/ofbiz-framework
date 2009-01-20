@@ -44,5 +44,7 @@ under the License.
       <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MAPTP">      
       </#if>   
     </#if>   
-  </#if>   
+  </#if>
+<#else>
+  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>       
 </#if>
