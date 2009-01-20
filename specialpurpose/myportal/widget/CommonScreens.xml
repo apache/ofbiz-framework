@@ -164,6 +164,66 @@ under the License.
             </widgets>
         </section>
     </screen>                 
+    
+    <screen name="login">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://myportal/widget/login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!--New Register Person-->
+    <screen name="newRegisterLogin">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyAndPerson" value-name="personInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">        
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.partyId"/></not>
+                            </condition>
+                            <actions>
+                                <set field="partyId" from-field="parameters.partyId"/>
+                                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                            </actions>
+                            <widgets>
+                                <label style="h2" text="${uiLabelMap.RegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
+                                <label style="h2" text="&lt;br&gt;&lt;br&gt;"/>
+                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.NewRegistration}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="CommonRequestDecorator">
         <section>

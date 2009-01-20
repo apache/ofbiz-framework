@@ -31,6 +31,23 @@
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="main"/>
     </request-map>
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="newRegisterLogin">
+        <security https="true" auth="false"/>
+        <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
+        <response name="success" type="view" value="newRegisterLogin"/>
+    </request-map>
+    <request-map uri="createRegister">
+        <security https="true" auth="false"/>
+        <event type="simple" invoke="createRegister" path="org/ofbiz/myportal/Events.xml"/>
+        <response name="resultPage" type="url" value="newRegisterLogin"/>
+    </request-map>
     
     <!-- TIMESHEET -->
     <request-map uri="myTimesheet">
@@ -270,6 +287,8 @@
     </request-map>
     
     <view-map name="main" type="screen" page="component://myportal/widget/CommonScreens.xml#main"/>
+    <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
+    <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
     <view-map name="myTasks" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTasks"/>
     <view-map name="myCommunications" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCommunications"/>
     <view-map name="otherCommunications" type="screen" page="component://myportal/widget/CommonScreens.xml#OtherCommunications"/>
