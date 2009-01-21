@@ -41,7 +41,9 @@
                             <widgets>
                                 <include-menu name="FeaturesTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                 <!-- add Create Product and View Product (in ecommerce) links -->
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -151,31 +153,21 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductSearchFeatureType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <container><link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/></container>
-                                <include-form name="FindFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListProductFeatureTypes}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container><link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
                                         <include-form name="ListFeatureTypes" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -222,31 +214,21 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductSearchFeatureInterAction}"/>
-                                </container>
-                            </container>                            
-                            <container style="screenlet-body">
-                                <container><link target="EditFeatureInterAction" text="${uiLabelMap.PageTitleAddFeatureInterAction}" style="buttontext"/></container>
-                                <include-form name="FindFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            </container>                            
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListFeatureInteractions}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container><link target="EditFeatureInterAction" text="${uiLabelMap.PageTitleAddFeatureInterAction}" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
                                         <include-form name="ListFeatureInterActions" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -329,27 +311,21 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductSearchFeatureCategory}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <container><link target="CreateProductFeature" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                                <include-form name="FindProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleSearchResults}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="ListProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            </container>
-                        </container>
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container><link target="CreateProductFeature" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
