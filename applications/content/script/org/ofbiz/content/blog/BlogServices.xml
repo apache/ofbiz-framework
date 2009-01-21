@@ -143,6 +143,12 @@
                 <set-service-fields service-name="updateContent" map="parameters" to-map="updContent"/>
                 <set field="updContent.dataResourceId" from-field="parameters.templateDataResourceId"/>
                 <call-service service-name="updateContent" in-map-name="updContent"/>
+                <if-compare-field field="parameters.statusId" operator="not-equals" to-field="statusId">
+                    <if-not-empty field="imageContent">
+                        <set field="imageContent.status.Id" from-field="parameters.statusId"/>
+                        <store-value value-field="imageContent"/>
+                    </if-not-empty>
+                </if-compare-field>                
             </then>
         </if>
 
@@ -219,26 +225,27 @@
             <condition-list combine="and">
                 <condition-expr field-name="contentIdStart" operator="equals" from-field="parameters.contentId"/>
                 <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
-                <condition-expr field-name="caThruDate" operator="equals" value=""/>
             </condition-list>
             <order-by field-name="caFromDate DESC"/>
         </entity-condition>
+        <filter-list-by-date list="unfilteredList" to-list="blogItems"/>
         <set field="blogList[]"/>
-        <iterate entry="view" list="unfilteredList">
-            <set-service-fields service-name="genericContentPermission" map="view" to-map="mapIn"/>
+        <iterate entry="blogItem" list="blogItems">
+            <set-service-fields service-name="genericContentPermission" map="blogItem" to-map="mapIn"/>
+            <set field="mapIn.ownerContentId" from-field="parameters.contentId"/>
             <set field="mapIn.mainAction" value="VIEW"/>
             <call-service service-name="genericContentPermission" in-map-name="mapIn">
                 <result-to-field result-name="hasPermission" field="hasPermission"/>
             </call-service>
             <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
-                <set field="blogList[]" from-field="view"/>
+                <set field="blogList[]" from-field="blogItem"/>
                 <else>
                     <set field="mapIn.mainAction" value="UPDATE"/>
                     <call-service service-name="genericContentPermission" in-map-name="mapIn">
                         <result-to-field result-name="hasPermission" field="hasPermission"/>
                     </call-service>
                     <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
-                        <set field="blogList[]" from-field="view"/>
+                        <set field="blogList[]" from-field="blogItem"/>
                     </if-compare>                        
                 </else>
             </if-compare>
@@ -271,10 +278,14 @@
             <field-to-result field="content.contentName" result-name="contentName"/>
             <field-to-result field="content.description" result-name="description"/>
             <field-to-result field="content.statusId" result-name="statusId"/>
-            <field-to-result field="content.dataResourceId" result-name="templateDataResourceId"/>
+            <if-not-empty field="imageContent">
+                <field-to-result field="content.dataResourceId" result-name="templateDataResourceId"/>
+            </if-not-empty>
             <field-to-result field="articleText.textData" result-name="articleData"/>
             <field-to-result field="summaryText.textData" result-name="summaryData"/>
-            <field-to-result field="imageContent.dataResourceId" result-name="imageDataResourceId"/>
+            <field-to-result field="imageContent.contentId" result-name="imageContentId"/>
+            <field-to-result field="mainContent.contentId" result-name="articleContentId"/>
+            <field-to-result field="summaryContent.contentId" result-name="summaryContentId"/>
             <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
             <else>
                 <set from-field="content.contentId" field="contentId"/>

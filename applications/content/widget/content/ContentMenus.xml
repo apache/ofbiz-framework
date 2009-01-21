@@ -39,21 +39,21 @@ under the License.
         
         <menu-item name="content" title="${uiLabelMap.ContentContent}">
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContent?contentId=${parameters.contentId}"/>
         </menu-item>
         
         <menu-item name="association" title="${uiLabelMap.ContentAssociation}">
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
         </menu-item>
         
         <menu-item name="role" title="${uiLabelMap.FormFieldTitle_roles}" >
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContentRole?contentId=${parameters.contentId}"/>
         </menu-item>
@@ -61,7 +61,7 @@ under the License.
         <menu-item name="purpose" title="${uiLabelMap.FormFieldTitle_purposes}" >
             <condition>
                 <not>
-                    <if-empty field-name="currentValue.contentId" />
+                    <if-empty field="currentValue.contentId" />
                 </not>
             </condition>
             <link target="EditContentPurpose?contentId=${parameters.contentId}"/>
@@ -69,28 +69,28 @@ under the License.
         
         <menu-item name="attribute" title="${uiLabelMap.ContentAttribute}" >
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContentAttribute?contentId=${parameters.contentId}"/>
         </menu-item>
         
         <menu-item name="websites" title="${uiLabelMap.ContentWebSites}">
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="ListWebSite?contentId=${parameters.contentId}"/>
         </menu-item>
 
         <menu-item name="metaData" title="${uiLabelMap.ContentMetadata}" >
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContentMetaData?contentId=${parameters.contentId}"/>
         </menu-item>
         
         <menu-item name="workEffort" title="${uiLabelMap.WorkEffortWorkEffort}" >
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContentWorkEfforts?contentId=${parameters.contentId}"/>
         </menu-item>
@@ -102,13 +102,13 @@ under the License.
         
         <menu-item name="NewContent" title="${uiLabelMap.CommonCreateNew}">
             <condition>
-                <not><if-empty field-name="currentValue.contentId"/></not>
+                <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContent"/>
         </menu-item>
         <menu-item name="NewContentAssoc" title="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentAssociation}">
             <condition>
-                <if-compare field-name="tabButtonItem" operator="equals" value="association"/>
+                <if-compare field="tabButtonItem" operator="equals" value="association"/>
             </condition>
             <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
         </menu-item>
@@ -136,8 +136,14 @@ under the License.
     <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
         title="" type="simple">
+        <menu-item name="ListBlog" title="${uiLabelMap.CommonList}">
+            <link target="blogMain"/>
+        </menu-item>
         <menu-item name="EditBlog" title="${uiLabelMap.CommonEdit}">
             <link target="editBlog?blogContentId=${parameters.blogContentId}"/>
+        </menu-item>
+        <menu-item name="Articles" title="${uiLabelMap.ContentBlogActicleList}">
+            <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
         <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
             <link target="EditContentRole?contentId=${parameters.blogContentId}"/>
@@ -151,12 +157,28 @@ under the License.
             <link target="editBlog"/>
         </menu-item>
     </menu>
+
+    <menu name="blogArt"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
+        title="" type="simple">
+        <menu-item name="ListlogArt" title="${uiLabelMap.CommonList}">
+            <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
+        </menu-item>
+        <menu-item name="ViewBlogArt" title="${uiLabelMap.CommonView}">
+            <link target="ViewBlogArticle?articleContentId=${parameters.articleContentId}&amp;blogContentId=${parameters.blogContentId}"/>
+        </menu-item>
+        <menu-item name="EditBlogArt" title="${uiLabelMap.CommonEdit}">
+            <link target="EditBlogArticle?articleContentId=${parameters.articleContentId}&amp;blogContentId=${parameters.blogContentId}"/>
+        </menu-item>
+        <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
+            <link target="EditContentRole?contentId=${parameters.articleContentId}"/>
+        </menu-item>
+    </menu>
     <menu name="blogArtSub" menu-container-style="button-bar button-style-2" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
-        
         <menu-item name="NewBlog" title="${uiLabelMap.CommonCreateNew}">
-            <link target="NewBlogArticle?blogContentId=${parameters.blogContentId}"/>
+            <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
     </menu>
 </menus>
