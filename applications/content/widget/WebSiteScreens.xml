@@ -315,25 +315,15 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <container id="cmscontent">
-                    <!-- DO NOT CONVERT TO SCREENLET OTHERWISE THE CMS RIGHTSCREEN DOES NOT WORK -->
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.PageTitleWebSiteCMSContent}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>    
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
-                                    </html>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>
+                <container id="cmscontent" style="no-clear">
+                    <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </screenlet>
+               </container>
             </widgets>
         </section>
     </screen>
