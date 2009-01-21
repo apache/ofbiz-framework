@@ -998,7 +998,7 @@ public class ProductServices {
                                 ServiceUtil.returnError(e.getMessage());
                             }
                         } else {
-                            dataResourceCtx.put("dataResourceTypeId", "URL_RESOURCE");
+                            dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                             Map<String, Object> dataResourceResult = FastMap.newInstance();
                             try {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
@@ -1028,7 +1028,7 @@ public class ProductServices {
                         }
                     }
                 } else {
-                    dataResourceCtx.put("dataResourceTypeId", "URL_RESOURCE");
+                    dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                     Map<String, Object> dataResourceResult = FastMap.newInstance();
                     try {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
