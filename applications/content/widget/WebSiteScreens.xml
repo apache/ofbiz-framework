@@ -218,10 +218,10 @@ under the License.
                                 </not>                                
                             </condition>
                             <widgets>                                                                
-                                <container id="cmsnav" style="left-border">
+                                <container id="cmsnav" style="left">
                                     <include-screen name="WebSiteCMSNav"/>                    
                                 </container>
-                                <container id="cmsmain" style="nocolumns">
+                                <container id="cmsmain" style="leftonly">
                                     <include-screen name="WebSiteCMSContent"/>
                                 </container>                                                                
                             </widgets>
@@ -316,14 +316,24 @@ under the License.
             </actions>
             <widgets>
                 <container id="cmscontent">
-                    <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
-                            </html>
-                        </platform-specific>
-                    </screenlet>
-               </container>
+                    <!-- DO NOT CONVERT TO SCREENLET OTHERWISE THE CMS RIGHTSCREEN DOES NOT WORK -->
+                    <container style="screenlet-title-bar">
+                        <container style="h3">
+                            <label text="${uiLabelMap.PageTitleWebSiteCMSContent}"/>
+                        </container>
+                    </container>
+                    <container style="screenlet-body">
+                        <section>
+                            <widgets>    
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </container>
+                </container>
             </widgets>
         </section>
     </screen>
