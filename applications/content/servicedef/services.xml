@@ -1095,7 +1095,9 @@
         <attribute name="templateDataResourceId" type="String" mode="OUT" optional="true"/>
         <attribute name="summaryData" type="String" mode="OUT" optional="true"/>
         <attribute name="articleData" type="String" mode="OUT" optional="true"/>
-        <attribute name="imageDataResourceId" type="String" mode="OUT" optional="true"/>
+        <attribute name="imageContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="articleContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="summaryContentId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="org/ofbiz/content/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
          auth="true"  transaction-timeout="72000">
