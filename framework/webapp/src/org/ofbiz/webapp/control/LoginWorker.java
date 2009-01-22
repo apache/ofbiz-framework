@@ -608,6 +608,49 @@ public class LoginWorker {
         return "success";
     }
 
+    private static boolean isUserLoggedIn(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
+        if (currentUserLogin != null) {
+            String hasLoggedOut = currentUserLogin.getString("hasLoggedOut");
+            if (hasLoggedOut != null && "N".equals(hasLoggedOut)) {
+                return true;
+            }
+            // User is not logged in so lets clear the attribute
+            session.setAttribute("userLogin", null);
+        }
+        return false;
+    }
+
+    /**
+     * This method will log in a user with only their username (userLoginId).
+     * @param request
+     * @param response
+     * @param userLoginId
+     * @return Returns "success" if user could be logged in or "error" if there was a problem.
+     */
+    private static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            if (userLogin != null) {
+                String enabled = userLogin.getString("enabled");
+                if (enabled == null || "Y".equals(enabled)) {
+                    userLogin.set("hasLoggedOut", "N");
+                    userLogin.store();
+
+                    // login the user
+                    Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                    return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
+                }
+            }
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+        }
+        // Shouldn't be here if all went well
+        return "error";
+    }
+    
     // preprocessor method to login a user from a HTTP request header (configured in security.properties)
     public static String checkRequestHeaderLogin(HttpServletRequest request, HttpServletResponse response) {
         String httpHeader = UtilProperties.getPropertyValue("security.properties", "security.login.http.header", null);
@@ -616,38 +659,15 @@ public class LoginWorker {
         if (UtilValidate.isNotEmpty(httpHeader)) {
 
             // make sure the user isn't already logged in
-            HttpSession session = request.getSession();
-            GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
-            if (currentUserLogin != null) {
-                String hasLoggedOut = currentUserLogin.getString("hasLoggedOut");
-                if (hasLoggedOut != null && "Y".equals(hasLoggedOut)) {
-                    currentUserLogin = null;
-                }
-            }
-
-            // user is not logged in; check the header field
-            if (currentUserLogin == null) {
+            if (!LoginWorker.isUserLoggedIn(request)) {
+                // user is not logged in; check the header field
                 String headerValue = request.getHeader(httpHeader);
                 if (UtilValidate.isNotEmpty(headerValue)) {
-                    GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-
-                    // header field found; log the user in
-                    try {
-                        GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", headerValue);
-                        if (userLogin != null) {
-                            String enabled = userLogin.getString("enabled");
-                            if (enabled == null || "Y".equals(enabled)) {
-                                userLogin.set("hasLoggedOut", "N");
-                                userLogin.store();
-
-                                // login the user
-                                Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
-                                return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
-                            }
-                        }
-                    } catch (GeneralException e) {
-                        Debug.logError(e, module);
-                    }
+                    return LoginWorker.loginUserWithUserLoginId(request, response, headerValue);
+                }
+                else {
+                    // empty headerValue is not good
+                    return "error";
                 }
             }
         }
@@ -655,6 +675,28 @@ public class LoginWorker {
         return "success";
     }
 
+    // preprocessor method to login a user from HttpServletRequest.getRemoteUser() (configured in security.properties)
+    public static String checkServletRequestRemoteUserLogin(HttpServletRequest request, HttpServletResponse response) {
+        Boolean allowRemoteUserLogin = "true".equals(UtilProperties.getPropertyValue("security", "security.login.http.servlet.remoteuserlogin.allow", "false"));
+        // make sure logging users via remote user is allowed in security.properties; if not just return
+        if (allowRemoteUserLogin) {
+
+            // make sure the user isn't already logged in
+            if (!LoginWorker.isUserLoggedIn(request)) {
+                // lets grab the remoteUserId
+                String remoteUserId = request.getRemoteUser();
+                if (UtilValidate.isNotEmpty(remoteUserId)) {
+                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
+                }
+                else {
+                    // empty remoteUserId is not good
+                    return "error";
+                }
+            }
+        }
+
+        return "success";
+    }
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         boolean doCheck = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "security.login.cert.allow", "true"));

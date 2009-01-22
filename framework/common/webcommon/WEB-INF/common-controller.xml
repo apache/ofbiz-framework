@@ -51,6 +51,7 @@ under the License.
         <!-- Events to run on every request before security (chains exempt) -->
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
         <event type="java" path="org.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
     </preprocessor>
