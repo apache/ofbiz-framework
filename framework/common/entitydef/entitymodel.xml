@@ -213,14 +213,14 @@ under the License.
     <field name="latitude" type="floating-point" not-null="true"></field>
     <field name="longitude" type="floating-point" not-null="true"></field>
     <field name="elevation" type="floating-point"></field>
-    <field name="uomId" type="id"><description>We need an UOM for elevation (feet, meters, etc.)</description></field>
+    <field name="elevationUomId" type="id"><description>We need an UOM for elevation (feet, meters, etc.)</description></field>
     <field name="information" type="comment"><description>To enter any related information</description></field>
     <prim-key field="geoPointId"/>
     <relation type="one" fk-name="GEOPOINT_DTSRC" rel-entity-name="DataSource">
       <key-map field-name="dataSourceId"/>
     </relation>
     <relation type="one" fk-name="GPT_TYPE_UOM" rel-entity-name="Uom">
-      <key-map field-name="uomId"/>
+      <key-map field-name="elevationUomId" rel-field-name="uomId"/>
     </relation>    
   </entity>
     
