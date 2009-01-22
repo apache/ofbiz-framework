@@ -19,6 +19,18 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EcommerceANew">
+        <value xml:lang="de">Ein neues</value>
+        <value xml:lang="en">a new</value>
+        <value xml:lang="fr">un nouvel</value>
+        <value xml:lang="it">una nuova</value>
+        <value xml:lang="th">ใหม่</value>
+    </property>
+    <property key="EcommerceAccountInformation">
+        <value xml:lang="en">Account Information</value>
+        <value xml:lang="fr">Information sur le compte</value>
+        <value xml:lang="it">Informazioni utente</value>
+    </property>
     <property key="EcommerceAccountLogin">
         <value xml:lang="de">Ihre Benutzeranmeldung ist:</value>
         <value xml:lang="en">Your account login is:</value>
@@ -32,11 +44,6 @@
         <value xml:lang="ru">Ваше имя для учетной записи:</value>
         <value xml:lang="th">บัญชีของคุณลอกอินเข้าสู่ระบบคือ</value>
         <value xml:lang="zh">你登录的账户是：</value>
-    </property>
-    <property key="EcommerceAccountInformation">
-        <value xml:lang="en">Account Information</value>
-        <value xml:lang="fr">Information sur le compte</value>
-	    <value xml:lang="it">Informazioni utente</value>
     </property>
     <property key="EcommerceActive">
         <value xml:lang="cs">Váš E-mail</value>
@@ -91,7 +98,7 @@
         <value xml:lang="de">Neue Adresse hinzufügen</value>
         <value xml:lang="en">Add New Address</value>
         <value xml:lang="fr">Ajouter une nouvelle adresse</value>
-	<value xml:lang="it">Aggiungi nuovo indirizzo</value>
+        <value xml:lang="it">Aggiungi nuovo indirizzo</value>
     </property>
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="de">Neues digitales Produkt hinzufügen</value>
@@ -137,13 +144,13 @@
         <value xml:lang="de">Zusätzliche Adressen</value>
         <value xml:lang="en">Additional Addresses</value>
         <value xml:lang="fr">Adresses additionelles</value>
-	<value xml:lang="it">Indirizzi aggiuntivi</value>
+        <value xml:lang="it">Indirizzi aggiuntivi</value>
     </property>
     <property key="EcommerceAddressBook">
         <value xml:lang="de">Adressbuch</value>
         <value xml:lang="en">Address Book</value>
         <value xml:lang="fr">Carnet d'adresses</value>
-	<value xml:lang="it">Indirizzario</value>
+        <value xml:lang="it">Indirizzario</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
@@ -192,13 +199,6 @@
         <value xml:lang="ru">Всегда просматривать корзину перед добавлением позиции</value>
         <value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
         <value xml:lang="zh">总是在添加一个明细后浏览购物车</value>
-    </property>
-    <property key="EcommerceANew">
-        <value xml:lang="de">Ein neues</value>
-        <value xml:lang="en">a new</value>
-        <value xml:lang="fr">un nouvel</value>
-        <value xml:lang="it">una nuova</value>
-        <value xml:lang="th">ใหม่</value>
     </property>
     <property key="EcommerceArticleInformation">
         <value xml:lang="de">Artikelinformationen</value>
@@ -473,7 +473,7 @@
         <value xml:lang="de">Standard Adressen</value>
         <value xml:lang="en">Default Addresses</value>
         <value xml:lang="fr">Adresses par défaut</value>
-	<value xml:lang="it">Indirizzo di default</value>
+        <value xml:lang="it">Indirizzo di default</value>
     </property>
     <property key="EcommerceDefaultShipmentMethod">
         <value xml:lang="de">Standard Versandmethode</value>
@@ -586,7 +586,7 @@
         <value xml:lang="de">Profil bearbeiten</value>
         <value xml:lang="en">Edit Profile</value>
         <value xml:lang="fr">Modifier le profil</value>
-	    <value xml:lang="it">Aggiorna profilo</value>
+        <value xml:lang="it">Aggiorna profilo</value>
     </property>
     <property key="EcommerceEmptyBody">
         <value xml:lang="de">Leerer Meldungstext</value>
@@ -618,18 +618,6 @@
         <value xml:lang="ru">Корзина пустая</value>
         <value xml:lang="th">ตะกร้าว่างเปล่า</value>
         <value xml:lang="zh">清空购物车</value>
-    </property>
-    <property key="EcommerceNewPasswordMssgEncryptionOn">
-        <value xml:lang="de">Ihr neues Passwort ist : </value>
-        <value xml:lang="en">Your new password is :- </value>
-        <value xml:lang="fr">Votre nouveau mot de passe est : </value>
-	<value xml:lang="it">La nuova password è :- </value>
-    </property>
-    <property key="EcommerceNewPasswordMssgEncryptionOff">
-        <value xml:lang="de">Ihr Passwort ist: </value>
-        <value xml:lang="en">Your password is :- </value>
-        <value xml:lang="fr">Votre mot de passe est : </value>
-	<value xml:lang="it">La tua password è :- </value>
     </property>
     <property key="EcommerceEnterPromoCode">
         <value xml:lang="de">Aktionscode angeben</value>
@@ -755,11 +743,11 @@
         <value xml:lang="de">Wussten Sie schon?</value>
         <value xml:lang="en">Did you know?</value>
         <value xml:lang="es">¿Sabía usted?</value>
-	<value xml:lang="fr">Le saviez-vous ?</value>
+        <value xml:lang="fr">Le saviez-vous ?</value>
         <value xml:lang="it">Sapevi che...?</value>
         <value xml:lang="nl">Wist U dat?</value>
-	<value xml:lang="pt">Você Sabia?</value>
-	<value xml:lang="ro">Factoids</value>
+        <value xml:lang="pt">Você Sabia?</value>
+        <value xml:lang="ro">Factoids</value>
         <value xml:lang="ru">Факты</value>
         <value xml:lang="th">คุณทราบหรือไม่ ?</value>
         <value xml:lang="zh">你知道吗？</value>
@@ -1328,13 +1316,13 @@
         <value xml:lang="de">(lookup:anywho.com)</value>
         <value xml:lang="en">(lookup:anywho.com)</value>
         <value xml:lang="fr">(A qui est ce n° ?)</value>
-	<value xml:lang="it">(lookup:anywho.com)</value>
+        <value xml:lang="it">(lookup:anywho.com)</value>
     </property>
     <property key="EcommerceLookupWhoLink">
         <value xml:lang="de">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
-	<value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
     <property key="EcommerceLosePassword">
         <value xml:lang="de">Falls Sie Ihr Passwort vergessen können Sie jederzeit ein neues beantragen.</value>
@@ -1382,7 +1370,7 @@
         <value xml:lang="de">Adressen verwalten</value>
         <value xml:lang="en">Manage Addresses</value>
         <value xml:lang="fr">Gérer les adresses</value>
-	    <value xml:lang="it">Gestione indirizzi</value>
+        <value xml:lang="it">Gestione indirizzi</value>
     </property>
     <property key="EcommerceMessage1">
         <value xml:lang="de">Bedaure, es scheint als ob die angegebene Produkt ID</value>
@@ -1556,6 +1544,18 @@
         <value xml:lang="ru">Новая подписка на рассылку</value>
         <value xml:lang="th">รายการสั่งซื้อใหม่</value>
         <value xml:lang="zh">新注册列表</value>
+    </property>
+    <property key="EcommerceNewPasswordMssgEncryptionOff">
+        <value xml:lang="de">Ihr Passwort ist: </value>
+        <value xml:lang="en">Your password is :- </value>
+        <value xml:lang="fr">Votre mot de passe est : </value>
+        <value xml:lang="it">La tua password è :- </value>
+    </property>
+    <property key="EcommerceNewPasswordMssgEncryptionOn">
+        <value xml:lang="de">Ihr neues Passwort ist : </value>
+        <value xml:lang="en">Your new password is :- </value>
+        <value xml:lang="fr">Votre nouveau mot de passe est : </value>
+        <value xml:lang="it">La nuova password è :- </value>
     </property>
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="de">Keine digitalen Produkte gefunden</value>
@@ -1897,13 +1897,13 @@
         <value xml:lang="de">Haupt Rechnungsadresse</value>
         <value xml:lang="en">Primary Billing Address</value>
         <value xml:lang="fr">Adresse de facturation principale</value>
-	<value xml:lang="it">Indirizzo primario di fatturazione</value>
+        <value xml:lang="it">Indirizzo primario di fatturazione</value>
     </property>
     <property key="EcommercePrimaryShippingAddress">
         <value xml:lang="de">Haupt Lieferadresse</value>
         <value xml:lang="en">Primary Shipping Address</value>
         <value xml:lang="fr">Adresse d'expédition principale</value>
-	<value xml:lang="it">Indirizzo primario di spedizione</value>
+        <value xml:lang="it">Indirizzo primario di spedizione</value>
     </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="de">Produktnummer</value>
