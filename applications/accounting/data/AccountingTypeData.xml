@@ -647,6 +647,7 @@ under the License.
     <PaymentType description="Vendor Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PAYMENT"/>
     <PaymentType description="Vendor Prepayment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PREPAY"/>
     <PaymentType description="Commission Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="COMMISSION_PAYMENT"/>
+    <PaymentType description="Payrol Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="PAYROL_PAYMENT"/>
     <PaymentType description="Pay Check" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="PAY_CHECK"/>
     <PaymentType description="Tax Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="TAX_PAYMENT"/>
     <PaymentType description="Sales Tax Payment" hasTable="N" parentTypeId="TAX_PAYMENT" paymentTypeId="SALES_TAX_PAYMENT"/>
