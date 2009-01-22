@@ -57,6 +57,7 @@ public class ProductConfigWrapper implements Serializable {
     protected GenericDelegator delegator;
     protected GenericValue product = null; // the aggregated product
     protected GenericValue autoUserLogin = null;
+    protected BigDecimal listPrice = BigDecimal.ZERO;
     protected BigDecimal basePrice = BigDecimal.ZERO;
     protected BigDecimal defaultPrice = BigDecimal.ZERO;
     protected String configId = null; // Id of persisted ProductConfigWrapper
@@ -72,6 +73,7 @@ public class ProductConfigWrapper implements Serializable {
 
     public ProductConfigWrapper(ProductConfigWrapper pcw) {
         product = GenericValue.create(pcw.product);
+        listPrice = pcw.listPrice;
         basePrice = pcw.basePrice;
         defaultPrice = pcw.defaultPrice;
         questions = FastList.newInstance();
@@ -100,11 +102,15 @@ public class ProductConfigWrapper implements Serializable {
         this.delegator = delegator;
         this.autoUserLogin = autoUserLogin;
         
-        // get the base price
+        // get the list Price, the base Price
         Map<String, Object> priceContext = UtilMisc.toMap("product", product, "prodCatalogId", catalogId, "webSiteId", webSiteId, "productStoreId", productStoreId,
                                       "currencyUomId", currencyUomId, "autoUserLogin", autoUserLogin);
         Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+        BigDecimal originalListPrice = (BigDecimal) priceMap.get("listPrice");
         BigDecimal price = (BigDecimal) priceMap.get("price");
+        if (originalListPrice != null) {
+            listPrice = originalListPrice;
+        }
         if (price != null) {
             basePrice = price;
         }
@@ -293,6 +299,15 @@ public class ProductConfigWrapper implements Serializable {
         return defaultOptions;
     } 
     
+    public BigDecimal getTotalListPrice() {
+        BigDecimal totalListPrice = listPrice;
+        List<ConfigOption> options = getSelectedOptions();
+        for (ConfigOption oneOption: options) {
+            totalListPrice = totalListPrice.add(oneOption.getListPrice());
+        }
+        return totalListPrice;
+    }
+    
     public BigDecimal getTotalPrice() {
     	BigDecimal totalPrice = basePrice;
         List<ConfigOption> options = getSelectedOptions();
@@ -301,7 +316,7 @@ public class ProductConfigWrapper implements Serializable {
         }
         return totalPrice;
     }
-
+    
     private void setDefaultPrice() {
     	BigDecimal totalPrice = basePrice;
         List<ConfigOption> options = getDefaultOptions();
@@ -504,7 +519,8 @@ public class ProductConfigWrapper implements Serializable {
     }
     
     public class ConfigOption implements java.io.Serializable {
-    	BigDecimal optionPrice = BigDecimal.ZERO;
+        BigDecimal optionListPrice = BigDecimal.ZERO;
+        BigDecimal optionPrice = BigDecimal.ZERO;
         Date availabilityDate = null;
         List<GenericValue> componentList = null; // lists of ProductConfigProduct
         Map<String, String> componentOptions = null;
@@ -519,11 +535,13 @@ public class ProductConfigWrapper implements Serializable {
             parentConfigItem = configItem;
             componentList = option.getRelated("ConfigOptionProductConfigProduct");
             for (GenericValue oneComponent: componentList) {
-            	BigDecimal price = BigDecimal.ZERO;
+                BigDecimal listPrice = BigDecimal.ZERO;
+                BigDecimal price = BigDecimal.ZERO;
                 // Get the component's price
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct"), "prodCatalogId", catalogId, "webSiteId", webSiteId,
                         "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
                 Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound"); 
                 BigDecimal mult = BigDecimal.ONE;
@@ -533,16 +551,26 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult.compareTo(BigDecimal.ZERO) == 0) {
                     mult = BigDecimal.ONE;
                 }
-                if (componentPrice != null && validPriceFound.booleanValue()) {
-                    price = componentPrice;
+                if (validPriceFound.booleanValue()) {
+                    if (componentListPrice != null) {
+                        listPrice = componentListPrice;
+                    }
+                    if (componentPrice != null) {
+                        price = componentPrice;
+                    }    
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
                     Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                    BigDecimal purchaseListPrice = (BigDecimal) purchasePriceResultMap.get("listPrice");
                     BigDecimal purchasePrice = (BigDecimal) purchasePriceResultMap.get("price");
+                    if (purchaseListPrice != null) {
+                        listPrice = purchaseListPrice;
+                    }
                     if (purchasePrice != null) {
                         price = purchasePrice;
                     }
                 }
+                optionListPrice = optionListPrice.add(listPrice.multiply(mult));
                 optionPrice = optionPrice.add(price.multiply(mult));
                 // TODO: get the component's availability date
             }
@@ -554,6 +582,7 @@ public class ProductConfigWrapper implements Serializable {
             for (GenericValue component: co.componentList) {
                 componentList.add(GenericValue.create(component));
             }
+            optionListPrice = co.optionListPrice;
             optionPrice = co.optionPrice;
             available = co.available;
             selected = co.selected;
@@ -561,9 +590,11 @@ public class ProductConfigWrapper implements Serializable {
         }
         
         public void recalculateOptionPrice(ProductConfigWrapper pcw) throws Exception {
+            optionListPrice = BigDecimal.ZERO;
             optionPrice = BigDecimal.ZERO;
             for (GenericValue oneComponent: componentList) {
-            	BigDecimal price = BigDecimal.ZERO;
+                BigDecimal listPrice = BigDecimal.ZERO;
+                BigDecimal price = BigDecimal.ZERO;
                 GenericValue oneComponentProduct = oneComponent.getRelatedOne("ProductProduct");        
                 String variantProductId = componentOptions.get(oneComponent.getString("productId"));        
                 
@@ -575,6 +606,7 @@ public class ProductConfigWrapper implements Serializable {
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId,
                         "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
                 Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");                 
                 BigDecimal mult = BigDecimal.ONE;
@@ -584,16 +616,26 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult.compareTo(BigDecimal.ZERO) == 0) {
                     mult = BigDecimal.ONE;
                 }
-                if (componentPrice != null && validPriceFound.booleanValue()) {
-                    price = componentPrice;
+                if (validPriceFound.booleanValue()) {
+                    if (componentListPrice != null) {
+                        listPrice = componentListPrice;
+                    }    
+                    if (componentPrice != null) {
+                        price = componentPrice;
+                    }
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
                     Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                    BigDecimal purchaseListPrice = (BigDecimal) purchasePriceResultMap.get("listPrice");
                     BigDecimal purchasePrice = (BigDecimal) purchasePriceResultMap.get("price");
+                    if (purchaseListPrice != null) {
+                        listPrice = purchaseListPrice;
+                    }
                     if (purchasePrice != null) {
                         price = purchasePrice;
                     }
                 }
+                optionListPrice = optionListPrice.add(listPrice.multiply(mult));
                 optionPrice = optionPrice.add(price.multiply(mult));
             }
         }                
@@ -614,8 +656,21 @@ public class ProductConfigWrapper implements Serializable {
             this.comments = comments;
         }
         
+        public BigDecimal getListPrice() {
+            return optionListPrice;
+        }
+        
         public BigDecimal getPrice() {
             return optionPrice;
+        }
+        
+        public BigDecimal getOffsetListPrice() {
+            ConfigOption defaultConfigOption = parentConfigItem.getDefault();
+            if (parentConfigItem.isSingleChoice() && UtilValidate.isNotEmpty(defaultConfigOption)){
+                return optionListPrice.subtract(defaultConfigOption.getListPrice());                                    
+            } else {  // can select multiple or no default; show full price
+                return optionListPrice;
+            }
         }
         
         public BigDecimal getOffsetPrice() {
