@@ -34,7 +34,7 @@ latestGeoPoint = PartyWorker.findPartyLatestGeoPoint(partyId, delegator);
 context.latestGeoPoint = latestGeoPoint;
 
 if (latestGeoPoint) {
-    elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.uomId], false);
+    elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
     context.elevationUomAbbr = elevationUom.abbreviation;
 }
  
