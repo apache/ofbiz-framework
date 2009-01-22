@@ -31,7 +31,7 @@ under the License.
         We will solve/implement the request as soon as possible
         <br/><br/>
         The status and used hours can always be checked at the url: <br/>
-        <a href="${baseUrl?if_exists}/mypage/control/ViewRequest?custRequestId=${custRequest.custRequestId}">${baseUrl?if_exists}/mypage/control/ViewRequest?custRequestId=${custRequest.custRequestId}</a> 
+        <a href="${baseUrl?if_exists}/myportal/control/ViewRequest?custRequestId=${custRequest.custRequestId}">${baseUrl?if_exists}/myportal/control/ViewRequest?custRequestId=${custRequest.custRequestId}</a> 
         <br/><br/>
         Regards.
         <br/><br/>

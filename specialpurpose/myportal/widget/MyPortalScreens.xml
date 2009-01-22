@@ -23,7 +23,7 @@ under the License.
         <screen name="newEvent">
         <section>
             <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId" default-value="myCompanyComms"/>
+                <set field="portalPageId" from-field="parameters.portalPageId" default-value="parameters.portalPageId"/>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
             </actions>
             <widgets>
@@ -46,6 +46,7 @@ under the License.
     <screen name="MyTimesheet">
         <section>
             <actions>
+                <set field="headerItem" value="myTimesheet"/>
                 <set field="portalPageId" value="parameters.portalPageId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>
@@ -63,7 +64,7 @@ under the License.
                                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                                 </condition>          
                                 <widgets>
-                                    <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    <include-form name="WeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
                                     <include-form name="EditWeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
@@ -79,7 +80,7 @@ under the License.
                                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                                 </condition>          
                                 <widgets>
-                                    <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    <include-form name="WeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
                                     <include-form name="EditWeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
@@ -166,10 +167,10 @@ under the License.
     <screen name="MyCompanyComms">
         <section>
             <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId" default-value="myCompanyComms"/>
+                <set field="portalPageId" from-field="parameters.portalPageId"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.MyPageCompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
+                <screenlet title="${uiLabelMap.MyPortalCompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
                     <include-menu name="MyCompanyCommsMenu" location="component://myportal/widget/MyPortalMenus.xml"/>
                     <include-form name="MyCompanyComms" location="component://myportal/widget/MyPortalForms.xml"/>
                 </screenlet>
@@ -231,7 +232,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.MyPageCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                <screenlet title="${uiLabelMap.MyPortalCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                     navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
                     name="myComms">
                     <include-menu name="communicationsMenu"
@@ -243,13 +244,13 @@ under the License.
                             </not>
                         </condition>
                         <widgets>
-                            <label style="h2" text="${uiLabelMap.MyPageEmailsFromUnknownOrigin}"></label>
+                            <label style="h2" text="${uiLabelMap.MyPortalEmailsFromUnknownOrigin}"></label>
                             <include-form
                                 location="component://myportal/widget/MyPortalForms.xml"
                                 name="ListMyUnknownPartyEmails" />
                         </widgets>
                     </section>
-                    <label style="h2" text="${uiLabelMap.MyPageEmailsFromKnownOrigin}"></label>
+                    <label style="h2" text="${uiLabelMap.MyPortalEmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents"
                         location="component://myportal/widget/MyPortalForms.xml" />
                     <section>
@@ -310,7 +311,7 @@ under the License.
                             <section>
                                 <widgets>
                                     <label style="h1"
-                                        text="${uiLabelMap.MyPageCommunicationEventId} ${parameters.communicationEventId}"></label>
+                                        text="${uiLabelMap.MyPortalCommunicationEventId} ${parameters.communicationEventId}"></label>
                                     <include-screen name="commEvent" 
                                             location="component://party/widget/partymgr/CommunicationScreens.xml" />
                                 </widgets>
@@ -789,7 +790,7 @@ under the License.
                         <not><if-empty field-name="custRequests"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.MyPageIncomingCustRequests}" navigation-form-name="ListRequestList">
+                        <screenlet title="${uiLabelMap.MyPortalIncomingCustRequests}" navigation-form-name="ListRequestList">
                             <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -802,6 +803,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="portalPageId" from-field="parameters.portalPageId"/>
                 <set field="status" from-field="parameters.status" default-value="open"/>
                 <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
                 <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
@@ -914,7 +916,7 @@ under the License.
             <widgets>
                 <section>
                     <widgets>
-                        <screenlet title="${uiLabelMap.MyPageCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
+                        <screenlet title="${uiLabelMap.MyPortalCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
                             <include-form name="ListCustRequestsCompleted" location="component://myportal/widget/MyPortalForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -976,14 +978,14 @@ under the License.
             <widgets>
                 <section>
                      <widgets>
-                        <screenlet title="${uiLabelMap.MyPageOtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
+                        <screenlet title="${uiLabelMap.MyPortalOtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
                             <include-form name="ListOtherCompanyRequests" location="component://myportal/widget/MyPortalForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
                 <section>
                     <widgets>
-                        <screenlet title="${uiLabelMap.MyPageCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                        <screenlet title="${uiLabelMap.MyPortalCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                             navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
                             <include-menu name="communicationsMenu" location="component://myportal/widget/MyPortalMenus.xml" />
                             <include-form name="ListPartyCommEvents" location="component://myportal/widget/MyPortalForms.xml" />
@@ -1535,4 +1537,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
 </screens>

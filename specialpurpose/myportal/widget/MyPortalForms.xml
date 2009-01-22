@@ -22,15 +22,15 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
-        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
+        <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;portalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonRemove}"/></field>
         <!-- better set to complete on the timesheet -->
-        <!-- field name="toComplete" title="${uiLabelMap.MyPageToComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.MyPageToComplete}"/></field-->
+        <!-- field name="toComplete" title="${uiLabelMap.MyPortalToComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.MyPortalToComplete}"/></field-->
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
@@ -50,6 +50,29 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
+    <form name="WeekTimesheet" type="list" list-name="timeEntries" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="timesheetId"><hidden/></field>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
+            <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" description="${workEffortName}"/>
+        </field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+            <hyperlink target="/projectmgr/control/projectView?projectId=${projectId}" target-type="inter-app" target-window="_BLANK" description="${projectName}"/>
+        </field>
+        <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrSun}"><display/></field>
+        <field name="1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
+        <field name="2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
+        <field name="3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrWen}"><display/></field>
+        <field name="4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
+        <field name="5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
+        <field name="6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
+    </form>
+
     <form name="MyCompanyComms" type="list" list-name="events" target="deleteEvent" paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -62,7 +85,7 @@ under the License.
                 <order-by field-name="actualStartDate"/>
             </entity-condition>
         </actions>
-        <alt-target use-when="headerItem.equals(&quot;main&quot;)" target="deleteEventKey"/>
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="deleteEvent"/>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -84,26 +107,26 @@ under the License.
         <row-actions>
             <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;toComplete&quot;:&quot;&quot;}"/>
         </row-actions>
-        <field name="donePage"><hidden/></field>
+        <field name="portalPageId"><hidden/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${parameters.donePage}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;portalPageId=${parameters.portalPageId}"/>
         </field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${parameters.donePage}"/>
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;portalPageId=${portalPageId}"/>
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.MyPageToComplete}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
+                <sub-hyperlink description="${uiLabelMap.MyPortalToComplete}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
             </display-entity>
         </field>
         <field name="createdStamp" entry-name="entryDate"/>
     </form>
     <form name="ListMyUnknownPartyEmails" type="multi"
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
-        <field name="donePage"><hidden/></field>
+        <field name="portalPageId"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${parameters.donePage}"/>
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;portalPageId=${portalPageId}"/>
         </field>
         <field name="_rowSubmit" title="S">
             <check />
@@ -112,11 +135,13 @@ under the License.
             <submit />
         </field>
     </form>
+    
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
         </field>
     </form>
+    
     <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="taskResult">
@@ -149,6 +174,7 @@ under the License.
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>
+    
     <form name="ListCustRequestsCompleted" extends="ListCustRequests" list-name="custRequestsCompleted">
         <field name="priority"><display/></field>
         <field name="updateButton"><ignored/></field>
@@ -211,7 +237,7 @@ under the License.
             <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;portalPageId=${portalPageId}"/>
         </field>
     </form>
 
