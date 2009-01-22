@@ -91,7 +91,7 @@ under the License.
         </menu-item>
         <menu-item name="editExpression" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <not><if-empty field-name="temporalExpression"/></not>
+                <not><if-empty field="temporalExpression"/></not>
             </condition>
             <link target="editTemporalExpression?tempExprId=${temporalExpression.tempExprId}"/>
         </menu-item>
