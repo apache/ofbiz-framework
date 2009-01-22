@@ -108,7 +108,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPayment"/>
                 <set field="tabButtonItem" value="editPayment"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
-                <entity-one entity-name="Payment" value-name="payment">
+                <entity-one entity-name="Payment" value-field="payment">
                     <field-map field-name="paymentId" env-name="parameters.paymentId"/>
                 </entity-one>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
@@ -145,7 +145,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListPaymentApplications"/>
                 <set field="tabButtonItem" value="editPaymentApplications"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
-                <entity-one entity-name="Payment" value-name="payment"/>
+                <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="appliedAmount" type="String" value="${bsh:
                     import java.text.NumberFormat;
                     return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment)));}"/>
@@ -155,41 +155,41 @@ under the License.
                     return(NumberFormat.getCurrencyInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)));}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedInvoices.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedPayments.groovy"/>
-                <entity-one entity-name="PartyNameView" value-name="partyNameViewTo">
+                <entity-one entity-name="PartyNameView" value-field="partyNameViewTo">
                     <field-map field-name="partyId" env-name="payment.partyIdTo"/>
                 </entity-one>
-                <entity-one entity-name="PartyNameView" value-name="partyNameViewFrom">
+                <entity-one entity-name="PartyNameView" value-field="partyNameViewFrom">
                     <field-map field-name="partyId" env-name="payment.partyIdFrom"/>
                 </entity-one>
-                <entity-condition entity-name="PaymentApplication" list-name="paymentApplications">
+                <entity-condition entity-name="PaymentApplication" list="paymentApplications">
                     <condition-expr field-name="paymentId" operator="equals" value="${paymentId}"/>
                 </entity-condition>
-                <entity-condition entity-name="PaymentApplication" list-name="paymentApplicationsInv">
+                <entity-condition entity-name="PaymentApplication" list="paymentApplicationsInv">
                     <condition-list combine="and">
                         <condition-expr field-name="paymentId" operator="equals" value="${paymentId}"/>
-                        <condition-expr field-name="invoiceId" operator="not-equals" env-name="null"/>
+                        <condition-expr field-name="invoiceId" operator="not-equals" from-field="null"/>
                     </condition-list>
                     <order-by field-name="invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-condition>
-                <entity-condition entity-name="PaymentApplication" list-name="paymentApplicationsPay">
+                <entity-condition entity-name="PaymentApplication" list="paymentApplicationsPay">
                     <condition-list combine="and">
-                        <condition-expr field-name="paymentId" operator="equals" env-name="paymentId"/>
-                        <condition-expr field-name="toPaymentId" operator="not-equals" env-name="null"/>
+                        <condition-expr field-name="paymentId" operator="equals" from-field="paymentId"/>
+                        <condition-expr field-name="toPaymentId" operator="not-equals" from-field="null"/>
                     </condition-list>
                     <order-by field-name="toPaymentId"/>
                 </entity-condition>
-                <entity-condition entity-name="PaymentApplication" list-name="paymentApplicationsBil">
+                <entity-condition entity-name="PaymentApplication" list="paymentApplicationsBil">
                     <condition-list combine="and">
-                        <condition-expr field-name="paymentId" env-name="paymentId"/>
-                        <condition-expr field-name="billingAccountId" operator="not-equals" env-name="null"/>
+                        <condition-expr field-name="paymentId" from-field="paymentId"/>
+                        <condition-expr field-name="billingAccountId" operator="not-equals" from-field="null"/>
                     </condition-list>
                     <order-by field-name="billingAccountId"/>
                 </entity-condition>
-                <entity-condition entity-name="PaymentApplication" list-name="paymentApplicationsTax">
+                <entity-condition entity-name="PaymentApplication" list="paymentApplicationsTax">
                     <condition-list combine="and">
-                        <condition-expr field-name="paymentId" env-name="paymentId"/>
-                        <condition-expr field-name="taxAuthGeoId" operator="not-equals" env-name="null"/>
+                        <condition-expr field-name="paymentId" from-field="paymentId"/>
+                        <condition-expr field-name="taxAuthGeoId" operator="not-equals" from-field="null"/>
                     </condition-list>
                     <order-by field-name="taxAuthGeoId"/>
                 </entity-condition>
@@ -199,7 +199,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-empty field-name="paymentApplications"/>
+                                <if-empty field="paymentApplications"/>
                             </condition>
                             <widgets>
                                 <container><label style="h1" text="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingApplications}"/></container>
@@ -209,7 +209,7 @@ under the License.
                             <fail-widgets>
                                  <section>
                                     <condition>
-                                        <not><if-empty field-name="paymentApplicationsInv"/></not>
+                                        <not><if-empty field="paymentApplicationsInv"/></not>
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingApplications}">
@@ -220,16 +220,16 @@ under the License.
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field-name="paymentApplicationsPay"/></not>
-                                            <not><if-empty field-name="paymentApplicationsBil"/></not>
-                                            <not><if-empty field-name="paymentApplicationsTax"/></not>
+                                            <not><if-empty field="paymentApplicationsPay"/></not>
+                                            <not><if-empty field="paymentApplicationsBil"/></not>
+                                            <not><if-empty field="paymentApplicationsTax"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.CommonAmount} ${uiLabelMap.CommonTotal} ${payment.amount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingAmountNotApplied} ${notAppliedAmount?currency(${payment.currencyUomId})}">
 	                                        <section>
 	                                            <condition>
-	                                                <not><if-empty field-name="paymentApplicationsPay"/></not>
+	                                                <not><if-empty field="paymentApplicationsPay"/></not>
 	                                            </condition>
 	                                            <widgets>
 	                                                <include-form name="editPaymentApplicationsPay" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
@@ -237,7 +237,7 @@ under the License.
 	                                        </section>
 	                                        <section>
 	                                            <condition>
-	                                                <not><if-empty field-name="paymentApplicationsBil"/></not>
+	                                                <not><if-empty field="paymentApplicationsBil"/></not>
 	                                            </condition>
 	                                            <widgets>
 	                                                <include-form name="editPaymentApplicationsBil" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
@@ -245,7 +245,7 @@ under the License.
 	                                        </section>
 	                                        <section>
 	                                            <condition>
-	                                                <not><if-empty field-name="paymentApplicationsTax"/></not>
+	                                                <not><if-empty field="paymentApplicationsTax"/></not>
 	                                            </condition>
 	                                            <widgets>
 	                                                <include-form name="editPaymentApplicationsTax" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
@@ -258,14 +258,14 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                                <if-compare field-name="notAppliedAmount" operator="greater" value="0.00" type="BigDecimal"/>
+                                <if-compare field="notAppliedAmount" operator="greater" value="0.00" type="BigDecimal"/>
                             </condition>
                             <widgets>
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field-name="invoices"/></not>
-                                            <not><if-empty field-name="invoicesOtherCurrency"/></not>
+                                            <not><if-empty field="invoices"/></not>
+                                            <not><if-empty field="invoicesOtherCurrency"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
@@ -276,7 +276,7 @@ under the License.
                                             </container>
                                             <section>
                                                 <condition>
-                                                    <not><if-empty field-name="invoices"/></not>
+                                                    <not><if-empty field="invoices"/></not>
                                                 </condition>
                                                 <widgets>
                                                     <include-form name="listInvoicesNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
@@ -284,7 +284,7 @@ under the License.
                                             </section>
                                             <section>
                                                 <condition>
-                                                    <not><if-empty field-name="invoicesOtherCurrency"/></not>
+                                                    <not><if-empty field="invoicesOtherCurrency"/></not>
                                                 </condition>
                                                 <widgets>
                                                     <label style="h2" text="Othercurrency invoices"/>
@@ -296,7 +296,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="payments"/></not>
+                                        <not><if-empty field="payments"/></not>
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied}">
@@ -325,7 +325,7 @@ under the License.
                 <set field="tabButtonItem" value="paymentOverview"/>
                 <set field="labelTitleProperty" value="PageTitlePaymentOverview"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
-                <entity-one entity-name="Payment" value-name="payment"/>
+                <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment).toString()}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
             </actions>
@@ -334,7 +334,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field-name="payment.statusId" operator="equals"  value="PMNT_NOT_PAID"/>
+                                <if-compare field="payment.statusId" operator="equals"  value="PMNT_NOT_PAID"/>
                             </condition>
                             <widgets>
                                 <container style="lefthalf">
@@ -439,6 +439,9 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/PrintChecks.groovy"/>
+                <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
+                    <condition-expr field-name="parentTypeId" value="PAYROL"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <platform-specific>
@@ -477,7 +480,7 @@ under the License.
                         </container>                        
                         <section>
                             <condition>
-                                <not><if-empty field-name="invoicePaymentInfoList"/></not>
+                                <not><if-empty field="invoicePaymentInfoList"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -530,7 +533,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <not><if-empty field-name="invoicePaymentInfoList"/></not>
+                                <not><if-empty field="invoicePaymentInfoList"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
