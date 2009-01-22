@@ -86,13 +86,13 @@
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
     </property>
-    <property key="ContentBlogList">
-        <value xml:lang="en">List of Blogs</value>
-        <value xml:lang="fr">Liste des blogs</value>
-    </property>
     <property key="ContentBlogEdit">
         <value xml:lang="en">Edit a Blog</value>
         <value xml:lang="fr">Modifier un blog</value>
+    </property>
+    <property key="ContentBlogList">
+        <value xml:lang="en">List of Blogs</value>
+        <value xml:lang="fr">Liste des blogs</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -227,19 +227,19 @@
         <value xml:lang="zh">OFBiz：内容管理</value>
     </property>
     <property key="ContentCompanySubtitle">
-        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value><!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
         <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value><!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value><!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
-        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value><!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
-        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value><!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value--><!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
-        <value xml:lang="ru">Входит в состав семейства Open For Business</value><!--value xml:lang="ru">Часть семейства ПО Open For Business</value--><!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
-        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value><!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
-        <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+        <value xml:lang="ru">Входит в состав семейства Open For Business</value>
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="ContentContent">
@@ -252,12 +252,6 @@
         <value xml:lang="ro">Continut</value>
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">内容</value>
-    </property>
-    <property key="ContentContentsAssociatedToDataResource">
-        <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
-        <value xml:lang="en">Content Entries Associated to this Data Resource</value>
-        <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
-	    <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
     </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
@@ -280,6 +274,12 @@
         <value xml:lang="ro">Configurare Continut</value>
         <value xml:lang="th">การจัดการแต่ละหัวข้อ</value>
         <value xml:lang="zh">内容设置</value>
+    </property>
+    <property key="ContentContentsAssociatedToDataResource">
+        <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
+        <value xml:lang="en">Content Entries Associated to this Data Resource</value>
+        <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
+        <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
     </property>
     <property key="ContentCreateFile">
         <value xml:lang="de">Datei erstellen</value>
@@ -519,7 +519,7 @@
     <property key="ContentGoToContent">
         <value xml:lang="en">Go to Content</value>
         <value xml:lang="fr">Aller au contenu</value>
-	    <value xml:lang="it">Vai al contenuto</value>
+        <value xml:lang="it">Vai al contenuto</value>
     </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
@@ -630,6 +630,12 @@
         <value xml:lang="th">ข้อมูลยืนยัน</value>
         <value xml:lang="zh">元数据谓词</value>
     </property>
+    <property key="ContentMetaTags">
+        <value xml:lang="de">Meta Auszeichnungen (Tags)</value>
+        <value xml:lang="en">Meta Tags</value>
+        <value xml:lang="fr">Méta-étiquettes</value>
+        <value xml:lang="it">Meta Tags</value>
+    </property>
     <property key="ContentMetadata">
         <value xml:lang="ar">Metadata</value>
         <value xml:lang="de">Metadaten</value>
@@ -639,12 +645,6 @@
         <value xml:lang="ro">Metadate</value>
         <value xml:lang="th">ที่มาของข้อมูล</value>
         <value xml:lang="zh">元数据</value>
-    </property>
-    <property key="ContentMetaTags">
-        <value xml:lang="de">Meta Auszeichnungen (Tags)</value>
-        <value xml:lang="en">Meta Tags</value>
-        <value xml:lang="fr">Méta-étiquettes</value>
-	<value xml:lang="it">Meta Tags</value>
     </property>
     <property key="ContentMimeType">
         <value xml:lang="ar">Mime Type</value>
@@ -668,7 +668,7 @@
         <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
         <value xml:lang="fr">Naviguer</value>
-	<value xml:lang="it">Naviga</value>
+        <value xml:lang="it">Naviga</value>
         <value xml:lang="th">หาเส้นทาง</value>
     </property>
     <property key="ContentOtherLayout">
@@ -712,12 +712,12 @@
         <value xml:lang="de">Pfad Alias</value>
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
-	    <value xml:lang="it">Path alias</value>
+        <value xml:lang="it">Path alias</value>
     </property>
     <property key="ContentPathAliasList">
         <value xml:lang="en">Path Alias list</value>
         <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
-	    <value xml:lang="it">Lista path alias</value>
+        <value xml:lang="it">Lista path alias</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
@@ -733,25 +733,8 @@
         <value xml:lang="de">Rasch untergeordneter Inhalt</value>
         <value xml:lang="en">Quick Sub-Content</value>
         <value xml:lang="fr">Sous-contenu rapide</value>
-	    <value xml:lang="it">Sotto-contenuto veloce</value>
+        <value xml:lang="it">Sotto-contenuto veloce</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
-    </property>
-    <property key="ContentSubContent">
-        <value xml:lang="ar">محتوى تحتي</value>
-        <value xml:lang="de">Untergeordneter Inhalt</value>
-        <value xml:lang="en">SubContent</value>
-        <value xml:lang="fr">Sous-contenu</value>
-        <value xml:lang="it">Sotto-Contenuto</value>
-        <value xml:lang="ro">Sub-Continut</value>
-        <value xml:lang="th">หัวข้อย่อย</value>
-        <value xml:lang="zh">子内容</value>
-    </property>
-    <property key="ContentResourceLongText">
-        <value xml:lang="de">Ausführlicher Text</value>
-        <value xml:lang="en">Long Text</value>
-        <value xml:lang="fr">Texte long</value>
-        <value xml:lang="it">Testo Lungo</value>
-        <value xml:lang="th">ตัวอักษรยาว</value>
     </property>
     <property key="ContentResourceAudio">
         <value xml:lang="de">Audio</value>
@@ -760,19 +743,12 @@
         <value xml:lang="it">Audio</value>
         <value xml:lang="th">เสียง</value>
     </property>
-    <property key="ContentResourceOther">
-        <value xml:lang="de">Andere</value>
-        <value xml:lang="en">Other</value>
-        <value xml:lang="fr">Autre</value>
-        <value xml:lang="it">Altro</value>
-        <value xml:lang="th">อื่น ๆ</value>
-    </property>
-    <property key="ContentResourceVideo">
-        <value xml:lang="de">Video</value>
-        <value xml:lang="en">Video</value>
-        <value xml:lang="fr">Video</value>
-        <value xml:lang="it">Video</value>
-        <value xml:lang="th">วิดีโอ</value>
+    <property key="ContentResourceLongText">
+        <value xml:lang="de">Ausführlicher Text</value>
+        <value xml:lang="en">Long Text</value>
+        <value xml:lang="fr">Texte long</value>
+        <value xml:lang="it">Testo Lungo</value>
+        <value xml:lang="th">ตัวอักษรยาว</value>
     </property>
     <property key="ContentResourceNone">
         <value xml:lang="de">Keine (Baum, Kategorie, etc.)</value>
@@ -780,6 +756,13 @@
         <value xml:lang="fr">Aucun (arborescence, catégorie, etc.)</value>
         <value xml:lang="it">Nessuno (Albero, Categoria, etc)</value>
         <value xml:lang="th">ไม่มี</value>
+    </property>
+    <property key="ContentResourceOther">
+        <value xml:lang="de">Andere</value>
+        <value xml:lang="en">Other</value>
+        <value xml:lang="fr">Autre</value>
+        <value xml:lang="it">Altro</value>
+        <value xml:lang="th">อื่น ๆ</value>
     </property>
     <property key="ContentResourceShortText">
         <value xml:lang="de">Kurzer Text (255 Zeichen)</value>
@@ -795,6 +778,23 @@
         <value xml:lang="it">Risorsa URL</value>
         <value xml:lang="th">ที่มาของ Url</value>
     </property>
+    <property key="ContentResourceVideo">
+        <value xml:lang="de">Video</value>
+        <value xml:lang="en">Video</value>
+        <value xml:lang="fr">Video</value>
+        <value xml:lang="it">Video</value>
+        <value xml:lang="th">วิดีโอ</value>
+    </property>
+    <property key="ContentSubContent">
+        <value xml:lang="ar">محتوى تحتي</value>
+        <value xml:lang="de">Untergeordneter Inhalt</value>
+        <value xml:lang="en">SubContent</value>
+        <value xml:lang="fr">Sous-contenu</value>
+        <value xml:lang="it">Sotto-Contenuto</value>
+        <value xml:lang="ro">Sub-Continut</value>
+        <value xml:lang="th">หัวข้อย่อย</value>
+        <value xml:lang="zh">子内容</value>
+    </property>
     <property key="ContentSubSites">
         <value xml:lang="ar">مواقع فرعية</value>
         <value xml:lang="de">Untergeordnete Seite</value>
@@ -804,6 +804,16 @@
         <value xml:lang="ro">SubSituri</value>
         <value xml:lang="th">Sites ย่อย</value>
         <value xml:lang="zh">子站点</value>
+    </property>
+    <property key="ContentSurveryCategory">
+        <value xml:lang="ar">فئة</value>
+        <value xml:lang="de">Kategorie</value>
+        <value xml:lang="en">Category</value>
+        <value xml:lang="fr">Catégorie</value>
+        <value xml:lang="it">Categoria</value>
+        <value xml:lang="ro">Categoria</value>
+        <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="zh">分类</value>
     </property>
     <property key="ContentSurvey">
         <value xml:lang="ar">تصويت</value>
@@ -857,16 +867,6 @@
         <value xml:lang="ro">Prepara Raspuns Sondaj De la PDF</value>
         <value xml:lang="th">สร้างการสำรวจคำตอบจาก PDF</value>
         <value xml:lang="zh">从PDF建立调查回答</value>
-    </property>
-    <property key="ContentSurveryCategory">
-        <value xml:lang="ar">فئة</value>
-        <value xml:lang="de">Kategorie</value>
-        <value xml:lang="en">Category</value>
-        <value xml:lang="fr">Catégorie</value>
-        <value xml:lang="it">Categoria</value>
-        <value xml:lang="ro">Categoria</value>
-        <value xml:lang="th">หมวดหมู่</value>
-        <value xml:lang="zh">分类</value>
     </property>
     <property key="ContentSurveyCreate">
         <value xml:lang="ar">إضافة تصويت</value>
@@ -1170,7 +1170,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzusehen ("CONTENTMGR_UPDATE" oder "CONTENTMGR_ADMIN" benötigt).</value>
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_UPDATE" ou "CONTENTMGR_ADMIN" nécessaire)</value>
-	<value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina. (Necessario "CONTENTMGR_UPDATE" o "CONTENTMGR_ADMIN")</value>
+        <value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina. (Necessario "CONTENTMGR_UPDATE" o "CONTENTMGR_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="zh">你没有浏览本页面的权限。(需要具备"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
     </property>
@@ -1218,19 +1218,19 @@
         <value xml:lang="it">*Click destro per aggiungere un nuovo menu</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มเมนูใหม่</value>
     </property>
-    <property key="ContentWebSiteAddTree">
-        <value xml:lang="de">Baum hinzufügen</value>
-        <value xml:lang="en">Add Tree</value>
-        <value xml:lang="fr">AJouter une arborescence</value>
-        <value xml:lang="it">Aggiungi Albero</value>
-        <value xml:lang="th">เพิ่มแผนผังต้นไม้</value>
-    </property>
     <property key="ContentWebSiteAddSubdContent">
         <value xml:lang="de">*Klick mit der rechten Maustaste um untergeordneten Inhalt hinzuzufügen</value>
         <value xml:lang="en">*Right click to add sub-content</value>
         <value xml:lang="fr">*Cliquer droit pour ajouter un nouveau sous-contenu</value>
         <value xml:lang="it">*Click destro per aggiungere il sotto-contenuto</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มหัวข้อย่อย</value>
+    </property>
+    <property key="ContentWebSiteAddTree">
+        <value xml:lang="de">Baum hinzufügen</value>
+        <value xml:lang="en">Add Tree</value>
+        <value xml:lang="fr">AJouter une arborescence</value>
+        <value xml:lang="it">Aggiungi Albero</value>
+        <value xml:lang="th">เพิ่มแผนผังต้นไม้</value>
     </property>
     <property key="ContentWebSiteAttachedToContent">
         <value xml:lang="de">Angehängt am Inhalt</value>
@@ -1360,6 +1360,27 @@
         <value xml:lang="ro">Contorizeaza File Fii</value>
         <value xml:lang="th">นับหน้ากระดาษของเด็ก</value>
         <value xml:lang="zh">子叶子计数</value>
+    </property>
+    <property key="FormFieldTitle_coContentId">
+        <value xml:lang="de">Inhalt ID</value>
+        <value xml:lang="en">Content Id</value>
+        <value xml:lang="fr">Ref. de contenu</value>
+        <value xml:lang="it">Contenuto</value>
+        <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
+    </property>
+    <property key="FormFieldTitle_coContentName">
+        <value xml:lang="de">Inhalt Name</value>
+        <value xml:lang="en">Content Name</value>
+        <value xml:lang="fr">Nom de contenu</value>
+        <value xml:lang="it">Nome Conteunto</value>
+        <value xml:lang="th">ชื่อหัวข้อ</value>
+    </property>
+    <property key="FormFieldTitle_coDescription">
+        <value xml:lang="de">Inhalt Beschreibung</value>
+        <value xml:lang="en">Content Description</value>
+        <value xml:lang="fr">Description de contenu</value>
+        <value xml:lang="it">Descrizione Contenuto</value>
+        <value xml:lang="th">รายละเอียด</value>
     </property>
     <property key="FormFieldTitle_columnTitle">
         <value xml:lang="ar">عنوان العمود</value>
@@ -1543,27 +1564,6 @@
         <value xml:lang="ru">Cookie домен</value>
         <value xml:lang="th">ขอบเขตบุคคล</value>
         <value xml:lang="zh">对域启用Cookie</value>
-    </property>
-    <property key="FormFieldTitle_coContentId">
-        <value xml:lang="de">Inhalt ID</value>
-        <value xml:lang="en">Content Id</value>
-        <value xml:lang="fr">Ref. de contenu</value>
-        <value xml:lang="it">Contenuto</value>
-        <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
-    </property>
-    <property key="FormFieldTitle_coContentName">
-        <value xml:lang="de">Inhalt Name</value>
-        <value xml:lang="en">Content Name</value>
-        <value xml:lang="fr">Nom de contenu</value>
-        <value xml:lang="it">Nome Conteunto</value>
-        <value xml:lang="th">ชื่อหัวข้อ</value>
-    </property>
-    <property key="FormFieldTitle_coDescription">
-        <value xml:lang="de">Inhalt Beschreibung</value>
-        <value xml:lang="en">Content Description</value>
-        <value xml:lang="fr">Description de contenu</value>
-        <value xml:lang="it">Descrizione Contenuto</value>
-        <value xml:lang="th">รายละเอียด</value>
     </property>
     <property key="FormFieldTitle_dataCategoryId">
         <value xml:lang="ar">تعريف فئة المعلومات</value>
@@ -1796,7 +1796,7 @@
         <value xml:lang="th">Https ที่สามารถใช้ได้</value>
         <value xml:lang="zh">启用Https</value>
     </property>
-     <property key="FormFieldTitle_enumTypeId">
+    <property key="FormFieldTitle_enumTypeId">
         <value xml:lang="en">Enum Type Id</value>
         <value xml:lang="fr">Réf. de type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
@@ -1811,7 +1811,7 @@
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
         <value xml:lang="zh">文件扩展标识</value>
     </property>
-     <property key="FormFieldTitle_formatString">
+    <property key="FormFieldTitle_formatString">
         <value xml:lang="en">Format String</value>
         <value xml:lang="fr">Format chaîne de caractères</value>
         <value xml:lang="it">Formato Stringa</value>
@@ -2726,7 +2726,7 @@
         <value xml:lang="de">Arbeitseinsatz Inhalt hinzufügen</value>
         <value xml:lang="en">Add workeffort content</value>
         <value xml:lang="fr">Ajoutez un contenu de tâche</value>
-	<value xml:lang="it">Aggiorna contenuto impegno di lavoro</value>
+        <value xml:lang="it">Aggiorna contenuto impegno di lavoro</value>
         <value xml:lang="th">เพิ่มหัวข้อ workeffort</value>
         <value xml:lang="zh">新建人工服务内容</value>
     </property>
@@ -2736,17 +2736,6 @@
         <value xml:lang="fr">Créer automatiquement un contenu de points publiés</value>
         <value xml:lang="it">Creazioni-Automatica Contenuto Punti Pubblicati</value>
         <value xml:lang="th">สร้างหัวข้อความคิดเห็นอัตโนมัติ</value>
-    </property>
-    <property key="PageTitleCreateSurvey">
-        <value xml:lang="ar">إستحداث تصويت</value>
-        <value xml:lang="de">Befragung erstellen</value>
-        <value xml:lang="en">Create Survey</value>
-        <value xml:lang="es">Crear Encuesta</value>
-        <value xml:lang="fr">Créer un sondage</value>
-        <value xml:lang="it">Creare Sondaggio</value>
-        <value xml:lang="ro">Creare Sondaj</value>
-        <value xml:lang="th">สร้างการสำรวจ</value>
-        <value xml:lang="zh">新建调查</value>
     </property>
     <property key="PageTitleCreateInstanceOfThisTemplate">
         <value xml:lang="de">Eine Instanz dieser Vorlage erstellen</value>
@@ -2761,6 +2750,17 @@
         <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
         <value xml:lang="it">Creare Nuovo Template Radice CompDoc</value>
         <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
+    </property>
+    <property key="PageTitleCreateSurvey">
+        <value xml:lang="ar">إستحداث تصويت</value>
+        <value xml:lang="de">Befragung erstellen</value>
+        <value xml:lang="en">Create Survey</value>
+        <value xml:lang="es">Crear Encuesta</value>
+        <value xml:lang="fr">Créer un sondage</value>
+        <value xml:lang="it">Creare Sondaggio</value>
+        <value xml:lang="ro">Creare Sondaj</value>
+        <value xml:lang="th">สร้างการสำรวจ</value>
+        <value xml:lang="zh">新建调查</value>
     </property>
     <property key="PageTitleCreateWebSiteContent">
         <value xml:lang="de">Webseiteninhalt erstellen</value>
@@ -3414,19 +3414,6 @@
         <value xml:lang="it">Lista Risposte Sondaggio</value>
         <value xml:lang="th">รายการสำรวจคำตอบ</value>
     </property>
-    <property key="PageTitleLookupListLayout">
-        <value xml:lang="de">Liste Layout suchen</value>
-        <value xml:lang="en">Lookup List Layout</value>
-        <value xml:lang="fr">Recherche de mise en page</value>
-        <value xml:lang="it">Ricerca Layout</value>
-    </property>
-    <property key="PageTitleLookupSubContent">
-        <value xml:lang="de">Untergeordneten Inhalt suchen</value>
-        <value xml:lang="en">Lookup Sub Content</value>
-        <value xml:lang="fr">Recherche de sous-contenu</value>
-        <value xml:lang="it">Ricerca Sotto-Contenuto</value>
-        <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
-    </property>
     <property key="PageTitleListWebSite">
         <value xml:lang="ar">قائمة مواقع الويب</value>
         <value xml:lang="de">Liste der Webseiten</value>
@@ -3456,6 +3443,19 @@
         <value xml:lang="ro">Cauta Resurse Date</value>
         <value xml:lang="th">ค้นหาแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">查找数据资源</value>
+    </property>
+    <property key="PageTitleLookupListLayout">
+        <value xml:lang="de">Liste Layout suchen</value>
+        <value xml:lang="en">Lookup List Layout</value>
+        <value xml:lang="fr">Recherche de mise en page</value>
+        <value xml:lang="it">Ricerca Layout</value>
+    </property>
+    <property key="PageTitleLookupSubContent">
+        <value xml:lang="de">Untergeordneten Inhalt suchen</value>
+        <value xml:lang="en">Lookup Sub Content</value>
+        <value xml:lang="fr">Recherche de sous-contenu</value>
+        <value xml:lang="it">Ricerca Sotto-Contenuto</value>
+        <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
     </property>
     <property key="PageTitleLookupSurvey">
         <value xml:lang="ar">البحث عن التصويت</value>
@@ -3505,12 +3505,12 @@
         <value xml:lang="th">ดูการสำรวจคำตอบ</value>
         <value xml:lang="zh">浏览调查回答</value>
     </property>
-    <property key="PageTitleWebSiteContent">
-        <value xml:lang="de">Webseite Inhalt</value>
-        <value xml:lang="en">WebSite Content</value>
-        <value xml:lang="fr">Contenu de site web</value>
-        <value xml:lang="it">Contenuto Sito Web</value>
-        <value xml:lang="th">หัวข้อ WebSite</value>
+    <property key="PageTitleWebSiteCMSContent">
+        <value xml:lang="de">Inhalt Webseite CMS</value>
+        <value xml:lang="en">Web Site CMS Content</value>
+        <value xml:lang="fr">Contenu du site Web CMS</value>
+        <value xml:lang="it">Sito Web CMS Contenuto</value>
+        <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
     </property>
     <property key="PageTitleWebSiteCMSNav">
         <value xml:lang="de">Navigation (Webseite CMS)</value>
@@ -3519,11 +3519,11 @@
         <value xml:lang="it">Sito Web CMS Navigazione</value>
         <value xml:lang="th">เว็บไซต์ CMSNav</value>
     </property>
-    <property key="PageTitleWebSiteCMSContent">
-        <value xml:lang="de">Inhalt Webseite CMS</value>
-        <value xml:lang="en">Web Site CMS Content</value>
-        <value xml:lang="fr">Contenu du site Web CMS</value>
-        <value xml:lang="it">Sito Web CMS Contenuto</value>
-        <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
+    <property key="PageTitleWebSiteContent">
+        <value xml:lang="de">Webseite Inhalt</value>
+        <value xml:lang="en">WebSite Content</value>
+        <value xml:lang="fr">Contenu de site web</value>
+        <value xml:lang="it">Contenuto Sito Web</value>
+        <value xml:lang="th">หัวข้อ WebSite</value>
     </property>
 </resource>
