@@ -66,10 +66,10 @@
         <response name="success" type="view" value="myTimesheet"/>
         <response name="error" type="view" value="myTimesheet"/>
     </request-map>
-    <request-map uri="statusToComplete">
+    <request-map uri="statusToCompleteKey">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
+        <response name="success" type="request" value="myTimesheet"/>
         <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
     
@@ -81,7 +81,7 @@
     <request-map uri="updateTaskAssigment">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTaskAssigment"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
+        <response name="success" type="request" value="myTasks"/>
         <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
     
@@ -97,14 +97,13 @@
     <request-map uri="createEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="newEvent"/>
+        <response name="success" type="request" value="myCompanyComms"/>
+        <response name="error" type="view" value="createEvent"/>
     </request-map>
     <request-map uri="deleteEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
+        <response name="success" type="request" value="myCompanyComms"/>
     </request-map>
     
     <!-- MY COMMUNICATIONS -->
@@ -115,19 +114,18 @@
     <request-map uri="createCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEvent"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
+        <response name="success" type="request" value="myCommunications"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="deletePartyCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="main"/>
+        <response name="success" type="request" value="myCommunications"/>
     </request-map>
     <request-map uri="RemoveCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommunicationEventRole"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
+        <response name="success" type="request" value="myCommunications"/>
         <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
     <request-map uri="allocateMsgToParty">
@@ -140,8 +138,7 @@
     <request-map uri="deleteCommunicationEvents">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="main"/>
+        <response name="success" type="request" value="myCommunications"/>
     </request-map>
     
     <!-- OTHER COMMUNICATIONS -->
@@ -182,7 +179,6 @@
         <event type="simple" invoke="getToNextDonePage" path="org/ofbiz/myportal/Events.xml"/>
         <response name="main" type="request" value="main"/>
         <response name="ViewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
-        <response name="myCommunications" type="request" value="myCommunications"/>
         <response name="otherCommunications" type="request" value="otherCommunications"/>
         <response name="myTimesheet" type="request" value="myTimesheet"/>
         <response name="myTasks" type="request" value="myTasks"/>

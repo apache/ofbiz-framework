@@ -77,4 +77,211 @@
         <value xml:lang="en">User Login</value>
         <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
     </property>
+    <property key="MyPortalAllEvents">
+        <value xml:lang="en">All Communications</value>
+        <value xml:lang="fr">Toutes les communications</value>
+        <value xml:lang="it">Tutte le comunicazioni</value>
+        <value xml:lang="th">การติดต่อทั้งหมด</value>
+    </property>
+    <property key="MyPortalAppBar">
+        <value xml:lang="en">My Page App Bar</value>
+        <value xml:lang="fr">Menu des applications</value>
+        <value xml:lang="it">Mia pagina</value>
+        <value xml:lang="th">แอปพริเคชันของฉัน</value>
+    </property>
+    <property key="MyPortalCommunicationEventId">
+        <value xml:lang="en">Communication Event id:</value>
+        <value xml:lang="fr">Réf. d'évènement de comm.</value>
+        <value xml:lang="it">Evenuto comunicazioni:</value>
+        <value xml:lang="th">เหตุการณ์ที่ทำการติดต่อ</value>
+    </property>
+    <property key="MyPortalCommunications">
+        <value xml:lang="en">My Communications</value>
+        <value xml:lang="fr">Mes communications</value>
+        <value xml:lang="it">Proprie comunicazioni</value>
+        <value xml:lang="th">การติดต่อฉัน</value>
+    </property>
+    <property key="MyPortalCommunicationsOfParty">
+        <value xml:lang="en">Communications of party</value>
+        <value xml:lang="fr">Communications de l'acteur</value>
+        <value xml:lang="it">Comunicazioni del soggetto</value>
+        <value xml:lang="th">การติดต่อบุคคล</value>
+    </property>
+    <property key="MyPortalCompanyComms">
+        <value xml:lang="en">Company communications</value>
+        <value xml:lang="fr">Communications de l'entreprise</value>
+        <value xml:lang="it">Comunicazioni aziendali</value>
+        <value xml:lang="th">การติดต่อบริษัท</value>
+    </property>
+    <property key="MyPortalCompanyEvents">
+        <value xml:lang="en">Company events</value>
+        <value xml:lang="fr">Evènements de l'entreprise</value>
+        <value xml:lang="it">Eventi aziendali</value>
+        <value xml:lang="th">เหตุการณ์บริษัท</value>
+    </property>
+    <property key="MyPortalEmailsFromKnownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine connue</value>
+        <value xml:lang="it">Emails da origine sconosciuta</value>
+        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
+    </property>
+    <property key="MyPortalEmailsFromUnknownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+        <value xml:lang="it">Emails da origini conosciuta</value>
+        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
+    </property>
+    <property key="MyPortalCompletedCustomerRequests">
+        <value xml:lang="en">My Completed Customer Requests</value>
+        <value xml:lang="fr">Mes demandes de clients terminées</value>
+        <value xml:lang="it">Mie richieste cliente completate</value>
+        <value xml:lang="th">งานที่แก้ไขให้ลูกค้าเรียยร้อยแล้ว</value>
+    </property>
+    <property key="MyPortalCustRequests">
+        <value xml:lang="en">My customer requests</value>
+        <value xml:lang="fr">Mes demandes utilisateur</value>
+        <value xml:lang="it">Proprie richieste cliente</value>
+        <value xml:lang="th">ลูกค้าเรียกร้อง</value>
+    </property>
+    <property key="MyPortalIncomingCustRequests">
+        <value xml:lang="en">Incoming customer requests</value>
+        <value xml:lang="fr">Nouvelles demandes utilisateur</value>
+        <value xml:lang="it">Richiesta cliente in entrata</value>
+        <value xml:lang="th">แสดงรายรับของลูกค้า</value>
+    </property>
+    <property key="MyPortalInformation">
+        <value xml:lang="en">My Information</value>
+        <value xml:lang="fr">Mes informations </value>
+        <value xml:lang="it">Proprie informazioni</value>
+        <value xml:lang="th">ข้อมูลของฉัน</value>
+    </property>
+    <property key="MyPortalNewMessage">
+        <value xml:lang="en">New Message</value>
+        <value xml:lang="fr">Nouveau message</value>
+        <value xml:lang="it">Nuovo messaggio</value>
+        <value xml:lang="th">ข้อความใหม่</value>
+    </property>
+    <property key="MyPortalNoAccess">
+        <value xml:lang="en">You do not have access to this information</value>
+        <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
+        <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
+    </property>
+    <property key="MyPortalNoAccess1">
+        <value xml:lang="en">No Access priviledges has been setup.</value>
+        <value xml:lang="fr">Aucun accès privilégié n'a été paramétré.</value>
+        <value xml:lang="it">Nessun accesso privilegiato è stato configurato.</value>
+        <value xml:lang="th">ไม่สามารถเข้าไปติดตั้งระบบ</value>
+    </property>
+    <property key="MyPortalNoAccess2">
+        <value xml:lang="en">You do not have access to any functions in the MyPortal subsystem, please
+            contact your system admin</value>
+        <value xml:lang="fr">Vous n'avez accès à aucune fonction dans l'application Ma Page,
+            contactez votre administrateur système SVP.</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste funzioni nel sottosistam mia pagina,
+            perfavore contattare il tuo amministratore di sistema</value>
+        <value xml:lang="th">ท่านไม่เข้าถึงฟังก์ชันการทำงานส่วนอื่นๆใน MyPortal ได้,
+            กรุณาติดต่อผู้ดูแลระบบของท่าน</value>
+    </property>
+    <property key="MyPortalNoAccess3">
+        <value xml:lang="en">At least MyPortal_CUSTOMER or MyPortal_EMPLOYEE permission is required</value>
+        <value xml:lang="fr">Au moins une autorisation MyPortal_CUSTOMER ou MyPortal_EMPLOYEE est
+            nécessaire</value>
+        <value xml:lang="it">Al minimo il permesso MyPortal_CUSTOMER o MyPortal_EMPLOYEE è richiesto</value>
+        <value xml:lang="th">อย่างน้อยที่สุด MyPortal_CUSTOMER หรือ MyPortal_EMPLOYEE
+            ถูกกำหนดการใข้สิทธิ์ </value>
+    </property>
+    <property key="MyPortalNoAccess4">
+        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a
+            demo.</value>
+        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee'
+            pour une démonstration.</value>
+        <value xml:lang="it">Usare l'utente demo come 'DemoCustomer' e 'DemoEmployee' per una
+            dimostrazione.</value>
+        <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
+    </property>
+    <property key="MyPortalOpenEvents">
+        <value xml:lang="en">Open Communications</value>
+        <value xml:lang="fr">Communications ouvertes</value>
+        <value xml:lang="it">Comunicazioni aperte</value>
+        <value xml:lang="th">เปิดการติดต่อ</value>
+    </property>
+    <property key="MyPortalOpenCustomerRequests">
+        <value xml:lang="en">My Open Customer Requests</value>
+        <value xml:lang="fr">Mes demandes de clients en-cours</value>
+        <value xml:lang="it">Proprie richieste clienti aperte</value>
+        <value xml:lang="th">ความต้องการของลูกค้า</value>
+    </property>
+    <property key="MyPortalOtherCommunications">
+        <value xml:lang="en">Other Communications</value>
+        <value xml:lang="fr">Autres communications</value>
+        <value xml:lang="it">Altre comunicazioni</value>
+        <value xml:lang="th">การติดต่อรูปแบบต่างๆ</value>
+    </property>
+    <property key="MyPortalOtherCompanyCustomerRequests">
+        <value xml:lang="en">Customer Requests from other contacts of my company</value>
+        <value xml:lang="fr">Demandes client depuis d'autres contacts de mon entreprise</value>
+        <value xml:lang="it">Richieste cliente da altri contatti della mia azienda</value>
+        <value xml:lang="th">ลูกค้าต้องการติดต่อรูปแบบอื่นจากบริษัทของเรา</value>
+    </property>
+    <property key="MyPortalPagesVisible">
+        <value xml:lang="en">pages visible on the main screen.</value>
+        <value xml:lang="fr">Pages visibles sur l'écran principal.</value>
+        <value xml:lang="it">pagine visibili dalla pagina principale.</value>
+        <value xml:lang="th">สามารถเห็นหน้าอื่นบนหน้าหลักได้</value>
+    </property>
+    <property key="MyPortalProfile">
+        <value xml:lang="en">My Profile</value>
+        <value xml:lang="fr">Mon Profil</value>
+        <value xml:lang="it">Mio profilo</value>
+        <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
+    </property>
+    <property key="MyPortalTaskActEndDate">
+        <value xml:lang="en">Task Act End</value>
+        <value xml:lang="fr">Fin réelle de de la tâche</value>
+        <value xml:lang="it">Attuale data fine compito</value>
+        <value xml:lang="th">เสร็จสิ้นการทำ</value>
+    </property>
+    <property key="MyPortalTaskActStartDate">
+        <value xml:lang="en">Task Act Start</value>
+        <value xml:lang="fr">Départ réel de de la tâche</value>
+        <value xml:lang="it">Attuale data inizio compito</value>
+        <value xml:lang="th">เรื่มต้นการทำ</value>
+    </property>
+    <property key="MyPortalTaskPlanEndDate">
+        <value xml:lang="en">Task Plan End</value>
+        <value xml:lang="fr">Fin prévue de la tâche</value>
+        <value xml:lang="it">Datta fine pianificata compito</value>
+        <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
+    </property>
+    <property key="MyPortalTaskPlanStartDate">
+        <value xml:lang="en">Task Plan Start</value>
+        <value xml:lang="fr">Départ prévu de la tâche</value>
+        <value xml:lang="it">Data inizio pianificata compito</value>
+        <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
+    </property>
+    <property key="MyPortalTaskStatus">
+        <value xml:lang="en">Task Status</value>
+        <value xml:lang="fr">Status de la tâche</value>
+        <value xml:lang="it">Stato compito</value>
+        <value xml:lang="th">สถานะของงาน</value>
+    </property>
+    <property key="MyPortalTasks">
+        <value xml:lang="en">My Tasks</value>
+        <value xml:lang="fr">Mes Tâches</value>
+        <value xml:lang="it">Propri compiti</value>
+        <value xml:lang="th">งานของฉัน</value>
+    </property>
+    <property key="MyPortalTimeSheets">
+        <value xml:lang="en">My Time Sheets</value>
+        <value xml:lang="fr">Mes feuilles d'activité</value>
+        <value xml:lang="it">Proprie timbrature</value>
+        <value xml:lang="th">ตารางการทำงานของฉัน</value>
+    </property>
+    <property key="MyPortalToComplete">
+        <value xml:lang="en">->Closed</value>
+        <value xml:lang="fr">->Fermé(e)</value>
+        <value xml:lang="it">->Chiuso</value>
+        <value xml:lang="th">เสร็จสิ้น</value>
+    </property>
 </resource>
