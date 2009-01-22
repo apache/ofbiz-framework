@@ -25,7 +25,7 @@ under the License.
         latitude="40.297264"
         longitude="-111.696625"
         elevation="4756"
-        uomId="LEN_ft"
+        elevationUomId="LEN_ft"
         information="A testing GeoPoint for contactMechId=9015 (DemoCustomer)"
     />    
 </entity-engine-xml>
