@@ -198,6 +198,11 @@
         <value xml:lang="it">Tipo Ruolo Manager</value>
         <value xml:lang="th">การจัดการประเภทสถานะ</value>
     </property>
+    <property key="FormFieldTitle_partyQualTypeId">
+        <value xml:lang="en">Party Qual Type Id</value>
+        <value xml:lang="fr">Réf. de type de qualification</value>
+        <value xml:lang="it">Tipo qualifica soggetto</value>
+    </property>
     <property key="FormFieldTitle_payGradeId">
         <value xml:lang="en">Pay Grade Id</value>
         <value xml:lang="fr">Réf. de catégorie de salaire</value>
@@ -263,11 +268,6 @@
         <value xml:lang="fr">Description de la qualification</value>
         <value xml:lang="it">Descrizione qualifica</value>
     </property>
-    <property key="FormFieldTitle_partyQualTypeId">
-        <value xml:lang="en">Party Qual Type Id</value>
-        <value xml:lang="fr">Réf. de type de qualification</value>
-        <value xml:lang="it">Tipo qualifica soggetto</value>
-    </property>
     <property key="FormFieldTitle_referredByPartyId">
         <value xml:lang="en">Referred By Party Id</value>
         <value xml:lang="fr">Envoyé par l'acteur</value>
@@ -284,17 +284,17 @@
         <value xml:lang="en">Resume Date</value>
         <value xml:lang="fr">Date de CV</value>
         <value xml:lang="it">Data curriculum vitae</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_resumeId">
         <value xml:lang="en">Resume Id</value>
         <value xml:lang="fr">Réf. de CV</value>
         <value xml:lang="it">Rif. curriculum vitae</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_resumeText">
         <value xml:lang="en">Resume Text</value>
         <value xml:lang="fr">Texte de CV</value>
         <value xml:lang="it">Testo curriculum vitae</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_routingNumber">
         <value xml:lang="en">Routing Number</value>
         <value xml:lang="fr">N° de routage</value>
@@ -350,7 +350,7 @@
         <value xml:lang="en">Training Class Type Id</value>
         <value xml:lang="fr">Réf. de type de formation</value>
         <value xml:lang="it">Tipo classe corso</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
         <value xml:lang="fr">Date de demande du chômage</value>
@@ -363,17 +363,17 @@
         <value xml:lang="it">Reclamo Disoccupazione</value>
         <value xml:lang="th">รหัสจำนวนผู้ว่างงานเรียกร้อง</value>
     </property>
+    <property key="FormFieldTitle_verifStatusId">
+        <value xml:lang="en">Verif Status Id</value>
+        <value xml:lang="fr">Réf. de vérification de statut</value>
+        <value xml:lang="it">Stato verifica</value>
+    </property>
     <property key="FormFieldTitle_yearsExperience">
         <value xml:lang="de">Jahre der Erfahrung</value>
         <value xml:lang="en">Years Experience</value>
         <value xml:lang="fr">Années d'expérience</value>
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
-    </property>
-    <property key="FormFieldTitle_verifStatusId">
-        <value xml:lang="en">Verif Status Id</value>
-        <value xml:lang="fr">Réf. de vérification de statut</value>
-        <value xml:lang="it">Stato verifica</value>
     </property>
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
@@ -395,11 +395,6 @@
         <value xml:lang="fr">Ajouter la responsabilité de la position</value>
         <value xml:lang="it">Aggiungi posizione responsabilità</value>
     </property>
-    <property key="HumanResAddPayrollPreference">
-        <value xml:lang="en">Add Payroll Preference</value>
-        <value xml:lang="fr">Ajouter la préférence de registre du personnel</value>
-        <value xml:lang="it">Aggiungi preferenze paghe</value>
-    </property>
     <property key="HumanResAddPartyBenefit">
         <value xml:lang="en">Add Party Benefit</value>
         <value xml:lang="fr">Ajouter l'avantage</value>
@@ -410,6 +405,16 @@
         <value xml:lang="fr">Ajouter la qualification</value>
         <value xml:lang="it">Aggiungi qualifica soggetto</value>
     </property>
+    <property key="HumanResAddPartySkill">
+        <value xml:lang="en">Add Party Skill</value>
+        <value xml:lang="fr">Ajoutez la compétence</value>
+        <value xml:lang="it">Aggiungi abilità soggetto</value>
+    </property>
+    <property key="HumanResAddPayrollPreference">
+        <value xml:lang="en">Add Payroll Preference</value>
+        <value xml:lang="fr">Ajouter la préférence de registre du personnel</value>
+        <value xml:lang="it">Aggiungi preferenze paghe</value>
+    </property>
     <property key="HumanResAddPerfNote">
         <value xml:lang="en">Add Performance Note</value>
         <value xml:lang="fr">Ajouter la note de performance</value>
@@ -419,11 +424,6 @@
         <value xml:lang="en">Add PerfReview Items</value>
         <value xml:lang="fr">Ajouter des lignes d'évaluation de performance</value>
         <value xml:lang="it">Aggiungi righe di valutazione</value>
-    </property>
-    <property key="HumanResAddPartySkill">
-        <value xml:lang="en">Add Party Skill</value>
-        <value xml:lang="fr">Ajoutez la compétence</value>
-        <value xml:lang="it">Aggiungi abilità soggetto</value>
     </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="de">Personenschulung hinzufügen</value>
@@ -471,17 +471,17 @@
         <value xml:lang="fr">Ajouter une responsabilité valable</value>
         <value xml:lang="it">Aggiungi responsibilità valida</value>
     </property>
+    <property key="HumanResAgreementEmploymentAppl">
+        <value xml:lang="en">Agreement Employment Appl</value>
+        <value xml:lang="fr">Application d'accord d'emploi</value>
+        <value xml:lang="it">Applicazione impiegato contratto</value>
+    </property>
     <property key="HumanResApplicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
         <value xml:lang="en">Application Id</value>
         <value xml:lang="fr">Réf. de demande d'emploi</value>
         <value xml:lang="it">Codice Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
-    </property>
-    <property key="HumanResAgreementEmploymentAppl">
-        <value xml:lang="en">Agreement Employment Appl</value>
-        <value xml:lang="fr">Application d'accord d'emploi</value>
-        <value xml:lang="it">Applicazione impiegato contratto</value>
     </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
@@ -507,11 +507,10 @@
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
-    <property key="HumanResEmplLeave">
-        <value xml:lang="de">Entlassungen</value>
-        <value xml:lang="en">Leave</value>
-        <value xml:lang="fr">Congé</value>
-        <value xml:lang="it">Licenziamento</value>
+    <property key="HumanResEditAgreementEmploymentAppl">
+        <value xml:lang="en">Edit Agreement Employment Appl</value>
+        <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>
+        <value xml:lang="it">Aggiorna applicazioni contratti impiegato</value>
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Edit Employee Position</value>
@@ -524,25 +523,10 @@
         <value xml:lang="it">Aggiorna Struttura Stampa Posizione Impiegati</value>
         <value xml:lang="th">แก้ไขโครงสร้างรายงานตำแหน่งพนักงาน</value>
     </property>
-    <property key="HumanResNewEmployee">
-        <value xml:lang="en">New Employee</value>
-        <value xml:lang="fr">Nouvel employé</value>
-        <value xml:lang="it">Nuovo impiegato</value>
-    </property>
-    <property key="HumanResEmplPositionReportingStruct">
-        <value xml:lang="en">Reporting Structure</value>
-        <value xml:lang="fr">Structure de rapport</value>
-        <value xml:lang="it">Struttura delle competenze</value>
-    </property>
-    <property key="HumanResEmplPositionResponsibilities">
-        <value xml:lang="en">Responsibilities</value>
-        <value xml:lang="fr">Responsabilités</value>
-        <value xml:lang="it">Responsibilità</value>
-    </property>
-    <property key="HumanResEditAgreementEmploymentAppl">
-        <value xml:lang="en">Edit Agreement Employment Appl</value>
-        <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>
-        <value xml:lang="it">Aggiorna applicazioni contratti impiegato</value>
+    <property key="HumanResEditEmplPositionType">
+        <value xml:lang="en">Edit Position Types</value>
+        <value xml:lang="fr">Modifier les types de position</value>
+        <value xml:lang="it">Aggiorna tipi posizione</value>
     </property>
     <property key="HumanResEditEmployment">
         <value xml:lang="en">Edit Employment</value>
@@ -615,18 +599,11 @@
         <value xml:lang="fr">Demandes de chômage</value>
         <value xml:lang="it">Richiesta di disoccupazione</value>
     </property>
-    <property key="HumanResEmployee">
-        <value xml:lang="en">an employee</value>
-        <value xml:lang="es">un empleado</value>
-        <value xml:lang="fr">un employé</value>
-        <value xml:lang="it">un'impiegato</value>
-    </property>
-    <property key="HumanResEmployees">
-        <value xml:lang="de">Angestellte</value>
-        <value xml:lang="en">Employees</value>
-        <value xml:lang="es">Empleados</value>
-        <value xml:lang="fr">Employés</value>
-        <value xml:lang="it">Impiegati</value>
+    <property key="HumanResEmplLeave">
+        <value xml:lang="de">Entlassungen</value>
+        <value xml:lang="en">Leave</value>
+        <value xml:lang="fr">Congé</value>
+        <value xml:lang="it">Licenziamento</value>
     </property>
     <property key="HumanResEmplLeaveType">
         <value xml:lang="de">Kündingungsarten</value>
@@ -658,10 +635,43 @@
         <value xml:lang="it">Codice Posizione Impiegato Stampato Da</value>
         <value xml:lang="th">ถึงรายงานรหัสตำแหน่งพนักงาน</value>
     </property>
+    <property key="HumanResEmplPositionReportingStruct">
+        <value xml:lang="en">Reporting Structure</value>
+        <value xml:lang="fr">Structure de rapport</value>
+        <value xml:lang="it">Struttura delle competenze</value>
+    </property>
+    <property key="HumanResEmplPositionResponsibilities">
+        <value xml:lang="en">Responsibilities</value>
+        <value xml:lang="fr">Responsabilités</value>
+        <value xml:lang="it">Responsibilità</value>
+    </property>
+    <property key="HumanResEmplPositionType">
+        <value xml:lang="de">Stellenarten</value>
+        <value xml:lang="en">Position Types</value>
+        <value xml:lang="fr">Types de position</value>
+        <value xml:lang="it">Tipi posizione</value>
+    </property>
+    <property key="HumanResEmplPositionTypeRate">
+        <value xml:lang="en">Position Type Rate</value>
+        <value xml:lang="fr">Taux par type de position</value>
+        <value xml:lang="it">Tipo posizione percentuale</value>
+    </property>
     <property key="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff">
         <value xml:lang="en">emplPositionIdReportingTo and emplPositionIdManagedBy must be different</value>
         <value xml:lang="fr">Les positions "rapportant à" et "dirigée par" doivent être différentes</value>
         <value xml:lang="it">emplPositionIdReportingTo e emplPositionIdManagedBy sono differenti</value>
+    </property>
+    <property key="HumanResEmployee">
+        <value xml:lang="en">an employee</value>
+        <value xml:lang="es">un empleado</value>
+        <value xml:lang="fr">un employé</value>
+        <value xml:lang="it">un'impiegato</value>
+    </property>
+    <property key="HumanResEmployeePartyIdTo">
+        <value xml:lang="en">Employee Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur de l'employé</value>
+        <value xml:lang="it">Codice Soggetto A</value>
+        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResEmployeePosition">
         <value xml:lang="de">Stellen</value>
@@ -682,6 +692,13 @@
         <value xml:lang="it">Codice Tipo Posizione Impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
+    <property key="HumanResEmployees">
+        <value xml:lang="de">Angestellte</value>
+        <value xml:lang="en">Employees</value>
+        <value xml:lang="es">Empleados</value>
+        <value xml:lang="fr">Employés</value>
+        <value xml:lang="it">Impiegati</value>
+    </property>
     <property key="HumanResEmployment">
         <value xml:lang="de">Anstellungen</value>
         <value xml:lang="en">Employments</value>
@@ -696,6 +713,17 @@
         <value xml:lang="fr">Demandes d'emploi</value>
         <value xml:lang="it">Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงาน</value>
+    </property>
+    <property key="HumanResEmploymentPartyIdFrom">
+        <value xml:lang="en">Internal Organization</value>
+        <value xml:lang="fr">Organisation interne</value>
+        <value xml:lang="it">Codice Soggetto Da</value>
+        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
+    </property>
+    <property key="HumanResEmploymentPartyIdFromToolTip">
+        <value xml:lang="en">Internal Organization Employee works in</value>
+        <value xml:lang="fr">Organisation interne où l'employé travaille</value>
+        <value xml:lang="it">Organizzazione interna per cui lavora l'impiegato</value>
     </property>
     <property key="HumanResEstimatedFromDate">
         <value xml:lang="en">Estimated FromDate</value>
@@ -763,6 +791,11 @@
         <value xml:lang="fr">Rechercher la formation de la personne</value>
         <value xml:lang="it">Ricerca corsi persona</value>
     </property>
+    <property key="HumanResFindPositionTypes">
+        <value xml:lang="en">Find Position Types</value>
+        <value xml:lang="fr">Rechercher les types de position</value>
+        <value xml:lang="it">Ricerca tipi posizione</value>
+    </property>
     <property key="HumanResGlobalHRSettings">
         <value xml:lang="de">Globale Personaleinstellungen</value>
         <value xml:lang="en">Global HR Settings</value>
@@ -805,6 +838,31 @@
         <value xml:lang="it">Lista Validità Responsibilità</value>
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
     </property>
+    <property key="HumanResLookupAgreement">
+        <value xml:lang="en">Lookup Agreement</value>
+        <value xml:lang="fr">Consultation d'accord</value>
+        <value xml:lang="it">Ricerca contratto</value>
+    </property>
+    <property key="HumanResLookupAgreementEmploymentAppl">
+        <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
+        <value xml:lang="fr">Consultation d'accord sur demande d'emploi</value>
+        <value xml:lang="it">Ricerca applicazioni contratto impiegato</value>
+    </property>
+    <property key="HumanResLookupAgreementId">
+        <value xml:lang="en">Lookup AgreementId</value>
+        <value xml:lang="fr">Réf. de consultation d'accord</value>
+        <value xml:lang="it">Ricerca contratto</value>
+    </property>
+    <property key="HumanResLookupAgreementItemSeqId">
+        <value xml:lang="en">Lookup AgreementItemSeqId</value>
+        <value xml:lang="fr">Réf. de consultation de ligne séq. d'accord</value>
+        <value xml:lang="it">Ricerca riga contratto</value>
+    </property>
+    <property key="HumanResLookupApplicationId">
+        <value xml:lang="en">Lookup ApplicationId</value>
+        <value xml:lang="fr">Consultation de réf. d'application</value>
+        <value xml:lang="it">Ricerca applicazione</value>
+    </property>
     <property key="HumanResLookupBudgetByName">
         <value xml:lang="en">Lookup Budget by Name</value>
         <value xml:lang="fr">Consultation de budget par nom</value>
@@ -817,31 +875,21 @@
         <value xml:lang="it">Ricerca Riga Budget per Nome</value>
         <value xml:lang="th">ค้นหารายการงบประมาณโดยชื่อ</value>
     </property>
-    <property key="HumanResLookupEmploymentApp">
-        <value xml:lang="en">Lookup EmploymentApp</value>
-        <value xml:lang="fr">Consultation des demandes d'emploi</value>
-        <value xml:lang="it">Ricerca applicazioni impiegato</value>
-    </property>
-    <property key="HumanResLookupApplicationId">
-        <value xml:lang="en">Lookup ApplicationId</value>
-        <value xml:lang="fr">Consultation de réf. d'application</value>
-        <value xml:lang="it">Ricerca applicazione</value>
-    </property>
     <property key="HumanResLookupEmplPositionByName">
         <value xml:lang="en">Lookup EmplPosition by Name</value>
         <value xml:lang="fr">Consultation des positions par nom</value>
         <value xml:lang="it">Ricerca Posizione Impiegato per Nome</value>
         <value xml:lang="th">ค้นหาตำแหน่งพนักงานโดยชื่อ</value>
     </property>
+    <property key="HumanResLookupEmploymentApp">
+        <value xml:lang="en">Lookup EmploymentApp</value>
+        <value xml:lang="fr">Consultation des demandes d'emploi</value>
+        <value xml:lang="it">Ricerca applicazioni impiegato</value>
+    </property>
     <property key="HumanResLookupPartyResume">
         <value xml:lang="en">Lookup PartyResume</value>
         <value xml:lang="fr">Consultation de CV</value>
         <value xml:lang="it">Ricerca riassunto soggetto</value>
-    </property>
-    <property key="HumanResLookupResumeId">
-        <value xml:lang="en">Lookup ResumeId</value>
-        <value xml:lang="fr">Consultation de réf. de CV</value>
-        <value xml:lang="it">Ricerca riassunto</value>
     </property>
     <property key="HumanResLookupPayGrade">
         <value xml:lang="en">Lookup PayGrade</value>
@@ -875,6 +923,11 @@
         <value xml:lang="fr">Consultation de réf. d'évaluation de performance</value>
         <value xml:lang="it">Ricerca verifica performance</value>
     </property>
+    <property key="HumanResLookupResumeId">
+        <value xml:lang="en">Lookup ResumeId</value>
+        <value xml:lang="fr">Consultation de réf. de CV</value>
+        <value xml:lang="it">Ricerca riassunto</value>
+    </property>
     <property key="HumanResLookupSalaryStepSeqId">
         <value xml:lang="en">Lookup Salary StepSeq Id</value>
         <value xml:lang="fr">Réf. de consultation des augmentations de salaire</value>
@@ -896,26 +949,6 @@
         <value xml:lang="en">Lookup UnemploymentClaimId</value>
         <value xml:lang="fr">Réf. de consultation de demande du chômage</value>
         <value xml:lang="it">Ricerca richiesta di disoccupazione</value>
-    </property>
-    <property key="HumanResLookupAgreement">
-        <value xml:lang="en">Lookup Agreement</value>
-        <value xml:lang="fr">Consultation d'accord</value>
-        <value xml:lang="it">Ricerca contratto</value>
-    </property>
-    <property key="HumanResLookupAgreementId">
-        <value xml:lang="en">Lookup AgreementId</value>
-        <value xml:lang="fr">Réf. de consultation d'accord</value>
-        <value xml:lang="it">Ricerca contratto</value>
-    </property>
-    <property key="HumanResLookupAgreementEmploymentAppl">
-        <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
-        <value xml:lang="fr">Consultation d'accord sur demande d'emploi</value>
-        <value xml:lang="it">Ricerca applicazioni contratto impiegato</value>
-    </property>
-    <property key="HumanResLookupAgreementItemSeqId">
-        <value xml:lang="en">Lookup AgreementItemSeqId</value>
-        <value xml:lang="fr">Réf. de consultation de ligne séq. d'accord</value>
-        <value xml:lang="it">Ricerca riga contratto</value>
     </property>
     <property key="HumanResManagerApplication">
         <value xml:lang="de">Personalverwaltung</value>
@@ -948,6 +981,16 @@
         <value xml:lang="fr">Nouvelle responsabilité de position d'emploi</value>
         <value xml:lang="it">Nuova Posizione Responsabilità Impiegato</value>
         <value xml:lang="th">ตำแหน่งหน้าที่รับผิดชอบพนักงานใหม่</value>
+    </property>
+    <property key="HumanResNewEmplPositionType">
+        <value xml:lang="en">New Position Type</value>
+        <value xml:lang="fr">Nouveau type de position</value>
+        <value xml:lang="it">Nuovo tipo posizione</value>
+    </property>
+    <property key="HumanResNewEmployee">
+        <value xml:lang="en">New Employee</value>
+        <value xml:lang="fr">Nouvel employé</value>
+        <value xml:lang="it">Nuovo impiegato</value>
     </property>
     <property key="HumanResNewEmployment">
         <value xml:lang="de">Einstellung</value>
@@ -1013,49 +1056,6 @@
         <value xml:lang="it">Crea/Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="th">สร้าง/แก้ไข รายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
-    <property key="HumanResPartySkills">
-        <value xml:lang="en">Party Skills</value>
-        <value xml:lang="fr">Compétences de l'acteur</value>
-        <value xml:lang="it">Abilità soggetto</value>
-    </property>
-    <property key="HumanResEditEmplPositionType">
-        <value xml:lang="en">Edit Position Types</value>
-        <value xml:lang="fr">Modifier les types de position</value>
-        <value xml:lang="it">Aggiorna tipi posizione</value>
-    </property>
-    <property key="HumanResEmplPositionType">
-        <value xml:lang="de">Stellenarten</value>
-        <value xml:lang="en">Position Types</value>
-        <value xml:lang="fr">Types de position</value>
-        <value xml:lang="it">Tipi posizione</value>
-    </property>
-    <property key="HumanResEmplPositionTypeRate">
-        <value xml:lang="en">Position Type Rate</value>
-        <value xml:lang="fr">Taux par type de position</value>
-        <value xml:lang="it">Tipo posizione percentuale</value>
-    </property>
-    <property key="HumanResEmploymentPartyIdFrom">
-        <value xml:lang="en">Internal Organization</value>
-        <value xml:lang="fr">Organisation interne</value>
-        <value xml:lang="it">Codice Soggetto Da</value>
-        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="HumanResEmploymentPartyIdFromToolTip">
-        <value xml:lang="en">Internal Organization Employee works in</value>
-        <value xml:lang="fr">Organisation interne où l'employé travaille</value>
-        <value xml:lang="it">Organizzazione interna per cui lavora l'impiegato</value>
-    </property>
-    <property key="HumanResEmployeePartyIdTo">
-        <value xml:lang="en">Employee Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur de l'employé</value>
-        <value xml:lang="it">Codice Soggetto A</value>
-        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="HumanResFindPositionTypes">
-        <value xml:lang="en">Find Position Types</value>
-        <value xml:lang="fr">Rechercher les types de position</value>
-        <value xml:lang="it">Ricerca tipi posizione</value>
-    </property>    
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
         <value xml:lang="fr">Nouvelle compétence de l'acteur</value>
@@ -1087,11 +1087,6 @@
         <value xml:lang="fr">Nouvelle formation</value>
         <value xml:lang="it">Nuovo corso persona</value>
     </property>
-    <property key="HumanResNewEmplPositionType">
-        <value xml:lang="en">New Position Type</value>
-        <value xml:lang="fr">Nouveau type de position</value>
-        <value xml:lang="it">Nuovo tipo posizione</value>
-    </property>    
     <property key="HumanResNewSalaryStep">
         <value xml:lang="en">New Salary Step</value>
         <value xml:lang="fr">Nouvelle augmentation de salaire</value>
@@ -1153,6 +1148,11 @@
         <value xml:lang="fr">évaluation de l'acteur</value>
         <value xml:lang="it">Rassegna Soggetto</value>
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
+    </property>
+    <property key="HumanResPartySkills">
+        <value xml:lang="en">Party Skills</value>
+        <value xml:lang="fr">Compétences de l'acteur</value>
+        <value xml:lang="it">Abilità soggetto</value>
     </property>
     <property key="HumanResPayGrade">
         <value xml:lang="de">Lohnstufen</value>
@@ -1295,11 +1295,6 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ต้องการตัวแปรที่หายไป</value>
         <value xml:lang="zh">无法创建教育记录，缺少所需的参数</value>
     </property>
-    <property key="HumanResSkills">
-        <value xml:lang="en">Skills</value>
-        <value xml:lang="fr">Compétences</value>
-        <value xml:lang="it">Abilità</value>
-    </property>
     <property key="HumanResSkillType">
         <value xml:lang="de">Fähigkeitenarten</value>
         <value xml:lang="en">Skill Types</value>
@@ -1315,6 +1310,11 @@
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="zh">技能类型Id</value>
     </property>
+    <property key="HumanResSkills">
+        <value xml:lang="en">Skills</value>
+        <value xml:lang="fr">Compétences</value>
+        <value xml:lang="it">Abilità</value>
+    </property>
     <property key="HumanResTerminationReason">
         <value xml:lang="de">Entlassungsgründe</value>
         <value xml:lang="en">Termination Reasons</value>
@@ -1328,18 +1328,18 @@
         <value xml:lang="it">Codice Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
-    <property key="HumanResTerminationTypes">
-        <value xml:lang="de">Entlassungsarten</value>
-        <value xml:lang="en">Termination Types</value>
-        <value xml:lang="fr">Types de fin de contrat</value>
-        <value xml:lang="it">Tipi di termine rapporto di lavoro</value>
-    </property>
     <property key="HumanResTerminationTypeId">
         <value xml:lang="de">Entlassungsart</value>
         <value xml:lang="en">Termination Type Id</value>
         <value xml:lang="fr">Réf. de types de fin de contrat</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
+    </property>
+    <property key="HumanResTerminationTypes">
+        <value xml:lang="de">Entlassungsarten</value>
+        <value xml:lang="en">Termination Types</value>
+        <value xml:lang="fr">Types de fin de contrat</value>
+        <value xml:lang="it">Tipi di termine rapporto di lavoro</value>
     </property>
     <property key="HumanResTraining">
         <value xml:lang="de">Schulungen</value>
