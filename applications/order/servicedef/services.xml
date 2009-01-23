@@ -301,6 +301,7 @@ under the License.
         <attribute name="overridePriceMap" type="Map" mode="IN" string-map-prefix="opm_" optional="false"/>
         <attribute name="itemReasonMap" type="Map" mode="IN" string-map-prefix="irm_" optional="true"/>
         <attribute name="itemCommentMap" type="Map" mode="IN" string-map-prefix="icm_" optional="true"/>
+        <attribute name="itemAttributesMap" type="Map" mode="IN" string-map-prefix="iam_" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
@@ -317,6 +318,8 @@ under the License.
         <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="changeComments" type="String" mode="IN" optional="true"/>
+        <attribute name="itemDesiredDeliveryDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="itemAttributesMap" type="Map" mode="IN" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
