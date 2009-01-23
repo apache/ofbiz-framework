@@ -54,6 +54,11 @@ public class ShoppingCart implements Serializable {
     public static final String module = ShoppingCart.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
+    // modes for getting OrderItemAttributes
+    public static final int ALL = 1;
+    public static final int EMPTY_ONLY = 2;
+    public static final int FILLED_ONLY = 3;
+
     // scales and rounding modes for BigDecimal math
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
@@ -100,7 +105,7 @@ public class ShoppingCart implements Serializable {
     private boolean orderTermSet = false;
     private List orderTerms = new LinkedList();
 
-    private List cartLines = FastList.newInstance();
+    private List<ShoppingCartItem> cartLines = FastList.newInstance();
     private Map itemGroupByNumberMap = FastMap.newInstance();
     protected long nextGroupNumber = 1;
     private List paymentInfo = FastList.newInstance();
@@ -631,9 +636,7 @@ public class ShoppingCart implements Serializable {
 
         List itemsToReturn = FastList.newInstance();
         // Check for existing cart item.
-        Iterator cartItemIter = this.cartLines.iterator();
-        while (cartItemIter.hasNext()) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartItemIter.next();
+        for (ShoppingCartItem cartItem : cartLines) {
             if (UtilValidate.isNotEmpty(groupNumber) && !cartItem.isInItemGroup(groupNumber)) {
                 continue;
             }
@@ -652,9 +655,7 @@ public class ShoppingCart implements Serializable {
         List itemsToReturn = FastList.newInstance();
         try {
             // Check for existing cart item
-            Iterator cartItemIter = this.cartLines.iterator();
-            while (cartItemIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartItemIter.next();
+            for (ShoppingCartItem cartItem : cartLines) {
                 //Debug.logInfo("Checking cartItem with product [" + cartItem.getProductId() + "] becuase that is in group [" + (cartItem.getItemGroup()==null ? "no group" : cartItem.getItemGroup().getGroupNumber()) + "]", module);
                 
                 if (UtilValidate.isNotEmpty(groupNumber) && !cartItem.isInItemGroup(groupNumber)) {
@@ -898,9 +899,7 @@ public class ShoppingCart implements Serializable {
     
     public List getCartItemsInNoGroup() {
         List cartItemList = FastList.newInstance();
-        Iterator cartLineIter = this.cartLines.iterator();
-        while (cartLineIter.hasNext()) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLineIter.next();
+        for (ShoppingCartItem cartItem : cartLines) {
             if (cartItem.getItemGroup() == null) {
                 cartItemList.add(cartItem);
             }
@@ -912,9 +911,7 @@ public class ShoppingCart implements Serializable {
         List cartItemList = FastList.newInstance();
         ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(groupNumber);
         if (itemGroup != null) {
-            Iterator cartLineIter = this.cartLines.iterator();
-            while (cartLineIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartLineIter.next();
+            for (ShoppingCartItem cartItem : cartLines) {
                 if (itemGroup.equals(cartItem.getItemGroup())) {
                     cartItemList.add(cartItem);
                 }
@@ -2099,7 +2096,7 @@ public class ShoppingCart implements Serializable {
         return true;
     }
 
-    protected void cleanUpShipGroups() {
+    public void cleanUpShipGroups() {
         for (int i = 0; i < this.shipInfo.size(); i++) {
             CartShipInfo csi = this.getShipInfo(i);
             Iterator si = csi.shipItemInfo.keySet().iterator();
@@ -3394,10 +3391,7 @@ public class ShoppingCart implements Serializable {
         synchronized (cartLines) {
             List result = FastList.newInstance();
 
-            Iterator itemIter = cartLines.iterator();
-            while (itemIter.hasNext()) {
-                ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
-
+            for (ShoppingCartItem item : cartLines) {
                 if (UtilValidate.isEmpty(item.getOrderItemSeqId())) {
                     String orderItemSeqId = UtilFormatOut.formatPaddedNumber(nextItemSeq, 5);
                     item.setOrderItemSeqId(orderItemSeqId);
@@ -3469,10 +3463,7 @@ public class ShoppingCart implements Serializable {
     /** create WorkEfforts from the shoppingcart items when itemType = RENTAL_ORDER_ITEM */
     public List makeWorkEfforts() {
         List allWorkEfforts = new LinkedList();
-        Iterator itemIter = cartLines.iterator();
-
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+        for (ShoppingCartItem item : cartLines) {
             if ("RENTAL_ORDER_ITEM".equals(item.getItemType())) {         // prepare workeffort when the order item is a rental item
                 GenericValue workEffort = getDelegator().makeValue("WorkEffort");
                 workEffort.set("workEffortId",item.getOrderItemSeqId());  // fill temporary with sequence number
@@ -3532,10 +3523,7 @@ public class ShoppingCart implements Serializable {
         }
 
         // add all of the item adjustments to this list too
-        Iterator itemIter = cartLines.iterator();
-
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+        for (ShoppingCartItem item : cartLines) {
             Collection adjs = item.getAdjustments();
 
             if (adjs != null) {
@@ -3670,10 +3658,7 @@ public class ShoppingCart implements Serializable {
         List allInfos = new LinkedList();
 
         // add all of the item adjustments to this list too
-        Iterator itemIter = cartLines.iterator();
-
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+        for (ShoppingCartItem item : cartLines) {
             Collection infos = item.getOrderItemPriceInfos();
 
             if (infos != null) {
@@ -3764,10 +3749,7 @@ public class ShoppingCart implements Serializable {
     public List makeAllOrderItemContactMechs() {
         List allOrderContactMechs = new LinkedList();
 
-        Iterator itemIter = cartLines.iterator();
-
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+        for (ShoppingCartItem item : cartLines) {
             Map itemContactMechIds = item.getOrderItemContactMechIds();
 
             if (itemContactMechIds != null) {
@@ -3801,35 +3783,96 @@ public class ShoppingCart implements Serializable {
     }
 
     public List makeAllOrderItemAttributes() {
-        List allOrderItemAttributes = new LinkedList();
+        return makeAllOrderItemAttributes(null, ALL);
+    }
 
-        Iterator itemIter = cartLines.iterator();
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
-            Map attrs = item.getOrderItemAttributes();
-            Iterator i = attrs.entrySet().iterator();
-            while (i.hasNext()) {
-                Map.Entry entry = (Map.Entry) i.next();
-                GenericValue itemAtt = this.getDelegator().makeValue("OrderItemAttribute");
-                itemAtt.set("orderItemSeqId", item.getOrderItemSeqId());
-                itemAtt.set("attrName", entry.getKey());
-                itemAtt.set("attrValue", entry.getValue());
-                allOrderItemAttributes.add(itemAtt);
+    public List makeAllOrderItemAttributes(String orderId, int mode) {
+
+        // now build order item attributes
+        synchronized (cartLines) {
+            List result = FastList.newInstance();
+
+            for (ShoppingCartItem item : cartLines) {
+                Map orderItemAttributes = item.getOrderItemAttributes();
+                Iterator attributesIter = orderItemAttributes.keySet().iterator();
+                while (attributesIter.hasNext()) {
+                    String key = (String) attributesIter.next();
+                    String value = (String) orderItemAttributes.get(key);
+
+                    GenericValue orderItemAttribute = getDelegator().makeValue("OrderItemAttribute");
+                    if (UtilValidate.isNotEmpty(orderId)) {
+                        orderItemAttribute.set("orderId", orderId);
+                    }
+
+                    orderItemAttribute.set("orderItemSeqId", item.getOrderItemSeqId());
+                    orderItemAttribute.set("attrName", key);
+                    orderItemAttribute.set("attrValue", value);
+
+                    switch (mode) {
+                    case ALL:
+                        result.add(orderItemAttribute);
+                        break;
+                    case FILLED_ONLY:
+                        if (UtilValidate.isNotEmpty(value)) {
+                            result.add(orderItemAttribute);
+                        }
+                        break;
+                    case EMPTY_ONLY:
+                        if (UtilValidate.isEmpty(value)) {
+                            result.add(orderItemAttribute);
+                        }
+                        break;
+                    default:
+                        result.add(orderItemAttribute);
+                        break;
+                    }
+                }
             }
+            return result;
         }
-        return allOrderItemAttributes;
     }
 
     public List makeAllOrderAttributes() {
+       
+        return makeAllOrderAttributes(null, ALL);
+    }
+
+    public List makeAllOrderAttributes(String orderId, int mode) {
+
         List allOrderAttributes = new LinkedList();
 
         Iterator i = orderAttributes.entrySet().iterator();
         while (i.hasNext()) {
             Map.Entry entry = (Map.Entry) i.next();
             GenericValue orderAtt = this.getDelegator().makeValue("OrderAttribute");
-            orderAtt.put("attrName", entry.getKey());
-            orderAtt.put("attrValue", entry.getValue());
-            allOrderAttributes.add(orderAtt);
+            if (UtilValidate.isNotEmpty(orderId)) {
+                orderAtt.set("orderId", orderId);
+            }
+            String key = (String) entry.getKey();
+            String value = (String) entry.getValue();
+
+            orderAtt.put("attrName", key);
+            orderAtt.put("attrValue", value);
+
+            switch (mode) {
+            case ALL:
+                allOrderAttributes.add(orderAtt);
+                break;
+            case FILLED_ONLY:
+                if (UtilValidate.isNotEmpty(value)) {
+                    allOrderAttributes.add(orderAtt);
+                }
+                break;
+            case EMPTY_ONLY:
+                if (UtilValidate.isEmpty(value)) {
+                    allOrderAttributes.add(orderAtt);
+                }
+                break;
+            default:
+                allOrderAttributes.add(orderAtt);
+                break;
+            }
+
         }
         return allOrderAttributes;
     }
@@ -3837,10 +3880,7 @@ public class ShoppingCart implements Serializable {
     public List makeAllOrderItemAssociations() {
         List allOrderItemAssociations = new LinkedList();
 
-        Iterator itemIter = cartLines.iterator();
-
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+        for (ShoppingCartItem item : cartLines) {
             String requirementId = item.getRequirementId();
             if (requirementId != null) {
                 try {

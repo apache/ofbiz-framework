@@ -26,6 +26,7 @@ import java.util.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
@@ -3259,7 +3260,9 @@ public class OrderServices {
         BigDecimal basePrice = (BigDecimal) context.get("basePrice");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
+        Timestamp itemDesiredDeliveryDate = (Timestamp) context.get("itemDesiredDeliveryDate");
         String overridePrice = (String) context.get("overridePrice");
+        Map itemAttributesMap = (Map) context.get("itemAttributesMap");
         String reasonEnumId = (String) context.get("reasonEnumId");
         String changeComments = (String) context.get("changeComments");        
 
@@ -3304,6 +3307,7 @@ public class OrderServices {
 
 
             // set the item in the selected ship group
+            item.setShipBeforeDate(itemDesiredDeliveryDate);
             cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
         } catch (CartItemModifyException e) {
             Debug.logError(e, module);
@@ -3349,6 +3353,7 @@ public class OrderServices {
         Map itemQtyMap = (Map) context.get("itemQtyMap");
         Map itemReasonMap = (Map) context.get("itemReasonMap");
         Map itemCommentMap = (Map) context.get("itemCommentMap");    
+        Map itemAttributesMap = (Map) context.get("itemAttributesMap");
 
         // obtain a shopping cart object for updating
         ShoppingCart cart = null;
@@ -3359,6 +3364,14 @@ public class OrderServices {
         }
         if (cart == null) {
             return ServiceUtil.returnError("ERROR: Null shopping cart object returned!");
+        }
+
+        // go through the item attributes map once to get a list of key names
+        Set<String> attributeNames =FastSet.newInstance();
+        Set<String> keys  = itemAttributesMap.keySet();
+        for (String key : keys) {
+            String[] attributeInfo = key.split(":");
+            attributeNames.add(attributeInfo[0]);
         }
 
         // go through the item map and obtain the totals per item
@@ -3433,6 +3446,19 @@ public class OrderServices {
                         return ServiceUtil.returnError("Item description must not be empty");
                     }
                 }
+
+                // update the order item attributes
+                if (itemAttributesMap != null) {
+                    String attrValue = null;
+                    for (String attrName : attributeNames) {
+                        attrValue = (String) itemAttributesMap.get(attrName + ":" + itemSeqId);
+                        if (UtilValidate.isNotEmpty(attrName)) {
+                            cartItem.setOrderItemAttribute(attrName, attrValue);
+                            Debug.log("Set item attribute Name: [" + itemSeqId + "] " + attrName + " , Value:" + attrValue, module);
+                        }
+                    }
+                }
+
             } else {
                 Debug.logInfo("Unable to locate shopping cart item for seqId #" + itemSeqId, module);
             }
@@ -3694,13 +3720,18 @@ public class OrderServices {
             throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
         }
 
-        // get the new orderItems, adjustments, shipping info and payments from the cart
+        // get the new orderItems, adjustments, shipping info, payments and order item atrributes from the cart
         List<Map> modifiedItems = FastList.newInstance();        
         List toStore = new LinkedList();
         toStore.addAll(cart.makeOrderItems());
         toStore.addAll(cart.makeAllAdjustments());
         toStore.addAll(cart.makeAllShipGroupInfos());
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
+        toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));
+
+        // get the empty order item atrributes from the cart and remove them
+        List toRemove = FastList.newInstance();
+        toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
 
         // set the orderId & other information on all new value objects
         List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
@@ -3814,7 +3845,15 @@ public class OrderServices {
         }
         Debug.log("To Store Contains: " + toStore, module);
 
-        // store the new items/adjustments
+        // remove any order item attributes that were set to empty
+        try {
+            delegator.removeAll(toRemove,true);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            throw new GeneralException(e.getMessage());
+        }
+
+        // store the new items/adjustments/order item attributes
         try {
             delegator.storeAll(toStore);
         } catch (GenericEntityException e) {
