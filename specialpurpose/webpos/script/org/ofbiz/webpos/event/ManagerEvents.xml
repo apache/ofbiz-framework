@@ -306,15 +306,15 @@ under the License.
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
-						    <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
-						    <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
-						    <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
-						    <set field="internTx.reasonEnumId" from-field="parameters.reasonInOut"/>
-						    <create-value value-field="internTx"/>
-						    <set from-field="parameters.type" field="paidInOut"/>
-						    <call-object-method obj-field="webPosTransaction" method-name="paidInOut">
-						        <field field="paidInOut" type="String"/>
-						    </call-object-method>
+                            <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
+                            <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
+                            <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
+                            <set field="internTx.reasonEnumId" from-field="parameters.reasonInOut"/>
+                            <create-value value-field="internTx"/>
+                            <set from-field="parameters.type" field="paidInOut"/>
+                            <call-object-method obj-field="webPosTransaction" method-name="paidInOut">
+                                <field field="paidInOut" type="String"/>
+                            </call-object-method>
                         <else>
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/></add-error>
                             <check-errors/>

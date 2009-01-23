@@ -791,7 +791,7 @@ under the License.
             </call-object-method>
         </if-not-empty>
     </simple-method>
-	
+    
     <simple-method method-name="processShipOptions" short-description="Process Ship Options; to be called as a Request Event" login-required="false">
        <call-bsh><![CDATA[
            shipmentMethod = parameters.get("shipping_method");
@@ -828,7 +828,7 @@ under the License.
 
            <set field="correspondingPoId" from-field="parameters.correspondingPoId"/>
            <if-not-empty field="correspondingPoId">
-           	   <call-object-method obj-field="cart" method-name="setPoNumber">
+                  <call-object-method obj-field="cart" method-name="setPoNumber">
                    <field field="correspondingPoId" type="String"/>
                </call-object-method>
            </if-not-empty>

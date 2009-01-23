@@ -54,143 +54,143 @@ public class ContentDocument {
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 
-	public static Document Document(String id, GenericDelegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
+    public static Document Document(String id, GenericDelegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
 
-		Document doc = null;
-		GenericValue content;
-	  	try {
-	  		content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId",id));
-	  	} catch(GenericEntityException e) {
-	  		Debug.logError(e, module);
-	  		return doc;
-	  	}
+        Document doc = null;
+        GenericValue content;
+          try {
+              content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId",id));
+          } catch(GenericEntityException e) {
+              Debug.logError(e, module);
+              return doc;
+          }
 
         Map map = FastMap.newInstance();
-	  	doc = Document(content, map, dispatcher);
+          doc = Document(content, map, dispatcher);
         return doc;
-	}
+    }
 
-	public static Document Document(GenericValue content, Map context, LocalDispatcher dispatcher) throws InterruptedException {
+    public static Document Document(GenericValue content, Map context, LocalDispatcher dispatcher) throws InterruptedException {
 
-		Document doc;
-		// make a new, empty document
-		doc = new Document();
-		String contentId = content.getString("contentId");
-		doc.add(new Field("contentId", contentId, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
-		// Add the last modified date of the file a field named "modified". Use
-		// a
-		// Keyword field, so that it's searchable, but so that no attempt is
-		// made
-		// to tokenize the field into words.
-		Timestamp modDate = (Timestamp) content.get("lastModifiedDate");
-		if (modDate == null) {
-			modDate = (Timestamp) content.get("createdDate");
-		}
-		if (modDate != null) {
-			doc.add(new Field("modified", modDate.toString(), Store.YES, Index.UN_TOKENIZED, TermVector.NO));
-		}
-		String contentName = content.getString("contentName");
-		if (UtilValidate.isNotEmpty(contentName))
-			doc.add(new Field("title", contentName, Store.YES, Index.TOKENIZED, TermVector.NO));
-		String description = content.getString("description");
-		if (UtilValidate.isNotEmpty(description))
-			doc.add(new Field("description", description, Store.YES, Index.TOKENIZED, TermVector.NO));
-		List ancestorList = FastList.newInstance();
-		GenericDelegator delegator = content.getDelegator();
-		ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
-		String ancestorString = StringUtil.join(ancestorList, " ");
-		//Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
-		// module);
-		if (UtilValidate.isNotEmpty(ancestorString)) {
-			Field field = new Field("site", ancestorString, Store.NO, Index.TOKENIZED, TermVector.NO);
-			//Debug.logInfo("in ContentDocument, field:" + field.stringValue(),
-			// module);
-			doc.add(field);
-		}
-		boolean retVal = indexDataResource(content, doc, context, dispatcher);
-		//Debug.logInfo("in DataResourceDocument, context.badIndexList:" +
-		// context.get("badIndexList"), module);
-		if (!retVal)
-			doc = null;
-		return doc;
-	}
-
-	public static boolean indexDataResource(GenericValue content, Document doc, Map context, LocalDispatcher dispatcher) {
+        Document doc;
+        // make a new, empty document
+        doc = new Document();
+        String contentId = content.getString("contentId");
+        doc.add(new Field("contentId", contentId, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+        // Add the last modified date of the file a field named "modified". Use
+        // a
+        // Keyword field, so that it's searchable, but so that no attempt is
+        // made
+        // to tokenize the field into words.
+        Timestamp modDate = (Timestamp) content.get("lastModifiedDate");
+        if (modDate == null) {
+            modDate = (Timestamp) content.get("createdDate");
+        }
+        if (modDate != null) {
+            doc.add(new Field("modified", modDate.toString(), Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+        }
+        String contentName = content.getString("contentName");
+        if (UtilValidate.isNotEmpty(contentName))
+            doc.add(new Field("title", contentName, Store.YES, Index.TOKENIZED, TermVector.NO));
+        String description = content.getString("description");
+        if (UtilValidate.isNotEmpty(description))
+            doc.add(new Field("description", description, Store.YES, Index.TOKENIZED, TermVector.NO));
+        List ancestorList = FastList.newInstance();
         GenericDelegator delegator = content.getDelegator();
-		String contentId = content.getString("contentId");
-		//Debug.logInfo("in ContentDocument, contentId:" + contentId,
-		// module);
-		String dataResourceId = content.getString("dataResourceId");
-		//Debug.logInfo("in ContentDocument, dataResourceId:" + dataResourceId, module);
-		GenericValue dataResource;
-		try {
-			dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-		} catch (GenericEntityException e) {
-			Debug.logError(e, module);
-			List badIndexList = (List) context.get("badIndexList");
-			badIndexList.add(contentId + " - " + e.getMessage());
-			//Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
-			return false;
-		}
-		if (dataResource == null) {
-			List badIndexList = (List) context.get("badIndexList");
-			badIndexList.add(contentId + " - dataResource is null.");
-			//Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
-			return false;
-		}
-		String mimeTypeId = dataResource.getString("mimeTypeId");
-		if (UtilValidate.isEmpty(mimeTypeId)) {
-			mimeTypeId = "text/html";
-		}
-		Locale locale = Locale.getDefault();
-		String currentLocaleString = dataResource.getString("localeString");
-		if (UtilValidate.isNotEmpty(currentLocaleString)) {
-			locale = UtilMisc.parseLocale(currentLocaleString);
-		}
-		String text;
-		try {
-			text = ContentWorker.renderContentAsText(dispatcher, delegator, contentId, context, locale, mimeTypeId, true);
-		} catch (GeneralException e) {
-			Debug.logError(e, module);
-			List badIndexList = (List) context.get("badIndexList");
-			badIndexList.add(contentId + " - " + e.getMessage());
-			//Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
-			return false;
-		} catch (IOException e2) {
-			Debug.logError(e2, module);
-			List badIndexList = (List) context.get("badIndexList");
-			badIndexList.add(contentId + " - " + e2.getMessage());
-			//Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
-			return false;
-		}
-		//Debug.logInfo("in DataResourceDocument, text:" + text, module);
-		if (UtilValidate.isNotEmpty(text)) {
-			Field field = new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO);
-			//Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
-			doc.add(field);
-		}
-		List featureDataResourceList;
-		try {
-			featureDataResourceList = content.getRelatedCache("ProductFeatureDataResource");
-		} catch (GenericEntityException e) {
-			Debug.logError(e, module);
-			List badIndexList = (List) context.get("badIndexList");
-			badIndexList.add(contentId + " - " + e.getMessage());
-			return false;
-		}
-		List featureList = FastList.newInstance();
-		Iterator iter = featureDataResourceList.iterator();
-		while (iter.hasNext()) {
-			GenericValue productFeatureDataResource = (GenericValue) iter .next();
-			String feature = productFeatureDataResource.getString("productFeatureId");
-			featureList.add(feature);
-		}
-		String featureString = StringUtil.join(featureList, " ");
-		//Debug.logInfo("in ContentDocument, featureString:" + featureString, module);
-		if (UtilValidate.isNotEmpty(featureString)) {
-			Field field = new Field("feature", featureString, Store.NO, Index.TOKENIZED, TermVector.NO);
-			doc.add(field);
-		}
-		return true;
-	}
+        ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
+        String ancestorString = StringUtil.join(ancestorList, " ");
+        //Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
+        // module);
+        if (UtilValidate.isNotEmpty(ancestorString)) {
+            Field field = new Field("site", ancestorString, Store.NO, Index.TOKENIZED, TermVector.NO);
+            //Debug.logInfo("in ContentDocument, field:" + field.stringValue(),
+            // module);
+            doc.add(field);
+        }
+        boolean retVal = indexDataResource(content, doc, context, dispatcher);
+        //Debug.logInfo("in DataResourceDocument, context.badIndexList:" +
+        // context.get("badIndexList"), module);
+        if (!retVal)
+            doc = null;
+        return doc;
+    }
+
+    public static boolean indexDataResource(GenericValue content, Document doc, Map context, LocalDispatcher dispatcher) {
+        GenericDelegator delegator = content.getDelegator();
+        String contentId = content.getString("contentId");
+        //Debug.logInfo("in ContentDocument, contentId:" + contentId,
+        // module);
+        String dataResourceId = content.getString("dataResourceId");
+        //Debug.logInfo("in ContentDocument, dataResourceId:" + dataResourceId, module);
+        GenericValue dataResource;
+        try {
+            dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            List badIndexList = (List) context.get("badIndexList");
+            badIndexList.add(contentId + " - " + e.getMessage());
+            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
+            return false;
+        }
+        if (dataResource == null) {
+            List badIndexList = (List) context.get("badIndexList");
+            badIndexList.add(contentId + " - dataResource is null.");
+            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
+            return false;
+        }
+        String mimeTypeId = dataResource.getString("mimeTypeId");
+        if (UtilValidate.isEmpty(mimeTypeId)) {
+            mimeTypeId = "text/html";
+        }
+        Locale locale = Locale.getDefault();
+        String currentLocaleString = dataResource.getString("localeString");
+        if (UtilValidate.isNotEmpty(currentLocaleString)) {
+            locale = UtilMisc.parseLocale(currentLocaleString);
+        }
+        String text;
+        try {
+            text = ContentWorker.renderContentAsText(dispatcher, delegator, contentId, context, locale, mimeTypeId, true);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            List badIndexList = (List) context.get("badIndexList");
+            badIndexList.add(contentId + " - " + e.getMessage());
+            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
+            return false;
+        } catch (IOException e2) {
+            Debug.logError(e2, module);
+            List badIndexList = (List) context.get("badIndexList");
+            badIndexList.add(contentId + " - " + e2.getMessage());
+            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
+            return false;
+        }
+        //Debug.logInfo("in DataResourceDocument, text:" + text, module);
+        if (UtilValidate.isNotEmpty(text)) {
+            Field field = new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO);
+            //Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
+            doc.add(field);
+        }
+        List featureDataResourceList;
+        try {
+            featureDataResourceList = content.getRelatedCache("ProductFeatureDataResource");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            List badIndexList = (List) context.get("badIndexList");
+            badIndexList.add(contentId + " - " + e.getMessage());
+            return false;
+        }
+        List featureList = FastList.newInstance();
+        Iterator iter = featureDataResourceList.iterator();
+        while (iter.hasNext()) {
+            GenericValue productFeatureDataResource = (GenericValue) iter .next();
+            String feature = productFeatureDataResource.getString("productFeatureId");
+            featureList.add(feature);
+        }
+        String featureString = StringUtil.join(featureList, " ");
+        //Debug.logInfo("in ContentDocument, featureString:" + featureString, module);
+        if (UtilValidate.isNotEmpty(featureString)) {
+            Field field = new Field("feature", featureString, Store.NO, Index.TOKENIZED, TermVector.NO);
+            doc.add(field);
+        }
+        return true;
+    }
 }

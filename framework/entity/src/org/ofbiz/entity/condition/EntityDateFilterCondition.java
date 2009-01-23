@@ -45,7 +45,7 @@ public class EntityDateFilterCondition extends EntityCondition {
     
     /** @deprecated Use EntityCondition.makeConditionDate() instead */
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
-    	init(fromDateName, thruDateName);
+        init(fromDateName, thruDateName);
     }
     
     public void init(String fromDateName, String thruDateName) {
@@ -54,8 +54,8 @@ public class EntityDateFilterCondition extends EntityCondition {
     }
 
     public void reset() {
-    	this.fromDateName = null;
-    	this.thruDateName = null;
+        this.fromDateName = null;
+        this.thruDateName = null;
     }
     
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {

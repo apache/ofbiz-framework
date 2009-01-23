@@ -29,16 +29,16 @@ if (userLogin) {
         context.emailAddress = contactMech.infoString;
     }
     
-	contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
-	if (contactMech) {
-	    partyContactMech = EntityUtil.getFirst(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId]));
-	    if (partyContactMech) {
-	        telecomNumber = partyContactMech.getRelatedOne("TelecomNumber");
-	        context.phoneContactMechId = telecomNumber.contactMechId;
-	        context.countryCode = telecomNumber.countryCode;
-	        context.areaCode = telecomNumber.areaCode;
-	        context.contactNumber = telecomNumber.contactNumber;
-	        context.extension = partyContactMech.extension; 
-	    }
-	}
+    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
+    if (contactMech) {
+        partyContactMech = EntityUtil.getFirst(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId]));
+        if (partyContactMech) {
+            telecomNumber = partyContactMech.getRelatedOne("TelecomNumber");
+            context.phoneContactMechId = telecomNumber.contactMechId;
+            context.countryCode = telecomNumber.countryCode;
+            context.areaCode = telecomNumber.areaCode;
+            context.contactNumber = telecomNumber.contactNumber;
+            context.extension = partyContactMech.extension; 
+        }
+    }
 }

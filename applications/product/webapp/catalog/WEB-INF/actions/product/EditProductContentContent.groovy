@@ -120,7 +120,7 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
 } else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
     context.contentFormName = "EditProductContentExternal";
 } else if (productContentTypeId.indexOf("ADDITIONAL_IMAGE") > -1) {
-	context.contentFormName = "EditProductAdditionalImageContent";
+    context.contentFormName = "EditProductAdditionalImageContent";
 } else {
     //Assume it is a generic simple text content
     textData = [:];

@@ -52,7 +52,7 @@ public class Journal {
     protected XTable jtable = null;
     protected String style = null;
 
-    public Journal(PosScreen page) {    	
+    public Journal(PosScreen page) {        
         jpanel = (XScrollPane) page.findComponent("journal_panel");
         jpanel.setVisible(false);
         

@@ -19,7 +19,7 @@
  
 prepare = dispatcher.runSync("prepareFind", [inputFields : parameters, entityName : "Requirement"]);
 if (prepare.entityConditionList) {
-	results = dispatcher.runSync("getRequirementsForSupplier", [requirementConditions : prepare.entityConditionList, partyId : parameters.partyId]);
-	context.requirementsForSupplier = results.requirementsForSupplier;
-	context.quantityReport = [distinctProductCount : results.distinctProductCount, quantityTotal : results.quantityTotal, amountTotal : results.amountTotal];
+    results = dispatcher.runSync("getRequirementsForSupplier", [requirementConditions : prepare.entityConditionList, partyId : parameters.partyId]);
+    context.requirementsForSupplier = results.requirementsForSupplier;
+    context.quantityReport = [distinctProductCount : results.distinctProductCount, quantityTotal : results.quantityTotal, amountTotal : results.amountTotal];
 }

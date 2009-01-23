@@ -129,7 +129,7 @@ under the License.
 
     <entity entity-name="SecurityGroup"
             package-name="org.ofbiz.security.securitygroup"
-            default-resource-name="SecurityEntityLabels"		
+            default-resource-name="SecurityEntityLabels"        
             title="Security Component - Security Group Entity">
       <field name="groupId" type="id-ne"></field>
       <field name="description" type="description"></field>

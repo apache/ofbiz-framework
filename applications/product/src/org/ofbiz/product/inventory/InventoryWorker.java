@@ -73,15 +73,15 @@ public class InventoryWorker {
      * @return
      */
     public static BigDecimal getOutstandingPurchasedQuantity(String productId, GenericDelegator delegator) {
-    	BigDecimal qty = BigDecimal.ZERO;
+        BigDecimal qty = BigDecimal.ZERO;
         List<GenericValue> purchaseOrders = getOutstandingPurchaseOrders(productId, delegator);
         if (UtilValidate.isEmpty(purchaseOrders)) {
             return qty;
         } else {
             for (GenericValue nextOrder: purchaseOrders) {
                 if (nextOrder.get("quantity") != null) {
-                	BigDecimal itemQuantity = nextOrder.getBigDecimal("quantity");
-                	BigDecimal cancelQuantity = BigDecimal.ZERO;
+                    BigDecimal itemQuantity = nextOrder.getBigDecimal("quantity");
+                    BigDecimal cancelQuantity = BigDecimal.ZERO;
                     if (nextOrder.get("cancelQuantity") != null) {
                         cancelQuantity = nextOrder.getBigDecimal("cancelQuantity");
                     }

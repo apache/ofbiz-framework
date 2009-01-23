@@ -63,7 +63,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
         while (props.hasMoreElements()) {
             String propName = (String) props.nextElement();
             if (propName.startsWith("key.")) {
-				String propValue = (String) entry.getPropertyValue(propName);
+                String propValue = (String) entry.getPropertyValue(propName);
                 propName = propName.substring(4);
 
                 PosKey key = new PosKey(propName, propValue);

@@ -980,9 +980,9 @@ under the License.
     <request-map uri="EditDataResourceUpload"><security auth="true" https="true"/><response name="success" type="view" value="EditDataResourceUpload"/></request-map>
     <request-map uri="uploadImage">
         <security auth="true" https="true"/>
-		<!--
+        <!--
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="uploadImage" />
-			-->
+            -->
         <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="request" value="UploadImage"/>
         <response name="error" type="view" value="UploadImage"/>

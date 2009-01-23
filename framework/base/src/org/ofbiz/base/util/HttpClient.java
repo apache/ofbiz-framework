@@ -223,8 +223,8 @@ public class HttpClient {
     }
     
     public void setBasicAuthInfo(String basicAuthUsername, String basicAuthPassword) {
-    	this.basicAuthUsername = basicAuthUsername;
-    	this.basicAuthPassword = basicAuthPassword;
+        this.basicAuthUsername = basicAuthUsername;
+        this.basicAuthPassword = basicAuthPassword;
     }
     
     /** Invoke HTTP request GET. */
@@ -448,7 +448,7 @@ public class HttpClient {
             
             // if there is basicAuth info set the request property for it
             if (basicAuthUsername != null) {
-            	String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
+                String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) Debug.log("Header - Authorization: " + basicAuthString, module);
             }

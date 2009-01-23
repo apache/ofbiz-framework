@@ -34,42 +34,42 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
 
     public static final String module = OpenOfficeByteArrayOutputStream.class.getName();
     
-	public OpenOfficeByteArrayOutputStream() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public OpenOfficeByteArrayOutputStream() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public OpenOfficeByteArrayOutputStream(int arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
+    public OpenOfficeByteArrayOutputStream(int arg0) {
+        super(arg0);
+        // TODO Auto-generated constructor stub
+    }
 
 
-	  public void writeBytes(byte[] buf) throws BufferSizeExceededException, NotConnectedException, com.sun.star.io.IOException
-	  {
-		  try {
-			  write(buf);
-		  } catch ( java.io.IOException e ) {
-			  throw(new com.sun.star.io.IOException(e.getMessage()));
-		  }
-	  }
+      public void writeBytes(byte[] buf) throws BufferSizeExceededException, NotConnectedException, com.sun.star.io.IOException
+      {
+          try {
+              write(buf);
+          } catch ( java.io.IOException e ) {
+              throw(new com.sun.star.io.IOException(e.getMessage()));
+          }
+      }
 
-	  public void closeOutput() throws BufferSizeExceededException, NotConnectedException, com.sun.star.io.IOException
-	  {
-		  try {
-			  super.flush();
-			  close();
-		  } catch ( java.io.IOException e ) {
-			  throw(new com.sun.star.io.IOException(e.getMessage()));
-		  }
-	  }
-	  
-	  public void flush()
-	  {
-		  try {
-			  super.flush();
-		  } catch ( java.io.IOException e ) {
-		  }
-	  }
+      public void closeOutput() throws BufferSizeExceededException, NotConnectedException, com.sun.star.io.IOException
+      {
+          try {
+              super.flush();
+              close();
+          } catch ( java.io.IOException e ) {
+              throw(new com.sun.star.io.IOException(e.getMessage()));
+          }
+      }
+      
+      public void flush()
+      {
+          try {
+              super.flush();
+          } catch ( java.io.IOException e ) {
+          }
+      }
 
 }

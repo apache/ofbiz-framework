@@ -23,8 +23,8 @@ under the License.
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     
-	<available file="applications/build.xml" property="applications.present"/>
-	<available file="specialpurpose/build.xml" property="specialpurpose.present"/>
+    <available file="applications/build.xml" property="applications.present"/>
+    <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
 
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
@@ -102,7 +102,7 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-    	
+        
         <subant target="clean"  failonerror="${specialpurpose.present}" description="Use failonerror=false in case the specialpurpose directory is not there">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
@@ -177,7 +177,7 @@ under the License.
           destdir="${site.dir}/javadocs"
           maxmemory="256M"
           windowtitle="Open for Business - API"
-        	useexternalfile="yes">
+            useexternalfile="yes">
       <fileset dir="${basedir}" defaultexcludes="yes">
         <include name="**/*.java"/>
         <exclude name="**/ControlApplet.java"/>

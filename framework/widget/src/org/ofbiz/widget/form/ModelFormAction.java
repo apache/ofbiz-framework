@@ -348,12 +348,12 @@ public abstract class ModelFormAction {
                     context.put("queryString", queryString);
                     context.put("queryStringMap", result.get("queryStringMap"));
                     if (UtilValidate.isNotEmpty(queryString)){
-                    	try {
-                    		String queryStringEncoded = queryString.replaceAll("&", "%26");
+                        try {
+                            String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
-                    	} catch (PatternSyntaxException e) {
-                    		
-                    	}
+                        } catch (PatternSyntaxException e) {
+                            
+                        }
                     }
                 } else {
                     context.putAll(result);

@@ -310,7 +310,7 @@ public class ShoppingCartHelper {
                     continue;
                 // never read: int itemId = -1;
                 if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
-                	BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
+                    BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
                     ProductConfigWrapper configWrapper = null;
                     String aggregatedProdId = null;
                     if ("AGGREGATED_CONF".equals(ProductWorker.getProductTypeId(delegator, productId))) {
@@ -405,7 +405,7 @@ public class ShoppingCartHelper {
             }
 
             if (quantStr != null && quantStr.length() > 0) {
-            	BigDecimal quantity = BigDecimal.ZERO;
+                BigDecimal quantity = BigDecimal.ZERO;
 
                 try {
                     quantity = new BigDecimal(quantStr);
@@ -481,7 +481,7 @@ public class ShoppingCartHelper {
                 }
 
                 if (quantStr != null && quantStr.length() > 0) {
-                	BigDecimal quantity = BigDecimal.ZERO;
+                    BigDecimal quantity = BigDecimal.ZERO;
                     try {
                         quantity = new BigDecimal(nf.parse(quantStr).doubleValue());
                     } catch (ParseException nfe) {
@@ -689,12 +689,12 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.startsWith("reservLength")) {
                         if (item != null) {
-                    		BigDecimal reservLength = new BigDecimal(nf.parse(quantString).doubleValue());
+                            BigDecimal reservLength = new BigDecimal(nf.parse(quantString).doubleValue());
                             item.setReservLength(reservLength);
                         }
                     } else if (parameterName.startsWith("reservPersons")) {
                         if (item != null) {
-                        	BigDecimal reservPersons = new BigDecimal(nf.parse(quantString).doubleValue());
+                            BigDecimal reservPersons = new BigDecimal(nf.parse(quantString).doubleValue());
                             item.setReservPersons(reservPersons);
                         }
                     } else if (parameterName.startsWith("shipBeforeDate")) {

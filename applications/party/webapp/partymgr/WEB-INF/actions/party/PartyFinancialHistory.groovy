@@ -29,103 +29,103 @@ import javolution.util.FastMap;
 
 Boolean actualCurrency = new Boolean(context.actualCurrency);
 if (actualCurrency == null) {
-	actualCurrency = true;
+    actualCurrency = true;
 }
 actualCurrencyUomId = context.actualCurrencyUomId;
 if (!actualCurrencyUomId) {
-	actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId;
+    actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId;
 }
 findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 //get total/unapplied/applied invoices separated by sales/purch amount:
-totalInvSaApplied 		= BigDecimal.ZERO;
-totalInvSaNotApplied 	= BigDecimal.ZERO;
-totalInvPuApplied 		= BigDecimal.ZERO;
-totalInvPuNotApplied 	= BigDecimal.ZERO;
+totalInvSaApplied         = BigDecimal.ZERO;
+totalInvSaNotApplied     = BigDecimal.ZERO;
+totalInvPuApplied         = BigDecimal.ZERO;
+totalInvPuNotApplied     = BigDecimal.ZERO;
 
 invExprs = 
-	EntityCondition.makeCondition([
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_IN_PROCESS"),
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_WRITEOFF"),
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
-		EntityCondition.makeCondition([
-		    EntityCondition.makeCondition([
-		        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
-				],EntityOperator.AND),
-		    EntityCondition.makeCondition([
-				EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
-				],EntityOperator.AND)
-			],EntityOperator.OR)
-		],EntityOperator.AND);
-		
+    EntityCondition.makeCondition([
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_IN_PROCESS"),
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_WRITEOFF"),
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
+        EntityCondition.makeCondition([
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                ],EntityOperator.AND),
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                ],EntityOperator.AND)
+            ],EntityOperator.OR)
+        ],EntityOperator.AND);
+        
 invIterator = delegator.find("InvoiceAndType", invExprs, null, null, null, findOpts);
 
 while (invoice = invIterator.next()) {
-	if ("PURCHASE_INVOICE".equals(invoice.parentTypeId)) {
-		totalInvPuApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-		totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-	}
-	else if ("SALES_INVOICE".equals(invoice.parentTypeId)) {
-		totalInvSaApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-		totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-	}
-	else {
-		Debug.logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE", "");
-	}
+    if ("PURCHASE_INVOICE".equals(invoice.parentTypeId)) {
+        totalInvPuApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+    else if ("SALES_INVOICE".equals(invoice.parentTypeId)) {
+        totalInvSaApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+    else {
+        Debug.logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE", "");
+    }
 }
 
 invIterator.close();
-	
+    
 //get total/unapplied/applied payment in/out total amount:
-totalPayInApplied 		= BigDecimal.ZERO;
-totalPayInNotApplied 	= BigDecimal.ZERO;
-totalPayOutApplied 		= BigDecimal.ZERO;
-totalPayOutNotApplied 	= BigDecimal.ZERO;
-	
+totalPayInApplied         = BigDecimal.ZERO;
+totalPayInNotApplied     = BigDecimal.ZERO;
+totalPayOutApplied         = BigDecimal.ZERO;
+totalPayOutNotApplied     = BigDecimal.ZERO;
+    
 payExprs = 
     EntityCondition.makeCondition([
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
-		EntityCondition.makeCondition([
-       		EntityCondition.makeCondition([
-				EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
-				], EntityOperator.AND),
-			EntityCondition.makeCondition([
-				EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
-				], EntityOperator.AND)
-			], EntityOperator.OR)
-		], EntityOperator.AND);
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition([
+               EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                ], EntityOperator.AND),
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                ], EntityOperator.AND)
+            ], EntityOperator.OR)
+        ], EntityOperator.AND);
 
 payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findOpts);
 
 while (payment = payIterator.next()) {
-	if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
-		totalPayOutApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-		totalPayOutNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-	}
-	else if ("RECEIPT".equals(payment.parentTypeId)) {
-		totalPayInApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-		totalPayInNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-	}
-	else {
-		Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "");
-	}
+    if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
+        totalPayOutApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayOutNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+    else if ("RECEIPT".equals(payment.parentTypeId)) {
+        totalPayInApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayInNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+    else {
+        Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "");
+    }
 }
 payIterator.close();
 context.finanSummary = FastMap.newInstance();
-context.finanSummary.totalSalesInvoice 		= totalInvSaApplied.add(totalInvSaNotApplied);
-context.finanSummary.totalPurchaseInvoice 	= totalInvPuApplied.add(totalInvPuNotApplied);
-context.finanSummary.totalPaymentsIn 		= totalPayInApplied.add(totalPayInNotApplied); 
-context.finanSummary.totalPaymentsOut 		= totalPayOutApplied.add(totalPayOutNotApplied);
+context.finanSummary.totalSalesInvoice         = totalInvSaApplied.add(totalInvSaNotApplied);
+context.finanSummary.totalPurchaseInvoice     = totalInvPuApplied.add(totalInvPuNotApplied);
+context.finanSummary.totalPaymentsIn         = totalPayInApplied.add(totalPayInNotApplied); 
+context.finanSummary.totalPaymentsOut         = totalPayOutApplied.add(totalPayOutNotApplied);
 context.finanSummary.totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
 context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
 transferAmount = totalInvSaApplied.add(totalInvSaNotApplied).subtract(totalInvPuApplied.add(totalInvPuNotApplied)).subtract(totalPayInApplied.add(totalPayInNotApplied).add(totalPayOutApplied.add(totalPayOutNotApplied)));
 if (transferAmount.signum() == -1) {
-	context.finanSummary.totalToBePaid = transferAmount.negate();
+    context.finanSummary.totalToBePaid = transferAmount.negate();
 } else {
-	context.finanSummary.totalToBeReceived = transferAmount;
+    context.finanSummary.totalToBeReceived = transferAmount;
 }
-	
+    

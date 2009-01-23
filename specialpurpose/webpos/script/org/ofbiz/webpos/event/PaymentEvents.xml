@@ -430,15 +430,15 @@ under the License.
                                 <log level="always" message="refNumCheck ${parameters.refNumCheck}"/>
                                 <if-not-empty field="parameters.refNumCheck">
                                     <set field="idx" from-field="payment"/>
-					                <set field="refNum" from-field="parameters.refNumCheck"/>
-					                <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
-					                    <field field="idx" type="int"/>
-					                    <field field="refNum" type="String"/>
-					                    <field field="authCode" type="String"/>
-					                </call-object-method>
-					                <check-errors/>
-					                <log level="info" message="Set the reference number ${idx} to ${refNum} for payment CHECK"/>
-                    	        <else>
+                                    <set field="refNum" from-field="parameters.refNumCheck"/>
+                                    <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
+                                        <field field="idx" type="int"/>
+                                        <field field="refNum" type="String"/>
+                                        <field field="authCode" type="String"/>
+                                    </call-object-method>
+                                    <check-errors/>
+                                    <log level="info" message="Set the reference number ${idx} to ${refNum} for payment CHECK"/>
+                                <else>
                                     <set field="payment" from-field="numPayments"/>
                                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCheckMissingRefNum"/></add-error>
                                     <check-errors/>
@@ -449,16 +449,16 @@ under the License.
                                 <log level="always" message="refNumGift ${parameters.refNumGift}"/>
                                 <if-not-empty field="parameters.refNumGift">
                                     <set field="idx" from-field="payment"/>
-					                <set field="refNum" from-field="parameters.refNumGift"/>
-					                <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
-					                    <field field="idx" type="int"/>
-					                    <field field="refNum" type="String"/>
-					                    <field field="authCode" type="String"/>
-					                </call-object-method>
-					                <check-errors/>
-					                <log level="info" message="Set the reference number ${idx} to ${refNum} for payment GIFT CARD"/>
-                    	        <else>
-                    	            <set field="payment" from-field="numPayments"/>
+                                    <set field="refNum" from-field="parameters.refNumGift"/>
+                                    <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
+                                        <field field="idx" type="int"/>
+                                        <field field="refNum" type="String"/>
+                                        <field field="authCode" type="String"/>
+                                    </call-object-method>
+                                    <check-errors/>
+                                    <log level="info" message="Set the reference number ${idx} to ${refNum} for payment GIFT CARD"/>
+                                <else>
+                                    <set field="payment" from-field="numPayments"/>
                                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentGiftCardMissingRefNum"/></add-error>
                                     <check-errors/>
                                 </else>
@@ -468,15 +468,15 @@ under the License.
                                 <log level="always" message="refNumCredit ${parameters.refNumCredit}"/>
                                 <if-not-empty field="parameters.refNumCredit">
                                     <set field="idx" from-field="payment"/>
-					                <set field="refNum" from-field="parameters.refNumCredit"/>
-					                <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
-					                    <field field="idx" type="int"/>
-					                    <field field="refNum" type="String"/>
-					                    <field field="authCode" type="String"/>
-					                </call-object-method>
-					                <check-errors/>
-					                <log level="info" message="Set the reference number ${idx} to ${refNum} for payment CREDIT CARD"/>
-                    	        <else>
+                                    <set field="refNum" from-field="parameters.refNumCredit"/>
+                                    <call-object-method obj-field="webPosTransaction" method-name="setPaymentRefNum">
+                                        <field field="idx" type="int"/>
+                                        <field field="refNum" type="String"/>
+                                        <field field="authCode" type="String"/>
+                                    </call-object-method>
+                                    <check-errors/>
+                                    <log level="info" message="Set the reference number ${idx} to ${refNum} for payment CREDIT CARD"/>
+                                <else>
                                     <set field="payment" from-field="numPayments"/>
                                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardMissingRefNum"/></add-error>
                                     <check-errors/>

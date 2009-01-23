@@ -80,7 +80,7 @@ public class ManagerEvents {
         Input input = pos.getInput();
         String value = input.value();
         if (UtilValidate.isNotEmpty(value)) {
-        	BigDecimal price = BigDecimal.ZERO;
+            BigDecimal price = BigDecimal.ZERO;
             boolean parsed = false;
             try {
                 price = new BigDecimal(value);

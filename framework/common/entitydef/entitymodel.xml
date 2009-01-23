@@ -76,7 +76,7 @@ under the License.
 
     <entity entity-name="Enumeration"
             package-name="org.ofbiz.common.enum"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Enumeration Entity">
       <field name="enumId" type="id-ne"></field>
       <field name="enumTypeId" type="id-ne"></field>
@@ -90,7 +90,7 @@ under the License.
     </entity>
     <entity entity-name="EnumerationType"
             package-name="org.ofbiz.common.enum"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Enumeration Type Entity">
       <field name="enumTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -262,7 +262,7 @@ under the License.
 
     <entity entity-name="CustomMethod"
         package-name="org.ofbiz.common.method"
-		default-resource-name="CommonEntityLabels"
+        default-resource-name="CommonEntityLabels"
         title="Custom Method Entity">
         <field name="customMethodId" type="id-ne"></field>
         <field name="customMethodTypeId" type="id"></field>
@@ -355,7 +355,7 @@ under the License.
 
     <entity entity-name="StatusItem"
             package-name="org.ofbiz.common.status"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Status Entity">
       <field name="statusId" type="id-ne"></field>
       <field name="statusTypeId" type="id-ne"></field>
@@ -369,7 +369,7 @@ under the License.
     </entity>
     <entity entity-name="StatusType"
             package-name="org.ofbiz.common.status"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Status Type Entity">
       <field name="statusTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -382,7 +382,7 @@ under the License.
     </entity>
     <entity entity-name="StatusValidChange"
             package-name="org.ofbiz.common.status"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Status Valid Change Entity">
       <field name="statusId" type="id-ne"></field>
       <field name="statusIdTo" type="id-ne"></field>
@@ -422,7 +422,7 @@ under the License.
 
     <entity entity-name="Uom"
             package-name="org.ofbiz.common.uom"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Entity">
       <field name="uomId" type="id-ne"></field>
       <field name="uomTypeId" type="id"></field>
@@ -495,7 +495,7 @@ under the License.
     </entity>
     <entity entity-name="UomType"
             package-name="org.ofbiz.common.uom"
-			default-resource-name="CommonEntityLabels"
+            default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Type Entity">
       <field name="uomTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>

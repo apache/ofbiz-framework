@@ -77,10 +77,10 @@ public class CommunicationEventServices {
 
             // assign some default values because required by sendmail and better not make them defaults over there
             if (UtilValidate.isEmpty(communicationEvent.getString("subject"))) {
-            	communicationEvent.put("subject", " ");
+                communicationEvent.put("subject", " ");
             }
             if (UtilValidate.isEmpty(communicationEvent.getString("content"))) {
-            	communicationEvent.put("content", " ");
+                communicationEvent.put("content", " ");
             }
             
             // prepare the email

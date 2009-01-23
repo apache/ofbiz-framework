@@ -479,7 +479,7 @@ under the License.
         <set from-field="toCancelQuantity" field="createDetailMap.quantityOnHandDiff"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>    
         
-		<!-- reassign inventory reservations  -->
+        <!-- reassign inventory reservations  -->
         <set field="reassignInventoryReservationsCtx.productId" from-field="inventoryItem.productId"/>
         <set field="reassignInventoryReservationsCtx.facilityId" from-field="inventoryItem.facilityId"/>
         <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
@@ -490,13 +490,13 @@ under the License.
         </entity-one>           
         <if-compare value="Y" operator="equals" field="productStore.isImmediatelyFulfilled">
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is immediatly fulfilled. Not reserving inventory"/>
-        	<else>
-	            <set field="reserveStoreInventoryMap.productId" from-field="inventoryItem.productId"/>
-	            <set field="reserveStoreInventoryMap.orderId" from-field="itemIssuance.orderId"/>
-	            <set field="reserveStoreInventoryMap.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
-	            <set field="reserveStoreInventoryMap.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
-	            <set field="reserveStoreInventoryMap.quantity" from-field="toCancelQuantity"/>	            
-	            <set field="reserveStoreInventoryMap.productStoreId" from-field="orderHeader.productStoreId"/>
+            <else>
+                <set field="reserveStoreInventoryMap.productId" from-field="inventoryItem.productId"/>
+                <set field="reserveStoreInventoryMap.orderId" from-field="itemIssuance.orderId"/>
+                <set field="reserveStoreInventoryMap.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
+                <set field="reserveStoreInventoryMap.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
+                <set field="reserveStoreInventoryMap.quantity" from-field="toCancelQuantity"/>                
+                <set field="reserveStoreInventoryMap.productStoreId" from-field="orderHeader.productStoreId"/>
                 <call-service service-name="reserveStoreInventory" in-map-name="reserveStoreInventoryMap"/>
             </else>            
         </if-compare>

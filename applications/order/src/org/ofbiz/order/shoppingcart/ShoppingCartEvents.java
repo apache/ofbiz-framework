@@ -326,7 +326,7 @@ public class ShoppingCartEvents {
             }
 
             if (reservStart != null && reservEnd != null) {
-            	reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart,reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
+                reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart,reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
             }
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {

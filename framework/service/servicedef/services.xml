@@ -20,19 +20,19 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
-	<description>OFBiz Service Engine Services</description>
-	<vendor>OFBiz</vendor>
-	<version>1.0</version>
+    <description>OFBiz Service Engine Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
 
     <!-- Service Engine Services -->
-	<service name="purgeOldJobs" engine="java"
+    <service name="purgeOldJobs" engine="java"
             location="org.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
-		<description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
+        <description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
         </required-permissions>
         <!-- this service has no attributes -->
-	</service>
+    </service>
 
     <service name="cancelScheduledJob" engine="java"
             location="org.ofbiz.service.ServiceUtil" invoke="cancelJob" auth="true">

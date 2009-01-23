@@ -61,31 +61,31 @@ invoices = delegator.findList("Invoice", topCondActual, fields, ["invoiceDate"],
 context.invoicesOtherCurrency = getInvoices(invoices, true);
 
 List getInvoices(List invoices, boolean actual) {
-	if (invoices) {
-		invoicesList = [];  // to pass back to the screeen list of unapplied invoices
-		paymentApplied = PaymentWorker.getPaymentApplied(payment);
-		paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
-		if (actual) {
-			paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
-		}
-		invoices.each { invoice ->
-			invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice).setScale(decimals,rounding);
-			invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice).setScale(decimals,rounding);
-			invoiceToApply = invoiceAmount.subtract(invoiceApplied);
-        	if (invoiceToApply.signum() == 1) {
-        		invoiceMap = [:];
-        		invoiceMap.putAll(invoice);
-        		invoiceMap.amount = invoiceAmount;
-        		invoiceMap.description = invoice.description; 
-        		invoiceMap.amountApplied = invoiceApplied;
-        		if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
-        			invoiceMap.amountToApply = paymentToApply;
-        		} else {
-        			invoiceMap.amountToApply = invoiceToApply;
-        		}
-        		invoicesList.add(invoiceMap);
-			}
-		}
-		return invoicesList;
-	}
+    if (invoices) {
+        invoicesList = [];  // to pass back to the screeen list of unapplied invoices
+        paymentApplied = PaymentWorker.getPaymentApplied(payment);
+        paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
+        if (actual) {
+            paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
+        }
+        invoices.each { invoice ->
+            invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice).setScale(decimals,rounding);
+            invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice).setScale(decimals,rounding);
+            invoiceToApply = invoiceAmount.subtract(invoiceApplied);
+            if (invoiceToApply.signum() == 1) {
+                invoiceMap = [:];
+                invoiceMap.putAll(invoice);
+                invoiceMap.amount = invoiceAmount;
+                invoiceMap.description = invoice.description; 
+                invoiceMap.amountApplied = invoiceApplied;
+                if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
+                    invoiceMap.amountToApply = paymentToApply;
+                } else {
+                    invoiceMap.amountToApply = invoiceToApply;
+                }
+                invoicesList.add(invoiceMap);
+            }
+        }
+        return invoicesList;
+    }
 }

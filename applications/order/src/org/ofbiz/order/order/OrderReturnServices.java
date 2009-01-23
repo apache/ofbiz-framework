@@ -2137,8 +2137,8 @@ public class OrderReturnServices {
 
             // calculate the returnAdjustment amount
             if (returnItem != null) {  // returnAdjustment for returnItem
-            	BigDecimal originalReturnPrice = (context.get("originalReturnPrice") != null) ? ((BigDecimal) context.get("originalReturnPrice")) : returnItem.getBigDecimal("returnPrice");
-            	BigDecimal originalReturnQuantity = (context.get("originalReturnQuantity") != null) ? ((BigDecimal) context.get("originalReturnQuantity")) : returnItem.getBigDecimal("returnQuantity");
+                BigDecimal originalReturnPrice = (context.get("originalReturnPrice") != null) ? ((BigDecimal) context.get("originalReturnPrice")) : returnItem.getBigDecimal("returnPrice");
+                BigDecimal originalReturnQuantity = (context.get("originalReturnQuantity") != null) ? ((BigDecimal) context.get("originalReturnQuantity")) : returnItem.getBigDecimal("returnQuantity");
 
                 if (needRecalculate(returnAdjustmentTypeId)) {
                     BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));

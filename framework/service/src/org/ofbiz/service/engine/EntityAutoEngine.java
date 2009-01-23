@@ -212,11 +212,11 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     newEntity.setPKFields(parameters, true);
                 } else {
                     throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: " +
-                    		"could not find a valid combination of primary key settings to do a known create operation; options include: " +
-                    		"1. a single OUT pk for primary auto-sequencing, " +
-                    		"2. a single INOUT pk for primary auto-sequencing with optional override, " +
-                    		"3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secdonary pk to sub-sequence, " +
-                    		"4. all pk fields are IN for a manually specified primary key");
+                            "could not find a valid combination of primary key settings to do a known create operation; options include: " +
+                            "1. a single OUT pk for primary auto-sequencing, " +
+                            "2. a single INOUT pk for primary auto-sequencing with optional override, " +
+                            "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secdonary pk to sub-sequence, " +
+                            "4. all pk fields are IN for a manually specified primary key");
                 }
                 
                 // handle the case where there is a fromDate in the pk of the entity, and it is optional or undefined in the service def, populate automatically

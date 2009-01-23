@@ -20,9 +20,9 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
-	<description>OFBiz Service Engine Services</description>
-	<vendor>OFBiz</vendor>
-	<version>1.0</version>
+    <description>OFBiz Service Engine Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
 
     <!-- dead lock retry testing services -->
     <service name="testServiceDeadLockRetry" engine="java" auth="false"

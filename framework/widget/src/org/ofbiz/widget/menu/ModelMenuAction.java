@@ -177,10 +177,10 @@ public abstract class ModelMenuAction {
             }
 
             // If newValue is still empty, use the default value
-           	if (this.defaultExdr != null) {
-           		if (ObjectType.isEmpty(newValue)) {
-            		newValue = this.defaultExdr.expandString(context);
-               	}
+               if (this.defaultExdr != null) {
+                   if (ObjectType.isEmpty(newValue)) {
+                    newValue = this.defaultExdr.expandString(context);
+                   }
             }
             
             if (UtilValidate.isNotEmpty(this.type)) {
@@ -210,7 +210,7 @@ public abstract class ModelMenuAction {
                     if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
                 
             } else {
-            	if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
+                if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
                 this.field.put(context, newValue);
             }
             

@@ -425,18 +425,18 @@ public class ModelFormField {
         }
         ModelReader entityModelReader = this.getModelForm().entityModelReader;
         try {
-			ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
-			if (modelEntity != null) {
-			    ModelField modelField = modelEntity.getField(this.getFieldName());
-			    if (modelField != null) {
-			        // okay, populate using the entity field info...
-			        this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-			        return true;
-			    }
-			}
-		} catch (GenericEntityException e) {
-			Debug.logError(e, module);
-		}
+            ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
+            if (modelEntity != null) {
+                ModelField modelField = modelEntity.getField(this.getFieldName());
+                if (modelField != null) {
+                    // okay, populate using the entity field info...
+                    this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
+                    return true;
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
         return false;
     }
 
@@ -708,7 +708,7 @@ public class ModelFormField {
                     if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
                         retVal = genEnt.get(this.entryAcsr.getOriginalName(), locale);
                     } else {
-                    	//TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first: String evaled = this.entryAcsr
+                        //TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first: String evaled = this.entryAcsr
                     }
                 } else {
                     retVal = this.entryAcsr.get(dataMap, locale);
@@ -1076,11 +1076,11 @@ public class ModelFormField {
     }
 
     public String getIdName() {
-    	if (UtilValidate.isNotEmpty(idName)) {
+        if (UtilValidate.isNotEmpty(idName)) {
             return idName;
-    	} else {
-    		return this.modelForm.getName() + "_" + this.getFieldName();
-    	}
+        } else {
+            return this.modelForm.getName() + "_" + this.getFieldName();
+        }
     }
     
     public String getHeaderLink() {
@@ -2070,7 +2070,7 @@ public class ModelFormField {
                     throw new IllegalArgumentException(errMsg);
                 } 
             } else if ("date".equals(type) && retVal.length() > 10) {
-            	retVal = retVal.substring(0,10);
+                retVal = retVal.substring(0,10);
             }
             return retVal;
         }
@@ -2408,89 +2408,89 @@ public class ModelFormField {
     }
     
     public static class AutoComplete {
-    	protected String autoSelect;
-    	protected String frequency;
-    	protected String minChars;
-    	protected String choices;
-    	protected String partialSearch;
-    	protected String partialChars;
-    	protected String ignoreCase;
-    	protected String fullSearch;
-    	
-    	public AutoComplete(Element element) {
-    		this.autoSelect = element.getAttribute("auto-select");
-    		this.frequency = element.getAttribute("frequency");
-    		this.minChars = element.getAttribute("min-chars");
-    		this.choices = element.getAttribute("choices");
-    		this.partialSearch = element.getAttribute("partial-search");
-    		this.partialChars = element.getAttribute("partial-chars");
-    		this.ignoreCase = element.getAttribute("ignore-case");
-    		this.fullSearch = element.getAttribute("full-search");
-    	}
-    	
-    	public String getAutoSelect() {
-    		return this.autoSelect;
-    	}
-    	
-    	public String getFrequency() {
-    		return this.frequency;
-    	}
-    	
-    	public String getMinChars() {
-    		return this.minChars;
-    	}
-    	
-    	public String getChoices() {
-    		return this.choices;
-    	}
-    	
-    	public String getPartialSearch() {
-    		return this.partialSearch;
-    	}
-    	
-    	public String getPartialChars() {
-    		return this.partialChars;
-    	}
-    	
-    	public String getIgnoreCase() {
-    		return this.ignoreCase;
-    	}
-    	
-    	public String getFullSearch() {
-    		return this.fullSearch;
-    	}
-    	
-    	public void setAutoSelect(String string) {
-    		this.autoSelect = string;
-    	}
-    	
-    	public void setFrequency(String string) {
-    		this.frequency = string;
-    	}
-    	
-    	public void setMinChars(String string) {
-    		this.minChars = string;
-    	}
-    	
-    	public void setChoices(String string) {
-    		this.choices = string;
-    	}
-    	
-    	public void setPartialSearch(String string) {
-    		this.partialSearch = string;
-    	}
-    	
-    	public void setPartialChars(String string) {
-    		this.partialChars = string;
-    	}
-    	
-    	public void setIgnoreCase(String string) {
-    		this.ignoreCase = string;
-    	}
-    	
-    	public void setFullSearch(String string) {
-    		this.fullSearch = string;
-    	}
+        protected String autoSelect;
+        protected String frequency;
+        protected String minChars;
+        protected String choices;
+        protected String partialSearch;
+        protected String partialChars;
+        protected String ignoreCase;
+        protected String fullSearch;
+        
+        public AutoComplete(Element element) {
+            this.autoSelect = element.getAttribute("auto-select");
+            this.frequency = element.getAttribute("frequency");
+            this.minChars = element.getAttribute("min-chars");
+            this.choices = element.getAttribute("choices");
+            this.partialSearch = element.getAttribute("partial-search");
+            this.partialChars = element.getAttribute("partial-chars");
+            this.ignoreCase = element.getAttribute("ignore-case");
+            this.fullSearch = element.getAttribute("full-search");
+        }
+        
+        public String getAutoSelect() {
+            return this.autoSelect;
+        }
+        
+        public String getFrequency() {
+            return this.frequency;
+        }
+        
+        public String getMinChars() {
+            return this.minChars;
+        }
+        
+        public String getChoices() {
+            return this.choices;
+        }
+        
+        public String getPartialSearch() {
+            return this.partialSearch;
+        }
+        
+        public String getPartialChars() {
+            return this.partialChars;
+        }
+        
+        public String getIgnoreCase() {
+            return this.ignoreCase;
+        }
+        
+        public String getFullSearch() {
+            return this.fullSearch;
+        }
+        
+        public void setAutoSelect(String string) {
+            this.autoSelect = string;
+        }
+        
+        public void setFrequency(String string) {
+            this.frequency = string;
+        }
+        
+        public void setMinChars(String string) {
+            this.minChars = string;
+        }
+        
+        public void setChoices(String string) {
+            this.choices = string;
+        }
+        
+        public void setPartialSearch(String string) {
+            this.partialSearch = string;
+        }
+        
+        public void setPartialChars(String string) {
+            this.partialChars = string;
+        }
+        
+        public void setIgnoreCase(String string) {
+            this.ignoreCase = string;
+        }
+        
+        public void setFullSearch(String string) {
+            this.fullSearch = string;
+        }
     }
 
     public static class TextField extends FieldInfo {
@@ -2878,7 +2878,7 @@ public class ModelFormField {
             
             Element autoCompleteElement = UtilXml.firstChildElement(element, "auto-complete");
             if (autoCompleteElement != null) {
-            	this.autoComplete = new AutoComplete(autoCompleteElement);
+                this.autoComplete = new AutoComplete(autoCompleteElement);
             }
         }
 
@@ -2929,11 +2929,11 @@ public class ModelFormField {
         }
         
         public AutoComplete getAutoComplete() {
-        	return this.autoComplete;
+            return this.autoComplete;
         }
         
         public void setAutoComplete(AutoComplete newAutoComplete) {
-        	this.autoComplete = newAutoComplete;
+            this.autoComplete = newAutoComplete;
         }
         
         public int getOtherFieldSize() {
@@ -3311,7 +3311,7 @@ public class ModelFormField {
         }
         
         public SubHyperlink getSubHyperlink() {
-        	return this.subHyperlink;
+            return this.subHyperlink;
         }
     }
 

@@ -57,34 +57,34 @@ payments = delegator.findList("Payment", topCondActual, null, ["effectiveDate"],
 context.paymentsActualCurrency = getPayments(payments, true);
 
 List getPayments(List payments, boolean actual) {
-	if (payments)    {
-		paymentList = [];  // to pass back to the screeen list of unapplied payments
-		invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice);
-		invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice);
-		invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
-		payments.each { payment ->
-			paymentMap = [:];
+    if (payments)    {
+        paymentList = [];  // to pass back to the screeen list of unapplied payments
+        invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice);
+        invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice);
+        invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
+        payments.each { payment ->
+            paymentMap = [:];
             paymentApplied = PaymentWorker.getPaymentApplied(payment, true);
-			if (actual) {
-				paymentMap.amount = payment.actualCurrencyAmount;
-				paymentMap.currencyUomId = payment.actualCurrencyUomId;
-				paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
-			} else {
-				paymentMap.amount = payment.amount;
-				paymentMap.currencyUomId = payment.currencyUomId;
-				paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
-			}
-			if (paymentToApply.signum() == 1) {
-				paymentMap.paymentId = payment.paymentId;
-				paymentMap.effectiveDate = payment.effectiveDate;
-				if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
-					paymentMap.amountToApply = paymentToApply;
-				} else {
-					paymentMap.amountToApply = invoiceToApply;
-				}
-				paymentList.add(paymentMap);
-			}
-		}
-		return paymentList;
-	}
+            if (actual) {
+                paymentMap.amount = payment.actualCurrencyAmount;
+                paymentMap.currencyUomId = payment.actualCurrencyUomId;
+                paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
+            } else {
+                paymentMap.amount = payment.amount;
+                paymentMap.currencyUomId = payment.currencyUomId;
+                paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
+            }
+            if (paymentToApply.signum() == 1) {
+                paymentMap.paymentId = payment.paymentId;
+                paymentMap.effectiveDate = payment.effectiveDate;
+                if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
+                    paymentMap.amountToApply = paymentToApply;
+                } else {
+                    paymentMap.amountToApply = invoiceToApply;
+                }
+                paymentList.add(paymentMap);
+            }
+        }
+        return paymentList;
+    }
 }

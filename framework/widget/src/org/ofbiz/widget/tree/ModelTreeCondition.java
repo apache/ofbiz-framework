@@ -447,8 +447,8 @@ public class ModelTreeCondition {
         }
         
         public boolean eval(Map<String, Object> context) {
-        	
-        	boolean passed = permissionChecker.runPermissionCheck(context);
+            
+            boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;
         }
     }

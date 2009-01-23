@@ -77,11 +77,11 @@ under the License.
     </service>
 
     <service name="associatedRequirementWithRequestItem" engine="simple"
-    		location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
-    	<description>Creates a CustRequestItem/Requirement association</description>
-    	<attribute name="requirementId" type="String" mode="IN" optional="false"/>
-    	<attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-    	<attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
+            location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
+        <description>Creates a CustRequestItem/Requirement association</description>
+        <attribute name="requirementId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="addRequirementTask" engine="simple"

@@ -29,47 +29,47 @@ import javolution.util.FastMap;
 
 Boolean actualCurrency = new Boolean(context.actualCurrency);
 if (actualCurrency == null) {
-	actualCurrency = true;
+    actualCurrency = true;
 }
 findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-	
+    
 payExprs = 
     EntityCondition.makeCondition([
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-		EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
-		EntityCondition.makeCondition([
-       		EntityCondition.makeCondition([
-				EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
-				], EntityOperator.AND),
-			EntityCondition.makeCondition([
-				EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-				EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
-				], EntityOperator.AND)
-			], EntityOperator.OR)
-		], EntityOperator.AND);
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition([
+               EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                ], EntityOperator.AND),
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                ], EntityOperator.AND)
+            ], EntityOperator.OR)
+        ], EntityOperator.AND);
 
 paymentList = [];
 payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findOpts);
 
 while (payment = payIterator.next()) {
-	unAppliedAmount = PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-	if (unAppliedAmount.signum() == 1) {
-		if (actualCurrency.equals(true) && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
-			amount = payment.actualCurrencyAmount;
-			paymentCurrencyUomId = payment.actualCurrencyUomId;
-		} else {
-			amount = payment.amount;
-			paymentCurrencyUomId = payment.currencyUomId;
-		}
-		paymentList.add([paymentId : payment.paymentId, 
-		                 effectiveDate : payment.effectiveDate,
-		                 unAppliedAmount : unAppliedAmount,
-		                 amount : amount,
-		                 paymentCurrencyUomId : paymentCurrencyUomId,
-		                 paymentTypeId : payment.paymentTypeId,
-		                 paymentParentTypeId : payment.parentTypeId]);
-	}
+    unAppliedAmount = PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    if (unAppliedAmount.signum() == 1) {
+        if (actualCurrency.equals(true) && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
+            amount = payment.actualCurrencyAmount;
+            paymentCurrencyUomId = payment.actualCurrencyUomId;
+        } else {
+            amount = payment.amount;
+            paymentCurrencyUomId = payment.currencyUomId;
+        }
+        paymentList.add([paymentId : payment.paymentId, 
+                         effectiveDate : payment.effectiveDate,
+                         unAppliedAmount : unAppliedAmount,
+                         amount : amount,
+                         paymentCurrencyUomId : paymentCurrencyUomId,
+                         paymentTypeId : payment.paymentTypeId,
+                         paymentParentTypeId : payment.parentTypeId]);
+    }
 }
 payIterator.close();
 

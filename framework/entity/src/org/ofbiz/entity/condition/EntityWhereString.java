@@ -54,7 +54,7 @@ public class EntityWhereString extends EntityCondition {
 
     /** @deprecated Use EntityCondition.makeConditionWhere() instead */
     public EntityWhereString(String sqlString) {
-    	init(sqlString);
+        init(sqlString);
     }
     
     public void init(String sqlString) {
@@ -62,7 +62,7 @@ public class EntityWhereString extends EntityCondition {
     }
     
     public void reset() {
-    	this.sqlString = null;
+        this.sqlString = null;
     }
 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
@@ -72,9 +72,9 @@ public class EntityWhereString extends EntityCondition {
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {// no nothing, this is always assumed to be fine... could do funky SQL syntax checking, but hey this is a HACK anyway
     }
 
-	public boolean entityMatches(GenericEntity entity) {
-		throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
-	}
+    public boolean entityMatches(GenericEntity entity) {
+        throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
+    }
 
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);

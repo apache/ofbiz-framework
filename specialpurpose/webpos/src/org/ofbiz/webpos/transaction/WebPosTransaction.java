@@ -371,7 +371,7 @@ public class WebPosTransaction {
     }
     
     public BigDecimal processAmount(String amtStr) throws GeneralException {
-    	BigDecimal amount;
+        BigDecimal amount;
         if (UtilValidate.isNotEmpty(amtStr)) {
             try {
                 amount = new BigDecimal(amtStr);
@@ -391,7 +391,7 @@ public class WebPosTransaction {
     
     public synchronized void processNoPayment(String paymentMethodTypeId) {
         try {
-        	BigDecimal amount = processAmount(null);
+            BigDecimal amount = processAmount(null);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
             
             // add the payment
@@ -408,7 +408,7 @@ public class WebPosTransaction {
         }
         
         try {
-        	BigDecimal amount = processAmount(amountStr);
+            BigDecimal amount = processAmount(amountStr);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
             
             // add the payment
@@ -502,8 +502,8 @@ public class WebPosTransaction {
     }
     
     public BigDecimal getTotalDue() {
-    	BigDecimal grandTotal = this.getGrandTotal();
-    	BigDecimal paymentAmt = this.getPaymentTotal();
+        BigDecimal grandTotal = this.getGrandTotal();
+        BigDecimal paymentAmt = this.getPaymentTotal();
         return grandTotal.subtract(paymentAmt);
     }
     

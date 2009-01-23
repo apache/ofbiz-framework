@@ -248,7 +248,7 @@ public class UspsServices {
                 BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), generalRounding);
 
                 for (int z = 1; z <= totalQuantity.intValue(); z++) {
-                	BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
+                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
                     for (long x = 0; x < pieces; x++) {
                         if (weight.compareTo(maxWeight) >= 0) {
                             Map<String, BigDecimal> newPackage = FastMap.newInstance();
@@ -266,7 +266,7 @@ public class UspsServices {
                                 if (!addedToPackage) {
                                     BigDecimal packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
                                     if (packageWeight.compareTo(maxWeight) <= 0) {
-                                    	BigDecimal qty = (BigDecimal) packageMap.get(productId);
+                                        BigDecimal qty = (BigDecimal) packageMap.get(productId);
                                         qty = qty == null ? BigDecimal.ZERO : qty;
                                         packageMap.put(productId, qty.add(partialQty));
                                         addedToPackage = true;

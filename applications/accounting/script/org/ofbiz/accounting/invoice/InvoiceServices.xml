@@ -226,12 +226,12 @@ under the License.
 
         <!-- check if there is a requested status change if yes call invoice status update service -->
         <if-not-empty field="parameters.statusId">
-	        <if-compare-field field="parameters.statusId" to-field="savedValue.statusId" operator="not-equals">
-    	        <set from-field="parameters.invoiceId" field="inputMap.invoiceId"/>
-        	    <set from-field="parameters.statusId" field="inputMap.statusId"/>
-            	<now-timestamp field="inputMap.statusDate"/>
-            	<call-service service-name="setInvoiceStatus" in-map-name="inputMap"/>
-        	</if-compare-field>
+            <if-compare-field field="parameters.statusId" to-field="savedValue.statusId" operator="not-equals">
+                <set from-field="parameters.invoiceId" field="inputMap.invoiceId"/>
+                <set from-field="parameters.statusId" field="inputMap.statusId"/>
+                <now-timestamp field="inputMap.statusDate"/>
+                <call-service service-name="setInvoiceStatus" in-map-name="inputMap"/>
+            </if-compare-field>
         </if-not-empty>
     </simple-method>
 

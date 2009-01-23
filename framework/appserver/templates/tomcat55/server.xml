@@ -97,14 +97,14 @@
                connectionTimeout="20000" disableUploadTimeout="true" />
     <!-- Note : To disable connection timeouts, set connectionTimeout value
      to 0 -->
-	
-	<!-- Note : To use gzip compression you could set the following properties :
-	
-			   compression="on" 
-			   compressionMinSize="2048" 
-			   noCompressionUserAgents="gozilla, traviata" 
-			   compressableMimeType="text/html,text/xml"
-	-->
+    
+    <!-- Note : To use gzip compression you could set the following properties :
+    
+               compression="on" 
+               compressionMinSize="2048" 
+               noCompressionUserAgents="gozilla, traviata" 
+               compressableMimeType="text/html,text/xml"
+    -->
 
     <!-- Define a SSL HTTP/1.1 Connector on port 8443 -->
     <Connector port="8443" maxHttpHeaderSize="8192"
@@ -382,7 +382,7 @@
                  pattern="common" resolveHosts="false"/>
         -->
 
-	<!-- BEGIN OFBiz settings -->
+    <!-- BEGIN OFBiz settings -->
 <#list webApps as webapp>
     <#-- Remove last directory segment from path -->
     <#if webapp.getLocation().lastIndexOf("/") != -1>
@@ -395,7 +395,7 @@
          privileged="false" antiResourceLocking="true" antiJARLocking="true">
 </Context>
 </#list>
-	<!-- END OFBiz settings -->
+    <!-- END OFBiz settings -->
 
       </Host>
 

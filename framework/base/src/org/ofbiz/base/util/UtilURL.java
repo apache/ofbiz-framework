@@ -134,7 +134,7 @@ public class UtilURL {
     }
     
     public static String readUrlText(URL url) throws IOException {
-    	InputStream stream = url.openStream();
+        InputStream stream = url.openStream();
     
         StringBuilder buf = new StringBuilder();
         BufferedReader in = null;

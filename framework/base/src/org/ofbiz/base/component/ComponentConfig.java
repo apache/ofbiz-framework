@@ -571,7 +571,7 @@ public class ComponentConfig {
 
         public ComponentResourceHandler createResourceHandler() {
             return new ComponentResourceHandler(componentConfig.getGlobalName(), loader, location);
-    	}
+        }
 
         public String getLocation() {
             return location;
@@ -682,7 +682,7 @@ public class ComponentConfig {
         public boolean sessionCookieAccepted;
 
         public WebappInfo(ComponentConfig componentConfig, Element element) {
-        	this.virtualHosts = FastList.newInstance();
+            this.virtualHosts = FastList.newInstance();
             this.initParameters = FastMap.newInstance();
             this.componentConfig = componentConfig;
             this.name = element.getAttribute("name");
@@ -790,7 +790,7 @@ public class ComponentConfig {
         }
 
         public List<String> getVirtualHosts() {
-        	return virtualHosts;
+            return virtualHosts;
         }
 
         public Map<String, String> getInitParameters() {

@@ -68,7 +68,7 @@ public class EmailWorker {
             int multipartCount = multipart.getCount();
             // Debug.logInfo(currentIndex + "====number of attachments: " + multipartCount, module);
             for (int i=0; i < multipartCount; i++) {
-            	// Debug.logInfo(currentIndex + "====processing attachment: " + i, module);
+                // Debug.logInfo(currentIndex + "====processing attachment: " + i, module);
                 Part part = multipart.getBodyPart(i);
                 String thisContentTypeRaw = part.getContentType();
                 // Debug.logInfo("====thisContentTypeRaw: " + thisContentTypeRaw, module);
@@ -79,11 +79,11 @@ public class EmailWorker {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 if (part instanceof Multipart) {
                     currentIndex = currentIndex.concat("." + i);
-                	// Debug.logInfo("=====attachment contain attachment, index:" + currentIndex, module);
+                    // Debug.logInfo("=====attachment contain attachment, index:" + currentIndex, module);
                     return addMultipartAttachementToComm((Multipart) part.getContent(), commEventMap, subject, dispatcher, userLogin);
                 }
-            	// Debug.logInfo("=====attachment not contains attachment, index:" + currentIndex, module);
-            	// Debug.logInfo("=====check for currentIndex(" + currentIndex  + ") against master contentIndex(" + EmailServices.contentIndex + ")", module);
+                // Debug.logInfo("=====attachment not contains attachment, index:" + currentIndex, module);
+                // Debug.logInfo("=====check for currentIndex(" + currentIndex  + ") against master contentIndex(" + EmailServices.contentIndex + ")", module);
                 if(currentIndex.concat("." + i).equals(EmailServices.contentIndex)) continue;
 
                 // The first test should not pass, because if it exists, it should be the bodyContentIndex part

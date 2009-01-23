@@ -126,7 +126,7 @@ under the License.
     </service>
 
     <service name="testRoute" engine="route" location="" invoke="" auth="true">
-    	<description>Test the Route engine</description>
+        <description>Test the Route engine</description>
     </service>
 
     <service name="simpleMapListTest" engine="java" auth="false" export="true"
@@ -137,10 +137,10 @@ under the License.
     </service>
     
     <service name="testJavaScript" engine="javascript" auth="false"
-			location="org/ofbiz/common/JavaScriptTest.js" invoke="">
-    	<description>Test JavaScript Service</description>
-    	<attribute name="message" type="String" mode="IN" optional="true"/>
-    	<attribute name="result" type="String" mode="OUT" optional="true"/>
+            location="org/ofbiz/common/JavaScriptTest.js" invoke="">
+        <description>Test JavaScript Service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="testEntityFailure" engine="java" auth="false" validate="false"

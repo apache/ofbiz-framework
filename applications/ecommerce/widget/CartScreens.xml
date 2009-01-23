@@ -89,7 +89,7 @@ under the License.
                 
                 <set field="promoUseDetailsInlineScreen" value="component://ecommerce/widget/CartScreens.xml#promoUseDetailsInline"/>
 
-				<set field="titleProperty" value="PageTitleShowAllPromotions"/>
+                <set field="titleProperty" value="PageTitleShowAllPromotions"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowCart.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowPromoText.groovy"/>
             </actions>

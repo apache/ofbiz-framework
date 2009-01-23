@@ -247,7 +247,7 @@ public class ModelMenuItem {
 
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         
-      	boolean passed = true;
+          boolean passed = true;
         if (this.condition != null) {
             if (!this.condition.eval(context)) {
                 passed = false;

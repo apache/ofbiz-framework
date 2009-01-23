@@ -41,7 +41,7 @@ public class WebPosEvents {
         
         if ("success".equals(responseString)) {
             HttpSession session = request.getSession(true); 
-        	
+            
             // get the posTerminalId
             String posTerminalId = (String) request.getParameter("posTerminalId");
             session.removeAttribute("shoppingCart");
@@ -52,13 +52,13 @@ public class WebPosEvents {
     }
     
     public static String existsWebPosSession(HttpServletRequest request, HttpServletResponse response) {
-    	String responseString = "success";
-    	HttpSession session = request.getSession(true);
-    	WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
-    	
-    	if (UtilValidate.isEmpty(webPosSession)) {
-    		responseString = "error";
-    	}
+        String responseString = "success";
+        HttpSession session = request.getSession(true);
+        WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
+        
+        if (UtilValidate.isEmpty(webPosSession)) {
+            responseString = "error";
+        }
         return responseString;
     }
     public static WebPosSession getWebPosSession(HttpServletRequest request, String posTerminalId) {
@@ -89,7 +89,7 @@ public class WebPosEvents {
             }
             
             if (UtilValidate.isNotEmpty(posTerminalId)) {
-            	webPosSession = new WebPosSession(posTerminalId, null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
+                webPosSession = new WebPosSession(posTerminalId, null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
                 session.setAttribute("webPosSession", webPosSession);
             }
         }

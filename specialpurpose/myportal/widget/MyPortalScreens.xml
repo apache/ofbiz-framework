@@ -188,26 +188,26 @@ under the License.
             </widgets>
         </section>    
     </screen>
-	<screen name="Communications">
-		<section>
-			<actions>
+    <screen name="Communications">
+        <section>
+            <actions>
                 <set field="all" from-field="parameters.all"/>
-				<entity-condition entity-name="CommunicationEventAndRole"
-					list-name="commEvents">
-					<condition-list combine="and">
+                <entity-condition entity-name="CommunicationEventAndRole"
+                    list-name="commEvents">
+                    <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="not-equals"
                             value="COM_UNKNOWN_PARTY" />
                         <condition-expr field-name="statusId" operator="not-equals"
                             value="COM_PENDING" />
-						<condition-expr field-name="partyId" operator="equals"
-							value="${partyId}" />
+                        <condition-expr field-name="partyId" operator="equals"
+                            value="${partyId}" />
                         <condition-expr field-name="roleStatusId"
                                 operator="not-equals" value="COM_ROLE_COMPLETED" ignore="${all}" />
-					</condition-list>
-					<order-by field-name="-datetimeStarted" />
-				</entity-condition>
-				<entity-condition entity-name="CommunicationEventAndRole"
-					list-name="commEventsUnknown">
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+                <entity-condition entity-name="CommunicationEventAndRole"
+                    list-name="commEventsUnknown">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals"
                             value="COM_UNKNOWN_PARTY" />
@@ -217,16 +217,16 @@ under the License.
                             value="${partyId}" />
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
-				</entity-condition>
-			    <entity-condition entity-name="CommunicationEventAndRole" list-name="commEventDraft">
-			        <condition-list combine="and">
-			            <condition-expr field-name="statusId" operator="equals" 
-			                value="COM_PENDING"/>
-			            <condition-expr field-name="partyId" operator="equals" 
-			                value="${partyId}"/>			            
-			        </condition-list>
-			        <order-by field-name="-datetimeStarted" />
-			    </entity-condition>
+                </entity-condition>
+                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEventDraft">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="equals" 
+                            value="COM_PENDING"/>
+                        <condition-expr field-name="partyId" operator="equals" 
+                            value="${partyId}"/>                        
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
                 <entity-one entity-name="PartyNameView" value-name="partyName">
                     <field-map field-name="partyId" env-name="partyId"/>
                 </entity-one>

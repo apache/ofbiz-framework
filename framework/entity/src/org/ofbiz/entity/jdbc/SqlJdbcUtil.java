@@ -559,31 +559,31 @@ public class SqlJdbcUtil {
                     }
                     break;
                 case 12:
-                	Object originalObject;
-                	byte[] fieldBytes;
-                	try {
-                		Blob theBlob = rs.getBlob(ind);
-                		fieldBytes = theBlob != null ? theBlob.getBytes(1, (int) theBlob.length()) : null;
-                		originalObject = theBlob;
-                	} catch (SQLException e) {
-                		// for backward compatibility if getBlob didn't work try getBytes
+                    Object originalObject;
+                    byte[] fieldBytes;
+                    try {
+                        Blob theBlob = rs.getBlob(ind);
+                        fieldBytes = theBlob != null ? theBlob.getBytes(1, (int) theBlob.length()) : null;
+                        originalObject = theBlob;
+                    } catch (SQLException e) {
+                        // for backward compatibility if getBlob didn't work try getBytes
                         fieldBytes = rs.getBytes(ind);
-                		originalObject = fieldBytes;
-                	}
+                        originalObject = fieldBytes;
+                    }
                     
                     if (originalObject != null) {
-	                    // for backward compatibility, check to see if there is a serialized object and if so return that
-	                    Object blobObject = deserializeField(fieldBytes, ind, curField);
-	                    if (blobObject != null) {
-	                        entity.dangerousSetNoCheckButFast(curField, blobObject);
-	                    } else {
-	                    	if (originalObject instanceof Blob) {
-		                    	// NOTE using SerialBlob here instead of the Blob from the database to make sure we can pass it around, serialize it, etc
-		                        entity.dangerousSetNoCheckButFast(curField, new SerialBlob((Blob) originalObject));
-	                    	} else {
-		                        entity.dangerousSetNoCheckButFast(curField, originalObject);
-	                    	}
-	                    }
+                        // for backward compatibility, check to see if there is a serialized object and if so return that
+                        Object blobObject = deserializeField(fieldBytes, ind, curField);
+                        if (blobObject != null) {
+                            entity.dangerousSetNoCheckButFast(curField, blobObject);
+                        } else {
+                            if (originalObject instanceof Blob) {
+                                // NOTE using SerialBlob here instead of the Blob from the database to make sure we can pass it around, serialize it, etc
+                                entity.dangerousSetNoCheckButFast(curField, new SerialBlob((Blob) originalObject));
+                            } else {
+                                entity.dangerousSetNoCheckButFast(curField, originalObject);
+                            }
+                        }
                     }
                     
                     break;

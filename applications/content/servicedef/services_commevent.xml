@@ -23,22 +23,22 @@ under the License.
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
 
-	<!--
-		This service must do two things:
-		
-		First, call persistContentAndAssoc service to create the Content, DataResource and ImageDataResource/ElectronicText/??? entities.
-			Note that is will not create a ContentAssoc entity, which persistContentAndAssoc can do.
-			It should be able to auto populate the service parameters for persistContentAndAssoc from this service's input parameters
-			using ModelService.makeValid (or the simple method equivalent).
-		    persistContentAndAssoc will return contentId.
-		
-		Second, it must create a CommunicationEventContent record.
-			The fromData should be defaulted if not passed in.
+    <!--
+        This service must do two things:
+        
+        First, call persistContentAndAssoc service to create the Content, DataResource and ImageDataResource/ElectronicText/??? entities.
+            Note that is will not create a ContentAssoc entity, which persistContentAndAssoc can do.
+            It should be able to auto populate the service parameters for persistContentAndAssoc from this service's input parameters
+            using ModelService.makeValid (or the simple method equivalent).
+            persistContentAndAssoc will return contentId.
+        
+        Second, it must create a CommunicationEventContent record.
+            The fromData should be defaulted if not passed in.
     -->
     <service name="createCommContentDataResource" engine="simple"
                 location="org/ofbiz/content/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
         <description>Create CommunicationEvent and Content</description>
-		<implements service="persistContentAndAssoc"/>
+        <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="OUT" optional="false"/>
     </service>
@@ -46,7 +46,7 @@ under the License.
     <service name="updateCommContentDataResource" engine="simple"
                 location="org/ofbiz/content/content/ContentServices.xml" invoke="updateCommContentDataResource" auth="true">
         <description>Update CommunicationEvent and Content</description>
-		<implements service="persistContentAndAssoc"/>
+        <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
@@ -58,9 +58,9 @@ under the License.
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="INOUT" optional="true"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
- 		<attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-	</service>
-	
+         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    
     <service name="updateCommEventContentAssoc" engine="simple"
                 location="org/ofbiz/content/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
         <description>Update CommEventContentAssoc</description>
@@ -68,9 +68,9 @@ under the License.
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
- 		<attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-	</service>
-	
+         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    
     <service name="removeCommEventContentAssoc" engine="simple"
                 location="org/ofbiz/content/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
         <description>Remove CommEventContentAssoc</description>

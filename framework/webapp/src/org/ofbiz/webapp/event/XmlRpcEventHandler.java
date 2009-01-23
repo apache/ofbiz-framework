@@ -116,12 +116,12 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     protected void setResponseHeader(ServerStreamConnection con, String header, String value) {
-		((HttpStreamConnection) con).getResponse().setHeader(header, value);
-	}
+        ((HttpStreamConnection) con).getResponse().setHeader(header, value);
+    }
 
     protected XmlRpcHttpRequestConfig getXmlRpcConfig(HttpServletRequest req) {
-		XmlRpcHttpRequestConfigImpl result = new XmlRpcHttpRequestConfigImpl();
-		XmlRpcHttpServerConfig serverConfig = (XmlRpcHttpServerConfig) getConfig();
+        XmlRpcHttpRequestConfigImpl result = new XmlRpcHttpRequestConfigImpl();
+        XmlRpcHttpServerConfig serverConfig = (XmlRpcHttpServerConfig) getConfig();
 
         result.setBasicEncoding(serverConfig.getBasicEncoding());
         result.setContentLengthOptional(serverConfig.isContentLengthOptional());

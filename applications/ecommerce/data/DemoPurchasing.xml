@@ -188,7 +188,7 @@ under the License.
     <!-- Here we have two "Payment term" options available (30 days or 60 days) -->
 
     <!-- Jacopo - based on my suggested changes, termDays would be the # of days and termValue would be the amount of discount, if any.  Does that make sense?
-    	Also, I thought that all the terms of the agreement would apply to the order at the same time, so we would not have "Net 30" and "net 60" simultaneously. -->
+        Also, I thought that all the terms of the agreement would apply to the order at the same time, so we would not have "Net 30" and "net 60" simultaneously. -->
     <!--
     <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="30"/>
     <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="60"/>

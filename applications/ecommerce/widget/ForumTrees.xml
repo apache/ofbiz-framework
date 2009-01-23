@@ -34,10 +34,10 @@ under the License.
                         <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
                         <condition-expr field-name="caFromDate" operator="less-equals" env-name="nowTimestamp" />
-	                    <condition-list combine="or">
-	                        <condition-expr field-name="caThruDate" operator="equals" />
-	                        <condition-expr field-name="caThruDate" operator="greater" env-name="nowTimestamp" />
-	                    </condition-list> 
+                        <condition-list combine="or">
+                            <condition-expr field-name="caThruDate" operator="equals" />
+                            <condition-expr field-name="caThruDate" operator="greater" env-name="nowTimestamp" />
+                        </condition-list> 
                     </condition-list> 
                     <order-by field-name="caFromDate DESC"/>
                 </entity-condition>
@@ -51,10 +51,10 @@ under the License.
                         <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
                         <condition-expr field-name="caFromDate" operator="less-equals" env-name="nowTimestamp" />
-	                    <condition-list combine="or">
-	                        <condition-expr field-name="caThruDate" operator="equals" />
-	                        <condition-expr field-name="caThruDate" operator="greater" env-name="nowTimestamp" />
-	                    </condition-list> 
+                        <condition-list combine="or">
+                            <condition-expr field-name="caThruDate" operator="equals" />
+                            <condition-expr field-name="caThruDate" operator="greater" env-name="nowTimestamp" />
+                        </condition-list> 
                     </condition-list> 
                     <order-by field-name="caFromDate DESC"/>
                 </entity-condition>

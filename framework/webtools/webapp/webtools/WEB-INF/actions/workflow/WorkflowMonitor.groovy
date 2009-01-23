@@ -29,7 +29,7 @@ import org.ofbiz.workflow.*;
 
 workflow = parameters.workflow;
 workflowDef = null;
-if (!workflow) {									
+if (!workflow) {                                    
     runningProcesses = delegator.findByAnd("WorkEffort", [workEffortTypeId : "WORK_FLOW", currentStatusId : "WF_RUNNING"]);
     if (runningProcesses) {
         context.runningProcesses = runningProcesses;

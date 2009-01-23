@@ -131,8 +131,8 @@ public class JobManager {
         boolean pollDone = false;
 
         while (!pollDone) {
-        	// an extra protection for synchronization, help make sure we don't get in here more than once
-        	synchronized (this) {
+            // an extra protection for synchronization, help make sure we don't get in here more than once
+            synchronized (this) {
                 boolean beganTransaction = false;
 
                 try {
@@ -192,7 +192,7 @@ public class JobManager {
                         Debug.logError(e, errMsg, module);
                     }
                 }
-        	}
+            }
         }
         return poll;
     }

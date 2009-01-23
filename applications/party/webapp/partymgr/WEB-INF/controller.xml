@@ -728,7 +728,7 @@ under the License.
     <request-map uri="listUnknownPartyComms">
         <security https="true" auth="true" />
         <response name="success" type="view" value="ListUnknownPartyComms" />
-	</request-map>
+    </request-map>
     <request-map uri="editRequestFromCommEvent">
         <security https="true" auth="true" />
         <response name="success" type="view" value="EditRequestFromCommEvent" />

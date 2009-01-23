@@ -29,5 +29,5 @@ if (!custRequestItem && custRequest) {
         lastSequenceNum = lastItem.sequenceNum;
         nextSequenceNum = lastSequenceNum + 10;
     }
-}	
+}    
 context.nextSequenceNum = nextSequenceNum;

@@ -66,14 +66,14 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="comments"><display/></field>
         <field name="partyIdFrom">
-        	<display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-        		<sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]" />
-        	</display-entity>
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]" />
+            </display-entity>
         </field>
         <field name="partyIdTo">
-        	<display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-        		<sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]" />
-        	</display-entity>
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]" />
+            </display-entity>
         </field>
         <field name="effectiveDate"><display/></field>
         <field name="currencyUomId"><hidden/></field>
@@ -168,10 +168,10 @@ under the License.
     
     <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
         <actions>
-        	<entity-one entity-name="Party" value-field="partyFrom">
-        		<field-map field-name="partyId" from-field="payment.partyIdFrom"/>
-        	</entity-one>
-        	<set field="uomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultCurrencyUomId}"/> 
+            <entity-one entity-name="Party" value-field="partyFrom">
+                <field-map field-name="partyId" from-field="payment.partyIdFrom"/>
+            </entity-one>
+            <set field="uomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultCurrencyUomId}"/> 
             <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" from-field="payment.statusId"/>
             </entity-one>
@@ -252,9 +252,9 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId">
-        	<display-entity entity-name="Invoice" description="${description}">
-        		<sub-hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]"/>
-        	</display-entity>
+            <display-entity entity-name="Invoice" description="${description}">
+                <sub-hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]"/>
+            </display-entity>
         </field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="amountApplied"><text size="15"/></field>

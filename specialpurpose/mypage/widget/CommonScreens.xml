@@ -143,56 +143,56 @@ under the License.
         </section>
     </screen>
 
-	<screen name="main">
-		<section>
-		    <actions>
+    <screen name="main">
+        <section>
+            <actions>
                 <set field="headerItem" value="main" />
                 <set field="parameters.donePage" value="main"/>
                 <!-- refresh every 3 minutes -->
                 <!-- set field="layoutSettings.extraHead" value="&lt;META HTTP-EQUIV=&quot;REFRESH&quot; CONTENT=&quot;180&quot;&gt;"/-->
-		    </actions>
-			<widgets>
-			    <decorator-screen name="main-decorator"
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-						<section>
-							<condition>
-								<if-has-permission permission="MYPAGE_EMPLOYEE" />
-							</condition>
-							<actions>
-							   <set field="decorator" value="Y"/>
-							</actions>
-							<widgets>
-								<include-screen name="mainEmployee" />
-							</widgets>
-						</section>
-		                <section>
-		                    <condition>
-		                        <if-has-permission permission="MYPAGE_CUSTOMER" />
-		                    </condition>
-		                    <actions>
-		                       <set field="decorator" value="Y"/>
-		                    </actions>
-		                    <widgets>
-		                        <include-screen name="mainCustomer" />
-		                    </widgets>
-		                </section>
-		                <section>
-		                    <condition>
-		                        <and>
-		                            <not><if-has-permission permission="MYPAGE_CUSTOMER"/></not>
-		                            <not><if-has-permission permission="MYPAGE_EMPLOYEE"/></not>
-		                        </and>
-		                    </condition>
-		                    <widgets>
-		                        <include-screen name="mainNoAccess" />
-		                    </widgets>
-		                </section>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="MYPAGE_EMPLOYEE" />
+                            </condition>
+                            <actions>
+                               <set field="decorator" value="Y"/>
+                            </actions>
+                            <widgets>
+                                <include-screen name="mainEmployee" />
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="MYPAGE_CUSTOMER" />
+                            </condition>
+                            <actions>
+                               <set field="decorator" value="Y"/>
+                            </actions>
+                            <widgets>
+                                <include-screen name="mainCustomer" />
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-has-permission permission="MYPAGE_CUSTOMER"/></not>
+                                    <not><if-has-permission permission="MYPAGE_EMPLOYEE"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-screen name="mainNoAccess" />
+                            </widgets>
+                        </section>
                    </decorator-section>
                 </decorator-screen>
-			</widgets>
-		</section>
-	</screen>
+            </widgets>
+        </section>
+    </screen>
     
     <screen name="mainEmployee">
         <section>

@@ -1631,7 +1631,7 @@ public class UpsServices {
                 BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), generalRounding);
 
                 for (int z = 1; z <= totalQuantity.intValue(); z++) {
-                	BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
+                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
                     for (long x = 0; x < pieces; x++) {
                         if(itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
                             Map<String, BigDecimal> newPackage = FastMap.newInstance();
@@ -1654,7 +1654,7 @@ public class UpsServices {
                                 if (!addedToPackage) {
                                     BigDecimal packageWeight = calcPackageWeight(packageMap, shippableItemInfo, weight);
                                     if (packageWeight.compareTo(maxWeight) <= 0) {
-                                    	BigDecimal qty = packageMap.get(productId);
+                                        BigDecimal qty = packageMap.get(productId);
                                         qty = qty == null ? BigDecimal.ZERO : qty;
                                         packageMap.put(productId, qty.add(partialQty));
                                         addedToPackage = true;

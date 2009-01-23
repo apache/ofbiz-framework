@@ -42,20 +42,20 @@ public class RequestParametersToList extends MethodOperation {
 
     public static final String module = RequestParametersToList.class.getName();
 
-	ContextAccessor<List<String>> listAcsr;
-	String requestName;
+    ContextAccessor<List<String>> listAcsr;
+    String requestName;
 
     public RequestParametersToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         requestName = element.getAttribute("request-name");
-		listAcsr = new ContextAccessor<List<String>>(element.getAttribute("list-name"), requestName);
+        listAcsr = new ContextAccessor<List<String>>(element.getAttribute("list-name"), requestName);
     }
 
     public boolean exec(MethodContext methodContext) {
         List<String> listVal = null;
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-			String[] parameterValues = methodContext.getRequest().getParameterValues(requestName);
+            String[] parameterValues = methodContext.getRequest().getParameterValues(requestName);
             if (parameterValues == null) {
                 Debug.logWarning("Request parameter values not found with name " + requestName, module);
             } else {
@@ -65,18 +65,18 @@ public class RequestParametersToList extends MethodOperation {
 
         // if listVal is null, use a empty list;
         if (listVal == null) {
-			listVal = FastList.newInstance();
+            listVal = FastList.newInstance();
         }
 
-		List<String> toList = listAcsr.get(methodContext);
+        List<String> toList = listAcsr.get(methodContext);
 
-		if (toList == null) {
-			if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
-			toList = FastList.newInstance();
-			listAcsr.put(methodContext, toList);
-		}
+        if (toList == null) {
+            if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
+            toList = FastList.newInstance();
+            listAcsr.put(methodContext, toList);
+        }
 
-		toList.addAll(listVal);
+        toList.addAll(listVal);
         return true;
     }
 

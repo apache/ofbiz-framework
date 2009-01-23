@@ -25,32 +25,32 @@ import javolution.util.FastSet;
 import javolution.util.FastMap;
 
 if (!parameters.productId && !parameters.productIdTo && !parameters.productAssocTypeId) {
-	cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"), 
-	                                      EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
-	                                      ], EntityOperator.OR);
+    cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"), 
+                                          EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
+                                          ], EntityOperator.OR);
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     fieldToSelect = UtilMisc.toSet("productId","internalName","productAssocTypeId");
     bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, null, findOpts);
 } else {
-	condList = [];
-	if (parameters.productId) {
-		cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
-		condList.add(cond);
-	}
-	if (parameters.productIdTo) {
-		cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo);
-		condList.add(cond);    
-	}
-	if (parameters.productAssocTypeId) {
-		cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId);
-		condList.add(cond); 
-	}else {
-	    cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"), 
-	                                          EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
-	                                          ], EntityOperator.OR);
-	    condList.add(cond);
-	}
-	cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
+    condList = [];
+    if (parameters.productId) {
+        cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
+        condList.add(cond);
+    }
+    if (parameters.productIdTo) {
+        cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo);
+        condList.add(cond);    
+    }
+    if (parameters.productAssocTypeId) {
+        cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId);
+        condList.add(cond); 
+    }else {
+        cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"), 
+                                              EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
+                                              ], EntityOperator.OR);
+        condList.add(cond);
+    }
+    cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     fieldToSelect = UtilMisc.toSet("productId","internalName","productAssocTypeId");
     bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, null, findOpts);

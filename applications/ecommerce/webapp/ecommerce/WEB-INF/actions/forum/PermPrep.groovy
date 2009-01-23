@@ -155,12 +155,12 @@ if (permissionType.equals("complex")) {
     //org.ofbiz.base.util.Debug.logInfo("entityOperation:" + entityOperation , null);
     if (security.hasEntityPermission(permission, entityOperation, session)) {
         //org.ofbiz.base.util.Debug.logInfo("hasEntityPermission is true:" , null);
-    	context.hasPermission = true;
+        context.hasPermission = true;
         request.setAttribute("hasPermission", true);
         request.setAttribute("permissionStatus", "granted");
     } else {
         //org.ofbiz.base.util.Debug.logInfo("hasEntityPermission is false:" , null);
-    	context.hasPermission = false;
+        context.hasPermission = false;
         request.setAttribute("hasPermission", false);
         request.setAttribute("permissionStatus", "");
     }

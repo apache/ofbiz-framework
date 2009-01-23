@@ -239,7 +239,7 @@ under the License.
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="storeEntitySyncData" engine="java" location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="storeEntitySyncData"
-    	    export="true" auth="true" require-new-transaction="true" transaction-timeout="900">
+            export="true" auth="true" require-new-transaction="true" transaction-timeout="900">
         <description>Run Entity Sync</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="valuesToCreate" type="List" mode="IN" optional="false"/>

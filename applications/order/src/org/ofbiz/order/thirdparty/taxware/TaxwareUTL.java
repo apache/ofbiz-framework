@@ -322,7 +322,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_STATE").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_STATE").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_STATE").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_STATE").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_STATE") != null ? rec.getString("JUR_STATE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -333,7 +333,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_COUNTY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_COUNTY_CODE") != null ? rec.getString("JUR_COUNTY_CODE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -344,7 +344,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_CITY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_CITY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_CITY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_CITY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_CITY") != null ? rec.getString("JUR_CITY").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -355,7 +355,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_STATE").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_STATE").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_STATE").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_STATE").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_STATE") != null ? rec.getString("JUR_SEC_STATE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -366,7 +366,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_COUNTY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_COUNTY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_COUNTY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_COUNTY_CODE") != null ? rec.getString("JUR_SEC_COUNTY_CODE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -377,7 +377,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_CITY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_CITY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_CITY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_CITY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_CITY") != null ? rec.getString("JUR_SEC_CITY").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -392,7 +392,7 @@ public class TaxwareUTL {
 
             } else if (orderAdjustments.size() == 0) {
                 if (rec.getBigDecimal("TAX_AMT_COUNTRY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTRY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTRY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_COUNTRY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_COUNTRY") != null ? rec.getString("JUR_COUNTRY").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -403,7 +403,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_STATE").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_STATE").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_STATE").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_STATE").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_STATE") != null ? rec.getString("JUR_STATE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -414,7 +414,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_COUNTY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_COUNTY_CODE") != null ? rec.getString("JUR_COUNTY_CODE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -425,7 +425,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_CITY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_CITY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_CITY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_CITY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_CITY") != null ? rec.getString("JUR_CITY").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -436,7 +436,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_STATE").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_STATE").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_STATE").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_STATE").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_STATE") != null ? rec.getString("JUR_SEC_STATE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -447,7 +447,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_COUNTY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_COUNTY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_COUNTY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_COUNTY_CODE") != null ? rec.getString("JUR_SEC_COUNTY_CODE").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();
@@ -458,7 +458,7 @@ public class TaxwareUTL {
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_CITY").compareTo(BigDecimal.ZERO) > 0) {
-                	BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_CITY").movePointRight(2);
+                    BigDecimal rate = rec.getBigDecimal("TAX_RATE_SEC_CITY").movePointRight(2);
                     String type = rec.getString("TAX_TYPE_SEC_CITY").equals("S") ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_SEC_CITY") != null ? rec.getString("JUR_SEC_CITY").trim() : "";
                     String comments = jur + "|" + type + "|" + rate.toString();

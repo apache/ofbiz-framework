@@ -628,7 +628,7 @@ public class UtilHttp {
 
     /** URL Encodes a Map of arguements */
     public static String urlEncodeArgs(Map<String, ? extends Object> args) {
-    	return urlEncodeArgs(args, true);
+        return urlEncodeArgs(args, true);
     }
 
     /** URL Encodes a Map of arguements */
@@ -648,11 +648,11 @@ public class UtilHttp {
 
                     if (valueStr != null && valueStr.length() > 0) {
                         if (buf.length() > 0) {
-                        	if (useExpandedEntites) {
-                            	buf.append("&amp;");
-                        	} else {
-                            	buf.append("&");
-                        	}
+                            if (useExpandedEntites) {
+                                buf.append("&amp;");
+                            } else {
+                                buf.append("&");
+                            }
                         }
                         try {
                             buf.append(URLEncoder.encode(name, "UTF-8"));

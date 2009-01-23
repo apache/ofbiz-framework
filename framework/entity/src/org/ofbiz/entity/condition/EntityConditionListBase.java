@@ -41,11 +41,11 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     protected EntityConditionListBase() {}
 
     public EntityConditionListBase(EntityJoinOperator operator, T... conditionList) {
-    	this.init(operator, conditionList);
+        this.init(operator, conditionList);
     }
 
     public EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
-    	this.init(conditionList, operator);
+        this.init(conditionList, operator);
     }
 
     public void init(EntityJoinOperator operator, T... conditionList) {
@@ -59,8 +59,8 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     public void reset() {
-    	this.conditionList = null;
-    	this.operator = null;
+        this.conditionList = null;
+        this.operator = null;
     }
 
     public EntityOperator getOperator() {

@@ -145,11 +145,11 @@ public class JobInvoker implements Runnable {
     }
     
     public Long getThreadId() {
-    	if (this.thread != null) {
-    		return this.thread.getId();
-    	} else {
-    		return null;
-    	}
+        if (this.thread != null) {
+            return this.thread.getId();
+        } else {
+            return null;
+        }
     }
 
     /**

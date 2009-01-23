@@ -98,7 +98,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
     performanceList.add(perfRow);
 
-  	createTestList = [];
+      createTestList = [];
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) { 

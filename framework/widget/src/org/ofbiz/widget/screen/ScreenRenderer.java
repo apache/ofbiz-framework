@@ -288,7 +288,7 @@ public class ScreenRenderer {
     }
 
     public Map<String, Object> getContext() {
-    	return context;
+        return context;
     }
 
     public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {

@@ -570,8 +570,8 @@ public class ShoppingListServices {
                     GenericValue shoppingListItem=delegator.findByPrimaryKey("ShoppingListItem", UtilMisc.toMap("shoppingListId",
                                 shoppingListId, "shoppingListItemSeqId", shoppingListItemSeqId));
                     if (shoppingListItem != null) {
-                    	BigDecimal quantityPurchased = shoppingListItem.getBigDecimal("quantityPurchased");
-                    	BigDecimal orderQuantity = orderItem.getBigDecimal("quantity");
+                        BigDecimal quantityPurchased = shoppingListItem.getBigDecimal("quantityPurchased");
+                        BigDecimal orderQuantity = orderItem.getBigDecimal("quantity");
                         if (quantityPurchased != null) {
                             shoppingListItem.set("quantityPurchased", orderQuantity.add(quantityPurchased));
                         }else{

@@ -20,7 +20,7 @@ under the License.
 -->
 
 <!-- The global application config that is the parent of all the other
-	applications in this server. -->
+    applications in this server. -->
 <orion-application>
     <web-module id="ofbizDefault" path="${env.get("ofbiz.home")}/website"/>
 
@@ -30,7 +30,7 @@ under the License.
     <persistence path="../persistence"/>
 
     <!-- Path to the libraries that are installed on this server.
-	     These will accesible for the servlets, EJBs etc -->
+         These will accesible for the servlets, EJBs etc -->
     <library path="../lib"/>
     <#list classpathJars as jar>
     <library path="${jar}"/>

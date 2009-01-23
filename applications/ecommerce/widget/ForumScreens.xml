@@ -82,14 +82,14 @@ under the License.
                         <section>
                             <widgets>
                                 <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
-		                        <section>
-		                            <condition>
-		                                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
-		                            </condition>
-		                            <widgets>
-		                                <link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
-		                            </widgets>
-		                        </section>
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                                    </condition>
+                                    <widgets>
+                                        <link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
+                                    </widgets>
+                                </section>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforum.ftl"/></html></platform-specific>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
@@ -133,11 +133,11 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="CREATE"/>
                             </condition>
                             <widgets>
-		                        <label style="blogheader">Add response:</label>
-		                        <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
+                                <label style="blogheader">Add response:</label>
+                                <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
                             </widgets>
                             <fail-widgets>
-		                        <label style="blogheader">You must be logged in to add a response.</label>
+                                <label style="blogheader">You must be logged in to add a response.</label>
                             </fail-widgets>
                         </section>
                         <container>

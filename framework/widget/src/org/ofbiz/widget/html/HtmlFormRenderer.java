@@ -626,7 +626,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         
         // if we have an input method of time-dropdown, then render two dropdowns
-        if ("time-dropdown".equals(dateTimeField.getInputMethod())) {       		
+        if ("time-dropdown".equals(dateTimeField.getInputMethod())) {               
             String className = modelFormField.getWidgetStyle();
             String classString = (className != null ? " class=\"" + className + "\" " : "");
             boolean isTwelveHour = "12".equals(dateTimeField.getClock());
@@ -721,9 +721,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String currentValue = modelFormField.getEntry(context);
 
         if (ajaxEnabled) {
-        	writer.append("<input type=\"text\"");
+            writer.append("<input type=\"text\"");
         } else {
-        	writer.append("<select");
+            writer.append("<select");
         }
 
         appendClassNames(writer, context, modelFormField);
@@ -762,7 +762,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(modelFormField.getParameterName(context));
             writer.append('"');
             if (UtilValidate.isNotEmpty(idName)) {
-            	writer.append(" id=\"");
+                writer.append(" id=\"");
                 writer.append(idName);
                 writer.append('"');
             }
@@ -782,24 +782,24 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("var data = {");
             int count = 0;
             for (ModelFormField.OptionValue optionValue: allOptionValues) {
-            	count++;
+                count++;
                 writer.append("" + optionValue.getKey() + ": ");
                 writer.append(" '" + optionValue.getDescription() + "'");
                 if (count != allOptionValues.size()) {
-                	writer.append(", ");
+                    writer.append(", ");
                 }
             }
             writer.append("};");
             appendWhitespace(writer);
             writer.append("ajaxAutoCompleteDropDown('" + textFieldIdName + "', '" + idName + "', data, {autoSelect: " + 
-            		autoComplete.getAutoSelect() + ", frequency: " + autoComplete.getFrequency() + ", minChars: " + autoComplete.getMinChars() + 
-            		", choices: " + autoComplete.getChoices() + ", partialSearch: " + autoComplete.getPartialSearch() + 
-            		", partialChars: " + autoComplete.getPartialChars() + ", ignoreCase: " + autoComplete.getIgnoreCase() + 
-            		", fullSearch: " + autoComplete.getFullSearch() + "});");
+                    autoComplete.getAutoSelect() + ", frequency: " + autoComplete.getFrequency() + ", minChars: " + autoComplete.getMinChars() + 
+                    ", choices: " + autoComplete.getChoices() + ", partialSearch: " + autoComplete.getPartialSearch() + 
+                    ", partialChars: " + autoComplete.getPartialChars() + ", ignoreCase: " + autoComplete.getIgnoreCase() + 
+                    ", fullSearch: " + autoComplete.getFullSearch() + "});");
             appendWhitespace(writer);
             writer.append("</script>");
         } else {
-        	writer.append('"');
+            writer.append('"');
 
             if (UtilValidate.isNotEmpty(idName)) {
                 writer.append(" id=\"");
@@ -928,7 +928,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("\n//--></script>");
             }
         }
-        	
+            
         this.makeHyperlinkString(writer, dropDownField.getSubHyperlink(), context);
 
         this.appendTooltip(writer, context, modelFormField);
@@ -1143,7 +1143,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(action);
                 writer.append('"');
             } else {
-            	//add single click JS onclick
+                //add single click JS onclick
                 // disabling for now, using form onSubmit action instead: writer.append(singleClickAction);
             }
             
