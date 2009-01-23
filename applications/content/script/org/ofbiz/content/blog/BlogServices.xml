@@ -255,6 +255,9 @@
     </simple-method>
 
     <simple-method method-name="getBlogEntry" short-description="Get all the info for a blog article">
+        <if-empty field="parameters.contentId">
+            <return/>
+        </if-empty>
         <entity-one entity-name="Content" value-field="content"/>
         <get-related value-field="content" relation-name="FromContentAssoc" list="rawAssocs"/>
         <filter-list-by-date list="rawAssocs" to-list="assocs"/>
