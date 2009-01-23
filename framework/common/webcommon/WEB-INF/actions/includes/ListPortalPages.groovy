@@ -34,12 +34,7 @@ if (parameters.userLogin) {
             EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_")
         ],EntityOperator.OR),
     ],EntityOperator.AND);
-	sortField = parameters.sortField;
-	if (UtilValidate.isEmpty(sortField)) {
-		sortField = "parentPortalPageId DESC";
-	}
-	orderBy = [sortField];
-	portalPages = delegator.findList("PortalPage", ppCond, null, orderBy, null, false);
+	portalPages = delegator.findList("PortalPage", ppCond, null, null, null, false);
 	// remove overridden system pages
 	portalPages.each { portalPage ->
 		if (portalPage.ownerUserLoginId.equals("_NA_")) {
