@@ -73,9 +73,13 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     public IterateSectionWidget(ModelScreen modelScreen, Element iterateSectionElement) {
         super(modelScreen, iterateSectionElement);
-        listNameExdr = FlexibleMapAccessor.getInstance(iterateSectionElement.getAttribute("list-name"));
-        entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry-name"));
-        keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key-name"));
+        listNameExdr = FlexibleMapAccessor.getInstance(iterateSectionElement.getAttribute("list"));
+        if (listNameExdr.isEmpty()) listNameExdr = FlexibleMapAccessor.getInstance(iterateSectionElement.getAttribute("list-name"));
+        entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry"));
+        if (entryNameExdr.isEmpty()) entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry-name"));
+        keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key"));
+        if (keyNameExdr.isEmpty()) keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key-name"));
+        
         if (this.paginateTarget == null || iterateSectionElement.hasAttribute("paginate-target")) {
             this.paginateTarget = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate-target"));
         }
