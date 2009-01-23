@@ -21,6 +21,8 @@ under the License.
 <div id="app-navigation">
   <h2>${uiLabelMap.ExampleApplication}</h2>
   <ul>
+    <li>
+  <ul>
     <#if userLogin?has_content>    	
         <li <#if selected = "${uiLabelMap.ExampleExample}"> class="selected"</#if>><a href="<@ofbizUrl>FindExample?portalPageId=${uiLabelMap.ExampleExample}</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFeature}"> class="selected"</#if>><a href="<@ofbizUrl>FindExampleFeature?portalPageId=${uiLabelMap.ExampleFeature}</@ofbizUrl>">${uiLabelMap.ExampleFeature}</a></li>
@@ -36,6 +38,8 @@ under the License.
     <#else>
         <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
+  </ul>
+    </li>
   </ul>
   <br class="clear" />
 </div>
