@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -17,7 +16,18 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+  </div>
+</div>
+<br/>
+<div align="center">
+    <a href="http://jigsaw.w3.org/css-validator/validator?uri=http://ofbiz.apache.org/"><img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!"/></a>
+    <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!"/></a>
+</div>
+<br/>
+<div id="footer" align="center">
+  <div>Copyright (c) 2001-2008 The Apache Software Foundation - <a href="http://www.apache.org/" class="tabletext" target="_blank">www.apache.org</a></div>
+</div>
+<br/>
 
-<entity-engine-xml>
-    <WebSite webSiteId="CmsSite" siteName="CMS Web Site"/>
-</entity-engine-xml>
+</body>
+</html>

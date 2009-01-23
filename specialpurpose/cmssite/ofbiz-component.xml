@@ -22,7 +22,6 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/CmsSiteSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CmsSiteDemoData.xml"/>
 
     <webapp name="cmssite"
@@ -31,6 +30,13 @@ under the License.
         server="default-server"
         location="webapp/cmssite"
         mount-point="/cmssite"
+        app-bar-display="true"/>
+    <webapp name="ofbizsite"
+        title="OFBiz Site"
+        menu-name="secondary"
+        server="default-server"
+        location="webapp/ofbizsite"
+        mount-point="/ofbiz"
         app-bar-display="true"/>
 </ofbiz-component>
 
