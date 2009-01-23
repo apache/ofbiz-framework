@@ -50,27 +50,34 @@ under the License.
     </form>
 
     <form name="ListAgreements" list-name="listIt" target="" title="" type="list" paginate-target="FindAgreement"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
-          <set field="entityName" value="Agreement"/>
-          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="requestParameters"/>
-            <field-map field-name="entityName" env-name="entityName"/>
-          </service>
+            <set field="entityName" value="Agreement"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+            </service>
         </actions>
         <auto-fields-entity entity-name="Agreement" default-field-type="display"/>
-        <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+        <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" sort-field="true">
             <hyperlink also-hidden="false" description="${agreementId}" target="EditAgreement?agreementId=${agreementId}"/>
         </field>
+        <field name="productId" sort-field="true"></field>
+        <field name="partyIdFrom" sort-field="true"></field>
+        <field name="partyIdTo" sort-field="true"></field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}"><hidden/></field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}">
+        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}" sort-field="true">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
-        <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
+        <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}" sort-field="true">
             <display-entity entity-name="AgreementType"/>
         </field>
+        <field name="fromDate" sort-field="true"></field>
+        <field name="thruDate" sort-field="true"></field>
         <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
+        <field name="description" sort-field="true"></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="cancelAgreement?agreementId=${agreementId}" description="${uiLabelMap.CommonCancel}" also-hidden="false"/>
         </field>
