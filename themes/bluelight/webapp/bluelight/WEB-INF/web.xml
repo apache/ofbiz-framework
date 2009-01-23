@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,11 +19,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-components parent-directory="framework"/> 
-    <load-components parent-directory="themes"/> 
-    <load-components parent-directory="applications"/>
-    <load-components parent-directory="specialpurpose"/>
-    <load-components parent-directory="hot-deploy"/>
-</component-loader>
+<web-app>
+  <display-name>Open For Business - bluelight Visual Theme</display-name>
+  <description>bluelight Visual Theme</description>
+
+  <session-config>
+    <session-timeout>1</session-timeout>    
+  </session-config>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>main.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
