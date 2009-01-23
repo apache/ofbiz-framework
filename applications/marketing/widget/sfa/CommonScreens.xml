@@ -325,8 +325,17 @@ under the License.
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
-                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId" />
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Content"
+                                                        location="component://party/widget/partymgr/ProfileScreens.xml" />
+                                                    <include-screen name="Notes"
+                                                        location="component://party/widget/partymgr/ProfileScreens.xml" />
+                                                </widgets>
+                                            </section>  
                                         </container>
                                     </widgets>
                                 </section>
