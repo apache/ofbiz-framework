@@ -220,8 +220,7 @@ under the License.
         <set field="data._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="data._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
         <call-service service-name="createDataResource" in-map-name="data">
-            <result-to-field result-name="dataResourceId" field="dataResourceId"
-                map-name="parameters"/>
+            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
         </call-service>
         <log level="always" message=" DataResource : ${parameters.dataResourceId}"/>
 
@@ -321,12 +320,12 @@ under the License.
         <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty> 
         <call-bsh><![CDATA[
             parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
-        ]]></call-bsh>
-        <call-object-method obj-field="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="PASSWORD" ret-map-name="parameters"/>
-        <call-object-method obj-field="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="CONFIRM_PASSWORD" ret-map-name="parameters"/>
+            ]]></call-bsh>
+        <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
+        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
-            <call-object-method obj-field="captcha" obj-map-name="parameters" method-name="toLowerCase" ret-field="captcha" ret-map-name="parameters"/>
-            <call-object-method obj-field="captchaCode" obj-map-name="parameters" method-name="toLowerCase" ret-field="captchaCode" ret-map-name="parameters"/>
+            <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
+            <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
             <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">                
    
                 <!-- Create Person -->
@@ -394,5 +393,6 @@ under the License.
             </else>
         </if-compare>      
         <check-errors error-list-name="error_list" error-code="resultPage"/>
+        <call-class-method class-name="org.ofbiz.common.Captcha" method-name="deleteFile"/>
     </simple-method>
 </simple-methods>

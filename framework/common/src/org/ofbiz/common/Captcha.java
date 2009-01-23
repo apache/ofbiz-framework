@@ -24,6 +24,7 @@ package org.ofbiz.common;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.ofbiz.base.util.UtilHttp;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -33,8 +34,11 @@ import java.io.IOException;
 public class Captcha {
 
     public static String ID_KEY = null;
+    public static String CAPTCHA_FILE_NAME = null;
+	public static String CAPTCHA_FILE_PATH = null;
 
     public static String getCodeCaptcha(HttpServletRequest request,HttpServletResponse response) {
+    	if(CAPTCHA_FILE_PATH != null) deleteFile();
     	StringBuffer finalString = new StringBuffer();
         String elegibleChars = "ABCDEFGHJKLMPQRSTUVWXYabcdefhjkmnpqrstuvwxy23456789";
         int charsToPrint = 6;
@@ -125,30 +129,42 @@ public class Captcha {
             g.setColor(borderColor);
             g.drawRect(0, 0, width - 1, height - 1);
             g.dispose();
-            Captcha.writeImage(bufferedImage, "captchaImage.png");
+            Captcha.writeImage(bufferedImage, request);
 
         } catch (Exception ioe) {
             return false;
         }
-    //Adding this because we called response.getOutputStream() above. This will prevent and illegal state exception being thrown
+        //Adding this because we called response.getOutputStream() above. This will prevent and illegal state exception being thrown
         return true;
     }
     
-	public static void writeImage(BufferedImage image, String fileName)
+	public static void writeImage(BufferedImage image, HttpServletRequest request)
 	{
-		if (fileName == null) return;
-		int offset = fileName.lastIndexOf( "." );
-		String type = offset == -1 ? "png" : fileName.substring(offset + 1);
-		String path;
+		String fileName = UtilHttp.getSessionId(request).substring(0,6);
+		fileName += "_"+UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."));
 		try {
-			path = new java.io.File(".").getCanonicalPath();
-			path += "/framework/images/webapp/images/";
-			path += fileName;
-			System.out.println("\n\nPath =  "+path+"\n");
+			CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
+			CAPTCHA_FILE_PATH += File.separator + "runtime" + File.separator + "tempfiles";
+			CAPTCHA_FILE_PATH += File.separator + "captcha" + File.separator;
+			File test = new File(CAPTCHA_FILE_PATH);
+			if (!test.exists()) {
+				test.mkdir();
+			}
+			CAPTCHA_FILE_PATH += fileName + ".png";
+			CAPTCHA_FILE_NAME = fileName + ".png";
+			request.setAttribute("fileName", CAPTCHA_FILE_NAME);
+			System.out.println("\n\nPath =  "+CAPTCHA_FILE_PATH+"\n");
 			System.out.println("Captcha Key =  "+ID_KEY+"\n\n");
-			ImageIO.write(image, type, new File( path ));
+			ImageIO.write(image, "png", new File( CAPTCHA_FILE_PATH ));
 		} catch (IOException e) {
 			return;
+		}
+	}
+	
+	public static void deleteFile() {
+		if(CAPTCHA_FILE_PATH != null){
+		       File file = new File(CAPTCHA_FILE_PATH);
+		       file.delete();
 		}
 	}
 
