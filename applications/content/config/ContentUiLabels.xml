@@ -281,6 +281,12 @@
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
         <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
     </property>
+    <property key="ContentCreateNewBlog">
+        <value xml:lang="en">Create New Blog</value>        
+    </property>
+    <property key="ContentCreateNewBlogAricle">
+        <value xml:lang="en">Create New Art.</value>        
+    </property>
     <property key="ContentCreateFile">
         <value xml:lang="de">Datei erstellen</value>
         <value xml:lang="en">Create File</value>

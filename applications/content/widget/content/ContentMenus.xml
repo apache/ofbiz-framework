@@ -153,8 +153,14 @@ under the License.
     <menu name="blogSub" menu-container-style="button-bar button-style-2" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
-        <menu-item name="NewBlog" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="NewBlog" title="${uiLabelMap.ContentCreateNewBlog}">
             <link target="editBlog"/>
+        </menu-item>
+        <menu-item name="NewBlogAricle" title="${uiLabelMap.ContentCreateNewBlogAricle}">
+            <condition>
+                <if-compare field="tabButtonItem" operator="equals" value="Articles"/>
+            </condition>
+            <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
     </menu>
 
@@ -177,7 +183,7 @@ under the License.
     <menu name="blogArtSub" menu-container-style="button-bar button-style-2" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
-        <menu-item name="NewBlog" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="NewBlogAricle" title="${uiLabelMap.ContentCreateNewBlogAricle}">
             <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
     </menu>

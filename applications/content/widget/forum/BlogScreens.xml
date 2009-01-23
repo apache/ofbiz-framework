@@ -177,34 +177,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="NewArticle">
-        <section>
-            <actions>
-                <set field="blogContentId" from-field="parameters.blogContentId"/>
-                <set field="crPerm.ownerContentId" from-field="parameters.blogContentId"/>
-                <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
-                <set field="crPerm.contentPurposeTypeId" value="ARTICLE"/>
-            </actions>
-            <widgets>
-                <section>
-                    <condition>
-                        <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
-                    </condition>
-                    <widgets>
-                        <decorator-screen name="commonBlogDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                    <fail-widgets>
-                        <label text="Permissions failed."></label>
-                    </fail-widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="EditArticle">
         <section>
             <actions>

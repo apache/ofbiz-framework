@@ -1088,7 +1088,7 @@
         location="org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">
         <description>Retrieves content records for a blog entry</description>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="true"/><!-- also used for new entries, will return with no error with empty contentId -->
         <attribute name="contentName" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
         <attribute name="description" type="String" mode="OUT" optional="true"/>
