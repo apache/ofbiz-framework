@@ -190,6 +190,15 @@
         <value xml:lang="th">วันที่พิมพ์</value>
         <value xml:lang="zh">打印输出日期</value>
     </property>
+    <property key="ManufacturingProductBrandName">
+        <value xml:lang="en">Draw no</value>
+        <value xml:lang="es">Marca</value>
+        <value xml:lang="fr">N° de dessin</value>
+        <value xml:lang="it">n. disegno</value>
+        <value xml:lang="ro">n.desen</value>
+        <value xml:lang="th">หมายเลขการวาด</value>
+        <value xml:lang="zh">设计编号</value>
+    </property>
     <property key="ManufacturingProductionRuns">
         <value xml:lang="en">Production Runs</value>
         <value xml:lang="es">Orden de Producción</value>
@@ -207,15 +216,6 @@
         <value xml:lang="ro">Componente Produse</value>
         <value xml:lang="th">ส่วนประกอบของสินค้า</value>
         <value xml:lang="zh">产品组件</value>
-    </property>
-    <property key="ManufacturingProductBrandName">
-        <value xml:lang="en">Draw no</value>
-        <value xml:lang="es">Marca</value>
-        <value xml:lang="fr">N° de dessin</value>
-        <value xml:lang="it">n. disegno</value>
-        <value xml:lang="ro">n.desen</value>
-        <value xml:lang="th">หมายเลขการวาด</value>
-        <value xml:lang="zh">设计编号</value>
     </property>
     <property key="ManufacturingQtyM2">
         <value xml:lang="en">Square meters</value>
