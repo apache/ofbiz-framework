@@ -353,7 +353,7 @@
         <value xml:lang="en">RENTAL_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de alquiler</value>
         <value xml:lang="fr">Location</value>
-    <value xml:lang="it">Riga ordine di affitto</value>
+        <value xml:lang="it">Riga ordine di affitto</value>
         <value xml:lang="th">รายการการเช่า</value>
     </property>
     <property key="OrderItemType.description.WORK_ORDER_ITEM">
@@ -432,7 +432,7 @@
         <value xml:lang="en">PROPOSAL_PURCHASE</value>
         <value xml:lang="es">Propuesta de compra</value>
         <value xml:lang="fr">Proposition d'achat</value>
-    <value xml:lang="it">Proposta di acquisto</value>
+        <value xml:lang="it">Proposta di acquisto</value>
         <value xml:lang="th">ข้อเสนอการซื้อ</value>
     </property>
     <property key="QuoteType.description.PURCHASE_QUOTE">
