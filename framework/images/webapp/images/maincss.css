@@ -1029,7 +1029,7 @@ padding: 0.4em;
 display: inline; /* IE Fix */
 }
 
-#app-navigation ul li {
+#app-navigation ul li ul li {
 background-color: #000099;
 background-image: url(/images/gradient_sub_uns.gif);
 background-repeat: repeat-x;

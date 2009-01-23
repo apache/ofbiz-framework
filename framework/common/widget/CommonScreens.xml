@@ -134,6 +134,7 @@ under the License.
                 <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/header.ftl"/>
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/footer.ftl"/>
                 <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/appbar.ftl"/>
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
                 <property-to-field resource="general" property="defaultOrganizationPartyId" field="defaultOrganizationPartyIdProperties"/>
                 <set field="defaultOrganizationPartyId" value="${bsh:&quot;DEFAULT&quot;.equals(userPreferences.get(&quot;ORGANIZATION_PARTY&quot;))?defaultOrganizationPartyIdProperties:userPreferences.get(&quot;ORGANIZATION_PARTY&quot;)}" global="true"/>
                 <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
@@ -172,7 +173,9 @@ under the License.
                         <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/>
                     </fail-widgets>
                 </section>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+
+                <!-- render messages -->
+                <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
                 <container style="contentarea">
                     <!-- may be used by sight disabled persons to skip directly to content area-->
                     <decorator-section-include name="pre-body"/>
