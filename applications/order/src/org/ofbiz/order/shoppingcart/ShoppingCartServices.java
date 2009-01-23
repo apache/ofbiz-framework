@@ -439,10 +439,10 @@ public class ShoppingCartServices {
                 List<GenericValue> orderItemContactMechList = null;
                 try {
                     orderItemContactMechList = delegator.findByAnd("OrderItemContactMech", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
-                    if (UtilValidate.isNotEmpty(orderAttributesList)) {
-                        for (GenericValue orderItemAttr : orderItemContactMechList) {
-                            String contactMechPurposeTypeId = orderItemAttr.getString("contactMechPurposeTypeId");
-                            String contactMechId = orderItemAttr.getString("contactMechId");
+                    if (UtilValidate.isNotEmpty(orderItemContactMechList)) {
+                        for (GenericValue orderItemContactMech : orderItemContactMechList) {
+                            String contactMechPurposeTypeId = orderItemContactMech.getString("contactMechPurposeTypeId");
+                            String contactMechId = orderItemContactMech.getString("contactMechId");
                             cartItem.addContactMech(contactMechPurposeTypeId, contactMechId);
                         }
                     }
