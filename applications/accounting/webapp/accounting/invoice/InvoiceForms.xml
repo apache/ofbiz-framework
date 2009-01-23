@@ -46,12 +46,12 @@ under the License.
     </form>
         
     <form name="ListInvoices" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice" paginate-target="findInvoices"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="Invoice"/>
-                <field-map field-name="orderBy" value="invoiceDate DESC"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
         <row-actions>
@@ -69,14 +69,14 @@ under the License.
             <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}"/>
         </row-actions>
         
-        <field name="invoiceId" widget-style="buttontext">
+        <field name="invoiceId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
         </field>
-        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
-        <field name="invoiceDate"><display type="date"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="description"><display/></field>
-        <field name="partyIdFrom">
+        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceDate" sort-field="true"><display type="date"/></field>
+        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="description" sort-field="true"><display/></field>
+        <field name="partyIdFrom" sort-field="true">
             <hyperlink target="/partymgr/control/PartyFinancialHistory?partyId=${partyIdFrom}" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/>
         </field>
         <field name="partyIdTo" parameter-name="partyId">
