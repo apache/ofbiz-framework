@@ -31,7 +31,7 @@ under the License.
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>      
             <link
-                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;statusId=COM_PENDING"/>
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
@@ -96,7 +96,7 @@ under the License.
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>
-            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;statusId=COM_PENDING"/>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
@@ -146,7 +146,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>
-            <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+            <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
         </menu-item>
         <menu-item name="send" title="${uiLabelMap.CommonSend}">
             <condition>
@@ -165,7 +165,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
                 </and>
             </condition>
-            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
+            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </menu-item>
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

@@ -98,7 +98,7 @@
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="request" value="myCompanyComms"/>
-        <response name="error" type="view" value="createEvent"/>
+        <response name="error" type="view" value="myCompanyComms"/>
     </request-map>
     <request-map uri="deleteEvent">
         <security https="true" auth="true"/>
