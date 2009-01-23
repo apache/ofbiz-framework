@@ -29,6 +29,7 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -416,6 +417,7 @@ public class ShoppingCartServices {
                 cartItem.setShipAfterDate(item.getTimestamp("shipAfterDate"));
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
+                cartItem.setName(item.getString("itemDescription"));
                 
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
@@ -452,38 +454,61 @@ public class ShoppingCartServices {
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
-                // set the item's ship group info
-                List<GenericValue>shipGroups = orh.getOrderItemShipGroupAssocs(item);
-                for (int g = 0; g < shipGroups.size(); g++) {
-                    GenericValue sgAssoc = (GenericValue) shipGroups.get(g);
-                    BigDecimal shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
-                    if (shipGroupQty == null) {
-                        shipGroupQty = BigDecimal.ZERO;
-                    }
-
-                    GenericValue sg = null;
-                    try {
-                        sg = sgAssoc.getRelatedOne("OrderItemShipGroup");
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-                    cart.setShipAfterDate(g, sg.getTimestamp("shipAfterDate"));
-                    cart.setShipBeforeDate(g, sg.getTimestamp("shipByDate"));
-                    cart.setShipmentMethodTypeId(g, sg.getString("shipmentMethodTypeId"));
-                    cart.setCarrierPartyId(g, sg.getString("carrierPartyId"));
-                    cart.setSupplierPartyId(g, sg.getString("supplierPartyId"));
-                    cart.setMaySplit(g, sg.getBoolean("maySplit"));
-                    cart.setGiftMessage(g, sg.getString("giftMessage"));
-                    cart.setShippingContactMechId(g, sg.getString("contactMechId"));
-                    cart.setShippingInstructions(g, sg.getString("shippingInstructions"));
-                    cart.setShipGroupFacilityId(g, sg.getString("facilityId"));
-                    cart.setShipGroupVendorPartyId(g, sg.getString("vendorPartyId"));
-                    cart.setShipGroupSeqId(g, sg.getString("shipGroupSeqId"));
-                    cart.setItemShipGroupQty(itemIndex, shipGroupQty, g);
-                }
             }
 
+            if (UtilValidate.isNotEmpty(orderItems)) {
+                int itemIndex = 0;
+                for (GenericValue item : orderItems) {
+
+                    // set the item's ship group info
+                    List<GenericValue> shipGroups = orh.getOrderItemShipGroupAssocs(item);
+                    for (int g = 0; g < shipGroups.size(); g++) {
+                        GenericValue sgAssoc = (GenericValue) shipGroups.get(g);
+                        BigDecimal shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
+                        if (shipGroupQty == null) {
+                            shipGroupQty = BigDecimal.ZERO;
+                        }
+
+                        GenericValue sg = null;
+                        try {
+                            sg = sgAssoc.getRelatedOne("OrderItemShipGroup");
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        String cartShipGroupIndexStr = sg.getString("shipGroupSeqId");
+                        int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
+
+                        if (cart.getShipGroupSize() < cartShipGroupIndex) {
+                            int groupDiff = cartShipGroupIndex - cart.getShipGroupSize();
+                            for (int i = 0; i < groupDiff; i++) {
+                                cart.addShipInfo();
+                            }
+                        }
+
+                        cartShipGroupIndex = cartShipGroupIndex - 1;
+                        if (cartShipGroupIndex > 0) {
+                            cart.positionItemToGroup(itemIndex, shipGroupQty, 0, cartShipGroupIndex, false);
+                        }
+
+                        cart.setShipAfterDate(cartShipGroupIndex, sg.getTimestamp("shipAfterDate"));
+                        cart.setShipBeforeDate(cartShipGroupIndex, sg.getTimestamp("shipByDate"));
+                        cart.setShipmentMethodTypeId(cartShipGroupIndex, sg.getString("shipmentMethodTypeId"));
+                        cart.setCarrierPartyId(cartShipGroupIndex, sg.getString("carrierPartyId"));
+                        cart.setSupplierPartyId(cartShipGroupIndex, sg.getString("supplierPartyId"));
+                        cart.setMaySplit(cartShipGroupIndex, sg.getBoolean("maySplit"));
+                        cart.setGiftMessage(cartShipGroupIndex, sg.getString("giftMessage"));
+                        cart.setShippingContactMechId(cartShipGroupIndex, sg.getString("contactMechId"));
+                        cart.setShippingInstructions(cartShipGroupIndex, sg.getString("shippingInstructions"));
+                        cart.setShipGroupFacilityId(cartShipGroupIndex, sg.getString("facilityId"));
+                        cart.setShipGroupVendorPartyId(cartShipGroupIndex, sg.getString("vendorPartyId"));
+                        cart.setShipGroupSeqId(cartShipGroupIndex, sg.getString("shipGroupSeqId"));
+                        cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
+                    }
+                    itemIndex ++;
+                }
+            }
+            
             // set the item seq in the cart
             if (nextItemSeq > 0) {
                 try {
