@@ -21,6 +21,8 @@ under the License.
 <div id="app-navigation">
   <h2>${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.middleName?if_exists} ${partyNameView.lastName?if_exists} ${partyNameView.groupName?if_exists}</h2>
   <ul>
+    <li>
+  <ul>
     <#if portalPages?has_content>
       <#list portalPages as page>
         <li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalPageName}</a></li>
@@ -29,6 +31,8 @@ under the License.
     <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Portal?decorator=printable" url-mode="plain" target-window="new">${uiLabelMap.CommonHelp}</a></li>
     <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?parentPortalPageId=MYPORTAL</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
+  </ul>
+  </li>
   </ul>
   <br class="clear" />
 </div>
