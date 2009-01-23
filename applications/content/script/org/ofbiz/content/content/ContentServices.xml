@@ -358,9 +358,9 @@
         <make-value entity-name="ContentPurposeType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-		<if-empty field="newEntity.contentPurposeTypeId">
-			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-field="newEntity"/>
-		</if-empty>
+        <if-empty field="newEntity.contentPurposeTypeId">
+            <make-next-seq-id seq-field-name="contentPurposeTypeId" value-field="newEntity"/>
+        </if-empty>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.contentPurposeTypeId" result-name="contentPurposeTypeId" />
     </simple-method>
@@ -764,105 +764,105 @@
     </simple-method>
     
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
-		 by calling persistContentAndAssoc.
-		
-		It then takes the contentId coming out of that service, the passed in communicationEventId
-		 and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
-		-->
+         by calling persistContentAndAssoc.
+        
+        It then takes the contentId coming out of that service, the passed in communicationEventId
+         and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+        -->
     <simple-method method-name="createCommContentDataResource" short-description="Create CommunicationEvent and Content">
-		
-		<!--
+        
+        <!--
         <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
         <check-errors/>
-			-->
-		
+            -->
+        
         <now-timestamp field="nowTimestamp"/>
-		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
-		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
-		<if-empty field="persistIn.dataResourceTypeId">
-		<log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
-			<if-regexp expr="text.*" field="persistIn.drMimeTypeId">
-				<set field="persistIn.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
-				<else>
-					<set field="persistIn.dataResourceTypeId" value="IMAGE_OBJECT"/>
-				</else>
-			</if-regexp>
-		</if-empty>
-		<log level="info" message="persistIn.dataResourceTypeId: ${persistIn.dataResourceTypeId}" />
-		
-		<call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
-			<results-to-map map-name="persistOut"/>
-		</call-service>
+        <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
+        <!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
+        <if-empty field="persistIn.dataResourceTypeId">
+        <log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
+            <if-regexp expr="text.*" field="persistIn.drMimeTypeId">
+                <set field="persistIn.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <else>
+                    <set field="persistIn.dataResourceTypeId" value="IMAGE_OBJECT"/>
+                </else>
+            </if-regexp>
+        </if-empty>
+        <log level="info" message="persistIn.dataResourceTypeId: ${persistIn.dataResourceTypeId}" />
+        
+        <call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
+            <results-to-map map-name="persistOut"/>
+        </call-service>
 
-		<iterate-map key="key" value="val" map="persistOut">
-			<field-to-result field="val" result-name="${key}"/>
-		</iterate-map>
+        <iterate-map key="key" value="val" map="persistOut">
+            <field-to-result field="val" result-name="${key}"/>
+        </iterate-map>
 
-		<set field="mapIn.contentId"  from-field="persistOut.contentId"/>
-		<!-- <set field="mapIn.fromDate"  from-field="nowTimestamp"/> -->
-		<set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
-		<set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
-		<call-service service-name="createCommEventContentAssoc" in-map-name="mapIn">
-			<result-to-result result-name="fromDate"/>
-		</call-service>
+        <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
+        <!-- <set field="mapIn.fromDate"  from-field="nowTimestamp"/> -->
+        <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
+        <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
+        <call-service service-name="createCommEventContentAssoc" in-map-name="mapIn">
+            <result-to-result result-name="fromDate"/>
+        </call-service>
 
-	</simple-method>
+    </simple-method>
     
-	<!-- This method first updates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
-		 by calling persistContentAndAssoc.	It then takes the passed in contentId, communicationEventId and fromDate primary keys
-		 and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
-		-->
+    <!-- This method first updates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
+         by calling persistContentAndAssoc.    It then takes the passed in contentId, communicationEventId and fromDate primary keys
+         and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+        -->
     <simple-method method-name="updateCommContentDataResource" short-description="Update CommunicationEvent and Content">
-		
-		<!--
+        
+        <!--
         <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
         <check-errors/>
-			-->
-		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
-		<call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
-			<results-to-map map-name="persistOut"/>
-		</call-service>
+            -->
+        <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
+        <call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
+            <results-to-map map-name="persistOut"/>
+        </call-service>
 
-		<set field="mapIn.contentId"  from-field="persistOut.contentId"/>
-		<set field="mapIn.fromDate"  from-field="parameters.fromDate"/>
-		<set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
-		<set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
-		<call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
-		</call-service>
+        <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
+        <set field="mapIn.fromDate"  from-field="parameters.fromDate"/>
+        <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
+        <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
+        <call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
+        </call-service>
 
-		<iterate-map key="key" value="val" map="persistOut">
-			<field-to-result field="val" result-name="${key}"/>
-		</iterate-map>
+        <iterate-map key="key" value="val" map="persistOut">
+            <field-to-result field="val" result-name="${key}"/>
+        </iterate-map>
 
-	</simple-method>
+    </simple-method>
     
-	<!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
-		-->
+    <!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
+        -->
     <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">
-		<make-value entity-name="CommEventContentAssoc" value-field="commEventContentAssoc" />
-		<set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
-		<set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
-		<if-empty field="commEventContentAssoc.fromDate">
-		    <now-timestamp field="commEventContentAssoc.fromDate"/>
-		</if-empty>
-		<create-value value-field="commEventContentAssoc" />
-		<field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
-	</simple-method>
+        <make-value entity-name="CommEventContentAssoc" value-field="commEventContentAssoc" />
+        <set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
+        <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
+        <if-empty field="commEventContentAssoc.fromDate">
+            <now-timestamp field="commEventContentAssoc.fromDate"/>
+        </if-empty>
+        <create-value value-field="commEventContentAssoc" />
+        <field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
+    </simple-method>
     
-	<!-- This service would primarily be used to update the thruDate field.
-		-->
+    <!-- This service would primarily be used to update the thruDate field.
+        -->
     <simple-method method-name="updateCommEventContentAssoc" short-description="Create CommEventContentAssoc">
-		<make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc" />
-		<set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
-		<find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
-		<if-empty field="commEventContentAssoc">
-			<add-error>
-				<fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
-			</add-error>
-		</if-empty>
-		<set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
-		<store-value value-field="commEventContentAssoc" />
-	</simple-method>
+        <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc" />
+        <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
+        <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+        <if-empty field="commEventContentAssoc">
+            <add-error>
+                <fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
+            </add-error>
+        </if-empty>
+        <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
+        <store-value value-field="commEventContentAssoc" />
+    </simple-method>
     
     <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc" />
@@ -1146,8 +1146,8 @@
     
     <simple-method method-name="getSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
     
-    	<set field="filterByDate" from-field="parameters.filterByDate" default-value="true" type="Boolean" />
-    	<set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean" />
+        <set field="filterByDate" from-field="parameters.filterByDate" default-value="true" type="Boolean" />
+        <set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean" />
         <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
           <condition-list combine="and">
               <condition-expr field-name="contentIdStart" from-field="parameters.contentId"/>
@@ -1161,12 +1161,12 @@
             <if>
                 <condition>
                     <and>
-	                    <not>
-	                        <if-empty field="parameters.mainAction"/>
-	                    </not>
-	                    <not>
-	                        <if-empty field="parameters.userLogin"/>
-	                    </not>
+                        <not>
+                            <if-empty field="parameters.mainAction"/>
+                        </not>
+                        <not>
+                            <if-empty field="parameters.userLogin"/>
+                        </not>
                     </and>
                 </condition>
                 <then>
@@ -1196,25 +1196,25 @@
         </call-service>        
         
         <iterate entry="view" list="subContentList">
-	        <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
-	          <condition-list combine="and">
-	              <condition-expr field-name="contentIdStart" from-field="view.caContentIdTo"/>
-	              <condition-expr field-name="caContentAssocTypeId" from-field="parameters.subContentAssocTypeId" ignore-if-empty="true"/>
-	              <condition-expr field-name="caMapKey" from-field="parameters.subMapKey" ignore-if-empty="true"/>
-	          </condition-list>
-	        </entity-condition>
-	        <clear-field field="view2"/>
-	        <first-from-list entry="view2" list="viewList"/>
-	        <clear-field field="map"/>
-	        <set field="map.contentIdFrom" from-field="view.contentId"/>
-	        <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>
-	        <set field="map.contentId" from-field="view2.contentId"/>
-	        <set field="map.contentName" from-field="view2.contentName"/>
-	        <set field="map.description" from-field="view2.description"/>
-	        <entity-one entity-name="ElectronicText" value-field="electronicText">
-	            <field-map field-name="dataResourceId" from-field="view2.dataResourceId"/>
-	        </entity-one>
-	        <set field="map.textData" from-field="electronicText.textData"/>
+            <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
+              <condition-list combine="and">
+                  <condition-expr field-name="contentIdStart" from-field="view.caContentIdTo"/>
+                  <condition-expr field-name="caContentAssocTypeId" from-field="parameters.subContentAssocTypeId" ignore-if-empty="true"/>
+                  <condition-expr field-name="caMapKey" from-field="parameters.subMapKey" ignore-if-empty="true"/>
+              </condition-list>
+            </entity-condition>
+            <clear-field field="view2"/>
+            <first-from-list entry="view2" list="viewList"/>
+            <clear-field field="map"/>
+            <set field="map.contentIdFrom" from-field="view.contentId"/>
+            <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>
+            <set field="map.contentId" from-field="view2.contentId"/>
+            <set field="map.contentName" from-field="view2.contentName"/>
+            <set field="map.description" from-field="view2.description"/>
+            <entity-one entity-name="ElectronicText" value-field="electronicText">
+                <field-map field-name="dataResourceId" from-field="view2.dataResourceId"/>
+            </entity-one>
+            <set field="map.textData" from-field="electronicText.textData"/>
             <set field="contentViewList[]" from-field="map"/>
         </iterate>
         <field-to-result field="subContentList" result-name="subContentList"/>

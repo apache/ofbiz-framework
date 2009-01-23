@@ -42,13 +42,13 @@ decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
 if (invoice) {
-	if (currency && !invoice.getString("currencyUomId").equals(currency)) {
-		conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice);
-		invoice.currencyUomId = currency;
-		invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);  
-	}
-	
-	invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
+    if (currency && !invoice.getString("currencyUomId").equals(currency)) {
+        conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice);
+        invoice.currencyUomId = currency;
+        invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);  
+    }
+    
+    invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
     invoiceItemsConv = FastList.newInstance();
     invoiceItems.each { invoiceItem ->
       invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);

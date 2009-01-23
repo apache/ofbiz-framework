@@ -399,7 +399,7 @@ public class EntityUtil {
 
     public static List<GenericValue> findDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
         EntityCondition searchCondition = EntityCondition.makeCondition(UtilMisc.toList(
-        		EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
+                EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
         return delegator.findList(entityName, searchCondition, null, UtilMisc.toList("-fromDate"), null, false);
     }
 

@@ -302,36 +302,36 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <if>
                     <condition>
-	                    <and>
-	                        <if-compare operator="equals" value="AGGREGATED" field="product.productTypeId"></if-compare>
-	                        <not><if-empty field="parameters.configId"></if-empty></not>
-	                    </and>                    
+                        <and>
+                            <if-compare operator="equals" value="AGGREGATED" field="product.productTypeId"></if-compare>
+                            <not><if-empty field="parameters.configId"></if-empty></not>
+                        </and>                    
                     </condition>
                     <then>
-				        <call-class-method class-name="org.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
-				            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
-				            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
-				            <field field="parameters.configId" type="java.lang.String"/>
-				            <field field="parameters.productId" type="java.lang.String"/>
-				            <field field="" type="java.lang.String"/>
-				            <field field="" type="java.lang.String"/>
-				            <field field="" type="java.lang.String"/>
-				            <field field="" type="java.lang.String"/>
-				            <field field="locale" type="java.util.Locale"/>
-				            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
-				        </call-class-method>
-				        <call-object-method method-name="getTotalPrice" obj-field="configWrapper" ret-field="totalPrice"></call-object-method>
-				        <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>				                           
+                        <call-class-method class-name="org.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
+                            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+                            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+                            <field field="parameters.configId" type="java.lang.String"/>
+                            <field field="parameters.productId" type="java.lang.String"/>
+                            <field field="" type="java.lang.String"/>
+                            <field field="" type="java.lang.String"/>
+                            <field field="" type="java.lang.String"/>
+                            <field field="" type="java.lang.String"/>
+                            <field field="locale" type="java.util.Locale"/>
+                            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+                        </call-class-method>
+                        <call-object-method method-name="getTotalPrice" obj-field="configWrapper" ret-field="totalPrice"></call-object-method>
+                        <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>                                           
                     </then>
                     <else>
-	                    <set from-field="product" field="calculateProductPriceMap.product"/>
-		                <set from-field="parameters.quantity" field="calculateProductPriceMap.quantity"/>
-		                <if-not-empty field="parameters.selectedAmount">
-		                    <set from-field="parameters.selectedAmount" field="calculateProductPriceMap.amount"/>
-		                </if-not-empty>
-		                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
-		                    <result-to-field result-name="price" field="newEntity.quoteUnitPrice"/>
-		                </call-service>
+                        <set from-field="product" field="calculateProductPriceMap.product"/>
+                        <set from-field="parameters.quantity" field="calculateProductPriceMap.quantity"/>
+                        <if-not-empty field="parameters.selectedAmount">
+                            <set from-field="parameters.selectedAmount" field="calculateProductPriceMap.amount"/>
+                        </if-not-empty>
+                        <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                            <result-to-field result-name="price" field="newEntity.quoteUnitPrice"/>
+                        </call-service>
                     </else>
                 </if>
             </if-not-empty>

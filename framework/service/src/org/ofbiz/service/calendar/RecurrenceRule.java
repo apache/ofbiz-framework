@@ -324,71 +324,71 @@ public class RecurrenceRule {
             if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
                 return 0;
             }
-        	
+            
         case MONTHLY:
-        	if (MONTHLY == getFrequency()) {
+            if (MONTHLY == getFrequency()) {
                 cal.add(Calendar.MONTH, -getIntervalInt());
                 if (cal.get(Calendar.MONTH) != checkTimeCal.get(Calendar.MONTH)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
             }
-        	
+            
         case WEEKLY:
-        	if (WEEKLY == getFrequency()) {
+            if (WEEKLY == getFrequency()) {
                 cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
                 if (cal.get(Calendar.WEEK_OF_YEAR) != checkTimeCal.get(Calendar.WEEK_OF_YEAR)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.WEEK_OF_YEAR, checkTimeCal.get(Calendar.WEEK_OF_YEAR));
             }
 
         case DAILY:
-        	if (DAILY == getFrequency()) {
+            if (DAILY == getFrequency()) {
                 cal.add(Calendar.DAY_OF_MONTH, -getIntervalInt());
                 if (cal.get(Calendar.DAY_OF_MONTH) != checkTimeCal.get(Calendar.DAY_OF_MONTH)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.DAY_OF_MONTH, checkTimeCal.get(Calendar.DAY_OF_MONTH));
             }
 
         case HOURLY:
-        	if (HOURLY == getFrequency()) {
+            if (HOURLY == getFrequency()) {
                 cal.add(Calendar.HOUR_OF_DAY, -getIntervalInt());
                 if (cal.get(Calendar.HOUR_OF_DAY) != checkTimeCal.get(Calendar.HOUR_OF_DAY)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.HOUR_OF_DAY, checkTimeCal.get(Calendar.HOUR_OF_DAY));
             }
 
         case MINUTELY:
-        	if (MINUTELY == getFrequency()) {
+            if (MINUTELY == getFrequency()) {
                 cal.add(Calendar.MINUTE, -getIntervalInt());
                 if (cal.get(Calendar.MINUTE) != checkTimeCal.get(Calendar.MINUTE)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.MINUTE, checkTimeCal.get(Calendar.MINUTE));
             }
 
         case SECONDLY:
-        	if (SECONDLY == getFrequency()) {
+            if (SECONDLY == getFrequency()) {
                 cal.add(Calendar.SECOND, -getIntervalInt());
                 if (cal.get(Calendar.SECOND) != checkTimeCal.get(Calendar.SECOND)) {
                     return 0;
                 }
-        	} else {
+            } else {
                 cal.set(Calendar.SECOND, checkTimeCal.get(Calendar.SECOND));
             }
         }
 
         // Check for validity of the current frequency.
         if (validByRule(cal.getTime())) {
-        	 return cal.getTime().getTime();
+             return cal.getTime().getTime();
         }
         
         return 0;

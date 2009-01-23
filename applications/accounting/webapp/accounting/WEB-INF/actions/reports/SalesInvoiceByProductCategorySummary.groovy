@@ -100,10 +100,10 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     currentDayCal = Calendar.getInstance();
     currentDayCal.setTimeInMillis(monthCal.getTimeInMillis());
     currentDayCal.set(Calendar.DAY_OF_MONTH, currentDay);
-	currentDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
+    currentDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
     currentDayCal.add(Calendar.DAY_OF_MONTH, 1);
-	nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
-	
+    nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
+    
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 
     // do the product find
@@ -152,12 +152,12 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productNullResult = productNullResultListIterator.next();
     productNullResultListIterator.close();
     if (productNullResult) {
-    	productNullResultByDayList.add(productNullResult);
+        productNullResultByDayList.add(productNullResult);
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, "quantityTotal", productNullResult.getBigDecimal("quantityTotal"));
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, "amountTotal", productNullResult.getBigDecimal("amountTotal"));
     } else {
         // no result, add an empty Map place holder
-    	productNullResultByDayList.add(FastMap.newInstance());
+        productNullResultByDayList.add(FastMap.newInstance());
     }
 }
 

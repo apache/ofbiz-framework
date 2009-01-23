@@ -302,7 +302,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SVN"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SWE"/>
 
-	<!-- Countries of the UK -->
+    <!-- Countries of the UK -->
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="SCOT"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="ENGL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="NIRL"/>

@@ -1024,7 +1024,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public List<ModelParam> getModelParamList() {
         List<ModelParam> newList = FastList.newInstance();
         newList.addAll(this.contextParamList);
-    	return newList;
+        return newList;
     }
 
     /**
@@ -1074,8 +1074,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                             ModelParam existingParam = this.contextInfo.get(newParam.name);
                             if (existingParam != null) {
                                 // if the existing param is not INOUT and the newParam.mode is different from existingParam.mode, make the existing param optional and INOUT
-                            	// TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
-                            	if (!"INOUT".equals(existingParam.mode) && !existingParam.mode.equals(newParam.mode)) {
+                                // TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
+                                if (!"INOUT".equals(existingParam.mode) && !existingParam.mode.equals(newParam.mode)) {
                                     existingParam.mode = "INOUT";
                                     if (existingParam.optional || newParam.optional) {
                                         existingParam.optional = true;

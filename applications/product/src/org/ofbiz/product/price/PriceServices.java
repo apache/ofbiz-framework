@@ -374,7 +374,7 @@ public class PriceServices {
                         List<GenericValue> tempDefaultPriceList = EntityUtil.filterByAnd(curVariantPriceList, UtilMisc.toMap("productPriceTypeId", "DEFAULT_PRICE"));
                         GenericValue curDefaultPriceValue = EntityUtil.getFirst(tempDefaultPriceList);
                         if (curDefaultPriceValue != null) {
-                        	BigDecimal curDefaultPrice = curDefaultPriceValue.getBigDecimal("price");
+                            BigDecimal curDefaultPrice = curDefaultPriceValue.getBigDecimal("price");
                             if (minDefaultPrice == null || curDefaultPrice.compareTo(minDefaultPrice) < 0) {
                                 // check to see if the product is discontinued for sale before considering it the lowest price
                                 GenericValue curVariantProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", curVariantProductId));
@@ -504,7 +504,7 @@ public class PriceServices {
                     try {
                         Map<String, Object> outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                         if (!ServiceUtil.isError(outMap)) {
-                        	BigDecimal calculatedDefaultPrice = (BigDecimal)outMap.get("price");
+                            BigDecimal calculatedDefaultPrice = (BigDecimal)outMap.get("price");
                             orderItemPriceInfos = UtilGenerics.checkList(outMap.get("orderItemPriceInfos"));
                             if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {
                                 defaultPrice = calculatedDefaultPrice;
@@ -528,7 +528,7 @@ public class PriceServices {
             // no list price, use defaultPrice for the final price
 
             // ========= ensure calculated price is not below minSalePrice or above maxSalePrice =========
-        	BigDecimal maxSellPrice = maximumPriceValue != null ? maximumPriceValue.getBigDecimal("price") : null;
+            BigDecimal maxSellPrice = maximumPriceValue != null ? maximumPriceValue.getBigDecimal("price") : null;
             if (maxSellPrice != null && defaultPrice.compareTo(maxSellPrice) > 0) {
                 defaultPrice = maxSellPrice;
             }

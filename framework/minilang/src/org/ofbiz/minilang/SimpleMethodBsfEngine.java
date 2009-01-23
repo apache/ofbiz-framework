@@ -120,7 +120,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
         public void compileExpr (String source, int lineNo, int columnNo,
                 Object expr, CodeBuffer cb) throws BSFException;
  
-        public void compileScript (String source, int	lineNo,	int columnNo,
+        public void compileScript (String source, int    lineNo,    int columnNo,
                 Object script, CodeBuffer cb) throws BSFException;
  */
     

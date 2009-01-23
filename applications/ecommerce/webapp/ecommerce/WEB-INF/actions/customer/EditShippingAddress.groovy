@@ -49,7 +49,7 @@ if (userLogin) {
         context.shipToContactMechId = null;
     }
     
-	shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
+    shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToContactMechList) {
         shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber");
         pcm = EntityUtil.getFirst(shipToTelecomNumber.getRelated("PartyContactMech"));

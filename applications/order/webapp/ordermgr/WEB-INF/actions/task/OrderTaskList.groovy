@@ -96,7 +96,7 @@ while (poIter.hasNext()) {
     poGv = poIter.next();
     poOrderId = poGv.orderId;
     if (listedPoIds.contains(poOrderId)) {
-    	poIter.remove();
+        poIter.remove();
     } else {
         listedPoIds.add(poOrderId);
     }

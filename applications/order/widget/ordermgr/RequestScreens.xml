@@ -81,34 +81,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-		                <container style="lefthalf">
-		                    <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
-		                        <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-		                    </screenlet>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
+                                <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                             <screenlet title="${uiLabelMap.PageTitleRequestItems}">
                                 <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
                                 <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-		                </container>
-		                <container style="righthalf">			                
-			                <platform-specific>
-			                    <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
-			                </platform-specific>
-			                <platform-specific>
-			                    <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
-			                </platform-specific>
+                        </container>
+                        <container style="righthalf">                            
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
+                            </platform-specific>
                             <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
                                 <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
                                 <include-form name="ViewRequestWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-		                    <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
-		                         <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-		                    </screenlet>
-		                </container>
+                            <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
+                                 <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

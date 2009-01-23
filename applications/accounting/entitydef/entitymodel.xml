@@ -3258,7 +3258,7 @@ under the License.
         <prim-key field="county"/>
         <prim-key field="fromDate"/>
     </entity>
-	
+    
     <entity entity-name="PartyGlAccount" package-name="org.ofbiz.accounting.ledger" title="Party Gl Account Entity">
         <field name="organizationPartyId" type="id-ne"/>
         <field name="partyId" type="id-ne"/>
@@ -3284,7 +3284,7 @@ under the License.
         </relation>
         <relation type="one" fk-name="PRTYGLACCT_GLAT" rel-entity-name="GlAccountType">
             <key-map field-name="glAccountTypeId"/>
-        </relation>		
+        </relation>        
         <relation type="one" fk-name="PRTYGLACCT_GLACCT" rel-entity-name="GlAccount">
             <key-map field-name="glAccountId"/>
         </relation>

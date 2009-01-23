@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-	<SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions."/>
-	<SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
-	<SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
-	<SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
-	<SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
-	<SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
-	
+    <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions."/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    
     <RoleType roleTypeId="APPROVER" description="Approver"/>
     <RoleType roleTypeId="REVIEWER" description="Reviewer"/>
     <Party partyId="approver" partyTypeId="PERSON"/>
@@ -34,8 +34,8 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="APPROVER"/>
     <UserLogin userLoginId="approver" partyId="approver"/>
     <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>    
-	
-	
+    
+    
     <DataResource dataResourceId="DR1103b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"  />
     <DataResource dataResourceId="DR1105b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"  />
 
@@ -59,7 +59,7 @@ under the License.
     <DataResource dataResourceId="DR1115"  mimeTypeId="application/pdf" dataResourceName="Performance Review"  />
     <DataResource dataResourceId="DR1116"  mimeTypeId="application/pdf" dataResourceName="Other Upload"  />
 
-	    <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
+        <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
     <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"  ownerContentId="" />
     
     
@@ -97,7 +97,7 @@ under the License.
     <ContentAssoc contentIdTo="CDT1201" contentId="CDT1115" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0150"/>
     <ContentAssoc contentIdTo="CDT1201" contentId="CDT1116" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0160"/>
 
-	    <!-- sample instances CDT CDT1201 -->
+        <!-- sample instances CDT CDT1201 -->
     <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"  ownerContentId="" />
     <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"  ownerContentId=""/>
     <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"  ownerContentId="" />
@@ -106,7 +106,7 @@ under the License.
     <ContentAssoc contentIdTo="CDI1201" contentId="CDI1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="00130"/>
     <ContentAssoc contentIdTo="CDI1201" contentId="CDI1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
 
-	    <!-- sample revision entries for CDT CDT1201 -->
+        <!-- sample revision entries for CDT CDT1201 -->
     <ContentRevision contentId="CDT1201" contentRevisionSeqId="000002"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1101"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1102"/>
@@ -127,7 +127,7 @@ under the License.
 
     <ContentRevision contentId="CDT1201" contentRevisionSeqId="000004"/>
 
-	<ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
     
@@ -136,14 +136,14 @@ under the License.
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000006"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000006" itemContentId="CDI1105" newDataResourceId="DR1105a"/>
 
-	<ContentRevision contentId="CDI1201" contentRevisionSeqId="000009"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000009"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000009" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
-	<ContentRevision contentId="CDI1201" contentRevisionSeqId="000010"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000010"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000010" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
-	<ContentRevision contentId="CDI1201" contentRevisionSeqId="000013"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000013"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000013" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
-	<ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000014" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
     

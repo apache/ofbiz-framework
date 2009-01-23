@@ -39,84 +39,84 @@ public class Various {
 
 
     public static void setDatesFollowingTasks(GenericValue task) {
-    	
-    	try {
-    		List assocs = task.getRelated("FromWorkEffortAssoc");
-    		if (UtilValidate.isNotEmpty(assocs)) {
-    			Iterator a = assocs.iterator();
-    			while (a.hasNext()) {
-    				GenericValue assoc = (GenericValue) a.next();
-    				GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
-  					Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
-  					if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate) ) {
-  	  					nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day 
-  	       				nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
-  	       				nextTask.store();
-  					}
-    				setDatesFollowingTasks(nextTask);
-    			}
-    		}
+        
+        try {
+            List assocs = task.getRelated("FromWorkEffortAssoc");
+            if (UtilValidate.isNotEmpty(assocs)) {
+                Iterator a = assocs.iterator();
+                while (a.hasNext()) {
+                    GenericValue assoc = (GenericValue) a.next();
+                    GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
+                      Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
+                      if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate) ) {
+                            nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day 
+                             nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
+                             nextTask.store();
+                      }
+                    setDatesFollowingTasks(nextTask);
+                }
+            }
 
-    	} catch (GenericEntityException e) {
-    		Debug.logError("Could not updte task: " + e.getMessage(), module);
-    	}
+        } catch (GenericEntityException e) {
+            Debug.logError("Could not updte task: " + e.getMessage(), module);
+        }
     }
     
     public static Timestamp calculateCompletionDate(GenericValue task, Timestamp startDate) {
-		Double plannedHours = 0.00;
-    	try {
-    		// get planned hours
-    		List standards = task.getRelated("WorkEffortSkillStandard");
-    		Iterator t = standards.iterator();
-    		while (t.hasNext()) {
-    			GenericValue standard = (GenericValue) t.next();
-    			if (standard.getDouble("estimatedNumPeople") == null) {
-    				standard.put("estimatedNumPeople", new Double("1"));
-    			}
-    			if (standard.get("estimatedDuration") != null) {
-    				plannedHours += standard.getDouble("estimatedDuration").doubleValue() / standard.getDouble("estimatedNumPeople").doubleValue();
-    			}
-    		}
+        Double plannedHours = 0.00;
+        try {
+            // get planned hours
+            List standards = task.getRelated("WorkEffortSkillStandard");
+            Iterator t = standards.iterator();
+            while (t.hasNext()) {
+                GenericValue standard = (GenericValue) t.next();
+                if (standard.getDouble("estimatedNumPeople") == null) {
+                    standard.put("estimatedNumPeople", new Double("1"));
+                }
+                if (standard.get("estimatedDuration") != null) {
+                    plannedHours += standard.getDouble("estimatedDuration").doubleValue() / standard.getDouble("estimatedNumPeople").doubleValue();
+                }
+            }
 
-    	} catch (GenericEntityException e) {
-    		Debug.logError("Could not updte task: " + e.getMessage(), module);
-    	}
-    	if (plannedHours == 0.00) {
-    		plannedHours = new Double("24.00"); // default length of task is 3 days.
-    	}
-    	
-    	// only add days which are not saturday(7) or sunday(1)
-    	int days = plannedHours.intValue() / 8;
-    	while (days > 0) {
-    		int dayNumber = UtilDateTime.dayNumber(startDate);
-    		if (dayNumber != 1 && dayNumber != 7) {
-    			days--;
-    		}
-    		startDate = UtilDateTime.addDaysToTimestamp(startDate, 1);
-    	}
-    	return startDate; 
+        } catch (GenericEntityException e) {
+            Debug.logError("Could not updte task: " + e.getMessage(), module);
+        }
+        if (plannedHours == 0.00) {
+            plannedHours = new Double("24.00"); // default length of task is 3 days.
+        }
+        
+        // only add days which are not saturday(7) or sunday(1)
+        int days = plannedHours.intValue() / 8;
+        while (days > 0) {
+            int dayNumber = UtilDateTime.dayNumber(startDate);
+            if (dayNumber != 1 && dayNumber != 7) {
+                days--;
+            }
+            startDate = UtilDateTime.addDaysToTimestamp(startDate, 1);
+        }
+        return startDate; 
     }
     
     public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
-		List actuals = FastList.newInstance();
-		double actualHours = 0.00;
-		if(timesheetId != null){
-			try {
-				actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
-				if(actuals.size() > 0){
-					Iterator ite = actuals.iterator();
-					while(ite.hasNext()){
-						GenericValue actual =(GenericValue)ite.next();
-						 Double hour = (Double) actual.get("hours");
-						 double hours = hour.doubleValue();
-						 actualHours = actualHours + hours;
-					}
-				}
-			} catch (GenericEntityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return actualHours;
+        List actuals = FastList.newInstance();
+        double actualHours = 0.00;
+        if(timesheetId != null){
+            try {
+                actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
+                if(actuals.size() > 0){
+                    Iterator ite = actuals.iterator();
+                    while(ite.hasNext()){
+                        GenericValue actual =(GenericValue)ite.next();
+                         Double hour = (Double) actual.get("hours");
+                         double hours = hour.doubleValue();
+                         actualHours = actualHours + hours;
+                    }
+                }
+            } catch (GenericEntityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return actualHours;
     }
 }

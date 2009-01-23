@@ -256,7 +256,7 @@ public class OrderServices {
                     normalizedItemQuantities.put(currentProductId, orderItem.getBigDecimal("quantity"));
                     normalizedItemNames.put(currentProductId, orderItem.getString("itemDescription"));
                 } else {
-                	BigDecimal currentQuantity = (BigDecimal) normalizedItemQuantities.get(currentProductId);
+                    BigDecimal currentQuantity = (BigDecimal) normalizedItemQuantities.get(currentProductId);
                     normalizedItemQuantities.put(currentProductId, currentQuantity.add(orderItem.getBigDecimal("quantity")));
                 }
 
@@ -3414,7 +3414,7 @@ public class OrderServices {
                 if (overridePriceMap.containsKey(itemSeqId)) {
                     String priceStr = (String) itemPriceMap.get(itemSeqId);
                     if (UtilValidate.isNotEmpty(priceStr)) {
-                    	BigDecimal price = new BigDecimal("-1");
+                        BigDecimal price = new BigDecimal("-1");
                         price = new BigDecimal(priceStr).setScale(orderDecimals, orderRounding);
                         cartItem.setBasePrice(price);
                         cartItem.setIsModifiedPrice(true);
@@ -4905,9 +4905,9 @@ public class OrderServices {
 
                     Calendar endDate = Calendar.getInstance();
                     endDate.setTime(UtilDateTime.nowTimestamp());
-                	//check if the thruedate - cancel period (if provided) is earlier than todays date
+                    //check if the thruedate - cancel period (if provided) is earlier than todays date
                     int field = Calendar.MONTH;
-                	if (subscription.get("canclAutmExtTime") != null && subscription.get("canclAutmExtTimeUomId") != null) {
+                    if (subscription.get("canclAutmExtTime") != null && subscription.get("canclAutmExtTimeUomId") != null) {
                         if ("TF_day".equals(subscription.getString("canclAutmExtTimeUomId"))) {
                             field = Calendar.DAY_OF_YEAR;   
                         } else if ("TF_wk".equals(subscription.getString("canclAutmExtTimeUomId"))) {
@@ -4920,30 +4920,30 @@ public class OrderServices {
                             Debug.logWarning("Don't know anything about useTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", module);
                         }
 
-                		endDate.add(field, new Integer(subscription.getString("canclAutmExtTime")).intValue());
-                	}
-                	
+                        endDate.add(field, new Integer(subscription.getString("canclAutmExtTime")).intValue());
+                    }
+                    
                     Calendar endDateSubscription = Calendar.getInstance();
                     endDateSubscription.setTime(subscription.getTimestamp("thruDate"));
-                	
+                    
                     if (endDate.before(endDateSubscription)) {
-                    	// nor expired yet.....
-                    	continue;
+                        // nor expired yet.....
+                        continue;
                     }
-                	
-                	result = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", subscription.get("orderId"), "userLogin", userLogin));
-                	ShoppingCart cart = (ShoppingCart) result.get("shoppingCart");
-                	
-                	// only keep the orderitem with the related product.
-                	List cartItems = cart.items();
-                	Iterator ci = cartItems.iterator();
-                	while (ci.hasNext()) {
-                		ShoppingCartItem shoppingCartItem = (ShoppingCartItem) ci.next();
-                		if (!subscription.get("productId").equals(shoppingCartItem.getProductId())) {
-                			cart.removeCartItem(shoppingCartItem, dispatcher);
-                		}
-                	}
-                	
+                    
+                    result = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", subscription.get("orderId"), "userLogin", userLogin));
+                    ShoppingCart cart = (ShoppingCart) result.get("shoppingCart");
+                    
+                    // only keep the orderitem with the related product.
+                    List cartItems = cart.items();
+                    Iterator ci = cartItems.iterator();
+                    while (ci.hasNext()) {
+                        ShoppingCartItem shoppingCartItem = (ShoppingCartItem) ci.next();
+                        if (!subscription.get("productId").equals(shoppingCartItem.getProductId())) {
+                            cart.removeCartItem(shoppingCartItem, dispatcher);
+                        }
+                    }
+                    
                     CheckOutHelper helper = new CheckOutHelper(dispatcher, delegator, cart);
     
                     // store the order

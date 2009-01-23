@@ -381,7 +381,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
-    		BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
+            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
@@ -399,7 +399,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param accommodationSpotId Optional. reservations add into workeffort
     */
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
-    		BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
+            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
             String accommodationMapId,String accommodationSpotId,
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
@@ -506,7 +506,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             newItem.setReservLength(reservLength);
             
             if (product.get("reservMaxPersons") != null) {
-            	BigDecimal reservMaxPersons = product.getBigDecimal("reservMaxPersons");
+                BigDecimal reservMaxPersons = product.getBigDecimal("reservMaxPersons");
                  if (reservMaxPersons.compareTo(reservPersons) < 0)    {
                      Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"), 
                                                      "reservPersons", reservPersons);
@@ -596,7 +596,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String itemType, String itemDescription, String productCategoryId, 
-    		BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup, 
+            BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup, 
             LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool) throws CartItemModifyException {
 
         GenericDelegator delegator = cart.getDelegator();
@@ -924,13 +924,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                 // see if we can get the number of assets available
                 // first try techDataCalendarExcDay(exceptionCapacity) and then FixedAsset(productionCapacity)
                 // if still zero, do not check availability
-            	BigDecimal exceptionCapacity = BigDecimal.ZERO;
+                BigDecimal exceptionCapacity = BigDecimal.ZERO;
                 if (techDataCalendarExcDay.get("exceptionCapacity") != null)
                     exceptionCapacity = techDataCalendarExcDay.getBigDecimal("exceptionCapacity");
                 if (exceptionCapacity.compareTo(BigDecimal.ZERO) == 0 && fixedAsset.get("productionCapacity") != null)
                     exceptionCapacity = fixedAsset.getBigDecimal("productionCapacity");
                 if (exceptionCapacity.compareTo(BigDecimal.ZERO) != 0) {
-                	BigDecimal usedCapacity = BigDecimal.ZERO;
+                    BigDecimal usedCapacity = BigDecimal.ZERO;
                     if (techDataCalendarExcDay.get("usedCapacity") != null)
                         usedCapacity = techDataCalendarExcDay.getBigDecimal("usedCapacity");
                     if (exceptionCapacity.compareTo(quantity.add(usedCapacity)) < 0) {
@@ -1312,7 +1312,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public BigDecimal getPromoQuantityCandidateUseActionAndAllConds(GenericValue productPromoAction) {
-    	BigDecimal totalUse = BigDecimal.ZERO;
+        BigDecimal totalUse = BigDecimal.ZERO;
         String productPromoId = productPromoAction.getString("productPromoId");
         String productPromoRuleId = productPromoAction.getString("productPromoRuleId");
 
@@ -1684,7 +1684,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public BigDecimal getWeight() {
         GenericValue product = getProduct();
         if (product != null) {
-        	BigDecimal weight = product.getBigDecimal("weight");
+            BigDecimal weight = product.getBigDecimal("weight");
 
             // if the weight is null, see if there is an associated virtual product and get the weight of that product
             if (weight == null) {
@@ -1790,9 +1790,9 @@ public class ShoppingCartItem implements java.io.Serializable {
     public BigDecimal getSize() {
         GenericValue product = getProduct();
         if (product != null) {
-        	BigDecimal height = product.getBigDecimal("shippingHeight");
-        	BigDecimal width = product.getBigDecimal("shippingWidth");
-        	BigDecimal depth = product.getBigDecimal("shippingDepth");
+            BigDecimal height = product.getBigDecimal("shippingHeight");
+            BigDecimal width = product.getBigDecimal("shippingWidth");
+            BigDecimal depth = product.getBigDecimal("shippingDepth");
 
             // if all are null, see if there is an associated virtual product and get the info of that product
             if (height == null && width == null && depth == null) {
@@ -1841,7 +1841,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Returns the base price. */
     public BigDecimal getBasePrice() {
-    	BigDecimal curBasePrice;
+        BigDecimal curBasePrice;
         if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
             curBasePrice = basePrice.multiply(selectedAmount);
         } else {
@@ -1851,7 +1851,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
     
     public BigDecimal getDisplayPrice() {
-    	BigDecimal curDisplayPrice;
+        BigDecimal curDisplayPrice;
         if (this.displayPrice == null) {
             curDisplayPrice = this.getBasePrice();
         } else {
@@ -1973,7 +1973,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public BigDecimal getDisplayItemRecurringSubTotal() {
-    	BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+        BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
         
         if (curRecurringDisplayPrice == null) {
             return this.getOtherAdjustmentsRecurring();
@@ -1983,7 +1983,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public BigDecimal getDisplayItemRecurringSubTotalNoAdj() {
-    	BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+        BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
         if (curRecurringDisplayPrice == null) return BigDecimal.ZERO;
         
         return curRecurringDisplayPrice.multiply(this.getQuantity());
@@ -2022,7 +2022,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         BigDecimal recurringAmount = (BigDecimal) additionalProductFeatureAndAppl.get("recurringAmount");
         if (recurringAmount != null) {
-        	recurringAmount = recurringAmount.multiply(this.getQuantity());
+            recurringAmount = recurringAmount.multiply(this.getQuantity());
             orderAdjustment.set("recurringAmount", recurringAmount);
             //Debug.logInfo("Setting recurringAmount " + recurringAmount + " for " + orderAdjustment, module);
         }
@@ -2379,7 +2379,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public void explodeItem(ShoppingCart cart, LocalDispatcher dispatcher) throws CartItemModifyException {
-    	BigDecimal baseQuantity = this.getQuantity();
+        BigDecimal baseQuantity = this.getQuantity();
         int thisIndex = cart.items().indexOf(this);
         List newItems = new ArrayList();
 

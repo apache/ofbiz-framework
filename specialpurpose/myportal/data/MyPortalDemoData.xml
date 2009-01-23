@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
 
-	<!-- allow admin to read company communications -->
+    <!-- allow admin to read company communications -->
     <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
     <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
 

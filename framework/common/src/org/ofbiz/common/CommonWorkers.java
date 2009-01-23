@@ -53,12 +53,12 @@ public class CommonWorkers {
             }       
         }        
         try {
-        	List<GenericValue> countryGeoList = delegator.findByAndCache("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY"), UtilMisc.toList("geoName"));
+            List<GenericValue> countryGeoList = delegator.findByAndCache("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY"), UtilMisc.toList("geoName"));
             if (defaultGeo != null) {
                 geoList.add(defaultGeo);
-            	geoList.addAll(countryGeoList);
+                geoList.addAll(countryGeoList);
             } else {
-            	geoList = countryGeoList;
+                geoList = countryGeoList;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);

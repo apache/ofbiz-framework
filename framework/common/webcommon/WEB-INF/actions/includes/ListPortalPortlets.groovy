@@ -27,18 +27,18 @@ portalPortlets = [];
 inMap = [:];
 while (portlet = ppIter.next()) {
 
-	if (portlet.securityServiceName && portlet.securityMainAction) {
-		inMap.mainAction = portlet.securityMainAction;
-		inMap.userLogin = context.userLogin;
-		result = dispatcher.runSync(portlet.securityServiceName, inMap)
-		hasPermission = result.hasPermission;
-	} else {
-		hasPermission = true;
-	}
-	
-	if (hasPermission) {
-		portalPortlets.add(portlet);
-	}
+    if (portlet.securityServiceName && portlet.securityMainAction) {
+        inMap.mainAction = portlet.securityMainAction;
+        inMap.userLogin = context.userLogin;
+        result = dispatcher.runSync(portlet.securityServiceName, inMap)
+        hasPermission = result.hasPermission;
+    } else {
+        hasPermission = true;
+    }
+    
+    if (hasPermission) {
+        portalPortlets.add(portlet);
+    }
 }
 context.portalPortlets = portalPortlets;
 

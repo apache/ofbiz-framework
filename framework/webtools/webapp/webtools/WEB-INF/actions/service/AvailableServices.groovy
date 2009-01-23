@@ -446,13 +446,13 @@ if (selectedService) {
     showWsdl = parameters.show_wsdl;
     
     if(showWsdl?.equals("true")) {
-    	try {
-    		wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${UtilProperties.getPropertyValue("url.properties", "port.http", "80")}${parameters._CONTROL_PATH_}/SOAPService");
-    		curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl);
-    	} catch (WSDLException ex) {
-    		curServiceMap.wsdl = ex.getLocalizedMessage();
-    	}
-    	context.showWsdl = true;
+        try {
+            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${UtilProperties.getPropertyValue("url.properties", "port.http", "80")}${parameters._CONTROL_PATH_}/SOAPService");
+            curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl);
+        } catch (WSDLException ex) {
+            curServiceMap.wsdl = ex.getLocalizedMessage();
+        }
+        context.showWsdl = true;
     }
     context.selectedServiceMap = curServiceMap;
 }

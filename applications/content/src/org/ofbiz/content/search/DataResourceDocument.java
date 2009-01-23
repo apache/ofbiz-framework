@@ -44,49 +44,49 @@ import org.apache.lucene.document.Field.TermVector;
  */
 
 public class DataResourceDocument {
-	static char dirSep = System.getProperty("file.separator").charAt(0);
+    static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 
-	public static Document Document(String id, GenericDelegator delegator, Map context) throws InterruptedException  {
+    public static Document Document(String id, GenericDelegator delegator, Map context) throws InterruptedException  {
 
-		Document doc = null;
-		GenericValue dataResource = null;
-	  	try {
-	  		dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId",id));
-	  	} catch(GenericEntityException e) {
-	  		Debug.logError(e, module);
-	  		return doc;
-	  	}
-	  	// make a new, empty document
-	  	doc = new Document();
+        Document doc = null;
+        GenericValue dataResource = null;
+          try {
+              dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId",id));
+          } catch(GenericEntityException e) {
+              Debug.logError(e, module);
+              return doc;
+          }
+          // make a new, empty document
+          doc = new Document();
 
-	  	doc.add(new Field("dataResourceId", id, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+          doc.add(new Field("dataResourceId", id, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
 
-	  	String mimeTypeId = dataResource.getString("mimeTypeId");
-	    if (UtilValidate.isEmpty(mimeTypeId)) {
+          String mimeTypeId = dataResource.getString("mimeTypeId");
+        if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
         }
 
-	    Locale locale = Locale.getDefault();
+        Locale locale = Locale.getDefault();
         String currentLocaleString = dataResource.getString("localeString");
         if (UtilValidate.isNotEmpty(currentLocaleString)) {
             locale = UtilMisc.parseLocale(currentLocaleString);
         }
 
         StringWriter outWriter = new StringWriter();
-	  	try {
-	  	    DataResourceWorker.writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
-	  	} catch(GeneralException e) {
-	  		Debug.logError(e, module);
-	  	} catch(IOException e) {
-	  		Debug.logError(e, module);
-	  	}
-	  	String text = outWriter.toString();
-	  	Debug.logInfo("in DataResourceDocument, text:" + text, module);
+          try {
+              DataResourceWorker.writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
+          } catch(GeneralException e) {
+              Debug.logError(e, module);
+          } catch(IOException e) {
+              Debug.logError(e, module);
+          }
+          String text = outWriter.toString();
+          Debug.logInfo("in DataResourceDocument, text:" + text, module);
                 if (UtilValidate.isNotEmpty(text))
-	  	    doc.add(new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO));
+              doc.add(new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO));
 
-	    return doc;
-	}
+        return doc;
+    }
 
 }

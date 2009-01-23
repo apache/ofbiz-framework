@@ -171,13 +171,13 @@ public class JobPoller implements Runnable {
      */
     public Job next() {
         if (run.size() > 0) {
-        	// NOTE: this syncrhonized isn't really necessary as the only method that calls it is already synchronized (the JobInvoker.run method), so this is here as an added protection especially for the case where it might be used differently in the future
-        	synchronized (run) {
-        		// make sure the size is still greater than zero
+            // NOTE: this syncrhonized isn't really necessary as the only method that calls it is already synchronized (the JobInvoker.run method), so this is here as an added protection especially for the case where it might be used differently in the future
+            synchronized (run) {
+                // make sure the size is still greater than zero
                 if (run.size() > 0) {
-                	return run.remove(0);
+                    return run.remove(0);
                 }
-        	}
+            }
         }
         return null;
     }
@@ -186,25 +186,25 @@ public class JobPoller implements Runnable {
      * Adds a job to the RUN queue
      */
     public void queueNow(Job job) {
-    	//Debug.logInfo("[" + Thread.currentThread().getId() + "] Begin queueNow; holds run lock? " + Thread.holdsLock(run), module);
-    	
-    	// NOTE DEJ20071201 MUST use a different object for the lock here because the "this" object is always held by the poller thread in the run method above (which sleeps and runs)
-    	synchronized (run) {
+        //Debug.logInfo("[" + Thread.currentThread().getId() + "] Begin queueNow; holds run lock? " + Thread.holdsLock(run), module);
+        
+        // NOTE DEJ20071201 MUST use a different object for the lock here because the "this" object is always held by the poller thread in the run method above (which sleeps and runs)
+        synchronized (run) {
             run.add(job);
-    	}
+        }
         if (Debug.verboseOn()) Debug.logVerbose("New run queue size: " + run.size(), module);
         if (run.size() > pool.size() && pool.size() < maxThreads()) {
-	    	synchronized (pool) {
-	            if (run.size() > pool.size() && pool.size() < maxThreads()) {
-	                int calcSize = (run.size() / jobsPerThread()) - (pool.size());
-	                int addSize = calcSize > maxThreads() ? maxThreads() : calcSize;
-	
-	                for (int i = 0; i < addSize; i++) {
-	                    JobInvoker iv = new JobInvoker(this, invokerWaitTime());
-	                    pool.add(iv);
-	                }
-	            }
-	    	}
+            synchronized (pool) {
+                if (run.size() > pool.size() && pool.size() < maxThreads()) {
+                    int calcSize = (run.size() / jobsPerThread()) - (pool.size());
+                    int addSize = calcSize > maxThreads() ? maxThreads() : calcSize;
+    
+                    for (int i = 0; i < addSize; i++) {
+                        JobInvoker iv = new JobInvoker(this, invokerWaitTime());
+                        pool.add(iv);
+                    }
+                }
+            }
         }
     }
 

@@ -556,7 +556,7 @@ public class TransactionUtil implements Status {
     // TRANSACTION BEGIN STACK
     // =======================================
     private static void pushTransactionBeginStackSave(Exception e) {
-    	// use the ThreadLocal one because it is more reliable than the all threads Map
+        // use the ThreadLocal one because it is more reliable than the all threads Map
         List<Exception> el = transactionBeginStackSave.get();
         if (el == null) {
             el = FastList.newInstance();
@@ -567,20 +567,20 @@ public class TransactionUtil implements Status {
         Long curThreadId = Thread.currentThread().getId();
         List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
         if (ctEl == null) {
-        	ctEl = FastList.newInstance();
-        	allThreadsTransactionBeginStackSave.put(curThreadId, ctEl);
+            ctEl = FastList.newInstance();
+            allThreadsTransactionBeginStackSave.put(curThreadId, ctEl);
         }
         ctEl.add(0, e);
     }
     private static Exception popTransactionBeginStackSave() {
-    	// do the unofficial all threads Map one first, and don't do a real return
+        // do the unofficial all threads Map one first, and don't do a real return
         Long curThreadId = Thread.currentThread().getId();
         List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
         if (UtilValidate.isNotEmpty(ctEl)) {
             ctEl.remove(0);
         }
-    	
-    	// then do the more reliable ThreadLocal one
+        
+        // then do the more reliable ThreadLocal one
         List<Exception> el = transactionBeginStackSave.get();
         if (UtilValidate.isNotEmpty(el)) {
             return el.remove(0);
@@ -593,7 +593,7 @@ public class TransactionUtil implements Status {
         if (el != null) {
             return el.size();
         } else {
-        	return 0;
+            return 0;
         }
     }
     public static List<Exception> getTransactionBeginStackSave() {
@@ -603,33 +603,33 @@ public class TransactionUtil implements Status {
         return elClone;
     }
     public static Map<Long, List<Exception>> getAllThreadsTransactionBeginStackSave() {
-    	Map<Long, List<Exception>> attbssMap = allThreadsTransactionBeginStackSave;
-    	Map<Long, List<Exception>> attbssMapClone = FastMap.newInstance();
-    	attbssMapClone.putAll(attbssMap);
+        Map<Long, List<Exception>> attbssMap = allThreadsTransactionBeginStackSave;
+        Map<Long, List<Exception>> attbssMapClone = FastMap.newInstance();
+        attbssMapClone.putAll(attbssMap);
         return attbssMapClone;
     }
     public static void printAllThreadsTransactionBeginStacks() {
-    	if (!Debug.infoOn()) {
-    		return;
-    	}
-    	
-		for (Map.Entry<Long, Exception> attbsMapEntry : allThreadsTransactionBeginStack.entrySet()) {
-			Long curThreadId = (Long) attbsMapEntry.getKey();
-			Exception transactionBeginStack = attbsMapEntry.getValue();
-    		List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
-    		
-			Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", module);
-    		
-    		if (UtilValidate.isNotEmpty(txBeginStackList)) {
-        		int stackLevel = 0;
-        		for (Exception stack : txBeginStackList) {
-        			Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", module);
-        			stackLevel++;
-        		}
-    		} else {
-    			Debug.logInfo("========================================== No tx begin stack history found for thread [" + curThreadId + "]", module);
-    		}
-		}
+        if (!Debug.infoOn()) {
+            return;
+        }
+        
+        for (Map.Entry<Long, Exception> attbsMapEntry : allThreadsTransactionBeginStack.entrySet()) {
+            Long curThreadId = (Long) attbsMapEntry.getKey();
+            Exception transactionBeginStack = attbsMapEntry.getValue();
+            List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
+            
+            Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", module);
+            
+            if (UtilValidate.isNotEmpty(txBeginStackList)) {
+                int stackLevel = 0;
+                for (Exception stack : txBeginStackList) {
+                    Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", module);
+                    stackLevel++;
+                }
+            } else {
+                Debug.logInfo("========================================== No tx begin stack history found for thread [" + curThreadId + "]", module);
+            }
+        }
     }
     
     private static void setTransactionBeginStack() {

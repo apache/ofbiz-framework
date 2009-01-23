@@ -70,8 +70,8 @@ public class CmsEvents {
         if (webSiteId == null) {
             webSiteId = WebSiteWorker.getWebSiteId(request);
             if (webSiteId == null) {
-            	request.setAttribute("_ERROR_MESSAGE_", "Not able to run CMS application; no webSiteId defined for WebApp!");
-            	return "error";
+                request.setAttribute("_ERROR_MESSAGE_", "Not able to run CMS application; no webSiteId defined for WebApp!");
+                return "error";
             }
         }
 
@@ -104,7 +104,7 @@ public class CmsEvents {
             }
         } // if called through the default request, there is no request in pathinfo
 
-    	Debug.log("========pathinfo: " + pathInfo);
+        Debug.log("========pathinfo: " + pathInfo);
         // if path info is null; check for a default content
         if (pathInfo == null) {
             List<GenericValue> defaultContents = null;
@@ -182,7 +182,7 @@ public class CmsEvents {
                     contentId = pathInfo;
                 }
             }
-        	Debug.log("========contentId: " + contentId);
+            Debug.log("========contentId: " + contentId);
 
             // verify the request content is associated with the current website
             boolean websiteOk;
@@ -237,28 +237,28 @@ public class CmsEvents {
 
                 return "success";
             } else {
-            	String contentName = null;
-            	String siteName = null;
-            	try {
-            		GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-            		if (UtilValidate.isNotEmpty(content)) {
-            			contentName = content.getString("contentName");
-            		}
-            		siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
+                String contentName = null;
+                String siteName = null;
+                try {
+                    GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                    if (UtilValidate.isNotEmpty(content)) {
+                        contentName = content.getString("contentName");
+                    }
+                    siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-            	request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: "+ siteName + " [" + webSiteId + "]");
+                request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: "+ siteName + " [" + webSiteId + "]");
                 return "error";
             }
         }
         String siteName = null;
-    	try { 
-    		siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
+        try { 
+            siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-    	request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: "+ siteName + " [" + webSiteId + "] not even a default page!");
+        request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: "+ siteName + " [" + webSiteId + "] not even a default page!");
         return "error";
         // throw an unknown request error
         //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");

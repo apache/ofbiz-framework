@@ -39,6 +39,6 @@ if (andExprs) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
     autocompleteOptions = delegator.findList("ExampleFeature", entityConditionList, ['exampleFeatureId', 'description'] as Set, ['-exampleFeatureId'], null, false);
     //context.autocompleteOptions = autocompleteOptions;
-	request.setAttribute("autocompleteOptions", autocompleteOptions);
+    request.setAttribute("autocompleteOptions", autocompleteOptions);
 }
 return "success";

@@ -150,7 +150,7 @@ public class MenuEvents {
         } else {
 
             // check for quantity
-        	BigDecimal quantity = BigDecimal.ONE;
+            BigDecimal quantity = BigDecimal.ONE;
             if (func != null && "QTY".equals(func[0])) {
                 try {
                     quantity = new BigDecimal(func[1]);

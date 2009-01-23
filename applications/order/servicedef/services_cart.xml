@@ -140,7 +140,7 @@ under the License.
         <description>Get the ShoppingCart info from the productId</description>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-		<attribute name="itemIndex" type="String" mode="OUT" optional="true"/>
+        <attribute name="itemIndex" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="resetShipGroupItems" engine="java" auth="false"

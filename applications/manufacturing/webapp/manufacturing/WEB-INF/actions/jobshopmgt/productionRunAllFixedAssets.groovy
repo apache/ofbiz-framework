@@ -31,6 +31,6 @@ if (productionRunId) {
             taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
             productionRunFixedAssetsData.addAll(taskFixedAssets);
         }
-	    context.productionRunFixedAssetsData = productionRunFixedAssetsData;
+        context.productionRunFixedAssetsData = productionRunFixedAssetsData;
     }
 }

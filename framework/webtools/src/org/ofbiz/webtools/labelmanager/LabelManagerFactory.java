@@ -81,7 +81,7 @@ public class LabelManagerFactory {
     }
     
     private static void prepareAll() throws GeneralException {
-    	labels = new TreeMap<String, LabelInfo>();
+        labels = new TreeMap<String, LabelInfo>();
         fileNamesFound = new TreeMap<String, String>();
         fileComponent = new TreeMap<String, String>();
         localesFound = new TreeSet<String>();
@@ -89,9 +89,9 @@ public class LabelManagerFactory {
         int duplicatedLocales = 0;
         
         try {
-        	Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
-        	
-        	for (ComponentConfig componentConfig: componentConfigs) {
+            Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
+            
+            for (ComponentConfig componentConfig: componentConfigs) {
                 String componentName = componentConfig.getComponentName();
                 List<File> resourceFiles = FileUtil.findXmlFiles(componentConfig.getRootLocation(), null, "resource", null);
                 

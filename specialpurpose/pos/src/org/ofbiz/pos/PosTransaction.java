@@ -218,8 +218,8 @@ public class PosTransaction implements Serializable {
     }
 
     public BigDecimal getTotalDue() {
-    	BigDecimal grandTotal = this.getGrandTotal();
-    	BigDecimal paymentAmt = this.getPaymentTotal();
+        BigDecimal grandTotal = this.getGrandTotal();
+        BigDecimal paymentAmt = this.getPaymentTotal();
         return grandTotal.subtract(paymentAmt);
     }
 
@@ -937,8 +937,8 @@ public class PosTransaction implements Serializable {
 
     public void appendTotalDataModel(XModel model) {
         if (cart != null) {
-        	BigDecimal taxAmount = cart.getTotalSalesTax();
-        	BigDecimal total = cart.getGrandTotal();
+            BigDecimal taxAmount = cart.getTotalSalesTax();
+            BigDecimal total = cart.getGrandTotal();
             List adjustments = cart.getAdjustments();            
             BigDecimal itemsAdjustmentsAmount = BigDecimal.ZERO; 
 
@@ -971,7 +971,7 @@ public class PosTransaction implements Serializable {
                         Journal.appendNode(adjustmentLine, "td", "qty", "");
                         Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount.doubleValue()));
                     } else if (UtilValidate.isNotEmpty(sourcePercentage)) {
-                    	BigDecimal percentage = sourcePercentage.movePointLeft(2).negate(); // sourcePercentage is negative and must be show as a positive value (it's a discount not an amount)
+                        BigDecimal percentage = sourcePercentage.movePointLeft(2).negate(); // sourcePercentage is negative and must be show as a positive value (it's a discount not an amount)
                         Journal.appendNode(adjustmentLine, "td", "qty", UtilFormatOut.formatPercentage(percentage.doubleValue())); 
                         amount = cart.getItemTotal().add(itemsAdjustmentsAmount).multiply(percentage); // itemsAdjustmentsAmount is negative
                         Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount.negate().doubleValue())); // amount must be shown as a negative value
@@ -1038,7 +1038,7 @@ public class PosTransaction implements Serializable {
 
     public void appendChangeDataModel(XModel model) {
         if (cart != null) {
-        	BigDecimal changeDue = this.getTotalDue().negate();
+            BigDecimal changeDue = this.getTotalDue().negate();
             if (changeDue.compareTo(BigDecimal.ZERO) >= 0) {
                 XModel changeLine = Journal.appendNode(model, "tr", "", "");
                 Journal.appendNode(changeLine, "td", "sku", "");

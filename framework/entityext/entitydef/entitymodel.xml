@@ -153,8 +153,8 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EntitySyncInclGrpDetailView"
-    	    package-name="org.ofbiz.entity.synchronization"
-    	    title="Entity Synchronization Include Entity Group Detail View Entity">
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization Include Entity Group Detail View Entity">
       <member-entity entity-alias="ESIG" entity-name="EntitySyncIncludeGroup"/>
       <member-entity entity-alias="EGE" entity-name="EntityGroupEntry"/>
       <alias-all entity-alias="ESIG"/>

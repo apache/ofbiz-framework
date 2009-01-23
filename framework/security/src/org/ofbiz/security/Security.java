@@ -59,7 +59,7 @@ public abstract class Security {
      *
      * @param userLoginId The userLoginId to find security groups by
      * @return An iterator made from the Collection either cached or retrieved from the database through the
-     * 		   UserLoginSecurityGroup Delegator.
+     *            UserLoginSecurityGroup Delegator.
      */
     public abstract Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId);
 

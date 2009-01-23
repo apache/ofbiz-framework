@@ -781,20 +781,20 @@ public class ContentManagementWorker {
                 GenericValue contentAssoc = (GenericValue)iter.next();
                 String contentIdTo = contentAssoc.getString("contentIdTo");
                 GenericValue contentTo = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentIdTo));
-        		int intLeafCount = 0;
-        		Long leafCount = (Long)contentTo.get("childLeafCount");
-        	    if (leafCount != null) {
-            	    intLeafCount = leafCount.intValue();
+                int intLeafCount = 0;
+                Long leafCount = (Long)contentTo.get("childLeafCount");
+                if (leafCount != null) {
+                    intLeafCount = leafCount.intValue();
                 }
                 contentTo.set("childLeafCount", Long.valueOf(intLeafCount + leafChangeAmount)); 
                 
                 if (branchChangeAmount != 0) {
-                	int intBranchCount = 0;
-        			Long branchCount = (Long)contentTo.get("childBranchCount");
-        	    	if (branchCount != null) {
-            	    	intBranchCount = branchCount.intValue();
-        	    	}
-                	contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount)); 
+                    int intBranchCount = 0;
+                    Long branchCount = (Long)contentTo.get("childBranchCount");
+                    if (branchCount != null) {
+                        intBranchCount = branchCount.intValue();
+                    }
+                    contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount)); 
                 }
                 contentTo.store();
                 updateStatsBottomUp(delegator, contentIdTo, typeList, 0, leafChangeAmount);

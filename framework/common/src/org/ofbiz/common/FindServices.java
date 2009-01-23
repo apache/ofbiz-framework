@@ -494,13 +494,13 @@ public class FindServices {
          */
         if ((tmpList.size() > 0) || ((noConditionFind != null) && (noConditionFind.equals("Y")))) {
             if (!UtilValidate.isEmpty(filterByDate) && "Y".equals(filterByDate)) {
-            	if (UtilValidate.isEmpty(filterByDateValue)) {
-            		EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
-            		tmpList.add(filterByDateCondition);
-            	} else {
-            		EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue);
-            		tmpList.add(filterByDateCondition);
-            	}
+                if (UtilValidate.isEmpty(filterByDateValue)) {
+                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
+                    tmpList.add(filterByDateCondition);
+                } else {
+                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue);
+                    tmpList.add(filterByDateCondition);
+                }
             }
         }
 
@@ -664,7 +664,7 @@ public class FindServices {
         }
         
         if (!UtilValidate.isEmpty(item)) {
-        	result.put("item",item);
+            result.put("item",item);
         }
         result.remove("listIt");
         return result;

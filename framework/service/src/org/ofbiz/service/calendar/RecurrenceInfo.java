@@ -235,7 +235,7 @@ public class RecurrenceInfo {
     
     /** Checks the current recurrence validity at the moment. */
     public boolean isValidCurrent() {
-    	return isValidCurrent(RecurrenceUtil.now());
+        return isValidCurrent(RecurrenceUtil.now());
     }
     
     /** Checks the current recurrence validity for checkTime. */

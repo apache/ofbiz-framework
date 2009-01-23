@@ -258,7 +258,7 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="orderBlacklistTypeId"/>
     </entity>
- 	<entity entity-name="CommunicationEventOrder"
+     <entity entity-name="CommunicationEventOrder"
             package-name="org.ofbiz.order.order"
             title="Communication Event Order Entity">
       <field name="orderId" type="id-ne"></field>
@@ -2801,7 +2801,7 @@ under the License.
         <field name="currencyUomId" type="id-ne"/>
         <field name="marketingCampaignId" type="id-ne"/>
         <field name="dataSourceId" type="id-ne"/>
-        <field name="estimatedCloseDate" type="date-time"/>    	
+        <field name="estimatedCloseDate" type="date-time"/>        
         <field name="opportunityStageId" type="id-ne"/>
         <field name="typeEnumId" type="id-ne"/>
         <field name="createdByUserLogin" type="id-vlong"/>
@@ -2833,7 +2833,7 @@ under the License.
         <field name="estimatedAmount" type="currency-amount"/>
         <field name="estimatedProbability" type="fixed-point"/>
         <field name="currencyUomId" type="id-ne"/>
-        <field name="estimatedCloseDate" type="date-time"/>    	
+        <field name="estimatedCloseDate" type="date-time"/>        
         <field name="opportunityStageId" type="id-ne"/>
         <field name="changeNote" type="very-long">
             <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->

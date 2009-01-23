@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 // only execute when a user is logged in
 if (parameters.userLogin) {
-	ppCond = 
+    ppCond = 
     EntityCondition.makeCondition([
         EntityCondition.makeCondition([
             EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parameters.parentPortalPageId),
@@ -34,16 +34,16 @@ if (parameters.userLogin) {
             EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_")
         ],EntityOperator.OR),
     ],EntityOperator.AND);
-	portalPages = delegator.findList("PortalPage", ppCond, null, null, null, false);
-	// remove overridden system pages
-	portalPages.each { portalPage ->
-		if (portalPage.ownerUserLoginId.equals("_NA_")) {
-			userPortalPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPage.portalPageId, ownerUserLoginId : parameters.userLogin.userLoginId]);
-			if (userPortalPages) {
-				portalPages.remove(portalPage);
-			}
-		}
-	}
-	context.portalPages = portalPages;
+    portalPages = delegator.findList("PortalPage", ppCond, null, null, null, false);
+    // remove overridden system pages
+    portalPages.each { portalPage ->
+        if (portalPage.ownerUserLoginId.equals("_NA_")) {
+            userPortalPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPage.portalPageId, ownerUserLoginId : parameters.userLogin.userLoginId]);
+            if (userPortalPages) {
+                portalPages.remove(portalPage);
+            }
+        }
+    }
+    context.portalPages = portalPages;
 }
 

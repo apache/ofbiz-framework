@@ -102,7 +102,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>				
+                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>                
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>

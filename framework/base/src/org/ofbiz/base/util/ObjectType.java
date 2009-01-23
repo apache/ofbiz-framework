@@ -603,7 +603,7 @@ public class ObjectType {
                     df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
                     // if time is missing add zeros
                     if (str.length() > 0 && !str.contains(":")) {
-                    	str = str + " 00:00:00.00";
+                        str = str + " 00:00:00.00";
                     }
                     // hack to mimic Timestamp.valueOf() method
                     if (str.length() > 0 && !str.contains(".")) {

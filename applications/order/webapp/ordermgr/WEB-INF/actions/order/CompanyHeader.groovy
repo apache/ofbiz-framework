@@ -46,7 +46,7 @@ if (!orderHeader && orderId) {
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
 }
 
-if (!invoice && invoiceId)	{
+if (!invoice && invoiceId)    {
     invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 }
 
@@ -131,7 +131,7 @@ address = null;
 if (selAddresses) {
     address = delegator.findByPrimaryKey("PostalAddress", [contactMechId : selAddresses[0].contactMechId]);
 }
-if (address)	{
+if (address)    {
    // get the country name and state/province abbreviation
    country = address.getRelatedOneCache("CountryGeo");
    if (country) {
@@ -161,9 +161,9 @@ if (selEmails) {
     selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
     if (selContacts) {
         i = selContacts.iterator();
-        while (i.hasNext())	{
+        while (i.hasNext())    {
             email = i.next().getRelatedOne("ContactMech");
-            if ("ELECTRONIC_ADDRESS".equals(email.contactMechTypeId))	{
+            if ("ELECTRONIC_ADDRESS".equals(email.contactMechTypeId))    {
                 context.email = email;
                 break;
             }
@@ -176,7 +176,7 @@ contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId]);
 selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
 if (selContacts) {
     Iterator i = selContacts.iterator();
-    while (i.hasNext())	{
+    while (i.hasNext())    {
         website = i.next().getRelatedOne("ContactMech");
         if ("WEB_ADDRESS".equals(website.contactMechTypeId)) {
             context.website = website;

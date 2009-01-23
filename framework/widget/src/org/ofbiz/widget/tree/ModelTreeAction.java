@@ -270,12 +270,12 @@ public abstract class ModelTreeAction {
                     context.put("queryString", queryString);
                     context.put("queryStringMap", result.get("queryStringMap"));
                     if (UtilValidate.isNotEmpty(queryString)){
-                    	try {
-                    		String queryStringEncoded = queryString.replaceAll("&", "%26");
+                        try {
+                            String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
-                    	} catch (PatternSyntaxException e) {
-                    		
-                    	}
+                        } catch (PatternSyntaxException e) {
+                            
+                        }
                     }
                 } else {
                     context.putAll(result);
@@ -290,11 +290,11 @@ public abstract class ModelTreeAction {
                     if (UtilValidate.isNotEmpty(resultMapListName)) {
                         List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
                         if (lst != null) {
-                        	if (lst instanceof ListIterator) {
+                            if (lst instanceof ListIterator) {
                                 this.modelSubNode.setListIterator((ListIterator) lst);
-                        	} else {
-                        		this.modelSubNode.setListIterator(lst.listIterator());
-                        	}
+                            } else {
+                                this.modelSubNode.setListIterator(lst.listIterator());
+                            }
                         }
                     }
                 } else {

@@ -77,7 +77,7 @@ under the License.
     <form name="ListQuotes" list-name="listIt" target="" title="" type="list"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
         paginate-target="FindQuoteForCart">
-      	<actions>
+          <actions>
           <set field="entityName" value="Quote"/>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
             <field-map field-name="inputFields" env-name="requestParameters"/>

@@ -41,7 +41,7 @@ public class PaymentEvents {
 
         // all cash transactions are NO_PAYMENT; no need to check
         try {
-        	BigDecimal amount = processAmount(trans, pos, null);
+            BigDecimal amount = processAmount(trans, pos, null);
             Debug.log("Processing [Cash] Amount : " + amount, module);
 
             // add the payment
@@ -213,7 +213,7 @@ public class PaymentEvents {
                     case 3:
                         firstName = msrInfoArr[2];
                     case 2: // card number & exp date found
-                    	BigDecimal amount = BigDecimal.ZERO;
+                        BigDecimal amount = BigDecimal.ZERO;
                         try {
                             String[] totalInfo = input.getFunction("TOTAL");
                             amount = processAmount(trans, pos, totalInfo[1]);
@@ -260,7 +260,7 @@ public class PaymentEvents {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 
         try {
-        	BigDecimal amount = processAmount(trans, pos, null);
+            BigDecimal amount = processAmount(trans, pos, null);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
@@ -283,7 +283,7 @@ public class PaymentEvents {
         input.clearInput();
 
         try {
-        	BigDecimal amount = processAmount(trans, pos, amountStr);
+            BigDecimal amount = processAmount(trans, pos, amountStr);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment

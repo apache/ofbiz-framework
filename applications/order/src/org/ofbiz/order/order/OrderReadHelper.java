@@ -236,7 +236,7 @@ public class OrderReadHelper {
                 // key of the resulting map is paymentMethodId or paymentMethodTypeId if the paymentMethodId is not available
                 String paymentMethodKey = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
                 if(paymentMethodAmounts.containsKey(paymentMethodKey)){
-                	BigDecimal value = (BigDecimal) paymentMethodAmounts.get(paymentMethodKey);
+                    BigDecimal value = (BigDecimal) paymentMethodAmounts.get(paymentMethodKey);
                     if (value != null) chargedToPaymentPref = chargedToPaymentPref.add(value);
                 }
                 paymentMethodAmounts.put(paymentMethodKey, chargedToPaymentPref.setScale(scale, rounding));
@@ -1439,7 +1439,7 @@ public class OrderReadHelper {
                     GenericValue rec = (GenericValue) recIter.next();
                     BigDecimal rejected = rec.getBigDecimal("quantityRejected");
                     if (rejected != null && rejected.compareTo(BigDecimal.ZERO) > 0) {
-                    	return true;
+                        return true;
                     }
                 }            
             }
@@ -2496,7 +2496,7 @@ public class OrderReadHelper {
     }
 
     public static BigDecimal getWorkEffortRentalLength(GenericValue workEffort){
-    	BigDecimal length = null;
+        BigDecimal length = null;
         if (workEffort.get("estimatedStartDate") != null && workEffort.get("estimatedCompletionDate") != null) {
             length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"),workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
         }

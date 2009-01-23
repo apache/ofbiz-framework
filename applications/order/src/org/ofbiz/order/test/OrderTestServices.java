@@ -55,13 +55,13 @@ public class OrderTestServices {
         
         int numberOfOrdersInt = numberOfOrders.intValue();
         for (int i = 1; i <= numberOfOrdersInt; i++) {
-        	try {
-				ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
-				dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
-			} catch (GenericServiceException e) {
-				String errMsg = "Error calling createTestSalesOrderSingle: " + e.toString();
-				Debug.logError(e, errMsg, module);
-			}
+            try {
+                ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
+                dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
+            } catch (GenericServiceException e) {
+                String errMsg = "Error calling createTestSalesOrderSingle: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
         }
         return ServiceUtil.returnSuccess();
     }

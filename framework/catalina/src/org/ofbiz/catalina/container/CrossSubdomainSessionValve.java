@@ -53,14 +53,14 @@ public class CrossSubdomainSessionValve extends ValveBase {
             String[] domainArray = serverName.split("\\.");
             // check that the domain isn't an IP address
             if (domainArray.length == 4) {
-            	boolean isIpAddress = true;
-            	for (String domainSection : domainArray) {
-            		if (!UtilValidate.isIntegerInRange(domainSection, 0, 255)) {
-            			isIpAddress = false;
-            			break;
-            		}
-            	}
-            	if (isIpAddress) return;
+                boolean isIpAddress = true;
+                for (String domainSection : domainArray) {
+                    if (!UtilValidate.isIntegerInRange(domainSection, 0, 255)) {
+                        isIpAddress = false;
+                        break;
+                    }
+                }
+                if (isIpAddress) return;
             }
             if (domainArray.length > 2) {
                 cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];

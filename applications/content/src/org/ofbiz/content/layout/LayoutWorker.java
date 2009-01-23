@@ -86,9 +86,9 @@ public class LayoutWorker {
             //Debug.logVerbose("in uploadAndStoreImage, fieldName:" + fieldName + " fieldStr:" + fieldStr, "");
             }
             if (fieldName.equals(uploadField)){
-            	imageFi = fi;
-            	//MimeType of upload file
-            	results.put("uploadMimeType", fi.getContentType());
+                imageFi = fi;
+                //MimeType of upload file
+                results.put("uploadMimeType", fi.getContentType());
             }
         }
 

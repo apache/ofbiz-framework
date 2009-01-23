@@ -347,12 +347,12 @@ public class OpenOfficeWorker{
     }
     public static String convertToUrl(String filePath, XComponentContext xComponentContext ) throws MalformedURLException {
 
-    	String returnUrl = null;
-    	File f = new File(filePath);
-    	URL u = f.toURL();
+        String returnUrl = null;
+        File f = new File(filePath);
+        URL u = f.toURL();
         returnUrl =  ExternalUriReferenceTranslator.create(xComponentContext).translateToInternal(u.toExternalForm());
 
-    	return returnUrl;
+        return returnUrl;
     }
     
 }

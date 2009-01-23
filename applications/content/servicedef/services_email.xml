@@ -25,8 +25,8 @@ under the License.
 
     <!-- Email Related Services -->
     <service name="sendMailInterface" engine="interface" location="" invoke="">
-    	<description>Interface service for mail services.  contentType defaults to "text/html", sendType defaults to
-    	    "mail.smtp.host".  sendVia must be specified if sendType is different.  Configured in general.properties</description>
+        <description>Interface service for mail services.  contentType defaults to "text/html", sendType defaults to
+            "mail.smtp.host".  sendVia must be specified if sendType is different.  Configured in general.properties</description>
         <attribute name="sendTo" type="String" mode="IN" optional="true"/>
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="sendBcc" type="String" mode="IN" optional="true"/>

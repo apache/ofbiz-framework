@@ -470,20 +470,20 @@ public class ProductWorker {
     }
 
     public static String getProductvirtualVariantMethod(GenericDelegator delegator, String productId) {
-    	GenericValue product = null;
+        GenericValue product = null;
         try {
-        	product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
 
         if (product != null) {
-        	return product.getString("virtualVariantMethodEnum");
+            return product.getString("virtualVariantMethodEnum");
         } else {
-        	return null;
+            return null;
         }
     }
-    	
+        
     /**
      * 
      * @param product
@@ -505,13 +505,13 @@ public class ProductWorker {
                 List<Map<String,String>> featureList = FastList.newInstance();
                 for (GenericValue productFeatureAppl: featuresSorted) {
                     if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
-                    	// use first entry for type and description
+                        // use first entry for type and description
                         if (oldType != null) {
                             featureTypeFeatures.add(featureList);
                             featureList = FastList.newInstance();
                             } 
                         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
-                        		productFeatureAppl.getString("productFeatureTypeId")));
+                                productFeatureAppl.getString("productFeatureTypeId")));
                         featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"), 
                                                         "description", productFeatureType.getString("description")));  
                         oldType = productFeatureAppl.getString("productFeatureTypeId");
@@ -519,17 +519,17 @@ public class ProductWorker {
                     // fill other entries with featureId, description and default price and currency
                     Map<String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
                     if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
-                		featureData.put("description", productFeatureAppl.getString("description"));
+                        featureData.put("description", productFeatureAppl.getString("description"));
                     } else {
-                    	featureData.put("description", productFeatureAppl.getString("productFeatureId"));
+                        featureData.put("description", productFeatureAppl.getString("productFeatureId"));
                     }
                     List<GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice", 
-                    		UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
+                            UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
                     if (UtilValidate.isNotEmpty(productFeaturePrices)) {
-                    	GenericValue productFeaturePrice = productFeaturePrices.get(0);
+                        GenericValue productFeaturePrice = productFeaturePrices.get(0);
                         if (UtilValidate.isNotEmpty(productFeaturePrice.get("price"))) {
-                        	featureData.put("price", productFeaturePrice.getBigDecimal("price").toString()); 
-                        	featureData.put("currencyUomId", productFeaturePrice.getString("currencyUomId")); 
+                            featureData.put("price", productFeaturePrice.getBigDecimal("price").toString()); 
+                            featureData.put("currencyUomId", productFeaturePrice.getString("currencyUomId")); 
                         }
                     }
                     featureList.add(featureData);
@@ -573,7 +573,7 @@ public class ProductWorker {
     // product calc methods
     
     public static BigDecimal calcOrderAdjustments(List<GenericValue> orderHeaderAdjustments, BigDecimal subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
-    	BigDecimal adjTotal = BigDecimal.ZERO;
+        BigDecimal adjTotal = BigDecimal.ZERO;
 
         if (UtilValidate.isNotEmpty(orderHeaderAdjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);

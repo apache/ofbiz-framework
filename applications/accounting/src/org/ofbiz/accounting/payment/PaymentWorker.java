@@ -289,7 +289,7 @@ public class PaymentWorker {
      * @return the applied total as BigDecimal in the currency of the payment
      */
     public static BigDecimal getPaymentApplied(GenericValue payment) {
-    	return getPaymentApplied(payment, false);
+        return getPaymentApplied(payment, false);
     }
     
     /**
@@ -303,9 +303,9 @@ public class PaymentWorker {
         List paymentApplications = null;
         try {
             List cond = UtilMisc.toList(
-            		EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
-            		EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
-            		);
+                    EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
+                    EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
+                    );
             EntityCondition partyCond = EntityCondition.makeCondition(cond, EntityOperator.OR);
             paymentApplications = payment.getDelegator().findList("PaymentApplication", partyCond, null, UtilMisc.toList("invoiceId", "billingAccountId"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
@@ -332,10 +332,10 @@ public class PaymentWorker {
         return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
     public static BigDecimal getPaymentNotApplied(GenericValue payment, Boolean actual) {
-    	if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
-    		return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
-    	}
-   		return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
+        if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
+            return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
+        }
+           return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
     public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
         return getPaymentNotApplied(delegator,paymentId, false);

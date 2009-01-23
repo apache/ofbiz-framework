@@ -301,21 +301,21 @@ public class JavaMailContainer implements Container {
             // process each message
             for (Message message: messages) {
                 // process each un-read message
-            	if (!message.isSet(Flags.Flag.SEEN)) {
-            		long messageSize = message.getSize();
-            		if (message instanceof MimeMessage && messageSize >= maxSize) {
-            			Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
-            		} else {
-            			this.processMessage(message, session);
-            			if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , module);
-            			message.setFlag(Flags.Flag.SEEN, true);
-            			if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is marked seen", module);
-            		}
-            	}
-            	if (deleteMail) {
-            		if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is being deleted", module);
-            		message.setFlag(Flags.Flag.DELETED, true);
-            	}
+                if (!message.isSet(Flags.Flag.SEEN)) {
+                    long messageSize = message.getSize();
+                    if (message instanceof MimeMessage && messageSize >= maxSize) {
+                        Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
+                    } else {
+                        this.processMessage(message, session);
+                        if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , module);
+                        message.setFlag(Flags.Flag.SEEN, true);
+                        if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is marked seen", module);
+                    }
+                }
+                if (deleteMail) {
+                    if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is being deleted", module);
+                    message.setFlag(Flags.Flag.DELETED, true);
+                }
             }
 
             // expunge and close the folder

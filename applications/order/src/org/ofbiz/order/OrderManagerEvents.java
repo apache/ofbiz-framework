@@ -160,7 +160,7 @@ public class OrderManagerEvents {
         }
 
         if (paymentMethodTypes == null) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
             return "error";
         }
 
@@ -183,11 +183,11 @@ public class OrderManagerEvents {
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");
             String paymentReference = request.getParameter(paymentMethodTypeId + "_reference");
             if (!UtilValidate.isEmpty(amountStr)) {
-            	BigDecimal paymentTypeAmount = BigDecimal.ZERO;
+                BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
                     paymentTypeAmount = new BigDecimal(NumberFormat.getNumberInstance(locale).parse(amountStr).doubleValue());
                 } catch (java.text.ParseException pe) {
-                	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
                     return "error";
                 }
                 if (paymentTypeAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -255,7 +255,7 @@ public class OrderManagerEvents {
                 if ("EXT_OFFLINE".equals(paymentMethodType)) {
                     offlineValue = cp;
                 } else {
-                	BigDecimal cpAmt = cp.getBigDecimal("maxAmount");
+                    BigDecimal cpAmt = cp.getBigDecimal("maxAmount");
                     if (cpAmt != null) {
                         paymentTally = paymentTally.add(cpAmt);
                     }

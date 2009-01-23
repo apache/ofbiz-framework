@@ -68,7 +68,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
-    	this.init(fieldMap, compOp, joinOp);
+        this.init(fieldMap, compOp, joinOp);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
@@ -96,8 +96,8 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
     }
 
     public void reset() {
-    	super.reset();
-    	this.fieldMap = null;
+        super.reset();
+        this.fieldMap = null;
     }
 
     public Object getField(String name) {

@@ -20,7 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-	<!-- CustomTimePeriod Services -->
+    <!-- CustomTimePeriod Services -->
     <simple-method method-name="createCustomTimePeriod" short-description="Create a CustomTimePeriod">
         <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run createCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
         <check-errors/>

@@ -36,8 +36,8 @@ import org.apache.commons.validator.EmailValidator;
  * <br/>    - U.S. Postal Codes(2 letter abbreviations for names of states)
  * <br/>    - U.S. Social Security Numbers(abbreviated as SSNs)
  * <br/>    - email addresses
- * <br/>	   - dates(entry of year, month, and day and validity of combined date)
- * <br/>	   - credit card numbers
+ * <br/>       - dates(entry of year, month, and day and validity of combined date)
+ * <br/>       - credit card numbers
  * <br/>
  * <br/> Supporting utility functions validate that:
  * <br/>    - characters are Letter, Digit, or LetterOrDigit
@@ -48,7 +48,7 @@ import org.apache.commons.validator.EmailValidator;
  * <br/>
  * <br/> Other utility functions are provided to:
  * <br/>    - remove from a string characters which are/are not in a "bag" of selected characters
- * <br/>	   - strip whitespace/leading whitespace from a string
+ * <br/>       - strip whitespace/leading whitespace from a string
  * <br/>
  * <br/> ==============================================================================
  * <br/> NOTE: This code was adapted from the Netscape JavaScript form validation code,

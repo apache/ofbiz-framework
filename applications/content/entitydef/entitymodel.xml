@@ -1175,7 +1175,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyApplType"
             package-name="org.ofbiz.content.survey"
-			default-resource-name="ContentEntityLabels"
+            default-resource-name="ContentEntityLabels"
             title="Survey Application Type Entity">
       <field name="surveyApplTypeId" type="id-ne"/>
       <field name="description" type="description"/>

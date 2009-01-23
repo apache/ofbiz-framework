@@ -153,7 +153,7 @@ public class ModelMenuCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
-        	for (MenuCondition subCondition: this.subConditions) {
+            for (MenuCondition subCondition: this.subConditions) {
                 if (!subCondition.eval(context)) {
                     return false;
                 }
@@ -173,7 +173,7 @@ public class ModelMenuCondition {
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
-        	for (MenuCondition subCondition: this.subConditions) {
+            for (MenuCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     if (foundOneTrue) {
                         // now found two true, so return false
@@ -197,7 +197,7 @@ public class ModelMenuCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
-        	for (MenuCondition subCondition: this.subConditions) {
+            for (MenuCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     return true;
                 }
@@ -546,8 +546,8 @@ public class ModelMenuCondition {
         }
         
         public boolean eval(Map<String, Object> context) {
-        	
-        	boolean passed = permissionChecker.runPermissionCheck(context);
+            
+            boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;
         }
     }

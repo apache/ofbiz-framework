@@ -1577,7 +1577,7 @@ public class ShoppingCart implements Serializable {
     
     /** returns the total payment amounts */
     public BigDecimal getPaymentTotal() {
-    	BigDecimal total = BigDecimal.ZERO;
+        BigDecimal total = BigDecimal.ZERO;
         Iterator i = paymentInfo.iterator();
         while (i.hasNext()) {
             CartPaymentInfo inf = (CartPaymentInfo) i.next();
@@ -2537,7 +2537,7 @@ public class ShoppingCart implements Serializable {
 
     /** Returns the sub-total in the cart (item-total - discount). */
     public BigDecimal getSubTotalForPromotions() {
-    	BigDecimal itemsTotal = BigDecimal.ZERO;
+        BigDecimal itemsTotal = BigDecimal.ZERO;
         Iterator i = iterator();
 
         while (i.hasNext()) {

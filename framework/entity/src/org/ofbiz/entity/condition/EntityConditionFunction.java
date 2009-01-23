@@ -53,7 +53,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
     protected EntityCondition condition = null;
 
     protected EntityConditionFunction(int id, String code, EntityCondition condition) {
-    	init(id, code, condition);
+        init(id, code, condition);
     }
     
     public void init(int id, String code, EntityCondition condition) {

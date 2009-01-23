@@ -297,7 +297,7 @@
         <value xml:lang="en">Blacklist Address</value>
         <value xml:lang="es">Dirección bloqueada</value>
         <value xml:lang="fr">Mettre l'adresse en liste noire</value>
-	    <value xml:lang="it">Indirizzo blacklist</value>
+        <value xml:lang="it">Indirizzo blacklist</value>
         <value xml:lang="th">ที่อยู่</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_CREDITCARD">
@@ -305,7 +305,7 @@
         <value xml:lang="en">Blacklist Credit Card</value>
         <value xml:lang="es">Tarjeta de crédito bloqueada</value>
         <value xml:lang="fr">Mettre la carte de crédit en liste noire</value>
-	    <value xml:lang="it">Blacklist carta di credito</value>
+        <value xml:lang="it">Blacklist carta di credito</value>
         <value xml:lang="th">บัตรเครดิต</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_EMAIL">
@@ -313,7 +313,7 @@
         <value xml:lang="en">Blacklist Email</value>
         <value xml:lang="es">Email bloqueado</value>
         <value xml:lang="fr">Mettre l'addresse de courriel en liste noire</value>
-	    <value xml:lang="it">Email blacklist</value>
+        <value xml:lang="it">Email blacklist</value>
         <value xml:lang="th">อีเมล</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_PHONE">
@@ -321,7 +321,7 @@
         <value xml:lang="en">Blacklist Phone</value>
         <value xml:lang="es">Teléfono bloqueado</value>
         <value xml:lang="fr">Mettre le n° de téléphone en liste noire</value>
-	    <value xml:lang="it">Telefono blacklist</value>
+        <value xml:lang="it">Telefono blacklist</value>
         <value xml:lang="th">หมายเลขโทรศัพท์</value>
     </property>
     <property key="OrderContentType.description.IMAGE_URL">
@@ -329,7 +329,7 @@
         <value xml:lang="en">Image URL</value>
         <value xml:lang="es">URL de Imagen</value>
         <value xml:lang="fr">URL d'image</value>
-	    <value xml:lang="it">URL immagine</value>
+        <value xml:lang="it">URL immagine</value>
         <value xml:lang="th">รูปภาพ</value>
     </property>
     <property key="OrderItemType.description.BULK_ORDER_ITEM">
@@ -337,7 +337,7 @@
         <value xml:lang="en">BULK_ORDER_ITEM</value>
         <value xml:lang="es">Ítem a granel</value>
         <value xml:lang="fr">Vrac</value>
-	    <value xml:lang="it">Riga ordine bulk</value>
+        <value xml:lang="it">Riga ordine bulk</value>
         <value xml:lang="th">รายการความจุ</value>
     </property>
     <property key="OrderItemType.description.PRODUCT_ORDER_ITEM">
@@ -345,7 +345,7 @@
         <value xml:lang="en">PRODUCT_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de pedido</value>
         <value xml:lang="fr">Article</value>
-	    <value xml:lang="it">Prodotto riga ordine</value>
+        <value xml:lang="it">Prodotto riga ordine</value>
         <value xml:lang="th">รายการ</value>
     </property>
     <property key="OrderItemType.description.RENTAL_ORDER_ITEM">
@@ -353,7 +353,7 @@
         <value xml:lang="en">RENTAL_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de alquiler</value>
         <value xml:lang="fr">Location</value>
-	<value xml:lang="it">Riga ordine di affitto</value>
+    <value xml:lang="it">Riga ordine di affitto</value>
         <value xml:lang="th">รายการการเช่า</value>
     </property>
     <property key="OrderItemType.description.WORK_ORDER_ITEM">
@@ -361,7 +361,7 @@
         <value xml:lang="en">WORK_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de trabajo</value>
         <value xml:lang="fr">Tâche</value>
-	    <value xml:lang="it">Riga ordine di lavoro</value>
+        <value xml:lang="it">Riga ordine di lavoro</value>
         <value xml:lang="th">รายการงาน</value>
     </property>
     <property key="OrderType.description.PURCHASE_ORDER">
@@ -391,7 +391,7 @@
         <value xml:lang="en">WORK_ORDER</value>
         <value xml:lang="es">Pedido de Trabajo</value>
         <value xml:lang="fr">Tâche</value>
-	    <value xml:lang="it">Ordine di lavoro</value>
+        <value xml:lang="it">Ordine di lavoro</value>
         <value xml:lang="th">งาน</value>
     </property>
     <property key="QuoteType.description.OTHER_QUOTE">
@@ -432,7 +432,7 @@
         <value xml:lang="en">PROPOSAL_PURCHASE</value>
         <value xml:lang="es">Propuesta de compra</value>
         <value xml:lang="fr">Proposition d'achat</value>
-	<value xml:lang="it">Proposta di acquisto</value>
+    <value xml:lang="it">Proposta di acquisto</value>
         <value xml:lang="th">ข้อเสนอการซื้อ</value>
     </property>
     <property key="QuoteType.description.PURCHASE_QUOTE">

@@ -163,7 +163,7 @@ under the License.
         <EJBComponent Name="jms_messageformat" Targets="examplesServer" URI="jms_messageformat.jar"/>
     </Application>
 
-	<!-- BEGIN OFBiz settings -->
+    <!-- BEGIN OFBiz settings -->
 <#list webApps as webapp>
     <#-- Remove last directory segment from path, Weblogic is expecting the parent directory -->
     <#if webapp.getLocation().lastIndexOf("/") != -1>

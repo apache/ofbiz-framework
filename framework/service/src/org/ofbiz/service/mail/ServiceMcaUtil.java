@@ -94,9 +94,9 @@ public class ServiceMcaUtil {
     }
 
     public static List<ServiceMcaRule> getServiceMcaRules() {
-	if (mcaCache.size() == 0) {
-	    readConfig();
-	}
+    if (mcaCache.size() == 0) {
+        readConfig();
+    }
         return mcaCache.values();
     }
 

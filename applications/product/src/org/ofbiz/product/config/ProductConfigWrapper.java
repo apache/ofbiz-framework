@@ -309,7 +309,7 @@ public class ProductConfigWrapper implements Serializable {
     }
     
     public BigDecimal getTotalPrice() {
-    	BigDecimal totalPrice = basePrice;
+        BigDecimal totalPrice = basePrice;
         List<ConfigOption> options = getSelectedOptions();
         for (ConfigOption oneOption: options) {
             totalPrice = totalPrice.add(oneOption.getPrice());
@@ -318,7 +318,7 @@ public class ProductConfigWrapper implements Serializable {
     }
     
     private void setDefaultPrice() {
-    	BigDecimal totalPrice = basePrice;
+        BigDecimal totalPrice = basePrice;
         List<ConfigOption> options = getDefaultOptions();
         for (ConfigOption oneOption: options) {
             totalPrice = totalPrice.add(oneOption.getPrice());

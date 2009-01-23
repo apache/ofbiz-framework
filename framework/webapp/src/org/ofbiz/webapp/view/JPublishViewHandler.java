@@ -60,17 +60,17 @@ public class JPublishViewHandler implements ViewHandler {
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Writer writer = null;
         try {
-        	// use UtilJ2eeCompat to get this setup properly
-        	boolean useOutputStreamNotWriter = false;
-        	if (this.servletContext != null) {
-        		useOutputStreamNotWriter = UtilJ2eeCompat.useOutputStreamNotWriter(this.servletContext);
-        	}
-        	if (useOutputStreamNotWriter) {
-        		ServletOutputStream ros = response.getOutputStream();
+            // use UtilJ2eeCompat to get this setup properly
+            boolean useOutputStreamNotWriter = false;
+            if (this.servletContext != null) {
+                useOutputStreamNotWriter = UtilJ2eeCompat.useOutputStreamNotWriter(this.servletContext);
+            }
+            if (useOutputStreamNotWriter) {
+                ServletOutputStream ros = response.getOutputStream();
                 writer = new OutputStreamWriter(ros, "UTF-8");
-        	} else {
+            } else {
                 writer = response.getWriter();
-        	}
+            }
             wrapper.render(page, request, response, writer, null, true);
         } catch (IOException e) {
             throw new ViewHandlerException("Problems with the response writer/output stream", e);

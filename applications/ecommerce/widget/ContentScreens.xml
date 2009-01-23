@@ -25,8 +25,8 @@ under the License.
     <screen name="minipoll">
         <section>
             <actions>
-				<property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
 
             <widgets>
@@ -70,7 +70,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-				<set field="titleProperty" value="PageTitleContentPage"/>
+                <set field="titleProperty" value="PageTitleContentPage"/>
                 <set field="headerItem" value="main"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/ContentPrep.groovy"/>
@@ -91,7 +91,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-				<set field="titleProperty" value="PageTitleViewBlog"/>
+                <set field="titleProperty" value="PageTitleViewBlog"/>
                 <set field="headerItem" value="Blog"/>
                 <set field="formDefFile" value="/BlogForms.xml"/>
                 <set field="entityName" value="Content"/>

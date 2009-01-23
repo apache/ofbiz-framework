@@ -41,7 +41,7 @@ entities.each { entityName ->
     entity = reader.getModelEntity(entityName);
 
     if (filterByGroupName && !filterByGroupName.equals(delegator.getEntityGroupName(entity.getEntityName()))) {
-    	return;
+        return;
     }
 
     viewEntity = "N";

@@ -730,7 +730,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     protected void updateShipmentRouteSegments() throws GeneralException {
-    	BigDecimal shipmentWeight = getTotalWeight();
+        BigDecimal shipmentWeight = getTotalWeight();
         if (shipmentWeight.compareTo(BigDecimal.ZERO) <= 0) return;
         List<GenericValue> shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()));
         if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
@@ -787,7 +787,7 @@ public class PackingSession implements java.io.Serializable {
     public BigDecimal getTotalWeight() {
         BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < packageSeq; i++) {
-        	BigDecimal packageWeight = getPackageWeight(i);
+            BigDecimal packageWeight = getPackageWeight(i);
             if (! UtilValidate.isEmpty(packageWeight)) {
                 total = total.add(packageWeight);
             }

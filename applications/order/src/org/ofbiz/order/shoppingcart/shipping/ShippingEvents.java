@@ -237,7 +237,7 @@ public class ShippingEvents {
 
         // call the generic estimate service
         try {
-        	BigDecimal genericAmt = getGenericShipEstimate(dispatcher, storeShipMethod, serviceFields);
+            BigDecimal genericAmt = getGenericShipEstimate(dispatcher, storeShipMethod, serviceFields);
             if (genericAmt != null) {
                 shippingTotal = shippingTotal.add(genericAmt);
             }

@@ -21,12 +21,12 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
 
 if (parameters.communicationEventId) {
-	communicationEventRoles = delegator.findByAnd("CommunicationEventRole", 
-	       ["communicationEventId" : parameters.communicationEventId, 
-	        "partyId" : userLogin.partyId,
-	        "statusId" : "COM_ROLE_READ"
-	       ]);
-	if (!communicationEventRoles) {
+    communicationEventRoles = delegator.findByAnd("CommunicationEventRole", 
+           ["communicationEventId" : parameters.communicationEventId, 
+            "partyId" : userLogin.partyId,
+            "statusId" : "COM_ROLE_READ"
+           ]);
+    if (!communicationEventRoles) {
         communicationEventRoles = delegator.findByAnd("CommunicationEventRole", 
            ["communicationEventId" : parameters.communicationEventId, 
             "partyId" : userLogin.partyId

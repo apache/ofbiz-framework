@@ -1051,7 +1051,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
                 if (UtilValidate.isEmpty(expandedDataResourceId)) {
                     if (UtilValidate.isNotEmpty(expandedContentId)) {
-                    	content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", expandedContentId));
+                        content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", expandedContentId));
                     } else {
                         String errMsg = "contentId is empty.";
                         Debug.logError(errMsg, module);
@@ -1068,22 +1068,22 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
-                	dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
+                    dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
                     this.dataResourceId = FlexibleStringExpander.getInstance(expandedDataResourceId);
                 }
                 
                 String mimeTypeId = null;
                 if (dataResource != null) {
-                	mimeTypeId = dataResource.getString("mimeTypeId");
+                    mimeTypeId = dataResource.getString("mimeTypeId");
                 }
                 
                 if (UtilValidate.isNotEmpty(mimeTypeId) 
-                		&& ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0) ) {
-                	screenStringRenderer.renderContentFrame(writer, context, this);
+                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0) ) {
+                    screenStringRenderer.renderContentFrame(writer, context, this);
                 } else {
-                	screenStringRenderer.renderContentBegin(writer, context, this);
-                	screenStringRenderer.renderContentBody(writer, context, this);
-                	screenStringRenderer.renderContentEnd(writer, context, this);
+                    screenStringRenderer.renderContentBegin(writer, context, this);
+                    screenStringRenderer.renderContentBody(writer, context, this);
+                    screenStringRenderer.renderContentEnd(writer, context, this);
                 }
                 ((MapStack) context).pop();
             } catch (IOException e) {

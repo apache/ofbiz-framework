@@ -185,7 +185,7 @@ under the License.
         <field name="amount"><display/></field>
         <field name="currencyUomId"><display/></field>
     </form>
-	
+    
     <form name="lookupAgreement" target="LookupAgreement" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="agreementId" ><text-find/></field>
@@ -214,7 +214,7 @@ under the License.
         <field name="agreementTypeId"><display/></field>
         <field name="description"><display/></field>           
     </form>
-	
+    
     <form name="lookupAgreementItem" target="LookupAgreementItem" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">        
         <field name="agreementId"><text-find/></field>
@@ -240,6 +240,6 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')"/>
         </field>     
         <field name="agreementItemTypeId"><display/></field>
-        <field name="currencyUomId"><display/></field>		          
+        <field name="currencyUomId"><display/></field>                  
     </form>
 </forms>

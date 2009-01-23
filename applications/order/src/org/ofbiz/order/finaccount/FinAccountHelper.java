@@ -45,7 +45,7 @@ import org.ofbiz.entity.util.EntityUtil;
  *
  */
 public class FinAccountHelper {
-	
+    
      public static final String module = FinAccountHelper.class.getName();
      /**
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
@@ -57,12 +57,12 @@ public class FinAccountHelper {
      public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
      public static final boolean defaultPinRequired = false;
      
-	 // pool of available characters for account codes, here numbers plus uppercase characters
-	 static char[] char_pool = new char[10+26];
+     // pool of available characters for account codes, here numbers plus uppercase characters
+     static char[] char_pool = new char[10+26];
      static {
-    	 int j = 0;
+         int j = 0;
          for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
-    	     char_pool[j++] = (char) i;
+             char_pool[j++] = (char) i;
          } 
          for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
              char_pool[j++] = (char) i;

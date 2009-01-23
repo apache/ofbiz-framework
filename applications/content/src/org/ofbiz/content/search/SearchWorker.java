@@ -50,7 +50,7 @@ import org.apache.lucene.index.Term;
  */
 public class SearchWorker {
 
-	public static final String module = SearchWorker.class.getName();
+    public static final String module = SearchWorker.class.getName();
 
         public static Map indexTree(LocalDispatcher dispatcher, GenericDelegator delegator, String siteId, Map context, String path) throws Exception {
 
@@ -58,14 +58,14 @@ public class SearchWorker {
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
                 if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
             List siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
-	    //if (Debug.infoOn()) Debug.logInfo("in indexTree, siteList:" + siteList, module);
+        //if (Debug.infoOn()) Debug.logInfo("in indexTree, siteList:" + siteList, module);
             if (siteList != null) {
                 Iterator iter = siteList.iterator();
                 while (iter.hasNext()) {
                     GenericValue siteContent = (GenericValue)iter.next();
                     String siteContentId = siteContent.getString("contentId");
                     List subContentList = ContentWorker.getAssociatedContent(siteContent, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
-    	  	//if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
+              //if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
                     if (subContentList != null) {
                         List contentIdList = FastList.newInstance();
                         Iterator iter2 = subContentList.iterator();
@@ -73,7 +73,7 @@ public class SearchWorker {
                             GenericValue subContent = (GenericValue)iter2.next();
                             contentIdList.add(subContent.getString("contentId"));
                         }
-        	  	//if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
+                  //if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
                         indexContentList(contentIdList, delegator, dispatcher, context);
 
                         String subSiteId = siteContent.getString("contentId");
@@ -93,117 +93,117 @@ public class SearchWorker {
             return results;
         }
 
-	public static void indexContentList(List idList, GenericDelegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
-		String path = null;
-		indexContentList(dispatcher, delegator, context, idList, path);
-	}
+    public static void indexContentList(List idList, GenericDelegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
+        String path = null;
+        indexContentList(dispatcher, delegator, context, idList, path);
+    }
 
-	public static void indexContentList(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, List idList, String path) throws Exception {
-		String indexAllPath = getIndexPath(path);
-		if (Debug.infoOn())
-			Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
-		GenericValue content = null;
-		// Delete existing documents
-		Iterator iter = null;
-		List contentList = null;
-		IndexReader reader = null;
-		try {
-			reader = IndexReader.open(indexAllPath);
-		} catch (Exception e) {
-			// ignore
-		}
-		//if (Debug.infoOn()) Debug.logInfo("in indexContent, reader:" +
-		// reader, module);
-		contentList = FastList.newInstance();
-		iter = idList.iterator();
-		while (iter.hasNext()) {
-			String id = (String) iter.next();
-			if (Debug.infoOn())
-				Debug.logInfo("in indexContent, id:" + id, module);
-			try {
-				content = delegator.findByPrimaryKeyCache("Content", UtilMisc .toMap("contentId", id));
-				if (content != null) {
-					if (reader != null) {
-						deleteContentDocument(content, reader);
-					}
-					contentList.add(content);
-				}
-			} catch (GenericEntityException e) {
-				Debug.logError(e, module);
-				return;
-			}
-		}
-		if (reader != null) {
-			reader.close();
-		}
-		// Now create
-		IndexWriter writer = null;
-		try {
-			writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
-		} catch (Exception e) {
-			writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
-		}
-		//if (Debug.infoOn()) Debug.logInfo("in indexContent, writer:" +
-		// writer, module);
-		iter = contentList.iterator();
-		while (iter.hasNext()) {
-			content = (GenericValue) iter.next();
-			indexContent(dispatcher, delegator, context, content, writer);
-		}
-		writer.optimize();
-		writer.close();
-	}
+    public static void indexContentList(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, List idList, String path) throws Exception {
+        String indexAllPath = getIndexPath(path);
+        if (Debug.infoOn())
+            Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
+        GenericValue content = null;
+        // Delete existing documents
+        Iterator iter = null;
+        List contentList = null;
+        IndexReader reader = null;
+        try {
+            reader = IndexReader.open(indexAllPath);
+        } catch (Exception e) {
+            // ignore
+        }
+        //if (Debug.infoOn()) Debug.logInfo("in indexContent, reader:" +
+        // reader, module);
+        contentList = FastList.newInstance();
+        iter = idList.iterator();
+        while (iter.hasNext()) {
+            String id = (String) iter.next();
+            if (Debug.infoOn())
+                Debug.logInfo("in indexContent, id:" + id, module);
+            try {
+                content = delegator.findByPrimaryKeyCache("Content", UtilMisc .toMap("contentId", id));
+                if (content != null) {
+                    if (reader != null) {
+                        deleteContentDocument(content, reader);
+                    }
+                    contentList.add(content);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return;
+            }
+        }
+        if (reader != null) {
+            reader.close();
+        }
+        // Now create
+        IndexWriter writer = null;
+        try {
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+        } catch (Exception e) {
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+        }
+        //if (Debug.infoOn()) Debug.logInfo("in indexContent, writer:" +
+        // writer, module);
+        iter = contentList.iterator();
+        while (iter.hasNext()) {
+            content = (GenericValue) iter.next();
+            indexContent(dispatcher, delegator, context, content, writer);
+        }
+        writer.optimize();
+        writer.close();
+    }
 
 
-	public static void deleteContentDocument(GenericValue content, String path) throws Exception {
-	    String indexAllPath = null;
-	    indexAllPath = getIndexPath(path);
-	    IndexReader reader = IndexReader.open(indexAllPath);
+    public static void deleteContentDocument(GenericValue content, String path) throws Exception {
+        String indexAllPath = null;
+        indexAllPath = getIndexPath(path);
+        IndexReader reader = IndexReader.open(indexAllPath);
             deleteContentDocument(content, reader);
             reader.close();
-	}
+    }
 
-	public static void deleteContentDocument(GenericValue content, IndexReader reader) throws Exception {
+    public static void deleteContentDocument(GenericValue content, IndexReader reader) throws Exception {
             String contentId = content.getString("contentId");
-	    Term term = new Term("contentId", contentId);
-	    if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
-	    int qtyDeleted = reader.deleteDocuments(term);
-	    if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
-	    String dataResourceId = content.getString("dataResourceId");
-	    if (dataResourceId != null) {
-	    	deleteDataResourceDocument(dataResourceId, reader);
-	    }
+        Term term = new Term("contentId", contentId);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
+        int qtyDeleted = reader.deleteDocuments(term);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
+        String dataResourceId = content.getString("dataResourceId");
+        if (dataResourceId != null) {
+            deleteDataResourceDocument(dataResourceId, reader);
+        }
 
-	}
+    }
 
 
-	public static void deleteDataResourceDocument(String dataResourceId, IndexReader reader) throws Exception {
-	    Term term = new Term("dataResourceId", dataResourceId);
-	    if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
-	    int qtyDeleted = reader.deleteDocuments(term);
-	    if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
+    public static void deleteDataResourceDocument(String dataResourceId, IndexReader reader) throws Exception {
+        Term term = new Term("dataResourceId", dataResourceId);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
+        int qtyDeleted = reader.deleteDocuments(term);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
 
-	}
+    }
 
-	public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
-		String indexAllPath = getIndexPath(path);
-		IndexWriter writer = null;
-		try {
-		   	writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
-	                if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
-		} catch(FileNotFoundException e) {
-		   	writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
-	                if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
-		}
+    public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
+        String indexAllPath = getIndexPath(path);
+        IndexWriter writer = null;
+        try {
+               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+                    if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
+        } catch(FileNotFoundException e) {
+               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+                    if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
+        }
 
-		indexContent(dispatcher, delegator, context, content, writer);
-       	writer.optimize();
-    	writer.close();
-	}
+        indexContent(dispatcher, delegator, context, content, writer);
+           writer.optimize();
+        writer.close();
+    }
 
-	public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
-	    Document doc = ContentDocument.Document(content, context, dispatcher);
-	    //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
+    public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
+        Document doc = ContentDocument.Document(content, context, dispatcher);
+        //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
             if (doc != null) {
                 writer.addDocument(doc);
                 Integer goodIndexCount = (Integer)context.get("goodIndexCount");
@@ -218,39 +218,39 @@ public class SearchWorker {
             }
             */
 
-	}
+    }
 
-	public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {
-		String path = null;
-		indexDataResource(delegator, context, id, path );
-	}
+    public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {
+        String path = null;
+        indexDataResource(delegator, context, id, path );
+    }
 
-	public static void indexDataResource(GenericDelegator delegator, Map context, String id, String path) throws Exception {
-		String indexAllPath = getIndexPath(path);
-		IndexWriter writer = null;
-		try {
-		    writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
-		} catch(FileNotFoundException e) {
-		    writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
-		}
-		indexDataResource(delegator, context, id, writer);
-	    writer.optimize();
+    public static void indexDataResource(GenericDelegator delegator, Map context, String id, String path) throws Exception {
+        String indexAllPath = getIndexPath(path);
+        IndexWriter writer = null;
+        try {
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+        } catch(FileNotFoundException e) {
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+        }
+        indexDataResource(delegator, context, id, writer);
+        writer.optimize();
             writer.close();
 
-	}
+    }
 
-	public static void indexDataResource(GenericDelegator delegator, Map context, String id, IndexWriter writer) throws Exception {
-	    Document doc = DataResourceDocument.Document(id, delegator, context);
-	    writer.addDocument(doc);
-	}
+    public static void indexDataResource(GenericDelegator delegator, Map context, String id, IndexWriter writer) throws Exception {
+        Document doc = DataResourceDocument.Document(id, delegator, context);
+        writer.addDocument(doc);
+    }
 
-	public static String getIndexPath(String path) {
-		String indexAllPath = path;
-		if (UtilValidate.isEmpty(indexAllPath))
-			indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex");
-		if (UtilValidate.isEmpty(indexAllPath))
-			indexAllPath = "index";
-		return indexAllPath;
+    public static String getIndexPath(String path) {
+        String indexAllPath = path;
+        if (UtilValidate.isEmpty(indexAllPath))
+            indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex");
+        if (UtilValidate.isEmpty(indexAllPath))
+            indexAllPath = "index";
+        return indexAllPath;
 
-	}
+    }
 }

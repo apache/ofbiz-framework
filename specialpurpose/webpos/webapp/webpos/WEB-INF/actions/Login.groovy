@@ -39,11 +39,11 @@ productStoreId = ProductStoreWorker.getProductStoreId(request);
 productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
 
 if (productStore) {
-	facilityId = productStore.getString("inventoryFacilityId");
+    facilityId = productStore.getString("inventoryFacilityId");
 
-    if (facilityId) {	
-	    context.posTerminals = delegator.findList("PosTerminal", EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), null, ["posTerminalId"], null, false);
-	} else {
+    if (facilityId) {    
+        context.posTerminals = delegator.findList("PosTerminal", EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), null, ["posTerminalId"], null, false);
+    } else {
         context.posTerminals = delegator.findList("PosTerminal", null, null, ["posTerminalId"], null, false);
-	}
+    }
 }

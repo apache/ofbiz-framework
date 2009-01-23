@@ -131,9 +131,9 @@ public class ExamplePrintServices {
         
         PrintService[] services = PrintServiceLookup.lookupPrintServices(docFlavor, aset);
         if (services.length > 0) { 
-        	DocPrintJob job = services[0].createPrintJob(); 
+            DocPrintJob job = services[0].createPrintJob(); 
             try {
-            	job.print(myDoc, aset); 
+                job.print(myDoc, aset); 
             } catch (PrintException pe) {
                 String errMsg = "Unable to print PDF from XSL-FO: " + pe.toString();
                 Debug.logError(pe, errMsg, module);

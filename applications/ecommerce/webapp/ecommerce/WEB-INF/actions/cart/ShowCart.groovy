@@ -29,9 +29,9 @@ context.shoppingCartSize = shoppingCart?.size() ?: 0;
 context.shoppingCart = shoppingCart;
 
 if (parameters.add_product_id) { // check if a parameter is passed
-	add_product_id = parameters.add_product_id;
-	product = delegator.findByPrimaryKeyCache("Product", [productId : add_product_id]);
-	context.product = product;
+    add_product_id = parameters.add_product_id;
+    product = delegator.findByPrimaryKeyCache("Product", [productId : add_product_id]);
+    context.product = product;
 }
 
 // get all the possible gift wrap options

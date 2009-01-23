@@ -35,11 +35,11 @@ public class Captcha {
 
     public static String ID_KEY = null;
     public static String CAPTCHA_FILE_NAME = null;
-	public static String CAPTCHA_FILE_PATH = null;
+    public static String CAPTCHA_FILE_PATH = null;
 
     public static String getCodeCaptcha(HttpServletRequest request,HttpServletResponse response) {
-    	if(CAPTCHA_FILE_PATH != null) deleteFile();
-    	StringBuffer finalString = new StringBuffer();
+        if(CAPTCHA_FILE_PATH != null) deleteFile();
+        StringBuffer finalString = new StringBuffer();
         String elegibleChars = "ABCDEFGHJKLMPQRSTUVWXYabcdefhjkmnpqrstuvwxy23456789";
         int charsToPrint = 6;
         char[] chars = elegibleChars.toCharArray();
@@ -56,7 +56,7 @@ public class Captcha {
     }
 
     public static boolean createImageCaptcha (HttpServletRequest request,HttpServletResponse response) {
-        try {        	
+        try {            
             //It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;
             Color borderColor = Color.DARK_GRAY;
@@ -138,35 +138,35 @@ public class Captcha {
         return true;
     }
     
-	public static void writeImage(BufferedImage image, HttpServletRequest request)
-	{
-		String fileName = UtilHttp.getSessionId(request).substring(0,6);
-		fileName += "_"+UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."));
-		try {
-			CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
-			CAPTCHA_FILE_PATH += File.separator + "runtime" + File.separator + "tempfiles";
-			CAPTCHA_FILE_PATH += File.separator + "captcha" + File.separator;
-			File test = new File(CAPTCHA_FILE_PATH);
-			if (!test.exists()) {
-				test.mkdir();
-			}
-			CAPTCHA_FILE_PATH += fileName + ".png";
-			CAPTCHA_FILE_NAME = fileName + ".png";
-			request.setAttribute("fileName", CAPTCHA_FILE_NAME);
-			System.out.println("\n\nPath =  "+CAPTCHA_FILE_PATH+"\n");
-			System.out.println("Captcha Key =  "+ID_KEY+"\n\n");
-			ImageIO.write(image, "png", new File( CAPTCHA_FILE_PATH ));
-		} catch (IOException e) {
-			return;
-		}
-	}
-	
-	public static void deleteFile() {
-		if(CAPTCHA_FILE_PATH != null){
-		       File file = new File(CAPTCHA_FILE_PATH);
-		       file.delete();
-		}
-	}
+    public static void writeImage(BufferedImage image, HttpServletRequest request)
+    {
+        String fileName = UtilHttp.getSessionId(request).substring(0,6);
+        fileName += "_"+UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."));
+        try {
+            CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
+            CAPTCHA_FILE_PATH += File.separator + "runtime" + File.separator + "tempfiles";
+            CAPTCHA_FILE_PATH += File.separator + "captcha" + File.separator;
+            File test = new File(CAPTCHA_FILE_PATH);
+            if (!test.exists()) {
+                test.mkdir();
+            }
+            CAPTCHA_FILE_PATH += fileName + ".png";
+            CAPTCHA_FILE_NAME = fileName + ".png";
+            request.setAttribute("fileName", CAPTCHA_FILE_NAME);
+            System.out.println("\n\nPath =  "+CAPTCHA_FILE_PATH+"\n");
+            System.out.println("Captcha Key =  "+ID_KEY+"\n\n");
+            ImageIO.write(image, "png", new File( CAPTCHA_FILE_PATH ));
+        } catch (IOException e) {
+            return;
+        }
+    }
+    
+    public static void deleteFile() {
+        if(CAPTCHA_FILE_PATH != null){
+               File file = new File(CAPTCHA_FILE_PATH);
+               file.delete();
+        }
+    }
 
     public static String paramString(HttpServletRequest request, String paramName,
             String defaultString) {

@@ -28,8 +28,8 @@ import javolution.util.FastList;
 
 
 cond = 
-	EntityCondition.makeCondition(
-			[EntityCondition.makeCondition ("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
+    EntityCondition.makeCondition(
+            [EntityCondition.makeCondition ("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
              EntityCondition.makeCondition ("partyId", EntityOperator.EQUALS, parameters.partyId)
             ],EntityOperator.AND);
 allProjects = delegator.findList("WorkEffortAndPartyAssign", cond, (HashSet) ["workEffortId"], ["workEffortName"], null, true);

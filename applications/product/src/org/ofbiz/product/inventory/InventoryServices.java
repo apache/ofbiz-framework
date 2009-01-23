@@ -81,8 +81,8 @@ public class InventoryServices {
             
             String inventoryType = inventoryItem.getString("inventoryItemTypeId");
             if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
-            	BigDecimal atp = inventoryItem.getBigDecimal("availableToPromiseTotal");
-            	BigDecimal qoh = inventoryItem.getBigDecimal("quantityOnHandTotal");
+                BigDecimal atp = inventoryItem.getBigDecimal("availableToPromiseTotal");
+                BigDecimal qoh = inventoryItem.getBigDecimal("quantityOnHandTotal");
                 
                 if (atp == null) {
                     return ServiceUtil.returnError("The request transfer amount is not available, there is no available to promise on the Inventory Item with ID " + inventoryItem.getString("inventoryItemId"));
@@ -106,7 +106,7 @@ public class InventoryServices {
                 // NOTE: atp should always be <= qoh, so if xfer < atp, then xfer < qoh, so no need to check/handle that
                 // however, if atp < qoh && atp == xferQty, then we still need to split; oh, but no need to check atp == xferQty in the second part because if it isn't greater and isn't less, then it is equal
                 if (xferQty.compareTo(atp) < 0 || atp.compareTo(qoh) < 0) {
-                	BigDecimal negXferQty = xferQty.negate();
+                    BigDecimal negXferQty = xferQty.negate();
                     // NOTE: new inventory items should always be created calling the
                     //       createInventoryItem service because in this way we are sure
                     //       that all the relevant fields are filled with default values.
@@ -218,8 +218,8 @@ public class InventoryServices {
             
         if (inventoryType.equals("NON_SERIAL_INV_ITEM")) { 
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
-        	BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
-        	BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
+            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
+            BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
             Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", qoh.subtract(atp), 
                     "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
             try {
@@ -308,8 +308,8 @@ public class InventoryServices {
         // re-set the fields on the item
         if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
-        	BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
-        	BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
+            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
+            BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
             Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", qoh.subtract(atp), 
                                                  "inventoryItemId", inventoryItem.get("inventoryItemId"),
                                                  "userLogin", userLogin);
@@ -640,8 +640,8 @@ public class InventoryServices {
         
         if (UtilValidate.isNotEmpty(productAssocList)) {
             // minimum QOH and ATP encountered
-        	BigDecimal minQuantityOnHandTotal = null;
-        	BigDecimal minAvailableToPromiseTotal = null;
+            BigDecimal minQuantityOnHandTotal = null;
+            BigDecimal minAvailableToPromiseTotal = null;
            
            // loop through each associated product.  
            for (GenericValue productAssoc: productAssocList) {
@@ -762,14 +762,14 @@ public class InventoryServices {
 
                 // add the results for this facility to the ATP/QOH counter for all facilities
                 if (!ServiceUtil.isError(invResult)) {
-                	BigDecimal fatp = (BigDecimal) invResult.get("availableToPromiseTotal");
-                	BigDecimal fqoh = (BigDecimal) invResult.get("quantityOnHandTotal");
+                    BigDecimal fatp = (BigDecimal) invResult.get("availableToPromiseTotal");
+                    BigDecimal fqoh = (BigDecimal) invResult.get("quantityOnHandTotal");
                     if (fatp != null) atp = atp.add(fatp);
                     if (fqoh != null) qoh = qoh.add(fqoh);
                 }
                 if (("MARKETING_PKG_AUTO".equals(product.getString("productTypeId")) || "MARKETING_PKG_PICK".equals(product.getString("productTypeId"))) && (!ServiceUtil.isError(mktgPkgInvResult))) {
-                	BigDecimal fatp = (BigDecimal) mktgPkgInvResult.get("availableToPromiseTotal");
-                	BigDecimal fqoh = (BigDecimal) mktgPkgInvResult.get("quantityOnHandTotal");
+                    BigDecimal fatp = (BigDecimal) mktgPkgInvResult.get("availableToPromiseTotal");
+                    BigDecimal fqoh = (BigDecimal) mktgPkgInvResult.get("quantityOnHandTotal");
                     if (fatp != null) mktgPkgAtp = mktgPkgAtp.add(fatp);
                     if (fqoh != null) mktgPkgQoh = mktgPkgQoh.add(fqoh);
                 }

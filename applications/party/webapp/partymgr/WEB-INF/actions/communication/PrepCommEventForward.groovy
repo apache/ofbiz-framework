@@ -44,18 +44,18 @@ if (originalCommEventId) {
                   " > Date: " + originalEvent.entryDate + "\n >";
         bodycontent = originalEvent.content.toString();
         if (bodycontent) {
-        	int ix = -1;
-        	body  = "";
-        	if (bodycontent.indexOf('\n') != -1){
-        		while ((ix = bodycontent.indexOf('\n')) != -1) {
-        			bodycontent = bodycontent.replace('\n',' > ');
-        			if (bodycontent != body){
-        				body = body + bodycontent;
-        			}
-        		}
-        	}else{
-        		body = bodycontent;
-        	}
+            int ix = -1;
+            body  = "";
+            if (bodycontent.indexOf('\n') != -1){
+                while ((ix = bodycontent.indexOf('\n')) != -1) {
+                    bodycontent = bodycontent.replace('\n',' > ');
+                    if (bodycontent != body){
+                        body = body + bodycontent;
+                    }
+                }
+            }else{
+                body = bodycontent;
+            }
         }
         parameters.content = headcontent + "\n > " + body;
     }

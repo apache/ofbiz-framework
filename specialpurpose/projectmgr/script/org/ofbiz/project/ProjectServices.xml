@@ -1315,35 +1315,35 @@
             <set field="getProject.taskId" from-field="parameters.workEffortId"/>
             <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getProject">
             <result-to-field result-name="projectId"/>
-	        </call-service>
-	        <!-- see who is reponsible for testing/validation in this project -->
-	        <entity-condition entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
-	            <condition-list combine="and">
-	                <condition-expr field-name="workEffortId" operator="equals" from-field="projectId"/>
-	                <condition-expr field-name="partyId" operator="not-equals" from-field="parameters.partyId"/><!-- should not test/val own work -->
-	                <condition-list combine="or">
-	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_VALIDATOR"/>
-	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_TESTER"/>
-	                </condition-list>
-	            </condition-list>
-	        </entity-condition>
-	        <if-not-empty field="assigns">
-	            <set field="addAssign.workEffortId" from-field="parameters.workEffortId"/>
-	            <set field="addAssign.statusId" value="PAS_ASSIGNED"/>
-	            <iterate entry="assign" list="assigns">
-	                <make-value value-field="newAssign" entity-name="WorkEffortPartyAssignment"/>
-	                <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
-	                <set field="newAssign.partyId" from-field="assign.partyId"/>
-	                <set field="newAssign.roleTypeId" from-field="assign.roleTypeId"/>
-	                <set field="newAssign.assignedByUserLoginId" value="system"/>
-	                <now-date-to-env field="newAssign.fromDate"/>
-	                <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
-	                <create-value value-field="newAssign"/>
-	            </iterate>            
-	            <else>
-	                <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>
-	            </else>
-	        </if-not-empty>
+            </call-service>
+            <!-- see who is reponsible for testing/validation in this project -->
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="projectId"/>
+                    <condition-expr field-name="partyId" operator="not-equals" from-field="parameters.partyId"/><!-- should not test/val own work -->
+                    <condition-list combine="or">
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_VALIDATOR"/>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_TESTER"/>
+                    </condition-list>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="assigns">
+                <set field="addAssign.workEffortId" from-field="parameters.workEffortId"/>
+                <set field="addAssign.statusId" value="PAS_ASSIGNED"/>
+                <iterate entry="assign" list="assigns">
+                    <make-value value-field="newAssign" entity-name="WorkEffortPartyAssignment"/>
+                    <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
+                    <set field="newAssign.partyId" from-field="assign.partyId"/>
+                    <set field="newAssign.roleTypeId" from-field="assign.roleTypeId"/>
+                    <set field="newAssign.assignedByUserLoginId" value="system"/>
+                    <now-date-to-env field="newAssign.fromDate"/>
+                    <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
+                    <create-value value-field="newAssign"/>
+                </iterate>            
+                <else>
+                    <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>
+                </else>
+            </if-not-empty>
             <else>
                 <log level="info" message="Not the last party who completes his task: validation parties not added...."></log>
             </else>
