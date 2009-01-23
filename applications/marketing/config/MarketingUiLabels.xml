@@ -151,19 +151,19 @@
         <value xml:lang="zh">OFBiz: 市场宣传管理</value>
     </property>
     <property key="MarketingCompanySubtitle">
-        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value><!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
         <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value><!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value><!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
-        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value><!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
-        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value><!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value--><!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
-        <value xml:lang="ru">Входит в состав семейства Open For Business</value><!--value xml:lang="ru">Часть семейства ПО Open For Business</value--><!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
-        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value><!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
-        <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+        <value xml:lang="ru">Входит в состав семейства Open For Business</value>
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="MarketingContactList">
@@ -389,12 +389,6 @@
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
     </property>
-    <property key="MarketingNoOfEmployees">
-        <value xml:lang="en">No of Employees</value>
-        <value xml:lang="es">Nº Empleados</value>
-        <value xml:lang="fr">N° des employés</value>
-        <value xml:lang="it">N. di impiegati</value>
-    </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
@@ -424,6 +418,12 @@
         <value xml:lang="fr">Bienvenue dans l'application de gestion du marketing !</value>
         <value xml:lang="it">Benvenuto nell'applicazione gestione vendite!</value>
         <value xml:lang="th">ยินดีต้อนรับสู่การจัดการทางการตลาด</value>
+    </property>
+    <property key="MarketingNoOfEmployees">
+        <value xml:lang="en">No of Employees</value>
+        <value xml:lang="es">Nº Empleados</value>
+        <value xml:lang="fr">N° des employés</value>
+        <value xml:lang="it">N. di impiegati</value>
     </property>
     <property key="MarketingOrderAmount">
         <value xml:lang="en">Amount of Orders</value>
@@ -1436,6 +1436,13 @@
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Utenze</value>
     </property>
+    <property key="SfaAccountName">
+        <value xml:lang="de">Kontoname</value>
+        <value xml:lang="en">Account Name</value>
+        <value xml:lang="es">Nombre de cuenta</value>
+        <value xml:lang="fr">Nom de compte</value>
+        <value xml:lang="it">Nome utente</value>
+    </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="en">Add Sales Forcast Detail</value>
         <value xml:lang="fr">Ajouter le détail de la prévision des ventes</value>
@@ -1452,18 +1459,22 @@
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo lead importando una vCard</value>
     </property>
-    <property key="SfaAccountName">
-        <value xml:lang="de">Kontoname</value>
-        <value xml:lang="en">Account Name</value>
-        <value xml:lang="es">Nombre de cuenta</value>
-        <value xml:lang="fr">Nom de compte</value>
-        <value xml:lang="it">Nome utente</value>
-    </property>
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagnes de ventes</value>
         <value xml:lang="it">Campagne</value>
+    </property>
+    <property key="SfaCanNotMergeSameContact">
+        <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
+        <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
+        <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
+    </property>
+    <property key="SfaCanNotMergeSameLeads">
+        <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
+        <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
+        <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
+        <value xml:lang="it">Fallito il merce dei leads. Tu devi selezionare lo stesso lead per fare il merge.</value>
     </property>
     <property key="SfaCloneLead">
         <value xml:lang="en">Clone Lead</value>
@@ -1482,17 +1493,6 @@
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
         <value xml:lang="fr">OFBiz: gestion des ventes</value>
         <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
-    </property>
-    <property key="SfaCanNotMergeSameContact">
-        <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
-        <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
-        <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
-    </property>
-    <property key="SfaCanNotMergeSameLeads">
-        <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
-        <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
-        <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
-        <value xml:lang="it">Fallito il merce dei leads. Tu devi selezionare lo stesso lead per fare il merge.</value>
     </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
@@ -1526,15 +1526,15 @@
         <value xml:lang="fr">Créer depuis la vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
     </property>
-    <property key="SfaDocuments">
-        <value xml:lang="en">Documents</value>
-        <value xml:lang="fr">Documents</value>
-        <value xml:lang="it">Documenti</value>
-    </property>
     <property key="SfaDataSourceLabel">
         <value xml:lang="en">Source</value>
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
+    </property>
+    <property key="SfaDocuments">
+        <value xml:lang="en">Documents</value>
+        <value xml:lang="fr">Documents</value>
+        <value xml:lang="it">Documenti</value>
     </property>
     <property key="SfaEditOpportunity">
         <value xml:lang="en">Edit Opportunity</value>
@@ -1612,15 +1612,15 @@
         <value xml:lang="fr">Prospect</value>
         <value xml:lang="it">Lead</value>
     </property>
-    <property key="SfaLeads">
-        <value xml:lang="en">Leads</value>
-        <value xml:lang="fr">Prospects</value>
-        <value xml:lang="it">Leads</value>
-    </property>
     <property key="SfaLeadSource">
         <value xml:lang="en">Lead Source</value>
         <value xml:lang="fr">Origine du prospect</value>
         <value xml:lang="it">Lead origine</value>
+    </property>
+    <property key="SfaLeads">
+        <value xml:lang="en">Leads</value>
+        <value xml:lang="fr">Prospects</value>
+        <value xml:lang="it">Leads</value>
     </property>
     <property key="SfaListSalesForecastDetail">
         <value xml:lang="en">List Sales Forecast Details</value>
