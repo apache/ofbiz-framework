@@ -119,7 +119,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/googlemap.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
@@ -276,6 +276,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/GooglemapSimple.js" global="true"/>                
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
                 <!-- The settings below are used for xsl-fo screens -->
@@ -471,5 +472,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="geoLocation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonGeoLocation"/>
+                <entity-one entity-name="GeoPoint" value-field="geoPoint">
+                    <field-map field-name="geoPointId" from-field="parameters.geoPointId"/>
+                </entity-one>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/GeoLocation.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/WEB-INF/geolocation.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>        
 
 </screens>

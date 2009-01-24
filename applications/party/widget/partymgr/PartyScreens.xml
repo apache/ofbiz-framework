@@ -1168,13 +1168,13 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartyGeoLocation"/>
                 <set field="partyId"  from-field="parameters.partyId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GeoLocation.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/geolocation.ftl"/></html>
+                            <html><html-template location="component://party/webapp/partymgr/party/partygeolocation.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
