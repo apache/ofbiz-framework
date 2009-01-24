@@ -56,7 +56,7 @@ under the License.
             </tr>
             <#list localesFound as localeFound>
                 <#if parameters.sourceKey?exists>
-                    <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
+                    <#assign labelVal = (label.getLabelValue(localeFound))?if_exists>
                 <#else>
                     <#assign labelVal = "">
                 </#if>

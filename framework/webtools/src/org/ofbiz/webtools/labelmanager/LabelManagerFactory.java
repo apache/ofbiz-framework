@@ -49,6 +49,8 @@ public class LabelManagerFactory {
     public static final String module = LabelManagerFactory.class.getName();
     public static final String resource = "WebtoolsUiLabels";
     
+    private static final String keySeparator = ";";
+    
     protected static UtilCache<String, LabelManagerFactory> labelManagerFactoryCache = new UtilCache<String, LabelManagerFactory>("LabelManagerFactory");
     
     protected static Map<String, LabelInfo> labels = null;
@@ -106,11 +108,11 @@ public class LabelManagerFactory {
                         for (Element valueElem: UtilXml.childElementList(propertyElem, "value")) {
                             String localeName = valueElem.getAttribute("xml:lang");
                             String labelValue = UtilXml.elementValue(valueElem);
-                            LabelInfo label = (LabelInfo)labels.get(labelKey + "_" + fileName);
+                            LabelInfo label = (LabelInfo)labels.get(labelKey + keySeparator + fileName);
                             
                             if (UtilValidate.isEmpty(label)) {
                                 label = new LabelInfo(labelKey, fileName, componentName, localeName, labelValue);
-                                labels.put(labelKey + "_" + fileName, label);
+                                labels.put(labelKey + keySeparator + fileName, label);
                             } else {
                                 if (label.setLabelValue(localeName, labelValue, false)) {
                                     duplicatedLocales++;
@@ -174,7 +176,7 @@ public class LabelManagerFactory {
         Locale locale = (Locale) context.get("locale");
         
         if (UtilValidate.isNotEmpty(confirm)) {
-            LabelInfo label = labels.get(key + "_" + fileName);
+            LabelInfo label = labels.get(key + keySeparator + fileName);
         
             // Update a Label
             if (update_label.equalsIgnoreCase("Y")) {
@@ -213,7 +215,7 @@ public class LabelManagerFactory {
                     try {
                         String componentName = getFileComponent(fileName);
                         label = new LabelInfo(key, fileName, componentName, localeName, localeValue);
-                        labels.put(key + "_" + fileName, label);
+                        labels.put(key + keySeparator + fileName, label);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
@@ -225,7 +227,7 @@ public class LabelManagerFactory {
         }
         
         if (UtilValidate.isNotEmpty(label) && label.getLabelValueSize() == 0) {
-            labels.remove(key + "_" + fileName);
+            labels.remove(key + keySeparator + fileName);
         }
         
         return notEmptyLabels;

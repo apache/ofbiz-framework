@@ -31,11 +31,11 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.FileUtil;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -63,8 +63,6 @@ public class SaveLabelsToXmlFile {
                String uri = (String)fileNamesFound.get(fileName);
                Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                Element resourceElem = resourceDocument.getDocumentElement();
-               Comment comment = resourceDocument.createComment("A Document Comment");
-               resourceElem.getParentNode().insertBefore(comment, resourceElem);
                resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
                
                for (String labelKey : labelsList) {
@@ -87,22 +85,41 @@ public class SaveLabelsToXmlFile {
                    }
                }
 
-//               if (resourceElem != null && uri != null) {
-//                   File outFile = new File(new URI(uri));
-//                   FileOutputStream fos = new FileOutputStream(outFile);
-//
-//                   try {
-//                       OutputFormat format = new OutputFormat(resourceDocument.getDocumentElement().getOwnerDocument(), "UTF-8", true);
-//                       format.setIndent(4);
-//                       format.setOmitComments(false);
-//                       UtilXml.writeXmlDocument(fos, resourceElem, format);
-//                   } finally {
-//                       if (fos != null) {
-//                           fos.close();
-//                       }
-//                   }
-//               }
-               UtilCache.clearCache("properties.UtilPropertiesBundleCache");
+               if (UtilValidate.isNotEmpty(resourceElem) && UtilValidate.isNotEmpty(uri)) {
+                   File outFile = new File(new URI(uri));
+                   FileOutputStream fos = new FileOutputStream(outFile);
+                   OutputFormat format = new OutputFormat(resourceDocument.getDocumentElement().getOwnerDocument(), "UTF-8", true);
+                   
+                   try {
+                       format.setIndent(4);
+                       format.setOmitXMLDeclaration(true);
+                       UtilXml.writeXmlDocument(fos, resourceElem, format);
+                   } finally {
+                       if (UtilValidate.isNotEmpty(fos)) {
+                           fos.close();
+                           
+                           // workaround to insert the Apache License Header at top of the file
+                           // because the comment on top the xml file has been not written
+                           String outBuffer = FileUtil.readString("UTF-8", outFile);
+                           String basePath = System.getProperty("ofbiz.home");
+                           
+                           if (UtilValidate.isNotEmpty(basePath)) {
+                               String apacheHeaderFileName = basePath + "/framework/webtools/config/APACHE2_HEADER_FOR_XML";
+                               String apacheHeaderBuffer = "";
+                               File apacheHeaderFile = new File(apacheHeaderFileName);
+                               
+                               if (UtilValidate.isNotEmpty(apacheHeaderFile)) {
+                                   apacheHeaderBuffer = FileUtil.readString("UTF-8", apacheHeaderFile);
+                               }
+                               
+                               FileUtil.writeString("UTF-8", apacheHeaderBuffer + outBuffer, outFile);
+                               
+                               // clear cache to see immediately the new labels and translations in OFBiz
+                               UtilCache.clearCache("properties.UtilPropertiesBundleCache");
+                           }
+                       }
+                   }
+               }
            }
        } catch (Exception e) {
            Debug.logError(e, "Exception during save labels to xml file:", module);

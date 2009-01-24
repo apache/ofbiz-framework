@@ -100,7 +100,16 @@ public class FileUtil {
             throw e;
         }
     }
-        
+    
+    public static void writeString(String encoding, String s, File outFile) throws IOException {
+        try {
+            FileUtils.writeStringToFile(outFile, s, encoding);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            throw e;
+        }
+    }
+    
     public static Writer getBufferedWriter(String path, String name) throws IOException {
         String fileName = getPatchedFileName(path, name);
         if (UtilValidate.isEmpty(fileName)) {
@@ -179,7 +188,18 @@ public class FileUtil {
         File file = new File(fileName);
         return readTextFile(file, newline);
     }
-
+    
+    public static String readString(String encoding, File inFile) throws IOException {
+        String readString = "";
+        try {
+            readString = FileUtils.readFileToString(inFile, encoding);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            throw e;
+        }
+        return readString;
+    }
+    
     public static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
         // Get filtered files in the current path
         File[] files = path.listFiles(filter);
