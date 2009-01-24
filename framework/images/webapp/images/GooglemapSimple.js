@@ -17,7 +17,7 @@
  * under the License.
  */
 
-// A basic Google Map function to render a marker centered on a map with little text(s) and optionnal link(s) within...
+// A basic Google Map function to render a marker centered on a map
 
 function loadGoogleMap(lat,lgt, link1, text1, link2, text2) {
     if (GBrowserIsCompatible()) {
@@ -26,23 +26,7 @@ function loadGoogleMap(lat,lgt, link1, text1, link2, text2) {
         map = new GMap2(document.getElementById("map"));
         map.setCenter(new GLatLng(lat, lgt), 13);        
         marker = new GMarker(new GLatLng(lat, lgt));
-        map.setCenter(new GLatLng(lat, lgt), 13);
         map.addControl(new GSmallMapControl());
         map.addOverlay(marker);
-        info1 = typeof(link1)!="undefined" && typeof(text1)!="undefined";
-        info2 = typeof(link2)!="undefined" && typeof(text2)!="undefined";
-        html = '<div style="width:210px; padding-right:10px;">';
-        if (info1 || info2) {
-            if (info1) { 
-                html = html + '<a href=' + link1 + '>' + text1 + '</a>';
-            }
-            if (info2) { 
-                html = html + '<a href=' + link2 + '>' + text2 + '</a>';
-            }
-            html = html + '.</div>';
-        } else {
-            html = html + 'No specific information.</div>';
-        }
-        marker.openInfoWindowHtml(html);        
-    }
+      }
 }

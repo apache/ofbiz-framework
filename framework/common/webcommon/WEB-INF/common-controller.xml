@@ -141,7 +141,11 @@ under the License.
     <request-map uri="viewBlocked">
         <response name="success" type="view" value="viewBlocked"/>
     </request-map>
-
+    
+    <request-map uri="geoLocation">
+        <response name="success" type="view" value="geoLocation"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
@@ -155,7 +159,9 @@ under the License.
     <view-map name="LookupVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#LookupVisualThemes"/>
 
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
-    <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
 
+    <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
+    <view-map name="geoLocation" type="screen" page="component://common/widget/CommonScreens.xml#geoLocation"/>    
+    
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
 </site-conf>

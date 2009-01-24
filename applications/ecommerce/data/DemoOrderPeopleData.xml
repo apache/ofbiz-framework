@@ -61,7 +61,7 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
     
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA"/>
+    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -96,7 +96,7 @@ under the License.
     <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
     <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA"/>
+    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -122,7 +122,7 @@ under the License.
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>    
     
     <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>    
+    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000" geoPointId="9000"/>    
     <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -156,7 +156,7 @@ under the License.
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PostalAddress contactMechId="EUROCUSTOMER" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA"/>
+    <PostalAddress contactMechId="EUROCUSTOMER" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>

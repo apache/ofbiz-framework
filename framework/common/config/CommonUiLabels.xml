@@ -3980,8 +3980,8 @@
         <value xml:lang="zh_CN">不包含</value>
     </property>
     <property key="CommonNoGeolocationAvailable">
-        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party)</value>
-        <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser l'acteur DemoCustomer)</value>
+        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
+        <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
     </property>    
     <property key="CommonNoUomConversionFound">
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
