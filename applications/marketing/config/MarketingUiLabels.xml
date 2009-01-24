@@ -1485,7 +1485,7 @@
     <property key="SfaCloseDate">
         <value xml:lang="en">Close Date</value>
         <value xml:lang="es">Fecha de cierre</value>
-        <value xml:lang="fr">Fermer la date</value>
+        <value xml:lang="fr">Fermer à la date</value>
         <value xml:lang="it">Data di chiusura</value>
     </property>
     <property key="SfaCompanyName">
