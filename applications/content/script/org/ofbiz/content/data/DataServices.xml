@@ -27,8 +27,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.dataResourceId">
-            <sequenced-id sequence-name="DataResource" field="dataResourceId"/>
-            <set field="newEntity.dataResourceId" from-field="dataResourceId"/>
+            <sequenced-id sequence-name="DataResource" field="newEntity.dataResourceId"/>
         </if-empty>
 
         <now-timestamp field="nowTimestamp"/>
@@ -52,7 +51,7 @@ under the License.
         </if-empty>
 
         <create-value value-field="newEntity"/>
-        <field-to-result field="dataResourceId"/>
+        <field-to-result field="newEntity.dataResourceId" result-name="dataResourceId"/>
     </simple-method>
 
     <simple-method method-name="updateDataResource" short-description="Update a Data Resource">
