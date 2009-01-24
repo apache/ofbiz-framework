@@ -96,8 +96,6 @@ under the License.
     <ContentType contentTypeId="COMPDOC_TEMPLATE" description="Composite Document Template"/>
     <ContentType contentTypeId="COMPDOC_INSTANCE" description="Composite Document Instance"/>
 
-    <ContentType contentTypeId="OFBIZ_SITE_PUB_PT" description="OFBiz site"/>     
-
     <StatusType description="Content Approval Status" hasTable="N" parentTypeId="" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Not Ready for Approval" sequenceId="01" statusCode="NOT_READY" statusId="CNTAP_NOT_READY" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Ready for Approval" sequenceId="02" statusCode="READY" statusId="CNTAP_READY" statusTypeId="CNTNTAPPR_STATUS"/>
