@@ -135,12 +135,12 @@ under the License.
 
 <!-- =========================official OFBiz website ============================================ -->    
     <WebSite webSiteId="OfbizSite" siteName="OFBiz Web Site"/>
-    <Content contentId="OFBIZ_PPOINT" contentTypeId="OFBIZ_SITE_PUB_PT" contentName="OFBiz Site Publish Point" description=""/>
+    <Content contentId="OFBIZ_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="OFBiz Site Publish Point" description=""/>
     <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
-    <DataResource dataResourceId="OFBIZ_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
-        objectInfo="component://cmssite/widget/template/cms/MainDecorator.ftl"/>
-    <Content contentId="OFBIZ_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="OFBIZ_DEC"/>
-    <ContentPurpose contentId="OFBIZ_DEC" contentPurposeTypeId="SECTION"/>
-    
-    
+    <DataResource dataResourceId="OFBIZ_HOME" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED"
+        objectInfo="component://cmssite/widget/OfbizsiteScreens.xml#main"/>
+    <Content contentId="OFBIZ_HOME" contentTypeId="DOCUMENT" contentName="OFBiz Site Home Page" dataResourceId="OFBIZ_HOME"/>
+    <ContentAssoc contentId="OFBIZ_PPOINT" contentIdTo="OFBIZ_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
+    <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+
 </entity-engine-xml>

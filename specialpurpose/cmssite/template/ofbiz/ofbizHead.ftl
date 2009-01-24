@@ -35,10 +35,10 @@ under the License.
 
 <head>
     <title>OFBiz, The Apache Open For Business Project - Open Source E-Business / E-Commerce, ERP, CRM, POS</title>
-    <link rel="stylesheet" href="images/ofbws.css" type="text/css"/>
+    <link rel="stylesheet" href="/ofbiz/images/ofbws.css" type="text/css"/>
     <meta name="keywords" content="Open Source ERP,Open Source CRM,Open Source E-Commerce,Open Source eCommerce,Open Source POS,Open Source SCM,Open Source MRP,Open Source CMMS,Open Source EAM,web services,workflow,ebusiness,e-business,ecommerce,e-commerce,automation,enterprise software,open source,entity engine,service engine,erp,crm,party,accounting,facility,supply,chain,management,catalog,order,project,task,work effort,financial,ledger,content management,customer,inventory"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="images/ofbiz.ico"/>    
+    <link rel="shortcut icon" href="/ofbiz/images/ofbiz.ico"/>    
 </head>
 
 <body>
@@ -47,12 +47,12 @@ under the License.
 <div class="headerboxoutside">
     <div class="headerboxtop">
         <div class="left">
-            <a href="http://ofbiz.apache.org/"><img src="images/ofbiz_logo.jpg" border="0" alt="The Open For Business Project"/></a>
+            <a href="http://ofbiz.apache.org/"><img src="/ofbiz/images/ofbiz_logo.jpg" border="0" alt="The Open For Business Project"/></a>
         </div>
         <div class="right">
-            <a href="http://ofbiz.apache.org/"><img class="main-logo" src="images/ofbiz_powered.gif" alt="Powered By Apache OFBiz"/></a>
+            <a href="http://ofbiz.apache.org/"><img class="main-logo" src="/ofbiz/images/ofbiz_powered.gif" alt="Powered By Apache OFBiz"/></a>
 
-            <a href="http://www.apache.org/"><img class="main-logo" src="images/apache-feather.png" alt="Apache Software Foundation"/></a>
+            <a href="http://www.apache.org/"><img class="main-logo" src="/ofbiz/images/apache-feather.png" alt="Apache Software Foundation"/></a>
         </div>
         <div class="endcolumns"><span>&nbsp;</span></div>
     </div>
