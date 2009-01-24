@@ -1882,7 +1882,7 @@
     <property key="CommonElevation">
         <value xml:lang="en">Elevation: </value>
         <value xml:lang="fr">Altitude/Hauteur : </value>
-    </property>    
+    </property>
     <property key="CommonEmail">
         <value xml:lang="ar">البريد الإلكتروني</value>
         <value xml:lang="de">E-Mail</value>
@@ -3982,7 +3982,7 @@
     <property key="CommonNoGeolocationAvailable">
         <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
         <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
-    </property>    
+    </property>
     <property key="CommonNoUomConversionFound">
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
         <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
@@ -7914,6 +7914,7 @@
     </property>
     <property key="FormFieldTitle_sendNotificationEmail">
         <value xml:lang="en">Send Notification Email</value>
+        <value xml:lang="fr">Envoyer le courriel de notification</value>
         <value xml:lang="it">Invia notifica per email</value>
     </property>
     <property key="FormFieldTitle_statusId">
@@ -7921,7 +7922,7 @@
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status ID</value>
         <value xml:lang="es">Código Estado</value>
-        <value xml:lang="fr">Ref. de statut</value>
+        <value xml:lang="fr">Réf. de statut</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="nl">Status</value>
         <value xml:lang="pt">ID de Estado</value>
