@@ -1,15 +1,17 @@
 package org.ofbiz.catalina.container;
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 
-import org.apache.catalina.*;
-import org.apache.catalina.connector.*;
-import org.apache.catalina.valves.*;
-import org.apache.tomcat.util.buf.*;
-import org.apache.tomcat.util.http.*;
+import org.apache.catalina.Globals;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.Response;
+import org.apache.catalina.valves.ValveBase;
+import org.apache.tomcat.util.buf.MessageBytes;
+import org.apache.tomcat.util.http.MimeHeaders;
+import org.apache.tomcat.util.http.ServerCookie;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
