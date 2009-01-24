@@ -89,6 +89,7 @@ under the License.
   <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
 </#if>
 <body>
+  <div class="page-container">
   <div class="hidden">
     <a href="#column-container" title="${uiLabelMap.CommonSkipNavigation}" accesskey="2">
       ${uiLabelMap.CommonSkipNavigation}
