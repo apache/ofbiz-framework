@@ -65,5 +65,7 @@ under the License.
         <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
     </#list>
 </#if>
+
+</div>
 </body>
 </html>
