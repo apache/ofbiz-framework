@@ -40,7 +40,7 @@ under the License.
                title="Field9: date and time selection field with default value"
                tooltip="Same as above, uses the $ {bsh:...} notation to call an util method to get the now timestamp}">
             <!-- tooltip="Same as above, uses the ${'${'bsh:...} notation to call an util method to get the now timestamp}"-->
-            <!-- tooltip="Same as above, uses the \${'bsh:...} notation to call an util method to get the now timestamp}"-->
+            <!-- tooltip="Same as above, uses the \${bsh:...} notation to call an util method to get the now timestamp}"-->
             <date-time default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <!-- ***************** -->
