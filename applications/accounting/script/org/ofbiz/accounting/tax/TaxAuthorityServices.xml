@@ -221,7 +221,7 @@ under the License.
                 <and>
                     <not><if-empty field="taxAuthority.taxIdFormatPattern"/></not>
                     <not><if-empty field="parameters.partyTaxId"/></not>
-                    <not><if-regexp field-name="parameters.partyTaxId" expr="${taxAuthority.taxIdFormatPattern}"/></not>
+                    <not><if-regexp field="parameters.partyTaxId" expr="${taxAuthority.taxIdFormatPattern}"/></not>
                 </and>
             </condition>
             <then>

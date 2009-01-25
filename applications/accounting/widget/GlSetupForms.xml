@@ -32,7 +32,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListGlAccountOrganization">
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
-                <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                 <order-by field-name="glAccountId"/>
             </entity-condition>
         </actions>
@@ -330,9 +330,9 @@ under the License.
     <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="GlAccountTypeDefault" list-name="glAccountTypeDefaults">
+            <entity-condition entity-name="GlAccountTypeDefault" list="glAccountTypeDefaults">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                 </condition-list>
                 <order-by field-name="glAccountTypeId"/>
             </entity-condition>
@@ -386,7 +386,7 @@ under the License.
     <form name="AddSalInvoiceItemTypeGlAssignment" type="single" target="addSalInvoiceItemTypeGlAssignment"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="GlAccountClass" value-name="revenueGlAccountClass">
+            <entity-one entity-name="GlAccountClass" value-field="revenueGlAccountClass">
                 <field-map field-name="glAccountClassId" value="REVENUE"/>
             </entity-one>
             <set field="revenueAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass)}" type="List"/>
@@ -432,7 +432,7 @@ under the License.
     <form name="AddPurInvoiceItemTypeGlAssignment" type="single" target="addPurInvoiceItemTypeGlAssignment"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
+            <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
                 <field-map field-name="glAccountClassId" value="EXPENSE"/>
             </entity-one>
             <set field="expenseAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass)}" type="List"/>
@@ -506,9 +506,9 @@ under the License.
             </entity-condition>
         </actions>
         <row-actions>
-            <entity-one entity-name="PaymentMethodType" value-name="paymentMethodType"/>
+            <entity-one entity-name="PaymentMethodType" value-field="paymentMethodType"/>
             <set field="defaultGlAccountId" value="${paymentMethodType.defaultGlAccountId}"/>
-            <entity-one entity-name="GlAccount" value-name="glAccount"/>
+            <entity-one entity-name="GlAccount" value-field="glAccount"/>
             <set field="description" value="${glAccount.description}"/>
         </row-actions>
         <auto-fields-entity entity-name="PaymentMethodTypeGlAccount" default-field-type="display"/>
@@ -605,7 +605,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlJournal">
-                <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                 <order-by field-name="glJournalId"/>
             </entity-condition>
         </actions>

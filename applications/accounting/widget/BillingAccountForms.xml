@@ -52,22 +52,22 @@ under the License.
     <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
         odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar"> 
         <actions>
-            <entity-condition entity-name="Invoice" list-name="billingAccountInvoices">
+            <entity-condition entity-name="Invoice" list="billingAccountInvoices">
                 <condition-list>
-                    <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
-                    <condition-expr field-name="statusId" env-name="parameters.statusId" ignore-if-empty="true"/>
+                    <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
+                    <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
                 </condition-list>
             </entity-condition>
         </actions>
         <row-actions>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
-                <field-map field-name="partyId" env-name="partyIdFrom"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                <field-map field-name="partyId" from-field="partyIdFrom"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
-                <field-map field-name="partyId" env-name="partyId"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
             <set field="paidInvoice" value="${bsh: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(BigDecimal.ZERO)==0}" type="Boolean"/>
@@ -146,8 +146,8 @@ under the License.
     <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="BillingAccountRole" list-name="billingAccountRoleList">
-                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+            <entity-condition entity-name="BillingAccountRole" list="billingAccountRoleList">
+                <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
@@ -189,8 +189,8 @@ under the License.
     <form name="ListBillingAccountTerms" type="list" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="BillingAccountTerm" list-name="billingAccountTermsList">
-                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+            <entity-condition entity-name="BillingAccountTerm" list="billingAccountTermsList">
+                <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
             </entity-condition>
         </actions>
         <field name="billingAccountId"><hidden/></field>
@@ -234,8 +234,8 @@ under the License.
     <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PaymentAndApplication" list-name="payments">
-                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+            <entity-condition entity-name="PaymentAndApplication" list="payments">
+                <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
             </entity-condition>
         </actions>
         <field name="paymentId" widget-style="buttontext">

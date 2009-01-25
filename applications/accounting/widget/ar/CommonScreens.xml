@@ -43,20 +43,20 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <entity-condition entity-name="PaymentType" list-name="paymentTypes">
+                <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="InvoiceType" list-name="invoiceTypes">
+                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
                     <order-by field-name="invoiceTypeId"/>
                 </entity-condition>                
-                <entity-condition entity-name="PaymentMethodType" list-name="paymentMethodTypes">
+                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="invoiceStatus">
+                <entity-condition entity-name="StatusItem" list="invoiceStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="paymentStatus">
+                <entity-condition entity-name="StatusItem" list="paymentStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>

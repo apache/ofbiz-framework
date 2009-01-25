@@ -109,7 +109,7 @@ under the License.
                 <set field="tabButtonItem" value="editPayment"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment">
-                    <field-map field-name="paymentId" env-name="parameters.paymentId"/>
+                    <field-map field-name="paymentId" from-field="parameters.paymentId"/>
                 </entity-one>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
             </actions>
@@ -156,10 +156,10 @@ under the License.
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedInvoices.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedPayments.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameViewTo">
-                    <field-map field-name="partyId" env-name="payment.partyIdTo"/>
+                    <field-map field-name="partyId" from-field="payment.partyIdTo"/>
                 </entity-one>
                 <entity-one entity-name="PartyNameView" value-field="partyNameViewFrom">
-                    <field-map field-name="partyId" env-name="payment.partyIdFrom"/>
+                    <field-map field-name="partyId" from-field="payment.partyIdFrom"/>
                 </entity-one>
                 <entity-condition entity-name="PaymentApplication" list="paymentApplications">
                     <condition-expr field-name="paymentId" operator="equals" value="${paymentId}"/>
@@ -541,7 +541,7 @@ under the License.
                                         <container style="h3">
                                             <label text="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}"/>
                                         </container>
-                                    </container>
+                                    </container>                                                                
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>    

@@ -82,11 +82,11 @@ under the License.
                 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
-                <entity-one entity-name="TaxAuthority" value-name="taxAuthority"/>
-                <entity-one entity-name="PartyNameView" value-name="taxAuthPartyName" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="taxAuthority.taxAuthPartyId"/>
+                <entity-one entity-name="TaxAuthority" value-field="taxAuthority"/>
+                <entity-one entity-name="PartyNameView" value-field="taxAuthPartyName" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="taxAuthority.taxAuthPartyId"/>
                 </entity-one>
-                <get-related-one value-name="taxAuthority" relation-name="TaxAuthGeo" to-value-name="taxAuthGeo" use-cache="true"/>
+                <get-related-one value-field="taxAuthority" relation-name="TaxAuthGeo" to-value-field="taxAuthGeo" use-cache="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -100,8 +100,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <not><if-empty field-name="taxAuthPartyId"/></not>
-                                            <not><if-empty field-name="taxAuthGeoId"/></not>
+                                            <not><if-empty field="taxAuthPartyId"/></not>
+                                            <not><if-empty field="taxAuthGeoId"/></not>
                                         </and>
                                     </condition>
                                     <widgets>
@@ -133,7 +133,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="organizationPartyId"/></not>
+                                <not><if-empty field="organizationPartyId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="PartyTopTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -150,8 +150,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
-                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -172,8 +172,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
-                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -195,8 +195,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
-                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -218,20 +218,20 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <entity-condition entity-name="PaymentType" list-name="paymentTypes">
+                <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="InvoiceType" list-name="invoiceTypes">
+                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
                     <order-by field-name="invoiceTypeId"/>
                 </entity-condition>                
-                <entity-condition entity-name="PaymentMethodType" list-name="paymentMethodTypes">
+                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="invoiceStatus">
+                <entity-condition entity-name="StatusItem" list="invoiceStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="paymentStatus">
+                <entity-condition entity-name="StatusItem" list="paymentStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>

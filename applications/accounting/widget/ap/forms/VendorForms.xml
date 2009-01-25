@@ -22,8 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListVendors" type="list" list-name="listIt" paginate-target="findVendors" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Vendor"/>
                 <field-map field-name="orderBy" value="partyId"/>
             </service>
@@ -38,7 +38,7 @@ under the License.
     </form>
     <form name="EditVendor" type="single" target="updateVendor" title="" default-map-name="vendor">
         <actions>
-            <entity-one entity-name="Vendor" value-name="vendor"/>
+            <entity-one entity-name="Vendor" value-field="vendor"/>
         </actions>
         <alt-target use-when="partyId==null" target="createVendor"/>
         <alt-target use-when="partyId!=null&amp;&amp;vendor!=null" target="updateVendor"/>

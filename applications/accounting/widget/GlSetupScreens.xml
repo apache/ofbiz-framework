@@ -25,8 +25,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="Admin"/>
-                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -35,7 +35,7 @@ under the License.
                         <include-menu name="PartyAdminTabBar" location="component://accounting/widget/Menus.xml"/>
                         <section>
                             <condition>
-                                <if-compare field-name="tabButtonItem" operator="equals" value="GlAccountAssignment"/>
+                                <if-compare field="tabButtonItem" operator="equals" value="GlAccountAssignment"/>
                             </condition>
                             <widgets>
                                 <include-menu name="PartyAdminAssignTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -58,14 +58,14 @@ under the License.
                 <set field="titleProperty" value="AccountingAvailableInternalOrganizations"/>
                 <set field="headerItem" value="companies"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
-                <entity-condition entity-name="PartyRole" list-name="parties">
+                <entity-condition entity-name="PartyRole" list="parties">
                     <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-condition>
-                <service service-name="acctgPrefPermissionCheck" result-map-name="permResult">
+                <service service-name="acctgPrefPermissionCheck" result-map="permResult">
                     <field-map field-name="mainAction" value="UPDATE"/>
                 </service>
                 <set field="hasPrefPermission" from-field="permResult.hasPermission"/>
-                <service service-name="basicGeneralLedgerPermissionCheck" result-map-name="permResult">
+                <service service-name="basicGeneralLedgerPermissionCheck" result-map="permResult">
                     <field-map field-name="mainAction" value="VIEW"/>
                 </service>
                 <set field="hasBasicPermission" from-field="permResult.hasPermission"/>
@@ -122,16 +122,16 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingTimePeriod}"/>
                 <set field="tabButtonItem" value="TimePeriods"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-condition entity-name="CustomTimePeriod" list-name="openTimePeriods">
+                <entity-condition entity-name="CustomTimePeriod" list="openTimePeriods">
                     <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                         <condition-expr field-name="isClosed" operator="equals" value="N"/>
                     </condition-list>
                     <order-by field-name="thruDate"/>
                 </entity-condition>
-                <entity-condition entity-name="CustomTimePeriod" list-name="closedTimePeriods">
+                <entity-condition entity-name="CustomTimePeriod" list="closedTimePeriods">
                     <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                         <condition-expr field-name="isClosed" operator="equals" value="Y"/>
                     </condition-list>
                     <order-by field-name="periodTypeId"/>
@@ -200,8 +200,8 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
-                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
                     <field-map field-name="organizationPartyId"/>
                 </service>
                 <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference"/>
@@ -236,7 +236,7 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                                
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
                     stored in UomConversion, we need to change the logic here -->
-                <entity-condition entity-name="UomConversionDated" list-name="conversions">
+                <entity-condition entity-name="UomConversionDated" list="conversions">
                     <order-by field-name="uomId"/>
                     <order-by field-name="uomIdTo"/>
                     <order-by field-name="fromDate"/>
@@ -262,7 +262,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlJournals}"/>
                 <set field="tabButtonItem" value="SetupGlJournals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="GlJournal" value-name="glJournal"/>
+                <entity-one entity-name="GlJournal" value-field="glJournal"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -395,8 +395,8 @@ under the License.
                 <set field="tabButtonItem2" value="ProductGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
-                <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
             </actions>
@@ -423,11 +423,11 @@ under the License.
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
-                 <entity-condition entity-name="FinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts">
-                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                 <entity-condition entity-name="FinAccountTypeGlAccount" list="finAccountTypeGlAccounts">
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                     <order-by field-name="finAccountTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="FinAccountType" list-name="finAccountTypes" use-cache="true">
+                <entity-condition entity-name="FinAccountType" list="finAccountTypes" use-cache="true">
                     <order-by field-name="finAccountTypeId"/>
                 </entity-condition>
             </actions>
@@ -455,8 +455,8 @@ under the License.
                 <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
-                <entity-condition entity-name="ProductCategoryGlAccount" list-name="productCategoryGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="ProductCategoryGlAccount" list="productCategoryGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
             </actions>
@@ -483,8 +483,8 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>                
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
-                <entity-condition entity-name="VarianceReasonGlAccount" list-name="varianceReasonGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="VarianceReasonGlAccount" list="varianceReasonGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountId"/>
                 </entity-condition>
             </actions>
@@ -510,8 +510,8 @@ under the License.
                 <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
-                <entity-condition entity-name="CreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="CreditCardTypeGlAccount" list="creditCardTypeGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -536,8 +536,8 @@ under the License.
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>                
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
-                <entity-condition entity-name="TaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="taxAuthGeoId"/>
                     <order-by field-name="taxAuthPartyId"/>
                 </entity-condition>
@@ -565,8 +565,8 @@ under the License.
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="PartyGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-condition entity-name="PartyGlAccount" list-name="partyGlAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <entity-condition entity-name="PartyGlAccount" list="partyGlAccounts">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="partyId"/>
                 </entity-condition>
             </actions>

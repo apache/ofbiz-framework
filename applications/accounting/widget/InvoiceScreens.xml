@@ -145,7 +145,7 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-one entity-name="InvoiceType" value-field="invoiceType">
-                    <field-map field-name="invoiceTypeId" env-name="invoice.invoiceTypeId"/>
+                    <field-map field-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -202,19 +202,19 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="InvoiceRole" list="invoiceRoles">
-                    <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
                 <entity-and entity-name="InvoiceStatus" list="invoiceStatus">
-                    <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="statusDate"/>
                 </entity-and>
                 <entity-and entity-name="InvoiceTerm" list="invoiceTerms">
-                    <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceTermId"/>
                 </entity-and>
                 <entity-and entity-name="TimeEntry" list="timeEntries">
-                    <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
@@ -306,7 +306,7 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
                 <entity-and entity-name="InvoiceStatus" list="invoiceStatus">
-                    <field-map env-name="invoice.invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="invoice.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="statusDate"/>
                 </entity-and>
             </actions>
@@ -440,7 +440,7 @@ under the License.
                 <entity-one entity-name="Invoice" value-field="invoice" />
                 <entity-one entity-name="InvoiceItem" value-field="invoiceItem"/>
                 <entity-and entity-name="InvoiceItem" list="invoiceItems">
-                    <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+                    <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetInvoiceItemTypes.groovy"/>
@@ -500,7 +500,7 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="TimeEntry" list="timeEntries">
-                    <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+                    <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     <order-by field-name="timeEntryId"/>
                 </entity-and>
             </actions>
@@ -535,7 +535,7 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="InvoiceRole" list="invoiceRoles">
-                    <field-map env-name="invoiceId" field-name="invoiceId"/>
+                    <field-map from-field="invoiceId" field-name="invoiceId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
             </actions>

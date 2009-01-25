@@ -31,7 +31,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="fixedAssetId"/></not>
+                                <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="FixedAssetTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -47,7 +47,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="fixedAssetId"/></not>
+                                        <not><if-empty field="fixedAssetId"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label text="${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>
@@ -125,7 +125,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFixedAsset"/>
                 <set field="tabButtonItem" value="EditFixedAsset"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -154,9 +154,9 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingFixedAssetProducts"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-condition entity-name="FixedAssetProduct" list-name="fixedAssetProducts" >
-                    <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-condition entity-name="FixedAssetProduct" list="fixedAssetProducts" >
+                    <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
                     <order-by field-name="productId"/>
                     <order-by field-name="fixedAssetProductTypeId"/>
                     <order-by field-name="fromDate"/>
@@ -181,7 +181,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/fixedasset/ViewCalendar.groovy"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -253,7 +253,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
                 <set field="titleProperty" value="PageTitleWorkEffortRelatedSummary"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <set field="fixedAssetId" from-field="workEffort.fixedAssetId"/>
             </actions>
             <widgets>
@@ -275,7 +275,7 @@ under the License.
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
 
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -299,7 +299,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetIdents"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="fixedAssetIdentTypeId" from-field="parameters.fixedAssetIdentTypeId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -322,7 +322,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetRegistrations"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -346,7 +346,7 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
-                            <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
+                            <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <include-menu name="FixedAssetMaintTabBar" location="component://accounting/widget/Menus.xml"/>
                             </widgets>
@@ -367,7 +367,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListFixedAssetMaints"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -388,12 +388,12 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
             </actions>
             <widgets>
                 <section>
-                    <condition><if-empty field-name="maintHistSeqId"/></condition>
+                    <condition><if-empty field="maintHistSeqId"/></condition>
                     <actions><set field="titleProperty" value="AccountingAddFixedAssetMaintenance"/></actions>
                     <widgets/>
                 </section>
@@ -402,7 +402,7 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="maintHistSeqId"/></not>
+                                    <not><if-empty field="maintHistSeqId"/></not>
                                     <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
                                 </and>
                             </condition>
@@ -426,8 +426,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
@@ -451,7 +451,7 @@ under the License.
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="trail" from-field="parameters.trail" default-value="${parameters.fixedAssetId}"/>
                 <set field="fixedAssetId" from-field="parameters.trail"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -475,9 +475,9 @@ under the License.
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
-                <entity-one entity-name="FixedAssetMaintOrder" value-name="fixedAssetMaintOrder"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAssetMaintOrder" value-field="fixedAssetMaintOrder"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
@@ -502,8 +502,8 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="PartyFixedAssetAssignment" value-name="partyFixedAssetAssignment"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="PartyFixedAssetAssignment" value-field="partyFixedAssetAssignment"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">

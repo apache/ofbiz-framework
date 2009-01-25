@@ -60,7 +60,7 @@ under the License.
         <section>
             <actions>
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
-                <entity-one entity-name="GlAccount" value-name="glAccount"/>
+                <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -142,7 +142,7 @@ under the License.
                 <set field="glAccountId" from-field="requestParameters.glAccountId"/>
                 <set field="trail" from-field="requestParameters.trail"/>
 
-                <entity-one entity-name="GlAccount" value-name="glAccount"/>
+                <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -196,7 +196,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewGlAccountEntries"/>
                 <set field="tabButtonItem" value="ListGlAccountOrganization"/>
                 <set field="glAccountId" from-field="requestParameters.glAccountId"/>
-                <entity-and entity-name="AcctgTransEntry" list-name="entries">
+                <entity-and entity-name="AcctgTransEntry" list="entries">
                     <field-map field-name="glAccountId"/>
                 </entity-and>
             </actions>
@@ -243,7 +243,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewAccountingTransaction"/>
                 <set field="headerItem" value="chartofaccounts"/>
                 <set field="acctgTransId" from-field="requestParameters.acctgTransId"/>
-                <entity-and entity-name="AcctgTransEntry" list-name="entries">
+                <entity-and entity-name="AcctgTransEntry" list="entries">
                     <field-map field-name="acctgTransId"/>
                 </entity-and>
             </actions>
@@ -327,7 +327,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAccounts"/>
                 <set field="labelTitleProperty" value="PageTitleListAccounts"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
-                <!-- no longer works requies a fieldMap entity-and entity-name="GlAccount" list-name="entityList" use-cache="true" >
+                <!-- no longer works requies a fieldMap entity-and entity-name="GlAccount" list="entityList" use-cache="true" >
                     <limit-range start="0" size="20" />
                 </entity-and -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
@@ -381,7 +381,7 @@ under the License.
     <screen name="GlAccountDetail">
         <section>
             <actions>
-                <entity-one entity-name="GlAccount" value-name="currentValue" use-cache="true">
+                <entity-one entity-name="GlAccount" value-field="currentValue" use-cache="true">
                     <field-map field-name="glAccountId"/>
                 </entity-one>
             </actions>
@@ -400,7 +400,7 @@ under the License.
                 <set field="labelTitleProperty" value=""/> -->
     
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
-                <entity-one entity-name="GlAccount" value-name="glAccount"/>
+                <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAccountDecorator">

@@ -39,20 +39,20 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="main"></set> 
-                <entity-condition entity-name="PaymentType" list-name="paymentTypes">
+                <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="InvoiceType" list-name="invoiceTypes">
+                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
                     <order-by field-name="invoiceTypeId"/>
                 </entity-condition>                
-                <entity-condition entity-name="PaymentMethodType" list-name="paymentMethodTypes">
+                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="invoiceStatus">
+                <entity-condition entity-name="StatusItem" list="invoiceStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>
-                <entity-condition entity-name="StatusItem" list-name="paymentStatus">
+                <entity-condition entity-name="StatusItem" list="paymentStatus">
                     <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
                     <order-by field-name="statusId"/>
                 </entity-condition>
@@ -94,7 +94,7 @@ under the License.
                             <container>
                                 <container style="lefthalf">
                                     <container style="lefthalf">
-                                        <iterate-section list-name="paymentTypes" entry-name="paymentType">
+                                        <iterate-section list="paymentTypes" entry="paymentType">
                                             <section>
                                                 <widgets>
                                                     <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
@@ -103,7 +103,7 @@ under the License.
                                         </iterate-section>
                                     </container>
                                     <container style="righthalf">
-                                        <iterate-section list-name="paymentMethodTypes" entry-name="paymentMethodType">
+                                        <iterate-section list="paymentMethodTypes" entry="paymentMethodType">
                                             <section>
                                                 <widgets>
                                                     <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
@@ -114,7 +114,7 @@ under the License.
                                 </container> 
                                 <container style="righthalf">
                                     <container style="left">
-                                        <iterate-section list-name="paymentStatus" entry-name="paymentsStatus">
+                                        <iterate-section list="paymentStatus" entry="paymentsStatus">
                                             <section>
                                                 <widgets>
                                                     <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/Menus.xml" />
@@ -131,7 +131,7 @@ under the License.
                             <container>
                                 <container style="lefthalf">
                                     <container style="lefthalf">
-                                        <iterate-section list-name="invoiceTypes" entry-name="invoiceType">
+                                        <iterate-section list="invoiceTypes" entry="invoiceType">
                                             <section>
                                                 <widgets>
                                                     <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
@@ -140,7 +140,7 @@ under the License.
                                         </iterate-section>
                                     </container>
                                     <container style="right">
-                                        <iterate-section list-name="invoiceStatus" entry-name="invoicesStatus">
+                                        <iterate-section list="invoiceStatus" entry="invoicesStatus">
                                             <section>
                                                 <widgets>
                                                     <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/Menus.xml" />

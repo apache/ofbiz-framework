@@ -60,7 +60,7 @@ under the License.
                 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
-                <entity-one entity-name="TaxAuthority" value-name="taxAuthority"/>
+                <entity-one entity-name="TaxAuthority" value-field="taxAuthority"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -232,7 +232,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 
-                <entity-one entity-name="PartyTaxAuthInfo" value-name="partyTaxAuthInfo"/>
+                <entity-one entity-name="PartyTaxAuthInfo" value-field="partyTaxAuthInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">

@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="PartyAccountsSummary"/>
                 <set field="labelTitleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
-                <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
+                <!-- entity-condition entity-name="GlAccountOrganization" list="entityList" use-cache="true" >
                     <condition-expr field-name="glAccountId" operator="greater" value="0" />
                 </entity-condition -->
             </actions>
@@ -94,7 +94,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -138,8 +138,8 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
-                                    <if-compare field-name="parameters.reportType" operator="equals" value="byAccount"/>
+                                    <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
+                                    <if-compare field="parameters.reportType" operator="equals" value="byAccount"/>
                                 </and>
                             </condition>
                             <widgets>
@@ -158,8 +158,8 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
-                                    <if-compare field-name="parameters.reportType" operator="equals" value="byDate"/>
+                                    <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
+                                    <if-compare field="parameters.reportType" operator="equals" value="byDate"/>
                                 </and>
                             </condition>
                             <widgets>
@@ -217,12 +217,12 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
                 
-                <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
-                <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
+                <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
+                <entity-one entity-name="AcctgTransEntry" value-field="acctgTransEntry">
                     <field-map field-name="acctgTransId"/>
-                    <field-map field-name="acctgTransEntrySeqId" env-name="parameters.editAcctgTransEntrySeqId"/>
+                    <field-map field-name="acctgTransEntrySeqId" from-field="parameters.editAcctgTransEntrySeqId"/>
                 </entity-one>
-                <entity-and entity-name="AcctgTransEntry" list-name="acctgTransEntries">
+                <entity-and entity-name="AcctgTransEntry" list="acctgTransEntries">
                     <field-map field-name="acctgTransId"/>
                     <order-by field-name="acctgTransEntrySeqId"/>
                 </entity-and>
@@ -232,7 +232,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="acctgTransId"/></not>
+                                <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
                                 <container>
@@ -241,7 +241,7 @@ under the License.
                                             <container style="h3">
                                                 <section>
                                                     <condition>
-                                                        <if-compare field-name="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                                        <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
                                                     </condition>
                                                     <widgets>
                                                         <label text="${uiLabelMap.PageTitleViewTransaction}"/>
@@ -257,7 +257,7 @@ under the License.
                                             <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
                                             <section>
                                                 <condition>
-                                                    <if-compare field-name="acctgTrans.isPosted" operator="equals" value="Y"/>
+                                                    <if-compare field="acctgTrans.isPosted" operator="equals" value="Y"/>
                                                 </condition>
                                                 <widgets>
                                                     <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>                                                    
@@ -273,7 +273,7 @@ under the License.
                                     <container style="screenlet">
                                         <section>
                                             <condition>
-                                                <if-compare field-name="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                                <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
                                             </condition>
                                             <widgets>
                                                 <container style="screenlet-title-bar">
@@ -302,7 +302,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                               <if-compare field-name="acctgTrans.isPosted" operator="not-equals" value="Y"/>
+                               <if-compare field="acctgTrans.isPosted" operator="not-equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container>
@@ -341,7 +341,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
-                <entity-condition entity-name="AcctgTrans" list-name="transactions">
+                <entity-condition entity-name="AcctgTrans" list="transactions">
                     <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
                     <order-by field-name="transactionDate"/>
                 </entity-condition>
@@ -376,9 +376,9 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
-                <entity-condition entity-name="Payment" list-name="payments">
+                <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="organizationPartyId"/>
                         <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <condition-list combine="or">
                             <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
@@ -425,9 +425,9 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
-                <entity-condition entity-name="Payment" list-name="payments">
+                <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="organizationPartyId"/>
                         <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <condition-list combine="or">
                             <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
@@ -519,7 +519,7 @@ under the License.
                         </container>    
                         <section>
                             <condition>
-                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -550,7 +550,7 @@ under the License.
                 <set field="tabButtonItem" from-field="parameters.tabButtonItem" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId" global="true"/>
-                <entity-one entity-name="GlReconciliation" value-name="glReconciliation"/>
+                <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -624,7 +624,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">

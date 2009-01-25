@@ -35,13 +35,13 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="agreement"/></not>
+                                        <not><if-empty field="agreement"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="AgreementTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <section>
                                             <condition>
-                                                <not><if-empty field-name="agreementItem"/></not>
+                                                <not><if-empty field="agreementItem"/></not>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="AgreementItemTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -112,14 +112,14 @@ under the License.
                 <set field="headerItem" value="agreements"/>
                 <set field="tabButtonItem" value="AgreementMain"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
-                <entity-one entity-name="Agreement" value-name="agreement"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="agreement"/></not>
+                                <not><if-empty field="agreement"/></not>
                             </condition>
                             <widgets>
                                 <container style="button-bar">
@@ -156,9 +156,9 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementItems"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-and entity-name="AgreementItem" list-name="agreementItems">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-and entity-name="AgreementItem" list="agreementItems">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -197,8 +197,8 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -234,7 +234,7 @@ under the License.
                 <set field="tabButtonItem" value="AgreementTerms"/>
                 <set field="buttonBarItem" value="EditAgreementTerms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -256,11 +256,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementPromoAppl" list-name="agreementPromoAppls">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementPromoAppl" list="agreementPromoAppls">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
             </actions>
@@ -299,9 +299,9 @@ under the License.
                 <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
-                <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
+                <entity-one entity-name="AgreementPromoAppl" value-field="agreementPromoAppl" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -336,11 +336,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemTerms"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementTerm" list-name="agreementTerms">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementTerm" list="agreementTerms">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -379,9 +379,9 @@ under the License.
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
-                <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
+                <entity-one entity-name="AgreementTerm" value-field="agreementTerm" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -416,11 +416,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemProducts"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementProductAppl" list-name="agreementProducts">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -457,11 +457,11 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementProductAppl" list-name="agreementProducts">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -526,9 +526,9 @@ under the License.
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="productId" from-field="parameters.productId"/>
 
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-one entity-name="AgreementProductAppl" value-field="agreementProductAppl" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -563,11 +563,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="SupplierProduct" list-name="agreementProducts">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="SupplierProduct" list="agreementProducts">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -604,11 +604,11 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="SupplierProduct" list-name="agreementProducts">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="SupplierProduct" list="agreementProducts">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -672,16 +672,16 @@ under the License.
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-one entity-name="SupplierProduct" value-name="agreementProductAppl" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-one entity-name="SupplierProduct" value-field="agreementProductAppl" auto-field-map="true"/>
             </actions>
             <widgets>
             <section>
             <condition>
                 <and>
-                    <not><if-empty field-name="agreement.partyIdTo"/></not>
-                    <not><if-empty field-name="agreementItem.currencyUomId"/></not>
+                    <not><if-empty field="agreement.partyIdTo"/></not>
+                    <not><if-empty field="agreementItem.currencyUomId"/></not>
                 </and>
             </condition>
             <widgets>
@@ -728,11 +728,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemParties"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementPartyApplic" list-name="agreementParties">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementPartyApplic" list="agreementParties">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -771,9 +771,9 @@ under the License.
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-one entity-name="AgreementPartyApplic" value-field="agreementPartyApplic" auto-field-map="true"/>
            </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -808,11 +808,11 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementGeographicalApplic"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
-                <entity-and entity-name="AgreementGeographicalApplic" list-name="agreementGeographicalApplics">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+                <entity-and entity-name="AgreementGeographicalApplic" list="agreementGeographicalApplics">
+                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -851,9 +851,9 @@ under the License.
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="geoId" from-field="parameters.geoId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
-                <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
+                <entity-one entity-name="AgreementGeographicalApplic" value-field="agreementGeographicalApplic" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -888,7 +888,7 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementWorkEffortAppls"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -909,7 +909,7 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementRoles"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">

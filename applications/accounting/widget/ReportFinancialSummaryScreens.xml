@@ -105,11 +105,11 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="currencyUomId" from-field="parameters.currencyUomId"/>
                 
-                <entity-one entity-name="PartyNameView" value-name="organizationPartyName" auto-field-map="false" use-cache="true">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="organizationPartyName" auto-field-map="false" use-cache="true">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
-                <entity-one entity-name="Uom" value-name="currencyUom" auto-field-map="false" use-cache="true">
-                    <field-map field-name="uomId" env-name="currencyUomId"/>
+                <entity-one entity-name="Uom" value-field="currencyUom" auto-field-map="false" use-cache="true">
+                    <field-map field-name="uomId" from-field="currencyUomId"/>
                 </entity-one>
             </actions>
             <widgets></widgets>
@@ -125,8 +125,8 @@ under the License.
                         <set field="titleProperty" value="PageTitleSalesInvoiceByProductCategorySummary"/>
                         
                         <set field="rootProductCategoryId" from-field="parameters.rootProductCategoryId"/>
-                        <entity-one entity-name="ProductCategory" value-name="rootProductCategory" auto-field-map="false" use-cache="true">
-                            <field-map field-name="productCategoryId" env-name="rootProductCategoryId"/>
+                        <entity-one entity-name="ProductCategory" value-field="rootProductCategory" auto-field-map="false" use-cache="true">
+                            <field-map field-name="productCategoryId" from-field="rootProductCategoryId"/>
                         </entity-one>
                         
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductCategorySummary.groovy"/>
@@ -280,15 +280,15 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TrialBalance"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                <service service-name="getPartyAccountingPreferences" result-map="result">
                     <field-map field-name="organizationPartyId"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <entity-condition entity-name="GlAccountOrganization" list-name="trialBalances" filter-by-date="true">
+                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
                     <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                        <condition-expr field-name="postedBalance" operator="not-equals" env-name="null"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
                     </condition-list>
                     <order-by field-name="glAccountId"/>
                 </entity-condition>
@@ -324,7 +324,7 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="IncomeStatement"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                <service service-name="getPartyAccountingPreferences" result-map="result">
                     <field-map field-name="organizationPartyId"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
@@ -346,7 +346,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.totalNetIncome"/></not>
+                                <not><if-empty field="parameters.totalNetIncome"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -377,7 +377,7 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="BalanceSheet"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                <service service-name="getPartyAccountingPreferences" result-map="result">
                     <field-map field-name="organizationPartyId"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
@@ -402,9 +402,9 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <not><if-empty field-name="assetBalancesList"/></not>
-                                    <not><if-empty field-name="liabilityBalancesList"/></not>
-                                    <not><if-empty field-name="equityBalancesList"/></not>
+                                    <not><if-empty field="assetBalancesList"/></not>
+                                    <not><if-empty field="liabilityBalancesList"/></not>
+                                    <not><if-empty field="equityBalancesList"/></not>
                                 </or>
                             </condition>
                             <widgets>
@@ -453,7 +453,7 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                <service service-name="getPartyAccountingPreferences" result-map="result">
                     <field-map field-name="organizationPartyId"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
@@ -478,9 +478,9 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <not><if-empty field-name="assetBalancesList"/></not>
-                                    <not><if-empty field-name="liabilityBalancesList"/></not>
-                                    <not><if-empty field-name="equityBalancesList"/></not>
+                                    <not><if-empty field="assetBalancesList"/></not>
+                                    <not><if-empty field="liabilityBalancesList"/></not>
+                                    <not><if-empty field="equityBalancesList"/></not>
                                 </or>
                             </condition>
                             <widgets>

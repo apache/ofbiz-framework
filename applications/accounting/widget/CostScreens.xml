@@ -30,8 +30,8 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-condition entity-name="CostComponentCalc" list-name="allCostComponentCalcs"/>
-                <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
+                <entity-condition entity-name="CostComponentCalc" list="allCostComponentCalcs"/>
+                <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">

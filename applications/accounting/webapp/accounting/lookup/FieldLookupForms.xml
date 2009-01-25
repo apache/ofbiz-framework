@@ -39,8 +39,8 @@ under the License.
     <form name="listLookupFixedAsset" list-name="listIt" title="" type="list" paginate-target="LookupFixedAsset"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
         </actions>
@@ -63,8 +63,8 @@ under the License.
     <form name="listBillingAccount" list-name="listIt" title="" type="list" paginate-target="LookupBillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="BillingAccount"/>
                 <field-map field-name="orderBy" value="billingAccountId"/>
             </service>
@@ -101,8 +101,8 @@ under the License.
     <form name="listLookupGlAccount" list-name="listIt" title="" type="list" paginate-target="LookupGlAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="GlAccount"/>
             </service>
         </actions>
@@ -127,8 +127,8 @@ under the License.
     <form name="listPayment" list-name="listIt" title="" type="list" paginate-target="LookupPayment"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Payment"/>
             </service>
         </actions>
@@ -169,8 +169,8 @@ under the License.
     <form name="listInvoice" list-name="listIt" title="" type="list" paginate-target="LookupInvoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Invoice"/>
             </service>
         </actions>
@@ -199,8 +199,8 @@ under the License.
     <form name="listAgreements" list-name="listIt" title="" type="list" target="LookupAgreement"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Agreement"/>
             </service>
         </actions>
@@ -230,8 +230,8 @@ under the License.
     <form name="listAgreementItems" list-name="listIt" title="" type="list" target="LookupAgreementItem"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="AgreementItem"/>
             </service>
         </actions>

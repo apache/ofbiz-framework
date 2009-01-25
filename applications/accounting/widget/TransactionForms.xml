@@ -44,10 +44,10 @@ under the License.
         <actions>
             <set field="entityName" value="PaymentGatewayResponse"/>
             <set field="orderBy" value="transactionDate DESC"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
-                <field-map field-name="orderBy" env-name="orderBy"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" from-field="orderBy"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="PaymentGatewayResponse" default-field-type="display"/>

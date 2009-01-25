@@ -66,21 +66,21 @@ under the License.
     <form name="ListAcctgTrans" type="list" title="List Accounting Transactions" list-name="acctgTransList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransList" distinct="true">
+            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransList" distinct="true">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
-                    <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
-                    <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
-                    <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
-                    <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
-                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <select-field field-name="acctgTransId"/>
                 <select-field field-name="transactionDate"/>
@@ -216,23 +216,23 @@ under the License.
     <form name="ListFindAcctgTransEntriesByAccount" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
+            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <condition-expr field-name="glAccountId" operator="equals" env-name="parameters.glAccountId" ignore-if-empty="true"/>
-                    <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
-                    <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
-                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
-                    <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
-                    <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
-                    <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
-                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                    <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="glAccountId"/>
                 <order-by field-name="-transactionDate"/>
@@ -288,23 +288,23 @@ under the License.
     <form name="ListFindAcctgTransEntriesByDate" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
+            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <condition-expr field-name="glAccountId" operator="equals" env-name="parameters.glAccountId" ignore-if-empty="true"/>
-                    <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
-                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
-                    <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
-                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
-                    <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
-                    <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
-                    <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
-                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
-                    <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
-                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                    <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="-transactionDate"/>
             </entity-condition>
@@ -659,7 +659,7 @@ under the License.
         <actions>
             <entity-condition entity-name="AcctgTransEntry">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <condition-expr field-name="reconcileStatusId" operator="equals" value="AES_NOT_RECONCILED"/>
                     <condition-expr field-name="glAccountId" operator="equals" value="${glAccountId}"/>
                 </condition-list>
@@ -694,7 +694,7 @@ under the License.
         <actions>
             <entity-condition entity-name="GlReconciliationEntry">
                 <condition-list>
-                    <condition-expr field-name="glReconciliationId" env-name="glReconciliationId"/>
+                    <condition-expr field-name="glReconciliationId" from-field="glReconciliationId"/>
                 </condition-list>
             </entity-condition>
         </actions>
@@ -725,8 +725,8 @@ under the License.
             <entity-condition entity-name="GlReconciliation">
                 <condition-list>
                     <condition-expr field-name="glAccountId"  operator="equals" value="${glAccountId}"/>
-                    <condition-expr field-name="reconciledDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
-                    <condition-expr field-name="reconciledDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="reconciledDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="reconciledDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
             </entity-condition>
         </actions>

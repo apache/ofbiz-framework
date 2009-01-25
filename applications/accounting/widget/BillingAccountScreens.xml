@@ -33,7 +33,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="billingAccount"/></not>
+                                        <not><if-empty field="billingAccount"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="BillingAccountTabBar" location="component://accounting/widget/Menus.xml"/>
@@ -64,12 +64,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-empty field-name="parameters.partyId"/>
+                                <if-empty field="parameters.partyId"/>
                             </condition>
                             <widgets>
                                 <section>
                                     <actions>
-                                        <entity-condition entity-name="BillingAccount" list-name="billingAccounts"/>
+                                        <entity-condition entity-name="BillingAccount" list="billingAccounts"/>
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleFindBillingAccount}">
@@ -82,8 +82,8 @@ under the License.
                             <fail-widgets>
                                 <section>
                                     <actions>
-                                        <entity-condition entity-name="BillingAccountAndRole" list-name="billingAccounts">
-                                            <condition-expr field-name="partyId" env-name="parameters.partyId"/>
+                                        <entity-condition entity-name="BillingAccountAndRole" list="billingAccounts">
+                                            <condition-expr field-name="partyId" from-field="parameters.partyId"/>
                                         </entity-condition>
                                     </actions>
                                     <widgets>
@@ -108,7 +108,7 @@ under the License.
                 <set field="tabButtonItem" value="EditBillingAccount"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
             </actions> 
@@ -131,7 +131,7 @@ under the License.
                 <set field="tabButtonItem" value="EditBillingAccountRoles"/>
                 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
@@ -154,7 +154,7 @@ under the License.
                 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
@@ -175,10 +175,10 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.billingAccountTermId"/></not>
+                                <not><if-empty field="parameters.billingAccountTermId"/></not>
                             </condition>
                             <actions>
-                                <entity-one entity-name="BillingAccountTerm" value-name="billingAccountTerm"/>
+                                <entity-one entity-name="BillingAccountTerm" value-field="billingAccountTerm"/>
                             </actions>
                             <widgets>
                                 <container style="screenlet">
@@ -227,7 +227,7 @@ under the License.
                 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
@@ -249,7 +249,7 @@ under the License.
                 <set field="tabButtonItem" value="BillingAccountOrders"/>
                     
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/> 
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/BillingAccountOrders.groovy"/>
             </actions>
             <widgets>
@@ -282,10 +282,10 @@ under the License.
                 <set field="tabButtonItem" value="BillingAccountPayments"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
-                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
-                <entity-condition entity-name="BillingAccountAndRole" list-name="billToCustomers" filter-by-date="true">
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
+                <entity-condition entity-name="BillingAccountAndRole" list="billToCustomers" filter-by-date="true">
                     <condition-list>
-                        <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+                        <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
                         <condition-expr field-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
                     </condition-list>
                 </entity-condition>
