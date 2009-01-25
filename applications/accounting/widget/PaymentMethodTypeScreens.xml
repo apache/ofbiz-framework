@@ -28,7 +28,7 @@ under the License.
                 <set field="titleProperty" value="CommonPaymentMethodType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <entity-condition entity-name="PaymentMethodType" list-name="paymentMethodTypes">
+                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
                 </entity-condition>   
             </actions>

@@ -41,8 +41,8 @@ under the License.
     <form name="ListFinAccounts" type="list" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FinAccount"/>
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>
@@ -58,8 +58,8 @@ under the License.
     <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="finAccount.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="finAccount.statusId"/>
             </entity-one>
         </actions>    
         <alt-target use-when="finAccount==null" target="createFinAccount"/>
@@ -117,7 +117,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountRole">
-                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+                <condition-expr field-name="finAccountId" from-field="finAccountId"/>
                 <order-by field-name="finAccountId"/>
             </entity-condition>
         </actions>
@@ -153,7 +153,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountTrans">
-                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+                <condition-expr field-name="finAccountId" from-field="finAccountId"/>
             </entity-condition>
         </actions>
         <auto-fields-entity entity-name="FinAccountTrans" default-field-type="display"/>
@@ -185,7 +185,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountAuth">
-                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+                <condition-expr field-name="finAccountId" from-field="finAccountId"/>
                 <order-by field-name="finAccountAuthId"/>
             </entity-condition>
         </actions>

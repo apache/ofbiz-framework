@@ -53,9 +53,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="entityName" value="Agreement"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
@@ -181,8 +181,8 @@ under the License.
         <actions>
             <entity-condition entity-name="AgreementTerm">
                 <condition-list>
-                    <condition-expr field-name="agreementId" env-name="agreementId"/>
-                    <condition-expr field-name="agreementItemSeqId" env-name="null"/>
+                    <condition-expr field-name="agreementId" from-field="agreementId"/>
+                    <condition-expr field-name="agreementItemSeqId" from-field="null"/>
                 </condition-list>
             </entity-condition>
         </actions>
@@ -500,8 +500,8 @@ under the License.
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list-name="agreementWorkEffortAppls">
-                <field-map env-name="agreementId" field-name="agreementId" />
+            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
+                <field-map from-field="agreementId" field-name="agreementId" />
             </entity-and>
         </actions>  
         <field name="agreementItemSeqId"><display/></field>
@@ -513,8 +513,8 @@ under the License.
     <form name="ListAgreementRoles" list-name="agreementRoles" type="list" paginate-target="FindAgreementRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="AgreementRole" use-cache="true" list-name="agreementRoles">
-                <field-map field-name="agreementId" env-name="agreementId"/>
+            <entity-and entity-name="AgreementRole" use-cache="true" list="agreementRoles">
+                <field-map field-name="agreementId" from-field="agreementId"/>
             </entity-and>
         </actions>
         <auto-fields-entity entity-name="AgreementRole" default-field-type="display"/>

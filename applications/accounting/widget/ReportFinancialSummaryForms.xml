@@ -76,7 +76,7 @@ under the License.
     <form name="TrialBalanceList" type="list" list-name="trialBalances"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-name="glAccount">
+            <entity-one entity-name="GlAccount" value-field="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
             <set field="showDebit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
@@ -118,7 +118,7 @@ under the License.
     <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-name="glAccount">
+            <entity-one entity-name="GlAccount" value-field="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
@@ -166,7 +166,7 @@ under the License.
     <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-name="glAccount">
+            <entity-one entity-name="GlAccount" value-field="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
@@ -178,7 +178,7 @@ under the License.
     <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-name="glAccount">
+            <entity-one entity-name="GlAccount" value-field="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
@@ -190,7 +190,7 @@ under the License.
     <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-name="glAccount">
+            <entity-one entity-name="GlAccount" value-field="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>

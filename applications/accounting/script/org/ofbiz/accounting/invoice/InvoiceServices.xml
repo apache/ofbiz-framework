@@ -565,7 +565,7 @@ under the License.
         <make-value value-field="invoiceContactMech" entity-name="InvoiceContactMech"/>
         <set-pk-fields map="parameters" value-field="invoiceContactMech"/>
         <create-value value-field="invoiceContactMech"/>
-        <field-to-result field="contactMechId" map-name="invoiceContactMech"/>
+        <field-to-result field="contactMechId" result-name="invoiceContactMech"/>
     </simple-method>
     
     <simple-method method-name="updateInvoiceItemType"  short-description="Updates a InvoiceItemType Record">

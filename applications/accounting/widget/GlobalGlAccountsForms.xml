@@ -26,9 +26,9 @@ under the License.
         <actions>
             <set field="entityName" value="GlAccountOrganization"/>
             <set field="noConditionFind" value="Y"/> 
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="GlAccountOrganization" default-field-type="display"/>
@@ -66,9 +66,9 @@ under the License.
         <actions>
             <set field="entityName" value="GlAccount"/>
             <set field="noConditionFind" value="Y"/> 
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="noConditionFind" value="Y"/> 
             </service>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />

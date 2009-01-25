@@ -24,17 +24,17 @@ under the License.
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
-                    <field-map field-name="parentGlAccountId" env-name="null"/>
+                    <field-map field-name="parentGlAccountId" from-field="null"/>
                     <order-by field-name="glAccountId"/>
                 </entity-and>
             </sub-node>
         </node>
         <node name="node-body">
-            <entity-one entity-name="GlAccount" value-name="glAccount"></entity-one>
+            <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
             <link target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${glAccount.accountName} ${postedBalance}"/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
-                    <field-map field-name="parentGlAccountId" env-name="glAccountId"/>
+                    <field-map field-name="parentGlAccountId" from-field="glAccountId"/>
                     <order-by field-name="glAccountId"/>
                 </entity-and>
             </sub-node>
@@ -45,7 +45,7 @@ under the License.
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">
                 <entity-and entity-name="FixedAsset">
-                    <field-map field-name="parentFixedAssetId" env-name="fixedAssetId"/>
+                    <field-map field-name="parentFixedAssetId" from-field="fixedAssetId"/>
                     <order-by field-name="fixedAssetName"/>
                 </entity-and>
             </sub-node>
@@ -54,7 +54,7 @@ under the License.
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}" text="${fixedAssetId} ${fixedAssetName} ${instanceOfProductId} ${fixedAssetTypeId} "/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="FixedAsset">
-                    <field-map field-name="parentFixedAssetId" env-name="fixedAssetId"/>
+                    <field-map field-name="parentFixedAssetId" from-field="fixedAssetId"/>
                     <order-by field-name="fixedAssetName"/>
                 </entity-and>
             </sub-node>

@@ -37,7 +37,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="finAccountId"/></not></condition>
+                                    <condition><not><if-empty field="finAccountId"/></not></condition>
                                     <widgets>
                                         <include-menu name="FinAccountTabBar" location="component://accounting/widget/Menus.xml"/>
                                     </widgets>
@@ -95,7 +95,7 @@ under the License.
                 <set field="tabButtonItem" value="EditFinAccount"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
-                <entity-one entity-name="FinAccount" value-name="finAccount"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
@@ -110,7 +110,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <condition><not><if-empty field-name="finAccountId"/></not></condition>
+                                            <condition><not><if-empty field="finAccountId"/></not></condition>
                                             <widgets>
                                                 <container style="button-bar">
                                                     <link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/>
@@ -134,7 +134,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFinAccountRole"/>
                 <set field="tabButtonItem" value="EditFinAccountRoles"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
-                <entity-one entity-name="FinAccount" value-name="finAccount"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
@@ -158,7 +158,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFinAccountTrans"/>
                 <set field="tabButtonItem" value="EditFinAccountTrans"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
-                <entity-one entity-name="FinAccount" value-name="finAccount"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
             </actions>
             <widgets>
@@ -180,7 +180,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFinAccountAuths"/>
                 <set field="tabButtonItem" value="EditFinAccountAuths"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
-                <entity-one entity-name="FinAccount" value-name="finAccount"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountAuthId" from-field="parameters.finAccountAuthId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
             </actions>

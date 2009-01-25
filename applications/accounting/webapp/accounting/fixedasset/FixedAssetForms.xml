@@ -24,8 +24,8 @@ under the License.
     <form name="ListFixedAssets" type="list" list-name="listIt" paginate-target="ListFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
         </actions>
@@ -197,7 +197,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetStdCost">
-                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
                 <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>            
@@ -246,7 +246,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetIdent">
-                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateFixedAssetIdent"/>
@@ -283,7 +283,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetRegistration">
-                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateFixedAssetRegistration"/>
@@ -314,8 +314,8 @@ under the License.
     <form name="ListFixedAssetMaints" type="list" list-name="listIt" paginate-target="ListFixedAssetMaints" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAssetMaint"/>
                 <field-map field-name="orderBy" value="-maintHistSeqId"/>
             </service>
@@ -398,8 +398,8 @@ under the License.
         <actions>
             <set field="findParams.fixedAssetId" from-field="parameters.fixedAssetId"/>
             <set field="findParams.maintHistSeqId" from-field="parameters.maintHistSeqId" default-value=""/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="findParams"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="findParams"/>
                 <field-map field-name="entityName" value="FixedAssetMeter"/>
                 <field-map field-name="orderBy" value="-readingDate"/>
             </service>
@@ -441,10 +441,10 @@ under the License.
     <form name="ListFixedAssetMaintOrders" type="list" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="FixedAssetMaintOrder" list-name="fixedAssetMaintOrders">
+            <entity-condition entity-name="FixedAssetMaintOrder" list="fixedAssetMaintOrders">
                 <condition-list combine="and">
-                    <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
-                    <condition-expr field-name="maintHistSeqId" env-name="maintHistSeqId"/>
+                    <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
+                    <condition-expr field-name="maintHistSeqId" from-field="maintHistSeqId"/>
                 </condition-list>
             </entity-condition>
         </actions>
@@ -474,8 +474,8 @@ under the License.
     <form name="ListPartyFixedAssetAssignments" type="list"  list-name="listPartyFixedAssets"  target="updatePartyFixedAssetAssignment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PartyFixedAssetAssignment" list-name="listPartyFixedAssets">
-                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+            <entity-condition entity-name="PartyFixedAssetAssignment" list="listPartyFixedAssets">
+                <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
                 <order-by field-name="fromDate" />
             </entity-condition>
         </actions>

@@ -24,7 +24,7 @@ under the License.
     <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="Invoice" list-name="invoices">
+            <entity-condition entity-name="Invoice" list="invoices">
                 <condition-list>               
                     <condition-expr field-name="statusId" value="INVOICE_SENT"/>
                     <condition-expr field-name="dueDate" operator="less" value="${nowTimestamp}"/>
@@ -34,14 +34,14 @@ under the License.
             </entity-condition> 
         </actions>
         <row-actions>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
-                <field-map field-name="partyId" env-name="partyIdFrom"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                <field-map field-name="partyId" from-field="partyIdFrom"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
-                <field-map field-name="partyId" env-name="partyId"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
             <set field="amountToApply" value="${bsh:

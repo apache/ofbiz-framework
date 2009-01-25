@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="InvoiceItemTypes"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <entity-condition entity-name="InvoiceItemType" list-name="invoiceItemTypes">
+                <entity-condition entity-name="InvoiceItemType" list="invoiceItemTypes">
                     <order-by field-name="invoiceItemTypeId"/>
                 </entity-condition>    
             </actions>

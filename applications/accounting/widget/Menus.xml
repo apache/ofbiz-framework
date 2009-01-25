@@ -42,7 +42,7 @@ under the License.
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
+                <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
             <link target="invoiceOverview?invoiceId=${invoice.invoiceId}"/>
         </menu-item>
@@ -50,11 +50,11 @@ under the License.
         <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -64,11 +64,11 @@ under the License.
         <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -78,11 +78,11 @@ under the License.
         <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -92,11 +92,11 @@ under the License.
         <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -106,12 +106,12 @@ under the License.
         <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingApplications}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>                
                 </and>
             </condition>
@@ -120,7 +120,7 @@ under the License.
 
         <menu-item name="sendPerEmail" title="${uiLabelMap.CommonSendPerEmail}">
             <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
+                <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
             <link target="sendPerEmail?invoiceId=${invoice.invoiceId}"/>
         </menu-item>
@@ -131,21 +131,21 @@ under the License.
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
+                <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
             <link target="copyInvoice?invoiceIdToCopyFrom=${invoiceId}"/>
         </menu-item>
         <menu-item name="pdf" title="${uiLabelMap.AccountingInvoicePDF}">
             <condition>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
             <link target="invoice.pdf?invoiceId=${invoice.invoiceId}" target-window="_BLANK"/>
         </menu-item>
         <menu-item name="pdfDfltCur" title="${uiLabelMap.AccountingInvoicePDFDefaultCur}(${defaultOrganizationPartyCurrencyUomId})">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
-                    <if-compare-field field-name="invoice.currencyUomId" operator="not-equals" to-field-name="defaultOrganizationPartyCurrencyUomId"/>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <if-compare-field field="invoice.currencyUomId" operator="not-equals" to-field="defaultOrganizationPartyCurrencyUomId"/>
                 </and>
             </condition>
             <link target="invoice.pdf?invoiceId=${invoice.invoiceId}&amp;currency=${defaultOrganizationPartyCurrencyUomId}" target-window="_BLANK"/>
@@ -153,10 +153,10 @@ under the License.
         <menu-item name="statusToApproved" title="${uiLabelMap.AccountingInvoiceStatusToApproved}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -165,11 +165,11 @@ under the License.
         <menu-item name="statusToReceived" title="${uiLabelMap.AccountingInvoiceStatusToReceived}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
-                    <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                     <or>
-                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
-                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
                     </or>
                 </and>
             </condition>
@@ -179,14 +179,14 @@ under the License.
             <condition>
                 <or>
                     <and>
-                        <not><if-empty field-name="invoice.invoiceId"/></not>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                        <not><if-empty field="invoice.invoiceId"/></not>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
                     </and>
                     <and>
-                        <not><if-empty field-name="invoice.invoiceId"/></not>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
-                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                        <not><if-empty field="invoice.invoiceId"/></not>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
                     </and>
                 </or>
             </condition>
@@ -195,12 +195,12 @@ under the License.
         <menu-item name="statusToReady" title="${uiLabelMap.AccountingInvoiceStatusToReady}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
                 </and>
             </condition>
@@ -209,9 +209,9 @@ under the License.
         <menu-item name="statusToPaid" title="${uiLabelMap.AccountingInvoiceStatusToPaid}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                     </or>
                 </and>
             </condition>
@@ -220,9 +220,9 @@ under the License.
         <menu-item name="statusToWriteoff" title="${uiLabelMap.AccountingInvoiceStatusToWriteoff}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                     </or>
                 </and>
             </condition>
@@ -231,10 +231,10 @@ under the License.
         <menu-item name="statusToInProcess" title="${uiLabelMap.AccountingInvoiceStatusToInProcess}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -243,11 +243,11 @@ under the License.
         <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingInvoiceStatusToCancelled}">
             <condition>
                 <and>
-                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
-                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>                
                 </and>
             </condition>
@@ -256,10 +256,10 @@ under the License.
         <menu-item name="saveInvoiceAsTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
             <condition>
                 <and>
-                   <not><if-empty field-name="invoice.invoiceId"/></not>
+                   <not><if-empty field="invoice.invoiceId"/></not>
                    <or>
-                       <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
-                       <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                       <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                       <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                    </or>
                 </and>
             </condition>
@@ -270,13 +270,13 @@ under the License.
     <menu name="PaymentTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
             <condition>
-                <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
+                <if-compare field="tabButtonItem" operator="not-equals" value="find"/>
             </condition>
             <link target="findPayments"/>
         </menu-item>
         <menu-item name="paymentOverview" title="${uiLabelMap.AccountingPaymentTabOverview}">
             <condition>
-                <not><if-empty field-name="payment.paymentId"/></not>
+                <not><if-empty field="payment.paymentId"/></not>
             </condition>
             <link target="paymentOverview?paymentId=${payment.paymentId}"/>
         </menu-item>
@@ -284,11 +284,11 @@ under the License.
         <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <not><if-empty field="payment.paymentId"/></not>
                     <or>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
                     </or>                
                 </and>
             </condition>
@@ -297,11 +297,11 @@ under the License.
         <menu-item name="editPaymentApplications" title="${uiLabelMap.AccountingPaymentTabApplications}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <not><if-empty field="payment.paymentId"/></not>
                     <or>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
                     </or>                
                 </and>
             </condition>
@@ -316,16 +316,16 @@ under the License.
         </actions> 
         <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
             <condition>
-                <not><if-empty field-name="payment.paymentId"/></not>
+                <not><if-empty field="payment.paymentId"/></not>
             </condition>
             <link target="newPayment"/>
         </menu-item>
         <menu-item name="statusToSend" title="${uiLabelMap.AccountingPaymentTabStatusToSent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
-                    <if-compare field-name="isDisbursement" operator="equals" value="true"/>
-                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="isDisbursement" operator="equals" value="true"/>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
             <link target="setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_SENT"/>
@@ -333,9 +333,9 @@ under the License.
         <menu-item name="statusToReceived" title="${uiLabelMap.AccountingPaymentTabStatusToReceived}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
-                    <if-compare field-name="isDisbursement" operator="equals" value="false"/>
-                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="isDisbursement" operator="equals" value="false"/>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
             <link target="setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_RECEIVED"/>
@@ -343,8 +343,8 @@ under the License.
         <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingPaymentTabStatusToCancelled}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
-                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
             <link target="javascript:confirmActionLink('You want to cancel this payment number ${payment.paymentId}?','setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_CANCELLED')" url-mode="plain"/>
@@ -352,10 +352,10 @@ under the License.
         <menu-item name="statusToConfirmed" title="${uiLabelMap.AccountingPaymentTabStatusToConfirmed}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <not><if-empty field="payment.paymentId"/></not>
                     <or>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
-                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
                     </or>                
                 </and>
             </condition>
@@ -364,8 +364,8 @@ under the License.
         <menu-item name="printAsCheck" title="${uiLabelMap.AccountingPrintAsCheck}">
             <condition>
                 <and>
-                    <not><if-empty field-name="payment.paymentId"/></not>
-                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
             <link target="printChecks.pdf?paymentId=${payment.paymentId}"/>
@@ -632,14 +632,14 @@ under the License.
 
         <menu-item name="ListAgreementItemSupplierProducts" title="${uiLabelMap.ProductProducts}">
             <condition>
-                <if-compare field-name="agreement.agreementTypeId" operator="equals" value="PURCHASE_AGREEMENT"/>
+                <if-compare field="agreement.agreementTypeId" operator="equals" value="PURCHASE_AGREEMENT"/>
             </condition>
             <link target="ListAgreementItemSupplierProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
         </menu-item>
 
         <menu-item name="ListAgreementItemProducts" title="${uiLabelMap.ProductProducts}">
             <condition>
-                <if-compare field-name="agreement.agreementTypeId" operator="not-equals" value="PURCHASE_AGREEMENT"/>
+                <if-compare field="agreement.agreementTypeId" operator="not-equals" value="PURCHASE_AGREEMENT"/>
             </condition>
             <link target="ListAgreementItemProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
         </menu-item>

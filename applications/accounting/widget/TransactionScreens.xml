@@ -89,7 +89,7 @@ under the License.
                 <set field="paymentGatewayResponseId" from-field="parameters.paymentGatewayResponseId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
 
-                <entity-one entity-name="PaymentGatewayResponse" value-name="paymentGatewayResponse" auto-field-map="true"/>
+                <entity-one entity-name="PaymentGatewayResponse" value-field="paymentGatewayResponse" auto-field-map="true"/>
 
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/transaction/ViewGatewayResponse.groovy"/>
             </actions>
@@ -140,8 +140,8 @@ under the License.
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
 
-                <entity-one entity-name="OrderPaymentPreference" value-name="opp">
-                    <field-map field-name="orderPaymentPreferenceId" env-name="orderPaymentPreferenceId"/>
+                <entity-one entity-name="OrderPaymentPreference" value-field="opp">
+                    <field-map field-name="orderPaymentPreferenceId" from-field="orderPaymentPreferenceId"/>
                 </entity-one>
                 <set field="paymentMethodTypeId" from-field="opp.paymentMethodTypeId"/>
 
@@ -180,8 +180,8 @@ under the License.
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
 
-                <entity-one entity-name="OrderPaymentPreference" value-name="opp">
-                    <field-map field-name="orderPaymentPreferenceId" env-name="orderPaymentPreferenceId"/>
+                <entity-one entity-name="OrderPaymentPreference" value-field="opp">
+                    <field-map field-name="orderPaymentPreferenceId" from-field="orderPaymentPreferenceId"/>
                 </entity-one>
                 <set field="paymentMethodTypeId" from-field="opp.paymentMethodTypeId"/>
                 
