@@ -73,7 +73,7 @@ under the License.
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></div>
           </#if>
         <#else>
-          <div>${uiLabelMap.OrderShoppingCartEmpty}</div>
+          <p>${uiLabelMap.OrderShoppingCartEmpty}</p>
         </#if>
     </div>
 </div>

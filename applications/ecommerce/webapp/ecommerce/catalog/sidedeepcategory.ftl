@@ -46,16 +46,16 @@ under the License.
       <div class="boxhead"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></div>
     </div>
     <div class="screenlet-body">
-      <div style='margin-left: 10px;'>
+      <div class="browsecategorylist">
   </#if>
         <div class="browsecategorytext">
-          -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
+          <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
         </div>
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
     <#if subCatList?exists>
       <#list subCatList as subCat>
-        <div style="margin-left: 10px">
+        <div class="browsecategorylist">
           <@categoryList parentCategory=category category=subCat wrapInBox="N"/>
         </div>
       </#list>
@@ -74,7 +74,7 @@ under the License.
         <div class="boxhead">${uiLabelMap.ProductBrowseCategories}</div>
     </div>
     <div class="screenlet-body">
-        <div style='margin-left: 10px;'>
+        <div class="browsecategorylist">
           <#list topLevelList as category>
             <@categoryList parentCategory=category category=category wrapInBox="N"/>
           </#list>

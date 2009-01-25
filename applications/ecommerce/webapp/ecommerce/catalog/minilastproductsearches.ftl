@@ -34,9 +34,9 @@ under the License.
         <div class="screenlet-body">
             <#list searchOptionsHistoryList[0..limit] as searchOptions>
             <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
-                    <div class="tabletext">
+                    <p>
                       <b>${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}</b>
-                    </div>
+                    </p>
                     <div class="tabletext">
                       <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
                       <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>

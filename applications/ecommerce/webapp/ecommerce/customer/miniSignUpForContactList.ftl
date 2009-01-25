@@ -39,7 +39,7 @@ under the License.
                 <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm">
                     <input type="hidden" name="partyId" value="${partyId}"/>
                     <input type="hidden" name="statusId" value="CLPT_PENDING"/>
-                    <span class="tabletext">${uiLabelMap.EcommerceSignUpForContactListComments}</span>
+                    <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
                     <@contactList publicEmailContactLists=publicEmailContactLists/>
 
                     <select name="preferredContactMechId" class="selectBox" style="width:134px">
@@ -52,14 +52,14 @@ under the License.
                 </form>
             <#else>
                 <#-- Not logged in so ask them to log in and then sign up or clear the user association -->
-                <div class="tabletext">${uiLabelMap.EcommerceSignUpForContactListLogIn}</div>
-                <div class="tabletext"><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonLogin}</a> ${sessionAttributes.autoName}</div>
-                <div class="tabletext">(${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)</div>
+                <p>${uiLabelMap.EcommerceSignUpForContactListLogIn}</p>
+                <p><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonLogin}</a> ${sessionAttributes.autoName}</p>
+                <p>(${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)</p>
             </#if>
         <#else>
             <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
             <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm">
-                <span class="tabletext">${uiLabelMap.EcommerceSignUpForContactListComments}</span>
+                <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
                 <@contactList publicEmailContactLists=publicEmailContactLists/>
                 <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text">
                 <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
@@ -67,4 +67,6 @@ under the License.
         </#if>
     </div>
 </div>
+
+
 
