@@ -19,11 +19,11 @@ under the License.
 
 <#assign selected = headerItem?default("void")>
 <div id="app-navigation">
-  <h2>${uiLabelMap.ExampleApplication}</h2>
   <ul>
     <li>
-  <ul>
-    <#if userLogin?has_content>    	
+      <h2>${uiLabelMap.ExampleApplication}</h2>
+      <ul>
+      <#if userLogin?has_content>    	
         <li <#if selected = "${uiLabelMap.ExampleExample}"> class="selected"</#if>><a href="<@ofbizUrl>FindExample?portalPageId=${uiLabelMap.ExampleExample}</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFeature}"> class="selected"</#if>><a href="<@ofbizUrl>FindExampleFeature?portalPageId=${uiLabelMap.ExampleFeature}</@ofbizUrl>">${uiLabelMap.ExampleFeature}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFormWidgetExamples}"> class="selected"</#if>><a href="<@ofbizUrl>FormWidgetExamples?portalPageId=${uiLabelMap.ExampleFormWidgetExamples}</@ofbizUrl>">${uiLabelMap.ExampleFormWidgetExamples}</a></li>
@@ -35,10 +35,10 @@ under the License.
         </#if>
         <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?parentPortalPageId=EXAMPLE</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
-    <#else>
+      <#else>
         <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
-    </#if>
-  </ul>
+      </#if>
+      </ul>
     </li>
   </ul>
   <br class="clear" />
