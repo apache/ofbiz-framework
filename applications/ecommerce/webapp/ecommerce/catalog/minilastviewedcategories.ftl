@@ -29,11 +29,11 @@ under the License.
             <div class="boxhead">${uiLabelMap.EcommerceLastCategories}</div>
         </div>
         <div class="screenlet-body">
+          <div class="browsecategorylist">
             <#list lastViewedCategories[0..limit] as categoryId>
                 <#assign category = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", categoryId))?if_exists>
                 <#if category?has_content>
-                    <div>
-                        <span class="browsecategorytext">-&nbsp;</span>                      
+                    <div class="browsecategorytext">
                         <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
                             <a href="<@ofbizUrl>category/~category_id=${categoryId}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}</a>
                         <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
@@ -44,6 +44,7 @@ under the License.
                     </div>
                 </#if>
             </#list>
+          </div>
         </div>
     </div>                                    
 </#if>

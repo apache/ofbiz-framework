@@ -35,12 +35,14 @@ under the License.
         <div class="boxhead">${uiLabelMap.EcommerceFactoids}</div>
     </div>
     <div class="screenlet-body">
+      <div class="browsecategorylist">
         <#assign count_1=0/>
         <@limitedSubContent contentId=factoidRootId viewIndex=0 viewSize=9999 orderBy="contentName" limitSize="2">
-            <div class="browsecategorytext" style="margin-left: 10px">
-              -&nbsp;<@renderSubContentCache subContentId=subContentId/>
+            <div class="browsecategorytext">
+              <@renderSubContentCache subContentId=subContentId/>
             </div>
             <#assign count_1=(count_1 + 1)/>
         </@limitedSubContent>
+      </div>
     </div>
 </div>

@@ -22,10 +22,12 @@ under the License.
         <div class="boxhead">${uiLabelMap.ProductBrowseBlogs}</div>
     </div>
     <div class="screenlet-body">
+      <div class="browsecategorylist">
         <#list blogs as blog>
-            <div class="browsecategorytext" style="margin-left: 10px">
-                -&nbsp;<a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">${blog.contentName}</a>
+            <div class="browsecategorytext">
+                <a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">${blog.contentName}</a>
             </div>
         </#list>
+      </div>
     </div>
 </div>

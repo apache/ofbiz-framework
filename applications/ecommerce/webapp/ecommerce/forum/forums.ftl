@@ -22,10 +22,12 @@ under the License.
         <div class="boxhead">${uiLabelMap.ProductBrowseForums}</div>
     </div>
     <div class="screenlet-body">
+          <div class="browsecategorylist">
             <#list forums as forum>
-            <div class="browsecategorytext" style="margin-left: 10px">
-               -&nbsp;<a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName}</a>
+            <div class="browsecategorytext">
+               <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName}</a>
             </div>
             </#list>   
+          </div>
     </div>
 </div>
