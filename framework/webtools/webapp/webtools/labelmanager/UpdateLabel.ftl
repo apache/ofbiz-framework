@@ -52,7 +52,15 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="2" align="center">
+                    <input type="submit" value="${uiLabelMap.CommonBack}"/>
+                    <#if parameters.sourceKey?exists>
+                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
+                    <#else>
+                        <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
+                    </#if>
+                </td>
             </tr>
             <#list localesFound as localeFound>
                 <#if parameters.sourceKey?exists>
@@ -88,8 +96,13 @@ under the License.
             </#list>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="${uiLabelMap.CommonConfirm}" name="confirm"/>
-                    <input type="submit" value="${uiLabelMap.CommonCancel}"/>
+                    <input type="submit" value="${uiLabelMap.CommonBack}"/>
+                    <#if parameters.sourceKey?exists>
+                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
+                    <#else>
+                        <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
+                    </#if>
                 </td>
             </tr>
         </table>
