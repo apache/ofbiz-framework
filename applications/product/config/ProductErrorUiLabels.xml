@@ -19,6 +19,12 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
+        <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
+        <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
+        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
+        <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
+    </property>
     <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>
         <value xml:lang="en">This return is not yet accepted or already received.</value>
@@ -43,12 +49,6 @@
         <value xml:lang="fr">La validation de l'adresse USPS demande l'un ou l'autre : zip5 ou ville et état</value>
         <value xml:lang="it">USPS richiedere validazione indirizzo entrambi zip5 o città e stato</value>
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
-    </property>
-    <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
-        <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
-        <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
-        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
-        <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
     </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
@@ -807,17 +807,6 @@
         <value xml:lang="th">พบมากกว่าหนึ่งการเปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
         <value xml:lang="zh">找到了一个以上虚拟产品标识为 [${productId}]有效变型，没有做合并...</value>
     </property>
-    <property key="variantevents.transaction_error_quick_add_variant_data">
-        <value xml:lang="de">Transaktionsfehler beim raschen Hinzufügen Variantendaten: ${errMessage}</value>
-        <value xml:lang="en">Transaction error creating quick add variant data: ${errMessage}.</value>
-        <value xml:lang="es">Error de transacción creando data al añadir rápido variantes: ${errMessage}.</value>
-        <value xml:lang="fr">Erreur de transaction pendant l'ajout rapide des données de variante : ${errMessage}.</value>
-        <value xml:lang="it">Transazione errore creazione aggiunta veloce variante data: ${errMessage}.</value>
-        <value xml:lang="ro">Eroare de Tranzactie la crearea adaugarea rapide a variantei data: ${errMessage}.</value>
-        <value xml:lang="ru">Ошибка транзакции создания быстрого добавления варианта продукта: ${errMessage}.</value>
-        <value xml:lang="th">รายการผิดพลาดการสร้างการเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
-        <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
-    </property>
     <property key="variantevents.entity_error_quick_add_variant_data">
         <value xml:lang="de">Entitätenfehler beim raschen Hinzufügen Variantendaten: ${errMessage}.</value>
         <value xml:lang="en">Entity error quick add variant data: ${errMessage}.</value>
@@ -883,6 +872,17 @@
         <value xml:lang="ru">Вариант продукта с кодом ${variantProductId} успешно создан (включая ассоциацию и стандартные, для вариантов, особенности).</value>
         <value xml:lang="th">ประสบผลสำเร็จสร้างการเปลี่ยนแปลงสินค้าด้วยรหัส: ${variantProductId} (รวมกลุ่ม, และลักษณะพื้นฐานสำหรับการเปลี่ยนแปลง).</value>
         <value xml:lang="zh">成功创建变型产品，标识：${variantProductId} (包括关联，以及变型的表转特征)。</value>
+    </property>
+    <property key="variantevents.transaction_error_quick_add_variant_data">
+        <value xml:lang="de">Transaktionsfehler beim raschen Hinzufügen Variantendaten: ${errMessage}</value>
+        <value xml:lang="en">Transaction error creating quick add variant data: ${errMessage}.</value>
+        <value xml:lang="es">Error de transacción creando data al añadir rápido variantes: ${errMessage}.</value>
+        <value xml:lang="fr">Erreur de transaction pendant l'ajout rapide des données de variante : ${errMessage}.</value>
+        <value xml:lang="it">Transazione errore creazione aggiunta veloce variante data: ${errMessage}.</value>
+        <value xml:lang="ro">Eroare de Tranzactie la crearea adaugarea rapide a variantei data: ${errMessage}.</value>
+        <value xml:lang="ru">Ошибка транзакции создания быстрого добавления варианта продукта: ${errMessage}.</value>
+        <value xml:lang="th">รายการผิดพลาดการสร้างการเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
+        <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
     </property>
     <property key="variantevents.variantProductId_required_but_missing_enter_an_id">
         <value xml:lang="de">variantProductId wir benötigt fehlt aber, bitte geben Sie eine ID für die neue Produktvariante an.</value>

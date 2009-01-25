@@ -6351,6 +6351,7 @@
     </property>
     <property key="OrderPromotion">
         <value xml:lang="en">Promotion</value>
+        <value xml:lang="fr">Promotion</value>
         <value xml:lang="it">Promozione</value>
     </property>
     <property key="OrderPromotionCategories">

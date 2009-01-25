@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -43,15 +44,15 @@
         <value xml:lang="fr">Logiciels</value>
         <value xml:lang="it">Software</value>
     </property>
-    <property key="IsMgrNewComputerHardware">
-        <value xml:lang="en">New Hardware</value>
-        <value xml:lang="fr">Nouveau matériel informatique</value>
-        <value xml:lang="it">Nuovo hardware</value>
+    <property key="IsMgrFindComputerHardware">
+        <value xml:lang="en">Find Hardware</value>
+        <value xml:lang="fr">Rechercher du matériel informatique</value>
+        <value xml:lang="it">Ricerca hardware</value>
     </property>
-    <property key="IsMgrNewComputerSoftware">
-        <value xml:lang="en">New Software</value>
-        <value xml:lang="fr">Nouveau logiciel</value>
-        <value xml:lang="it">Nuovo software</value>
+    <property key="IsMgrFindComputerSoftware">
+        <value xml:lang="en">Find Software</value>
+        <value xml:lang="fr">Rechercher du logiciel</value>
+        <value xml:lang="it">Ricerca software</value>
     </property>
     <property key="IsMgrHardwareAccessories">
         <value xml:lang="en">Accessories</value>
@@ -63,15 +64,15 @@
         <value xml:lang="fr">Logiciels installés</value>
         <value xml:lang="it">Software installati</value>
     </property>
-    <property key="IsMgrFindComputerHardware">
-        <value xml:lang="en">Find Hardware</value>
-        <value xml:lang="fr">Rechercher du matériel informatique</value>
-        <value xml:lang="it">Ricerca hardware</value>
+    <property key="IsMgrNewComputerHardware">
+        <value xml:lang="en">New Hardware</value>
+        <value xml:lang="fr">Nouveau matériel informatique</value>
+        <value xml:lang="it">Nuovo hardware</value>
     </property>
-    <property key="IsMgrFindComputerSoftware">
-        <value xml:lang="en">Find Software</value>
-        <value xml:lang="fr">Rechercher du logiciel</value>
-        <value xml:lang="it">Ricerca software</value>
+    <property key="IsMgrNewComputerSoftware">
+        <value xml:lang="en">New Software</value>
+        <value xml:lang="fr">Nouveau logiciel</value>
+        <value xml:lang="it">Nuovo software</value>
     </property>
     <property key="PageTitleEditComputerHardware">
         <value xml:lang="en">Edit Hardware</value>

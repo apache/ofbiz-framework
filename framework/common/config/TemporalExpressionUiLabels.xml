@@ -24,20 +24,20 @@
         <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressione temporale</value>
     </property>
+    <property key="TemporalExpressionCollections">
+        <value xml:lang="en">Expression Collections</value>
+        <value xml:lang="fr">Collections d'expression</value>
+        <value xml:lang="it">Collezione espressioni</value>
+    </property>
+    <property key="TemporalExpressionExclude">
+        <value xml:lang="en">Exclude</value>
+        <value xml:lang="fr">Exclure</value>
+        <value xml:lang="it">Escludi</value>
+    </property>
     <property key="TemporalExpressionFind">
         <value xml:lang="en">Find Temporal Expression</value>
         <value xml:lang="fr">Rechercher une expression temporelle</value>
         <value xml:lang="it">Ricerca espressione temporale</value>
-    </property>
-    <property key="TemporalExpressionId">
-        <value xml:lang="en">Expression Id</value>
-        <value xml:lang="fr">Réf. d'expression</value>
-        <value xml:lang="it">Espressione</value>
-    </property>
-    <property key="TemporalExpressionType">
-        <value xml:lang="en">Expression Type</value>
-        <value xml:lang="fr">Type d'expression</value>
-        <value xml:lang="it">Tipo espressione</value>
     </property>
     <property key="TemporalExpressionFreqCount">
         <value xml:lang="en">Frequency Count</value>
@@ -49,25 +49,35 @@
         <value xml:lang="fr">Type de fréquence</value>
         <value xml:lang="it">Tipo frequenza</value>
     </property>
-    <property key="TemporalExpressionTimeFormat">
-        <value xml:lang="en">hh:mm:ss</value>
-        <value xml:lang="fr">hh:mm:ss</value>
-        <value xml:lang="it">hh:mm:ss</value>
+    <property key="TemporalExpressionId">
+        <value xml:lang="en">Expression Id</value>
+        <value xml:lang="fr">Réf. d'expression</value>
+        <value xml:lang="it">Espressione</value>
     </property>
-    <property key="TemporalExpressionOccurrence">
-        <value xml:lang="en">Occurrence</value>
-        <value xml:lang="fr">Occurrence</value>
-        <value xml:lang="it">Occorrenze</value>
+    <property key="TemporalExpressionInclude">
+        <value xml:lang="en">Include</value>
+        <value xml:lang="fr">Inclure</value>
+        <value xml:lang="it">Includi</value>
     </property>
     <property key="TemporalExpressionMaintenance">
         <value xml:lang="en">Temporal Expression Maintenance</value>
         <value xml:lang="fr">maintenance d'expression temporelle</value>
         <value xml:lang="it">Gestione espressioni temporali</value>
     </property>
-    <property key="TemporalExpressionCollections">
-        <value xml:lang="en">Expression Collections</value>
-        <value xml:lang="fr">Collections d'expression</value>
-        <value xml:lang="it">Collezione espressioni</value>
+    <property key="TemporalExpressionOccurrence">
+        <value xml:lang="en">Occurrence</value>
+        <value xml:lang="fr">Occurrence</value>
+        <value xml:lang="it">Occorrenze</value>
+    </property>
+    <property key="TemporalExpressionTimeFormat">
+        <value xml:lang="en">hh:mm:ss</value>
+        <value xml:lang="fr">hh:mm:ss</value>
+        <value xml:lang="it">hh:mm:ss</value>
+    </property>
+    <property key="TemporalExpressionType">
+        <value xml:lang="en">Expression Type</value>
+        <value xml:lang="fr">Type d'expression</value>
+        <value xml:lang="it">Tipo espressione</value>
     </property>
     <property key="TemporalExpression_DATE_RANGE">
         <value xml:lang="en">Date Range</value>
@@ -118,15 +128,5 @@
         <value xml:lang="en">Union</value>
         <value xml:lang="fr">Union</value>
         <value xml:lang="it">Unione</value>
-    </property>
-    <property key="TemporalExpressionInclude">
-        <value xml:lang="en">Include</value>
-        <value xml:lang="fr">Inclure</value>
-        <value xml:lang="it">Includi</value>
-    </property>
-    <property key="TemporalExpressionExclude">
-        <value xml:lang="en">Exclude</value>
-        <value xml:lang="fr">Exclure</value>
-        <value xml:lang="it">Escludi</value>
     </property>
 </resource>

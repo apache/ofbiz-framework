@@ -71,8 +71,8 @@
         <value xml:lang="de">Fehler beim Aufruf des Service sendEmailToContactList</value>
         <value xml:lang="en">Error calling sendEmailToContactList service</value>
         <value xml:lang="es">Error llamando al servicio sendEmailToContactList</value>
-        <value xml:lang="it">Errore nell'esecuzione del servizio sendEmailToContactList</value>
         <value xml:lang="fr">Erreur à l'appel du service sendEmailToContactList</value>
+        <value xml:lang="it">Errore nell'esecuzione del servizio sendEmailToContactList</value>
         <value xml:lang="nl">Fout: calling sendEmailToContactList service</value>
         <value xml:lang="ru">Ошибка вызова службы sendEmailToContactList</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในการเรียกใช้บริการการส่งอีเมล์ถึงรายการติดต่อ</value>

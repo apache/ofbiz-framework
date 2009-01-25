@@ -19,6 +19,19 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AP">
+        <value xml:lang="en">AP</value>
+        <value xml:lang="es">CC.P.</value>
+        <value xml:lang="fr">Cpt. fourn.</value>
+        <value xml:lang="it">AP</value>
+    </property>
+    <property key="AR">
+        <value xml:lang="de">Forderungen</value>
+        <value xml:lang="en">AR</value>
+        <value xml:lang="es">CC.C.</value>
+        <value xml:lang="fr">Cpt. clients</value>
+        <value xml:lang="it">AR</value>
+    </property>
     <property key="Accounting">
         <value xml:lang="ar">المحاسبة</value>
         <value xml:lang="de">Buchhaltung</value>
@@ -33,19 +46,6 @@
         <value xml:lang="th">บัญชี</value>
         <value xml:lang="zh">财务</value>
         <value xml:lang="zh_CN">会计</value>
-    </property>
-    <property key="AP">
-        <value xml:lang="en">AP</value>
-        <value xml:lang="es">CC.P.</value>
-        <value xml:lang="fr">Cpt. fourn.</value>
-        <value xml:lang="it">AP</value>
-    </property>
-    <property key="AR">
-        <value xml:lang="de">Forderungen</value>
-        <value xml:lang="en">AR</value>
-        <value xml:lang="es">CC.C.</value>
-        <value xml:lang="fr">Cpt. clients</value>
-        <value xml:lang="it">AR</value>
     </property>
     <property key="AssetMaint">
         <value xml:lang="de">Vermögensverwaltung</value>
@@ -173,15 +173,15 @@
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加一个</value>
     </property>
-    <property key="CommonAddColumn">
-        <value xml:lang="en">Add Column</value>
-        <value xml:lang="fr">Ajouter une colonne</value>
-        <value xml:lang="it">Aggiungi una colonna</value>
-    </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
         <value xml:lang="fr">Ajouter un portlet...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
+    </property>
+    <property key="CommonAddColumn">
+        <value xml:lang="en">Add Column</value>
+        <value xml:lang="fr">Ajouter une colonne</value>
+        <value xml:lang="it">Aggiungi una colonna</value>
     </property>
     <property key="CommonAddDefault">
         <value xml:lang="ar">إضافة القيم الإفتراضية</value>
@@ -838,22 +838,6 @@
         <value xml:lang="th">หมายเลขบัญชี</value>
         <value xml:lang="zh">账户编号</value>
     </property>
-    <property key="CommonBenefit">
-        <value xml:lang="ar">فائدة</value>
-        <value xml:lang="cs">použít</value>
-        <value xml:lang="de">Vorteil</value>
-        <value xml:lang="en">Benefit</value>
-        <value xml:lang="es">Beneficio</value>
-        <value xml:lang="fr">Avantage</value>
-        <value xml:lang="it">Beneficio</value>
-        <value xml:lang="nl">Voordeel</value>
-        <value xml:lang="pt">Benefício</value>
-        <value xml:lang="ro">Beneficiu</value>
-        <value xml:lang="ru">Выгода</value>
-        <value xml:lang="th">ผลประโยชน์</value>
-        <value xml:lang="zh">回报</value>
-        <value xml:lang="zh_CN">让利</value>
-    </property>
     <property key="CommonBeLogged">
         <value xml:lang="ar">دخول</value>
         <value xml:lang="cs">Přihlásit</value>
@@ -870,6 +854,22 @@
         <value xml:lang="th">เข้าสู่ระบบ</value>
         <value xml:lang="zh">登录</value>
         <value xml:lang="zh_CN">登录</value>
+    </property>
+    <property key="CommonBenefit">
+        <value xml:lang="ar">فائدة</value>
+        <value xml:lang="cs">použít</value>
+        <value xml:lang="de">Vorteil</value>
+        <value xml:lang="en">Benefit</value>
+        <value xml:lang="es">Beneficio</value>
+        <value xml:lang="fr">Avantage</value>
+        <value xml:lang="it">Beneficio</value>
+        <value xml:lang="nl">Voordeel</value>
+        <value xml:lang="pt">Benefício</value>
+        <value xml:lang="ro">Beneficiu</value>
+        <value xml:lang="ru">Выгода</value>
+        <value xml:lang="th">ผลประโยชน์</value>
+        <value xml:lang="zh">回报</value>
+        <value xml:lang="zh_CN">让利</value>
     </property>
     <property key="CommonBut">
         <value xml:lang="ar">إلا</value>
@@ -2123,14 +2123,6 @@
         <value xml:lang="zh">事件日期</value>
         <value xml:lang="zh_CN">事件日期</value>
     </property>
-    <property key="CommonExpand">
-        <value xml:lang="de">Erweitern</value>
-        <value xml:lang="en">Expand</value>
-        <value xml:lang="es">Expandir</value>
-        <value xml:lang="fr">Augmenter</value>
-        <value xml:lang="it">Espandi</value>
-        <value xml:lang="th">แผ่ขยาย</value>
-    </property>
     <property key="CommonExclude">
         <value xml:lang="de">Ausschliessen</value>
         <value xml:lang="en">Exclude</value>
@@ -2140,6 +2132,14 @@
         <value xml:lang="pt">Excluir</value>
         <value xml:lang="ru">Исключить</value>
         <value xml:lang="th">แยกออกไป</value>
+    </property>
+    <property key="CommonExpand">
+        <value xml:lang="de">Erweitern</value>
+        <value xml:lang="en">Expand</value>
+        <value xml:lang="es">Expandir</value>
+        <value xml:lang="fr">Augmenter</value>
+        <value xml:lang="it">Espandi</value>
+        <value xml:lang="th">แผ่ขยาย</value>
     </property>
     <property key="CommonExpectation">
         <value xml:lang="ar">التوقعات</value>
@@ -3833,6 +3833,19 @@
         <value xml:lang="zh">名称</value>
         <value xml:lang="zh_CN">名称</value>
     </property>
+    <property key="CommonNbr">
+        <value xml:lang="de">Nr</value>
+        <value xml:lang="en">Nbr</value>
+        <value xml:lang="es">Nº</value>
+        <value xml:lang="fr">N°</value>
+        <value xml:lang="it">n°</value>
+        <value xml:lang="ja">#</value>
+        <value xml:lang="nl">#</value>
+        <value xml:lang="ro">#</value>
+        <value xml:lang="ru">№</value>
+        <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">#</value>
+    </property>
     <property key="CommonNew">
         <value xml:lang="ar">جديد</value>
         <value xml:lang="de">Neu</value>
@@ -3928,6 +3941,12 @@
         <value xml:lang="zh">否</value>
         <value xml:lang="zh_CN">不</value>
     </property>
+    <property key="CommonNoAccess">
+        <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
+        <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
+        <value xml:lang="fr">L'accès à cette fonction ne vous est pas autorisé, contactez votre administrateur système si vous pensez que c'est une erreur.</value>
+        <value xml:lang="it">Nessun accesso a questa funzione, contattare l'amministratore di sistema se pensi che sia un'errore</value>
+    </property>
     <property key="CommonNoAddress">
         <value xml:lang="ar">لا عنوان</value>
         <value xml:lang="de">Keine Adresse</value>
@@ -3942,12 +3961,6 @@
         <value xml:lang="th">ไม่มีที่อยู่</value>
         <value xml:lang="zh">无地址</value>
         <value xml:lang="zh_CN">没有地址</value>
-    </property>
-    <property key="CommonNoAccess">
-        <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
-        <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
-        <value xml:lang="fr">L'accès à cette fonction ne vous est pas autorisé, contactez votre administrateur système si vous pensez que c'est une erreur.</value>
-        <value xml:lang="it">Nessun accesso a questa funzione, contattare l'amministratore di sistema se pensi che sia un'errore</value>
     </property>
     <property key="CommonNoContactInformationOnFile">
         <value xml:lang="ar">لا معاومات حول الصلة في الملف</value>
@@ -3979,24 +3992,6 @@
         <value xml:lang="zh">不包含</value>
         <value xml:lang="zh_CN">不包含</value>
     </property>
-    <property key="CommonNoGeolocationAvailable">
-        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
-        <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
-    </property>
-    <property key="CommonNoUomConversionFound">
-        <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
-        <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
-        <value xml:lang="en">UOM Conversion Relationship Not Found</value>
-        <value xml:lang="es">No se encontró la relación de conversión de UDM</value>
-        <value xml:lang="fr">La relation de conversion des unités de mesure n'a pas été trouvée</value>
-        <value xml:lang="it">Relazione conversione UdM non trovate</value>
-        <value xml:lang="nl">UOM Conversie raltie niet gevonden</value>
-        <value xml:lang="pt">Relação de Conversão UOM Não Encontrada</value>
-        <value xml:lang="ro">Relatie Conversiune UdM Negasita</value>
-        <value xml:lang="th">UOM ไม่พบการเปลี่ยนแปลงความสัมพันธ์</value>
-        <value xml:lang="zh">没有找到货币转换关系</value>
-        <value xml:lang="zh_CN">单位转化关系没有找到</value>
-    </property>
     <property key="CommonNoCustomMethodName">
         <value xml:lang="ar"> اسم طريقة تحويل وحدات القياس عير موجود</value>
         <value xml:lang="de">Die Konvertierungsmethode für die Einheitenumwandlung wurde nicht gefunden</value>
@@ -4024,6 +4019,10 @@
         <value xml:lang="th">ไม่พบส่วนประกอบ</value>
         <value xml:lang="zh">没有发现元素</value>
         <value xml:lang="zh_CN">没有元素找到</value>
+    </property>
+    <property key="CommonNoGeolocationAvailable">
+        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
+        <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
     </property>
     <property key="CommonNoParent">
         <value xml:lang="ar">لا والد</value>
@@ -4065,6 +4064,20 @@
         <value xml:lang="th">ตอนนี้ยังไม่มีงานที่คุณสนใจ</value>
         <value xml:lang="zh">现在没有任务需要处理。</value>
         <value xml:lang="zh_CN">当前没有任务，需要你的关注。</value>
+    </property>
+    <property key="CommonNoUomConversionFound">
+        <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
+        <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
+        <value xml:lang="en">UOM Conversion Relationship Not Found</value>
+        <value xml:lang="es">No se encontró la relación de conversión de UDM</value>
+        <value xml:lang="fr">La relation de conversion des unités de mesure n'a pas été trouvée</value>
+        <value xml:lang="it">Relazione conversione UdM non trovate</value>
+        <value xml:lang="nl">UOM Conversie raltie niet gevonden</value>
+        <value xml:lang="pt">Relação de Conversão UOM Não Encontrada</value>
+        <value xml:lang="ro">Relatie Conversiune UdM Negasita</value>
+        <value xml:lang="th">UOM ไม่พบการเปลี่ยนแปลงความสัมพันธ์</value>
+        <value xml:lang="zh">没有找到货币转换关系</value>
+        <value xml:lang="zh_CN">单位转化关系没有找到</value>
     </property>
     <property key="CommonNone">
         <value xml:lang="ar">لا شيئ</value>
@@ -4230,19 +4243,6 @@
         <value xml:lang="th">ตอนนี้</value>
         <value xml:lang="zh">现在</value>
         <value xml:lang="zh_CN">现在</value>
-    </property>
-    <property key="CommonNbr">
-        <value xml:lang="de">Nr</value>
-        <value xml:lang="en">Nbr</value>
-        <value xml:lang="es">Nº</value>
-        <value xml:lang="fr">N°</value>
-        <value xml:lang="it">n°</value>
-        <value xml:lang="ja">#</value>
-        <value xml:lang="nl">#</value>
-        <value xml:lang="ro">#</value>
-        <value xml:lang="ru">№</value>
-        <value xml:lang="th">จำนวน</value>
-        <value xml:lang="zh">#</value>
     </property>
     <property key="CommonNumber">
         <value xml:lang="de">Nummer</value>
@@ -5154,6 +5154,12 @@
         <value xml:lang="zh">已拒绝</value>
         <value xml:lang="zh_CN">拒绝</value>
     </property>
+    <property key="CommonRelatedInformation">
+        <value xml:lang="en">Related Information</value>
+        <value xml:lang="es">Información relacionada</value>
+        <value xml:lang="fr">Information liée</value>
+        <value xml:lang="it">Informazioni relative</value>
+    </property>
     <property key="CommonReleaseVersion">
         <value xml:lang="en">Release Version</value>
         <value xml:lang="es">Versión oficial</value>
@@ -5161,12 +5167,6 @@
         <value xml:lang="it">Versione release</value>
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="th">เวอร์ชันใหม่</value>
-    </property>
-    <property key="CommonRelatedInformation">
-        <value xml:lang="en">Related Information</value>
-        <value xml:lang="es">Información relacionada</value>
-        <value xml:lang="fr">Information liée</value>
-        <value xml:lang="it">Informazioni relative</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
@@ -5437,13 +5437,6 @@
         <value xml:lang="fr">Options de la recherche</value>
         <value xml:lang="it">Opzioni di ricerca</value>
     </property>
-    <property key="CommonSearchResults">
-        <value xml:lang="de">Suchergebnisse</value>
-        <value xml:lang="en">Search Results</value>
-        <value xml:lang="es">Resultados de búsqueda</value>
-        <value xml:lang="fr">Résultats de la recherche</value>
-        <value xml:lang="it">Risultati ricerca</value>
-    </property>
     <property key="CommonSearchResultfor">
         <value xml:lang="ar">نتائج البحث ل</value>
         <value xml:lang="cs">Vyhledávání výsledků pro klíčové slovo</value>
@@ -5460,6 +5453,13 @@
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับ</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh_CN">搜索结果</value>
+    </property>
+    <property key="CommonSearchResults">
+        <value xml:lang="de">Suchergebnisse</value>
+        <value xml:lang="en">Search Results</value>
+        <value xml:lang="es">Resultados de búsqueda</value>
+        <value xml:lang="fr">Résultats de la recherche</value>
+        <value xml:lang="it">Risultati ricerca</value>
     </property>
     <property key="CommonSecond">
         <value xml:lang="ar">ثانيا</value>
@@ -5818,6 +5818,16 @@
         <value xml:lang="zh">(如果空，将设置为当前时间)</value>
         <value xml:lang="zh_CN">(如果为空就按当前日期赋值)</value>
     </property>
+    <property key="CommonShipping">
+        <value xml:lang="en">Shipping</value>
+        <value xml:lang="fr">Expédition</value>
+        <value xml:lang="it">Spedizioni</value>
+    </property>
+    <property key="CommonShoppingCart">
+        <value xml:lang="en">ShoppingCart</value>
+        <value xml:lang="fr">Panier</value>
+        <value xml:lang="it">Carrello</value>
+    </property>
     <property key="CommonShow">
         <value xml:lang="ar">عرض</value>
         <value xml:lang="de">Anzeigen</value>
@@ -5877,16 +5887,6 @@
         <value xml:lang="th">แสดงฟิลด์ที่ค้นหา</value>
         <value xml:lang="zh">显示查询项</value>
         <value xml:lang="zh_CN">显示查找字段</value>
-    </property>
-    <property key="CommonShipping">
-        <value xml:lang="en">Shipping</value>
-        <value xml:lang="fr">Expédition</value>
-        <value xml:lang="it">Spedizioni</value>
-    </property>
-    <property key="CommonShoppingCart">
-        <value xml:lang="en">ShoppingCart</value>
-        <value xml:lang="fr">Panier</value>
-        <value xml:lang="it">Carrello</value>
     </property>
     <property key="CommonSince">
         <value xml:lang="ar">منذ</value>
@@ -7109,12 +7109,6 @@
         <value xml:lang="fr">Ressource de charte graphique trouvée non valable : visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="it">Risorsa tema grafico non trovato: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
     </property>
-    <property key="CommonVisualThemes">
-        <value xml:lang="en">Visual Themes</value>
-        <value xml:lang="es">Temas visuales</value>
-        <value xml:lang="fr">Charte graphiques</value>
-        <value xml:lang="it">Tema grafico</value>
-    </property>
     <property key="CommonVisualThemeNoScreenshots">
         <value xml:lang="en">No Screenshots</value>
         <value xml:lang="es">No hay capturas de pantalla</value>
@@ -7132,6 +7126,12 @@
         <value xml:lang="es">Tema visual seleciconado</value>
         <value xml:lang="fr">Choisissez une charte graphique</value>
         <value xml:lang="it">Tema grafico selezionato</value>
+    </property>
+    <property key="CommonVisualThemes">
+        <value xml:lang="en">Visual Themes</value>
+        <value xml:lang="es">Temas visuales</value>
+        <value xml:lang="fr">Charte graphiques</value>
+        <value xml:lang="it">Tema grafico</value>
     </property>
     <property key="CommonVolume">
         <value xml:lang="ar">الجحم</value>
@@ -7718,6 +7718,14 @@
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
     </property>
+    <property key="FormFieldTitle_currentStatusId">
+        <value xml:lang="de">Aktuelle Status ID</value>
+        <value xml:lang="en">Current Status Id</value>
+        <value xml:lang="es">Código Estado actual</value>
+        <value xml:lang="fr">Réf. de status actuel</value>
+        <value xml:lang="it">Stato attuale</value>
+        <value xml:lang="zh">当前状态Id</value>
+    </property>
     <property key="FormFieldTitle_deleteButton">
         <value xml:lang="ar">حذف</value>
         <value xml:lang="de">Löschen</value>
@@ -7899,6 +7907,11 @@
         <value xml:lang="fr">Envoyer</value>
         <value xml:lang="it">Invia</value>
     </property>
+    <property key="FormFieldTitle_sendNotificationEmail">
+        <value xml:lang="en">Send Notification Email</value>
+        <value xml:lang="fr">Envoyer le courriel de notification</value>
+        <value xml:lang="it">Invia notifica per email</value>
+    </property>
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
         <value xml:lang="de">Laufnummer</value>
@@ -7911,11 +7924,6 @@
         <value xml:lang="ru">Последовательный номер</value>
         <value xml:lang="th">หมายเลขรายการ</value>
         <value xml:lang="zh">序号数字</value>
-    </property>
-    <property key="FormFieldTitle_sendNotificationEmail">
-        <value xml:lang="en">Send Notification Email</value>
-        <value xml:lang="fr">Envoyer le courriel de notification</value>
-        <value xml:lang="it">Invia notifica per email</value>
     </property>
     <property key="FormFieldTitle_statusId">
         <value xml:lang="ar">دليل الوضعية</value>
@@ -8017,19 +8025,11 @@
         <value xml:lang="th">อัพเดท</value>
         <value xml:lang="zh">更新</value>
     </property>
-    <property key="FormFieldTitle_currentStatusId">
-        <value xml:lang="de">Aktuelle Status ID</value>
-        <value xml:lang="en">Current Status Id</value>
-        <value xml:lang="es">Código Estado actual</value>
-        <value xml:lang="fr">Réf. de status actuel</value>
-        <value xml:lang="it">Stato attuale</value>
-        <value xml:lang="zh">当前状态Id</value>
-    </property>
     <property key="Google Base">
         <value xml:lang="de">Google Base</value>
         <value xml:lang="en">Google Base</value>
-        <value xml:lang="fr">Google Base</value>
         <value xml:lang="es">Google Base</value>
+        <value xml:lang="fr">Google Base</value>
         <value xml:lang="it">Google base</value>
         <value xml:lang="th">Google Base</value>
     </property>
@@ -8041,13 +8041,6 @@
         <value xml:lang="it">Risorse umane</value>
         <value xml:lang="th">ฝ่ายบุคคล</value>
     </property>
-    <property key="HumanResourceApplication">
-        <value xml:lang="de">Personalverwaltung Anwendung</value>
-        <value xml:lang="en">Human Resource Application</value>
-        <value xml:lang="es">Aplicación de RR.HH.</value>
-        <value xml:lang="fr">Application de gestion des ressources humaines</value>
-        <value xml:lang="it">Applicazione risorse umane</value>
-    </property>
     <property key="HandheldFacility">
         <value xml:lang="de">Lagerverwaltung mit PDA</value>
         <value xml:lang="en">Handheld Facility</value>
@@ -8055,6 +8048,13 @@
         <value xml:lang="fr">Gestion de stock sur PDA</value>
         <value xml:lang="it">Gestione stabilimenti su handheld</value>
         <value xml:lang="th">คลังสินค้าขนาดเล็ก</value>
+    </property>
+    <property key="HumanResourceApplication">
+        <value xml:lang="de">Personalverwaltung Anwendung</value>
+        <value xml:lang="en">Human Resource Application</value>
+        <value xml:lang="es">Aplicación de RR.HH.</value>
+        <value xml:lang="fr">Application de gestion des ressources humaines</value>
+        <value xml:lang="it">Applicazione risorse umane</value>
     </property>
     <property key="IS Mgr">
         <value xml:lang="en">IS Mgr</value>
@@ -8076,18 +8076,6 @@
         <value xml:lang="zh">生产</value>
         <value xml:lang="zh_CN">制造</value>
     </property>
-    <property key="MyPage">
-        <value xml:lang="de">Meine Seite</value>
-        <value xml:lang="en">MyPage</value>
-        <value xml:lang="es">Mi Página</value>
-        <value xml:lang="fr">Ma page</value>
-        <value xml:lang="it">Mia pagina</value>
-    </property>
-    <property key="MyPortal">
-        <value xml:lang="en">My Portal</value>
-        <value xml:lang="fr">Mon portail</value>
-        <value xml:lang="it">Mio portale</value>
-    </property>
     <property key="Marketing">
         <value xml:lang="ar">التسويق</value>
         <value xml:lang="de">Marketing</value>
@@ -8102,6 +8090,18 @@
         <value xml:lang="th">การตลาด</value>
         <value xml:lang="zh">市场宣传</value>
         <value xml:lang="zh_CN">推销</value>
+    </property>
+    <property key="MyPage">
+        <value xml:lang="de">Meine Seite</value>
+        <value xml:lang="en">MyPage</value>
+        <value xml:lang="es">Mi Página</value>
+        <value xml:lang="fr">Ma page</value>
+        <value xml:lang="it">Mia pagina</value>
+    </property>
+    <property key="MyPortal">
+        <value xml:lang="en">My Portal</value>
+        <value xml:lang="fr">Mon portail</value>
+        <value xml:lang="it">Mio portale</value>
     </property>
     <property key="Oagis">
         <value xml:lang="de">Oagis</value>
@@ -8155,43 +8155,6 @@
         <value xml:lang="th">เพิ่มประเภทแหล่งข้อมูลใหม่</value>
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">增加新数据源类型</value>
-    </property>
-    <property key="PageTitleLogin">
-        <value xml:lang="cs">přihlášení</value>
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Entrada</value>
-        <value xml:lang="fr">Connexion</value>
-        <value xml:lang="it">Login</value>
-        <value xml:lang="ja">ログイン</value>
-        <value xml:lang="nl">Aanmelden</value>
-        <value xml:lang="pt_BR">Entrada</value>
-        <value xml:lang="pt_PT">Início</value>
-        <value xml:lang="ro">Login</value>
-        <value xml:lang="ru">Логин</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh">登录</value>
-    </property>
-    <property key="PageTitleMain">
-        <value xml:lang="cs">úvodní strana</value>
-        <value xml:lang="de">Startseite</value>
-        <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página Principal</value>
-        <value xml:lang="fr">Page d'accueil</value>
-        <value xml:lang="hi_IN">मुख्य पृष्ठ</value>
-        <value xml:lang="it">Pagina principale</value>
-        <value xml:lang="ja">メインページ</value>
-        <value xml:lang="nl">Hoofdpagina</value>
-        <value xml:lang="pt_PT">Página de Entrada</value>
-        <value xml:lang="ro">Pagina Principala</value>
-        <value xml:lang="ru">Основная страница</value>
-        <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh">首页</value>
-    </property>
-    <property key="PageTitleViewBlocked">
-        <value xml:lang="en">View Blocked</value>
-        <value xml:lang="fr">Page bloquée</value>
-        <value xml:lang="it">Pagina bloccata</value>
     </property>
     <property key="PageTitleEditDataSource">
         <value xml:lang="ar">تحرير مصدر المعلومات</value>
@@ -8252,6 +8215,43 @@
         <value xml:lang="th">รายการประเภทแหล่งข้อมูล</value>
         <value xml:lang="zh">数据源类型列表</value>
         <value xml:lang="zh_CN">数据源类型列表</value>
+    </property>
+    <property key="PageTitleLogin">
+        <value xml:lang="cs">přihlášení</value>
+        <value xml:lang="de">Anmeldung</value>
+        <value xml:lang="en">Login</value>
+        <value xml:lang="es">Entrada</value>
+        <value xml:lang="fr">Connexion</value>
+        <value xml:lang="it">Login</value>
+        <value xml:lang="ja">ログイン</value>
+        <value xml:lang="nl">Aanmelden</value>
+        <value xml:lang="pt_BR">Entrada</value>
+        <value xml:lang="pt_PT">Início</value>
+        <value xml:lang="ro">Login</value>
+        <value xml:lang="ru">Логин</value>
+        <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="zh">登录</value>
+    </property>
+    <property key="PageTitleMain">
+        <value xml:lang="cs">úvodní strana</value>
+        <value xml:lang="de">Startseite</value>
+        <value xml:lang="en">Main Page</value>
+        <value xml:lang="es">Página Principal</value>
+        <value xml:lang="fr">Page d'accueil</value>
+        <value xml:lang="hi_IN">मुख्य पृष्ठ</value>
+        <value xml:lang="it">Pagina principale</value>
+        <value xml:lang="ja">メインページ</value>
+        <value xml:lang="nl">Hoofdpagina</value>
+        <value xml:lang="pt_PT">Página de Entrada</value>
+        <value xml:lang="ro">Pagina Principala</value>
+        <value xml:lang="ru">Основная страница</value>
+        <value xml:lang="th">หน้าหลัก</value>
+        <value xml:lang="zh">首页</value>
+    </property>
+    <property key="PageTitleViewBlocked">
+        <value xml:lang="en">View Blocked</value>
+        <value xml:lang="fr">Page bloquée</value>
+        <value xml:lang="it">Pagina bloccata</value>
     </property>
     <property key="Party">
         <value xml:lang="ar">طرف</value>

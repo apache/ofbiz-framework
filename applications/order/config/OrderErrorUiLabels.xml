@@ -339,7 +339,7 @@
     <property key="OrderErrorCallingCreateOrderAdjustmentService">
         <value xml:lang="en">Error calling createOrderAdjustment service</value>
         <value xml:lang="es">Error de invocación del servicio createOrderAdjustment</value>
-        <value xml:lang="fr">Erreur lors de l'appel du service de createOrderAdjustment</value>        
+        <value xml:lang="fr">Erreur lors de l'appel du service de createOrderAdjustment</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio createOrderAdjustment</value>
         <value xml:lang="ru">Ошибка вызова службы createOrderAdjustment</value>
         <value xml:lang="th">ข้อผิดพลาดการเรียกบริการ createOrderAdjustment : </value>

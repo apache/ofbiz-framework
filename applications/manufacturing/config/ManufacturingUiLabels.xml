@@ -1511,6 +1511,13 @@
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存明细</value>
     </property>
+    <property key="ManufacturingIssueAvailableProductionRunTask">
+        <value xml:lang="de">Komponenten ausgeben (ATP)</value>
+        <value xml:lang="en">Issue Components (ATP)</value>
+        <value xml:lang="es">Emitir componentes (ATP)</value>
+        <value xml:lang="fr">Composants publiés (ATP)</value>
+        <value xml:lang="it">Preleva i Componenti (ATP)</value>
+    </property>
     <property key="ManufacturingIssueProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben</value>
         <value xml:lang="en">Issue Components</value>
@@ -1520,13 +1527,6 @@
         <value xml:lang="ro">Componente cu Probleme</value>
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
         <value xml:lang="zh">交付部件</value>
-    </property>
-    <property key="ManufacturingIssueAvailableProductionRunTask">
-        <value xml:lang="de">Komponenten ausgeben (ATP)</value>
-        <value xml:lang="en">Issue Components (ATP)</value>
-        <value xml:lang="es">Emitir componentes (ATP)</value>
-        <value xml:lang="fr">Composants publiés (ATP)</value>
-        <value xml:lang="it">Preleva i Componenti (ATP)</value>
     </property>
     <property key="ManufacturingIssuedQuantity">
         <value xml:lang="de">Ausgegeben</value>
@@ -2444,13 +2444,6 @@
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速运行全部任务</value>
     </property>
-    <property key="ManufacturingQuickStartAllTasks">
-        <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
-        <value xml:lang="en">Quick Start All Tasks</value>
-        <value xml:lang="es">Empezar todas las tareas rápido</value>
-        <value xml:lang="fr">Démarrer rapidement toutes les opérations</value>
-        <value xml:lang="it">Avvio Veloce Operazioni</value>
-    </property>
     <property key="ManufacturingQuickRunTask">
         <value xml:lang="de">Schnellausführung Arbeitsgang</value>
         <value xml:lang="en">Quick Run Task</value>
@@ -2460,6 +2453,13 @@
         <value xml:lang="ro">Executie Rapida Sarcini</value>
         <value xml:lang="th">ทำงานอย่างรวดเร็ว</value>
         <value xml:lang="zh">全速运行任务</value>
+    </property>
+    <property key="ManufacturingQuickStartAllTasks">
+        <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
+        <value xml:lang="en">Quick Start All Tasks</value>
+        <value xml:lang="es">Empezar todas las tareas rápido</value>
+        <value xml:lang="fr">Démarrer rapidement toutes les opérations</value>
+        <value xml:lang="it">Avvio Veloce Operazioni</value>
     </property>
     <property key="ManufacturingReason">
         <value xml:lang="de">Grund</value>
@@ -3275,8 +3275,8 @@
     <property key="PageTitleFindBom">
         <value xml:lang="en">Find Bill Of Materials</value>
         <value xml:lang="fr">Rechercher une nomenclature</value>
-        <value xml:lang="th">ค้นหารายการสินค้า</value>
         <value xml:lang="it">Ricerca distinta base</value>
+        <value xml:lang="th">ค้นหารายการสินค้า</value>
     </property>
     <property key="PageTitleFindCalendar">
         <value xml:lang="de">Kalender suchen</value>
@@ -3338,14 +3338,6 @@
         <value xml:lang="th">ค้นหา - แก้ไข งาน</value>
         <value xml:lang="zh">查找 - 编辑规程任务</value>
     </property>
-    <property key="PageTitleListRoutingTaskAssoc">
-        <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
-        <value xml:lang="en">List Routing Task Assoc</value>
-        <value xml:lang="es">Listar asociaciones de tareas</value>
-        <value xml:lang="fr">Liste d'association des opérations de gamme</value>
-        <value xml:lang="it">Lista Associazioni Operazioni</value>
-        <value xml:lang="th">รายการกลลุ่มของงาน</value>
-    </property>
     <property key="PageTitleListCalendarWeek">
         <value xml:lang="de">Wochen auflisten</value>
         <value xml:lang="en">List of weeks</value>
@@ -3355,6 +3347,14 @@
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
+    </property>
+    <property key="PageTitleListRoutingTaskAssoc">
+        <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
+        <value xml:lang="en">List Routing Task Assoc</value>
+        <value xml:lang="es">Listar asociaciones de tareas</value>
+        <value xml:lang="fr">Liste d'association des opérations de gamme</value>
+        <value xml:lang="it">Lista Associazioni Operazioni</value>
+        <value xml:lang="th">รายการกลลุ่มของงาน</value>
     </property>
     <property key="PageTitleListRoutingTaskProducts">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>

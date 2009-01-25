@@ -819,17 +819,17 @@
         <value xml:lang="fr">Commerce</value>
         <value xml:lang="it">Commercio</value>
     </property>
-    <property key="PartyClassificationType.description.TRADE_WHOLE_CLASSIFI">
-        <value xml:lang="en">Wholesale</value>
-        <value xml:lang="es">Venta al por mayor</value>
-        <value xml:lang="fr">Vente en gros</value>
-        <value xml:lang="it">All'ingrosso</value>
-    </property>
     <property key="PartyClassificationType.description.TRADE_RETAIL_CLASSIFI">
         <value xml:lang="en">Retail</value>
         <value xml:lang="es">Venta al por menor</value>
         <value xml:lang="fr">Vente au détail</value>
         <value xml:lang="it">Al dettaglio</value>
+    </property>
+    <property key="PartyClassificationType.description.TRADE_WHOLE_CLASSIFI">
+        <value xml:lang="en">Wholesale</value>
+        <value xml:lang="es">Venta al por mayor</value>
+        <value xml:lang="fr">Vente en gros</value>
+        <value xml:lang="it">All'ingrosso</value>
     </property>
     <property key="PartyClassificationType.description.VALUE_RATING">
         <value xml:lang="en">Value Rating</value>
@@ -1427,6 +1427,28 @@
         <value xml:lang="th">ลูกค้า</value>
         <value xml:lang="zh">客户</value>
     </property>
+    <property key="RoleType.description.CLIENT_ANALYST">
+        <value xml:lang="en">Client Analyst</value>
+        <value xml:lang="es">Analista de clientes</value>
+        <value xml:lang="fr">Analyste client</value>
+        <value xml:lang="it">Analista della clientela</value>
+        <value xml:lang="zh">客户分析员</value>
+    </property>
+    <property key="RoleType.description.CLIENT_BILLING">
+        <value xml:lang="en">Client Billing</value>
+        <value xml:lang="es">Facturación clientes</value>
+        <value xml:lang="fr">Facturation client</value>
+        <value xml:lang="it">Fatturazione clientela</value>
+        <value xml:lang="zh">客户收款员</value>
+    </property>
+    <property key="RoleType.description.CLIENT_MANAGER">
+        <value xml:lang="de">Kundenmanager</value>
+        <value xml:lang="en">Client Manager</value>
+        <value xml:lang="es">Gestor de clientes</value>
+        <value xml:lang="fr">Responsable client</value>
+        <value xml:lang="it">Responsabile della clientela</value>
+        <value xml:lang="zh">客户经理</value>
+    </property>
     <property key="RoleType.description.COMMEVENT_ROLE">
         <value xml:lang="en">Communication Participant</value>
         <value xml:lang="es">Participante de comunicación</value>
@@ -1812,6 +1834,14 @@
         <value xml:lang="th">ตำแหน่งของลูกค้า</value>
         <value xml:lang="zh">意向客户</value>
     </property>
+    <property key="RoleType.description.PROJECT_TEAM">
+        <value xml:lang="de">Projektteam</value>
+        <value xml:lang="en">Project Team</value>
+        <value xml:lang="es">Equipo de proyecto</value>
+        <value xml:lang="fr">Equipe du projet</value>
+        <value xml:lang="it">Capo progetto</value>
+        <value xml:lang="zh">项目团体</value>
+    </property>
     <property key="RoleType.description.PROSPECT">
         <value xml:lang="de">Potentieller Kunde</value>
         <value xml:lang="en">Prospect</value>
@@ -1822,6 +1852,48 @@
         <value xml:lang="ru">Перспектива</value>
         <value xml:lang="th">การสำรวจ</value>
         <value xml:lang="zh">潜在客户</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_ACCOUNTING">
+        <value xml:lang="en">Provider Accounting</value>
+        <value xml:lang="es">Contabilidad de proveedores</value>
+        <value xml:lang="fr">Comptabilité fournisseur</value>
+        <value xml:lang="it">Utenza del provider</value>
+        <value xml:lang="zh">供应商会计人员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_ANALYST">
+        <value xml:lang="en">Provider Analyst</value>
+        <value xml:lang="es">Analista de proveedores</value>
+        <value xml:lang="fr">Analyste fournisseur</value>
+        <value xml:lang="it">Analista del provider</value>
+        <value xml:lang="zh">供应商分析员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_FUNCTIONAL">
+        <value xml:lang="en">Provider Functional</value>
+        <value xml:lang="es">Funcional de proveedores</value>
+        <value xml:lang="fr">Conseiller fournisseur</value>
+        <value xml:lang="it">Funzionario del provider</value>
+        <value xml:lang="zh">供应商实现人员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_MANAGER">
+        <value xml:lang="en">Provider Manager</value>
+        <value xml:lang="es">Gestor de proveedores</value>
+        <value xml:lang="fr">Responsable fournisseur</value>
+        <value xml:lang="it">Responsabile del provider</value>
+        <value xml:lang="zh">供应商经理</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_TESTER">
+        <value xml:lang="en">Provider Tester</value>
+        <value xml:lang="es">Probador de proveedores</value>
+        <value xml:lang="fr">Testeur fournisseur</value>
+        <value xml:lang="it">Tester del provider</value>
+        <value xml:lang="zh">供应商测试人员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_VALIDATOR">
+        <value xml:lang="en">Provider Validator</value>
+        <value xml:lang="es">Validador de proveedores</value>
+        <value xml:lang="fr">Approbateur fournisseur</value>
+        <value xml:lang="it">Validatore del provider</value>
+        <value xml:lang="zh">供应商检验人员</value>
     </property>
     <property key="RoleType.description.RECEIVER">
         <value xml:lang="de">Empfänger</value>
@@ -2097,78 +2169,6 @@
         <value xml:lang="ru">Workflow</value>
         <value xml:lang="th">ขั้นตอนก่ารทำงาน</value>
         <value xml:lang="zh">工作流</value>
-    </property>
-    <property key="RoleType.description.PROJECT_TEAM">
-        <value xml:lang="de">Projektteam</value>
-        <value xml:lang="en">Project Team</value>
-        <value xml:lang="es">Equipo de proyecto</value>
-        <value xml:lang="fr">Equipe du projet</value>
-        <value xml:lang="it">Capo progetto</value>
-        <value xml:lang="zh">项目团体</value>
-    </property>
-    <property key="RoleType.description.CLIENT_MANAGER">
-        <value xml:lang="de">Kundenmanager</value>
-        <value xml:lang="en">Client Manager</value>
-        <value xml:lang="es">Gestor de clientes</value>
-        <value xml:lang="fr">Responsable client</value>
-        <value xml:lang="it">Responsabile della clientela</value>
-        <value xml:lang="zh">客户经理</value>
-    </property>
-    <property key="RoleType.description.CLIENT_ANALYST">
-        <value xml:lang="en">Client Analyst</value>
-        <value xml:lang="es">Analista de clientes</value>
-        <value xml:lang="fr">Analyste client</value>
-        <value xml:lang="it">Analista della clientela</value>
-        <value xml:lang="zh">客户分析员</value>
-    </property>
-    <property key="RoleType.description.CLIENT_BILLING">
-        <value xml:lang="en">Client Billing</value>
-        <value xml:lang="es">Facturación clientes</value>
-        <value xml:lang="fr">Facturation client</value>
-        <value xml:lang="it">Fatturazione clientela</value>
-        <value xml:lang="zh">客户收款员</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_MANAGER">
-        <value xml:lang="en">Provider Manager</value>
-        <value xml:lang="es">Gestor de proveedores</value>
-        <value xml:lang="fr">Responsable fournisseur</value>
-        <value xml:lang="it">Responsabile del provider</value>
-        <value xml:lang="zh">供应商经理</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_ACCOUNTING">
-        <value xml:lang="en">Provider Accounting</value>
-        <value xml:lang="es">Contabilidad de proveedores</value>
-        <value xml:lang="fr">Comptabilité fournisseur</value>
-        <value xml:lang="it">Utenza del provider</value>
-        <value xml:lang="zh">供应商会计人员</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_ANALYST">
-        <value xml:lang="en">Provider Analyst</value>
-        <value xml:lang="es">Analista de proveedores</value>
-        <value xml:lang="fr">Analyste fournisseur</value>
-        <value xml:lang="it">Analista del provider</value>
-        <value xml:lang="zh">供应商分析员</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_VALIDATOR">
-        <value xml:lang="en">Provider Validator</value>
-        <value xml:lang="es">Validador de proveedores</value>
-        <value xml:lang="fr">Approbateur fournisseur</value>
-        <value xml:lang="it">Validatore del provider</value>
-        <value xml:lang="zh">供应商检验人员</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_FUNCTIONAL">
-        <value xml:lang="en">Provider Functional</value>
-        <value xml:lang="es">Funcional de proveedores</value>
-        <value xml:lang="fr">Conseiller fournisseur</value>
-        <value xml:lang="it">Funzionario del provider</value>
-        <value xml:lang="zh">供应商实现人员</value>
-    </property>
-    <property key="RoleType.description.PROVIDER_TESTER">
-        <value xml:lang="en">Provider Tester</value>
-        <value xml:lang="es">Probador de proveedores</value>
-        <value xml:lang="fr">Testeur fournisseur</value>
-        <value xml:lang="it">Tester del provider</value>
-        <value xml:lang="zh">供应商测试人员</value>
     </property>
     <property key="RoleType.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>

@@ -20,9 +20,9 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_accommodationMapId">
-         <value xml:lang="en">Accommodation Map Id</value>
-         <value xml:lang="fr">Réf. de plan de logement</value>
-         <value xml:lang="it">Mappa alloggio</value>
+        <value xml:lang="en">Accommodation Map Id</value>
+        <value xml:lang="fr">Réf. de plan de logement</value>
+        <value xml:lang="it">Mappa alloggio</value>
     </property>
     <property key="FormFieldTitle_accommodationSpotId">
         <value xml:lang="en">Accommodation Spot Id</value>
@@ -288,6 +288,11 @@
         <value xml:lang="it">Classifica</value>
         <value xml:lang="th">การประเมิณ</value>
     </property>
+    <property key="FormFieldTitle_recurrenceOffset">
+        <value xml:lang="en">Recurrence Offset</value>
+        <value xml:lang="fr">Récurrence de décalage</value>
+        <value xml:lang="it">Intervallo ricorrenza</value>
+    </property>
     <property key="FormFieldTitle_reminderDateTime">
         <value xml:lang="en">Reminder Date Time</value>
         <value xml:lang="fr">Date heure de rappel</value>
@@ -297,11 +302,6 @@
         <value xml:lang="en">Repeat Interval</value>
         <value xml:lang="fr">Répéter intervalle</value>
         <value xml:lang="it">Ripeti intervallo</value>
-    </property>
-    <property key="FormFieldTitle_recurrenceOffset">
-        <value xml:lang="en">Recurrence Offset</value>
-        <value xml:lang="fr">Récurrence de décalage</value>
-        <value xml:lang="it">Intervallo ricorrenza</value>
     </property>
     <property key="FormFieldTitle_requirementDescription">
         <value xml:lang="en">Requirement Description</value>
@@ -623,15 +623,15 @@
         <value xml:lang="th">เพิ่มผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">添加人工服务沟通事件</value>
     </property>
-    <property key="PageTitleAddWorkEffortFixedAssetAssign">
-        <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
-        <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
-        <value xml:lang="it">Aggiungi assegnazione impegno di lavoro cespite</value>
-    </property>
     <property key="PageTitleAddWorkEffortEventReminder">
         <value xml:lang="en">Add Work Effort Event Reminder</value>
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
         <value xml:lang="it">Aggiungi evento reminder impegno di lavoro</value>
+    </property>
+    <property key="PageTitleAddWorkEffortFixedAssetAssign">
+        <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
+        <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
+        <value xml:lang="it">Aggiungi assegnazione impegno di lavoro cespite</value>
     </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="en">Add Work Effort Keyword</value>
@@ -987,15 +987,15 @@
         <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">人工服务沟通事件</value>
     </property>
-    <property key="PageTitleListWorkEffortFixedAssetAssigns">
-        <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
-        <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
-        <value xml:lang="it">Assegnazioni impegno di lavoro cespite</value>
-    </property>
     <property key="PageTitleListWorkEffortEventReminders">
         <value xml:lang="en">Work Effort Event Reminders</value>
         <value xml:lang="fr">Rappels d'évènements de tâche</value>
         <value xml:lang="it">Evento reminders impegno di lavoro</value>
+    </property>
+    <property key="PageTitleListWorkEffortFixedAssetAssigns">
+        <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
+        <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
+        <value xml:lang="it">Assegnazioni impegno di lavoro cespite</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
@@ -1010,16 +1010,6 @@
         <value xml:lang="it">Note Impegno di Lavoro</value>
         <value xml:lang="th">ข้อความงาน</value>
         <value xml:lang="zh">人工服务便笺</value>
-    </property>
-    <property key="PageTitleListWorkEffortQuotes">
-        <value xml:lang="en">Work Effort Quotes</value>
-        <value xml:lang="es">Cotizaciones</value>
-        <value xml:lang="fr">Devis de la tâche</value>
-        <value xml:lang="it">Lista Impegno di Lavoro Preventivi</value>
-        <value xml:lang="nl">Activiteit Quotes</value>
-        <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
-        <value xml:lang="th">การอ้างอิงงาน</value>
-        <value xml:lang="zh">人工服务询价</value>
     </property>
     <property key="PageTitleListWorkEffortOrderHeaders">
         <value xml:lang="en">Work Effort Orders</value>
@@ -1040,6 +1030,16 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Atributie Subiect</value>
         <value xml:lang="th">กลุ่มงานที่ได้รับมอบหมาย</value>
         <value xml:lang="zh">人工服务会员指派</value>
+    </property>
+    <property key="PageTitleListWorkEffortQuotes">
+        <value xml:lang="en">Work Effort Quotes</value>
+        <value xml:lang="es">Cotizaciones</value>
+        <value xml:lang="fr">Devis de la tâche</value>
+        <value xml:lang="it">Lista Impegno di Lavoro Preventivi</value>
+        <value xml:lang="nl">Activiteit Quotes</value>
+        <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
+        <value xml:lang="th">การอ้างอิงงาน</value>
+        <value xml:lang="zh">人工服务询价</value>
     </property>
     <property key="PageTitleListWorkEffortRequests">
         <value xml:lang="en">Work Effort Requests</value>
@@ -1816,6 +1816,16 @@
         <value xml:lang="th">ชื่อเหตุการณ์</value>
         <value xml:lang="zh">事件名称</value>
     </property>
+    <property key="WorkEffortEventReminder">
+        <value xml:lang="en">Event Reminder</value>
+        <value xml:lang="fr">Evènement de tâche</value>
+        <value xml:lang="it">Evento Reminder</value>
+    </property>
+    <property key="WorkEffortEventReminders">
+        <value xml:lang="en">Event Reminders</value>
+        <value xml:lang="fr">Evènements de tâche</value>
+        <value xml:lang="it">Evento Reminders</value>
+    </property>
     <property key="WorkEffortEventStatus">
         <value xml:lang="en">Event Status</value>
         <value xml:lang="es">Estado del evento</value>
@@ -1826,16 +1836,6 @@
         <value xml:lang="ru">Статус события</value>
         <value xml:lang="th">สถานะเหตุการณ์</value>
         <value xml:lang="zh">事件状态</value>
-    </property>
-    <property key="WorkEffortEventReminder">
-        <value xml:lang="en">Event Reminder</value>
-        <value xml:lang="fr">Evènement de tâche</value>
-        <value xml:lang="it">Evento Reminder</value>
-    </property>
-    <property key="WorkEffortEventReminders">
-        <value xml:lang="en">Event Reminders</value>
-        <value xml:lang="fr">Evènements de tâche</value>
-        <value xml:lang="it">Evento Reminders</value>
     </property>
     <property key="WorkEffortExpectation">
         <value xml:lang="en">Expectation</value>
@@ -2610,17 +2610,6 @@
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
     </property>
-    <property key="WorkEffortProductId">
-        <value xml:lang="en">ProductID</value>
-        <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Référence du produit</value>
-        <value xml:lang="it">Codice Prodotto</value>
-        <value xml:lang="nl">ProductID</value>
-        <value xml:lang="ro">Cod Produs</value>
-        <value xml:lang="ru">ID продукта</value>
-        <value xml:lang="th">รหัสสินค้า</value>
-        <value xml:lang="zh">产品标识</value>
-    </property>
     <property key="WorkEffortProductId1">
         <value xml:lang="en">ProductID 1</value>
         <value xml:lang="fr">Réf. 1 de l'article</value>
@@ -2632,6 +2621,17 @@
         <value xml:lang="fr">Réf. 2 de l'article</value>
         <value xml:lang="it">Codice Prodotto 2</value>
         <value xml:lang="th">รหัสสินค้า 2</value>
+    </property>
+    <property key="WorkEffortProductId">
+        <value xml:lang="en">ProductID</value>
+        <value xml:lang="es">Código de producto</value>
+        <value xml:lang="fr">Référence du produit</value>
+        <value xml:lang="it">Codice Prodotto</value>
+        <value xml:lang="nl">ProductID</value>
+        <value xml:lang="ro">Cod Produs</value>
+        <value xml:lang="ru">ID продукта</value>
+        <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="zh">产品标识</value>
     </property>
     <property key="WorkEffortProject">
         <value xml:lang="en">Project</value>
