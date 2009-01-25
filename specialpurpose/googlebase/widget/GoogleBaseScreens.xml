@@ -30,15 +30,6 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="activeApp" value="googlebase" global="true"/>
 
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <!-- The default (global) java scripts -->
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.GoogleBaseCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.GoogleBaseApplication" global="true"/>
                 <set field="applicationMenuName" value="GoogleBaseAppBar" global="true"/>
