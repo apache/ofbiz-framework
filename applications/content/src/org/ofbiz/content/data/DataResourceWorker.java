@@ -24,6 +24,7 @@ import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -47,6 +48,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -62,6 +64,7 @@ import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import freemarker.template.Template;
@@ -674,9 +677,15 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                         screens.getContext().put("screens", screens);
                     }
                     // render the screen
-                    ScreenStringRenderer renderer = screens.getScreenStringRenderer();
-                    String combinedName = (String) dataResource.get("objectInfo");
-                    ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
+                    ModelScreen modelScreen = null;
+                	ScreenStringRenderer renderer = screens.getScreenStringRenderer();
+                	String combinedName = dataResource.getString("objectInfo");
+                    if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) { 
+                    	modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
+                    } else { // stored in  a single file
+                    	Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
+                    	modelScreen = (ModelScreen) ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId")).entrySet().iterator().next().getValue();
+                    }
                     modelScreen.renderScreenString(out, context, renderer);
                 } catch (SAXException e) {
                     throw new GeneralException("Error rendering Screen template", e);
