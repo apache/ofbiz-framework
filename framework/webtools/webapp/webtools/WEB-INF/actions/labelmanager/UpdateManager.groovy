@@ -26,6 +26,7 @@ context.localesFound = LabelManagerFactory.getLocalesFound();
 context.fileNamesFound = LabelManagerFactory.getFileNamesFound();
 context.componentNamesFound = LabelManagerFactory.getComponentNamesFound();
 
-if (parameters.sourceKey  != null && parameters.sourceFileName != null) {
-    context.label = context.labels.get(parameters.sourceKey + "_" + parameters.sourceFileName);
+if (parameters.sourceKey && parameters.sourceFileName) {
+    context.label = context.labels.get(parameters.sourceKey + LabelManagerFactory.keySeparator + parameters.sourceFileName);
+    context.titleProperty = "WebtoolsLabelManagerUpdate";
 }

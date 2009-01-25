@@ -49,7 +49,7 @@ public class LabelManagerFactory {
     public static final String module = LabelManagerFactory.class.getName();
     public static final String resource = "WebtoolsUiLabels";
     
-    private static final String keySeparator = ";";
+    public static final String keySeparator = ";";
     
     protected static UtilCache<String, LabelManagerFactory> labelManagerFactoryCache = new UtilCache<String, LabelManagerFactory>("LabelManagerFactory");
     
@@ -171,11 +171,15 @@ public class LabelManagerFactory {
         String update_label = (String)context.get("update_label");
         String fileName = (String)context.get("fileName");
         String confirm = (String)context.get("confirm");
+        String removeLabel = (String)context.get("removeLabel");
         List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
         List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
         Locale locale = (Locale) context.get("locale");
         
-        if (UtilValidate.isNotEmpty(confirm)) {
+        // Remove a Label
+        if (UtilValidate.isNotEmpty(removeLabel)) {
+           labels.remove(key + keySeparator + fileName);
+        } else if (UtilValidate.isNotEmpty(confirm)) {
             LabelInfo label = labels.get(key + keySeparator + fileName);
         
             // Update a Label
@@ -224,10 +228,6 @@ public class LabelManagerFactory {
                 notEmptyLabels++;
             }
             i++;
-        }
-        
-        if (UtilValidate.isNotEmpty(label) && label.getLabelValueSize() == 0) {
-            labels.remove(key + keySeparator + fileName);
         }
         
         return notEmptyLabels;

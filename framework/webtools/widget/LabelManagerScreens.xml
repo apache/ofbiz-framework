@@ -52,7 +52,7 @@ under the License.
                 <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
-                <set field="titleProperty" value="WebtoolsLabelManagerUpdate"/>
+                <set field="titleProperty" value="WebtoolsLabelManagerAddNew"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/UpdateManager.groovy"/>
             </actions>
             <widgets>
