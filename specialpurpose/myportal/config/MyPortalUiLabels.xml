@@ -52,7 +52,7 @@
     </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>
-        <value xml:lang="fr">Mon portail pour :</value>
+        <value xml:lang="fr">Mon portail pour : </value>
         <value xml:lang="it">Mio portale per : </value>
         <value xml:lang="th">ส่วนตัวสำหรับ </value>
     </property>
@@ -84,7 +84,7 @@
     </property>
     <property key="UserLogin">
         <value xml:lang="en">User Login</value>
-        <value xml:lang="fr">Login d'utilisateur</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
     </property>
     <property key="MyPortalAllEvents">
@@ -143,7 +143,7 @@
     </property>
     <property key="MyPortalCompletedCustomerRequests">
         <value xml:lang="en">My Completed Customer Requests</value>
-        <value xml:lang="fr">Mes demandes de clients terminées</value>
+        <value xml:lang="fr">Mes demandes de clients achevées</value>
         <value xml:lang="it">Mie richieste cliente completate</value>
         <value xml:lang="th">งานที่แก้ไขให้ลูกค้าเรียยร้อยแล้ว</value>
     </property>
@@ -184,30 +184,23 @@
         <value xml:lang="th">ไม่สามารถเข้าไปติดตั้งระบบ</value>
     </property>
     <property key="MyPortalNoAccess2">
-        <value xml:lang="en">You do not have access to any functions in the MyPortal subsystem, please
-            contact your system admin</value>
-        <value xml:lang="fr">Vous n'avez accès à aucune fonction dans l'application Ma Page,
-            contactez votre administrateur système SVP.</value>
-        <value xml:lang="it">Tu non hai l'accesso a queste funzioni nel sottosistam mia pagina,
-            perfavore contattare il tuo amministratore di sistema</value>
+        <value xml:lang="en">You do not have access to any functions in the MyPortal subsystem, please contact your system admin</value>
+        <value xml:lang="fr">Vous n'avez accès à aucune fonction dans l'application "Mon portail", contactez votre administrateur système SVP.</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste funzioni nel sottosistam mia pagina, perfavore contattare il tuo amministratore di sistema</value>
         <value xml:lang="th">ท่านไม่เข้าถึงฟังก์ชันการทำงานส่วนอื่นๆใน MyPortal ได้,
             กรุณาติดต่อผู้ดูแลระบบของท่าน</value>
     </property>
     <property key="MyPortalNoAccess3">
         <value xml:lang="en">At least MyPortal_CUSTOMER or MyPortal_EMPLOYEE permission is required</value>
-        <value xml:lang="fr">Au moins une autorisation MyPortal_CUSTOMER ou MyPortal_EMPLOYEE est
-            nécessaire</value>
+        <value xml:lang="fr">Au moins une autorisation MyPortal_CUSTOMER ou MyPortal_EMPLOYEE est nécessaire</value>
         <value xml:lang="it">Al minimo il permesso MyPortal_CUSTOMER o MyPortal_EMPLOYEE è richiesto</value>
         <value xml:lang="th">อย่างน้อยที่สุด MyPortal_CUSTOMER หรือ MyPortal_EMPLOYEE
             ถูกกำหนดการใข้สิทธิ์ </value>
     </property>
     <property key="MyPortalNoAccess4">
-        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a
-            demo.</value>
-        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee'
-            pour une démonstration.</value>
-        <value xml:lang="it">Usare l'utente demo come 'DemoCustomer' e 'DemoEmployee' per una
-            dimostrazione.</value>
+        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a demo.</value>
+        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee'pour une démonstration.</value>
+        <value xml:lang="it">Usare l'utente demo come 'DemoCustomer' e 'DemoEmployee' per una dimostrazione.</value>
         <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
     </property>
     <property key="MyPortalOpenEvents">
@@ -254,7 +247,7 @@
     </property>
     <property key="MyPortalTaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
-        <value xml:lang="fr">Départ réel de de la tâche</value>
+        <value xml:lang="fr">Début réel de de la tâche</value>
         <value xml:lang="it">Attuale data inizio compito</value>
         <value xml:lang="th">เรื่มต้นการทำ</value>
     </property>
@@ -266,7 +259,7 @@
     </property>
     <property key="MyPortalTaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
-        <value xml:lang="fr">Départ prévu de la tâche</value>
+        <value xml:lang="fr">Début prévu de la tâche</value>
         <value xml:lang="it">Data inizio pianificata compito</value>
         <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
     </property>
