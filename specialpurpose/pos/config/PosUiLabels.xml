@@ -265,14 +265,6 @@
         <value xml:lang="ro">Registru de Casa este Deschis</value>
         <value xml:lang="zh">提示牌已打开</value>
     </property>
-    <property key="PosItemDiscount">
-        <value xml:lang="en">(Item discount)</value>
-        <value xml:lang="es">(Item discount)</value>
-        <value xml:lang="fr">Remise sur l'article</value>
-        <value xml:lang="it">(Item discount)</value>
-        <value xml:lang="ro">(Item discount)</value>
-        <value xml:lang="zh">(Item discount)</value>
-    </property>
     <property key="PosItem">
         <value xml:lang="en">ITEM</value>
         <value xml:lang="es">ITEM</value>
@@ -280,6 +272,14 @@
         <value xml:lang="it">PRODOTTO</value>
         <value xml:lang="ro">PRODUS</value>
         <value xml:lang="zh">项</value>
+    </property>
+    <property key="PosItemDiscount">
+        <value xml:lang="en">(Item discount)</value>
+        <value xml:lang="es">(Item discount)</value>
+        <value xml:lang="fr">Remise sur l'article</value>
+        <value xml:lang="it">(Item discount)</value>
+        <value xml:lang="ro">(Item discount)</value>
+        <value xml:lang="zh">(Item discount)</value>
     </property>
     <property key="PosLoadASale">
         <value xml:lang="en">Load a sale</value>
@@ -480,14 +480,6 @@
         <value xml:lang="ro">Utilizatorul nu este un manager valid!</value>
         <value xml:lang="zh">用户非合法管理员!</value>
     </property>
-    <property key="PosVoid">
-        <value xml:lang="en">Enter Order Number To Void:</value>
-        <value xml:lang="es">Ingrese número de orden a anular</value>
-        <value xml:lang="fr">Entrez le n° d'ordre à annuler :</value>
-        <value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value>
-        <value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value>
-        <value xml:lang="zh">输入要作废的订单号:</value>
-    </property>
     <property key="PosValidating">
         <value xml:lang="en">Validating...</value>
         <value xml:lang="es">Validando...</value>
@@ -495,6 +487,14 @@
         <value xml:lang="it">Validazione...</value>
         <value xml:lang="ro">Validare...</value>
         <value xml:lang="zh">确认...</value>
+    </property>
+    <property key="PosVoid">
+        <value xml:lang="en">Enter Order Number To Void:</value>
+        <value xml:lang="es">Ingrese número de orden a anular</value>
+        <value xml:lang="fr">Entrez le n° d'ordre à annuler :</value>
+        <value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value>
+        <value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value>
+        <value xml:lang="zh">输入要作废的订单号:</value>
     </property>
     <property key="PosWaitingFinalSales">
         <value xml:lang="en">Waiting for final sales data transmission...</value>

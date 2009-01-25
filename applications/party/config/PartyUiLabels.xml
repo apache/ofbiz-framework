@@ -717,11 +717,6 @@
         <value xml:lang="nl">Postcode</value>
         <value xml:lang="th">รหัสไปรษณีย์</value>
     </property>
-    <property key="FormFieldTitle_partyContentTypeId">
-        <value xml:lang="en">Parent Content Type Id</value>
-        <value xml:lang="fr">Réf. de type de contenu parent</value>
-        <value xml:lang="it">Tipo contenuto padre</value>
-    </property>
     <property key="FormFieldTitle_parentCommEventId">
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
         <value xml:lang="en">Parent Comm Event Id</value>
@@ -779,6 +774,11 @@
         <value xml:lang="ru">Код типа классификации участника</value>
         <value xml:lang="th">รหัสการจัดแบ่งประเภทกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员分类类型标识</value>
+    </property>
+    <property key="FormFieldTitle_partyContentTypeId">
+        <value xml:lang="en">Parent Content Type Id</value>
+        <value xml:lang="fr">Réf. de type de contenu parent</value>
+        <value xml:lang="it">Tipo contenuto padre</value>
     </property>
     <property key="FormFieldTitle_partyId">
         <value xml:lang="ar">تعريف الطرف</value>
@@ -898,11 +898,6 @@
         <value xml:lang="th">ซ่อนรหัสผ่าน</value>
         <value xml:lang="zh">密码提示</value>
     </property>
-    <property key="FormFieldTitle_percentageUsed">
-        <value xml:lang="en">Percentage Used</value>
-        <value xml:lang="fr">Pourcentage utilisé</value>
-        <value xml:lang="it">Percentuale usata</value>
-    </property>
     <property key="FormFieldTitle_percentComplete">
         <value xml:lang="de">Prozent abgeschlossen</value>
         <value xml:lang="en">Percent Complete</value>
@@ -914,6 +909,11 @@
         <value xml:lang="ru">Завершение (%)</value>
         <value xml:lang="th">เปอร์เซ็นต์ความเสร็จสมบูรณ์</value>
         <value xml:lang="zh">百分数完成</value>
+    </property>
+    <property key="FormFieldTitle_percentageUsed">
+        <value xml:lang="en">Percentage Used</value>
+        <value xml:lang="fr">Pourcentage utilisé</value>
+        <value xml:lang="it">Percentuale usata</value>
     </property>
     <property key="FormFieldTitle_personalTitle">
         <value xml:lang="de">Titel</value>
@@ -1135,6 +1135,11 @@
         <value xml:lang="fr">Total des factures non allouées</value>
         <value xml:lang="it">Totale fatture non applicate</value>
     </property>
+    <property key="FormFieldTitle_totalPaymentNotApplied">
+        <value xml:lang="en">Total Payment Not Applied</value>
+        <value xml:lang="fr">Total des paiements non alloués</value>
+        <value xml:lang="it">Totale pagamenti non applicati</value>
+    </property>
     <property key="FormFieldTitle_totalPaymentsIn">
         <value xml:lang="de">Gesamteinzahlungen</value>
         <value xml:lang="en">Total Payments In</value>
@@ -1146,11 +1151,6 @@
         <value xml:lang="en">Total Payments Out</value>
         <value xml:lang="fr">Total des paiements dus</value>
         <value xml:lang="it">Totale pagamenti in uscita</value>
-    </property>
-    <property key="FormFieldTitle_totalPaymentNotApplied">
-        <value xml:lang="en">Total Payment Not Applied</value>
-        <value xml:lang="fr">Total des paiements non alloués</value>
-        <value xml:lang="it">Totale pagamenti non applicati</value>
     </property>
     <property key="FormFieldTitle_totalPurchaseInvoice">
         <value xml:lang="de">Gesamteinkaufsrechnung</value>
@@ -1267,14 +1267,6 @@
         <value xml:lang="nl">Uitnodiging relatie rol-associatie toevoegen</value>
         <value xml:lang="th">เพิ่มสถานะการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
-    <property key="PageTitleAddPartyTaxAuthInfos">
-        <value xml:lang="de">Informationen zur Steuerbehörde Akteur hinzufügen</value>
-        <value xml:lang="en">Add Party Tax Authority Info</value>
-        <value xml:lang="es">Añadir informacion de Autoridad Tributaria de participante</value>
-        <value xml:lang="fr">Ajoutez des informations sur l'administration fiscale</value>
-        <value xml:lang="it">Aggiungi informazioni autorità tasse soggetto</value>
-        <value xml:lang="nl">Informatie belastinginstantie toevoegen</value>
-    </property>
     <property key="PageTitleAddPartySegmentRoles">
         <value xml:lang="de">Akteur Segment Rolle hinzufügen</value>
         <value xml:lang="en">Add Party Segment Role</value>
@@ -1282,6 +1274,14 @@
         <value xml:lang="fr">Ajoutez un rôle de segmentation</value>
         <value xml:lang="it">Aggiungi ruolo segmento soggetto</value>
         <value xml:lang="nl">Segmentrol relatie toevoegen</value>
+    </property>
+    <property key="PageTitleAddPartyTaxAuthInfos">
+        <value xml:lang="de">Informationen zur Steuerbehörde Akteur hinzufügen</value>
+        <value xml:lang="en">Add Party Tax Authority Info</value>
+        <value xml:lang="es">Añadir informacion de Autoridad Tributaria de participante</value>
+        <value xml:lang="fr">Ajoutez des informations sur l'administration fiscale</value>
+        <value xml:lang="it">Aggiungi informazioni autorità tasse soggetto</value>
+        <value xml:lang="nl">Informatie belastinginstantie toevoegen</value>
     </property>
     <property key="PageTitleAddressMatchMap">
         <value xml:lang="en">Address Match Map</value>
@@ -1714,6 +1714,14 @@
         <value xml:lang="th">รายการการติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通列表</value>
     </property>
+    <property key="PageTitleListUnknownPartyComms">
+        <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
+        <value xml:lang="en">Communications from Unknown origin</value>
+        <value xml:lang="es">Comunicaciones de origen desconocido</value>
+        <value xml:lang="fr">Communications depuis une origine inconnue</value>
+        <value xml:lang="it">Communicazioni da origine sconosciuta</value>
+        <value xml:lang="nl">Communicatie van onbekende herkomst</value>
+    </property>
     <property key="PageTitleNewPartyNote">
         <value xml:lang="de">Neue Notiz zum Akteur</value>
         <value xml:lang="en">New Party Note</value>
@@ -1785,21 +1793,6 @@
         <value xml:lang="th">รายการสินค้าที่ซื้อ</value>
         <value xml:lang="zh">购物列表</value>
     </property>
-    <property key="PageTitleListUnknownPartyComms">
-        <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
-        <value xml:lang="en">Communications from Unknown origin</value>
-        <value xml:lang="es">Comunicaciones de origen desconocido</value>
-        <value xml:lang="fr">Communications depuis une origine inconnue</value>
-        <value xml:lang="it">Communicazioni da origine sconosciuta</value>
-        <value xml:lang="nl">Communicatie van onbekende herkomst</value>
-    </property>
-    <property key="PageTitleViewCommunication">
-        <value xml:lang="en">View Communication Event Information</value>
-        <value xml:lang="es">Ver información sobre evento de comunicación</value>
-        <value xml:lang="fr">Afficher l'information d'événement de communication</value>
-        <value xml:lang="it">Mostra informazioni evento comunicazioni</value>
-        <value xml:lang="nl">Info communicatie-actie bekijken</value>
-    </property>
     <property key="PageTitleViewCommPurposes">
         <value xml:lang="de">Kommunikation Zweck anzeigen</value>
         <value xml:lang="en">View Communication Purposes</value>
@@ -1823,6 +1816,13 @@
         <value xml:lang="ru">Просмотреть роли коммуникаций</value>
         <value xml:lang="th">แสดงสถานะของการติดต่อ</value>
         <value xml:lang="zh">浏览沟通角色</value>
+    </property>
+    <property key="PageTitleViewCommunication">
+        <value xml:lang="en">View Communication Event Information</value>
+        <value xml:lang="es">Ver información sobre evento de comunicación</value>
+        <value xml:lang="fr">Afficher l'information d'événement de communication</value>
+        <value xml:lang="it">Mostra informazioni evento comunicazioni</value>
+        <value xml:lang="nl">Info communicatie-actie bekijken</value>
     </property>
     <property key="PageTitleViewPartyClassificationGroupParties">
         <value xml:lang="de">Akteur Klassifizierungsgruppe des Akteurs anzeigen</value>
@@ -1861,11 +1861,6 @@
         <value xml:lang="ru">Просмотреть профиль участника</value>
         <value xml:lang="th">แสดงประวัติของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">浏览会员档案</value>
-    </property>
-    <property key="PartyProtectedViewsForSecurityGroup">
-        <value xml:lang="en">Protected Views For SecurityGroup</value>
-        <value xml:lang="fr">Vues protégées pour le groupe de sécurité</value>
-        <value xml:lang="it">Viste protette per gruppo sicurezza</value>
     </property>
     <property key="PageTitleViewPartyRole">
         <value xml:lang="de">Akteur Rollen anzeigen</value>
@@ -2658,22 +2653,6 @@
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนแปลงข้อมูลการติดต่อนี้ได้เพราะมันไม่เหมือนกันกับกลุ่มผู้ใช้</value>
         <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有与指定的会员联系起来。</value>
     </property>
-    <property key="PartyChangePassword">
-        <value xml:lang="cs">Změnit heslo</value>
-        <value xml:lang="de">Passwort ändern</value>
-        <value xml:lang="en">Change Password</value>
-        <value xml:lang="es">Cambiar Contraseña</value>
-        <value xml:lang="fr">Changement de mot de passe</value>
-        <value xml:lang="hi_IN">पासकोड बदलिये</value>
-        <value xml:lang="it">Cambio password</value>
-        <value xml:lang="ja">Change Password</value>
-        <value xml:lang="nl">Verander wachtwoord</value>
-        <value xml:lang="pt_PT">Alterar Senha</value>
-        <value xml:lang="ro">Schimbare Password</value>
-        <value xml:lang="ru">Изменить пароль</value>
-        <value xml:lang="th">เปลี่ยนรหัสผ่าน</value>
-        <value xml:lang="zh">修改密码</value>
-    </property>
     <property key="PartyCertComponent">
         <value xml:lang="de">Komponente</value>
         <value xml:lang="en">Component</value>
@@ -2776,6 +2755,22 @@
         <value xml:lang="ru">Изменить участника</value>
         <value xml:lang="th">เปลี่ยนกลุ่มผู้ใช้</value>
         <value xml:lang="zh">修改会员</value>
+    </property>
+    <property key="PartyChangePassword">
+        <value xml:lang="cs">Změnit heslo</value>
+        <value xml:lang="de">Passwort ändern</value>
+        <value xml:lang="en">Change Password</value>
+        <value xml:lang="es">Cambiar Contraseña</value>
+        <value xml:lang="fr">Changement de mot de passe</value>
+        <value xml:lang="hi_IN">पासकोड बदलिये</value>
+        <value xml:lang="it">Cambio password</value>
+        <value xml:lang="ja">Change Password</value>
+        <value xml:lang="nl">Verander wachtwoord</value>
+        <value xml:lang="pt_PT">Alterar Senha</value>
+        <value xml:lang="ro">Schimbare Password</value>
+        <value xml:lang="ru">Изменить пароль</value>
+        <value xml:lang="th">เปลี่ยนรหัสผ่าน</value>
+        <value xml:lang="zh">修改密码</value>
     </property>
     <property key="PartyChildCommunicationEvents">
         <value xml:lang="de">Untergeordnete Kommunikationsereignisse</value>
@@ -3042,8 +3037,8 @@
         <value xml:lang="de">Kommunikationsereignis</value>
         <value xml:lang="en">Communication Event</value>
         <value xml:lang="es">Evento de comunicación</value>
-        <value xml:lang="it">Evento comunicazioni</value>
         <value xml:lang="fr">Evénement de communication</value>
+        <value xml:lang="it">Evento comunicazioni</value>
     </property>
     <property key="PartyCommunications">
         <value xml:lang="de">Kommunikationen</value>
@@ -3220,6 +3215,18 @@
         <value xml:lang="th">ข้อมูลที่ติดต่อได้</value>
         <value xml:lang="zh">联系信息</value>
     </property>
+    <property key="PartyContactListPartyCreate">
+        <value xml:lang="de">Akteur zur Kontaktliste hinzufügen</value>
+        <value xml:lang="en">Add Party to Contact List</value>
+        <value xml:lang="es">Añadir participante</value>
+        <value xml:lang="fr">Ajouter un acteur à la liste de contacts</value>
+        <value xml:lang="it">Aggiungi Soggetti alla Lista Contatti</value>
+        <value xml:lang="nl">Relatie aan contactlijst toevoegen</value>
+        <value xml:lang="ro">Adauga la Lista Contacte</value>
+        <value xml:lang="ru">Добавить новый контакт в список</value>
+        <value xml:lang="th">เพิ่มกลุ่มผู้ใช้รายการติดต่อ</value>
+        <value xml:lang="zh">把会员添加到联系列表</value>
+    </property>
     <property key="PartyContactLists">
         <value xml:lang="de">Kontaktlisten</value>
         <value xml:lang="en">Contact Lists</value>
@@ -3233,18 +3240,6 @@
         <value xml:lang="ru">Список контактов</value>
         <value xml:lang="th">รายการข้อมูล</value>
         <value xml:lang="zh">联系列表</value>
-    </property>
-    <property key="PartyContactListPartyCreate">
-        <value xml:lang="de">Akteur zur Kontaktliste hinzufügen</value>
-        <value xml:lang="en">Add Party to Contact List</value>
-        <value xml:lang="es">Añadir participante</value>
-        <value xml:lang="fr">Ajouter un acteur à la liste de contacts</value>
-        <value xml:lang="it">Aggiungi Soggetti alla Lista Contatti</value>
-        <value xml:lang="nl">Relatie aan contactlijst toevoegen</value>
-        <value xml:lang="ro">Adauga la Lista Contacte</value>
-        <value xml:lang="ru">Добавить новый контакт в список</value>
-        <value xml:lang="th">เพิ่มกลุ่มผู้ใช้รายการติดต่อ</value>
-        <value xml:lang="zh">把会员添加到联系列表</value>
     </property>
     <property key="PartyContactMechIdMissing">
         <value xml:lang="de">Kontakt Mech ID fehlt</value>
@@ -3273,17 +3268,6 @@
         <value xml:lang="ru">ОШИБКА: Невозможно удалить информацию о контакте (контактный механизм участника не найден)</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถลบข้อมูลการติดต่อนี้ได้ (ไม่พบข้อมูลการติดต่อของกลุ่มผู้ใช้นี้)</value>
         <value xml:lang="zh">错误：无法删除联系信息 (没有找到会员联系方式)</value>
-    </property>
-    <property key="PartyContactMechs">
-        <value xml:lang="de">Kontaktmechanismus</value>
-        <value xml:lang="en">ContactMechs</value>
-        <value xml:lang="es">Mecanismos de Contacto</value>
-        <value xml:lang="fr">Coordonnées</value>
-        <value xml:lang="it">Contatto</value>
-        <value xml:lang="ro">Contact</value>
-        <value xml:lang="ru">СпособСвязи</value>
-        <value xml:lang="th">วิธีการติดต่อ</value>
-        <value xml:lang="zh">联系方式</value>
     </property>
     <property key="PartyContactMechType">
         <value xml:lang="de">Kontaktmechanismus Typ</value>
@@ -3331,6 +3315,17 @@
         <value xml:lang="ru">Контактный механизм успешно обновлен.</value>
         <value xml:lang="th">เปลี่ยนแปลงวิธีการติดต่อให้เป็นผลสำเร็จ</value>
         <value xml:lang="zh">已成功更新联系方式。</value>
+    </property>
+    <property key="PartyContactMechs">
+        <value xml:lang="de">Kontaktmechanismus</value>
+        <value xml:lang="en">ContactMechs</value>
+        <value xml:lang="es">Mecanismos de Contacto</value>
+        <value xml:lang="fr">Coordonnées</value>
+        <value xml:lang="it">Contatto</value>
+        <value xml:lang="ro">Contact</value>
+        <value xml:lang="ru">СпособСвязи</value>
+        <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="zh">联系方式</value>
     </property>
     <property key="PartyContactMobilePhoneNumber">
         <value xml:lang="de">Mobiltelefonnummer</value>
@@ -3722,19 +3717,6 @@
         <value xml:lang="th">สร้างลูกค้า</value>
         <value xml:lang="zh">创建客户</value>
     </property>
-    <property key="PartyCreateNewEmployee">
-        <value xml:lang="de">Neuen Angestellten erstellen</value>
-        <value xml:lang="en">Create Employee</value>
-        <value xml:lang="es">Nuevo empleado</value>
-        <value xml:lang="fr">Créer un nouvel employé</value>
-        <value xml:lang="it">Creare Dipendente</value>
-        <value xml:lang="nl">Nieuwe medewerker</value>
-        <value xml:lang="pt_PT">Criar Empregado</value>
-        <value xml:lang="ro">Creare Angajat</value>
-        <value xml:lang="ru">Создать работника</value>
-        <value xml:lang="th">สร้างพนักงาน</value>
-        <value xml:lang="zh">创建职员</value>
-    </property>
     <property key="PartyCreateNewEftAccount">
         <value xml:lang="de">Neue Bankverbindung anlegen</value>
         <value xml:lang="en">Create New EFT Account</value>
@@ -3749,6 +3731,19 @@
         <value xml:lang="ru">Создать новый текущий счет</value>
         <value xml:lang="th">สร้างบัญชีธนาคารใหม่</value>
         <value xml:lang="zh">新建电子资金转账账户</value>
+    </property>
+    <property key="PartyCreateNewEmployee">
+        <value xml:lang="de">Neuen Angestellten erstellen</value>
+        <value xml:lang="en">Create Employee</value>
+        <value xml:lang="es">Nuevo empleado</value>
+        <value xml:lang="fr">Créer un nouvel employé</value>
+        <value xml:lang="it">Creare Dipendente</value>
+        <value xml:lang="nl">Nieuwe medewerker</value>
+        <value xml:lang="pt_PT">Criar Empregado</value>
+        <value xml:lang="ro">Creare Angajat</value>
+        <value xml:lang="ru">Создать работника</value>
+        <value xml:lang="th">สร้างพนักงาน</value>
+        <value xml:lang="zh">创建职员</value>
     </property>
     <property key="PartyCreateNewGiftCard">
         <value xml:lang="cs">Založit nový dárkový poukaz</value>
@@ -4220,22 +4215,6 @@
         <value xml:lang="th">ที่อยู่อีเมล</value>
         <value xml:lang="zh">电子邮件地址</value>
     </property>
-    <property key="PartyEmailAddresses">
-        <value xml:lang="cs">E-mailové adresy</value>
-        <value xml:lang="de">E-Mail Adressen</value>
-        <value xml:lang="en">Email Addresses</value>
-        <value xml:lang="es">Direcciones de Email</value>
-        <value xml:lang="fr">Adresses courriel</value>
-        <value xml:lang="hi_IN">ईमेल पता</value>
-        <value xml:lang="it">Indirizzi email</value>
-        <value xml:lang="ja">Email Addresses</value>
-        <value xml:lang="nl">Email Adressen</value>
-        <value xml:lang="pt_PT">Moradas de E-mail</value>
-        <value xml:lang="ro">Adrese Email</value>
-        <value xml:lang="ru">Адреса эл.почты</value>
-        <value xml:lang="th">ที่อยู่อีเมล์</value>
-        <value xml:lang="zh">电子邮件地址</value>
-    </property>
     <property key="PartyEmailAddressMissing">
         <value xml:lang="de">E-Mail Adresse fehlt</value>
         <value xml:lang="en">Email Address is missing</value>
@@ -4320,6 +4299,22 @@
         <value xml:lang="it">La verifica dell'indirizzo email è scaduta.</value>
         <value xml:lang="nl">De verificatie van het e-mailadres is verlopen.</value>
         <value xml:lang="th">ที่อยู่อีเมล์นี้จากการตรวจสอบพบว่าหมดอายุ</value>
+    </property>
+    <property key="PartyEmailAddresses">
+        <value xml:lang="cs">E-mailové adresy</value>
+        <value xml:lang="de">E-Mail Adressen</value>
+        <value xml:lang="en">Email Addresses</value>
+        <value xml:lang="es">Direcciones de Email</value>
+        <value xml:lang="fr">Adresses courriel</value>
+        <value xml:lang="hi_IN">ईमेल पता</value>
+        <value xml:lang="it">Indirizzi email</value>
+        <value xml:lang="ja">Email Addresses</value>
+        <value xml:lang="nl">Email Adressen</value>
+        <value xml:lang="pt_PT">Moradas de E-mail</value>
+        <value xml:lang="ro">Adrese Email</value>
+        <value xml:lang="ru">Адреса эл.почты</value>
+        <value xml:lang="th">ที่อยู่อีเมล์</value>
+        <value xml:lang="zh">电子邮件地址</value>
     </property>
     <property key="PartyEmailFromUnknownParties">
         <value xml:lang="de">E-Mail von unbekanntem Akteur</value>
@@ -7150,6 +7145,11 @@
         <value xml:lang="fr">Vues protégées</value>
         <value xml:lang="it">Viste protette</value>
     </property>
+    <property key="PartyProtectedViewsForSecurityGroup">
+        <value xml:lang="en">Protected Views For SecurityGroup</value>
+        <value xml:lang="fr">Vues protégées pour le groupe de sécurité</value>
+        <value xml:lang="it">Viste protette per gruppo sicurezza</value>
+    </property>
     <property key="PartyProvinceInCanadaMissing">
         <value xml:lang="de">Provinz fehlt und wird benötigt für eine Adresse in Kanada.</value>
         <value xml:lang="en">Province is missing, and is required for an address in Canada.</value>
@@ -8072,6 +8072,10 @@
         <value xml:lang="th">เมือง/จังหวัด</value>
         <value xml:lang="zh">州/省</value>
     </property>
+    <property key="PartyStateInCanadaMissing">
+        <value xml:lang="en">State is missing, and is required for an address in Canada.</value>
+        <value xml:lang="it">Stato mancante, ed è richiesto per un'indirizzo in Canada.</value>
+    </property>
     <property key="PartyStateInUsMissing">
         <value xml:lang="de">Staat fehlt und wird zwingend benötigt für eine Adresse in den Vereinigten Staaten.</value>
         <value xml:lang="en">State is missing, and is required for an address in the United States.</value>
@@ -8084,10 +8088,6 @@
         <value xml:lang="ru">Отсутствует штат. Обязателен для адреса в США.</value>
         <value xml:lang="th">ไม่ได้ใส่เมือง, และต้องการที่อยู่ในสหรัฐอเมริกา</value>
         <value xml:lang="zh">缺少州，必须是美国的地址。</value>
-    </property>
-    <property key="PartyStateInCanadaMissing">
-        <value xml:lang="en">State is missing, and is required for an address in Canada.</value>
-        <value xml:lang="it">Stato mancante, ed è richiesto per un'indirizzo in Canada.</value>
     </property>
     <property key="PartyStateMissingError">
         <value xml:lang="en">State is missing</value>
@@ -8720,13 +8720,13 @@
         <value xml:lang="en">Value from party level</value>
         <value xml:lang="it">Valore a livello di soggetto</value>
     </property>
-    <property key="PartyValueFromWorkEffortLevel">
-        <value xml:lang="en">Value from workeffort level</value>
-        <value xml:lang="it">Valore a livello di impegno di lavoro</value>
-    </property>
     <property key="PartyValueFromRateTypeLevel">
         <value xml:lang="en">Value from rateType level</value>
         <value xml:lang="it">Valore a livello di tipo tasso</value>
+    </property>
+    <property key="PartyValueFromWorkEffortLevel">
+        <value xml:lang="en">Value from workeffort level</value>
+        <value xml:lang="it">Valore a livello di impegno di lavoro</value>
     </property>
     <property key="PartyVendor">
         <value xml:lang="de">Lieferant</value>
@@ -8788,6 +8788,11 @@
         <value xml:lang="th">ดูรูปภาพ</value>
         <value xml:lang="zh">浏览图像</value>
     </property>
+    <property key="PartyViewName">
+        <value xml:lang="en">View Name</value>
+        <value xml:lang="fr">Nom de la vue</value>
+        <value xml:lang="it">Mostra nome</value>
+    </property>
     <property key="PartyViewPostalAddressBoundaryPermissionError">
         <value xml:lang="de">Sicherheitsfehler: um getPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_VIEW oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run getPostalAddressBoundary you must have the PARTY_VIEW or PARTY_ADMIN permission</value>
@@ -8799,11 +8804,6 @@
         <value xml:lang="ru">Ошибка доступа: для запуска getPostalAddressBoundary у вас должны быть права PARTY_VIEW или PARTY_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรับค่ารหัสไปรษณีย์ คุณต้องได้รับอนุญาตจาก PARTY_VIEW หรือ PARTY_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 getPostalAddressBoundary，你必须具有 PARTY_VIEW 或 PARTY_ADMIN 权限</value>
-    </property>
-    <property key="PartyViewName">
-        <value xml:lang="en">View Name</value>
-        <value xml:lang="fr">Nom de la vue</value>
-        <value xml:lang="it">Mostra nome</value>
     </property>
     <property key="PartyViewSegmentRoles">
         <value xml:lang="de">Akteur Segment Rolle anzeigen</value>

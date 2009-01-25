@@ -42,6 +42,12 @@
         <value xml:lang="ru">Группа 'Ограниченный администратор каталога', содержит ограниченные права на каталог.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบหมวดหมู่จำกัด, มีการอนุญาตหมวดหมู่จำกัด.</value>
     </property>
+    <property key="SecurityGroup.description.CONTENT_USER">
+        <value xml:lang="en">Content user group; all limited content permissions.</value>
+        <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
+        <value xml:lang="fr">Groupe d'utilisateurs de contenu, toutes autorisations de contenu limitées.</value>
+        <value xml:lang="it">Gruppo utenti contenuto; ha tutti i permessi limitati ai contenuti.</value>
+    </property>
     <property key="SecurityGroup.description.FLEXADMIN">
         <value xml:lang="en">Flexible Admin group, has all granular permissions.</value>
         <value xml:lang="es">Permisos de Administración Flexible, posee todos los permisos granulares.</value>
@@ -130,6 +136,12 @@
         <value xml:lang="ru">Служащий POS</value>
         <value xml:lang="th">พนักงาน ณ.จุดขาย</value>
     </property>
+    <property key="SecurityGroup.description.SECURITYADMIN">
+        <value xml:lang="en">Security Admin group, has all permissions to modify security settings in party manager.</value>
+        <value xml:lang="es">Grupo de administradores de seguridad, tiene todos los permisos para modificar ajustes de seguridad en el gestor de participantes.</value>
+        <value xml:lang="fr">Groupe d'administration de sécurité, ayant toutes les autorisations pour modifier les paramètres de sécurité dans la gestion d'acteur.</value>
+        <value xml:lang="it">Gruppo amministratore sicurezza, ha tutti i permessi per modificare le impostazioni sicurezza nella gestione soggetti.</value>
+    </property>
     <property key="SecurityGroup.description.VIEWADMIN">
         <value xml:lang="en">Demo Admin group, has all view permissions.</value>
         <value xml:lang="es">Demo de Administración, tiene todos los permisos de visualización.</value>
@@ -137,18 +149,6 @@
         <value xml:lang="it">Gruppo amministratore demo, ha tutti i permessi in visualizzazione.</value>
         <value xml:lang="ru">Группа 'Демо администратор', содержит все права на просмотр.</value>
         <value xml:lang="th">ตัวอย่างกลุ่มผู้ดูแลระบบ, มีการอนุญาตการแสดงทั้งหมด</value>
-    </property>
-    <property key="SecurityGroup.description.SECURITYADMIN">
-        <value xml:lang="en">Security Admin group, has all permissions to modify security settings in party manager.</value>
-        <value xml:lang="es">Grupo de administradores de seguridad, tiene todos los permisos para modificar ajustes de seguridad en el gestor de participantes.</value>
-        <value xml:lang="fr">Groupe d'administration de sécurité, ayant toutes les autorisations pour modifier les paramètres de sécurité dans la gestion d'acteur.</value>
-        <value xml:lang="it">Gruppo amministratore sicurezza, ha tutti i permessi per modificare le impostazioni sicurezza nella gestione soggetti.</value>
-    </property>
-    <property key="SecurityGroup.description.CONTENT_USER">
-        <value xml:lang="en">Content user group; all limited content permissions.</value>
-        <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
-        <value xml:lang="fr">Groupe d'utilisateurs de contenu, toutes autorisations de contenu limitées.</value>
-        <value xml:lang="it">Gruppo utenti contenuto; ha tutti i permessi limitati ai contenuti.</value>
     </property>
     <property key="SecurityGroup.description.WORKEFFORT_USER">
         <value xml:lang="en">WorkEffort user group; all limited workeffort permissions.</value>
@@ -1317,4 +1317,3 @@
         <value xml:lang="th">ใช้หน้าการรักษาสภาพขั้นตอนการทำงาน</value>
     </property>
 </resource>
-

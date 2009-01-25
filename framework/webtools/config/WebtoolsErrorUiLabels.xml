@@ -123,6 +123,11 @@
         <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง</value>
         <value xml:lang="zh">你没有足够的权限</value>
     </property>
+    <property key="genericWebEvent.not_sufficient_permissions_01Tu">
+        <value xml:lang="en">genericWebEvent.not_sufficient_permissions_01Tu</value>
+        <value xml:lang="fr">Vous n'avez pas les autorisations nécessaires</value>
+        <value xml:lang="it">non hai sufficienti permessi per</value>
+    </property>
     <property key="genericWebEvent.not_sufficient_permissions_02">
         <value xml:lang="en">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} or ${entityPlainTableName}_ADMIN needed)</value>
         <value xml:lang="es">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} o ${entityPlainTableName}_ADMIN necesarios)</value>
@@ -176,6 +181,11 @@
         <value xml:lang="ro">Validare falita</value>
         <value xml:lang="th">การให้เหตุผลผิดพลาด</value>
         <value xml:lang="zh">验证失败</value>
+    </property>
+    <property key="saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile">
+        <value xml:lang="en">Exception during saving labels to xml file</value>
+        <value xml:lang="fr">Erreur durant la sauvegarde des traductions dans le fichier XML</value>
+        <value xml:lang="it">Eccezione durante il salvataggio delle labels su file xml</value>
     </property>
     <property key="utilCache.clearAllCaches">
         <value xml:lang="en">Cleared all caches</value>
@@ -272,15 +282,5 @@
         <value xml:lang="ro">Nu ai permisul de a executa aceasta operatie, permis UTIL_CACHE_EDIT cerut</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการทำงานการดำเนินการนี้, UTIL_CACHE_EDIT ต้องการ</value>
         <value xml:lang="zh">你没有执行这个操作的权限，需要UTIL_CACHE_EDIT</value>
-    </property>
-    <property key="genericWebEvent.not_sufficient_permissions_01Tu">
-        <value xml:lang="en">genericWebEvent.not_sufficient_permissions_01Tu</value>
-        <value xml:lang="fr">Vous n'avez pas les autorisations nécessaires</value>
-        <value xml:lang="it">non hai sufficienti permessi per</value>
-    </property>
-    <property key="saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile">
-        <value xml:lang="en">Exception during saving labels to xml file</value>
-        <value xml:lang="fr">Erreur durant la sauvegarde des traductions dans le fichier XML</value>
-        <value xml:lang="it">Eccezione durante il salvataggio delle labels su file xml</value>
     </property>
 </resource>

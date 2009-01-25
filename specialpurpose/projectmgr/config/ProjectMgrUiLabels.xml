@@ -781,17 +781,17 @@
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
         <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
     </property>
-    <property key="ProjectMgrNonBilledActualHours">
-        <value xml:lang="en">Act Hrs not billed</value>
-        <value xml:lang="fr">Heures réelles non facturées</value>
-        <value xml:lang="it">Ore attuali non fatturate</value>
-    </property>
     <property key="ProjectMgrNoPhasesYet">
         <value xml:lang="en">No phases have been created yet, tasks can not exist without a phase as parent, so create a phase first</value>
         <value xml:lang="fr">Aucune phase n'a encore été créée, une tâche ne peut exister sans une phase comme ancêtre, veuillez créer une phase d'abord</value>
         <value xml:lang="it">Nessuna fase è ancora stata creata, compito non può esistere senza una fase come padre, quindi creare prima una fase</value>
         <value xml:lang="th">ไม่มีขั้นตอนการทำงานที่สร้างเสร็จแล้ว , งานไม่สามารถมีอยู่โดยปราศจากขั้นตอนการทำงานเหมือนกลุ่ม , ดังนั้นสร้างขั้นตอนการทำงานเป็นอันดับแรก</value>
         <value xml:lang="zh">该项目有没有创建任何的阶段，请先创建项目阶段，任务必须以项目阶段为父节点</value>
+    </property>
+    <property key="ProjectMgrNonBilledActualHours">
+        <value xml:lang="en">Act Hrs not billed</value>
+        <value xml:lang="fr">Heures réelles non facturées</value>
+        <value xml:lang="it">Ore attuali non fatturate</value>
     </property>
     <property key="ProjectMgrNotesCreateNew">
         <value xml:lang="en">Create New</value>
@@ -918,11 +918,6 @@
         <value xml:lang="th">ไม่มีข้อความสำหรับโปรเจคนี้</value>
         <value xml:lang="zh">该项目没有注释</value>
     </property>
-    <property key="ProjectMgrProjects">
-        <value xml:lang="en">Projects</value>
-        <value xml:lang="fr">Projets</value>
-        <value xml:lang="it">Progetti</value>
-    </property>
     <property key="ProjectMgrProjectSummary">
         <value xml:lang="en">Project Summary</value>
         <value xml:lang="fr">Résumé des projets</value>
@@ -936,6 +931,11 @@
         <value xml:lang="it">Gruppo progetto</value>
         <value xml:lang="th">ทีมโปรเจค</value>
         <value xml:lang="zh">项目团队</value>
+    </property>
+    <property key="ProjectMgrProjects">
+        <value xml:lang="en">Projects</value>
+        <value xml:lang="fr">Projets</value>
+        <value xml:lang="it">Progetti</value>
     </property>
     <property key="ProjectMgrProviders">
         <value xml:lang="en">Providers</value>

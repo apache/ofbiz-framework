@@ -383,6 +383,12 @@
         <value xml:lang="th">ไม่สามารถใช้การลอกอินเข้าสู่ระบบของผู้ใช้เก่า  (การเขียนช้มเหลว): ${errorMessage}. </value>
         <value xml:lang="zh">无法禁用旧的登录用户(写错误)：${errorMessage}。</value>
     </property>
+    <property key="loginservices.ldap_authentication_failed">
+        <value xml:lang="de">Anmeldung LDAP nicht möglich.</value>
+        <value xml:lang="en">LDAP authentication failed.</value>
+        <value xml:lang="fr">L'authentification LDAP a échouée.</value>
+        <value xml:lang="it">Autenticazione LDAP fallita.</value>
+    </property>
     <property key="loginservices.must_be_logged_in_and_permission_create_login_party_ID_exists">
         <value xml:lang="de">Sie müssen mit den erforderlichen Berechtigungen angemeldet sein um ein user-login mit einer Party ID anzulegen, für eine Party die bereits existiert.</value>
         <value xml:lang="en">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
@@ -624,11 +630,5 @@
         <value xml:lang="ru">Он будет разблокирован ${reEnableTime}.</value>
         <value xml:lang="th">มันจะไม่สามารถใช้ได้อีกครั้ง ${reEnableTime}.</value>
         <value xml:lang="zh">将重新启用 ${reEnableTime}。</value>
-    </property>
-    <property key="loginservices.ldap_authentication_failed">
-        <value xml:lang="de">Anmeldung LDAP nicht möglich.</value>
-        <value xml:lang="en">LDAP authentication failed.</value>
-        <value xml:lang="fr">L'authentification LDAP a échouée.</value>
-        <value xml:lang="it">Autenticazione LDAP fallita.</value>
     </property>
 </resource>

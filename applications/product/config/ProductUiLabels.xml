@@ -2136,13 +2136,6 @@
         <value xml:lang="ru">Негабаритное место</value>
         <value xml:lang="th">หน่วยมากกว่าปกติ</value>
     </property>
-    <property key="FormFieldTitle_parentFacilityId">
-        <value xml:lang="de">Übergeordnete Einrichtung ID</value>
-        <value xml:lang="en">Parent Facility Id</value>
-        <value xml:lang="es">Código Almacén precursor</value>
-        <value xml:lang="fr">Lieu de stockage parent</value>
-        <value xml:lang="it">Stabilimento padre</value>
-    </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="de">Übergeordnete Einrichtungsgruppe ID</value>
         <value xml:lang="en">Parent Facility Group Id</value>
@@ -2150,6 +2143,13 @@
         <value xml:lang="fr">Réf. de groupe de lieux de stockage parent</value>
         <value xml:lang="it">Gruppo Stabilimento Padre</value>
         <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
+    </property>
+    <property key="FormFieldTitle_parentFacilityId">
+        <value xml:lang="de">Übergeordnete Einrichtung ID</value>
+        <value xml:lang="en">Parent Facility Id</value>
+        <value xml:lang="es">Código Almacén precursor</value>
+        <value xml:lang="fr">Lieu de stockage parent</value>
+        <value xml:lang="it">Stabilimento padre</value>
     </property>
     <property key="FormFieldTitle_partyNeedId">
         <value xml:lang="de">Akteur Bedarf ID</value>
@@ -2386,6 +2386,13 @@
         <value xml:lang="ru">Код группы особенностей продукта</value>
         <value xml:lang="th">รหัสกลุ่มลักษณะสินค้า</value>
     </property>
+    <property key="FormFieldTitle_productFeatureIactnTypeId">
+        <value xml:lang="de">Interaktionstyp</value>
+        <value xml:lang="en">Interaction Type</value>
+        <value xml:lang="es">Código Tipo de interacción</value>
+        <value xml:lang="fr">Type d'interaction</value>
+        <value xml:lang="it">Tipo interattivo</value>
+    </property>
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
         <value xml:lang="de">Produktmerkmal ID</value>
@@ -2403,13 +2410,6 @@
         <value xml:lang="en">Product Feature Id To</value>
         <value xml:lang="fr">Réf. de caractéristique de produit dest.</value>
         <value xml:lang="it">Caratteristica prodotto a</value>
-    </property>
-    <property key="FormFieldTitle_productFeatureIactnTypeId">
-        <value xml:lang="de">Interaktionstyp</value>
-        <value xml:lang="en">Interaction Type</value>
-        <value xml:lang="fr">Type d'interaction</value>
-        <value xml:lang="es">Código Tipo de interacción</value>
-        <value xml:lang="it">Tipo interattivo</value>
     </property>
     <property key="FormFieldTitle_productFeatureTypeId">
         <value xml:lang="de">Produktmerkmal Typ ID</value>
@@ -2503,8 +2503,8 @@
         <value xml:lang="en">Product Promo Id</value>
         <value xml:lang="es">Código Promoción de producto</value>
         <value xml:lang="fr">Réf. de promotion</value>
-        <value xml:lang="nl">ID product-promo</value>
         <value xml:lang="it">Codice Promozione Prodotto</value>
+        <value xml:lang="nl">ID product-promo</value>
         <value xml:lang="ro">Cod Promotie Produs</value>
         <value xml:lang="ru">Код акции</value>
         <value xml:lang="th">รหัสโปรโมชันสินค้า</value>
@@ -4240,6 +4240,13 @@
         <value xml:lang="th">แก้ไขลักษณะหมวดหมู่</value>
         <value xml:lang="zh">编辑特征分类特征</value>
     </property>
+    <property key="PageTitleEditFeatureInterActions">
+        <value xml:lang="de">Merkmal Interaktionen bearbeiten</value>
+        <value xml:lang="en">Edit Feature InterActions</value>
+        <value xml:lang="es">Editar características</value>
+        <value xml:lang="fr">Modifier les interactions entre caractéristiques</value>
+        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
+    </property>
     <property key="PageTitleEditFeaturePrice">
         <value xml:lang="de">Merkmal Preis bearbeiten</value>
         <value xml:lang="en">Edit Feature Price</value>
@@ -4266,20 +4273,6 @@
         <value xml:lang="th">แก้ไขประเภทการทำงาน</value>
         <value xml:lang="zh">编辑特征类型</value>
     </property>
-    <property key="PageTitleEditProductFeatureInteractions">
-        <value xml:lang="de">Produktmerkmal Interationen bearbeiten</value>
-        <value xml:lang="en">Edit Product Feature Interactions</value>
-        <value xml:lang="es">Editar interacciones de características</value>
-        <value xml:lang="fr">Modifier les interactions entre caractéristiques de produit</value>
-        <value xml:lang="it">Aggiorna caratteristica interattiva prodotto</value>
-    </property>
-    <property key="PageTitleEditFeatureInterActions">
-        <value xml:lang="de">Merkmal Interaktionen bearbeiten</value>
-        <value xml:lang="en">Edit Feature InterActions</value>
-        <value xml:lang="es">Editar características</value>
-        <value xml:lang="fr">Modifier les interactions entre caractéristiques</value>
-        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
-    </property>
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="de">Bestandspositionen bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item</value>
@@ -4299,12 +4292,6 @@
         <value xml:lang="it">Aggiorna Applicabilità Etichetta Riga Inventario</value>
         <value xml:lang="th">Edit Inventory Item Label Appls</value>
     </property>
-    <property key="PageTitleEditInventoryItemLabels">
-        <value xml:lang="de">Bestandsposition Etiketten bearbeiten</value>
-        <value xml:lang="en">Edit Inventory Item Labels</value>
-        <value xml:lang="es">Editar etiquetas de ítems de inventario</value>
-        <value xml:lang="it">Aggiorna riga inventario etichette</value>
-    </property>
     <property key="PageTitleEditInventoryItemLabelTypes">
         <value xml:lang="de">Bestandspositione Etikettentypen bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Label Types</value>
@@ -4312,6 +4299,12 @@
         <value xml:lang="fr">Modifier les types d'étiquette d'article d'inventaire</value>
         <value xml:lang="it">Aggiorna Tipo Etichetta Riga Inventario</value>
         <value xml:lang="th">Edit Inventory Item Label Types</value>
+    </property>
+    <property key="PageTitleEditInventoryItemLabels">
+        <value xml:lang="de">Bestandsposition Etiketten bearbeiten</value>
+        <value xml:lang="en">Edit Inventory Item Labels</value>
+        <value xml:lang="es">Editar etiquetas de ítems de inventario</value>
+        <value xml:lang="it">Aggiorna riga inventario etichette</value>
     </property>
     <property key="PageTitleEditProduct">
         <value xml:lang="de">Produkt bearbeiten</value>
@@ -4507,6 +4500,13 @@
         <value xml:lang="ru">Изменить группы особенностей</value>
         <value xml:lang="th">แก้ไขกลุ่มลักษณะ</value>
         <value xml:lang="zh">编辑特征组</value>
+    </property>
+    <property key="PageTitleEditProductFeatureInteractions">
+        <value xml:lang="de">Produktmerkmal Interationen bearbeiten</value>
+        <value xml:lang="en">Edit Product Feature Interactions</value>
+        <value xml:lang="es">Editar interacciones de características</value>
+        <value xml:lang="fr">Modifier les interactions entre caractéristiques de produit</value>
+        <value xml:lang="it">Aggiorna caratteristica interattiva prodotto</value>
     </property>
     <property key="PageTitleEditProductFeatures">
         <value xml:lang="de">Produktmerkmale bearbeiten</value>
@@ -5199,6 +5199,13 @@
         <value xml:lang="ru">Список способов доставки перевозчика</value>
         <value xml:lang="th">List Carrier Shipment Methods</value>
     </property>
+    <property key="PageTitleListFeatureInteractions">
+        <value xml:lang="de">Liste Produktmerkmale Interaktionen</value>
+        <value xml:lang="en">List Product Feature Interactions</value>
+        <value xml:lang="es">Listar interacciones de características</value>
+        <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
+        <value xml:lang="it">Lista caratteristiche interattive prodotto</value>
+    </property>
     <property key="PageTitleListProductFeatureApplAttrs">
         <value xml:lang="de">Liste Produktmerkmale Anwendung Attribute</value>
         <value xml:lang="en">List Product Feature Appl Attrs</value>
@@ -5206,13 +5213,6 @@
         <value xml:lang="fr">Liste des attributs des caractéristiques de produit applicables</value>
         <value xml:lang="it">Lista Prodotti Attributi Caratteristiche</value>
         <value xml:lang="th">List Product Feature Appl Attrs</value>
-    </property>
-    <property key="PageTitleListFeatureInteractions">
-        <value xml:lang="de">Liste Produktmerkmale Interaktionen</value>
-        <value xml:lang="en">List Product Feature Interactions</value>
-        <value xml:lang="es">Listar interacciones de características</value>
-        <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
-        <value xml:lang="it">Lista caratteristiche interattive prodotto</value>
     </property>
     <property key="PageTitleListProductFeatureTypes">
         <value xml:lang="de">Liste Produktmerkmale Typen</value>
@@ -5603,13 +5603,6 @@
         <value xml:lang="it">Mostra Percorso Spedizione</value>
         <value xml:lang="th">แสดงข้อมูลเส้นทางการขนส่ง</value>
     </property>
-    <property key="ProductAddItemsFromInventory">
-        <value xml:lang="de">Positionen vom Bestand hinzufügen</value>
-        <value xml:lang="en">Add Items From Inventory</value>
-        <value xml:lang="es">Añadir ítems del inventario</value>
-        <value xml:lang="fr">Ajouter un article depuis le stock</value>
-        <value xml:lang="it">Aggiungi righe da inventario</value>
-    </property>
     <property key="ProductAbbrev">
         <value xml:lang="de">Abkürzung</value>
         <value xml:lang="en">Abbrev</value>
@@ -5825,14 +5818,6 @@
         <value xml:lang="it">Aggiungi Categoria Figlio</value>
         <value xml:lang="th">เพิ่มหมวดหมู่เด็ก</value>
     </property>
-    <property key="ProductAddCategoryParent">
-        <value xml:lang="de">Übergeordnete Kategorie hinzufügen</value>
-        <value xml:lang="en">Add Category Parent</value>
-        <value xml:lang="es">Añadir precursor de categoría</value>
-        <value xml:lang="fr">Ajouter une catégorie parente</value>
-        <value xml:lang="it">Aggiungi Categoria Padre</value>
-        <value xml:lang="th">เพิ่มหมวดหมู่</value>
-    </property>
     <property key="ProductAddCategoryGlAccount">
         <value xml:lang="de">Kategorie Hauptbuchkonto hinzufügen</value>
         <value xml:lang="en">Add Category GL Account</value>
@@ -5840,6 +5825,14 @@
         <value xml:lang="fr">Ajouter une catégorie de compte du grand livre</value>
         <value xml:lang="it">Aggiungi Conto Gl</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีทั่วไป</value>
+    </property>
+    <property key="ProductAddCategoryParent">
+        <value xml:lang="de">Übergeordnete Kategorie hinzufügen</value>
+        <value xml:lang="en">Add Category Parent</value>
+        <value xml:lang="es">Añadir precursor de categoría</value>
+        <value xml:lang="fr">Ajouter une catégorie parente</value>
+        <value xml:lang="it">Aggiungi Categoria Padre</value>
+        <value xml:lang="th">เพิ่มหมวดหมู่</value>
     </property>
     <property key="ProductAddContentCategory">
         <value xml:lang="de">Inhalt zu Kategorie hinzufügen</value>
@@ -5884,13 +5877,6 @@
         <value xml:lang="ru">Добавить новый компонент затрат</value>
         <value xml:lang="th">เพิ่มส่วนประกอบค่าใช้จ่ายใหม่</value>
         <value xml:lang="zh">添加新成本组成</value>
-    </property>
-    <property key="ProductAddFeatureInteraction">
-        <value xml:lang="de">Merkmal Interaktion hinzufügen</value>
-        <value xml:lang="en">Add Feature Interaction</value>
-        <value xml:lang="es">Añadir interacción de caraterísticas</value>
-        <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
-        <value xml:lang="it">Aggiungi caratteristica interattiva</value>
     </property>
     <property key="ProductAddEmail">
         <value xml:lang="de">E-Mail hinzufügen</value>
@@ -5958,27 +5944,12 @@
         <value xml:lang="th">เพิ่มลักษณะ</value>
         <value xml:lang="zh">添加特征</value>
     </property>
-    <property key="ProductAddFeatures">
-        <value xml:lang="de">Merkmale hinzufügen</value>
-        <value xml:lang="en">Add Features</value>
-        <value xml:lang="es">Añadir Características</value>
-        <value xml:lang="fr">Ajout de caractéristique(s)</value>
-        <value xml:lang="it">Aggiungi caratteristiche</value>
-        <value xml:lang="ro">Adauga Caracteristici</value>
-        <value xml:lang="ru">Добавить особенности</value>
-        <value xml:lang="th">เพิ่มลักษณะ</value>
-        <value xml:lang="zh">添加特征</value>
-    </property>
-    <property key="ProductAddFeatureType">
-        <value xml:lang="de">Merkmal Typ hinzufügen</value>
-        <value xml:lang="en">Add Feature Type</value>
-        <value xml:lang="es">Añadir tipo de Característica</value>
-        <value xml:lang="fr">Ajout de type(s) de caractéristique</value>
-        <value xml:lang="it">Aggiungi tipo caratteristica</value>
-        <value xml:lang="ro">Adauga Tip Caracteristica</value>
-        <value xml:lang="ru">Добавить тип особенности</value>
-        <value xml:lang="th">เพิ่มประเภทลักษณะ</value>
-        <value xml:lang="zh">添加特征类型</value>
+    <property key="ProductAddFeatureInteraction">
+        <value xml:lang="de">Merkmal Interaktion hinzufügen</value>
+        <value xml:lang="en">Add Feature Interaction</value>
+        <value xml:lang="es">Añadir interacción de caraterísticas</value>
+        <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
+        <value xml:lang="it">Aggiungi caratteristica interattiva</value>
     </property>
     <property key="ProductAddFeatureToCategory">
         <value xml:lang="de">neues Merkmal zu dieser Kategorie</value>
@@ -6002,6 +5973,28 @@
         <value xml:lang="th">เพิ่มลักษณะไปยังผลลัพธ์</value>
         <value xml:lang="zh">把特征添加到结果</value>
     </property>
+    <property key="ProductAddFeatureType">
+        <value xml:lang="de">Merkmal Typ hinzufügen</value>
+        <value xml:lang="en">Add Feature Type</value>
+        <value xml:lang="es">Añadir tipo de Característica</value>
+        <value xml:lang="fr">Ajout de type(s) de caractéristique</value>
+        <value xml:lang="it">Aggiungi tipo caratteristica</value>
+        <value xml:lang="ro">Adauga Tip Caracteristica</value>
+        <value xml:lang="ru">Добавить тип особенности</value>
+        <value xml:lang="th">เพิ่มประเภทลักษณะ</value>
+        <value xml:lang="zh">添加特征类型</value>
+    </property>
+    <property key="ProductAddFeatures">
+        <value xml:lang="de">Merkmale hinzufügen</value>
+        <value xml:lang="en">Add Features</value>
+        <value xml:lang="es">Añadir Características</value>
+        <value xml:lang="fr">Ajout de caractéristique(s)</value>
+        <value xml:lang="it">Aggiungi caratteristiche</value>
+        <value xml:lang="ro">Adauga Caracteristici</value>
+        <value xml:lang="ru">Добавить особенности</value>
+        <value xml:lang="th">เพิ่มลักษณะ</value>
+        <value xml:lang="zh">添加特征</value>
+    </property>
     <property key="ProductAddFromItem">
         <value xml:lang="de">Von Position hinzufügen</value>
         <value xml:lang="en">Add From Item</value>
@@ -6023,6 +6016,13 @@
         <value xml:lang="ru">Добавить счет</value>
         <value xml:lang="th">เพิ่มบัญชีทั่วไป</value>
         <value xml:lang="zh">添加总账账户</value>
+    </property>
+    <property key="ProductAddItemsFromInventory">
+        <value xml:lang="de">Positionen vom Bestand hinzufügen</value>
+        <value xml:lang="en">Add Items From Inventory</value>
+        <value xml:lang="es">Añadir ítems del inventario</value>
+        <value xml:lang="fr">Ajouter un article depuis le stock</value>
+        <value xml:lang="it">Aggiungi righe da inventario</value>
     </property>
     <property key="ProductAddItemsShipment">
         <value xml:lang="de">Positionen zu Lieferung hinzufügen</value>
@@ -6261,6 +6261,17 @@
         <value xml:lang="th">เพิ่มข้อมูลกลุ่มเส้นทาง</value>
         <value xml:lang="zh">添加路线分区信息</value>
     </property>
+    <property key="ProductAddSelectableFeature">
+        <value xml:lang="de">Auswählbares Merkmal hinzufügen</value>
+        <value xml:lang="en">Add Selectable Feature</value>
+        <value xml:lang="es">Añadir característica seleccionable</value>
+        <value xml:lang="fr">Ajout de caractéristique(s) sélectionnable(s)</value>
+        <value xml:lang="it">Aggiungi caratteristica selezionabile</value>
+        <value xml:lang="ro">Adauga Caracteristici Selectionabile</value>
+        <value xml:lang="ru">Добавить особенности с возм. выбора</value>
+        <value xml:lang="th">เพิ่มการเลือกลักษณะ</value>
+        <value xml:lang="zh">添加可选择的特征</value>
+    </property>
     <property key="ProductAddStorePromo">
         <value xml:lang="de">Laden Aktion hinzufügen</value>
         <value xml:lang="en">Add Store Promo</value>
@@ -6339,17 +6350,6 @@
         <value xml:lang="ru">Адреса</value>
         <value xml:lang="th">ที่อยู่</value>
         <value xml:lang="zh">地址</value>
-    </property>
-    <property key="ProductAddSelectableFeature">
-        <value xml:lang="de">Auswählbares Merkmal hinzufügen</value>
-        <value xml:lang="en">Add Selectable Feature</value>
-        <value xml:lang="es">Añadir característica seleccionable</value>
-        <value xml:lang="fr">Ajout de caractéristique(s) sélectionnable(s)</value>
-        <value xml:lang="it">Aggiungi caratteristica selezionabile</value>
-        <value xml:lang="ro">Adauga Caracteristici Selectionabile</value>
-        <value xml:lang="ru">Добавить особенности с возм. выбора</value>
-        <value xml:lang="th">เพิ่มการเลือกลักษณะ</value>
-        <value xml:lang="zh">添加可选择的特征</value>
     </property>
     <property key="ProductAdvancedSearch">
         <value xml:lang="cs">Rozšířené hledání</value>
@@ -7774,17 +7774,6 @@
         <value xml:lang="th">เลือกกลุ่มลักษณะ</value>
         <value xml:lang="zh">选择一个特征组</value>
     </property>
-    <property key="ProductChooseTopCategory">
-        <value xml:lang="de">Top Kategorie auswählen</value>
-        <value xml:lang="en">Choose Top Category</value>
-        <value xml:lang="es">Elegir Categoría principal</value>
-        <value xml:lang="fr">Choisir une catégorie supérieure</value>
-        <value xml:lang="it">Scegli Categoria Principale</value>
-        <value xml:lang="ro">Alege Categorii Principale</value>
-        <value xml:lang="ru">Категория верх. уровня</value>
-        <value xml:lang="th">เลือกหมวดหมู่</value>
-        <value xml:lang="zh">选择顶级分类</value>
-    </property>
     <property key="ProductChooseQuickAddCategory">
         <value xml:lang="cs">Výběr zrychleným zadáním produktové skupiny</value>
         <value xml:lang="de">Auswahl einer Produktgruppe für Schnelleingabe</value>
@@ -7800,6 +7789,17 @@
         <value xml:lang="ru">Выберите QuickAdd категорию</value>
         <value xml:lang="th">เลือกเพิ่มหมวดหมู่อย่างรวดเร็ว</value>
         <value xml:lang="zh">选择快速添加的分类</value>
+    </property>
+    <property key="ProductChooseTopCategory">
+        <value xml:lang="de">Top Kategorie auswählen</value>
+        <value xml:lang="en">Choose Top Category</value>
+        <value xml:lang="es">Elegir Categoría principal</value>
+        <value xml:lang="fr">Choisir une catégorie supérieure</value>
+        <value xml:lang="it">Scegli Categoria Principale</value>
+        <value xml:lang="ro">Alege Categorii Principale</value>
+        <value xml:lang="ru">Категория верх. уровня</value>
+        <value xml:lang="th">เลือกหมวดหมู่</value>
+        <value xml:lang="zh">选择顶级分类</value>
     </property>
     <property key="ProductComments">
         <value xml:lang="de">Kommentare</value>
@@ -8408,6 +8408,13 @@
         <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
         <value xml:lang="zh">新建产品店铺</value>
     </property>
+    <property key="ProductCreateNewProductStoreWebSite">
+        <value xml:lang="de">Neue Webseite</value>
+        <value xml:lang="en">New Web Site</value>
+        <value xml:lang="es">Nuevo sitio web</value>
+        <value xml:lang="fr">Nouveau site web</value>
+        <value xml:lang="it">Nuovo sito web</value>
+    </property>
     <property key="ProductCreatePicklist">
         <value xml:lang="de">Kommissionierungsliste erstellen</value>
         <value xml:lang="en">Create Picklist</value>
@@ -8557,13 +8564,6 @@
         <value xml:lang="fr">créé/modifié par</value>
         <value xml:lang="it">creato/modificato da</value>
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
-    </property>
-    <property key="ProductCreateNewProductStoreWebSite">
-        <value xml:lang="de">Neue Webseite</value>
-        <value xml:lang="en">New Web Site</value>
-        <value xml:lang="es">Nuevo sitio web</value>
-        <value xml:lang="fr">Nouveau site web</value>
-        <value xml:lang="it">Nuovo sito web</value>
     </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Sie könnten auch diese Interessant finden:</value>
@@ -10016,6 +10016,13 @@
         <value xml:lang="th">รหัสลักษณะ</value>
         <value xml:lang="zh">特征标识</value>
     </property>
+    <property key="ProductFeatureInteraction">
+        <value xml:lang="de">Merkmal Interaktion</value>
+        <value xml:lang="en">Feature Interaction</value>
+        <value xml:lang="es">Interacción de características</value>
+        <value xml:lang="fr">Interaction entre caractéristiques</value>
+        <value xml:lang="it">Caratteristica interattiva</value>
+    </property>
     <property key="ProductFeatureMessage">
         <value xml:lang="de">Untenstehende Zuschläge werden hinzugefügt pro Produkt * pro Merkmal</value>
         <value xml:lang="en">Below surcharge(s) will be added per-product * per-feature</value>
@@ -10049,6 +10056,11 @@
         <value xml:lang="th">ราคาอัตราร้อยละ</value>
         <value xml:lang="zh">每个特征价格</value>
     </property>
+    <property key="ProductFeatureTitle">
+        <value xml:lang="en">Features group charges</value>
+        <value xml:lang="fr">Frais par groupe de caractéristiques</value>
+        <value xml:lang="it">Gruppo caratteristiche ricarichi</value>
+    </property>
     <property key="ProductFeatureType">
         <value xml:lang="de">Merkmaltyp</value>
         <value xml:lang="en">Feature Type</value>
@@ -10070,13 +10082,6 @@
         <value xml:lang="ru">Типы особенностей</value>
         <value xml:lang="th">ประเภทลักษณะ</value>
         <value xml:lang="zh">特征类型</value>
-    </property>
-    <property key="ProductFeatureInteraction">
-        <value xml:lang="de">Merkmal Interaktion</value>
-        <value xml:lang="en">Feature Interaction</value>
-        <value xml:lang="es">Interacción de características</value>
-        <value xml:lang="fr">Interaction entre caractéristiques</value>
-        <value xml:lang="it">Caratteristica interattiva</value>
     </property>
     <property key="ProductFeatures">
         <value xml:lang="ar">خواص المنتوج</value>
@@ -10278,6 +10283,17 @@
         <value xml:lang="fr">Frais fixes</value>
         <value xml:lang="it">Ricarichi fissi</value>
     </property>
+    <property key="ProductFromAnOrder">
+        <value xml:lang="de">von Auftrag</value>
+        <value xml:lang="en">from Order</value>
+        <value xml:lang="es">Orden origen</value>
+        <value xml:lang="fr">De la commande</value>
+        <value xml:lang="it">dall'Ordine</value>
+        <value xml:lang="ro">de la Comanda</value>
+        <value xml:lang="ru">из заказа</value>
+        <value xml:lang="th">จากรายการสั่งซื้อ</value>
+        <value xml:lang="zh">来自订单</value>
+    </property>
     <property key="ProductFromGeo">
         <value xml:lang="de">Von Geo</value>
         <value xml:lang="en">From Geo</value>
@@ -10299,17 +10315,6 @@
         <value xml:lang="ru">Из места</value>
         <value xml:lang="th">จากที่ตั้ง</value>
         <value xml:lang="zh">来自位置</value>
-    </property>
-    <property key="ProductFromAnOrder">
-        <value xml:lang="de">von Auftrag</value>
-        <value xml:lang="en">from Order</value>
-        <value xml:lang="es">Orden origen</value>
-        <value xml:lang="fr">De la commande</value>
-        <value xml:lang="it">dall'Ordine</value>
-        <value xml:lang="ro">de la Comanda</value>
-        <value xml:lang="ru">из заказа</value>
-        <value xml:lang="th">จากรายการสั่งซื้อ</value>
-        <value xml:lang="zh">来自订单</value>
     </property>
     <property key="ProductFromOrder">
         <value xml:lang="de">Produkt von Auftrag</value>
@@ -11243,17 +11248,6 @@
         <value xml:lang="th">Inventory Xfers</value>
         <value xml:lang="zh">库存转运</value>
     </property>
-    <property key="ProductIssuedOrdered">
-        <value xml:lang="de">Ausgegeben : In Auftrag gegeben</value>
-        <value xml:lang="en">Issued : Ordered</value>
-        <value xml:lang="es">Emitido : Pedido</value>
-        <value xml:lang="fr">Prélevé : commandé</value>
-        <value xml:lang="it">Prelevato : Ordinato</value>
-        <value xml:lang="ro">Preluat : Comandat</value>
-        <value xml:lang="ru">Выдано : Заказано</value>
-        <value xml:lang="th">จำนวน : รายการสั่งซื้อ</value>
-        <value xml:lang="zh">已交付：已订购</value>
-    </property>
     <property key="ProductIssue">
         <value xml:lang="de">Ausgeben</value>
         <value xml:lang="en">Issue</value>
@@ -11282,6 +11276,17 @@
         <value xml:lang="es">Emitir ítem(s) de inventario para el envío</value>
         <value xml:lang="fr">Prélevé un(des) article(s) du stock pour l'(es) expédier</value>
         <value xml:lang="it">Riga(e) inventario prelevate per la spedizione</value>
+    </property>
+    <property key="ProductIssuedOrdered">
+        <value xml:lang="de">Ausgegeben : In Auftrag gegeben</value>
+        <value xml:lang="en">Issued : Ordered</value>
+        <value xml:lang="es">Emitido : Pedido</value>
+        <value xml:lang="fr">Prélevé : commandé</value>
+        <value xml:lang="it">Prelevato : Ordinato</value>
+        <value xml:lang="ro">Preluat : Comandat</value>
+        <value xml:lang="ru">Выдано : Заказано</value>
+        <value xml:lang="th">จำนวน : รายการสั่งซื้อ</value>
+        <value xml:lang="zh">已交付：已订购</value>
     </property>
     <property key="ProductIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
@@ -12566,6 +12571,12 @@
         <value xml:lang="th">ที่ตั้งคลังสินค้าใหม่</value>
         <value xml:lang="zh">新建场所位置</value>
     </property>
+    <property key="ProductNewFeatureInterAction">
+        <value xml:lang="de">Neue Merkmalsinteraktion</value>
+        <value xml:lang="en">New Feature InterAction</value>
+        <value xml:lang="fr">Nouvelle interaction entre caractéristiques</value>
+        <value xml:lang="it">Nuova caratteristica interattiva</value>
+    </property>
     <property key="ProductNewFeatureType">
         <value xml:lang="de">Neuer Merkmalstyp</value>
         <value xml:lang="en">New Feature Type</value>
@@ -12576,12 +12587,6 @@
         <value xml:lang="ru">Новый тип</value>
         <value xml:lang="th">ประเภทลักษณะใหม่</value>
         <value xml:lang="zh">新建特征类型</value>
-    </property>
-    <property key="ProductNewFeatureInterAction">
-        <value xml:lang="de">Neue Merkmalsinteraktion</value>
-        <value xml:lang="en">New Feature InterAction</value>
-        <value xml:lang="fr">Nouvelle interaction entre caractéristiques</value>
-        <value xml:lang="it">Nuova caratteristica interattiva</value>
     </property>
     <property key="ProductNewGroup">
         <value xml:lang="de">Neue Gruppe</value>
@@ -12792,13 +12797,6 @@
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อใหม่</value>
         <value xml:lang="zh">新建订阅资源</value>
     </property>
-    <property key="ProductNewVirtualVariantMethod">
-        <value xml:lang="de">Neue Methode</value>
-        <value xml:lang="en">New Method</value>
-        <value xml:lang="es">Nuevo método</value>
-        <value xml:lang="fr">Nouvelle méthode</value>
-        <value xml:lang="it">Nuovo metodo</value>
-    </property>
     <property key="ProductNewVirtualProduct">
         <value xml:lang="de">Neues virtuelles Produkt</value>
         <value xml:lang="en">New Virtual Product</value>
@@ -12809,6 +12807,13 @@
         <value xml:lang="ru">Новый виртуальный продукт</value>
         <value xml:lang="th">สินค้าใหม่ทั้งหมด</value>
         <value xml:lang="zh">新建虚拟产品</value>
+    </property>
+    <property key="ProductNewVirtualVariantMethod">
+        <value xml:lang="de">Neue Methode</value>
+        <value xml:lang="en">New Method</value>
+        <value xml:lang="es">Nuevo método</value>
+        <value xml:lang="fr">Nouvelle méthode</value>
+        <value xml:lang="it">Nuovo metodo</value>
     </property>
     <property key="ProductNextShipment">
         <value xml:lang="de">Nächste Lieferung</value>
@@ -14878,11 +14883,6 @@
         <value xml:lang="th">การรักษาสภาพลักษณะสินค้า</value>
         <value xml:lang="zh">产品特征维护</value>
     </property>
-    <property key="ProductFeatureTitle">
-        <value xml:lang="en">Features group charges</value>
-        <value xml:lang="fr">Frais par groupe de caractéristiques</value>
-        <value xml:lang="it">Gruppo caratteristiche ricarichi</value>
-    </property>
     <property key="ProductProductHeight">
         <value xml:lang="de">Produkt Höhe</value>
         <value xml:lang="en">Product Height</value>
@@ -15095,22 +15095,6 @@
         <value xml:lang="th">ค้นหาสินค้า</value>
         <value xml:lang="zh">产品搜索</value>
     </property>
-    <property key="ProductProductsLastViewed">
-        <value xml:lang="cs">Naposledy prohlédnuté výrobky</value>
-        <value xml:lang="de">zuletzt angesehene Produkte</value>
-        <value xml:lang="en">Products Last Viewed</value>
-        <value xml:lang="es">Últimos productos vistos</value>
-        <value xml:lang="fr">Articles vus dernièrement</value>
-        <value xml:lang="hi_IN">अन्त बार देखा सामान</value>
-        <value xml:lang="it">Ultimi prodotti visti</value>
-        <value xml:lang="ja">Products Last Viewed</value>
-        <value xml:lang="nl">Produkten het laatste bekeken</value>
-        <value xml:lang="pt_PT">Últimos Produtos Visualizados</value>
-        <value xml:lang="ro">ultimele Produse Vazute</value>
-        <value xml:lang="ru">Последние просмотры продуктов</value>
-        <value xml:lang="th">สินค้าสุดท้ายที่ดู</value>
-        <value xml:lang="zh">以前浏览的产品</value>
-    </property>
     <property key="ProductProductStore">
         <value xml:lang="de">Laden</value>
         <value xml:lang="en">Product Store</value>
@@ -15265,6 +15249,22 @@
         <value xml:lang="ru">Продукты</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
+    </property>
+    <property key="ProductProductsLastViewed">
+        <value xml:lang="cs">Naposledy prohlédnuté výrobky</value>
+        <value xml:lang="de">zuletzt angesehene Produkte</value>
+        <value xml:lang="en">Products Last Viewed</value>
+        <value xml:lang="es">Últimos productos vistos</value>
+        <value xml:lang="fr">Articles vus dernièrement</value>
+        <value xml:lang="hi_IN">अन्त बार देखा सामान</value>
+        <value xml:lang="it">Ultimi prodotti visti</value>
+        <value xml:lang="ja">Products Last Viewed</value>
+        <value xml:lang="nl">Produkten het laatste bekeken</value>
+        <value xml:lang="pt_PT">Últimos Produtos Visualizados</value>
+        <value xml:lang="ro">ultimele Produse Vazute</value>
+        <value xml:lang="ru">Последние просмотры продуктов</value>
+        <value xml:lang="th">สินค้าสุดท้ายที่ดู</value>
+        <value xml:lang="zh">以前浏览的产品</value>
     </property>
     <property key="ProductPromoCodeBlank">
         <value xml:lang="de">Leer lassen um automatisch einen eindeutigen Aktionscode zu erstellen</value>
@@ -15991,21 +15991,6 @@
         <value xml:lang="th">รวมคีย์เวิร์ดอีกครั้ง</value>
         <value xml:lang="zh">重新索引关键字</value>
     </property>
-    <property key="ProductReviewThisProduct">
-        <value xml:lang="cs">Ohodnoťte tuto položku</value>
-        <value xml:lang="de">Bewerten Sie dieses Produkt!</value>
-        <value xml:lang="en">Review This Product!</value>
-        <value xml:lang="es">Mire este Producto!</value>
-        <value xml:lang="fr">Examiner ce produit</value>
-        <value xml:lang="hi_IN">सामान कि जान्च किजीये</value>
-        <value xml:lang="it">Recensisci questo prodotto!</value>
-        <value xml:lang="ja">Review This Product!</value>
-        <value xml:lang="nl">Beoordeel dit produkt!</value>
-        <value xml:lang="ro">Revedeti Acest Produs!</value>
-        <value xml:lang="ru">Напишите отзыв к этому продукту!</value>
-        <value xml:lang="th">ตรวจสอบสินค้านี้!</value>
-        <value xml:lang="zh">浏览这个产品！</value>
-    </property>
     <property key="ProductReWeighPackage">
         <value xml:lang="de">Paket neu wägeny</value>
         <value xml:lang="en">Re-Weigh Package</value>
@@ -16566,12 +16551,6 @@
         <value xml:lang="th">รายการสั่งจอง</value>
         <value xml:lang="zh">预订订单</value>
     </property>
-    <property key="ProductReserveInventoryFromFacility">
-        <value xml:lang="de">Bestand von Einrichtung reservieren</value>
-        <value xml:lang="en">Reserve inventory from facility</value>
-        <value xml:lang="fr">Réserver depuis le stock d'un lieu de stockage</value>
-        <value xml:lang="it">Inventario riservato dallo stabilimento</value>
-    </property>
     <property key="ProductReserveInventory">
         <value xml:lang="de">Bestand reservieren</value>
         <value xml:lang="en">Reserve inventory</value>
@@ -16582,6 +16561,12 @@
         <value xml:lang="ru">Резерв</value>
         <value xml:lang="th">การสั่งจองสินค้าคงเหลือ</value>
         <value xml:lang="zh">预订库存</value>
+    </property>
+    <property key="ProductReserveInventoryFromFacility">
+        <value xml:lang="de">Bestand von Einrichtung reservieren</value>
+        <value xml:lang="en">Reserve inventory from facility</value>
+        <value xml:lang="fr">Réserver depuis le stock d'un lieu de stockage</value>
+        <value xml:lang="it">Inventario riservato dallo stabilimento</value>
     </property>
     <property key="ProductReserved">
         <value xml:lang="de">Reserviert</value>
@@ -16698,6 +16683,21 @@
         <value xml:lang="ru">Возвращено</value>
         <value xml:lang="th">ย้อนหลัง</value>
         <value xml:lang="zh">已退货</value>
+    </property>
+    <property key="ProductReviewThisProduct">
+        <value xml:lang="cs">Ohodnoťte tuto položku</value>
+        <value xml:lang="de">Bewerten Sie dieses Produkt!</value>
+        <value xml:lang="en">Review This Product!</value>
+        <value xml:lang="es">Mire este Producto!</value>
+        <value xml:lang="fr">Examiner ce produit</value>
+        <value xml:lang="hi_IN">सामान कि जान्च किजीये</value>
+        <value xml:lang="it">Recensisci questo prodotto!</value>
+        <value xml:lang="ja">Review This Product!</value>
+        <value xml:lang="nl">Beoordeel dit produkt!</value>
+        <value xml:lang="ro">Revedeti Acest Produs!</value>
+        <value xml:lang="ru">Напишите отзыв к этому продукту!</value>
+        <value xml:lang="th">ตรวจสอบสินค้านี้!</value>
+        <value xml:lang="zh">浏览这个产品！</value>
     </property>
     <property key="ProductReviews">
         <value xml:lang="de">Bewertungen</value>
@@ -16827,38 +16827,6 @@
         <value xml:lang="ru">Правила</value>
         <value xml:lang="th">ข้อบังคับ</value>
         <value xml:lang="zh">规则</value>
-    </property>
-    <property key="ProductSearchFeatureCategory">
-        <value xml:lang="de">Suche Merkmalkategorie</value>
-        <value xml:lang="en">Search feature category</value>
-        <value xml:lang="es">Buscar categoría de características</value>
-        <value xml:lang="fr">Rechercher la catégorie de caractéristiques</value>
-        <value xml:lang="it">Ricerca categoria caratteristica</value>
-    </property>
-    <property key="ProductSearchFeatureInterAction">
-        <value xml:lang="de">Suche Merkmalinteraktion</value>
-        <value xml:lang="en">Search feature interAction</value>
-        <value xml:lang="es">Buscar interacción de características</value>
-        <value xml:lang="fr">Rechercher les interaction de la caractéristique</value>
-        <value xml:lang="it">Ricerca caratteristica interattiva</value>
-    </property>
-    <property key="ProductSearchFeatureType">
-        <value xml:lang="de">Suche Merkmaltyp</value>
-        <value xml:lang="en">Search feature type</value>
-        <value xml:lang="es">Buscar tipo de característica</value>
-        <value xml:lang="fr">Rechercher le type de la caractéristique</value>
-        <value xml:lang="it">Ricerca tipo di caratteristica</value>
-    </property>
-    <property key="ProductSelectableFeatures">
-        <value xml:lang="de">Auswählbare Merkmale</value>
-        <value xml:lang="en">Selectable Features</value>
-        <value xml:lang="es">Características seleccionables</value>
-        <value xml:lang="fr">Caractéristiques sélectionnables</value>
-        <value xml:lang="it">Caratteristiche selezionabili</value>
-        <value xml:lang="ro">Caratteristici Selectionabile</value>
-        <value xml:lang="ru">Выбираемые особенности</value>
-        <value xml:lang="th">สามารถเลือกลักษณะ</value>
-        <value xml:lang="zh">可选择的特征</value>
     </property>
     <property key="ProductSRCH">
         <value xml:lang="de">Suche</value>
@@ -17009,6 +16977,27 @@
         <value xml:lang="ru">Экспортировать список продуктов в экран</value>
         <value xml:lang="th">รายการสินค้าส่งออกไปยังหน้าจอ</value>
     </property>
+    <property key="ProductSearchFeatureCategory">
+        <value xml:lang="de">Suche Merkmalkategorie</value>
+        <value xml:lang="en">Search feature category</value>
+        <value xml:lang="es">Buscar categoría de características</value>
+        <value xml:lang="fr">Rechercher la catégorie de caractéristiques</value>
+        <value xml:lang="it">Ricerca categoria caratteristica</value>
+    </property>
+    <property key="ProductSearchFeatureInterAction">
+        <value xml:lang="de">Suche Merkmalinteraktion</value>
+        <value xml:lang="en">Search feature interAction</value>
+        <value xml:lang="es">Buscar interacción de características</value>
+        <value xml:lang="fr">Rechercher les interaction de la caractéristique</value>
+        <value xml:lang="it">Ricerca caratteristica interattiva</value>
+    </property>
+    <property key="ProductSearchFeatureType">
+        <value xml:lang="de">Suche Merkmaltyp</value>
+        <value xml:lang="en">Search feature type</value>
+        <value xml:lang="es">Buscar tipo de característica</value>
+        <value xml:lang="fr">Rechercher le type de la caractéristique</value>
+        <value xml:lang="it">Ricerca tipo di caratteristica</value>
+    </property>
     <property key="ProductSearchFor">
         <value xml:lang="de">Sie haben gesucht nach</value>
         <value xml:lang="en">you searched for</value>
@@ -17019,6 +17008,22 @@
         <value xml:lang="ru">вы искали</value>
         <value xml:lang="th">คุณค้นหาสำหรับ</value>
         <value xml:lang="zh">你搜索</value>
+    </property>
+    <property key="ProductSearchInCategory">
+        <value xml:lang="cs">Hledání ve skupině výrobků</value>
+        <value xml:lang="de">Suche in Produktgruppe</value>
+        <value xml:lang="en">Search in Category</value>
+        <value xml:lang="es">Buscar en la Categoría</value>
+        <value xml:lang="fr">Rechercher dans la catégorie</value>
+        <value xml:lang="hi_IN">सूची मे खोज किजीये</value>
+        <value xml:lang="it">Ricerca in categoria</value>
+        <value xml:lang="ja">カテゴリの中を検索</value>
+        <value xml:lang="nl">Zoek in de categorie</value>
+        <value xml:lang="pt_PT">Procurar na Categoria</value>
+        <value xml:lang="ro">Cautare in Categorie</value>
+        <value xml:lang="ru">Поиск в категории</value>
+        <value xml:lang="th">ค้นหาในหมวดหมู่</value>
+        <value xml:lang="zh">在分类中搜索</value>
     </property>
     <property key="ProductSearchInventoryItemsByLabels">
         <value xml:lang="de">Suchen nach Etiketten</value>
@@ -17060,22 +17065,6 @@
         <value xml:lang="ru">Результат поиска для продукта с кодом</value>
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับสินค้าด้วยค่ารหัส</value>
         <value xml:lang="zh">产品搜索结果，标识值</value>
-    </property>
-    <property key="ProductSearchInCategory">
-        <value xml:lang="cs">Hledání ve skupině výrobků</value>
-        <value xml:lang="de">Suche in Produktgruppe</value>
-        <value xml:lang="en">Search in Category</value>
-        <value xml:lang="es">Buscar en la Categoría</value>
-        <value xml:lang="fr">Rechercher dans la catégorie</value>
-        <value xml:lang="hi_IN">सूची मे खोज किजीये</value>
-        <value xml:lang="it">Ricerca in categoria</value>
-        <value xml:lang="ja">カテゴリの中を検索</value>
-        <value xml:lang="nl">Zoek in de categorie</value>
-        <value xml:lang="pt_PT">Procurar na Categoria</value>
-        <value xml:lang="ro">Cautare in Categorie</value>
-        <value xml:lang="ru">Поиск в категории</value>
-        <value xml:lang="th">ค้นหาในหมวดหมู่</value>
-        <value xml:lang="zh">在分类中搜索</value>
     </property>
     <property key="ProductSection">
         <value xml:lang="de">Paragraf</value>
@@ -17208,6 +17197,17 @@
         <value xml:lang="ru">Возможно выбирать</value>
         <value xml:lang="th">สามารถเลือก</value>
         <value xml:lang="zh">可选择的</value>
+    </property>
+    <property key="ProductSelectableFeatures">
+        <value xml:lang="de">Auswählbare Merkmale</value>
+        <value xml:lang="en">Selectable Features</value>
+        <value xml:lang="es">Características seleccionables</value>
+        <value xml:lang="fr">Caractéristiques sélectionnables</value>
+        <value xml:lang="it">Caratteristiche selezionabili</value>
+        <value xml:lang="ro">Caratteristici Selectionabile</value>
+        <value xml:lang="ru">Выбираемые особенности</value>
+        <value xml:lang="th">สามารถเลือกลักษณะ</value>
+        <value xml:lang="zh">可选择的特征</value>
     </property>
     <property key="ProductSelected">
         <value xml:lang="de">Ausgewählt</value>

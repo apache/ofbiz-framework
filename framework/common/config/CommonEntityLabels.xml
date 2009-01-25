@@ -1105,8 +1105,8 @@
     </property>
     <property key="Enumeration.description.POTT_INTR">
         <value xml:lang="en">In Transit</value>
-        <value xml:lang="it">In transito</value>
         <value xml:lang="fr">En transit</value>
+        <value xml:lang="it">In transito</value>
         <value xml:lang="pt">Em Trânsito</value>
         <value xml:lang="ro">In Tranzit</value>
         <value xml:lang="ru">Во время транзита</value>
@@ -1230,7 +1230,7 @@
     <property key="Enumeration.description.PPIP_ORST_YEAR">
         <value xml:lang="en">Order sub-total X since beginning of current year</value>
         <value xml:lang="fr">Sous-total X commandé depuis le début de l'année</value>
-    <value xml:lang="it">Sub-totale ordine X dall'inizio dell'anno corrente</value>
+        <value xml:lang="it">Sub-totale ordine X dall'inizio dell'anno corrente</value>
     </property>
     <property key="Enumeration.description.PPIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
@@ -6868,6 +6868,22 @@
         <value xml:lang="th">ส่ง</value>
         <value xml:lang="zh">已发送</value>
     </property>
+    <property key="StatusItem.description.PAS_ASSIGNED">
+        <value xml:lang="de">Zugewiesen</value>
+        <value xml:lang="en">Assigned</value>
+        <value xml:lang="es">Asignado</value>
+        <value xml:lang="fr">Assignée</value>
+        <value xml:lang="it">Assegnato</value>
+        <value xml:lang="zh">已分配</value>
+    </property>
+    <property key="StatusItem.description.PAS_COMPLETED">
+        <value xml:lang="de">Abgeschlossen</value>
+        <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completado</value>
+        <value xml:lang="fr">Terminée</value>
+        <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
+    </property>
     <property key="StatusItem.description.PAYMENT_AUTHORIZED">
         <value xml:lang="de">Autorisiert</value>
         <value xml:lang="en">Authorized</value>
@@ -7228,6 +7244,62 @@
         <value xml:lang="ru">Выполняется</value>
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="zh">正在运行</value>
+    </property>
+    <property key="StatusItem.description.PTS_CANCELLED">
+        <value xml:lang="de">Annulliert</value>
+        <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
+        <value xml:lang="fr">Annulée</value>
+        <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
+    </property>
+    <property key="StatusItem.description.PTS_COMPLETED">
+        <value xml:lang="de">Abgeschlosen</value>
+        <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completado</value>
+        <value xml:lang="fr">Terminée</value>
+        <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED">
+        <value xml:lang="de">Erstellt</value>
+        <value xml:lang="en">Created</value>
+        <value xml:lang="es">Creado</value>
+        <value xml:lang="fr">Créée</value>
+        <value xml:lang="it">Creato</value>
+        <value xml:lang="zh">已创建</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_AS">
+        <value xml:lang="de">Zugewiesen</value>
+        <value xml:lang="en">Assigned</value>
+        <value xml:lang="es">Asignado</value>
+        <value xml:lang="fr">Assignée</value>
+        <value xml:lang="it">Assegnato</value>
+        <value xml:lang="zh">已分配</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_IP">
+        <value xml:lang="de">In arbeit</value>
+        <value xml:lang="en">In Progress</value>
+        <value xml:lang="es">En proceso</value>
+        <value xml:lang="fr">En cours</value>
+        <value xml:lang="it">In corso</value>
+        <value xml:lang="zh">处理中</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_UA">
+        <value xml:lang="de">Nicht zugewiesen</value>
+        <value xml:lang="en">Unassigned</value>
+        <value xml:lang="es">No asignado</value>
+        <value xml:lang="fr">Non affectée</value>
+        <value xml:lang="it">Non assegnato</value>
+        <value xml:lang="zh">未分配</value>
+    </property>
+    <property key="StatusItem.description.PTS_ON_HOLD">
+        <value xml:lang="de">On Hold</value>
+        <value xml:lang="en">On Hold</value>
+        <value xml:lang="es">Detenido</value>
+        <value xml:lang="fr">En attente</value>
+        <value xml:lang="it">In attesa</value>
+        <value xml:lang="zh">暂停中</value>
     </property>
     <property key="StatusItem.description.PURCH_SHIP_CREATED">
         <value xml:lang="de">Erstellt</value>
@@ -7760,78 +7832,6 @@
         <value xml:lang="fr">En cours de test</value>
         <value xml:lang="it">In test</value>
         <value xml:lang="th">WPS_UNDER_TEST</value>
-    </property>
-    <property key="StatusItem.description.PTS_CREATED">
-        <value xml:lang="de">Erstellt</value>
-        <value xml:lang="en">Created</value>
-        <value xml:lang="es">Creado</value>
-        <value xml:lang="fr">Créée</value>
-        <value xml:lang="it">Creato</value>
-        <value xml:lang="zh">已创建</value>
-    </property>
-    <property key="StatusItem.description.PAS_ASSIGNED">
-        <value xml:lang="de">Zugewiesen</value>
-        <value xml:lang="en">Assigned</value>
-        <value xml:lang="es">Asignado</value>
-        <value xml:lang="fr">Assignée</value>
-        <value xml:lang="it">Assegnato</value>
-        <value xml:lang="zh">已分配</value>
-    </property>
-    <property key="StatusItem.description.PAS_COMPLETED">
-        <value xml:lang="de">Abgeschlossen</value>
-        <value xml:lang="en">Completed</value>
-        <value xml:lang="es">Completado</value>
-        <value xml:lang="fr">Terminée</value>
-        <value xml:lang="it">Completato</value>
-        <value xml:lang="zh">已完成</value>
-    </property>
-    <property key="StatusItem.description.PTS_CREATED_UA">
-        <value xml:lang="de">Nicht zugewiesen</value>
-        <value xml:lang="en">Unassigned</value>
-        <value xml:lang="es">No asignado</value>
-        <value xml:lang="fr">Non affectée</value>
-        <value xml:lang="it">Non assegnato</value>
-        <value xml:lang="zh">未分配</value>
-    </property>
-    <property key="StatusItem.description.PTS_CREATED_AS">
-        <value xml:lang="de">Zugewiesen</value>
-        <value xml:lang="en">Assigned</value>
-        <value xml:lang="es">Asignado</value>
-        <value xml:lang="fr">Assignée</value>
-        <value xml:lang="it">Assegnato</value>
-        <value xml:lang="zh">已分配</value>
-    </property>
-    <property key="StatusItem.description.PTS_CREATED_IP">
-        <value xml:lang="de">In arbeit</value>
-        <value xml:lang="en">In Progress</value>
-        <value xml:lang="es">En proceso</value>
-        <value xml:lang="fr">En cours</value>
-        <value xml:lang="it">In corso</value>
-        <value xml:lang="zh">处理中</value>
-    </property>
-    <property key="StatusItem.description.PTS_COMPLETED">
-        <value xml:lang="de">Abgeschlosen</value>
-        <value xml:lang="en">Completed</value>
-        <value xml:lang="es">Completado</value>
-        <value xml:lang="fr">Terminée</value>
-        <value xml:lang="it">Completato</value>
-        <value xml:lang="zh">已完成</value>
-    </property>
-    <property key="StatusItem.description.PTS_ON_HOLD">
-        <value xml:lang="de">On Hold</value>
-        <value xml:lang="en">On Hold</value>
-        <value xml:lang="es">Detenido</value>
-        <value xml:lang="fr">En attente</value>
-        <value xml:lang="it">In attesa</value>
-        <value xml:lang="zh">暂停中</value>
-    </property>
-    <property key="StatusItem.description.PTS_CANCELLED">
-        <value xml:lang="de">Annulliert</value>
-        <value xml:lang="en">Cancelled</value>
-        <value xml:lang="es">Cancelado</value>
-        <value xml:lang="fr">Annulée</value>
-        <value xml:lang="it">Cancellato</value>
-        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>

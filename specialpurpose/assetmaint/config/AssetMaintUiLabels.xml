@@ -38,17 +38,17 @@
         <value xml:lang="it">Servizio manutenzione</value>
         <value xml:lang="th">แผนกการดูแลรักษา</value>
     </property>
-    <property key="AssetMaintItemIssuance">
-        <value xml:lang="en">Parts</value>
-        <value xml:lang="fr">Pièces</value>
-        <value xml:lang="it">Parti</value>
-        <value xml:lang="th">ส่วนหนึ่ง</value>
-    </property>
     <property key="AssetMaintInvalidPartProductIdError">
         <value xml:lang="en">"Part Id ${productId} provided is invalid please check and try again"</value>
         <value xml:lang="fr">"La réf. de piéce ${productId} fournie n'est pas valable, SVP recommencez"</value>
         <value xml:lang="it">"Il Codice Parte ${productId} fornito non è valido per favore controllare e provare nuovamente"</value>
         <value xml:lang="th">รหัสส่วน ${productId} ใช้ไม่ได้ กรุณาตรวจสอบและลองอีกครั้ง</value>
+    </property>
+    <property key="AssetMaintItemIssuance">
+        <value xml:lang="en">Parts</value>
+        <value xml:lang="fr">Pièces</value>
+        <value xml:lang="it">Parti</value>
+        <value xml:lang="th">ส่วนหนึ่ง</value>
     </property>
     <property key="AssetMaintLowPartInventoryError">
         <value xml:lang="en">"Available Inventory level for ${productId} is ${quantity}"</value>

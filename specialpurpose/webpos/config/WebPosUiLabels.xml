@@ -24,11 +24,6 @@
         <value xml:lang="fr">Ajustements</value>
         <value xml:lang="it">Aggiustamenti</value>
     </property>
-    <property key="WebPosButtonOpenTerminal">
-        <value xml:lang="en">OPEN TERMINAL</value>
-        <value xml:lang="fr">OUVRIR CAISSE</value>
-        <value xml:lang="it">APRI TERMINALE</value>
-    </property>
     <property key="WebPosButtonCloseTerminal">
         <value xml:lang="en">CLOSE TERMINAL</value>
         <value xml:lang="fr">FERMER CAISSE</value>
@@ -59,10 +54,10 @@
         <value xml:lang="fr">MODIFIER PRIX</value>
         <value xml:lang="it">MODIF. PREZZO</value>
     </property>
-    <property key="WebPosButtonPayment">
-        <value xml:lang="en">PAYMENT</value>
-        <value xml:lang="fr">PAIEMENT</value>
-        <value xml:lang="it">PAGAM.</value>
+    <property key="WebPosButtonOpenTerminal">
+        <value xml:lang="en">OPEN TERMINAL</value>
+        <value xml:lang="fr">OUVRIR CAISSE</value>
+        <value xml:lang="it">APRI TERMINALE</value>
     </property>
     <property key="WebPosButtonPaidIn">
         <value xml:lang="en">PAID IN</value>
@@ -99,15 +94,25 @@
         <value xml:lang="fr">PAIEMENT CARTE BANCAIRE</value>
         <value xml:lang="it">PAGAM. CARTA CREDITO</value>
     </property>
+    <property key="WebPosButtonPayFinish">
+        <value xml:lang="en">PAY FINISH</value>
+        <value xml:lang="fr">FINALISER PAIEMENT</value>
+        <value xml:lang="it">TERMINA PAGAM.</value>
+    </property>
     <property key="WebPosButtonPayGiftCard">
         <value xml:lang="en">PAY GIFT CARD</value>
         <value xml:lang="fr">PAIEMENT BON D'ACHAT</value>
         <value xml:lang="it">PAGAM. CARTA REGALO</value>
     </property>
-    <property key="WebPosButtonPayFinish">
-        <value xml:lang="en">PAY FINISH</value>
-        <value xml:lang="fr">FINALISER PAIEMENT</value>
-        <value xml:lang="it">TERMINA PAGAM.</value>
+    <property key="WebPosButtonPaySetRef">
+        <value xml:lang="en">PAYMENT SET REF.</value>
+        <value xml:lang="fr">DEFINIR REF. PAIEMENT</value>
+        <value xml:lang="it">IMPOSTA RIF. PAGAM.</value>
+    </property>
+    <property key="WebPosButtonPayment">
+        <value xml:lang="en">PAYMENT</value>
+        <value xml:lang="fr">PAIEMENT</value>
+        <value xml:lang="it">PAGAM.</value>
     </property>
     <property key="WebPosButtonPromo">
         <value xml:lang="en">PROMO</value>
@@ -123,11 +128,6 @@
         <value xml:lang="en">RETURN</value>
         <value xml:lang="fr">RETOUR</value>
         <value xml:lang="it">INVIO</value>
-    </property>
-    <property key="WebPosButtonPaySetRef">
-        <value xml:lang="en">PAYMENT SET REF.</value>
-        <value xml:lang="fr">DEFINIR REF. PAIEMENT</value>
-        <value xml:lang="it">IMPOSTA RIF. PAGAM.</value>
     </property>
     <property key="WebPosButtonShutdown">
         <value xml:lang="en">SHUTDOWN</value>
@@ -189,15 +189,35 @@
         <value xml:lang="fr">Saisir le montant en espèces :</value>
         <value xml:lang="it">Inserire Importo in Contanti:</value>
     </property>
-    <property key="WebPosManagerCloseTerminalCheckAmount">
-        <value xml:lang="en">Enter Check Amount:</value>
-        <value xml:lang="fr">Saisir le montant en chèque :</value>
-        <value xml:lang="it">Inserire Importo in Assegni:</value>
+    <property key="WebPosManagerCloseTerminalCashAmountNotValid">
+        <value xml:lang="en">Enter a valid cash amount:</value>
+        <value xml:lang="fr">Saisir un montant valide pour les espèces :</value>
+        <value xml:lang="it">Inserire un'importo in contanti valido:</value>
     </property>
     <property key="WebPosManagerCloseTerminalCcAmount">
         <value xml:lang="en">Enter Credit Card Amount:</value>
         <value xml:lang="fr">Saisir le montant en carte bancaire :</value>
         <value xml:lang="it">Inserire Importo con Carte di Credito:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCcAmountNotValid">
+        <value xml:lang="en">Enter a valid credit card amount:</value>
+        <value xml:lang="fr">Saisir un montant valide pour les cartes bancaires :</value>
+        <value xml:lang="it">Inserire un'importo con carte di credito valido:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCheckAmount">
+        <value xml:lang="en">Enter Check Amount:</value>
+        <value xml:lang="fr">Saisir le montant en chèque :</value>
+        <value xml:lang="it">Inserire Importo in Assegni:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCheckAmountNotValid">
+        <value xml:lang="en">Enter a valid check amount:</value>
+        <value xml:lang="fr">Saisir un montant valide pour les chèques :</value>
+        <value xml:lang="it">Inserire un'importo in assegni valido:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalGcAmounNotValidt">
+        <value xml:lang="en">Enter a valid gift card amount:</value>
+        <value xml:lang="fr">Saisir un montant valide pour les bons d'achat :</value>
+        <value xml:lang="it">Inserire un'importo con carte regalo valido:</value>
     </property>
     <property key="WebPosManagerCloseTerminalGcAmount">
         <value xml:lang="en">Enter Gift Card Amount:</value>
@@ -208,26 +228,6 @@
         <value xml:lang="en">Enter Other Payment Amount:</value>
         <value xml:lang="fr">Saisir le montant avec un autre moyen de paiement :</value>
         <value xml:lang="it">Inserire Importo con Altri Pagamenti:</value>
-    </property>
-    <property key="WebPosManagerCloseTerminalCashAmountNotValid">
-        <value xml:lang="en">Enter a valid cash amount:</value>
-        <value xml:lang="fr">Saisir un montant valide pour les espèces :</value>
-        <value xml:lang="it">Inserire un'importo in contanti valido:</value>
-    </property>
-    <property key="WebPosManagerCloseTerminalCheckAmountNotValid">
-        <value xml:lang="en">Enter a valid check amount:</value>
-        <value xml:lang="fr">Saisir un montant valide pour les chèques :</value>
-        <value xml:lang="it">Inserire un'importo in assegni valido:</value>
-    </property>
-    <property key="WebPosManagerCloseTerminalCcAmountNotValid">
-        <value xml:lang="en">Enter a valid credit card amount:</value>
-        <value xml:lang="fr">Saisir un montant valide pour les cartes bancaires :</value>
-        <value xml:lang="it">Inserire un'importo con carte di credito valido:</value>
-    </property>
-    <property key="WebPosManagerCloseTerminalGcAmounNotValidt">
-        <value xml:lang="en">Enter a valid gift card amount:</value>
-        <value xml:lang="fr">Saisir un montant valide pour les bons d'achat :</value>
-        <value xml:lang="it">Inserire un'importo con carte regalo valido:</value>
     </property>
     <property key="WebPosManagerCloseTerminalOtherAmountNotValid">
         <value xml:lang="en">Enter a valid other payment amount:</value>
@@ -243,6 +243,11 @@
         <value xml:lang="en">Enter a new valid price</value>
         <value xml:lang="fr">Saisir un nouveau prix valide</value>
         <value xml:lang="it">Inserire un nuovo prezzo valido</value>
+    </property>
+    <property key="WebPosManagerModifyPriceSku">
+        <value xml:lang="en">Enter sku</value>
+        <value xml:lang="fr">Saisir l'unité de stock</value>
+        <value xml:lang="it">Inserire il codice prodotto</value>
     </property>
     <property key="WebPosManagerOpenTerminalDrawingAmount">
         <value xml:lang="en">Starting Drawer Amount:</value>
@@ -264,6 +269,11 @@
         <value xml:lang="fr">Saisir un montant à retirer</value>
         <value xml:lang="it">Inserire l'importo del pagamento in uscita</value>
     </property>
+    <property key="WebPosManagerPaidOutAndInWithoutOpenedTransaction">
+        <value xml:lang="en">Cannot Paid Out and In without an opened transaction</value>
+        <value xml:lang="fr">Il n'est pas possible d'ajouter ou retirer sans une transaction ouverte</value>
+        <value xml:lang="it">Non è possibile pagare in ingresso o uscita senza una transazione aperta</value>
+    </property>
     <property key="WebPosManagerPaidOutAndIndAmountNotValid">
         <value xml:lang="en">Enter a valid amount</value>
         <value xml:lang="fr">Saisir un montant valide</value>
@@ -278,16 +288,6 @@
         <value xml:lang="en">You can insert a comment</value>
         <value xml:lang="fr">Vous pouvez ajouter un commentaire</value>
         <value xml:lang="it">Tu puoi inserire un commento</value>
-    </property>
-    <property key="WebPosManagerPaidOutAndInWithoutOpenedTransaction">
-        <value xml:lang="en">Cannot Paid Out and In without an opened transaction</value>
-        <value xml:lang="fr">Il n'est pas possible d'ajouter ou retirer sans une transaction ouverte</value>
-        <value xml:lang="it">Non è possibile pagare in ingresso o uscita senza una transazione aperta</value>
-    </property>
-    <property key="WebPosManagerModifyPriceSku">
-        <value xml:lang="en">Enter sku</value>
-        <value xml:lang="fr">Saisir l'unité de stock</value>
-        <value xml:lang="it">Inserire il codice prodotto</value>
     </property>
     <property key="WebPosManagerTerminalAlreadyClosed">
         <value xml:lang="en">Terminal already closed</value>
@@ -334,15 +334,15 @@
         <value xml:lang="fr">Fermer la caisse</value>
         <value xml:lang="it">Chiudi Terminale</value>
     </property>
-    <property key="WebPosPageTitleOpenTerminal">
-        <value xml:lang="en">Open Terminal</value>
-        <value xml:lang="fr">Ouvrir la caisse</value>
-        <value xml:lang="it">Apri Terminale</value>
-    </property>
     <property key="WebPosPageTitleModifyPrice">
         <value xml:lang="en">Modify Price</value>
         <value xml:lang="fr">Modifier un prix</value>
         <value xml:lang="it">Modifica Prezzo</value>
+    </property>
+    <property key="WebPosPageTitleOpenTerminal">
+        <value xml:lang="en">Open Terminal</value>
+        <value xml:lang="fr">Ouvrir la caisse</value>
+        <value xml:lang="it">Apri Terminale</value>
     </property>
     <property key="WebPosPageTitlePaidOutAndIn">
         <value xml:lang="en">Paid Out And In</value>
@@ -365,15 +365,15 @@
         <value xml:lang="fr">Annuler le paiement</value>
         <value xml:lang="it">Rimuovi Pagamento</value>
     </property>
-    <property key="WebPosPageTitlePayGiftCard">
-        <value xml:lang="en">Pay Gift Card</value>
-        <value xml:lang="fr">Payer en bon d'achat</value>
-        <value xml:lang="it">Pagamento con Carta Regalo</value>
-    </property>
     <property key="WebPosPageTitlePayCreditCard">
         <value xml:lang="en">Pay Credit Card</value>
         <value xml:lang="fr">Payer en carte bancaire</value>
         <value xml:lang="it">Pagamento con Carta di Credito</value>
+    </property>
+    <property key="WebPosPageTitlePayGiftCard">
+        <value xml:lang="en">Pay Gift Card</value>
+        <value xml:lang="fr">Payer en bon d'achat</value>
+        <value xml:lang="it">Pagamento con Carta Regalo</value>
     </property>
     <property key="WebPosPageTitlePaySetRef">
         <value xml:lang="en">Pay Set Reference</value>
@@ -415,30 +415,10 @@
         <value xml:lang="fr">Réf. du chèque</value>
         <value xml:lang="it">Rif. Num. Assegno</value>
     </property>
-    <property key="WebPosPayGiftCard">
-        <value xml:lang="en">Gift card amount</value>
-        <value xml:lang="fr">Montant du bon d'achat</value>
-        <value xml:lang="it">Importo con carta regalo</value>
-    </property>
-    <property key="WebPosPayGiftCardNotValidAmount">
-        <value xml:lang="en">Insert a valid gift card amount</value>
-        <value xml:lang="fr">Saisir une valeur de bon d'achat valide</value>
-        <value xml:lang="it">Inserire un'importo con carta regalo valido</value>
-    </property>
-    <property key="WebPosPayGiftCardRefNum">
-        <value xml:lang="en">Gift card ref. num .</value>
-        <value xml:lang="fr">Réf. bon d'achat</value>
-        <value xml:lang="it">Rif. Num. Carta Regalo</value>
-    </property>
     <property key="WebPosPayCreditCard">
         <value xml:lang="en">Credit card amount</value>
         <value xml:lang="fr">Montant carte bancaire</value>
         <value xml:lang="it">Importo con carta di credito</value>
-    </property>
-    <property key="WebPosPayCreditCardNum">
-        <value xml:lang="en">Credit card number</value>
-        <value xml:lang="fr">N° de carte bancaire</value>
-        <value xml:lang="it">Numero di carta di credito</value>
     </property>
     <property key="WebPosPayCreditCardExp">
         <value xml:lang="en">Credit card expiring</value>
@@ -460,6 +440,11 @@
         <value xml:lang="fr">Saisir un montant de carte bancaire valide</value>
         <value xml:lang="it">Inserire un'importo con carta di credito valido</value>
     </property>
+    <property key="WebPosPayCreditCardNum">
+        <value xml:lang="en">Credit card number</value>
+        <value xml:lang="fr">N° de carte bancaire</value>
+        <value xml:lang="it">Numero di carta di credito</value>
+    </property>
     <property key="WebPosPayCreditCardRefNum">
         <value xml:lang="en">Credit card ref. num .</value>
         <value xml:lang="fr">Réf. carte bancaire</value>
@@ -469,6 +454,21 @@
         <value xml:lang="en">Credit card security code</value>
         <value xml:lang="fr">Code de sécurité de la carte bancaire</value>
         <value xml:lang="it">Codice di sicurezza della carta di credito</value>
+    </property>
+    <property key="WebPosPayGiftCard">
+        <value xml:lang="en">Gift card amount</value>
+        <value xml:lang="fr">Montant du bon d'achat</value>
+        <value xml:lang="it">Importo con carta regalo</value>
+    </property>
+    <property key="WebPosPayGiftCardNotValidAmount">
+        <value xml:lang="en">Insert a valid gift card amount</value>
+        <value xml:lang="fr">Saisir une valeur de bon d'achat valide</value>
+        <value xml:lang="it">Inserire un'importo con carta regalo valido</value>
+    </property>
+    <property key="WebPosPayGiftCardRefNum">
+        <value xml:lang="en">Gift card ref. num .</value>
+        <value xml:lang="fr">Réf. bon d'achat</value>
+        <value xml:lang="it">Rif. Num. Carta Regalo</value>
     </property>
     <property key="WebPosPaymentCheckInternal">
         <value xml:lang="en">Payment Check Internal not yet supported</value>
