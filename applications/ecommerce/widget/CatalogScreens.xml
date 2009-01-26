@@ -181,7 +181,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="productCategory"/></not>
+                        <not><if-empty field="productCategory"/></not>
                     </condition>
                     <widgets>
                         <include-screen name="${detailScreen}"/>
@@ -202,8 +202,8 @@ under the License.
 
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/CategoryDetail.groovy"/>
                 
-                <entity-and entity-name="ProductCategoryLink" list-name="productCategoryLinks" use-cache="true" filter-by-date="true">
-                    <field-map field-name="productCategoryId" env-name="productCategoryId"/>
+                <entity-and entity-name="ProductCategoryLink" list="productCategoryLinks" use-cache="true" filter-by-date="true">
+                    <field-map field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
             </actions>
@@ -253,7 +253,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="product"/></not>
+                                <not><if-empty field="product"/></not>
                             </condition>
                             <widgets>
                                 <include-screen name="${detailScreen}"/>

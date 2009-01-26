@@ -25,16 +25,16 @@ under the License.
     <screen name="forums">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocViewTo" list-name="forums" use-cache="true">
+                <entity-condition entity-name="ContentAssocViewTo" list="forums" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="WebStoreFORUM"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="caFromDate" operator="equals" env-name="null"/>
-                            <condition-expr field-name="caFromDate" operator="less-equals" env-name="nowTimestamp"/>
+                            <condition-expr field-name="caFromDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>
                         </condition-list>
                         <condition-list combine="or">
-                            <condition-expr field-name="caThruDate" operator="equals" env-name="null"/>
-                            <condition-expr field-name="caThruDate" operator="greater-equals" env-name="nowTimestamp"/>
+                            <condition-expr field-name="caThruDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caThruDate" operator="greater-equals" from-field="nowTimestamp"/>
                         </condition-list>
                     </condition-list>
                     <order-by field-name="contentName"/>
@@ -57,16 +57,16 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleForumSummary"/>
-                <entity-one entity-name="Content" value-name="forum">
-                    <field-map field-name="contentId" env-name="parameters.forumId"/>
+                <entity-one entity-name="Content" value-field="forum">
+                    <field-map field-name="contentId" from-field="parameters.forumId"/>
                 </entity-one>
                 <!-- parameters for the performFind service -->
                 <set field="parameters.forumId" from-field="parameters.forumId" default-value="${parameters.contentId}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <entity-condition list-name="forumMessages" entity-name="ContentAssocViewTo" >
+                <entity-condition list="forumMessages" entity-name="ContentAssocViewTo" >
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" env-name="parameters.forumId" />
+                        <condition-expr field-name="contentIdStart" from-field="parameters.forumId" />
                         <condition-list combine="or">
                             <condition-expr field-name="caContentAssocTypeId" value="PUBLISH_LINK"/>
                             <condition-expr field-name="caContentAssocTypeId" value="RESPONSE"/>
@@ -110,14 +110,14 @@ under the License.
                 <set field="contentAssoc.contentId" from-field="parameters.responseContentId"/>
                 <set field="contentAssoc.contentAssocTypeId" value="RESPONSE"/>
                 
-                <entity-one entity-name="Content" value-name="content">
-                    <field-map field-name="contentId" env-name="parameters.responseContentId"/>
+                <entity-one entity-name="Content" value-field="content">
+                    <field-map field-name="contentId" from-field="parameters.responseContentId"/>
                 </entity-one>
-                <entity-one entity-name="ElectronicText" value-name="electronicText">
-                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
+                    <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
-                <!-- service service-name="getContentAndDataResource" result-map-name="contentData">
-                    <field-map field-name="contentId" env-name="parameters.responseContentId"/>
+                <!-- service service-name="getContentAndDataResource" result-map="contentData">
+                    <field-map field-name="contentId" from-field="parameters.responseContentId"/>
                 </service -->
                 <set field="contentText" from-field="electronicText.textData"/>
             </actions>
@@ -528,7 +528,7 @@ under the License.
         <section>
             <condition>
                 <not>
-                    <if-empty field-name="rsp.contentName"/>
+                    <if-empty field="rsp.contentName"/>
                 </not>
             </condition>
             <actions>
@@ -536,7 +536,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId" />
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId" />
                     </condition>
                     <widgets>
                         <container style="responseSelected">

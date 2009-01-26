@@ -28,9 +28,9 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleListQuotes"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
-                <entity-condition entity-name="Quote" list-name="quoteList">
+                <entity-condition entity-name="Quote" list="quoteList">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
+                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="QUO_CREATED"/>
                     </condition-list>
                     <order-by field-name="-validFromDate"/>
@@ -56,15 +56,15 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewQuote"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="quoteId" from-field="parameters.quoteId"/>
-                <entity-one entity-name="Quote" value-name="quote"/>
-                <get-related-one value-name="quote" relation-name="QuoteType" to-value-name="quoteType"/>
-                <get-related-one value-name="quote" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="quote" relation-name="Uom" to-value-name="currency"/>
-                <get-related-one value-name="quote" relation-name="ProductStore" to-value-name="store"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
+                <get-related-one value-field="quote" relation-name="QuoteType" to-value-field="quoteType"/>
+                <get-related-one value-field="quote" relation-name="StatusItem" to-value-field="statusItem"/>
+                <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
+                <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
                 
-                <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
-                <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
-                <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
+                <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
+                <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
+                <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>
 
             </actions>
             <widgets>
