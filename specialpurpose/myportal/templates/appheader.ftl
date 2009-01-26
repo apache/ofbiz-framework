@@ -19,9 +19,9 @@ under the License.
 
 <#assign selected = headerItem?default("void")>
 <div id="app-navigation">
-  <h2>${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.middleName?if_exists} ${partyNameView.lastName?if_exists} ${partyNameView.groupName?if_exists}</h2>
   <ul>
-    <li>
+  <li>
+  <h2>${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.middleName?if_exists} ${partyNameView.lastName?if_exists} ${partyNameView.groupName?if_exists}</h2>
   <ul>
     <#if portalPages?has_content>
       <#list portalPages as page>
