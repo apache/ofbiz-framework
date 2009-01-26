@@ -366,7 +366,7 @@ function getConfigDetails(event) {
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}">
           <input type="hidden" name="product_id" value="${product.productId}">
-          <input type="hidden" name="configId" value="${configId}">
+          <input type="hidden" name="configId" value="${configId?if_exists}">
           <select name="shoppingListId">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
