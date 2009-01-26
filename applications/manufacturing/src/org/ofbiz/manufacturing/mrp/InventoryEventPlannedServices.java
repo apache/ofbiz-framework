@@ -72,7 +72,7 @@ public class InventoryEventPlannedServices {
             mrpEvent.put("isLate", (isLate? "Y": "N"));
             mrpEvent.create();
         } else {
-            BigDecimal qties = newQuantity.add((BigDecimal)mrpEvent.get("quantity"));
+            BigDecimal qties = newQuantity.add((BigDecimal)mrpEvent.getBigDecimal("quantity"));
             mrpEvent.put("quantity", qties);
             if (!UtilValidate.isEmpty(eventName)) {
                 String existingEventName = mrpEvent.getString("eventName");
