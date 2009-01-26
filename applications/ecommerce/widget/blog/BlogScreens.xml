@@ -25,12 +25,12 @@
         <section>
             <condition>
                 <not>
-                    <if-empty field-name="parameters.blogContentId"/>
+                    <if-empty field="parameters.blogContentId"/>
                 </not>
             </condition>
             <actions>
-                <entity-one entity-name="Content" value-name="blogContent">
-                    <field-map field-name="contentId" env-name="parameters.blogContentId"/>
+                <entity-one entity-name="Content" value-field="blogContent">
+                    <field-map field-name="contentId" from-field="parameters.blogContentId"/>
                 </entity-one>
                 
                 <!-- permission fields -->
@@ -70,9 +70,9 @@
             <actions>
                 <set field="MainColumnStyle" value="nocolumns"/>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
-                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list-name="blogList">
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="blogList">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" env-name="blogContentId"/>
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="blogContentId"/>
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
                         <condition-expr field-name="caThruDate" operator="equals" value=""/>
                         <condition-expr field-name="statusId" operator="equals" value="CTNT_PUBLISHED"/>
@@ -92,9 +92,9 @@
                         <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
                     </condition>
                     <actions>
-                        <service service-name="getOwnedOrPublishedBlogEntries" result-map-name="result">
-                            <field-map field-name="contentId" env-name="blogContentId"/>
-                            <field-map field-name="userLogin" env-name="userLogin"/>
+                        <service service-name="getOwnedOrPublishedBlogEntries" result-map="result">
+                            <field-map field-name="contentId" from-field="blogContentId"/>
+                            <field-map field-name="userLogin" from-field="userLogin"/>
                         </service>
                         <set field="blogList" from-field="result.blogList" default-value="${blogList}"/>
                     </actions>
@@ -102,10 +102,10 @@
                 </section>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <iterate-section list-name="blogList" entry-name="blog" paginate="true" paginate-target="MainBlog">
+                        <iterate-section list="blogList" entry="blog" paginate="true" paginate-target="MainBlog">
                             <section name="firstBlog">
                                 <condition>
-                                    <if-compare field-name="itemIndex" operator="equals" type="Integer" value="0"/>
+                                    <if-compare field="itemIndex" operator="equals" type="Integer" value="0"/>
                                 </condition>
                                 <widgets>
                                     <container style="blogwrapper">
@@ -124,7 +124,7 @@
                             </section>
                             <section name="allOtherBlogs">
                                 <condition>
-                                    <if-compare field-name="itemIndex" operator="greater" type="Integer" value="0"/>
+                                    <if-compare field="itemIndex" operator="greater" type="Integer" value="0"/>
                                 </condition>
                                 <widgets>
                                     <container style="blogwrapper">
@@ -191,7 +191,7 @@
                         <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
                     </condition-->
                     <actions>
-                        <service service-name="getBlogEntry" result-map-name="blogEntry" auto-field-map="true"/>
+                        <service service-name="getBlogEntry" result-map="blogEntry" auto-field-map="true"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
@@ -215,8 +215,8 @@
                 <set field="articleContentId" from-field="parameters.articleContentId" default-value="${parameters.contentId}"/>
                 <set field="ownerContentId" from-field="parameters.ownerContentId"/>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
-                <entity-one entity-name="Content" value-name="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="articleContentId"/>
+                <entity-one entity-name="Content" value-field="content" use-cache="true">
+                    <field-map field-name="contentId" from-field="articleContentId"/>
                 </entity-one>
                 <set field="enableEdit" value="false"/>
                 <property-to-field property="root.publish.point.blog" field="webPutPt" resource="blog"/>
@@ -277,11 +277,11 @@
                 <set field="articleContentId" from-field="parameters.articleContentId"/>
                 <set field="ownerContentId" from-field="parameters.ownerContentId"/>
                 <set field="blogContentId" from-field="parameters.blogContentId"/>
-                <entity-one entity-name="Content" value-name="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="contentId"/>
+                <entity-one entity-name="Content" value-field="content" use-cache="true">
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
-                <entity-one entity-name="Content" value-name="article">
-                    <field-map field-name="contentId" env-name="articleContentId"/>
+                <entity-one entity-name="Content" value-field="article">
+                    <field-map field-name="contentId" from-field="articleContentId"/>
                 </entity-one>
                 
                 <set field="trail" from-field="articleContentId"/>
@@ -303,13 +303,13 @@
                                     <!--
                                     <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
                                     -->
-                                    <if-empty field-name="foobar"/>
+                                    <if-empty field="foobar"/>
                                 </condition>
                                 <widgets>
                                     <container style="rightjustify">
                                         <section>
                                             <condition>
-                                                <if-compare field-name="parameters.edit" operator="not-equals" value="Y"/>
+                                                <if-compare field="parameters.edit" operator="not-equals" value="Y"/>
                                             </condition>
                                             <widgets>
                                                 <link text="Edit" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=Y" style="buttontext"/>
@@ -339,10 +339,10 @@
                         <section>
                             <condition>
                                 <or>
-                                    <if-compare field-name="content.statusId" operator="equals" value="CTNT_INITIAL_DRAFT"/>
+                                    <if-compare field="content.statusId" operator="equals" value="CTNT_INITIAL_DRAFT"/>
                                     <and>
                                         <if-entity-permission entity-id="${content.contentId}" entity-name="Content" target-operation="CONTENT_UPDATE"/>
-                                        <if-compare field-name="parameters.edit" operator="equals" value="Y"/>
+                                        <if-compare field="parameters.edit" operator="equals" value="Y"/>
                                     </and>
                                 </or>
 
@@ -364,7 +364,7 @@
         <section>
             <condition>
                 <not>
-                    <if-empty field-name="contentId"/>
+                    <if-empty field="contentId"/>
                 </not>
             </condition>
             <actions/>
@@ -393,7 +393,7 @@
     <screen name="BlogResponses">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" list-name="responseList">
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" list="responseList">
                     <condition-list combine="and">
                         <condition-expr field-name="caContentId" operator="equals" value="${articleContentId}"/>
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
@@ -408,7 +408,7 @@
                 <container style="bloghr">
                     <label text="Comments: " style="blogtitle"/>
                 </container>
-                <iterate-section list-name="responseList" entry-name="rsp" view-size="10">
+                <iterate-section list="responseList" entry="rsp" view-size="10">
                     <section name="Blog Responses">                        
                         <widgets>
                             <include-screen name="responseTreeLine"/>
@@ -422,7 +422,7 @@
     <screen name="LatestResponses">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocDataResourceViewTo" use-cache="false" list-name="responseList">
+                <entity-condition entity-name="ContentAssocDataResourceViewTo" use-cache="false" list="responseList">
                     <condition-list combine="and">
                         <condition-expr field-name="ownerContentId" operator="equals" value="${parameters.ownerContentId}"/>
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
@@ -436,7 +436,7 @@
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label text="Latest Responses"/>
-                        <iterate-section list-name="responseList" entry-name="rsp">
+                        <iterate-section list="responseList" entry="rsp">
                             <section name="Blog Responses">
                                 <widgets>
                                     <include-screen name="responseTreeLine"/>                                            
@@ -454,7 +454,7 @@
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field-name="responseContentId" operator="not-equals" to-field-name="rsp.contentId"/>
+                        <if-compare-field field="responseContentId" operator="not-equals" to-field="rsp.contentId"/>
                     </condition>
                     <widgets>
                         <container>
@@ -469,7 +469,7 @@
                 </section>
                 <section>
                     <condition>
-                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId"/>
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId"/>
                     </condition>
                     <widgets>
                         <container style="responseSelected">
@@ -506,7 +506,7 @@
             <widgets>
                 <section>
                     <condition>
-                        <if-empty field-name="parameters.contentId"/>
+                        <if-empty field="parameters.contentId"/>
                     </condition>
                     <actions>
                         <set field="rsp.contentIdFrom" from-field="parameters.articleContentId"/>
@@ -516,7 +516,7 @@
                 <section>
                     <condition>
                         <not>
-                            <if-empty field-name="parameters.contentId"/>
+                            <if-empty field="parameters.contentId"/>
                         </not>
                     </condition>
                     <actions>
@@ -560,7 +560,7 @@
                         </container>
                         <section>
                             <condition>
-                                <if-compare field-name="displayForm" operator="equals" value="Y"/>
+                                <if-compare field="displayForm" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="blogcontentwrapper">
@@ -597,11 +597,11 @@
                     -->
                     <actions>
                         <set field="rsp.articleContentId" from-field="articleContentId"/>
-                        <entity-one entity-name="DataResource" value-name="dataResource" use-cache="false">
-                            <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                        <entity-one entity-name="DataResource" value-field="dataResource" use-cache="false">
+                            <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                         </entity-one>
-                        <entity-one entity-name="ElectronicText" value-name="electronicText" use-cache="false">
-                            <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                        <entity-one entity-name="ElectronicText" value-field="electronicText" use-cache="false">
+                            <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                         </entity-one>
                     </actions>
                     <widgets>
@@ -621,16 +621,16 @@
     <screen name="blogs">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocViewTo" list-name="blogs" use-cache="true">                                  
+                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">                                  
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="BLOGROOT"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="caFromDate" operator="equals" env-name="null"/>
-                            <condition-expr field-name="caFromDate" operator="less-equals" env-name="nowTimestamp"/>
+                            <condition-expr field-name="caFromDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>
                         </condition-list>
                         <condition-list combine="or">
-                            <condition-expr field-name="caThruDate" operator="equals" env-name="null"/>
-                            <condition-expr field-name="caThruDate" operator="greater-equals" env-name="nowTimestamp"/>
+                            <condition-expr field-name="caThruDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caThruDate" operator="greater-equals" from-field="nowTimestamp"/>
                         </condition-list>
                     </condition-list>
                     <order-by field-name="contentName"/>

@@ -27,8 +27,8 @@ under the License.
                 <set field="title" value="Subscription Verify Email"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
                 
-                <entity-one entity-name="PartyNameView" value-name="partyName" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="contactListParty.partyId"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="contactListParty.partyId"/>
                 </entity-one>
             </actions>
             <widgets>

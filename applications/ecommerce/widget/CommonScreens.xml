@@ -292,15 +292,15 @@ under the License.
     <screen name="responseTreeLine">
         <section>
             <actions>
-                <service service-name="getPublicForumMessage" result-map-name="contentData">
-                    <field-map field-name="contentId" env-name="rsp.contentId"/>
+                <service service-name="getPublicForumMessage" result-map="contentData">
+                    <field-map field-name="contentId" from-field="rsp.contentId"/>
                 </service>
                 <set field="textData" from-field="contentData.resultData.electronicText.textData"/>
             </actions>
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId" />
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId" />
                     </condition>
                     <widgets>
                         <container style="responseSelected">

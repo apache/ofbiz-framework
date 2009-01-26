@@ -60,9 +60,9 @@
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
         paginate-target="/CMSContentFind" view-size="20">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
 
