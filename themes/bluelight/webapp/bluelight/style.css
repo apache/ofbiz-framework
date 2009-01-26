@@ -268,10 +268,15 @@ padding-right: 0.5em;
 padding-left: 0.5em;
 }
 
+.browsecategorylist {
+margin-left: 10px;
+}
+
 .browsecategorytext {
 color: #000099;
 font-weight: bold;
-text-indent: -1em;
+padding-left: 10px;
+background:url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
 }
 
 A.browsecategorybutton {
