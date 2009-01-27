@@ -552,7 +552,7 @@ public class ShoppingCartServices {
         // create the cart
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currency);
         // set shopping cart type
-        if (quote.getString("quoteTypeId").equals("PURCHASE_QUOTE")){
+        if ("PURCHASE_QUOTE".equals(quote.getString("quoteTypeId"))){
             cart.setOrderType("PURCHASE_ORDER");
             cart.setBillFromVendorPartyId(quote.getString("partyId"));
         }
