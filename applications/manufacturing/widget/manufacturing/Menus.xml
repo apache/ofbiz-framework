@@ -151,7 +151,7 @@ under the License.
                     </or>                
                 </not>
             </condition>
-            <link target="ProductionRunDeclaration?productionRunId=${productionRunId}"/>
+            <link target="ProductionRunActualComponents?productionRunId=${productionRunId}"/>
         </menu-item> 
         <menu-item name="assocs" title="${uiLabelMap.ManufacturingProductionRunAssocs}">
             <link target="ProductionRunAssocs?productionRunId=${productionRunId}"/>
