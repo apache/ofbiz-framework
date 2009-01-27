@@ -36,8 +36,8 @@ under the License.
     <form name="ListBudgets" type="list" list-name="listIt" paginate-target="LookupBudget"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Budget"/>
             </service>
         </actions>
@@ -62,8 +62,8 @@ under the License.
     <form name="ListBudgetItems" type="list" list-name="listIt" paginate-target="LookupBudgetItem"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="BudgetItem"/>
             </service>
         </actions>
@@ -95,8 +95,8 @@ under the License.
     <form name="ListEmplPositions" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="EmplPosition"/>
             </service>
         </actions>        
@@ -119,8 +119,8 @@ under the License.
     <form name="ListTerminationReasons" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="TerminationReason"/>
             </service>
         </actions>
@@ -139,8 +139,8 @@ under the License.
     <form name="ListSalarySteps" type="list" list-name="listIt" paginate-target="LookupSalaryStep"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalaryStep"/>
             </service>
         </actions>
@@ -159,8 +159,8 @@ under the License.
     <form name="ListPayGrades" type="list" list-name="listIt" paginate-target="LookupPayGrade"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PayGrade"/>
             </service>
         </actions>
@@ -179,8 +179,8 @@ under the License.
     <form name="ListPayRollPreferences" type="list" list-name="listIt" paginate-target="LookupPayRollPreference"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PayrollPreference"/>
             </service>
         </actions>
@@ -199,8 +199,8 @@ under the License.
     <form name="ListUnemploymentClaims" type="list" list-name="listIt" paginate-target="LookupUnemploymentClaim"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="UnemploymentClaim"/>
             </service>
         </actions>
@@ -219,8 +219,8 @@ under the License.
     <form name="ListAgreementEmploymentAppls" type="list" list-name="listIt" paginate-target="LookupAgreementEmploymentAppl"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="AgreementEmploymentAppl"/>
             </service>
         </actions>
@@ -239,8 +239,8 @@ under the License.
     <form name="ListPerfReviews" type="list" list-name="listIt" paginate-target="LookupPerfReview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PerfReview"/>
             </service>
         </actions>
@@ -259,8 +259,8 @@ under the License.
     <form name="ListPartyResumes" type="list" list-name="listIt" paginate-target="LookupPartyResume"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyResume"/>
             </service>
         </actions>
@@ -279,8 +279,8 @@ under the License.
     <form name="ListEmploymentApps" type="list" list-name="listIt" paginate-target="LookupEmploymentApp"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="EmploymentApp"/>
             </service>
         </actions>

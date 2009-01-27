@@ -83,7 +83,7 @@
                 <set field="headerItem" value="PartySkills"/>                
                 <set field="partyId" from-field="parameters.employeePartyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
-                <entity-one entity-name="PartySkill" value-name="partySkill"/>
+                <entity-one entity-name="PartySkill" value-field="partySkill"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

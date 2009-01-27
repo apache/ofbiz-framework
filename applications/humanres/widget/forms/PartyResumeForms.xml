@@ -31,8 +31,8 @@ under the License.
     <form name="ListPartyResumes" type="list" separate-columns="true" default-entity-name="PartyResume" list-name="listIt" paginate-target="FindPartyResumes" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="partyResumeCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="partyResumeCtx"/>
                 <field-map field-name="entityName" value="PartyResume"/>
                 <field-map field-name="orderBy" value="resumeId"/>
             </service>

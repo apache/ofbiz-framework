@@ -82,7 +82,7 @@
                 <set field="titleProperty" value="HumanResAddPersonTraining"/>
                 <set field="headerItem" value="Training"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Party" value-field="party"/>
                 <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
             </actions>
             <widgets>

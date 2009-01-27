@@ -60,7 +60,7 @@
                 <set field="tabButtonItem" value="EditPartySkill"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
                 <set field="partyId" from-field="parameters.partyId" />
-                <entity-one entity-name="PartyResume" value-name="partyResume" />
+                <entity-one entity-name="PartyResume" value-field="partyResume" />
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -78,7 +78,7 @@
                 <set field="titleProperty" value="HumanResNewEmploymentApp"/>
                 <set field="headerItem" value="EmploymentApp"/>
                 <set field="applicationId" from-field="parameters.applicationId"/>
-                <entity-one entity-name="EmploymentApp" value-name="employmentApp"/>
+                <entity-one entity-name="EmploymentApp" value-field="employmentApp"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">

@@ -96,12 +96,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="party"/></not>
+                                <not><if-empty field="party"/></not>
                             </condition>
                             <widgets>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
                                         <container style="button-bar button-style-2">
@@ -237,7 +237,7 @@ under the License.
                 <set field="tabButtonItem" value="EditEmployeeResumes"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
                 <set field="partyId" from-field="parameters.partyId" />
-                <entity-one entity-name="PartyResume" value-name="partyResume" />
+                <entity-one entity-name="PartyResume" value-field="partyResume" />
             </actions>            
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">

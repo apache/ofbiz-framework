@@ -102,7 +102,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="EmplPosition"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
-                <entity-one entity-name="EmplPosition" value-name="emplPosition"/>
+                <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -115,7 +115,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="emplPosition"/></not>
+                                        <not><if-empty field="emplPosition"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="EmplPostionBar" location="component://humanres/widget/Menus.xml"/>                                        
@@ -140,7 +140,7 @@ under the License.
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                                                
-                <entity-one entity-name="Employment" value-name="employment"/>                
+                <entity-one entity-name="Employment" value-field="employment"/>                
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -153,7 +153,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="employment"/></not>
+                                        <not><if-empty field="employment"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="EmploymentBar" location="component://humanres/widget/Menus.xml"/>
@@ -174,7 +174,7 @@ under the License.
         <section>
             <actions>                
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
-                <entity-one entity-name="PayGrade" value-name="payGrade"/>
+                <entity-one entity-name="PayGrade" value-field="payGrade"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -187,7 +187,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="payGrade"/></not>
+                                        <not><if-empty field="payGrade"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
@@ -208,7 +208,7 @@ under the License.
         <section>
             <actions>                
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
-                <entity-one entity-name="PerfReview" value-name="perfReview"/>
+                <entity-one entity-name="PerfReview" value-field="perfReview"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -221,7 +221,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="perfReviewId"/></not>
+                                        <not><if-empty field="perfReviewId"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="PartyBar" location="component://humanres/widget/Menus.xml"/>
@@ -244,8 +244,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="Employees"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="lookupPerson"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -254,7 +254,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="HUMANRES" action="_VIEW"/>
-                                    <not><if-empty field-name="partyId"/></not>
+                                    <not><if-empty field="partyId"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -269,11 +269,11 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="partyId"/></not></condition>
+                                    <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
                                         <container style="h1">
                                             <section>
-                                                <condition><not><if-empty field-name="lookupPerson"/></not></condition>
+                                                <condition><not><if-empty field="lookupPerson"/></not></condition>
                                                 <widgets>
                                                     <label text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} [${partyId}]"/>
                                                 </widgets>
@@ -300,9 +300,9 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="lookupPerson"/>
-                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -311,7 +311,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="HUMANRES" action="_VIEW"/>
-                                    <not><if-empty field-name="partyId"/></not>
+                                    <not><if-empty field="partyId"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -327,14 +327,14 @@ under the License.
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="partyId"/></not></condition>
+                                    <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
                                         <container style="h1">
                                             <section>
                                                 <condition>
                                                     <or>
-                                                        <not><if-empty field-name="lookupPerson"/></not>
-                                                        <not><if-empty field-name="lookupGroup"/></not>
+                                                        <not><if-empty field="lookupPerson"/></not>
+                                                        <not><if-empty field="lookupGroup"/></not>
                                                     </or>
                                                 </condition>
                                                 <widgets>

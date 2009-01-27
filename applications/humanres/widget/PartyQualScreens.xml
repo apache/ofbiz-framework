@@ -81,7 +81,7 @@
         <section>
             <actions>
                 <set field="headerItem" value="PartyQual"/>
-                <entity-one entity-name="PartyQual" value-name="partyQual"/>
+                <entity-one entity-name="PartyQual" value-field="partyQual"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

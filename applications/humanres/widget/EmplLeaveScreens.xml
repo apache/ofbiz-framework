@@ -106,7 +106,7 @@
                 <set field="headerItem" value="GlobalHRSettings"/>
                 <set field="tabButtonItem" value="EmplLeaveType"/>
                 <set field="leaveTypeId" from-field="parameters.leaveTypeId"/>
-                <entity-one entity-name="EmplLeaveType" value-name="emplLeaveType"/>
+                <entity-one entity-name="EmplLeaveType" value-field="emplLeaveType"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
