@@ -57,7 +57,7 @@
                 <set field="titleProperty" value="PageTitleEditEmplPosition"/>
                 <set field="tabButtonItem" value="EditEmplPosition"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
-                <entity-one entity-name="EmplPosition" value-name="emplPosition" />
+                <entity-one entity-name="EmplPosition" value-field="emplPosition" />
             </actions>            
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
@@ -211,7 +211,7 @@
                 <set field="titleProperty" value="HumanResEmplPositionSummary"/>
                 <set field="tabButtonItem" value="EmplPositionView"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
-                <entity-one entity-name="EmplPosition" value-name="emplPosition"/>
+                <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
@@ -243,8 +243,8 @@
     <screen name="EmplPositionFulfilmentView">
         <section>
             <actions>
-                <entity-condition entity-name="EmplPositionFulfillment" list-name="emplPositionFulfillments">
-                    <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <entity-condition entity-name="EmplPositionFulfillment" list="emplPositionFulfillments">
+                    <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
                     <order-by field-name="fromDate"/>
                 </entity-condition>
             </actions>
@@ -262,8 +262,8 @@
     <screen name="EmplPositionResponsibilityView">
         <section>
             <actions>
-                <entity-condition entity-name="EmplPositionResponsibility" list-name="emplPositionResponsibilities">
-                    <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <entity-condition entity-name="EmplPositionResponsibility" list="emplPositionResponsibilities">
+                    <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
                     <order-by field-name="fromDate"/>
                 </entity-condition>
             </actions>
@@ -281,8 +281,8 @@
     <screen name="EmplPositionReportsToView">
         <section>
             <actions>
-                <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructs">
-                    <condition-expr field-name="emplPositionIdManagedBy" operator="equals" env-name="parameters.emplPositionId"/>
+                <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructs">
+                    <condition-expr field-name="emplPositionIdManagedBy" operator="equals" from-field="parameters.emplPositionId"/>
                     <order-by field-name="fromDate"/>
                 </entity-condition>
             </actions>
@@ -300,8 +300,8 @@
     <screen name="EmplPositionReportedToView">
         <section>
             <actions>
-                <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructs">
-                    <condition-expr field-name="emplPositionIdReportingTo" operator="equals" env-name="parameters.emplPositionId"/>
+                <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructs">
+                    <condition-expr field-name="emplPositionIdReportingTo" operator="equals" from-field="parameters.emplPositionId"/>
                     <order-by field-name="fromDate"/>
                 </entity-condition>
             </actions>

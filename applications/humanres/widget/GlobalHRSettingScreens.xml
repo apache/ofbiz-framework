@@ -26,7 +26,7 @@
                 <set field="headerItem" value="SkillType"/>
                 <set field="titleProperty" value="PageTitleListSkillTypes"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
-                <entity-one entity-name="SkillType" value-name="skillType" />
+                <entity-one entity-name="SkillType" value-field="skillType" />
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -46,7 +46,7 @@
                 <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
                 <set field="tabButtonItem" value="ResponsibilityType"/>
                 <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
-                <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
+                <entity-one entity-name="ResponsibilityType" value-field="responsibilityType"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -66,7 +66,7 @@
                 <set field="tabButtonItem" value="TerminationType"/>
                 <set field="titleProperty" value="HumanResTerminationTypes"/>
                 <set field="terminationTypeId" from-field="parameters.terminationTypeId"/>
-                <entity-one entity-name="TerminationType" value-name="terminationType" />
+                <entity-one entity-name="TerminationType" value-field="terminationType" />
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -118,7 +118,7 @@
                 <set field="tabButtonItem" value="EmplPositionTypes"/>  
                 <set field="tabButtonItem2" value="EditEmplPositionType"/>
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
-                <entity-one entity-name="EmplPositionType" value-name="emplPositionType"/>
+                <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -126,7 +126,7 @@
                         <section>
                             <condition>
                                 <not>
-                                    <if-empty field-name="emplPositionTypeId"/>
+                                    <if-empty field="emplPositionTypeId"/>
                                 </not>                                
                             </condition>
                             <widgets>
@@ -153,7 +153,7 @@
                 <set field="tabButtonItem" value="EmplPositionTypes"/> 
                 <set field="tabButtonItem2" value="EditEmplPositionTypeRate"/>
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
-                <entity-one entity-name="EmplPositionTypeRate" value-name="emplPositionTypeRate"/>
+                <entity-one entity-name="EmplPositionTypeRate" value-field="emplPositionTypeRate"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -174,7 +174,7 @@
                 <set field="titleProperty" value="HumanResAddTerminationReason"/>
                 <set field="tabButtonItem" value="TerminationReason"/>
                 <set field="terminationReasonId" from-field="parameters.terminationReasonId" />
-                <entity-one entity-name="TerminationReason" value-name="terminationReason" />
+                <entity-one entity-name="TerminationReason" value-field="terminationReason" />
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">

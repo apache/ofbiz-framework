@@ -84,7 +84,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartySkill">
-                <condition-expr field-name="partyId" env-name="partyId"/>
+                <condition-expr field-name="partyId" from-field="partyId"/>
                 <order-by field-name="skillTypeId"/>
             </entity-condition>
         </actions>
@@ -132,7 +132,7 @@
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyQual">
-                <condition-expr field-name="partyId" env-name="partyId"/>
+                <condition-expr field-name="partyId" from-field="partyId"/>
                 <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>        
@@ -181,7 +181,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PersonTraining">
-                <condition-expr field-name="partyId" env-name="partyId"/>
+                <condition-expr field-name="partyId" from-field="partyId"/>
                 <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>        
@@ -208,7 +208,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="EmplLeave">
-                <condition-expr field-name="partyId" env-name="partyId"/>
+                <condition-expr field-name="partyId" from-field="partyId"/>
                 <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>        

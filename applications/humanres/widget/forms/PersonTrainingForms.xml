@@ -37,8 +37,8 @@ under the License.
     <form name="ListPersonTrainings" type="list" list-name="listIt" separate-columns="true" target="updatePersonTrainingsExt?partyId=${partyId}" paginate-target="FindPersonTrainings"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="personTrainingsCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="personTrainingsCtx"/>
                 <field-map field-name="entityName" value="PersonTraining"/>
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>

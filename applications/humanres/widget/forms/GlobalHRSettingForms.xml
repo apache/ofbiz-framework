@@ -96,8 +96,8 @@ under the License.
     <form name="ListEmplPositionTypes" type="list" list-name="listIt" target="updateEmplPositionType"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="emplPositionTypeCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="emplPositionTypeCtx"/>
                 <field-map field-name="entityName" value="EmplPositionType"/>
             </service>
         </actions>            
@@ -122,14 +122,14 @@ under the License.
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="EmplPositionTypeRateAndAmount" filter-by-date="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="emplPositionTypeId" env-name="parameters.emplPositionTypeId" operator="equals"/>
+                    <condition-expr field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId" operator="equals"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="rateAmountFromDate" env-name="null" operator="equals"/>
-                        <condition-expr field-name="rateAmountFromDate" env-name="nowDate" operator="less"/>
+                        <condition-expr field-name="rateAmountFromDate" from-field="null" operator="equals"/>
+                        <condition-expr field-name="rateAmountFromDate" from-field="nowDate" operator="less"/>
                     </condition-list>
                     <condition-list combine="or">
-                        <condition-expr field-name="rateAmountThruDate" env-name="null" operator="equals"/>
-                        <condition-expr field-name="rateAmountThruDate" env-name="nowDate" operator="greater"/>
+                        <condition-expr field-name="rateAmountThruDate" from-field="null" operator="equals"/>
+                        <condition-expr field-name="rateAmountThruDate" from-field="nowDate" operator="greater"/>
                     </condition-list>
                 </condition-list>
                 <order-by field-name="rateTypeId"/>

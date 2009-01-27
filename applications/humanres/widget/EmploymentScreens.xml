@@ -64,7 +64,7 @@
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditEmployment"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                                                
-                <entity-one entity-name="Employment" value-name="employment"/>
+                <entity-one entity-name="Employment" value-field="employment"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -148,7 +148,7 @@
                 <set field="payrollPreferenceSeqId" from-field="parameters.payrollPreferenceSeqId"/>
                 <set field="partyId" from-field="parameters.partyIdTo"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeIdTo"/>                
-                <entity-one entity-name="PayrollPreference" value-name="payrollPreference" />
+                <entity-one entity-name="PayrollPreference" value-field="payrollPreference" />
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -174,7 +174,7 @@
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <entity-one entity-name="UnemploymentClaim" value-name="unemploymentClaim" />
+                <entity-one entity-name="UnemploymentClaim" value-field="unemploymentClaim" />
             </actions>            
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">

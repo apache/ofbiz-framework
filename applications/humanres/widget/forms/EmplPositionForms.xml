@@ -23,8 +23,8 @@ under the License.
     <form name="ListEmplPositions" type="list" separate-columns="true" default-entity-name="EmplPosition" list-name="listIt" paginate-target="FindEmplPositions" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="EmplPosition"/>
                 <field-map field-name="orderBy" value="emplPositionId"/>
             </service>
@@ -85,7 +85,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="EmplPositionFulfillment">
-                <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
                 <order-by field-name="emplPositionId"/>
             </entity-condition>
         </actions>        
@@ -114,8 +114,8 @@ under the License.
     <form name="ListReportsToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportsToEmplPositionReportingStruct"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructList">
-                <condition-expr field-name="emplPositionIdManagedBy" env-name="parameters.emplPositionId"/>
+            <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructList">
+                <condition-expr field-name="emplPositionIdManagedBy" from-field="parameters.emplPositionId"/>
                 <order-by field-name="emplPositionIdManagedBy"/>
             </entity-condition>
         </actions>
@@ -142,8 +142,8 @@ under the License.
     <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructList">
-                <condition-expr field-name="emplPositionIdReportingTo" env-name="parameters.emplPositionId"/>
+            <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructList">
+                <condition-expr field-name="emplPositionIdReportingTo" from-field="parameters.emplPositionId"/>
                 <order-by field-name="emplPositionIdReportingTo"/>
             </entity-condition>
         </actions>
@@ -171,7 +171,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="EmplPositionResponsibility">
-                <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
                 <order-by field-name="emplPositionId"/>
             </entity-condition>
         </actions>

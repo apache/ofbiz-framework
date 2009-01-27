@@ -59,7 +59,7 @@
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
                 <set field="employeePartyId" from-field="parameters.employeePartyId"/>                
                 <set field="employeeRoleTypeId" from-field="parameters.employeeRoleTypeId"/>                
-                <entity-one entity-name="PerfReview" value-name="perfReview"/>
+                <entity-one entity-name="PerfReview" value-field="perfReview"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -50,8 +50,8 @@
     <form name="ListEmploymentsPerson" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="employmentCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="employmentCtx"/>
                 <field-map field-name="entityName" value="EmploymentAndPerson"/>
             </service>
         </actions>
@@ -72,8 +72,8 @@
     <form name="ListEmployments" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="employmentCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="employmentCtx"/>
                 <field-map field-name="entityName" value="Employment"/>
             </service>
         </actions>
@@ -130,11 +130,11 @@
         <actions>
             <entity-condition entity-name="PayHistory" filter-by-date="true">
                 <condition-list combine="and">                    
-                    <condition-expr field-name="roleTypeIdFrom" operator="equals" env-name="parameters.roleTypeIdFrom"/>
-                    <condition-expr field-name="roleTypeIdTo" operator="equals" env-name="parameters.roleTypeIdTo"/>
-                    <condition-expr field-name="partyIdFrom" operator="equals" env-name="parameters.partyIdFrom"/>
-                    <condition-expr field-name="partyIdTo" operator="equals" env-name="parameters.partyIdTo"/>
-                    <condition-expr field-name="fromDate" operator="equals" env-name="parameters.fromDate"/>
+                    <condition-expr field-name="roleTypeIdFrom" operator="equals" from-field="parameters.roleTypeIdFrom"/>
+                    <condition-expr field-name="roleTypeIdTo" operator="equals" from-field="parameters.roleTypeIdTo"/>
+                    <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom"/>
+                    <condition-expr field-name="partyIdTo" operator="equals" from-field="parameters.partyIdTo"/>
+                    <condition-expr field-name="fromDate" operator="equals" from-field="parameters.fromDate"/>
                 </condition-list>
             </entity-condition>            
         </actions>
@@ -216,8 +216,8 @@
         <actions>
             <entity-condition entity-name="PayrollPreference">
                 <condition-list combine="and">
-                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyIdTo"/>
-                    <condition-expr field-name="roleTypeId" operator="equals" env-name="parameters.roleTypeIdTo"/>                    
+                    <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyIdTo"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" from-field="parameters.roleTypeIdTo"/>                    
                 </condition-list>
                 <order-by field-name="fromDate"/>
             </entity-condition>
@@ -296,11 +296,11 @@
          <actions>
             <entity-condition entity-name="UnemploymentClaim" filter-by-date="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="partyIdFrom" operator="equals" env-name="parameters.partyIdFrom"/>
-                    <condition-expr field-name="partyIdTo" operator="equals" env-name="parameters.partyIdTo"/>
-                    <condition-expr field-name="roleTypeIdFrom" operator="equals" env-name="parameters.roleTypeIdFrom"/>
-                    <condition-expr field-name="roleTypeIdTo" operator="equals" env-name="parameters.roleTypeIdTo"/>
-                    <condition-expr field-name="fromDate" operator="equals" env-name="parameters.fromDate"/>
+                    <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom"/>
+                    <condition-expr field-name="partyIdTo" operator="equals" from-field="parameters.partyIdTo"/>
+                    <condition-expr field-name="roleTypeIdFrom" operator="equals" from-field="parameters.roleTypeIdFrom"/>
+                    <condition-expr field-name="roleTypeIdTo" operator="equals" from-field="parameters.roleTypeIdTo"/>
+                    <condition-expr field-name="fromDate" operator="equals" from-field="parameters.fromDate"/>
                 </condition-list>
                 <order-by field-name="unemploymentClaimId"/>
             </entity-condition>

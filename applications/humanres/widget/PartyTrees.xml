@@ -22,34 +22,34 @@ under the License.
 
     <tree name="OrgTree" root-node-name="node-root" entity-name="PartyAndGroup" open-depth="1"> 
         <node name="node-root" entity-name="PartyAndGroup" render-style="expand-collapse">
-            <entity-one entity-name="PartyAndGroup" value-name="partyAndGroup"/>
+            <entity-one entity-name="PartyAndGroup" value-field="partyAndGroup"/>
             <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
             <sub-node node-name="internalOrg-list">
                 <entity-condition entity-name="PartyRelationship" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="partyId"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyId"/>
                         <condition-expr field-name="partyRelationshipTypeId" operator="equals" value="GROUP_ROLLUP"/> 
                     </condition-list>
                 </entity-condition>
             </sub-node>
         </node>
         <node name="internalOrg-list" entry-name="partyRelationship" entity-name="PartyRelationship" join-field-name="partyIdTo" render-style="expand-collapse">
-            <entity-one entity-name="PartyAndGroup" value-name="partyAndGroup">
-                <field-map field-name="partyId" env-name="partyRelationship.partyIdTo"/>
+            <entity-one entity-name="PartyAndGroup" value-field="partyAndGroup">
+                <field-map field-name="partyId" from-field="partyRelationship.partyIdTo"/>
             </entity-one>
             <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
             <sub-node node-name="employee-list">
                 <entity-condition entity-name="Employment" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="partyRelationship.partyIdTo"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyRelationship.partyIdTo"/>
                         <condition-expr field-name="roleTypeIdTo" operator="equals" value="EMPLOYEE"/> 
                     </condition-list>
                 </entity-condition>
             </sub-node>
         </node>
         <node name="employee-list" entry-name="employment" entity-name="Employment" join-field-name="partyIdTo" render-style="simple">
-            <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson">
-                <field-map field-name="partyId" env-name="employment.partyIdTo"/>
+            <entity-one entity-name="PartyAndPerson" value-field="partyAndPerson">
+                <field-map field-name="partyId" from-field="employment.partyIdTo"/>
             </entity-one>
             <include-screen name="PartyPersonTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
         </node>
