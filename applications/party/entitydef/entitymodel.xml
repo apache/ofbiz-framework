@@ -1545,6 +1545,18 @@ under the License.
         <index-field name="externalId"/>
       </index>
     </entity>
+    <view-entity entity-name="PartyAcctgPrefAndGroup"
+        package-name="org.ofbiz.party.party"
+        title="PartyAcctgPreference and PartyGroup Entity">
+        <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
+        <member-entity entity-alias="PTYGROUP" entity-name="PartyGroup"/>
+        <alias entity-alias="PTYACCPREF"  name="partyId" />
+        <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId" />
+        <alias entity-alias="PTYGROUP"  name="groupName"/>
+        <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
+            <key-map field-name="partyId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="PartyAndGroup"
         package-name="org.ofbiz.party.party"
         title="Party and Party Group View Entity">
@@ -1655,7 +1667,51 @@ under the License.
       <key-map field-name="partyId"/>
     </view-link>
   </view-entity>
-  <view-entity entity-name="UserLoginAndPartyDetails"
+    <entity entity-name="PartyGeoPoint" 
+        package-name="org.ofbiz.party.party" 
+        title="Party Geo Location with history">
+        <field name="partyId" type="id-ne"></field>
+        <field name="geoPointId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="partyId"/>
+        <prim-key field="geoPointId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PARTYGEOPT_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PARTYGEOPT_GEOPT" rel-entity-name="GeoPoint">
+            <key-map field-name="geoPointId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="PartyAndGeoPoint"
+        package-name="org.ofbiz.party.party"
+        title="Party and Geo Point View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PGPT" entity-name="PartyGeoPoint"/>
+        <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
+        <alias-all entity-alias="GPT"/>    
+        <alias entity-alias="PTY" name="partyId"/>
+        <alias entity-alias="PGPT" name="fromDate"/>
+        <alias entity-alias="PGPT" name="thruDate"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PGPT">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PGPT" rel-entity-alias="GPT">
+            <key-map field-name="geoPointId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="PartyGeoPoint">
+            <key-map field-name="partyId"/>
+            <key-map field-name="geoPointId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="GeoPoint">
+            <key-map field-name="geoPointId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="UserLoginAndPartyDetails"
             package-name="org.ofbiz.party.party"
             title="UserLogin, Party, Person and PartyGroup">
       <member-entity entity-alias="ULN" entity-name="UserLogin"/>
@@ -2631,60 +2687,4 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
-    <view-entity entity-name="PartyAcctgPrefAndGroup"
-        package-name="org.ofbiz.party.party"
-        title="PartyAcctgPreference and PartyGroup Entity">
-      <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
-      <member-entity entity-alias="PTYGROUP" entity-name="PartyGroup"/>
-      <alias entity-alias="PTYACCPREF"  name="partyId" />
-      <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId" />
-      <alias entity-alias="PTYGROUP"  name="groupName"/>
-      <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
-        <key-map field-name="partyId"/>
-      </view-link>
-    </view-entity>
-    <entity entity-name="PartyGeoPoint" 
-        package-name="org.ofbiz.party.party" 
-        title="Party Geo Location with history">
-      <field name="partyId" type="id-ne"></field>
-      <field name="geoPointId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="partyId"/>
-      <prim-key field="geoPointId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="PARTYGEOPT_PARTY" rel-entity-name="Party">
-          <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PARTYGEOPT_GEOPT" rel-entity-name="GeoPoint">
-          <key-map field-name="geoPointId"/>
-      </relation>
-    </entity>
-    <view-entity entity-name="PartyAndGeoPoint"
-        package-name="org.ofbiz.party.party"
-        title="Party and Geo Point View Entity">
-      <member-entity entity-alias="PTY" entity-name="Party"/>
-      <member-entity entity-alias="PGPT" entity-name="PartyGeoPoint"/>
-      <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
-      <alias-all entity-alias="GPT"/>    
-      <alias entity-alias="PTY" name="partyId"/>
-      <alias entity-alias="PGPT" name="fromDate"/>
-      <alias entity-alias="PGPT" name="thruDate"/>
-      <view-link entity-alias="PTY" rel-entity-alias="PGPT">
-        <key-map field-name="partyId"/>
-      </view-link>
-      <view-link entity-alias="PGPT" rel-entity-alias="GPT">
-        <key-map field-name="geoPointId"/>
-      </view-link>
-      <relation type="many" rel-entity-name="PartyGeoPoint">
-        <key-map field-name="partyId"/>
-        <key-map field-name="geoPointId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="GeoPoint">
-        <key-map field-name="geoPointId"/>
-      </relation>
-    </view-entity>
 </entitymodel>
