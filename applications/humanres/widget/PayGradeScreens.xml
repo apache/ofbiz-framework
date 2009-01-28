@@ -24,12 +24,13 @@
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResFindPayGrade"/>
-                <set field="headerItem" value="PayGrade"/>
+                <set field="headerItem" value="GlobalHRSettingMenus"/>
+                <set field="tabButtonItem" value="PayGrade"/>
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
                 <set field="payGradeCtx" from-field="parameters"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
@@ -57,14 +58,22 @@
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditPayGrade"/>
-                <set field="headerItem" value="PayGrade"/>
-                <set field="tabButtonItem" value="EditPayGrade"/>
+                <set field="tabButtonItem" value="PayGrade"/>
+                <set field="subTabButtonItem" value="EditPayGrade"/>
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
                 <entity-one entity-name="PayGrade" value-field="payGrade"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="parameters.payGradeId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
                         <screenlet title="${uiLabelMap.HumanResEditPayGrade}">
                             <section>
                                 <widgets>
@@ -87,8 +96,16 @@
                 <set field="salaryStepSeqId" from-field="parameters.salaryStepSeqId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="parameters.payGradeId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
                         <screenlet id="AddSalaryStepPanel" title="${uiLabelMap.HumanResAddSalaryStep}" collapsible="true">
                             <include-form name="AddSalaryStep" location="component://humanres/widget/forms/PayGradeForms.xml"/>
                         </screenlet>
