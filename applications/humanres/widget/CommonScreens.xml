@@ -183,40 +183,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonPayGradeDecorator">
-        <section>
-            <actions>                
-                <set field="payGradeId" from-field="parameters.payGradeId"/>
-                <entity-one entity-name="PayGrade" value-field="payGrade"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for Employment, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="payGrade"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
-                                    </widgets>
-                                </section>                                
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CommonPerfReviewDecorator">
         <section>
             <actions>                

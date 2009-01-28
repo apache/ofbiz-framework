@@ -30,7 +30,6 @@
         <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApps"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
-        <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
@@ -76,7 +75,7 @@
         </menu-item>
     </menu>
     <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" default-selected-style="selected"
-        type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="EditPayGrade" title="${uiLabelMap.HumanResPayGrade}">
             <link target="EditPayGrade?payGradeId=${payGradeId}"/>
         </menu-item>       
@@ -105,6 +104,9 @@
         </menu-item>
         <menu-item name="EmplLeaveType" title="${uiLabelMap.HumanResEmplLeaveType}">
             <link target="EditEmplLeaveTypes"/>
+        </menu-item>
+        <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}">
+            <link target="FindPayGrades"/>
         </menu-item>
     </menu>
     
