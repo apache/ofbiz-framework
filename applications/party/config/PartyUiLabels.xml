@@ -1743,6 +1743,10 @@
         <value xml:lang="nl">Vervoerder relatie wijzigen</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้ในบัญชีผู้ส่ง</value>
     </property>
+    <property key="PageTitlePartyGeoLocation">
+        <value xml:lang="en">Party GeoLocation</value>
+        <value xml:lang="fr">Géolocalisation de l'acteur</value>
+    </property>
     <property key="PageTitlePartyInvitation">
         <value xml:lang="de">Akteur Einladung</value>
         <value xml:lang="en">Party Invitation</value>

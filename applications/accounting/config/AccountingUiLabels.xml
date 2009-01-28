@@ -10032,6 +10032,10 @@
         <value xml:lang="nl">Rapport afschrijvingen op vaste activa</value>
         <value xml:lang="th">รายงานคำอธิบายทรัพย์สินไม่หมุนเวียน</value>
     </property>
+    <property key="PageTitleFixedAssetGeoLocation">
+        <value xml:lang="en">Fixed Asset GeoLocation</value>
+        <value xml:lang="fr">Géolocalisation de l'actif immobilisé</value>
+    </property>
     <property key="PageTitleInventoryIssueSummary">
         <value xml:lang="en">Inventory Issue Summary</value>
         <value xml:lang="fr">Résumé des problèmes d'inventaire</value>

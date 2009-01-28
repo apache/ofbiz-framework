@@ -5009,6 +5009,10 @@
         <value xml:lang="it">Aggiorna Fornitore Prodotto</value>
         <value xml:lang="th">แก้ไขผู้จำหน่ายสินค้า</value>
     </property>
+    <property key="PageTitleFacilityLocationGeoLocation">
+        <value xml:lang="en">Facility Location GeoLocation</value>
+        <value xml:lang="fr">Géolocalisation de l'emplacement de stokage</value>
+    </property>
     <property key="PageTitleFindConfigItems">
         <value xml:lang="de">Konfigurationsposition suchen</value>
         <value xml:lang="en">Find Config Items</value>

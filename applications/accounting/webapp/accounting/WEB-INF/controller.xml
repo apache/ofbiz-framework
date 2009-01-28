@@ -657,8 +657,8 @@ under the License.
         <event type="service" invoke="deletePartyGlAccount"/>
         <response name="success" type="view" value="EditPartyGlAccount"/>
         <response name="error" type="view" value="EditPartyGlAccount"/>
-    </request-map>	
-	
+    </request-map>    
+    
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
     <request-map uri="FixedAssetSearchResults"><security https="true" auth="false"/><response name="success" type="view" value="FixedAssetSearchResults"/></request-map>
@@ -1896,6 +1896,19 @@ under the License.
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
 
+    <request-map uri="taxAuthorityVATReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="taxAuthorityVATReport"/>
+    </request-map>
+
+    <!-- GeoLocation-->
+    <request-map uri="FixedAssetGeolocation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetGeolocation"/>
+        <response name="error" type="view" value="EditFacility"/>
+    </request-map>
+    
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1965,7 +1978,7 @@ under the License.
     <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountEntries"/>
     <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListAcctgTransEntries"/>
     <view-map name="EditPartyGlAccount" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditPartyGlAccount"/>
-	
+    
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
     
@@ -2128,6 +2141,12 @@ under the License.
 
     <!-- Agreements Views   -->
     <view-map name="EditAgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementRoles"/>
-    
+
+
+    <view-map name="findTaxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityFroms.xml#FindTaxAuthorityVATReport"/>
+    <view-map name="taxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityFroms.xml#TaxAuthorityVATReport"/>
+
+    <view-map name="FixedAssetGeolocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeolocation"/>    
+
     <!-- end of view mappings -->
 </site-conf>

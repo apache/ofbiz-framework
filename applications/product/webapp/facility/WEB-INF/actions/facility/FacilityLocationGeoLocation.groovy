@@ -18,23 +18,18 @@
  */
 
 import org.ofbiz.common.geo.GeoWorker;
+ 
+facilityId = parameters.facilityId
+locationSeqId = parameters.locationSeqId
 
-partyId = parameters.partyId ?: parameters.party_id;
-userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
+if (facilityId && locationSeqId) {
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "FacilityLocationAndGeoPoint", "facilityId", facilityId, "locationSeqId", locationSeqId)
+    context.latestGeoPoint = latestGeoPoint
+    context.facilityId = facilityId
+    context.locationSeqId = locationSeqId
 
-if (!partyId && userLoginId) {
-    thisUserLogin = delegator.findByPrimaryKey("UserLogin", [userLoginId : userLoginId]);
-    if (thisUserLogin) {
-        partyId = thisUserLogin.partyId;
+    if (latestGeoPoint) {
+        elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false)
+        context.elevationUomAbbr = elevationUom.abbreviation
     }
 }
-context.partyId = partyId; 
-
-latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
-context.latestGeoPoint = latestGeoPoint;
-
-if (latestGeoPoint) {
-    elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
-    context.elevationUomAbbr = elevationUom.abbreviation;
-}
- 
