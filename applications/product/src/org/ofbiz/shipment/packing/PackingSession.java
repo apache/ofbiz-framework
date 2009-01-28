@@ -604,7 +604,7 @@ public class PackingSession implements java.io.Serializable {
             BigDecimal reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
             BigDecimal packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
 
-            if (packedQty != reservedQty) {
+            if (packedQty.compareTo(reservedQty) != 0) {
                 errors.add("Packed amount does not match reserved amount for item (" + line.getProductId() + ") [" + packedQty + " / " + reservedQty + "]");
             }
         }

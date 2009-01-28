@@ -258,7 +258,7 @@ public class PackingServices {
 
         String shipmentId = null;
         try {
-            shipmentId = session.complete(force.booleanValue());
+            shipmentId = session.complete(force);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
