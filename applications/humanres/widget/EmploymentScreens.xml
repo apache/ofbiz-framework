@@ -167,7 +167,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResAddUnemploymentClaim"/>
                 <set field="headerItem" value="Employment"/>
-                <set field="tabButtonItem" value="EditUnemploymentClaim"/>
+                <set field="tabButtonItem" value="EditUnemploymentClaims"/>
                 <set field="unemploymentClaimId" from-field="parameters.unemploymentClaimId" />
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
