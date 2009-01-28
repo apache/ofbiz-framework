@@ -41,6 +41,15 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="emplPositionTypeId"><display-entity entity-name="EmplPositionType" description="${description}"/></field>
     </form>            
+    <form name="ListEmplPositionsParty" extends="ListEmplPositions" list-name="ListEmplPositions">
+        <actions>
+            <entity-and entity-name="EmplPositionAndFulfillment">
+                <field-map field-name="employeePartyId" from-field="parameters.partyId"/>
+            </entity-and>
+        </actions>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><display type="date"/></field>
+    </form>
     <form name="EditEmplPosition" type="single" target="updateEmplPosition" title="" default-map-name="emplPosition"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="emplPosition==null" target="createEmplPosition"/>

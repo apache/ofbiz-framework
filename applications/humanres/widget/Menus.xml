@@ -116,9 +116,9 @@
         <menu-item name="ListEmployment" title="${uiLabelMap.HumanResEmployment}">
             <link target="ListEmployments?partyId=${parameters.partyId}"/>
         </menu-item>
-        <!--menu-item name="EmplPositionView" title="${uiLabelMap.HumanResEmployeePosition}">
-            <link target="emplPositionView?emplPositionId=${emplPositionId}"/>
-        </menu-item-->
+        <menu-item name="ListEmplPositions" title="${uiLabelMap.HumanResEmployeePosition}">
+            <link target="ListEmplPositions?partyId=${parameters.partyId}"/>
+        </menu-item>
         <menu-item name="EditEmployeeSkills" title="${uiLabelMap.HumanResSkills}">
             <link target="EditEmployeeSkills?partyId=${partyId}"/>
         </menu-item>

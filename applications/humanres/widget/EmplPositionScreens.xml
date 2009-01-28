@@ -51,6 +51,22 @@
             </widgets>
         </section> 
     </screen>
+    <screen name="ListEmplPositionsParty">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindEmplPosition"/>
+                <set field="headerItem" value="EmplPosition"/>
+                <set field="tabButtonItem" value="ListEmplPositions"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmplPositionsParty" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
     <screen name="EditEmplPosition">
         <section>                        
             <actions>
