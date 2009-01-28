@@ -198,6 +198,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmployment"/>
     </request-map>
+    <request-map uri="ListEmployments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListEmployments"/>
+    </request-map>
     <request-map uri="createEmployment">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmployment"/>
@@ -915,6 +919,7 @@ under the License.
     
     <view-map name="FindEmployments" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindEmployments"/>
     <view-map name="EditEmployment" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditEmployment"/>
+    <view-map name="ListEmployments" type="screen" page="component://humanres/widget/EmploymentScreens.xml#ListEmployments"/>
     <view-map name="EditPartyBenefits" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPartyBenefits"/>
     <view-map name="EditPayrollPreferences" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPayrollPreferences"/>
     <view-map name="ListPayHistories" type="screen" page="component://humanres/widget/EmploymentScreens.xml#ListPayHistories"/>    
