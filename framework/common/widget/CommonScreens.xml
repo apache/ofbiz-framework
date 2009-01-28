@@ -476,7 +476,7 @@ under the License.
     <screen name="geoLocation">
         <section>
             <actions>
-                <set field="titleProperty" value="CommonGeoLocation"/>
+                <set field="titleProperty" value="PageTitleCommonGeoLocation"/>
                 <entity-one entity-name="GeoPoint" value-field="geoPoint">
                     <field-map field-name="geoPointId" from-field="parameters.geoPointId"/>
                 </entity-one>

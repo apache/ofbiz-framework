@@ -152,6 +152,7 @@
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="10AM"/>
     <FixedAsset fixedAssetId="DEMO_PROJECTOR" fixedAssetName="Overhead Projector" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_PROJECTOR" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>    
     <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
     <WorkEffortFixedAssetAssign workEffortId="STAFF_MTG" fixedAssetId="DEMO_PROJECTOR" statusId="FA_ASGN_REQUESTED" availabilityStatusId="WEFA_IN_USE" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>

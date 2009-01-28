@@ -125,20 +125,6 @@ public class PartyWorker {
         }
     }
 
-    public static GenericValue findPartyLatestGeoPoint(String partyId, GenericDelegator delegator) {
-        try {
-            List<GenericValue> gptList = delegator.findByAnd("PartyAndGeoPoint", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
-            if (UtilValidate.isNotEmpty(gptList)) {
-                gptList = EntityUtil.filterByDate(gptList);
-                return EntityUtil.getFirst(gptList);
-            }
-            return null;
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest GeoPoint for party with ID [" + partyId + "] " + e.toString(), module);
-            return null;
-        }
-    }
-
     public static GenericValue findPartyLatestPostalAddress(String partyId, GenericDelegator delegator) {
         GenericValue pcm = findPartyLatestContactMech(partyId, "POSTAL_ADDRESS", delegator);
         if (pcm != null) {

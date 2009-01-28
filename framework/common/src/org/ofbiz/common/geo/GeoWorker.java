@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Worker methods for Geos
@@ -119,4 +120,26 @@ public class GeoWorker {
         //Debug.log("Contains Geo : " + geoList.contains(geo));
         return geoList.contains(geo);
     }
+    
+    public static GenericValue findLatestGeoPoint(GenericDelegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
+        List<GenericValue> gptList = null;
+        if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
+            try {
+                gptList = delegator.findByAnd(Entity, UtilMisc.toMap(mainId, mainValueId, secondId, secondValueId), UtilMisc.toList("-fromDate"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), module);
+            }
+        } else {
+            try {
+                gptList = delegator.findByAnd(Entity, UtilMisc.toMap(mainId, mainValueId), UtilMisc.toList("-fromDate"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] " + e.toString(), module);
+            }
+        }
+        if (UtilValidate.isNotEmpty(gptList)) {
+            gptList = EntityUtil.filterByDate(gptList);
+            return EntityUtil.getFirst(gptList);
+        }
+        return null;
+    }    
 }

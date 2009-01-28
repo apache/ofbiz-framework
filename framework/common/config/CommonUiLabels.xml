@@ -8186,6 +8186,10 @@
         <value xml:lang="zh">编辑数据源类型</value>
         <value xml:lang="zh_CN">编辑数据源类型</value>
     </property>
+    <property key="PageTitleCommonGeoLocation">
+        <value xml:lang="en">GeoLocation of requested element</value>
+        <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
+    </property>
     <property key="PageTitleListDataSource">
         <value xml:lang="ar">قائمة مصادر المعلومات</value>
         <value xml:lang="de">Liste der Datenquellen</value>

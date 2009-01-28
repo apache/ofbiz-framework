@@ -1166,8 +1166,7 @@ under the License.
     <screen name="PartyGeoLocation">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleViewPartyGeoLocation"/>
-                <set field="partyId"  from-field="parameters.partyId"/>
+                <set field="titleProperty" value="PageTitlePartyGeoLocation"/>                
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
