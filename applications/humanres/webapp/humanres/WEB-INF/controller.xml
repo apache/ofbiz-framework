@@ -431,6 +431,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmplPosition"/>
     </request-map>
+    <request-map uri="ListEmplPositions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListEmplPositions"/>
+    </request-map>
     <request-map uri="createEmplPosition">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmplPosition"/>
@@ -940,6 +944,7 @@ under the License.
     
     <view-map name="FindEmplPositions" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#FindEmplPositions"/>
     <view-map name="EditEmplPosition" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPosition"/>
+    <view-map name="ListEmplPositions" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#ListEmplPositionsParty"/>
     <view-map name="EditEmplPositionFulfillments" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionFulfillments"/>    
     <view-map name="EditEmplPositionResponsibilities" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionResponsibilities"/>
     <view-map name="EditEmplPositionReportingStructs" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionReportingStructs"/>

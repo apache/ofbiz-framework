@@ -668,7 +668,18 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
     </entity>
-    <entity entity-name="EmplPositionReportingStruct"
+    <view-entity entity-name="EmplPositionAndFulfillment"
+      package-name="org.ofbiz.humanres.position"
+      title="EmplPosition Fulfillment Entity">
+      <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"></member-entity>
+      <member-entity entity-alias="EPF" entity-name="EmplPositionFulfillment"></member-entity>
+      <alias-all entity-alias="EMPPOS"/>
+      <alias name="employeePartyId" entity-alias="EPF" field="partyId"/>
+      <view-link entity-alias="EMPPOS" rel-entity-alias="EPF">
+        <key-map field-name="emplPositionId"/>
+      </view-link>
+    </view-entity>
+  <entity entity-name="EmplPositionReportingStruct"
             package-name="org.ofbiz.humanres.position"
             title="EmplPosition Reporting Structure Entity">
       <field name="emplPositionIdReportingTo" type="id-ne"></field>
