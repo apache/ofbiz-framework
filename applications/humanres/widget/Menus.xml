@@ -21,16 +21,16 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
     <menu name="HumanResAppBar" title="${uiLabelMap.HumanResManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
         <menu-item name="Employees" title="${uiLabelMap.HumanResEmployees}"><link target="findEmployees"/></menu-item>
+        <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
         <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPositions"/></menu-item>
+        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
         <menu-item name="EmplSkills" title="${uiLabelMap.HumanResSkills}"><link target="FindPartySkills"/></menu-item>
         <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQuals"/></menu-item>
         <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApps"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
-        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
@@ -113,6 +113,12 @@
         <menu-item name="EmployeeProfile" title="${uiLabelMap.PartyProfile}">
             <link target="EmployeeProfile?partyId=${partyId}"/>
         </menu-item>
+        <menu-item name="ListEmployment" title="${uiLabelMap.HumanResEmployment}">
+            <link target="ListEmployments?partyId=${parameters.partyId}"/>
+        </menu-item>
+        <!--menu-item name="EmplPositionView" title="${uiLabelMap.HumanResEmployeePosition}">
+            <link target="emplPositionView?emplPositionId=${emplPositionId}"/>
+        </menu-item-->
         <menu-item name="EditEmployeeSkills" title="${uiLabelMap.HumanResSkills}">
             <link target="EditEmployeeSkills?partyId=${partyId}"/>
         </menu-item>

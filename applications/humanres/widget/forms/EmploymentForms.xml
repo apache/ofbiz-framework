@@ -25,11 +25,11 @@
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
         <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>  
         <field name="partyIdFrom" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.HumanResEmploymentPartyIdFromToolTip}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyId}">
+                <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
+                    <entity-order-by field-name="groupName"/>
                 </entity-options>
-            </drop-down>            
+            </drop-down>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResEmployeePartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="firstName"><text-find/></field>
