@@ -102,9 +102,9 @@
                 </entity-options>
             </drop-down>            
         </field>
-        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><hidden/></field>
         <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><hidden/></field>
         <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
         <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
@@ -141,8 +141,8 @@
         <auto-fields-service service-name="updatePayHistory"/>
         <field name="roleTypeIdFrom"><hidden/></field>
         <field name="roleTypeIdTo"><hidden/></field>
-        <field name="partyIdFrom"><display/></field>
-        <field name="partyIdTo"><display/></field>
+        <field name="partyIdFrom"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
         <field name="fromDate"><display/></field>        
         <field name="amount"><hidden/></field>
         <field name="comments"><hidden/></field>
@@ -168,8 +168,8 @@
         <auto-fields-service service-name="updatePartyBenefit"/>        
         <field name="roleTypeIdFrom"><hidden/></field>
         <field name="roleTypeIdTo"><hidden/></field>
-        <field name="partyIdFrom"><display/></field>
-        <field name="partyIdTo"><display/></field>
+        <field name="partyIdFrom"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
         <field name="benefitTypeId"><display-entity entity-name="BenefitType" description="${description}"/></field>
         <field name="fromDate"><display/></field>       
         <field name="periodTypeId">

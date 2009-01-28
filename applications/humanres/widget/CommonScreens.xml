@@ -153,10 +153,23 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="employment"/></not>
+                                        <not><if-empty field="parameters.partyIdFrom"/></not>
                                     </condition>
+                                    <actions>
+                                        <entity-one entity-name="PartyNameView" value-field="emplName">
+                                            <field-map field-name="partyId" from-field="parameters.partyIdTo"/>
+                                        </entity-one>
+                                        <entity-one entity-name="PartyNameView" value-field="orgName">
+                                            <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
+                                        </entity-one>
+                                    </actions>
                                     <widgets>
                                         <include-menu name="EmploymentBar" location="component://humanres/widget/Menus.xml"/>
+                                        <container style="button-bar">
+                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
+                                        </container>
+                                        <label style="h1" text="${emplName.lastName},${emplName.firstName} ${emplName.middleName} [${emplName.partyId}] ${uiLabelMap.CommonFor}"></label>
+                                        <label style="h1" text="${orgName.groupName} [${orgName.partyId}]"></label>
                                     </widgets>
                                 </section>                                
                                 <decorator-section-include name="body"/>
