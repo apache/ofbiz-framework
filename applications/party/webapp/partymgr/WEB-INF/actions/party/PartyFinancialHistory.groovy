@@ -63,11 +63,11 @@ invIterator = delegator.find("InvoiceAndType", invExprs, null, null, null, findO
 
 while (invoice = invIterator.next()) {
     if ("PURCHASE_INVOICE".equals(invoice.parentTypeId)) {
-        totalInvPuApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
         totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
     }
     else if ("SALES_INVOICE".equals(invoice.parentTypeId)) {
-        totalInvSaApplied += InvoiceWorker.getInvoiceAppliedBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
         totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
     }
     else {
@@ -103,12 +103,12 @@ payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findO
 
 while (payment = payIterator.next()) {
     if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
-        totalPayOutApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalPayOutNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
     }
     else if ("RECEIPT".equals(payment.parentTypeId)) {
-        totalPayInApplied += PaymentWorker.getPaymentAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalPayInNotApplied += PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
     }
     else {
         Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "");

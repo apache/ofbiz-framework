@@ -53,7 +53,7 @@ paymentList = [];
 payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findOpts);
 
 while (payment = payIterator.next()) {
-    unAppliedAmount = PaymentWorker.getPaymentNotAppliedBd(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency.equals(true) && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
             amount = payment.actualCurrencyAmount;

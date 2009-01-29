@@ -64,7 +64,7 @@ while (invoice = invIterator.next()) {
                          invoiceDate : invoice.invoiceDate,
                          unAppliedAmount : unAppliedAmount,
                          invoiceCurrencyUomId : invoiceCurrencyUomId,
-                         amount : InvoiceWorker.getInvoiceTotalBd(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP),
+                         amount : InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP),
                          invoiceTypeId : invoice.invoiceTypeId, 
                          invoiceParentTypeId : invoice.parentTypeId]);
     }
