@@ -30,5 +30,6 @@
         <if-compare field="accountType" operator="equals" value="GROUP">
             <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
         </if-compare>
+        <field-to-result field="partyId"/>
     </simple-method>
 </simple-methods>
