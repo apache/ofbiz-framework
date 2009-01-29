@@ -31,6 +31,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.jdom.JDOMException;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -42,6 +44,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.image.ImageTransform;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.service.DispatchContext;
@@ -904,7 +907,9 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
     
-    public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx, Map<String, ? extends Object> context)
+        throws IOException, JDOMException {
+        
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -953,6 +958,23 @@ public class ProductServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
             }
+            
+            /* scale Image in different sizes */
+            String viewNumber = new String(); 
+            viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
+            ImageTransform imageTransform = new ImageTransform();
+            FastMap resultResize = new FastMap();
+            try{
+                resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
+            }catch(IOException e){
+                String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }catch(JDOMException e){
+                String errMsg = "Errors occur in parsing ImageProperties.xml : " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }     
             
             String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
                 

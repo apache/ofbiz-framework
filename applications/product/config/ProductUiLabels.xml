@@ -13898,6 +13898,18 @@
         <value xml:lang="th">ที่มารหัสที่อยู่ไปรษณีย์</value>
         <value xml:lang="zh">出发地通信地址标识</value>
     </property>
+    <property key="ProductOriginal">
+        <value xml:lang="en">Original</value>
+        <value xml:lang="fr">Original</value>
+    </property>
+    <property key="ProductOriginalImage">
+        <value xml:lang="en">Original Image</value>
+        <value xml:lang="fr">Image originale</value>
+    </property>
+    <property key="ProductOriginalImageMessage">
+        <value xml:lang="en">Automatic scale of the original image, related to the configuration</value>
+        <value xml:lang="fr">Redimensionne en automatique l'original de l'image, suivant la configuration</value>
+    </property>
     <property key="ProductOutgoingProductionRuns">
         <value xml:lang="de">Ausgehende Produktionsaufträge</value>
         <value xml:lang="en">Outgoing Production Runs</value>

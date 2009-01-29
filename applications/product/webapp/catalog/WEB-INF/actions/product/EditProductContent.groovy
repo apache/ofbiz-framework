@@ -17,9 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.base.util.*
-import org.ofbiz.base.util.string.*
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.string.*;
+import org.ofbiz.image.ImageTransform;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
@@ -31,11 +32,12 @@ context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
-filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
 context.imageNameSmall  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'small' , id : productId]);
 context.imageNameMedium = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'medium', id : productId]);
 context.imageNameLarge  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'large' , id : productId]);
 context.imageNameDetail = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'detail', id : productId]);
+context.imageNameOriginal = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'original', id : productId]);
 
 // Start ProductContent stuff
 productContent = null;
@@ -63,6 +65,7 @@ forLock = new Object();
 contentType = null;
 String fileType = request.getParameter("upload_file_type");
 if (fileType) {
+    
     context.fileType = fileType;
     
     fileLocation = filenameExpander.expandString([location : 'products', type : fileType, id : productId]);
@@ -84,7 +87,7 @@ if (fileType) {
     uploadObject.setOverrideFilename(defaultFileName);
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
     uploadObject.doUpload(request);
-    
+        
     clientFileName = uploadObject.getFilename();
     if (clientFileName) {
         context.clientFileName = clientFileName;
@@ -119,6 +122,20 @@ if (fileType) {
         if (imageUrl && imageUrl.length() > 0) {
             context.imageUrl = imageUrl;
             product.set(fileType + "ImageUrl", imageUrl);
+            
+            // call scaleImageInAllSize
+            if(fileType.equals("original")){
+                ImageTransform imageTransform = new ImageTransform();
+                result = imageTransform.scaleImageInAllSize(context, filenameToUse, "main", "0"); 
+                
+                if(result.containsKey("responseMessage") && result.get("responseMessage").equals("success")){
+                    imgMap = result.get("imageUrlMap");
+                    imgMap.each(){ key, value ->
+                        product.set(key + "ImageUrl", value);    
+                    }
+                }
+            }    
+            
             product.store();
         }
     }
