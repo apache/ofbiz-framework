@@ -125,8 +125,26 @@ public class UelUtil {
             this.variables = UtilGenerics.cast(context);
             this.elContext = parentContext;
         }
+
+        /**
+         * Returns a BasicValueExpression containing the value of the named variable.
+         * Resolves against LocalizedMap if available.
+         * @param variable the variable's name
+         * @return a BasicValueExpression containing the variable's value or null if the variable is unknown
+         */
         public ValueExpression resolveVariable(String variable) {
-            Object obj = this.variables.get(variable);
+            Object obj = null;
+            //Object obj = this.variables.get(variable);
+            if (this.variables instanceof LocalizedMap) {
+                Locale locale = UtilMisc.ensureLocale(this.variables.get("locale"));
+                Object localizedObj = ((LocalizedMap) this.variables).get(variable, locale);
+                if (localizedObj == null) {
+                    localizedObj = this.variables.get(variable);
+                }
+                obj = localizedObj;
+            } else {
+                obj = this.variables.get(variable);
+            }
             if (obj != null) {
                 return new BasicValueExpression(obj);
             }

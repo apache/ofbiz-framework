@@ -719,6 +719,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String action = modelFormField.getAction(context);
         
         String currentValue = modelFormField.getEntry(context);
+        // Get the current value's description from the option value. If there
+        // is a localized version it will be there.
+        String currentDescription = null;
+        if (UtilValidate.isNotEmpty(currentValue)) {
+            for (ModelFormField.OptionValue optionValue : allOptionValues) {
+                if (optionValue.getKey().equals(currentValue)) {
+                    currentDescription = optionValue.getDescription();
+                }
+            }
+        }
 
         if (ajaxEnabled) {
             writer.append("<input type=\"text\"");
@@ -746,7 +756,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             
             if (UtilValidate.isNotEmpty(currentValue)) {
                 writer.append(" value=\"");
-                String explicitDescription = dropDownField.getCurrentDescription(context);
+                String explicitDescription = (currentDescription != null ? currentDescription : dropDownField.getCurrentDescription(context));
                 if (UtilValidate.isNotEmpty(explicitDescription)) {
                     writer.append(explicitDescription);
                 } else {
@@ -841,7 +851,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(" value=\"");
                 writer.append(currentValue);
                 writer.append("\">");
-                String explicitDescription = dropDownField.getCurrentDescription(context);
+                String explicitDescription = (currentDescription != null ? currentDescription : dropDownField.getCurrentDescription(context));
                 if (UtilValidate.isNotEmpty(explicitDescription)) {
                     writer.append(explicitDescription);
                 } else {
