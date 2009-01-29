@@ -37,9 +37,9 @@ under the License.
         <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>

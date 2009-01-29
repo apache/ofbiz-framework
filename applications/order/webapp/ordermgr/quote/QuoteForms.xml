@@ -76,8 +76,8 @@ under the License.
     <form name="ListQuotes" list-name="listIt" target="" title="" type="list" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindQuote">
           <actions>
-              <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                  <field-map field-name="inputFields" env-name="parameters"/>
+              <service service-name="performFind" result-map="result" result-map-list="listIt">
+                  <field-map field-name="inputFields" from-field="parameters"/>
                   <field-map field-name="entityName" value="Quote"/>
               </service>
           </actions>
@@ -99,8 +99,8 @@ under the License.
     <form name="EditQuote" type="single" target="updateQuote" title="" default-map-name="quote"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="quote.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="quote.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="quote==null" target="createQuote"/>

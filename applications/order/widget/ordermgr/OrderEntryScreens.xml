@@ -72,7 +72,7 @@ under the License.
                         <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.showList"/></not>
+                                <not><if-empty field="parameters.showList"/></not>
                             </condition>
                             <widgets>
                             <container>
@@ -119,8 +119,8 @@ under the License.
             <actions>
                 <set field="title" value="${uiLabelMap.PageTitleShoppingList}"/>
                 <set field="partyId" from-field="requestParameters.partyId"/>
-                <entity-and entity-name="ShoppingList" list-name="customershoppinglists">
-                    <field-map env-name="partyId" field-name="partyId"/>
+                <entity-and entity-name="ShoppingList" list="customershoppinglists">
+                    <field-map from-field="partyId" field-name="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -139,8 +139,8 @@ under the License.
             <actions>
                 <set field="title" value="${uiLabelMap.PageTitleShoppingListItem}"/>
                 <set field="shoppingListId" from-field="requestParameters.shoppingListId"/>
-                <entity-and entity-name="ShoppingListItem" list-name="shoppinglistitems">
-                    <field-map env-name="shoppingListId" field-name="shoppingListId"/>
+                <entity-and entity-name="ShoppingListItem" list="shoppinglistitems">
+                    <field-map from-field="shoppingListId" field-name="shoppingListId"/>
                 </entity-and>
             </actions>
             <widgets>

@@ -55,7 +55,7 @@ under the License.
                 <set field="tabButtonItem" value="EditOrderHeader"/>
                 
                 <set field="orderId" from-field="parameters.orderId"/>
-                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+                <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
             </actions>
             <widgets>
@@ -84,7 +84,7 @@ under the License.
                 <set field="tabButtonItem" value="EditOrderHeader"/>
                 
                 <set field="orderId" from-field="parameters.orderId"/>
-                <entity-one entity-name="OrderHeader" value-name="OrderHeader"/>
+                <entity-one entity-name="OrderHeader" value-field="OrderHeader"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
             </actions>
             <widgets>

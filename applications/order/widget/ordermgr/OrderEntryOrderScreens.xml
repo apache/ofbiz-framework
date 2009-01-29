@@ -264,12 +264,12 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId"/>
-                <entity-condition entity-name="PartyTaxAuthInfoAndDetail" list-name="partyTaxAuthInfoAndDetailList">
-                    <condition-expr field-name="partyId" env-name="partyId"/>
+                <entity-condition entity-name="PartyTaxAuthInfoAndDetail" list="partyTaxAuthInfoAndDetailList">
+                    <condition-expr field-name="partyId" from-field="partyId"/>
                     <order-by field-name="geoCode"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>
-                <entity-condition entity-name="TaxAuthorityAndDetail" list-name="taxAuthorityAndDetailList">
+                <entity-condition entity-name="TaxAuthorityAndDetail" list="taxAuthorityAndDetailList">
                     <order-by field-name="geoCode"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>

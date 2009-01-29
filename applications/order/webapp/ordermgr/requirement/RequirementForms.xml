@@ -56,8 +56,8 @@ under the License.
     <form name="ListRequirements" type="list" target="" title="" list-name="listIt" paginate-target="FindRequirements"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" value="Requirement"/>
                 <field-map field-name="orderBy" value="statusId"/>
             </service>
@@ -65,12 +65,12 @@ under the License.
         <row-actions>
             <set field="lookupProductId" value="${bsh: (productId == null? &quot;_NA_&quot;: productId);}" type="String"/>
             <set field="lookupFacilityId" value="${bsh: (facilityIdId == null? &quot;_NA_&quot;: facilityId);}" type="String"/>
-            <service service-name="getInventoryAvailableByFacility" result-map-name="resultQoh">
-                <field-map field-name="productId" env-name="lookupProductId"/>
-                <field-map field-name="facilityId" env-name="lookupFacilityId"/>
+            <service service-name="getInventoryAvailableByFacility" result-map="resultQoh">
+                <field-map field-name="productId" from-field="lookupProductId"/>
+                <field-map field-name="facilityId" from-field="lookupFacilityId"/>
             </service>
-            <service service-name="getProductInventoryAvailable" result-map-name="resultQohTotal">
-                <field-map field-name="productId" env-name="lookupProductId"/>
+            <service service-name="getProductInventoryAvailable" result-map="resultQohTotal">
+                <field-map field-name="productId" from-field="lookupProductId"/>
             </service>
             <set field="facilityQuantityOnHandTotal" from-field="resultQoh.quantityOnHandTotal"/>
             <set field="quantityOnHandTotal" from-field="resultQohTotal.quantityOnHandTotal"/>
@@ -259,15 +259,15 @@ under the License.
     <form name="ApprovedProductRequirementsList" type="list" title="" list-name="requirementsForSupplier" paginate-target="RequirementsForSupplier"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="prepareFind" result-map-name="resultConditions">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
+            <service service-name="prepareFind" result-map="resultConditions">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" value="Requirement"/>
             </service>
-            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
-                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
-                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
-                <field-map field-name="unassignedRequirements" env-name="parameters.unassignedRequirements"/>
+            <service service-name="getRequirementsForSupplier" result-map="result" result-map-list="requirementsForSupplier">
+                <!--<field-map field-name="orderByList" from-field="resultConditions.orderByList"/>-->
+                <field-map field-name="requirementConditions" from-field="resultConditions.entityConditionList"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="unassignedRequirements" from-field="parameters.unassignedRequirements"/>
             </service>
         </actions>
         <field name="requirementId" widget-style="buttontext">

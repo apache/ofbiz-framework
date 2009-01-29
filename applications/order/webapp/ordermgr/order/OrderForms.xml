@@ -23,8 +23,8 @@ under the License.
     <form name="EditOrderHeader" type="single" target="updateOrderHeader" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="orderHeader.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="orderHeader.statusId"/>
             </entity-one>
         </actions>
         <alt-target target="createOrderHeader" use-when="orderHeader==null"/>

@@ -23,8 +23,8 @@ under the License.
     <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader" id="editReturn"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="returnHeader.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="returnHeader.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="returnHeader==null" target="createReturn"/>     
@@ -146,8 +146,8 @@ under the License.
     <form name="ListReturns" type="list"  target="findreturn" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="findreturn">
         <actions>
-            <service service-name="performFind"  result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
+            <service service-name="performFind"  result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" value="ReturnHeader"/>
                 <field-map field-name="orderBy" value="entryDate DESC"/>
             </service>

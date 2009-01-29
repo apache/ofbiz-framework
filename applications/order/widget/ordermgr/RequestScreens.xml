@@ -52,30 +52,30 @@ under the License.
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
-                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
-                <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
-                <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
-                <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
+                <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>
+                <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
+                <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>
+                <get-related-one value-field="custRequest" relation-name="FulfillContactMech" to-value-field="fulfillContactMech"/>
+                <entity-and list="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
+                <get-related value-field="custRequest" relation-name="CustRequestParty" list="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
-                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
-                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems" order-by-list="orderBy"/>
+                <entity-and list="commEvents" entity-name="CommunicationEventAndCustRequest">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <entity-and list-name="notes" entity-name="CustRequestItemNoteView">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                <entity-and list="notes" entity-name="CustRequestItemNoteView">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                     <order-by  field-name="custRequestItemSeqId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                <entity-and entity-name="CustRequestContent" list="custRequestContents" filter-by-date="true">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -121,9 +121,9 @@ under the License.
                 <set field="tabButtonItem" value="request"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="statusId" from-field="custRequest.statusId"/>
-                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -143,9 +143,9 @@ under the License.
                 <set field="tabButtonItem" value="requestroles"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-and entity-name="CustRequestParty" list-name="custRequestParties">
-                    <field-map env-name="custRequestId" field-name="custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-and entity-name="CustRequestParty" list="custRequestParties">
+                    <field-map from-field="custRequestId" field-name="custRequestId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -169,9 +169,9 @@ under the License.
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-and entity-name="CustRequestItem" list-name="custRequestItems">
-                    <field-map env-name="custRequestId" field-name="custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-and entity-name="CustRequestItem" list="custRequestItems">
+                    <field-map from-field="custRequestId" field-name="custRequestId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="custRequestItemSeqId"/>
                 </entity-and>
@@ -196,10 +196,10 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
                 <set field="statusId" from-field="custRequestItem.statusId"/>
-                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/GetNextSequenceNum.groovy"/>
             </actions>
             <widgets>
@@ -239,8 +239,8 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/RequestItemNotes.groovy"/>
             </actions>
             <widgets>
@@ -277,11 +277,11 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <entity-and entity-name="RequirementCustRequestView" list-name="custRequestRequirements">
-                    <field-map env-name="custRequestItem.custRequestId" field-name="custRequestId"/>
-                    <field-map env-name="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
+                <entity-and entity-name="RequirementCustRequestView" list="custRequestRequirements">
+                    <field-map from-field="custRequestItem.custRequestId" field-name="custRequestId"/>
+                    <field-map from-field="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -317,11 +317,11 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <entity-and entity-name="QuoteItem" list-name="quotes">
-                    <field-map env-name="custRequestItem.custRequestId" field-name="custRequestId"/>
-                    <field-map env-name="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
+                <entity-and entity-name="QuoteItem" list="quotes">
+                    <field-map from-field="custRequestItem.custRequestId" field-name="custRequestId"/>
+                    <field-map from-field="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
                 </entity-and>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/SetRequestQuote.groovy"/>
             </actions>
@@ -361,9 +361,9 @@ under the License.
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <entity-one entity-name="QuoteItem" value-name="quoteItem"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
+                <entity-one entity-name="QuoteItem" value-field="quoteItem"/>
                 <set field="parameters.quantity" from-field="custRequestItem.quantity"/>
                 <set field="parameters.selectedAmount" from-field="custRequestItem.selectedAmount"/>
                 <set field="parameters.comments" from-field="custRequestItem.story"/>
@@ -401,9 +401,9 @@ under the License.
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <entity-one entity-name="QuoteItem" value-name="quoteItem"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
+                <entity-one entity-name="QuoteItem" value-field="quoteItem"/>
                 <set field="parameters.quantity" from-field="custRequestItem.quantity"/>
                 <set field="parameters.selectedAmount" from-field="custRequestItem.selectedAmount"/>
             </actions>
@@ -440,9 +440,9 @@ under the License.
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <entity-and entity-name="CustRequestItemWorkEffort" list-name="custRequestItemWorkEffortList">
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
+                <entity-and entity-name="CustRequestItemWorkEffort" list="custRequestItemWorkEffortList">
                     <field-map field-name="custRequestId"/>
                     <field-map field-name="custRequestItemSeqId"/>
                     <order-by field-name="workEffortId"/>
@@ -464,7 +464,7 @@ under the License.
     <screen name="ViewRequestItemInfo">
         <section>
             <condition>
-                <not><if-empty field-name="requestItems"/></not>
+                <not><if-empty field="requestItems"/></not>
             </condition>
             <widgets>
                 <platform-specific>
@@ -480,8 +480,8 @@ under the License.
                 <set field="tabButtonItem" value="custRequestContent"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-and entity-name="CustRequestAndContent" list-name="custRequstAndContents">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                <entity-and entity-name="CustRequestAndContent" list="custRequstAndContents">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>
             <widgets>

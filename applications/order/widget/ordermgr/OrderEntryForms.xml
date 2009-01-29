@@ -31,14 +31,14 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="RequirementsForSupplier">
         <actions>
-            <service service-name="prepareFind" result-map-name="resultConditions">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="prepareFind" result-map="resultConditions">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
-            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
-                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
-                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <service service-name="getRequirementsForSupplier" result-map="result" result-map-list="requirementsForSupplier">
+                <!--<field-map field-name="orderByList" from-field="resultConditions.orderByList"/>-->
+                <field-map field-name="requirementConditions" from-field="resultConditions.entityConditionList"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
             </service>
         </actions>
         <field name="requirementId"><display/></field>
@@ -79,9 +79,9 @@ under the License.
         paginate-target="FindQuoteForCart">
           <actions>
           <set field="entityName" value="Quote"/>
-          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="requestParameters"/>
-            <field-map field-name="entityName" env-name="entityName"/>
+          <service service-name="performFind" result-map="result" result-map-list="listIt">
+            <field-map field-name="inputFields" from-field="requestParameters"/>
+            <field-map field-name="entityName" from-field="entityName"/>
           </service>
         </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="display"/>

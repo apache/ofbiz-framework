@@ -62,8 +62,8 @@ under the License.
     <form name="EditQuoteWorkEffort" target="updateQuoteWorkEffort" title="" type="single" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="quote.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="quote.statusId"/>
             </entity-one>
         </actions>
         <field name="quoteId" field-name="quoteId" map-name="parameters">

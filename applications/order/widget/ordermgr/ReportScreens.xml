@@ -104,14 +104,14 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition entity-name="OrderPurchasePaymentSummary" list-name="orderPurchasePaymentSummaryList">
+                <entity-condition entity-name="OrderPurchasePaymentSummary" list="orderPurchasePaymentSummaryList">
                     <condition-list combine="and">
-                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
-                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.originFacilityId" ignore-if-empty="true"/>
-                        <condition-expr field-name="terminalId" operator="equals" env-name="parameters.terminalId" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
-                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="productStoreId" operator="equals" from-field="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="equals" from-field="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="terminalId" operator="equals" from-field="parameters.terminalId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
                     </condition-list>
                     <select-field field-name="productStoreId"/>
                     <select-field field-name="originFacilityId"/>
@@ -141,15 +141,15 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition entity-name="OrderPurchaseProductSummary" list-name="orderPurchaseProductSummaryList">
+                <entity-condition entity-name="OrderPurchaseProductSummary" list="orderPurchaseProductSummaryList">
                     <condition-list combine="and">
-                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderTypeId" operator="equals" env-name="parameters.orderTypeId" ignore-if-empty="true"/>
-                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.originFacilityId" ignore-if-empty="true"/>
-                        <condition-expr field-name="terminalId" operator="equals" env-name="parameters.terminalId" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
-                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="productStoreId" operator="equals" from-field="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" from-field="parameters.orderTypeId" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="equals" from-field="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="terminalId" operator="equals" from-field="parameters.terminalId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
                     </condition-list>
                     <select-field field-name="productStoreId"/>
                     <select-field field-name="originFacilityId"/>
@@ -183,17 +183,17 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition entity-name="OrderReportSalesGroupByProduct" list-name="productReportList">
+                <entity-condition entity-name="OrderReportSalesGroupByProduct" list="productReportList">
                     <condition-list combine="and">
                         <!-- this can use the other view, so long as the filter is by SALES_ORDER and fromPartyId = ProductStore.payToPartyId if provided -->
-                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
-                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.toPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="productStoreId" operator="equals" from-field="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="parameters.toPartyId" ignore-if-empty="true"/>
                         <condition-expr field-name="roleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
                         <condition-expr field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
-                        <!-- possible bug: using env-name="parameters.orderStatusId" did not work for the following line -->
+                        <!-- possible bug: using from-field="parameters.orderStatusId" did not work for the following line -->
                         <condition-expr field-name="orderStatusId" operator="equals" value="${parameters.orderStatusId}" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
-                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
                     </condition-list>
                     <!-- note that we need to explicitly identify the fields to select, otherwise the query will include fields that can't logically be grouped -->
                     <select-field field-name="productStoreId"/>
@@ -274,16 +274,16 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition entity-name="OrderReportPurchasesGroupByProduct" list-name="productReportList">
+                <entity-condition entity-name="OrderReportPurchasesGroupByProduct" list="productReportList">
                     <condition-list combine="and">
-                        <condition-expr field-name="toPartyId" operator="equals" env-name="parameters.toPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="toPartyId" operator="equals" from-field="parameters.toPartyId" ignore-if-empty="true"/>
                         <condition-expr field-name="toRoleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
-                        <condition-expr field-name="fromPartyId" operator="equals" env-name="parameters.fromPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="fromPartyId" operator="equals" from-field="parameters.fromPartyId" ignore-if-empty="true"/>
                         <condition-expr field-name="fromRoleTypeId" operator="equals" value="BILL_FROM_VENDOR"/>
                         <condition-expr field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
                         <condition-expr field-name="orderStatusId" operator="equals" value="${parameters.orderStatusId}" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
-                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
                     </condition-list>
                     <!-- note that we need to explicitly identify the fields to select, otherwise the query will include fields that can't logically be grouped -->
                     <select-field field-name="productId"/>

@@ -59,14 +59,14 @@ under the License.
         <section>
             <actions>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="custRequest"/></not>
+                                <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
                                  <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/RequestMenus.xml"/>
@@ -99,7 +99,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="quote"/></not>
+                                        <not><if-empty field="quote"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
@@ -135,7 +135,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="quote"/></not>
+                                        <not><if-empty field="quote"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
