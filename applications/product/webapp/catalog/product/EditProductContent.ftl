@@ -149,7 +149,28 @@ under the License.
             </div>
         </#if>
         </td>
-    </tr>        
+    </tr>
+    <tr>
+        <td width="20%" align="right" valign="top">
+            <div><b>${uiLabelMap.ProductOriginalImage}</b></div>
+            <#if (product.originalImageUrl)?exists>
+                <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
+            </#if>
+        </td>
+        <td>&nbsp;</td>
+        <td width="80%" colspan="4" valign="top">
+        <input type="text" name="originalImageUrl" value="${(product.originalImageUrl)?default('')}" size="60" maxlength="255">
+        <br/><span class="tooltip">${uiLabelMap.ProductOriginalImageMessage} : {ofbiz.home}/applications/product/config/ImageProperties.xml&quot;</span>
+        <#if productId?has_content>
+            <div>
+            <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+            <a href="javascript:insertImageName('original','${imageNameOriginal}.jpg');" class="buttontext">.jpg</a>
+            <a href="javascript:insertImageName('original','${imageNameOriginal}.gif');" class="buttontext">.gif</a>
+            <a href="javascript:insertImageName('original','');" class="buttontext">${uiLabelMap.CommonClear}</a>
+            </div>
+        </#if>
+        </td>
+    </tr>               
     <tr>
         <td colspan="2">&nbsp;</td>
         <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></td>
@@ -164,17 +185,18 @@ under the License.
         };
     </script>
     <h3>${uiLabelMap.ProductUploadImage}</h3>
-    <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
+    <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=original</@ofbizUrl>" name="imageUploadForm">
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td width="20%" align="right" valign="top">    
                     <input type="file" size="50" name="fname">
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <input type="radio" name="upload_file_type_bogus" value="small" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
+                    <input type="radio" name="upload_file_type_bogus" value="small" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
                     <input type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=medium</@ofbizUrl>");'>${uiLabelMap.CommonMedium}
                     <input type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=large</@ofbizUrl>");'>${uiLabelMap.CommonLarge}
                     <input type="radio" name="upload_file_type_bogus" value="detail" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=detail</@ofbizUrl>");'>${uiLabelMap.CommonDetail}
+                    <input type="radio" name="upload_file_type_bogus" value="original" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=original</@ofbizUrl>");'>${uiLabelMap.ProductOriginal}
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">
                 </td>
             </tr>

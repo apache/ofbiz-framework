@@ -2542,6 +2542,7 @@ under the License.
       <field name="mediumImageUrl" type="url"></field>
       <field name="largeImageUrl" type="url"></field>
       <field name="detailImageUrl" type="url"></field>
+      <field name="originalImageUrl" type="url"></field>
       <field name="detailScreen" type="long-varchar"></field>
       <field name="inventoryMessage" type="description"></field>
       <field name="requireInventory" type="indicator"></field>
