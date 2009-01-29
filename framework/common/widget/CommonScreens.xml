@@ -213,7 +213,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="userPreferences" from-field="userPrefMap" global="true"/>
+                <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
