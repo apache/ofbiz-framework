@@ -21,6 +21,7 @@ package org.ofbiz.order.shoppingcart;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -611,7 +612,7 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = FastMap.newInstance() ;
+        Map<String, List<GenericValue>> orderAdjsMap = new HashMap(); // HashMap supports null key
         for (GenericValue quoteAdj : quoteAdjs) {
             List<GenericValue> orderAdjs = (List<GenericValue>)orderAdjsMap.get(quoteAdj.get("quoteItemSeqId"));
             if (orderAdjs == null) {
