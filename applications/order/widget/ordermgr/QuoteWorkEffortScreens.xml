@@ -29,9 +29,9 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/ListWorkEfforts"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
-                <entity-one entity-name="QuoteWorkEffort" value-name="quoteWorkEffort"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-                <entity-one entity-name="Quote" value-name="quote"/>
+                <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -66,8 +66,8 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" />
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="Quote" value-name="quote"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -101,7 +101,7 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/ListWorkEfforts"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
-                <entity-one entity-name="Quote" value-name="quote"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">

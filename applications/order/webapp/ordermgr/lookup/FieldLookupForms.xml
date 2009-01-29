@@ -63,8 +63,8 @@ under the License.
     <form name="listLookupOrderHeader" title="" type="list" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupOrderHeader">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="OrderHeader"/>
             </service>
         </actions>
@@ -118,8 +118,8 @@ under the License.
     <form name="listLookupOrderHeaderAndShipInfo" list-name="listIt" title="" type="list" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupOrderHeaderAndShipInfo">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="OrderHeaderAndShipGroups"/>
             </service>
         </actions>
@@ -225,8 +225,8 @@ under the License.
     <form name="listLookupCustRequest" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupCustRequest">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="CustRequest"/>
             </service>
         </actions>
@@ -268,8 +268,8 @@ under the License.
     <form name="listLookupCustRequestItem" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupCustRequestItem">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="CustRequestItem"/>
             </service>
         </actions>
@@ -327,8 +327,8 @@ under the License.
     <form name="listLookupQuote" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupQuote">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Quote"/>
             </service>
         </actions>
@@ -392,8 +392,8 @@ under the License.
     <form name="listLookupQuoteItem" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupQuoteItem">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="QuoteItem"/>
             </service>
         </actions>
@@ -459,8 +459,8 @@ under the License.
     <form name="listLookupRequirement" list-name="listIt" title="" type="list" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupRequirement">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Requirement"/>
             </service>
         </actions>
@@ -495,8 +495,8 @@ under the License.
     <form name="listLookupShoppingList" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupShoppingList">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ShoppingList"/>
             </service>
         </actions>

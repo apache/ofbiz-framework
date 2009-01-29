@@ -102,7 +102,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="productCategory"/></not>
+                        <not><if-empty field="productCategory"/></not>
                     </condition>
                     <widgets>
                         <include-screen name="${detailScreen}"/>
@@ -141,7 +141,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="product"/></not>
+                                <not><if-empty field="product"/></not>
                             </condition>
                             <widgets>
                                 <include-screen name="${detailScreen}"/>
@@ -228,7 +228,7 @@ under the License.
                 <set field="headerItem" value="Advanced Search"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/AdvancedSearchOptions.groovy"/>
                 
-                <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="supplerPartyRoleAndPartyDetails">
+                <entity-condition entity-name="PartyRoleAndPartyDetail" list="supplerPartyRoleAndPartyDetails">
                     <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
                     <order-by field-name="groupName"/>
                     <order-by field-name="lastName"/>

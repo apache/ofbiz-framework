@@ -32,7 +32,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="requirement"/></not></condition>
+                                    <condition><not><if-empty field="requirement"/></not></condition>
                                     <widgets>
                                         <include-menu name="RequirementTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
                                     </widgets>
@@ -172,7 +172,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.partyId"/></not>
+                                <not><if-empty field="parameters.partyId"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -294,7 +294,7 @@ under the License.
                 <set field="tabButtonItem" value="EditRequirement"/>
                 
                 <set field="requirementId" from-field="parameters.requirementId"/>
-                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+                <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
 
             </actions>
             <widgets>
@@ -327,10 +327,10 @@ under the License.
                 <set field="tabButtonItem" value="ListRequirementCustRequests"/>
 
                 <set field="requirementId" from-field="parameters.requirementId"/>
-                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+                <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
 
-                <entity-and entity-name="RequirementCustRequest" list-name="requirementCustRequests">
-                    <field-map env-name="requirementId" field-name="requirementId"/>
+                <entity-and entity-name="RequirementCustRequest" list="requirementCustRequests">
+                    <field-map from-field="requirementId" field-name="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -365,9 +365,9 @@ under the License.
                 <set field="tabButtonItem" value="ListRequirementOrdersTab"/>
 
                 <set field="requirementId" from-field="parameters.requirementId"/>
-                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
-                <entity-and entity-name="OrderRequirementCommitment" list-name="orderRequirements">
-                    <field-map env-name="requirementId" field-name="requirementId"/>
+                <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
+                <entity-and entity-name="OrderRequirementCommitment" list="orderRequirements">
+                    <field-map from-field="requirementId" field-name="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -402,9 +402,9 @@ under the License.
                 <set field="tabButtonItem" value="ListRequirementRolesTab"/>
 
                 <set field="requirementId" from-field="parameters.requirementId"/>
-                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
-                <entity-and entity-name="RequirementRole" list-name="requirementRoles">
-                    <field-map env-name="requirementId" field-name="requirementId"/>
+                <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
+                <entity-and entity-name="RequirementRole" list="requirementRoles">
+                    <field-map from-field="requirementId" field-name="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -440,8 +440,8 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ListRequirementRolesTab"/>
                 <set field="requirementId" from-field="parameters.requirementId"/>
-                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
-                <entity-one entity-name="RequirementRole" value-name="requirementRole" auto-field-map="true"/>
+                <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
+                <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">

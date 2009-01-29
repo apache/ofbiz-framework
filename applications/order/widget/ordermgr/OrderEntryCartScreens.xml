@@ -68,10 +68,10 @@ under the License.
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
-                <entity-condition entity-name="ProductStorePromoAndAppl" list-name="allProductPromos" filter-by-date="true">
+                <entity-condition entity-name="ProductStorePromoAndAppl" list="allProductPromos" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="manualOnly" value="Y"/>
-                        <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                        <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     </condition-list>
                     <order-by field-name="productPromoId"/>
                 </entity-condition>
@@ -152,7 +152,7 @@ under the License.
     <screen name="promotion">
         <section>
             <condition>
-                <not><if-empty field-name="productPromo"/></not>
+                <not><if-empty field="productPromo"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotiondetails.ftl"/></html></platform-specific>
