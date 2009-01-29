@@ -1138,6 +1138,7 @@ under the License.
       <field name="thirdPartyAccountNumber" type="id"></field>
       <field name="thirdPartyPostalCode" type="id"></field>
       <field name="thirdPartyCountryGeoCode" type="id"></field>
+      <field name="upsHighValueReport" type="blob"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentRouteSegmentId"/>
       <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">

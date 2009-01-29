@@ -1011,7 +1011,7 @@ public class UpsServices {
 
                 if (shipmentUpsSaveCertificationInfo) {
                     if (labelImageBytes != null) {
-                        String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelImage" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".gif";
+                        String outFileName = shipmentUpsSaveCertificationPath + "/label" + trackingNumber + ".gif";
                         try {
                             FileOutputStream fileOut = new FileOutputStream(outFileName);
                             fileOut.write(labelImageBytes);
@@ -1022,7 +1022,7 @@ public class UpsServices {
                         }
                     }
                     if (labelInternationalSignatureGraphicImageBytes != null) {
-                        String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelIntlSignImage" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".gif";
+                        String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelIntlSignImage" + "label" + trackingNumber + ".gif";
                         try {
                             FileOutputStream fileOut = new FileOutputStream(outFileName);
                             fileOut.write(labelInternationalSignatureGraphicImageBytes);
@@ -1053,6 +1053,26 @@ public class UpsServices {
                 while (shipmentPackageRouteSegIter.hasNext()) {
                     GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
                     errorList.add("Error: No PackageResults were returned for the Package [" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "]");
+                }
+            }
+
+            // save the High Value Report image if it exists
+            Element controlLogReceiptElement = UtilXml.firstChildElement(shipmentResultsElement, "ControlLogReceipt");
+            if (controlLogReceiptElement != null) {
+                String fileString = UtilXml.childElementValue(controlLogReceiptElement, "GraphicImage");
+                String fileStringDecoded = Base64.base64Decode(fileString);
+                if (fileStringDecoded != null) {
+                    shipmentRouteSegment.set("upsHighValueReport", fileStringDecoded);
+                    shipmentRouteSegment.store();
+                    String outFileName = shipmentUpsSaveCertificationPath + "/HighValueReport" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
+                    try {
+                        FileOutputStream fileOut = new FileOutputStream(outFileName);
+                        fileOut.write(fileStringDecoded.getBytes());
+                        fileOut.flush();
+                        fileOut.close();
+                    } catch (IOException e) {
+                        Debug.log(e, "Could not save UPS High Value Report data: [[[" + fileStringDecoded + "]]] to file: " + outFileName, module);
+                    }
                 }
             }
                 
