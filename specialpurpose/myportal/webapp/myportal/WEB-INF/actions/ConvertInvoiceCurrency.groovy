@@ -46,11 +46,11 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
                                                asOfDate : invoiceDate]);
     
     if (result.convertedValue != null) {
-        context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(delegator,invoiceId)).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding); 
+        context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding); 
         context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding);
         context.currencyUomId = otherCurrency;
     }
   } else {
-      context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(delegator,invoiceId)); 
+      context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)); 
       context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId);
   }
