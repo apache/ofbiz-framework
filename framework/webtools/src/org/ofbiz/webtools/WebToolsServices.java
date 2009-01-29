@@ -51,6 +51,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
@@ -135,7 +136,7 @@ public class WebToolsServices {
         // #############################
         if (filename != null && filename.length() > 0) {
             try {
-                url = isUrl?new URL(filename):UtilURL.fromFilename(filename);
+                url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
                 InputStream is = url.openStream();
                 ins = new InputSource(is);
             } catch(MalformedURLException mue) {
