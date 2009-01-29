@@ -341,7 +341,7 @@ function runAction() {
                   </table>
                 </td>
               </tr>                            
-              <tr><td colspan="3"><hr"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>
                 <td width='5%'>&nbsp;</td>
