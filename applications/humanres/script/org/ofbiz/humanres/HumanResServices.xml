@@ -714,8 +714,10 @@
         <first-from-list entry="emplPositionAndFulfillment" list="emplPositionAndFulfillments"/>
         <field-to-result field="emplPositionAndFulfillment" result-name="emplPosition"/>
         <!-- position type -->
-        <get-related-one value-field="emplPositionAndFulfillment" relation-name="EmplPositionType" to-value-field="emplPositionType"/>
-        <field-to-result field="emplPositionType"/>
+        <if-not-empty field="emplPositionAndFulfillment">
+            <get-related-one value-field="emplPositionAndFulfillment" relation-name="EmplPositionType" to-value-field="emplPositionType"/>
+            <field-to-result field="emplPositionType"/>
+        </if-not-empty>
         <!-- rate amount -->
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
             <field-map field-name="partyId" from-field="employment.partyIdFrom"/>
