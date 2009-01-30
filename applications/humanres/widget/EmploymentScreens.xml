@@ -92,14 +92,13 @@
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditEmployment"/>
-                <set field="headerItem" value="Employment"/>
-                <set field="tabButtonItem" value="ListEmployments"/>
+                <set field="tabButtonItem" value="ListEmployment"/>
                 <set field="employmentCtx.partyIdTo" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResEditEmployment}" navigation-form-name="ListEmploymentsPerson">
+                        <screenlet title="${uiLabelMap.HumanResEmployment}" navigation-form-name="ListEmploymentsPerson">
                             <include-form name="ListEmploymentsPerson" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                     </decorator-section>

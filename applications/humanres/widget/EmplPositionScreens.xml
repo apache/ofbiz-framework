@@ -61,7 +61,9 @@
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListEmplPositionsParty" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        <screenlet title="${uiLabelMap.HumanResEmployeePosition}" tab-menu-name="ListEmplPositionsParty">
+                            <include-form name="ListEmplPositionsParty" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
