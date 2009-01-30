@@ -124,7 +124,7 @@ under the License.
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
-                    <condition-expr field-name="contactFromDate" operator="less-equals" value="" from-field="nowDate"/>
+                    <condition-expr field-name="contactFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
                         <condition-expr field-name="contactThruDate" from-field="null"/>
                         <condition-expr field-name="contactThruDate" operator="greater-equals" from-field="nowDate"/>
