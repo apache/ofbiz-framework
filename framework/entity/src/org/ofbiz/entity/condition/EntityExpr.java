@@ -27,6 +27,7 @@ import javolution.context.ObjectFactory;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
@@ -250,6 +251,9 @@ public class EntityExpr extends EntityCondition {
         }
         
         ModelField curField = modelEntity.getField(fieldName);
+        if (UtilValidate.isEmpty(curField)) {
+            throw new IllegalArgumentException("FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName());
+        }
         ModelFieldType type = null;
         try {
             type = delegator.getEntityFieldType(modelEntity, curField.getType());
