@@ -507,6 +507,9 @@
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
+    <property key="HumanResCurrentEmploymentData">
+        <value xml:lang="en">Current Employment information</value>
+    </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
         <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>

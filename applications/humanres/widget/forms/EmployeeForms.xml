@@ -218,6 +218,18 @@
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>  
     </form>
-    
+    <form name="CurrentEmploymentData" default-map-name="employmentData" type="single">
+        <field name="Company" entry-name="employment.partyIdFrom">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${employmentData.employment.partyIdFrom}" description="[${employmentData.employment.partyIdFrom}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="Position" entry-name="emplPositionType.emplPositionTypeId">
+            <hyperlink target="emplPositionView?emplPositionId=${employmentData.emplPosition.emplPositionId}" description="${employmentData.emplPositionType.description} [${employmentData.emplPosition.emplPositionId}]"/>
+        </field>
+        <field name="Salary" entry-name="emplPositionRateAmount.rateAmount">
+            <display type="currency" currency="${employmentData.emplPositionRateAmount.rateCurrencyUomId}"/>
+        </field>
+    </form>
 </forms>
     

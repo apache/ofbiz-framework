@@ -120,12 +120,11 @@ under the License.
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
+                                            <include-screen name="CurrentEmploymentData" location="component://humanres/widget/EmployeeScreens.xml"/>
                                             <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
@@ -291,4 +290,16 @@ under the License.
             </widgets>
         </section>
     </screen>    
+    <screen name="CurrentEmploymentData">
+        <section>
+            <actions>
+                <service service-name="getCurrentPartyEmploymentData" auto-field-map="true" result-map="employmentData"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResCurrentEmploymentData}">
+                    <include-form name="CurrentEmploymentData" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

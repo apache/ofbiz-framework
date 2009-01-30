@@ -693,4 +693,38 @@
         <entity-one entity-name="EmplLeaveType" value-field="lookedUpValue"/>        
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
+
+    <simple-method method-name="getCurrentPartyEmploymentData" short-description="Get all current employment information for a certain partyId">
+        <!-- party benefit -->
+        <entity-and entity-name="BenefitTypeAndParty" list="partyBenefitTypes" filter-by-date="true">
+            <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
+        </entity-and>
+        <field-to-result field="partyBenefitTypes"/>
+        <!-- employment -->
+        <entity-and entity-name="Employment" list="employments" filter-by-date="true">
+            <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
+        </entity-and>
+        <first-from-list entry="employment" list="employments"/>
+        <field-to-result field="employment"/>
+        <!-- position -->
+        <entity-and entity-name="EmplPositionAndFulfillment" list="emplPositionAndFulfillments" filter-by-date="true">
+            <field-map field-name="employeePartyId" from-field="parameters.partyId"/>
+            <field-map field-name="partyId" from-field="employment.partyIdFrom"/>
+        </entity-and>
+        <first-from-list entry="emplPositionAndFulfillment" list="emplPositionAndFulfillments"/>
+        <field-to-result field="emplPositionAndFulfillment" result-name="emplPosition"/>
+        <!-- position type -->
+        <get-related-one value-field="emplPositionAndFulfillment" relation-name="EmplPositionType" to-value-field="emplPositionType"/>
+        <field-to-result field="emplPositionType"/>
+        <!-- rate amount -->
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
+            <field-map field-name="partyId" from-field="employment.partyIdFrom"/>
+        </entity-one>
+        <entity-and entity-name="RateAmount" list="rateAmounts" filter-by-date="true">
+            <field-map field-name="emplPositionTypeId" from-field="emplPositionType.emplPositionTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+        </entity-and>
+        <first-from-list entry="rateAmount" list="rateAmounts"/>
+        <field-to-result field="rateAmount" result-name="emplPositionRateAmount"/>
+    </simple-method>
 </simple-methods>        

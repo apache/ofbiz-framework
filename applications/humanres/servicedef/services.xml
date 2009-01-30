@@ -709,10 +709,23 @@ under the License.
     </service>
     
     <service name="deleteEmplLeaveType" engine="simple" default-entity-name="EmplLeaveType"
-             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplLeaveType" auth="true">
+        location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplLeaveType" auth="true">
         <description>Delete Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-
+    
+    <service name="getCurrentPartyEmploymentData" engine="simple"
+        location="org/ofbiz/humanres/HumanResServices.xml" invoke="getCurrentPartyEmploymentData" auth="true">
+        <description>Delete Valid LeaveType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="VIEW"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="partyBenefitTypes" type="java.util.List" mode="OUT" optional="true"/>
+        <attribute name="employment" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPosition" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionType" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateType" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateAmount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+    </service>
+    
 </services>

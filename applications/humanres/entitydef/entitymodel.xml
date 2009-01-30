@@ -300,6 +300,19 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="benefitTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="BenefitTypeAndParty"
+      package-name="org.ofbiz.humanres.employment"
+      title="Benefit Type Entity">
+      <member-entity entity-alias="BT" entity-name="BenefitType"/>
+      <member-entity entity-alias="PB" entity-name="PartyBenefit"/>
+      <alias-all entity-alias="BT"/>
+      <alias-all entity-alias="PB">
+        <exclude field="benefitTypeId"/>
+      </alias-all>
+      <view-link entity-alias="BT" rel-entity-alias="PB">
+        <key-map field-name="benefitTypeId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="Employment"
             package-name="org.ofbiz.humanres.employment"
             title="Employment Entity">
@@ -675,9 +688,14 @@ under the License.
       <member-entity entity-alias="EPF" entity-name="EmplPositionFulfillment"></member-entity>
       <alias-all entity-alias="EMPPOS"/>
       <alias name="employeePartyId" entity-alias="EPF" field="partyId"/>
+      <alias name="fromDate" entity-alias="EPF"/>
+      <alias name="thruDate" entity-alias="EPF"/>
       <view-link entity-alias="EMPPOS" rel-entity-alias="EPF">
         <key-map field-name="emplPositionId"/>
       </view-link>
+      <relation type="one" rel-entity-name="EmplPositionType">
+        <key-map field-name="emplPositionTypeId"/>
+      </relation>
     </view-entity>
   <entity entity-name="EmplPositionReportingStruct"
             package-name="org.ofbiz.humanres.position"
