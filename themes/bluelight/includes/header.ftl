@@ -106,10 +106,10 @@ under the License.
           <li>
             <#if person?has_content>
               ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
+              <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
             <#elseif partyGroup?has_content>
               ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
+              <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
             <#else>
               ${uiLabelMap.CommonWelcome}!
             </#if>
@@ -141,10 +141,10 @@ under the License.
             <p>
             <#if person?has_content>
               ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
+              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
             <#elseif partyGroup?has_content>
               ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
+              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
             <#else>
               ${uiLabelMap.CommonWelcome}!
             </#if>
