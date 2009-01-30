@@ -83,7 +83,7 @@ ofbiz/trunk/framework/webapp/lib/batik-all-1.6.jar
 ofbiz/trunk/framework/webapp/lib/fop-0.94.jar
 ofbiz/trunk/framework/webapp/lib/velocity-1.5.jar
 ofbiz/trunk/framework/webapp/lib/xmlgraphics-commons-1.2.jar
-ofbiz/trunk/framework/webapp/lib/json-lib-0.9.jar
+ofbiz/trunk/framework/webapp/lib/json-lib-2.2.3-jdk15.jar
 ofbiz/trunk/framework/webapp/lib/ezmorph-0.9.1.jar
 ofbiz/trunk/framework/webapp/lib/rome-0.9.jar
 ofbiz/trunk/framework/webapp/lib/serializer-2.7.0.jar

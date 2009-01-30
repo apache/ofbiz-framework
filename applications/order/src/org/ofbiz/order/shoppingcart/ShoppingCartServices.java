@@ -21,7 +21,6 @@ package org.ofbiz.order.shoppingcart;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -612,12 +611,12 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = new HashMap(); // HashMap supports null key
+        Map<String, List<GenericValue>> orderAdjsMap = FastMap.newInstance() ;
         for (GenericValue quoteAdj : quoteAdjs) {
-            List<GenericValue> orderAdjs = (List<GenericValue>)orderAdjsMap.get(quoteAdj.get("quoteItemSeqId"));
+            List<GenericValue> orderAdjs = (List<GenericValue>)orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {
                 orderAdjs = FastList.newInstance();
-                orderAdjsMap.put(quoteAdj.getString("quoteItemSeqId"), orderAdjs);
+                orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId, orderAdjs);
             }
             // convert quote adjustments to order adjustments
             GenericValue orderAdj = delegator.makeValue("OrderAdjustment");
@@ -745,7 +744,7 @@ public class ShoppingCartServices {
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
         if (applyQuoteAdjustments) {
             // The cart adjustments, derived from quote adjustments, are added to the cart
-            List<GenericValue> adjs = (List<GenericValue>)orderAdjsMap.get(null);
+            List<GenericValue> adjs = (List<GenericValue>)orderAdjsMap.get(quoteId);
             if (adjs != null) {
                 cart.getAdjustments().addAll(adjs);
             }
