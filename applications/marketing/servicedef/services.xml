@@ -458,7 +458,6 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
-        <attribute name="extension" type="String" mode="IN" optional="true"/>
     </service>
     <service name="convertLeadToContact" engine="simple" location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="convertLeadToContact">
         <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
