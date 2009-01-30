@@ -726,6 +726,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             for (ModelFormField.OptionValue optionValue : allOptionValues) {
                 if (optionValue.getKey().equals(currentValue)) {
                     currentDescription = optionValue.getDescription();
+                    break;
                 }
             }
         }
