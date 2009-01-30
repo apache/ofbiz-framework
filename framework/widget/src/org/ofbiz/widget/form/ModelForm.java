@@ -833,7 +833,11 @@ public class ModelForm extends ModelWidget {
         } else if ("upload".equals(this.type)) {
             this.renderSingleFormString(writer, context, formStringRenderer, positions);
         } else {
-            throw new IllegalArgumentException("The type " + this.getType() + " is not supported for form with name " + this.getName());
+        	if (UtilValidate.isEmpty(this.getType())) {
+                throw new IllegalArgumentException("The form 'type' tag is missing or empty on the form with the name " + this.getName());
+        	} else {
+        		throw new IllegalArgumentException("The form type " + this.getType() + " is not supported for form with name " + this.getName());
+        	}
         }
     }
 
