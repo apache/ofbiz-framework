@@ -1034,6 +1034,15 @@ padding: 0.4em;
 display: inline; /* IE Fix */
 }
 
+#app-navigation ul li {
+background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
+border-right: 0.1em solid #69a9d9;
+border-top: 0.1em solid #69a9d9;
+float: left;
+}
+
 #app-navigation ul li ul li {
 background-color: #000099;
 background-image: url(/images/gradient_sub_uns.gif);
