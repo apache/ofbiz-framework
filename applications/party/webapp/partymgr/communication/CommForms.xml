@@ -121,18 +121,18 @@ under the License.
     <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
-            <entity-condition entity-name="PartyContactWithPurpose" list-name="emailAddresses">
+            <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
-                    <condition-expr field-name="contactFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-expr field-name="contactFromDate" operator="less-equals" value="" from-field="nowDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="contactThruDate" env-name="null"/>
-                        <condition-expr field-name="contactThruDate" operator="greater-equals" env-name="nowDate"/>
+                        <condition-expr field-name="contactThruDate" from-field="null"/>
+                        <condition-expr field-name="contactThruDate" operator="greater-equals" from-field="nowDate"/>
                     </condition-list>
-                    <condition-expr field-name="purposeFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-expr field-name="purposeFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="purposeThruDate" operator="greater-equals" env-name="nowDate"/>
-                        <condition-expr field-name="purposeThruDate" env-name="null"/>
+                        <condition-expr field-name="purposeThruDate" operator="greater-equals" from-field="nowDate"/>
+                        <condition-expr field-name="purposeThruDate" from-field="null"/>
                     </condition-list>
                     <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
                     <condition-expr field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>
@@ -162,11 +162,11 @@ under the License.
     </form>
     <form name="ViewEmail" type="single" default-map-name="communicationEvent">
         <actions>
-            <entity-one entity-name="ContactMech" value-name="contactMechFrom">
-                <field-map field-name="contactMechId" env-name="communicationEvent.contactMechIdFrom"/>
+            <entity-one entity-name="ContactMech"  value-field="contactMechFrom">
+                <field-map field-name="contactMechId" from-field="communicationEvent.contactMechIdFrom"/>
             </entity-one>
-            <entity-one entity-name="ContactMech" value-name="contactMechTo">
-                <field-map field-name="contactMechId" env-name="communicationEvent.contactMechIdTo"/>
+            <entity-one entity-name="ContactMech" value-field="contactMechTo">
+                <field-map field-name="contactMechId" from-field="communicationEvent.contactMechIdTo"/>
             </entity-one>
         </actions>
         <field name="communicationEventId">
@@ -313,9 +313,9 @@ under the License.
     <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+            <entity-condition entity-name="CommunicationEvent" list="commEvents">
                 <condition-list combine="and">
-                    <condition-expr env-name="" field-name="statusId" operator="not-equals" value="COM_PENDING"/>
+                    <condition-expr from-field="" field-name="statusId" operator="not-equals" value="COM_PENDING"/>
                     <condition-list combine="or">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
                         <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
@@ -331,13 +331,13 @@ under the License.
 
     <form name="ListPendingCommEvents" type="list" extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+            <entity-condition entity-name="CommunicationEvent" list="commEvents">
                 <condition-list combine="and">
                     <condition-list combine="or">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
                         <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
                     </condition-list>
-                    <condition-expr env-name="" field-name="statusId" operator="equals" value="COM_PENDING"/>
+                    <condition-expr from-field="" field-name="statusId" operator="equals" value="COM_PENDING"/>
                 </condition-list>
             </entity-condition>
         </actions>
@@ -346,7 +346,7 @@ under the License.
     <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi" use-row-submit="true" separate-columns="true"
            target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y">
         <actions>
-            <entity-and list-name="commEvents" entity-name="CommunicationEvent">
+            <entity-and  list="commEvents" entity-name="CommunicationEvent">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
                 <order-by field-name="-lastUpdatedStamp" />
             </entity-and>
@@ -361,7 +361,7 @@ under the License.
 
     <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
         <actions>
-            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+            <entity-condition entity-name="CommunicationEvent" list="commEvents">
                 <condition-list combine="or">
                     <condition-expr field-name="parentCommEventId" operator="equals" value="${communicationEventId}"/>
                     <condition-expr field-name="origCommEventId" operator="equals" value="${communicationEventId}"/>
@@ -372,9 +372,9 @@ under the License.
 
     <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
                 <field-map value="-createdStamp" field-name="orderBy"/>
             </service>
         </actions>
@@ -446,7 +446,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventRole" use-cache="true">
-                <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -483,8 +483,8 @@ under the License.
     <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
-                <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
         <field name="contentName" widget-style="smallSubmit">
