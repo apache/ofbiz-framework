@@ -2862,6 +2862,10 @@
         <value xml:lang="th">ซ่อนฟิลด์</value>
         <value xml:lang="zh">隐藏域</value>
         <value xml:lang="zh_CN">隐藏字段</value>
+    </property>    
+    <property key="CommonHome">
+        <value xml:lang="en">Home</value>
+        <value xml:lang="fr">Point de départ</value>
     </property>
     <property key="CommonHour">
         <value xml:lang="ar">ساعة</value>

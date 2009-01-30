@@ -29,7 +29,7 @@ under the License.
       <div id="main-navigation">
         <ul>
           <li>
-            <h2>Home</h2>
+            <h2>${uiLabelMap.CommonHome}</h2>
             <ul>
             <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>
