@@ -53,10 +53,12 @@ under the License.
               <#if partyId?exists>
                 &nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)
                 </br>
+                <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">                
                 <div>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
                    <a href="<@ofbizUrl>/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
                 </div>
+                </#if>
               </#if>
             </div>
           </td>
