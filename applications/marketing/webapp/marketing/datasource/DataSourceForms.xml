@@ -79,8 +79,8 @@ under the License.
     <form name="ListDataSourceType" type="list" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="dataSourceTypeId"/>
                 <field-map field-name="entityName" value="DataSourceType"/>
             </service>
@@ -113,9 +113,9 @@ under the License.
     <form name="ListLookupDataSource" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" widget-style="buttontext">
@@ -134,9 +134,9 @@ under the License.
     <form name="ListLookupDataSourceType" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" widget-style="buttontext">

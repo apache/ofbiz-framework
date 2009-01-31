@@ -51,7 +51,7 @@ under the License.
                                                 <section>
                                                     <condition>
                                                         <not>
-                                                            <if-empty field-name="partyList"/>
+                                                            <if-empty field="partyList"/>
                                                         </not>
                                                     </condition>
                                                     <widgets>

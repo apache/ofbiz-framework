@@ -27,7 +27,7 @@ under the License.
         <menu-item name="TrackingCodeOrder" title="${uiLabelMap.MarketingTrackingCodeOrder}">
         <condition>
             <not>
-                <if-empty field-name="trackingCodeId"/>
+                <if-empty field="trackingCodeId"/>
             </not>
         </condition>
             <link target="/FindTrackingCodeOrders?trackingCodeId=${trackingCodeId}"/>
@@ -35,7 +35,7 @@ under the License.
         <menu-item name="TrackingCodeVisit" title="${uiLabelMap.MarketingTrackingCodeVisit}">
         <condition>
             <not>
-                <if-empty field-name="trackingCodeId"/>
+                <if-empty field="trackingCodeId"/>
             </not>
         </condition>
             <link target="/FindTrackingCodeVisits?trackingCodeId=${trackingCodeId}"/>

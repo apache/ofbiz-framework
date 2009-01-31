@@ -72,7 +72,7 @@ under the License.
                 <set field="titleProperty" value="Opportunities"/> 
                 <set field="tabButtonItem" value="EditOpportunity"/>            
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
-                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
+                <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -103,7 +103,7 @@ under the License.
                 <set field="titleProperty" value="Opportunities"/>
                 <set field="tabButtonItem" value="ViewOpportunity"/>   
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
-                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
+                <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">

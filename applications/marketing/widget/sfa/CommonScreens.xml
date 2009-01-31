@@ -115,9 +115,9 @@ under the License.
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyTypeId" from-field="parameters.partyTypeId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="lookupPerson"/>
-                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -130,12 +130,12 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="party"/></not>
+                                        <not><if-empty field="party"/></not>
                                     </condition>
                                     <widgets>
                                         <section>
                                             <condition>
-                                                <if-compare field-name="headerItem" operator="equals" value="Accounts"/>
+                                                <if-compare field="headerItem" operator="equals" value="Accounts"/>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="AccountTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -143,7 +143,7 @@ under the License.
                                         </section>
                                         <section>
                                             <condition>
-                                                <if-compare field-name="headerItem" operator="equals" value="Leads"/>
+                                                <if-compare field="headerItem" operator="equals" value="Leads"/>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -151,7 +151,7 @@ under the License.
                                         </section>
                                         <section>
                                             <condition>
-                                                <if-compare field-name="headerItem" operator="equals" value="Contacts"/>
+                                                <if-compare field="headerItem" operator="equals" value="Contacts"/>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -161,7 +161,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="headerItem" operator="equals" value="Contacts"/>
+                                        <if-compare field="headerItem" operator="equals" value="Contacts"/>
                                     </condition>
                                     <widgets>
                                         <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -169,7 +169,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="headerItem" operator="equals" value="Accounts"/>
+                                        <if-compare field="headerItem" operator="equals" value="Accounts"/>
                                     </condition>
                                     <widgets>
                                         <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -177,7 +177,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="headerItem" operator="equals" value="Leads"/>
+                                        <if-compare field="headerItem" operator="equals" value="Leads"/>
                                     </condition>
                                     <widgets>
                                         <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -186,10 +186,10 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <not><if-empty field-name="party"/></not>
+                                            <not><if-empty field="party"/></not>
                                             <or>
-                                                <not><if-empty field-name="lookupPerson"/></not>
-                                                <not><if-empty field-name="lookupGroup"/></not>
+                                                <not><if-empty field="lookupPerson"/></not>
+                                                <not><if-empty field="lookupGroup"/></not>
                                             </or>
                                         </and>
                                     </condition>
@@ -230,8 +230,8 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <not><if-empty field-name="leadDescription"/></not>                                        
-                            <not><if-empty field-name="accountLeadDescription"/></not>
+                            <not><if-empty field="leadDescription"/></not>                                        
+                            <not><if-empty field="accountLeadDescription"/></not>
                         </or>
                     </condition>
                     <actions>
@@ -241,7 +241,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field-name="contactDescription"/></not>                                        
+                        <not><if-empty field="contactDescription"/></not>                                        
                     </condition>
                     <actions>
                         <set field="headerItem" value="Contacts"/>
@@ -250,7 +250,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field-name="accountDescription"/></not>                                        
+                        <not><if-empty field="accountDescription"/></not>                                        
                     </condition>
                     <actions>
                         <set field="headerItem" value="Accounts"/>
@@ -261,12 +261,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="party"/></not>
+                                <not><if-empty field="party"/></not>
                             </condition>
                             <widgets>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
                                         <container style="button-bar button-style-2">
@@ -281,7 +281,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="accountDescription"/></not>                                        
+                                        <not><if-empty field="accountDescription"/></not>                                        
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">
@@ -300,8 +300,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field-name="leadDescription"/></not>                                        
-                                            <not><if-empty field-name="accountLeadDescription"/></not>
+                                            <not><if-empty field="leadDescription"/></not>                                        
+                                            <not><if-empty field="accountLeadDescription"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
@@ -341,7 +341,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="contactDescription"/></not>                                        
+                                        <not><if-empty field="contactDescription"/></not>                                        
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">

@@ -26,7 +26,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="Tracking"/>
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
-                <entity-one entity-name="TrackingCode" value-name="trackingCode"/>
+                <entity-one entity-name="TrackingCode" value-field="trackingCode"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -64,14 +64,14 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
-                <entity-one entity-name="TrackingCode" value-name="trackingCode"/>
+                <entity-one entity-name="TrackingCode" value-field="trackingCode"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="trackingCode"/></not>
+                                <not><if-empty field="trackingCode"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -186,7 +186,7 @@ under the License.
                 <set field="orderId" from-field="parameters.partyId"/>
                 <set field="trackingCodeTypeId" from-field="parameters.trackingCodeTypeId"/>
                 <set field="isBillable" from-field="parameters.isBillable"/>
-                <entity-one entity-name="TrackingCodeOrder" value-name="trackingCodeOrder"/>
+                <entity-one entity-name="TrackingCodeOrder" value-field="trackingCodeOrder"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
@@ -291,7 +291,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
@@ -436,14 +436,14 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCodeType"/>
                 <set field="trackingCodeTypeId" from-field="parameters.trackingCodeTypeId"/>
-                <entity-one entity-name="TrackingCodeType" value-name="trackingCodeType"/>
+                <entity-one entity-name="TrackingCodeType" value-field="trackingCodeType"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="trackingCodeType"/></not>
+                                <not><if-empty field="trackingCodeType"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">

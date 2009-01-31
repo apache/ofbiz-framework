@@ -128,8 +128,8 @@ under the License.
     <form name="ListTrackingCodeOrders" type="list" title="" paginate-target="FindTrackingCodeOrders" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="-orderId"/>
                 <field-map field-name="entityName" value="TrackingCodeOrder"/>
             </service>
@@ -175,9 +175,9 @@ under the License.
     <form name="ListTrackingCodeVisits" list-name="listIt" title="" paginate-target="FindTrackingCodeVisits" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="requestParameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="requestParameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
                 <field-map field-name="orderBy" value="-fromDate"/>
             </service>
         </actions>
@@ -220,9 +220,9 @@ under the License.
     <form name="ListLookupTrackingCode" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" widget-style="buttontext">
@@ -245,9 +245,9 @@ under the License.
     <form name="ListLookupVisit" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}" widget-style="buttontext">
@@ -306,9 +306,9 @@ under the License.
     <form name="ListLookupTrackingCodeType" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" widget-style="buttontext">
