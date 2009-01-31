@@ -231,7 +231,14 @@ under the License.
         <mkdir dir="${site.dir}/dtds"/>
         <copy todir="${site.dir}/dtds" flatten="true" overwrite="true">
             <fileset dir="${basedir}" includes="**/*.dtd"/>
-            <fileset dir="${basedir}" includes="**/*.xsd"/>
+            <fileset dir="${basedir}" defaultexcludes="yes"> <!-- all but oagis and external in general -->
+              <include name="**/*.xsd"/>        	
+              <exclude name="**/002*.xsd"/>
+              <exclude name="**/068*.xsd"/>
+              <exclude name="**/161*.xsd"/>
+              <exclude name="**/196*.xsd"/>
+              <exclude name="**/197*.xsd"/>
+            </fileset>
         </copy>
     </target>
 
