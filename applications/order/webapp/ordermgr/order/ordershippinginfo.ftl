@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
+<#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul><li class="h3">&nbsp;${uiLabelMap.OrderActions}</li></ul>
@@ -88,7 +88,7 @@ under the License.
   </div>
 </#if>
 
-<#if shipGroups?has_content>
+<#if shipGroups?has_content && orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
 <#list shipGroups as shipGroup>
   <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
   <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
