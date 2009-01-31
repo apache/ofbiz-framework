@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="ManufacturingAppBar" title="${uiLabelMap.AccountingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="ManufacturingAppBar" title="${uiLabelMap.ManufacturingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="jobshop" title="${uiLabelMap.ManufacturingJobShop}">
             <condition>
                 <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
