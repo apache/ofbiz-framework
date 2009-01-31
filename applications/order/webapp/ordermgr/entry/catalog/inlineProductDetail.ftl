@@ -54,7 +54,7 @@ ${virtualJavaScript?if_exists}
                 elem.appendChild(txt);
             }
             
-            checkOtion(inlineCounter);
+            checkOption(inlineCounter);
         } else {
             //document.configform.quantity.disabled = false;
             var elem = document.getElementById(product_id_display);
@@ -67,7 +67,7 @@ ${virtualJavaScript?if_exists}
         }
     }
     
-    function checkOtion(inlineCounter) {
+    function checkOption(inlineCounter) {
         var option = document.getElementById(inlineCounter.substring(0, inlineCounter.length - 2));
         if (option.checked) {
             option.checked=false;
