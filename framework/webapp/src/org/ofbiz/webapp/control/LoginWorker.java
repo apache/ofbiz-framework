@@ -76,7 +76,7 @@ import org.ofbiz.webapp.stats.VisitHandler;
 public class LoginWorker {
     
     public final static String module = LoginWorker.class.getName();
-    public static final String resourceWebapp = "WebappUiLabels";
+    public static final String resourceWebapp = "SecurityextUiLabels";
 
     public static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     public static final String X509_CERT_ATTR = "SSLx509Cert";
