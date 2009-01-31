@@ -784,7 +784,7 @@ public class InvoiceServices {
                         appl.put("paymentId", payment.get("paymentId"));
                         appl.put("invoiceId", invoiceId);
                         appl.put("billingAccountId", billingAccountId);
-                        appl.put("amountApplied", new Double(notApplied.doubleValue()));
+                        appl.put("amountApplied", notApplied);
                         appl.put("userLogin", userLogin);
                         Map createPayApplResult = dispatcher.runSync("createPaymentApplication", appl); 
                         if (ServiceUtil.isError(createPayApplResult)) {
