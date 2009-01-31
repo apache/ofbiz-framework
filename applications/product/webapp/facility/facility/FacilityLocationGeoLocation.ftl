@@ -46,6 +46,5 @@ under the License.
     </#if>   
   </#if>
 <#else>
-    <a href="<@ofbizUrl>PartyGeoLocation?partyId=DemoCustomer</@ofbizUrl>" class="button">${uiLabelMap.CommonNoGeolocationAvailable}</a>
-       
+  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>       
 </#if>
