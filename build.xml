@@ -296,6 +296,40 @@ under the License.
             <arg value="readers=seed,seed-initial,ext,ext-test"/>
         </java>
     </target>
+    <target name="run-install-readers" depends="build"
+        description="This loads data using the command line argument 'readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
+        <java jar="ofbiz.jar" fork="true" >
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="install"/>
+            <arg value="readers=${data-readers}"/>
+        </java>
+    </target>
+    <target name="run-install-file" depends="build"
+        description="This loads data using the command line argument 'file' to load data from a given file">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=default"/>
+            <arg value="file=${data-file}"/>
+        </java>
+    </target>
+    <target name="create-admin-user-login"
+        description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
+        <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
+        <echoxml file="runtime/tmp/tmpUserLogin.xml">
+            <entity-engine-xml>
+                <UserLogin userLoginId="${userLoginId}" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" requirePasswordChange="Y"/>
+                <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="${userLoginId}" fromDate="2001-01-01 12:00:00.0"/>
+            </entity-engine-xml>
+        </echoxml>
+        <antcall target="run-install-file">
+            <param name="data-file" value="runtime/tmp/tmpUserLogin.xml"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpUserLogin.xml"/>
+    </target>
+
     <target name="run-debug" depends="build">
         <java jar="ofbiz.jar"  fork="true">
             <jvmarg value="${memory.initial.param}"/>
