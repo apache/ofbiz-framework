@@ -81,7 +81,7 @@ under the License.
                 <set field="tabButtonItem" value="Segment"/>
                 
                 <set field="segmentGroupId" from-field="parameters.segmentGroupId"/>
-                <entity-one entity-name="SegmentGroup" value-name="segmentGroup"/>
+                <entity-one entity-name="SegmentGroup" value-field="segmentGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -93,7 +93,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="segmentGroupId"/></not></condition>
+                                    <condition><not><if-empty field="segmentGroupId"/></not></condition>
                                     <widgets>
                                         <include-menu location="component://marketing/webapp/marketing/segment/SegmentMenus.xml" name="SegmentGroupTabBar"/>
                                         <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
@@ -123,7 +123,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/LookupSegmentGroup"/>
                 <set field="segmentGroupId" from-field="parameters.segmentGroupId"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-                <entity-one entity-name="SegmentGroup" value-name="segmentGroup"/>
+                <entity-one entity-name="SegmentGroup" value-field="segmentGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSegmentGroupDecorator">

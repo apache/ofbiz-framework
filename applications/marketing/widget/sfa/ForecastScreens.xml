@@ -32,7 +32,7 @@ under the License.
                         <section>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="salesForecastId"/></not></condition>
+                                    <condition><not><if-empty field="salesForecastId"/></not></condition>
                                     <widgets>
                                         <include-menu name="SalesForecastTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                     </widgets>
@@ -88,7 +88,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSalesForecast"/>
                 <set field="tabButtonItem" value="EditSalesForecast"/>
                 <set field="salesForecastId" from-field="parameters.salesForecastId"/>
-                <entity-one entity-name="SalesForecast" value-name="salesForecast"/>
+                <entity-one entity-name="SalesForecast" value-field="salesForecast"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSalesForecastDecorator">
@@ -101,7 +101,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <condition><not><if-empty field-name="salesForecastId"/></not></condition>
+                                    <condition><not><if-empty field="salesForecastId"/></not></condition>
                                         <widgets>
                                             <container style="button-bar">
                                                 <link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/>

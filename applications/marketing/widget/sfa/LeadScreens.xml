@@ -49,7 +49,7 @@ under the License.
                                                 <section>
                                                     <condition>
                                                         <not>
-                                                            <if-empty field-name="partyList"/>
+                                                            <if-empty field="partyList"/>
                                                         </not>
                                                     </condition>
                                                     <widgets>
@@ -188,7 +188,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="parameters.partyIdTo"/>
+                                <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="parameters.partyIdTo"/>
                             </condition>
                             <widgets>
                                 <platform-specific>

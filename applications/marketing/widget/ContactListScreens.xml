@@ -62,14 +62,14 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
-                <entity-one entity-name="ContactList" value-name="contactList"/>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="contactList"/></not>
+                                <not><if-empty field="contactList"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -160,12 +160,12 @@ under the License.
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="ContactListParty" value-name="contactListParty"/>
-                <entity-condition entity-name="ContactListPartyAndStatus" list-name="contactListPartyStatusList">
+                <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
+                <entity-condition entity-name="ContactListPartyAndStatus" list="contactListPartyStatusList">
                     <condition-list combine="and">
-                        <condition-expr field-name="contactListId" env-name="contactListId"/>
-                        <condition-expr field-name="partyId" env-name="partyId"/>
-                        <condition-expr field-name="fromDate" env-name="fromDate"/>
+                        <condition-expr field-name="contactListId" from-field="contactListId"/>
+                        <condition-expr field-name="partyId" from-field="partyId"/>
+                        <condition-expr field-name="fromDate" from-field="fromDate"/>
                     </condition-list>
                     <order-by field-name="-statusDate"/>
                 </entity-condition>
@@ -185,7 +185,7 @@ under the License.
                                         <container><link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
                                         <include-form name="EditContactListParty" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>                        
                                         <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
-                                        <iterate-section entry-name="contactListPartyStatus" list-name="contactListPartyStatusList">
+                                        <iterate-section entry="contactListPartyStatus" list="contactListPartyStatusList">
                                             <section>
                                                 <widgets>
                                                     <container><label text="${contactListPartyStatus.statusDate} ${contactListPartyStatus.description} [by: ${contactListPartyStatus.setByUserLoginId}] [code: ${contactListPartyStatus.optInVerifyCode}]"/></container>
@@ -283,7 +283,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 
                 <!-- get the current log in user's default email -->
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>

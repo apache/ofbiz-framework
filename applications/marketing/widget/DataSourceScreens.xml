@@ -27,7 +27,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="DataSource"/>
                 <set field="dataSourceId" from-field="parameters.dataSourceId"/>
-                <entity-one entity-name="DataSource" value-name="dataSource"/>
+                <entity-one entity-name="DataSource" value-field="dataSource"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -64,14 +64,14 @@ under the License.
                  <set field="dataSourceTabButtonItem" value="DataSource"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
                 <set field="dataSourceId" from-field="parameters.dataSourceId"/>
-                <entity-one entity-name="DataSource" value-name="dataSource"/>
+                <entity-one entity-name="DataSource" value-field="dataSource"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="dataSource"/></not>
+                                <not><if-empty field="dataSource"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -157,14 +157,14 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
                 <set field="dataSourceTypeId" from-field="parameters.dataSourceTypeId"/>
-                <entity-one entity-name="DataSourceType" value-name="dataSourceType"/>
+                <entity-one entity-name="DataSourceType" value-field="dataSourceType"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="dataSourceType"/></not>
+                                <not><if-empty field="dataSourceType"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">

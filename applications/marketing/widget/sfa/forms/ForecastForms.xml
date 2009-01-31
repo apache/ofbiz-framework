@@ -29,8 +29,8 @@ under the License.
     <form name="SalesForecastSearchResults" type="list" list-name="listIt" paginate-target="FindForecasts" view-size="5"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" separate-columns="true">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesForecast"/>
             </service>
         </actions>
@@ -80,7 +80,7 @@ under the License.
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="SalesForecastDetail">
-                <condition-expr field-name="salesForecastId" env-name="parameters.salesForecastId"/>
+                <condition-expr field-name="salesForecastId" from-field="parameters.salesForecastId"/>
             </entity-condition>
         </actions>
         <auto-fields-entity entity-name="SalesForecastDetail" default-field-type="edit"/>

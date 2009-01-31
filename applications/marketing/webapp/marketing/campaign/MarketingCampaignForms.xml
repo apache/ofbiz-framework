@@ -88,7 +88,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
         <entity-and entity-name="MarketingCampaignRole">
-            <field-map field-name="marketingCampaignId" env-name="marketingCampaignId" />
+            <field-map field-name="marketingCampaignId" from-field="marketingCampaignId" />
         </entity-and>
         </actions>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}">

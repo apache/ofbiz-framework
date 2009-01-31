@@ -24,11 +24,11 @@ under the License.
     <form name="ListContacts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindContact"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
-            <entity-one entity-name="Person" value-name="person">
-                <field-map field-name="partyId" env-name="partyRow.partyId"/>
+            <entity-one entity-name="Person" value-field="person">
+                <field-map field-name="partyId" from-field="partyRow.partyId"/>
             </entity-one>
-            <entity-one entity-name="PartyType" value-name="partyType">
-                <field-map field-name="partyTypeId" env-name="partyRow.partyTypeId"/>
+            <entity-one entity-name="PartyType" value-field="partyType">
+                <field-map field-name="partyTypeId" from-field="partyRow.partyTypeId"/>
             </entity-one>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">

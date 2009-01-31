@@ -26,7 +26,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <set field="headerItem" value="Campaign"/>
-                <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
+                <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -38,7 +38,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="marketingCampaignId"/></not></condition>
+                                    <condition><not><if-empty field="marketingCampaignId"/></not></condition>
                                     <widgets>
                                         <include-menu name="MarketingCampaignTabBar" location="component://marketing/webapp/marketing/campaign/MarketingCampaignMenus.xml"/>
                                     </widgets>
@@ -66,14 +66,14 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
-                <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
+                <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="marketingCampaign"/></not>
+                                <not><if-empty field="marketingCampaign"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -160,7 +160,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="MarketingCampaignRole" value-name="marketingCampaignRole"/>
+                <entity-one entity-name="MarketingCampaignRole" value-field="marketingCampaignRole"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">

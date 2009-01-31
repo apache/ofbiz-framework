@@ -33,8 +33,8 @@ under the License.
     <form name="listLookupSegmentGroup" list-name="listIt" target="" title="" type="list" paginate-target="LookupSegmentGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SegmentGroup"/>
             </service>
         </actions>
@@ -82,8 +82,8 @@ under the License.
     <form name="ListLookupSalesForecast" list-name="listIt" type="list" paginate-target="LookupSalesForecast" view-size="10"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesForecast"/>
             </service>
         </actions>

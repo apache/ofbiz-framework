@@ -54,7 +54,7 @@ under the License.
                 <set field="headerItem" value="ContactList"/>
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
-                <entity-one entity-name="ContactList" value-name="contactList"/>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -66,7 +66,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="contactListId"/></not></condition>
+                                    <condition><not><if-empty field="contactListId"/></not></condition>
                                     <widgets>
                                         <include-menu name="ContactListTabBar" location="component://marketing/webapp/marketing/contact/ContactListMenus.xml"/>
                                         <container>

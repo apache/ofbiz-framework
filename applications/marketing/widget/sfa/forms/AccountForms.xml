@@ -24,7 +24,7 @@ under the License.
     <form name="ListAccounts" type="list" list-name="partyList" paginate-target="FindAccount" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
+            <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" target-type="inter-app"/>
