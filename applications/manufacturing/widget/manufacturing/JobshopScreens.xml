@@ -37,7 +37,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="productionRun"/></not>
+                                        <not><if-empty field="productionRun"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="ProductionRunTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
@@ -222,7 +222,7 @@ under the License.
                             <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                             <section>
                                 <condition>
-                                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+                                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
                                 </condition>
                                 <widgets>
                                     <link target="changeProductionRunStatusToClosed?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext"/>
@@ -231,9 +231,9 @@ under the License.
                             <section>
                                 <condition>
                                     <and>
-                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
-                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
-                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
                                     </and>
                                 </condition>
                                 <widgets>
@@ -261,7 +261,7 @@ under the License.
                            </container>                        
                         <section>
                             <condition>
-                                <if-compare field-name="canProduce" operator="equals" value="Y"/>
+                                <if-compare field="canProduce" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -282,7 +282,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                                <if-compare field-name="canDeclareAndProduce" operator="equals" value="Y"/>
+                                <if-compare field="canDeclareAndProduce" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -449,20 +449,20 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <!-- Find all the work efforts that must be completed before this one. -->
-                <entity-condition entity-name="WorkEffortAssoc" list-name="mandatoryWorkEfforts">
+                <entity-condition entity-name="WorkEffortAssoc" list="mandatoryWorkEfforts">
                     <condition-list>
-                        <condition-expr field-name="workEffortIdTo" env-name="productionRunId"/>
+                        <condition-expr field-name="workEffortIdTo" from-field="productionRunId"/>
                         <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
                     </condition-list>
                 </entity-condition>
                 <!-- Find all the work efforts that are dependent from this one. -->
-                <entity-condition entity-name="WorkEffortAssoc" list-name="dependentWorkEfforts">
+                <entity-condition entity-name="WorkEffortAssoc" list="dependentWorkEfforts">
                     <condition-list>
-                        <condition-expr field-name="workEffortIdFrom" env-name="productionRunId"/>
+                        <condition-expr field-name="workEffortIdFrom" from-field="productionRunId"/>
                         <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
                     </condition-list>
                 </entity-condition>
@@ -513,12 +513,12 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <set field="routingTaskId" from-field="parameters.routingTaskId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRunTask">
-                    <field-map field-name="workEffortId" env-name="routingTaskId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRunTask">
+                    <field-map field-name="workEffortId" from-field="routingTaskId"/>
                 </entity-one>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunTasks.groovy"/>
             </actions>
@@ -544,8 +544,8 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunComponents.groovy"/>
             </actions>
@@ -588,8 +588,8 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunActualComponents.groovy"/>
             </actions>
@@ -628,8 +628,8 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunFixedAssets.groovy"/>
             </actions>
@@ -670,8 +670,8 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
-                <entity-one entity-name="WorkEffort" value-name="productionRun">
-                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunCosts.groovy"/>
             </actions>

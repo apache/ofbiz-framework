@@ -85,7 +85,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-condition entity-name="JobSandbox" list-name="mrpActiveJobs">
+                <entity-condition entity-name="JobSandbox" list="mrpActiveJobs">
                     <condition-list combine="and">
                         <condition-expr field-name="serviceName" value="executeMrp"/>
                         <condition-list combine="or">
@@ -96,14 +96,14 @@ under the License.
                     </condition-list>
                     <order-by field-name="-createdStamp"/>
                 </entity-condition>
-                <entity-condition entity-name="JobSandbox" list-name="mrpRunningJobs">
+                <entity-condition entity-name="JobSandbox" list="mrpRunningJobs">
                     <condition-list combine="and">
                         <condition-expr field-name="serviceName" value="executeMrp"/>
                         <condition-expr field-name="statusId" value="SERVICE_RUNNING"/>
                     </condition-list>
                     <order-by field-name="-createdStamp"/>
                 </entity-condition>
-                <entity-condition entity-name="JobSandbox" list-name="lastFinishedJobs">
+                <entity-condition entity-name="JobSandbox" list="lastFinishedJobs">
                     <condition-list combine="and">
                         <condition-expr field-name="serviceName" value="executeMrp"/>
                         <condition-list combine="or">
@@ -151,7 +151,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-empty field-name="mrpRunningJobs"/>
+                                <if-empty field="mrpRunningJobs"/>
                             </condition>
                             <widgets>
                                 <platform-specific>

@@ -55,7 +55,7 @@ under the License.
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="bom"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/EditProductBom.groovy"/>
             </actions>
             <widgets>
@@ -78,8 +78,8 @@ under the License.
                 <set field="headerItem" value="bom"/>
     
                 <set field="ruleId" from-field="parameters.ruleId"/>
-                <entity-one entity-name="ProductManufacturingRule" value-name="manufacturingRule"/>
-                <entity-condition entity-name="ProductManufacturingRule" list-name="manufacturingRules">
+                <entity-one entity-name="ProductManufacturingRule" value-field="manufacturingRule"/>
+                <entity-condition entity-name="ProductManufacturingRule" list="manufacturingRules">
                     <order-by field-name="ruleId"/>
                     <order-by field-name="fromDate"/>
                 </entity-condition>
@@ -112,9 +112,9 @@ under the License.
                 <set field="productFeatureApplTypeId" value="STANDARD_FEATURE"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
-                <entity-and entity-name="ProductFeatureAndAppl" list-name="selectedFeatures">
-                    <field-map env-name="productId" field-name="productId"/>
-                    <field-map env-name="productFeatureApplTypeId" field-name="productFeatureApplTypeId"/>
+                <entity-and entity-name="ProductFeatureAndAppl" list="selectedFeatures">
+                    <field-map from-field="productId" field-name="productId"/>
+                    <field-map from-field="productFeatureApplTypeId" field-name="productFeatureApplTypeId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/BomSimulation.groovy"/>

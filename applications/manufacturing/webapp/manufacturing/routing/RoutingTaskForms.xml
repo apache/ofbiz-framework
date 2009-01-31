@@ -38,9 +38,9 @@ under the License.
         paginate-target="FindRouting" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="WorkEffort"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
         <field name="workEffortId" widget-style="buttontext" title="${uiLabelMap.ManufacturingRoutingId}">
@@ -89,9 +89,9 @@ under the License.
         paginate-target="FindRoutingTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="WorkEffort"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskId}" widget-style="buttontext">
