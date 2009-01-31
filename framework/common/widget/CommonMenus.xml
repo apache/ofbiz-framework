@@ -25,15 +25,7 @@ under the License.
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="main"/>
         </menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-             <condition><not><if-empty field-name="userLogin"/></not></condition>
-             <link target="logout"/>
-         </menu-item>
-         <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-             <condition><if-empty field-name="userLogin"/></condition>
-             <link target="logout"/>
-         </menu-item>
-     </menu>
+    </menu>
      
     <menu name="CommonTabBarMenu" selected-menuitem-context-field-name="tabButtonItem" type="simple" 
           menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" /> 
