@@ -98,8 +98,8 @@ under the License.
         <menu-item name="edit" title="${uiLabelMap.ManufacturingEditProductionRun}">
             <condition>
                 <or>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                 </or>                
             </condition>
             <link target="EditProductionRun?productionRunId=${productionRunId}"/>
@@ -107,8 +107,8 @@ under the License.
         <menu-item name="tasks" title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
             <condition>
                 <or>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                 </or>                
             </condition>
             <link target="ProductionRunTasks?productionRunId=${productionRunId}"/>
@@ -116,8 +116,8 @@ under the License.
         <menu-item name="components" title="${uiLabelMap.ManufacturingMaterials}">
             <condition>
                 <or>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                 </or>                
             </condition>
             <link target="ProductionRunComponents?productionRunId=${productionRunId}"/>
@@ -125,8 +125,8 @@ under the License.
         <menu-item name="fixedAssets" title="${uiLabelMap.AccountingFixedAssets}">
             <condition>
                 <or>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                 </or>                
             </condition>
             <link target="ProductionRunFixedAssets?productionRunId=${productionRunId}"/>
@@ -135,8 +135,8 @@ under the License.
             <condition>
                 <not>
                     <or>
-                        <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                        <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                        <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                        <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                     </or>                
                 </not>
             </condition>
@@ -146,8 +146,8 @@ under the License.
             <condition>
                 <not>
                     <or>
-                        <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-                        <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                        <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                        <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
                     </or>                
                 </not>
             </condition>
@@ -180,19 +180,19 @@ under the License.
 
         <menu-item name="calendar" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <not><if-empty field-name="techDataCalendar"/></not>
+                <not><if-empty field="techDataCalendar"/></not>
             </condition>
             <link target="EditCalendar?calendarId=${techDataCalendar.calendarId}"/>
         </menu-item>  
         <menu-item name="calendarExceptionDay" title="${uiLabelMap.ManufacturingCalendarExceptionDate}">
             <condition>
-                <not><if-empty field-name="techDataCalendar"/></not>
+                <not><if-empty field="techDataCalendar"/></not>
             </condition>
             <link target="EditCalendarExceptionDay?calendarId=${techDataCalendar.calendarId}"/>
         </menu-item>  
         <menu-item name="calendarExceptionWeek" title="${uiLabelMap.ManufacturingCalendarExceptionWeek}">
             <condition>
-                <not><if-empty field-name="techDataCalendar"/></not>
+                <not><if-empty field="techDataCalendar"/></not>
             </condition>
             <link target="EditCalendarExceptionWeek?calendarId=${techDataCalendar.calendarId}"/>
         </menu-item>  

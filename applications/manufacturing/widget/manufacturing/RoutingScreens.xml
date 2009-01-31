@@ -26,7 +26,7 @@ under the License.
                 <!-- <set field="leftbarScreenName" value="leftbar"/> -->
                 <!-- <set field="leftbarScreenLocation" value=""/> -->
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routing"/>
+                <entity-one entity-name="WorkEffort" value-field="routing"/>
 
             </actions>
             <widgets>
@@ -40,7 +40,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="routing"/></not>
+                                        <not><if-empty field="routing"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
@@ -64,7 +64,7 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routingTask"/>
+                <entity-one entity-name="WorkEffort" value-field="routingTask"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -77,7 +77,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="routing"/></not>
+                                        <not><if-empty field="routing"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
@@ -143,7 +143,7 @@ under the License.
                 <set field="tabButtonItem" value="editRouting"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routing"/>
+                <entity-one entity-name="WorkEffort" value-field="routing"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">
@@ -213,7 +213,7 @@ under the License.
                 <set field="tabButtonItem" value="editRoutingTask"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routingTask"/>
+                <entity-one entity-name="WorkEffort" value-field="routingTask"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
@@ -248,9 +248,9 @@ under the License.
                 <set field="tabButtonItem" value="editRoutingTaskCosts"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routingTask"/>
-                <entity-and entity-name="WorkEffortCostCalc" list-name="allCosts">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="routingTask"/>
+                <entity-and entity-name="WorkEffortCostCalc" list="allCosts">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -273,9 +273,9 @@ under the License.
                 <set field="tabButtonItem" value="listRoutingTaskRoutings"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routingTask"/>
-                <entity-and entity-name="WorkEffortAssoc" list-name="allRoutings">
-                    <field-map env-name="workEffortId" field-name="workEffortIdTo"/>
+                <entity-one entity-name="WorkEffort" value-field="routingTask"/>
+                <entity-and entity-name="WorkEffortAssoc" list="allRoutings">
+                    <field-map from-field="workEffortId" field-name="workEffortIdTo"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -308,10 +308,10 @@ under the License.
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="routingTask"/>
-                <entity-and entity-name="WorkEffortGoodStandard" list-name="allProducts">
+                <entity-one entity-name="WorkEffort" value-field="routingTask"/>
+                <entity-and entity-name="WorkEffortGoodStandard" list="allProducts">
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
-                    <field-map env-name="workEffortId" field-name="workEffortId"/>
+                    <field-map from-field="workEffortId" field-name="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -334,11 +334,11 @@ under the License.
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-and entity-name="WorkEffortGoodStandard" list-name="allRoutingProductLinks">
-                    <field-map env-name="workEffortId" field-name="workEffortId"/>
+                <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
+                    <field-map from-field="workEffortId" field-name="workEffortId"/>
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
                 </entity-and>
-                <entity-one entity-name="WorkEffortGoodStandard" value-name="routingProductLink" auto-field-map="true"/>
+                <entity-one entity-name="WorkEffortGoodStandard" value-field="routingProductLink" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
@@ -371,9 +371,9 @@ under the License.
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
-                <entity-and entity-name="WorkEffortAssocView" list-name="allRoutingTasks">
-                    <field-map env-name="workEffortId" field-name="workEffortIdFrom"/>
-                    <field-map env-name="workEffortAssocTypeId" field-name="workEffortAssocTypeId"/>
+                <entity-and entity-name="WorkEffortAssocView" list="allRoutingTasks">
+                    <field-map from-field="workEffortId" field-name="workEffortIdFrom"/>
+                    <field-map from-field="workEffortAssocTypeId" field-name="workEffortAssocTypeId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
@@ -426,12 +426,12 @@ under the License.
                 
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <!--<entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>-->
-                <entity-and entity-name="WorkEffortGoodStandard" list-name="allRoutingProductLinks">
-                    <field-map env-name="workEffortId" field-name="workEffortId"/>
-                    <field-map env-name="workEffortGoodStdTypeId" field-name="workEffortGoodStdTypeId"/>
+                <!--<entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>-->
+                <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
+                    <field-map from-field="workEffortId" field-name="workEffortId"/>
+                    <field-map from-field="workEffortGoodStdTypeId" field-name="workEffortGoodStdTypeId"/>
                 </entity-and>
-                <entity-one entity-name="WorkEffortGoodStandard" value-name="routingProductLink" auto-field-map="true"/>
+                <entity-one entity-name="WorkEffortGoodStandard" value-field="routingProductLink" auto-field-map="true"/>
                 <!--<script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditRoutingProductLink.groovy"/>-->
             </actions>
             <widgets>
@@ -453,8 +453,8 @@ under the License.
                 <set field="tabButtonItem" value="editRoutingTaskFixedAssets" />
                 <set field="headerItem" value="routingTask" />
                 <set field="workEffortId" from-field="parameters.workEffortId" />
-                <entity-and entity-name="WorkEffortFixedAssetStd" list-name="allFixedAssets">
-                    <field-map field-name="workEffortId" env-name="workEffortId" />
+                <entity-and entity-name="WorkEffortFixedAssetStd" list="allFixedAssets">
+                    <field-map field-name="workEffortId" from-field="workEffortId" />
                 </entity-and>
             </actions>
             <widgets>

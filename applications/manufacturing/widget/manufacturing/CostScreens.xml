@@ -29,8 +29,8 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
 
-                <entity-condition entity-name="CostComponentCalc" list-name="allCostComponentCalcs"/>
-                <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
+                <entity-condition entity-name="CostComponentCalc" list="allCostComponentCalcs"/>
+                <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
