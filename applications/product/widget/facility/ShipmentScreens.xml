@@ -43,7 +43,7 @@ under the License.
         <section>
             <actions>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
-                <entity-one entity-name="Shipment" value-name="shipment"/>
+                <entity-one entity-name="Shipment" value-field="shipment"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

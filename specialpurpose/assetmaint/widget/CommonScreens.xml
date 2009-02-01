@@ -51,7 +51,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="facility"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

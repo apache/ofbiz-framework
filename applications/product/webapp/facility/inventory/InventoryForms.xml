@@ -28,7 +28,7 @@ under the License.
             <set field="facilityId" from-field="inventoryItem.facilityId"/> 
             <set field="locationSeqId" from-field="inventoryItem.locationSeqId"/>
             <set field="statusId" from-field="inventoryItem.statusId"/>
-            <entity-one entity-name="FacilityLocation" value-name="facilityLocation">
+            <entity-one entity-name="FacilityLocation" value-field="facilityLocation">
                 <field-map field-name="locationSeqId" env-name="locationSeqId"/>
                 <field-map field-name="facilityId" env-name="facilityId"/>                 
             </entity-one>

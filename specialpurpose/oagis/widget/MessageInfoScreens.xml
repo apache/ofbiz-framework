@@ -76,7 +76,7 @@
                 <set field="component" from-field="parameters.component"/>
                 <set field="task" from-field="parameters.task"/>
                 <set field="referenceId" from-field="parameters.referenceId"/>
-                <entity-one entity-name="OagisMessageInfo" value-name="oagisMessageInfo"/>
+                <entity-one entity-name="OagisMessageInfo" value-field="oagisMessageInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
@@ -158,7 +158,7 @@
                 <set field="task" from-field="parameters.task"/>
                 <set field="referenceId" from-field="parameters.referenceId"/>
                 <set field="errorSeqId" from-field="parameters.errorSeqId"/>
-                <entity-one entity-name="OagisMessageErrorInfo" value-name="oagisMessageErrorInfo"/>
+                <entity-one entity-name="OagisMessageErrorInfo" value-field="oagisMessageErrorInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">

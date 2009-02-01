@@ -81,7 +81,7 @@ under the License.
                 <set field="headerItem" value="inventoryItemLabel"/>
                 <set field="tabButtonItem" value="FindInventoryItemLabels"/>
                 <set field="subTabButtonItem" value="EditInventoryItemLabel"/>
-                <entity-one entity-name="InventoryItemLabel" value-name="inventoryItemLabel"/>
+                <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
             </actions>
             <widgets>
                 <section>
@@ -142,7 +142,7 @@ under the License.
                 <set field="headerItem" value="inventoryItemLabel"/>
                 <set field="tabButtonItem" value="FindInventoryItemLabels"/>
                 <set field="subTabButtonItem" value="EditInventoryItemLabelAppls"/>
-                <entity-one entity-name="InventoryItemLabel" value-name="inventoryItemLabel"/>
+                <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
                 <get-related value-name="inventoryItemLabel" relation-name="InventoryItemLabelAppl" list-name="inventoryItemLabelAppls"/>
                 <get-related-one value-name="inventoryItemLabel" relation-name="InventoryItemLabelType" to-value-name="inventoryItemLabelType"/>
             </actions>

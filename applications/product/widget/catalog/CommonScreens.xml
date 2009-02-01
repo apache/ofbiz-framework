@@ -58,7 +58,7 @@ under the License.
                 <set field="MainColumnStyle" value="leftonly"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="productName" from-field="product.productName"/>
             </actions>
             <widgets>
@@ -329,7 +329,7 @@ under the License.
                 <set field="headerItem" value="main"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

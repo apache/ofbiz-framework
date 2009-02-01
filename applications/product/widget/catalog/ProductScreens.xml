@@ -29,7 +29,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductProduct"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -109,7 +109,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductPrices"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductPrice" list-name="productPrices">
                     <field-map field-name="productId"/>
                     <order-by field-name="productStoreGroupId"/>
@@ -166,7 +166,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductAgreements"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="SupplierProduct" list-name="supplierProductAgreements">
                     <condition-list>
                         <condition-expr field-name="productId" env-name="productId"/>
@@ -243,7 +243,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCategoryMembers"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 
                 <entity-condition entity-name="ProductCategoryMember" list-name="productCategoryMembers">
                     <condition-expr field-name="productId" env-name="productId"/>
@@ -297,7 +297,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductConfigs"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductConfig" list-name="productConfigs">
                     <field-map field-name="productId"/>
                     <order-by field-name="sequenceNum"/>
@@ -348,7 +348,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductAssetUsage"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="FixedAssetProduct" list-name="fixedAssetProducts">
                     <condition-expr field-name="productId" env-name="productId"/>
                 </entity-condition>
@@ -401,7 +401,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductAssetUsage"/>
 
                 <set field="extraFunctionName"  value="uiLabelMap.AccountingFixedAssetProductUpd"/>
-                <entity-one entity-name="FixedAssetProduct" value-name="fixedAssetProduct"/>
+                <entity-one entity-name="FixedAssetProduct" value-field="fixedAssetProduct"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -471,7 +471,7 @@ under the License.
                 <set field="productAssocTypeId" value="MANUF_COMPONENT"/>
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductAssoc" list-name="components">
                     <field-map field-name="productId"/>
                     <field-map field-name="productAssocTypeId"/>
@@ -551,8 +551,8 @@ under the License.
                 <!-- default currency in framework/common/config/general.properties -->
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 
-                <entity-one entity-name="Product" value-name="product"/>
-                <entity-one entity-name="CostComponent" value-name="costComponent" auto-field-map="false">
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-one entity-name="CostComponent" value-field="costComponent" auto-field-map="false">
                     <field-map field-name="costComponentId" env-name="productCostComponentId"/>
                 </entity-one>
                 <!--<entity-and entity-name="CostComponent" list-name="costs" filter-by-date="true">-->
@@ -620,7 +620,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductQuickAddVariants"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/QuickAddVariants.groovy"/>
             </actions>
@@ -656,7 +656,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductQuickAdmin"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductQuickAdmin.groovy"/>
             </actions>
@@ -684,7 +684,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductFacilities"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductFacility" list-name="productFacilities">
                     <condition-expr field-name="productId" env-name="productId"/>
@@ -738,7 +738,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductFacilityLocations"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductFacilityLocation" list-name="productFacilityLocations">
                     <condition-expr field-name="productId" env-name="productId"/>
@@ -792,7 +792,7 @@ under the License.
                 <set field="tabButtonItem" value="EditProductKeyword"/>
                 <set field="labelTitleProperty" value="ProductKeywords"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="orderByList[]" value="-relevancyWeight"/>
                 <set field="orderByList[]" value="keyword"/>
                 <get-related value-name="product" relation-name="ProductKeyword" list-name="productKeywords" order-by-list-name="orderByList"/>
@@ -846,7 +846,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductInventorySummary"/>
                 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.groovy"/>
             </actions>
             <widgets>
@@ -897,7 +897,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductGoodIdentification"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="GoodIdentification" list-name="goodIdentifications">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="goodIdentificationTypeId"/>
@@ -951,7 +951,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductGlAccounts"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
                     <condition-expr field-name="productId" env-name="productId"/>
@@ -1021,7 +1021,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductPaymentTypes"/>
                 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 
                 <entity-condition entity-name="ProductPaymentMethodType" list-name="productPaymentMethodTypes">
                     <condition-expr field-name="productId" env-name="productId"/>
@@ -1075,7 +1075,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductFeatures"/>
                 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
                 <entity-and entity-name="ProductFeatureIactn" list-name="featureInteractions">
                     <field-map field-name="productId" env-name="parameters.productId"/>
@@ -1160,12 +1160,12 @@ under the License.
                 <set field="minimumOrderQuantity" from-field="parameters.minimumOrderQuantity" type="BigDecimal"/>
 
                 <set field="orderBy" from-field="parameters.orderBy" default-value="partyId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="SupplierProduct" list-name="productSuppliers">
                     <field-map field-name="productId"/>
                     <order-by field-name="${orderBy}"/>
                 </entity-and>
-                <entity-one entity-name="SupplierProduct" value-name="supplierProduct" auto-field-map="true"/>
+                <entity-one entity-name="SupplierProduct" value-field="supplierProduct" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1215,7 +1215,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductContent"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.groovy"/>
             </actions>
             <widgets>
@@ -1292,8 +1292,8 @@ under the License.
                 <set field="labelTitleProperty" value="ProductContent"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
-                <entity-one entity-name="ProductContent" value-name="productContent"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-one entity-name="ProductContent" value-field="productContent"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContentContent.groovy"/>
             </actions>
             <widgets>
@@ -1354,7 +1354,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductAttributes"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductAttribute" list-name="productAttributes">
                     <field-map field-name="productId"/>
                     <order-by field-name="attrType"/>
@@ -1405,7 +1405,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductAssociations"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.groovy"/>
             </actions>
             <widgets>
@@ -1434,7 +1434,7 @@ under the License.
                 <set field="labelTitleProperty" value="EditProductAssoc"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductAssoc" list-name="productAssocs">
                     <field-map field-name="productId"/>
                     <order-by field-name="productAssocTypeId"/>
@@ -1463,7 +1463,7 @@ under the License.
                 <set field="tabButtonItem" value="EditProductFeatures"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
@@ -1737,7 +1737,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyParties"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductRole" list-name="productRoles">
                     <condition-expr field-name="productId" env-name="productId"/>

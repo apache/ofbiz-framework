@@ -97,7 +97,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
                 
                 <set field="wrapTemplateId" value="STDWRAP001"/>
-                <entity-one entity-name="ContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="ContentDataResourceView" value-field="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -133,7 +133,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutSubContent"/>
                 
-                <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
@@ -165,7 +165,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutText"/>
                 
-                <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
@@ -186,7 +186,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutHtml"/>
                 
-                <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
@@ -207,7 +207,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutUrl"/>
                 
-                <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
@@ -228,7 +228,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutImage"/>
                 
-                <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
+                <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>

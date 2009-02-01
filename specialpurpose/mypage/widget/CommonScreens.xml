@@ -71,9 +71,9 @@ under the License.
                 <set field="headerItem" value="viewprofile"/>
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="parameters.partyId" from-field="userLogin.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="lookupPerson"/>
-                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -114,7 +114,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="${parameters.donePage}"/>
-                <entity-one entity-name="CommunicationEvent" value-name="commEvent">
+                <entity-one entity-name="CommunicationEvent" value-field="commEvent">
                     <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
                 </entity-one>
                 <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
@@ -482,7 +482,7 @@ under the License.
         <section>
             <actions>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

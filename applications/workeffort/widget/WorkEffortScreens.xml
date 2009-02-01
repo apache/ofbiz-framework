@@ -107,7 +107,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/ListWorkEfforts"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="thisWorkEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -259,7 +259,7 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortId" from-field="workEffortIdFrom" default-value="${workEffort.workEffortId}"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>
             </actions>
             <widgets> 
@@ -335,8 +335,8 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortIdTo" default-value="${parameters.workEffortId}"/>
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
                 <set field="parameters.workEffortId" from-field="workEffortId"/>
             </actions>
             <widgets>
@@ -369,7 +369,7 @@ under the License.
                 <set field="tabButtonItem" value="WorkEffort"/>
                 <set field="labelTitleProperty" value="PageTitleEditWorkEffortAssoc"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+                <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
                 <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}" />
             </actions>
             <widgets>
@@ -404,7 +404,7 @@ under the License.
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+                <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
                 <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}" />
             </actions>
             <widgets>
@@ -438,7 +438,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -693,7 +693,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="noteId" from-field="parameters.noteId"/>
-                <entity-one entity-name="WorkEffortNoteAndData" value-name="workEffortNoteAndData"/>
+                <entity-one entity-name="WorkEffortNoteAndData" value-field="workEffortNoteAndData"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -895,7 +895,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
                 <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>

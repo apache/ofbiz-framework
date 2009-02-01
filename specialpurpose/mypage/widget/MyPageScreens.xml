@@ -226,7 +226,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
-                <entity-one entity-name="PartyNameView" value-name="partyName">
+                <entity-one entity-name="PartyNameView" value-field="partyName">
                     <field-map field-name="partyId" env-name="partyId"/>
                 </entity-one>
             </actions>
@@ -299,7 +299,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
                 <set field="headerItem" value="donePage" />
             </actions>
             <widgets>
@@ -402,7 +402,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewRequest"/>
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
                 <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
                 <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
@@ -465,10 +465,10 @@ under the License.
                 <set field="headerItem" value="request"/>
                 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 
                 <set field="statusId" from-field="custRequest.statusId"/>
-                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
             </actions>
             <widgets>
                 <section>
@@ -540,7 +540,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="tabButtonItem" value="CommunicationEvent" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
             </actions>
@@ -749,8 +749,8 @@ under the License.
                 <set field="tabButtonItem" value="custRequestContent"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="Content" value-name="content"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="Content" value-field="content"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" env-name="custRequestId"/>
                 </entity-and>

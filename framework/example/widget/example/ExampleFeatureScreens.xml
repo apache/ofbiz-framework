@@ -65,7 +65,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditExampleFeature"/>
                 <set field="tabButtonItem" value="EditExampleFeature"/>
                 <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
-                <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
+                <entity-one entity-name="ExampleFeature" value-field="exampleFeature"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">

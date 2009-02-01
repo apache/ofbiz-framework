@@ -28,7 +28,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleWorkEffortRelatedSummary"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
                 <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>

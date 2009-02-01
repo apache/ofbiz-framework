@@ -72,7 +72,7 @@ under the License.
                 <set field="tabButtonItem" value="EditWebSite"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -108,7 +108,7 @@ under the License.
                 <set field="tabButtonItem" value="ListWebSiteContent"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteContent"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
                 <entity-and entity-name="WebSiteContent" list-name="webSiteContent">
                     <field-map field-name="webSiteId" env-name="webSiteId"/>
                 </entity-and>                
@@ -176,7 +176,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteParties"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <property-map map-name="uiLabelMap" resource="PartyUiLabels"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
             </actions>
             <widgets>
@@ -204,7 +204,7 @@ under the License.
                 <set field="tabButtonItem" value="WebSiteCMS"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
                 
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
@@ -241,7 +241,7 @@ under the License.
         <section>
             <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
 
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
@@ -281,15 +281,15 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="mimeTypeId" value="text/html"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
-                <entity-one entity-name="Content" value-name="content"/>
-                <entity-one entity-name="DataResource" value-name="dataResource">
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <entity-one entity-name="Content" value-field="content"/>
+                <entity-one entity-name="DataResource" value-field="dataResource">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
-                <entity-one entity-name="ElectronicText" value-name="dataText">
+                <entity-one entity-name="ElectronicText" value-field="dataText">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
-                <entity-one entity-name="ContentAssoc" value-name="assoc">
+                <entity-one entity-name="ContentAssoc" value-field="assoc">
                     <field-map field-name="contentId" env-name="parameters.contentIdFrom"/>
                     <field-map field-name="contentIdTo" env-name="parameters.contentId"/>
                     <field-map field-name="contentAssocTypeId" env-name="parameters.contentAssocTypeId"/>
@@ -334,12 +334,12 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="mimeTypeId" value="text/html"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
-                <entity-one entity-name="Content" value-name="content"/>
-                <entity-one entity-name="DataResource" value-name="dataResource">
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <entity-one entity-name="Content" value-field="content"/>
+                <entity-one entity-name="DataResource" value-field="dataResource">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
-                <entity-one entity-name="ElectronicText" value-name="dataText">
+                <entity-one entity-name="ElectronicText" value-field="dataText">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
             </actions>
@@ -358,7 +358,7 @@ under the License.
             <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="Content" value-field="content"/>
 
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.groovy"/>
             </actions>
@@ -377,8 +377,8 @@ under the License.
             <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
-                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <entity-one entity-name="Content" value-field="content"/>
                 <entity-and entity-name="WebSitePathAlias" list-name="aliases">
                     <field-map field-name="webSiteId" env-name="webSiteId"/>
                     <field-map field-name="contentId" env-name="contentId"/>
@@ -398,7 +398,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ContentPathAlias"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-name="webSite"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="tabButtonItem" value="PathAlias"/>
                 <entity-and entity-name="WebSitePathAlias" list-name="aliases">
                     <field-map field-name="webSiteId" env-name="parameters.webSiteId"/>

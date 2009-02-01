@@ -70,7 +70,7 @@ under the License.
                                             <iterate-section entry-name="currentTimeEntry" list-name="currentTimeEntryList">
                                                 <section>
                                                     <actions>
-                                                        <entity-one entity-name="RateType" value-name="currentRateType" auto-field-map="false">
+                                                        <entity-one entity-name="RateType" value-field="currentRateType" auto-field-map="false">
                                                             <field-map field-name="rateTypeId" env-name="currentTimeEntry.rateTypeId"/>
                                                         </entity-one>
                                                     </actions>
@@ -202,7 +202,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTimesheet"/>
 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -301,7 +301,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTimesheetRoles"/>
                 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -348,7 +348,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTimesheetEntries"/>
                 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">

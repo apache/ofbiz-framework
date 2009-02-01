@@ -77,7 +77,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContent"/>
                 <set field="tabButtonItem" value="content"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="currentValue"/>
+                <entity-one entity-name="Content" value-field="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -113,7 +113,7 @@ under the License.
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"  default-value="${defaultContentAssocTypeId}"/>
                 <set field="contentAssocTypeId" from-field="contentAssocTypeId" to-scope="user"/>
                 <set field="fromDate" from-field="parameters.fromDate"  />
-                <entity-one entity-name="Content" value-name="currentValue"/>
+                <entity-one entity-name="Content" value-field="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -213,7 +213,7 @@ under the License.
                 
                 <set field="contentId" from-field="parameters.contentId"  />
                 <set field="contentRoleTarget" value=""/>
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>
@@ -237,7 +237,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContentPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"  />
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>
@@ -261,7 +261,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContentAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"  />
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>
@@ -288,7 +288,7 @@ under the License.
                     <condition-expr field-name="contentId" env-name="parameters.contentId"/>
                     <order-by field-name="webSiteId"/>
                 </entity-condition>
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>
@@ -321,7 +321,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContentMetadata"/>
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"  />
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>
@@ -345,7 +345,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"  />
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
             </actions>

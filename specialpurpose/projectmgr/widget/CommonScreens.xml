@@ -55,7 +55,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="projects"/>                
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <entity-one entity-name="WorkEffort" value-name="project">
+                <entity-one entity-name="WorkEffort" value-field="project">
                     <field-map field-name="workEffortId" env-name="projectId"/>
                 </entity-one>
             </actions>
@@ -95,7 +95,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="task"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
                 </service>
@@ -159,7 +159,7 @@ under the License.
         <section>
             <actions>                
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
-                <entity-one entity-name="SkillType" value-name="skillType"/>
+                <entity-one entity-name="SkillType" value-field="skillType"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -186,8 +186,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="timesheet"/>
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
-                <entity-one entity-name="PartyNameView" value-name="partyName">
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName">
                     <field-map field-name="partyId" env-name="timesheet.partyId"/>
                 </entity-one>
             </actions>
@@ -308,11 +308,11 @@ under the License.
             <actions>
                 <set field="headerItem" value="resources"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="lookupPerson"/>
-                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
             </actions>
             <widgets>

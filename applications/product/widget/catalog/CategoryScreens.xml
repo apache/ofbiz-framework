@@ -72,7 +72,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
                 <entity-condition entity-name="ProductCategoryType" list-name="productCategoryTypes">
                     <order-by field-name="description"/>
@@ -100,7 +100,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
                 <get-related-one value-name="productCategory" relation-name="ProductCategoryType" to-value-name="productCategoryType"/>
                 <set field="categoryContentOrderList[]" value="prodCatContentTypeId"/>
                 <get-related value-name="productCategory" relation-name="ProductCategoryContent" list-name="productCategoryContentList" order-by-list-name="categoryContentOrderList"/>
@@ -172,10 +172,10 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
-                <entity-one entity-name="ProductCategoryContent" value-name="categoryContent"/>
-                <entity-one entity-name="Content" value-name="content"/>
-                <entity-one entity-name="ElectronicText" value-name="electronicText" auto-field-map="false">
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
+                <entity-one entity-name="ProductCategoryContent" value-field="categoryContent"/>
+                <entity-one entity-name="Content" value-field="content"/>
+                <entity-one entity-name="ElectronicText" value-field="electronicText" auto-field-map="false">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
                 <set field="textDataMap.text" from-field="electronicText.textData"/>
@@ -301,7 +301,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCatalogs"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
                 <entity-condition entity-name="ProdCatalogCategory" list-name="prodCatalogCategories">
                     <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
@@ -337,7 +337,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductFeatureCategoriesGroups"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
                 <entity-condition entity-name="ProductFeatureCategoryAppl" list-name="productFeatureCategoryAppls">
                     <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
@@ -375,7 +375,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyParties"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
                 <entity-condition entity-name="ProductCategoryRole" list-name="productCategoryRoles">
                     <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
@@ -406,7 +406,7 @@ under the License.
                 <set field="tabButtonItem" value="EditCategoryAttributes"/>
                 <set field="labelTitleProperty" value="ProductCategoryAttributes"/>
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
                 <entity-condition entity-name="ProductCategoryAttribute" list-name="categoryAttributes">
                     <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
                 </entity-condition>
@@ -456,7 +456,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -477,7 +477,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/category/CreateProductInCategoryCheckExisting.groovy"/>
             </actions>
@@ -505,7 +505,7 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <set field="linkSeqId" from-field="parameters.linkSeqId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <entity-one entity-name="ProductCategoryLink" value-name="productCategoryLink"/>
+                <entity-one entity-name="ProductCategoryLink" value-field="productCategoryLink"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">

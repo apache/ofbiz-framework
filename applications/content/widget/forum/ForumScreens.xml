@@ -88,7 +88,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindForums"/>
                 <set field="tabBar" value="ForumGroupTabBar"/>
                 <set field="forumGroupId" from-field="parameters.forumGroupId" default-value="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="forumGroup">
+                <entity-one entity-name="Content" value-field="forumGroup">
                     <field-map field-name="contentId" env-name="forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
@@ -116,7 +116,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleForumGroupRoles"/>
                 <set field="tabButtonItem" value="roles"/>
                 <set field="tabBar" value="ForumGroupTabBar"/>
-                <entity-one entity-name="Content" value-name="forumGroup">
+                <entity-one entity-name="Content" value-field="forumGroup">
                     <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
@@ -145,7 +145,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleForumGroupPurposes"/>
                 <set field="tabButtonItem" value="purposes"/>
                 <set field="tabBar" value="ForumGroupTabBar"/>
-                <entity-one entity-name="Content" value-name="forumGroup">
+                <entity-one entity-name="Content" value-field="forumGroup">
                     <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
@@ -176,7 +176,7 @@ under the License.
                 <set field="tabBar" value="ForumMessagesTabBar"/>
                 <set field="tabButtonItem" value="messageList"/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
-                <entity-one entity-name="Content" value-name="forum">
+                <entity-one entity-name="Content" value-field="forum">
                     <field-map field-name="contentId" env-name="parameters.forumId"/>
                 </entity-one>
                 <set field="objectName" from-field="forum.contentName"/>
@@ -215,7 +215,7 @@ under the License.
                 <set field="responseContentId" from-field="parameters.forumId" />
                 <set field="threadContentId" from-field="parameters.threadContentId" default-value="${contentId}" />
                 <set field="forumId" from-field="parameters.forumId" />
-                <entity-one entity-name="Content" value-name="content" use-cache="true">
+                <entity-one entity-name="Content" value-field="content" use-cache="true">
                     <field-map field-name="contentId" env-name="contentId"/>
                 </entity-one>
                 <set field="ownerContentId" from-field="content.ownerContentId" default-value="${forumId}" />
@@ -228,19 +228,19 @@ under the License.
                 <set field="tabBar" value="ForumMessagesTabBar"/>
                 <set field="tabButtonItem" value="messageThread"/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
-                <entity-one entity-name="Content" value-name="forum">
+                <entity-one entity-name="Content" value-field="forum">
                     <field-map field-name="contentId" env-name="parameters.forumId"/>
                 </entity-one>
                 <set field="objectName" from-field="forum.contentName"/>
                 <set field="objectId"  from-field="forum.contentId"/>
                 <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
-                <entity-one entity-name="Content" value-name="forumThread">
+                <entity-one entity-name="Content" value-field="forumThread">
                     <field-map field-name="contentId" env-name="parameters.forumThreadId"/>
                 </entity-one>
-                <entity-one entity-name="Content" value-name="forumMessage">
+                <entity-one entity-name="Content" value-field="forumMessage">
                     <field-map field-name="contentId" env-name="parameters.forumMessageId"/>
                 </entity-one>
-                <entity-one entity-name="ElectronicText" value-name="electronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" env-name="forumMessage.dataResourceId"/>
                 </entity-one>
                 <set field="contentId" from-field="parameters.forumId"/>
@@ -340,7 +340,7 @@ under the License.
                 <set field="tabBar" value="ForumMessagesTabBar"/>
                 <set field="tabButtonItem" value=""/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
-                <entity-one entity-name="Content" value-name="forumMessage">
+                <entity-one entity-name="Content" value-field="forumMessage">
                     <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
                 </entity-one>
             </actions>
@@ -376,7 +376,7 @@ under the License.
                 <set field="tabBar" value="ForumMessagesTabBar"/>
                 <set field="tabButtonItem" value=""/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
-                <entity-one entity-name="Content" value-name="forumMessage">
+                <entity-one entity-name="Content" value-field="forumMessage">
                     <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
                 </entity-one>
             </actions>

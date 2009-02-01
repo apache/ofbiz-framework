@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -28,7 +28,7 @@
                 <set field="MainColumnStyle" value="leftonly"/>
     
                 <!--<set field="productId" from-field="parameters.productId"/>-->
-                <!--<entity-one entity-name="Product" value-name="product"/>-->
+                <!--<entity-one entity-name="Product" value-field="product"/>-->
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
@@ -60,7 +60,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
-                <entity-one entity-name="ProductFeature" value-name="productFeature" auto-field-map="true"/>
+                <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
                 <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
                     <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
                 </entity-and>
@@ -180,7 +180,7 @@
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureType"/>
                 <set field="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
-                <entity-one entity-name="ProductFeatureType" value-name="productFeatureType"/>
+                <entity-one entity-name="ProductFeatureType" value-field="productFeatureType"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -243,7 +243,7 @@
                 
                 <set field="productFeatureId" from-field="parameters.productFeatureId"/>
                 <set field="productFeatureIdTo" from-field="parameters.productFeatureIdTo"/>                
-                <entity-one entity-name="ProductFeatureIactn" value-name="productFeatureIactn"/>       
+                <entity-one entity-name="ProductFeatureIactn" value-field="productFeatureIactn"/>       
                 
             </actions>
             <widgets>
@@ -534,7 +534,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
-                <entity-one entity-name="ProductFeature" value-name="productFeature" auto-field-map="true"/>
+                <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
                 <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
                     <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
                 </entity-and>

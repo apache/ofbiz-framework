@@ -31,7 +31,7 @@ under the License.
                 <set field="tabButtonItem" value="ProductCatalog"/>
                 
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-name="prodCatalog"/>
+                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
@@ -69,7 +69,7 @@ under the License.
                 <set field="tabButtonItem" value="ProductCategories"/>
                 
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-name="prodCatalog"/>
+                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
                 <entity-and entity-name="ProdCatalogCategory" list-name="prodCatalogCategories">
                     <field-map field-name="prodCatalogId"/>
@@ -131,7 +131,7 @@ under the License.
                 <set field="tabButtonItem" value="PartyParties"/>
 
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-name="prodCatalog"/>
+                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
                 <entity-and entity-name="ProdCatalogRole" list-name="prodCatalogRoleList">
                     <field-map field-name="prodCatalogId"/>
@@ -189,7 +189,7 @@ under the License.
                 <set field="tabButtonItem" value="ProductStores"/>
 
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-name="prodCatalog"/>
+                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
                 <entity-and entity-name="ProductStoreCatalog" list-name="productStoreCatalogList">
                     <field-map field-name="prodCatalogId"/>

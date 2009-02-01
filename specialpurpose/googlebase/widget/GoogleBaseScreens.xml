@@ -73,7 +73,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 
                 <set field="productId" from-field="parameters.productId"/>                
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="productName" from-field="product.productName"/>                
             </actions>
             <widgets>
@@ -201,7 +201,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductProduct"/>
     
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">

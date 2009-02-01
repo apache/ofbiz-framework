@@ -22,7 +22,7 @@
     <form name="EditProject" type="single" target="updateProject" default-map-name="project"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="PartyGroup" value-name="partyGroup">
+            <entity-one entity-name="PartyGroup" value-field="partyGroup">
                 <field-map field-name="partyId" env-name="partyId"/>
             </entity-one>
         </actions>
@@ -203,7 +203,7 @@
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus">
+            <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" env-name="currentStatusId"/>
             </entity-one>
         </row-actions>
@@ -273,7 +273,7 @@
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus">
+            <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" env-name="currentStatusId"/>
             </entity-one>
         </row-actions>
@@ -384,8 +384,8 @@
     <form name="ListProjectCompanyParties" type="list" list-name="companyAssigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="PartyAcctgPreference" value-name="orgParty"/>
-            <entity-one entity-name="Party" value-name="clientParty"/>
+            <entity-one entity-name="PartyAcctgPreference" value-field="orgParty"/>
+            <entity-one entity-name="Party" value-field="clientParty"/>
             <set field="currencyUomId" value="${bsh:orgParty!=null&amp;&amp;orgParty.getString(&quot;baseCurrencyUomId&quot;)!=null?orgParty.getString(&quot;baseCurrencyUomId&quot;):&quot;&quot;}"/>
             <set field="currencyUomId" value="${bsh:clientParty!=null&amp;&amp;clientParty.getString(&quot;preferredCurrencyUomId&quot;)!=null?clientParty.getString(&quot;preferredCurrencyUomId&quot;):currencyUomId}"/>
         </row-actions>
@@ -681,10 +681,10 @@
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="workEffortId" from-field="parameters.workEffortId"/>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="content.statusId"/>
             </entity-one>
-            <entity-one entity-name="DataResource" value-name="dataResource" auto-field-map="false">
+            <entity-one entity-name="DataResource" value-field="dataResource" auto-field-map="false">
                 <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
             </entity-one>
         </actions>

@@ -174,7 +174,7 @@ under the License.
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResource"/>
                 <set field="dataResourceId" from-field="parameters.dataResourceId"/>
-                <entity-one entity-name="DataResource" value-name="currentValue"/>
+                <entity-one entity-name="DataResource" value-field="currentValue"/>
                 <entity-condition entity-name="DataCategory" list-name="dataCategoryList"/>
             </actions>
             <widgets>
@@ -230,7 +230,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleUploadImageDataResource"/>            
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="uploadImage"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
+                <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
                 </entity-one>
             </actions>
@@ -362,7 +362,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditElectronicText"/>    
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editElectronicText"/>
-                <entity-one entity-name="DataResource" value-name="currentValue"/>
+                <entity-one entity-name="DataResource" value-field="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -392,7 +392,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceAttribute"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceAttribute"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
+                <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
                 </entity-one>
                 <get-related value-name="currentValue" relation-name="DataResourceAttribute" list-name="dataResourceAttribute"/>
@@ -415,7 +415,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceRole"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceRole"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
+                <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
                 </entity-one>
                 <get-related value-name="currentValue" relation-name="DataResourceRole" list-name="dataResourceRole"/>
@@ -438,7 +438,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceProductFeatures"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceProductFeatures"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
+                <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
                 </entity-one>
                 <get-related value-name="currentValue" relation-name="ProductFeatureDataResource" list-name="productFeatureDataResource"/>
@@ -461,7 +461,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditHtmlText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editHtmlText"/>
-                <entity-one entity-name="DataResource" value-name="currentValue"/>
+                <entity-one entity-name="DataResource" value-field="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">

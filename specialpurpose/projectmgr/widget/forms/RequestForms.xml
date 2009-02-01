@@ -92,7 +92,7 @@ under the License.
     <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortId"/>
             </entity-one>
             <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
@@ -129,7 +129,7 @@ under the License.
             </entity-and>
         </actions>
         <row-actions>
-            <entity-one entity-name="Person" value-name="person">
+            <entity-one entity-name="Person" value-field="person">
                 <field-map field-name="partyId" env-name="partyId"/>
             </entity-one>
         </row-actions>

@@ -128,7 +128,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductPromotion"/>
 
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
-                <entity-one entity-name="ProductPromo" value-name="productPromo" auto-field-map="true"/>
+                <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
@@ -161,7 +161,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductRules"/>
 
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
-                <entity-one entity-name="ProductPromo" value-name="productPromo" auto-field-map="true"/>
+                <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
 
                 <!-- Data Related to the Promo -->
                 <entity-condition entity-name="ProductPromoRule" list-name="productPromoRules">
@@ -231,7 +231,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductStores"/>
 
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
-                <entity-one entity-name="ProductPromo" value-name="productPromo" auto-field-map="true"/>
+                <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
                 <entity-condition entity-name="ProductStorePromoAppl" list-name="productStorePromoAppls">
                     <condition-expr field-name="productPromoId" env-name="productPromoId"/>
                     <order-by field-name="sequenceNum"/>
@@ -262,7 +262,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductPromotionCode"/>
 
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
-                <entity-one entity-name="ProductPromo" value-name="productPromo" auto-field-map="true"/>
+                <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
 
                 <set field="manualOnly" from-field="parameters.manualOnly" default-value="Y"/>
                 <entity-condition entity-name="ProductPromoCode" list-name="productPromoCodes">
