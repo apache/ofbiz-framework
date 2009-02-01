@@ -790,20 +790,33 @@ public class LoginServices {
         String errMsg = null;
 
         if (!ignoreCurrentPassword) {
-            String realPassword = currentPassword;
-
-            if (useEncryption && currentPassword != null) {
-                realPassword = HashCrypt.getDigestHash(currentPassword, getHashType());
+            
+            String encodedPassword = useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword;
+            String encodedPasswordOldFunnyHexEncode = useEncryption ? HashCrypt.getDigestHashOldFunnyHexEncode(currentPassword, getHashType()) : currentPassword;
+            String encodedPasswordUsingDbHashType = encodedPassword;
+            
+            String oldPassword = userLogin.getString("currentPassword");
+            if (useEncryption && oldPassword != null && oldPassword.startsWith("{")) {
+                // get encode according to the type in the database
+                String dbHashType = HashCrypt.getHashTypeFromPrefix(oldPassword);
+                if (dbHashType != null) {
+                    encodedPasswordUsingDbHashType = HashCrypt.getDigestHash(currentPassword, dbHashType);
+                }
             }
+
             // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
-            boolean passwordMatches = currentPassword != null && (realPassword.equals(userLogin.getString("currentPassword")) ||
-                    ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain")) && currentPassword.equals(userLogin.getString("currentPassword"))));
+            // if this is a system account don't bother checking the passwords
+            boolean passwordMatches = (oldPassword != null &&
+                (HashCrypt.removeHashTypePrefix(encodedPassword).equals(HashCrypt.removeHashTypePrefix(oldPassword)) ||
+                        HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(HashCrypt.removeHashTypePrefix(oldPassword)) ||
+                        HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(HashCrypt.removeHashTypePrefix(oldPassword)) ||
+                    ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain")) && currentPassword.equals(oldPassword))));
 
             if ((currentPassword == null) || (userLogin != null && currentPassword != null && !passwordMatches)) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.old_password_not_correct_reenter", locale);
                 errorMessageList.add(errMsg);
             }
-            if (currentPassword.equals(newPassword) || realPassword.equals(newPassword)) {
+            if (currentPassword.equals(newPassword) || encodedPassword.equals(newPassword)) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.new_password_is_equal_to_old_password", locale);
                 errorMessageList.add(errMsg);
             }
