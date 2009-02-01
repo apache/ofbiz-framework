@@ -296,7 +296,9 @@
     <view-map name="EditRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListInvoices"/>
     <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListProjects"/>
+    <!--
     <view-map name="custPreferences" type="screen" page="component://myportal/widget/CommonScreens.xml#custPreferences"/>
+    -->
     <view-map name="EditCommunicationEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCommunicationEvent"/>
     <view-map name="addAttachmentEmail" type="screen" page="component://myportal/widget/MyPortalScreens.xml#addAttachmentEmail"/>
     <view-map name="EditCustRequestContent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCustRequestContent"/>   
