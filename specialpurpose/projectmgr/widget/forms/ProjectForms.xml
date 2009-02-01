@@ -94,7 +94,7 @@
     <form name="hoursNotYetBilled" type="list" list-name="entryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="entryList">
+            <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="entryList">
                 <condition-list combine="and">
                     <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
                     <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
@@ -343,7 +343,7 @@
     <form name="ListProjectProviderParties" type="list" list-name="assigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="WorkEffortPartyAssignView" list-name="assigns" distinct="true">
+            <entity-condition entity-name="WorkEffortPartyAssignView" list="assigns" distinct="true">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
                     <condition-expr field-name="roleTypeId" value="PROVIDER%" operator="like"/>
@@ -433,7 +433,7 @@
     <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list-name="projectResources">
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list="projectResources">
                 <condition-expr field-name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
                 <select-field field-name="partyId"/>
                 <select-field field-name="lastName"/>
@@ -443,7 +443,7 @@
                 <order-by field-name="firstName"/>
                 <order-by field-name="groupName"/>
             </entity-condition> 
-            <entity-condition entity-name="WorkEffortPartyAssignView"  filter-by-date="true" distinct="true" list-name="taskResources">
+            <entity-condition entity-name="WorkEffortPartyAssignView"  filter-by-date="true" distinct="true" list="taskResources">
                 <condition-expr field-name="workEffortId" env-name="projectId"/>
                 <select-field field-name="partyId"/>
                 <select-field field-name="lastName"/>

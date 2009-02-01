@@ -111,7 +111,7 @@
     <form name="ListProductMaints" type="list" list-name="listIt" target="updateProductMaint" paginate-target="EditProductMaints"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="ProductMaint" list-name="listIt">
+            <entity-condition entity-name="ProductMaint" list="listIt">
                 <condition-expr field-name="productId" env-name="productId"/>
             </entity-condition>
         </actions>

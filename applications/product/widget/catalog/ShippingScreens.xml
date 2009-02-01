@@ -33,7 +33,7 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-                <entity-condition entity-name="QuantityBreak" list-name="quantityBreaks">
+                <entity-condition entity-name="QuantityBreak" list="quantityBreaks">
                     <order-by field-name="quantityBreakId"/>
                 </entity-condition>
                 <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
@@ -85,7 +85,7 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-                <entity-condition entity-name="ShipmentMethodType" list-name="shipmentMethodTypes">
+                <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypes">
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="description"/>
                 </entity-condition>
@@ -139,7 +139,7 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-                <entity-condition entity-name="CarrierShipmentMethod" list-name="carrierShipmentMethods">
+                <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
                 <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod" auto-field-map="true"/>

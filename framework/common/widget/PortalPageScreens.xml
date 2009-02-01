@@ -46,11 +46,11 @@ under the License.
                 <set field="portalPageId" from-field="portalPage.portalPageId"/>
                 <set field="parentPortalPageId" from-field="parameters.parentPortalPageId"/>                     
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
-                <entity-condition entity-name="PortalPageColumn" list-name="portalPageColumnList">
+                <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
                     <condition-expr field-name="portalPageId" env-name="portalPageId"/>
                     <order-by field-name="columnSeqId"/>
                 </entity-condition>               
-                <entity-condition entity-name="PortalPagePortletView" list-name="portalPagePortletViewList">
+                <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
                     <condition-expr field-name="portalPageId" env-name="portalPageId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>

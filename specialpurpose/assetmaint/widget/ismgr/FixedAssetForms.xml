@@ -160,7 +160,7 @@ under the License.
     <form name="ChildrenFixedAssets" type="list" list-name="listIt"  
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="FixedAsset" list-name="listIt">
+            <entity-condition entity-name="FixedAsset" list="listIt">
                 <condition-list combine="and">
                     <condition-expr field-name="parentFixedAssetId" operator="equals" env-name="parameters.fixedAssetId"/>
                     <condition-expr field-name="fixedAssetTypeId" operator="equals" env-name="fixedAssetTypeId"/>

@@ -24,7 +24,7 @@ under the License.
     <form name="lookupListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" target="" title="" type="list" 
         paginate-target="LookupListLayout" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" >
+            <entity-condition entity-name="ContentAssocDataResourceViewFrom" list="entityList" >
                 <condition-expr field-name="caContentIdTo" value="TEMPLATE_MASTER"/>
             </entity-condition>
         </actions>

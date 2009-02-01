@@ -78,10 +78,10 @@
     <form name="EditWorkEffortPartyAssign" extends="EditWorkEffortPartyAssign" extends-resource="component://workeffort/widget/WorkEffortPartyAssignForms.xml"
         target="createWorkEffortPartyAssign">
         <actions>
-            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" list-name="listMaintParties">
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" list="listMaintParties">
                 <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
             </entity-condition>
-            <entity-condition entity-name="RoleType" list-name="listMaintRoles">
+            <entity-condition entity-name="RoleType" list="listMaintRoles">
                 <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
             </entity-condition>
         </actions>
