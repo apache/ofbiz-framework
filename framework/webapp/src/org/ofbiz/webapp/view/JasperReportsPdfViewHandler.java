@@ -38,13 +38,14 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.webapp.control.ContextFilter;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
  * Handles JasperReports PDF view rendering
  */
-public class JasperReportsPdfViewHandler implements ViewHandler {
+public class JasperReportsPdfViewHandler extends AbstractViewHandler {
     
     public static final String module = JasperReportsPdfViewHandler.class.getName();
 

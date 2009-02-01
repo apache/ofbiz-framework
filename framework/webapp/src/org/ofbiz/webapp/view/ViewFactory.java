@@ -119,6 +119,7 @@ public class ViewFactory {
 
         try {
             handler = (ViewHandler) ObjectType.getInstance(handlerClass);
+            handler.setName(type);
             handler.init(context);
         } catch (ClassNotFoundException cnf) {
             //throw new ViewHandlerException("Cannot load handler class", cnf);

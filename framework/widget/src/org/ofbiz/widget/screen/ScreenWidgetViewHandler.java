@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.webapp.view.ViewHandler;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.html.HtmlFormRenderer;
@@ -45,13 +45,13 @@ import freemarker.template.utility.StandardCompress;
 /**
  * Handles view rendering for the Screen Widget
  */
-public class ScreenWidgetViewHandler implements ViewHandler {
+public class ScreenWidgetViewHandler extends AbstractViewHandler {
 
     public static final String module = ScreenWidgetViewHandler.class.getName();
     
     protected ServletContext servletContext = null;
     protected HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-
+    
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
      */

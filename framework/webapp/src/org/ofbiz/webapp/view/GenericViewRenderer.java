@@ -39,6 +39,7 @@ import com.anthonyeden.lib.config.XMLConfiguration;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 
 import org.jpublish.JPublishContext;
 import org.jpublish.Page;
@@ -51,7 +52,7 @@ import org.jpublish.view.ViewRenderer;
 /**
  * Generic JPublish View Renderer - This is in testing; for use in wrapping other renderers
  */
-public class GenericViewRenderer implements ViewRenderer {
+public class GenericViewRenderer extends AbstractViewRenderer {
         
     public static final String module = GenericViewRenderer.class.getName();  
     public static final String DEFAULT_RENDERER = "freemarker";

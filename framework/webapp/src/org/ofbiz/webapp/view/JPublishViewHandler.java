@@ -28,11 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 
 /**
  * Handles JPublish type view rendering
  */
-public class JPublishViewHandler implements ViewHandler {
+public class JPublishViewHandler extends AbstractViewHandler {
 
     public static final String module = JPublishViewHandler.class.getName();
     

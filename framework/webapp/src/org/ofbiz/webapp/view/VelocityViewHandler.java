@@ -43,7 +43,7 @@ import org.apache.velocity.util.SimplePool;
 /**
  * VelocityViewHandler - Velocity Template Engine View Handler
  */
-public class VelocityViewHandler implements ViewHandler {
+public class VelocityViewHandler extends AbstractViewHandler {
 
     public static final String module = VelocityViewHandler.class.getName();
 

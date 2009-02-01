@@ -30,7 +30,7 @@ import org.ofbiz.base.util.HttpClientException;
 /**
  * ViewHandlerException - View Handler Exception
  */
-public class HttpViewHandler implements ViewHandler {
+public class HttpViewHandler extends AbstractViewHandler {
     
     public static final String module = HttpViewHandler.class.getName();
 

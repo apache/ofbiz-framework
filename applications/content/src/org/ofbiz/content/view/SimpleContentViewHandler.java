@@ -41,14 +41,14 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.webapp.view.ViewHandler;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF views
  * This handler will use JPublish to generate the XSL-FO
  */
-public class SimpleContentViewHandler implements ViewHandler {
+public class SimpleContentViewHandler extends AbstractViewHandler {
     
     public static final String module = SimpleContentViewHandler.class.getName();
     protected ServletContext servletContext = null;
