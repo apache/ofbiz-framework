@@ -1322,6 +1322,9 @@ under the License.
         <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="billToTelecomContactMechId"/>
         </call-service>
+        
+        <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailAddressCtx" to-map="serviceInMap"/>
+        <call-service-asynch service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>        
      </simple-method>
     
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
