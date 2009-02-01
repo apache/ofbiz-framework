@@ -1760,7 +1760,8 @@
         <value xml:lang="pt_PT">Descrição</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
-        <value xml:lang="th">คำอธิบาย</value><!--value xml:lang="th">รายละเอียด</value-->
+        <!--value xml:lang="th">รายละเอียด</value-->
+        <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
     </property>
     <property key="CommonDetail">
@@ -7650,9 +7651,11 @@
         <value xml:lang="fr">Réf. des coordonnées</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="nl">Contact Mech Id</value>
-        <value xml:lang="ro">Numar Contact</value><!--value xml:lang="ro">Cod Contract</value-->
+        <!--value xml:lang="ro">Cod Contract</value-->
+        <value xml:lang="ro">Numar Contact</value>
         <value xml:lang="ru">Код способа контакта</value>
-        <value xml:lang="th">รหัสวิธีการติดต่อ</value><!--value xml:lang="th">รหัสการติดต่อการทำงาน</value-->
+        <!--value xml:lang="th">รหัสการติดต่อการทำงาน</value-->
+        <value xml:lang="th">รหัสวิธีการติดต่อ</value>
         <value xml:lang="zh">联系方式标识</value>
     </property>
     <property key="FormFieldTitle_createButton">
@@ -7774,15 +7777,20 @@
         <value xml:lang="ar">تاريخ الفاعلية</value>
         <value xml:lang="de">Effektives Datum</value>
         <value xml:lang="en">Effective Date</value>
-        <value xml:lang="es">Fecha efectiva</value>          <!--value xml:lang="es">Fecha efectivo</value-->
+        <!--value xml:lang="es">Fecha efectivo</value-->
+        <value xml:lang="es">Fecha efectiva</value>
         <value xml:lang="fr">Date d'effet</value>
         <value xml:lang="it">Data effettiva</value>
-        <value xml:lang="nl">Effectieve Datum</value>        <!--value xml:lang="nl">Werkelijke datum</value-->
+        <!--value xml:lang="nl">Werkelijke datum</value-->
+        <value xml:lang="nl">Effectieve Datum</value>
         <value xml:lang="pt">Data Efectiva</value>
         <value xml:lang="ro">Data Efectiva</value>
-        <value xml:lang="ru">Дата вступления в силу</value>   <!--value xml:lang="ru">Дата вст. в силу</value-->
-        <value xml:lang="th">วันที่มีผล</value>                    <!--value xml:lang="th">วันที่มีประสิทธิภาพ</value-->
-        <value xml:lang="zh">有效日期</value>                  <!--value xml:lang="zh">生效日期</value-->
+        <!--value xml:lang="ru">Дата вст. в силу</value-->
+        <value xml:lang="ru">Дата вступления в силу</value>
+        <!--value xml:lang="th">วันที่มีประสิทธิภาพ</value-->
+        <value xml:lang="th">วันที่มีผล</value>
+        <!--value xml:lang="zh">生效日期</value-->
+        <value xml:lang="zh">有效日期</value>
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">تاريخ البدء</value>
@@ -7799,15 +7807,18 @@
     </property>
     <property key="FormFieldTitle_hasTable">
         <value xml:lang="ar">يحوز على جدول</value>
-        <value xml:lang="de">Besitzt Tabelle</value><!--value xml:lang="de">Hat Tabelle</value-->
+        <!--value xml:lang="de">Hat Tabelle</value-->
+        <value xml:lang="de">Besitzt Tabelle</value>
         <value xml:lang="en">Has Table</value>
         <value xml:lang="es">Tiene tabla</value>
         <value xml:lang="fr">A une table</value>
         <value xml:lang="it">Ha tabella</value>
-        <value xml:lang="ro">Are Tabela</value><!--value xml:lang="ro">Are Tabelul</value-->
+        <!--value xml:lang="ro">Are Tabelul</value-->
+        <value xml:lang="ro">Are Tabela</value>
         <value xml:lang="ru">Есть таблица?</value>
         <value xml:lang="th">มีตาราง</value>
-        <value xml:lang="zh">有库表</value><!--value xml:lang="zh">有数据库表</value-->
+        <!--value xml:lang="zh">有数据库表</value-->
+        <value xml:lang="zh">有库表</value>
     </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
