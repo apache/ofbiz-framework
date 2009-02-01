@@ -27,12 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.webapp.view.ViewHandler;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -45,7 +43,7 @@ import freemarker.template.TemplateException;
 
 /** FreemarkerViewHandler - Freemarker Template Engine View Handler.
  */
-public class FreeMarkerViewHandler implements ViewHandler {
+public class FreeMarkerViewHandler extends AbstractViewHandler {
     
     public static final String module = FreeMarkerViewHandler.class.getName();
     protected ServletContext servletContext = null;

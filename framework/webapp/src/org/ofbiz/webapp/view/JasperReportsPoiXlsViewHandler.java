@@ -39,6 +39,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.webapp.control.ContextFilter;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
@@ -46,7 +47,7 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
 /**
  * Handles JasperReports PoiXls view rendering
  */
-public class JasperReportsPoiXlsViewHandler implements ViewHandler {
+public class JasperReportsPoiXlsViewHandler extends AbstractViewHandler {
     
     public static final String module = JasperReportsPoiXlsViewHandler.class.getName();
 

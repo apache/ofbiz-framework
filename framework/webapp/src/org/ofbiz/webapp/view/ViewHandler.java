@@ -28,6 +28,18 @@ import javax.servlet.http.HttpServletResponse;
 public interface ViewHandler {
 
     /**
+     * Sets the name of the view handler as declared in the controller configuration file.
+     * @param name String The name of the view handler as declared in the controller configuration file.
+     */
+    public void setName(String name);
+
+    /**
+     * Gets the name of the view handler as declared in the controller configuration file.
+     * @return name String The name of the view handler as declared in the controller configuration file.
+     */
+    public String getName();
+
+    /**
      * Initializes the handler. Since handlers use the singleton pattern this method should only be called
      * the first time the handler is used.
      *

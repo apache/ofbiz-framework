@@ -28,8 +28,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.fop.apps.Fop;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.fo.FoScreenRenderer;
@@ -39,7 +39,7 @@ import org.ofbiz.widget.html.HtmlScreenRenderer;;
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
  * This handler will use JPublish to generate the XSL-FO
  */
-public class ScreenFopViewHandler implements ViewHandler {
+public class ScreenFopViewHandler extends AbstractViewHandler {
     public static final String module = ScreenFopViewHandler.class.getName();
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
 

@@ -51,7 +51,7 @@ import freemarker.template.TemplateException;
 /**
  * WfsViewHandler - View Handler 
  */
-public class WfsViewHandler implements ViewHandler {
+public class WfsViewHandler extends AbstractViewHandler {
     
     public static final String module = WfsViewHandler.class.getName();
     public static final String FormatTemplateUrl ="component://webapp/script/org/ofbiz/webapp/event/formatWfs.ftl";

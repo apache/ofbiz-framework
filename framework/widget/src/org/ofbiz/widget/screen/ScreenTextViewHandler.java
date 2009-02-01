@@ -30,14 +30,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
-import org.ofbiz.webapp.view.ViewHandler;
+import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
 
 import org.ofbiz.widget.text.TextFormRenderer;
 import org.ofbiz.widget.text.TextScreenRenderer;
 
-public class ScreenTextViewHandler implements ViewHandler {
+public class ScreenTextViewHandler extends AbstractViewHandler {
     
     public static final String module = ScreenTextViewHandler.class.getName();
 

@@ -32,7 +32,7 @@ import org.ofbiz.webapp.control.ContextFilter;
 /**
  * JspViewHandler - Java Server Pages View Handler
  */
-public class JspViewHandler implements ViewHandler {
+public class JspViewHandler extends AbstractViewHandler {
     
     public static final String module = JspViewHandler.class.getName();
 
