@@ -294,7 +294,7 @@ public class ShipmentServices {
 
         for (GenericValue thisEstimate: estimates) {
             String toGeo = thisEstimate.getString("geoIdTo");
-            if(UtilValidate.isNotEmpty(toGeo) && shipAddress ==null){
+            if (UtilValidate.isNotEmpty(toGeo) && shipAddress ==null) {
                 // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
                 continue;
             }
@@ -348,8 +348,9 @@ public class ShipmentServices {
                             max = wv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0))
+                        if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0)) {
                             weightValid = true;
+                        }    
                     }
                     if (qv != null) {
                         useQty = true;
@@ -361,8 +362,9 @@ public class ShipmentServices {
                             max = qv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0))
+                        if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0)) {
                             qtyValid = true;
+                        }    
                     }
                     if (pv != null) {
                         usePrice = true;
@@ -374,12 +376,14 @@ public class ShipmentServices {
                             max = pv.getBigDecimal("thruQuantity");
                         } catch (Exception e) {
                         }
-                        if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0))
+                        if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0)) {
                             priceValid = true;
+                        }    
                     }
                     // Now check the tests.
-                    if ((useWeight && weightValid) || (useQty && qtyValid) || (usePrice && priceValid))
+                    if ((useWeight && weightValid) || (useQty && qtyValid) || (usePrice && priceValid)) {
                         estimateList.add(thisEstimate);
+                    }    
                 }
             }
 
@@ -433,18 +437,24 @@ public class ShipmentServices {
 
             for (GenericValue currentEstimate: estimateList) {
                 int prioritySum = 0;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId")))
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId"))) {
                     prioritySum += PRIORITY_PARTY;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("roleTypeId")))
+                }    
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("roleTypeId"))) {
                     prioritySum += PRIORITY_ROLE;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("geoIdTo")))
+                }    
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("geoIdTo"))) {
                     prioritySum += PRIORITY_GEO;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("weightBreakId")))
+                }    
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("weightBreakId"))) {
                     prioritySum += PRIORITY_WEIGHT;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("quantityBreakId")))
+                }    
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("quantityBreakId"))) {
                     prioritySum += PRIORITY_QTY;
-                if (UtilValidate.isNotEmpty(currentEstimate.getString("priceBreakId")))
+                }    
+                if (UtilValidate.isNotEmpty(currentEstimate.getString("priceBreakId"))) {
                     prioritySum += PRIORITY_PRICE;
+                }    
 
                 // there will be only one of each priority; latest will replace
                 estimatePriority.put(Integer.valueOf(prioritySum), currentEstimate);
@@ -462,16 +472,19 @@ public class ShipmentServices {
 
         // flat fees
         BigDecimal orderFlat = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("orderFlatPrice") != null)
+        if (estimate.getBigDecimal("orderFlatPrice") != null) {
             orderFlat = estimate.getBigDecimal("orderFlatPrice");
+        }    
 
         BigDecimal orderItemFlat = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("orderItemFlatPrice") != null)
+        if (estimate.getBigDecimal("orderItemFlatPrice") != null) {
             orderItemFlat = estimate.getBigDecimal("orderItemFlatPrice");
+        }    
 
         BigDecimal orderPercent = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("orderPricePercent") != null)
+        if (estimate.getBigDecimal("orderPricePercent") != null) {
             orderPercent = estimate.getBigDecimal("orderPricePercent");
+        }    
 
         BigDecimal itemFlatAmount = shippableQuantity.multiply(orderItemFlat);
         BigDecimal orderPercentage = shippableTotal.multiply(orderPercent.movePointLeft(2));
@@ -481,16 +494,19 @@ public class ShipmentServices {
 
         // spans
         BigDecimal weightUnit = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("weightUnitPrice") != null)
+        if (estimate.getBigDecimal("weightUnitPrice") != null) {
             weightUnit = estimate.getBigDecimal("weightUnitPrice");
+        }    
 
         BigDecimal qtyUnit = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("quantityUnitPrice") != null)
+        if (estimate.getBigDecimal("quantityUnitPrice") != null) {
             qtyUnit = estimate.getBigDecimal("quantityUnitPrice");
+        }    
 
         BigDecimal priceUnit = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("priceUnitPrice") != null)
+        if (estimate.getBigDecimal("priceUnitPrice") != null) {
             priceUnit = estimate.getBigDecimal("priceUnitPrice");
+        }    
 
         BigDecimal weightAmount = shippableWeight.multiply(weightUnit);
         BigDecimal quantityAmount = shippableQuantity.multiply(qtyUnit);
@@ -553,8 +569,9 @@ public class ShipmentServices {
 
         // percent add-on
         BigDecimal shippingPricePercent = BigDecimal.ZERO;
-        if (estimate.getBigDecimal("shippingPricePercent") != null)
+        if (estimate.getBigDecimal("shippingPricePercent") != null) {
             shippingPricePercent = estimate.getBigDecimal("shippingPricePercent");
+        }    
 
         // shipping total
         BigDecimal shippingTotal = subTotal.add((subTotal.add(initialEstimateAmt)).multiply(shippingPricePercent.movePointLeft(2)));
@@ -865,11 +882,15 @@ public class ShipmentServices {
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             if ((! UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
                 Map<String, Object> updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
-                if (ServiceUtil.isError(updateShipmentMap)) return updateShipmentMap;
+                if (ServiceUtil.isError(updateShipmentMap)) {
+                    return updateShipmentMap;
+                }
             }
             
             List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
-            if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
+            if (shipmentAndItems.size() == 0) {
+                return ServiceUtil.returnSuccess();
+            }
 
             // store the quantity of each product shipped in a hashmap keyed to productId
             Map<String, BigDecimal> shippedCountMap = FastMap.newInstance();
@@ -1045,7 +1066,9 @@ public class ShipmentServices {
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
                 Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", packageContentValue));
-                if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
+                if (ServiceUtil.isError(convertUomResult)) {
+                    return convertUomResult;
+                }
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(decimals, rounding);
                 }
