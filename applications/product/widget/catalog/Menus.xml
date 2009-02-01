@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -245,19 +245,19 @@ under the License.
         </menu-item>
         <menu-item name="QuickAddVariants" title="${uiLabelMap.ProductVariants}">
             <condition>
-                <if-compare field-name="product.isVirtual" operator="equals" value="Y"/>
+                <if-compare field="product.isVirtual" operator="equals" value="Y"/>
             </condition>
             <link target="QuickAddVariants?productId=${productId}"/>
         </menu-item>
         <menu-item name="EditProductConfigs" title="${uiLabelMap.ProductConfigs}">
             <condition>
-                <if-compare field-name="product.productTypeId" operator="equals" value="AGGREGATED"/>
+                <if-compare field="product.productTypeId" operator="equals" value="AGGREGATED"/>
             </condition>
             <link target="EditProductConfigs?productId=${productId}"/>
         </menu-item>
         <menu-item name="EditProductAssetUsage" title="${uiLabelMap.ProductAssetUsage}">
             <condition>
-                <if-compare field-name="product.productTypeId" operator="equals" value="ASSET_USAGE"/>
+                <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE"/>
             </condition>
             <link target="EditProductAssetUsage?productId=${productId}"/>
         </menu-item>

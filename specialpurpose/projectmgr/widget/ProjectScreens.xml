@@ -781,9 +781,9 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare field-name="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare field-name="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasViewPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
                                     <not><if-empty field="mechMap.partyContactMech"/></not>
                                 </or>
                             </condition>
@@ -857,7 +857,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="okayToUpdate" operator="equals" value="true" type="Boolean"/>
+                                        <if-compare field="okayToUpdate" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
                                         <container style="widget-container">

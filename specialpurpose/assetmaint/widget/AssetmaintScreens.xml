@@ -169,7 +169,7 @@
                                 </container>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="parameters.mode" operator="equals" value="addAssignment"/>
+                                        <if-compare field="parameters.mode" operator="equals" value="addAssignment"/>
                                     </condition>
                                     <widgets>
                                         <screenlet id="add-party-assignment" title="${uiLabelMap.PageTitleAddWorkEffortPartyAssign}" collapsible="true">
@@ -188,7 +188,7 @@
                                 </container>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="parameters.mode" operator="equals" value="addChildTask"/>
+                                        <if-compare field="parameters.mode" operator="equals" value="addChildTask"/>
                                     </condition>
                                     <widgets>
                                         <screenlet id="add-workeffort-task" title="${uiLabelMap.WorkEffortAddTask}" collapsible="true">

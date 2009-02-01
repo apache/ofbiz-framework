@@ -93,7 +93,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="currentValue.dataResourceId"/></not>
-                    <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
+                    <if-compare field="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
                 </and>
             </condition>
             <link target="EditElectronicText?dataResourceId=${parameters.dataResourceId}"/>
@@ -102,7 +102,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="currentValue.dataResourceId"/></not>
-                    <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
+                    <if-compare field="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
                 </and>
             </condition>
             <link target="EditHtmlText?dataResourceId=${parameters.dataResourceId}"/>
@@ -110,12 +110,12 @@ under the License.
         <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceImage}" >
             <condition>
                 <or>
-                    <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
+                    <if-compare field="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
                     <and>
-                        <if-compare field-name="currentValue.dataResourceTypeId" operator="contains" value="FILE"/>
+                        <if-compare field="currentValue.dataResourceTypeId" operator="contains" value="FILE"/>
                         <or>
-                            <if-compare field-name="currentValue.mimeTypeId" operator="contains" value="image"/>
-                            <if-compare field-name="currentValue.mimeTypeId" operator="contains" value="Image"/>
+                            <if-compare field="currentValue.mimeTypeId" operator="contains" value="image"/>
+                            <if-compare field="currentValue.mimeTypeId" operator="contains" value="Image"/>
                         </or>
                     </and>
                 </or>

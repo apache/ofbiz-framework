@@ -226,7 +226,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="preferences.userPrefMap.myCommunications"
+                        <if-compare field="preferences.userPrefMap.myCommunications"
                             operator="equals" value="Y" />
                     </condition>
                     <widgets>
@@ -236,7 +236,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="preferences.userPrefMap.otherCommunications"
+                        <if-compare field="preferences.userPrefMap.otherCommunications"
                             operator="equals" value="Y" />
                     </condition>
                     <widgets>
@@ -246,7 +246,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="preferences.userPrefMap.myCompanyComms"
+                        <if-compare field="preferences.userPrefMap.myCompanyComms"
                             operator="equals" value="Y" />
                     </condition>
                     <widgets>
@@ -256,7 +256,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="preferences.userPrefMap.myTasks"
+                        <if-compare field="preferences.userPrefMap.myTasks"
                             operator="equals" value="Y" />
                     </condition>
                     <widgets>
@@ -266,7 +266,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="preferences.userPrefMap.myTimesheet"
+                        <if-compare field="preferences.userPrefMap.myTimesheet"
                             operator="equals" value="Y" />
                     </condition>
                     <widgets>

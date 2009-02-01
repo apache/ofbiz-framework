@@ -321,9 +321,9 @@ under the License.
                         <and>
                             <not><if-empty field="communicationEvent.statusId"/></not>
                             <or>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
                             </or>
                         </and>
                     </condition>
