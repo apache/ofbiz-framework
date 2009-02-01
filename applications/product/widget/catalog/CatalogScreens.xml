@@ -71,7 +71,7 @@ under the License.
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
-                <entity-and entity-name="ProdCatalogCategory" list-name="prodCatalogCategories">
+                <entity-and entity-name="ProdCatalogCategory" list="prodCatalogCategories">
                     <field-map field-name="prodCatalogId"/>
                     <order-by field-name="prodCatalogCategoryTypeId"/>
                     <order-by field-name="sequenceNum"/>
@@ -133,7 +133,7 @@ under the License.
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
-                <entity-and entity-name="ProdCatalogRole" list-name="prodCatalogRoleList">
+                <entity-and entity-name="ProdCatalogRole" list="prodCatalogRoleList">
                     <field-map field-name="prodCatalogId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="partyId"/>
@@ -191,7 +191,7 @@ under the License.
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
                 
-                <entity-and entity-name="ProductStoreCatalog" list-name="productStoreCatalogList">
+                <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogList">
                     <field-map field-name="prodCatalogId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productStoreId"/>

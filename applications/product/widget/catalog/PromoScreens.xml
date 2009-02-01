@@ -69,8 +69,8 @@ under the License.
                 <set field="tabButtonItem" value="ProductPromo"/>
                 
                 <set field="userEntered" from-field="parameters.userEntered"/>
-                <entity-condition entity-name="ProductPromo" list-name="productPromos">
-                    <condition-expr field-name="userEntered" env-name="userEntered" ignore-if-empty="true"/>
+                <entity-condition entity-name="ProductPromo" list="productPromos">
+                    <condition-expr field-name="userEntered" from-field="userEntered" ignore-if-empty="true"/>
                     <order-by field-name="-createdDate"/>
                 </entity-condition>
             </actions>
@@ -164,21 +164,21 @@ under the License.
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
 
                 <!-- Data Related to the Promo -->
-                <entity-condition entity-name="ProductPromoRule" list-name="productPromoRules">
-                    <condition-expr field-name="productPromoId" env-name="productPromoId"/>
+                <entity-condition entity-name="ProductPromoRule" list="productPromoRules">
+                    <condition-expr field-name="productPromoId" from-field="productPromoId"/>
                     <order-by field-name="ruleName"/>
                 </entity-condition>
-                <entity-condition entity-name="ProductPromoCategory" list-name="promoProductPromoCategories">
+                <entity-condition entity-name="ProductPromoCategory" list="promoProductPromoCategories">
                     <condition-list>
-                        <condition-expr field-name="productPromoId" env-name="productPromoId"/>
+                        <condition-expr field-name="productPromoId" from-field="productPromoId"/>
                         <condition-expr field-name="productPromoRuleId" value="_NA_"/>
                         <condition-expr field-name="productPromoActionSeqId" value="_NA_"/>
                         <condition-expr field-name="productPromoCondSeqId" value="_NA_"/>
                     </condition-list>
                 </entity-condition>
-                <entity-condition entity-name="ProductPromoProduct" list-name="promoProductPromoProducts">
+                <entity-condition entity-name="ProductPromoProduct" list="promoProductPromoProducts">
                     <condition-list>
-                        <condition-expr field-name="productPromoId" env-name="productPromoId"/>
+                        <condition-expr field-name="productPromoId" from-field="productPromoId"/>
                         <condition-expr field-name="productPromoRuleId" value="_NA_"/>
                         <condition-expr field-name="productPromoActionSeqId" value="_NA_"/>
                         <condition-expr field-name="productPromoCondSeqId" value="_NA_"/>
@@ -186,27 +186,27 @@ under the License.
                 </entity-condition>
                 
                 <!-- General Data for Drop-downs, etc -->
-                <entity-condition entity-name="Enumeration" list-name="inputParamEnums" use-cache="true">
+                <entity-condition entity-name="Enumeration" list="inputParamEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_IN_PARAM"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
-                <entity-condition entity-name="Enumeration" list-name="condOperEnums" use-cache="true">
+                <entity-condition entity-name="Enumeration" list="condOperEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_COND"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
-                <entity-condition entity-name="Enumeration" list-name="productPromoActionEnums" use-cache="true">
+                <entity-condition entity-name="Enumeration" list="productPromoActionEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_ACTION"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
-                <entity-condition entity-name="Enumeration" list-name="productPromoApplEnums" use-cache="true">
+                <entity-condition entity-name="Enumeration" list="productPromoApplEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_PCAPPL"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
 
-                <entity-condition entity-name="OrderAdjustmentType" list-name="orderAdjustmentTypes" use-cache="true">
+                <entity-condition entity-name="OrderAdjustmentType" list="orderAdjustmentTypes" use-cache="true">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                <entity-condition entity-name="ProductCategory" list="productCategories">
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
@@ -232,13 +232,13 @@ under the License.
 
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
-                <entity-condition entity-name="ProductStorePromoAppl" list-name="productStorePromoAppls">
-                    <condition-expr field-name="productPromoId" env-name="productPromoId"/>
+                <entity-condition entity-name="ProductStorePromoAppl" list="productStorePromoAppls">
+                    <condition-expr field-name="productPromoId" from-field="productPromoId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productPromoId"/>
                 </entity-condition>
 
-                <entity-condition entity-name="ProductStore" list-name="productStores">
+                <entity-condition entity-name="ProductStore" list="productStores">
                     <order-by field-name="storeName"/>
                 </entity-condition>
             </actions>
@@ -265,10 +265,10 @@ under the License.
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
 
                 <set field="manualOnly" from-field="parameters.manualOnly" default-value="Y"/>
-                <entity-condition entity-name="ProductPromoCode" list-name="productPromoCodes">
+                <entity-condition entity-name="ProductPromoCode" list="productPromoCodes">
                     <condition-list combine="and">
-                        <condition-expr field-name="productPromoId" env-name="productPromoId"/>
-                        <condition-expr field-name="userEntered" env-name="manualOnly"/>
+                        <condition-expr field-name="productPromoId" from-field="productPromoId"/>
+                        <condition-expr field-name="userEntered" from-field="manualOnly"/>
                     </condition-list>
                     <order-by field-name="-createdDate"/>
                 </entity-condition>

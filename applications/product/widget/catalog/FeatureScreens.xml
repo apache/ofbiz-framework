@@ -61,7 +61,7 @@
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
                 <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
-                <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
+                <entity-and entity-name="SupplierProductFeature" list="supplierProductFeatures">
                     <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
                 </entity-and>
             </actions>
@@ -383,14 +383,14 @@
                 
                 <set field="productFeatureGroupId" from-field="parameters.productFeatureGroupId"/>
                 <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
-                <entity-and entity-name="ProductFeatureGroupAndAppl" list-name="productFeatureGroupAndAppls">
+                <entity-and entity-name="ProductFeatureGroupAndAppl" list="productFeatureGroupAndAppls">
                     <field-map field-name="productFeatureGroupId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <entity-condition entity-name="ProductFeatureCategory" list="productFeatureCategories">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-and entity-name="ProductFeature" list-name="productFeatures">
+                <entity-and entity-name="ProductFeature" list="productFeatures">
                     <field-map field-name="productFeatureCategoryId"/>
                 </entity-and>
             </actions>
@@ -535,7 +535,7 @@
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
                 <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
-                <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
+                <entity-and entity-name="SupplierProductFeature" list="supplierProductFeatures">
                     <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
                 </entity-and>
             </actions>

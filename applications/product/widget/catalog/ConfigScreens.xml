@@ -142,15 +142,14 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="ProductConfigProduct" value-field="productConfigProduct" auto-field-map="true"/>
-
                 <entity-condition entity-name="ProductConfigOption" list="configOptionList">
-                    <condition-expr field-name="configItemId" env-name="configItemId"/>
+                    <condition-expr field-name="configItemId" from-field="configItemId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
                 <entity-condition entity-name="ProductConfigProduct" list="configProducts">
                     <condition-list combine="and">
-                        <condition-expr field-name="configItemId" env-name="configItemId"/>
-                        <condition-expr field-name="configOptionId" env-name="configOptionId"/>
+                        <condition-expr field-name="configItemId" from-field="configItemId"/>
+                        <condition-expr field-name="configOptionId" from-field="configOptionId"/>
                     </condition-list>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
