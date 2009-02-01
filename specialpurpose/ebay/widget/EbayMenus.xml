@@ -18,17 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="EbayAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.EbayApplication}"
-        default-selected-style="selected" selected-menuitem-context-field-name="headerItem">
+    <menu name="EbayAppBar" title="${uiLabelMap.EbayApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="export" title="${uiLabelMap.EbayExportToEbay}"><link target="advancedsearch"/></menu-item>
         <menu-item name="importOrders" title="${uiLabelMap.EbayImportOrdersFromEbay}"><link target="ManageOrdersFromEbay"/></menu-item>
-        <menu-item name="Logout" title="Logout" align-style="opposed" selected-style="selected">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="Login" align-style="opposed" selected-style="selected">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
     </menu>
 </menus>
