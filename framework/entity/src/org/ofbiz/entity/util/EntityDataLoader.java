@@ -102,6 +102,11 @@ public class EntityDataLoader {
 
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
                 EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
+
+                if (entityDataReaderInfo == null) {
+                    Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
+                    entityDataReaderInfo = new EntityDataReaderInfo(readerName);
+                }
                 
                 if (entityDataReaderInfo != null) {
                     for (Element resourceElement: entityDataReaderInfo.resourceElements) {
@@ -127,7 +132,7 @@ public class EntityDataLoader {
                         }
                     }
                 } else {
-                    String errorMsg = "Could not find entity-date-reader named: " + readerName;
+                    String errorMsg = "Could not find entity-data-reader named: " + readerName;
                     Debug.logWarning(errorMsg, module);
                 }
             }

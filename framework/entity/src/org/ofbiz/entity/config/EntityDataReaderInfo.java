@@ -29,4 +29,8 @@ public class EntityDataReaderInfo extends ResourceInfo {
     public EntityDataReaderInfo(Element element) {
         super(element);
     }
+
+    public EntityDataReaderInfo(String name) {
+        super(name);
+    }
 }
