@@ -60,7 +60,7 @@
     <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Product"/>
             </service>
@@ -88,7 +88,7 @@
     <form name="listLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Product"/>
             </service>
@@ -112,7 +112,7 @@
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductMaint" list="listIt">
-                <condition-expr field-name="productId" env-name="productId"/>
+                <condition-expr field-name="productId" from-field="productId"/>
             </entity-condition>
         </actions>
         <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>

@@ -111,7 +111,7 @@ under the License.
     <form name="ListComputerHardware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
@@ -137,7 +137,7 @@ under the License.
     <form name="ListComputerSoftware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
@@ -162,8 +162,8 @@ under the License.
         <actions>
             <entity-condition entity-name="FixedAsset" list="listIt">
                 <condition-list combine="and">
-                    <condition-expr field-name="parentFixedAssetId" operator="equals" env-name="parameters.fixedAssetId"/>
-                    <condition-expr field-name="fixedAssetTypeId" operator="equals" env-name="fixedAssetTypeId"/>
+                    <condition-expr field-name="parentFixedAssetId" operator="equals" from-field="parameters.fixedAssetId"/>
+                    <condition-expr field-name="fixedAssetTypeId" operator="equals" from-field="fixedAssetTypeId"/>
                 </condition-list>
             </entity-condition>
         </actions>

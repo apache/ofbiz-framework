@@ -80,7 +80,7 @@ under the License.
             <entity-condition entity-name="WorkEffort">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortTypeId" operator="equals" value="COMPANY_EVENT"/>
-                    <condition-expr field-name="actualStartDate" operator="greater-equals" env-name="nowDate"/>
+                    <condition-expr field-name="actualStartDate" operator="greater-equals" from-field="nowDate"/>
                 </condition-list>
                 <order-by field-name="actualStartDate"/>
             </entity-condition>
@@ -247,15 +247,15 @@ under the License.
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
-                    <condition-expr field-name="contactFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-expr field-name="contactFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="contactThruDate" env-name="null"/>
-                        <condition-expr field-name="contactThruDate" operator="greater-equals" env-name="nowDate"/>
+                        <condition-expr field-name="contactThruDate" from-field="null"/>
+                        <condition-expr field-name="contactThruDate" operator="greater-equals" from-field="nowDate"/>
                     </condition-list>
-                    <condition-expr field-name="purposeFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-expr field-name="purposeFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="purposeThruDate" operator="greater-equals" env-name="nowDate"/>
-                        <condition-expr field-name="purposeThruDate" env-name="null"/>
+                        <condition-expr field-name="purposeThruDate" operator="greater-equals" from-field="nowDate"/>
+                        <condition-expr field-name="purposeThruDate" from-field="null"/>
                     </condition-list>
                     <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
                     <condition-expr field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>

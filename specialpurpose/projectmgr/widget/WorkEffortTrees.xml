@@ -27,7 +27,7 @@ under the License.
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
-                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortId"/>
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
                 </entity-condition>
             </sub-node>
         </node>
@@ -38,7 +38,7 @@ under the License.
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
-                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortAssoc.workEffortIdTo"/>
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
                 </entity-condition>
             </sub-node>
         </node>
@@ -50,7 +50,7 @@ under the License.
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
-                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortId"/>
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
                 </entity-condition>
             </sub-node>
         </node>
@@ -61,7 +61,7 @@ under the License.
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
-                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortAssoc.workEffortIdTo"/>
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
                 </entity-condition>
             </sub-node>
         </node>
