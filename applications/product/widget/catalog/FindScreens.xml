@@ -53,11 +53,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
 
-                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                <entity-condition entity-name="ProductCategory" list="productCategories">
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="ProdCatalog" list-name="prodCatalogs">
+                <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
                     <order-by field-name="catalogName"/>
                 </entity-condition>  
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
@@ -121,7 +121,7 @@ under the License.
                     <field-map field-name="productId" env-name="idValue"/>
                 </entity-one>
 
-                <entity-condition entity-name="GoodIdentification" list-name="goodIdentifications">
+                <entity-condition entity-name="GoodIdentification" list="goodIdentifications">
                     <condition-expr field-name="idValue" env-name="idValue"/>
                     <order-by field-name="productId"/>
                 </entity-condition>

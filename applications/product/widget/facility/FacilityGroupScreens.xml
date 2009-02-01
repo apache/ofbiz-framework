@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindFacilityGroup"/>
                 <set field="headerItem" value="facilityGroup"/>
-                <entity-condition entity-name="FacilityGroup" list-name="facilityGroups"/>
+                <entity-condition entity-name="FacilityGroup" list="facilityGroups"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

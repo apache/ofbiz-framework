@@ -203,7 +203,7 @@ under the License.
     <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
          use-row-submit="true">
         <actions>
-            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+            <entity-condition entity-name="CommunicationEvent" list="commEvents">
                 <condition-list combine="and">
                     <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
                     <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
@@ -222,7 +222,7 @@ under the License.
     <form name="MyPageNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
-            <entity-condition entity-name="PartyContactWithPurpose" list-name="emailAddresses">
+            <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
                     <condition-expr field-name="contactFromDate" operator="less-equals" env-name="nowDate"/>

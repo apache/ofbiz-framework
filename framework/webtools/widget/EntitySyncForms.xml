@@ -23,7 +23,7 @@ under the License.
     <form name="EntitySyncStatus" type="list" list-name="entitySyncList" target=""
         paginate-target="EntitySyncStatus" view-size="20" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EntitySync" list-name="entitySyncList" use-cache="false">
+            <entity-condition entity-name="EntitySync" list="entitySyncList" use-cache="false">
                 <!-- No conditions, is a find all -->
                 <order-by field-name="runStatusId"/>
                 <order-by field-name="entitySyncId"/>

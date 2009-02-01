@@ -252,7 +252,7 @@ under the License.
     <screen name="facilities">
         <section>
             <actions>
-                <entity-condition entity-name="Facility" list-name="facilities">
+                <entity-condition entity-name="Facility" list="facilities">
                     <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
                     <order-by field-name="facilityId"/>
                 </entity-condition>

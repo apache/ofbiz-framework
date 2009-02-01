@@ -387,7 +387,7 @@
                     <field-map field-name="productFeatureGroupId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <entity-condition entity-name="ProductFeatureCategory" list-name="productFeatureCategories">
+                <entity-condition entity-name="ProductFeatureCategory" list="productFeatureCategories">
                     <order-by field-name="description"/>
                 </entity-condition>
                 <entity-and entity-name="ProductFeature" list-name="productFeatures">

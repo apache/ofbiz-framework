@@ -90,7 +90,7 @@ under the License.
         <section>
             <actions>
                 <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
-                <entity-condition entity-name="VisualTheme" list-name="visualThemes"/>
+                <entity-condition entity-name="VisualTheme" list="visualThemes"/>
             </actions>
             <widgets>
                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

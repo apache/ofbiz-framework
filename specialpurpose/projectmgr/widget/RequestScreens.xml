@@ -95,7 +95,7 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
-                <entity-condition entity-name="CustRequestItemNoteView" list-name="custRequestItemNoteViews">
+                <entity-condition entity-name="CustRequestItemNoteView" list="custRequestItemNoteViews">
                     <condition-expr field-name="custRequestId" operator="equals" env-name="parameters.custRequestId"/>
                     <order-by  field-name="-noteDateTime"/>
                 </entity-condition>

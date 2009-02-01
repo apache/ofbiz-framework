@@ -60,7 +60,7 @@
             <actions>
                 <property-to-field property="blog.view.size" field="blogViewSize" resource="blog" default="20"/>
                 <set field="blogContentId" value="BLOGROOTMADMAX"/>
-                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list-name="blogList">
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="blogList">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" env-name="blogContentId"/>
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>

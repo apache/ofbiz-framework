@@ -53,7 +53,7 @@ under the License.
                 <set field="titleProperty" value="ProductReviewsPendingApproval"/>
                 <set field="headerItem" value="reviews"/>
                 
-                <entity-condition entity-name="ProductReview" list-name="pendingReviews">
+                <entity-condition entity-name="ProductReview" list="pendingReviews">
                     <condition-expr field-name="statusId" value="PRR_PENDING"/>
                     <order-by field-name="+postedDateTime"/>
                 </entity-condition>
