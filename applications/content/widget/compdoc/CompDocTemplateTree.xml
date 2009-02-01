@@ -29,14 +29,14 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-condition entity-name="AssocRevisionItemView" use-cache="false">
                    <condition-list combine="and">
-                        <condition-expr field-name="contentIdTo" operator="equals" env-name="rootContentId"/>
-                        <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootContentId"/>
-                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" env-name="rootContentRevisionSeqId" ignore-if-null="true"/>
+                        <condition-expr field-name="contentIdTo" operator="equals" from-field="rootContentId"/>
+                        <condition-expr field-name="rootRevisionContentId" operator="equals" from-field="rootContentId"/>
+                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" from-field="rootContentRevisionSeqId" ignore-if-null="true"/>
                         <condition-expr field-name="contentAssocTypeId" operator="equals" value="COMPDOC_PART"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
-                            <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
                    </condition-list> 
                   
@@ -61,14 +61,14 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-condition entity-name="AssocRevisionItemView" use-cache="false">
                    <condition-list combine="and">
-                        <condition-expr field-name="contentIdTo" operator="equals" env-name="contentId"/>
-                        <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootContentId"/>
+                        <condition-expr field-name="contentIdTo" operator="equals" from-field="contentId"/>
+                        <condition-expr field-name="rootRevisionContentId" operator="equals" from-field="rootContentId"/>
                         <condition-expr field-name="contentAssocTypeId" operator="equals" value="COMPDOC_PART"/>
-                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" env-name="rootContentRevisionSeqId" ignore-if-null="true"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" from-field="rootContentRevisionSeqId" ignore-if-null="true"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
-                            <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
                    </condition-list> 
                    
@@ -97,14 +97,14 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-condition entity-name="AssocRevisionItemView" use-cache="false">
                    <condition-list combine="and">
-                        <condition-expr field-name="contentIdTo" operator="equals" env-name="templateContentId"/>
-                        <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="templateContentId"/>
-                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" env-name="templateContentRevisionSeqId" ignore-if-null="true"/>
+                        <condition-expr field-name="contentIdTo" operator="equals" from-field="templateContentId"/>
+                        <condition-expr field-name="rootRevisionContentId" operator="equals" from-field="templateContentId"/>
+                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" from-field="templateContentRevisionSeqId" ignore-if-null="true"/>
                         <condition-expr field-name="contentAssocTypeId" operator="equals" value="COMPDOC_PART"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
-                            <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
                    </condition-list> 
                   
@@ -129,14 +129,14 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-condition entity-name="AssocRevisionItemView" use-cache="false">
                    <condition-list combine="and">
-                        <condition-expr field-name="contentIdTo" operator="equals" env-name="contentId"/>
-                        <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="templateContentId"/>
+                        <condition-expr field-name="contentIdTo" operator="equals" from-field="contentId"/>
+                        <condition-expr field-name="rootRevisionContentId" operator="equals" from-field="templateContentId"/>
                         <condition-expr field-name="contentAssocTypeId" operator="equals" value="COMPDOC_PART"/>
-                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" env-name="templateContentRevisionSeqId"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" from-field="templateContentRevisionSeqId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
-                            <condition-expr field-name="thruDate" operator="greater" env-name="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
                    </condition-list> 
                    

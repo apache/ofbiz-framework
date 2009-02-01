@@ -156,7 +156,7 @@ under the License.
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
                 <entity-condition entity-name="SurveyMultiResp" list="surveyMultiRespList">
-                    <condition-expr field-name="surveyId" env-name="surveyId"/>
+                    <condition-expr field-name="surveyId" from-field="surveyId"/>
                     <order-by field-name="surveyMultiRespId"/>
                 </entity-condition>
             </actions>
@@ -164,7 +164,7 @@ under the License.
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
                         <container><label style="h1">${uiLabelMap.PageTitleEditSurveyMultiResps} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}</label></container>
-                        <iterate-section entry-name="surveyMultiResp" list-name="surveyMultiRespList">
+                        <iterate-section entry="surveyMultiResp" list="surveyMultiRespList">
                             <section>
                                 <widgets>
                                     <container style="screenlet">

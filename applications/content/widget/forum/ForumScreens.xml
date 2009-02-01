@@ -63,7 +63,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindForumGroup"/>
                 <set field="headerItem" value="ForumGroups"/>
                 <set field="labelTitleProperty" value="PageTitleFindForumGroup"/>
-                <entity-and entity-name="Content" list-name="forumGroups">
+                <entity-and entity-name="Content" list="forumGroups">
                     <field-map field-name="contentTypeId" value="FORUM_ROOT"/>
                     <order-by field-name="contentName"/>
                 </entity-and>
@@ -93,7 +93,7 @@ under the License.
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
-                <entity-and entity-name="ContentAssocDataResourceViewTo" list-name="forums">
+                <entity-and entity-name="ContentAssocDataResourceViewTo" list="forums">
                     <field-map field-name="contentIdStart" from-field="forumGroupId"/>
                 </entity-and>
             </actions>
@@ -121,7 +121,7 @@ under the License.
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
-                <entity-and entity-name="ContentRole" list-name="forumRoles">
+                <entity-and entity-name="ContentRole" list="forumRoles">
                     <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                     <order-by field-name="roleTypeId"/>
                 </entity-and>
@@ -150,7 +150,7 @@ under the License.
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
-                <entity-and entity-name="ContentPurpose" list-name="forumPurposes">
+                <entity-and entity-name="ContentPurpose" list="forumPurposes">
                     <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                     <order-by field-name="contentPurposeTypeId"/>
                 </entity-and>
@@ -182,7 +182,7 @@ under the License.
                 <set field="objectName" from-field="forum.contentName"/>
                 <set field="objectId"  from-field="forum.contentId"/>
                 <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
-                <entity-and entity-name="ContentAssocViewTo" list-name="forumMessages">
+                <entity-and entity-name="ContentAssocViewTo" list="forumMessages">
                     <field-map field-name="ownerContentId" from-field="parameters.forumId"/>
                     <order-by field-name="createdDate DESC"/>
                 </entity-and>

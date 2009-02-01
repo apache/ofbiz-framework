@@ -60,7 +60,7 @@ under the License.
     <form name="ListDataResource" target="" title="" list-name="listIt" type="list" paginate-target="findDataResource"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-          <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+          <service service-name="performFind" result-map="result" result-map-list="listIt">
             <field-map field-name="inputFields" from-field="parameters"/>
             <field-map field-name="entityName" value="DataResource"/>
             <field-map field-name="orderBy" value="dataResourceId"/>
@@ -116,7 +116,7 @@ under the License.
     <form name="ListLookupDataResource" extends="ListDataResource" list-name="listIt" type="list" paginate-target="LookupDataResource"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="DataResource"/>
                 <field-map field-name="orderBy" value="dataResourceId"/>
@@ -194,7 +194,7 @@ under the License.
     <form name="ListContentsAssociatedToDataResource" type="list" list-name="contentRecords" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="Content" list-name="contentRecords">
+            <entity-and entity-name="Content" list="contentRecords">
                 <field-map field-name="dataResourceId" from-field="dataResourceId"/>
                 <order-by field-name="contentId"/>
             </entity-and>
@@ -332,7 +332,7 @@ under the License.
     <form name="ListDataResourceAttribute" list-name="dataResourceAttribute" target="updateDataResourceAttribute" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName" value="DataResourceAttribute"/>
             </service>
@@ -361,7 +361,7 @@ under the License.
     <form name="ListDataResourceRole" list-name="dataResourceRole" target="updateDataResourceRole" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName" value="DataResourceRole"/>
             </service>
@@ -385,7 +385,7 @@ under the License.
     <form name="ListDataResourceProductFeature" list-name="productFeatureDataResource" target="" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName" value="ProductFeatureDataResource"/>
             </service>

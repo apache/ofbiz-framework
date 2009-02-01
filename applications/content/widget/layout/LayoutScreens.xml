@@ -60,7 +60,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="ListLayout"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                <entity-and entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList">
+                <entity-and entity-name="ContentAssocDataResourceViewFrom" list="layoutList">
                     <field-map field-name="caContentIdTo" value="TEMPLATE_MASTER"/>
                 </entity-and>
             </actions>

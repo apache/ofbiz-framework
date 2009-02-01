@@ -285,7 +285,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleFindWebSite"/>
                 <set field="tabButtonItem" value="websites"/>
                 <entity-condition entity-name="WebSiteAndContent" list="webSites">
-                    <condition-expr field-name="contentId" env-name="parameters.contentId"/>
+                    <condition-expr field-name="contentId" from-field="parameters.contentId"/>
                     <order-by field-name="webSiteId"/>
                 </entity-condition>
                 <entity-one entity-name="Content" value-field="currentValue">
