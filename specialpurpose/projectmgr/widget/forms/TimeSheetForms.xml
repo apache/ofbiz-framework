@@ -109,7 +109,7 @@
     <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Timesheet"/>
                 <field-map field-name="orderBy" value="fromDate DESC"/>
@@ -217,7 +217,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
-                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <condition-expr field-name="timesheetId" from-field="timesheetId"/>
                 <order-by field-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
                 <order-by field-name="-fromDate"/>

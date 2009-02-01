@@ -141,7 +141,7 @@ under the License.
     <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortCustRequestView" list-name="requests">
+            <entity-and entity-name="WorkEffortCustRequestView" list="requests">
                 <field-map field-name="statusId" value="CRQ_REVIEWED"/>
                 <order-by field-name="createdDate"/>
             </entity-and>
