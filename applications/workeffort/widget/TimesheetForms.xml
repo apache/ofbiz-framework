@@ -22,7 +22,7 @@ under the License.
     <form name="ListMyTimesheets" target="" title="" type="list" list-name="timesheets" paginate-target="MyTimesheets" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="Timesheet" list-name="timesheets">
+            <entity-and entity-name="Timesheet" list="timesheets">
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
@@ -37,7 +37,7 @@ under the License.
     <form name="ListMyRates" target="" title="" type="list" list-name="partyRates" paginate="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="PartyRate" list-name="partyRates">
+            <entity-and entity-name="PartyRate" list="partyRates">
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
@@ -75,7 +75,7 @@ under the License.
     <form name="ListFindTimesheet" target="" title="" type="list" list-name="listIt" paginate-target="FindTimesheet" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Timesheet"/>
             </service>
@@ -112,7 +112,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
-                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <condition-expr field-name="timesheetId" from-field="timesheetId"/>
                 <order-by field-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
                 <order-by field-name="-fromDate"/>
@@ -147,7 +147,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimesheetRole">
-                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <condition-expr field-name="timesheetId" from-field="timesheetId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
@@ -182,7 +182,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
-                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <condition-expr field-name="timesheetId" from-field="timesheetId"/>
                 <order-by field-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
                 <order-by field-name="-fromDate"/>
