@@ -281,7 +281,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-compare field-name="manualOnly" operator="equals" value="Y"/>
+                                <if-compare field="manualOnly" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container>

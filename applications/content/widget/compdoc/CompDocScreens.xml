@@ -52,7 +52,7 @@ under the License.
                     <decorator-section name="body">
                         <container><link target="ListWaitingContentApproval?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/></container>
                         <section>
-                            <condition><if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/></condition>
+                            <condition><if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/></condition>
                             <widgets><include-screen name="rootInstanceApprovalStatus"/></widgets>
                         </section>
                         <container style="screenlet">
@@ -71,7 +71,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
+                                <if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
                             </condition>
                             <actions>
                                 <set field="title" value="${uiLabelMap.PageTitleEditCompDocInstance} [${rootContentId}]"/>
@@ -496,7 +496,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare field-name="contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
+                        <if-compare field="contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.PageTitleEditCompDocTemplate} ${rootContentId}"/>
@@ -529,7 +529,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
+                        <if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.PageTitleEditCompDocInstance} [${rootContentId}]"/>
@@ -615,7 +615,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare field-name="itemContent.contentTypeId" operator="equals" value="TEMPLATE"/>
+                        <if-compare field="itemContent.contentTypeId" operator="equals" value="TEMPLATE"/>
                     </condition>
                     <actions>
                         <set field="title" value="Edit CompDoc Template Part [${contentId}, part of ${rootContentId}]"/>
@@ -659,7 +659,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <if-compare field-name="itemContent.contentTypeId" operator="equals" value="DOCUMENT"/>
+                        <if-compare field="itemContent.contentTypeId" operator="equals" value="DOCUMENT"/>
                     </condition>
                     <actions>
                         <set field="title" value="Edit CompDoc Instance Part [${contentId} of ${contentId}]"/>
@@ -708,13 +708,13 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/png"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/png"/>
                         </or>
                     </condition>
                     <actions>
@@ -726,8 +726,8 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/html"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/html"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
                         </or>
                     </condition>
                     <actions>
@@ -738,7 +738,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
                     </condition>
                     <actions>
                     </actions>
@@ -750,7 +750,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
                     </condition>
                     <actions>
                     </actions>
@@ -764,19 +764,19 @@ under the License.
                     <condition>
                       <not>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/png"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/png"/>
                             
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/html"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/html"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
                             
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                         </or>
                       </not>
                     </condition>
@@ -799,13 +799,13 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/png"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/png"/>
                         </or>
                     </condition>
                     <actions>
@@ -817,8 +817,8 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/html"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/html"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
                         </or>
                     </condition>
                     <actions>
@@ -834,10 +834,10 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
                             <!--
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                                 -->
                         </or>
                     </condition>
@@ -853,10 +853,10 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
                             <!--
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                                 -->
                         </or>
                     </condition>
@@ -872,21 +872,21 @@ under the License.
                     <condition>
                       <not>
                         <or>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="image/png"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/png"/>
                             
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/html"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/html"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="text/plain"/>
                             
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
-                            <if-compare field-name="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
+                            <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                         </or>
                       </not>
                     </condition>
@@ -1133,7 +1133,7 @@ under the License.
                         <condition>
                             <and>
                                 <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-                                <if-compare field-name="approvalStatusResult.approvalStatusId" operator="equals" value="CNTAP_NOT_READY"/>
+                                <if-compare field="approvalStatusResult.approvalStatusId" operator="equals" value="CNTAP_NOT_READY"/>
                             </and>
                         </condition>
                         <widgets>
@@ -1320,8 +1320,8 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                            <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                            <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                         </or>
                     </condition>
                     <widgets>
@@ -1331,8 +1331,8 @@ under the License.
                     <condition>
                         <not>
                             <or>
-                                <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
-                                <if-compare field-name="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
+                                <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY"/>
+                                <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="SURVEY_RESPONSE"/>
                             </or>
                         </not>
                     </condition>

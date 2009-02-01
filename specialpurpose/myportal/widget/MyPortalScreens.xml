@@ -61,7 +61,7 @@ under the License.
                             <include-menu name="MyTimesheetMenu" location="component://myportal/widget/MyPortalMenus.xml"/>
                             <section>
                                 <condition>
-                                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                                 </condition>          
                                 <widgets>
                                     <include-form name="WeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
@@ -77,7 +77,7 @@ under the License.
                             collapsible="true" name="timesheet">
                             <section>
                                 <condition>
-                                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                                 </condition>          
                                 <widgets>
                                     <include-form name="WeekTimesheet" location="component://myportal/widget/MyPortalForms.xml"/>
@@ -550,9 +550,9 @@ under the License.
                         <section><!-- Email -->
                             <condition>
                                 <or><!-- have for e-mails a special form -->
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="equals" value="AUTO_EMAIL_COMM" />
                                 </or>
                             </condition>
@@ -565,7 +565,7 @@ under the License.
                         </section>
                         <section>
                             <condition><!-- internal note -->
-                                <if-compare field-name="parameters.communicationEventTypeId"
+                                <if-compare field="parameters.communicationEventTypeId"
                                     operator="equals" value="COMMENT_NOTE" />
                             </condition>
                             <widgets>
@@ -577,11 +577,11 @@ under the License.
                         <section>
                             <condition><!-- others -->
                                 <and>
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="COMMENT_NOTE" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="AUTO_EMAIL_COMM" />
                                 </and>
                             </condition>

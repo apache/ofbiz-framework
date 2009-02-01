@@ -66,7 +66,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <condition>
-                                        <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                                        <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                                     </condition>          
                                     <widgets>
                                         <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
@@ -241,7 +241,7 @@ under the License.
             <widgets>
                     <section>
                         <condition>
-                            <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                            <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                         </condition>          
                         <widgets>
                             <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"

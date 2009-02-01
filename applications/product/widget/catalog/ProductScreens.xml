@@ -78,7 +78,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+                                        <if-compare field="product.isVirtual" operator="equals" type="String" value="Y"/>
                                     </condition>
                                     <widgets>
                                         <container style="screenlet">
@@ -854,7 +854,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+                                <if-compare field="product.isVirtual" operator="equals" type="String" value="Y"/>
                             </condition>
                             <widgets>
                                 <platform-specific>

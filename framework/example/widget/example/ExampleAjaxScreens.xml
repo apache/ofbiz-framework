@@ -40,7 +40,7 @@ under the License.
                                 <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="javaScriptEnabled" value="true" operator="equals"/>
+                                        <if-compare field="javaScriptEnabled" value="true" operator="equals"/>
                                     </condition>
                                     <widgets/>
                                     <fail-widgets>

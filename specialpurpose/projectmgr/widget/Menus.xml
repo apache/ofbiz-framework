@@ -76,24 +76,24 @@
         </actions>
         <menu-item name="ganttchart" title="${uiLabelMap.ProjectMgrGanttChart}">
             <condition>
-                <if-compare field-name="hasViewPermission" operator="equals" value="true"/>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="ganttChart?projectId=${projectId}"/>
         </menu-item>
         <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}">
             <condition>
-                <if-compare field-name="hasViewPermission" operator="equals" value="true"/>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="projectView?projectId=${projectId}"/>
         </menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditProject}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProject?projectId=${projectId}"/>
@@ -101,11 +101,11 @@
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="FindPhase?projectId=${projectId}"/>
@@ -113,11 +113,11 @@
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProjectTasks?projectId=${projectId}"/>
@@ -125,11 +125,11 @@
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/>
@@ -137,11 +137,11 @@
         <menu-item name="projectContent" title="${uiLabelMap.CommonContent}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProjectContents?projectId=${projectId}"/>
@@ -149,7 +149,7 @@
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="EditWorkEffortNotes?projectId=${projectId}"/>
@@ -157,11 +157,11 @@
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="ListSubProjects?projectId=${projectId}&amp;subProjects=true"/>
@@ -169,11 +169,11 @@
         <menu-item name="billing" title="${uiLabelMap.ProjectMgrBilling}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="projectBilling?projectId=${projectId}"/>
@@ -194,7 +194,7 @@
         <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}">
             <condition>
                 <and>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="EditProject"></link>
@@ -205,7 +205,7 @@
                     <not>
                         <if-empty field="project"/>
                     </not>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="copyProject?projectId=${projectId}"></link>
@@ -213,11 +213,11 @@
         <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
             <condition>
                 <and>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <not>
                         <if-empty field="project"/>
                     </not>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="scheduleProject?projectId=${projectId}"></link>
@@ -228,7 +228,7 @@
                     <not>
                         <if-empty field="project"/>
                     </not>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="copyProjectToTemplate?projectId=${projectId}"></link>
@@ -236,11 +236,11 @@
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
                 <and>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <not>
                         <if-empty field="project"/>
                     </not>
-                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="javascript:confirmActionLink('Are you sure you want to close this project?','updateProject?workEffortId=${parameters.projectId}&amp;currentStatusId=PRJ_CLOSED')" url-mode="plain"/>
@@ -257,9 +257,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="EditTask?workEffortId=${workEffortId}"/>
@@ -268,9 +268,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="Dependencies?workEffortId=${workEffortId}"/>
@@ -279,9 +279,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="EditTaskPartyAssigns?workEffortId=${workEffortId}"/>
@@ -290,9 +290,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="EditTaskSkills?workEffortId=${workEffortId}"/>
@@ -301,9 +301,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="EditTimeEntries?workEffortId=${workEffortId}"/>
@@ -312,9 +312,9 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
                 </and>
             </condition>
             <link target="EditTaskContents?workEffortId=${workEffortId}"/>
@@ -334,7 +334,7 @@
                     <not><if-empty field="workEffort"/></not>
                     <and>
                         <if-empty field="workEffort"/>
-                        <if-compare field-name="tabButtonItem" operator="equals" value="find"/>
+                        <if-compare field="tabButtonItem" operator="equals" value="find"/>
                     </and>
                 </or>
             </condition>
@@ -344,7 +344,7 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_ON_HOLD"/>
@@ -353,7 +353,7 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>                    
-                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
             <link target="setTaskStatusToComplete?workEffortId=${workEffortId}"/>
@@ -362,7 +362,7 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CREATED"/>
@@ -371,7 +371,7 @@
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
@@ -397,7 +397,7 @@
             <condition>
                 <and>
                     <not><if-empty field="timesheet"/></not>
-                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
             <link target="TimeSheetStatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
@@ -406,7 +406,7 @@
             <condition>
                 <and>
                     <not><if-empty field="timesheet"/></not>
-                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                 </and>
             </condition>
             <link target="TimeSheetStatustoProgress?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_IN_PROCESS"/>
@@ -418,7 +418,7 @@
             <condition>
                 <and>
                     <not><if-empty field="timesheet"/></not>
-                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
             <link target="myTimeSheetStatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
@@ -456,8 +456,8 @@
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="EditRequest?custRequestId=${parameters.custRequestId}"/>
@@ -466,8 +466,8 @@
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
@@ -476,7 +476,7 @@
     <menu name="TimesheetBar">
         <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
-                <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
             </condition>
             <link target="${my}StatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
@@ -487,8 +487,8 @@
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
@@ -497,8 +497,8 @@
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>

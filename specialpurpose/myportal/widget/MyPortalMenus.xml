@@ -42,14 +42,14 @@ under the License.
         </menu-item>
         <menu-item name="openEvents" title="${uiLabelMap.MyPortalOpenEvents}">
             <condition>
-                <if-compare field-name="parameters.all" operator="equals" value="true" />
+                <if-compare field="parameters.all" operator="equals" value="true" />
             </condition>
             <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=false" />
         </menu-item>
         <menu-item name="allOtherEvents" title="${uiLabelMap.MyPortalAllEvents}">
             <condition>
                 <or>
-                    <if-compare field-name="parameters.all" operator="equals" value="false" />
+                    <if-compare field="parameters.all" operator="equals" value="false" />
                     <if-empty field="parameters.all"/>
                 </or>
             </condition>
@@ -65,8 +65,8 @@ under the License.
         <menu-item name="setToComplete" title="${uiLabelMap.MyPortalToComplete}">
             <condition>
                 <and>
-                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
-                    <if-compare field-name="headerItem" operator="equals" value="main"/>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field="headerItem" operator="equals" value="main"/>
                 </and>
             </condition>
             <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
@@ -74,8 +74,8 @@ under the License.
         <menu-item name="setToCompleteKey" title="${uiLabelMap.MyPortalToComplete}">
             <condition>
                 <and>
-                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
-                    <if-compare field-name="headerItem" operator="not-equals" value="main"/>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field="headerItem" operator="not-equals" value="main"/>
                 </and>
             </condition>
             <link target="statusToCompleteKey?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
@@ -109,7 +109,7 @@ under the License.
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
-                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
@@ -121,7 +121,7 @@ under the License.
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
-                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
@@ -142,7 +142,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="communicationEventRole"/></not>
-                    <if-compare field-name="communicationEvent.statusId" operator="equals" value="COM_ROLE_READ"/>
+                    <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ROLE_READ"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>
@@ -152,7 +152,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
-                    <if-compare field-name="commEvent.statusId" operator="equals" value="COM_PENDING"/>
+                    <if-compare field="commEvent.statusId" operator="equals" value="COM_PENDING"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                 </and>
             </condition>
@@ -181,8 +181,8 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
@@ -191,8 +191,8 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
