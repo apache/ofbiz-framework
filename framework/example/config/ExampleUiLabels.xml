@@ -48,19 +48,30 @@
         <value xml:lang="zh">OFBiz: 样例</value>
     </property>
     <property key="ExampleCompanySubtitle">
-        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value><!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
         <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value><!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value><!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
-        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value><!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
-        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value><!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value--><!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
-        <value xml:lang="ru">Входит в состав семейства Open For Business</value><!--value xml:lang="ru">Часть семейства ПО Open For Business</value--><!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
-        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value><!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
-        <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
+        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
+        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <value xml:lang="ru">Входит в состав семейства Open For Business</value>
+        <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="ExampleExampleId">
@@ -219,7 +230,6 @@
         <value xml:lang="th">ยินดีต้อนรับสู่ตัวอย่างโปรแกรม!</value>
         <value xml:lang="zh">欢迎使用样例应用！</value>
     </property>
-
     <!-- Page Titles -->
     <property key="PageTitleFindExample">
         <value xml:lang="en">Find Example</value>
@@ -299,7 +309,6 @@
         <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
         <value xml:lang="zh">查找样例特征</value>
     </property>
-
     <!-- Form Field Labels -->
     <property key="FormFieldTitle_exampleName">
         <value xml:lang="en">Example Name</value>
