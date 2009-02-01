@@ -162,7 +162,7 @@ public class FreeMarkerWorker {
         renderTemplate(template, context, outWriter);
     }
  
-    public static void renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
+    public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = cachedTemplates.get(templateLocation);
         if (template == null) {
             synchronized (cachedTemplates) {
@@ -176,7 +176,7 @@ public class FreeMarkerWorker {
             }
         }
         
-        renderTemplate(template, context, outWriter);
+        return renderTemplate(template, context, outWriter);
     }
  
     /**
@@ -185,7 +185,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(Template template, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
+    public static Environment renderTemplate(Template template, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         // make sure there is no "null" string in there as FreeMarker will try to use it
         context.remove("null");
         // Since the template cache keeps a single instance of a Template that is shared among users,
@@ -198,6 +198,7 @@ public class FreeMarkerWorker {
         Environment env = template.createProcessingEnvironment(context, (Writer)outWriter);
         applyUserSettings(env, context);
         env.process();
+        return env;
     }
     
     /**
