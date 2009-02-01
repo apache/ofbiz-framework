@@ -385,7 +385,7 @@ public class UtilProperties implements java.io.Serializable {
 
         ResourceBundle bundle = getResourceBundle(resource, locale);
 
-        if (bundle == null) return "";
+        if (bundle == null) return name;
 
         String value = null;
         try {
@@ -393,7 +393,7 @@ public class UtilProperties implements java.io.Serializable {
         } catch (Exception e) {
             //Debug.log(e.getMessage(), module);
         }
-        return value == null ? "" : value.trim();
+        return value == null ? name : value.trim();
     }
 
     /** Returns the value of the specified property name from the specified resource/properties file corresponding
