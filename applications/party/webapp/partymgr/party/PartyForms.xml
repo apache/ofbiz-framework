@@ -346,12 +346,12 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyRate" filter-by-date="true">
-                <condition-expr field-name="partyId" env-name="partyId"/>
+                <condition-expr field-name="partyId" from-field="partyId"/>
                 <order-by field-name="rateTypeId"/>
             </entity-condition>
         </actions>
         <row-actions>
-            <service service-name="getRateAmount" result-map-name="rateResult"/>
+            <service service-name="getRateAmount" result-map="rateResult"/>
             <set field="rateDefaultAmount" from-field="rateResult.rateAmount"/>
             <set field="periodTypeId" from-field="rateResult.periodTypeId"/>
             <set field="rateCurrencyUomId" from-field="rateResult.rateCurrencyUomId"/>
@@ -493,11 +493,11 @@ under the License.
     <form name="AddPartyContent" target="updatePartyContent" type="upload" default-map-name="content"
         focus-field-name="contentTypeId" header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="content.statusId"/>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="content.statusId"/>
             </entity-one>
-            <entity-one entity-name="DataResource" value-name="dataResource" auto-field-map="false">
-                <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+            <entity-one entity-name="DataResource" value-field="dataResource" auto-field-map="false">
+                <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
         </actions>
         
@@ -625,8 +625,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
         paginate="true"  view-size="3" paginate-target="viewprofile" paginate-target-anchor="ListCarrierAccounts">
         <actions>
-            <entity-condition entity-name="PartyCarrierAccount" list-name="carrierAccounts" filter-by-date="true">
-                <condition-expr field-name="partyId" env-name="parameters.partyId"></condition-expr>
+            <entity-condition entity-name="PartyCarrierAccount" list="carrierAccounts" filter-by-date="true">
+                <condition-expr field-name="partyId" from-field="parameters.partyId"></condition-expr>
                 <order-by field-name="fromDate"/>                
             </entity-condition>
         </actions>
@@ -911,8 +911,8 @@ under the License.
     <form name="ListPreference" type="list" target="updatePreference?partyId=${partyId}" list-name="userPreferenceList" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
-            <service service-name="getUserPreference" result-map-name="values">
-                <field-map field-name="userPrefTypeId" env-name="enumId"/>
+            <service service-name="getUserPreference" result-map="values">
+                <field-map field-name="userPrefTypeId" from-field="enumId"/>
             </service>
             <set field="partyId" from-field="values.userPrefValue"/>
             <set field="visualThemeId" from-field="values.userPrefValue"/>

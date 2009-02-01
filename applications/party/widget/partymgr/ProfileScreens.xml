@@ -23,21 +23,21 @@
     <screen name="Party">
         <section>
             <actions>
-                <entity-and entity-name="PartyNameHistory" list-name="partyNameHistoryList">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="PartyNameHistory" list="partyNameHistoryList">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="-changeDate"/>
                 </entity-and>
-                <entity-one entity-name="PartyAndGroup" value-name="lookupGroup">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
+                <entity-one entity-name="PartyAndGroup" value-field="lookupGroup">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/><!-- is required -->
                 </entity-one>
-                <entity-one entity-name="PartyAndPerson" value-name="lookupPerson">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
+                <entity-one entity-name="PartyAndPerson" value-field="lookupPerson">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/><!-- is required -->
                 </entity-one>
             </actions>
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="lookupPerson"/></not>
+                        <not><if-empty field="lookupPerson"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -50,7 +50,7 @@
                                     <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>
-                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                            <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
                                             <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -63,7 +63,7 @@
                                     <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>
-                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                            <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
                                             <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -76,7 +76,7 @@
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field-name="lookupGroup"/></not>
+                        <not><if-empty field="lookupGroup"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -89,7 +89,7 @@
                                     <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>
-                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                            <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
                                             <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -102,7 +102,7 @@
                                     <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     <section>
                                         <condition>
-                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                            <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
                                             <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -150,8 +150,8 @@
     <screen name="Attributes">
         <section>
             <actions>
-                <entity-and entity-name="PartyAttribute" list-name="attributes">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="PartyAttribute" list="attributes">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -167,8 +167,8 @@
     <screen name="AvsSettings">
         <section>
             <actions>
-                <entity-and entity-name="PartyIcsAvsOverride" list-name="avsOverride">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="PartyIcsAvsOverride" list="avsOverride">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -214,8 +214,8 @@
     <screen name="UserLogin">
         <section>
             <actions>
-                <entity-and entity-name="UserLogin" list-name="userLogins">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="UserLogin" list="userLogins">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -231,8 +231,8 @@
     <screen name="Visits">
         <section>
             <actions>
-                <entity-and entity-name="Visit" list-name="visits">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="Visit" list="visits">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="-fromDate"/>
                     <limit-range start="0" size="5"/>
                 </entity-and>
@@ -251,8 +251,8 @@
         <section>
             <actions>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
-                <entity-condition entity-name="FinAccount" list-name="ownedFinAccountList" filter-by-date="true">
-                    <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                <entity-condition entity-name="FinAccount" list="ownedFinAccountList" filter-by-date="true">
+                    <condition-expr field-name="ownerPartyId" operator="equals" from-field="parameters.partyId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
             </actions>
@@ -260,7 +260,7 @@
                 <section>
                     <condition>
                         <and>
-                            <not><if-empty field-name="ownedFinAccountList"/></not>
+                            <not><if-empty field="ownedFinAccountList"/></not>
                             <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
                         </and>
                     </condition>
@@ -270,27 +270,27 @@
                                 <label style="h3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
                             </container>
                             <container style="screenlet-body">
-                                <iterate-section entry-name="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list-name="ownedFinAccountList">
+                                <iterate-section entry="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list="ownedFinAccountList">
                                     <section>
                                         <actions>
-                                            <entity-condition entity-name="FinAccountTrans" list-name="ownedFinAccountTransList">
-                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                            <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
+                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
                                                 <order-by field-name="-transactionDate"/>
                                                 <limit-range start="0" size="5"/>
                                             </entity-condition>
-                                            <entity-condition entity-name="FinAccountAuth" list-name="ownedFinAccountAuthList" filter-by-date="true">
-                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                            <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
+                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
                                                 <order-by field-name="-authorizationDate"/>
                                                 <limit-range start="0" size="5"/>
                                             </entity-condition>
-                                            <entity-one entity-name="Uom" value-name="accountCurrencyUom" auto-field-map="false" use-cache="true">
-                                                <field-map field-name="uomId" env-name="ownedFinAccount.currencyUomId"/>
+                                            <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
                                             </entity-one>
-                                            <entity-one entity-name="StatusItem" value-name="finAccountStatusItem">
-                                                <field-map field-name="statusId" env-name="ownedFinAccount.statusId"/>
+                                            <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
+                                                <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
                                             </entity-one>
-                                            <entity-one entity-name="FinAccountType" value-name="ownedFinAccountType" auto-field-map="false" use-cache="true">
-                                                <field-map field-name="finAccountTypeId" env-name="ownedFinAccount.finAccountTypeId"/>
+                                            <entity-one entity-name="FinAccountType" value-field="ownedFinAccountType" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="finAccountTypeId" from-field="ownedFinAccount.finAccountTypeId"/>
                                             </entity-one>
                                         </actions>
                                         <widgets>
@@ -320,10 +320,10 @@
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
+                <entity-condition entity-name="InventoryItem" list="inventoryItemList">
                     <condition-list>
                         <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
-                        <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                        <condition-expr field-name="ownerPartyId" operator="equals" from-field="parameters.partyId"/>
                     </condition-list>
                     <order-by field-name="-createdStamp"/>
                 </entity-condition>
@@ -332,7 +332,7 @@
                 <section>
                     <condition>
                         <not>
-                            <if-empty field-name="inventoryItemList"/>
+                            <if-empty field="inventoryItemList"/>
                         </not>
                     </condition>
                     <widgets>
@@ -352,9 +352,9 @@
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition entity-name="Subscription" list-name="subscriptionList" filter-by-date="true">
+                <entity-condition entity-name="Subscription" list="subscriptionList" filter-by-date="true">
                     <condition-list>
-                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId"/>
                     </condition-list>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
@@ -363,7 +363,7 @@
                 <section>
                     <condition>
                         <not>
-                            <if-empty field-name="subscriptionList"/>
+                            <if-empty field="subscriptionList"/>
                         </not>
                     </condition>
                     <widgets>
@@ -379,14 +379,14 @@
     <screen name="Content">
         <section>
             <actions>
-                <entity-condition entity-name="PartyContentType" list-name="partyContentTypes">
+                <entity-condition entity-name="PartyContentType" list="partyContentTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="MimeType" list-name="mimeTypes">
+                <entity-condition entity-name="MimeType" list="mimeTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="mimeTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="RoleType" list-name="roles">
+                <entity-condition entity-name="RoleType" list="roles">
                     <order-by field-name="description"/>
                     <order-by field-name="roleTypeId"/>
                 </entity-condition>
@@ -406,8 +406,8 @@
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-and entity-name="PartyContent" list-name="partyContent">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="PartyContent" list="partyContent">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -423,8 +423,8 @@
     <screen name="Notes">
         <section>
             <actions>
-                <entity-and entity-name="PartyNoteView" list-name="notes">
-                    <field-map field-name="targetPartyId" env-name="parameters.partyId"/>
+                <entity-and entity-name="PartyNoteView" list="notes">
+                    <field-map field-name="targetPartyId" from-field="parameters.partyId"/>
                     <order-by field-name="-noteDateTime"/>
                 </entity-and>
             </actions>
@@ -456,13 +456,13 @@
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-and list-name="contacts" entity-name="PartyRelationship">
-                    <field-map field-name="partyIdFrom" env-name="parameters.partyId"/>
+                <entity-and list="contacts" entity-name="PartyRelationship">
+                    <field-map field-name="partyIdFrom" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 </entity-and>
-                <entity-and list-name="accounts" entity-name="PartyRelationship">
-                    <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
+                <entity-and list="accounts" entity-name="PartyRelationship">
+                    <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 </entity-and>
@@ -470,7 +470,7 @@
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="contacts"/></not>
+                        <not><if-empty field="contacts"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-form-name="ListContacts">
@@ -480,7 +480,7 @@
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field-name="accounts"/></not>
+                        <not><if-empty field="accounts"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-form-name="ListAccounts">
@@ -495,7 +495,7 @@
     <screen name="mytasks">
         <section>
             <condition>
-                <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId"/>
+                <if-compare-field field="parameters.partyId" operator="equals" to-field="userLogin.partyId"/>
             </condition>
             <actions>
                 <service service-name="getWorkEffortAssignedActivities"/>

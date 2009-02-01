@@ -50,7 +50,7 @@ under the License.
         paginate-target="EditSecurityGroupPermissions" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SecurityGroupPermission">
-                <condition-expr field-name="groupId" env-name="groupId"/>
+                <condition-expr field-name="groupId" from-field="groupId"/>
                 <order-by field-name="permissionId"/>
             </entity-condition>
         </actions>
@@ -89,7 +89,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
-                <condition-expr field-name="groupId" env-name="groupId"/>
+                <condition-expr field-name="groupId" from-field="groupId"/>
                 <order-by field-name="userLoginId"/>
             </entity-condition>
         </actions>
@@ -121,7 +121,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
-                <condition-expr field-name="userLoginId" env-name="userLoginId"/>
+                <condition-expr field-name="userLoginId" from-field="userLoginId"/>
                 <order-by field-name="groupId"/>
             </entity-condition>
         </actions>
@@ -160,7 +160,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ProtectedView">
-                <condition-expr field-name="groupId" env-name="groupId"/>
+                <condition-expr field-name="groupId" from-field="groupId"/>
                 <order-by field-name="viewNameId"/>
             </entity-condition>
         </actions>

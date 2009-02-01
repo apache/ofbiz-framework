@@ -20,31 +20,31 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="CommEventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Find" title="${uiLabelMap.CommonFind}">
-            <condition><if-compare field-name="tabButtonItem" operator="not-equals" value="Find"/></condition>
+            <condition><if-compare field="tabButtonItem" operator="not-equals" value="Find"/></condition>
             <link target="FindCommunicationEvents"/>
         </menu-item>
         <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="ViewCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="EditCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommPurposes" title="${uiLabelMap.PartyEventPurpose}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="UpdateCommPurposes?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommRoles" title="${uiLabelMap.PartyRoles}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="UpdateCommRoles?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommWorkEfforts" title="${uiLabelMap.PartyCommWorkEfforts}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="ListCommWorkEfforts?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="CommContent" title="${uiLabelMap.CommonContent}">
-            <condition><not><if-empty field-name="parameters.communicationEventId"/></not></condition>
+            <condition><not><if-empty field="parameters.communicationEventId"/></not></condition>
             <link target="ListCommContent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <!-- TODO! 
@@ -83,9 +83,9 @@ under the License.
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
-                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                 </and>
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
@@ -93,9 +93,9 @@ under the License.
         <menu-item name="forward" title="${uiLabelMap.Forward}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
-                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                 </and>
             </condition>
             <link target="EditCommunicationEvent?originalCommEventId=${parameters.communicationEventId}"/>
@@ -103,8 +103,8 @@ under the License.
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                 </and>
             </condition>

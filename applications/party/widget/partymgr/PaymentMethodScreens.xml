@@ -33,8 +33,8 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare field-name="hasPayInfoPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasViewPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasPayInfoPermission" operator="equals" value="true" type="Boolean"/>
                                 </or>
                             </condition>
                             <widgets>
@@ -125,7 +125,7 @@ under the License.
 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
-                <entity-one entity-name="PartyIcsAvsOverride" value-name="avsOverride"/>
+                <entity-one entity-name="PartyIcsAvsOverride" value-field="avsOverride"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

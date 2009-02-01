@@ -43,8 +43,8 @@ under the License.
     <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyInvitation"/>
                 <field-map field-name="orderBy" value="partyInvitationId"/>
             </service>
@@ -90,7 +90,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyInvitationGroupAssoc">
-                <condition-expr field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+                <condition-expr field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
                 <order-by field-name="partyInvitationId"/>
             </entity-condition>
         </actions>
@@ -126,7 +126,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyInvitationRoleAssoc">
-                <condition-expr field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+                <condition-expr field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
                 <order-by field-name="partyInvitationId"/>
             </entity-condition>
         </actions>
