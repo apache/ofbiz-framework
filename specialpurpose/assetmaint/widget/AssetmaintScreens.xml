@@ -95,10 +95,10 @@
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/EditMaint.groovy"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
                 <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
                 <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
                 <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
@@ -218,8 +218,8 @@
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
@@ -243,8 +243,8 @@
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
@@ -266,8 +266,8 @@
                 <set field="tabButtonItemFixedAssetMaint" value="EditItemIssuances"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
                 <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
@@ -298,8 +298,8 @@
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
                 <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>

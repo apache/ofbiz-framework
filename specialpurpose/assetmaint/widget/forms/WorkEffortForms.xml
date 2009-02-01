@@ -24,7 +24,7 @@
     <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+            <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
             <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
         </actions>
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>

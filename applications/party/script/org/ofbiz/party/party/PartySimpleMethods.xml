@@ -81,12 +81,12 @@ under the License.
         </call-service>
 
         <!-- call the service with the system account to get around security constraints for this special create -->
-        <entity-one entity-name="UserLogin" value-name="createUlInMap.userLogin" auto-field-map="false">
+        <entity-one entity-name="UserLogin" value-field="createUlInMap.userLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         
         <call-service service-name="createUserLogin" in-map-name="createUlInMap"/>
-        <entity-one entity-name="UserLogin" value-name="newUserLogin"/>
+        <entity-one entity-name="UserLogin" value-field="newUserLogin"/>
 
         <field-to-result field-name="newUserLogin"/>
         <field-to-result field-name="createUlInMap.partyId" result-name="partyId"/>

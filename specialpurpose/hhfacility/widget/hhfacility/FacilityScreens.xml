@@ -43,7 +43,7 @@ under the License.
         <section>
             <actions>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="parameters.facility"/>
+                <entity-one entity-name="Facility" value-field="parameters.facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDecorator">
@@ -151,7 +151,7 @@ under the License.
         <section>
             <actions>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="focusField" value="productLocation"/>
             </actions>
             <widgets>

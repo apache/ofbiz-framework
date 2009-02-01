@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditComputerHardware"/>
                 <set field="tabButtonItem" value="EditComputerHardware"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -77,7 +77,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditComputerSoftware"/>
                 <set field="headerItem" value="ComputerSoftware"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonComputerSoftwareDecorator" location="${parameters.fixedAssetDecoratorLocation}">

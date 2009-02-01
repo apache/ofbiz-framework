@@ -41,7 +41,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
-                <entity-one entity-name="PortalPage" value-name="portalPage"/>    
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>    
                 <set field="portalPages[]" from-field="portalPage"/>    
                 <set field="portalPageId" from-field="portalPage.portalPageId"/>
                 <set field="parentPortalPageId" from-field="parameters.parentPortalPageId"/>                     
@@ -102,7 +102,7 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
-                <entity-one entity-name="PortalPortlet" value-name="portalPortlet"/>
+                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

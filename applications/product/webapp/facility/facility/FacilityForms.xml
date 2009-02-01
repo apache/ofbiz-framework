@@ -633,10 +633,10 @@ under the License.
     <form name="ToFacilityTransfers" type="list"  target="" title="" list-name="toTransfers"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="InventoryItem" value-name="inventoryItem">
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
-            <entity-one entity-name="Product" value-name="product">
+            <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" env-name="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
@@ -670,10 +670,10 @@ under the License.
     <form name="FromFacilityTransfers" type="list" target="" title="" list-name="fromTransfers"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="InventoryItem" value-name="inventoryItem">
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
-            <entity-one entity-name="Product" value-name="product">
+            <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" env-name="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
@@ -707,10 +707,10 @@ under the License.
     <form name="FromFacilityTransfersComplete" type="multi" target="CompleteRequestedTransfers?completeRequested=true&amp;facilityId=${facilityId}" title="" list-name="fromTransfers"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="InventoryItem" value-name="inventoryItem">
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
-            <entity-one entity-name="Product" value-name="product">
+            <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" env-name="inventoryItem.productId"/>
             </entity-one>
         </row-actions>

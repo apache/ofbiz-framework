@@ -56,7 +56,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="workeffort"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -96,7 +96,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="timesheet"/>
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

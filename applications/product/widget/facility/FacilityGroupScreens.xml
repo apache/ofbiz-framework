@@ -57,7 +57,7 @@ under the License.
         <section>
             <actions>
                 <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
-                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -88,7 +88,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroup"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroup"/>
-                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
@@ -121,7 +121,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroupMembers"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupMembers"/>
-                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
                 <set field="orderByList[]" value="sequenceNum"/>
                 <get-related value-name="facilityGroup" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
             </actions>
@@ -147,7 +147,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroupRoles"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupRoles"/>
-                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
                 <get-related value-name="facilityGroup" relation-name="FacilityGroupRole" list-name="facilityRoles"/>
             </actions>
             <widgets>
@@ -172,7 +172,7 @@ under the License.
                 <set field="tabButtonItem" value="EditFacilityGroupRollup"/>
 
                 <set field="parameters.facilityGroupId" from-field="parameters.showFacilityGroupId" default-value="${parameters.facilityGroupId}"/>
-                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
                 <get-related relation-name="ParentFacilityGroupRollup" value-name="facilityGroup" list-name="parentGroupRollups"/>
                 <get-related relation-name="CurrentFacilityGroupRollup" value-name="facilityGroup" list-name="currentGroupRollups"/>
                 <set field="facilityGroupId" from-field="facilityGroup.facilityGroupId"/>

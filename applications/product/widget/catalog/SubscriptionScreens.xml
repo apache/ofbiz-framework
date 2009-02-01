@@ -67,7 +67,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Subscription"/>
                 <set field="subscriptionId" from-field="parameters.subscriptionId"/>
-                <entity-one entity-name="Subscription" value-name="subscription"/>
+                <entity-one entity-name="Subscription" value-field="subscription"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -109,7 +109,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSubscription"/>
                 <set field="tabButtonItem" value="EditSubscription"/>
                 <set field="subscriptionId" from-field="parameters.subscriptionId"/>
-                <entity-one entity-name="Subscription" value-name="subscription"/>
+                <entity-one entity-name="Subscription" value-field="subscription"/>
             </actions>
             <widgets>
                 <section>
@@ -189,7 +189,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Subscription"/>
                 <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
-                <entity-one entity-name="SubscriptionResource" value-name="subscriptionResource"/>
+                <entity-one entity-name="SubscriptionResource" value-field="subscriptionResource"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -234,7 +234,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSubscriptionResource"/>
                 <set field="tabButtonItem" value="EditSubscriptionResource"/>
                 <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
-                <entity-one entity-name="SubscriptionResource" value-name="subscriptionResource"/>
+                <entity-one entity-name="SubscriptionResource" value-field="subscriptionResource"/>
             </actions>
             <widgets>
                 <section>

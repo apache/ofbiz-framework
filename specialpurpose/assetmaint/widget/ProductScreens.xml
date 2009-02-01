@@ -54,10 +54,10 @@
                 <set field="labelTitleProperty" value="ProductMaintenance"/>
                 <set field="tabButtonItem" value="EditProductMaints"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="productName" from-field="product.productName"/>                
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">

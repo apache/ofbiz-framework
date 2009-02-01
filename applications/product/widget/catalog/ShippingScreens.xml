@@ -36,7 +36,7 @@ under the License.
                 <entity-condition entity-name="QuantityBreak" list-name="quantityBreaks">
                     <order-by field-name="quantityBreakId"/>
                 </entity-condition>
-                <entity-one entity-name="QuantityBreak" value-name="quantityBreak" auto-field-map="true"/>
+                <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
@@ -89,7 +89,7 @@ under the License.
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-one entity-name="ShipmentMethodType" value-name="shipmentMethodType" auto-field-map="true"/>
+                <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
@@ -142,7 +142,7 @@ under the License.
                 <entity-condition entity-name="CarrierShipmentMethod" list-name="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
-                <entity-one entity-name="CarrierShipmentMethod" value-name="carrierShipmentMethod" auto-field-map="true"/>
+                <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">

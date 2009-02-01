@@ -82,7 +82,7 @@ under the License.
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
                 </entity-and>
-                <entity-one entity-name="WorkEffort" value-name="task">
+                <entity-one entity-name="WorkEffort" value-field="task">
                     <field-map field-name="workEffortId" value="dummy"/>
                 </entity-one>
                 <set field="myTask" value="notNull"/>
@@ -198,7 +198,7 @@ under the License.
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>                
-                <entity-one entity-name="WorkEffort" value-name="task"/>    
+                <entity-one entity-name="WorkEffort" value-field="task"/>    
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
@@ -227,8 +227,8 @@ under the License.
                 <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="WorkEffort" value-name="task"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+                <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -312,7 +312,7 @@ under the License.
                 <set field="workEffortId" from-field="workEffortIdFrom" default-value="${workEffort.workEffortId}"/>
                 <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="treeDetails"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>                
             </actions>
             <widgets> 
@@ -338,7 +338,7 @@ under the License.
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
                 <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
                 <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
@@ -560,8 +560,8 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTask"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-one entity-name="PartyNameView" value-name="partyName">
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName">
                     <field-map field-name="partyId" env-name="custRequest.fromPartyId"/>
                 </entity-one>
                 </actions>
@@ -592,7 +592,7 @@ under the License.
                 <set field="tabButtonItem" value="taskContent"/>
                 <set field="headerItem" value="EditTaskContents"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="Content" value-field="content"/>
                 <set field="workEffortId" from-field="parameters.workEffortId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">
                     <field-map field-name="workEffortId" env-name="workEffortId"/>

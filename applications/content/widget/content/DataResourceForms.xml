@@ -138,7 +138,7 @@ under the License.
     <form name="EditDataResource" target="updateDataResource" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="currentValue.statusId"/>
             </entity-one>
         </actions>
@@ -435,7 +435,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <!--auto-fields-service service-name="updateElectronicText"/-->
         <actions>
-            <entity-one entity-name="ElectronicText" value-name="electronicText"/>
+            <entity-one entity-name="ElectronicText" value-field="electronicText"/>
         </actions>
         <alt-target use-when="electronicText==null" target="addElectronicText"/>
         <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display also-hidden="true"/></field>
@@ -455,7 +455,7 @@ under the License.
     <form name="EditHtmlText" target="updateHtmlText" title="" type="single" default-map-name="electronicText"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="ElectronicText" value-name="electronicText"/>
+            <entity-one entity-name="ElectronicText" value-field="electronicText"/>
         </actions>
         <alt-target use-when="electronicText==null" target="addHtmlText"/>
         <auto-fields-entity entity-name="ElectronicText"/>

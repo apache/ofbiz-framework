@@ -30,7 +30,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/request/RequestList.groovy"/>
             </actions>
             <widgets>

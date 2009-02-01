@@ -153,7 +153,7 @@ under the License.
             <actions>
                 <set field="workEffortId" from-field="workEffortIdFrom" default-value="${workEffort.workEffortId}"/>
                 <set field="tabButtonItem" value="treeDetails"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>                
             </actions>
             <widgets> 
@@ -182,8 +182,8 @@ under the License.
                 <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="WorkEffort" value-name="project"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -286,7 +286,7 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <entity-one entity-name="WorkEffort" value-name="task"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -365,7 +365,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="projectId" from-field="workEffortId"/>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -453,7 +453,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="noteId" from-field="parameters.noteId"/>
-                <entity-one entity-name="WorkEffortNoteAndData" value-name="workEffortNoteAndData"/>
+                <entity-one entity-name="WorkEffortNoteAndData" value-field="workEffortNoteAndData"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -677,7 +677,7 @@ under the License.
                 <set field="project" from-field="result.projectInfo"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="projectId" from-field="workEffortId"/>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
             </actions>
             <widgets>               
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -730,7 +730,7 @@ under the License.
                 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndPerson" value-name="person"/>
+                <entity-one entity-name="PartyAndPerson" value-field="person"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -825,9 +825,9 @@ under the License.
                 <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
                 <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
                 
-                <entity-one entity-name="Party" use-cache="true" value-name="party"/>
-                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="Party" use-cache="true" value-field="party"/>
+                <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
             </actions>
             <widgets>
@@ -978,7 +978,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-name="editUserLogin"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1001,7 +1001,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
                 
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-name="editUserLogin"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${editUserLogin.partyId}"/>
             </actions>
             <widgets>
@@ -1027,7 +1027,7 @@ under the License.
                 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndGroup" value-name="partyGroup"/>
+                <entity-one entity-name="PartyAndGroup" value-field="partyGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1046,7 +1046,7 @@ under the License.
                 <set field="tabButtonItem" value="projectContent"/>
                 <set field="headerItem" value="EditProjectContents"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="Content" value-field="content"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">

@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="labelTitleProperty" value="ExampleExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
-                <entity-one entity-name="Example" value-name="example"/>
+                <entity-one entity-name="Example" value-field="example"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">

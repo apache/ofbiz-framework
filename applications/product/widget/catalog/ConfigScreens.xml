@@ -102,7 +102,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductConfigItem"/>
                 
                 <set field="configItemId" from-field="parameters.configItemId"/>
-                <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
@@ -135,13 +135,13 @@ under the License.
                 <set field="labelTitleProperty" value="ProductConfigOptions"/>
                 
                 <set field="configItemId" from-field="parameters.configItemId"/>
-                <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
 
                 <set field="configOptionId" from-field="parameters.configOptionId"/>
-                <entity-one entity-name="ProductConfigOption" value-name="configOption" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigOption" value-field="configOption" auto-field-map="true"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="ProductConfigProduct" value-name="productConfigProduct" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigProduct" value-field="productConfigProduct" auto-field-map="true"/>
 
                 <entity-condition entity-name="ProductConfigOption" list-name="configOptionList">
                     <condition-expr field-name="configItemId" env-name="configItemId"/>
@@ -197,7 +197,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductContent"/>
                 
                 <set field="configItemId" from-field="parameters.configItemId"/>
-                <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
                 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContent.groovy"/>
             </actions>
@@ -221,7 +221,7 @@ under the License.
                 <set field="labelTitleProperty" value=""/>
                 
                 <set field="configItemId" from-field="parameters.configItemId"/>
-                <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
+                <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
 
                 <set field="fromDate" from-field="requetParameters.fromDate" type="Timestamp"/>
                 

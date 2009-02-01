@@ -193,7 +193,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindFacilityTransfers"/>
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityTransfers.groovy"/>
             </actions>
             <widgets>
@@ -253,7 +253,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="FindFacilityLocation"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityLocation.groovy"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleFindFacilityLocation}"/>
             </actions>
@@ -274,7 +274,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="FindFacilityLocation"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityLocation.groovy"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleNewFacilityLocation}"/>
             </actions>
@@ -304,7 +304,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityInventoryItems}"/>
             </actions>
@@ -342,7 +342,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <entity-condition entity-name="InventoryItemLabelType" list-name="labelTypes"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindInventoryItemsByLabels.groovy"/>
             </actions>
@@ -399,7 +399,7 @@ under the License.
                 <set field="statusId" from-field="parameters.statusId"/>
                 <!-- do not use the CountFacilityInventoryByProduct.groovy script unless the issues mentioned in it are correctly addressed -->
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.groovy"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
             </actions>
@@ -521,7 +521,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -625,7 +625,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 
-                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
@@ -657,7 +657,7 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleInventoryItemGrandTotals}"/>
@@ -685,7 +685,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10000"/>
                 
-                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
@@ -708,7 +708,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
                 <set field="orderByList[]" value="sequenceNum"/> 
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related value-name="facility" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityGroups}"/>
@@ -740,7 +740,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="orderByList[]" value="partyId"/> 
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related value-name="facility" relation-name="FacilityParty" list-name="facilityParties" order-by-list-name="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityParties}"/>
@@ -770,7 +770,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewContactMechs"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewContactMechs.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleViewFacilityContactMechanism}"/>
             </actions>
@@ -792,7 +792,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewContactMechs"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditContactMech.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleNewFacilityContactMech}"/>
             </actions>
@@ -827,8 +827,8 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/> 
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
                 
-                <entity-one entity-name="Facility" value-name="facility" auto-field-map="true"/>
-                <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
+                <entity-one entity-name="Facility" value-field="facility" auto-field-map="true"/>
+                <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
                 <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="inventoryItemReservations">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
@@ -849,7 +849,7 @@ under the License.
                     <actions>
                         <set field="parameters.facilityId" from-field="inventoryItem.facilityId"/>
                         <set field="facilityId" from-field="inventoryItem.facilityId"/>
-                        <entity-one entity-name="Facility" value-name="facility"/>
+                        <entity-one entity-name="Facility" value-field="facility"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -1043,7 +1043,7 @@ under the License.
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/TransferInventoryItem.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleTransferInventoryItem}"/>
             </actions>
@@ -1065,7 +1065,7 @@ under the License.
                 <set field="tabButtonItem" value="ReceiveInventory"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/ReceiveInventory.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.ProductReceiveInventory}"/>
             </actions>
@@ -1295,8 +1295,8 @@ under the License.
                 </entity-condition>
 
                 <!-- get the default facility Uom -->
-                <entity-one entity-name="Facility" value-name="facility"/>
-                <entity-one entity-name="Uom" value-name="defaultWeightUom" use-cache="true" auto-field-map="false">
+                <entity-one entity-name="Facility" value-field="facility"/>
+                <entity-one entity-name="Uom" value-field="defaultWeightUom" use-cache="true" auto-field-map="false">
                     <field-map env-name="facility.defaultWeightUomId" field-name="uomId"/>
                 </entity-one>
             </actions>

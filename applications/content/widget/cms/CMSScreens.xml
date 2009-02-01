@@ -62,10 +62,10 @@ under the License.
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditCMSContent"/>
-                <entity-one entity-name="Content" value-name="currentValue">
+                <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>
-                <entity-one entity-name="ElectronicText" value-name="electronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" env-name="parameters.drDataResourceId"/>
                 </entity-one>
                 <set field="textData" from-field="electronicText.textData"/>

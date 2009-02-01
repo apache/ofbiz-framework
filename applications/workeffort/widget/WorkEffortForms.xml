@@ -1062,10 +1062,10 @@ under the License.
             </entity-and>
         </actions>
         <row-actions>
-            <entity-one entity-name="ContactMech" value-name="contactMech"/>
+            <entity-one entity-name="ContactMech" value-field="contactMech"/>
             <set field="contactMechTypeId" from-field="contactMech.contactMechTypeId"/>
-            <entity-one entity-name="PostalAddress" value-name="postalAddress"/>
-            <entity-one entity-name="TelecomNumber" value-name="telecomNumber"/>
+            <entity-one entity-name="PostalAddress" value-field="postalAddress"/>
+            <entity-one entity-name="TelecomNumber" value-field="telecomNumber"/>
         </row-actions>
         <field name="workEffortId"><hidden/></field>
         <field name="contactMechTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ContactMechType"/></field>

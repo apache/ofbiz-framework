@@ -54,10 +54,10 @@ under the License.
                 <set field="headerItem" value="request"/>
                 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 
                 <set field="statusId" from-field="custRequest.statusId"/>
-                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -80,7 +80,7 @@ under the License.
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
                 <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
                 <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>

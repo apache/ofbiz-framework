@@ -23,7 +23,7 @@ under the License.
     <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
-            <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
@@ -32,7 +32,7 @@ under the License.
             </sub-node>
         </node>
         <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
-            <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
@@ -46,7 +46,7 @@ under the License.
     <tree name="TreeTaskWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
-            <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
@@ -55,7 +55,7 @@ under the License.
             </sub-node>
         </node>
         <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
-            <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>

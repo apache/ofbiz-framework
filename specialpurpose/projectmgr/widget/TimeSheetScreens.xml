@@ -104,7 +104,7 @@ under the License.
                 <set field="headerItem" value="timesheet"/>
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -132,7 +132,7 @@ under the License.
                 <set field="headerItem" value="timesheet"/>
                 <set field="tabButtonItem" value="addtimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -182,7 +182,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTimesheetEntries"/>
                 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -213,7 +213,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTimesheetRoles"/>
                 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -272,7 +272,7 @@ under the License.
     <screen name="ListTimesheets">
         <section>
             <actions>
-                <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                <entity-one entity-name="PartyNameView" value-field="partyNameView">
                     <field-map field-name="partyId" env-name="timesheet.partyId"/>
                 </entity-one>
             </actions>

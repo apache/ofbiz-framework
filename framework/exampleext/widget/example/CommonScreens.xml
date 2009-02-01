@@ -37,7 +37,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Example"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
-                <entity-one entity-name="Example" value-name="example"/>
+                <entity-one entity-name="Example" value-field="example"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">

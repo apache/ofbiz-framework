@@ -98,7 +98,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditSurvey"/>
 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
@@ -154,7 +154,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditSurveyMultiResps"/>
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
                 <entity-condition entity-name="SurveyMultiResp" list-name="surveyMultiRespList">
                     <condition-expr field-name="surveyId" env-name="surveyId"/>
                     <order-by field-name="surveyMultiRespId"/>
@@ -227,7 +227,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
                 
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyQuestions.groovy"/>
             </actions>
@@ -263,7 +263,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
@@ -324,7 +324,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleViewSurveyResponses"/>
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
                 
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/ViewSurveyResponses.groovy"/>
             </actions>
@@ -363,10 +363,10 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditSurveyResponse"/>
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-one entity-name="Survey" value-field="survey"/>
                 
                 <set field="surveyResponseId" from-field="parameters.surveyResponseId"/>
-                <entity-one entity-name="SurveyResponse" value-name="surveyResponse"/>
+                <entity-one entity-name="SurveyResponse" value-field="surveyResponse"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyResponse.groovy"/>
             </actions>
             <widgets>
