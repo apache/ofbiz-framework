@@ -54,7 +54,7 @@ under the License.
                 <section>
                     <condition><not><if-empty field="userLogin"/></not></condition>
                     <actions>
-                        <service service-name="getUserPreferenceGroup" result-map-name="preferences">
+                        <service service-name="getUserPreferenceGroup" result-map="preferences">
                             <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                         </service>
                     </actions>
@@ -115,7 +115,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="${parameters.donePage}"/>
                 <entity-one entity-name="CommunicationEvent" value-field="commEvent">
-                    <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-one>
                 <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
             </actions>
@@ -327,7 +327,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
-                <service service-name="getUserPreferenceGroup" result-map-name="preferences">
+                <service service-name="getUserPreferenceGroup" result-map="preferences">
                     <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
             </actions>

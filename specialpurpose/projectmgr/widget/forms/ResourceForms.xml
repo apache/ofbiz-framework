@@ -27,8 +27,8 @@
     <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getPartyEmail" result-map-name="emailResult"/>
-            <service service-name="getPartyTelephone" result-map-name="telResult"/>
+            <service service-name="getPartyEmail" result-map="emailResult"/>
+            <service service-name="getPartyTelephone" result-map="telResult"/>
         </row-actions>
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>

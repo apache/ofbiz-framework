@@ -29,8 +29,8 @@ under the License.
                 <set field="contentId" from-field="parameters.rootContentId" default-value="${parameters.contentId}"/>
                 <set field="contentRevisionSeqId" from-field="parameters.rootContentRevisionSeqId" default-value="${parameters.contentRevisionSeqId}"/>
 
-                <service service-name="getMostRecentRevision" result-map-name="revisionResult">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
+                <service service-name="getMostRecentRevision" result-map="revisionResult">
+                    <field-map field-name="contentId" from-field="rootContentId"/>
                 </service>        
                 <set field="mostRecentRevisionSeqId" from-field="revisionResult.mostRecentRevisionSeqId"/>
                 
@@ -38,9 +38,9 @@ under the License.
                 <set field="currentMenuItemName" value="approval"/>
                 <entity-one entity-name="Content" value-field="content" use-cache="true"/>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
-                <service service-name="getApprovalsWithPermissions" result-map-name="result">
-                    <field-map field-name="rootContentId" env-name="contentId"/>
-                    <field-map field-name="contentRevisionSeqId" env-name="contentRevisionSeqId"/>
+                <service service-name="getApprovalsWithPermissions" result-map="result">
+                    <field-map field-name="rootContentId" from-field="contentId"/>
+                    <field-map field-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
                     <field-map field-name="checkPermission" value="false"/>
                 </service>
                 
@@ -117,7 +117,7 @@ under the License.
                 <set field="titleProperty" value="ContentCompDocViewWaitingApprovals"/>
                 <set field="menuName" value="tree"/>
                 <set field="currentMenuItemName" value="approval"/>
-                <service service-name="checkForWaitingApprovals" result-map-name="result">
+                <service service-name="checkForWaitingApprovals" result-map="result">
                 </service>
                 
                 <set field="contentApprovalList" from-field="result.contentApprovalList"/>
@@ -154,12 +154,12 @@ under the License.
                 <set field="currentMenuItemName" value="approval"/>
                  
                 <entity-one entity-name="ContentApproval" value-field="contentApproval" use-cache="true">
-                    <field-map env-name="parameters.contentApprovalId" field-name="contentApprovalId"/>
+                    <field-map from-field="parameters.contentApprovalId" field-name="contentApprovalId"/>
                 </entity-one>
                 <set from-field="contentApproval.contentId" field="rootContentId"/>
                 <set from-field="contentApproval.contentRevisionSeqId" field="rootContentRevisionSeqId"/>
                 <entity-one entity-name="Content" value-field="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="contentApproval.contentId"/>
+                    <field-map field-name="contentId" from-field="contentApproval.contentId"/>
                 </entity-one>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditContentApprovalEditPage} ${contentApproval.contentApprovalId}"/>
@@ -202,11 +202,11 @@ under the License.
                 <set field="currentMenuItemName" value="revision"/>
 
                 <entity-one entity-name="Content" value-field="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="contentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <entity-and entity-name="ContentRevision" list-name="contentRevisionList" use-cache="true">
-                    <field-map env-name="contentId" field-name="contentId"/>
+                    <field-map from-field="contentId" field-name="contentId"/>
                 </entity-and>
 
                 <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRev} ${rootContentRevisionSeqId}"/>
@@ -290,8 +290,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRevisions} ${rootContentRevisionSeqId}"/>
                     
                 <entity-and entity-name="ContentRevisionItem" list-name="contentRevisionItemList" use-cache="true">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
-                    <field-map field-name="contentRevisionSeqId" env-name="parameters.contentRevisionSeqId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                    <field-map field-name="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -442,7 +442,7 @@ under the License.
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="contentTypeId" value="COMPDOC_TEMPLATE"/>
                 <entity-and entity-name="Content" list-name="compDocFindList">
-                    <field-map field-name="instanceOfContentId" env-name="parameters.rootContentId"/>
+                    <field-map field-name="instanceOfContentId" from-field="parameters.rootContentId"/>
                     <field-map field-name="contentTypeId" value="COMPDOC_INSTANCE"/>
                 </entity-and>
                 <set field="title" value="${uiLabelMap.ContentCompDocViewInstances} ${parameters.rootContentId}"/>
@@ -479,7 +479,7 @@ under the License.
                 <set from-field="contentId" field="rootContentId"/>
                 <entity-one entity-name="Content" value-field="content" use-cache="false"/>
                 <entity-one entity-name="DataResource" value-field="dataResource" use-cache="false">
-                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
                 <set from-field="dataResource.mimeTypeId" field="mimeTypeId"/>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
@@ -575,20 +575,20 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="rootContentId" from-field="parameters.rootContentId" default-value="${parameters.caContentIdTo}"/>
                 <!-- need to get the latest rootContentRevisionSeqId -->
-                <service service-name="getMostRecentRevision" result-map-name="revisionResult">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
+                <service service-name="getMostRecentRevision" result-map="revisionResult">
+                    <field-map field-name="contentId" from-field="rootContentId"/>
                 </service>        
                 <set field="mostRecentRevisionSeqId" from-field="revisionResult.mostRecentRevisionSeqId"/>
                 <set field="rootContentRevisionSeqId" from-field="parameters.rootContentRevisionSeqId" default-value="${parameters.contentRevisionSeqId}"/>
                 <set field="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId" default-value="${mostRecentRevisionSeqId}"/>
                 
                 <entity-one entity-name="Content" value-field="itemContent" use-cache="false">
-                    <field-map field-name="contentId" env-name="contentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
                 <entity-one entity-name="ContentAssoc" value-field="contentAssoc">
-                    <field-map field-name="contentIdTo" env-name="rootContentId"/>
-                    <field-map field-name="contentId" env-name="contentId"/>
-                    <field-map field-name="fromDate" env-name="parameters.caFromDate"/>
+                    <field-map field-name="contentIdTo" from-field="rootContentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
+                    <field-map field-name="fromDate" from-field="parameters.caFromDate"/>
                     <field-map field-name="contentAssocTypeId" value="COMPDOC_PART"/>
                 </entity-one>
                 
@@ -608,7 +608,7 @@ under the License.
                 <set field="itemContentRevisionSeqId" from-field="parameters.itemContentRevisionSeqId" default-value="${contentRevisionItems[0].contentRevisionSeqId}"/>
                 <set field="dataResourceId" from-field="contentRevisionItems[0].newDataResourceId" default-value="${itemContent.dataResourceId}"/>
                 <entity-one entity-name="DataResource" value-field="dataResource" use-cache="false">
-                    <field-map field-name="dataResourceId" env-name="dataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="dataResourceId"/>
                 </entity-one>
                 <set field="mimeTypeId" from-field="dataResource.mimeTypeId"/>
             </actions>
@@ -681,10 +681,10 @@ under the License.
                         <set from-field="rootRevList[0].maxRevisionSeqId" field="rootInstanceRevSeqId"/>
                             -->
                         <entity-one entity-name="Content" value-field="templateContent" use-cache="false">
-                            <field-map field-name="contentId" env-name="itemContent.instanceOfContentId"/>
+                            <field-map field-name="contentId" from-field="itemContent.instanceOfContentId"/>
                         </entity-one>
                         <entity-one entity-name="DataResource" value-field="templateDataResource" use-cache="false">
-                            <field-map field-name="dataResourceId" env-name="templateContent.dataResourceId"/>
+                            <field-map field-name="dataResourceId" from-field="templateContent.dataResourceId"/>
                         </entity-one>
                     </actions>
                     <widgets>
@@ -823,7 +823,7 @@ under the License.
                     </condition>
                     <actions>
                         <entity-one entity-name="ElectronicText" value-field="electronicText">
-                            <field-map field-name="dataResourceId" env-name="dataResource.dataResourceId"/>
+                            <field-map field-name="dataResourceId" from-field="dataResource.dataResourceId"/>
                         </entity-one>
                         <set from-field="electronicText.textData" field="textData"/>
                     </actions>
@@ -927,7 +927,7 @@ under the License.
                 </entity-condition>
                 <set from-field="parameters.rootContentRevisionSeqId" default-value="${contentRevisions[0].contentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                 <entity-one entity-name="Content" value-field="templateContent">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
+                    <field-map field-name="contentId" from-field="rootContentId"/>
                 </entity-one>
                 <set from-field="templateContent.contentName" field="contentName"/>
                 
@@ -974,7 +974,7 @@ under the License.
                 <set field="contentIdTo" from-field="parameters.rootContentId"/>
                 <set field="templateContentId" from-field="parameters.instanceOfContentId"/>
                 <entity-one entity-name="Content" value-field="templateContent">
-                    <field-map field-name="contentId" env-name="templateContentId"/>
+                    <field-map field-name="contentId" from-field="templateContentId"/>
                 </entity-one>
                 <set from-field="templateContent.contentName" field="contentName"/>
 
@@ -1035,8 +1035,8 @@ under the License.
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
                 <set from-field="parameters.rootContentRevisionSeqId" field="rootContentRevisionSeqId"/>
                 <set value="COMPDOC_TEMPLATE" field="contentTypeId"/>
-                <service service-name="getMostRecentRevision" result-map-name="revisionResult">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
+                <service service-name="getMostRecentRevision" result-map="revisionResult">
+                    <field-map field-name="contentId" from-field="rootContentId"/>
                 </service>        
                 <set from-field="revisionResult.mostRecentRevisionSeqId" field="mostRecentRevisionSeqId"/>
                 <set from-field="parameters.rootContentRevisionSeqId" default-value="${mostRecentRevisionSeqId}" field="rootContentRevisionSeqId"/>
@@ -1071,14 +1071,14 @@ under the License.
                    <set from-field="parameters.rootContentRevisionSeqId" field="rootContentRevisionSeqId"/>
                    <set value="COMPDOC_INSTANCE" field="contentTypeId"/>
                 
-                <service service-name="getMostRecentRevision" result-map-name="revisionResult">
-                    <field-map field-name="contentId" env-name="parameters.rootContentId"/>
+                <service service-name="getMostRecentRevision" result-map="revisionResult">
+                    <field-map field-name="contentId" from-field="parameters.rootContentId"/>
                 </service>        
                 <set from-field="revisionResult.mostRecentRevisionSeqId" field="mostRecentRevisionSeqId"/>
                 <set from-field="parameters.rootContentRevisionSeqId" default-value="${mostRecentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                 
                 <entity-one entity-name="Content" value-field="instanceContent">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
+                    <field-map field-name="contentId" from-field="rootContentId"/>
                 </entity-one>
                 <set from-field="instanceContent.instanceOfContentId" field="templateContentId"/>
                 <entity-condition entity-name="ContentRevision" list="contentTemplateRevisions" use-cache="true">
@@ -1118,12 +1118,12 @@ under the License.
     <screen name="rootInstanceApprovalStatus">
         <section>
             <actions>
-                <service service-name="getFinalApprovalStatus" result-map-name="approvalStatusResult">
-                    <field-map field-name="contentId" env-name="rootContentId"/>
-                    <field-map field-name="contentRevisionSeqId" env-name="rootContentRevisionSeqId"/>
+                <service service-name="getFinalApprovalStatus" result-map="approvalStatusResult">
+                    <field-map field-name="contentId" from-field="rootContentId"/>
+                    <field-map field-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
                 </service>
                 <entity-one entity-name="StatusItem" value-field="statusItem">
-                    <field-map field-name="statusId" env-name="approvalStatusResult.approvalStatusId"/>
+                    <field-map field-name="statusId" from-field="approvalStatusResult.approvalStatusId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -1217,10 +1217,10 @@ under the License.
                     <section>
                         <actions>
                             <entity-one entity-name="Content" value-field="instanceContent" auto-field-map="false">
-                                <field-map field-name="contentId" env-name="assocRevisionItemView.itemContentId"/>
+                                <field-map field-name="contentId" from-field="assocRevisionItemView.itemContentId"/>
                             </entity-one>
                             <entity-one entity-name="DataResource" value-field="instanceDataResource" auto-field-map="false">
-                                <field-map field-name="dataResourceId" env-name="instanceContent.dataResourceId"/>
+                                <field-map field-name="dataResourceId" from-field="instanceContent.dataResourceId"/>
                             </entity-one>
                         </actions>
                         <widgets>
@@ -1265,8 +1265,8 @@ under the License.
                 <set field="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId" to-scope="screen" default-value="${defaultContentRevisionSeqId}"/>
 
                 <entity-and entity-name="ContentRevisionItemAndContentApprovalView" use-cache="true" list-name="ContentRevAppList">
-                        <field-map env-name="contentId" field-name="contentId"/>
-                        <field-map env-name="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
+                        <field-map from-field="contentId" field-name="contentId"/>
+                        <field-map from-field="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -1313,7 +1313,7 @@ under the License.
             <actions>
                 <entity-one entity-name="Content" value-field="content" use-cache="true"/>
                 <entity-one entity-name="DataResource" value-field="dataResource" use-cache="true">
-                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
             </actions>
             <widgets>

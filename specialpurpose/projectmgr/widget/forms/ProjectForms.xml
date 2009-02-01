@@ -23,7 +23,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="PartyGroup" value-field="partyGroup">
-                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="partyId" from-field="partyId"/>
             </entity-one>
         </actions>
         <alt-target use-when="project==null" target="createProject"/>
@@ -117,13 +117,13 @@
         <actions>
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
             </service>
         </actions>
         <row-actions>
-            <service service-name="getProject" result-map-name="resultProject">
+            <service service-name="getProject" result-map="resultProject">
                 <field-map field-name="projectId" value="${workEffortId}"/>
             </service>
         </row-actions>
@@ -161,7 +161,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffort">
-                <field-map field-name="workEffortParentId" env-name="projectId"/>
+                <field-map field-name="workEffortParentId" from-field="projectId"/>
                 <field-map field-name="workEffortTypeId" value="PROJECT"/>
             </entity-and>
         </actions>
@@ -204,7 +204,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="StatusItem" value-field="currentStatus">
-                <field-map field-name="statusId" env-name="currentStatusId"/>
+                <field-map field-name="statusId" from-field="currentStatusId"/>
             </entity-one>
         </row-actions>
         <field name="workEffortTypeId"><hidden/></field>
@@ -238,8 +238,8 @@
     <form name="EditProjectTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
@@ -274,7 +274,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="StatusItem" value-field="currentStatus">
-                <field-map field-name="statusId" env-name="currentStatusId"/>
+                <field-map field-name="statusId" from-field="currentStatusId"/>
             </entity-one>
         </row-actions>
         <field name="workEffortTypeId"><hidden/></field>
@@ -360,9 +360,9 @@
             </entity-condition>
         </actions>
         <row-actions>
-            <service service-name="getProject" result-map-name="result">
-                <field-map field-name="projectId" env-name="parameters.projectId"/>
-                <field-map field-name="partyId" env-name="partyId"/>
+            <service service-name="getProject" result-map="result">
+                <field-map field-name="projectId" from-field="parameters.projectId"/>
+                <field-map field-name="partyId" from-field="partyId"/>
             </service>
         </row-actions>
         <field name="projectId"><hidden/></field>
@@ -514,11 +514,11 @@
     <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectIdAndNameFromTask" result-map-name="resultProject">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map="resultProject">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
@@ -548,8 +548,8 @@
     <form name="listResourcesProjects" type="list" list-name="parties"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProject" result-map-name="result">
-                <field-map field-name="projectId" env-name="workEffortId"/>
+            <service service-name="getProject" result-map="result">
+                <field-map field-name="projectId" from-field="workEffortId"/>
             </service>
             <set field="currentStatusId" from-field="result.projectInfo.currentStatusId"/>
             <set field="Priority" from-field="result.projectInfo.priority"/>
@@ -633,12 +633,12 @@
     <form name="AddProjectTimeToNewInvoice" target="addProjectTimeToNewInvoice" title="" type="single">
         <actions>
             <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignOrg" filter-by-date="true">
-                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+                <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-and>
             <set field="partyIdFrom" value="${assignOrg[0].partyId}"/> 
             <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignBilling" filter-by-date="true">
-                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+                <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
             </entity-and>
             <set field="partyId" value="${assignBilling[0].partyId}"/> 
@@ -682,10 +682,10 @@
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="workEffortId" from-field="parameters.workEffortId"/>
             <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="content.statusId"/>
+                <field-map field-name="statusId" from-field="content.statusId"/>
             </entity-one>
             <entity-one entity-name="DataResource" value-field="dataResource" auto-field-map="false">
-                <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
         </actions>
         

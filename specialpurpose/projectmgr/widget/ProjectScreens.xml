@@ -29,7 +29,7 @@ under the License.
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffort" list-name="projects">
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
-                    <field-map field-name="workEffortParentId" env-name="projectId"/>
+                    <field-map field-name="workEffortParentId" from-field="projectId"/>
                 </entity-and>
             </actions>                                                
             <widgets>  
@@ -74,8 +74,8 @@ under the License.
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <service service-name="getProject" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProject" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="project" from-field="result.projectInfo"/>
             </actions>
@@ -206,12 +206,12 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>                
                 <set field="projectId" from-field="parameters.projectId"/>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
-                    <field-map field-name="projectId" env-name="parameters.projectId"/>
+                    <field-map field-name="projectId" from-field="parameters.projectId"/>
                     <order-by field-name="phaseName"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
                 <entity-and entity-name="WorkEffort" list-name="phases">
-                    <field-map field-name="workEffortParentId" env-name="parameters.projectId"/>
+                    <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
                     <field-map field-name="workEffortTypeId" value="PHASE"/>
                 </entity-and>
             </actions>
@@ -340,8 +340,8 @@ under the License.
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
                 <set field="projectId" from-field="parameters.projectId"/>
-                <service service-name="getProjectPhaseList" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProjectPhaseList" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="phases" from-field="result.phaseList"/>
             </actions>
@@ -473,8 +473,8 @@ under the License.
                 <set field="titleProperty" value="ProjectMgrProjectSummary"/>
                 <set field="tabButtonItem" value="projectView"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <service service-name="getProject" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProject" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="project" from-field="result.projectInfo"/>
             </actions>                        
@@ -549,8 +549,8 @@ under the License.
     <screen name="PhasesInfo">
         <section>
             <actions>
-                <service service-name="getProjectPhaseList" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProjectPhaseList" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="phases" from-field="result.phaseList"/>
             </actions>
@@ -566,8 +566,8 @@ under the License.
     <screen name="TasksInfo">
         <section>
             <actions>
-                <service service-name="getProjectTaskList" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProjectTaskList" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="tasks" from-field="result.taskList"/>
             </actions>
@@ -647,7 +647,7 @@ under the License.
             <actions>
                 <set field="workEffortId" from-field="projectId"/>
                 <entity-and entity-name="WorkEffortNoteAndData" list-name="workEffortNoteandDetails">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
                 </entity-and>
             </actions>
@@ -667,12 +667,12 @@ under the License.
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="parties">
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="workEffortId"/>
                 </entity-and>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <service service-name="getProject" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
+                <service service-name="getProject" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="project" from-field="result.projectInfo"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
@@ -699,7 +699,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListTaskByParty"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
                     <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
                     <order-by field-name="workEffortId"/>
@@ -1050,7 +1050,7 @@ under the License.
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">
-                    <field-map field-name="workEffortId" env-name="projectId"/>
+                    <field-map field-name="workEffortId" from-field="projectId"/>
                 </entity-and>
             </actions>
             <widgets>

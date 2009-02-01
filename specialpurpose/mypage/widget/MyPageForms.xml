@@ -123,8 +123,8 @@ under the License.
     </form>
     <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="taskResult">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectTask" result-map="taskResult">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
         </row-actions>
         <field name="custRequestId"><hidden/></field>
@@ -174,14 +174,14 @@ under the License.
     <form name="ListInvoices" type="list" separate-columns="true" paginate-target="listInvoices" list-name="invoices"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
-                <field-map field-name="partyId" env-name="partyIdFrom"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                <field-map field-name="partyId" from-field="partyIdFrom"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
-                <field-map field-name="partyId" env-name="partyId"/>
-                <field-map field-name="compareDate" env-name="invoiceDate"/>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
             <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>

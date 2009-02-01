@@ -35,7 +35,7 @@ under the License.
             <display>
                 <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
-                    <field-map field-name="portalPageId" env-name="portalPageId"/>
+                    <field-map field-name="portalPageId" from-field="portalPageId"/>
                 </in-place-editor>
             </display>
         </field>
@@ -44,7 +44,7 @@ under the License.
                 <display>
                 <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
-                    <field-map field-name="portalPageId" env-name="portalPageId"/>
+                    <field-map field-name="portalPageId" from-field="portalPageId"/>
                 </in-place-editor>
             </display>
         </field>

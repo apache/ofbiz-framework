@@ -263,8 +263,8 @@ under the License.
     <form name="ListLookupWorkEffort" target="" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
             </service>
         </actions>
@@ -383,8 +383,8 @@ under the License.
     <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="lastModifiedDate DESC"/>
             </service>
@@ -467,9 +467,9 @@ under the License.
     <form  name="ListWorkEffortParties" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="workEffortId"><display/></field>
@@ -593,9 +593,9 @@ under the License.
     <form name="ListWorkEffortCommEvents" default-map-name="workEffortCommEvent" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="requestParameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="requestParameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="communicationEventId">
@@ -672,9 +672,9 @@ under the License.
     <form name="ListLookupCommEvent" target="" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
             </service>
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.WorkEffortCommEventId}" widget-style="buttontext">
@@ -901,7 +901,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
@@ -948,7 +948,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="workEffortGoodStandards">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
@@ -998,7 +998,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortReview" use-cache="true" list-name="workEffortReviews">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortReview" default-field-type="edit" />
@@ -1035,7 +1035,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortKeyword" use-cache="true" list-name="workEffortkeywords">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
         <field name="workEffortId" widget-style="buttontext"><hidden/></field>        
@@ -1058,7 +1058,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContactMech" list-name="workEffortContactMechs">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
         <row-actions>
@@ -1092,7 +1092,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list-name="agreementWorkEffortAppls">
-                <field-map env-name="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>    
         <field name="agreementId">

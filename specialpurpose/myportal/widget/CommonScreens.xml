@@ -51,7 +51,7 @@ under the License.
                 <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 </entity-one>
                 <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
             </actions>
@@ -112,7 +112,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="${parameters.portalPageId}"/>
                 <entity-one entity-name="CommunicationEvent" value-field="commEvent">
-                    <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-one>
                 <script location="component://myportal/webapp/myportal/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
             </actions>

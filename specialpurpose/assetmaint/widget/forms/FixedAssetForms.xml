@@ -67,8 +67,8 @@
     <form name="ListFixedAssetMaints" target="" title="" type="list" list-name="listIt" paginate-target="findFixedAssetMaints" paginate="true"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service  service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service  service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAssetMaintWorkEffort"/>
                 <field-map field-name="orderBy" value="-actualStartDate"/>
             </service>

@@ -89,12 +89,12 @@ under the License.
                 <set field="tabBar" value="ForumGroupTabBar"/>
                 <set field="forumGroupId" from-field="parameters.forumGroupId" default-value="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="forumGroup">
-                    <field-map field-name="contentId" env-name="forumGroupId"/>
+                    <field-map field-name="contentId" from-field="forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
                 <entity-and entity-name="ContentAssocDataResourceViewTo" list-name="forums">
-                    <field-map field-name="contentIdStart" env-name="forumGroupId"/>
+                    <field-map field-name="contentIdStart" from-field="forumGroupId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -117,12 +117,12 @@ under the License.
                 <set field="tabButtonItem" value="roles"/>
                 <set field="tabBar" value="ForumGroupTabBar"/>
                 <entity-one entity-name="Content" value-field="forumGroup">
-                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
                 <entity-and entity-name="ContentRole" list-name="forumRoles">
-                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                     <order-by field-name="roleTypeId"/>
                 </entity-and>
             </actions>
@@ -146,12 +146,12 @@ under the License.
                 <set field="tabButtonItem" value="purposes"/>
                 <set field="tabBar" value="ForumGroupTabBar"/>
                 <entity-one entity-name="Content" value-field="forumGroup">
-                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
                 <entity-and entity-name="ContentPurpose" list-name="forumPurposes">
-                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumGroupId"/>
                     <order-by field-name="contentPurposeTypeId"/>
                 </entity-and>
             </actions>
@@ -177,13 +177,13 @@ under the License.
                 <set field="tabButtonItem" value="messageList"/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
                 <entity-one entity-name="Content" value-field="forum">
-                    <field-map field-name="contentId" env-name="parameters.forumId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumId"/>
                 </entity-one>
                 <set field="objectName" from-field="forum.contentName"/>
                 <set field="objectId"  from-field="forum.contentId"/>
                 <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
                 <entity-and entity-name="ContentAssocViewTo" list-name="forumMessages">
-                    <field-map field-name="ownerContentId" env-name="parameters.forumId"/>
+                    <field-map field-name="ownerContentId" from-field="parameters.forumId"/>
                     <order-by field-name="createdDate DESC"/>
                 </entity-and>
                 <set field="parameters.forumMessageIdTo" from-field="parameters.forumId"/>
@@ -216,7 +216,7 @@ under the License.
                 <set field="threadContentId" from-field="parameters.threadContentId" default-value="${contentId}" />
                 <set field="forumId" from-field="parameters.forumId" />
                 <entity-one entity-name="Content" value-field="content" use-cache="true">
-                    <field-map field-name="contentId" env-name="contentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
                 <set field="ownerContentId" from-field="content.ownerContentId" default-value="${forumId}" />
                 <set field="trail" from-field="threadContentId" />
@@ -229,19 +229,19 @@ under the License.
                 <set field="tabButtonItem" value="messageThread"/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
                 <entity-one entity-name="Content" value-field="forum">
-                    <field-map field-name="contentId" env-name="parameters.forumId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumId"/>
                 </entity-one>
                 <set field="objectName" from-field="forum.contentName"/>
                 <set field="objectId"  from-field="forum.contentId"/>
                 <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
                 <entity-one entity-name="Content" value-field="forumThread">
-                    <field-map field-name="contentId" env-name="parameters.forumThreadId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumThreadId"/>
                 </entity-one>
                 <entity-one entity-name="Content" value-field="forumMessage">
-                    <field-map field-name="contentId" env-name="parameters.forumMessageId"/>
+                    <field-map field-name="contentId" from-field="parameters.forumMessageId"/>
                 </entity-one>
                 <entity-one entity-name="ElectronicText" value-field="electronicText">
-                    <field-map field-name="dataResourceId" env-name="forumMessage.dataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="forumMessage.dataResourceId"/>
                 </entity-one>
                 <set field="contentId" from-field="parameters.forumId"/>
                 <set field="trail" from-field="parameters.trail" default-value="${contentId}"/>
@@ -341,7 +341,7 @@ under the License.
                 <set field="tabButtonItem" value=""/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
                 <entity-one entity-name="Content" value-field="forumMessage">
-                    <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
+                    <field-map field-name="contentId" from-field="parameters.forumMessageIdTo"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -377,7 +377,7 @@ under the License.
                 <set field="tabButtonItem" value=""/>
                 <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
                 <entity-one entity-name="Content" value-field="forumMessage">
-                    <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
+                    <field-map field-name="contentId" from-field="parameters.forumMessageIdTo"/>
                 </entity-one>
             </actions>
             <widgets>

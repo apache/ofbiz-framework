@@ -76,8 +76,8 @@ under the License.
     <form name="listLookupDataResourceContent" default-entity-name="DataResourceContentView" list-name="listIt" target="" title="" type="list" 
         paginate-target="LookupSubContent" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="DataResourceContentView"/>
             </service>
         </actions>

@@ -42,8 +42,8 @@ under the License.
     <form name="ListLookupComputerHardware" list-name="listIt" title="" type="list" paginate-target="LookupComputerHardware"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
         </actions>
@@ -75,8 +75,8 @@ under the License.
     <form name="ListLookupComputerSoftware" list-name="listIt" title="" type="list" paginate-target="LookupComputerSoftware"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
         </actions>

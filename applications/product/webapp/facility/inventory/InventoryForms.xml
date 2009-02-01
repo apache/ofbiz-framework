@@ -29,8 +29,8 @@ under the License.
             <set field="locationSeqId" from-field="inventoryItem.locationSeqId"/>
             <set field="statusId" from-field="inventoryItem.statusId"/>
             <entity-one entity-name="FacilityLocation" value-field="facilityLocation">
-                <field-map field-name="locationSeqId" env-name="locationSeqId"/>
-                <field-map field-name="facilityId" env-name="facilityId"/>                 
+                <field-map field-name="locationSeqId" from-field="locationSeqId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>                 
             </entity-one>
         </actions>
         <alt-target use-when="inventoryItemId==null" target="CreateInventoryItem"/>

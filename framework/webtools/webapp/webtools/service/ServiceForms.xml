@@ -73,10 +73,10 @@ under the License.
     <form name="ListJobs" type="list" list-name="listIt" paginate-target="FindJob" default-entity-name="JobSandbox" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="jobCtx"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="jobCtx"/>
                 <field-map field-name="entityName" value="JobSandbox"/>
-                <field-map field-name="orderBy" env-name="parameters.sortField"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}" sort-field="true"><display/></field>

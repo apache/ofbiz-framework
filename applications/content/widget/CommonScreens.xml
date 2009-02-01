@@ -309,8 +309,8 @@ under the License.
     <screen name="responseTreeLine">
         <section>
             <actions>
-                <service service-name="getContentAndDataResource" result-map-name="contentData">
-                    <field-map field-name="contentId" env-name="rsp.contentId"/>
+                <service service-name="getContentAndDataResource" result-map="contentData">
+                    <field-map field-name="contentId" from-field="rsp.contentId"/>
                 </service>
                 <set field="textData" from-field="contentData.resultData.electronicText.textData"/>
             </actions>

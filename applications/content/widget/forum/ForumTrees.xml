@@ -26,7 +26,7 @@ under the License.
     <tree name="MessageTree" root-node-name="node-root" default-render-style="simple">
         <node name="node-root">
             <entity-one entity-name="Content" use-cache="false" value-field="rsp">
-                <field-map field-name="contentId" env-name="parameters.forumId"/>
+                <field-map field-name="contentId" from-field="parameters.forumId"/>
             </entity-one>
             <!--include-screen name="responseTreeLine" location="component://content/widget/forum/ForumScreens.xml" /-->
             <sub-node node-name="node-body">

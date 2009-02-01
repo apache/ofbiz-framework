@@ -23,7 +23,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="Timesheet" list-name="timesheets">
-                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
         </actions>
@@ -38,7 +38,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyRate" list-name="partyRates">
-                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
         </actions>
@@ -75,8 +75,8 @@ under the License.
     <form name="ListFindTimesheet" target="" title="" type="list" list-name="listIt" paginate-target="FindTimesheet" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Timesheet"/>
             </service>
         </actions>

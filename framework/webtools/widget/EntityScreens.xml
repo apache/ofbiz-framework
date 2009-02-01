@@ -302,7 +302,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
-                <service service-name="getEntityRefData" result-map-name="result"/>
+                <service service-name="getEntityRefData" result-map="result"/>
                 <set field="numberOfEntities" from-field="result.numberOfEntities"/>
                 <set field="packagesList" from-field="result.packagesList"/>
             </actions>
@@ -354,7 +354,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
-                <service service-name="getEntityRefData" result-map-name="result"/>
+                <service service-name="getEntityRefData" result-map="result"/>
                 <set field="numberOfEntities" from-field="result.numberOfEntities"/>
                 <set field="packagesList" from-field="result.packagesList"/>
             </actions>

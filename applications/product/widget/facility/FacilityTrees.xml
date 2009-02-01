@@ -25,7 +25,7 @@ under the License.
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">
                 <entity-and entity-name="Facility">
-                    <field-map field-name="parentFacilityId" env-name="facilityId"/>
+                    <field-map field-name="parentFacilityId" from-field="facilityId"/>
                     <order-by field-name="facilityName"/>
                 </entity-and>
             </sub-node>
@@ -34,7 +34,7 @@ under the License.
             <link target="EditFacility?facilityId=${facilityId}" text="${facilityName} [${facilityId}]"/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="Facility">
-                    <field-map field-name="parentFacilityId" env-name="facilityId"/>
+                    <field-map field-name="parentFacilityId" from-field="facilityId"/>
                     <order-by field-name="facilityName"/>
                 </entity-and>
             </sub-node>

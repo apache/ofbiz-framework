@@ -135,8 +135,8 @@ under the License.
     <form name="listLookupWorkEffort" list-name="listIt" target="" title="" type="list" paginate-target="LookupWorkEffort"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="workEffortId"/>
             </service>
@@ -164,8 +164,8 @@ under the License.
     <form name="listLookupTimesheet" list-name="listIt" target="" title="" type="list" paginate-target="LookupPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Timesheet"/>
                 <field-map field-name="orderBy" value="timesheetId"/>
             </service>

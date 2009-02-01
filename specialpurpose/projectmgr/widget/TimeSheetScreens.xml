@@ -273,7 +273,7 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
-                    <field-map field-name="partyId" env-name="timesheet.partyId"/>
+                    <field-map field-name="partyId" from-field="timesheet.partyId"/>
                 </entity-one>
             </actions>
             <widgets>

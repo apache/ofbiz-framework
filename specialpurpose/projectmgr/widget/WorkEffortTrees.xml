@@ -33,7 +33,7 @@ under the License.
         </node>
         <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
             <entity-one entity-name="WorkEffort" value-field="workEffort">
-                <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
+                <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
             <sub-node node-name="node-list">
@@ -56,7 +56,7 @@ under the License.
         </node>
         <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
             <entity-one entity-name="WorkEffort" value-field="workEffort">
-                <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
+                <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
             <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
             <sub-node node-name="node-list">

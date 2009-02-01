@@ -112,8 +112,8 @@ under the License.
     <form name="ListForumMessages" type="list" list-name="forumMessages" separate-columns="true" target="updateForumMessage"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
-            <service service-name="getContentAndDataResource" result-map-name="contentData">
-                <field-map field-name="contentId" env-name="contentId"/>
+            <service service-name="getContentAndDataResource" result-map="contentData">
+                <field-map field-name="contentId" from-field="contentId"/>
             </service>
         </row-actions>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -136,8 +136,8 @@ under the License.
     <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <service service-name="getContentAndDataResource" result-map-name="contentData">
-                <field-map field-name="contentId" env-name="parameters.forumMessageId"/>
+            <service service-name="getContentAndDataResource" result-map="contentData">
+                <field-map field-name="contentId" from-field="parameters.forumMessageId"/>
             </service>
             <set field="message.forumMessageId" from-field="contentData.resultData.content.contentId"/>
             <set field="message.contentTypeId" from-field="contentData.resultData.content.contentTypeId"/>
@@ -146,8 +146,8 @@ under the License.
             <set field="message.forumMessageTitle" from-field="contentData.resultData.content.description"/>
             <set field="message.forumMessageText" from-field="contentData.resultData.electronicText.textData"/>
             <entity-and entity-name="ContentAssoc" list-name="contentAssocList" filter-by-date="true">
-                <field-map field-name="contentId" env-name="message.forumMessageId"/>
-                <field-map field-name="contentIdTo" env-name="message.contentIdTo"/>
+                <field-map field-name="contentId" from-field="message.forumMessageId"/>
+                <field-map field-name="contentIdTo" from-field="message.contentIdTo"/>
                 <field-map field-name="contentAssocTypeId" value="RESPONSE"/>
             </entity-and>
             <set field="contentAssoc" from-field="contentAssocList[0]" />

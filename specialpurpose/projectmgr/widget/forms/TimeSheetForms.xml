@@ -22,8 +22,8 @@
     <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
         separate-columns="true" target="update${my}Timesheet" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
         </row-actions>
         <field name="timesheetId"><hidden/></field>
@@ -109,8 +109,8 @@
     <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Timesheet"/>
                 <field-map field-name="orderBy" value="fromDate DESC"/>
             </service>
@@ -189,7 +189,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="WorkEffort">
-                <field-map field-name="workEffortId" env-name=""/>
+                <field-map field-name="workEffortId" from-field=""/>
             </entity-one>
         </actions>
         <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>

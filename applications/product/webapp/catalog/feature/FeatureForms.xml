@@ -115,8 +115,8 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureType"/>
                 <field-map field-name="orderBy" value="productFeatureTypeId"/>
             </service>
@@ -160,8 +160,8 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureIactn"/>
                 <field-map field-name="orderBy" value="productFeatureId"/>
                 </service>
@@ -277,8 +277,8 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureCategory"/>
                 <field-map field-name="orderBy" value="productFeatureCategoryId"/>
             </service>
@@ -305,7 +305,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ProductFeaturePrice" list-name="productFeaturePrice">
-                <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
+                <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
             </entity-and>
         </actions>
         <field name="productFeatureId"><hidden/></field>

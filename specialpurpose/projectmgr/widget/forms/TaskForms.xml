@@ -149,16 +149,16 @@
     <form name="ListTasks" type="list" separate-columns="true" title="Task List" list-name="listIt"  paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="${entityName}"/>
                 <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
             </service>
         </actions>
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
-                <field-map field-name="hoursPartyId" env-name="partyId"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+                <field-map field-name="hoursPartyId" from-field="partyId"/>
             </service>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
             <set field="actualHours" from-field="result.taskInfo.actualTotalHours"/>
@@ -183,12 +183,12 @@
     <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateTaskAssigment"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
-                <field-map field-name="hoursPartyId" env-name="userLogin.partyId"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+                <field-map field-name="hoursPartyId" from-field="userLogin.partyId"/>
             </service>
-            <service service-name="getProjectIdAndNameFromTask" result-map-name="resultProject">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map="resultProject">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
         </row-actions>
         <field name="fromDate"><hidden/></field>
@@ -265,8 +265,8 @@
     <form name="DependenciesBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="r">
-                <field-map field-name="taskId" env-name="workEffortIdFrom"/>
+            <service service-name="getProjectTask" result-map="r">
+                <field-map field-name="taskId" from-field="workEffortIdFrom"/>
             </service>
         </row-actions>
         <field name="workEffortIdTo"><hidden/></field>
@@ -285,8 +285,8 @@
     <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="r">
-                <field-map field-name="taskId" env-name="workEffortIdTo"/>
+            <service service-name="getProjectTask" result-map="r">
+                <field-map field-name="taskId" from-field="workEffortIdTo"/>
             </service>
         </row-actions>
         <field name="workEffortIdFrom"><hidden/></field>
@@ -507,7 +507,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortAndContentDataResource">
-                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             </entity-and>
         </actions>
         <field name="contentName" widget-style="smallSubmit">
@@ -534,8 +534,8 @@
     <form name="TaskBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortIdFrom"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortIdFrom"/>
             </service>
             <set field="task" from-field="result.taskInfo"/>
             <set field="currentStatusId" from-field="task.currentStatusId"/>
@@ -557,8 +557,8 @@
     <form name="TaskAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortIdTo"/>
+            <service service-name="getProjectTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortIdTo"/>
             </service>
             <set field="task" from-field="result.taskInfo"/>
             <set field="currentStatusId" from-field="task.currentStatusId"/>

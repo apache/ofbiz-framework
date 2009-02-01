@@ -478,7 +478,7 @@ under the License.
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <entity-and entity-name="ProductAssoc" list-name="parents">
-                    <field-map env-name="productId" field-name="productIdTo"/>
+                    <field-map from-field="productId" field-name="productIdTo"/>
                     <field-map field-name="productAssocTypeId"/>
                 </entity-and>
                 <entity-and entity-name="WorkEffortGoodStandard" list-name="routings">
@@ -553,7 +553,7 @@ under the License.
                 
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="CostComponent" value-field="costComponent" auto-field-map="false">
-                    <field-map field-name="costComponentId" env-name="productCostComponentId"/>
+                    <field-map field-name="costComponentId" from-field="productCostComponentId"/>
                 </entity-one>
                 <!--<entity-and entity-name="CostComponent" list-name="costs" filter-by-date="true">-->
                 <entity-and entity-name="CostComponent" list-name="costs">
@@ -1078,7 +1078,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
                 <entity-and entity-name="ProductFeatureIactn" list-name="featureInteractions">
-                    <field-map field-name="productId" env-name="parameters.productId"/>
+                    <field-map field-name="productId" from-field="parameters.productId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -1440,7 +1440,7 @@ under the License.
                     <order-by field-name="productAssocTypeId"/>
                 </entity-and>
                 <entity-and entity-name="ProductAssoc" list-name="productAssocsTo">
-                    <field-map env-name="productId" field-name="productIdTo"/>
+                    <field-map from-field="productId" field-name="productIdTo"/>
                     <order-by field-name="productAssocTypeId"/>
                 </entity-and>
             </actions>

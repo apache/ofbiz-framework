@@ -98,7 +98,7 @@ under the License.
                 <set field="portalPageId" value="myTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign"
                     list-name="tasks" filter-by-date="true">
-                    <field-map field-name="partyId" env-name="userLogin.partyId" />
+                    <field-map field-name="partyId" from-field="userLogin.partyId" />
                     <field-map field-name="workEffortTypeId" value="TASK" />
                     <field-map field-name="currentStatusId" value="PTS_CREATED" />
                 </entity-and>
@@ -228,7 +228,7 @@ under the License.
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
                 <entity-one entity-name="PartyNameView" value-field="partyName">
-                    <field-map field-name="partyId" env-name="partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -410,16 +410,16 @@ under the License.
                 <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
                 <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
                 <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
                 <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
                 <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
                 <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>                
             </actions>
             <widgets>
@@ -636,10 +636,10 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-and entity-name="CommEventContentAssoc" list-name="commEventContent">
-                    <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-and>
                 <entity-and entity-name="PartyContent" list-name="partyContent">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -675,8 +675,8 @@ under the License.
                                     <set field="projectId" from-field="project.workEffortId"/>
                                     <set field="parameters.projectId" from-field="project.workEffortId"/>
                                     <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
-                                    <service service-name="getProject" result-map-name="result">
-                                        <field-map field-name="projectId" env-name="projectId"/>
+                                    <service service-name="getProject" result-map="result">
+                                        <field-map field-name="projectId" from-field="projectId"/>
                                     </service>
                                     <set field="project" from-field="result.projectInfo"/>
                                 </actions>
@@ -688,8 +688,8 @@ under the License.
                                         </screenlet>
                                         <section>
                                             <actions>
-                                                <service service-name="getProjectPhaseList" result-map-name="result">
-                                                    <field-map field-name="projectId" env-name="projectId"/>
+                                                <service service-name="getProjectPhaseList" result-map="result">
+                                                    <field-map field-name="projectId" from-field="projectId"/>
                                                 </service>
                                                 <set field="phases" from-field="result.phaseList"/>
                                             </actions>
@@ -705,8 +705,8 @@ under the License.
                                     <container style="righthalf">
                                         <section>
                                             <actions>
-                                                <service service-name="getProjectTaskList" result-map-name="result">
-                                                    <field-map field-name="projectId" env-name="projectId"/>
+                                                <service service-name="getProjectTaskList" result-map="result">
+                                                    <field-map field-name="projectId" from-field="projectId"/>
                                                 </service>
                                                 <set field="tasks" from-field="result.taskList"/>
                                             </actions>
@@ -747,10 +747,10 @@ under the License.
                 <entity-one entity-name="Content" value-field="content"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
                 <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
-                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -769,7 +769,7 @@ under the License.
     <screen name="ListRequestList">
         <section>
             <actions>
-                <service service-name="getUserPreferenceGroup" result-map-name="preferences">
+                <service service-name="getUserPreferenceGroup" result-map="preferences">
                     <field-map field-name="userPrefGroupTypeId" value="MyPortal"/>
                 </service>
                 <!--  check if there are any customer requests for this user -->
@@ -1002,7 +1002,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-and entity-name="PartyContent" list-name="partyContent">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
             </actions>
             <widgets>

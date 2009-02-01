@@ -23,8 +23,8 @@ under the License.
     <form name="FindFacility" type="list" list-name="listIt" paginate-target="FindFacility"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Facility"/>
             </service>
         </actions>
@@ -83,8 +83,8 @@ under the License.
     <form name="ListFacilityInventoryItems" type="list" list-name="listIt" header-row-style="header-row-2" 
         paginate-target="EditFacilityInventoryItems" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndLocation"/>
                 <field-map field-name="orderBy" value="statusId|quantityOnHandTotal|serialNumber"/>
             </service>
@@ -187,8 +187,8 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByItem" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|inventoryItemId|-inventoryItemDetailSeqId|-effectiveDate|quantityOnHandTotal"/>
             </service>
@@ -238,8 +238,8 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByProduct" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|-effectiveDate|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>
             </service>
@@ -281,8 +281,8 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByDate" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="-effectiveDate|productId|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>
             </service>
@@ -371,12 +371,12 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
         <row-actions>
-            <service service-name="getProductInventoryAndFacilitySummary" result-map-name="resultMap">
-                <field-map field-name="minimumStock" env-name="minimumStock"/>
-                <field-map field-name="productId" env-name="productId"/>
-                <field-map field-name="facilityId" env-name="facilityId"/>
-                <field-map field-name="checkTime" env-name="checkTime"/>
-                <field-map field-name="statusId" env-name="statusId"/>
+            <service service-name="getProductInventoryAndFacilitySummary" result-map="resultMap">
+                <field-map field-name="minimumStock" from-field="minimumStock"/>
+                <field-map field-name="productId" from-field="productId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>
+                <field-map field-name="checkTime" from-field="checkTime"/>
+                <field-map field-name="statusId" from-field="statusId"/>
             </service>
         </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
@@ -637,7 +637,7 @@ under the License.
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
             <entity-one entity-name="Product" value-field="product">
-                <field-map field-name="productId" env-name="inventoryItem.productId"/>
+                <field-map field-name="productId" from-field="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
 
@@ -674,7 +674,7 @@ under the License.
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
             <entity-one entity-name="Product" value-field="product">
-                <field-map field-name="productId" env-name="inventoryItem.productId"/>
+                <field-map field-name="productId" from-field="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" widget-style="buttontext">
@@ -711,7 +711,7 @@ under the License.
                 <field-map field-name="inventoryItemId"/>
             </entity-one>
             <entity-one entity-name="Product" value-field="product">
-                <field-map field-name="productId" env-name="inventoryItem.productId"/>
+                <field-map field-name="productId" from-field="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" widget-style="buttontext">

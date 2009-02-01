@@ -24,9 +24,9 @@ under the License.
     <form name="CommonPortletEdit" type="single" target="setPortalPortletAttributes" title="">
         <actions>
             <service service-name="getPortletAttributes">
-                <field-map field-name="portalPageId" env-name="parameters.portalPageId"/>
-                <field-map field-name="portalPortletId" env-name="parameters.portalPortletId"/>
-                <field-map field-name="portletSeqId" env-name="parameters.portletSeqId"/>
+                <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                <field-map field-name="portalPortletId" from-field="parameters.portalPortletId"/>
+                <field-map field-name="portletSeqId" from-field="parameters.portletSeqId"/>
             </service>       
         </actions>
         <field name="portalPageId"><hidden/></field>

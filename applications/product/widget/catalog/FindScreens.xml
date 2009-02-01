@@ -118,7 +118,7 @@ under the License.
                 
                 <set field="idValue" from-field="parameters.idValue"/>
                 <entity-one entity-name="Product" value-field="idProduct" auto-field-map="false">
-                    <field-map field-name="productId" env-name="idValue"/>
+                    <field-map field-name="productId" from-field="idValue"/>
                 </entity-one>
 
                 <entity-condition entity-name="GoodIdentification" list="goodIdentifications">
