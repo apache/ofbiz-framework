@@ -206,7 +206,7 @@ under the License.
             <if-compare field="parameters.useAddress" operator="equals" value="true">
                 <set from-field="partyId" field="addressContext.partyId"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
-                    <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
+                    <result-to-field result-name="contactMechId" map="addressPurposeContext"/>
                     <result-to-request result-name="contactMechId"/>
                 </call-service>
                 <set from-field="tempMap.partyId" field="addressPurposeContext.partyId"/>
@@ -229,7 +229,7 @@ under the License.
         
         <!-- call the create person service -->
         <call-service service-name="createPerson" in-map-name="personMap">
-            <result-to-field result-name="partyId" map-name="tempMap"/>
+            <result-to-field result-name="partyId" map="tempMap"/>
             <result-to-request result-name="partyId"/>
         </call-service>
         
