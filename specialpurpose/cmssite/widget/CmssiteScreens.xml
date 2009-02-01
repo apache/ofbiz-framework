@@ -62,7 +62,7 @@
                 <set field="blogContentId" value="BLOGROOTMADMAX"/>
                 <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="blogList">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" env-name="blogContentId"/>
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="blogContentId"/>
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
                         <condition-expr field-name="caThruDate" operator="equals" value=""/>
                         <condition-expr field-name="statusId" operator="equals" value="CTNT_PUBLISHED"/>

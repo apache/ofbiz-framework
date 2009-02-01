@@ -709,7 +709,7 @@ under the License.
                 <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
                 <set field="orderByList[]" value="sequenceNum"/> 
                 <entity-one entity-name="Facility" value-field="facility"/>
-                <get-related value-name="facility" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
+                <get-related value-field="facility" relation-name="FacilityGroupMember" list="facilityGroupMembers" order-by-list="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityGroups}"/>
             </actions>
@@ -741,7 +741,7 @@ under the License.
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="orderByList[]" value="partyId"/> 
                 <entity-one entity-name="Facility" value-field="facility"/>
-                <get-related value-name="facility" relation-name="FacilityParty" list-name="facilityParties" order-by-list-name="orderByList"/>
+                <get-related value-field="facility" relation-name="FacilityParty" list="facilityParties" order-by-list="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityParties}"/>
             </actions>
@@ -831,7 +831,7 @@ under the License.
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
                 <entity-condition entity-name="OrderItemShipGrpInvRes" list="inventoryItemReservations">
                     <condition-list combine="and">
-                        <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
+                        <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
                     </condition-list>
                     <order-by field-name="reservedDatetime"/>
                 </entity-condition>
@@ -918,7 +918,7 @@ under the License.
                 
                 <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                     <condition-list combine="and">
-                        <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
+                        <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
                     </condition-list>
                     <order-by field-name="-inventoryItemDetailSeqId"/>
                 </entity-condition>
@@ -973,7 +973,7 @@ under the License.
                 
                 <entity-condition entity-name="InventoryItemLabelAppl" list="inventoryItemLabelAppls">
                     <condition-list combine="and">
-                        <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
+                        <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
                     </condition-list>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
@@ -1115,7 +1115,7 @@ under the License.
 
                 <entity-condition entity-name="Picklist" list="picklistActiveList">
                     <condition-list combine="and">
-                        <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
@@ -1151,7 +1151,7 @@ under the License.
                 </entity-condition>
                 <entity-condition entity-name="Picklist" list="picklistActiveList">
                     <condition-list combine="and">
-                        <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
@@ -1287,7 +1287,7 @@ under the License.
                 <!-- get ShipmentRouteSegmentDetails that are PACKED and not CONFIRMED with carrier -->
                 <entity-condition entity-name="ShipmentRouteSegmentDetail" list="shipmentRouteSegments">
                     <condition-list combine="and">
-                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="originFacilityId" operator="equals" from-field="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
                         <condition-expr field-name="carrierServiceStatusId" operator="equals" value="SHRSCS_NOT_STARTED"/>
                     </condition-list>

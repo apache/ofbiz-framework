@@ -123,7 +123,7 @@ under the License.
                 <set field="tabButtonItem" value="EditFacilityGroupMembers"/>
                 <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
                 <set field="orderByList[]" value="sequenceNum"/>
-                <get-related value-name="facilityGroup" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
+                <get-related value-field="facilityGroup" relation-name="FacilityGroupMember" list="facilityGroupMembers" order-by-list="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
@@ -148,7 +148,7 @@ under the License.
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupRoles"/>
                 <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
-                <get-related value-name="facilityGroup" relation-name="FacilityGroupRole" list-name="facilityRoles"/>
+                <get-related value-field="facilityGroup" relation-name="FacilityGroupRole" list="facilityRoles"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
@@ -173,8 +173,8 @@ under the License.
 
                 <set field="parameters.facilityGroupId" from-field="parameters.showFacilityGroupId" default-value="${parameters.facilityGroupId}"/>
                 <entity-one entity-name="FacilityGroup" value-field="facilityGroup"/>
-                <get-related relation-name="ParentFacilityGroupRollup" value-name="facilityGroup" list-name="parentGroupRollups"/>
-                <get-related relation-name="CurrentFacilityGroupRollup" value-name="facilityGroup" list-name="currentGroupRollups"/>
+                <get-related relation-name="ParentFacilityGroupRollup" value-field="facilityGroup" list="parentGroupRollups"/>
+                <get-related relation-name="CurrentFacilityGroupRollup" value-field="facilityGroup" list="currentGroupRollups"/>
                 <set field="facilityGroupId" from-field="facilityGroup.facilityGroupId"/>
             </actions>
             <widgets>

@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindInventoryItemLabels"/>
                 <set field="headerItem" value="inventoryItemLabel"/>
                 <set field="tabButtonItem" value="FindInventoryItemLabels"/>
-                <entity-condition entity-name="InventoryItemLabel" list-name="inventoryItemLabels"/>
+                <entity-condition entity-name="InventoryItemLabel" list="inventoryItemLabels"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInventoryItemLabelsDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -60,7 +60,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditInventoryItemLabelTypes"/>
                 <set field="headerItem" value="inventoryItemLabel"/>
                 <set field="tabButtonItem" value="EditInventoryItemLabelTypes"/>
-                <entity-condition entity-name="InventoryItemLabelType" list-name="inventoryItemLabelTypes"/>
+                <entity-condition entity-name="InventoryItemLabelType" list="inventoryItemLabelTypes"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInventoryItemLabelsDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -143,8 +143,8 @@ under the License.
                 <set field="tabButtonItem" value="FindInventoryItemLabels"/>
                 <set field="subTabButtonItem" value="EditInventoryItemLabelAppls"/>
                 <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
-                <get-related value-name="inventoryItemLabel" relation-name="InventoryItemLabelAppl" list-name="inventoryItemLabelAppls"/>
-                <get-related-one value-name="inventoryItemLabel" relation-name="InventoryItemLabelType" to-value-name="inventoryItemLabelType"/>
+                <get-related value-field="inventoryItemLabel" relation-name="InventoryItemLabelAppl" list="inventoryItemLabelAppls"/>
+                <get-related-one value-field="inventoryItemLabel" relation-name="InventoryItemLabelType" to-value-field="inventoryItemLabelType"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInventoryItemLabelDecorator" location="${parameters.commonFacilityDecoratorLocation}">

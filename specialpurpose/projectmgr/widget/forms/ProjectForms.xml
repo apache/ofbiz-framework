@@ -96,10 +96,10 @@
         <actions>
             <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="entryList">
                 <condition-list combine="and">
-                    <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
-                    <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
+                    <condition-expr field-name="projectId" operator="equals" from-field="parameters.projectId"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="nullField"/>
                     <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
-                    <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
@@ -116,7 +116,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
@@ -345,7 +345,7 @@
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignView" list="assigns" distinct="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                    <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
                     <condition-expr field-name="roleTypeId" value="PROVIDER%" operator="like"/>
                 </condition-list>
                 <select-field field-name="partyId"/>
@@ -416,7 +416,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignView" filter-by-date="true">
-                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
@@ -444,7 +444,7 @@
                 <order-by field-name="groupName"/>
             </entity-condition> 
             <entity-condition entity-name="WorkEffortPartyAssignView"  filter-by-date="true" distinct="true" list="taskResources">
-                <condition-expr field-name="workEffortId" env-name="projectId"/>
+                <condition-expr field-name="workEffortId" from-field="projectId"/>
                 <select-field field-name="partyId"/>
                 <select-field field-name="lastName"/>
                 <select-field field-name="firstName"/>
@@ -504,7 +504,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
@@ -632,12 +632,12 @@
     </form>
     <form name="AddProjectTimeToNewInvoice" target="addProjectTimeToNewInvoice" title="" type="single">
         <actions>
-            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignOrg" filter-by-date="true">
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assignOrg" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-and>
             <set field="partyIdFrom" value="${assignOrg[0].partyId}"/> 
-            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignBilling" filter-by-date="true">
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assignBilling" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
             </entity-and>
