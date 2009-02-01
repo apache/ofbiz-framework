@@ -69,7 +69,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleNavigateDataResources"/>
                 <set field="tabButtonItem" value="navigateDataResource"/>
                 <set field="labelTitleProperty" value="PageTitleNavigateDataResources"/>
-                <entity-and entity-name="DataCategory" list-name="subCategories">
+                <entity-and entity-name="DataCategory" list="subCategories">
                     <field-map field-name="parentCategoryId" value="ROOT"/>
                 </entity-and>
             </actions>
@@ -175,7 +175,7 @@ under the License.
                 <set field="tabButtonItem" value="editDataResource"/>
                 <set field="dataResourceId" from-field="parameters.dataResourceId"/>
                 <entity-one entity-name="DataResource" value-field="currentValue"/>
-                <entity-condition entity-name="DataCategory" list-name="dataCategoryList"/>
+                <entity-condition entity-name="DataCategory" list="dataCategoryList"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -395,7 +395,7 @@ under the License.
                 <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
                 </entity-one>
-                <get-related value-name="currentValue" relation-name="DataResourceAttribute" list-name="dataResourceAttribute"/>
+                <get-related value-field="currentValue" relation-name="DataResourceAttribute" list="dataResourceAttribute"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -418,7 +418,7 @@ under the License.
                 <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
                 </entity-one>
-                <get-related value-name="currentValue" relation-name="DataResourceRole" list-name="dataResourceRole"/>
+                <get-related value-field="currentValue" relation-name="DataResourceRole" list="dataResourceRole"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -441,7 +441,7 @@ under the License.
                 <entity-one entity-name="DataResource" value-field="currentValue">
                     <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
                 </entity-one>
-                <get-related value-name="currentValue" relation-name="ProductFeatureDataResource" list-name="productFeatureDataResource"/>
+                <get-related value-field="currentValue" relation-name="ProductFeatureDataResource" list="productFeatureDataResource"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">

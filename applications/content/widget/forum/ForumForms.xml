@@ -145,7 +145,7 @@ under the License.
             <set field="message.forumMessageName" from-field="contentData.resultData.content.contentName"/>
             <set field="message.forumMessageTitle" from-field="contentData.resultData.content.description"/>
             <set field="message.forumMessageText" from-field="contentData.resultData.electronicText.textData"/>
-            <entity-and entity-name="ContentAssoc" list-name="contentAssocList" filter-by-date="true">
+            <entity-and entity-name="ContentAssoc" list="contentAssocList" filter-by-date="true">
                 <field-map field-name="contentId" from-field="message.forumMessageId"/>
                 <field-map field-name="contentIdTo" from-field="message.contentIdTo"/>
                 <field-map field-name="contentAssocTypeId" value="RESPONSE"/>

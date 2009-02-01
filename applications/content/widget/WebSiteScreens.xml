@@ -109,7 +109,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteContent"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                <entity-and entity-name="WebSiteContent" list-name="webSiteContent">
+                <entity-and entity-name="WebSiteContent" list="webSiteContent">
                     <field-map field-name="webSiteId" from-field="webSiteId"/>
                 </entity-and>                
             </actions>
@@ -295,22 +295,22 @@ under the License.
                     <field-map field-name="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
                     <field-map field-name="fromDate" from-field="parameters.fromDate"/>
                 </entity-one>
-                <entity-and entity-name="ContentPurpose" list-name="currentPurposes">
+                <entity-and entity-name="ContentPurpose" list="currentPurposes">
                     <field-map field-name="contentId" from-field="contentId"/>                    
                 </entity-and>
                 <entity-condition entity-name="ContentPurposeType" list="purposeTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-and entity-name="DataResource" list-name="templates">
+                <entity-and entity-name="DataResource" list="templates">
                     <field-map field-name="dataCategoryId" value="TEMPLATE"/>
                     <order-by field-name="dataResourceName"/>
                 </entity-and>
-                <entity-and entity-name="StatusItem" list-name="statuses">
+                <entity-and entity-name="StatusItem" list="statuses">
                     <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                     <order-by field-name="sequenceId"/>
                 </entity-and>
                 <entity-condition entity-name="DataTemplateType" list="templateTypes"/>
-                <entity-and entity-name="Content" list-name="decorators">
+                <entity-and entity-name="Content" list="decorators">
                     <field-map field-name="contentTypeId" value="DECORATOR"/>
                 </entity-and>
             </actions>
@@ -379,7 +379,7 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <entity-one entity-name="Content" value-field="content"/>
-                <entity-and entity-name="WebSitePathAlias" list-name="aliases">
+                <entity-and entity-name="WebSitePathAlias" list="aliases">
                     <field-map field-name="webSiteId" from-field="webSiteId"/>
                     <field-map field-name="contentId" from-field="contentId"/>
                 </entity-and>
@@ -400,7 +400,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="tabButtonItem" value="PathAlias"/>
-                <entity-and entity-name="WebSitePathAlias" list-name="aliases">
+                <entity-and entity-name="WebSitePathAlias" list="aliases">
                     <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
                 </entity-and>
             </actions>

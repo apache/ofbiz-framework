@@ -317,7 +317,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId" />
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId" />
                     </condition>
                     <widgets>
                         <container style="responseSelected">

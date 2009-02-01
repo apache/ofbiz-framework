@@ -35,7 +35,7 @@ under the License.
     <form name="listFindContent" type="list" target="" paginate-target="/CMSContentFind" view-size="20"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
             </service>
