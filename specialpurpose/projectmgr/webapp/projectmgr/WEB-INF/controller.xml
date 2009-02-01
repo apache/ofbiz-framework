@@ -860,8 +860,10 @@
     <view-map name="FindTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTask"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
     
+    <!--
     <view-map name="AddProjectTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#AddProjectTask"/>
-    
+    -->
+      
     <!-- TO DO
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
