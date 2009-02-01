@@ -81,7 +81,7 @@ public class ScreenRenderer {
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
      * 
-     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated by a puund sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
+     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
