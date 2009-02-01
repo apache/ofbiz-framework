@@ -153,12 +153,12 @@ under the License.
                 <!-- render appheader: both menu widget style and ftl template style menus are supported-->
                 <section>
                     <condition>
-                        <not><if-empty field-name="userLogin"/></not>
+                        <not><if-empty field="userLogin"/></not>
                     </condition>
                     <widgets>
                         <section>
                             <condition>
-                                <if-empty field-name="applicationMenuName"/>
+                                <if-empty field="applicationMenuName"/>
                             </condition>
                             <widgets>
                                 <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
@@ -195,7 +195,7 @@ under the License.
                 <!-- render footer -->
                 <section>
                     <condition>
-                        <if-empty field-name="applicationFooterTemplate"/>
+                        <if-empty field="applicationFooterTemplate"/>
                     </condition>
                     <widgets>
                         <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
@@ -407,7 +407,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-empty field-name="titleProperty"/>
+                        <if-empty field="titleProperty"/>
                     </condition>
                     <widgets>
                         <container style="h1">

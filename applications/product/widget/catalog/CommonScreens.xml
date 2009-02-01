@@ -71,7 +71,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="product"/></not></condition>
+                                    <condition><not><if-empty field="product"/></not></condition>
                                     <widgets>
                                         <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
@@ -118,7 +118,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="prodCatalogId"/></not></condition>
+                                    <condition><not><if-empty field="prodCatalogId"/></not></condition>
                                     <widgets>
                                         <include-menu name="CatalogTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                     </widgets>
@@ -158,7 +158,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="productStoreId"/></not></condition>
+                                    <condition><not><if-empty field="productStoreId"/></not></condition>
                                     <widgets>
                                         <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/Menus.xml"/>
 

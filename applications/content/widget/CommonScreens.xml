@@ -96,7 +96,7 @@ under the License.
                                 </container>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="currentValue.contentId"/></not>
+                                        <not><if-empty field="currentValue.contentId"/></not>
                                     </condition>
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
@@ -133,7 +133,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                                        <not><if-empty field="currentValue.dataResourceId"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
@@ -240,7 +240,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="parameters.webSiteId"/></not>
+                                        <not><if-empty field="parameters.webSiteId"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>

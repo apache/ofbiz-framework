@@ -69,7 +69,7 @@ under the License.
                             <label text="${uiLabelMap.WorkEffortEstimatedCompletionDate} " style="label"/><label text="${workEffort.estimatedCompletionDate}"/>
                         </container>
                         <section>
-                            <condition><not><if-empty field-name="partyAssignments"/></not></condition>
+                            <condition><not><if-empty field="partyAssignments"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
@@ -81,7 +81,7 @@ under the License.
                             </widgets>
                         </section>
                         <section>
-                            <condition><not><if-empty field-name="fixedAssetAssignments"/></not></condition>
+                            <condition><not><if-empty field="fixedAssetAssignments"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
@@ -93,7 +93,7 @@ under the License.
                             </widgets>
                         </section>
                         <section>
-                            <condition><not><if-empty field-name="commEvents"/></not></condition>
+                            <condition><not><if-empty field="commEvents"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
@@ -114,7 +114,7 @@ under the License.
                             </widgets>
                         </section>
                         <section>
-                            <condition><not><if-empty field-name="shoppingLists"/></not></condition>
+                            <condition><not><if-empty field="shoppingLists"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
@@ -135,7 +135,7 @@ under the License.
                             </widgets>
                         </section>
                         <section>
-                            <condition><not><if-empty field-name="quotes"/></not></condition>
+                            <condition><not><if-empty field="quotes"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
@@ -156,7 +156,7 @@ under the License.
                             </widgets>
                         </section>
                         <section>
-                            <condition><not><if-empty field-name="quotes"/></not></condition>
+                            <condition><not><if-empty field="quotes"/></not></condition>
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">

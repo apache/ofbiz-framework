@@ -37,7 +37,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="productPromoId"/></not></condition>
+                                    <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
                                         <include-menu name="PromoTabBar" location="component://product/widget/catalog/Menus.xml"/>
                     

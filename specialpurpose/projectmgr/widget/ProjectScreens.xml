@@ -162,7 +162,7 @@ under the License.
                 <link target="AddProjectAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext"></link>
                 <link target="AddProjectAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext"></link>
                 <section>
-                    <condition><not><if-empty field-name="workEffortAssoc"/></not></condition>
+                    <condition><not><if-empty field="workEffortAssoc"/></not></condition>
                     <widgets>
                         <link target="EditProjectAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc" style="buttontext"></link>
                         <link target="EditProjectAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc Detail" style="buttontext"></link>
@@ -242,7 +242,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <section>
                                         <condition>
-                                            <if-empty field-name="phases"/>
+                                            <if-empty field="phases"/>
                                         </condition>
                                         <widgets>    
                                             <label style="h3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
@@ -293,7 +293,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                    <if-empty field-name="workEffortAssocTypeId"/>
+                                    <if-empty field="workEffortAssocTypeId"/>
                             </condition>
                             <!-- Add a new Task -->
                             <widgets>
@@ -306,7 +306,7 @@ under the License.
                                 <section>
                                     <condition>
                                         <not>
-                                            <if-empty field-name="workEffortIdFrom"/>
+                                            <if-empty field="workEffortIdFrom"/>
                                         </not>
                                     </condition>
                                     <!-- Edit an existing Task -->
@@ -622,7 +622,7 @@ under the License.
                     <include-form name="ListProjectProviderParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     <section>
                         <condition>
-                            <not><if-empty field-name="clientAssigns"/></not>
+                            <not><if-empty field="clientAssigns"/></not>
                         </condition>
                         <widgets>
                             <label style="h3" text="${uiLabelMap.ProjectMgrClientContacts}"></label>
@@ -631,7 +631,7 @@ under the License.
                     </section>
                     <section>
                         <condition>
-                            <not><if-empty field-name="companyAssigns"/></not>
+                            <not><if-empty field="companyAssigns"/></not>
                         </condition>
                         <widgets>
                             <label style="h3" text="${uiLabelMap.ProjectMgrCompanies}"></label>
@@ -784,7 +784,7 @@ under the License.
                                     <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
                                     <if-compare field-name="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
                                     <if-compare field-name="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
-                                    <not><if-empty field-name="mechMap.partyContactMech"/></not>
+                                    <not><if-empty field="mechMap.partyContactMech"/></not>
                                 </or>
                             </condition>
                             <widgets>
@@ -837,7 +837,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="communicationEvent"/></not>
+                                        <not><if-empty field="communicationEvent"/></not>
                                     </condition>
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.PartyEditCommunicationEvent}"/>

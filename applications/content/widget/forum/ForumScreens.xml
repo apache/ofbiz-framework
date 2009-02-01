@@ -38,7 +38,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="tabBar"/></not>
+                                        <not><if-empty field="tabBar"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="${tabBar}" location="component://content/widget/forum/ForumMenus.xml"/>
@@ -252,7 +252,7 @@ under the License.
                         <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml" /> 
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.forumThreadId"/></not>
+                                <not><if-empty field="parameters.forumThreadId"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -273,7 +273,7 @@ under the License.
                         </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="parameters.forumMessageId"/></not>
+                                        <not><if-empty field="parameters.forumMessageId"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="screenlet">

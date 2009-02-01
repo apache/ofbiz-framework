@@ -50,7 +50,7 @@ under the License.
             <condition>
                 <or>
                     <if-compare field-name="parameters.all" operator="equals" value="false" />
-                    <if-empty field-name="parameters.all"/>
+                    <if-empty field="parameters.all"/>
                 </or>
             </condition>
             <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=true" />
@@ -107,8 +107,8 @@ under the License.
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
@@ -119,8 +119,8 @@ under the License.
         <menu-item name="forward" title="${uiLabelMap.Forward}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
@@ -131,8 +131,8 @@ under the License.
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                 </and>
             </condition>
@@ -141,7 +141,7 @@ under the License.
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
                 <and>
-                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <not><if-empty field="communicationEventRole"/></not>
                     <if-compare field-name="communicationEvent.statusId" operator="equals" value="COM_ROLE_READ"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
@@ -151,7 +151,7 @@ under the License.
         <menu-item name="send" title="${uiLabelMap.CommonSend}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
                     <if-compare field-name="commEvent.statusId" operator="equals" value="COM_PENDING"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                 </and>
@@ -161,7 +161,7 @@ under the License.
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
                 <and>
-                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <not><if-empty field="communicationEventRole"/></not>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
                 </and>
             </condition>
@@ -180,7 +180,7 @@ under the License.
         <menu-item name="cancelledRequest" title="Cancel request" >
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
@@ -190,7 +190,7 @@ under the License.
         <menu-item name="addContent" title="Add content">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>

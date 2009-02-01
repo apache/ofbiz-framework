@@ -28,7 +28,7 @@ under the License.
         <menu-item name="shipment" title="${uiLabelMap.ProductShipments}"><link target="FindShipment"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.CommonReports}">
             <condition>
-                <not><if-empty field-name="facilityId"/></not>
+                <not><if-empty field="facilityId"/></not>
             </condition>
             <link target="InventoryReports?facilityId=${facilityId}"/>
         </menu-item>

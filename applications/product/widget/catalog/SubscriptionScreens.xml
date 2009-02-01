@@ -79,7 +79,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="subscription"/></not>
+                                        <not><if-empty field="subscription"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
@@ -113,7 +113,7 @@ under the License.
             </actions>
             <widgets>
                 <section>
-                    <condition><if-empty field-name="subscriptionId"/></condition>
+                    <condition><if-empty field="subscriptionId"/></condition>
                     <actions><set field="titleProperty" value="ProductNewSubscription"/></actions>
                     <widgets/>
                 </section>
@@ -201,7 +201,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="subscriptionResource"/></not>
+                                        <not><if-empty field="subscriptionResource"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
@@ -238,7 +238,7 @@ under the License.
             </actions>
             <widgets>
                 <section>
-                    <condition><if-empty field-name="subscriptionResourceId"/></condition>
+                    <condition><if-empty field="subscriptionResourceId"/></condition>
                     <actions><set field="titleProperty" value="ProductNewSubscriptionResource"/></actions>
                     <widgets/>
                 </section>

@@ -26,7 +26,7 @@ under the License.
                 <set field="headerItem" value="userJobs"/>
                 <set field="titleProperty" value="WorkEffortJobList"/>
                 <set field="filterByStatusId" from-field="parameters.statusId" default-value="SERVICE_RUNNING"/>
-                <entity-condition entity-name="JobSandbox" list-name="userJobs">
+                <entity-condition entity-name="JobSandbox" list="userJobs">
                     <condition-list>
                         <condition-expr field-name="authUserLoginId" env-name="userLogin.userLoginId"/>
                         <condition-expr field-name="statusId" env-name="filterByStatusId"/>
@@ -114,7 +114,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-empty field-name="workEffort"/>
+                                <if-empty field="workEffort"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -268,7 +268,7 @@ under the License.
                 <link target="AddWorkEffortAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext"></link>
                 <link target="AddWorkEffortAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext"></link>
                 <section>
-                    <condition><not><if-empty field-name="workEffortAssoc"/></not></condition>
+                    <condition><not><if-empty field="workEffortAssoc"/></not></condition>
                     <widgets>
                         <link target="EditWorkEffortAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="${uiLabelMap.WorkEffortEditAssoc}" style="buttontext"></link>
                         <link target="EditWorkEffortAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="${uiLabelMap.WorkEffortEditAssocDetail}" style="buttontext"></link>

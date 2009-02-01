@@ -95,7 +95,7 @@ under the License.
                                 <include-screen name="MyTaskList"/>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="projects"/></not>                                        
+                                        <not><if-empty field="projects"/></not>                                        
                                     </condition>
                                     <widgets>
                                         <container style="lefthalf">
@@ -134,7 +134,7 @@ under the License.
             <widgets>
                     <section>
                         <condition>
-                            <not><if-empty field-name="tasks"/></not>                                        
+                            <not><if-empty field="tasks"/></not>                                        
                         </condition>
                         <widgets>
                             <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}" navigation-form-name="MyTasks">
@@ -321,7 +321,7 @@ under the License.
                 <link target="AddTaskAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext"></link>
                 <link target="AddTaskAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext"></link>
                 <section>
-                    <condition><not><if-empty field-name="workEffortAssoc"/></not></condition>
+                    <condition><not><if-empty field="workEffortAssoc"/></not></condition>
                     <widgets>
                         <link target="EditTaskListAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc" style="buttontext"></link>
                         <link target="EditTaskListAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc Detail" style="buttontext"></link>

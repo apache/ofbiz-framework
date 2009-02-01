@@ -84,7 +84,7 @@ under the License.
                 <section>
                     <condition>
                         <not>
-                            <if-empty field-name="shipment"/>
+                            <if-empty field="shipment"/>
                         </not>
                     </condition>
                     <widgets>

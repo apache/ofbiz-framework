@@ -28,7 +28,7 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreList"/>
 
-                <entity-condition entity-name="ProductStore" list-name="productStores">
+                <entity-condition entity-name="ProductStore" list="productStores">
                     <order-by field-name="storeName"/>
                 </entity-condition>
             </actions>
@@ -127,7 +127,7 @@ under the License.
 
                 <set field="userEntered" from-field="parameters.userEntered"/>
                 <set field="activeOnly" from-field="parameters.activeOnly" default-value="true"/>
-                <entity-condition entity-name="ProductStorePromoAndAppl" list-name="productStorePromoAndAppls" filter-by-date="${activeOnly}">
+                <entity-condition entity-name="ProductStorePromoAndAppl" list="productStorePromoAndAppls" filter-by-date="${activeOnly}">
                     <condition-list combine="and">
                         <condition-expr field-name="userEntered" env-name="userEntered" ignore-if-empty="true"/>
                         <condition-expr field-name="productStoreId" env-name="productStoreId"/>
@@ -195,7 +195,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
-                <entity-condition entity-name="ProductStoreCatalog" list-name="productStoreCatalogs">
+                <entity-condition entity-name="ProductStoreCatalog" list="productStoreCatalogs">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productStoreId"/>
@@ -249,11 +249,11 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId" default-value="${productStoreId}"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
-                <entity-condition entity-name="WebSite" list-name="storeWebSites">
+                <entity-condition entity-name="WebSite" list="storeWebSites">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="siteName"/>
                 </entity-condition>
-                <entity-condition entity-name="WebSite" list-name="webSites">
+                <entity-condition entity-name="WebSite" list="webSites">
                     <order-by field-name="siteName"/>
                 </entity-condition>
             </actions>
@@ -278,12 +278,12 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-                <entity-condition entity-name="ProductStoreShipmentMethView" list-name="storeShipMethods">
+                <entity-condition entity-name="ProductStoreShipmentMethView" list="storeShipMethods">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
                 <entity-one entity-name="ProductStoreShipmentMeth" value-field="productStoreShipmentMeth" auto-field-map="true"/>
-                <entity-condition entity-name="CarrierShipmentMethod" list-name="carrierShipmentMethods">
+                <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
             </actions>
@@ -310,8 +310,8 @@ under the License.
                                     <section>
                                         <condition>
                                             <and>
-                                                <if-empty field-name="productStoreShipmentMeth"/>
-                                                <if-empty field-name="parameters.addCarrierShipMeth"/>
+                                                <if-empty field="productStoreShipmentMeth"/>
+                                                <if-empty field="parameters.addCarrierShipMeth"/>
                                             </and>
                                         </condition>
                                         <widgets>
@@ -327,8 +327,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <if-empty field-name="productStoreShipmentMeth"/>
-                                            <if-empty field-name="parameters.addCarrierShipMeth"/>
+                                            <if-empty field="productStoreShipmentMeth"/>
+                                            <if-empty field="parameters.addCarrierShipMeth"/>
                                         </and>
                                     </condition>
                                     <widgets>
@@ -357,7 +357,7 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-                <entity-condition entity-name="ShipmentCostEstimate" list-name="estimates">
+                <entity-condition entity-name="ShipmentCostEstimate" list="estimates">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="geoIdFrom"/>
                     <order-by field-name="shipmentMethodTypeId"/>
@@ -387,7 +387,7 @@ under the License.
                                 <container style="h3">
                                     <section>
                                         <condition>
-                                            <if-empty field-name="estimate"/>
+                                            <if-empty field="estimate"/>
                                         </condition>
                                         <widgets>
                                             <label text="${uiLabelMap.ProductNewShipmentEstimate}"/>
@@ -401,7 +401,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <condition>
-                                        <if-empty field-name="estimate"/>
+                                        <if-empty field="estimate"/>
                                     </condition>
                                     <widgets>
                                         <include-form name="AddShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
@@ -490,7 +490,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 
-                <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+                <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="emailType"/>
                 </entity-condition>
@@ -566,7 +566,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
-                <entity-condition entity-name="ProductStoreKeywordOvrd" list-name="productStorekeywordOvrdList">
+                <entity-condition entity-name="ProductStoreKeywordOvrd" list="productStorekeywordOvrdList">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                 </entity-condition>
             </actions>
@@ -658,7 +658,7 @@ under the License.
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
                 <entity-one entity-name="ProductStoreFinActSetting" value-field="finAccountSetting"/>
-                <entity-condition entity-name="ProductStoreFinActSetting" list-name="productStoreFinActSettings">
+                <entity-condition entity-name="ProductStoreFinActSetting" list="productStoreFinActSettings">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>                    
                 </entity-condition>
             </actions>
@@ -710,7 +710,7 @@ under the License.
              
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 
-                <entity-condition entity-name="ProductStoreVendorPayment" list-name="productStoreVendorPaymentList">
+                <entity-condition entity-name="ProductStoreVendorPayment" list="productStoreVendorPaymentList">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                 </entity-condition>
             </actions>
@@ -761,7 +761,7 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
 
-                <entity-condition entity-name="ProductStoreVendorShipment" list-name="productStoreVendorShipmentList">
+                <entity-condition entity-name="ProductStoreVendorShipment" list="productStoreVendorShipmentList">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                 </entity-condition>
             </actions>

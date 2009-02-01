@@ -86,7 +86,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="product"/></not></condition>
+                                    <condition><not><if-empty field="product"/></not></condition>
                                     <widgets>
                                         <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <platform-specific>

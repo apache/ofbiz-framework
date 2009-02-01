@@ -29,7 +29,7 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <entity-condition entity-name="Timesheet" list-name="currentTimesheetList">
+                <entity-condition entity-name="Timesheet" list="currentTimesheetList">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
                         <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
@@ -55,7 +55,7 @@ under the License.
                                 <iterate-section entry-name="currentTimesheet" list-name="currentTimesheetList">
                                     <section>
                                         <actions>
-                                            <entity-condition entity-name="TimeEntry" list-name="currentTimeEntryList">
+                                            <entity-condition entity-name="TimeEntry" list="currentTimeEntryList">
                                                 <condition-list combine="and">
                                                     <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
                                                     <condition-expr field-name="timesheetId" env-name="currentTimesheet.timesheetId"/>
@@ -80,7 +80,7 @@ under the License.
                                                             <label style="tableheadtext" text="${currentTimeEntry.hours} ${uiLabelMap.WorkEffortTimesheetHours} "/>
                                                             <label style="tabletext" text="${currentTimeEntry.comments} [${currentRateType.description}]"/>
                                                             <section>
-                                                                <condition><not><if-empty field-name="currentTimeEntry.workEffortId"/></not></condition>
+                                                                <condition><not><if-empty field="currentTimeEntry.workEffortId"/></not></condition>
                                                                 <widgets><link target="WorkEffortSummary?workEffortId=${currentTimeEntry.workEffortId}" text="${uiLabelMap.WorkEffortWorkEffort}: ${currentTimeEntry.workEffortId}" style="buttontext"/></widgets>
                                                             </section>
                                                         </container>
@@ -209,7 +209,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-empty field-name="timesheet"/>
+                                <if-empty field="timesheet"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">

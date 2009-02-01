@@ -22,7 +22,7 @@ under the License.
     <menu name="CommonAppBarMenu" default-menu-item-name="main" id="app-navigation" type="simple" title="${applicationTitle}&amp;nbsp;"
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <condition><not><if-empty field="userLogin"/></not></condition>
             <link target="main"/>
         </menu-item>
     </menu>

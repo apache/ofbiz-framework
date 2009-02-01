@@ -33,43 +33,43 @@ under the License.
         </menu-item>
         <menu-item name="editdataresource" title="Data Resource" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="EditDataResource" name="EditDataResource" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="editelectronictext" title="Text" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="EditElectronicText" name="EditElectronicText" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="edithtmltext" title="Html" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="EditHtmlText" name="EditHtmlText" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="uploadimage" title="Image" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="UploadImage" name="UploadImage" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="editdataresourceattribute" title="Attribute" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="EditDataResourceAttribute" name="EditDataResourceAttribute" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="editdataresourcerole" title="Role" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId"/></not>
+                <not><if-empty field="dataResourceId"/></not>
             </condition>
             <link target="EditDataResourceRole" name="EditDataResourceRole" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="editdataresourceproductfeatures" title="Product Features" >
             <condition disabled-style="buttontextdisabled">
-                <not><if-empty field-name="dataResourceId" /></not>
+                <not><if-empty field="dataResourceId" /></not>
             </condition>
             <link target="EditDataResourceProductFeatures" name="EditDataResourceProductFeatures" target-window="_top" style="tabButton" />
         </menu-item>
@@ -85,14 +85,14 @@ under the License.
     <menu name="dataresource" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="editDataResource" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <not><if-empty field="currentValue.dataResourceId"/></not>
             </condition>
             <link target="EditDataResource?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                    <not><if-empty field="currentValue.dataResourceId"/></not>
                     <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
                 </and>
             </condition>
@@ -101,7 +101,7 @@ under the License.
         <menu-item name="editHtmlText" title="${uiLabelMap.ContentDataResourceHtml}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                    <not><if-empty field="currentValue.dataResourceId"/></not>
                     <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
                 </and>
             </condition>
@@ -124,19 +124,19 @@ under the License.
         </menu-item>
         <menu-item name="EditDataResourceAttribute" title="${uiLabelMap.ContentDataResourceAttribute}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <not><if-empty field="currentValue.dataResourceId"/></not>
             </condition>
             <link target="EditDataResourceAttribute?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="editDataResourceRole" title="${uiLabelMap.ContentDataResourceRole}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <not><if-empty field="currentValue.dataResourceId"/></not>
             </condition>
             <link target="EditDataResourceRole?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="editDataResourceProductFeatures" title="${uiLabelMap.ContentDataResourceProductFeatures}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <not><if-empty field="currentValue.dataResourceId"/></not>
             </condition>
             <link target="EditDataResourceProductFeatures?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>

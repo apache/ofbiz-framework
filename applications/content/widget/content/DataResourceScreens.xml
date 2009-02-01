@@ -196,7 +196,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <not><if-empty field-name="currentValue"/></not>
+                                <not><if-empty field="currentValue"/></not>
                             </condition>
                             <widgets>
                                 <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}" style="h3"/>

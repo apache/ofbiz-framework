@@ -37,7 +37,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="configItemId"/></not></condition>
+                                    <condition><not><if-empty field="configItemId"/></not></condition>
                                     <widgets>
                                         <include-menu name="ConfigItemTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
@@ -66,7 +66,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindConfigItems"/>
                 <set field="headerItem" value="configs"/>
                 
-                <entity-condition list-name="productConfigItems" entity-name="ProductConfigItem">
+                <entity-condition list="productConfigItems" entity-name="ProductConfigItem">
                     <order-by field-name="configItemId"/>
                 </entity-condition>
             </actions>
@@ -143,11 +143,11 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="ProductConfigProduct" value-field="productConfigProduct" auto-field-map="true"/>
 
-                <entity-condition entity-name="ProductConfigOption" list-name="configOptionList">
+                <entity-condition entity-name="ProductConfigOption" list="configOptionList">
                     <condition-expr field-name="configItemId" env-name="configItemId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
-                <entity-condition entity-name="ProductConfigProduct" list-name="configProducts">
+                <entity-condition entity-name="ProductConfigProduct" list="configProducts">
                     <condition-list combine="and">
                         <condition-expr field-name="configItemId" env-name="configItemId"/>
                         <condition-expr field-name="configOptionId" env-name="configOptionId"/>

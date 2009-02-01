@@ -149,10 +149,10 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="contentId"/></not>
-                                    <not><if-empty field-name="contentIdTo"/></not>
-                                    <not><if-empty field-name="contentAssocTypeId"/></not>
-                                    <not><if-empty field-name="fromDate"/></not>
+                                    <not><if-empty field="contentId"/></not>
+                                    <not><if-empty field="contentIdTo"/></not>
+                                    <not><if-empty field="contentAssocTypeId"/></not>
+                                    <not><if-empty field="fromDate"/></not>
                                 </and>  
                             </condition>
                             <widgets>
@@ -175,10 +175,10 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <if-empty field-name="contentId"/>  
-                                    <if-empty field-name="contentIdTo"/>  
-                                    <if-empty field-name="contentAssocTypeId"/>  
-                                    <if-empty field-name="fromDate"/>  
+                                    <if-empty field="contentId"/>  
+                                    <if-empty field="contentIdTo"/>  
+                                    <if-empty field="contentAssocTypeId"/>  
+                                    <if-empty field="fromDate"/>  
                                 </or>  
                             </condition>
                             <widgets>
@@ -284,7 +284,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindWebSite"/>
                 <set field="labelTitleProperty" value="PageTitleFindWebSite"/>
                 <set field="tabButtonItem" value="websites"/>
-                <entity-condition entity-name="WebSiteAndContent" list-name="webSites">
+                <entity-condition entity-name="WebSiteAndContent" list="webSites">
                     <condition-expr field-name="contentId" env-name="parameters.contentId"/>
                     <order-by field-name="webSiteId"/>
                 </entity-condition>

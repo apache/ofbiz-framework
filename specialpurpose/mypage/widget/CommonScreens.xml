@@ -52,7 +52,7 @@ under the License.
             </actions>
             <widgets>
                 <section>
-                    <condition><not><if-empty field-name="userLogin"/></not></condition>
+                    <condition><not><if-empty field="userLogin"/></not></condition>
                     <actions>
                         <service service-name="getUserPreferenceGroup" result-map-name="preferences">
                             <field-map field-name="userPrefGroupTypeId" value="MyPage" />
@@ -202,7 +202,7 @@ under the License.
                     <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
                 <!--  check if there are any customer requests for this user -->
-                <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
+                <entity-condition list="custRequests" entity-name="CustReqAndTypeAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
                         <condition-list combine="and">
@@ -216,7 +216,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="custRequests"/></not>
+                        <not><if-empty field="custRequests"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.MyPageIncomingCustRequests}" navigation-form-name="ListRequestList" >
@@ -284,7 +284,7 @@ under the License.
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="status" from-field="parameters.status" default-value="open"/>
                 <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
-                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                <entity-condition list="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
                         <condition-list combine="or">
@@ -295,7 +295,7 @@ under the License.
                     <order-by field-name="+priority"/>
                     <order-by field-name="+custRequestDate"/>
                 </entity-condition>
-                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                <entity-condition list="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
                         <condition-list combine="or">
@@ -306,7 +306,7 @@ under the License.
                     <order-by field-name="custRequestDate"/>
                 </entity-condition>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
-                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                <entity-condition list="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
                         <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
@@ -314,7 +314,7 @@ under the License.
                     <order-by field-name="custRequestDate"/>
                 </entity-condition>
                 <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
-                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
                         <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
@@ -341,7 +341,7 @@ under the License.
                 </screenlet>
                 <section>
                     <condition>
-                        <not><if-empty field-name="companyCustRequests"/></not>
+                        <not><if-empty field="companyCustRequests"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.MyPageOtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
@@ -489,7 +489,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="custRequest"/></not>
+                                <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
                                 <include-menu location="component://mypage/widget/MyPageMenus.xml" name="RequestTabBar"/>

@@ -57,7 +57,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="fixedAssetId"/></not>
+                                <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="ComputerHardwareTabBar" location="component://assetmaint/widget/ismgr/Menus.xml"/>
@@ -78,7 +78,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="fixedAssetId"/></not>
+                                        <not><if-empty field="fixedAssetId"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>
@@ -111,7 +111,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="fixedAssetId"/></not>
+                                <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="ComputerHardwareTabBar" location="component://assetmaint/widget/ismgr/Menus.xml"/>
@@ -133,7 +133,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="fixedAssetId"/></not>
+                                        <not><if-empty field="fixedAssetId"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>

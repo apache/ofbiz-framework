@@ -116,7 +116,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="tasks" />
+                                        <if-empty field="tasks" />
                                     </not>
                                 </condition>
                                 <widgets>
@@ -140,7 +140,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="tasks" />
+                                        <if-empty field="tasks" />
                                     </not>
                                 </condition>
                                 <widgets>
@@ -217,7 +217,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
-                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEventDraft">
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEventDraft">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals" 
                             value="COM_PENDING"/>
@@ -239,7 +239,7 @@ under the License.
                     <section>
                         <condition>
                             <not>
-                                <if-empty field-name="commEventsUnknown" />
+                                <if-empty field="commEventsUnknown" />
                             </not>
                         </condition>
                         <widgets>
@@ -255,7 +255,7 @@ under the License.
                     <section>
                         <condition>
                             <not>
-                                <if-empty field-name="commEventDraft" />
+                                <if-empty field="commEventDraft" />
                             </not>
                         </condition>
                         <widgets>
@@ -318,7 +318,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="communicationEvent.parentCommEventId" />
+                                        <if-empty field="communicationEvent.parentCommEventId" />
                                     </not>
                                 </condition>
                                 <actions>
@@ -491,7 +491,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="invoices"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
-                <entity-condition list-name="invoices" entity-name="Invoice">
+                <entity-condition list="invoices" entity-name="Invoice">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" env-name="myCompanyId"/>
                         <condition-list combine="or">
@@ -609,7 +609,7 @@ under the License.
     <screen name="addAttachmentEmail">
         <section>
             <actions>
-                <entity-condition entity-name="MimeType" list-name="mimeTypes">
+                <entity-condition entity-name="MimeType" list="mimeTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="mimeTypeId"/>
                 </entity-condition>
@@ -658,7 +658,7 @@ under the License.
                 <set field="headerItem" value="projects"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
-                <entity-condition list-name="projects" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                <entity-condition list="projects" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
                         <condition-list combine="or">
@@ -731,7 +731,7 @@ under the License.
                         </iterate-section>
                         <section>
                             <condition>
-                                <if-empty field-name="projects"/>
+                                <if-empty field="projects"/>
                             </condition>
                             <widgets>
                                 <label style="h2" text="no projects found"></label>

@@ -67,8 +67,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field-name="facility"/></not>
-                                            <not><if-empty field-name="displayWithNoFacility"/></not>
+                                            <not><if-empty field="facility"/></not>
+                                            <not><if-empty field="displayWithNoFacility"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
@@ -100,7 +100,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="fixedAssetId"/></not>
+                                <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
@@ -116,7 +116,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="fixedAssetId"/></not>
+                                        <not><if-empty field="fixedAssetId"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>
