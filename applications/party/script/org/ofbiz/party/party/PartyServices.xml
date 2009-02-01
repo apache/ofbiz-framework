@@ -815,10 +815,11 @@ under the License.
     
     <!-- send party creation email notification -->
     <simple-method method-name="sendCreatePartyEmailNotification" short-description="Notification email on party creation" login-required="false">
-        <map-to-map map="parameters" to-map="bodyParameters"/>    
+        <map-to-map map="parameters" to-map="bodyParameters"/>
+        <set field="emailType" value="PARTY_REGIS_CONFIRM"/>    
         <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>
-                <condition-expr field-name="emailType" operator="equals" value="PARTY_REGIS_CONFIRM"/>
+                <condition-expr field-name="emailType" operator="equals" from-field="emailType"/>
             </condition-list>
         </entity-condition>
         <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
@@ -839,7 +840,7 @@ under the License.
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
             <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
-            <set field="emailParams.emailType" from-field="parameters.emailType"/>
+            <set field="emailParams.emailType" from-field="emailType"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
     </simple-method>   
