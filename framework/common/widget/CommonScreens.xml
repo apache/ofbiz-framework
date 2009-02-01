@@ -121,7 +121,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
@@ -213,7 +213,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <service service-name="getUserPreferenceGroup" result-map-name="prefResult">
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
