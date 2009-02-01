@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="partyinv"/>
                 <set field="partyInvitationId" from-field="parameters.partyInvitationId"/>
-                <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
+                <entity-one entity-name="PartyInvitation" value-field="partyInvitation"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -38,7 +38,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="partyInvitation"/></not>
+                                        <not><if-empty field="partyInvitation"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="PartyInvitationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
@@ -93,7 +93,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -165,7 +165,7 @@ under the License.
                 <set field="headerItem" value="partyinv"/>
                 <set field="tabButtonItem" value="EditPartyInvitation"/>
                 <set field="partyInvitationId" from-field="parameters.partyInvitationId"/>
-                <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
+                <entity-one entity-name="PartyInvitation" value-field="partyInvitation"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyInvitationDecorator">

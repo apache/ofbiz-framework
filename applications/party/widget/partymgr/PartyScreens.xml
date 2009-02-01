@@ -76,12 +76,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="party"/></not>
+                                <not><if-empty field="party"/></not>
                             </condition>
                             <widgets>
                                 <section>
                                     <condition>
-                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
                                         <container style="button-bar button-style-2">
@@ -138,7 +138,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="viewroles"/>
                 <set field="labelTitleProperty" value="PartyMemberRoles"/>
-                <entity-condition entity-name="RoleTypeAndParty" list-name="partyRoles">
+                <entity-condition entity-name="RoleTypeAndParty" list="partyRoles">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
                         <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
@@ -205,30 +205,30 @@ under the License.
                 <set field="labelTitleProperty" value="PartyRelationships"/>
                 <set field="headerItem" value="find"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-condition entity-name="RoleType" list-name="roleTypes">
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-condition entity-name="RoleType" list="roleTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="roleTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="RoleTypeAndParty" list-name="roleTypesForCurrentParty">
-                 <condition-expr field-name="partyId" env-name="partyId"/>
+                <entity-condition entity-name="RoleTypeAndParty" list="roleTypesForCurrentParty">
+                 <condition-expr field-name="partyId" from-field="partyId"/>
                  <order-by field-name="description"/>
                  <order-by field-name="roleTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="PartyRelationshipType" list-name="relateTypes">
+                <entity-condition entity-name="PartyRelationshipType" list="relateTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="partyRelationshipTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="PartyRelationship" list-name="partyRelationships">
+                <entity-condition entity-name="PartyRelationship" list="partyRelationships">
                     <condition-list combine="or">
-                        <condition-expr field-name="partyIdTo" env-name="partyId"/>
-                        <condition-expr field-name="partyIdFrom" env-name="partyId"/>
+                        <condition-expr field-name="partyIdTo" from-field="partyId"/>
+                        <condition-expr field-name="partyIdFrom" from-field="partyId"/>
                     </condition-list>
                     <order-by field-name="partyIdTo"/>
                     <order-by field-name="partyRelationshipTypeId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
-                <entity-condition entity-name="SecurityGroup" list-name="securityGroups"/>
+                <entity-condition entity-name="SecurityGroup" list="securityGroups"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -239,7 +239,7 @@ under the License.
                         <container style="lefthalf">
                         <section>
                             <condition>
-                                <if-compare field-name="party.partyTypeId" operator="equals" value="PERSON"/>
+                                <if-compare field="party.partyTypeId" operator="equals" value="PERSON"/>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyAddRelatedAccount}">
@@ -285,8 +285,8 @@ under the License.
                 <set field="labelTitleProperty" value="PartyVendorInformation"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Vendor" value-name="vendor"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Vendor" value-field="vendor"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -322,8 +322,8 @@ under the License.
 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="attrName" from-field="parameters.attrName"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="PartyAttribute" value-name="attribute"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="PartyAttribute" value-field="attribute"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -351,8 +351,8 @@ under the License.
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-and entity-name="PartyTaxAuthInfo" list-name="partyTaxInfos">
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-and entity-name="PartyTaxAuthInfo" list="partyTaxInfos">
                     <field-map field-name="partyId"/>
                     <order-by field-name="taxAuthGeoId"/>
                     <order-by field-name="taxAuthPartyId"/>
@@ -412,11 +412,11 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare field-name="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare field-name="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
-                                    <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId" type="String"/>
-                                    <not><if-empty field-name="mechMap.partyContactMech"/></not>
+                                    <if-compare field="hasViewPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare-field field="parameters.partyId" operator="equals" to-field="userLogin.partyId" type="String"/>
+                                    <not><if-empty field="mechMap.partyContactMech"/></not>
                                 </or>
                             </condition>
                             <widgets>
@@ -449,7 +449,7 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndPerson" value-name="personInfo"/>
+                <entity-one entity-name="PartyAndPerson" value-field="personInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -483,7 +483,7 @@ under the License.
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndGroup" value-name="partyGroup"/>
+                <entity-one entity-name="PartyAndGroup" value-field="partyGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -517,7 +517,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-name="editUserLogin"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -595,7 +595,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
 
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-name="editUserLogin"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${editUserLogin.partyId}"/>
             </actions>
             <widgets>
@@ -677,7 +677,7 @@ under the License.
                 <set field="labelTitleProperty" value="ViewSegmentRoles"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Party" value-field="party"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -867,7 +867,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleAddressMatchMap"/>
                 <set field="headerItem" value="addrmap"/>
-                <entity-condition entity-name="AddressMatchMap" list-name="addressMatchMaps">
+                <entity-condition entity-name="AddressMatchMap" list="addressMatchMaps">
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
             </actions>
@@ -911,7 +911,7 @@ under the License.
                 <set field="tabButtonItem" value="PartyContents"/>
                 <set field="partyId" from-field="parameters.partyId" />               
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="Content" value-field="content"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
@@ -996,7 +996,7 @@ under the License.
                 <set field="headerItem" value="accountsMain"/>
                 <set field="tabButtonItem" value="FinancialHistory"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Party" value-field="party"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1004,16 +1004,16 @@ under the License.
                         <label style="h1" text="${uiLabelMap.PartyFinancialHistory}"/>
                         <section>
                             <actions>
-                                <entity-condition entity-name="InvoiceAndApplAndPayment" list-name="ListInvoicesApplPayments">
+                                <entity-condition entity-name="InvoiceAndApplAndPayment" list="ListInvoicesApplPayments">
                                     <condition-list combine="and">
                                         <condition-list combine="or">
                                             <condition-list combine="and">
-                                                <condition-expr field-name="partyId" env-name="partyId"/>
-                                                <condition-expr field-name="partyIdFrom" env-name="defaultOrganizationPartyId"/>
+                                                <condition-expr field-name="partyId" from-field="partyId"/>
+                                                <condition-expr field-name="partyIdFrom" from-field="defaultOrganizationPartyId"/>
                                             </condition-list>
                                             <condition-list combine="and">
-                                                <condition-expr field-name="partyId" env-name="defaultOrganizationPartyId"/>
-                                                <condition-expr field-name="partyIdFrom" env-name="partyId"/>
+                                                <condition-expr field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                                                <condition-expr field-name="partyIdFrom" from-field="partyId"/>
                                             </condition-list>
                                         </condition-list>
                                         <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_IN_PROCESS"/>
@@ -1025,7 +1025,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="ListInvoicesApplPayments"/></not>
+                                        <not><if-empty field="ListInvoicesApplPayments"/></not>
                                     </condition>
                                     <actions>
                                         <set field="actualCurrency" value="false" type="Boolean"/>
@@ -1037,8 +1037,8 @@ under the License.
                                             <section>
                                                 <condition>
                                                     <and>
-                                                        <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
-                                                        <if-compare-field field-name="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                                        <not><if-empty field="party.preferredCurrencyUomId"/></not>
+                                                        <if-compare-field field="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field="party.preferredCurrencyUomId"/>
                                                     </and>
                                                 </condition>
                                                 <actions>
@@ -1066,8 +1066,8 @@ under the License.
                                     <section>
                                         <condition>
                                             <and>
-                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
-                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                                <not><if-empty field="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field="party.preferredCurrencyUomId"/>
                                             </and>
                                         </condition>
                                         <actions>
@@ -1093,8 +1093,8 @@ under the License.
                                     <section>
                                         <condition>
                                             <and>
-                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
-                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                                <not><if-empty field="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field="party.preferredCurrencyUomId"/>
                                             </and>
                                         </condition>
                                         <actions>
@@ -1120,8 +1120,8 @@ under the License.
                                     <section>
                                         <condition>
                                             <and>
-                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
-                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                                <not><if-empty field="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field="party.preferredCurrencyUomId"/>
                                             </and>
                                         </condition>
                                         <actions>
@@ -1148,7 +1148,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="preferences"/>
                 <set field="partyId"  from-field="parameters.partyId"/>
-                <entity-and entity-name="Enumeration" list-name="userPreferenceList">
+                <entity-and entity-name="Enumeration" list="userPreferenceList">
                     <field-map field-name="enumTypeId" value="GLOBAL_PREFERENCES"/>
                 </entity-and>
             </actions>

@@ -40,7 +40,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="partyId"/></not>
+                                        <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
@@ -168,7 +168,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
@@ -204,15 +204,15 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="communicationEvent.parentCommEventId" />
+                                        <if-empty field="communicationEvent.parentCommEventId" />
                                     </not>
                                 </condition>
                                 <actions>
                                     <set field="parent" value="${uiLabelMap.CommonParent}"/>
                                     <entity-one entity-name="CommunicationEvent"
-                                        value-name="communicationEvent">
+                                        value-field="communicationEvent">
                                         <field-map field-name="communicationEventId"
-                                            env-name="communicationEvent.parentCommEventId" />
+                                            from-field="communicationEvent.parentCommEventId" />
                                     </entity-one>
                                 </actions>
                                 <widgets>
@@ -221,9 +221,9 @@ under the License.
                             </section>
                             <section>
                                 <actions>
-                                    <entity-and list-name="commEvents" entity-name="CommunicationEvent">
+                                    <entity-and list="commEvents" entity-name="CommunicationEvent">
                                         <field-map field-name="parentCommEventId"
-                                            env-name="parameters.communicationEventId" />
+                                            from-field="parameters.communicationEventId" />
                                     </entity-and>
                                 </actions>
                                 <widgets>
@@ -259,9 +259,9 @@ under the License.
                     <section>
                         <condition>
                             <or><!-- have for e-mails a special form -->
-                                <if-compare field-name="communicationEvent.communicationEventTypeId"
+                                <if-compare field="communicationEvent.communicationEventTypeId"
                                     operator="equals" value="EMAIL_COMMUNICATION" />
-                                <if-compare field-name="communicationEvent.communicationEventTypeId"
+                                <if-compare field="communicationEvent.communicationEventTypeId"
                                     operator="equals" value="AUTO_EMAIL_COMM" />
                             </or>
                         </condition>
@@ -269,9 +269,9 @@ under the License.
                             <section>
                                 <condition>
                                     <and>
-                                        <if-compare field-name="communicationEvent.statusId"
+                                        <if-compare field="communicationEvent.statusId"
                                             operator="equals" value="COM_UNKNOWN_PARTY" />
-                                        <if-empty field-name="communicationEvent.partyIdFrom" />
+                                        <if-empty field="communicationEvent.partyIdFrom" />
                                     </and>
                                 </condition>
                                 <widgets>
@@ -309,7 +309,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="tabButtonItem" value="CommunicationEvent" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
             </actions>
@@ -320,9 +320,9 @@ under the License.
                         <section><!-- Email -->
                             <condition>
                                 <or><!-- have for e-mails a special form -->
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="equals" value="AUTO_EMAIL_COMM" />
                                 </or>
                             </condition>
@@ -334,7 +334,7 @@ under the License.
                         </section>
                         <section>
                             <condition><!-- internal note -->
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="equals" value="COMMENT_NOTE" />
                             </condition>
                             <widgets>
@@ -346,11 +346,11 @@ under the License.
                         <section>
                             <condition><!-- others -->
                                 <and>
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="COMMENT_NOTE" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                    <if-compare field="parameters.communicationEventTypeId"
                                         operator="not-equals" value="AUTO_EMAIL_COMM" />
                                 </and>
                             </condition>
@@ -379,7 +379,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="tabButtonItem" value="CommunicationEvent" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
@@ -406,9 +406,9 @@ under the License.
                 <set field="partyId" value="${parameters.partyId}" />
                 <set field="partyIdFrom" value="${parameters.partyId}" />
                 <set field="partyIdTo" value="${parameters.partyId}" />
-                <entity-one entity-name="Party" use-cache="true" value-name="party" />
-                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson" />
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <entity-one entity-name="Party" use-cache="true" value-field="party" />
+                <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" />
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer"
                     default-value="20" />
@@ -444,9 +444,9 @@ under the License.
                 <set field="partyId" value="${parameters.partyId}"/>
                 <set field="partyIdFrom" value="${parameters.partyId}"/>
                 <set field="partyIdTo" value="${parameters.partyId}"/>
-                <entity-one entity-name="Party" use-cache="true" value-name="party"/>
-                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <entity-one entity-name="Party" use-cache="true" value-field="party"/>
+                <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
@@ -497,7 +497,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -606,11 +606,11 @@ under the License.
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
-                <entity-one entity-name="CommEventContentDataResource" value-name="commEventContentDataResource">
-                    <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
-                    <field-map field-name="fromDate" env-name="parameters.fromDate"/>
-                    <field-map field-name="drDataResourceId" env-name="parameters.dataResourceId"/>
+                <entity-one entity-name="CommEventContentDataResource" value-field="commEventContentDataResource">
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                    <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                    <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -623,7 +623,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="partyId"/></not>
+                                        <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
@@ -633,11 +633,11 @@ under the License.
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="editCommContent"/>
                                 <section>
                                     <condition>
-                                        <if-regexp expr="text.*" field-name="commEventContentDataResource.drMimeTypeId" />
+                                        <if-regexp expr="text.*" field="commEventContentDataResource.drMimeTypeId" />
                                     </condition>
                                     <actions>
-                                        <entity-one entity-name="ElectronicText" value-name="electronicText">
-                                            <field-map field-name="dataResourceId" env-name="commEventContentDataResource.drDataResourceId"/>
+                                        <entity-one entity-name="ElectronicText" value-field="electronicText">
+                                            <field-map field-name="dataResourceId" from-field="commEventContentDataResource.drDataResourceId"/>
                                         </entity-one>
                                     </actions>
                                     <widgets>
@@ -660,7 +660,7 @@ under the License.
                                 <section>
                                     <condition>
                                         <not>
-                                            <if-regexp expr="text.*" field-name="commEventContentDataResource.drMimeTypeId"/>
+                                            <if-regexp expr="text.*" field="commEventContentDataResource.drMimeTypeId"/>
                                         </not>
                                     </condition>
                                     <widgets>

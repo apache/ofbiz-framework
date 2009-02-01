@@ -75,7 +75,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyEditSecurityGroupWithId"/>
                 
                 <set field="groupId" from-field="parameters.groupId"/>
-                <entity-one entity-name="SecurityGroup" value-name="securityGroup"/>
+                <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -107,7 +107,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyPermissionSecurityGroupWithId"/>
                 
                 <set field="groupId" from-field="parameters.groupId"/>
-                <entity-one entity-name="SecurityGroup" value-name="securityGroup"/>
+                <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -167,7 +167,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyUserLoginsForSecurityGroup"/>
                 
                 <set field="groupId" from-field="parameters.groupId"/>
-                <entity-one entity-name="SecurityGroup" value-name="securityGroup"/>
+                <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -189,7 +189,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyProtectedViewsForSecurityGroup"/>
                 
                 <set field="groupId" from-field="parameters.groupId"/>
-                <entity-one entity-name="SecurityGroup" value-name="securityGroup"/>
+                <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">

@@ -31,7 +31,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyClassifications"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Party" value-field="party"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -55,7 +55,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyClassificationGroupParties"/>
 
                 <set field="partyClassificationGroupId" from-field="parameters.partyClassificationGroupId"/>
-                <entity-one entity-name="PartyClassificationGroup" value-name="partyClassificationGroup"/>
+                <entity-one entity-name="PartyClassificationGroup" value-field="partyClassificationGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -92,7 +92,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyClassificationGroups"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Party" value-field="party"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -130,7 +130,7 @@ under the License.
 
                 <set field="partyClassificationGroupId" from-field="parameters.partyClassificationGroupId"/>
                 <set field="partyId" value="" />
-                <entity-one entity-name="PartyClassificationGroup" value-name="partyClassificationGroup"/>
+                <entity-one entity-name="PartyClassificationGroup" value-field="partyClassificationGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

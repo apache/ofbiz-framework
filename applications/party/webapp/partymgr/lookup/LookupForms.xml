@@ -149,8 +149,8 @@ under the License.
     <form name="listLookupCustomerNameForSalesRep" type="list" list-name="listIt" paginate-target="LookupCustomerNameForSalesRep"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="lastName"/>
                 <field-map field-name="entityName" value="PartyRelationshipAndDetail"/>
             </service>
@@ -180,9 +180,9 @@ under the License.
     <form name="listLookupPerson" type="list" list-name="listIt" paginate-target="LookupPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
@@ -270,9 +270,9 @@ under the License.
     <form name="listLookupPartyGroup" type="list" list-name="listIt" paginate-target="LookupPartyGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="parameters"/>
-            <field-map field-name="entityName" env-name="entityName"/>
+          <service service-name="performFind" result-map="result" result-map-list="listIt">
+            <field-map field-name="inputFields" from-field="parameters"/>
+            <field-map field-name="entityName" from-field="entityName"/>
           </service>
         </actions>
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>-->
@@ -301,8 +301,8 @@ under the License.
     <form name="listLookupPartyClassificationGroup" type="list" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyClassificationGroup"/>
                 <field-map field-name="orderBy" value="description"/>
             </service>
@@ -361,8 +361,8 @@ under the License.
     <form name="ListLookupCommEvent" type="list" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt" result-map-name="result">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map-list="listIt" result-map="result">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="CommunicationEvent"/>
             </service>
         </actions>
