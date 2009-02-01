@@ -19,6 +19,30 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <!-- OFBiz Core security -->
+    <Party partyId="_NA_" partyTypeId="PERSON"/>
+    <Person partyId="_NA_"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="_NA_" roleTypeId="_NA_"/>
+
+    <Party partyId="admin" partyTypeId="PERSON"/>
+    <Person firstName="THE" lastName="ADMINISTRATOR" middleName="PRIVILEGED" partyId="admin" personalTitle="Mr."/>
+    <PartyRole partyId="admin" roleTypeId="BUYER"/>
+    <PartyRole partyId="admin" roleTypeId="MANAGER"/>
+    <PartyRole partyId="admin" roleTypeId="ORDER_CLERK"/>
+    <PartyRole partyId="admin" roleTypeId="SHIPMENT_CLERK"/>
+    <PartyRole partyId="admin" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="admin" roleTypeId="_NA_"/>
+    <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
+    
+    <!-- Party for System UserLogin Account - just in case logic depends on it -->
+    <Party partyId="system" partyTypeId="PERSON"/>
+    <Person partyId="system" firstName="System" lastName="Account"/>
+    <!-- various automated processes will cause it to be put in this role anyway -->
+    <PartyRole partyId="system" roleTypeId="PACKER"/>
+
     <Party partyId="ltdadmin" partyTypeId="PERSON"/>
     <Person firstName="Limited" lastName="Administrator" middleName="" partyId="ltdadmin" personalTitle="Mr."/>
     <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK"/>
@@ -41,20 +65,18 @@ under the License.
     <PartyRole partyId="bizadmin" roleTypeId="_NA_"/>
     <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
+    <UserLogin userLoginId="anonymous" partyId=""/>
+    <UserLogin userLoginId="system" partyId="system"/>
+    <UserLogin userLoginId="admin" partyId="admin"/>
     <UserLogin userLoginId="flexadmin" partyId="admin"/>
     <UserLogin userLoginId="demoadmin" partyId="admin"/>
     <UserLogin userLoginId="ltdadmin" partyId="ltdadmin"/>
     <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
 
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>   
     
-    <!-- passwords (comment out so that they will not be reset) -->
-    <UserLogin userLoginId="flexadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="demoadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="ltdadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="bizadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-
 </entity-engine-xml>

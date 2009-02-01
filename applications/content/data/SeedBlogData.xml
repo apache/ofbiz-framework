@@ -20,13 +20,11 @@
 
 <entity-engine-xml>
 
-<Content contentId="BLOGROOT"  contentTypeId="WEB_SITE_PUB_PT" 
+<Content contentId="BLOGROOT" contentTypeId="WEB_SITE_PUB_PT" 
     ownerContentId=""
     contentName="Blog Root" 
     description="Blog Root" 
     childBranchCount="1" 
-    childLeafCount="1" 
-    createdByUserLogin="admin" 
-    lastModifiedByUserLogin="admin"/>
+    childLeafCount="1"/>
     
 </entity-engine-xml>
