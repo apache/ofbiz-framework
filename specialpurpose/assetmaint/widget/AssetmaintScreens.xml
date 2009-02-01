@@ -99,11 +99,11 @@
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
                 <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
-                <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
-                <get-related-one value-name="fixedAsset" relation-name="LocatedAtFacility" to-value-name="facility"/>
-                <entity-and entity-name="WorkEffortPartyAssignView" list-name="relatedPartyAssigns">
+                <get-related-one value-field="workEffort" relation-name="WorkEffortType" to-value-field="workEffortType"/>
+                <get-related-one value-field="workEffort" relation-name="CurrentStatusItem" to-value-field="currentStatusItem"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortPurposeType" to-value-field="workEffortPurposeType"/>
+                <get-related-one value-field="fixedAsset" relation-name="LocatedAtFacility" to-value-field="facility"/>
+                <entity-and entity-name="WorkEffortPartyAssignView" list="relatedPartyAssigns">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
@@ -305,7 +305,7 @@
                 </entity-condition>
                 <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
                 <entity-condition list="notes" entity-name="WorkEffortNoteAndData">
-                    <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                    <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="noteId"/>
                 </entity-condition>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/PrintFixedAssetMaint.groovy"/>

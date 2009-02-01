@@ -96,7 +96,7 @@ under the License.
             <actions>
                 <set field="donePage" value="myTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign"
-                    list-name="tasks" filter-by-date="true">
+                    list="tasks" filter-by-date="true">
                     <field-map field-name="partyId" from-field="userLogin.partyId" />
                     <field-map field-name="workEffortTypeId" value="TASK" />
                     <field-map field-name="currentStatusId" value="PTS_CREATED" />
@@ -192,7 +192,7 @@ under the License.
             <actions>
                 <set field="all" from-field="parameters.all"/>
                 <entity-condition entity-name="CommunicationEventAndRole"
-                    list-name="commEvents">
+                    list="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="not-equals"
                             value="COM_UNKNOWN_PARTY" />
@@ -206,7 +206,7 @@ under the License.
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
                 <entity-condition entity-name="CommunicationEventAndRole"
-                    list-name="commEventsUnknown">
+                    list="commEventsUnknown">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals"
                             value="COM_UNKNOWN_PARTY" />
@@ -273,13 +273,13 @@ under the License.
         <section>
             <actions>
                 <set field="donePage" value="otherCommunications"/>
-                <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
+                <entity-and list="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
                     <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
                 </entity-and>
             </actions>
             <widgets>
-                <iterate-section entry-name="emailOwner" list-name="emailOwners">
+                <iterate-section entry="emailOwner" list="emailOwners">
                     <section>
                         <actions>
                             <set field="partyId" from-field="emailOwner.partyIdTo" />
@@ -324,9 +324,9 @@ under the License.
                                 <actions>
                                     <set field="parent" value="${uiLabelMap.CommonParent}"/>
                                     <entity-one entity-name="CommunicationEvent"
-                                        value-name="communicationEvent">
+                                        value-field="communicationEvent">
                                         <field-map field-name="communicationEventId"
-                                            env-name="communicationEvent.parentCommEventId" />
+                                            from-field="communicationEvent.parentCommEventId" />
                                     </entity-one>
                                     <set field="donePage" from-field="parameters.donePage"/>
                                 </actions>
@@ -362,9 +362,9 @@ under the License.
                             </section>
                             <section>
                                 <actions>
-                                    <entity-and list-name="commEvents" entity-name="CommunicationEvent">
+                                    <entity-and list="commEvents" entity-name="CommunicationEvent">
                                         <field-map field-name="parentCommEventId"
-                                            env-name="parameters.communicationEventId" />
+                                            from-field="parameters.communicationEventId" />
                                     </entity-and>
                                 </actions>
                                 <widgets>
@@ -403,21 +403,21 @@ under the License.
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
-                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
-                <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
-                <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
-                <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
+                <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>
+                <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
+                <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>
+                <get-related-one value-field="custRequest" relation-name="FulfillContactMech" to-value-field="fulfillContactMech"/>
+                <entity-and list="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
+                <get-related value-field="custRequest" relation-name="CustRequestParty" list="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
-                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
-                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
+                <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems" order-by-list="orderBy"/>
+                <entity-and list="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>                
             </actions>
@@ -493,7 +493,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
                 <entity-condition list="invoices" entity-name="Invoice">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyId" operator="equals" env-name="myCompanyId"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
                         <condition-list combine="or">
                             <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
                             <condition-expr field-name="statusId" operator="equals" value="INVOICE_SEND"/>
@@ -636,10 +636,10 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-and entity-name="CommEventContentAssoc" list-name="commEventContent">
+                <entity-and entity-name="CommEventContentAssoc" list="commEventContent">
                     <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-and>
-                <entity-and entity-name="PartyContent" list-name="partyContent">
+                <entity-and entity-name="PartyContent" list="partyContent">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 </entity-and>
             </actions>
@@ -660,7 +660,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
                 <entity-condition list="projects" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
+                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                         <condition-list combine="or">
                             <condition-expr field-name="roleTypeId" value="CLIENT_MANAGER"/>
                             <condition-expr field-name="roleTypeId" value="CLIENT_ANALYST"/>
@@ -672,7 +672,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <iterate-section entry-name="project" list-name="projects">
+                        <iterate-section entry="project" list="projects">
                             <section>
                                 <actions>
                                     <set field="projectId" from-field="project.workEffortId"/>
@@ -751,10 +751,10 @@ under the License.
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="Content" value-field="content"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
+                <entity-and entity-name="CustRequestContent" list="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>

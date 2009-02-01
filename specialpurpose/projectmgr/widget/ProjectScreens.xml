@@ -27,7 +27,7 @@ under the License.
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <entity-and entity-name="WorkEffort" list-name="projects">
+                <entity-and entity-name="WorkEffort" list="projects">
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
                     <field-map field-name="workEffortParentId" from-field="projectId"/>
                 </entity-and>
@@ -205,12 +205,12 @@ under the License.
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>                
                 <set field="projectId" from-field="parameters.projectId"/>
-                <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+                <entity-and entity-name="ProjectAndPhaseAndTask" list="tasks">
                     <field-map field-name="projectId" from-field="parameters.projectId"/>
                     <order-by field-name="phaseName"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffort" list-name="phases">
+                <entity-and entity-name="WorkEffort" list="phases">
                     <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
                     <field-map field-name="workEffortTypeId" value="PHASE"/>
                 </entity-and>
@@ -386,7 +386,7 @@ under the License.
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
+                <entity-and entity-name="WorkEffortSkillStandard" list="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
             </actions>
@@ -581,9 +581,9 @@ under the License.
     <screen name="PartiesInfo">
         <section>
             <actions>
-                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="clientAssigns" distinct="true" filter-by-date="true">
+                <entity-condition entity-name="WorkEffortPartyAssignView" list="clientAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                        <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
                         <condition-expr field-name="roleTypeId" value="CLIENT%" operator="like"/>
                         <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="not-equals"/>
                     </condition-list>
@@ -597,9 +597,9 @@ under the License.
                     <order-by field-name="firstName"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>
-                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="companyAssigns" distinct="true" filter-by-date="true">
+                <entity-condition entity-name="WorkEffortPartyAssignView" list="companyAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                        <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
                         <condition-list combine="or">
                             <condition-expr field-name="roleTypeId" value="INTERNAL_ORGANIZATIO" operator="equals"/>
                             <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="equals"/>
@@ -618,7 +618,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrResources}">
-                    <label style="h3" title="${uiLabelMap.ProjectMgrProviders}"/>
+                    <label style="h3" text="${uiLabelMap.ProjectMgrProviders}"/>
                     <include-form name="ListProjectProviderParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     <section>
                         <condition>
@@ -646,7 +646,7 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortId" from-field="projectId"/>
-                <entity-and entity-name="WorkEffortNoteAndData" list-name="workEffortNoteandDetails">
+                <entity-and entity-name="WorkEffortNoteAndData" list="workEffortNoteandDetails">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
                 </entity-and>
@@ -665,7 +665,7 @@ under the License.
                 <set field="tabButtonItem" value="listResourcesProject"/>
                 <set field="titleProperty" value="PageTitleListProjectByParty"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="parties">
+                <entity-and entity-name="WorkEffortAndPartyAssign" list="parties">
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="workEffortId"/>
@@ -698,7 +698,7 @@ under the License.
                 <set field="tabButtonItem" value="listResourcesTask"/>
                 <set field="titleProperty" value="PageTitleListTaskByParty"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
+                <entity-and entity-name="WorkEffortAndPartyAssign" list="tasks">
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
                     <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
@@ -1049,7 +1049,7 @@ under the License.
                 <entity-one entity-name="Content" value-field="content"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">
+                <entity-and entity-name="WorkEffortAndContentDataResource" list="workEffortAndContentDataResources">
                     <field-map field-name="workEffortId" from-field="projectId"/>
                 </entity-and>
             </actions>

@@ -198,7 +198,7 @@ under the License.
         <section>
             <actions>
                 <service service-name="getUserPreferenceGroup"
-                    result-map-name="preferences">
+                    result-map="preferences">
                     <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
                 <!--  check if there are any customer requests for this user -->
@@ -207,7 +207,7 @@ under the License.
                         <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
                         <condition-list combine="and">
                             <condition-expr field-name="roleTypeIdTo" operator="equals" value="REQ_TAKER"/>
-                            <condition-expr field-name="partyIdTo" operator="equals" env-name="userLogin.partyId"/>
+                            <condition-expr field-name="partyIdTo" operator="equals" from-field="userLogin.partyId"/>
                         </condition-list>
                     </condition-list>
                     <order-by field-name="-custRequestDate"/>
@@ -383,7 +383,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="preferences"/>
                                 <service service-name="getUserPreferenceGroup"
-                    result-map-name="preferences">
+                    result-map="preferences">
                     <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
             </actions>
@@ -510,7 +510,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="custPreferences"/>
                 <service service-name="getUserPreferenceGroup"
-                        result-map-name="preferences">
+                        result-map="preferences">
                         <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                     </service>
             </actions>

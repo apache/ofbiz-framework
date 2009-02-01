@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
-                <entity-and list-name="custRequests" entity-name="CustRequest">
+                <entity-and list="custRequests" entity-name="CustRequest">
                     <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
                     <order-by field-name="lastModifiedDate"/>
                 </entity-and>
@@ -81,28 +81,28 @@ under the License.
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
-                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
-                <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
-                <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
-                <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
+                <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>
+                <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
+                <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>
+                <get-related-one value-field="custRequest" relation-name="FulfillContactMech" to-value-field="fulfillContactMech"/>
+                <entity-and list="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
+                <get-related value-field="custRequest" relation-name="CustRequestParty" list="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
-                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
-                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
+                <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems" order-by-list="orderBy"/>
+                <entity-and list="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
                 <entity-condition entity-name="CustRequestItemNoteView" list="custRequestItemNoteViews">
-                    <condition-expr field-name="custRequestId" operator="equals" env-name="parameters.custRequestId"/>
+                    <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
                     <order-by  field-name="-noteDateTime"/>
                 </entity-condition>
-                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
+                <entity-and entity-name="CustRequestContent" list="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>

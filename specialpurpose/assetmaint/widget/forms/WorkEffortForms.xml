@@ -159,7 +159,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="WorkEffortAssocView">
-                <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
             </entity-condition>
         </actions>
         <field name="workEffortName" entry-name="workEffortToName" title="${uiLabelMap.CommonName}">
