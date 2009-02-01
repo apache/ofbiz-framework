@@ -88,7 +88,7 @@ under the License.
                 <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionMaintenance"/>
                 <entity-one value-name="temporalExpression" entity-name="TemporalExpression"/>
                 <set field="fromTempExprId" from-field="parameters.tempExprId"/>
-                <entity-condition list-name="childExpressionList" entity-name="TemporalExpressionChild">
+                <entity-condition list="childExpressionList" entity-name="TemporalExpressionChild">
                     <condition-expr field-name="fromTempExprId" env-name="fromTempExprId"/>
                 </entity-condition>
             </actions>
@@ -101,7 +101,7 @@ under the License.
                         </platform-specific>
                         <section>
                             <condition>
-                                <not><if-empty field-name="childExpressionList"/></not>
+                                <not><if-empty field="childExpressionList"/></not>
                             </condition>
                             <widgets>
                                 <include-form name="ListChildExpressions" location="component://webtools/webapp/webtools/tempexpr/tempExprForms.xml"/>

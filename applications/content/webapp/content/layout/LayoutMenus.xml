@@ -31,8 +31,8 @@ under the License.
         <menu-item name="EditLayout" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayout?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
@@ -40,8 +40,8 @@ under the License.
         <menu-item name="EditLayoutSubContent" title="${uiLabelMap.ContentSubContent}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayoutSubContent?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
@@ -49,8 +49,8 @@ under the License.
         <menu-item name="EditLayoutText" title="${uiLabelMap.ContentText}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayoutText?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
@@ -58,8 +58,8 @@ under the License.
         <menu-item name="EditLayoutHtml" title="${uiLabelMap.ContentHtml}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayoutHtml?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
@@ -67,8 +67,8 @@ under the License.
         <menu-item name="EditLayoutImage" title="${uiLabelMap.ContentImage}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayoutImage?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
@@ -76,8 +76,8 @@ under the License.
         <menu-item name="EditLayoutUrl" title="${uiLabelMap.ContentUrl}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.contentId"/></not>
-                    <not><if-empty field-name="parameters.drDataResourceId"/></not>
+                    <not><if-empty field="parameters.contentId"/></not>
+                    <not><if-empty field="parameters.drDataResourceId"/></not>
                 </and>
             </condition>
             <link target="EditLayoutUrl?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />

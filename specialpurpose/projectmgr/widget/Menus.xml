@@ -203,7 +203,7 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="project"/>
+                        <if-empty field="project"/>
                     </not>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
@@ -215,7 +215,7 @@
                 <and>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <not>
-                        <if-empty field-name="project"/>
+                        <if-empty field="project"/>
                     </not>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
@@ -226,7 +226,7 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="project"/>
+                        <if-empty field="project"/>
                     </not>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
@@ -238,7 +238,7 @@
                 <and>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <not>
-                        <if-empty field-name="project"/>
+                        <if-empty field="project"/>
                     </not>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
@@ -249,14 +249,14 @@
     <menu name="TaskTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}">
             <condition>
-               <not><if-empty field-name="workEffort"/></not>
+               <not><if-empty field="workEffort"/></not>
             </condition>
             <link target="taskView?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
@@ -267,7 +267,7 @@
         <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
@@ -278,7 +278,7 @@
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
@@ -289,7 +289,7 @@
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
@@ -300,7 +300,7 @@
         <menu-item name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
@@ -311,7 +311,7 @@
         <menu-item name="taskContent" title="${uiLabelMap.CommonContent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -321,7 +321,7 @@
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <condition>
-                <not><if-empty field-name="workEffort"/></not>
+                <not><if-empty field="workEffort"/></not>
             </condition>
             <link target="EditTaskNotes?workEffortId=${workEffortId}"/>
         </menu-item>
@@ -331,9 +331,9 @@
         <menu-item name="new" title="${uiLabelMap.CommonNew}">
             <condition>
                 <or>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <and>
-                        <if-empty field-name="workEffort"/>
+                        <if-empty field="workEffort"/>
                         <if-compare field-name="tabButtonItem" operator="equals" value="find"/>
                     </and>
                 </or>
@@ -343,7 +343,7 @@
         <menu-item name="setonhold" title="${uiLabelMap.ProjectMgrSetOnHold}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
@@ -352,7 +352,7 @@
         <menu-item name="setcomplete" title="${uiLabelMap.ProjectMgrSetComplete}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>                    
+                    <not><if-empty field="workEffort"/></not>                    
                     <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
@@ -361,7 +361,7 @@
         <menu-item name="release" title="${uiLabelMap.ProjectMgrRelease}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
@@ -370,7 +370,7 @@
         <menu-item name="cancel" title="${uiLabelMap.CommonCancel}" >
             <condition>
                 <and>
-                    <not><if-empty field-name="workEffort"/></not>
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
@@ -396,7 +396,7 @@
         <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
                 <and>
-                    <not><if-empty field-name="timesheet"/></not>
+                    <not><if-empty field="timesheet"/></not>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
@@ -405,7 +405,7 @@
         <menu-item name="TimeSheetStatustoProgress" title="Set status to In Progress">
             <condition>
                 <and>
-                    <not><if-empty field-name="timesheet"/></not>
+                    <not><if-empty field="timesheet"/></not>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                 </and>
             </condition>
@@ -417,7 +417,7 @@
         <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
                 <and>
-                    <not><if-empty field-name="timesheet"/></not>
+                    <not><if-empty field="timesheet"/></not>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
@@ -448,14 +448,14 @@
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewRequest" title="${uiLabelMap.ProjectMgrView}">
             <condition>
-                <not><if-empty field-name="custRequest"/></not>
+                <not><if-empty field="custRequest"/></not>
             </condition>
             <link target="ViewRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
         <menu-item name="editRequest" title="${uiLabelMap.ProjectMgrEdit}">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
@@ -465,7 +465,7 @@
         <menu-item name="custRequestContent" title="Content">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
@@ -486,7 +486,7 @@
         <menu-item name="cancelledRequest" title="Cancel request" >
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
@@ -496,7 +496,7 @@
         <menu-item name="addContent" title="Add content">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>

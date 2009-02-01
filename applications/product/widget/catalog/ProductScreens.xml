@@ -51,8 +51,8 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="productId"/></not>
-                                    <not><if-empty field-name="product"/></not>
+                                    <not><if-empty field="productId"/></not>
+                                    <not><if-empty field="product"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -71,8 +71,8 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="productId"/></not>
-                                    <not><if-empty field-name="product"/></not>
+                                    <not><if-empty field="productId"/></not>
+                                    <not><if-empty field="product"/></not>
                                 </and>
                             </condition>
                             <widgets>
@@ -167,7 +167,7 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-condition entity-name="SupplierProduct" list-name="supplierProductAgreements">
+                <entity-condition entity-name="SupplierProduct" list="supplierProductAgreements">
                     <condition-list>
                         <condition-expr field-name="productId" env-name="productId"/>
                         <condition-expr field-name="agreementId" operator="not-equals" env-name="nullField"/>
@@ -245,7 +245,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 
-                <entity-condition entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+                <entity-condition entity-name="ProductCategoryMember" list="productCategoryMembers">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productCategoryId"/>
@@ -349,7 +349,7 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-condition entity-name="FixedAssetProduct" list-name="fixedAssetProducts">
+                <entity-condition entity-name="FixedAssetProduct" list="fixedAssetProducts">
                     <condition-expr field-name="productId" env-name="productId"/>
                 </entity-condition>
             </actions>
@@ -686,11 +686,11 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
-                <entity-condition entity-name="ProductFacility" list-name="productFacilities">
+                <entity-condition entity-name="ProductFacility" list="productFacilities">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="facilityId"/>
                 </entity-condition>
-                <entity-condition entity-name="Facility" list-name="facilities">
+                <entity-condition entity-name="Facility" list="facilities">
                     <order-by field-name="facilityName"/>
                 </entity-condition>
             </actions>
@@ -740,12 +740,12 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
-                <entity-condition entity-name="ProductFacilityLocation" list-name="productFacilityLocations">
+                <entity-condition entity-name="ProductFacilityLocation" list="productFacilityLocations">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="facilityId"/>
                     <order-by field-name="locationSeqId"/>
                 </entity-condition>
-                <entity-condition entity-name="Facility" list-name="facilities">
+                <entity-condition entity-name="Facility" list="facilities">
                     <order-by field-name="facilityName"/>
                 </entity-condition>
             </actions>
@@ -898,12 +898,12 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-condition entity-name="GoodIdentification" list-name="goodIdentifications">
+                <entity-condition entity-name="GoodIdentification" list="goodIdentifications">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="goodIdentificationTypeId"/>
                     <order-by field-name="idValue"/>
                 </entity-condition>
-                <entity-condition entity-name="GoodIdentificationType" list-name="goodIdentificationTypes" use-cache="true">
+                <entity-condition entity-name="GoodIdentificationType" list="goodIdentificationTypes" use-cache="true">
                     <order-by field-name="description"/>
                 </entity-condition>
             </actions>
@@ -953,14 +953,14 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
-                <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
+                <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
+                <entity-condition entity-name="GlAccountType" list="productGlAccountTypes" use-cache="true">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccount" list-name="glAccounts" use-cache="true">
+                <entity-condition entity-name="GlAccount" list="glAccounts" use-cache="true">
                     <order-by field-name="accountCode"/>
                 </entity-condition>
             </actions>
@@ -977,8 +977,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <not><if-empty field-name="productId"/></not>
-                                            <not><if-empty field-name="product"/></not>
+                                            <not><if-empty field="productId"/></not>
+                                            <not><if-empty field="product"/></not>
                                         </and>
                                     </condition>
                                     <widgets>                               
@@ -997,8 +997,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <not><if-empty field-name="productId"/></not>
-                                            <not><if-empty field-name="product"/></not>
+                                            <not><if-empty field="productId"/></not>
+                                            <not><if-empty field="product"/></not>
                                         </and>
                                     </condition>
                                     <widgets>                               
@@ -1023,7 +1023,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 
-                <entity-condition entity-name="ProductPaymentMethodType" list-name="productPaymentMethodTypes">
+                <entity-condition entity-name="ProductPaymentMethodType" list="productPaymentMethodTypes">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="productPricePurposeId"/>
                     <order-by field-name="paymentMethodTypeId"/>
@@ -1185,7 +1185,7 @@ under the License.
                             </container>
                         </container>
                         <section>
-                            <condition><not><if-empty field-name="supplierProduct"/></not></condition>
+                            <condition><not><if-empty field="supplierProduct"/></not></condition>
                             <widgets><link target="EditProductSuppliers?productId=${productId}" style="buttontext" text="${uiLabelMap.ProductNewProductSupplier}"/></widgets>
                         </section>
                         <container style="screenlet">
@@ -1499,7 +1499,7 @@ under the License.
     <screen name="CreateVirtualWithVariantsFormInclude">
         <section>
             <actions>
-                <entity-condition entity-name="ProductFeature" list-name="hazmatFeatures">
+                <entity-condition entity-name="ProductFeature" list="hazmatFeatures">
                     <condition-expr field-name="productFeatureTypeId" value="HAZMAT"/>
                 </entity-condition>
             </actions>
@@ -1739,13 +1739,13 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
-                <entity-condition entity-name="ProductRole" list-name="productRoles">
+                <entity-condition entity-name="ProductRole" list="productRoles">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="roleTypeId"/>
                     <order-by field-name="partyId"/>
                 </entity-condition>
 
-                <entity-condition entity-name="RoleType" list-name="roleTypes">
+                <entity-condition entity-name="RoleType" list="roleTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
             </actions>
@@ -1776,7 +1776,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyVendor"/>
                 
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-condition entity-name="VendorProduct" list-name="vendorProductList">
+                <entity-condition entity-name="VendorProduct" list="vendorProductList">
                     <condition-expr field-name="productId" env-name="productId"/>
                 </entity-condition>
             </actions>

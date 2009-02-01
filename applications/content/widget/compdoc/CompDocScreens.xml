@@ -483,7 +483,7 @@ under the License.
                 </entity-one>
                 <set from-field="dataResource.mimeTypeId" field="mimeTypeId"/>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
-                <entity-condition entity-name="ContentRevision" list-name="contentRevisions" use-cache="true">
+                <entity-condition entity-name="ContentRevision" list="contentRevisions" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentId" env-name="rootContentId" operator="equals"/>
                     </condition-list>
@@ -597,7 +597,7 @@ under the License.
                     This operation effectively gets the current ContentRevisionItem entity, in any case, and
                     that is needed to get the dataResourceId for this revision, which may not be the latest.
                     -->
-                <entity-condition entity-name="ContentRevisionItem" list-name="contentRevisionItems" use-cache="true">
+                <entity-condition entity-name="ContentRevisionItem" list="contentRevisionItems" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentId" env-name="rootContentId"/>
                         <condition-expr field-name="itemContentId" env-name="contentId"/>
@@ -639,8 +639,8 @@ under the License.
                                 <section>
                                     <condition>
                                         <and>
-                                            <not><if-empty field-name="mostRecentRevisionSeqId"/></not>
-                                            <not><if-empty field-name="rootContentRevisionSeqId"/></not>
+                                            <not><if-empty field="mostRecentRevisionSeqId"/></not>
+                                            <not><if-empty field="rootContentRevisionSeqId"/></not>
                                             <if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
                                         </and>
                                     </condition>
@@ -666,7 +666,7 @@ under the License.
                         <set value="updateChildCompDocInstance" field="childCompDocTarget"/>
                         <set value="DOCUMENT" field="contentTypeId"/>
                         <!--
-                        <entity-condition entity-name="MaxRevisionItemView" list-name="rootRevList" use-cache="false" >
+                        <entity-condition entity-name="MaxRevisionItemView" list="rootRevList" use-cache="false" >
                            <condition-list combine="and">
                                 <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootInstanceContentId" />
                                 <condition-expr field-name="contentId" operator="equals" env-name="contentId" />
@@ -919,7 +919,7 @@ under the License.
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
                 <set from-field="parameters.rootContentRevisionSeqId" field="rootContentRevisionSeqId"/>
                 <set value="COMPDOC_INSTANCE" field="contentTypeId"/>
-                <entity-condition entity-name="ContentRevision" list-name="contentRevisions" use-cache="true">
+                <entity-condition entity-name="ContentRevision" list="contentRevisions" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentId" env-name="rootContentId" operator="equals"/>
                     </condition-list>
@@ -1081,7 +1081,7 @@ under the License.
                     <field-map field-name="contentId" env-name="rootContentId"/>
                 </entity-one>
                 <set from-field="instanceContent.instanceOfContentId" field="templateContentId"/>
-                <entity-condition entity-name="ContentRevision" list-name="contentTemplateRevisions" use-cache="true">
+                <entity-condition entity-name="ContentRevision" list="contentTemplateRevisions" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentId" env-name="templateContentId" operator="equals"/>
                     </condition-list>
@@ -1163,7 +1163,7 @@ under the License.
                       as the contentId value and rootInstanceRevSeqId for the revision
                       and the contentId of the current template part as the itemContentId
                       -->
-                <entity-condition entity-name="ContentAssocRevisionItemView" use-cache="false" list-name="assocRevisionItemViewList">
+                <entity-condition entity-name="ContentAssocRevisionItemView" use-cache="false" list="assocRevisionItemViewList">
                    <condition-list combine="and">
                         <condition-expr field-name="contentIdTo" operator="equals" env-name="rootContentId"/>
                         <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootContentId"/>

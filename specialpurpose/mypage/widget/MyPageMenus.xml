@@ -23,20 +23,20 @@ under the License.
     <menu name="MyPageAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.CommonMyPersonalPage}" menu-container-style="button-bar tab-bar">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">
             <condition>
-                <not><if-empty field-name="userLogin"/></not>
+                <not><if-empty field="userLogin"/></not>
             </condition>
             <link target="main?donePage=main"/>
         </menu-item>
         <menu-item name="viewprofile" title="${uiLabelMap.MyPageProfile}">
             <condition>
-                <not><if-empty field-name="userLogin"/></not>
+                <not><if-empty field="userLogin"/></not>
             </condition>
             <link target="viewprofile?partyId=${userLogin.partyId}"/>
         </menu-item>
         <menu-item name="myCommunications" title="${uiLabelMap.MyPageCommunications}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
@@ -45,7 +45,7 @@ under the License.
         <menu-item name="otherCommunications" title="${uiLabelMap.MyPageOtherCommunications}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
                     <or>
                         <if-has-permission permission="MYPAGE_EMPLOYEE"/>
@@ -58,7 +58,7 @@ under the License.
         <menu-item name="myCompanyComms" title="${uiLabelMap.MyPageCompanyComms}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
                     <or>
                         <if-has-permission permission="MYPAGE_EMPLOYEE"/>
@@ -71,7 +71,7 @@ under the License.
         <menu-item name="myTimesheet" title="${uiLabelMap.MyPageTimeSheets}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
                     <or>
                         <if-has-permission permission="MYPAGE_EMPLOYEE"/>
@@ -84,7 +84,7 @@ under the License.
         <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
                     <or>
                         <if-has-permission permission="MYPAGE_EMPLOYEE"/>
@@ -97,7 +97,7 @@ under the License.
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-has-permission permission="MYPAGE_CUSTOMER"/>
                 </and>
             </condition>
@@ -106,14 +106,14 @@ under the License.
         <menu-item name="projects" title="${uiLabelMap.ProjectMgrProjects}">
             <condition>
                 <and>
-                    <not><if-empty field-name="userLogin"/></not>
+                    <not><if-empty field="userLogin"/></not>
                     <if-has-permission permission="MYPAGE_CUSTOMER"/>
                 </and>
             </condition>
             <link target="listProjects"/>
         </menu-item>
         <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <condition><not><if-empty field="userLogin"/></not></condition>
             <link target="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new"/>
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
@@ -160,7 +160,7 @@ under the License.
             <condition>
                 <or>
                     <if-compare field-name="parameters.all" operator="equals" value="false" />
-                    <if-empty field-name="parameters.all"/>
+                    <if-empty field="parameters.all"/>
                 </or>
             </condition>
             <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=true" />
@@ -218,8 +218,8 @@ under the License.
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
@@ -230,8 +230,8 @@ under the License.
         <menu-item name="forward" title="${uiLabelMap.Forward}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
@@ -242,8 +242,8 @@ under the License.
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
-                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                 </and>
             </condition>
@@ -260,7 +260,7 @@ under the License.
         <menu-item name="send" title="${uiLabelMap.CommonSend}">
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
                     <if-compare field-name="commEvent.statusId" operator="equals" value="COM_PENDING"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                 </and>
@@ -270,7 +270,7 @@ under the License.
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
                 <and>
-                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <not><if-empty field="communicationEventRole"/></not>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
                 </and>
             </condition>
@@ -290,7 +290,7 @@ under the License.
         <menu-item name="cancelledRequest" title="Cancel request" >
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
@@ -300,7 +300,7 @@ under the License.
         <menu-item name="addContent" title="Add content">
             <condition>
                 <and>
-                    <not><if-empty field-name="custRequest"/></not>
+                    <not><if-empty field="custRequest"/></not>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                     <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>

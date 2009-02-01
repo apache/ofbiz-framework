@@ -86,7 +86,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="inventoryItemLabel"/></not>
+                        <not><if-empty field="inventoryItemLabel"/></not>
                     </condition>
                     <widgets>
                         <decorator-screen name="CommonInventoryItemLabelDecorator" location="${parameters.commonFacilityDecoratorLocation}">

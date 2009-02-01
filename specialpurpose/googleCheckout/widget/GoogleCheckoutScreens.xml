@@ -60,7 +60,7 @@
     <screen name="expiration">
         <section>
             <condition>
-                <not><if-empty field-name="googleCart.cartExpiration"/></not>
+                <not><if-empty field="googleCart.cartExpiration"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/shoppingCart/expiration.ftl"/></html></platform-specific>
@@ -70,7 +70,7 @@
     <screen name="privateData">
         <section>
             <condition>
-                <not><if-empty field-name="googleCart.merchantPrivateData"/></not>
+                <not><if-empty field="googleCart.merchantPrivateData"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/shoppingCart/privateData.ftl"/></html></platform-specific>
@@ -80,7 +80,7 @@
     <screen name="merchantCalculations">
         <section>
             <condition>
-                <not><if-empty field-name="merchantCalculations"/></not>
+                <not><if-empty field="merchantCalculations"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/checkoutFlowSupport/merchantCaluclations.ftl"/></html></platform-specific>
@@ -90,7 +90,7 @@
     <screen name="shippingMethods">
         <section>
             <condition>
-                <not><if-empty field-name="shippingMethods"/></not>
+                <not><if-empty field="shippingMethods"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/checkoutFlowSupport/shippingMethods.ftl"/></html></platform-specific>
@@ -107,7 +107,7 @@
     <screen name="taxTables">
         <section>
             <condition>
-                <not><if-empty field-name="flowSupport.taxTables"/></not>
+                <not><if-empty field="flowSupport.taxTables"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/checkoutFlowSupport/taxTables.ftl"/></html></platform-specific>
@@ -117,7 +117,7 @@
     <screen name="requestPhone">
         <section>
             <condition>
-                <not><if-empty field-name="flowSupport.requestPhone"/></not>
+                <not><if-empty field="flowSupport.requestPhone"/></not>
             </condition>
             <widgets>
                 <platform-specific><html><html-template location="component://googlecheckout/webapp/google/templates/checkoutFlowSupport/requestPhone.ftl"/></html></platform-specific>

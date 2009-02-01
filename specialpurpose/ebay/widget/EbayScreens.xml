@@ -60,7 +60,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="product"/></not></condition>
+                                    <condition><not><if-empty field="product"/></not></condition>
                                     <widgets>
                                         <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
@@ -119,11 +119,11 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="export"/>
-                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                <entity-condition entity-name="ProductCategory" list="productCategories">
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="ProdCatalog" list-name="prodCatalogs">
+                <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
                     <order-by field-name="catalogName"/>
                 </entity-condition>  
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
@@ -168,7 +168,7 @@ under the License.
                 <set field="headerItem" value="export"/>
                 <set field="titleProperty" value="PageTitleEbayProductsExportToEbay"/>
                 <set field="selectResult" from-field="parameters.selectResult"/>
-                <entity-condition entity-name="Geo" list-name="countries">
+                <entity-condition entity-name="Geo" list="countries">
                     <condition-expr field-name="geoTypeId" value="COUNTRY"/>
                     <order-by field-name="geoName"/>
                 </entity-condition>

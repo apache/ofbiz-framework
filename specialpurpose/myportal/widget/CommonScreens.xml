@@ -203,7 +203,7 @@ under the License.
                     <decorator-section name="body">        
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.partyId"/></not>
+                                <not><if-empty field="parameters.partyId"/></not>
                             </condition>
                             <actions>
                                 <set field="partyId" from-field="parameters.partyId"/>
@@ -251,7 +251,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="custRequest"/></not>
+                                <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
                                 <include-menu location="component://myportal/widget/MyPortalMenus.xml" name="RequestTabBar"/>

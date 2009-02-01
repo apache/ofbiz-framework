@@ -139,7 +139,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="facility"/></not>
+                        <not><if-empty field="facility"/></not>
                     </condition>
                     <actions>
                         <set field="titleProperty" value="ProductEditFacility"/>
@@ -281,7 +281,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="locationSeqId"/></not>
+                        <not><if-empty field="locationSeqId"/></not>
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.PageTitleEditFacilityLocation}"/>
@@ -343,7 +343,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
                 <entity-one entity-name="Facility" value-field="facility"/>
-                <entity-condition entity-name="InventoryItemLabelType" list-name="labelTypes"/>
+                <entity-condition entity-name="InventoryItemLabelType" list="labelTypes"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindInventoryItemsByLabels.groovy"/>
             </actions>
             <widgets>
@@ -799,7 +799,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="parameters.contactMechId"/></not>
+                        <not><if-empty field="parameters.contactMechId"/></not>
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.PageTitleEditFacilityContactMech}"/>
@@ -829,7 +829,7 @@ under the License.
                 
                 <entity-one entity-name="Facility" value-field="facility" auto-field-map="true"/>
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
-                <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="inventoryItemReservations">
+                <entity-condition entity-name="OrderItemShipGrpInvRes" list="inventoryItemReservations">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
                     </condition-list>
@@ -841,9 +841,9 @@ under the License.
                     <condition>
                         <and>
                             <not>
-                                <if-empty field-name="inventoryItem"/>
+                                <if-empty field="inventoryItem"/>
                             </not>
-                            <if-empty field-name="facility"/>
+                            <if-empty field="facility"/>
                         </and>
                     </condition>
                     <actions>
@@ -857,7 +857,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="inventoryItem"/></not>
+                                <not><if-empty field="inventoryItem"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
@@ -878,7 +878,7 @@ under the License.
                         <include-form name="EditInventoryItem" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                         <section> 
                             <condition>
-                                <not><if-empty field-name="inventoryItemId"/></not>
+                                <not><if-empty field="inventoryItemId"/></not>
                             </condition>
                             <widgets>
                                 <screenlet id="inventory-item-reservations" title="${uiLabelMap.ProductInventoryItemReservations}" collapsible="true">
@@ -916,7 +916,7 @@ under the License.
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId" />
                 <set field="facilityId" from-field="parameters.facilityId" />
                 
-                <entity-condition entity-name="InventoryItemDetail" list-name="inventoryItemDetails">
+                <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
                     </condition-list>
@@ -971,7 +971,7 @@ under the License.
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId" />
                 <set field="facilityId" from-field="parameters.facilityId" />
                 
-                <entity-condition entity-name="InventoryItemLabelAppl" list-name="inventoryItemLabelAppls">
+                <entity-condition entity-name="InventoryItemLabelAppl" list="inventoryItemLabelAppls">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
                     </condition-list>
@@ -1113,7 +1113,7 @@ under the License.
                     <field-map field-name="facilityId"/>
                 </service>
 
-                <entity-condition entity-name="Picklist" list-name="picklistActiveList">
+                <entity-condition entity-name="Picklist" list="picklistActiveList">
                     <condition-list combine="and">
                         <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
@@ -1146,10 +1146,10 @@ under the License.
                     <field-map field-name="facilityId"/>
                 </service>
 
-                <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="partyRoleAndPartyDetailList" use-cache="true">
+                <entity-condition entity-name="PartyRoleAndPartyDetail" list="partyRoleAndPartyDetailList" use-cache="true">
                     <condition-expr field-name="roleTypeId" value="PICKER"/>
                 </entity-condition>
-                <entity-condition entity-name="Picklist" list-name="picklistActiveList">
+                <entity-condition entity-name="Picklist" list="picklistActiveList">
                     <condition-list combine="and">
                         <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
@@ -1285,7 +1285,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
 
                 <!-- get ShipmentRouteSegmentDetails that are PACKED and not CONFIRMED with carrier -->
-                <entity-condition entity-name="ShipmentRouteSegmentDetail" list-name="shipmentRouteSegments">
+                <entity-condition entity-name="ShipmentRouteSegmentDetail" list="shipmentRouteSegments">
                     <condition-list combine="and">
                         <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
@@ -1334,7 +1334,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
 
                 <!-- get all carrier CONFIRMED ShipmentPackageRouteDetails -->
-                <entity-condition entity-name="ShipmentPackageRouteDetail" list-name="shipmentPackageRouteSegments">
+                <entity-condition entity-name="ShipmentPackageRouteDetail" list="shipmentPackageRouteSegments">
                     <condition-list combine="and">
                         <condition-expr field-name="labelPrinted" operator="not-equals" value="Y"/>
                         <condition-expr field-name="carrierServiceStatusId" operator="equals" value="SHRSCS_CONFIRMED"/>

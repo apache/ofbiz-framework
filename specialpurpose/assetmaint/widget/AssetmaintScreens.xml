@@ -31,7 +31,7 @@
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
-                            <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
+                            <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/Menus.xml"/>
                             </widgets>
@@ -111,14 +111,14 @@
             </actions>
             <widgets>
                 <section>
-                    <condition><if-empty field-name="maintHistSeqId"/></condition>
+                    <condition><if-empty field="maintHistSeqId"/></condition>
                     <actions><set field="titleProperty" value="AccountingAddFixedAssetMaintenance"/></actions>
                     <widgets/>
                 </section>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
                     <decorator-section name="body">
                         <section>
-                            <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
+                            <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <container style="button-bar">
                                     <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
@@ -147,7 +147,7 @@
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="parameters.workEffortIdFrom"/></not>
+                                <not><if-empty field="parameters.workEffortIdFrom"/></not>
                             </condition>
                             <widgets>
                                 <container style="button-bar">
@@ -157,7 +157,7 @@
                         </section>
                         <section>
                             <condition>
-                                <if-empty field-name="workEffort"/>
+                                <if-empty field="workEffort"/>
                             </condition>
                             <widgets>
                                 <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
@@ -268,7 +268,7 @@
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
-                <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                <entity-condition list="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
             </actions>
@@ -300,11 +300,11 @@
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
-                <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                <entity-condition list="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
                 <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
-                <entity-condition list-name="notes" entity-name="WorkEffortNoteAndData">
+                <entity-condition list="notes" entity-name="WorkEffortNoteAndData">
                     <condition-expr field-name="workEffortId" env-name="workEffortId"/>
                     <order-by field-name="noteId"/>
                 </entity-condition>

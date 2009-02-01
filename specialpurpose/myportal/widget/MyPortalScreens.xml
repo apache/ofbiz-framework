@@ -117,7 +117,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="tasks" />
+                                        <if-empty field="tasks" />
                                     </not>
                                 </condition>
                                 <widgets>
@@ -141,7 +141,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="tasks" />
+                                        <if-empty field="tasks" />
                                     </not>
                                 </condition>
                                 <widgets>
@@ -240,7 +240,7 @@ under the License.
                     <section>
                         <condition>
                             <not>
-                                <if-empty field-name="commEventsUnknown" />
+                                <if-empty field="commEventsUnknown" />
                             </not>
                         </condition>
                         <widgets>
@@ -256,7 +256,7 @@ under the License.
                     <section>
                         <condition>
                             <not>
-                                <if-empty field-name="commEventDraft" />
+                                <if-empty field="commEventDraft" />
                             </not>
                         </condition>
                         <widgets>
@@ -319,7 +319,7 @@ under the License.
                             <section>
                                 <condition>
                                     <not>
-                                        <if-empty field-name="communicationEvent.parentCommEventId" />
+                                        <if-empty field="communicationEvent.parentCommEventId" />
                                     </not>
                                 </condition>
                                 <actions>
@@ -728,7 +728,7 @@ under the License.
                         </iterate-section>
                         <section>
                             <condition>
-                                <if-empty field-name="projects"/>
+                                <if-empty field="projects"/>
                             </condition>
                             <widgets>
                                 <label style="h2" text="no projects found"></label>
@@ -787,7 +787,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="custRequests"/></not>
+                        <not><if-empty field="custRequests"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.MyPortalIncomingCustRequests}" navigation-form-name="ListRequestList">
@@ -1026,7 +1026,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1055,7 +1055,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1084,7 +1084,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1113,7 +1113,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1142,7 +1142,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1171,7 +1171,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1200,7 +1200,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1229,7 +1229,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1258,7 +1258,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1287,7 +1287,7 @@ under the License.
             <widgets>
                <section>
                   <condition>
-                      <not><if-empty field-name="party"/></not>
+                      <not><if-empty field="party"/></not>
                   </condition>
                   <widgets>
                       <section>
@@ -1316,7 +1316,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1345,7 +1345,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1374,7 +1374,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1403,7 +1403,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1432,7 +1432,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1461,7 +1461,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1490,7 +1490,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>
@@ -1519,7 +1519,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="party"/></not>
+                        <not><if-empty field="party"/></not>
                     </condition>
                     <widgets>
                         <section>

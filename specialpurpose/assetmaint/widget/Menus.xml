@@ -30,7 +30,7 @@
     
     <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
-            <condition><not><if-empty field-name="fixedAsset.instanceOfProductId"/></not></condition>
+            <condition><not><if-empty field="fixedAsset.instanceOfProductId"/></not></condition>
             <link target="EditProductMaints?fixedAssetId=${fixedAsset.fixedAssetId}&amp;productId=${fixedAsset.instanceOfProductId}"/>
         </menu-item>
     </menu>

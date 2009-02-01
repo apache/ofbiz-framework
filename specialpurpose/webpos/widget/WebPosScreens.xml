@@ -138,7 +138,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="shoppingCart"/></not>
+                        <not><if-empty field="shoppingCart"/></not>
                     </condition>
                     <widgets>
                         <container>

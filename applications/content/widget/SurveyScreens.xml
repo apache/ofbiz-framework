@@ -72,7 +72,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="surveyId"/></not></condition>
+                                    <condition><not><if-empty field="surveyId"/></not></condition>
                                     <widgets>
                                         <include-menu name="SurveyTabBar" location="component://content/widget/SurveyMenus.xml"/>
                                         <container><link  text="${uiLabelMap.ContentSurveyCreate}" target="EditSurvey" style="buttontext"/></container>
@@ -105,7 +105,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-empty field-name="survey"/>
+                                <if-empty field="survey"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -155,7 +155,7 @@ under the License.
                 
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-                <entity-condition entity-name="SurveyMultiResp" list-name="surveyMultiRespList">
+                <entity-condition entity-name="SurveyMultiResp" list="surveyMultiRespList">
                     <condition-expr field-name="surveyId" env-name="surveyId"/>
                     <order-by field-name="surveyMultiRespId"/>
                 </entity-condition>
@@ -342,7 +342,7 @@ under the License.
                                 <section>
                                     <widgets>    
                                         <section>
-                                            <condition><not><if-empty field-name="parameters.rootContentId"/></not></condition>
+                                            <condition><not><if-empty field="parameters.rootContentId"/></not></condition>
                                             <widgets><container><link text="Go Back to CompDoc Root [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
                                         </section>
                                         <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
