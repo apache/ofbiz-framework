@@ -28,8 +28,8 @@ under the License.
                 <set field="filterByStatusId" from-field="parameters.statusId" default-value="SERVICE_RUNNING"/>
                 <entity-condition entity-name="JobSandbox" list="userJobs">
                     <condition-list>
-                        <condition-expr field-name="authUserLoginId" env-name="userLogin.userLoginId"/>
-                        <condition-expr field-name="statusId" env-name="filterByStatusId"/>
+                        <condition-expr field-name="authUserLoginId" from-field="userLogin.userLoginId"/>
+                        <condition-expr field-name="statusId" from-field="filterByStatusId"/>
                     </condition-list>
                 </entity-condition>
             </actions>
@@ -896,14 +896,14 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
-                <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
-                <get-related-one value-name="workEffort" relation-name="ScopeEnumeration" to-value-name="scopeEnumeration"/>
-                <entity-and entity-name="WorkEffortPartyAssignView" list-name="partyAssignments">
+                <get-related-one value-field="workEffort" relation-name="WorkEffortType" to-value-field="workEffortType"/>
+                <get-related-one value-field="workEffort" relation-name="CurrentStatusItem" to-value-field="currentStatusItem"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortPurposeType" to-value-field="workEffortPurposeType"/>
+                <get-related-one value-field="workEffort" relation-name="ScopeEnumeration" to-value-field="scopeEnumeration"/>
+                <entity-and entity-name="WorkEffortPartyAssignView" list="partyAssignments">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list-name="fixedAssetAssignments" filter-by-date="true">
+                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list="fixedAssetAssignments" filter-by-date="true">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
             </actions>

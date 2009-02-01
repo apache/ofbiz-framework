@@ -24,7 +24,7 @@ under the License.
         <actions>
             <entity-condition entity-name="WorkEffortCommunicationEventView">
                 <condition-list combine="and">
-                    <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
                 </condition-list>
                 <order-by field-name="communicationEventId"/>
             </entity-condition>

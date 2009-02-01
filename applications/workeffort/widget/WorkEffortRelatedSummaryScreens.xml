@@ -29,27 +29,27 @@ under the License.
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
-                <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
-                <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
-                <get-related-one value-name="workEffort" relation-name="ScopeEnumeration" to-value-name="scopeEnumeration"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortType" to-value-field="workEffortType"/>
+                <get-related-one value-field="workEffort" relation-name="CurrentStatusItem" to-value-field="currentStatusItem"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortPurposeType" to-value-field="workEffortPurposeType"/>
+                <get-related-one value-field="workEffort" relation-name="ScopeEnumeration" to-value-field="scopeEnumeration"/>
                 
-                <entity-and entity-name="WorkEffortPartyAssignView" list-name="partyAssignments">
+                <entity-and entity-name="WorkEffortPartyAssignView" list="partyAssignments">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list-name="fixedAssetAssignments" filter-by-date="true">
+                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list="fixedAssetAssignments" filter-by-date="true">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortCommunicationEventView" list-name="commEvents">
+                <entity-and entity-name="WorkEffortCommunicationEventView" list="commEvents">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortShoppingListView" list-name="shoppingLists">
+                <entity-and entity-name="WorkEffortShoppingListView" list="shoppingLists">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortQuoteView" list-name="quotes">
+                <entity-and entity-name="WorkEffortQuoteView" list="quotes">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortOrderHeaderView" list-name="orderHeaders">
+                <entity-and entity-name="WorkEffortOrderHeaderView" list="orderHeaders">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
             </actions>
@@ -100,7 +100,7 @@ under the License.
                                     <label text="${uiLabelMap.WorkEffortCommEvents}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <iterate-section list-name="commEvents" entry-name="commEvent">
+                                    <iterate-section list="commEvents" entry="commEvent">
                                         <section>
                                             <widgets>
                                                 <container>
@@ -121,7 +121,7 @@ under the License.
                                     <label text="${uiLabelMap.WorkEffortShopLists}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <iterate-section list-name="shoppingLists" entry-name="shopList">
+                                    <iterate-section list="shoppingLists" entry="shopList">
                                         <section>
                                             <widgets>
                                                 <container>
@@ -142,7 +142,7 @@ under the License.
                                     <label text="${uiLabelMap.WorkEffortQuotes}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <iterate-section list-name="quotes" entry-name="quote">
+                                    <iterate-section list="quotes" entry="quote">
                                         <section>
                                             <widgets>
                                                 <container>
@@ -163,7 +163,7 @@ under the License.
                                     <label text="${uiLabelMap.WorkEffortOrderHeaders}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <iterate-section list-name="orderHeaders" entry-name="orderHeader">
+                                    <iterate-section list="orderHeaders" entry="orderHeader">
                                         <section>
                                             <widgets>
                                                 <container>

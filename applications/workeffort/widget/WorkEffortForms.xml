@@ -263,7 +263,7 @@ under the License.
     <form name="ListLookupWorkEffort" target="" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
             </service>
@@ -383,7 +383,7 @@ under the License.
     <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="lastModifiedDate DESC"/>
@@ -467,7 +467,7 @@ under the License.
     <form  name="ListWorkEffortParties" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
             </service>
@@ -593,7 +593,7 @@ under the License.
     <form name="ListWorkEffortCommEvents" default-map-name="workEffortCommEvent" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="requestParameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
             </service>
@@ -672,7 +672,7 @@ under the License.
     <form name="ListLookupCommEvent" target="" title="" list-name="listIt" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map="result" service-name="performFind">
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
             </service>
@@ -709,7 +709,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="RateAmount" filter-by-date="true">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <order-by field-name="rateTypeId"/>
                 <order-by field-name="periodTypeId"/>
                 <order-by field-name="rateCurrencyUomId"/>
@@ -762,7 +762,7 @@ under the License.
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <order-by field-name="timesheetId"/>
                 <order-by field-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
@@ -841,7 +841,7 @@ under the License.
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
@@ -900,7 +900,7 @@ under the License.
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
+            <entity-and entity-name="WorkEffortContent" use-cache="true" list="workEffortContents">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
@@ -947,7 +947,7 @@ under the License.
     <form name="ListWorkEffortGoodStandards" type="list" target="updateWorkEffortGoodStandard" list-name="workEffortGoodStandards"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="workEffortGoodStandards">
+            <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="workEffortGoodStandards">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
@@ -997,7 +997,7 @@ under the License.
     <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="productWorkEfforts"  separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortReview" use-cache="true" list-name="workEffortReviews">
+            <entity-and entity-name="WorkEffortReview" use-cache="true" list="workEffortReviews">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
@@ -1034,7 +1034,7 @@ under the License.
     <form name="ListWorkEffortKeywords" type="list" target="" list-name="listWorkEffortKeywords"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortKeyword" use-cache="true" list-name="workEffortkeywords">
+            <entity-and entity-name="WorkEffortKeyword" use-cache="true" list="workEffortkeywords">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
@@ -1057,7 +1057,7 @@ under the License.
     <form name="ListWorkEffortContactMechs" type="list" target="" list-name="workEffortContactMechs"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortContactMech" list-name="workEffortContactMechs">
+            <entity-and entity-name="WorkEffortContactMech" list="workEffortContactMechs">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
@@ -1091,7 +1091,7 @@ under the License.
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list-name="agreementWorkEffortAppls">
+            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>    
@@ -1111,7 +1111,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortFixedAssetAssign" filter-by-date="true">
-                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
         </actions>
@@ -1194,7 +1194,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortEventReminder">
-                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
                 <order-by field-name="-reminderDateTime"/>
             </entity-condition>
         </actions>

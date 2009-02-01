@@ -211,8 +211,8 @@ under the License.
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <create-value value-field="lookupMap"/>
         </if-empty>
-        <field-to-result field="workEffortId" map-name="lookupMap"/>
-        <field-to-result field="communicationEventId" map-name="lookupMap"/>
+        <field-to-result field="workEffortId" result-name="lookupMap"/>
+        <field-to-result field="communicationEventId" result-name="lookupMap"/>
     </simple-method>
 
     <simple-method method-name="updateCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
@@ -341,7 +341,7 @@ under the License.
         <log level="info" message="Creating a WorkEffortContactMech"/>
         <set from-field="parameters.workEffortId" field="newValue.workEffortId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
-        <field-to-result field="contactMechId" map-name="newValue"/>
+        <field-to-result field="contactMechId" result-name="newValue"/>
         <field-to-request field="contactMechId" map-name="newValue"/>        
         <create-value value-field="newValue"/>
     </simple-method>
@@ -379,7 +379,7 @@ under the License.
             <remove-value value-field="workEffortContactMech"/>
         </if-compare-field>
         
-        <field-to-result field="contactMechId" map-name="newWorkEffortContactMech"/>
+        <field-to-result field="contactMechId" result-name="newWorkEffortContactMech"/>
         <field-to-request field="contactMechId" map-name="newWorkEffortContactMech"/>      
     </simple-method>    
     
@@ -422,7 +422,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" map-name="newValue"/>
+        <field-to-result field="contactMechId" result-name="newValue"/>
     </simple-method>
     
     <simple-method method-name="updateWorkEffortPostalAddress" short-description="Update a PostalAddress for WorkEffort">
@@ -442,7 +442,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully updated</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" map-name="newValue"/>                   
+        <field-to-result field="contactMechId" result-name="newValue"/>                   
     </simple-method>
      
     <simple-method method-name="createWorkEffortTelecomNumber" short-description="Create a TelecomNumber for WorkEffort">
@@ -473,7 +473,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" map-name="newValue"/>
+        <field-to-result field="contactMechId" result-name="newValue"/>
     </simple-method>
     
     <simple-method method-name="updateWorkEffortTelecomNumber" short-description="Update a TelecomNumber for WorkEffort">
@@ -495,7 +495,7 @@ under the License.
         </call-service>
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" map-name="newValue"/>                   
+        <field-to-result field="contactMechId" result-name="newValue"/>                   
     </simple-method>  
     
     <simple-method method-name="createWorkEffortEmailAddress" short-description="Create an email address for WorkEffort">
@@ -700,7 +700,7 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-field="lookupMap"/>
-        <field-to-result field="custRequestId" map-name="lookupMap"/>
+        <field-to-result field="custRequestId" result-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequest" short-description="Delete a CustRequestWorkEffort">
         <entity-one entity-name="CustRequestWorkEffort" value-field="custRequestWorkEffort"/>
@@ -756,7 +756,7 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-field="lookupMap"/>
-        <field-to-result field="quoteId" map-name="lookupMap"/>
+        <field-to-result field="quoteId" result-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortQuote" short-description="Delete a QuoteWorkEffort">
         <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort"/>
@@ -778,7 +778,7 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-field="lookupMap"/>
-        <field-to-result field="requirementId" map-name="lookupMap"/>
+        <field-to-result field="requirementId" result-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkRequirementFulfillment" short-description="Delete a WorkRequirementFulfillment">
         <entity-one entity-name="WorkRequirementFulfillment" value-field="workRequirementFulfillment"/>
@@ -800,7 +800,7 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-field="lookupMap"/>
-        <field-to-result field="shoppingListId" map-name="lookupMap"/>
+        <field-to-result field="shoppingListId" result-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteShoppingListWorkEffort" short-description="Delete a ShoppingListWorkEffort">
         <entity-one entity-name="ShoppingListWorkEffort" value-field="shoppingListWorkEffort"/>
@@ -822,7 +822,7 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-field="lookupMap"/>
-        <field-to-result field="orderId" map-name="lookupMap"/>
+        <field-to-result field="orderId" result-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteOrderHeaderWorkEffort" short-description="Delete a OrderHeaderWorkEffort">
         <entity-one entity-name="OrderHeaderWorkEffort" value-field="orderWorkEffort"/>

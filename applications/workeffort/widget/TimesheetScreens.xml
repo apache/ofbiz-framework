@@ -31,11 +31,11 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition entity-name="Timesheet" list="currentTimesheetList">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="thruDate" operator="greater-equals" env-name="nowTimestamp"/>
-                            <condition-expr field-name="thruDate" env-name="null"/>
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
                         </condition-list>
                     </condition-list>
                 </entity-condition>
@@ -52,13 +52,13 @@ under the License.
                             <container style="screenlet-body">
                                 <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek?partyId=${userLogin.partyId}" style="buttontext"/>
                                 <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet?partyId=${userLogin.partyId}" style="buttontext"/>
-                                <iterate-section entry-name="currentTimesheet" list-name="currentTimesheetList">
+                                <iterate-section entry="currentTimesheet" list="currentTimesheetList">
                                     <section>
                                         <actions>
                                             <entity-condition entity-name="TimeEntry" list="currentTimeEntryList">
                                                 <condition-list combine="and">
-                                                    <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
-                                                    <condition-expr field-name="timesheetId" env-name="currentTimesheet.timesheetId"/>
+                                                    <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                                                    <condition-expr field-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
                                                 </condition-list>
                                             </entity-condition>
                                         </actions>
@@ -67,7 +67,7 @@ under the License.
                                                 <label style="tableheadtext" text="${uiLabelMap.WorkEffortTimesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
                                                 <link target="EditTimesheet?timesheetId=${currentTimesheet.timesheetId}" text="${currentTimesheet.timesheetId}" style="buttontext"></link>
                                             </container>
-                                            <iterate-section entry-name="currentTimeEntry" list-name="currentTimeEntryList">
+                                            <iterate-section entry="currentTimeEntry" list="currentTimeEntryList">
                                                 <section>
                                                     <actions>
                                                         <entity-one entity-name="RateType" value-field="currentRateType" auto-field-map="false">
@@ -88,7 +88,7 @@ under the License.
                                                 </section>
                                             </iterate-section>
                                             <section>
-                                                <condition><if-compare-field field-name="parameters.showQuickEntry" operator="equals" to-field-name="currentTimesheet.timesheetId"/></condition>
+                                                <condition><if-compare-field field="parameters.showQuickEntry" operator="equals" to-field="currentTimesheet.timesheetId"/></condition>
                                                 <widgets>
                                                     <include-form name="QuickCreateTimeEntry" location="component://workeffort/widget/TimesheetForms.xml"/>
                                                 </widgets>
