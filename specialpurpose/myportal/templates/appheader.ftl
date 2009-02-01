@@ -28,7 +28,6 @@ under the License.
         <li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalPageName}</a></li>
       </#list>
     </#if>
-    <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Portal?decorator=printable" url-mode="plain" target-window="new">${uiLabelMap.CommonHelp}</a></li>
     <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?parentPortalPageId=MYPORTAL</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
   </ul>
