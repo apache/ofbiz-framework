@@ -101,9 +101,9 @@ under the License.
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
-                <get-related-one value-name="productCategory" relation-name="ProductCategoryType" to-value-name="productCategoryType"/>
+                <get-related-one value-field="productCategory" relation-name="ProductCategoryType" to-value-field="productCategoryType"/>
                 <set field="categoryContentOrderList[]" value="prodCatContentTypeId"/>
-                <get-related value-name="productCategory" relation-name="ProductCategoryContent" list-name="productCategoryContentList" order-by-list-name="categoryContentOrderList"/>
+                <get-related value-field="productCategory" relation-name="ProductCategoryContent" list="productCategoryContentList" order-by-list="categoryContentOrderList"/>
 
                 <entity-condition entity-name="ProductCategoryType" list="productCategoryTypes"/>
             </actions>
@@ -249,11 +249,11 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.showProductCategoryId"/>
 
                 <entity-condition entity-name="ProductCategoryRollup" list="currentProductCategoryRollups">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
                 <entity-condition entity-name="ProductCategoryRollup" list="parentProductCategoryRollups">
-                    <condition-expr field-name="parentProductCategoryId" env-name="productCategoryId"/>
+                    <condition-expr field-name="parentProductCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
 
@@ -303,8 +303,8 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
-                <entity-condition entity-name="ProdCatalogCategory" list="prodCatalogCategories">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+              <entity-condition entity-name="ProdCatalogCategory" list="prodCatalogCategories">
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="prodCatalogCategoryTypeId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="prodCatalogId"/>
@@ -339,12 +339,12 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
-                <entity-condition entity-name="ProductFeatureCategoryAppl" list="productFeatureCategoryAppls">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+              <entity-condition entity-name="ProductFeatureCategoryAppl" list="productFeatureCategoryAppls">
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="productFeatureCategoryId"/>
                 </entity-condition>
                 <entity-condition entity-name="ProductFeatureCatGrpAppl" list="productFeatureCatGrpAppls">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="productFeatureGroupId"/>
                 </entity-condition>
 
@@ -377,8 +377,8 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
-                <entity-condition entity-name="ProductCategoryRole" list="productCategoryRoles">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+              <entity-condition entity-name="ProductCategoryRole" list="productCategoryRoles">
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="roleTypeId"/>
                     <order-by field-name="partyId"/>
                 </entity-condition>
@@ -408,7 +408,7 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
                 <entity-condition entity-name="ProductCategoryAttribute" list="categoryAttributes">
-                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                 </entity-condition>
             </actions>
             <widgets>

@@ -23,7 +23,7 @@ under the License.
     <form name="FindFacility" type="list" list-name="listIt" paginate-target="FindFacility"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Facility"/>
             </service>
@@ -83,7 +83,7 @@ under the License.
     <form name="ListFacilityInventoryItems" type="list" list-name="listIt" header-row-style="header-row-2" 
         paginate-target="EditFacilityInventoryItems" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="results" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndLocation"/>
                 <field-map field-name="orderBy" value="statusId|quantityOnHandTotal|serialNumber"/>
@@ -187,7 +187,7 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByItem" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="results" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|inventoryItemId|-inventoryItemDetailSeqId|-effectiveDate|quantityOnHandTotal"/>
@@ -238,7 +238,7 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByProduct" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="results" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|-effectiveDate|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>
@@ -281,7 +281,7 @@ under the License.
     <form name="ListFacilityInventoryItemsDetailsByDate" type="list" target="" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="results" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="-effectiveDate|productId|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>

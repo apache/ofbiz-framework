@@ -132,7 +132,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSubscriptionAttributes"/>
                 <set field="tabButtonItem" value="EditSubscriptionAttributes"/>
                 <set field="subscriptionId" from-field="parameters.subscriptionId"/>
-                <entity-and entity-name="SubscriptionAttribute" use-cache="false" list-name="subscriptionAttributes">
+                <entity-and entity-name="SubscriptionAttribute" use-cache="false" list="subscriptionAttributes">
                     <field-map field-name="subscriptionId"/>
                     <order-by field-name="attrName"/>
                 </entity-and>
@@ -277,7 +277,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSubscriptionCommEvent" />
                 <set field="tabButtonItem" value="EditSubscriptionCommEvent" />
                 <set field="subscriptionId" from-field="parameters.subscriptionId" />
-                <entity-and entity-name="SubscriptionAndCommEvent" use-cache="false" list-name="subscriptionCommEvent">
+                <entity-and entity-name="SubscriptionAndCommEvent" use-cache="false" list="subscriptionCommEvent">
                     <field-map field-name="subscriptionId" />
                 </entity-and>
             </actions>

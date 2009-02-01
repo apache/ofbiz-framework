@@ -91,7 +91,7 @@ under the License.
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table"
         paginate-target="FindSubscription" paginate="true">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt" result-map="performFindResult">
+            <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Subscription"/>
             </service>
@@ -318,7 +318,7 @@ under the License.
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
-                <condition-expr field-name="subscriptionResourceId" env-name="subscriptionResourceId"/>
+                <condition-expr field-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
                 <order-by field-name="productId"/>
                 <order-by field-name="fromDate"/>
             </entity-condition>
@@ -392,7 +392,7 @@ under the License.
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="SubscriptionAndCommEvent">
-                <condition-expr field-name="subscriptionId" env-name="subscriptionId"/>
+                <condition-expr field-name="subscriptionId" from-field="subscriptionId"/>
                 <order-by field-name="communicationEventId"/>
             </entity-condition>
         </actions>     

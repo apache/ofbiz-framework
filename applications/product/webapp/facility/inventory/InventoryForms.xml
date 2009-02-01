@@ -143,7 +143,7 @@ under the License.
     <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceiptList">
+            <entity-and entity-name="ShipmentReceipt" list="shipmentReceiptList">
                 <field-map field-name="inventoryItemId"/>
             </entity-and>
         </actions>

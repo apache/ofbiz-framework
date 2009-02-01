@@ -115,7 +115,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureType"/>
                 <field-map field-name="orderBy" value="productFeatureTypeId"/>
@@ -160,7 +160,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureIactn"/>
                 <field-map field-name="orderBy" value="productFeatureId"/>
@@ -277,7 +277,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureCategory"/>
                 <field-map field-name="orderBy" value="productFeatureCategoryId"/>
@@ -304,7 +304,7 @@
     <form name="ListFeaturePrice" type="list" target="updateFeaturePrice"  list-name="productFeaturePrice"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-and entity-name="ProductFeaturePrice" list-name="productFeaturePrice">
+            <entity-and entity-name="ProductFeaturePrice" list="productFeaturePrice">
                 <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
             </entity-and>
         </actions>

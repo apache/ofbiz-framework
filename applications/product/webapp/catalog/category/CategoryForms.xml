@@ -137,7 +137,7 @@ under the License.
         title="" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductCategoryLink">
-                <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-condition>
         </actions>

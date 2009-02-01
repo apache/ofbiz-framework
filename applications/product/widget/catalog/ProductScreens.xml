@@ -110,7 +110,7 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="ProductPrice" list-name="productPrices">
+                <entity-and entity-name="ProductPrice" list="productPrices">
                     <field-map field-name="productId"/>
                     <order-by field-name="productStoreGroupId"/>
                     <order-by field-name="productPricePurposeId"/>
@@ -169,17 +169,17 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="SupplierProduct" list="supplierProductAgreements">
                     <condition-list>
-                        <condition-expr field-name="productId" env-name="productId"/>
-                        <condition-expr field-name="agreementId" operator="not-equals" env-name="nullField"/>
+                        <condition-expr field-name="productId" from-field="productId"/>
+                        <condition-expr field-name="agreementId" operator="not-equals" from-field="nullField"/>
                     </condition-list>
                     <order-by field-name="availableFromDate"/>
                 </entity-condition>
-                <entity-and entity-name="AgreementItemAndProductAppl" list-name="salesAgreements">
+                <entity-and entity-name="AgreementItemAndProductAppl" list="salesAgreements">
                     <field-map field-name="productId"/>
                     <field-map field-name="agreementTypeId" value="SALES_AGREEMENT"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
-                <entity-and entity-name="AgreementItemAndProductAppl" list-name="productAgreements">
+                <entity-and entity-name="AgreementItemAndProductAppl" list="productAgreements">
                     <field-map field-name="productId"/>
                     <field-map field-name="agreementTypeId" value="PRODUCT_AGREEMENT"/>
                     <order-by field-name="fromDate"/>
@@ -246,7 +246,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 
                 <entity-condition entity-name="ProductCategoryMember" list="productCategoryMembers">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productCategoryId"/>
                 </entity-condition>
@@ -298,7 +298,7 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="ProductConfig" list-name="productConfigs">
+                <entity-and entity-name="ProductConfig" list="productConfigs">
                     <field-map field-name="productId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="fromDate"/>
@@ -350,7 +350,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="FixedAssetProduct" list="fixedAssetProducts">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -472,16 +472,16 @@ under the License.
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="ProductAssoc" list-name="components">
+                <entity-and entity-name="ProductAssoc" list="components">
                     <field-map field-name="productId"/>
                     <field-map field-name="productAssocTypeId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <entity-and entity-name="ProductAssoc" list-name="parents">
+                <entity-and entity-name="ProductAssoc" list="parents">
                     <field-map from-field="productId" field-name="productIdTo"/>
                     <field-map field-name="productAssocTypeId"/>
                 </entity-and>
-                <entity-and entity-name="WorkEffortGoodStandard" list-name="routings">
+                <entity-and entity-name="WorkEffortGoodStandard" list="routings">
                     <field-map field-name="productId"/>
                     <field-map field-name="workEffortGoodStdTypeId"/>
                 </entity-and>
@@ -556,7 +556,7 @@ under the License.
                     <field-map field-name="costComponentId" from-field="productCostComponentId"/>
                 </entity-one>
                 <!--<entity-and entity-name="CostComponent" list-name="costs" filter-by-date="true">-->
-                <entity-and entity-name="CostComponent" list-name="costs">
+                <entity-and entity-name="CostComponent" list="costs">
                     <field-map field-name="productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
@@ -687,7 +687,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductFacility" list="productFacilities">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="facilityId"/>
                 </entity-condition>
                 <entity-condition entity-name="Facility" list="facilities">
@@ -741,7 +741,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductFacilityLocation" list="productFacilityLocations">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="facilityId"/>
                     <order-by field-name="locationSeqId"/>
                 </entity-condition>
@@ -795,7 +795,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <set field="orderByList[]" value="-relevancyWeight"/>
                 <set field="orderByList[]" value="keyword"/>
-                <get-related value-name="product" relation-name="ProductKeyword" list-name="productKeywords" order-by-list-name="orderByList"/>
+                <get-related value-field="product" relation-name="ProductKeyword" list="productKeywords" order-by-list="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
@@ -899,7 +899,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="GoodIdentification" list="goodIdentifications">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="goodIdentificationTypeId"/>
                     <order-by field-name="idValue"/>
                 </entity-condition>
@@ -954,7 +954,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
                 <entity-condition entity-name="GlAccountType" list="productGlAccountTypes" use-cache="true">
@@ -1024,7 +1024,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 
                 <entity-condition entity-name="ProductPaymentMethodType" list="productPaymentMethodTypes">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="productPricePurposeId"/>
                     <order-by field-name="paymentMethodTypeId"/>
                     <order-by field-name="fromDate"/>
@@ -1077,7 +1077,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
-                <entity-and entity-name="ProductFeatureIactn" list-name="featureInteractions">
+                <entity-and entity-name="ProductFeatureIactn" list="featureInteractions">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                 </entity-and>
             </actions>
@@ -1161,7 +1161,7 @@ under the License.
 
                 <set field="orderBy" from-field="parameters.orderBy" default-value="partyId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="SupplierProduct" list-name="productSuppliers">
+                <entity-and entity-name="SupplierProduct" list="productSuppliers">
                     <field-map field-name="productId"/>
                     <order-by field-name="${orderBy}"/>
                 </entity-and>
@@ -1355,7 +1355,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="ProductAttribute" list-name="productAttributes">
+                <entity-and entity-name="ProductAttribute" list="productAttributes">
                     <field-map field-name="productId"/>
                     <order-by field-name="attrType"/>
                     <order-by field-name="attrName"/>
@@ -1740,7 +1740,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
 
                 <entity-condition entity-name="ProductRole" list="productRoles">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="roleTypeId"/>
                     <order-by field-name="partyId"/>
                 </entity-condition>
@@ -1777,7 +1777,7 @@ under the License.
                 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-condition entity-name="VendorProduct" list="vendorProductList">
-                    <condition-expr field-name="productId" env-name="productId"/>
+                    <condition-expr field-name="productId" from-field="productId"/>
                 </entity-condition>
             </actions>
             <widgets>

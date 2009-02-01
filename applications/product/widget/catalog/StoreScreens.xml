@@ -129,8 +129,8 @@ under the License.
                 <set field="activeOnly" from-field="parameters.activeOnly" default-value="true"/>
                 <entity-condition entity-name="ProductStorePromoAndAppl" list="productStorePromoAndAppls" filter-by-date="${activeOnly}">
                     <condition-list combine="and">
-                        <condition-expr field-name="userEntered" env-name="userEntered" ignore-if-empty="true"/>
-                        <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                        <condition-expr field-name="userEntered" from-field="userEntered" ignore-if-empty="true"/>
+                        <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     </condition-list>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productPromoId"/>
@@ -196,7 +196,7 @@ under the License.
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
                 <entity-condition entity-name="ProductStoreCatalog" list="productStoreCatalogs">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productStoreId"/>
                 </entity-condition>
@@ -250,7 +250,7 @@ under the License.
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
                 <entity-condition entity-name="WebSite" list="storeWebSites">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="siteName"/>
                 </entity-condition>
                 <entity-condition entity-name="WebSite" list="webSites">
@@ -279,7 +279,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <entity-condition entity-name="ProductStoreShipmentMethView" list="storeShipMethods">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
                 <entity-one entity-name="ProductStoreShipmentMeth" value-field="productStoreShipmentMeth" auto-field-map="true"/>
@@ -358,7 +358,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <entity-condition entity-name="ShipmentCostEstimate" list="estimates">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="geoIdFrom"/>
                     <order-by field-name="shipmentMethodTypeId"/>
                     <order-by field-name="geoIdTo"/>
@@ -491,7 +491,7 @@ under the License.
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 
                 <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="emailType"/>
                 </entity-condition>
             </actions>
@@ -567,7 +567,7 @@ under the License.
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
                 <entity-condition entity-name="ProductStoreKeywordOvrd" list="productStorekeywordOvrdList">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -659,7 +659,7 @@ under the License.
 
                 <entity-one entity-name="ProductStoreFinActSetting" value-field="finAccountSetting"/>
                 <entity-condition entity-name="ProductStoreFinActSetting" list="productStoreFinActSettings">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>                    
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>                    
                 </entity-condition>
             </actions>
             <widgets>
@@ -711,7 +711,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 
                 <entity-condition entity-name="ProductStoreVendorPayment" list="productStoreVendorPaymentList">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -762,7 +762,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
 
                 <entity-condition entity-name="ProductStoreVendorShipment" list="productStoreVendorShipmentList">
-                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
             </actions>
             <widgets>
