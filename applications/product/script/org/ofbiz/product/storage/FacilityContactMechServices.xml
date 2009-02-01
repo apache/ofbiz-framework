@@ -32,7 +32,7 @@ under the License.
             <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">
                 <default-message>Contact Mechanism successfully created.</default-message>
-                <result-to-field result-name="contactMechId" map="newValue"/>
+                <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>
             <log level="info" message="ContactMech created"/>
             <else>
@@ -77,7 +77,7 @@ under the License.
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
                 <default-message>Contact Mechanism successfully updated.</default-message>
 
-                <result-to-field result-name="contactMechId" map="newFacilityContactMech"/>
+                <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
             </call-service>
             <else>
                 <set field="newFacilityContactMech.contactMechId" from-field="parameters.newContactMechId"/>
@@ -149,7 +149,7 @@ under the License.
         <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message>Postal Address successfully created</default-message>
 
-            <result-to-field result-name="contactMechId" map="newFacilityContactMech"/>
+            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
         </call-service>
 
         <check-errors/>
@@ -197,7 +197,7 @@ under the License.
         <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
             <default-message>Telecom number successfully created</default-message>
 
-            <result-to-field result-name="contactMechId" map="newFacilityContactMech"/>
+            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
         </call-service>
 
         <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>

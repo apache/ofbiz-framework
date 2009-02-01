@@ -60,7 +60,7 @@ under the License.
         <set-service-fields service-name="createCategoryContent" map="parameters" to-map="createCategoryContentMap"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
-            <result-to-field result-name="contentId" map="createCategoryContentMap" />
+            <result-to-field result-name="contentId" map-name="createCategoryContentMap" />
         </call-service>
         <call-service service-name="createCategoryContent" in-map-name="createCategoryContentMap"/>
     </simple-method>
