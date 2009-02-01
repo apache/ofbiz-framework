@@ -36,4 +36,8 @@ public abstract class ResourceInfo extends NamedInfo {
         super(element);
         resourceElements.addAll(UtilXml.childElementList(element, "resource"));
     }
+
+    public ResourceInfo(String name) {
+        super(name);
+    }
 }
