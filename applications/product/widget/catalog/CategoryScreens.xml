@@ -176,7 +176,7 @@ under the License.
                 <entity-one entity-name="ProductCategoryContent" value-field="categoryContent"/>
                 <entity-one entity-name="Content" value-field="content"/>
                 <entity-one entity-name="ElectronicText" value-field="electronicText" auto-field-map="false">
-                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
                 <set field="textDataMap.text" from-field="electronicText.textData"/>
                 <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>

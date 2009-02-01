@@ -128,7 +128,7 @@ under the License.
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
-                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
                 <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/header.ftl"/>
@@ -139,7 +139,7 @@ under the License.
                 <set field="defaultOrganizationPartyId" value="${bsh:&quot;DEFAULT&quot;.equals(userPreferences.get(&quot;ORGANIZATION_PARTY&quot;))?defaultOrganizationPartyIdProperties:userPreferences.get(&quot;ORGANIZATION_PARTY&quot;)}" global="true"/>
                 <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
                 <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
-                    <field-map field-name="partyId" env-name="defaultOrganizationPartyId"/>
+                    <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                 </entity-one>
                 <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="defaultCurrencyUomId" global="true"/>
                 <set field="defaultOrganizationPartyGroupName" from-field="orgParty.groupName" global="true"/>
@@ -220,7 +220,7 @@ under the License.
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
-                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
             </actions>

@@ -26,8 +26,8 @@
             <set field="noConditionFind" value="Y"/>
             <set field="parameters.productPriceRuleId" value=""/>
             <set field="parameters.ruleName" value=""/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">      
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">      
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductPriceRule"/>
             </service>
         </actions>

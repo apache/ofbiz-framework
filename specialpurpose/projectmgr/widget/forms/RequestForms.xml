@@ -93,10 +93,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="WorkEffort" value-field="workEffort">
-                <field-map field-name="workEffortId" env-name="workEffortId"/>
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
             </entity-one>
-            <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
             <set field="projectId" from-field="result.projectId"/>
             <set field="projectName" from-field="result.projectName"/>
@@ -125,12 +125,12 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequestParty">
-                <field-map field-name="custRequestId" env-name="custRequestId"/>
+                <field-map field-name="custRequestId" from-field="custRequestId"/>
             </entity-and>
         </actions>
         <row-actions>
             <entity-one entity-name="Person" value-field="person">
-                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="partyId" from-field="partyId"/>
             </entity-one>
         </row-actions>
         <field name="partyId" widget-style="buttontext">
@@ -147,8 +147,8 @@ under the License.
             </entity-and>
         </actions>
         <row-actions>
-            <service service-name="getProjectIdAndNameFromTask" result-map-name="sResult">
-                <field-map field-name="taskId" env-name="workEffortId"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map="sResult">
+                <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
         </row-actions> 
         <field name="custRequestId">

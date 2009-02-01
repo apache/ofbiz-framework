@@ -56,7 +56,7 @@ under the License.
                 <set field="headerItem" value="projects"/>                
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-field="project">
-                    <field-map field-name="workEffortId" env-name="projectId"/>
+                    <field-map field-name="workEffortId" from-field="projectId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -96,8 +96,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="task"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
-                    <field-map field-name="taskId" env-name="parameters.workEffortId"/>
+                <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                    <field-map field-name="taskId" from-field="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
                 <set field="projectName" from-field="result.projectName"/>
@@ -188,7 +188,7 @@ under the License.
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
                 <entity-one entity-name="Timesheet" value-field="timesheet"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName">
-                    <field-map field-name="partyId" env-name="timesheet.partyId"/>
+                    <field-map field-name="partyId" from-field="timesheet.partyId"/>
                 </entity-one>
             </actions>
             <widgets>

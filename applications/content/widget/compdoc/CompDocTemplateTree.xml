@@ -23,7 +23,7 @@ under the License.
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root" wrap-style="treeWrapper">
             <entity-one entity-name="Content" use-cache="false">
-                <field-map field-name="contentId" env-name="rootContentId"/>
+                <field-map field-name="contentId" from-field="rootContentId"/>
             </entity-one>
             <include-screen name="rootTemplateLine" location="component://content/widget/compdoc/CompDocScreens.xml"/>
             <sub-node node-name="node-body">
@@ -55,7 +55,7 @@ under the License.
         </node>
         <node name="node-body" join-field-name="itemContentId" entity-name="AssocRevisionItemView" wrap-style="treeWrapper">
             <entity-one entity-name="Content" use-cache="false">
-                <field-map field-name="contentId" env-name="itemContentId"/>
+                <field-map field-name="contentId" from-field="itemContentId"/>
             </entity-one>
             <include-screen name="childTemplateLine" location="component://content/widget/compdoc/CompDocScreens.xml"/>
             <sub-node node-name="node-body">
@@ -91,7 +91,7 @@ under the License.
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root">
             <entity-one entity-name="Content" use-cache="false">
-                <field-map field-name="contentId" env-name="instanceContent.instanceOfContentId"/>
+                <field-map field-name="contentId" from-field="instanceContent.instanceOfContentId"/>
             </entity-one>
             <include-screen name="rootInstanceLine" location="component://content/widget/compdoc/CompDocScreens.xml"/>
             <sub-node node-name="node-body">
@@ -123,7 +123,7 @@ under the License.
         </node>
         <node name="node-body" join-field-name="itemContentId" entity-name="AssocRevisionItemView">
             <entity-one entity-name="Content" use-cache="false">
-                <field-map field-name="contentId" env-name="itemContentId"/>
+                <field-map field-name="contentId" from-field="itemContentId"/>
             </entity-one>
             <include-screen name="childInstanceLine" location="component://content/widget/compdoc/CompDocScreens.xml"/>
             <sub-node node-name="node-body">

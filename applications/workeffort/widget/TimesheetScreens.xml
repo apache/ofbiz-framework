@@ -71,7 +71,7 @@ under the License.
                                                 <section>
                                                     <actions>
                                                         <entity-one entity-name="RateType" value-field="currentRateType" auto-field-map="false">
-                                                            <field-map field-name="rateTypeId" env-name="currentTimeEntry.rateTypeId"/>
+                                                            <field-map field-name="rateTypeId" from-field="currentTimeEntry.rateTypeId"/>
                                                         </entity-one>
                                                     </actions>
                                                     <widgets>

@@ -214,7 +214,7 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"  />
                 <set field="contentRoleTarget" value=""/>
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -238,7 +238,7 @@ under the License.
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -262,7 +262,7 @@ under the License.
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -289,7 +289,7 @@ under the License.
                     <order-by field-name="webSiteId"/>
                 </entity-condition>
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -322,7 +322,7 @@ under the License.
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -346,7 +346,7 @@ under the License.
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
             </actions>
             <widgets>

@@ -40,8 +40,8 @@ under the License.
     <form name="listLookupFacility" list-name="listIt" title="" type="list" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupFacility">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Facility"/>
             </service>
         </actions>
@@ -76,8 +76,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         paginate-target="LookupFacilityLocation">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FacilityLocation"/>
             </service>
         </actions>
@@ -116,8 +116,8 @@ under the License.
     <form name="listShipment" list-name="listIt" title="" type="list" paginate-target="LookupShipment"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Shipment"/>
             </service>
         </actions>

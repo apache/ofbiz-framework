@@ -26,8 +26,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindCMSContent"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
-                <service service-name="urlEncodeArgs" result-map-name="result">
-                    <field-map env-name="requestParameters" field-name="mapIn"/>
+                <service service-name="urlEncodeArgs" result-map="result">
+                    <field-map from-field="requestParameters" field-name="mapIn"/>
                 </service>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -63,10 +63,10 @@ under the License.
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditCMSContent"/>
                 <entity-one entity-name="Content" value-field="currentValue">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
                 <entity-one entity-name="ElectronicText" value-field="electronicText">
-                    <field-map field-name="dataResourceId" env-name="parameters.drDataResourceId"/>
+                    <field-map field-name="dataResourceId" from-field="parameters.drDataResourceId"/>
                 </entity-one>
                 <set field="textData" from-field="electronicText.textData"/>
                 <set field="contentId" from-field="currentValue.contentId"/>

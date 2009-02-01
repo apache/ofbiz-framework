@@ -52,8 +52,8 @@ under the License.
 
     <form name="ListTemporalExpressions" extends="BasicExpressionList" list-name="listIt" paginate="true">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="TemporalExpression"/>
             </service>
         </actions>

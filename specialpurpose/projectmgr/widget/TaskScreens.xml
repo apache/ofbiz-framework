@@ -27,8 +27,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleDependencies"/>                
                 <set field="tabButtonItem" value="dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
-                    <field-map field-name="taskId" env-name="parameters.workEffortId"/>
+                <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                    <field-map field-name="taskId" from-field="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
             </actions>
@@ -38,7 +38,7 @@ under the License.
                             <section>
                                 <actions>
                                     <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
-                                        <field-map field-name="workEffortIdTo" env-name="parameters.workEffortId"/>
+                                        <field-map field-name="workEffortIdTo" from-field="parameters.workEffortId"/>
                                         <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                                     </entity-and>
                                 </actions>
@@ -54,7 +54,7 @@ under the License.
                             <section>
                                 <actions>
                                     <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
-                                        <field-map field-name="workEffortIdFrom" env-name="parameters.workEffortId"/>
+                                        <field-map field-name="workEffortIdFrom" from-field="parameters.workEffortId"/>
                                         <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                                     </entity-and>
                                 </actions>
@@ -79,7 +79,7 @@ under the License.
                 <set field="headerItem" value="mytasks"/>
                 <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="projects" filter-by-date="true">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffort" value-field="task">
@@ -126,7 +126,7 @@ under the License.
         <section>
             <actions>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
                     <field-map field-name="currentStatusId" value="PTS_CREATED"/>
                 </entity-and>
@@ -250,7 +250,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandards">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -340,8 +340,8 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
                 <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
-                <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
-                    <field-map field-name="taskId" env-name="parameters.workEffortId"/>
+                <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                    <field-map field-name="taskId" from-field="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
             </actions>            
@@ -387,12 +387,12 @@ under the License.
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>
-                <service service-name="getProjectTask" result-map-name="taskResult">
-                    <field-map field-name="taskId" env-name="workEffortId"/>
+                <service service-name="getProjectTask" result-map="taskResult">
+                    <field-map field-name="taskId" from-field="workEffortId"/>
                 </service>
                 <set field="task" from-field="taskResult.taskInfo"/>
-                <service service-name="getProjectIdAndNameFromTask" result-map-name="projectResult">
-                    <field-map field-name="taskId" env-name="workEffortId"/>
+                <service service-name="getProjectIdAndNameFromTask" result-map="projectResult">
+                    <field-map field-name="taskId" from-field="workEffortId"/>
                 </service>
             </actions>                        
             <widgets>
@@ -455,7 +455,7 @@ under the License.
             <actions>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortNoteAndData" list-name="workEffortNoteandDetails">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
                 </entity-and>
             </actions>
@@ -469,8 +469,8 @@ under the License.
     <screen name="TaskTeamInfo">      
         <section>        
             <actions>                      
-                <service service-name="getTasksByParties" result-map-name="result">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>                  
+                <service service-name="getTasksByParties" result-map="result">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>                  
                 </service>
                 <set field="taskParties" from-field="result.taskParties"/>     
             </actions>           
@@ -505,7 +505,7 @@ under the License.
         <section>
             <actions>
                 <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
-                    <field-map field-name="workEffortIdTo" env-name="parameters.workEffortId"/>
+                    <field-map field-name="workEffortIdTo" from-field="parameters.workEffortId"/>
                     <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                 </entity-and>
             </actions>
@@ -531,7 +531,7 @@ under the License.
         <section>
             <actions>
                 <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
-                    <field-map field-name="workEffortIdFrom" env-name="parameters.workEffortId"/>
+                    <field-map field-name="workEffortIdFrom" from-field="parameters.workEffortId"/>
                     <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                 </entity-and>
             </actions>
@@ -562,7 +562,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTask"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName">
-                    <field-map field-name="partyId" env-name="custRequest.fromPartyId"/>
+                    <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
                 </entity-one>
                 </actions>
             <widgets>
@@ -595,7 +595,7 @@ under the License.
                 <entity-one entity-name="Content" value-field="content"/>
                 <set field="workEffortId" from-field="parameters.workEffortId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">
-                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>

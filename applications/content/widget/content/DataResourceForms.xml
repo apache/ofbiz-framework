@@ -60,8 +60,8 @@ under the License.
     <form name="ListDataResource" target="" title="" list-name="listIt" type="list" paginate-target="findDataResource"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="parameters"/>
+          <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <field-map field-name="inputFields" from-field="parameters"/>
             <field-map field-name="entityName" value="DataResource"/>
             <field-map field-name="orderBy" value="dataResourceId"/>
           </service>
@@ -117,7 +117,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="DataResource"/>
                 <field-map field-name="orderBy" value="dataResourceId"/>
             </service>
@@ -139,7 +139,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="currentValue.statusId"/>
+                <field-map field-name="statusId" from-field="currentValue.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="currentValue==null" target="createDataResource"/>
@@ -195,7 +195,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="Content" list-name="contentRecords">
-                <field-map field-name="dataResourceId" env-name="dataResourceId"/>
+                <field-map field-name="dataResourceId" from-field="dataResourceId"/>
                 <order-by field-name="contentId"/>
             </entity-and>
         </actions>
@@ -333,8 +333,8 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName" value="DataResourceAttribute"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName" value="DataResourceAttribute"/>
             </service>
         </actions>
         <auto-fields-service service-name="updateDataResourceAttribute" default-field-type="display"/>
@@ -362,8 +362,8 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName" value="DataResourceRole"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName" value="DataResourceRole"/>
             </service>
         </actions>
         <auto-fields-service service-name="updateDataResourceRole" default-field-type="display"/>
@@ -386,8 +386,8 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" env-name="entityName" value="ProductFeatureDataResource"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName" value="ProductFeatureDataResource"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>       

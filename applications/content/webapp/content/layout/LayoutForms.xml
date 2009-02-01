@@ -151,8 +151,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
           <actions>
             <set field="requestParameters.contentTypeId" value="DOCUMENT"/>
-              <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                  <field-map field-name="inputFields" env-name="parameters"/>
+              <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+                  <field-map field-name="inputFields" from-field="parameters"/>
                   <field-map field-name="entityName" value="ContentDataResourceView"/>
               </service>
           </actions>

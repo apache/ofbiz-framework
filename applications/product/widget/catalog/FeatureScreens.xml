@@ -62,7 +62,7 @@
                 <set field="headerItem" value="featurecats"/>
                 <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
                 <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
-                    <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
+                    <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -536,7 +536,7 @@
                 <set field="headerItem" value="featurecats"/>
                 <entity-one entity-name="ProductFeature" value-field="productFeature" auto-field-map="true"/>
                 <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
-                    <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
+                    <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
                 </entity-and>
             </actions>
             <widgets>

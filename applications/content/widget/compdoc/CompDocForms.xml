@@ -41,8 +41,8 @@ under the License.
     <form name="ListCompDoc" type="list" list-name="listIt" target="" paginate-target="FindCompDoc"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+            <service service-name="performFind" result-map="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Content"/>
             </service>
         </actions>
@@ -460,8 +460,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentRevisionItemAndContentApprovalView" use-cache="true">
-                <field-map env-name="contentId" field-name="contentId"/>
-                <field-map env-name="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
+                <field-map from-field="contentId" field-name="contentId"/>
+                <field-map from-field="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
             </entity-and>
         </actions>
         <field name="contentId"><display/></field>

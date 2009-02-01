@@ -36,8 +36,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
     
