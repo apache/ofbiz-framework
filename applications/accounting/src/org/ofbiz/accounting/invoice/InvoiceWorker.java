@@ -182,7 +182,7 @@ public class InvoiceWorker {
         if (UtilValidate.isNotEmpty(invoiceTotal) && !actualCurrency) {
             invoiceTotal = invoiceTotal.multiply(getInvoiceCurrencyConversionRate(invoice)).setScale(decimals,rounding);
         }
-        return invoiceTotal.add(invoiceTaxTotal).setScale(decimals, rounding);
+        return invoiceTotal;
     }
 
     /**
