@@ -33,7 +33,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
         <set field="context.objectInfo" from-field="parameters.drObjectInfo"/>
         <set field="context.dataResourceTypeId" value="LOCAL_FILE"/>
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
@@ -62,7 +62,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="checkContentPermission">
             <result-to-field field="permissionStatus" result-name="permissionStatus"/>
         </call-service>
@@ -105,7 +105,7 @@ under the License.
         <set field="context.contentIdTo" from-field="parameters.contentIdTo"/>
         <set field="context.textData" from-field="parameters.textData"/>
 
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <set field="context.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
         <set field="context.mimeTypeId" value="text/plain"/>
@@ -163,7 +163,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <set field="context.contentIdTo" from-field="parameters.contentIdTo"/>
         <set field="context.textData" from-field="parameters.textData"/>
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
             <result-to-field result-name="contentId" field="contentId"/>
@@ -201,7 +201,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="formInput.contentPurposeTypeId"/>
         <set field="context.contentIdTo" from-field="formInput.contentIdTo"/>
 
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <set field="context.dataResourceTypeId" value="IMAGE_OBJECT"/>
         <set field="context.mimeTypeId" value="text/plain"/>
@@ -259,7 +259,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <set field="context.contentIdTo" from-field="parameters.contentIdTo"/>
 
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <set field="context.dataResourceTypeId" value="URL_RESOURCE"/>
         <set field="context.mimeTypeId" value="text/plain"/>
@@ -316,7 +316,7 @@ under the License.
         <set field="context.dataResourceName" from-field="context.contentName"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <set field="context.contentIdTo" from-field="parameters.contentIdTo"/>
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="persistContentAndAssoc">
             <result-to-field result-name="contentId" field="contentId"/>

@@ -37,7 +37,7 @@ under the License.
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <set field="context.currentContent" from-field="currentContent"/>
-        <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="checkContentPermission">
             <result-to-field field="permissionStatus" result-name="permissionStatus"/>

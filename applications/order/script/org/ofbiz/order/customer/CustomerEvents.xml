@@ -238,7 +238,7 @@ under the License.
             <set field="ulLookup.userLoginId" value="anonymous"/>
             <find-by-primary-key entity-name="UserLogin" map="ulLookup" value-field="userLogin"/>
             <set field="userLogin.partyId" from-field="tempMap.partyId"/>
-            <set-current-user-login value-name="userLogin"/>
+            <set-current-user-login value-field="userLogin"/>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
                 <if-compare field="userLogin.userLoginId" value="anonymous" operator="equals">
                     <set field="userLogin.partyId" from-field="tempMap.partyId"/>
