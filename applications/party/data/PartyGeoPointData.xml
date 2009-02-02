@@ -18,8 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-engine-xml>    
-    <GeoPoint comment="GeoPoint for DemoCustomer and other demonstrations (in Orem, Utah, USA)" 
+<entity-engine-xml>
+    <!-- GeoPoint for DemoCustomer and other demonstrations (in Orem, Utah, USA) -->
+    <GeoPoint  
         geoPointId="9000" 
         dataSourceId="GEOPT_GOOGLE"
         latitude="40.297264"
@@ -27,8 +28,9 @@ under the License.
         elevation="4756"
         elevationUomId="LEN_ft"
         information="A testing GeoPoint for contactMechId=9015 (DemoCustomer)"
-    />        
-    <GeoPoint comment="GeoPoint for EuroCustomer (in Amsterdam,  Netherlands)" 
+    />
+    <!--  GeoPoint for EuroCustomer (in Amsterdam,  Netherlands) -->
+    <GeoPoint  
         geoPointId="9001" 
         dataSourceId="GEOPT_GOOGLE"
         latitude="52.350"
@@ -37,7 +39,8 @@ under the License.
         elevationUomId="LEN_m"
         information="A testing GeoPoint for contactMechId=EUROCUSTOMER (EuroCustomer)"
     />    
-    <GeoPoint comment="GeoPoint for FrenchCustomer (at Chemin de la Mouline, Poussan, France)" 
+    <!-- GeoPoint for FrenchCustomer (at Chemin de la Mouline, Poussan, France) -->
+    <GeoPoint  
         geoPointId="9002" 
         dataSourceId="GEOPT_GOOGLE"
         latitude="43.491661995004264"
