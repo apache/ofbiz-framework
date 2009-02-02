@@ -39,7 +39,7 @@ under the License.
     </form>
     <form name="listLookupGeo" list-name="listIt" target="" title="" type="list" paginate-target="LookupGeo">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Geo"/>
                 <field-map field-name="orderBy" value="geoName"/>
