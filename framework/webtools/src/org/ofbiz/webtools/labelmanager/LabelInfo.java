@@ -31,20 +31,30 @@ public class LabelInfo {
     public static final String module = LabelInfo.class.getName();
     
     protected String labelKey = "";
+    protected String labelKeyComment = "";
     protected String fileName = "";
-    protected String componentName = "";
-    protected Map<String, String> labelValues = FastMap.newInstance();
+    protected String componentName = "";    
+    protected Map<String, LabelValue> labelValues = FastMap.newInstance();
     
-    public LabelInfo(String labelKey, String fileName, String componentName, String localeStr, String labelValue) throws GeneralException {
+    public LabelInfo(String labelKey, String labelKeyComment, String fileName, String componentName, String localeStr, String labelValue, String labelComment) throws GeneralException {
         this.labelKey = labelKey;
+        this.labelKeyComment = labelKeyComment;
         this.fileName = fileName;
         this.componentName = componentName;
-        setLabelValue(localeStr, labelValue, false);
+        setLabelValue(localeStr, labelValue, labelComment, false);
     }
     
     public String getLabelKey() {
         return labelKey;
     }
+    
+    public String getLabelKeyComment() {
+        return labelKeyComment;
+    }
+    
+    public void setLabelKeyComment(String labelKeyComment) {
+        this.labelKeyComment = labelKeyComment;
+    }    
     
     public String getFileName() {
         return fileName;
@@ -54,26 +64,29 @@ public class LabelInfo {
         return componentName;
     }
     
-    public String getLabelValue(String localeStr) {
-       return (String)labelValues.get(localeStr);
+    public LabelValue getLabelValue(String localeStr) {
+       return (LabelValue)labelValues.get(localeStr);
     }
     
     public int getLabelValueSize() {
        return labelValues.size();    
     }
 
-    public boolean setLabelValue(String localeStr, String labelValue, boolean update) {
-        String localeFound = getLabelValue(localeStr);
+    public boolean setLabelValue(String localeStr, String labelValue, String labelComment, boolean update) {
+        LabelValue localeFound = getLabelValue(localeStr);
         boolean isDuplicatedLocales = false;
         
         if (UtilValidate.isEmpty(localeFound)) {
             if (UtilValidate.isNotEmpty(labelValue)) {
-                labelValues.put(localeStr, labelValue);
+                localeFound = new LabelValue(labelValue, labelComment);
+                labelValues.put(localeStr, localeFound);
             }
         } else {
             if (update) {
                 if (UtilValidate.isNotEmpty(labelValue)) {
-                    labelValues.put(localeStr, labelValue);
+                    localeFound.setLabelValue(labelValue);
+                    localeFound.setLabelComment(labelComment);
+                    labelValues.put(localeStr, localeFound);
                 } else {
                     labelValues.remove(localeStr);
                 }

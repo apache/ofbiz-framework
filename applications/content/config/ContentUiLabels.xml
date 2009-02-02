@@ -289,11 +289,11 @@
         <value xml:lang="th">สร้างไฟล์</value>
     </property>
     <property key="ContentCreateNewBlog">
-        <value xml:lang="en">Create New Blog</value>        
+        <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
     </property>
     <property key="ContentCreateNewBlogArticle">
-        <value xml:lang="en">Create New Art.</value>        
+        <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
     </property>
     <property key="ContentDataResource">

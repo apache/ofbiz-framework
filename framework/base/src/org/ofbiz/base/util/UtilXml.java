@@ -389,6 +389,23 @@ public class UtilXml {
         return elements;
     }
 
+    /** Return a List of Node objects that have the given name and are immediate children of the given element; 
+      * if name is null, all child elements will be included. */
+    public static List<? extends Node> childNodeList(Node node) {
+        if (node == null) return null;
+        
+        List<Node> nodes = FastList.newInstance();
+         
+        if (node != null) {
+            do {
+                if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
+                    nodes.add(node);
+                }
+            } while ((node = node.getNextSibling()) != null);
+        }        
+        return nodes;
+    }
+
     /** Return the first child Element
      * returns the first element. */
     public static Element firstChildElement(Element element, Set<String> childElementNames) {
@@ -514,6 +531,19 @@ public class UtilXml {
                 valueBuffer.append(textNode.getNodeValue());
             }
         } while ((textNode = textNode.getNextSibling()) != null);
+        return valueBuffer.toString();
+    }
+    
+    /** Return the text (node value) of the first node under this */
+    public static String nodeValue(Node node) {
+        if (node == null) return null;
+            
+        StringBuilder valueBuffer = new StringBuilder();
+        do {
+            if (node.getNodeType() == Node.CDATA_SECTION_NODE || node.getNodeType() == Node.TEXT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
+                valueBuffer.append(node.getNodeValue());
+            }
+        } while ((node = node.getNextSibling()) != null);
         return valueBuffer.toString();
     }
 

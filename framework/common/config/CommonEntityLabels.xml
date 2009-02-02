@@ -13532,7 +13532,8 @@
         <value xml:lang="de">Tasse</value>
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
-        <value xml:lang="fr">Cup (236,59 cm³)</value> <!-- a very good link : http://unit-converter.org -->
+        <value xml:lang="fr">Cup (236,59 cm³)</value>
+        <!-- a very good link : http://unit-converter.org -->
         <value xml:lang="it">Tazza</value>
         <value xml:lang="pt">Taça</value>
         <value xml:lang="ro">Cupa</value>

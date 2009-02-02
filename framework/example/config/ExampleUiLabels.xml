@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -18,6 +19,16 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ExampleAjaxExamples">
+        <value xml:lang="en">Ajax Examples</value>
+        <value xml:lang="fr">Exemples Ajax</value>
+        <value xml:lang="it">Esempi Ajax</value>
+    </property>
+    <property key="ExampleAjaxIntro">
+        <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
+        <value xml:lang="fr">Pour utiliser cette démonstration Ajax, vous devez avoir activé Javascript </value>
+        <value xml:lang="it">Per usare questa dimostrazione Ajax, tu devi avere JavaScript abilitato sul tuo browser.</value>
+    </property>
     <!-- Example component properties -->
     <property key="ExampleApplication">
         <value xml:lang="en">Example Application</value>
@@ -28,16 +39,6 @@
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
     </property>
-    <property key="ExampleAjaxIntro">
-        <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
-        <value xml:lang="fr">Pour utiliser cette démonstration Ajax, vous devez avoir activé Javascript </value>
-        <value xml:lang="it">Per usare questa dimostrazione Ajax, tu devi avere JavaScript abilitato sul tuo browser.</value>
-    </property>
-    <property key="ExampleAjaxExamples">
-        <value xml:lang="en">Ajax Examples</value>
-        <value xml:lang="fr">Exemples Ajax</value>
-        <value xml:lang="it">Esempi Ajax</value>
-    </property>    
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
         <value xml:lang="fr">OFBiz : Exemple</value>
@@ -74,15 +75,6 @@
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
-    <property key="ExampleExampleId">
-        <value xml:lang="en">Example ID</value>
-        <value xml:lang="fr">Réf. exemple</value>
-        <value xml:lang="it">Codice esempio</value>
-        <value xml:lang="ro">Cod Exemplu</value>
-        <value xml:lang="ru">Код примера</value>
-        <value xml:lang="th">รหัสตัวอย่าง</value>
-        <value xml:lang="zh">样例标识</value>
-    </property>
     <property key="ExampleExample">
         <value xml:lang="en">Example</value>
         <value xml:lang="fr">Exemple</value>
@@ -91,42 +83,6 @@
         <value xml:lang="ru">Пример</value>
         <value xml:lang="th">ตัวอย่าง</value>
         <value xml:lang="zh">样例</value>
-    </property>
-    <property key="ExampleExamples">
-        <value xml:lang="en">Examples</value>
-        <value xml:lang="fr">Exemples</value>
-        <value xml:lang="it">Esempi</value>
-        <value xml:lang="ro">Exemple</value>
-        <value xml:lang="ru">Примеры</value>
-        <value xml:lang="th">ตัวอย่าง</value>
-        <value xml:lang="zh">样例</value>
-    </property>
-    <property key="ExampleFeature">
-        <value xml:lang="en">Feature</value>
-        <value xml:lang="fr">Caractéristique</value>
-        <value xml:lang="it">Caratteristica</value>
-        <value xml:lang="ro">Caracteristica</value>
-        <value xml:lang="ru">Особенность</value>
-        <value xml:lang="th">ลักษณะ</value>
-        <value xml:lang="zh">特征</value>
-    </property>
-    <property key="ExampleFeatures">
-        <value xml:lang="en">Features</value>
-        <value xml:lang="fr">Caractéristiques</value>
-        <value xml:lang="it">Caratteristiche</value>
-        <value xml:lang="ro">Caracteristici</value>
-        <value xml:lang="ru">Особенности</value>
-        <value xml:lang="th">ลักษณะ</value>
-        <value xml:lang="zh">特征</value>
-    </property>
-    <property key="ExampleFeatureSource">
-        <value xml:lang="en">Feature Source</value>
-        <value xml:lang="fr">Caractéristique d'origine</value>
-        <value xml:lang="it">Caratteristica Origine</value>
-        <value xml:lang="ro">Origine Caracteristici </value>
-        <value xml:lang="ru">Источник особенности</value>
-        <value xml:lang="th">ที่มา</value>
-        <value xml:lang="zh">特征源</value>
     </property>
     <property key="ExampleExampleFeature">
         <value xml:lang="en">Example Feature</value>
@@ -146,17 +102,62 @@
         <value xml:lang="th">ตัวอย่างรหัสลักษณะ</value>
         <value xml:lang="zh">样例特征标识</value>
     </property>
+    <property key="ExampleExampleId">
+        <value xml:lang="en">Example ID</value>
+        <value xml:lang="fr">Réf. exemple</value>
+        <value xml:lang="it">Codice esempio</value>
+        <value xml:lang="ro">Cod Exemplu</value>
+        <value xml:lang="ru">Код примера</value>
+        <value xml:lang="th">รหัสตัวอย่าง</value>
+        <value xml:lang="zh">样例标识</value>
+    </property>
+    <property key="ExampleExamples">
+        <value xml:lang="en">Examples</value>
+        <value xml:lang="fr">Exemples</value>
+        <value xml:lang="it">Esempi</value>
+        <value xml:lang="ro">Exemple</value>
+        <value xml:lang="ru">Примеры</value>
+        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="zh">样例</value>
+    </property>
     <property key="ExampleExplicitOption">
         <value xml:lang="en">Explicit Option</value>
         <value xml:lang="fr">Option explicite</value>
         <value xml:lang="it">Opzione Esplicita</value>
         <value xml:lang="th">ทางเลือกที่ชัดเจน</value>
     </property>
+    <property key="ExampleFeature">
+        <value xml:lang="en">Feature</value>
+        <value xml:lang="fr">Caractéristique</value>
+        <value xml:lang="it">Caratteristica</value>
+        <value xml:lang="ro">Caracteristica</value>
+        <value xml:lang="ru">Особенность</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
+    </property>
+    <property key="ExampleFeatureSource">
+        <value xml:lang="en">Feature Source</value>
+        <value xml:lang="fr">Caractéristique d'origine</value>
+        <value xml:lang="it">Caratteristica Origine</value>
+        <value xml:lang="ro">Origine Caracteristici </value>
+        <value xml:lang="ru">Источник особенности</value>
+        <value xml:lang="th">ที่มา</value>
+        <value xml:lang="zh">特征源</value>
+    </property>
+    <property key="ExampleFeatures">
+        <value xml:lang="en">Features</value>
+        <value xml:lang="fr">Caractéristiques</value>
+        <value xml:lang="it">Caratteristiche</value>
+        <value xml:lang="ro">Caracteristici</value>
+        <value xml:lang="ru">Особенности</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
+    </property>
     <property key="ExampleFopFonts">
         <value xml:lang="en">This will print a simple PDF file which will show the FOP fonts avalaible in OFBiz</value>
         <value xml:lang="fr">Impression d'un simple fichier PDF qui montre les polices FOP disponibles dans OFBiz</value>
         <value xml:lang="it">Questo stampa un file PDF semplice che mostrerà i font FOP disponibili in OFBiz</value>
-    </property>    
+    </property>
     <property key="ExampleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
         <value xml:lang="fr">Exemple de Form Widget</value>
@@ -230,84 +231,26 @@
         <value xml:lang="th">ยินดีต้อนรับสู่ตัวอย่างโปรแกรม!</value>
         <value xml:lang="zh">欢迎使用样例应用！</value>
     </property>
-    <!-- Page Titles -->
-    <property key="PageTitleFindExample">
-        <value xml:lang="en">Find Example</value>
-        <value xml:lang="fr">Recherche d'un exemple</value>
-        <value xml:lang="it">Ricerca Esempio</value>
-        <value xml:lang="ro">Cauta Exemplu</value>
-        <value xml:lang="ru">Найти пример</value>
-        <value xml:lang="th">ค้นหาตัวอย่าง</value>
-        <value xml:lang="zh">查找样例</value>
+    <property key="FormFieldTitle_anotherDate">
+        <value xml:lang="en">Another Date</value>
+        <value xml:lang="fr">Une autre date</value>
+        <value xml:lang="it">Altra Data</value>
+        <value xml:lang="th">วันที่อื่น ๆ</value>
     </property>
-    <property key="PageTitleFormWidgetExamples">
-        <value xml:lang="en">Form Widget Examples</value>
-        <value xml:lang="fr">Exemples Form Widget</value>
-        <value xml:lang="it">Esempio form widget</value>
-        <value xml:lang="th">ตัวอย่าง Widget</value>
+    <property key="FormFieldTitle_anotherText">
+        <value xml:lang="en">Another Text</value>
+        <value xml:lang="fr">Un autre texte</value>
+        <value xml:lang="it">Altro Testo</value>
+        <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
     </property>
-    <property key="PageTitleEditExample">
-        <value xml:lang="en">Edit Example</value>
-        <value xml:lang="fr">Modifier l'exemple</value>
-        <value xml:lang="it">Aggiorna Esempio</value>
-        <value xml:lang="ro">Actualizeaza Exemplu</value>
-        <value xml:lang="ru">Изменить пример</value>
-        <value xml:lang="th">แก้ไขตัวอย่าง</value>
-        <value xml:lang="zh">编辑样例</value>
-    </property>
-    <property key="PageTitleEditExampleItems">
-        <value xml:lang="en">Edit Example Items</value>
-        <value xml:lang="fr">Modifier la ligne de l'exemple</value>
-        <value xml:lang="it">Aggiorna Righe Esempio</value>
-        <value xml:lang="ro">Actualizeaza Linii Exemplu</value>
-        <value xml:lang="ru">Изменить позиции примера</value>
-        <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
-        <value xml:lang="zh">编辑样例明细</value>
-    </property>
-    <property key="PageTitleEditExampleFeatureAppls">
-        <value xml:lang="en">Edit Example Features</value>
-        <value xml:lang="fr">Modifier les caractéristiques de l'exemple</value>
-        <value xml:lang="it">Aggiorna Caratteristiche Esempio</value>
-        <value xml:lang="ro">Actualizeaza Carateristici Exemplu</value>
-        <value xml:lang="ru">Изменить особенность примера</value>
-        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
-        <value xml:lang="zh">编辑样例特征</value>
-    </property>
-    <property key="PageTitleFindExampleFeature">
-        <value xml:lang="en">Find Example Feature</value>
-        <value xml:lang="fr">Rechercher la caractéristique de l'exemple</value>
-        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
-        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
-        <value xml:lang="ru">Найти особенность примера</value>
-        <value xml:lang="th">ค้นหาลักษณะตัวอย่าง</value>
-        <value xml:lang="zh">查找样例特征</value>
-    </property>
-    <property key="PageTitleEditExampleFeature">
-        <value xml:lang="en">Edit Example Feature</value>
-        <value xml:lang="fr">Modifier la caractéristique de l'exemple</value>
-        <value xml:lang="it">Aggiorna Caratteristica Esempio</value>
-        <value xml:lang="ro">Actualizeaza Caracteristica Exemplu</value>
-        <value xml:lang="ru">Изменить особенности примера</value>
-        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
-        <value xml:lang="zh">编辑样例特征</value>
-    </property>
-    <property key="PageTitleEditExampleFeatureExampleAppls">
-        <value xml:lang="en">Edit Example Feature Examples</value>
-        <value xml:lang="fr">Modifier la caractéristique exemple des exemples</value>
-        <value xml:lang="it">Aggiorna Esempio Caratteristica Esempi</value>
-        <value xml:lang="ro">Actualizeaza Exemplu Caratteristica Exemple</value>
-        <value xml:lang="ru">Изменить примеры особенностей</value>
-        <value xml:lang="th">แก้ไขตัวอย่างลักษณะตัวอย่าง</value>
-        <value xml:lang="zh">编辑样例特征的样例</value>
-    </property>
-    <property key="PageTitleLookupExampleFeature">
-        <value xml:lang="en">Lookup Example Feature</value>
-        <value xml:lang="fr">Rechercher la caractéristique exemple</value>
-        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
-        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
-        <value xml:lang="ru">Искать особенности примера</value>
-        <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
-        <value xml:lang="zh">查找样例特征</value>
+    <property key="FormFieldTitle_exampleDate">
+        <value xml:lang="en">Example Date</value>
+        <value xml:lang="fr">Exemple de date</value>
+        <value xml:lang="it">Esempio Data</value>
+        <value xml:lang="ro">Data Exemplu</value>
+        <value xml:lang="ru">Дата примера</value>
+        <value xml:lang="th">ตัวอย่างวันที่</value>
+        <value xml:lang="zh">样例日期</value>
     </property>
     <!-- Form Field Labels -->
     <property key="FormFieldTitle_exampleName">
@@ -328,25 +271,83 @@
         <value xml:lang="th">ตัวอย่างขนาด</value>
         <value xml:lang="zh">样例尺寸</value>
     </property>
-    <property key="FormFieldTitle_exampleDate">
-        <value xml:lang="en">Example Date</value>
-        <value xml:lang="fr">Exemple de date</value>
-        <value xml:lang="it">Esempio Data</value>
-        <value xml:lang="ro">Data Exemplu</value>
-        <value xml:lang="ru">Дата примера</value>
-        <value xml:lang="th">ตัวอย่างวันที่</value>
-        <value xml:lang="zh">样例日期</value>
+    <property key="PageTitleEditExample">
+        <value xml:lang="en">Edit Example</value>
+        <value xml:lang="fr">Modifier l'exemple</value>
+        <value xml:lang="it">Aggiorna Esempio</value>
+        <value xml:lang="ro">Actualizeaza Exemplu</value>
+        <value xml:lang="ru">Изменить пример</value>
+        <value xml:lang="th">แก้ไขตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例</value>
     </property>
-    <property key="FormFieldTitle_anotherDate">
-        <value xml:lang="en">Another Date</value>
-        <value xml:lang="fr">Une autre date</value>
-        <value xml:lang="it">Altra Data</value>
-        <value xml:lang="th">วันที่อื่น ๆ</value>
+    <property key="PageTitleEditExampleFeature">
+        <value xml:lang="en">Edit Example Feature</value>
+        <value xml:lang="fr">Modifier la caractéristique de l'exemple</value>
+        <value xml:lang="it">Aggiorna Caratteristica Esempio</value>
+        <value xml:lang="ro">Actualizeaza Caracteristica Exemplu</value>
+        <value xml:lang="ru">Изменить особенности примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
     </property>
-    <property key="FormFieldTitle_anotherText">
-        <value xml:lang="en">Another Text</value>
-        <value xml:lang="fr">Un autre texte</value>
-        <value xml:lang="it">Altro Testo</value>
-        <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
+    <property key="PageTitleEditExampleFeatureAppls">
+        <value xml:lang="en">Edit Example Features</value>
+        <value xml:lang="fr">Modifier les caractéristiques de l'exemple</value>
+        <value xml:lang="it">Aggiorna Caratteristiche Esempio</value>
+        <value xml:lang="ro">Actualizeaza Carateristici Exemplu</value>
+        <value xml:lang="ru">Изменить особенность примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
+    </property>
+    <property key="PageTitleEditExampleFeatureExampleAppls">
+        <value xml:lang="en">Edit Example Feature Examples</value>
+        <value xml:lang="fr">Modifier la caractéristique exemple des exemples</value>
+        <value xml:lang="it">Aggiorna Esempio Caratteristica Esempi</value>
+        <value xml:lang="ro">Actualizeaza Exemplu Caratteristica Exemple</value>
+        <value xml:lang="ru">Изменить примеры особенностей</value>
+        <value xml:lang="th">แก้ไขตัวอย่างลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征的样例</value>
+    </property>
+    <property key="PageTitleEditExampleItems">
+        <value xml:lang="en">Edit Example Items</value>
+        <value xml:lang="fr">Modifier la ligne de l'exemple</value>
+        <value xml:lang="it">Aggiorna Righe Esempio</value>
+        <value xml:lang="ro">Actualizeaza Linii Exemplu</value>
+        <value xml:lang="ru">Изменить позиции примера</value>
+        <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例明细</value>
+    </property>
+    <!-- Page Titles -->
+    <property key="PageTitleFindExample">
+        <value xml:lang="en">Find Example</value>
+        <value xml:lang="fr">Recherche d'un exemple</value>
+        <value xml:lang="it">Ricerca Esempio</value>
+        <value xml:lang="ro">Cauta Exemplu</value>
+        <value xml:lang="ru">Найти пример</value>
+        <value xml:lang="th">ค้นหาตัวอย่าง</value>
+        <value xml:lang="zh">查找样例</value>
+    </property>
+    <property key="PageTitleFindExampleFeature">
+        <value xml:lang="en">Find Example Feature</value>
+        <value xml:lang="fr">Rechercher la caractéristique de l'exemple</value>
+        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
+        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Найти особенность примера</value>
+        <value xml:lang="th">ค้นหาลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
+    </property>
+    <property key="PageTitleFormWidgetExamples">
+        <value xml:lang="en">Form Widget Examples</value>
+        <value xml:lang="fr">Exemples Form Widget</value>
+        <value xml:lang="it">Esempio form widget</value>
+        <value xml:lang="th">ตัวอย่าง Widget</value>
+    </property>
+    <property key="PageTitleLookupExampleFeature">
+        <value xml:lang="en">Lookup Example Feature</value>
+        <value xml:lang="fr">Rechercher la caractéristique exemple</value>
+        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
+        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Искать особенности примера</value>
+        <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
     </property>
 </resource>

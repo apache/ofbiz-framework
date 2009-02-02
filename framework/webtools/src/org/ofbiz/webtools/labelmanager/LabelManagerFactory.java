@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -41,8 +42,10 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
+import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class LabelManagerFactory {
 
@@ -101,27 +104,41 @@ public class LabelManagerFactory {
                     String fileName = resourceFile.getName();
                     Document resourceDocument = UtilXml.readXmlDocument(resourceFile.toURI().toURL());
                     Element resourceElem = resourceDocument.getDocumentElement();
+                    String labelKeyComment = "";
                     
-                    for (Element propertyElem: UtilXml.childElementList(resourceElem, "property")) {
-                        String labelKey = propertyElem.getAttribute("key");                            
-                        
-                        for (Element valueElem: UtilXml.childElementList(propertyElem, "value")) {
-                            String localeName = valueElem.getAttribute("xml:lang");
-                            String labelValue = UtilXml.elementValue(valueElem);
-                            LabelInfo label = (LabelInfo)labels.get(labelKey + keySeparator + fileName);
+                    for (Node propertyNode: UtilXml.childNodeList(resourceElem.getFirstChild())) {     
+                        if (propertyNode instanceof Element) {
+                            Element propertyElem = (Element)propertyNode;
+                            String labelKey = StringUtil.htmlSpecialChars(propertyElem.getAttribute("key"), true, true, false);
+                            String labelComment = "";
                             
-                            if (UtilValidate.isEmpty(label)) {
-                                label = new LabelInfo(labelKey, fileName, componentName, localeName, labelValue);
-                                labels.put(labelKey + keySeparator + fileName, label);
-                            } else {
-                                if (label.setLabelValue(localeName, labelValue, false)) {
-                                    duplicatedLocales++;
+                            for (Node valueNode: UtilXml.childNodeList(propertyElem.getFirstChild())) {
+                                if (valueNode instanceof Element) {
+                                    Element valueElem = (Element)valueNode;
+                                    String localeName = valueElem.getAttribute("xml:lang");
+                                    String labelValue = StringUtil.htmlSpecialChars(UtilXml.nodeValue(valueElem.getFirstChild()), true, true, false);
+                                    LabelInfo label = (LabelInfo)labels.get(labelKey + keySeparator + fileName);
+                                    
+                                    if (UtilValidate.isEmpty(label)) {
+                                        label = new LabelInfo(labelKey, labelKeyComment, fileName, componentName, localeName, labelValue, labelComment);
+                                        labels.put(labelKey + keySeparator + fileName, label);
+                                    } else {
+                                        if (label.setLabelValue(localeName, labelValue, labelComment, false)) {
+                                            duplicatedLocales++;
+                                        }
+                                    }
+                                    localesFound.add(localeName);
+                                    componentNamesFound.add(componentName);
+                                    fileNamesFound.put(fileName, resourceFile.toURI().toString());
+                                    fileComponent.put(fileName, componentName);                                    
+                                    labelComment = "";                                    
+                                } else if (valueNode instanceof Comment) {
+                                    labelComment = labelComment + StringUtil.htmlSpecialChars(valueNode.getNodeValue(), true, true, false);
                                 }
-                            }
-                            localesFound.add(localeName);
-                            componentNamesFound.add(componentName);
-                            fileNamesFound.put(fileName, resourceFile.toURI().toString());
-                            fileComponent.put(fileName, componentName);
+                            }                            
+                            labelKeyComment = "";
+                        } else if (propertyNode instanceof Comment) {
+                            labelKeyComment = labelKeyComment + StringUtil.htmlSpecialChars(propertyNode.getNodeValue(), true, true, false);
                         }
                     }
                 }
@@ -168,12 +185,14 @@ public class LabelManagerFactory {
     
     public static Map<String, Object> updateLabelKey(DispatchContext dctx, Map<String, ? extends Object> context) {
         String key = (String)context.get("key");
+        String keyComment = (String)context.get("keyComment");
         String update_label = (String)context.get("update_label");
         String fileName = (String)context.get("fileName");
         String confirm = (String)context.get("confirm");
         String removeLabel = (String)context.get("removeLabel");
         List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
         List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
+        List<String> localeComments = UtilGenerics.cast(context.get("localeComments"));
         Locale locale = (Locale) context.get("locale");
         
         // Remove a Label
@@ -185,7 +204,7 @@ public class LabelManagerFactory {
             // Update a Label
             if (update_label.equalsIgnoreCase("Y")) {
                 if (UtilValidate.isNotEmpty(label)) {
-                    updateLabelValue(localeNames, localeValues, label, key, fileName);
+                    updateLabelValue(localeNames, localeValues, localeComments, label, key, keyComment, fileName);
                 }
             // Insert a new Label
             } else {
@@ -195,7 +214,7 @@ public class LabelManagerFactory {
                     if (UtilValidate.isEmpty(key)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
                     } else {
-                        int notEmptyLabels = updateLabelValue(localeNames, localeValues, null, key, fileName);
+                        int notEmptyLabels = updateLabelValue(localeNames, localeValues, localeComments, null, key, keyComment, fileName);
                         if (notEmptyLabels == 0) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmpty", locale));
                         }
@@ -207,24 +226,27 @@ public class LabelManagerFactory {
         return ServiceUtil.returnSuccess();
     }
     
-    private static int updateLabelValue(List<String> localeNames, List<String> localeValues, LabelInfo label, String key, String fileName) {
+    private static int updateLabelValue(List<String> localeNames, List<String> localeValues, List<String> localeComments, LabelInfo label, String key, String keyComment, String fileName) {
         int notEmptyLabels = 0;
         int i = 0;
         while (i < localeNames.size()) {
             String localeName = (String)localeNames.get(i);
             String localeValue = (String)localeValues.get(i);
+            String localeComment = (String)localeComments.get(i);
             
-            if (UtilValidate.isNotEmpty(localeValue)) {
+            if (UtilValidate.isNotEmpty(localeValue) || UtilValidate.isNotEmpty(localeComment)) {
                 if (label == null) {
                     try {
                         String componentName = getFileComponent(fileName);
-                        label = new LabelInfo(key, fileName, componentName, localeName, localeValue);
+                        label = new LabelInfo(key, keyComment, fileName, componentName, localeName, localeValue, localeComment);
                         labels.put(key + keySeparator + fileName, label);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    label.setLabelKeyComment(keyComment);
                 }
-                label.setLabelValue(localeName, localeValue, true);
+                label.setLabelValue(localeName, localeValue, localeComment, true);
                 notEmptyLabels++;
             }
             i++;
