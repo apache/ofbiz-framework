@@ -220,25 +220,26 @@ under the License.
             
             <if-not-empty field="filesImageMap.categoryImageUrlMap.categoryImageUrl">
                 <if-compare value="Y" field="filesImageMap.categoryImageUrlMap.isExists" operator="equals">
-                    <field-to-list list="fileExists" field="categoryImageUrl" map-name="filesImageMap.categoryImageUrlMap"/>
+                    <field-to-list field="" list=""/>
+                    <field-to-list list="fileExists" field="filesImageMap.categoryImageUrlMap.categoryImageUrl"/>
                 <else>
-                    <field-to-list list="fileNotExists" field="categoryImageUrl" map-name="filesImageMap.categoryImageUrlMap"/>
+                    <field-to-list list="fileNotExists" field="filesImageMap.categoryImageUrlMap.categoryImageUrl"/>
                 </else>    
                 </if-compare>
             </if-not-empty>
             <if-not-empty field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl">
                 <if-compare value="Y" field="filesImageMap.linkOneImageUrlMap.isExists" operator="equals">
-                    <field-to-list list="fileExists" field="linkOneImageUrl" map-name="filesImageMap.linkOneImageUrlMap"/>
+                    <field-to-list list="fileExists" field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl"/>
                 <else>
-                     <field-to-list list="fileNotExists" field="linkOneImageUrl" map-name="filesImageMap.linkOneImageUrlMap"/>
+                     <field-to-list list="fileNotExists" field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl"/>
                 </else>    
                 </if-compare>
             </if-not-empty>
             <if-not-empty field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl">
                 <if-compare value="Y" field="filesImageMap.linkTwoImageUrlMap.isExists" operator="equals">
-                    <field-to-list list="fileExists" field="linkTwoImageUrl" map-name="filesImageMap.linkTwoImageUrlMap"/>
+                    <field-to-list list="fileExists" field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl"/>
                 <else>
-                    <field-to-list list="fileNotExists" field="linkTwoImageUrl" map-name="filesImageMap.linkTwoImageUrlMap"/>
+                    <field-to-list list="fileNotExists" field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl"/>
                 </else>    
                </if-compare>
             </if-not-empty>
@@ -253,33 +254,33 @@ under the License.
                 <if-not-empty field="filesImageMap">
                     <if-not-empty field="filesImageMap.smallImageUrlMap.smallImageUrl">
                         <if-compare value="Y" field="filesImageMap.smallImageUrlMap.isExists" operator="equals">
-                            <field-to-list list="fileExists" field="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                            <field-to-list list="fileExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                         <else>
-                            <field-to-list list="fileNotExists" field="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                            <field-to-list list="fileNotExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                         </else>    
                         </if-compare>
                     </if-not-empty>
                     <if-not-empty field="filesImageMap.mediumImageUrlMap.mediumImageUrl">
                         <if-compare value="Y" field="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
-                            <field-to-list list="fileExists" field="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                            <field-to-list list="fileExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                         <else>
-                            <field-to-list list="fileNotExists" field="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                            <field-to-list list="fileNotExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                         </else>    
                         </if-compare>
                     </if-not-empty>
                     <if-not-empty field="filesImageMap.largeImageUrlMap.largeImageUrl">
                         <if-compare value="Y" field="filesImageMap.largeImageUrlMap.isExists" operator="equals">
-                            <field-to-list list="fileExists" field="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                            <field-to-list list="fileExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                         <else>
-                            <field-to-list list="fileNotExists" field="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                            <field-to-list list="fileNotExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                         </else>    
                         </if-compare>
                     </if-not-empty>                                        
                     <if-not-empty field="filesImageMap.detailImageUrlMap.detailImageUrl">
                         <if-compare value="Y" field="filesImageMap.detailImageUrl.isExists" operator="equals">
-                            <field-to-list list="fileExists" field="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                            <field-to-list list="fileExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                         <else>
-                            <field-to-list list="fileNotExists" field="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                            <field-to-list list="fileNotExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                         </else>    
                         </if-compare>
                     </if-not-empty>                    
@@ -303,36 +304,36 @@ under the License.
                             <if-not-empty field="filesImageMap">
                                 <if-not-empty field="filesImageMap.smallImageUrlMap.smallImageUrl">
                                     <if-compare value="Y" field="filesImageMap.smallImageUrlMap.isExists" operator="equals">
-                                        <field-to-list list="fileExists" field="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                                        <field-to-list list="fileExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                                     <else>
-                                            <field-to-list list="fileNotExists" field="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                                            <field-to-list list="fileNotExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                                     </else>    
                                     </if-compare>
                                 </if-not-empty>
                        
                                 <if-not-empty field="filesImageMap.mediumImageUrlMap.mediumImageUrl">
                                     <if-compare value="Y" field="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
-                                        <field-to-list list="fileExists" field="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                                        <field-to-list list="fileExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                                     <else>
-                                        <field-to-list list="fileNotExists" field="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                                        <field-to-list list="fileNotExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                                     </else>    
                                     </if-compare>
                                 </if-not-empty>
                        
                                 <if-not-empty field="filesImageMap.largeImageUrlMap.largeImageUrl">
                                     <if-compare value="Y" field="filesImageMap.largeImageUrlMap.isExists" operator="equals">
-                                        <field-to-list list="fileExists" field="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                                        <field-to-list list="fileExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                                     <else>
-                                        <field-to-list list="fileNotExists" field="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                                        <field-to-list list="fileNotExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                                     </else>    
                                     </if-compare>
                                 </if-not-empty>                                        
                        
                                 <if-not-empty field="filesImageMap.detailImageUrlMap.detailImageUrl">
                                     <if-compare value="Y" field="filesImageMap.detailImageUrl.isExists" operator="equals">
-                                        <field-to-list list="fileExists" field="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                                        <field-to-list list="fileExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                                     <else>
-                                        <field-to-list list="fileNotExists" field="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                                        <field-to-list list="fileNotExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                                     </else>    
                                     </if-compare>
                                 </if-not-empty>                    
@@ -363,7 +364,7 @@ under the License.
                 <set field="categoryImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="categoryImageUrl" map-name="category"></clear-field>
+                    <clear-field field="category.categoryImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for link image url -->            
@@ -377,7 +378,7 @@ under the License.
                 <set field="linkOneImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap" />
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="linkOneImageUrl" map-name="category"></clear-field>
+                    <clear-field field="category.linkOneImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for link two image url -->            
@@ -391,7 +392,7 @@ under the License.
                 <set field="linkTwoImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="linkTwoImageUrl" map-name="category"></clear-field>
+                    <clear-field field="category.linkTwoImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- set-service-fields service-name="updateProductCategory" map-name="category" to-map-name="updateProductCategoryContext"/>
@@ -415,7 +416,7 @@ under the License.
                 <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <log level="info" message="Update SmallImage for product Id ${parameters.productId}" />
-                    <clear-field field="smallImageUrl" map-name="product"></clear-field>
+                    <clear-field field="product.smallImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for medium image url -->            
@@ -429,7 +430,7 @@ under the License.
                 <set field="mediumImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap" />
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="mediumImageUrl" map-name="product"></clear-field>
+                    <clear-field field="product.mediumImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for large image url -->            
@@ -443,7 +444,7 @@ under the License.
                 <set field="largeImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="largeImageUrl" map-name="product"></clear-field>
+                    <clear-field field="product.largeImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for detail image url -->            
@@ -457,7 +458,7 @@ under the License.
                 <set field="detailImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field="detailImageUrl" map-name="product"></clear-field>
+                    <clear-field field="product.detailImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
             <field-to-result field="filesImageMap" result-name="filesImageMap"/>
