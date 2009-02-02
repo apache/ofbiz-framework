@@ -86,10 +86,10 @@ under the License.
             <actions>
                 <set field="tabMenuItem" value="editExpression"/>
                 <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionMaintenance"/>
-                <entity-one value-name="temporalExpression" entity-name="TemporalExpression"/>
+                <entity-one value-field="temporalExpression" entity-name="TemporalExpression"/>
                 <set field="fromTempExprId" from-field="parameters.tempExprId"/>
                 <entity-condition list="childExpressionList" entity-name="TemporalExpressionChild">
-                    <condition-expr field-name="fromTempExprId" env-name="fromTempExprId"/>
+                    <condition-expr field-name="fromTempExprId" from-field="fromTempExprId"/>
                 </entity-condition>
             </actions>
             <widgets>
