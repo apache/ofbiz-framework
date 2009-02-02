@@ -867,16 +867,13 @@
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
-        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software / Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
-        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business / Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分 / 开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
@@ -1063,14 +1060,14 @@
         <value xml:lang="zh">依赖的生产运行</value>
     </property>
     <property key="ManufacturingDuplicatedComponentInBOM">
-        <value xml:lang="de">Die folgenden Zuordnungen könnten Endlosschleifen verursachen:  {0} --> {1}</value>
-        <value xml:lang="en">The following association could cause loops: {0} --> {1}</value>
-        <value xml:lang="es">La siguiente asociación puede causar recursión: {0} --> {1}</value>
-        <value xml:lang="fr">L'association existante suivante pourrait causer des boucles : {0} --> {1}</value>
-        <value xml:lang="it">Le seguenti associazioni esistono utilizzando le cause: {0} --> {1}</value>
-        <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --> {1}</value>
+        <value xml:lang="de">Die folgenden Zuordnungen könnten Endlosschleifen verursachen:  {0} --&gt; {1}</value>
+        <value xml:lang="en">The following association could cause loops: {0} --&gt; {1}</value>
+        <value xml:lang="es">La siguiente asociación puede causar recursión: {0} --&gt; {1}</value>
+        <value xml:lang="fr">L'association existante suivante pourrait causer des boucles : {0} --&gt; {1}</value>
+        <value xml:lang="it">Le seguenti associazioni esistono utilizzando le cause: {0} --&gt; {1}</value>
+        <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --&gt; {1}</value>
         <value xml:lang="th">ตามการรวมกลุ่มสามารถทำให้เกิดเป็นรอบวงกลมได้</value>
-        <value xml:lang="zh">下列关联可能会导致循环： {0} --> {1}</value>
+        <value xml:lang="zh">下列关联可能会导致循环： {0} --&gt; {1}</value>
     </property>
     <property key="ManufacturingEditCalendarExceptionDayFor">
         <value xml:lang="de">Kalender-Ausnahme-Tag für</value>
