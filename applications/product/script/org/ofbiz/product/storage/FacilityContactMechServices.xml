@@ -42,7 +42,7 @@ under the License.
         <log level="info" message="Creating a FacilityContactMech with id: ${parameters.contactMechId}"/>
         <set field="newValue.facilityId" from-field="parameters.facilityId" />
         <field-to-result field="contactMechId" result-name="newValue"/>
-        <field-to-request field="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" request-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp field="newValue.fromDate"/>
 
@@ -161,7 +161,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully created</default-message>
 
         </call-service>
-        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -184,7 +184,7 @@ under the License.
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">
             <default-message>Facility Contact Mechanism successfully updated</default-message>
         </call-service>
-        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -208,7 +208,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully created</default-message>
 
         </call-service>
-        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -233,7 +233,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully updated</default-message>
         </call-service>
         <log level="info" message="Setting result id: ${newFacilityContactMech.contactMechId}"/>
-        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
 
     </simple-method>
