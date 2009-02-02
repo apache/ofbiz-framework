@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -32,60 +33,6 @@
         <value xml:lang="en">Your lastname is missing</value>
         <value xml:lang="fr">Votre nom est absent</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
-    </property>
-    <property key="MyPortalDashboard">
-        <value xml:lang="en">My Portal</value>
-        <value xml:lang="fr">Mon portail</value>
-        <value xml:lang="it">Mio portale</value>
-        <value xml:lang="th">ส่วนตัว</value>
-    </property>
-    <property key="MyPortalSendMailEveryCust">
-        <value xml:lang="en">Send Email To Every Customer Request Change</value>
-        <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>
-        <value xml:lang="it">Invia email ad ogni cliente per le modifiche sulla richiesta</value>
-        <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
-    </property>
-    <property key="NewRegistration">
-        <value xml:lang="en">New Registration </value>
-        <value xml:lang="fr">Nouvel enregistrement</value>
-        <value xml:lang="th">ลงทะเบียน </value>
-    </property>
-    <property key="PageTitleMyPortal">
-        <value xml:lang="en">My Portal for : </value>
-        <value xml:lang="fr">Mon portail pour : </value>
-        <value xml:lang="it">Mio portale per : </value>
-        <value xml:lang="th">ส่วนตัวสำหรับ </value>
-    </property>
-    <property key="PageTitleMyPortalForNoLogin">
-        <value xml:lang="en">My Portal Page</value>
-        <value xml:lang="fr">Ma page de portail</value>
-        <value xml:lang="it">Pagina mio portale</value>
-        <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
-    </property>
-    <property key="PicCaptcha">
-        <value xml:lang="en">Code Captcha</value>
-        <value xml:lang="fr">Code captcha</value>
-        <value xml:lang="th">รหัสตรวจสอบ</value>
-    </property>
-    <property key="RegisterComplete">
-        <value xml:lang="en">Register of new person is complete...Please </value>
-        <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
-        <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
-    </property>
-    <property key="RegisterForCustomer">
-        <value xml:lang="en">Register for customer</value>
-        <value xml:lang="fr">Enregistrement pour le client</value>
-        <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
-    </property>
-    <property key="VerifyCaptcha">
-        <value xml:lang="en">Verify captcha code</value>
-        <value xml:lang="fr">Vérifier le code captcha</value>
-        <value xml:lang="th">ใส่รหัสตามรูป</value>
-    </property>
-    <property key="UserLogin">
-        <value xml:lang="en">User Login</value>
-        <value xml:lang="fr">Identifiant de connexion</value>
-        <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
     </property>
     <property key="MyPortalAllEvents">
         <value xml:lang="en">All Communications</value>
@@ -129,18 +76,6 @@
         <value xml:lang="it">Eventi aziendali</value>
         <value xml:lang="th">เหตุการณ์บริษัท</value>
     </property>
-    <property key="MyPortalEmailsFromKnownOrigin">
-        <value xml:lang="en">Emails from known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine connue</value>
-        <value xml:lang="it">Emails da origine sconosciuta</value>
-        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
-    </property>
-    <property key="MyPortalEmailsFromUnknownOrigin">
-        <value xml:lang="en">Emails from known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
-        <value xml:lang="it">Emails da origini conosciuta</value>
-        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
-    </property>
     <property key="MyPortalCompletedCustomerRequests">
         <value xml:lang="en">My Completed Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients achevées</value>
@@ -152,6 +87,24 @@
         <value xml:lang="fr">Mes demandes utilisateur</value>
         <value xml:lang="it">Proprie richieste cliente</value>
         <value xml:lang="th">ลูกค้าเรียกร้อง</value>
+    </property>
+    <property key="MyPortalDashboard">
+        <value xml:lang="en">My Portal</value>
+        <value xml:lang="fr">Mon portail</value>
+        <value xml:lang="it">Mio portale</value>
+        <value xml:lang="th">ส่วนตัว</value>
+    </property>
+    <property key="MyPortalEmailsFromKnownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine connue</value>
+        <value xml:lang="it">Emails da origine sconosciuta</value>
+        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
+    </property>
+    <property key="MyPortalEmailsFromUnknownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+        <value xml:lang="it">Emails da origini conosciuta</value>
+        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
     </property>
     <property key="MyPortalIncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
@@ -170,12 +123,6 @@
         <value xml:lang="fr">Nouveau message</value>
         <value xml:lang="it">Nuovo messaggio</value>
         <value xml:lang="th">ข้อความใหม่</value>
-    </property>
-    <property key="MyPortalNoAccess">
-        <value xml:lang="en">You do not have access to this information</value>
-        <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
-        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
-        <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
     </property>
     <property key="MyPortalNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
@@ -203,17 +150,23 @@
         <value xml:lang="it">Usare l'utente demo come 'DemoCustomer' e 'DemoEmployee' per una dimostrazione.</value>
         <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
     </property>
-    <property key="MyPortalOpenEvents">
-        <value xml:lang="en">Open Communications</value>
-        <value xml:lang="fr">Communications ouvertes</value>
-        <value xml:lang="it">Comunicazioni aperte</value>
-        <value xml:lang="th">เปิดการติดต่อ</value>
+    <property key="MyPortalNoAccess">
+        <value xml:lang="en">You do not have access to this information</value>
+        <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
+        <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
     </property>
     <property key="MyPortalOpenCustomerRequests">
         <value xml:lang="en">My Open Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients en-cours</value>
         <value xml:lang="it">Proprie richieste clienti aperte</value>
         <value xml:lang="th">ความต้องการของลูกค้า</value>
+    </property>
+    <property key="MyPortalOpenEvents">
+        <value xml:lang="en">Open Communications</value>
+        <value xml:lang="fr">Communications ouvertes</value>
+        <value xml:lang="it">Comunicazioni aperte</value>
+        <value xml:lang="th">เปิดการติดต่อ</value>
     </property>
     <property key="MyPortalOtherCommunications">
         <value xml:lang="en">Other Communications</value>
@@ -238,6 +191,12 @@
         <value xml:lang="fr">Mon Profil</value>
         <value xml:lang="it">Mio profilo</value>
         <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
+    </property>
+    <property key="MyPortalSendMailEveryCust">
+        <value xml:lang="en">Send Email To Every Customer Request Change</value>
+        <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>
+        <value xml:lang="it">Invia email ad ogni cliente per le modifiche sulla richiesta</value>
+        <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
     </property>
     <property key="MyPortalTaskActEndDate">
         <value xml:lang="en">Task Act End</value>
@@ -286,5 +245,47 @@
         <value xml:lang="fr">->Fermé(e)</value>
         <value xml:lang="it">->Chiuso</value>
         <value xml:lang="th">เสร็จสิ้น</value>
+    </property>
+    <property key="NewRegistration">
+        <value xml:lang="en">New Registration </value>
+        <value xml:lang="fr">Nouvel enregistrement</value>
+        <value xml:lang="th">ลงทะเบียน </value>
+    </property>
+    <property key="PageTitleMyPortal">
+        <value xml:lang="en">My Portal for : </value>
+        <value xml:lang="fr">Mon portail pour : </value>
+        <value xml:lang="it">Mio portale per : </value>
+        <value xml:lang="th">ส่วนตัวสำหรับ </value>
+    </property>
+    <property key="PageTitleMyPortalForNoLogin">
+        <value xml:lang="en">My Portal Page</value>
+        <value xml:lang="fr">Ma page de portail</value>
+        <value xml:lang="it">Pagina mio portale</value>
+        <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
+    </property>
+    <property key="PicCaptcha">
+        <value xml:lang="en">Code Captcha</value>
+        <value xml:lang="fr">Code captcha</value>
+        <value xml:lang="th">รหัสตรวจสอบ</value>
+    </property>
+    <property key="RegisterComplete">
+        <value xml:lang="en">Register of new person is complete...Please </value>
+        <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
+        <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
+    </property>
+    <property key="RegisterForCustomer">
+        <value xml:lang="en">Register for customer</value>
+        <value xml:lang="fr">Enregistrement pour le client</value>
+        <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
+    </property>
+    <property key="UserLogin">
+        <value xml:lang="en">User Login</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
+        <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
+    </property>
+    <property key="VerifyCaptcha">
+        <value xml:lang="en">Verify captcha code</value>
+        <value xml:lang="fr">Vérifier le code captcha</value>
+        <value xml:lang="th">ใส่รหัสตามรูป</value>
     </property>
 </resource>

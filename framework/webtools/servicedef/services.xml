@@ -132,11 +132,13 @@ under the License.
              invoke="updateLabelKey" auth="true" use-transaction="false">
         <description>Update Label Key</description>
         <attribute name="key" type="String" mode="IN" optional="true"/>
+        <attribute name="keyComment" type="String" mode="IN" optional="true"/>
         <attribute name="update_label" type="String" mode="IN" optional="false"/>
         <attribute name="fileName" type="String" mode="IN" optional="false"/>
         <attribute name="confirm" type="String" mode="IN" optional="true"/>
         <attribute name="removeLabel" type="String" mode="IN" optional="true"/>
         <attribute name="localeNames" type="List" mode="IN" optional="true"/>
         <attribute name="localeValues" type="List" mode="IN" optional="true"/>
+        <attribute name="localeComments" type="List" mode="IN" optional="true"/>
     </service>
 </services>

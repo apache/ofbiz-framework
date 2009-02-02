@@ -452,9 +452,26 @@ public class StringUtil {
 
         return html;
     }
+    
     public static String htmlSpecialChars(String html) {
         return htmlSpecialChars(html, true, true, true);
-    }    
+    }
+    
+    public static String fromHtmlToSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
+        html = StringUtil.replaceString(html, "&amp;", "&");
+        html = StringUtil.replaceString(html, "&lt;", "<");
+        html = StringUtil.replaceString(html, "&gt;", ">");
+        if (doubleQuotes) {
+            html = StringUtil.replaceString(html, "&quot;", "\"");
+        }
+        if (singleQuotes) {
+            html = StringUtil.replaceString(html, "&#039", "'");
+        }
+        if (insertBR) {
+            html = StringUtil.replaceString(html, "<br>", "\n");
+        }
+        return html;
+    }
 
     /**
      * Remove/collapse multiple newline characters

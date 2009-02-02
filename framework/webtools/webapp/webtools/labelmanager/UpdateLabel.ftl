@@ -30,9 +30,15 @@ under the License.
                         <input type="hidden" name="key" value="${parameters.sourceKey}">
                         <input type="hidden" name="update_label" value="Y">
                     <#else>
-                        <input type="text" name="key" size="70" value="${parameters.key?if_exists}" >
+                        <input type="text" name="key" size="70" value="${parameters.key?if_exists}">
                         <input type="hidden" name="update_label" value="N">
                     </#if>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><b>${uiLabelMap.WebtoolsLabelManagerKeyComment}</b></td>
+                <td align="left">
+                    <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment?if_exists}">
                 </td>
             </tr>
             <tr>
@@ -63,10 +69,14 @@ under the License.
                 </td>
             </tr>
             <#list localesFound as localeFound>
+                <#assign labelValue = "">
+                <#assign labelComment = "">
                 <#if parameters.sourceKey?exists>
-                    <#assign labelVal = (label.getLabelValue(localeFound))?if_exists>
-                <#else>
-                    <#assign labelVal = "">
+                    <#assign value = (label.getLabelValue(localeFound))?if_exists>
+                    <#if value?has_content>
+                        <#assign labelValue = value.getLabelValue()>
+                        <#assign labelComment = value.getLabelComment()>
+                    </#if>   
                 </#if>
                 <#assign showLocale = true>
                 <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
@@ -89,7 +99,8 @@ under the License.
                         </#if>
                         <td align="left">
                             <input type="hidden" name="localeNames" value="${localeFound}">
-                            <input type="text" name="localeValues" size="70" value="${labelVal?if_exists}">
+                            <input type="text" name="localeValues" size="70" value="${labelValue?if_exists}">
+                            <input type="text" name="localeComments" size="70" value="${labelComment?if_exists}">
                         </td>
                     </tr>
                 </#if>

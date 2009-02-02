@@ -64,7 +64,7 @@ under the License.
         </#if>
         <#if showLabel == true>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
-            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${label.labelKey}&sourceFileName=${label.fileName}</@ofbizUrl>" <#if previousKey == label.labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
+            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${label.labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment}</@ofbizUrl>" <#if previousKey == label.labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
             <#list localesFound as localeFound>
               <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
@@ -74,7 +74,7 @@ under the License.
               </#if>
               <#if showLocale == true>
                 <#if labelVal?has_content>
-                  <td>${labelVal}</td>
+                  <td>${labelVal.getLabelValue()}</td>
                 <#else>
                   <td>&nbsp;</td>
                 </#if>
