@@ -271,13 +271,13 @@
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
-        <field name="0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrSun}"><display/></field>
-        <field name="1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
-        <field name="2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
-        <field name="3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrWen}"><display/></field>
-        <field name="4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
-        <field name="5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
-        <field name="6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
+        <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrSun}"><display/></field>
+        <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
+        <field name="d2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
+        <field name="d3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrWen}"><display/></field>
+        <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
+        <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
+        <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
         <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
     </form>
