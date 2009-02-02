@@ -1981,11 +1981,11 @@
         <value xml:lang="th">, ยังไม่มีกลุ่มเริ่มต้น; ถ้า ถึงวันคือ</value>
     </property>
     <property key="ManufacturingNote3">
-        <value xml:lang="en">, association has expired (<u>and should probably be deleted</u>).</value>
-        <value xml:lang="es">, la asociación ya no es válida (<u>y probablemente debería borrarse</u>.</value>
-        <value xml:lang="fr">, l'association a expiré (<u>et devrait probablement être supprimée</u>.</value>
-        <value xml:lang="it">, associazione è scaduta (<u>e dovrebbe probabilmente essere cancellata</u>).</value>
-        <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (<u>และควรจะลบ</u>)</value>
+        <value xml:lang="en">, association has expired (&lt;u&gt;and should probably be deleted&lt;/u&gt;).</value>
+        <value xml:lang="es">, la asociación ya no es válida (&lt;u&gt;y probablemente debería borrarse&lt;/u&gt;.</value>
+        <value xml:lang="fr">, l'association a expiré (&lt;u&gt;et devrait probablement être supprimée&lt;/u&gt;.</value>
+        <value xml:lang="it">, associazione è scaduta (&lt;u&gt;e dovrebbe probabilmente essere cancellata&lt;/u&gt;).</value>
+        <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (&lt;u&gt;และควรจะลบ&lt;/u&gt;)</value>
     </property>
     <property key="ManufacturingOrderItems">
         <value xml:lang="de">Auftragspositionen</value>
