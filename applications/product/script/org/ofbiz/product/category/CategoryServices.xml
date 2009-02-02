@@ -127,7 +127,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
-        <if-instance-of field-name="parameters.categories" class="java.util.List">
+        <if-instance-of field="parameters.categories" class="java.util.List">
             <iterate entry="category" list="parameters.categories">
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
@@ -279,7 +279,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="addProductCategoryToCategories" short-description="Add ProductCategory to Categories">
-        <if-instance-of field-name="parameters.categories" class="java.util.List">
+        <if-instance-of field="parameters.categories" class="java.util.List">
             <iterate entry="category" list="parameters.categories">
                 <set field="callingMethodName" value="addProductCategoryToCategories"/>
                 <set field="checkAction" value="CREATE"/>
@@ -366,7 +366,7 @@ under the License.
 
         <set field="validDate" from-field="parameters.validDate"/>
         <if-not-empty field="validDate">
-            <filter-list-by-date list="productCategoryMembers" valid-date-name="validDate"/>
+            <filter-list-by-date list="productCategoryMembers" valid-date="validDate"/>
         </if-not-empty>
 
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
@@ -383,7 +383,7 @@ under the License.
             <find-by-and entity-name="ProductCategoryRollup" map="lookupChildrenMap" list="productCategoryRollups"/>
 
             <if-not-empty field="validDate">
-                <filter-list-by-date list="productCategoryRollups" valid-date-name="validDate"/>
+                <filter-list-by-date list="productCategoryRollups" valid-date="validDate"/>
             </if-not-empty>
 
             <iterate entry="productCategoryRollup" list="productCategoryRollups">
@@ -418,7 +418,7 @@ under the License.
         </entity-and>
 
         <if-not-empty field="validDate">
-            <filter-list-by-date list="categoryEntities" valid-date-name="validDate"/>
+            <filter-list-by-date list="categoryEntities" valid-date="validDate"/>
         </if-not-empty>
         
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
