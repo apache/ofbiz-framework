@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
         <make-value value-field="newEntity" entity-name="Requirement"/>
         <sequenced-id sequence-name="Requirement" field="requirementId"/>
-        <to-string field-name="requirementId"/>
+        <to-string field="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.statusId">

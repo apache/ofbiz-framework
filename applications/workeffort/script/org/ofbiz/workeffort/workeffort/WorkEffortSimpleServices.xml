@@ -362,7 +362,7 @@ under the License.
             <log level="info" message="Calling map procs"/>
             <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
                 processor-name="updateContactMech" in-map-name="parameters" out-map-name="context"/>
-            <to-string field-name="contactMechId" map-name="context"/>
+            <to-string field="context.contactMechId"/>
             <log level="info" message="Calling generic updateContactMech method"/>
             <call-service service-name="updateContactMech" in-map-name="context">
                 <default-message>Contact Mechanism successfully updated.</default-message>
