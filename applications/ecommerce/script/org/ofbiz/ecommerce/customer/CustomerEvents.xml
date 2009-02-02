@@ -448,9 +448,7 @@ under the License.
         <!-- see if we should continue now... -->
         <check-errors/>
         <log level="info" message="Setting up party ${tempMap.partyId} and shipping address ${addressPurposeContext} in cart"/>
-        <session-to-field field="cart" session-name="shoppingCart"/>
-        <session-to-field field="userLogin"/>
-        <log level="info" message="userLogin in Env ${userLogin} in parameters.userLogin ${parameters.userLogin}"/>
+        <session-to-field field="cart" session-name="shoppingCart"/>        <session-to-field field="userLogin"/>        <log level="info" message="userLogin in Env ${userLogin} in parameters.userLogin ${parameters.userLogin}"/>
         <if-empty field="userLogin">
             <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
@@ -1000,9 +998,7 @@ under the License.
                 <call-service service-name="updatePassword" in-map-name="passwordCtx">
                     <result-to-field result-name="updatedUserLogin"/>
                 </call-service>
-                <set-current-user-login value-field="updatedUserLogin"/>
-                <session-to-field field="userLogin"/>
-                <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
+                <set-current-user-login value-field="updatedUserLogin"/>                <session-to-field field="userLogin"/>                <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
                     <field-to-session field="updatedUserLogin" session-name="userLogin"/>
                 </if-compare>
                 <session-to-field field="userLogin"/>
