@@ -67,7 +67,7 @@ under the License.
         </if-empty>
 
         <sequenced-id sequence-name="CustRequest" field="custRequestId"/>
-        <to-string field-name="custRequestId"/>
+        <to-string field="custRequestId"/>
         <set from-field="custRequestId" field="newEntity.custRequestId"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="custRequestId" result-name="newEntity"/>

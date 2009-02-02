@@ -28,7 +28,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <sequenced-id sequence-name="ShipmentReceipt" field="receiptId"/>
-        <to-string field-name="receiptId"/>
+        <to-string field="receiptId"/>
         <set field="newEntity.receiptId" from-field="receiptId"/>       
         <field-to-result field="receiptId" result-name="receiptId"/>
         
