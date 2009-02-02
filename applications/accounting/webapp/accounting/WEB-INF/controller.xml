@@ -2142,9 +2142,10 @@ under the License.
     <!-- Agreements Views   -->
     <view-map name="EditAgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementRoles"/>
 
-
-    <view-map name="findTaxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityFroms.xml#FindTaxAuthorityVATReport"/>
-    <view-map name="taxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityFroms.xml#TaxAuthorityVATReport"/>
+    <!-- TO BE REMOVED un-existing forms
+    <view-map name="findTaxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityForms.xml#FindTaxAuthorityVATReport"/>
+    <view-map name="taxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityForms.xml#TaxAuthorityVATReport"/>
+    -->
 
     <view-map name="FixedAssetGeolocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeolocation"/>    
 
