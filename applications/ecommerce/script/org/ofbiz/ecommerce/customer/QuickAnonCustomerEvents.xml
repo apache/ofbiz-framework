@@ -40,11 +40,11 @@ under the License.
 
         <!-- if username and/or password should be lowercased, do that now -->
         <if-compare field="username_lowercase" operator="equals" value="true">
-            <call-object-method obj-field="username" obj-map-name="parameters" method-name="toLowerCase" ret-field="username" ret-map-name="parameters"/>
+            <call-object-method obj-field="parameters.username" method-name="toLowerCase" ret-field="parameters.username"/>
         </if-compare>
         <if-compare field="password_lowercase" operator="equals" value="true">
-            <call-object-method obj-field="password" obj-map-name="parameters" method-name="toLowerCase" ret-field="password" ret-map-name="parameters"/>
-            <call-object-method obj-field="confirmPassword" obj-map-name="parameters" method-name="toLowerCase" ret-field="confirmPassword" ret-map-name="parameters"/>
+            <call-object-method obj-field="parameters.password" method-name="toLowerCase" ret-field="parameters.password"/>
+            <call-object-method obj-field="parameters.confirmPassword" method-name="toLowerCase" ret-field="parameters.confirmPassword"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
@@ -286,7 +286,7 @@ under the License.
         <set field="partyDataSource.fromDate" from-field="nowStamp" />
         <set field="partyDataSource.isCreate" value="Y" />
         <!-- get the visit from the session to get the visitId -->
-        <session-to-field field-name="visit"/>
+        <session-to-field field="visit"/>
         <set from-field="visit.visitId" field="partyDataSource.visitId"/>
         <log level="info" message="Setting up party ${error_list} "/>
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
@@ -305,9 +305,9 @@ under the License.
                     <set field="ulLookup.userLoginId" value="anonymous"/>
                     <find-by-primary-key entity-name="UserLogin" map="ulLookup" value-field="userLogin"/>
                     <set field="userLogin.partyId" from-field="partyId"/>
-                    <set-current-user-login value-name="userLogin"/>
+                    <set-current-user-login value-field="userLogin"/>
                 <else>
-                    <set-current-user-login value-name="userLoginContext"/>
+                    <set-current-user-login value-field="userLoginContext"/>
                 </else>
                 </if-empty>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
@@ -496,8 +496,8 @@ under the License.
         
         <call-simple-method method-name="createUpdateUser"/>
         <!-- see if we should continue now... -->
-        <session-to-field field-name="cart" session-name="shoppingCart"/>
-        <session-to-field field-name="userLogin" session-name="userLogin"/>
+        <session-to-field field="cart" session-name="shoppingCart"/>
+        <session-to-field field="userLogin" session-name="userLogin"/>
         <if-empty field="userLogin">
             <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
@@ -523,7 +523,7 @@ under the License.
                 <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
-                    <field-to-session field-name="userLogin" session-name="userLogin" />
+                    <field-to-session field="userLogin" session-name="userLogin" />
                     <if-not-empty field="cart">
                         <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
@@ -554,12 +554,12 @@ under the License.
         
         
         <if-compare value="Y" field="parameters.useShippingPostalAddressForBilling" operator="not-equals">
-           <field-to-session field-name="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
+           <field-to-session field="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
         <else>
         <if-not-empty field="cart">
             <call-object-method obj-field="cart" method-name="getShippingContactMechId" ret-field="shippingContactMechId"/>
         </if-not-empty>
-            <field-to-session field-name="shippingContactMechId" session-name="billingContactMechId"></field-to-session>        
+            <field-to-session field="shippingContactMechId" session-name="billingContactMechId"></field-to-session>        
         </else>    
         </if-compare>        
         <!-- set the partyId in the request -->
@@ -574,7 +574,7 @@ under the License.
               parameters.put("carrierPartyId", shipmentMethod.substring(shipmentMethod.indexOf("@")+1));
            }
        ]]></call-bsh>
-       <session-to-field field-name="cart" session-name="shoppingCart"/>
+       <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
            <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">

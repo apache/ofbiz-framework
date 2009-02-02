@@ -33,8 +33,8 @@ under the License.
         <set from-field="ul_context.currentPassword" field="newUserLoginMap.currentPassword"/>
         <set from-field="ul_context.passwordHint" field="newUserLoginMap.passwordHint"/>
         <set from-field="ul_context.partyId" field="newUserLoginMap.partyId"/>
-        <make-value entity-name="UserLogin" map-name="newUserLoginMap" value-field="newUserLogin"/>
-        <set-current-user-login value-name="newUserLogin"/>
+        <make-value entity-name="UserLogin" map="newUserLoginMap" value-field="newUserLogin"/>
+        <set-current-user-login value-field="newUserLogin"/>
 
         <!-- Create the Party/PartyGroup -->
         <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
