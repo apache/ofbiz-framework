@@ -53,11 +53,11 @@ under the License.
 
         <!-- if username and/or password should be lowercased, do that now -->
         <if-compare field="username_lowercase" operator="equals" value="true">
-            <call-object-method obj-field="USERNAME" obj-map-name="parameters" method-name="toLowerCase" ret-field="USERNAME" ret-map-name="parameters"/>
+            <call-object-method obj-field="parameters.USERNAME" method-name="toLowerCase" ret-field="parameters.USERNAME"/>
         </if-compare>
         <if-compare field="password_lowercase" operator="equals" value="true">
-            <call-object-method obj-field="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="PASSWORD" ret-map-name="parameters"/>
-            <call-object-method obj-field="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="CONFIRM_PASSWORD" ret-map-name="parameters"/>
+            <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
+            <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
@@ -77,7 +77,7 @@ under the License.
             <set from-field="userLoginContext.userLoginId" field="userLoginExistsMap.userLoginId"/>
             <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
             <if-not-empty field="existingUserLogin">
-                <string-to-list string="Username in use, please choose another." message-field-name="USERNAME" list="error_list"/>
+                <string-to-list string="Username in use, please choose another." message-field="USERNAME" list="error_list"/>
             </if-not-empty>
         </if-not-empty>
 
@@ -157,13 +157,13 @@ under the License.
                 <if-compare value="USA" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
                         <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
+                        <string-to-list string="${tempErrorMessage}" message-field="CUSTOMER_STATE" list="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
                         <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                        <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
+                        <string-to-list string="${tempErrorMessage}" message-field="CUSTOMER_STATE" list="error_list"/>
                     </if-empty>
                 </if-compare>
             </else>
@@ -278,7 +278,7 @@ under the License.
         <set from-field="nowStamp" field="partyDataSource.fromDate"/>
         <set value="Y" field="partyDataSource.isCreate"/>
         <!-- get the visit from the session to get the visitId -->
-        <session-to-field field-name="visit"/>
+        <session-to-field field="visit"/>
         <set from-field="visit.visitId" field="partyDataSource.visitId"/>
 
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
@@ -292,7 +292,7 @@ under the License.
             <result-to-field result-name="partyId" field="tempMap"/>
             <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
         </call-service>
-        <set-current-user-login value-name="createdUserLogin"/>
+        <set-current-user-login value-field="createdUserLogin"/>
 
         <!-- now that we have the partyId, put it where it needs to go... -->
         <set from-field="tempMap.partyId" field="partyDataSource.partyId"/>
@@ -448,8 +448,8 @@ under the License.
         <!-- see if we should continue now... -->
         <check-errors/>
         <log level="info" message="Setting up party ${tempMap.partyId} and shipping address ${addressPurposeContext} in cart"/>
-        <session-to-field field-name="cart" session-name="shoppingCart"/>
-        <session-to-field field-name="userLogin" session-name="userLogin"/>
+        <session-to-field field="cart" session-name="shoppingCart"/>
+        <session-to-field field="userLogin" session-name="userLogin"/>
         <log level="info" message="userLogin in Env ${userLogin} in parameters.userLogin ${parameters.userLogin}"/>
         <if-empty field="userLogin">
             <call-object-method obj-field="session" method-name="removeAttribute">
@@ -476,7 +476,7 @@ under the License.
                 <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
-                    <field-to-session field-name="userLogin" session-name="userLogin" />
+                    <field-to-session field="userLogin" session-name="userLogin" />
                     <if-not-empty field="cart">
                         <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
@@ -682,7 +682,7 @@ under the License.
             <set field="ulLookup.userLoginId" value="anonymous"/>
             <find-by-primary-key entity-name="UserLogin" map="ulLookup" value-field="userLogin"/>
             <set field="userLogin.partyId" from-field="tempMap.partyId"/>
-            <set-current-user-login value-name="userLogin"/>
+            <set-current-user-login value-field="userLogin"/>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
                 <if-compare field="userLogin.userLoginId" value="anonymous" operator="equals">
                     <set field="userLogin.partyId" from-field="tempMap.partyId"/>
@@ -742,13 +742,13 @@ under the License.
         <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
             <if-empty field="parameters.stateProvinceGeoId">
                 <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
+                <string-to-list string="${tempErrorMessage}" message-field="CUSTOMER_STATE" list="error_list"/>
             </if-empty>
         </if-compare>
         <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
             <if-empty field="parameters.stateProvinceGeoId">
                 <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
-                <string-to-list string="${tempErrorMessage}" message-field-name="CUSTOMER_STATE" list="error_list"/>
+                <string-to-list string="${tempErrorMessage}" message-field="CUSTOMER_STATE" list="error_list"/>
             </if-empty>
         </if-compare>
         <check-errors/>
@@ -780,7 +780,7 @@ under the License.
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
             </else>
         </if-not-empty>
-        <session-to-field field-name="cart" session-name="shoppingCart"/>
+        <session-to-field field="cart" session-name="shoppingCart"/>
         <if-not-empty field="cart">
             <call-object-method obj-field="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
@@ -800,7 +800,7 @@ under the License.
               parameters.put("carrierPartyId", shipmentMethod.substring(shipmentMethod.indexOf("@")+1));
            }
        ]]></call-bsh>
-       <session-to-field field-name="cart" session-name="shoppingCart"/>
+       <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
            <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">
@@ -863,7 +863,7 @@ under the License.
         <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
 
         <if-empty field="shoppingCart">
-            <session-to-field field-name="shoppingCart"/>
+            <session-to-field field="shoppingCart"/>
         </if-empty>
         <if-not-empty field="partyId">
             <!-- If userLogin is empty set anonymous userLogin or if anonymous user is coming back update userLogin -->
@@ -1000,12 +1000,12 @@ under the License.
                 <call-service service-name="updatePassword" in-map-name="passwordCtx">
                     <result-to-field result-name="updatedUserLogin"/>
                 </call-service>
-                <set-current-user-login value-name="updatedUserLogin"/>
-                <session-to-field field-name="userLogin"/>
+                <set-current-user-login value-field="updatedUserLogin"/>
+                <session-to-field field="userLogin"/>
                 <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
-                    <field-to-session field-name="updatedUserLogin" session-name="userLogin"/>
+                    <field-to-session field="updatedUserLogin" session-name="userLogin"/>
                 </if-compare>
-                <session-to-field field-name="userLogin"/>
+                <session-to-field field="userLogin"/>
             </if-not-empty>
         </else>
         </if-empty>
@@ -1017,7 +1017,7 @@ under the License.
                 <field-map field-name="userLoginId" value="anonymous"/>
             </entity-one>
             <set field="userLogin.partyId" from-field="partyId"/>
-            <set-current-user-login value-name="userLogin"/>
+            <set-current-user-login value-field="userLogin"/>
         <else>
             <!-- If an anonymous vistor is coming back, update the party id in the userLogin object -->
             <if-compare field="userLogin.userLoginId" operator="equals" value="anonymous">
@@ -1033,7 +1033,7 @@ under the License.
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <if-empty field="shoppingCart">
-            <session-to-field field-name="shoppingCart"/>
+            <session-to-field field="shoppingCart"/>
         </if-empty>
         <call-bsh>
             <![CDATA[
@@ -1112,7 +1112,7 @@ under the License.
 
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <if-empty field="shoppingCart">
-            <session-to-field field-name="shoppingCart"/>
+            <session-to-field field="shoppingCart"/>
         </if-empty>
         <call-object-method obj-field="shoppingCart" method-name="setShipmentMethodTypeId">
             <field field="shipmentMethodTypeId"/>
@@ -1168,7 +1168,7 @@ under the License.
         <set field="parameters.billToCountryGeoId" from-field="parameters.countryGeoId"/>
         <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
         <if-empty field="shoppingCart">
-            <session-to-field field-name="shoppingCart"/>
+            <session-to-field field="shoppingCart"/>
         </if-empty>
         <if-not-empty field="shoppingCart">
             <if-empty field="partyId">
@@ -1177,7 +1177,7 @@ under the License.
             <if-empty field="userLogin">
                 <call-object-method obj-field="shoppingCart" method-name="getUserLogin" ret-field="userLogin"/>
                 <if-not-empty field="userLogin">
-                    <set-current-user-login value-name="userLogin"/>
+                    <set-current-user-login value-field="userLogin"/>
                 </if-not-empty>
             </if-empty>
             <if-empty field="shipToContactMechId">
@@ -1223,7 +1223,7 @@ under the License.
         <!--============== Set Payment Method ================-->
         <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
         <set field="cardSecurityCode" from-field="parameters.cardSecurityCode"/>
-        <field-to-session field-name="userLogin" session-name="userLogin"/>
+        <field-to-session field="userLogin" session-name="userLogin"/>
         <field-to-request field="parameters.paymentMethodId" request-name="paymentMethodId"/>
         <call-bsh>
             <![CDATA[
@@ -1368,7 +1368,7 @@ under the License.
             <call-service service-name="updateUserLoginId" in-map-name="serviceContext">
                 <result-to-field result-name="newUserLogin"/>
             </call-service>
-            <set-current-user-login value-name="newUserLogin"/>
+            <set-current-user-login value-field="newUserLogin"/>
             <call-bsh>
                 <![CDATA[
                     org.ofbiz.webapp.control.LoginWorker.doBasicLogin(newUserLogin, request);
