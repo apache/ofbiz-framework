@@ -345,7 +345,7 @@ under the License.
         <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
 
         <!-- set the partyId in the request -->
-        <field-to-request field="partyId" map-name="tempMap" request-name="partyId"/>
+        <field-to-request field="partyId" request-name="tempMap" request-name="partyId"/>
 
     </simple-method>
 </simple-methods>
