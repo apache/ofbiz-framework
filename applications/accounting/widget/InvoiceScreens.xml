@@ -62,8 +62,6 @@ under the License.
             <actions>
                 <set field="headerItem" value="invoices"/>
                 <set field="titleProperty" value="PageTitleFindInvoice"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -73,6 +71,7 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
                                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <container style="clear"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>

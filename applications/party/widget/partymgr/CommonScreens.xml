@@ -90,6 +90,7 @@ under the License.
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
+                                        <container style="clear"/>
                                         <container style="h1">
                                             <section>
                                                 <condition>
