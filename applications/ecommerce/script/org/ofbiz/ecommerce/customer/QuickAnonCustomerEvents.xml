@@ -497,7 +497,7 @@ under the License.
         <call-simple-method method-name="createUpdateUser"/>
         <!-- see if we should continue now... -->
         <session-to-field field="cart" session-name="shoppingCart"/>
-        <session-to-field field="userLogin" session-name="userLogin"/>
+        <session-to-field field="userLogin"/>
         <if-empty field="userLogin">
             <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
