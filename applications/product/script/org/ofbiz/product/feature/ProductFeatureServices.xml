@@ -383,7 +383,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
-        <field-to-result field="newEntity.fromDate"/>
+        <field-to-result field="fromDate" map-name="newEntity"/>
         
         <set field="newEntity.lastModifiedDate" from-field="nowTimestamp" />
         <set field="newEntity.createdDate" from-field="nowTimestamp" />
