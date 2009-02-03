@@ -2220,7 +2220,7 @@ under the License.
         
         <clear-field field="newAcctgTrans.acctgTransId"/>
         <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransInMap">
-            <result-to-field result-name="acctgTransId" field="newAcctgTrans"/>
+            <result-to-field result-name="newAcctgTrans.acctgTransId"/>
         </call-service>
         <get-related list="acctgTransEntries" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
         <iterate list="acctgTransEntries" entry="acctgTransEntry">
