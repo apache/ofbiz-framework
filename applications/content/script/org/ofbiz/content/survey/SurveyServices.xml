@@ -37,7 +37,7 @@
             <fail-message message="Security Error: to run updateSurvey you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="Survey" value-field="lookupKeyValue"/>
+        <entity-one entity-name="Survey" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
@@ -455,16 +455,16 @@
                 <if-empty field="surveyQuestionAndAppl.surveyMultiRespColId">
                     <get-related value-field="surveyMultiResp" relation-name="SurveyMultiRespColumn" list="surveyMultiRespColumnList" use-cache="true"/>
                     <iterate entry="surveyMultiRespColumn" list="surveyMultiRespColumnList">
-                        <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}"/>
+                        <set field="answerFieldName" value="answers[&quot;${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}&quot;]"/>
                         <call-simple-method method-name="validateSurveyResponseInline"/>
                     </iterate>
                 <else>
-                    <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}_${surveyQuestionAndAppl.surveyMultiRespColId}"/>
+                    <set field="answerFieldName" value="answers[&quot;${surveyQuestionAndAppl.surveyQuestionId}_${surveyQuestionAndAppl.surveyMultiRespColId}&quot;]"/>
                     <call-simple-method method-name="validateSurveyResponseInline"/>
                 </else>
                 </if-empty>
             <else>
-                <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}"/>
+                <set field="answerFieldName" value="answers[&quot;${surveyQuestionAndAppl.surveyQuestionId}&quot;]"/>
                 <call-simple-method method-name="validateSurveyResponseInline"/>
             </else>
             </if-not-empty>
@@ -559,7 +559,7 @@
     
     <!-- =============== Inline method used by createSurveyResponse ============== -->
     <simple-method method-name="validateSurveyResponseInline" short-description="validateSurveyResponseInline" login-required="false">
-        <!-- Is required? -->
+        <!-- see if response is required -->
         <if-compare field="surveyQuestionAndAppl.requiredField" operator="equals" value="Y">
             <if-empty field="${answerFieldName}">
                 <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a response."/></add-error>
@@ -638,7 +638,7 @@
 
     <simple-method method-name="processSurveyResponseInline" short-description="processSurveyResponseInline" login-required="false">
         <if-not-empty field="currentAnswers">
-            <set field="responseAnswer" from-field="currentAnswers.${currentFieldName}"/>
+            <set field="responseAnswer" from-field="currentAnswers[&quot;${currentFieldName}&quot;]"/>
         </if-not-empty>
         
        <if>
@@ -671,61 +671,61 @@
                 <create-value value-field="responseAnswer"/>
             </then>
         </if>
-        <if-not-empty field="answers.${currentFieldName}">
+        <if-not-empty field="answers[&quot;${currentFieldName}&quot;]">
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="BOOLEAN">
-                <set field="responseAnswer.booleanResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.booleanResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="EMAIL">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="DATE">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="URL">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CREDIT_CARD">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GIFT_CARD">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="PASSWORD">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXT_SHORT">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXT_LONG">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXTAREA">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_CURRENCY">
-                <set field="responseAnswer.currencyResponse" from-field="answers.${currentFieldName}" type="BigDecimal"/>
+                <set field="responseAnswer.currencyResponse" from-field="answers[&quot;${currentFieldName}&quot;]" type="BigDecimal"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_FLOAT">
-                <set field="responseAnswer.floatResponse" from-field="answers.${currentFieldName}" type="Double"/>
+                <set field="responseAnswer.floatResponse" from-field="answers[&quot;${currentFieldName}&quot;]" type="Double"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_LONG">
-                <set field="responseAnswer.numericResponse" from-field="answers.${currentFieldName}" type="Long"/>
+                <set field="responseAnswer.numericResponse" from-field="answers[&quot;${currentFieldName}&quot;]" type="Long"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="OPTION">
-                <set from-field="answers.${currentFieldName}" field="responseAnswer.surveyOptionSeqId"/>
+                <set field="responseAnswer.surveyOptionSeqId" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GEO">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="ENUMERATION">
-                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+                <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CONTENT">
                 <!-- <log level="always" message="Found CONTENT type question"/> -->
-                <if-instance-of field="answers.${currentFieldName}" class="java.nio.ByteBuffer">
+                <if-instance-of field="answers[&quot;${currentFieldName}&quot;]" class="java.nio.ByteBuffer">
                     <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType" field="partyContent._uploadedFile_contentType"/>
                     <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName" field="partyContent._uploadedFile_fileName"/>
-                    <set from-field="answers.${currentFieldName}" field="partyContent.uploadedFile"/>
+                    <set from-field="answers[&quot;${currentFieldName}&quot;]" field="partyContent.uploadedFile"/>
                     <set value="DOCUMENT" field="partyContent.contentTypeId"/>
                     <set value="PERSONAL" field="partyContent.dataCategoryId"/>
                     <set value="CTNT_PUBLISHED" field="partyContent.statusId"/>
@@ -733,7 +733,7 @@
                         <result-to-field result-name="contentId" field="responseAnswer.contentId"/>
                     </call-service>
                 <else>                        
-                    <set from-field="answers.${currentFieldName}" field="responseAnswer.contentId"/>
+                    <set from-field="answers[&quot;${currentFieldName}&quot;]" field="responseAnswer.contentId"/>
                 </else>
                 </if-instance-of>
             </if-compare>
