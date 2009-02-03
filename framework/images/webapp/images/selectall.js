@@ -457,3 +457,25 @@ function submitFormEnableButton(button) {
     button.className = button.className.substring(0, button.className.length - " disabled".length);
     button.value = button.value.substring(0, button.value.length - 1);
 }
+
+function expandAll(expanded) {
+  var divs,divs1,i,j,links,groupbody;
+
+  divs=document.getElementsByTagName('div');
+  for(i=0;i<divs.length;i++) {
+    if(/fieldgroup$/.test(divs[i].className)) {      
+      links=divs[i].getElementsByTagName('a');
+      if(links.length>0) {
+        divs1=divs[i].getElementsByTagName('div');
+        for(j=0;j<divs1.length;j++){
+          if(/fieldgroup-body/.test(divs1[j].className)) {
+            groupbody=divs1[j];
+          }
+        }
+        if(groupbody.visible() != expanded) {
+          toggleCollapsiblePanel(links[0], groupbody.id, 'expand', 'collapse');
+        }
+      }
+    }
+  }
+}
