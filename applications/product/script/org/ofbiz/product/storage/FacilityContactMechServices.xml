@@ -41,7 +41,7 @@ under the License.
         </if-empty>
         <log level="info" message="Creating a FacilityContactMech with id: ${parameters.contactMechId}"/>
         <set field="newValue.facilityId" from-field="parameters.facilityId" />
-        <field-to-result field="contactMechId" result-name="newValue"/>
+        <field-to-result field="contactMechId" map-name="newValue"/>
         <field-to-request field="contactMechId" request-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp field="newValue.fromDate"/>
@@ -162,7 +162,7 @@ under the License.
 
         </call-service>
         <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
-        <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
+        <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
     <simple-method method-name="updateFacilityPostalAddress" short-description="Update a PostalAddress for facility">
@@ -185,7 +185,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully updated</default-message>
         </call-service>
         <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
-        <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
+        <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
     <simple-method method-name="createFacilityTelecomNumber" short-description="Create a TelecomNumber for facility">
@@ -209,7 +209,7 @@ under the License.
 
         </call-service>
         <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
-        <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
+        <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
     <simple-method method-name="updateFacilityTelecomNumber" short-description="Update a TelecomNumber for facility">
@@ -234,7 +234,7 @@ under the License.
         </call-service>
         <log level="info" message="Setting result id: ${newFacilityContactMech.contactMechId}"/>
         <field-to-request field="contactMechId" request-name="newFacilityContactMech"/>
-        <field-to-result field="contactMechId" result-name="newFacilityContactMech"/>
+        <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
 
     </simple-method>
 
