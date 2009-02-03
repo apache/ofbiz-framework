@@ -232,7 +232,7 @@ under the License.
         <copy todir="${site.dir}/dtds" flatten="true" overwrite="true">
             <fileset dir="${basedir}" includes="**/*.dtd"/>
             <fileset dir="${basedir}" defaultexcludes="yes"> <!-- all but oagis and external in general -->
-              <include name="**/*.xsd"/>        	
+              <include name="**/*.xsd"/>
               <exclude name="**/002*.xsd"/>
               <exclude name="**/068*.xsd"/>
               <exclude name="**/161*.xsd"/>
