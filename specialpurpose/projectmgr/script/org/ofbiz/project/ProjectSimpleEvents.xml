@@ -141,8 +141,8 @@
             <result-to-field result-name="contentId" field="contentId"/>
         </call-service>
         <!-- set the partyId in the request -->
-        <field-to-request field="workEffortId" request-name="context" request-name="workEffortId"/>
-        <field-to-request field="projectId" request-name="context" request-name="projectId"/>
+        <field-to-request field="context.workEffortId" request-name="workEffortId"/>
+        <field-to-request field="context.projectId" request-name="projectId"/>
         <field-to-request field="contentId" request-name="contentId"/>
     </simple-method>
     
