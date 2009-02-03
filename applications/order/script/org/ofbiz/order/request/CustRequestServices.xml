@@ -70,7 +70,7 @@ under the License.
         <to-string field="custRequestId"/>
         <set from-field="custRequestId" field="newEntity.custRequestId"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="custRequestId" result-name="newEntity"/>
+        <field-to-result field="newEntity.custRequestId"/>
 
         <!-- jacopoc: Commented out the following code because it is too specific and not valid as a
                       general rule: a user may enter the request from a customer even if he will not work

@@ -37,7 +37,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
-        <field-to-result field="fromDate" result-name="newEntity"/>
+        <field-to-result field="newEntity.fromDate"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -80,7 +80,7 @@ under the License.
         <sequenced-id sequence-name="ProductConfigItem" field="newEntity.configItemId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="configItemId" result-name="newEntity"/>
+        <field-to-result field="newEntity.configItemId"/>
     </simple-method>
     <simple-method method-name="updateProductConfigItem" short-description="Update a Config Item">
         <check-permission action="_UPDATE" permission="CATALOG">
