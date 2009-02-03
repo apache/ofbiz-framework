@@ -509,6 +509,7 @@
     </property>
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
+        <value xml:lang="fr">Information actuelles sur l'emploi</value>
     </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
@@ -1449,14 +1450,17 @@
     </property>
     <property key="PageTitleViewEmploymentApp">
         <value xml:lang="en">View Employment App</value>
+        <value xml:lang="fr">Voir les demandes d'emploi</value>
         <value xml:lang="it">Mostra applicazioni impiegato</value>
     </property>
     <property key="PageTitleViewPartySkill">
         <value xml:lang="en">View Party Skill</value>
+        <value xml:lang="fr">Voir les compétences de l'acteur</value>
         <value xml:lang="it">Mostra abilità soggetto</value>
     </property>
     <property key="PageTitleViewPersonTraining">
         <value xml:lang="en">View Person Training</value>
+        <value xml:lang="fr">Voir l'expérience de l'acteur</value>
         <value xml:lang="it">Mostra corsi persona</value>
     </property>
 </resource>

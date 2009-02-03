@@ -5832,6 +5832,7 @@
         <value xml:lang="de">Übersicht</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Resumen</value>
+        <value xml:lang="fr">Aperçu général</value>
         <value xml:lang="it">Sommario</value>
     </property>
     <property key="OrderPONumber">
@@ -7082,6 +7083,7 @@
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
         <value xml:lang="es">Contenido</value>
+        <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
     </property>
     <property key="OrderRequestCreatedDate">
@@ -7127,16 +7129,19 @@
         <value xml:lang="de">Anmerkungen</value>
         <value xml:lang="en">Notes</value>
         <value xml:lang="es">Notas</value>
+        <value xml:lang="fr">Notes</value>
         <value xml:lang="it">Note</value>
     </property>
     <property key="OrderRequestItemQuotes">
         <value xml:lang="de">Offerten</value>
         <value xml:lang="en">Quotes</value>
         <value xml:lang="es">Presupuestos</value>
+        <value xml:lang="fr">Devis</value>
         <value xml:lang="it">Preventivi</value>
     </property>
     <property key="OrderRequestItemWorkEffort">
         <value xml:lang="en">Request Item WorkEffort</value>
+        <value xml:lang="fr">Demande de ligne de tâche</value>
         <value xml:lang="it">Impegni di lavoro riga richiesta</value>
     </property>
     <property key="OrderRequestItems">
@@ -7219,8 +7224,9 @@
     </property>
     <property key="OrderRequestOverview">
         <value xml:lang="de">Übersicht</value>
-        <value xml:lang="en">Overview</value>
+        <value xml:lang="en">Overview</value>        
         <value xml:lang="es">Resumen</value>
+        <value xml:lang="fr">Aperçu général</value>
         <value xml:lang="it">Sommario</value>
     </property>
     <property key="OrderRequestReturn">
@@ -7453,10 +7459,12 @@
     </property>
     <property key="OrderReturnCannotBeChanged">
         <value xml:lang="en">This cannot be changed without re-creating the Return.</value>
+        <value xml:lang="fr">Changement impossible sans recréation du retout</value>
         <value xml:lang="it">Questo non può essere modificato senza ri-creare il reso.</value>
     </property>
     <property key="OrderReturnCannotBeFound">
         <value xml:lang="en">Could not find Return with ID</value>
+        <value xml:lang="fr">Impossible de trouver un retour avec cette réf.</value>
         <value xml:lang="it">Non è possibile trovare il reso</value>
     </property>
     <property key="OrderReturnCreate">
@@ -7841,6 +7849,7 @@
     </property>
     <property key="OrderReturnsCurrent">
         <value xml:lang="en">Current Returns</value>
+        <value xml:lang="fr">Retours en cours</value>
         <value xml:lang="it">Resi Attuali</value>
     </property>
     <property key="OrderReviewOrder">
@@ -7984,6 +7993,7 @@
     <property key="OrderSelAmount">
         <value xml:lang="en">Sel. amount</value>
         <value xml:lang="es">Cantidad sel.</value>
+        <value xml:lang="fr">Montant sélectionné</value>
         <value xml:lang="it">Importo selezionato</value>
     </property>
     <property key="OrderSelectAShippingAddress">
@@ -9206,6 +9216,7 @@
     <property key="OrderUnitsPieces">
         <value xml:lang="de">Stückpreise</value>
         <value xml:lang="en">Units  Pieces</value>
+        <value xml:lang="fr">Pièces à l'unité</value>
         <value xml:lang="es">Unidades Piezas</value>
         <value xml:lang="it">Pezzi unità</value>
         <value xml:lang="th">ราคาต่อชิ้น</value>
@@ -9571,6 +9582,7 @@
         <value xml:lang="de">Bedürfnisse</value>
         <value xml:lang="en">Requirements</value>
         <value xml:lang="es">Requisitos</value>
+        <value xml:lang="fr">Besoins</value>
         <value xml:lang="it">Fabbisogni</value>
     </property>
     <property key="OrderWorkflow">

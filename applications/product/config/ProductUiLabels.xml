@@ -4288,7 +4288,7 @@
         <value xml:lang="de">Bestandsposition Etikettenanwendung bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Label Appls</value>
         <value xml:lang="es">Editar aplicaciones de etiquetas de ítem de inventario</value>
-        <value xml:lang="fr">Modifier l'étiquette d'article d'inventaire applicable</value>
+        <value xml:lang="fr">Modifier l'étiquette de ligne d'inventaire applicable</value>
         <value xml:lang="it">Aggiorna Applicabilità Etichetta Riga Inventario</value>
         <value xml:lang="th">Edit Inventory Item Label Appls</value>
     </property>
@@ -4296,7 +4296,7 @@
         <value xml:lang="de">Bestandspositione Etikettentypen bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Label Types</value>
         <value xml:lang="es">Editar tipos de etiquetas de ítems de inventario</value>
-        <value xml:lang="fr">Modifier les types d'étiquette d'article d'inventaire</value>
+        <value xml:lang="fr">Modifier les types d'étiquette de ligne d'inventaire</value>
         <value xml:lang="it">Aggiorna Tipo Etichetta Riga Inventario</value>
         <value xml:lang="th">Edit Inventory Item Label Types</value>
     </property>
@@ -4304,6 +4304,7 @@
         <value xml:lang="de">Bestandsposition Etiketten bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Labels</value>
         <value xml:lang="es">Editar etiquetas de ítems de inventario</value>
+        <value xml:lang="fr">Modifier l'étiquette de la ligne d"inventaire</value>
         <value xml:lang="it">Aggiorna riga inventario etichette</value>
     </property>
     <property key="PageTitleEditProduct">

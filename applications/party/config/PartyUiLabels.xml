@@ -2325,6 +2325,7 @@
     </property>
     <property key="PartyAdjustInAccountingComponent">
         <value xml:lang="en">Adjust in accounting component</value>
+        <value xml:lang="fr">Ajuster en comptabilité</value>
         <value xml:lang="it">Modificalo nell'applicazione di contabilità</value>
     </property>
     <property key="PartyAffiliateCodeMissingError">
@@ -2459,6 +2460,7 @@
     <property key="PartyAreaCodeMissingError">
         <value xml:lang="de">Ortsvorwahl fehlt</value>
         <value xml:lang="en">Area code is missing</value>
+        <value xml:lang="fr">Le code régional manque</value>
         <value xml:lang="it">Codice Area è mancante</value>
     </property>
     <property key="PartyAttachContent">
@@ -4341,6 +4343,7 @@
     </property>
     <property key="PartyEmailTo">
         <value xml:lang="en">Email to</value>
+        <value xml:lang="fr">Courriel dest.</value>
         <value xml:lang="it">Email a</value>
     </property>
     <property key="PartyEnabled">
@@ -4414,16 +4417,19 @@
     <property key="PartyExpDateBeforeTodayError">
         <value xml:lang="de">Das Ablaufdatum liegt in der Vergangenheit</value>
         <value xml:lang="en">The expiration date is before today</value>
+        <value xml:lang="fr">Date d'expiration avant aujourd'hui</value>
         <value xml:lang="it">La data di scadenza è prima di oggi</value>
     </property>
     <property key="PartyExpMonthMissingError">
         <value xml:lang="de">Ablaufsdatum Monat fehlt</value>
         <value xml:lang="en">Expiration month is missing</value>
+        <value xml:lang="fr">Le mois d'expiration manque</value>
         <value xml:lang="it">Il mese di scadenza è mancante</value>
     </property>
     <property key="PartyExpYearMissingError">
         <value xml:lang="de">Ablaufdatum Jahr fehlt</value>
         <value xml:lang="en">Expiration year is missing</value>
+        <value xml:lang="fr">L'année d'expiration manque</value>
         <value xml:lang="it">L'anno di scandenza è mancante</value>
     </property>
     <property key="PartyExtension">
@@ -4553,6 +4559,7 @@
     <property key="PartyFirstNameOnCardMissingError">
         <value xml:lang="de">Vorname auf der Karte fehlt</value>
         <value xml:lang="en">First name on card is missing </value>
+        <value xml:lang="fr">Le prénom manque sur la carte</value>
         <value xml:lang="it">Nome sulla carta di credito è mancante</value>
     </property>
     <property key="PartyFollowSession">
@@ -4911,6 +4918,7 @@
         <value xml:lang="de">Einladung</value>
         <value xml:lang="en">Invitation</value>
         <value xml:lang="es">Invitación</value>
+        <value xml:lang="fr">Invitation</value>
         <value xml:lang="it">Inviti soggetti</value>
         <value xml:lang="th">คำเชิญ</value>
     </property>
@@ -5102,6 +5110,7 @@
     </property>
     <property key="PartyLeaveEmpty">
         <value xml:lang="en">Leave empty for new 'Party'</value>
+        <value xml:lang="fr">Laisser vide pour les nouveaux acteurs</value>
         <value xml:lang="it">Lasciare vuoto per un nuovo soggetto</value>
     </property>
     <property key="PartyLink">
@@ -5447,6 +5456,7 @@
     </property>
     <property key="PartyManualTx">
         <value xml:lang="en">Manual Tx</value>
+        <value xml:lang="fr">Transaction manuel</value>
         <value xml:lang="it">Transazione manuale</value>
     </property>
     <property key="PartyMaritalStatus">
@@ -6371,6 +6381,7 @@
     </property>
     <property key="PartyOverrideDefaultRateAmount">
         <value xml:lang="en">Override Default Rate Amount</value>
+        <value xml:lang="fr">Remplacer le taux par défaut</value>
         <value xml:lang="it">Sostituzione importo tasso di default</value>
     </property>
     <property key="PartyPagePushFollowing">
@@ -7299,6 +7310,7 @@
     </property>
     <property key="PartyRateNotSpecified">
         <value xml:lang="en">Rate not specified for this party AND NO default rate</value>
+        <value xml:lang="fr">Aucun taux spécifié pour cet acteur et AUCUN taux par défaut</value>
         <value xml:lang="it">Tasso non specificato per questo soggetto e nessun tasso di default</value>
     </property>
     <property key="PartyReceivePasswordByEmail">
