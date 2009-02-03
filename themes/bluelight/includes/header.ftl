@@ -116,7 +116,6 @@ under the License.
           </li>
           <li class="control-area">
             <p class="collapsed">
-              ${nowTimestamp?datetime?string.short}&nbsp;&nbsp;
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
               <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a>
             </p>
@@ -135,7 +134,6 @@ under the License.
           <li class="control-area">
             <#if userLogin?exists>
               <p class="expanded">
-                <span class="clock">${nowTimestamp?datetime?string.short}</span>&nbsp;&nbsp;
                 <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
                 <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
               </p>
@@ -156,7 +154,6 @@ under the License.
               <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
 -->
               <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
-              <li><a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a></li>
               <#if userLogin?exists>
                 <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
               </#if>
