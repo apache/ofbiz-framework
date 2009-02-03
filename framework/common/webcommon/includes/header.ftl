@@ -114,7 +114,6 @@ under the License.
             ${uiLabelMap.CommonWelcome}!
           </#if>
         </li>
-        <li>${nowTimestamp?datetime?string.short}</li>
         <li class="control-area">
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
@@ -152,13 +151,11 @@ under the License.
             ${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a>
           </p>
           </#if>
-          <p>${nowTimestamp?datetime?string.short}</p>
           <ul id="preferences-menu">
 <!--
             <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
 -->
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
-            <li><a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a></li>
             <#if userLogin?exists>
               <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
             </#if>
