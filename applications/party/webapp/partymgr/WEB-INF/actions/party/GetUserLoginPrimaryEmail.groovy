@@ -20,9 +20,11 @@
 //figure out the PRIMARY_EMAIL of the logged in user, for setting in the send email link
 //maybe nice to put in some secondary emails later
 if (userLogin) {
-  userLoginParty = userLogin.getRelatedOneCache("Party");
-  userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
-  if (userLoginPartyPrimaryEmails) {
-      context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0);
-  }
+    userLoginParty = userLogin.getRelatedOneCache("Party");
+    if (userLoginParty) {
+    	userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
+    	if (userLoginPartyPrimaryEmails) {
+    		context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0);
+    	}
+    }
 }
