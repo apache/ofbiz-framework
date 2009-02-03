@@ -324,7 +324,10 @@ under the License.
     </target>
     <target name="create-admin-user-login"
         description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
-        <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
+        <condition property="userLoginId.notSet">
+            <not><isset property="userLoginId"/></not>
+        </condition>
+        <antcall target="prompt-user-login-name"/>
         <echoxml file="runtime/tmp/tmpUserLogin.xml">
             <entity-engine-xml>
                 <UserLogin userLoginId="${userLoginId}" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" requirePasswordChange="Y"/>
@@ -335,6 +338,11 @@ under the License.
             <param name="data-file" value="runtime/tmp/tmpUserLogin.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpUserLogin.xml"/>
+    </target>
+    <target name="prompt-user-login-name" if="userLoginId.notSet"
+        description="Prompts for a user name.">
+        <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
+        <antcall target="create-admin-user-login"/>
     </target>
 
     <target name="run-debug" depends="build">
