@@ -178,6 +178,6 @@
         <!-- set the partyId in the request -->
         <field-to-request field="workEffortId" request-name="workEffortId"/>
         <field-to-request field="projectId" request-name="projectId"/>
-        <field-to-request field="contentId" request-name="context"/>
+        <field-to-request field="context.contentId"/>
     </simple-method>
 </simple-methods>
