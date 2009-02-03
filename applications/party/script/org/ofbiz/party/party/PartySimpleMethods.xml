@@ -77,7 +77,7 @@ under the License.
 
         <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="createPersonCtx"/>
         <call-service service-name="createPerson" in-map-name="createPersonCtx">
-            <result-to-field result-name="partyId" field="createUlInMap"/>
+            <result-to-field result-name="createUlInMap.partyId"/>
         </call-service>
 
         <!-- call the service with the system account to get around security constraints for this special create -->
@@ -186,7 +186,7 @@ under the License.
         <set field="postalAddressContext.partyId" from-field="partyId"/>
         <set field="postalAddressContext.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
         <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext">
-            <result-to-field result-name="contactMechId" field="postalAddressContext"/>
+            <result-to-field result-name="postalAddressContext.contactMechId"/>
         </call-service>
      
         <if-not-empty field="postalAddContactMechPurpTypeId">
