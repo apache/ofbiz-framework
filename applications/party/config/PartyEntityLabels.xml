@@ -722,11 +722,13 @@
         <value xml:lang="de">Jahreseinkommen</value>
         <value xml:lang="en">Annual Revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
+        <value xml:lang="fr">Revenus annuels</value>
         <value xml:lang="it">Revisore annuale</value>
     </property>
     <property key="PartyClassificationType.description.EEOC_CLASSIFICATION">
         <value xml:lang="en">EEOC (Equal Employment Opportunity Commission)</value>
         <value xml:lang="es">EEOC (Comisión de Oportunidad Laboral Igualitaria de EE.UU.)</value>
+        <value xml:lang="fr">HALDE (Haute Autorité de Lutte contre les Discriminations et pour l’Egalité)</value>
         <value xml:lang="it">Commissione pari opportunità impiegati (EEOC)</value>
     </property>
     <property key="PartyClassificationType.description.INCOME_CLASSIFICATIO">

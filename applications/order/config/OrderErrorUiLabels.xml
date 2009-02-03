@@ -1928,6 +1928,7 @@
     <property key="OrderSecurityErrorToRunCreateRequirementFromItemATP">
         <value xml:lang="en">Security Error: to run createRequirementFromItemATP you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createRequirementFromItemATP debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createRequirementFromItemATP, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createRequirementFromItemATP tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea createRequirementFromItemATP tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createRequirementFromItemATP у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
