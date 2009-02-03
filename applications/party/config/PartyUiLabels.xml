@@ -8102,6 +8102,7 @@
     </property>
     <property key="PartyStateInCanadaMissing">
         <value xml:lang="en">State is missing, and is required for an address in Canada.</value>
+        <value xml:lang="fr">L'état manque, il est nécessaire pour une adresse au Canada</value>
         <value xml:lang="it">Stato mancante, ed è richiesto per un'indirizzo in Canada.</value>
     </property>
     <property key="PartyStateInUsMissing">
@@ -8746,14 +8747,17 @@
     </property>
     <property key="PartyValueFromPartyLevel">
         <value xml:lang="en">Value from party level</value>
+        <value xml:lang="fr">Valeur au niveau acteur</value>
         <value xml:lang="it">Valore a livello di soggetto</value>
     </property>
     <property key="PartyValueFromRateTypeLevel">
         <value xml:lang="en">Value from rateType level</value>
+        <value xml:lang="fr">Valeur au niveau type de taux</value>
         <value xml:lang="it">Valore a livello di tipo tasso</value>
     </property>
     <property key="PartyValueFromWorkEffortLevel">
         <value xml:lang="en">Value from workeffort level</value>
+        <value xml:lang="fr">Valeur au niveau tâche</value>
         <value xml:lang="it">Valore a livello di impegno di lavoro</value>
     </property>
     <property key="PartyVendor">

@@ -1478,6 +1478,7 @@
     </property>
     <property key="WebtoolsLabelManagerKeyComment">
         <value xml:lang="en">Comment</value>
+        <value xml:lang="fr">Commentaire</value>
         <value xml:lang="it">Commento</value>
     </property>
     <property key="WebtoolsLabelManagerLocale">
@@ -1502,6 +1503,7 @@
     </property>
     <property key="WebtoolsLabelManagerRemove">
         <value xml:lang="en">Remove Label</value>
+        <value xml:lang="fr">Supprimer la traduction</value>
         <value xml:lang="it">Rimuovi label</value>
     </property>
     <property key="WebtoolsLabelManagerSearchBy">
