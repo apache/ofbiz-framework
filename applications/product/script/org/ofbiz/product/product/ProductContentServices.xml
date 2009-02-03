@@ -94,7 +94,7 @@ under the License.
         <set-service-fields service-name="createProductContent" map="parameters" to-map="createProductContentMap"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
-            <result-to-field result-name="createProductContentMap.contentId"/>
+            <result-to-field result-name="contentId" map-name="createProductContentMap"/>
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContentMap"/>
     </simple-method>
