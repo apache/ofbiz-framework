@@ -173,7 +173,7 @@
         <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
         <value xml:lang="en">unable to login this application</value>
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
-        <value xml:lang="fr"><b>Impossible de se connecter à cette application.</b></value>
+        <value xml:lang="fr">Impossible de se connecter à cette application.</value>
         <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficienti).</value>
         <value xml:lang="nl">Login for this application couldn't be completed (required permissions missing).</value>
         <value xml:lang="ro">Autentificarea acestei aplicatii nu a fost completata (drepturi insuficiente).</value>
