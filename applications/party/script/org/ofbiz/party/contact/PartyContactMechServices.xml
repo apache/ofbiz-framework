@@ -62,7 +62,7 @@ under the License.
         <log level="info" message="Creating a PartyContactMech with id: ${parameters.contactMechId}"/>
         <set field="newValue.partyId" from-field="parameters.partyId"/>
         <field-to-result field="contactMechId" map-name="newValue"/>
-        <field-to-request field="newValue.contactMechId"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp field="newValue.fromDate"/>
         <create-value value-field="newValue"/>
@@ -172,7 +172,7 @@ under the License.
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
         </call-service>
-        <field-to-request field="newPartyContactMech.contactMechId"/>
+        <field-to-request field="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field="contactMechId" map-name="newPartyContactMech"/>
     </simple-method>
     
@@ -195,7 +195,7 @@ under the License.
         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechMap">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
         </call-service>
-        <field-to-request field="newPartyContactMech.contactMechId"/>
+        <field-to-request field="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field="contactMechId" map-name="newPartyContactMech"/>                      
     </simple-method>
 
@@ -219,7 +219,7 @@ under the License.
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
         </call-service>
-        <field-to-request field="newPartyContactMech.contactMechId"/>
+        <field-to-request field="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field="contactMechId" map-name="newPartyContactMech"/>
     </simple-method>
     
@@ -244,7 +244,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
         </call-service>
         <log level="info" message="Setting result id: ${newPartyContactMech.contactMechId}"/>
-        <field-to-request field="newPartyContactMech.contactMechId"/>
+        <field-to-request field="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field="contactMechId" map-name="newPartyContactMech"/>                      
     </simple-method>  
     
