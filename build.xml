@@ -342,7 +342,6 @@ under the License.
     <target name="prompt-user-login-name" if="userLoginId.notSet"
         description="Prompts for a user name.">
         <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
-        <antcall target="create-admin-user-login"/>
     </target>
 
     <target name="run-debug" depends="build">
