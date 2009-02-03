@@ -342,7 +342,7 @@ under the License.
         <set from-field="parameters.workEffortId" field="newValue.workEffortId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <field-to-result field="contactMechId" result-name="newValue"/>
-        <field-to-request field="newValue.contactMechId"/>        
+        <field-to-request field="contactMechId" request-name="newValue"/>        
         <create-value value-field="newValue"/>
     </simple-method>
     
@@ -380,7 +380,7 @@ under the License.
         </if-compare-field>
         
         <field-to-result field="contactMechId" result-name="newWorkEffortContactMech"/>
-        <field-to-request field="newWorkEffortContactMech.contactMechId"/>      
+        <field-to-request field="contactMechId" request-name="newWorkEffortContactMech"/>      
     </simple-method>    
     
     <simple-method method-name="deleteWorkEffortContactMech" short-description="Delete a WorkEffortContactMech">
@@ -421,7 +421,7 @@ under the License.
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
-        <field-to-request field="newValue.contactMechId"/>
+        <field-to-request field="contactMechId" request-name="newValue"/>
         <field-to-result field="contactMechId" result-name="newValue"/>
     </simple-method>
     
@@ -441,7 +441,7 @@ under the License.
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully updated</default-message>       
         </call-service>
-        <field-to-request field="newValue.contactMechId"/>
+        <field-to-request field="contactMechId" request-name="newValue"/>
         <field-to-result field="contactMechId" result-name="newValue"/>                   
     </simple-method>
      
@@ -472,7 +472,7 @@ under the License.
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
-        <field-to-request field="newValue.contactMechId"/>
+        <field-to-request field="contactMechId" request-name="newValue"/>
         <field-to-result field="contactMechId" result-name="newValue"/>
     </simple-method>
     
@@ -494,7 +494,7 @@ under the License.
             <default-message>Party Contact Mechanism successfully updated</default-message>       
         </call-service>
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
-        <field-to-request field="newValue.contactMechId"/>
+        <field-to-request field="contactMechId" request-name="newValue"/>
         <field-to-result field="contactMechId" result-name="newValue"/>                   
     </simple-method>  
     
