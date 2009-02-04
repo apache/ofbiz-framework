@@ -77,14 +77,14 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="content"/>
         <log level="always" message="content: ${content}"/>
         <store-value value-field="content"/>
-        <field-to-request map-name="content" field-name="contentId" request-name="contentId"/>
+        <field-to-request field="content.contentId" request-name="contentId"/>
         <set field="dataResource.dataResourceId" from-field="parameters.dataResourceId"/>
         <find-by-primary-key entity-name="DataResource" value-field="dataResource" map="dataResource"/>
         <set-nonpk-fields map="parameters" value-field="dataResource"/>
         <set field="dataResource.objectInfo" from-field="parameters.drObjectInfo"/>
         <log level="always" message="dataResource: ${dataResource}"/>
         <store-value value-field="dataResource"/>
-        <field-to-request map-name="dataResource" field-name="dataResourceId" request-name="drDataResourceId"/>
+        <field-to-request field="dataResource.dataResourceId" request-name="drDataResourceId"/>
         <check-errors/>
     </simple-method>
 
@@ -120,7 +120,7 @@ under the License.
         </call-service>
         <check-errors/>
 
-        <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId"/>
+        <field-to-request field="context2.activeContentId" request-name="contentId"/>
         <field-to-request field="dataResourceId" request-name="drDataResourceId"/>
         <set field="currentEntityName" value="SubContentDataResourceView"/>
         <field-to-request field="currentEntityName" request-name="currentEntityName"/>
@@ -216,7 +216,7 @@ under the License.
         </call-service>
         <check-errors/>
 
-        <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId"/>
+        <field-to-request field="context2.activeContentId" request-name="contentId"/>
         <field-to-request field="dataResourceId" request-name="drDataResourceId"/>
         <set field="currentEntityName" value="SubContentDataResourceView"/>
         <field-to-request field="currentEntityName" request-name="currentEntityName"/>
@@ -274,7 +274,7 @@ under the License.
         </call-service>
         <check-errors/>
 
-        <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId"/>
+        <field-to-request field="context2.activeContentId" request-name="contentId"/>
         <field-to-request field="dataResourceId" request-name="drDataResourceId"/>
         <set field="currentEntityName" value="SubContentDataResourceView"/>
         <field-to-request field="currentEntityName" request-name="currentEntityName"/>
