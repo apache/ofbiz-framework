@@ -101,16 +101,22 @@
                     <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                     <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
-                <order-by field-name="-fromDate"/>
+                <order-by field-name="phaseName"/>
+                <order-by field-name="workEffortName"/>
+                <order-by field-name="timesheetPartyId"/>
             </entity-condition>
         </actions>
-        <field name="workEffortName"><display/></field>
-        <field name="phaseName"><display/></field>
-        <field name="timesheetId"><hyperlink description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/></field>
-        <field name="hours"><display/></field>
-        <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
-        <field name="fromDate"><display type="date"/></field>
+        <row-actions>
+            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;workEffortId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(workEffortId)));}" type="Boolean"/>
+        </row-actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="phaseName" position="1" use-when="showPosition1"><display/></field>
+        <field name="workEffortName" position="1" use-when="showPosition1"><display/></field>
+        <field name="timesheetId" position="2"><hyperlink description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/></field>
+        <field name="hours" position="2"><display/></field>
+        <field name="timesheetPartyId" position="2"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}" key-field-name="partyId"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}" position="2"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="fromDate" position="2"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="listIt" paginate-target="FindProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
