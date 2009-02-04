@@ -27,17 +27,6 @@
     
     <description>Show personal information in the system</description>
     
-    <request-map uri="main">
-        <security https="true" auth="true"/>        
-        <response name="success" type="view" value="main"/>
-    </request-map>
-    <request-map uri="login">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeLogin"/>
-        <response name="success" type="view" value="main"/>
-        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
-        <response name="error" type="view" value="login"/>
-    </request-map>
     <request-map uri="newRegisterLogin">
         <security https="true" auth="false"/>
         <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>

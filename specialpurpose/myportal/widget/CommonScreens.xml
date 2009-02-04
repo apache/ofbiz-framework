@@ -194,10 +194,6 @@ under the License.
     <!--New Register Person-->
     <screen name="newRegisterLogin">
         <section>
-            <actions>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndPerson" value-field="personInfo"/>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">        
@@ -207,12 +203,13 @@ under the License.
                             </condition>
                             <actions>
                                 <set field="partyId" from-field="parameters.partyId"/>
-                                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                             </actions>
                             <widgets>
                                 <label style="h2" text="${uiLabelMap.RegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
                                 <label style="h2" text="&lt;br&gt;&lt;br&gt;"/>
-                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <screenlet title="${uiLabelMap.PartyPersonalInformation}">
+                                    <include-form name="ViewPartyPerson" location="component://myportal/widget/MyPortalForms.xml"/>
+                                </screenlet> 
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">

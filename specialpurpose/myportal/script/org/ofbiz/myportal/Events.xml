@@ -317,72 +317,93 @@ under the License.
         <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="FirstName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.lastName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="LastName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.USERNAME"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyUserNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
-        <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty> 
+        <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.USER_EMAIL"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyEmailAddressMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <check-errors error-list-name="error_list" error-code="resultPage"/>
+        
+        <!-- set parameter of person to personContext Map -->
+        <set field="personContext.salutation" from-field="parameters.salutation"/>
+        <set field="personContext.firstName" from-field="parameters.firstName"/>
+        <set field="personContext.middleName" from-field="parameters.middleName"/>
+        <set field="personContext.lastName" from-field="parameters.lastName"/>
+        <set field="personContext.comments" from-field="parameters.comments"/>
+        
+        <!-- set parameter of userLogin to userLoginContext Map -->
+        <set field="userLoginContext.userLoginId" from-field="parameters.USERNAME"/>
+        
         <call-bsh><![CDATA[
             parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
             ]]></call-bsh>
+        
+        <now-timestamp field="nowStamp"/>
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
-        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
+        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>  
+        <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
+        <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
-            <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
-            <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
             <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">                
-   
-                <!-- Create Person -->
-                <set field="parameters.statusId" value="PARTY_ENABLED"/>
-                <make-value entity-name="Party" value-field="newEntity"/>
-                <set-pk-fields map="parameters" value-field="newEntity"/>
-                <make-next-seq-id value-field="newEntity" seq-field-name="partyId"/>
-                <set field="newEntity.partyTypeId" value="PERSON"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-                <create-value value-field="newEntity"/>
                 
-                <make-value entity-name="PartyStatus" value-field="newEntity2"/>
-                <set field="newEntity2.partyId" from-field="newEntity.partyId"/>
-                <set field="newEntity2.statusId" from-field="newEntity.statusId"/>
-                <set field="newEntity2.statusDate" from-field="newEntity.createdStamp"/>
-                <create-value value-field="newEntity2"/>  
-                
-                <make-value entity-name="Person" value-field="newEntity3"/>
-                <set field="newEntity3.partyId" from-field="newEntity.partyId"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity3"/>
-                <create-value value-field="newEntity3"/>                
-                
-                <!-- Create the UserLogin Record -->
-                <call-map-processor in-map-name="parameters" out-map-name="userLoginContext">
-                    <simple-map-processor name="newUserLogin">
-                        <process field="USERNAME"><copy to-field="userLoginId"/></process>
-                        <process field="PASSWORD"><copy to-field="currentPassword"/></process>
-                        <process field="CONFIRM_PASSWORD"><copy to-field="currentPasswordVerify"/></process>
-                        <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
-                    </simple-map-processor>
-                </call-map-processor>
-                <set field="userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId" />
-                <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
-                <if-not-empty field="existingUserLogin">
-                    <set field="errorMessage" value="Username in use, please choose another." />
-                    <field-to-list field="errorMessage" list="error_list"/>
-                    <check-errors error-list-name="error_list" error-code="resultPage"/>
+                <!-- Create user login and Person -->
+                <find-by-primary-key entity-name="UserLogin" map="userLoginContext" value-field="existingUserLogin"/>
+                <if-empty field="existingUserLogin">                    
+                    <set field="userLoginContext.currentPassword" from-field="parameters.PASSWORD"/>
+                    <set field="userLoginContext.currentPasswordVerify" from-field="parameters.CONFIRM_PASSWORD"/>
+                    <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+                    <set-service-fields map="userLoginContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+                    <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
+                        <result-to-field result-name="partyId" field="partyId"/>
+                        <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
+                    </call-service>
+                    <set-current-user-login value-field="createdUserLogin"/>
                     <else>
-                        <make-value entity-name="UserLogin" value-field="newUserLogin"/>
-                        <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId"/>
-                        <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword" />
-                        <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint" />                
-                        <!-- Check the password, etc for validity -->
-                        <call-bsh><![CDATA[
-                            String password = (String) userLoginContext.get("currentPassword");
-                            String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
-                            String passwordHint = (String) userLoginContext.get("passwordHint");
-                            org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
-                            boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
-                            if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
-                            ]]></call-bsh>
-                        <set field="newUserLogin.partyId" from-field="newEntity.partyId" />
-                        <create-value value-field="newUserLogin"/>
+                        <set field="errorMessage" value="Username in use, please choose another." />
+                        <field-to-list field="errorMessage" list="error_list"/>
+                        <check-errors error-list-name="error_list" error-code="resultPage"/>
                     </else>
-                </if-not-empty>                
-                <set field="partyId" from-field="newEntity.partyId"/>
+                </if-empty>
+                
+                <!-- create the PartyDataSource entry to track where this info came from... -->
+                <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
+                <set value="ECOMMERCE_SITE" field="partyDataSource.dataSourceId"/>
+                <set from-field="nowStamp" field="partyDataSource.fromDate"/>
+                <set value="Y" field="partyDataSource.isCreate"/>
+                <set from-field="partyId" field="partyDataSource.partyId"/>
+                <session-to-field field="visit"/>
+                <set from-field="visit.visitId" field="partyDataSource.visitId"/>
+                <create-value value-field="partyDataSource"/>
+                
+                <!-- Create E-mail address -->
+                <set field="emailContext.infoString" from-field="parameters.USER_EMAIL"/>
+                <set field="emailContext.contactMechTypeId" value="EMAIL_ADDRESS"/>
+                <call-service service-name="createContactMech" in-map-name="emailContext">
+                    <result-to-field result-name="contactMechId" field="emailPurposeContext.contactMechId"/>
+                </call-service>
+                <set from-field="partyId" field="emailPurposeContext.partyId"/>
+                <set value="PRIMARY_EMAIL" field="emailPurposeContext.contactMechPurposeTypeId"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
+                
+                <!-- Send e-mail to new create user -->
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <set field="storeEmailLookup.productStoreId" from-field="webSite.productStoreId"/>
+                <set field="storeEmailLookup.emailType" value="PRDS_CUST_REGISTER"/>
+                <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
+                <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
+                <set field="bodyParameters.person" from-field="person"/>
+                <set field="emailParams.bodyParameters" from-field="bodyParameters"/>  
+                <set field="emailParams.sendTo" from-field="emailContext.infoString"/>
+                <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+                <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+                <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
+                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                
+                <!-- set field to request -->
                 <field-to-request field="partyId" request-name="partyId"/>
+                <field-to-request field="emailPurposeContext.contactMechId" request-name="contactMechId"/>
                 <return response-code="resultPage"/>
                 <else>
                     <property-to-field field="errorMessage" resource="MyPortalUiLabels" property="CaptchaMissingError"/><field-to-list field="errorMessage" list="error_list"/>
