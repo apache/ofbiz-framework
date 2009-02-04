@@ -341,7 +341,7 @@ under the License.
         <log level="info" message="Creating a WorkEffortContactMech"/>
         <set from-field="parameters.workEffortId" field="newValue.workEffortId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
-        <field-to-result field="contactMechId" result-name="newValue"/>
+        <field-to-result field="contactMechId" map-name="newValue"/>
         <field-to-request field="contactMechId" map-name="newValue"/>        
         <create-value value-field="newValue"/>
     </simple-method>
@@ -379,7 +379,7 @@ under the License.
             <remove-value value-field="workEffortContactMech"/>
         </if-compare-field>
         
-        <field-to-result field="contactMechId" result-name="newWorkEffortContactMech"/>
+        <field-to-result field="contactMechId" map-name="newWorkEffortContactMech"/>
         <field-to-request field="contactMechId" map-name="newWorkEffortContactMech"/>      
     </simple-method>    
     
@@ -422,7 +422,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" result-name="newValue"/>
+        <field-to-result field="contactMechId" map-name="newValue"/>
     </simple-method>
     
     <simple-method method-name="updateWorkEffortPostalAddress" short-description="Update a PostalAddress for WorkEffort">
@@ -442,7 +442,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully updated</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" result-name="newValue"/>                   
+        <field-to-result field="contactMechId" map-name="newValue"/>                   
     </simple-method>
      
     <simple-method method-name="createWorkEffortTelecomNumber" short-description="Create a TelecomNumber for WorkEffort">
@@ -473,7 +473,7 @@ under the License.
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" result-name="newValue"/>
+        <field-to-result field="contactMechId" map-name="newValue"/>
     </simple-method>
     
     <simple-method method-name="updateWorkEffortTelecomNumber" short-description="Update a TelecomNumber for WorkEffort">
@@ -495,7 +495,7 @@ under the License.
         </call-service>
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
         <field-to-request field="contactMechId" map-name="newValue"/>
-        <field-to-result field="contactMechId" result-name="newValue"/>                   
+        <field-to-result field="contactMechId" map-name="newValue"/>                   
     </simple-method>  
     
     <simple-method method-name="createWorkEffortEmailAddress" short-description="Create an email address for WorkEffort">
