@@ -1538,4 +1538,15 @@ under the License.
         </section>
     </screen>
     
+    <screen name="CreateUserNotification">
+        <section>
+            <actions>
+                <set field="title" value="Myportal Account Creation Notification Mail"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
