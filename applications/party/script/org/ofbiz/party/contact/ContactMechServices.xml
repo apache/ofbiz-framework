@@ -287,7 +287,7 @@ under the License.
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>            
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
-            <map-to-map to-map-name="emailParams.bodyParameters" map-name="bodyParameters"/>
+            <map-to-map to-map="emailParams.bodyParameters" map="bodyParameters"/>
             <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>

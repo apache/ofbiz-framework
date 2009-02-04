@@ -41,7 +41,7 @@ under the License.
                 </process>
             </simple-map-processor>
         </call-map-processor>
-        <map-to-map map-name="currentContent" to-map-name="context"/>
+        <map-to-map map="currentContent" to-map="context"/>
 
         <log level="always" message="currentContent: ${currentContent}"/>
         <log level="always" message="context: ${context}"/>
@@ -106,7 +106,7 @@ under the License.
             </simple-map-processor>
         </call-map-processor>
         <log level="always" message="datesConverted: ${datesConverted}"/>
-        <map-to-map map-name="currentContent" to-map-name="context"/>
+        <map-to-map map="currentContent" to-map="context"/>
         <get-related value-field="currentContent" relation-name="ContentPurpose" list="contentPurposeList"/>
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="CONTENT_UPDATE"/>
