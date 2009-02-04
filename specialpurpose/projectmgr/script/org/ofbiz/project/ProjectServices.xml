@@ -118,7 +118,7 @@
     
     <simple-method method-name="updateTaskAssigment" 
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
-        <field-to-result map-name="parameters" field="workEffortId"/>
+        <field-to-result field="parameters.workEffortId" result-name="workEffortId"/>
         <if>
             <!-- check if a change in partyId Or roletypeId: need to delete and create new -->
             <condition>
@@ -239,7 +239,7 @@
                 2. call a recursive java function to set all the dependant tasks.                 
         -->
         
-        <field-to-result map-name="parameters" field="projectId"/>
+        <field-to-result field="parameters.projectId" result-name="projectId"/>
         
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
         <entity-condition entity-name="ProjectAndPhaseAndTask" list="tasks">
@@ -515,7 +515,7 @@
         </entity-one> 
         
         <if-empty field="project">
-            <field-to-result map-name="parameters" field="projectId"/>
+            <field-to-result field="parameters.projectId" result-name="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
         </if-empty>
         <if-not-empty field="parameters.workEffortName">
