@@ -28,7 +28,7 @@ under the License.
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map="parameters" value-field="currentContent"/>
-        <map-to-map map-name="currentContent" to-map-name="context"/>
+        <map-to-map map="currentContent" to-map="context"/>
         <log level="always" message="context: ${context}"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>

@@ -35,7 +35,7 @@ under the License.
         -->
         <set field="searchParams.partyId" value="DemoCustomer"/>
         <set field="searchParams.roleTypeId" value="CUSTOMER"/>
-        <map-to-map map-name="searchParams" to-map-name="serviceCtx"/>
+        <map-to-map map="searchParams" to-map="serviceCtx"/>
         <call-service service-name="findParty" in-map-name="serviceCtx">
             <results-to-map map-name="partyList"/>
         </call-service>
