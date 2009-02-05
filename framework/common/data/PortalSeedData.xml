@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- PortalPortlet Seed Data: system pages -->
-    <PortalPage portalPageId="EXAMPLE" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="EXAMPLE" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_" securityGroupId="FULLADMIN"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
     

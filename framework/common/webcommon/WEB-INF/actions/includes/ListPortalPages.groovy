@@ -22,19 +22,44 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 // only execute when a user is logged in
 if (parameters.userLogin) {
+    // find 
+    userLoginSecurityGroupId = null;
+    condSec = EntityCondition.makeCondition([
+                  EntityCondition.makeCondition("groupId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
+                  EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId)
+                  ],EntityOperator.AND);
+    userLoginSecurityGroups = delegator.findList("UserLoginSecurityGroup", condSec, null, null, null, false);
+        
+    if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
+        userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
+    }
+        
+    //get the portal page
+    cond1 = EntityCondition.makeCondition([
+            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
+            EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, userLoginSecurityGroupId),
+            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null)
+            ],EntityOperator.AND);
+    portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
+    if (portalMainPages) {
+        parameters.portalPageId = portalMainPages.get(0).portalPageId;
+    }
+    
     ppCond = 
-    EntityCondition.makeCondition([
-        EntityCondition.makeCondition([
-            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parameters.parentPortalPageId),
-            EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parameters.parentPortalPageId),
-            EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parameters.parentPortalPageId)
-        ],EntityOperator.OR),
-        EntityCondition.makeCondition([
-            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),
-            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_")
-        ],EntityOperator.OR),
-    ],EntityOperator.AND);
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition([
+                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parameters.portalPageId),
+                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parameters.portalPageId),
+                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parameters.portalPageId)
+                ],EntityOperator.OR),
+                EntityCondition.makeCondition([
+                    EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),
+                    EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_")
+                ],EntityOperator.OR),
+            ],EntityOperator.AND);
     portalPages = delegator.findList("PortalPage", ppCond, null, null, null, false);
+
     // remove overridden system pages
     portalPages.each { portalPage ->
         if (portalPage.ownerUserLoginId.equals("_NA_")) {
@@ -44,6 +69,8 @@ if (parameters.userLogin) {
             }
         }
     }
+    
     context.portalPages = portalPages;
+    context.userLoginSecurityGroupId = userLoginSecurityGroupId;
+    
 }
-
