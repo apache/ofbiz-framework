@@ -47,7 +47,7 @@ under the License.
                 <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                     <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
                 <set field="appheaderTemplate" value="component://myportal/templates/appheader.ftl"/>
-                <set field="parameters.parentPortalPageId" value="MYPORTAL" global="true"/>
+                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
                 <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
@@ -159,13 +159,6 @@ under the License.
                 <set field="parameters.portalPageId" value="MYPORTAL"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
-                <!--My Profile From Party-->
-                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
-                <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

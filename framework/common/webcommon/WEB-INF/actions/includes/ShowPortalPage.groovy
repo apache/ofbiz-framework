@@ -21,21 +21,55 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 
+portalPage = null;
 portalPageId = parameters.portalPageId;
 if(!portalPageId){
     portalPageId = parameters.parentPortalPageId;
 }
 
-portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : portalPageId]);
-// check if the user created a private page for a system page
-if (portalPage.ownerUserLoginId.equals("_NA_")) {
-    portalPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : parameters.userLogin.userLoginId]);
-    if (UtilValidate.isNotEmpty(portalPages)) {
-        portalPage = portalPages.get(0);
+if (portalPageId) {
+    portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : portalPageId]);
+}
+
+if (!portalPage) {
+    // find the user private main page
+    condPrivat = EntityCondition.makeCondition([
+                 EntityCondition.makeCondition("originalPortalPageId", EntityOperator.LIKE, portalPageId + "%"),
+                 EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId)
+                 ],EntityOperator.AND);
+    privatPortalPages = delegator.findList("PortalPage", condPrivat, null, null, null, false);
+
+    if (privatPortalPages) {
+        portalPage = privatPortalPages.get(0);
+    } else {
+        // look for system page according the current securitygroup
+        //get the security group
+        userLoginSecurityGroupId = null;
+        condSec = EntityCondition.makeCondition([
+                  EntityCondition.makeCondition("groupId", EntityOperator.LIKE, portalPageId + "%"),
+                  EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId)
+                  ],EntityOperator.AND);
+        userLoginSecurityGroups = delegator.findList("UserLoginSecurityGroup", condSec, null, null, null, false);
+        if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
+            userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
+        }
+        //get the portal page
+        cond1 = EntityCondition.makeCondition([
+                EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, portalPageId + "%"),
+                EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, userLoginSecurityGroupId),
+                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null)
+                ],EntityOperator.AND);
+        portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
+        if (portalMainPages) {
+            portalPage = portalMainPages.get(0);
+        }
     }
 }
-parameters.portalPageId = portalPage.portalPageId;
-context.portalPage = portalPage;
-context.portalPageColumns = portalPage.getRelated("PortalPageColumn");
-context.portalPagePortlets = delegator.findByAnd("PortalPagePortletView", [portalPageId : portalPage.portalPageId]);
 
+if (portalPage) {
+    parameters.portalPageId = portalPage.portalPageId;
+    context.portalPage = portalPage;
+    context.portalPageColumns = portalPage.getRelated("PortalPageColumn");
+    context.portalPagePortlets = delegator.findByAnd("PortalPagePortletView", [portalPageId : portalPage.portalPageId]);
+} 

@@ -166,11 +166,11 @@ under the License.
             </drop-down>
         </field>
         <field name="updateButton" widget-style="smallSubmit"><submit /></field>
-        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskPlanStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskPlanEndDate}"><display type="date"/></field>
-        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskActStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPageTaskActEndDate}"><display type="date"/></field>
+        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanEndDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskActStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskActEndDate}"><display type="date"/></field>
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>

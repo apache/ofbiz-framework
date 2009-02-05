@@ -597,9 +597,13 @@ under the License.
         <field name="originalPortalPageId" type="id"><description>The system portal page this page is derived from</description></field>
         <field name="parentPortalPageId" type="id"><description>the parent this page is belonging to, normally the startpage of the portal page group</description></field>
         <field name="sequenceNum" type="numeric"></field>
+        <field name="securityGroupId" type="id"></field>
         <prim-key field="portalPageId"/>
         <relation type="one" fk-name="PortPage_PARENT" title="Parent" rel-entity-name="PortalPage">
           <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
+        </relation>
+        <relation type="one" fk-name="PORTPAGE_REL_SECGRP" rel-entity-name="SecurityGroup">
+          <key-map field-name="securityGroupId" rel-field-name="groupId"/>
         </relation>
     </entity>
   <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
