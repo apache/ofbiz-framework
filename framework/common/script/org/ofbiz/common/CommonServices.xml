@@ -132,7 +132,7 @@ under the License.
                 <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
             <else>  <!-- not custom conversion -->
                 <!-- do the conversion -->
-                <calculate field="convertedValue" type="Double" decimal-scale="15">
+                <calculate field="convertedValue" type="BigDecimal" decimal-scale="15">
                     <calcop operator="multiply">
                         <calcop operator="get" field="parameters.originalValue"/>
                         <calcop operator="get" field="uomConversion.conversionFactor"/>
@@ -144,7 +144,7 @@ under the License.
             <!-- round result, if UomConversion[Dated] so specifies -->
             <set field="roundingMode" from-field="uomConversion.roundingMode"/>
             <if-not-empty field="uomConversion.roundingMode">
-                <calculate field="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
+                <calculate field="roundedValue" type="BigDecimal" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
                     <calcop operator="get" field="convertedValue"/>
                 </calculate>
                 <set field="convertedValue" from-field="roundedValue"/>
