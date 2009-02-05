@@ -1172,7 +1172,7 @@
     <property key="CommonCollapse">
         <value xml:lang="en">Collapse</value>
         <value xml:lang="es">Colapsar</value>
-        <value xml:lang="fr">Replier</value>
+        <value xml:lang="fr">Tout fermer</value>
         <value xml:lang="it">Collassato</value>
         <value xml:lang="th">ล้มเหลว</value>
     </property>
@@ -2138,7 +2138,7 @@
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand</value>
         <value xml:lang="es">Expandir</value>
-        <value xml:lang="fr">Augmenter</value>
+        <value xml:lang="fr">Tout ouvrir</value>
         <value xml:lang="it">Espandi</value>
         <value xml:lang="th">แผ่ขยาย</value>
     </property>
