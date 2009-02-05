@@ -18,11 +18,19 @@
  *******************************************************************************/
 package org.ofbiz.accounting.payment;
 
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.util.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -30,7 +38,6 @@ import javolution.util.FastMap;
 import org.ofbiz.accounting.invoice.InvoiceWorker;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -42,9 +49,7 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -55,7 +60,11 @@ import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * PaymentGatewayServices
@@ -2889,6 +2898,7 @@ public class PaymentGatewayServices {
         String mode = (String) context.get("mode");
         String paymentMethodId = (String) context.get("paymentMethodId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         Debug.logInfo("Running verifyCreditCard [ " + paymentMethodId + "] for store: " + productStoreId, module);
 
         GenericValue productStore = null;
@@ -2925,7 +2935,7 @@ public class PaymentGatewayServices {
                 }
 
                 if (ServiceUtil.isError(results)) {
-                    String errMsg = UtilProperties.getPropertyValue("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError");
+                    String errMsg = UtilProperties.getMessage("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError", locale);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
