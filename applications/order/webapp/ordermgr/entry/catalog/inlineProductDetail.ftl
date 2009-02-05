@@ -226,18 +226,17 @@ ${virtualJavaScript?if_exists}
  </script>
 </#if> 
 
-<#assign addedFeatureTreeJavaScript = requestAttributes.addedFeatureTreeJavaScript?default("N")/>
-<#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content && ("N" == addedFeatureTreeJavaScript)>
-  ${setRequestAttribute("addedFeatureTreeJavaScript", "Y")}    
+<#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
   <script language="JavaScript" type="text/javascript">
-        function checkRadioButtoninline(inlineCounter, productId) {
+        function checkRadioButtoninline${inlineCounter}(inlineCounter, productId) {
         var add_product_id = 'add_product_id' + inlineCounter;          
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
                         var myList = document.getElementById("FT" +inlineCounter + "${feature.productFeatureTypeId}");
                          if (myList.options[0].selected == true) {
-                            document.configform[add_product_id].value = 'NULL';
+                             document.configform[add_product_id].value = 'NULL';
+                             checkOption(inlineCounter);
                              return;
                          }
                         <#break>
@@ -272,7 +271,7 @@ ${virtualJavaScript?if_exists}
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
-                        <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onChange="javascript:checkRadioButtoninline('${inlineCounter}', '${product.productId}');">
+                        <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onChange="javascript:checkRadioButtoninline${inlineCounter}('${inlineCounter}', '${product.productId}');">
                         <option value="select" selected="selected"> select option </option> 
                     <#else>
                         <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option> 
