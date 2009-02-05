@@ -35,7 +35,7 @@
     <request-map uri="createRegister">
         <security https="true" auth="false"/>
         <event type="simple" invoke="createRegister" path="org/ofbiz/myportal/Events.xml"/>
-        <response name="resultPage" type="url" value="newRegisterLogin"/>
+        <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
     
     <!-- TIMESHEET -->
