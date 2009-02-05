@@ -135,6 +135,7 @@ under the License.
         <field name="postedBalance"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" use-when="glAccount==null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->

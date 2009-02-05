@@ -558,14 +558,14 @@ under the License.
     <request-map uri="createGlAccount">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlAccount"/>
-        <response name="success" type="view" value="EditGlobalGlAccount"/>
-        <response name="error" type="view" value="EditGlobalGlAccount"/>
+        <response name="success" type="view" value="GlAccountNavigate"/>
+        <response name="error" type="view" value="GlAccountNavigate"/>
     </request-map>
     <request-map uri="updateGlAccount">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateGlAccount"/>
-        <response name="success" type="view" value="EditGlobalGlAccount"/>
-        <response name="error" type="view" value="EditGlobalGlAccount"/>
+        <response name="success" type="view" value="GlAccountNavigate"/>
+        <response name="error" type="view" value="GlAccountNavigate"/>
     </request-map>
 
     <request-map uri="ListGlAccountOrganization"><security https="true" auth="true"/><response name="success" type="view" value="ListGlAccountOrganization"/></request-map>
