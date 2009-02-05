@@ -172,7 +172,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AcctgNavigateAccts}"/>
+                                    <label text="${uiLabelMap.PageTitleEditGlAccount}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
