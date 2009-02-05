@@ -314,6 +314,10 @@ under the License.
     
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
+        <call-bsh><![CDATA[
+            parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
+            org.ofbiz.common.Captcha.getCodeCaptcha(request,response);
+            ]]></call-bsh>
         <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="FirstName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.lastName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="LastName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.USERNAME"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyUserNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
@@ -330,10 +334,6 @@ under the License.
         
         <!-- set parameter of userLogin to userLoginContext Map -->
         <set field="userLoginContext.userLoginId" from-field="parameters.USERNAME"/>
-        
-        <call-bsh><![CDATA[
-            parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
-            ]]></call-bsh>
         
         <now-timestamp field="nowStamp"/>
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
@@ -360,7 +360,7 @@ under the License.
                         <field-to-list field="errorMessage" list="error_list"/>
                         <check-errors error-list-name="error_list" error-code="resultPage"/>
                     </else>
-                </if-empty>
+                </if-empty>                              
                 
                 <!-- create the PartyDataSource entry to track where this info came from... -->
                 <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
@@ -400,6 +400,13 @@ under the License.
                 <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
                 <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
                 <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                
+                <!-- Create Customer Request -->
+                <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+                <set field="custRequest.fromPartyId" from-field="partyId"/>
+                <set field="custRequest.custRequestName" value="New user account"/>
+                <set field="custRequest.productStoreId" from-field="webSite.productStoreId"/>
+                <call-service service-name="createCustRequest" in-map-name="custRequest"/>
                 
                 <!-- set field to request -->
                 <field-to-request field="partyId" request-name="partyId"/>
