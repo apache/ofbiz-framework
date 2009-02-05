@@ -318,18 +318,18 @@ under the License.
         <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
-        <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
+        <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
-        <attribute name="convertedValue" mode="OUT" type="Double" optional="true"/>
+        <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
             location="org/ofbiz/common/CommonServices.xml" invoke="convertUomCustom" auth="false">
         <description>Make a unit of measure conversion, using CustomMethod entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
+        <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
         <attribute name="uomConversion" mode="IN" type="Map" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
-        <attribute name="convertedValue" mode="OUT" type="Double" optional="true"/>
+        <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
     <service name="getFileUploadProgressStatus" engine="simple" location="org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>

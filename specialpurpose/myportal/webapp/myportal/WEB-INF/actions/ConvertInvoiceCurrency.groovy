@@ -42,12 +42,12 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
   if (currencyUomId && otherCurrency && otherCurrency != currencyUomId && !otherCurrency.equals(currencyUomId)) {
     result = dispatcher.runSync("convertUom", [uomId : currencyUomId, 
                                                uomIdTo : otherCurrency, 
-                                               originalValue : new Double("1.00"), 
+                                               originalValue : BigDecimal.ONE), 
                                                asOfDate : invoiceDate]);
     
     if (result.convertedValue != null) {
-        context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding); 
-        context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding);
+        context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)).multiply((BigDecimal)result.convertedValue).setScale(decimals, rounding); 
+        context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).multiply((BigDecimal)result.convertedValue).setScale(decimals, rounding);
         context.currencyUomId = otherCurrency;
     }
   } else {
