@@ -13920,7 +13920,7 @@
     </property>
     <property key="ProductOriginalImageMessage">
         <value xml:lang="en">Automatic scale of the original image, related to the configuration</value>
-        <value xml:lang="fr">Redimensionne en automatique l'original de l'image, suivant la configuration</value>
+        <value xml:lang="fr">Redimensionne automatiquement l'original de l'image, suivant la configuration</value>
     </property>
     <property key="ProductOutgoingProductionRuns">
         <value xml:lang="de">Ausgehende Produktionsaufträge</value>
