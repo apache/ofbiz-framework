@@ -86,8 +86,8 @@ under the License.
                                             <link target="/ecommerce/control/product?product_id=${productId}" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext"/>
                                             <link target="ProductBarCode.pdf?productId=${productId}&amp;productName=${productName}" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext"/>
 
-                                            <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpand}" style="buttontext" url-mode="plain"/>
-                                            <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapse}" style="buttontext" url-mode="plain"/>
+                                            <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext" url-mode="plain"/>
+                                            <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext" url-mode="plain"/>
                                         </container>
                                     </widgets>
                                 </section>
