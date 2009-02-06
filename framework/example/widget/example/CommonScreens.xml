@@ -178,6 +178,10 @@ under the License.
             in OFBiz is to have each component include a Main page as a starting point for
             the user. -->
         <section>
+            <actions>
+                <set field="parameters.portalPageId" value="EXAMPLE"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
+            </actions>
             <widgets>
                  <include-screen name="FindExample" location="component://example/widget/example/ExampleScreens.xml"/>
             </widgets>

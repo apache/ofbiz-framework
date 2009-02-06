@@ -29,11 +29,17 @@ if (parameters.userLogin) {
                   EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId)
                   ],EntityOperator.AND);
     userLoginSecurityGroups = delegator.findList("UserLoginSecurityGroup", condSec, null, null, null, false);
-        
+
     if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
         userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
     }
-        
+    
+    if(!userLoginSecurityGroupId){
+        parameters.portalPageId = parameters.parentPortalPageId;
+    }else{
+    	parameters.parentPortalPageId = userLoginSecurityGroupId;
+    }
+    
     //get the portal page
     cond1 = EntityCondition.makeCondition([
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
@@ -44,6 +50,10 @@ if (parameters.userLogin) {
     portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
     if (portalMainPages) {
         parameters.portalPageId = portalMainPages.get(0).portalPageId;
+    }
+
+    if(!parameters.portalPageId){
+    	parameters.portalPageId = userLoginSecurityGroupId;
     }
     
     ppCond = 
