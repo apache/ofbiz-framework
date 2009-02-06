@@ -97,6 +97,7 @@ under the License.
                                             <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/>
                                             <link target="ExampleReportHtml?exampleId=${exampleId}" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext"/>
                                             <link target="ExampleReportPdf?exampleId=${exampleId}" text="${uiLabelMap.CommonPdf}" style="buttontext"/>
+                                            <link target="help?topic=ExampleEditHelp" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank"/>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
