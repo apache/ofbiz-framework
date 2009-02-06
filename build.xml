@@ -125,7 +125,7 @@ under the License.
         <xmlproperty file="runtime/svninfo_tmp.xml"/>
         <echo message="Rev:${info.entry(revision)}"/>
         <basename property="releasePath" file="${info.entry.url}"/>
-        <echo message="Rev: - ${releasePath} ${info.entry(revision)}" file="runtime/svninfo.ftl"/>
+        <echo message=" - Rev: ${releasePath} ${info.entry(revision)}" file="runtime/svninfo.ftl"/>
         <delete file="runtime/svninfo_tmp.xml"/>
         <echo message="Done!"/>
     </target>
