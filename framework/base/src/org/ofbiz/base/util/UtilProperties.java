@@ -547,7 +547,7 @@ public class UtilProperties implements java.io.Serializable {
             }
         }
         if (UtilValidate.isNotEmpty(properties)) {
-            Debug.logInfo("Loaded " + properties.size() + " properties for: " + resource + " (" + locale + ")", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Loaded " + properties.size() + " properties for: " + resource + " (" + locale + ")", module);
         }
         return properties;
     }
@@ -840,6 +840,7 @@ public class UtilProperties implements java.io.Serializable {
                     double startTime = System.currentTimeMillis();
                     FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
                     UtilResourceBundle parentBundle = null;
+                    int numProperties = 0;
                     while (candidateLocales.size() > 0) {
                         Locale candidateLocale = candidateLocales.removeLast();
                         // ResourceBundles are connected together as a singly-linked list
@@ -852,6 +853,7 @@ public class UtilProperties implements java.io.Serializable {
                                 parentBundle = bundle;
                                 bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
                                 bundleCache.put(lookupName, bundle);
+                                numProperties = newProps.size();
                             }
                         } else {
                             parentBundle = bundle;
@@ -865,7 +867,7 @@ public class UtilProperties implements java.io.Serializable {
                         bundle = new UtilResourceBundle(bundle.properties, locale, parentBundle);
                     }
                     double totalTime = System.currentTimeMillis() - startTime;
-                    Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
+                    Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime/1000.0 + "s with " + numProperties + " properties", module);
                     bundleCache.put(resourceName, bundle);
                 }
             }

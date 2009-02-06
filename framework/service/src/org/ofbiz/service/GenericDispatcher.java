@@ -126,7 +126,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
         ctx.setDispatcher(this);
         ctx.loadReaders();
-        if (Debug.infoOn()) Debug.logInfo("[LocalDispatcher] : Created Dispatcher for: " + name, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher] : Created Dispatcher for: " + name, module);
     }
 
     public void disableEcas(){

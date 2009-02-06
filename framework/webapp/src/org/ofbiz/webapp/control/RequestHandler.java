@@ -82,7 +82,7 @@ public class RequestHandler implements Serializable {
     private EventFactory eventFactory = null;
 
     public void init(ServletContext context) {
-        Debug.logInfo("[RequestHandler Loading...]", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler Loading...]", module);
         this.context = context;
 
         this.controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(context));

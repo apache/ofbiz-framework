@@ -166,7 +166,7 @@ public class ServiceDispatcher {
      * @param context the context of the local dispatcher
      */
     public void register(String name, DispatchContext context) {
-        if (Debug.infoOn()) Debug.logInfo("Registered dispatcher: " + context.getName(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Registered dispatcher: " + context.getName(), module);
         this.localContext.put(name, context);
     }
 

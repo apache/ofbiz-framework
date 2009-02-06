@@ -104,12 +104,19 @@ public class ConfigXMLReader {
             
             Element rootElement = loadDocument(url);
             if (rootElement != null) {
-                loadIncludes(rootElement);
+                long startTime = System.currentTimeMillis();
                 
+                loadIncludes(rootElement);
                 loadGeneralConfig(rootElement);
                 loadHandlerMap(rootElement);
                 loadRequestMap(rootElement);
                 loadViewMap(rootElement);
+                
+                if (Debug.infoOn()) {
+                    double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+                    String locString = this.url.toExternalForm();
+                    Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size() + " requests, " + this.viewMapMap.size() + " views in " + locString, module);
+                }
             }
         }
         
@@ -150,7 +157,6 @@ public class ConfigXMLReader {
         }
 
         protected void loadGeneralConfig(Element rootElement) {
-            long startTime = System.currentTimeMillis();
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
             }
@@ -206,14 +212,9 @@ public class ConfigXMLReader {
                     this.beforeLogoutEventList.add(new Event(eventElement));
                 }
             }
-
-            double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-            long totalRecords = this.firstVisitEventList.size() + this.preprocessorEventList.size() + this.postprocessorEventList.size() + this.afterLoginEventList.size() + this.beforeLogoutEventList.size();
-            if (Debug.infoOn()) Debug.logInfo("General Configuration Loaded: (" + totalRecords + ") records in " + totalSeconds + "s", module);
         }
         
         public void loadHandlerMap(Element rootElement) {
-            long startTime = System.currentTimeMillis();
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
             }
@@ -230,13 +231,9 @@ public class ConfigXMLReader {
                     this.eventHandlerMap.put(name, className);
                 }
             }
-
-            double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-            if (Debug.infoOn()) Debug.logInfo("View and Event Handler Maps Created: (" + this.viewHandlerMap.size() + ") view handlers and (" + this.eventHandlerMap.size() + ") request/event handlers in " + totalSeconds + "s", module);
         }
 
         public void loadRequestMap(Element root) {
-            long startTime = System.currentTimeMillis();
             if (root == null) {
                 root = loadDocument(this.url);
             }
@@ -246,13 +243,9 @@ public class ConfigXMLReader {
                 RequestMap requestMap = new RequestMap(requestMapElement);
                 this.requestMapMap.put(requestMap.uri, requestMap);
             }
-
-            double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-            if (Debug.infoOn()) Debug.logInfo("RequestMap Created: (" + this.requestMapMap.size() + ") records in " + totalSeconds + "s", module);
         }
         
         public void loadViewMap(Element rootElement) {
-            long startTime = System.currentTimeMillis();
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
             }
@@ -263,9 +256,6 @@ public class ConfigXMLReader {
                 ViewMap viewMap = new ViewMap(viewMapElement);
                 this.viewMapMap.put(viewMap.name, viewMap);
             }
-
-            double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-            if (Debug.infoOn()) Debug.logInfo("ViewMap Created: (" + this.viewMapMap.size() + ") records in " + totalSeconds + "s", module);
         }
 
     }

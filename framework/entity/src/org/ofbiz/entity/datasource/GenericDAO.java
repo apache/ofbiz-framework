@@ -967,7 +967,7 @@ public class GenericDAO {
         }
 
         String sql = sqlBuffer.toString();
-        Debug.logInfo("Count select sql: " + sql, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Count select sql: " + sql, module);
 
         SQLProcessor sqlP = new SQLProcessor(helperName);
         sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),

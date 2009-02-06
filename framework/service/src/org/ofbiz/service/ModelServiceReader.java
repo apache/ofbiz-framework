@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -51,6 +50,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import freemarker.template.utility.StringUtil;
 
 /**
  * Generic Service - Service Definition Reader
@@ -202,11 +203,11 @@ public class ModelServiceReader implements Serializable {
                     }
                     if (this.isFromURL) {
                         utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
-                        Debug.logImportant("Loaded " + i + " Service definitions from " + readerURL, module);
+                        Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
                     } else {
                         utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
                         if (Debug.importantOn()) {
-                            Debug.logImportant("Loaded " + i + " Service definitions from " + resourceLocation, module);
+                            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
                         }
                     }
                 }
@@ -440,7 +441,7 @@ public class ModelServiceReader implements Serializable {
             groupElement.setAttribute("name", "_" + service.name + ".group");
             service.internalGroup = new GroupModel(groupElement);
             service.invoke = service.internalGroup.getGroupName();
-            Debug.logWarning("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
         }
     }
     
@@ -554,7 +555,7 @@ public class ModelServiceReader implements Serializable {
             // default value
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
-                Debug.logInfo("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
                 param.setDefaultValue(defValue.intern());
             }
             
