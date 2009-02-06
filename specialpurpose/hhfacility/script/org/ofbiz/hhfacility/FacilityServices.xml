@@ -47,7 +47,7 @@ under the License.
         <set value="hhFacility Receipt" field="receiveCtx.comments"/>
         <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
         <set value="NON_SERIAL_INV_ITEM" field="receiveCtx.inventoryItemTypeId"/>
-        <calculate field="receiveCtx" type="Double.quantityRejected" >
+        <calculate field="receiveCtx.quantityRejected" type="Double">
             <number value="0"/>
         </calculate>
         <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
