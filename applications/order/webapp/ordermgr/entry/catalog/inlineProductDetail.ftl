@@ -18,9 +18,10 @@ under the License.
 -->
 
 ${virtualJavaScript?if_exists}
-<#assign addJavaScript = requestAttributes.addJavaScript/>
-<#if (addJavaScript == 0)>
-<script language="JavaScript" type="text/javascript">
+<#assign addedJavaScript = requestAttributes.addedJavaScript?default("N")/>
+<#if ("N" == addedJavaScript)>
+  ${setRequestAttribute("addedJavaScript", "Y")} 
+  <script language="JavaScript" type="text/javascript">
  
      function popupDetailInline(inlineCounter) {
         var imageField = 'detailImage' + inlineCounter;
