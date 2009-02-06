@@ -320,7 +320,7 @@ public class ContextFilter implements Filter {
             if (delegatorName == null || delegatorName.length() <= 0) {
                 delegatorName = "default";
             }
-            if (Debug.infoOn()) Debug.logInfo("Setup Entity Engine Delegator with name " + delegatorName, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
             config.getServletContext().setAttribute("delegator", delegator);
             if (delegator == null) {

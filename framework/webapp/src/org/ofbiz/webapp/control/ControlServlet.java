@@ -88,7 +88,7 @@ public class ControlServlet extends HttpServlet {
         String charset = getServletContext().getInitParameter("charset");
         if (charset == null || charset.length() == 0) charset = request.getCharacterEncoding();
         if (charset == null || charset.length() == 0) charset = "UTF-8";
-        Debug.logInfo("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request and response is: [" + charset + "]", module);
+        if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request and response is: [" + charset + "]", module);
 
         if (!"none".equals(charset)) {
             request.setCharacterEncoding(charset);
@@ -126,7 +126,7 @@ public class ControlServlet extends HttpServlet {
         if (Debug.timingOn()) {
             timer = new UtilTimer();
             timer.setLog(true);
-            timer.timerString("[" + rname + "] Servlet Starting, doing setup", module);
+            timer.timerString("[" + rname + "] Request Begun, encoding=[" + charset + "]", module);
         }
 
         // Setup the CONTROL_PATH for JSP dispatching.
@@ -190,8 +190,6 @@ public class ControlServlet extends HttpServlet {
         if (Debug.verboseOn()) {
             logRequestInfo(request);
         }
-
-        if (Debug.timingOn()) timer.timerString("[" + rname + "] Setup done, doing Event(s) and View(s)", module);
 
         // some containers call filters on EVERY request, even forwarded ones, so let it know that it came from the control servlet
         request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
@@ -297,7 +295,7 @@ public class ControlServlet extends HttpServlet {
                 Debug.logError(t, "Error in ControlServlet saving ServerHit/Bin information; the output was successful, but can't save this tracking information. The error was: " + t.toString(), module);
             }
         }
-        if (Debug.timingOn()) timer.timerString("[" + rname + "] Done rendering page, Servlet Finished", module);
+        if (Debug.timingOn()) timer.timerString("[" + rname + "] Request Done", module);
 
         // sanity check 2: make sure there are no user or session infos in the delegator, ie clear the thread
         GenericDelegator.clearUserIdentifierStack();
