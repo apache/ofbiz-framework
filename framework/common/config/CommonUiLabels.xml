@@ -1384,6 +1384,10 @@
         <value xml:lang="zh">复制</value>
         <value xml:lang="zh_CN">复制</value>
     </property>
+    <property key="CommonCopyright">
+        <value xml:lang="en">Copyright</value>
+        <value xml:lang="fr">Droit d'auteur</value>
+    </property>    
     <property key="CommonCouldBeUsedAs">
         <value xml:lang="ar">يحتمل استعمالها ك</value>
         <value xml:lang="cs">Může být použit jako</value>
@@ -4730,6 +4734,10 @@
         <value xml:lang="th">โพสต์วันที่</value>
         <value xml:lang="zh">过账日期</value>
     </property>
+    <property key="CommonPoweredBy">
+        <value xml:lang="en">Powered by</value>
+        <value xml:lang="fr">Fonctionne grâce à </value>
+    </property>    
     <property key="CommonPreferences">
         <value xml:lang="de">Einstellungen</value>
         <value xml:lang="en">Preferences</value>
