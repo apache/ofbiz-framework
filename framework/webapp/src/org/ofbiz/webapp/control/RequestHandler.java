@@ -476,7 +476,7 @@ public class RequestHandler implements Serializable {
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 
                 // check for an override view, only used if "success" = eventReturn
-                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && "success".equals(eventReturn)) ? overrideViewUri : nextRequestResponse.value;
+                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
                 
                 renderView(viewName, requestMap.securityExternalView, request, response);
             } else if ("none".equals(nextRequestResponse.type)) {
