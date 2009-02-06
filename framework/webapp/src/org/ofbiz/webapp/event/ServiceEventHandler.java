@@ -18,15 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +41,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import org.ofbiz.base.util.Debug;
-import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -226,6 +226,8 @@ public class ServiceEventHandler implements EventHandler {
         // store the multi-part map as an attribute so we can access the parameters
         request.setAttribute("multiPartMap", multiPartMap);
 
+        Map<String, Object> rawParametersMap = UtilHttp.getParameterMap(request, null, null);
+
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = FastMap.newInstance();
         for (ModelParam modelParam: model.getInModelParamList()) {
@@ -260,15 +262,9 @@ public class ServiceEventHandler implements EventHandler {
 
                 // check the request parameters
                 if (UtilValidate.isEmpty(value)) {
-                    // normal parameter data, which can either be a single value or an array of values
-                    String[] paramArr = request.getParameterValues(name);
-                    if (paramArr != null) {
-                        if (paramArr.length > 1) {
-                            value = Arrays.asList(paramArr);
-                        } else {
-                            value = paramArr[0];
-                        }
-                    }
+                    // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
+                    value = rawParametersMap.get(name);
+                    
                     // make any composite parameter data (e.g., from a set of parameters {name_c_date, name_c_hour, name_c_minutes})
                     if (value == null) {
                         value = UtilHttp.makeParamValueFromComposite(request, name, locale);
