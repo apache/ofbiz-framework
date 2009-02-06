@@ -50,18 +50,18 @@ under the License.
         </field>
         <field name="originalPortalPageId"><display-entity entity-name="PortalPage" description="${portalPageName} [${portalPageId}]" key-field-name="portalPageId"/></field>
         <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
         <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)&amp;&amp;originalPortalPageId!=null" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" description="${uiLabelMap.CommonRevertPortalPage}"/>
+            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonRevertPortalPage}"/>
         </field>
     </form>
     
-    <form name="NewPortalPage" type="single" target="createPortalPage?mainPortalPageId=${parameters.mainPortalPageId}">
+    <form name="NewPortalPage" type="single" target="createPortalPage?mainPortalPageId=${parameters.portalPageId}">
         <actions>
             <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
         </actions>
-        <field name="parentPortalPageId"><hidden value="${userLoginSecurityGroupId}"/></field>
+        <field name="parentPortalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="portalPageName" parameter-name="portalPageName"><text/></field>
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
