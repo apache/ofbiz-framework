@@ -51,11 +51,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.errors.EncodingException;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.owasp.esapi.Encoder;
+import org.owasp.esapi.codecs.CSSCodec;
+import org.owasp.esapi.codecs.Codec;
+import org.owasp.esapi.codecs.HTMLEntityCodec;
+import org.owasp.esapi.codecs.JavaScriptCodec;
+import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.errors.EncodingException;
+import org.owasp.esapi.reference.DefaultEncoder;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -66,7 +72,13 @@ public class UtilHttp {
     
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
-
+    public static final Encoder defaultWebEncoder;
+    static {
+        // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
+        List<Codec> codecList = Arrays.asList(new CSSCodec(), new HTMLEntityCodec(), new JavaScriptCodec(), new PercentCodec());
+        defaultWebEncoder = new DefaultEncoder( codecList );
+    }
+    
     public static final String MULTI_ROW_DELIMITER = "_o_";
     public static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
     public static final String COMPOSITE_DELIMITER = "_c_";
@@ -237,28 +249,27 @@ public class UtilHttp {
     public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
         for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
-                try {
-                    String cannedStr = ESAPI.encoder().canonicalize((String) paramEntry.getValue(), esapiCanonicalizeStrict);
-                    paramEntry.setValue(cannedStr);
-                } catch (EncodingException e) {
-                    Debug.logError(e, "Error in canonicalize parameter with name [" + paramEntry.getKey() + "], value [" + paramEntry.getValue() + "]: " + e.toString(), module);
-                }
+                paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
             } else if (paramEntry.getValue() instanceof Collection) {
                 List<String> newList = FastList.newInstance();
                 for (String listEntry: ((Collection<String>) paramEntry.getValue())) {
-                    try {
-                        String cannedStr = ESAPI.encoder().canonicalize(listEntry, esapiCanonicalizeStrict);
-                        newList.add(cannedStr);
-                    } catch (EncodingException e) {
-                        // add the original value and log the error, a soft fail for now
-                        newList.add(listEntry);
-                        Debug.logError(e, "Error in canonicalize parameter with name [" + paramEntry.getKey() + "], value [" + listEntry + "]: " + e.toString(), module);
-                    }
+                    newList.add(canonicalizeParameter((String) paramEntry.getValue()));
                 }
                 paramEntry.setValue(newList);
             }
         }
         return paramMap;
+    }
+    
+    public static String canonicalizeParameter(String paramValue) {
+        try {
+            String cannedStr = defaultWebEncoder.canonicalize(paramValue, esapiCanonicalizeStrict);
+            if (Debug.verboseOn()) Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
+            return cannedStr;
+        } catch (EncodingException e) {
+            Debug.logError(e, "Error in canonicalize parameter value [" + paramValue + "]: " + e.toString(), module);
+            return paramValue;
+        }
     }
 
     /**
