@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of @component-resource-name@ Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <author>None</author>
+    <version></version>
+    
+</entitymodel>
