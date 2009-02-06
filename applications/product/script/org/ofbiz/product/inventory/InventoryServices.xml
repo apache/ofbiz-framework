@@ -586,16 +586,7 @@ under the License.
             Whatever it is called with, it will basically get a list of InventoryItems and total the available amount.
         -->
 
-        <!-- this is not normally needed...
-        <log level="info"><string value="Getting inventory available to promise count; parameters are: "/><field field="parameters"/></log>
-        <log level="info" message="foo foo: "><string value="Getting inventory available to promise count; productId is: "/><field field="productId" map-name="parameters"/></log>
-        -->
-
-        <set from-field="parameters.inventoryItemId" field="lookupFieldMap.inventoryItemId"/>
-        <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
-        <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
-        <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
-        <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
+        <!-- <log level="info" message="Getting inventory available to promise count; parameters are: ${parameters}"/> -->
 
         <!-- FIXME: this is an hack to get all the items with a null location:
                     if the parameters.locationSeqId string is equal to "nullField" then
@@ -606,70 +597,41 @@ under the License.
         </if-compare>
 
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
-        <if-compare field="parameters.useCache" operator="equals" value="true" type="Boolean">
-            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" use-cache="true"/>
-            <else>
-                <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" use-cache="false"/>
-            </else>
-        </if-compare>
+        <entity-and entity-name="InventoryItem" list="inventoryItems" use-cache="${parameters.useCache}">
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="parameters.locationSeqId"/>
+            <field-map field-name="containerId" from-field="parameters.containerId"/>
+            <use-iterator/>
+        </entity-and>
         
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
         <iterate entry="inventoryItem" list="inventoryItems">
-            <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
-                <if>
-                    <condition>
-                        <or>
-                            <if-compare field="inventoryItem.statusId" value="INV_AVAILABLE" operator="equals"/>
-                            <if-compare field="inventoryItem.statusId" value="INV_PROMISED" operator="equals"/>
-                            <if-compare field="inventoryItem.statusId" value="INV_BEING_TRANSFERED" operator="equals"/>
-                        </or>
-                    </condition>
-                    <then>
-                        <calculate field="parameters.quantityOnHandTotal" type="BigDecimal">
-                            <calcop field="parameters.quantityOnHandTotal" operator="add"><number value="1.0"/></calcop>
-                        </calculate>
-                    </then>
-                </if>
-                <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
-                    <calculate field="parameters.availableToPromiseTotal" type="BigDecimal">
-                        <calcop field="parameters.availableToPromiseTotal" operator="add"><number value="1.0"/></calcop>
-                    </calculate>
-                </if-compare>
-            </if-compare>
-            <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if>
-                    <condition>
-                        <or>
-                            <and>
-                                <not><if-empty field="parameters.statusId"/></not>
-                                <if-compare-field operator="equals" field="parameters.statusId" to-field="inventoryItem.statusId"/>
-                            </and>
-                            <and>
-                                <if-empty field="parameters.statusId"/>
-                                <or>
-                                    <if-empty field="inventoryItem.statusId"/>
-                                    <if-compare operator="equals" field="inventoryItem.statusId" value="INV_AVAILABLE"/>
-                                </or>
-                            </and>
-                        </or>
-                    </condition>
-                    <then>
-                        <if-not-empty field="inventoryItem.quantityOnHandTotal">
-                            <calculate field="parameters.quantityOnHandTotal" type="BigDecimal">
-                                <calcop operator="get" field="parameters.quantityOnHandTotal"/>
-                                <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
-                            </calculate>
-                        </if-not-empty>
-                        <if-not-empty field="inventoryItem.availableToPromiseTotal">
-                            <calculate field="parameters.availableToPromiseTotal" type="BigDecimal">
-                                <calcop operator="get" field="parameters.availableToPromiseTotal"/>
-                                <calcop operator="get" field="inventoryItem.availableToPromiseTotal"/>
-                            </calculate>
-                        </if-not-empty>
-                    </then>
-                </if>
-            </if-compare>
+            <!-- NOTE: this code no longer distinguishes between serialized and non-serialized because both now have availableToPromiseTotal and quantityOnHandTotal populated (for serialized are based on status, non-serialized are based on InventoryItemDetail) -->
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <not><if-empty field="parameters.statusId"/></not>
+                            <if-compare-field field="parameters.statusId" operator="equals" to-field="inventoryItem.statusId"/>
+                        </and>
+                        <and>
+                            <if-empty field="parameters.statusId"/>
+                            <or>
+                                <if-empty field="inventoryItem.statusId"/>
+                                <if-compare field="inventoryItem.statusId" operator="equals" value="INV_AVAILABLE"/>
+                                <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/><!-- status is reflected in total fields -->
+                            </or>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <set field="parameters.quantityOnHandTotal" value="${parameters.quantityOnHandTotal + inventoryItem.quantityOnHandTotal}" type="BigDecimal"/>
+                    <set field="parameters.availableToPromiseTotal" value="${parameters.availableToPromiseTotal + inventoryItem.availableToPromiseTotal}" type="BigDecimal"/>
+                </then>
+            </if>
         </iterate>
 
         <field-to-result field="parameters.availableToPromiseTotal" result-name="availableToPromiseTotal"/>
