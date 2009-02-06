@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
+import static org.ofbiz.base.util.UtilGenerics.checkCollection;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,7 +31,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +40,6 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import static org.ofbiz.base.util.UtilGenerics.checkCollection;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -566,7 +566,7 @@ public class CoreEvents {
     
     public static String streamFile(HttpServletRequest request, HttpServletResponse response) {
         //RequestHandler rh = (RequestHandler) request.getAttribute("_REQUEST_HANDLER_");
-        String filePath = RequestHandler.getNextPageUri(request.getPathInfo());
+        String filePath = RequestHandler.getOverrideViewUri(request.getPathInfo());
         //String fileName = filePath.substring(filePath.lastIndexOf("/")+1);
         
         // load the file

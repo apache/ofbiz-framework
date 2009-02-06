@@ -19,9 +19,7 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
@@ -34,12 +32,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
-import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
@@ -215,14 +212,14 @@ public class ArtifactInfoFactory {
                         throw new GeneralException(mue.getMessage());
                     }
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-                    for (String requestUri: cc.requestMap.keySet()) {
+                    for (String requestUri: cc.requestMapMap.keySet()) {
                         try {
                             this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
                         } catch(GeneralException e) {
                             Debug.logWarning(e.getMessage(), module);
                         }
                     }
-                    for (String viewUri: cc.viewMap.keySet()) {
+                    for (String viewUri: cc.viewMapMap.keySet()) {
                         try {
                             this.getControllerViewArtifactInfo(controllerUrl, viewUri);
                         } catch(GeneralException e) {
@@ -261,13 +258,13 @@ public class ArtifactInfoFactory {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
     }
     
-    public Map<String, Object> getControllerRequestInfoMap(URL controllerXmlUrl, String requestUri) {
-        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMap.get(requestUri);
+    public ConfigXMLReader.RequestMap getControllerRequestMap(URL controllerXmlUrl, String requestUri) {
+        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMapMap.get(requestUri);
     }
 
-    public Map<String, String> getControllerViewInfoMap(URL controllerXmlUrl, String viewUri) {
+    public ConfigXMLReader.ViewMap getControllerViewMap(URL controllerXmlUrl, String viewUri) {
         ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerXmlUrl);
-        return cc.viewMap.get(viewUri);
+        return cc.viewMapMap.get(viewUri);
     }
 
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {

@@ -18,12 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
-import java.io.UnsupportedEncodingException;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.math.BigInteger;
-import java.net.URLEncoder;
 import java.security.cert.X509Certificate;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -31,7 +29,6 @@ import java.util.regex.Pattern;
 
 import javax.security.auth.x500.X500Principal;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +44,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.KeyStoreUtil;
 import org.ofbiz.base.util.UtilFormatOut;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -58,7 +54,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -88,43 +83,28 @@ public class LoginWorker {
         return makeLoginUrl(pageContext, "checkLogin");
     }
 
-    public static String makeLoginUrl(ServletRequest request) {
+    public static String makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
     
     public static String makeLoginUrl(PageContext pageContext, String requestName) {
-        return makeLoginUrl(pageContext.getRequest(), requestName);
+        return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
-    public static String makeLoginUrl(ServletRequest request, String requestName) {
-        String queryString = null;
+    public static String makeLoginUrl(HttpServletRequest request, String requestName) {
+        Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
+        String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
+        String currentView = UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
 
-        Enumeration parameterNames = request.getParameterNames();
-
-        while (parameterNames != null && parameterNames.hasMoreElements()) {
-            String paramName = (String) parameterNames.nextElement();
-
-            if (paramName != null) {
-                String sane_paramName, sane_value;
-                try {
-                    sane_paramName = URLEncoder.encode((String) paramName, "UTF-8");
-                    sane_value = URLEncoder.encode(request.getParameter(paramName), "UTF-8");
-                } catch (UnsupportedEncodingException ex) {
-                    Debug.logError(ex, module);
-                    sane_paramName = paramName;
-                    sane_value = request.getParameter(paramName);
-                }
-
-                if (queryString == null) {
-                    queryString = sane_paramName + "=" + sane_value;
-                } else {
-                    queryString = queryString + "&" + sane_paramName + "=" + sane_value;
-                }
-            }
+        String loginUrl = "/" + requestName;
+        if ("login".equals(currentView)) {
+            return loginUrl;
         }
-
-        String loginUrl = "/" + requestName + "/" + UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
-
-        if (queryString != null) loginUrl = loginUrl + "?" + UtilFormatOut.checkNull(queryString);
+        if (UtilValidate.isNotEmpty(currentView)) {
+            loginUrl += "/" + currentView;
+        }
+        if (UtilValidate.isNotEmpty(queryString)) {
+            loginUrl += "?" + queryString;
+        }
 
         return loginUrl;
     }
@@ -231,8 +211,8 @@ public class LoginWorker {
      * @return String
      */
     public static String checkLogin(HttpServletRequest request, HttpServletResponse response) {
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         // anonymous shoppers are not logged in
         if (userLogin != null && "anonymous".equals(userLogin.getString("userLoginId"))) {
@@ -272,21 +252,25 @@ public class LoginWorker {
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if ((username == null) || (password == null) || ("error".equals(login(request, response)))) {
-                Map<String, Object> reqParams = UtilHttp.getParameterMap(request);
-                String queryString = UtilHttp.urlEncodeArgs(reqParams);
-                Debug.logInfo("reqParams Map: " + reqParams, module);
-                Debug.logInfo("queryString: " + queryString, module);
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in funny error situations when the userLogin service gets the userLogin object but runs into another problem and fails to return an error 
                 request.removeAttribute("_LOGIN_PASSED_");
-
+                
+                // keep the previous request name in the session
                 session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
-                if (queryString != null && queryString.length() > 0) {
-                    session.setAttribute("_PREVIOUS_PARAMS_", queryString);
+                
+                // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in the URL (never encrypted) that was originally in a form field that may have been encrypted
+                // keep 2 maps: one for URL parameters and one for form parameters
+                Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
+                if (urlParams != null && urlParams.size() > 0) {
+                    session.setAttribute("_PREVIOUS_PARAM_MAP_URL_", urlParams);
+                }
+                Map<String, Object> formParams = UtilHttp.getParameterMap(request, urlParams.keySet(), false);
+                if (formParams != null && formParams.size() > 0) {
+                    session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
 
-                if (Debug.infoOn()) Debug.logInfo("checkLogin: queryString=" + queryString, module);
-                if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), module);
+                //if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), module);
 
                 return "error";
             }
@@ -305,6 +289,11 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
+        
+        if (session.getAttribute("userLogin") != null) {
+            // already logged in, do nothing...
+            return "success";
+        }
 
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");

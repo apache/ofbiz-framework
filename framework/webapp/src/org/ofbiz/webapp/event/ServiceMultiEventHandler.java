@@ -19,7 +19,6 @@
 package org.ofbiz.webapp.event;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,8 +47,8 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ServiceValidationException;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.control.RequestManager;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -60,15 +59,14 @@ public class ServiceMultiEventHandler implements EventHandler {
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
-    private RequestManager requestManager;
-
+    
+    protected ServletContext servletContext;
+    
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
      */
-    public void init(ServletContext context) throws EventHandlerException {
-
-        // Provide a means to check the controller for event tag attributes at execution time
-        this.requestManager = new RequestManager(context);
+    public void init(ServletContext servletContext) throws EventHandlerException {
+        this.servletContext = servletContext;
     }
 
     /**
@@ -158,7 +156,8 @@ public class ServiceMultiEventHandler implements EventHandler {
         // Check the global-transaction attribute of the event from the controller to see if the
         //  event should be wrapped in a transaction
         String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        boolean eventGlobalTransaction = requestManager.getEventGlobalTransaction(requestUri);
+        ConfigXMLReader.ControllerConfig controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
+        boolean eventGlobalTransaction = controllerConfig.requestMapMap.get(requestUri).event.globalTransaction;
 
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;

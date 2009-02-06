@@ -18,19 +18,32 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
 import java.security.cert.X509Certificate;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
-import org.ofbiz.base.util.*;
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.SSLUtil;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -43,8 +56,6 @@ import org.ofbiz.webapp.view.ViewFactory;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
-
-import javolution.util.FastMap;
 
 /**
  * RequestHandler - Request Processor Object
@@ -66,16 +77,21 @@ public class RequestHandler implements Serializable {
     }
 
     private ServletContext context = null;
-    private RequestManager requestManager = null;
+    private ConfigXMLReader.ControllerConfig controllerConfig = null;
     private ViewFactory viewFactory = null;
     private EventFactory eventFactory = null;
 
     public void init(ServletContext context) {
         Debug.logInfo("[RequestHandler Loading...]", module);
         this.context = context;
-        this.requestManager = new RequestManager(context);
+
+        this.controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(context));
         this.viewFactory = new ViewFactory(this);
         this.eventFactory = new EventFactory(this);
+    }
+    
+    public ConfigXMLReader.ControllerConfig getControllerConfig() {
+        return this.controllerConfig;
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException {
@@ -89,48 +105,61 @@ public class RequestHandler implements Serializable {
             GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
         HttpSession session = request.getSession();
-        String eventType;
-        String eventPath;
-        String eventMethod;
 
         // workaraound if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
 
         // Grab data from request object to process
-        String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        String nextView = RequestHandler.getNextPageUri(request.getPathInfo());
+        String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
         if (request.getAttribute("targetRequestUri") == null) {
             if (request.getSession().getAttribute("_PREVIOUS_REQUEST_") != null) {
                 request.setAttribute("targetRequestUri", request.getSession().getAttribute("_PREVIOUS_REQUEST_"));
             } else {
-                request.setAttribute("targetRequestUri", "/" + requestUri);
+                request.setAttribute("targetRequestUri", "/" + defaultRequestUri);
             }
         }
+        
+        String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
+        
+        String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
+        
+        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(defaultRequestUri);
+        if (requestMap == null) {
+            throw new RequestHandlerException(requestMissingErrorMessage);
+        }
 
-        String eventReturnString = null;
+        String eventReturn = null;
+        boolean interruptRequest = false;
 
         // Check for chained request.
         if (chain != null) {
-            requestUri = RequestHandler.getRequestUri(chain);
+            String chainRequestUri = RequestHandler.getRequestUri(chain);
+            requestMap = controllerConfig.requestMapMap.get(chainRequestUri);
             if (request.getAttribute("_POST_CHAIN_VIEW_") != null) {
-                nextView = (String) request.getAttribute("_POST_CHAIN_VIEW_");
+                overrideViewUri = (String) request.getAttribute("_POST_CHAIN_VIEW_");
             } else {
-                nextView = RequestHandler.getNextPageUri(chain);
+                overrideViewUri = RequestHandler.getOverrideViewUri(chain);
             }
-            if (Debug.infoOn()) Debug.logInfo("[RequestHandler]: Chain in place: requestUri=" + requestUri + " nextView=" + nextView + " sessionId=" + UtilHttp.getSessionId(request), module);
+            if (Debug.infoOn()) Debug.logInfo("[RequestHandler]: Chain in place: requestUri=" + chainRequestUri + " overrideViewUri=" + overrideViewUri + " sessionId=" + UtilHttp.getSessionId(request), module);
         } else {
+            // Check if X509 is required and we are not secure; throw exception
+            if (!request.isSecure() && requestMap.securityCert) {
+                throw new RequestHandlerException(requestMissingErrorMessage);
+            }            
+
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we an process
-            if (!requestManager.allowDirectRequest(requestUri)) {
-                if (!requestManager.allowDirectRequest(requestManager.getDefaultRequest())) {
-                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+            if (!requestMap.securityDirectRequest) {
+                if (!controllerConfig.requestMapMap.get(controllerConfig.defaultRequest).securityDirectRequest) {
+                    // use the same message as if it was missing for security reasons, ie so can't tell if it is missing or direct request is not allowed
+                    throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
-                    requestUri = requestManager.getDefaultRequest();
+                    requestMap = controllerConfig.requestMapMap.get(controllerConfig.defaultRequest);
                 }
             }
 
             // Check if we SHOULD be secure and are not. If we are posting let it pass to not lose data. (too late now anyway)
-            if (!request.isSecure() && requestManager.requiresHttps(requestUri) && !request.getMethod().equalsIgnoreCase("POST")) {
+            if (!request.isSecure() && requestMap.securityHttps && !request.getMethod().equalsIgnoreCase("POST")) {
                 StringBuilder urlBuf = new StringBuilder();
                 urlBuf.append(request.getPathInfo());
                 if (request.getQueryString() != null) {
@@ -143,13 +172,8 @@ public class RequestHandler implements Serializable {
                 }
             }
 
-            // Check if X509 is required and we are not secure; throw exception
-            if (!request.isSecure() && requestManager.requiresHttpsClientCert(requestUri)) {
-                throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
-            }            
-
             // Check for HTTPS client (x.509) security
-            if (request.isSecure() && requestManager.requiresHttpsClientCert(requestUri)) {            
+            if (request.isSecure() && requestMap.securityCert) {            
                 X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
@@ -162,7 +186,7 @@ public class RequestHandler implements Serializable {
                 boolean foundTrustedCert = false;
 
                 if (clientCerts == null) {
-                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                    throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
                     if (Debug.infoOn()) {
                         for (int i = 0; i < clientCerts.length; i++) {
@@ -177,8 +201,8 @@ public class RequestHandler implements Serializable {
                 }
 
                 if (!foundTrustedCert) {
-                    Debug.logWarning("No trusted certificate found for request [" + requestUri + "]", module);
-                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                    Debug.logWarning(requestMissingErrorMessage, module);
+                    throw new RequestHandlerException(requestMissingErrorMessage);
                 }
             }
 
@@ -188,20 +212,14 @@ public class RequestHandler implements Serializable {
                     Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 // This isn't an event because it is required to run. We do not want to make it optional.
                 GenericValue visit = VisitHandler.getVisit(session);
-                Collection<Map<String, String>> events = requestManager.getFirstVisitEvents();
-
-                if (visit != null && events != null) {
-                    for (Map<String, String> eventMap: events) {
-                        String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                        String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
-                        String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
-
+                if (visit != null) {
+                    for (ConfigXMLReader.Event event: controllerConfig.firstVisitEventList) {
                         try {
-                            String returnString = this.runEvent(request, response, eType, ePath, eMeth);
+                            String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
                             if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                                 throw new EventHandlerException("First-Visit event did not return 'success'.");
                             } else if (returnString == null) {
-                                nextView = "none:";
+                                interruptRequest = true;
                             }
                         } catch (EventHandlerException e) {
                             Debug.logError(e, module);
@@ -211,103 +229,105 @@ public class RequestHandler implements Serializable {
             }
 
             // Invoke the pre-processor (but NOT in a chain)
-            Collection<Map<String, String>> preProcEvents = requestManager.getPreProcessor();
-            if (preProcEvents != null) {
-                for (Map<String, String> eventMap: preProcEvents) {
-                    String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                    String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
-                    String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
-                    try {
-                        String returnString = this.runEvent(request, response, eType, ePath, eMeth);
-                        if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                            if (!returnString.contains(":_protect_:")) {
-                                throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                            } else { // protect the view normally rendered and redirect to error response view 
-                                returnString = returnString.replace(":_protect_:", "");
-                                if (returnString.length() > 0) {
-                                    request.setAttribute("_ERROR_MESSAGE_", returnString);
-                                }
-                                eventReturnString = "protect";
-                                // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
-                                if (null == requestManager.getRequestAttribute(requestUri, "protect")) {
-                                    nextView = requestManager.getDefaultProtectView();
-                                    if (nextView == null) {
-                                        nextView = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
-                                    }
-                                }                
+            for (ConfigXMLReader.Event event: controllerConfig.preprocessorEventList) {
+                try {
+                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                        if (!returnString.contains(":_protect_:")) {
+                            throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+                        } else { // protect the view normally rendered and redirect to error response view 
+                            returnString = returnString.replace(":_protect_:", "");
+                            if (returnString.length() > 0) {
+                                request.setAttribute("_ERROR_MESSAGE_", returnString);
                             }
-                        } else if (returnString == null) {
-                            nextView = "none:";
+                            eventReturn = "protect";
+                            // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
+                            if (!requestMap.requestResponseMap.containsKey("protect")) {
+                                if (controllerConfig.protectView != null) {
+                                    overrideViewUri = controllerConfig.protectView;
+                                } else {
+                                    overrideViewUri = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                }
+                            }                
                         }
-                    } catch (EventHandlerException e) {
-                        Debug.logError(e, module);
+                    } else if (returnString == null) {
+                        interruptRequest = true;
                     }
+                } catch (EventHandlerException e) {
+                    Debug.logError(e, module);
                 }
             }
         }
 
         // Pre-Processor/First-Visit event(s) can interrupt the flow by returning null.
         // Warning: this could cause problems if more then one event attempts to return a response.
-        if ("none:".equals(nextView)) {
-            if (Debug.infoOn()) Debug.logInfo("[Pre-Processor Interrupted Request, not running: " + requestUri + " sessionId=" + UtilHttp.getSessionId(request), module);
+        if (interruptRequest) {
+            if (Debug.infoOn()) Debug.logInfo("[Pre-Processor Interrupted Request, not running: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
             return;
         }
 
-        if (Debug.infoOn()) Debug.logInfo("[Processing Request]: " + requestUri + " sessionId=" + UtilHttp.getSessionId(request), module);
-        request.setAttribute("thisRequestUri", requestUri); // store the actual request URI
+        if (Debug.infoOn()) Debug.logInfo("[Processing Request]: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
+        request.setAttribute("thisRequestUri", requestMap.uri); // store the actual request URI
         
 
         // Perform security check.
-        if (requestManager.requiresAuth(requestUri)) {
+        if (requestMap.securityAuth) {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             Debug.logVerbose("[RequestHandler]: AuthRequired. Running security check." + " sessionId=" + UtilHttp.getSessionId(request), module);
-            String checkLoginType = requestManager.getEventType("checkLogin");
-            String checkLoginPath = requestManager.getEventPath("checkLogin");
-            String checkLoginMethod = requestManager.getEventMethod("checkLogin");
-            String checkLoginReturnString;
+            ConfigXMLReader.Event checkLoginEvent = controllerConfig.requestMapMap.get("checkLogin").event;
+            String checkLoginReturnString = null;
 
             try {
-                checkLoginReturnString = this.runEvent(request, response, checkLoginType,
-                        checkLoginPath, checkLoginMethod);
+                checkLoginReturnString = this.runEvent(request, response, checkLoginEvent.type, checkLoginEvent.path, checkLoginEvent.invoke);
             } catch (EventHandlerException e) {
                 throw new RequestHandlerException(e.getMessage(), e);
             }
             if (!"success".equalsIgnoreCase(checkLoginReturnString)) {
                 // previous URL already saved by event, so just do as the return says...
-                eventReturnString = checkLoginReturnString;
-                requestUri = "checkLogin";                            
+                eventReturn = checkLoginReturnString;
+                requestMap = controllerConfig.requestMapMap.get("checkLogin");
             }
         }
+        
+        // after security check but before running the event, see if a post-login redirect has completed and we have data from the pre-login request form to use now
+        // we know this is the case if the _PREVIOUS_PARAM_MAP_ attribute is there, but the _PREVIOUS_REQUEST_ attribute has already been removed
+        if (request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_") != null && request.getSession().getAttribute("_PREVIOUS_REQUEST_") == null) {
+            Map<String, Object> previousParamMap = (Map<String, Object>) request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_");
+            for (Map.Entry<String, Object> previousParamEntry: previousParamMap.entrySet()) {
+                request.setAttribute(previousParamEntry.getKey(), previousParamEntry.getValue());
+            }
 
+            // to avoid this data being included again, now remove the _PREVIOUS_PARAM_MAP_ attribute
+            request.getSession().removeAttribute("_PREVIOUS_PARAM_MAP_FORM_");
+        }
+
+        // now we can start looking for the next request response to use
+        ConfigXMLReader.RequestResponse nextRequestResponse = null;
+        
         // Invoke the defined event (unless login failed)
-        if (eventReturnString == null) {
-            eventType = requestManager.getEventType(requestUri);
-            eventPath = requestManager.getEventPath(requestUri);
-            eventMethod = requestManager.getEventMethod(requestUri);
-            if (eventType != null && eventPath != null && eventMethod != null) {
+        if (eventReturn == null && requestMap.event != null) {
+            if (requestMap.event.type != null && requestMap.event.path != null && requestMap.event.invoke != null) {
                 try {
                     long eventStartTime = System.currentTimeMillis();
 
-                    // run the event
-                    eventReturnString = this.runEvent(request, response, eventType, eventPath, eventMethod);
+                    // run the request event
+                    eventReturn = this.runEvent(request, response, requestMap.event.type, requestMap.event.path, requestMap.event.invoke);
 
-                    // save the server hit
+                    // save the server hit for the request event
                     if (this.trackStats(request)) {
-                        ServerHitBin.countEvent(cname + "." + eventMethod, request, eventStartTime,
+                        ServerHitBin.countEvent(cname + "." + requestMap.event.invoke, request, eventStartTime,
                                 System.currentTimeMillis() - eventStartTime, userLogin, delegator);
                     }
 
                     // set the default event return
-                    if (eventReturnString == null) {
-                        nextView = "none:";
+                    if (eventReturn == null) {
+                        nextRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
                     }
                 } catch (EventHandlerException e) {
                     // check to see if there is an "error" response, if so go there and make an request error message
-                    String tryErrorMsg = requestManager.getRequestAttribute(requestUri, "error");
-
-                    if (tryErrorMsg != null) {
-                        eventReturnString = "error";
+                    if (requestMap.requestResponseMap.containsKey("error")) {
+                        eventReturn = "error";
                         Locale locale = UtilHttp.getLocale(request);
                         String errMsg = UtilProperties.getMessage(RequestHandler.err_resource, "requestHandler.error_call_event", locale);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg + ": " + e.toString());
@@ -317,35 +337,42 @@ public class RequestHandler implements Serializable {
                 }
             }
         }
+        
+        // Process the eventReturn
+        // at this point eventReturnString is finalized, so get the RequestResponse
+        ConfigXMLReader.RequestResponse eventReturnBasedRequestResponse = eventReturn == null ? null : requestMap.requestResponseMap.get(eventReturn);
+        if (eventReturnBasedRequestResponse != null) {
+            //String eventReturnBasedResponse = requestResponse.value;
+            if (Debug.verboseOn()) Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.name + ", " + eventReturnBasedRequestResponse.type + ":" + eventReturnBasedRequestResponse.value + " sessionId=" + UtilHttp.getSessionId(request), module);
 
-        // If error, then display more error messages:
-        if ("error".equals(eventReturnString)) {
-            if (Debug.errorOn()) {
-                String errorMessageHeader = "Request " + requestUri + " caused an error with the following message: ";
-                if (request.getAttribute("_ERROR_MESSAGE_") != null) {
-                    Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), module);
-                }
-                if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
-                    Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_LIST_"), module);
+            // If error, then display more error messages:
+            if ("error".equals(eventReturnBasedRequestResponse.name)) {
+                if (Debug.errorOn()) {
+                    String errorMessageHeader = "Request " + requestMap.uri + " caused an error with the following message: ";
+                    if (request.getAttribute("_ERROR_MESSAGE_") != null) {
+                        Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), module);
+                    }
+                    if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
+                        Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_LIST_"), module);
+                    }
                 }
             }
+        } else {
+            Debug.logWarning("Could not find response in request [" + requestMap.uri + "] for event return [" + eventReturn + "]", module);
         }
 
-        // Process the eventReturn.
-        String eventReturnBasedResponse = requestManager.getRequestResponseValue(requestUri, eventReturnString);
-        if (Debug.verboseOn()) Debug.logVerbose("[Response Qualified]: " + eventReturnBasedResponse + " sessionId=" + UtilHttp.getSessionId(request), module);
-
         // Set the next view (don't use event return if success, default to nextView (which is set to eventReturn later if null); also even if success if it is a type "none" response ignore the nextView, ie use the eventReturn)
-        if (eventReturnBasedResponse != null && (!"success".equals(eventReturnString) || eventReturnBasedResponse.startsWith("none:"))) nextView = eventReturnBasedResponse;
-        if (Debug.verboseOn()) Debug.logVerbose("[Event Response Mapping]: " + nextView + " sessionId=" + UtilHttp.getSessionId(request), module);
+        if (eventReturnBasedRequestResponse != null && (!"success".equals(eventReturnBasedRequestResponse.name) || "none".equals(eventReturnBasedRequestResponse.type))) nextRequestResponse = eventReturnBasedRequestResponse;
 
         // get the previous request info
         String previousRequest = (String) request.getSession().getAttribute("_PREVIOUS_REQUEST_");
         String loginPass = (String) request.getAttribute("_LOGIN_PASSED_");
-
+        
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
+        Map<String, Object> previousRequestAttrMap = null;
         if (preReqAttStr != null) {
+            previousRequestAttrMap = FastMap.newInstance();
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
@@ -355,6 +382,7 @@ public class RequestHandler implements Serializable {
                     if("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
                             "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
+                        previousRequestAttrMap.put(key, entry.getValue());
                    }
                 }
             }
@@ -370,86 +398,90 @@ public class RequestHandler implements Serializable {
                 Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems, not running request again", module);
             } else {
                 if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
-                doRequest(request, response, previousRequest, userLogin, delegator);
-                return; // this is needed or else we will run the view twice
+                
+                // note that the previous form parameters are not setup (only the URL ones here), they will be found in the session later and handled when the old request redirect comes back
+                Map<String, Object> previousParamMap = (Map<String, Object>) request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_");
+                String queryString = UtilHttp.urlEncodeArgs(previousParamMap, false);
+                String redirectTarget = previousRequest;
+                if (UtilValidate.isNotEmpty(queryString)) {
+                    redirectTarget += "?" + queryString;
+                }
+                callRedirect(makeLink(request, response, redirectTarget), response, request);
+                
+                // the old/uglier way: doRequest(request, response, previousRequest, userLogin, delegator);
+                
+                // this is needed as the request handled will be taking care of the view, etc
+                return;
             }
         }
 
-        String successView = requestManager.getViewName(requestUri);
-        if ("success".equals(eventReturnString) && successView.startsWith("request:")) {
+        ConfigXMLReader.RequestResponse successResponse = requestMap.requestResponseMap.get("success");
+        if ("success".equals(eventReturn) && successResponse != null && "request".equals(successResponse.type)) {
             // chains will override any url defined views; but we will save the view for the very end
-            if (nextView != null) {
-                request.setAttribute("_POST_CHAIN_VIEW_", nextView);
+            if (nextRequestResponse != null) {
+                // NOTE: possible issue if nextRequestResponse.type != view
+                request.setAttribute("_POST_CHAIN_VIEW_", nextRequestResponse.value);
             }
-            nextView = successView;
+            nextRequestResponse = successResponse;
         }
 
         // Make sure we have some sort of response to go to
-        if (nextView == null) nextView = successView;
-        if (Debug.verboseOn()) Debug.logVerbose("[Current View]: " + nextView + " sessionId=" + UtilHttp.getSessionId(request), module);
+        if (nextRequestResponse == null) nextRequestResponse = successResponse;
+        
+        if (nextRequestResponse == null) {
+            throw new RequestHandlerException("Illegal response; handler could not process request [" + requestMap.uri + "] and event return [" + eventReturn + "].");
+        }
+        
+        if (Debug.verboseOn()) Debug.logVerbose("[Event Response Selected]  type=" + nextRequestResponse.type + ", value=" + nextRequestResponse.value + ", sessionId=" + UtilHttp.getSessionId(request), module);
 
         // Handle the responses - chains/views
-        if (nextView != null && nextView.startsWith("request:")) {
+        if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
             // chained request
             Debug.logInfo("[RequestHandler.doRequest]: Response is a chained request." + " sessionId=" + UtilHttp.getSessionId(request), module);
-            nextView = nextView.substring(8);
-            doRequest(request, response, nextView, userLogin, delegator);
-        } else { // handle views
+            doRequest(request, response, nextRequestResponse.value, userLogin, delegator);
+        } else { 
+            // ======== handle views ========
+            
             // first invoke the post-processor events.
-            Collection<Map<String, String>> postProcEvents = requestManager.getPostProcessor();
-            if (chain == null && postProcEvents != null) { // don't run post-proc events on chained requests
-                for (Map<String, String> eventMap: postProcEvents) {
-                    String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                    String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
-                    String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
-                    try {
-                        String returnString = this.runEvent(request, response, eType, ePath, eMeth);
-                        if (returnString != null && !returnString.equalsIgnoreCase("success"))
-                            throw new EventHandlerException("Post-Processor event did not return 'success'.");
-                        else if (returnString == null)
-                            nextView = "none:";
-                    } catch (EventHandlerException e) {
-                        Debug.logError(e, module);
+            for (ConfigXMLReader.Event event: this.controllerConfig.postprocessorEventList) {
+                try {
+                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                        throw new EventHandlerException("Post-Processor event did not return 'success'.");
                     }
+                } catch (EventHandlerException e) {
+                    Debug.logError(e, module);
                 }
             }
 
-            if (nextView != null && nextView.startsWith("url:")) {
+            if ("url".equals(nextRequestResponse.type)) {
                 // check for a url for redirection
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a URL redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(4);
-                callRedirect(nextView, response, request);
-            } else if (nextView != null && nextView.startsWith("cross-redirect:")) {
+                callRedirect(nextRequestResponse.value, response, request);
+            } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(15);
-                String url = nextView.startsWith("/") ? nextView : "/" + nextView;
-                callRedirect(url + this.makeQueryString(request), response, request);
-            } else if (nextView != null && nextView.startsWith("request-redirect:")) {
+                String url = nextRequestResponse.value.startsWith("/") ? nextRequestResponse.value : "/" + nextRequestResponse.value;
+                callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request);
+            } else if ("request-redirect".equals(nextRequestResponse.type)) {
                 // check for a Request redirect
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(17);
-                callRedirect(makeLinkWithQueryString(request, response, "/" + nextView), response, request);
-            } else if (nextView != null && nextView.startsWith("request-redirect-noparam:")) {
+                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request);
+            } else if ("request-redirect-noparam".equals(nextRequestResponse.type)) {
                 // check for a Request redirect
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(25);
-                callRedirect(makeLink(request, response, nextView), response, request);
-            } else if (nextView != null && nextView.startsWith("view:")) {
+                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request);
+            } else if ("view".equals(nextRequestResponse.type)) {
                 // check for a View
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(5);
-                renderView(nextView, requestManager.allowExtView(requestUri), request, response);
-            } else if (nextView != null && nextView.startsWith("none:")) {
+                
+                // check for an override view, only used if "success" = eventReturn
+                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && "success".equals(eventReturn)) ? overrideViewUri : nextRequestResponse.value;
+                
+                renderView(viewName, requestMap.securityExternalView, request, response);
+            } else if ("none".equals(nextRequestResponse.type)) {
                 // check for a no dispatch return (meaning the return was processed by the event
                 Debug.logInfo("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
-            } else if (nextView != null) {
-                // a page request
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a page [" + nextView + "]" + " sessionId=" + UtilHttp.getSessionId(request), module);
-                renderView(nextView, requestManager.allowExtView(requestUri), request, response);
-            } else {
-                // unknown request
-                throw new RequestHandlerException("Illegal response; handler could not process [" + eventReturnString + "].");
             }
         }
     }
@@ -463,35 +495,8 @@ public class RequestHandler implements Serializable {
 
     /** Returns the default error page for this request. */
     public String getDefaultErrorPage(HttpServletRequest request) {
-        //String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        //return requestManager.getErrorPage(requestUri);
-        return requestManager.getDefaultErrorPage();
-    }
-
-    public String makeQueryString(HttpServletRequest request) {
-        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        StringBuilder queryString = new StringBuilder();
-        if (UtilValidate.isNotEmpty(paramMap)) {
-            queryString.append("?");
-            for (Map.Entry<String, Object> entry: paramMap.entrySet()) {
-                String name = entry.getKey();
-                Object value = entry.getValue();
-                if (value instanceof String) {
-                    if (queryString.length() > 1) {
-                        queryString.append("&");
-                    }
-                    queryString.append(name);
-                    queryString.append("=");
-                    queryString.append(value);
-                }
-            }
-        }
-        return queryString.toString();
-    }
-
-    /** Returns the RequestManager Object. */
-    public RequestManager getRequestManager() {
-        return requestManager;
+        if (controllerConfig.errorpage != null) return controllerConfig.errorpage;
+        return "/error/error.jsp";
     }
 
     /** Returns the ServletContext Object. */
@@ -522,20 +527,20 @@ public class RequestHandler implements Serializable {
         }
     }
 
-    public static String getNextPageUri(String path) {
-        List<String> pathInfo = StringUtil.split(path, "/");
-        if (pathInfo == null) {
+    public static String getOverrideViewUri(String path) {
+        List<String> pathItemList = StringUtil.split(path, "/");
+        if (pathItemList == null) {
             return null;
         }
-        pathInfo = pathInfo.subList(1, pathInfo.size());
+        pathItemList = pathItemList.subList(1, pathItemList.size());
 
         String nextPage = null;
-        for (String element: pathInfo) {
-            if (element.indexOf('~') != 0) {
-                if (element.indexOf('?') > -1) {
-                    element = element.substring(0, element.indexOf('?'));
+        for (String pathItem: pathItemList) {
+            if (pathItem.indexOf('~') != 0) {
+                if (pathItem.indexOf('?') > -1) {
+                    pathItem = pathItem.substring(0, pathItem.indexOf('?'));
                 }
-                nextPage = (nextPage == null ? element : nextPage + "/" + element);
+                nextPage = (nextPage == null ? pathItem : nextPage + "/" + pathItem);
             }
         }
         return nextPage;
@@ -599,18 +604,21 @@ public class RequestHandler implements Serializable {
         // before mapping the view, set a session attribute so we know where we are
         req.setAttribute("_CURRENT_VIEW_", view);
 
-        String viewType = requestManager.getViewType(view);
-        String tempView = requestManager.getViewPage(view);
+        ConfigXMLReader.ViewMap viewMap = view == null ? null : controllerConfig.viewMapMap.get(view);
+        if (viewMap == null) {
+            throw new RequestHandlerException("No defitinition found for view with name [" + view + "]");
+        }
+        
         String nextPage;
 
-        if (tempView == null) {
+        if (viewMap.page == null) {
             if (!allowExtView) {
                 throw new RequestHandlerException("No view to render.");
             } else {
                 nextPage = "/" + oldView;
             }
         } else {
-            nextPage = tempView;
+            nextPage = viewMap.page;
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("[Mapped To]: " + nextPage + " sessionId=" + UtilHttp.getSessionId(req), module);
@@ -618,10 +626,9 @@ public class RequestHandler implements Serializable {
         long viewStartTime = System.currentTimeMillis();
 
         // setup chararcter encoding and content type
-        String charset = UtilFormatOut.checkEmpty(getServletContext().getInitParameter("charset"),
-                req.getCharacterEncoding(), "UTF-8");
+        String charset = UtilFormatOut.checkEmpty(getServletContext().getInitParameter("charset"), req.getCharacterEncoding(), "UTF-8");
 
-        String viewCharset = requestManager.getViewEncoding(view);
+        String viewCharset = this.controllerConfig.viewMapMap.get(view).encoding;
         //NOTE: if the viewCharset is "none" then no charset will be used
         if (UtilValidate.isNotEmpty(viewCharset)) {
             charset = viewCharset;
@@ -639,7 +646,7 @@ public class RequestHandler implements Serializable {
 
         // setup content type
         String contentType = "text/html";
-        String viewContentType = requestManager.getViewContentType(view);
+        String viewContentType = viewMap.contentType;
         if (UtilValidate.isNotEmpty(viewContentType)) {
             contentType = viewContentType;
         }
@@ -653,9 +660,9 @@ public class RequestHandler implements Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("The ContentType for the " + view + " view is: " + contentType, module);
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewType + "]", module);
-            ViewHandler vh = viewFactory.getViewHandler(viewType);
-            vh.render(view, nextPage, requestManager.getViewInfo(view), contentType, charset, req, resp);
+            if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
+            ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
+            vh.render(view, nextPage, viewMap.info, contentType, charset, req, resp);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
 
@@ -713,10 +720,48 @@ public class RequestHandler implements Serializable {
         return newURL.toString();
     }
 
+    
+    /**
+     * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect parameters are specified.
+     * 
+     * @param request
+     * @param requestUri
+     * @param eventReturnString
+     * @return
+     */
+    public String makeQueryString(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
+    	if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
+            Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
+            String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
+            return queryString;
+    	} else {
+            StringBuilder queryString = new StringBuilder();
+            queryString.append("?");
+            for (Map.Entry<String, String> entry: requestResponse.redirectParameterMap.entrySet()) {
+                String name = entry.getKey();
+                String from = entry.getValue();
+                
+                Object value = request.getAttribute(from);
+                if (value == null) {
+                    value = request.getParameter(from);
+                }
+                
+                if (UtilValidate.isNotEmpty(value)) {
+                    if (queryString.length() > 1) {
+                        queryString.append("&");
+                    }
+                    queryString.append(name);
+                    queryString.append("=");
+                    queryString.append(value);
+                }
+            }
+            return queryString.toString();
+    	}
+    }
 
-    public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url) {
+    public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url, ConfigXMLReader.RequestResponse requestResponse) {
         String initialLink = this.makeLink(request, response, url);
-        String queryString = this.makeQueryString(request);
+        String queryString = this.makeQueryString(request, requestResponse);
         return initialLink + queryString;
     }
 
@@ -772,12 +817,15 @@ public class RequestHandler implements Serializable {
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
 
         String requestUri = RequestHandler.getRequestUri(url);
+        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(requestUri);
+        
         StringBuilder newURL = new StringBuilder();
 
         boolean didFullSecure = false;
         boolean didFullStandard = false;
-        if (enableHttps || fullPath || secure) {
-            if (secure || (enableHttps && requestManager.requiresHttps(requestUri) && !request.isSecure())) {
+        if (requestMap != null && (enableHttps || fullPath || secure)) {
+            if (Debug.verboseOn()) Debug.logVerbose("In makeLink requestUri=" + requestUri, module);
+            if (secure || (enableHttps && requestMap.securityHttps && !request.isSecure())) {
                 String server = httpsServer;
                 if (UtilValidate.isEmpty(server)) {
                     server = request.getServerName();
@@ -790,7 +838,7 @@ public class RequestHandler implements Serializable {
                 }
 
                 didFullSecure = true;
-            } else if (fullPath || (enableHttps && !requestManager.requiresHttps(requestUri) && request.isSecure())) {
+            } else if (fullPath || (enableHttps && !requestMap.securityHttps && request.isSecure())) {
                 String server = httpServer;
                 if (UtilValidate.isEmpty(server)) {
                     server = request.getServerName();
@@ -873,39 +921,27 @@ public class RequestHandler implements Serializable {
     }
 
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
-        List<Map<String, String>> afterLoginEvents = requestManager.getAfterLoginEventList();
-        if (afterLoginEvents != null) {
-            for (Map<String, String> eventMap: afterLoginEvents) {
-                String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
-                String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
-                try {
-                    String returnString = this.runEvent(request, response, eType, ePath, eMeth);
-                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                    }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
+        for (ConfigXMLReader.Event event: this.controllerConfig.afterLoginEventList) {
+            try {
+                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                    throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }
+            } catch (EventHandlerException e) {
+                Debug.logError(e, module);
             }
         }
     }
 
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
-        List<Map<String, String>> beforeLogoutEvents = requestManager.getBeforeLogoutEventList();
-        if (beforeLogoutEvents != null) {
-            for (Map<String, String> eventMap: beforeLogoutEvents) {
-                String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
-                String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
-                try {
-                    String returnString = this.runEvent(request, response, eType, ePath, eMeth);
-                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                    }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
+        for (ConfigXMLReader.Event event: this.controllerConfig.beforeLogoutEventList) {
+            try {
+                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                    throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }
+            } catch (EventHandlerException e) {
+                Debug.logError(e, module);
             }
         }
     }
@@ -913,7 +949,7 @@ public class RequestHandler implements Serializable {
     public boolean trackStats(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_STATS));
+            return controllerConfig.requestMapMap.get(uriString).trackServerHit;
         } else {
             return false;
         }
@@ -922,7 +958,7 @@ public class RequestHandler implements Serializable {
     public boolean trackVisit(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_VISIT));
+            return controllerConfig.requestMapMap.get(uriString).trackVisit;
         } else {
             return false;
         }

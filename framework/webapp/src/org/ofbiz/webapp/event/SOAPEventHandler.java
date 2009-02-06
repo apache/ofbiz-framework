@@ -20,28 +20,19 @@ package org.ofbiz.webapp.event;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.Writer;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletContext;
-import javax.xml.soap.SOAPException;
 import javax.wsdl.WSDLException;
+import javax.xml.soap.SOAPException;
 
 import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.webapp.control.RequestHandler;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.Constants;
@@ -51,6 +42,14 @@ import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.server.AxisServer;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.w3c.dom.Document;
 
 /**
@@ -84,7 +83,7 @@ public class SOAPEventHandler implements EventHandler {
             wsdlReq = request.getParameter("WSDL");
         }
         if (wsdlReq != null) {
-            String serviceName = RequestHandler.getNextPageUri(request.getPathInfo());
+            String serviceName = RequestHandler.getOverrideViewUri(request.getPathInfo());
             DispatchContext dctx = dispatcher.getDispatchContext();
             String locationUri = this.getLocationURI(request);
 

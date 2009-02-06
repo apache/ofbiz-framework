@@ -19,11 +19,6 @@ under the License.
 
 <#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
-<#assign previousParams = sessionAttributes._PREVIOUS_PARAMS_?if_exists>
-<#if previousParams?has_content>
-  <#assign previousParams = "?" + previousParams>
-</#if>
-
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
 <#if username != "">
   <#assign focusName = false>
@@ -36,7 +31,7 @@ under the License.
       <h3>${uiLabelMap.CommonRegistered}</h3>
     </div>
     <div class="screenlet-body">
-      <form method="post" action="<@ofbizUrl>login${previousParams?if_exists}</@ofbizUrl>" name="loginform">
+      <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.CommonUsername}</td>
