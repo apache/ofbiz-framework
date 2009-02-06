@@ -682,11 +682,19 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 	String combinedName = dataResource.getString("objectInfo");
                     if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) { 
                     	modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
-                    } else { // stored in  a single file
+                    } else { // stored in  a single file, long or short text
                     	Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
-                    	modelScreen = (ModelScreen) ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId")).entrySet().iterator().next().getValue();
+                    	Map modelScreenMap = ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId"));
+                    	if (UtilValidate.isNotEmpty(modelScreenMap)) {
+                    		Map.Entry entry = (Map.Entry) (modelScreenMap.entrySet().iterator().next()); // get first entry, only one screen allowed per file
+                    		modelScreen = (ModelScreen) entry.getValue();
+                    	}
                     }
-                    modelScreen.renderScreenString(out, context, renderer);
+                    if (UtilValidate.isNotEmpty(modelScreen)) {
+                    	modelScreen.renderScreenString(out, context, renderer);
+                    } else {
+                        throw new GeneralException("The dataResource file [" + dataResourceId + "] could not be found");
+                    }
                 } catch (SAXException e) {
                     throw new GeneralException("Error rendering Screen template", e);
                 } catch (ParserConfigurationException e) {
