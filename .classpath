@@ -80,8 +80,8 @@
 	<classpathentry kind="lib" path="framework/base/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junitperf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junit.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/el-api-1.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/juel-2.1.1-rc1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/el-api-1.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/juel-2.1.1-rc1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jdbm-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-3_6.jar"/>
@@ -151,5 +151,6 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
