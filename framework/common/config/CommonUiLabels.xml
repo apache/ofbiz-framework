@@ -1967,13 +1967,13 @@
         <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="de"> </value>
-        <value xml:lang="en"> </value>
-        <value xml:lang="es"> </value>
-        <value xml:lang="fr"> </value>
-        <value xml:lang="it"> </value>
-        <value xml:lang="pt"> </value>
-        <value xml:lang="th"> </value>
+        <value xml:lang="de">&nbsp;</value>
+        <value xml:lang="en">&nbsp;</value>
+        <value xml:lang="es">&nbsp;</value>
+        <value xml:lang="fr">&nbsp;</value>
+        <value xml:lang="it">&nbsp;</value>
+        <value xml:lang="pt">&nbsp;</value>
+        <value xml:lang="th">&nbsp;</value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
