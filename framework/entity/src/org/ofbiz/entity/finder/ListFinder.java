@@ -146,7 +146,8 @@ public abstract class ListFinder extends Finder {
         if (useCache) {
             // if useCache == true && outputHandler instanceof UseIterator, throw exception; not a valid combination
             if (outputHandler instanceof UseIterator) {
-                throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the output type.");
+                Debug.logWarning("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the output type. Using cache and ignoring use-iterator setting.", module);
+                outputHandler = new GetAll();
             }
             if (distinct) {
                 throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true " + label + " set distinct to true.");
