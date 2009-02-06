@@ -438,7 +438,7 @@ public class FindServices {
         }
 
         if (executeResult.get("listIt") == null) {
-            Debug.logInfo("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
         }
         
         Map<String, Object> results = ServiceUtil.returnSuccess();

@@ -215,7 +215,7 @@ public class RequestHandler implements Serializable {
                 if (visit != null) {
                     for (ConfigXMLReader.Event event: controllerConfig.firstVisitEventList) {
                         try {
-                            String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                            String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "firstvisit");
                             if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                                 throw new EventHandlerException("First-Visit event did not return 'success'.");
                             } else if (returnString == null) {
@@ -231,7 +231,7 @@ public class RequestHandler implements Serializable {
             // Invoke the pre-processor (but NOT in a chain)
             for (ConfigXMLReader.Event event: controllerConfig.preprocessorEventList) {
                 try {
-                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "preprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                         if (!returnString.contains(":_protect_:")) {
                             throw new EventHandlerException("Pre-Processor event did not return 'success'.");
@@ -262,11 +262,11 @@ public class RequestHandler implements Serializable {
         // Pre-Processor/First-Visit event(s) can interrupt the flow by returning null.
         // Warning: this could cause problems if more then one event attempts to return a response.
         if (interruptRequest) {
-            if (Debug.infoOn()) Debug.logInfo("[Pre-Processor Interrupted Request, not running: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
+            if (Debug.infoOn()) Debug.logInfo("[Pre-Processor Interrupted Request, not running: [" + requestMap.uri + "], sessionId=" + UtilHttp.getSessionId(request), module);
             return;
         }
 
-        if (Debug.infoOn()) Debug.logInfo("[Processing Request]: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Processing Request]: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
         request.setAttribute("thisRequestUri", requestMap.uri); // store the actual request URI
         
 
@@ -274,12 +274,12 @@ public class RequestHandler implements Serializable {
         if (requestMap.securityAuth) {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
-            Debug.logVerbose("[RequestHandler]: AuthRequired. Running security check." + " sessionId=" + UtilHttp.getSessionId(request), module);
+            if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler]: AuthRequired. Running security check. sessionId=" + UtilHttp.getSessionId(request), module);
             ConfigXMLReader.Event checkLoginEvent = controllerConfig.requestMapMap.get("checkLogin").event;
             String checkLoginReturnString = null;
 
             try {
-                checkLoginReturnString = this.runEvent(request, response, checkLoginEvent.type, checkLoginEvent.path, checkLoginEvent.invoke);
+                checkLoginReturnString = this.runEvent(request, response, checkLoginEvent.type, checkLoginEvent.path, checkLoginEvent.invoke, "security-auth");
             } catch (EventHandlerException e) {
                 throw new RequestHandlerException(e.getMessage(), e);
             }
@@ -312,7 +312,7 @@ public class RequestHandler implements Serializable {
                     long eventStartTime = System.currentTimeMillis();
 
                     // run the request event
-                    eventReturn = this.runEvent(request, response, requestMap.event.type, requestMap.event.path, requestMap.event.invoke);
+                    eventReturn = this.runEvent(request, response, requestMap.event.type, requestMap.event.path, requestMap.event.invoke, "request");
 
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
@@ -357,7 +357,8 @@ public class RequestHandler implements Serializable {
                     }
                 }
             }
-        } else {
+        } else if (eventReturn != null) {
+            // only log this warning if there is an eventReturn (ie skip if no event, etc)
             Debug.logWarning("Could not find response in request [" + requestMap.uri + "] for event return [" + eventReturn + "]", module);
         }
 
@@ -445,7 +446,7 @@ public class RequestHandler implements Serializable {
             // first invoke the post-processor events.
             for (ConfigXMLReader.Event event: this.controllerConfig.postprocessorEventList) {
                 try {
-                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "postprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                         throw new EventHandlerException("Post-Processor event did not return 'success'.");
                     }
@@ -455,42 +456,39 @@ public class RequestHandler implements Serializable {
             }
 
             if ("url".equals(nextRequestResponse.type)) {
-                // check for a url for redirection
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a URL redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 callRedirect(nextRequestResponse.value, response, request);
             } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 String url = nextRequestResponse.value.startsWith("/") ? nextRequestResponse.value : "/" + nextRequestResponse.value;
                 callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request);
             } else if ("request-redirect".equals(nextRequestResponse.type)) {
-                // check for a Request redirect
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request);
             } else if ("request-redirect-noparam".equals(nextRequestResponse.type)) {
-                // check for a Request redirect
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 callRedirect(makeLink(request, response, nextRequestResponse.value), response, request);
             } else if ("view".equals(nextRequestResponse.type)) {
-                // check for a View
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
-                
                 renderView(viewName, requestMap.securityExternalView, request, response);
             } else if ("none".equals(nextRequestResponse.type)) {
-                // check for a no dispatch return (meaning the return was processed by the event
-                Debug.logInfo("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                // no view to render (meaning the return was processed by the event)
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
             }
         }
     }
 
     /** Find the event handler and invoke an event. */
     public String runEvent(HttpServletRequest request, HttpServletResponse response, String type,
-            String path, String method) throws EventHandlerException {
+            String path, String method, String trigger) throws EventHandlerException {
         EventHandler eventHandler = eventFactory.getEventHandler(type);
-        return eventHandler.invoke(path, method, request, response);
+        String eventReturn = eventHandler.invoke(path, method, request, response);
+        if (Debug.verboseOn() || (Debug.infoOn() && "request".equals(trigger))) Debug.logInfo("Ran Event [" + type + ":" + path + "#" + method + "] from [" + trigger + "], result is [" + eventReturn + "]", module);
+        return eventReturn;
     }
 
     /** Returns the default error page for this request. */
@@ -548,7 +546,7 @@ public class RequestHandler implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req) throws RequestHandlerException {
-        if (Debug.infoOn()) Debug.logInfo("[Sending redirect]: " + url + " sessionId=" + UtilHttp.getSessionId(req), module);
+        if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "], sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
         java.util.Enumeration attributeNameEnum = req.getAttributeNames();
         Map<String, Object> reqAttrMap = FastMap.newInstance();
@@ -593,10 +591,10 @@ public class RequestHandler implements Serializable {
         // so just get the target view name and use that
         String servletName = req.getServletPath().substring(1);
 
-        Debug.logInfo("servletName=" + servletName + ", view=" + view + " sessionId=" + UtilHttp.getSessionId(req), module);
+        if (Debug.infoOn()) Debug.logInfo("Rendering View [" + view + "], sessionId=" + UtilHttp.getSessionId(req), module);
         if (view.startsWith(servletName + "/")) {
             view = view.substring(servletName.length() + 1);
-            Debug.logInfo("a manual control servlet request was received, removing control servlet path resulting in: view=" + view, module);
+            if (Debug.infoOn()) Debug.logInfo("a manual control servlet request was received, removing control servlet path resulting in: view=" + view, module);
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("[Getting View Map]: " + view + " sessionId=" + UtilHttp.getSessionId(req), module);
@@ -923,7 +921,7 @@ public class RequestHandler implements Serializable {
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
         for (ConfigXMLReader.Event event: this.controllerConfig.afterLoginEventList) {
             try {
-                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "after-login");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                     throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }
@@ -936,7 +934,7 @@ public class RequestHandler implements Serializable {
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
         for (ConfigXMLReader.Event event: this.controllerConfig.beforeLogoutEventList) {
             try {
-                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke);
+                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "before-logout");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                     throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }

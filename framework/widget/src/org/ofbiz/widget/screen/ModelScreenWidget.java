@@ -516,7 +516,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             String location = this.getLocation(context);
             
             if (UtilValidate.isEmpty(name)) {
-                if (Debug.infoOn()) Debug.logInfo("In the include-screen tag the screen name was empty, ignoring include; in screen [" + this.modelScreen.getName() + "]", module);
+                if (Debug.verboseOn()) Debug.logVerbose("In the include-screen tag the screen name was empty, ignoring include; in screen [" + this.modelScreen.getName() + "]", module);
                 return;
             }
             
