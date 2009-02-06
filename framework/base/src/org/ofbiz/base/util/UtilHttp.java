@@ -51,6 +51,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.EncodingException;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -60,6 +63,9 @@ import javolution.util.FastMap;
 public class UtilHttp {
 
     public static final String module = UtilHttp.class.getName();
+    
+    /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
+    public static final boolean esapiCanonicalizeStrict = false;
 
     public static final String MULTI_ROW_DELIMITER = "_o_";
     public static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
@@ -148,7 +154,7 @@ public class UtilHttp {
             Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
         }
         
-        return paramMap;
+        return canonicalizeParameterMap(paramMap);
     }
     
     public static Map<String, Object> getQueryStringOnlyParameterMap(HttpServletRequest request) {
@@ -171,7 +177,7 @@ public class UtilHttp {
                 }
             }
         }
-        return paramMap;
+        return canonicalizeParameterMap(paramMap);
     }
     
     public static Map<String, Object> getPathInfoOnlyParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
@@ -218,12 +224,40 @@ public class UtilHttp {
             }
         }
         
-        return paramMap;
+        return canonicalizeParameterMap(paramMap);
     }
     
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
+        // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request);
         paramMap.putAll(getPathInfoOnlyParameterMap(request, null, null));
+        return paramMap;
+    }
+    
+    public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
+        for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
+            if (paramEntry.getValue() instanceof String) {
+                try {
+                    String cannedStr = ESAPI.encoder().canonicalize((String) paramEntry.getValue(), esapiCanonicalizeStrict);
+                    paramEntry.setValue(cannedStr);
+                } catch (EncodingException e) {
+                    Debug.logError(e, "Error in canonicalize parameter with name [" + paramEntry.getKey() + "], value [" + paramEntry.getValue() + "]: " + e.toString(), module);
+                }
+            } else if (paramEntry.getValue() instanceof Collection) {
+                List<String> newList = FastList.newInstance();
+                for (String listEntry: ((Collection<String>) paramEntry.getValue())) {
+                    try {
+                        String cannedStr = ESAPI.encoder().canonicalize(listEntry, esapiCanonicalizeStrict);
+                        newList.add(cannedStr);
+                    } catch (EncodingException e) {
+                        // add the original value and log the error, a soft fail for now
+                        newList.add(listEntry);
+                        Debug.logError(e, "Error in canonicalize parameter with name [" + paramEntry.getKey() + "], value [" + listEntry + "]: " + e.toString(), module);
+                    }
+                }
+                paramEntry.setValue(newList);
+            }
+        }
         return paramMap;
     }
 
