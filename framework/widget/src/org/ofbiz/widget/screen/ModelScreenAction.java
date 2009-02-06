@@ -296,7 +296,12 @@ public abstract class ModelScreenAction implements Serializable {
             if (existingPropMap == null) {
                 this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale, context));
             } else {
-                existingPropMap.addBottomResourceBundle(resource);
+                try {
+                    existingPropMap.addBottomResourceBundle(resource);
+                } catch (IllegalArgumentException e) {
+                    // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
+                    Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                }
             }
 
             if (global) {
@@ -308,7 +313,12 @@ public abstract class ModelScreenAction implements Serializable {
                     } else {
                         // is it the same object? if not add it in here too...
                         if (existingPropMap != globalExistingPropMap) {
-                            globalExistingPropMap.addBottomResourceBundle(resource);
+                            try {
+                                globalExistingPropMap.addBottomResourceBundle(resource);
+                            } catch (IllegalArgumentException e) {
+                                // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
+                                Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                            }
                         }
                     }
                 }
