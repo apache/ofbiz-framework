@@ -8150,6 +8150,10 @@
         <value xml:lang="it">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
     </property>
+    <property key="OFBiz Site">
+        <value xml:lang="en">OFBiz Site</value>
+        <value xml:lang="fr">Site officiel d'OFBiz</value>
+    </property>
     <property key="Order">
         <value xml:lang="ar">طلبية</value>
         <value xml:lang="de">Bestellung</value>
