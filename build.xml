@@ -382,4 +382,99 @@ under the License.
             <arg value="test"/>
         </java>
     </target>
+
+    <target name="create-component"
+        description="Creates the layout of an OFBiz component in the hot-deploy folder.">
+        <input addproperty="component-name" message="Component name: "/>
+        <input addproperty="component-resource-name" message="Component resource name: "/>
+        <input addproperty="webapp-name" message="Webapp name: "/>
+        <input addproperty="base-permission" message="Base permission: "/>
+        <echo>The following hot-deploy component will be created:
+              Name: ${component-name}
+              Resource Name: ${component-resource-name}
+              Webapp Name: ${webapp-name}
+              Base permission: ${base-permission}
+              Folder: ${basedir}/hot-deploy/${component-name}
+        </echo>
+        <input addproperty="confirm-component-creation" message="Confirm: " defaultvalue="N" validargs="Y,N"/>
+        <fail message="Component creation cancelled by the user.">
+            <condition>
+                <equals arg1="${confirm-component-creation}" arg2="N"/>
+            </condition>
+        </fail>
+        <filterset id="replacePlaceholders">
+            <filter token="component-name" value="${component-name}"/>
+            <filter token="component-resource-name" value="${component-resource-name}"/>
+            <filter token="base-permission" value="${base-permission}"/>
+            <filter token="webapp-name" value="${webapp-name}"/>
+        </filterset>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/config"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/data"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/dtd"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/entitydef"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/lib"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/script"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/servicedef"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/src"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/testdef"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/error"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/actions"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/widget/"/>
+        <copy file="${basedir}/framework/resources/templates/ofbiz-component.xml" tofile="${basedir}/hot-deploy/${component-name}/ofbiz-component.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/build.xml" tofile="${basedir}/hot-deploy/${component-name}/build.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/TypeData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}TypeData.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/SecurityData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityData.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/DemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}DemoData.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/entitymodel.xml" tofile="${basedir}/hot-deploy/${component-name}/entitydef/entitymodel.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/services.xml" tofile="${basedir}/hot-deploy/${component-name}/servicedef/services.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/UiLabels.xml" tofile="${basedir}/hot-deploy/${component-name}/config/${component-resource-name}UiLabels.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/index.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/index.jsp">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/error.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/error/error.jsp">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/controller.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/controller.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/web.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/web.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/CommonScreens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/CommonScreens.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/Screens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Screens.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/Menus.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Menus.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/Forms.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Forms.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <echo>Component successfully created in folder ${basedir}/hot-deploy/${component-name}.
+              Restart OFBiz and then visit the URL: http://localhost:8080/${webapp-name} 
+        </echo>
+    </target>
 </project>
