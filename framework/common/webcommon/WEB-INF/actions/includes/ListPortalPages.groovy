@@ -33,11 +33,9 @@ if (parameters.userLogin) {
     if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
         userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
     }
-    
+
     if(!userLoginSecurityGroupId){
         parameters.portalPageId = parameters.parentPortalPageId;
-    }else{
-    	parameters.parentPortalPageId = userLoginSecurityGroupId;
     }
     
     //get the portal page
