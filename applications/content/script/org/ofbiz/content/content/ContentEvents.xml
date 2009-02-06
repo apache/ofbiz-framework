@@ -49,7 +49,7 @@ under the License.
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
-        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="createContent">
             <result-to-field field="contentId" result-name="contentId"/>
@@ -111,7 +111,7 @@ under the License.
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="CONTENT_UPDATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
-        <session-to-field field="userLogin" map-name="context" session-name="userLogin"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="updateContent">
             <result-to-field field="contentId" result-name="contentId"/>
         </call-service>
@@ -126,7 +126,7 @@ under the License.
         <set field="context3.contentIdTo" from-field="parameters.contentIdTo"/>
         <set field="context3.contentIdFrom" from-field="parameters.contentId"/>
         <set field="context3.contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
-        <session-to-field field="userLogin" map-name="context3" session-name="userLogin"/>
+        <session-to-field field="context3.userLogin" session-name="userLogin"/>
         <string-to-list list="contentPurposeList" string="_NA_"/>
         <set field="context3.contentPurposeList" from-field="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="ASSOC_CONTENT"/>
