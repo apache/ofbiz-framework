@@ -326,6 +326,7 @@ under the License.
         <check-errors error-list-name="error_list" error-code="resultPage"/>
         
         <!-- set parameter of person to personContext Map -->
+        <set field="personContext.partyId" from-field="parameters.USERNAME"/>
         <set field="personContext.salutation" from-field="parameters.salutation"/>
         <set field="personContext.firstName" from-field="parameters.firstName"/>
         <set field="personContext.middleName" from-field="parameters.middleName"/>
