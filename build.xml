@@ -116,6 +116,26 @@ under the License.
         <echo message="[clean] ========== Done Cleaning =========="/>
     </target>
 
+    <target name="svninfo">
+        <echo message="Creating svninfo..."/>
+        <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
+            <arg value="info"/>
+            <arg value="--xml"/>
+        </exec>
+        <xmlproperty file="runtime/svninfo_tmp.xml"/>
+        <echo message="Rev:${info.entry(revision)}"/>
+        <basename property="releasePath" file="${info.entry.url}"/>
+        <echo message="Rev: - ${releasePath} ${info.entry(revision)}" file="runtime/svninfo.ftl"/>
+        <delete file="runtime/svninfo_tmp.xml"/>
+        <echo message="Done!"/>
+    </target>
+
+    <target name="svninfo-clean">
+        <echo message="Deleting svninfo..."/>
+        <echo message="" file="runtime/svninfo.ftl"/>
+        <echo message="Done!"/>
+    </target>
+	
     <!-- ================================================================== -->
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
@@ -138,6 +158,7 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
+        <antcall target="svninfo-clean"></antcall>      
         
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
