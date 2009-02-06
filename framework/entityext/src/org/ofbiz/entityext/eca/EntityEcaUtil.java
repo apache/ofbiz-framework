@@ -124,7 +124,7 @@ public class EntityEcaUtil {
             rules.add(new EntityEcaRule(e));
             numDefs++;
         }
-        Debug.logImportant("Loaded " + numDefs + " Entity ECA definitions from " + handler.getLocation() + " in loader " + handler.getLoaderName(), module);
+        Debug.logImportant("Loaded [" + numDefs + "] Entity ECA definitions from " + handler.getLocation() + " in loader " + handler.getLoaderName(), module);
     }
 
     public static Collection<EntityEcaRule> getEntityEcaRules(GenericDelegator delegator, String entityName, String event) {

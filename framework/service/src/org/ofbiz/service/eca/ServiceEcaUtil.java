@@ -38,6 +38,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.w3c.dom.Element;
 
+import freemarker.template.utility.StringUtil;
+
 /**
  * ServiceEcaUtil
  */
@@ -112,7 +114,7 @@ public class ServiceEcaUtil {
             numDefs++;
         }
         if (Debug.importantOn()) {
-            Debug.logImportant("Loaded [" + numDefs + "] Service ECA definitions from " + resourceLocation, module);
+            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(numDefs), 2) + "] Service ECA Rules from " + resourceLocation, module);
         }
     }
 

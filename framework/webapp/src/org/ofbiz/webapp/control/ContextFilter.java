@@ -320,7 +320,7 @@ public class ContextFilter implements Filter {
             if (delegatorName == null || delegatorName.length() <= 0) {
                 delegatorName = "default";
             }
-            if (Debug.infoOn()) Debug.logInfo("[ContextFilter.init] Getting Entity Engine Delegator with delegator name " + delegatorName, module);
+            if (Debug.infoOn()) Debug.logInfo("Setup Entity Engine Delegator with name " + delegatorName, module);
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
             config.getServletContext().setAttribute("delegator", delegator);
             if (delegator == null) {
@@ -355,7 +355,7 @@ public class ContextFilter implements Filter {
         while (initParamEnum.hasMoreElements()) {
             String initParamName = (String) initParamEnum.nextElement();
             String initParamValue = config.getServletContext().getInitParameter(initParamName);
-            if (Debug.infoOn()) Debug.logInfo("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", module);
             config.getServletContext().setAttribute(initParamName, initParamValue);
         }
         String GeronimoMultiOfbizInstances = (String) config.getServletContext().getAttribute("GeronimoMultiOfbizInstances");

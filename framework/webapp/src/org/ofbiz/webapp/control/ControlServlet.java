@@ -61,9 +61,7 @@ public class ControlServlet extends HttpServlet {
      */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        if (Debug.infoOn()) {
-            Debug.logInfo("[ControlServlet.init] Loading Control Servlet mounted on path " + config.getServletContext().getRealPath("/"), module);
-        }
+        if (Debug.infoOn()) Debug.logInfo("LOADING WEBAPP [" + config.getServletContext().getContextPath().substring(1) + "] " + config.getServletContext().getServletContextName() + ", located at " + config.getServletContext().getRealPath("/"), module);
 
         // configure custom BSF engines
         configureBsf();

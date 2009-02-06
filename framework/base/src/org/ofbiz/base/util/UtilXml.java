@@ -243,7 +243,7 @@ public class UtilXml {
         document = builder.parse(is);
         
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-        if (Debug.timingOn()) Debug.logTiming("XML Read " + totalSeconds + "s: " + docDescription, module);
+        if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
         return document;
     }
 

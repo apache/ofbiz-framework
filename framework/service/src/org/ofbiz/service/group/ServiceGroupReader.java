@@ -87,7 +87,7 @@ public class ServiceGroupReader {
             } catch (GenericConfigException e) {
                 Debug.logError(e, "Could not get resource URL", module);
             }
-            Debug.logImportant("Loaded " + numDefs + " Group definitions from " + resourceLocation, module);
+            Debug.logImportant("Loaded [" + numDefs + "] Group definitions from " + resourceLocation, module);
         }
     }
 

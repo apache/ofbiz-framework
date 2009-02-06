@@ -328,7 +328,7 @@ public class CheckOutHelper {
                     if ("FIN_ACCOUNT".equals(checkOutPaymentId)) {
                         finAccountId = splitStr[1];
                     }
-                    Debug.log("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], module);
                 }
 
                 // get the selected amount to use
@@ -768,7 +768,7 @@ public class CheckOutHelper {
                         adjs = new LinkedList();
                     }
                     csi.setItemInfo(item, adjs);
-                    Debug.log("Added item adjustments to ship group [" + i + " / " + x + "] - " + adjs, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Added item adjustments to ship group [" + i + " / " + x + "] - " + adjs, module);
                 }
             }
 
@@ -1076,10 +1076,10 @@ public class CheckOutHelper {
 
         // check to see if we should auto-invoice/bill
         if (faceToFace) {
-            Debug.log("Face-To-Face Sale - " + orderId, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Face-To-Face Sale - " + orderId, module);
             CheckOutHelper.adjustFaceToFacePayment(orderId, orderTotal, allPaymentPreferences, userLogin, delegator);
             boolean ok = OrderChangeHelper.completeOrder(dispatcher, userLogin, orderId);
-            Debug.log("Complete Order Result - " + ok, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Complete Order Result - " + ok, module);
             if (!ok) {
                 throw new GeneralException("Problem with order change; see error logs");
             }
@@ -1454,7 +1454,7 @@ public class CheckOutHelper {
                 String paymentMethodId = (String) i.next();
                 BigDecimal paymentAmount = cart.getPaymentAmount(paymentMethodId);
                 if (paymentAmount == null || paymentAmount.compareTo(BigDecimal.ZERO) == 0) {
-                    Debug.log("Found null paymentMethodId - " + paymentMethodId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Found null paymentMethodId - " + paymentMethodId, module);
                     nullPaymentIds.add(paymentMethodId);
                 }
             }
@@ -1468,17 +1468,17 @@ public class CheckOutHelper {
 
                 ShoppingCart.CartPaymentInfo info = cart.getPaymentInfo(paymentMethodId);
 
-                Debug.log("Remaining total is - " + newAmount, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Remaining total is - " + newAmount, module);
                 if (newAmount.compareTo(BigDecimal.ZERO) > 0) {
                     info.amount = newAmount;
-                    Debug.log("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
                 } else {
                     info.amount = BigDecimal.ZERO;
-                    Debug.log("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
                 }
                 if (!setOverflow) {
                     info.overflow = setOverflow = true;
-                    Debug.log("Set overflow flag on payment - " + info.paymentMethodId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Set overflow flag on payment - " + info.paymentMethodId, module);
                 }
             }
         }
