@@ -184,7 +184,7 @@ under the License.
             <field field="formInput" type="java.util.Map"/>
         </call-class-method>
 
-        <clear-field map-name="formInput" field="imageData"/>
+        <clear-field field="formInput.imageData"/>
 
         <log level="always" message="formInput: ${formInput}"/>
         <log level="always" message="byteWrap: ${byteWrap}"/>
