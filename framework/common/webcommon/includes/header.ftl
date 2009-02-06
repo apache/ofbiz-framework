@@ -106,10 +106,8 @@ under the License.
         <li>
           <#if person?has_content>
             ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
           <#elseif partyGroup?has_content>
             ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-            <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
           <#else>
             ${uiLabelMap.CommonWelcome}!
           </#if>
@@ -134,27 +132,23 @@ under the License.
         <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
           <#if userLogin?exists>
             <p class="expanded">
+              <#if person?has_content>
+                ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists}
+              <#elseif partyGroup?has_content>
+                ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists}
+              </#if>
+              [${userLogin.userLoginId}]
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
               <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
             </p>
-          </#if>
-          <p>
-          <#if person?has_content>
-            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-          </p>
             <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
-          <#elseif partyGroup?has_content>
-            ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-          </p>
-            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
-          <#else>
+          <#else/>
+            <p>
             ${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a>
-          </p>
+            </p>
           </#if>
           <ul id="preferences-menu">
-<!--
-            <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
--->
+            <!-- <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li> -->
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
             <#if userLogin?exists>
               <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
@@ -163,5 +157,5 @@ under the License.
         </li>
       </#if>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>

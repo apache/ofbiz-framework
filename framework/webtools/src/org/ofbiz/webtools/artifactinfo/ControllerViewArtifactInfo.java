@@ -20,7 +20,6 @@ package org.ofbiz.webtools.artifactinfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
 import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
@@ -40,7 +39,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     protected URL controllerXmlUrl;
     protected String viewUri;
     
-    protected Map<String, String> viewInfoMap;
+    protected ConfigXMLReader.ViewMap viewInfoMap;
     
     protected ScreenWidgetArtifactInfo screenCalledByThisView = null;
     
@@ -49,7 +48,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         this.controllerXmlUrl = controllerXmlUrl;
         this.viewUri = viewUri;
         
-        this.viewInfoMap = aif.getControllerViewInfoMap(controllerXmlUrl, viewUri);
+        this.viewInfoMap = aif.getControllerViewMap(controllerXmlUrl, viewUri);
         
         if (this.viewInfoMap == null) {
             throw new GeneralException("Could not find Controller View [" + viewUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
@@ -59,11 +58,9 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
-        if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) || 
-                "screenfop".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) ||
-                "screentext".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) ||
-                "screenxml".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
-            String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
+        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type) ||
+                "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
+            String fullScreenName = this.viewInfoMap.page;
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
                 try {

@@ -60,20 +60,24 @@ under the License.
     <request-map uri="createExample">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExample"/>
-        <response name="success" type="view" value="EditExample"/>
+        <response name="success" type="request-redirect" value="EditExample">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExample"/>
     </request-map>
     <request-map uri="updateExample">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateExample"/>
-        <response name="success" type="view" value="EditExample"/>
+        <response name="success" type="request-redirect" value="EditExample">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExample"/>
     </request-map>
     <request-map uri="createExampleAjax">
         <security https="true" auth="true"/>
         <event type="jsonservice" invoke="createExample"/>
-        <response name="success" type="none" value="findExampleAjax"/>
-        <response name="error" type="none" value="findExampleAjax"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
     <request-map uri="updateExampleAjax">
         <security https="true" auth="true"/>
@@ -86,19 +90,25 @@ under the License.
     <request-map uri="createExampleItem">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExampleItem"/>
-        <response name="success" type="view" value="EditExampleItems"/>
+        <response name="success" type="request-redirect" value="EditExampleItems">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
     <request-map uri="updateExampleItem">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateExampleItem"/>
-        <response name="success" type="view" value="EditExampleItems"/>
+        <response name="success" type="request-redirect" value="EditExampleItems">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
     <request-map uri="deleteExampleItem">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteExampleItem"/>
-        <response name="success" type="view" value="EditExampleItems"/>
+        <response name="success" type="request-redirect" value="EditExampleItems">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
 
@@ -106,19 +116,25 @@ under the License.
     <request-map uri="example_createExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
     <request-map uri="example_updateExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
     <request-map uri="example_deleteExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
 
@@ -128,13 +144,17 @@ under the License.
     <request-map uri="createExampleFeature">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExampleFeature"/>
-        <response name="success" type="view" value="EditExampleFeature"/>
+        <response name="success" type="request-redirect" value="EditExampleFeature">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
     <request-map uri="updateExampleFeature">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateExampleFeature"/>
-        <response name="success" type="view" value="EditExampleFeature"/>
+        <response name="success" type="request-redirect" value="EditExampleFeature">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
     
@@ -142,19 +162,25 @@ under the License.
     <request-map uri="feature_createExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureExampleAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     <request-map uri="feature_updateExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureExampleAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     <request-map uri="feature_deleteExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteExampleFeatureAppl"/>
-        <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
+        <response name="success" type="request-redirect" value="EditExampleFeatureExampleAppls">
+            <redirect-parameter name="exampleId"/>
+        </response>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     <request-map uri="findExampleFeatures">

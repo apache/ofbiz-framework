@@ -18,8 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,8 +30,8 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.control.RequestManager;
 
 /**
  * EventFactory - Event Handler Factory
@@ -40,14 +41,12 @@ public class EventFactory {
     public static final String module = EventFactory.class.getName();
 
     protected RequestHandler requestHandler = null;
-    protected RequestManager requestManager = null;
     protected ServletContext context = null;
     protected Map<String, EventHandler> handlers = null;
 
     public EventFactory(RequestHandler requestHandler) {
         handlers = FastMap.newInstance();
         this.requestHandler = requestHandler;
-        this.requestManager = requestHandler.getRequestManager();
         this.context = requestHandler.getServletContext();
 
         // pre-load all event handlers
@@ -60,7 +59,7 @@ public class EventFactory {
     }
 
     private void preLoadAll() throws EventHandlerException {
-        List<String> handlers = requestManager.getHandlerKeys(RequestManager.EVENT_HANDLER_KEY);
+        Set<String> handlers = this.requestHandler.getControllerConfig().eventHandlerMap.keySet();
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadEventHandler(type));
@@ -97,7 +96,7 @@ public class EventFactory {
 
     private EventHandler loadEventHandler(String type) throws EventHandlerException {
         EventHandler handler = null;
-        String handlerClass = requestManager.getHandlerClass(type, RequestManager.EVENT_HANDLER_KEY);
+        String handlerClass = this.requestHandler.getControllerConfig().eventHandlerMap.get(type);
         if (handlerClass == null) {
             throw new EventHandlerException("Unknown handler type: " + type);
         }
@@ -121,10 +120,8 @@ public class EventFactory {
             throws EventHandlerException {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         RequestHandler handler = (RequestHandler) application.getAttribute("_REQUEST_HANDLER_");
-        RequestManager rm = handler.getRequestManager();
-        String eventType = rm.getEventType(requestUri);
-        String eventPath = rm.getEventPath(requestUri);
-        String eventMethod = rm.getEventMethod(requestUri);
-        return handler.runEvent(request, response, eventType, eventPath, eventMethod);        
+        ConfigXMLReader.ControllerConfig controllerConfig = handler.getControllerConfig();
+        ConfigXMLReader.Event event = controllerConfig.requestMapMap.get(requestUri).event;
+        return handler.runEvent(request, response, event.type, event.path, event.invoke);        
     }
 }

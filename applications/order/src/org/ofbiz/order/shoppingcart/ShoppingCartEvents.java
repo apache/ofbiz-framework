@@ -465,7 +465,7 @@ public class ShoppingCartEvents {
                         partyId = userLogin.getString("partyId");
                     }
                     String formAction = "/additemsurvey";
-                    String nextPage = RequestHandler.getNextPageUri(request.getPathInfo());
+                    String nextPage = RequestHandler.getOverrideViewUri(request.getPathInfo());
                     if (nextPage != null) {
                         formAction = formAction + "/" + nextPage;
                     }

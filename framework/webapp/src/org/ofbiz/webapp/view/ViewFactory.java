@@ -19,17 +19,16 @@
 package org.ofbiz.webapp.view;
 
 import java.util.Map;
-import java.util.List;
-import java.util.Iterator;
+import java.util.Set;
+
 import javax.servlet.ServletContext;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.control.RequestManager;
 
 /**
  * ViewFactory - View Handler Factory
@@ -39,14 +38,12 @@ public class ViewFactory {
     public static final String module = ViewFactory.class.getName();
 
     protected RequestHandler requestHandler = null;
-    protected RequestManager requestManager = null;
     protected ServletContext context = null;
     protected Map<String, ViewHandler> handlers = null;
     
     public ViewFactory(RequestHandler requestHandler) {
         this.handlers = FastMap.newInstance();
         this.requestHandler = requestHandler;
-        this.requestManager = requestHandler.getRequestManager();
         this.context = requestHandler.getServletContext();
 
         // pre-load all the view handlers
@@ -59,7 +56,7 @@ public class ViewFactory {
     }
 
     private void preLoadAll() throws ViewHandlerException {
-        List<String> handlers = requestManager.getHandlerKeys(RequestManager.VIEW_HANDLER_KEY);
+        Set<String> handlers = this.requestHandler.getControllerConfig().viewHandlerMap.keySet();
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadViewHandler(type));
@@ -113,9 +110,10 @@ public class ViewFactory {
 
     private ViewHandler loadViewHandler(String type) throws ViewHandlerException {
         ViewHandler handler = null;
-        String handlerClass = requestManager.getHandlerClass(type, RequestManager.VIEW_HANDLER_KEY);
-        if (handlerClass == null)
+        String handlerClass = this.requestHandler.getControllerConfig().viewHandlerMap.get(type);
+        if (handlerClass == null) {
             throw new ViewHandlerException("Unknown handler type: " + type);
+        }
 
         try {
             handler = (ViewHandler) ObjectType.getInstance(handlerClass);

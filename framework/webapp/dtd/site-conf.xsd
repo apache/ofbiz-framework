@@ -231,6 +231,9 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="response">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="redirect-parameter"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.response"/>
         </xs:complexType>
     </xs:element>
@@ -249,6 +252,18 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>
+    <xs:element name="redirect-parameter">
+        <xs:annotation><xs:documentation>Adds a parameter with the given name to the redirect. Finds value in a request attribute if exists, or a request parameter if no attribute is found.</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.redirect-parameter"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.redirect-parameter">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="from" use="optional">
+            <xs:annotation><xs:documentation>If specified used instead of the value of name for the key to find a request attribute or parameter.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="view-map">
         <xs:complexType>

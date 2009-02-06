@@ -37,7 +37,6 @@ import java.util.Currency;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -97,22 +96,29 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getParameterMap(HttpServletRequest request) {
-        return getParameterMap(request, null);
+        return getParameterMap(request, null, null);
+    }
+
+    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> nameSet) {
+        return getParameterMap(request, nameSet, null);
     }
 
     /**
      * Create a map from a HttpServletRequest (parameters) object
+     * @param onlyIncludeOrSkip If true only include, if false skip, the named parameters in the nameSet. If this is null and nameSet is not null, default to skip.
      * @return The resulting Map
      */
-    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
+        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
         Map<String, Object> paramMap = FastMap.newInstance();
 
         // add all the actual HTTP request parameters
-        Enumeration e = request.getParameterNames();
+        Enumeration<String> e = request.getParameterNames();
         while (e.hasMoreElements()) {
             String name = (String) e.nextElement();
-            if (namesToSkip != null && namesToSkip.contains(name))
+            if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
                 continue;
+            }
 
             Object value = null;
             String[] paramArr = request.getParameterValues(name);
@@ -126,7 +132,52 @@ public class UtilHttp {
             }
             paramMap.put(name, value);
         }
+        
+        paramMap.putAll(getPathInfoOnlyParameterMap(request, nameSet, onlyIncludeOrSkip));
 
+        if (paramMap.size() == 0) {
+            // nothing found in the parameters; maybe we read the stream instead
+            Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
+            if (UtilValidate.isNotEmpty(multiPartMap)) {
+                paramMap.putAll(multiPartMap);
+            }
+        }
+
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
+            Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
+        }
+        
+        return paramMap;
+    }
+    
+    public static Map<String, Object> getQueryStringOnlyParameterMap(HttpServletRequest request) {
+        Map<String, Object> paramMap = FastMap.newInstance();
+        String queryString = request.getQueryString();
+        if (UtilValidate.isNotEmpty(queryString)) {
+            StringTokenizer queryTokens = new StringTokenizer(queryString, "&");
+            while (queryTokens.hasMoreTokens()) {
+                String token = queryTokens.nextToken();
+                if (token.startsWith("amp;")) {
+                    // this is most likely a split value that had an &amp; in it, so don't consider this a name; note that some old code just stripped the "amp;" and went with it
+                    //token = token.substring(4);
+                    continue;
+                }
+                int equalsIndex = token.indexOf("=");
+                String name = token;
+                if (equalsIndex > 0) {
+                    name = token.substring(0, equalsIndex);
+                    paramMap.put(name, request.getParameter(name));
+                }
+            }
+        }
+        return paramMap;
+    }
+    
+    public static Map<String, Object> getPathInfoOnlyParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
+        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
+        Map<String, Object> paramMap = FastMap.newInstance();
+        
         // now add in all path info parameters /~name1=value1/~name2=value2/
         // note that if a parameter with a given name already exists it will be put into a list with all values
         String pathInfoStr = request.getPathInfo();
@@ -142,6 +193,10 @@ public class UtilHttp {
                 last = current;
                 if (element.charAt(0) == '~' && element.indexOf('=') > -1) {
                     String name = element.substring(1, element.indexOf('='));
+                    if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
+                        continue;
+                    }
+
                     String value = element.substring(element.indexOf('=') + 1);
                     Object curValue = paramMap.get(name);
                     if (curValue != null) {
@@ -162,20 +217,13 @@ public class UtilHttp {
                 }
             }
         }
-
-        if (paramMap.size() == 0) {
-            // nothing found in the parameters; maybe we read the stream instead
-            Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
-            if (UtilValidate.isNotEmpty(multiPartMap)) {
-                paramMap.putAll(multiPartMap);
-            }
-        }
-
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
-            Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
-        }
         
+        return paramMap;
+    }
+    
+    public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
+        Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request);
+        paramMap.putAll(getPathInfoOnlyParameterMap(request, null, null));
         return paramMap;
     }
 
@@ -960,7 +1008,7 @@ public class UtilHttp {
         }
         return retStr;
     }
-
+    
     /**
      * Given multi form data with the ${param}_o_N notation, creates a Collection 
      * of Maps for the submitted rows. Each Map contains the key/value pairs 

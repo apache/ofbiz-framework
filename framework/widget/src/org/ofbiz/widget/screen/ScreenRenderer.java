@@ -234,7 +234,7 @@ public class ScreenRenderer {
         context.put("controlPath", request.getAttribute("_CONTROL_PATH_"));
         context.put("contextRoot", request.getAttribute("_CONTEXT_ROOT_"));
         context.put("serverRoot", request.getAttribute("_SERVER_ROOT_URL_"));
-        context.put("checkLoginUrl", LoginWorker.makeLoginUrl(request, "checkLogin"));
+        context.put("checkLoginUrl", LoginWorker.makeLoginUrl(request));
         String externalLoginKey = LoginWorker.getExternalLoginKey(request);
         String externalKeyParam = externalLoginKey == null ? "" : "&amp;externalLoginKey=" + externalLoginKey;
         context.put("externalLoginKey", externalLoginKey);

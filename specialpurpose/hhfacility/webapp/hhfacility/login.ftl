@@ -17,11 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign previousParams = sessionAttributes._PREVIOUS_PARAMS_?if_exists>
-<#if previousParams?has_content>
-  <#assign previousParams = "?" + previousParams>
-</#if>
-
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
 <#if username != "">
   <#assign focusName = false>
@@ -49,7 +44,7 @@ under the License.
             <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
               <tr>
                 <td align="center" valign="middle" width='100%'>
-                  <form method="post" action="<@ofbizUrl>login${previousParams?if_exists}</@ofbizUrl>" name="loginform" style='margin: 0;'>
+                  <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform" style='margin: 0;'>
                     <table width='100%' border='0' cellpadding='0' cellspacing='2'>
                       <tr>
                         <td align="right">
