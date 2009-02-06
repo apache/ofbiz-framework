@@ -782,7 +782,7 @@ under the License.
         </call-service>
         <if-compare field="genericResult.hasPermission" operator="equals" value="false" type="Boolean">
             <field-to-result field="genericResult.hasPermission" result-name="hasPermission"/>
-            <field-to-result field="genericResult.failMessage" map-name="failMessage"/>
+            <field-to-result field="failMessage.genericResult.failMessage" result-name="genericResult.failMessage"/>
             <return/>
         </if-compare>
         
