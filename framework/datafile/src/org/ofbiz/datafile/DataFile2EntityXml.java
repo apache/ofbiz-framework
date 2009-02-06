@@ -66,7 +66,11 @@ public class DataFile2EntityXml {
                         }
                     }
                     if (value != null) {
-                        outFile.write(modelField.name + "=\"" + value + "\" ");
+                        if (value instanceof String) {
+                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String)value) + "\" ");
+                        } else {
+                            outFile.write(modelField.name + "=\"" + value + "\" ");
+                        }
                     }
                 }
                 outFile.write("/>");
@@ -119,8 +123,10 @@ public class DataFile2EntityXml {
                 Object value = record.get(modelField.name);
                 if (value instanceof String) {
                     value = ((String)value).trim();
+                    outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String)value) + "\" ");
+                } else {
+                    outFile.write(modelField.name + "=\"" + value + "\" ");
                 }
-                outFile.write(modelField.name + "=\"" + value + "\" ");
             }
             outFile.write("/>");
             outFile.newLine();
