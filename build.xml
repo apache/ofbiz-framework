@@ -396,7 +396,7 @@ under the License.
               Base permission: ${base-permission}
               Folder: ${basedir}/hot-deploy/${component-name}
         </echo>
-        <input addproperty="confirm-component-creation" message="Confirm: " defaultvalue="N" validargs="Y,N"/>
+        <input addproperty="confirm-component-creation" message="Confirm: " defaultvalue="N" validargs="Y,N,y,n"/>
         <fail message="Component creation cancelled by the user.">
             <condition>
                 <equals arg1="${confirm-component-creation}" arg2="N"/>
