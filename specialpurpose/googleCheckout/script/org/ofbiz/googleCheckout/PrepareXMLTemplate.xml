@@ -39,7 +39,7 @@
         <log level="info" message="${response}"/>
         <call-simple-method method-name="getReDirectFromXmlDoc"/>
         <log level="info" message="step 5 done"/>
-        <field-to-result field-name="redirect"/>
+        <field-to-result field="redirect"/>
     </simple-method>
 <!-- Step 1 -->
     <simple-method method-name="connectWithRedirectHack" short-description="">

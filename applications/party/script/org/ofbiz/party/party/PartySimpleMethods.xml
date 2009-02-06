@@ -21,25 +21,25 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="updateAVSOverride" short-description="Create/Update The AVS Override String">
-        <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <make-value value-field="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key entity-name="PartyIcsAvsOverride" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.partyId">
-            <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-            <store-value value-name="lookedUpValue"/>
+            <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+            <store-value value-field="lookedUpValue"/>
         </if-not-empty>
         <if-empty field="lookedUpValue.partyId">
-            <set-nonpk-fields map-name="parameters" value-name="lookupPKMap"/>
-            <create-value value-name="lookupPKMap"/>
+            <set-nonpk-fields map="parameters" value-field="lookupPKMap"/>
+            <create-value value-field="lookupPKMap"/>
         </if-empty>
     </simple-method>
 
     <simple-method method-name="deleteAVSOverride" short-description="Delete The AVS Override String">
-        <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <make-value value-field="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key entity-name="PartyIcsAvsOverride" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.partyId">
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
 
@@ -65,17 +65,17 @@ under the License.
             <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         </else>
         </if-empty>
-        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue">
-            <make-value value-name="newValue" entity-name="PartyRole" map-name="lookupPKMap"/>
-            <create-value value-name="newValue"/>
+            <make-value value-field="newValue" entity-name="PartyRole" map="lookupPKMap"/>
+            <create-value value-field="newValue"/>
         </if-empty>
     </simple-method>
 
     <simple-method method-name="createPersonAndUserLogin" short-description="Creates a person and userlogin" login-required="false">
-        <set-service-fields service-name="createUserLogin" map-name="parameters" to-map-name="createUlInMap"/>
+        <set-service-fields service-name="createUserLogin" map="parameters" to-map="createUlInMap"/>
 
-        <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="createPersonCtx"/>
+        <set-service-fields service-name="createPerson" map="parameters" to-map="createPersonCtx"/>
         <call-service service-name="createPerson" in-map-name="createPersonCtx">
             <result-to-field result-name="partyId" field="createUlInMap.partyId"/>
         </call-service>
@@ -88,8 +88,8 @@ under the License.
         <call-service service-name="createUserLogin" in-map-name="createUlInMap"/>
         <entity-one entity-name="UserLogin" value-field="newUserLogin"/>
 
-        <field-to-result field-name="newUserLogin"/>
-        <field-to-result field-name="createUlInMap.partyId" result-name="partyId"/>
+        <field-to-result field="newUserLogin"/>
+        <field-to-result field="createUlInMap.partyId" result-name="partyId"/>
     </simple-method>
  
     <!-- Simple method to create a person, its role and basic contact mechs -->
@@ -118,7 +118,7 @@ under the License.
         <check-errors/>
      
         <call-service service-name="createPerson" in-map-name="personContext">
-            <result-to-field result-name="partyId" field-name="partyId"/>
+            <result-to-field result-name="partyId" field="partyId"/>
         </call-service>
      
         <if-not-empty field="parameters.roleTypeId">
@@ -162,7 +162,7 @@ under the License.
      
         <set field="partyGroupContext.partyTypeId" value="PARTY_GROUP"/>
         <call-service service-name="createPartyGroup" in-map-name="partyGroupContext">
-            <result-to-field result-name="partyId" field-name="partyId"/>
+            <result-to-field result-name="partyId" field="partyId"/>
         </call-service>
      
         <if-not-empty field="parameters.roleTypeId">
@@ -190,7 +190,7 @@ under the License.
         </call-service>
      
         <if-not-empty field="postalAddContactMechPurpTypeId">
-            <set-service-fields service-name="createPartyContactMechPurpose" map-name="postalAddressContext" to-map-name="serviceCtx"/>
+            <set-service-fields service-name="createPartyContactMechPurpose" map="postalAddressContext" to-map="serviceCtx"/>
             <set field="serviceCtx.contactMechPurposeTypeId" from-field="postalAddContactMechPurpTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceCtx"/>
         </if-not-empty>
