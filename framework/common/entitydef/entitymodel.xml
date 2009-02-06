@@ -602,7 +602,7 @@ under the License.
         <relation type="one" fk-name="PortPage_PARENT" title="Parent" rel-entity-name="PortalPage">
           <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
         </relation>
-        <relation type="one" fk-name="PORTPAGE_REL_SECGRP" rel-entity-name="SecurityGroup">
+        <relation type="one" fk-name="PORTPAGE_SECGRP" rel-entity-name="SecurityGroup">
           <key-map field-name="securityGroupId" rel-field-name="groupId"/>
         </relation>
     </entity>
