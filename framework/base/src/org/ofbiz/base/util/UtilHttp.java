@@ -24,10 +24,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,10 +71,12 @@ public class UtilHttp {
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
     public static final Encoder defaultWebEncoder;
+    //public static final Validator defaultWebValidator;
     static {
         // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
         List<Codec> codecList = Arrays.asList(new CSSCodec(), new HTMLEntityCodec(), new JavaScriptCodec(), new PercentCodec());
-        defaultWebEncoder = new DefaultEncoder( codecList );
+        defaultWebEncoder = new DefaultEncoder(codecList);
+        //defaultWebValidator = new DefaultValidator();
     }
     
     public static final String MULTI_ROW_DELIMITER = "_o_";
@@ -748,16 +748,26 @@ public class UtilHttp {
                             }
                         }
                         try {
+                            buf.append(defaultWebEncoder.encodeForURL(name));
+                        } catch (EncodingException e) {
+                            Debug.logError(e, module);
+                        }
+                        /* the old way: try {
                             buf.append(URLEncoder.encode(name, "UTF-8"));
                         } catch (UnsupportedEncodingException e) {
                             Debug.logError(e, module);
-                        }
+                        } */
                         buf.append('=');
                         try {
+                            buf.append(defaultWebEncoder.encodeForURL(valueStr));
+                        } catch (EncodingException e) {
+                            Debug.logError(e, module);
+                        }
+                        /* the old way: try {
                             buf.append(URLEncoder.encode(valueStr, "UTF-8"));
                         } catch (UnsupportedEncodingException e) {
                             Debug.logError(e, module);
-                        }
+                        } */
                     }
                 }
             }
