@@ -566,7 +566,7 @@ public class LoginServices {
         }
 
         List<String> errorMessageList = FastList.newInstance();
-        if (newPassword != null && newPassword.length() > 0) {
+        if (newPassword != null) {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
         }
@@ -823,6 +823,14 @@ public class LoginServices {
 
         }
 
+        if (!UtilValidate.isNotEmpty(newPassword) || !UtilValidate.isNotEmpty(newPasswordVerify)) {
+            errMsg = UtilProperties.getMessage(resource,"loginservices.password_or_verify_missing", locale);
+            errorMessageList.add(errMsg);
+        } else if (!newPassword.equals(newPasswordVerify)) {
+            errMsg = UtilProperties.getMessage(resource,"loginservices.password_did_not_match_verify_password", locale);
+            errorMessageList.add(errMsg);
+        }
+
         int passwordChangeHistoryLimit = 0;
         try {
             passwordChangeHistoryLimit = Integer.parseInt(UtilProperties.getPropertyValue("security.properties", "password.change.history.limit", "0"));
@@ -854,14 +862,6 @@ public class LoginServices {
                 errMsg = UtilProperties.getMessage(resource,"loginevents.error_accessing_password_change_history", messageMap, locale);
             }
            
-        }
-
-        if (!UtilValidate.isNotEmpty(newPassword) || !UtilValidate.isNotEmpty(newPasswordVerify)) {
-            errMsg = UtilProperties.getMessage(resource,"loginservices.password_or_verify_missing", locale);
-            errorMessageList.add(errMsg);
-        } else if (!newPassword.equals(newPasswordVerify)) {
-            errMsg = UtilProperties.getMessage(resource,"loginservices.password_did_not_match_verify_password", locale);
-            errorMessageList.add(errMsg);
         }
 
         int minPasswordLength = 0;
