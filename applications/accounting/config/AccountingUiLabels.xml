@@ -9917,7 +9917,7 @@
         <value xml:lang="th">หายอดรวมของบัญชี</value>
         <value xml:lang="zh">查找账单账户</value>
     </property>
-	<property key="PageTitleFindFinAccount">
+    <property key="PageTitleFindFinAccount">
         <value xml:lang="de">Suche Bankkonto</value>
         <value xml:lang="en">Find Financial Account</value>
         <value xml:lang="fr">Rechercher un compte financier</value>
@@ -9969,8 +9969,8 @@
         <value xml:lang="zh">查找发票</value>
     </property>
     <property key="PageTitleFindPayment">
-	    <value xml:lang="ar">إيجاد التسديد</value>
-		<value xml:lang="en">Find Payment</value>
+        <value xml:lang="ar">إيجاد التسديد</value>
+        <value xml:lang="en">Find Payment</value>
         <value xml:lang="es">Encontrar Pago</value>
         <value xml:lang="fr">Recherche de paiements</value>
         <value xml:lang="it">Ricerca Pagamento</value>
