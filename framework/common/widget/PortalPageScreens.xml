@@ -58,9 +58,16 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
-                        <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
-                        <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                        <screenlet title="Portal pages for application: ${parameters.parentPortalPageId}">
+                            <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Add a new portal Page">
+                            <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Edit portal page: ${portalPage.portalPageName} [${parameters.portalPageId}]">
+                            <link target="addPortalPageColumn?portalPageId=${portalPage.portalPageId}&amp;parentPortalPageId=${portalPage.parentPortalPageId}" text="${uiLabelMap.CommonAddColumn}" style="buttontext"/>
+                            <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

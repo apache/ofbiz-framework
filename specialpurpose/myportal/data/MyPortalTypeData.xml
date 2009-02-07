@@ -30,13 +30,13 @@
     <!-- no security group -->
     <PortalPage portalPageId="MYPORTAL_NONE" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/>
     
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE" sequenceNum="00" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPLOYEE" />
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="01" portalPageName="My Profile" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE2" sequenceNum="02" portalPageName="My Communications" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE3" sequenceNum="03" portalPageName="Other Communications" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="04" portalPageName="Company communications" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="05" portalPageName="My Time Sheets" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE6" sequenceNum="06" portalPageName="My Tasks" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE" sequenceNum="00" portalPageName="Main" description="The OFBiz My Portal Main page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPLOYEE" />
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="01" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE2" sequenceNum="02" portalPageName="My Communications" description="The OFBiz My Portal commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE3" sequenceNum="03" portalPageName="Other Communications" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="04" portalPageName="Company communications" description="The OFBiz My Portal Company commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="05" portalPageName="My Time Sheets" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE6" sequenceNum="06" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML" sequenceNum="00" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPL-NOEML" />
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML1" sequenceNum="01" portalPageName="My Profile" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
