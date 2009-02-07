@@ -65,183 +65,185 @@ float: right;
                     <td width="3%">&nbsp;</td>
                 </tr>
                 <#list orderItemList as orderItem>
-                    <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
-                    <tr><td colspan="8"><hr/></td></tr>
-                    <tr>
-                        <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
-                        <#assign productId = orderItem.productId?if_exists>
-                        <#if productId?exists && productId == "shoppingcart.CommentLine">
-                            <td colspan="8" valign="top">
-                                <span class="label">&gt;&gt; ${orderItem.itemDescription}</span>
-                            </td>
-                        <#else>
-                            <td valign="top">
-                                <div>
-                                    <#if orderHeader.statusId = "ORDER_CANCELLED" || orderHeader.statusId = "ORDER_COMPLETED">
-                                    <#if productId?exists>
-                                    ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
-                                    <#elseif orderItemType?exists>
-                                    ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
-                                    <#else>
-                                    ${orderItem.itemDescription?if_exists}
-                                    </#if>
-                                    <#else>
-                                    <#if productId?exists>
-                                    <#assign orderItemName = orderItem.productId?default("N/A")/>
-                                    <#elseif orderItemType?exists>
-                                    <#assign orderItemName = orderItemType.description/>
-                                    </#if>
-                                    <p>${uiLabelMap.ProductProduct}&nbsp;${orderItemName}</p>
-                                    <#if productId?exists>
-                                        <#assign product = orderItem.getRelatedOneCache("Product")>
-                                        <#if product.salesDiscontinuationDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
-                                            <span class="alert">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
-                                        </#if>
-                                    </#if>
-                                    ${uiLabelMap.CommonDescription}<br/>
-                                    <input type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
-                                    </#if>
-                                </div>
-                                <#if productId?exists>
-                                <div>
-                                    <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
-                                    <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
-                                    <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
-                                    <a href="<@ofbizUrl>viewimage?orderId=${orderId}&orderItemSeqId=${orderItem.orderItemSeqId}&orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
-                                    </#if>
-                                </div>
-                                </#if>
-                            </td>
-                            
-                            <#-- now show status details per line item -->
-                            <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
-                            <td>
-                                ${uiLabelMap.CommonCurrent}&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br/>
-                                <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
-                                <#list orderItemStatuses as orderItemStatus>
-                                <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
-                                ${orderItemStatus.statusDatetime.toString()}&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br/>
-                                </#list>
-                                <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
-                                <#if returns?has_content>
-                                <#list returns as returnItem>
-                                <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
-                                <#if returnHeader.statusId != "RETURN_CANCELLED">
-                                <div class="alert">
-                                    <span class="label">${uiLabelMap.OrderReturned}</span> #<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
-                                </div>
-                                </#if>
-                                </#list>
-                                </#if>
-                            </td>
-                            <td class="align-text" valign="top" nowrap="nowrap">
-                                <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
-                                ${uiLabelMap.OrderOrdered}&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
-                                ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
-                                ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
-                            </td>
-                            <td class="align-text" valign="top" nowrap="nowrap">
-                                <#-- check for permission to modify price -->
-                                <#if (allowPriceChange)>
-                                    <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
-                                    &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
-                                <#else>
-                                    <div><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/> / <@ofbizCurrency amount=orderItem.unitListPrice isoCode=currencyUomId/></div>
-                                </#if>                                                                
-                            </td>
-                            <td class="align-text" valign="top" nowrap="nowrap">
-                                <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
-                            </td>
-                            <td class="align-text" valign="top" nowrap="nowrap">
-                                <#if orderItem.statusId != "ITEM_CANCELLED">
-                                <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
-                                <#else>
-                                <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
-                                </#if>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                <#if ("Y" != orderItem.isPromo?if_exists) && ((security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT"))>
-                                    <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancelAll}</a>
-                                <#else>      
-                                    &nbsp;
-                                </#if>
-                            </td>
-                        </#if>
-                    </tr>
-                    
-                    <#-- now update/cancel reason and comment field -->
-                    <#if orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && ("Y" != orderItem.isPromo?if_exists)>                    
-                      <tr><td colspan="8"><span class="label">${uiLabelMap.OrderReturnReason}</span>
-	                      <select name="irm_${orderItem.orderItemSeqId}">
-	                        <option value="">&nbsp;</option>
-	                        <#list orderItemChangeReasons as reason>
-	                          <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
-	                        </#list>
-	                      </select>
-                          <span class="label">${uiLabelMap.CommonComments}</span>
-                          <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>                       
+                    <#if orderItem.productId?exists> <#-- a null product may come from a quote -->
+                      <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
+                      <tr><td colspan="8"><hr/></td></tr>
+                      <tr>
+                          <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
+                          <#assign productId = orderItem.productId?if_exists>
+                          <#if productId?exists && productId == "shoppingcart.CommentLine">
+                              <td colspan="8" valign="top">
+                                  <span class="label">&gt;&gt; ${orderItem.itemDescription}</span>
+                              </td>
+                          <#else>
+                              <td valign="top">
+                                  <div>
+                                      <#if orderHeader.statusId = "ORDER_CANCELLED" || orderHeader.statusId = "ORDER_COMPLETED">
+                                      <#if productId?exists>
+                                      ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
+                                      <#elseif orderItemType?exists>
+                                      ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
+                                      <#else>
+                                      ${orderItem.itemDescription?if_exists}
+                                      </#if>
+                                      <#else>
+                                      <#if productId?exists>
+                                      <#assign orderItemName = orderItem.productId?default("N/A")/>
+                                      <#elseif orderItemType?exists>
+                                      <#assign orderItemName = orderItemType.description/>
+                                      </#if>
+                                      <p>${uiLabelMap.ProductProduct}&nbsp;${orderItemName}</p>
+                                      <#if productId?exists>
+                                          <#assign product = orderItem.getRelatedOneCache("Product")>
+                                          <#if product.salesDiscontinuationDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                                              <span class="alert">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
+                                          </#if>
+                                      </#if>
+                                      ${uiLabelMap.CommonDescription}<br/>
+                                      <input type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
+                                      </#if>
+                                  </div>
+                                  <#if productId?exists>
+                                  <div>
+                                      <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                                      <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
+                                      <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
+                                      <a href="<@ofbizUrl>viewimage?orderId=${orderId}&orderItemSeqId=${orderItem.orderItemSeqId}&orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
+                                      </#if>
+                                  </div>
+                                  </#if>
+                              </td>
+                              
+                              <#-- now show status details per line item -->
+                              <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
+                              <td>
+                                  ${uiLabelMap.CommonCurrent}&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br/>
+                                  <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
+                                  <#list orderItemStatuses as orderItemStatus>
+                                  <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
+                                  ${orderItemStatus.statusDatetime.toString()}&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br/>
+                                  </#list>
+                                  <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
+                                  <#if returns?has_content>
+                                  <#list returns as returnItem>
+                                  <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
+                                  <#if returnHeader.statusId != "RETURN_CANCELLED">
+                                  <div class="alert">
+                                      <span class="label">${uiLabelMap.OrderReturned}</span> #<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
+                                  </div>
+                                  </#if>
+                                  </#list>
+                                  </#if>
+                              </td>
+                              <td class="align-text" valign="top" nowrap="nowrap">
+                                  <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
+                                  ${uiLabelMap.OrderOrdered}&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
+                                  ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
+                                  ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
+                              </td>
+                              <td class="align-text" valign="top" nowrap="nowrap">
+                                  <#-- check for permission to modify price -->
+                                  <#if (allowPriceChange)>
+                                      <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
+                                      &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
+                                  <#else>
+                                      <div><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/> / <@ofbizCurrency amount=orderItem.unitListPrice isoCode=currencyUomId/></div>
+                                  </#if>                                                                
+                              </td>
+                              <td class="align-text" valign="top" nowrap="nowrap">
+                                  <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
+                              </td>
+                              <td class="align-text" valign="top" nowrap="nowrap">
+                                  <#if orderItem.statusId != "ITEM_CANCELLED">
+                                  <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
+                                  <#else>
+                                  <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
+                                  </#if>
+                              </td>
+                              <td>&nbsp;</td>
+                              <td>
+                                  <#if ("Y" != orderItem.isPromo?if_exists) && ((security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT"))>
+                                      <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancelAll}</a>
+                                  <#else>      
+                                      &nbsp;
+                                  </#if>
+                              </td>
+                          </#if>
                       </tr>
-                    </#if>                      
-                    <#-- now show adjustment details per line item -->
-                    <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
-                    <#if orderItemAdjustments?exists && orderItemAdjustments?has_content>
-                        <#list orderItemAdjustments as orderItemAdjustment>
-                            <#assign adjustmentType = orderItemAdjustment.getRelatedOneCache("OrderAdjustmentType")>
-                            <tr>
-                                <td class="align-text" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}&nbsp;
-                                    ${orderItemAdjustment.get("description",locale)?if_exists} (${orderItemAdjustment.comments?default("")})
-                                        
-                                    <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
-                                    <#if orderItemAdjustment.primaryGeoId?has_content>
-                                    <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
-                                    <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
-                                    <#if orderItemAdjustment.secondaryGeoId?has_content>
-                                    <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
-                                    (<span class="label">${uiLabelMap.CommonIn}</span>&nbsp;${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
-                                    </#if>
-                                    </#if>
-                                    <#if orderItemAdjustment.sourcePercentage?exists><span class="label">Rate</span>&nbsp;${orderItemAdjustment.sourcePercentage}</#if>
-                                    <#if orderItemAdjustment.customerReferenceId?has_content><span class="label">Customer Tax ID</span>&nbsp;${orderItemAdjustment.customerReferenceId}</#if>
-                                    <#if orderItemAdjustment.exemptAmount?exists><span class="label">Exempt Amount</span>&nbsp;${orderItemAdjustment.exemptAmount}</#if>
-                                    </#if>
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td class="align-text">
-                                    <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
-                                </td>
-                                <td colspan="3">&nbsp;</td>
-                            </tr>
-                        </#list>
-                    </#if>
-                    
-                    <#-- now show ship group info per line item -->
-                    <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
-                    <#if orderItemShipGroupAssocs?has_content>
-                        <tr><td colspan="8">&nbsp;</td></tr>
-                        <#list orderItemShipGroupAssocs as shipGroupAssoc>
-                            <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup")>
-                            <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
-                            <tr>
-                                <td class="align-text" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
-                                </td>
-                                <td align="center">
-                                    <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupAssoc.quantity?string.number}"/>
-                                </td>
-                                <td colspan="4">&nbsp;</td>
-                                <td>
-                                    <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
-                                    <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
-                                        <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>                                    
-                                    <#else>      
-                                        &nbsp;
-                                    </#if>
-                                </td>
-                            </tr>
-                        </#list>
+                      
+                      <#-- now update/cancel reason and comment field -->
+                      <#if orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && ("Y" != orderItem.isPromo?if_exists)>                    
+                        <tr><td colspan="8"><span class="label">${uiLabelMap.OrderReturnReason}</span>
+  	                      <select name="irm_${orderItem.orderItemSeqId}">
+  	                        <option value="">&nbsp;</option>
+  	                        <#list orderItemChangeReasons as reason>
+  	                          <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+  	                        </#list>
+  	                      </select>
+                            <span class="label">${uiLabelMap.CommonComments}</span>
+                            <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>                       
+                        </tr>
+                      </#if>                      
+                      <#-- now show adjustment details per line item -->
+                      <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
+                      <#if orderItemAdjustments?exists && orderItemAdjustments?has_content>
+                          <#list orderItemAdjustments as orderItemAdjustment>
+                              <#assign adjustmentType = orderItemAdjustment.getRelatedOneCache("OrderAdjustmentType")>
+                              <tr>
+                                  <td class="align-text" colspan="2">
+                                      <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}&nbsp;
+                                      ${orderItemAdjustment.get("description",locale)?if_exists} (${orderItemAdjustment.comments?default("")})
+                                          
+                                      <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
+                                      <#if orderItemAdjustment.primaryGeoId?has_content>
+                                      <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
+                                      <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
+                                      <#if orderItemAdjustment.secondaryGeoId?has_content>
+                                      <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
+                                      (<span class="label">${uiLabelMap.CommonIn}</span>&nbsp;${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
+                                      </#if>
+                                      </#if>
+                                      <#if orderItemAdjustment.sourcePercentage?exists><span class="label">Rate</span>&nbsp;${orderItemAdjustment.sourcePercentage}</#if>
+                                      <#if orderItemAdjustment.customerReferenceId?has_content><span class="label">Customer Tax ID</span>&nbsp;${orderItemAdjustment.customerReferenceId}</#if>
+                                      <#if orderItemAdjustment.exemptAmount?exists><span class="label">Exempt Amount</span>&nbsp;${orderItemAdjustment.exemptAmount}</#if>
+                                      </#if>
+                                  </td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td class="align-text">
+                                      <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                  </td>
+                                  <td colspan="3">&nbsp;</td>
+                              </tr>
+                          </#list>
+                      </#if>
+                      
+                      <#-- now show ship group info per line item -->
+                      <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
+                      <#if orderItemShipGroupAssocs?has_content>
+                          <tr><td colspan="8">&nbsp;</td></tr>
+                          <#list orderItemShipGroupAssocs as shipGroupAssoc>
+                              <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup")>
+                              <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
+                              <tr>
+                                  <td class="align-text" colspan="2">
+                                      <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
+                                  </td>
+                                  <td align="center">
+                                      <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupAssoc.quantity?string.number}"/>
+                                  </td>
+                                  <td colspan="4">&nbsp;</td>
+                                  <td>
+                                      <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
+                                      <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
+                                          <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>                                    
+                                      <#else>      
+                                          &nbsp;
+                                      </#if>
+                                  </td>
+                              </tr>
+                          </#list>
+                      </#if>
                     </#if>
                 </#list>
                 <tr>
