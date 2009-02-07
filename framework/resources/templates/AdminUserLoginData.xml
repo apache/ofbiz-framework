@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <UserLogin userLoginId="@userLoginId@" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" requirePasswordChange="Y"/>
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="@userLoginId@" fromDate="2001-01-01 12:00:00.0"/>
+</entity-engine-xml>

@@ -135,7 +135,7 @@ under the License.
         <echo message="" file="runtime/svninfo.ftl"/>
         <echo message="Done!"/>
     </target>
-	
+    
     <!-- ================================================================== -->
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
@@ -343,26 +343,27 @@ under the License.
             <arg value="file=${data-file}"/>
         </java>
     </target>
-    <target name="create-admin-user-login"
-        description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
-        <condition property="userLoginId.notSet">
-            <not><isset property="userLoginId"/></not>
-        </condition>
-        <antcall target="prompt-user-login-name"/>
-        <echoxml file="runtime/tmp/tmpUserLogin.xml">
-            <entity-engine-xml>
-                <UserLogin userLoginId="${userLoginId}" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" requirePasswordChange="Y"/>
-                <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="${userLoginId}" fromDate="2001-01-01 12:00:00.0"/>
-            </entity-engine-xml>
-        </echoxml>
+    <target name="load-admin-user-login"
+        description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
+        <fail message="userLoginId parameter is required to create a new admin user.">
+            <condition>
+                <not><isset property="userLoginId"/></not>
+            </condition>
+        </fail>
+        <copy file="${basedir}/framework/resources/templates/AdminUserLoginData.xml" tofile="runtime/tmp/tmpUserLogin.xml">
+            <filterset>
+                <filter token="userLoginId" value="${userLoginId}"/>
+            </filterset>
+        </copy>
         <antcall target="run-install-file">
             <param name="data-file" value="runtime/tmp/tmpUserLogin.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpUserLogin.xml"/>
     </target>
-    <target name="prompt-user-login-name" if="userLoginId.notSet"
-        description="Prompts for a user name.">
+    <target name="create-admin-user-login"
+        description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
         <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
+        <antcall target="load-admin-user-login"/>
     </target>
 
     <target name="run-debug" depends="build">
