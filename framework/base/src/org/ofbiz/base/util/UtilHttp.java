@@ -52,14 +52,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.owasp.esapi.Encoder;
-import org.owasp.esapi.codecs.CSSCodec;
-import org.owasp.esapi.codecs.Codec;
-import org.owasp.esapi.codecs.HTMLEntityCodec;
-import org.owasp.esapi.codecs.JavaScriptCodec;
-import org.owasp.esapi.codecs.PercentCodec;
 import org.owasp.esapi.errors.EncodingException;
-import org.owasp.esapi.reference.DefaultEncoder;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -67,17 +60,6 @@ import org.owasp.esapi.reference.DefaultEncoder;
 public class UtilHttp {
 
     public static final String module = UtilHttp.class.getName();
-    
-    /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
-    public static final boolean esapiCanonicalizeStrict = false;
-    public static final Encoder defaultWebEncoder;
-    //public static final Validator defaultWebValidator;
-    static {
-        // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
-        List<Codec> codecList = Arrays.asList(new CSSCodec(), new HTMLEntityCodec(), new JavaScriptCodec(), new PercentCodec());
-        defaultWebEncoder = new DefaultEncoder(codecList);
-        //defaultWebValidator = new DefaultValidator();
-    }
     
     public static final String MULTI_ROW_DELIMITER = "_o_";
     public static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
@@ -263,7 +245,7 @@ public class UtilHttp {
     
     public static String canonicalizeParameter(String paramValue) {
         try {
-            String cannedStr = defaultWebEncoder.canonicalize(paramValue, esapiCanonicalizeStrict);
+            String cannedStr = StringUtil.defaultWebEncoder.canonicalize(paramValue, StringUtil.esapiCanonicalizeStrict);
             if (Debug.verboseOn()) Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
             return cannedStr;
         } catch (EncodingException e) {
@@ -748,7 +730,7 @@ public class UtilHttp {
                             }
                         }
                         try {
-                            buf.append(defaultWebEncoder.encodeForURL(name));
+                            buf.append(StringUtil.defaultWebEncoder.encodeForURL(name));
                         } catch (EncodingException e) {
                             Debug.logError(e, module);
                         }
@@ -759,7 +741,7 @@ public class UtilHttp {
                         } */
                         buf.append('=');
                         try {
-                            buf.append(defaultWebEncoder.encodeForURL(valueStr));
+                            buf.append(StringUtil.defaultWebEncoder.encodeForURL(valueStr));
                         } catch (EncodingException e) {
                             Debug.logError(e, module);
                         }

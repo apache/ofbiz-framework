@@ -454,8 +454,20 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="use-when">
+        <xs:attribute name="use-when" type="xs:string">
             <xs:annotation><xs:documentation>Used to specify a condition that must be true to use this field; the condition should be written using the Java syntax and can operate on values in the form context; if this is used the field will only be put on the field list, and not in the field map meaning that values for this field cannot be overridden.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="encode-output" default="true">
+            <xs:annotation><xs:documentation>
+                This is for textual output only. If true data shown in fields will be encoded so that it does not interfere with markup of the target output.
+                For example, if output is HTML then data presented will be HTML encoded so that all HTML-specific characters are escaped.
+            </xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event">
             <xs:annotation><xs:documentation>Used to specify javascript events that should be attached to fields.</xs:documentation></xs:annotation>

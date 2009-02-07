@@ -28,6 +28,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.fop.apps.Fop;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.webapp.view.ViewHandlerException;
@@ -66,6 +67,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
 
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", new FoFormRenderer(request, response));
+            screens.getContext().put("simpleEncoder", StringUtil.xmlEncoder);
             screens.render(page);
         } catch (Exception e) {
             renderError("Problems with the response writer/output stream", e, request, response);
