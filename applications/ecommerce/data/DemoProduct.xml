@@ -315,7 +315,7 @@ under the License.
     <ProductFeature productFeatureId="9003" productFeatureCategoryId="9000" productFeatureTypeId="SIZE" description="4-Wheel"/>
     <ProductFeaturePrice productFeatureId="9003" price="2.30" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
 
-    <ProductFeatureIactn productFeatureId="9000" productFeatureIdTo="9002" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/> 
+    <ProductFeatureIactn productFeatureId="9000" productFeatureIdTo="9002" productId="WG-9944" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/> 
 
     <ProductFeatureAppl productId="GZ-1006" productFeatureId="8000"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
