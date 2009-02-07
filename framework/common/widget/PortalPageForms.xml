@@ -27,8 +27,8 @@ under the License.
             <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
         </actions>
         
-        <field name="portalPageId" title="${uiLabelMap.CommonId}" sort-field="true">
-            <hyperlink description="${portalPageId}" target="editPortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${userLoginSecurityGroupId}"/>
+        <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="editPortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/>
         </field>
         <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" widget-style="tabletext" sort-field="true">
@@ -62,9 +62,9 @@ under the License.
             <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
         </actions>
         <field name="parentPortalPageId"><hidden value="${parameters.portalPageId}"/></field>
-        <field name="portalPageName" parameter-name="portalPageName"><text/></field>
-        <field name="description"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="portalPageName" position="1"><text/></field>
+        <field name="description" position="2"><text/></field>
+        <field name="createButton"><submit button-type="button"/></field>
     </form>
     
     
