@@ -815,7 +815,10 @@ public class RequestHandler implements Serializable {
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
 
         String requestUri = RequestHandler.getRequestUri(url);
-        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(requestUri);
+        ConfigXMLReader.RequestMap requestMap = null;
+        if (requestUri != null) {
+            requestMap = controllerConfig.requestMapMap.get(requestUri);
+        }
         
         StringBuilder newURL = new StringBuilder();
 
