@@ -132,7 +132,7 @@ function runAction() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.PartyRoleType}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                  <select name='roleTypeId' multiple="multiple" style="height:5em">
+                  <select name='roleTypeId' multiple="multiple">
                     <#if currentRole?has_content>
                     <option value="${currentRole.roleTypeId}">${currentRole.get("description", locale)}</option>
                     <option value="${currentRole.roleTypeId}">---</option>
