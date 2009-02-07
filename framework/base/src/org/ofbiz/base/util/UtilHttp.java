@@ -235,7 +235,7 @@ public class UtilHttp {
             } else if (paramEntry.getValue() instanceof Collection) {
                 List<String> newList = FastList.newInstance();
                 for (String listEntry: ((Collection<String>) paramEntry.getValue())) {
-                    newList.add(canonicalizeParameter((String) paramEntry.getValue()));
+                    newList.add(canonicalizeParameter((String) listEntry));
                 }
                 paramEntry.setValue(newList);
             }
