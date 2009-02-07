@@ -122,6 +122,10 @@ height: 1.6em; /* force ctrl to scale with text */
 margin: 0.1em;
 }
 
+select[multiple="multiple"] {
+height: 5em;
+}
+
 h1, .h1 {
 font-size: 1.6em;
 font-weight: bold;
