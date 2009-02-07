@@ -29,9 +29,9 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr valign="bottom" class="header-row">
                 <td width="10%">${uiLabelMap.ProductItem}</td>
-                <td width="35%">${uiLabelMap.EcommerceProduct}</td>
+                <td width="35%">${uiLabelMap.ProductProduct}</td>
                 <td width="10%" align="right">${uiLabelMap.ProductQuantity}</td>
-                <td width="10%" align="right">${uiLabelMap.OrderAmount}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderSelAmount}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderOrderQuoteUnitPrice}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderAdjustments}</td>
                 <td width="10%" align="right">${uiLabelMap.CommonSubtotal}</td>
@@ -42,6 +42,8 @@ under the License.
             <#list quoteItems as quoteItem>
                 <#if quoteItem.productId?exists>
                     <#assign product = quoteItem.getRelatedOne("Product")>
+                <#else>
+                    <#assign product = null> <#-- don't drag it along to the next iteration -->
                 </#if>
                 <#assign quoteItemAmount = quoteItem.quoteUnitPrice?default(0) * quoteItem.quantity?default(0) * quoteItem.selectedAmount?default(1)>
                 <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment")>
@@ -65,7 +67,13 @@ under the License.
                         <div>
                             ${(product.internalName)?if_exists}&nbsp;
                             <#if showQuoteManagementLinks?exists>
-                                <a href="/catalog/control/EditProduct?productId=${quoteItem.productId?if_exists}" class="buttontext">${quoteItem.productId?if_exists}</a>
+                                <a href="/catalog/control/EditProduct?productId=${quoteItem.productId?if_exists}" class="buttontext">
+                                  <#if quoteItem.productId?exists>
+                                    ${quoteItem.productId}
+                                  <#else>
+                                    ${uiLabelMap.ProductCreateProduct}
+                                  </#if>
+                                </a>
                             <#else>
                                 <a href="<@ofbizUrl>product?product_id=${quoteItem.productId?if_exists}</@ofbizUrl>" class="buttontext">${quoteItem.productId?if_exists}</a>
                             </#if>
