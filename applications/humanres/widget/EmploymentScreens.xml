@@ -91,7 +91,7 @@
     <screen name="ListEmployments">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResEditEmployment"/>
+                <set field="titleProperty" value="HumanResListEmployments"/>
                 <set field="tabButtonItem" value="ListEmployment"/>
                 <set field="employmentCtx.partyIdTo" from-field="parameters.partyId"/>
             </actions>
@@ -229,7 +229,7 @@
     <screen name="EditAgreementEmploymentAppls">
         <section>                        
             <actions>
-                <set field="titleProperty" value="EditAgreementEmploymentAppls"/>
+                <set field="titleProperty" value="HumanResEditAgreementEmploymentAppl"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditAgreementEmploymentAppls"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
