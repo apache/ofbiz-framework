@@ -2440,15 +2440,6 @@
         <value xml:lang="ru">Финансовые счета</value>
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
-    <property key="AccountingFindFinAccount">
-        <value xml:lang="de">Suche Bankkonto</value>
-        <value xml:lang="en">Find Financial Account</value>
-        <value xml:lang="fr">Rechercher un compte financier</value>
-        <value xml:lang="it">Ricerca Conto Finanziario</value>
-        <value xml:lang="nl">Vind financiele rekening</value>
-        <value xml:lang="ru">Поиск финансовых счетов</value>
-        <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
-    </property>
     <property key="AccountingFindFixedAssets">
         <value xml:lang="de">Suche Anlagen</value>
         <value xml:lang="en">Find Fixed Assets</value>
@@ -2474,31 +2465,6 @@
         <value xml:lang="ru">Поиск накладных</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้า</value>
         <value xml:lang="zh">查找发票</value>
-    </property>
-    <property key="AccountingFindPayment">
-        <value xml:lang="ar">إيجاد التسديد</value>
-        <value xml:lang="en">Find Payment</value>
-        <value xml:lang="es">Encontrar Pago</value>
-        <value xml:lang="fr">Rechercher un paiement</value>
-        <value xml:lang="it">Ricerca pagamento</value>
-        <value xml:lang="nl">Vind betaling</value>
-        <value xml:lang="ro">Cauta Plata</value>
-        <value xml:lang="ru">Найти платеж</value>
-        <value xml:lang="th">ค้นหาการชำระเงิน</value>
-        <value xml:lang="zh">查找支付</value>
-    </property>
-    <property key="AccountingFindPayments">
-        <value xml:lang="ar">إيجاد التسديدات</value>
-        <value xml:lang="de">Suche Zahlungen</value>
-        <value xml:lang="en">Find Payments</value>
-        <value xml:lang="es">Encontrar Pagos</value>
-        <value xml:lang="fr">Rechercher des paiements</value>
-        <value xml:lang="it">Ricerca pagamenti</value>
-        <value xml:lang="nl">Vind betalingen</value>
-        <value xml:lang="ro">Cauta Plati</value>
-        <value xml:lang="ru">Поиск платежей</value>
-        <value xml:lang="th">ค้นหาการชำระเงิน</value>
-        <value xml:lang="zh">查找支付</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
@@ -9903,15 +9869,6 @@
         <value xml:lang="it">Aggiorna voci transazione</value>
         <value xml:lang="nl">Transactieregels aanpassen</value>
     </property>
-    <property key="PageTitleFinAccount">
-        <value xml:lang="de">Geldkonto</value>
-        <value xml:lang="en">Financial Account</value>
-        <value xml:lang="fr">Compte financier</value>
-        <value xml:lang="it">Conto Finanziario</value>
-        <value xml:lang="nl">Financiële rekening</value>
-        <value xml:lang="ru">Финансовые счета</value>
-        <value xml:lang="th">งบกำไรสะสม</value>
-    </property>
     <property key="PageTitleFinancialAccountSummary">
         <value xml:lang="en">Financial Account Summary</value>
         <value xml:lang="fr">Résumé des comptes financiers</value>
@@ -9960,6 +9917,15 @@
         <value xml:lang="th">หายอดรวมของบัญชี</value>
         <value xml:lang="zh">查找账单账户</value>
     </property>
+	<property key="PageTitleFindFinAccount">
+        <value xml:lang="de">Suche Bankkonto</value>
+        <value xml:lang="en">Find Financial Account</value>
+        <value xml:lang="fr">Rechercher un compte financier</value>
+        <value xml:lang="it">Ricerca Conto Finanziario</value>
+        <value xml:lang="nl">Vind financiele rekening</value>
+        <value xml:lang="ru">Поиск финансовых счетов</value>
+        <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
+    </property>
     <property key="PageTitleFindGatewayResponses">
         <value xml:lang="de">Schnittstellen-Antwort finden</value>
         <value xml:lang="en">Find Gateway Responses</value>
@@ -10003,7 +9969,8 @@
         <value xml:lang="zh">查找发票</value>
     </property>
     <property key="PageTitleFindPayment">
-        <value xml:lang="en">Find Payment</value>
+	    <value xml:lang="ar">إيجاد التسديد</value>
+		<value xml:lang="en">Find Payment</value>
         <value xml:lang="es">Encontrar Pago</value>
         <value xml:lang="fr">Recherche de paiements</value>
         <value xml:lang="it">Ricerca Pagamento</value>

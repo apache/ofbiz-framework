@@ -57,7 +57,7 @@ under the License.
     <screen name="FindFinAccount">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFinAccount"/>
+                <set field="titleProperty" value="PageTitleFindFinAccount"/>
                 <set field="headerItem" value="FindFinAccount"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>

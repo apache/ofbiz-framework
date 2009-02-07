@@ -385,7 +385,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="scheduleWorkEffortId" title="${uiLabelMap.WorkEffortWorkEffort}" widget-style="buttontext">
+        <field name="scheduleWorkEffortId" widget-style="buttontext">
             <hyperlink target="/workeffort/control/WorkEffortSummary?workEffortId=${fixedAssetMaint.scheduleWorkEffortId}" also-hidden="false" description="${fixedAssetMaint.scheduleWorkEffortId}" target-type="inter-app"/>            
         </field>
         <field name="purchaseOrderId"><lookup target-form-name="LookupOrderHeader"/></field>
