@@ -58,7 +58,7 @@
     <screen name="EditPartyQuals">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPartyQual"/>
+                <set field="titleProperty" value="HumanResEditPartyQual"/>
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditPartyQuals"/>
                 <set field="partyId" from-field="parameters.partyId"/>
