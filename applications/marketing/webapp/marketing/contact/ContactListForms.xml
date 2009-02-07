@@ -404,7 +404,7 @@ under the License.
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
-        <field name="custRequestId" title="{uiLabelMap.ServicemgntCustRequestId}"><lookup size="20" target-form-name="LookupCustRequest"/></field>
+        <field name="custRequestId" title="${uiLabelMap.ServicemgntCustRequestId}"><lookup size="20" target-form-name="LookupCustRequest"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text-find/></field>
