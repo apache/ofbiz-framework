@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
@@ -386,7 +385,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" value=\"");
-            writer.append(StringEscapeUtils.escapeHtml(value));
+            writer.append(value);
             writer.append('"');
         }
 
@@ -484,7 +483,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            writer.append(StringEscapeUtils.escapeHtml(value));
+            writer.append(value);
         }
 
         writer.append("</textarea>");
@@ -1220,7 +1219,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" value=\"");
-            writer.append(StringEscapeUtils.escapeHtml(value));
+            writer.append(value);
             writer.append('"');
         }
 
@@ -2580,7 +2579,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" value=\"");
-            writer.append(StringEscapeUtils.escapeHtml(value));
+            writer.append(value);
             writer.append('"');
         }
 

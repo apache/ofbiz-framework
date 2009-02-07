@@ -38,6 +38,7 @@ import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
@@ -62,6 +63,9 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Encoder;
+import org.owasp.esapi.codecs.Codec;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -97,9 +101,10 @@ public class ModelFormField {
     protected String sortFieldDescStyle;
     protected Integer position = null;
     protected String redWhen;
+    protected FlexibleStringExpander useWhen;
+    protected boolean encodeOutput = true;
     protected String event;
     protected FlexibleStringExpander action;
-    protected FlexibleStringExpander useWhen;
 
     protected FieldInfo fieldInfo = null;
     protected String idName;
@@ -143,13 +148,12 @@ public class ModelFormField {
         this.sortFieldAscStyle = fieldElement.getAttribute("sort-field-asc-style");
         this.sortFieldDescStyle = fieldElement.getAttribute("sort-field-desc-style");        
         this.redWhen = fieldElement.getAttribute("red-when");
+        this.setUseWhen(fieldElement.getAttribute("use-when"));
+        this.encodeOutput = !"false".equals(fieldElement.getAttribute("encode-output"));
         this.event = fieldElement.getAttribute("event");
         this.setAction(fieldElement.hasAttribute("action")? fieldElement.getAttribute("action"): null);
-        this.setUseWhen(fieldElement.getAttribute("use-when"));
         this.idName = fieldElement.getAttribute("id-name");
-        String sepColumns = fieldElement.getAttribute("separate-column");
-        if (sepColumns != null && sepColumns.equalsIgnoreCase("true"))
-            separateColumn = true;
+        this.separateColumn = "true".equals(fieldElement.getAttribute("separate-column"));
         this.requiredField = fieldElement.hasAttribute("required-field") ? "true".equals(fieldElement.getAttribute("required-field")) : null;
         this.sortField = fieldElement.hasAttribute("sort-field") ? "true".equals(fieldElement.getAttribute("sort-field")) : null;
         this.headerLink = fieldElement.getAttribute("header-link");
@@ -658,13 +662,14 @@ public class ModelFormField {
      * the context.
      *
      * @param context
+     * @param encoder
      * @return
      */
     public String getEntry(Map<String, Object> context) {
         return this.getEntry(context, "");
     }
 
-    public String getEntry(Map<String, Object> context, String defaultValue) {
+    public String getEntry(Map<String, Object> context , String defaultValue) {
         Boolean isError = (Boolean) context.get("isError");
         Boolean useRequestParameters = (Boolean) context.get("useRequestParameters");
         
@@ -672,6 +677,8 @@ public class ModelFormField {
         if (locale == null) locale = Locale.getDefault();
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         if (timeZone == null) timeZone = TimeZone.getDefault();
+        
+        String returnValue;
         
         // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
         // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used
@@ -682,14 +689,14 @@ public class ModelFormField {
             if (parameters != null && parameters.get(parameterName) != null) {
                 Object parameterValue = parameters.get(parameterName);
                 if (parameterValue instanceof String) {
-                    return (String) parameterValue;
+                    returnValue = (String) parameterValue;
                 } else {
                     // we might want to do something else here in the future, but for now this is probably best
                     Debug.logWarning("Found a non-String parameter value for field [" + this.getModelForm().getName() + "." + this.getFieldName() + "]", module);
-                    return defaultValue;
+                    returnValue = defaultValue;
                 }
             } else {
-                return defaultValue;
+                returnValue = defaultValue;
             }
         } else {
             //Debug.logInfo("Getting entry, isError false so getting from Map in context for field " + this.getName() + " of form " + this.modelForm.getName(), module);
@@ -736,26 +743,34 @@ public class ModelFormField {
                 if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
                     NumberFormat nf = NumberFormat.getInstance(locale);
                     nf.setMaximumFractionDigits(10);
-                    return nf.format(retVal);
+                    returnValue = nf.format(retVal);
                 } else if (retVal instanceof java.sql.Date) {
                     DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
-                    return df.format((java.util.Date) retVal);
+                    returnValue = df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.sql.Time) {
                     DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-                    return df.format((java.util.Date) retVal);
+                    returnValue = df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.sql.Timestamp) {
                     DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
-                    return df.format((java.util.Date) retVal);
+                    returnValue = df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.util.Date) {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
-                    return df.format((java.util.Date) retVal);
+                    returnValue = df.format((java.util.Date) retVal);
                 } else {
-                    return retVal.toString();
+                    returnValue = retVal.toString();
                 }
             } else {
-                return defaultValue;
+                returnValue = defaultValue;
             }
         }
+        
+        if (this.getEncodeOutput() && returnValue != null) {
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                returnValue = simpleEncoder.encode(returnValue);
+            }
+        }
+        return returnValue;
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
@@ -893,7 +908,7 @@ public class ModelFormField {
         java.sql.Timestamp timestampVal = null;
 
         //now before going on, check to see if the current entry is a valid date and/or time and get the value
-        String value = this.getEntry(context);
+        String value = this.getEntry(context, null);
         try {
             timestampVal = java.sql.Timestamp.valueOf(value);
         } catch (Exception e) {
@@ -1068,11 +1083,15 @@ public class ModelFormField {
     }
 
     public String getUseWhen(Map<String, Object> context) {
-        if (useWhen != null && !useWhen.isEmpty()) {
-            return useWhen.expandString(context);
+        if (this.useWhen != null && !this.useWhen.isEmpty()) {
+            return this.useWhen.expandString(context);
         } else {
             return "";
         }
+    }
+    
+    public boolean getEncodeOutput() {
+        return this.encodeOutput;
     }
 
     public String getIdName() {
@@ -1289,6 +1308,10 @@ public class ModelFormField {
      */
     public void setUseWhen(String string) {
         this.useWhen = FlexibleStringExpander.getInstance(string);
+    }
+    
+    public void setEncodeOutput(boolean encodeOutput) {
+        this.encodeOutput = encodeOutput;
     }
 
     /**

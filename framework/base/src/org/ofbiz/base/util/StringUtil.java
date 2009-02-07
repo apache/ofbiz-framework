@@ -25,6 +25,7 @@ import javolution.util.FastSet;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,13 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
+import org.owasp.esapi.Encoder;
+import org.owasp.esapi.codecs.CSSCodec;
+import org.owasp.esapi.codecs.Codec;
+import org.owasp.esapi.codecs.HTMLEntityCodec;
+import org.owasp.esapi.codecs.JavaScriptCodec;
+import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.reference.DefaultEncoder;
 
 /**
  * Misc String Utility Functions
@@ -44,6 +52,36 @@ public class StringUtil {
     
     public static final String module = StringUtil.class.getName();
 
+    /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
+    public static final boolean esapiCanonicalizeStrict = false;
+    public static final Encoder defaultWebEncoder;
+    //public static final Validator defaultWebValidator;
+    static {
+        // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
+        List<Codec> codecList = Arrays.asList(new CSSCodec(), new HTMLEntityCodec(), new JavaScriptCodec(), new PercentCodec());
+        defaultWebEncoder = new DefaultEncoder(codecList);
+        //defaultWebValidator = new DefaultValidator();
+    }
+    
+    public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
+    public static final SimpleEncoder xmlEncoder = new XmlEncoder();
+    
+    public static interface SimpleEncoder {
+        public String encode(String original);
+    }
+    
+    public static class HtmlEncoder implements SimpleEncoder {
+        public String encode(String original) {
+            return StringUtil.defaultWebEncoder.encodeForHTML(original);
+        }
+    }
+    
+    public static class XmlEncoder implements SimpleEncoder {
+        public String encode(String original) {
+            return StringUtil.defaultWebEncoder.encodeForXML(original);
+        }
+    }
+    
     public static String internString(String value) {
         return value != null ? value.intern() : null;
     }
