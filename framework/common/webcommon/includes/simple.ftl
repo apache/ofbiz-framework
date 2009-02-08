@@ -51,7 +51,6 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    ${layoutSettings.extraHead?if_exists}
 </head>
 
 <body id="column-container" style="background: white;">

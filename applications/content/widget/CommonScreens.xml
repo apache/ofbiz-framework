@@ -19,7 +19,8 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="main-decorator">
         <section>
             <actions>
@@ -27,17 +28,11 @@ under the License.
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-        <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-        <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ContentCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ContentCompanySubtitle" global="true"/>
-                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
-                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
-                <set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;"/>
-                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
-                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <set field="layoutSettings.styleSheets[]" value="/content/images/contentForum.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>                
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
