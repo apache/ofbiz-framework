@@ -29,7 +29,7 @@ under the License.
       </#list>
     </#if>
     <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Portal?decorator=printable" url-mode="plain" target-window="new">${uiLabelMap.CommonHelp}</a></li>
-    <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?parentPortalPageId=${userLoginSecurityGroupId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
+    <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?portalPageId=${parameters.portalPageId?if_exists}&parentPortalPageId=${parameters.parentPortalPageId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
   </ul>
   </li>
   </ul>

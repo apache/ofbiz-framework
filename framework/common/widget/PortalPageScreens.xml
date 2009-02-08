@@ -37,23 +37,10 @@ under the License.
         </section>
     </screen>
     
-    <screen name="editPortalPage">
+    <screen name="ManagePortalPages">
         <section>
             <actions>
-                <set field="headerItem" from-field="parameters.portalPageId"/>
-                <entity-one entity-name="PortalPage" value-field="portalPage"/>    
-                <set field="portalPages[]" from-field="portalPage"/>    
-                <set field="portalPageId" from-field="portalPage.portalPageId"/>
-                <set field="parentPortalPageId" from-field="parameters.parentPortalPageId"/>                     
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
-                <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
-                    <condition-expr field-name="portalPageId" from-field="portalPageId"/>
-                    <order-by field-name="columnSeqId"/>
-                </entity-condition>               
-                <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
-                    <condition-expr field-name="portalPageId" from-field="portalPageId"/>
-                    <order-by field-name="sequenceNum"/>
-                </entity-condition>
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -64,23 +51,28 @@ under the License.
                         <screenlet title="Add a new portal Page">
                             <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
-                        <screenlet title="Edit portal page: ${portalPage.portalPageName} [${parameters.portalPageId}]">
-                            <link target="addPortalPageColumn?portalPageId=${portalPage.portalPageId}&amp;parentPortalPageId=${portalPage.parentPortalPageId}" text="${uiLabelMap.CommonAddColumn}" style="buttontext"/>
-                            <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="ManagePortalPages">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
-                        <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field="portalPage"/></not>
+                            </condition>
+                            <actions>
+                                <set field="portalPages[]" from-field="portalPage"/>    
+                                <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
+                                    <condition-expr field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-condition>               
+                                <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
+                                    <condition-expr field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="sequenceNum"/>
+                                </entity-condition>
+                            </actions>
+                            <widgets>
+                                <screenlet title="Edit portal page: ${portalPage.portalPageName} [${parameters.portalPageId}]">
+                                    <link target="addPortalPageColumn?portalPageId=${portalPage.portalPageId}&amp;parentPortalPageId=${portalPage.parentPortalPageId}" text="${uiLabelMap.CommonAddColumn}" style="buttontext"/>
+                                    <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

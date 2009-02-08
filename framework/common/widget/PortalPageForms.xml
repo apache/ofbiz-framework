@@ -28,7 +28,7 @@ under the License.
         </actions>
         
         <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="editPortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="ManagePortalPages?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/>
         </field>
         <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" widget-style="tabletext" sort-field="true">
@@ -53,7 +53,7 @@ under the License.
             <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
         <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)&amp;&amp;originalPortalPageId!=null" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonRevertPortalPage}"/>
+            <hyperlink target="deletePortalPage?portalPageId=${parameters.portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" description="${uiLabelMap.CommonRevertPortalPage}"/>
         </field>
     </form>
     
