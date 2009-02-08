@@ -529,6 +529,7 @@ public class LoginServices {
 
         // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have PARTYMGR_UPDATE permission
         // NOTE: must check permission first so that admin users can set own password without specifying old password
+        // TODO: change this security group because we can't use permission groups defined in the applications from the framework.
         if (!security.hasEntityPermission("PARTYMGR", "_UPDATE", loggedInUserLogin)) {
             if (!userLoginId.equals(loggedInUserLogin.getString("userLoginId"))) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.not_have_permission_update_password_for_user_login", locale);

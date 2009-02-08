@@ -19,6 +19,7 @@ under the License.
 
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
 
+<center>
 <div class="screenlet login-screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.CommonPasswordChange}</h3>
@@ -53,6 +54,7 @@ under the License.
     </form>
   </div>
 </div>
+</center>
 
 <script language="JavaScript" type="text/javascript">
   document.loginform.PASSWORD.focus();
