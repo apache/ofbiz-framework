@@ -47,7 +47,7 @@ under the License.
         <#if thisApp != "/">
           <#assign thisURL = thisURL + "/control/main">
         </#if>
-        <a<#if selected> class="selected"</#if> href="${response.encodeURL(thisURL + externalKeyParam)}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a>
+        <a<#if selected> class="selected"</#if> href="${thisURL}${externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a>
       </#if>
     </#list>
   </div>
