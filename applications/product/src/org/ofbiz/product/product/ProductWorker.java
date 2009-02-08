@@ -853,7 +853,7 @@ public class ProductWorker {
             String idToFind, String goodIdentificationTypeId,
             boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
         
-        if (Debug.infoOn()) Debug.logInfo("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
         
         GenericValue product = null;
         List<GenericValue> productsFound = null;
@@ -880,7 +880,7 @@ public class ProductWorker {
             if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
             else productsFound = UtilMisc.toList(product);
         }
-        if (Debug.infoOn()) Debug.logInfo("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);                       
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);                       
         return productsFound;
     }
 

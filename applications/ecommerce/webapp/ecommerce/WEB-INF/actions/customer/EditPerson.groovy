@@ -20,11 +20,6 @@
 import java.util.HashMap;
 import org.ofbiz.base.util.UtilHttp;
 
-person = null;
-if (userLogin) {
-    person = userLogin.getRelatedOne("Person");
-}
-
 tryEntity = true;
 errorMessage = parameters._ERROR_MESSAGE_;
 if (errorMessage) {
@@ -34,8 +29,4 @@ personData = person;
 if (!tryEntity) personData = UtilHttp.getParameterMap(request);
 if (!personData) personData = [:];
 
-donePage = parameters.DONE_PAGE ?: "viewprofile";
-
-context.person = person;
 context.personData = personData;
-context.donePage = donePage;

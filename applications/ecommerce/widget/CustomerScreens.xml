@@ -158,6 +158,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPerson"/>
+                <get-related-one value-field="userLogin" relation-name="Person" to-value-field="person"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPerson.groovy"/>
             </actions>
             <widgets>

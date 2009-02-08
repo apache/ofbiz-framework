@@ -47,13 +47,13 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/> 
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/> 
 
-                <set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;" global="true"/>
                 <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
                 
                 <!-- The default (main) stylesheets -->
                 <set field="layoutSettings.styleSheets[+0]" value="/ecommerce/images/blog.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/images/ecommain.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/> 
+                <set field="layoutSettings.styleSheets[]" value="/content/images/contentForum.css" global="true"/> 
             </actions>
             <widgets>
                 <!-- render header -->
