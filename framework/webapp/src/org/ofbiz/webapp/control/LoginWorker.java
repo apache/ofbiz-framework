@@ -352,9 +352,13 @@ public class LoginWorker {
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
-                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                String errorMessage = (String) result.get(ModelService.ERROR_MESSAGE);
+                if (UtilValidate.isNotEmpty(errorMessage)) {
+                    Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
+                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                }
+                request.setAttribute("_ERROR_MESSAGE_LIST_", (List) result.get(ModelService.ERROR_MESSAGE_LIST));
                 return "error";
             } else {
                 password = request.getParameter("newPassword");
