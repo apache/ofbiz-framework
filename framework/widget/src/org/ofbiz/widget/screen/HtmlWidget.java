@@ -68,9 +68,9 @@ public class HtmlWidget extends ModelScreenWidget {
             }*/ 
             // This StringHtmlWrapperForFtl option seems to be the best option
             // and handles most things without causing too many problems
-            if (object instanceof String) {
-                return new StringHtmlWrapperForFtl((String) object, this);
-            }
+            //if (object instanceof String) {
+            //    return new StringHtmlWrapperForFtl((String) object, this);
+            //}
             return super.wrap(object);
         }
     }
