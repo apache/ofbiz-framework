@@ -24,8 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javolution.lang.Reusable;
 import javolution.context.ObjectFactory;
+import javolution.lang.Reusable;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -33,7 +33,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFieldMap;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
@@ -44,6 +43,7 @@ import org.ofbiz.entity.util.EntityUtil;
  * Generic Entity Value Object - Handles persistence for any defined entity.
  *
  */
+@SuppressWarnings("serial")
 public class GenericValue extends GenericEntity implements Reusable {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();

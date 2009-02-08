@@ -142,21 +142,21 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     /** Creates new GenericEntity */
     protected void init(ModelEntity modelEntity) {
         if (modelEntity == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
         this.modelEntity = modelEntity;
         this.entityName = modelEntity.getEntityName();
         
         // check some things
         if (this.entityName == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null entityName in the modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null entityName in the modelEntity parameter");
         }
     }
 
     /** Creates new GenericEntity from existing Map */
     protected void init(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         if (modelEntity == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
         this.modelEntity = modelEntity;
         this.entityName = modelEntity.getEntityName();
@@ -164,14 +164,14 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         
         // check some things
         if (this.entityName == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null entityName in the modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null entityName in the modelEntity parameter");
         }
     }
 
     /** Creates new GenericEntity from existing Map */
     protected void init(ModelEntity modelEntity, Object singlePkValue) {
         if (modelEntity == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
         if (modelEntity.getPksSize() != 1) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with more than one primary key field");
@@ -182,25 +182,22 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         
         // check some things
         if (this.entityName == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null entityName in the modelEntity parameter");
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null entityName in the modelEntity parameter");
         }
     }
 
     /** Copy Constructor: Creates new GenericEntity from existing GenericEntity */
     protected void init(GenericEntity value) {
-        if (value.modelEntity == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity from another GenericEntity with a null modelEntity in the value parameter");
+        // check some things
+        if (value.entityName == null) {
+            throw new IllegalArgumentException("Cannot create a GenericEntity with a null entityName in the modelEntity parameter");
         }
-        this.entityName = value.modelEntity.getEntityName();
+        this.entityName = value.getEntityName();
+        // NOTE: could call getModelEntity to insure we have a value, just in case the value passed in has been serialized, but might as well leave it null to keep the object light if it isn't there
         this.modelEntity = value.modelEntity;
         if (value.fields != null) this.fields.putAll(value.fields);
         this.delegatorName = value.delegatorName;
         this.internalDelegator = value.internalDelegator;
-        
-        // check some things
-        if (this.entityName == null) {
-            throw new IllegalArgumentException("Cannont create a GenericEntity with a null entityName in the modelEntity parameter");
-        }
     }
 
     public void reset() {

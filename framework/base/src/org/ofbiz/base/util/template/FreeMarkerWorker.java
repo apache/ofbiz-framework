@@ -62,7 +62,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
-//import com.clarkware.profiler.Profiler;
 
 /** FreeMarkerWorker - Freemarker Template Engine Utilities.
  *
@@ -73,17 +72,19 @@ public class FreeMarkerWorker {
     
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     public static UtilCache<String, Template> cachedTemplates = new UtilCache<String, Template>("template.ftl.general", 0, 0, false);
-    protected static Configuration defaultOfbizConfig = new Configuration();
+    protected static BeansWrapper defaultOfbizWrapper = BeansWrapper.getDefaultInstance();
+    protected static Configuration defaultOfbizConfig = makeConfiguration(defaultOfbizWrapper);
 
-    static {
-        BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
-        defaultOfbizConfig.setObjectWrapper(wrapper);
-        defaultOfbizConfig.setSharedVariable("Static", wrapper.getStaticModels());
-        defaultOfbizConfig.setLocalizedLookup(false);
-        defaultOfbizConfig.setTemplateLoader(new FlexibleTemplateLoader());
+    public static Configuration makeConfiguration(BeansWrapper wrapper) {
+        Configuration newConfig = new Configuration();
+        
+        newConfig.setObjectWrapper(wrapper);
+        newConfig.setSharedVariable("Static", wrapper.getStaticModels());
+        newConfig.setLocalizedLookup(false);
+        newConfig.setTemplateLoader(new FlexibleTemplateLoader());
         try {
-            defaultOfbizConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
-            defaultOfbizConfig.setSetting("number_format", "0.##########");
+            newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
+            newConfig.setSetting("number_format", "0.##########");
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, module);
         }
@@ -103,23 +104,25 @@ public class FreeMarkerWorker {
             if (props == null || props.isEmpty()) {
                 Debug.logError("Unable to locate properties file " + propertyURL, module);
             } else {
-                loadTransforms(loader, props);
+                loadTransforms(loader, props, newConfig);
             }
         }
+        
+        return newConfig;
     }
     
     /**
      * Protected helper method.
      */
-    protected static void loadTransforms(ClassLoader loader, Properties props) {
+    protected static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
         for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
-            String key = (String)i.next();
+            String key = (String) i.next();
             String className = props.getProperty(key);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
             }
             try {
-                defaultOfbizConfig.setSharedVariable(key, loader.loadClass(className).newInstance());
+                config.setSharedVariable(key, loader.loadClass(className).newInstance());
             } catch (Exception e) {
                 Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + ": " + e, module);
             }
@@ -195,7 +198,7 @@ public class FreeMarkerWorker {
         // FIXME: the casting from Appendable to Writer is a temporary fix that could cause a
         //        run time error if in the future we will pass a different class to the method
         //        (such as a StringBuffer).
-        Environment env = template.createProcessingEnvironment(context, (Writer)outWriter);
+        Environment env = template.createProcessingEnvironment(context, (Writer) outWriter);
         applyUserSettings(env, context);
         env.process();
         return env;
@@ -261,16 +264,20 @@ public class FreeMarkerWorker {
      * @param templateLocation Location of the template - file path or URL
      */
     public static Template getTemplate(String templateLocation) throws TemplateException, IOException {
-        Template template = (Template) cachedTemplates.get(templateLocation);
+        return getTemplate(templateLocation, cachedTemplates, defaultOfbizConfig);
+    }
+    
+    public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws TemplateException, IOException {
+        Template template = (Template) cache.get(templateLocation);
         if (template == null) {
-            synchronized (cachedTemplates) {
-                template = (Template) cachedTemplates.get(templateLocation);
+            synchronized (cache) {
+                template = (Template) cache.get(templateLocation);
                 if (template == null) {
                     // only make the reader if we need it, and then close it right after!
                     Reader templateReader = makeReader(templateLocation);
-                    template = new Template(templateLocation, templateReader, defaultOfbizConfig);
+                    template = new Template(templateLocation, templateReader, config);
                     templateReader.close();
-                    cachedTemplates.put(templateLocation, template);
+                    cache.put(templateLocation, template);
                 }
             }
         }
