@@ -2637,13 +2637,14 @@
         <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
         <value xml:lang="it">Inserire informazioni prenotazione prima di aggiungerlo al carrello</value>
         <value xml:lang="th">เข้าสู่ข้อมูลการจองก่อนที่จะเพิ่มลงตระกร้า</value>
+    </property>    
+    <property key="cart.addToCart.dependencyVariantFeature">
+        <value xml:lang="en">Error: a dependency to another feature as not been resolved.</value>
+        <value xml:lang="fr">Erreur : une dépendance envers une autre option n'a pu être résolue.</value>
     </property>
     <property key="cart.addToCart.incompatibilityVariantFeature">
-        <value xml:lang="de">Sie können die Auswahl ${productFutureDescription} nicht verwenden </value>
-        <value xml:lang="en">You cannot use selection ${productFutureDescription} </value>
-        <value xml:lang="es">No puede usar la selección ${productFutureDescription} </value>
-        <value xml:lang="fr">Vous ne pouvez pas utiliser la selection ${productFutureDescription} </value>
-        <value xml:lang="it">Tu non puoi usare la selezione ${productFutureDescription} </value>
+        <value xml:lang="en">Selected options are incompatible.</value>
+        <value xml:lang="fr">Les options choisies sont incompatible entre-elles.</value>
     </property>
     <property key="cart.addToCart.noProductInfoPassed">
         <value xml:lang="de">Keine Produktinformationen übergeben. Warenkorb bleibt unverändert.</value>

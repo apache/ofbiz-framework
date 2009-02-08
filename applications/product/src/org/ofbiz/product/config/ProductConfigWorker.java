@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -156,6 +157,7 @@ public class ProductConfigWorker {
                                                 selectedProdcutId = variantProductId;
                                             } else {
                                                 Debug.logWarning("ERROR: Variant product not found!", module);
+                                                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "cart.addToCart.incompatibilityVariantFeature", UtilHttp.getLocale(request)));
                                            }
                                         }
                                     }
