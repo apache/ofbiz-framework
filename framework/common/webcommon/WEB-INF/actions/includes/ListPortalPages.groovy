@@ -34,10 +34,6 @@ if (parameters.userLogin) {
         userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
     }
 
-    if(!userLoginSecurityGroupId){
-        parameters.portalPageId = parameters.parentPortalPageId;
-    }
-    
     //get the portal page
     cond1 = EntityCondition.makeCondition([
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
@@ -47,19 +43,15 @@ if (parameters.userLogin) {
             ],EntityOperator.AND);
     portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
     if (portalMainPages) {
-        parameters.portalPageId = portalMainPages.get(0).portalPageId;
+        parentPortalPageId = portalMainPages.get(0).portalPageId;
     }
 
-    if(!parameters.portalPageId){
-    	parameters.portalPageId = userLoginSecurityGroupId;
-    }
-    
     ppCond = 
             EntityCondition.makeCondition([
                 EntityCondition.makeCondition([
-                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parameters.portalPageId),
-                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parameters.portalPageId),
-                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parameters.portalPageId)
+                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId),
+                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
+                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parentPortalPageId)
                 ],EntityOperator.OR),
                 EntityCondition.makeCondition([
                     EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),

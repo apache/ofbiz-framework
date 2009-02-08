@@ -28,13 +28,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPortalPage"/>
     </request-map>
-    <request-map uri="editPortalPage">
-        <security https="true" auth="true"/>
-        <event  type="simple" invoke="copyIfRequiredSystemPage" path="org/ofbiz/common/PortalPageMethods.xml"/>
-        <response name="success" type="view" value="editPortalPage"/>
-    </request-map>
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>
+        <event  type="simple" invoke="copyIfRequiredSystemPage" path="org/ofbiz/common/PortalPageMethods.xml"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="AddPortlet">
@@ -45,30 +41,29 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPortlet" />
     </request-map>
-
     <request-map uri="createPortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPortalPagePortlet"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="updatePortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPagePortlet"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="deletePortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPagePortlet"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="movePortletToPortalPage">
         <security https="true" auth="true"/>
         <event type="service" invoke="movePortletToPortalPage"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="createPortalPage">
         <security https="true" auth="true"/>
@@ -97,25 +92,24 @@ under the License.
     <request-map uri="addPortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="addPortalPageColumn"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="updatePortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPageColumn"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="deletePortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPageColumn"/>
-        <response name="success" type="request" value="editPortalPage"/>
-        <response name="error" type="request" value="editPortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
 
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
-    <view-map name="editPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#editPortalPage"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
     <view-map name="EditPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortlet"/>

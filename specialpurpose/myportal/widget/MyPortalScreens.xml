@@ -787,7 +787,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <!--not><if-empty field="custRequests"/></not-->
+                        <not><if-empty field="custRequests"/></not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.MyPortalIncomingCustRequests}" navigation-form-name="ListRequestList">
