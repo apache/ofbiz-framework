@@ -23,6 +23,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Locale;
@@ -76,22 +77,24 @@ public class RequestHandler implements Serializable {
         return rh;
     }
 
-    private ServletContext context = null;
-    private ConfigXMLReader.ControllerConfig controllerConfig = null;
-    private ViewFactory viewFactory = null;
-    private EventFactory eventFactory = null;
+    protected ServletContext context = null;
+    protected ViewFactory viewFactory = null;
+    protected EventFactory eventFactory = null;
+    protected URL controllerConfigURL = null;
 
     public void init(ServletContext context) {
         if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler Loading...]", module);
         this.context = context;
 
-        this.controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(context));
+        // init the ControllerConfig, but don't save it anywhere
+        this.controllerConfigURL = ConfigXMLReader.getControllerConfigURL(context);
+        ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
         this.viewFactory = new ViewFactory(this);
         this.eventFactory = new EventFactory(this);
     }
     
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
-        return this.controllerConfig;
+        return ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException {
@@ -105,6 +108,9 @@ public class RequestHandler implements Serializable {
             GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
         HttpSession session = request.getSession();
+        
+        // get the controllerConfig once for this method so we don't have to get it over and over inside the method
+        ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
 
         // workaraound if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
@@ -444,7 +450,7 @@ public class RequestHandler implements Serializable {
             // ======== handle views ========
             
             // first invoke the post-processor events.
-            for (ConfigXMLReader.Event event: this.controllerConfig.postprocessorEventList) {
+            for (ConfigXMLReader.Event event: controllerConfig.postprocessorEventList) {
                 try {
                     String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "postprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -493,7 +499,8 @@ public class RequestHandler implements Serializable {
 
     /** Returns the default error page for this request. */
     public String getDefaultErrorPage(HttpServletRequest request) {
-        if (controllerConfig.errorpage != null) return controllerConfig.errorpage;
+        String errorpage = getControllerConfig().errorpage;
+        if (UtilValidate.isNotEmpty(errorpage)) return errorpage;
         return "/error/error.jsp";
     }
 
@@ -602,7 +609,7 @@ public class RequestHandler implements Serializable {
         // before mapping the view, set a session attribute so we know where we are
         req.setAttribute("_CURRENT_VIEW_", view);
 
-        ConfigXMLReader.ViewMap viewMap = view == null ? null : controllerConfig.viewMapMap.get(view);
+        ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
         if (viewMap == null) {
             throw new RequestHandlerException("No defitinition found for view with name [" + view + "]");
         }
@@ -626,7 +633,7 @@ public class RequestHandler implements Serializable {
         // setup chararcter encoding and content type
         String charset = UtilFormatOut.checkEmpty(getServletContext().getInitParameter("charset"), req.getCharacterEncoding(), "UTF-8");
 
-        String viewCharset = this.controllerConfig.viewMapMap.get(view).encoding;
+        String viewCharset = viewMap.encoding;
         //NOTE: if the viewCharset is "none" then no charset will be used
         if (UtilValidate.isNotEmpty(viewCharset)) {
             charset = viewCharset;
@@ -817,7 +824,7 @@ public class RequestHandler implements Serializable {
         String requestUri = RequestHandler.getRequestUri(url);
         ConfigXMLReader.RequestMap requestMap = null;
         if (requestUri != null) {
-            requestMap = controllerConfig.requestMapMap.get(requestUri);
+            requestMap = getControllerConfig().requestMapMap.get(requestUri);
         }
         
         StringBuilder newURL = new StringBuilder();
@@ -922,7 +929,7 @@ public class RequestHandler implements Serializable {
     }
 
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
-        for (ConfigXMLReader.Event event: this.controllerConfig.afterLoginEventList) {
+        for (ConfigXMLReader.Event event: getControllerConfig().afterLoginEventList) {
             try {
                 String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "after-login");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -935,7 +942,7 @@ public class RequestHandler implements Serializable {
     }
 
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
-        for (ConfigXMLReader.Event event: this.controllerConfig.beforeLogoutEventList) {
+        for (ConfigXMLReader.Event event: getControllerConfig().beforeLogoutEventList) {
             try {
                 String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "before-logout");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -950,7 +957,7 @@ public class RequestHandler implements Serializable {
     public boolean trackStats(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(uriString);
+            ConfigXMLReader.RequestMap requestMap = getControllerConfig().requestMapMap.get(uriString);
             if (requestMap == null) return false;
             return requestMap.trackServerHit;
         } else {
@@ -961,11 +968,11 @@ public class RequestHandler implements Serializable {
     public boolean trackVisit(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(uriString);
+            ConfigXMLReader.RequestMap requestMap = getControllerConfig().requestMapMap.get(uriString);
             if (requestMap == null) return false;
             return requestMap.trackVisit;
         } else {
             return false;
         }
-    }    
+    }
 }
