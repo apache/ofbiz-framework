@@ -29,7 +29,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
-          ${randomSurvey.render().toString()}
+          ${randomSurvey.render()}
         </form>
     </div>
 </div>

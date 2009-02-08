@@ -37,7 +37,6 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    ${layoutSettings?if_exists.extraHead?if_exists}
 
     <#-- Append CSS for catalog -->
     <#if catalogStyleSheet?exists>
@@ -85,8 +84,8 @@ under the License.
         <#if (productStore.subtitle)?exists><div id="company-subtitle">${productStore.subtitle}</div></#if>
         <div id="welcome-message">
             <#if sessionAttributes.autoName?has_content>
-                ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName}!
-                (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
+                ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName?html}!
+                (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="linktext">${uiLabelMap.CommonClickHere}</a>)
             <#else/>
                 ${uiLabelMap.CommonWelcome}!
             </#if>
