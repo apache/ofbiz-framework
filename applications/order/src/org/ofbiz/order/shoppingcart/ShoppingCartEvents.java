@@ -267,13 +267,13 @@ public class ShoppingCartEvents {
                     productId = variantProductId;
                 } else {
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.incompatibilityVariantFeature",locale));
+                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.incompatibilityVariantFeature", locale));
                     return "product";
                 }
 
             } else {
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                 return "product";
             }
         }

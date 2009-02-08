@@ -999,11 +999,6 @@ public class ProductWorker {
                         String featurTo = incompatibilityVariant.getString("productFeatureIdTo");
                         for (String paramValueTo: selectedFeatures) {
                             if(featurTo.equals(paramValueTo)){
-                                //GenericValue featureFrom = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featur));
-                                //GenericValue featureTo = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featurTo));
-                                //String message = UtilProperties.getMessage(resource, "cart.addToCart.incompatibilityVariantFeature", locale) + ":/" + featureFrom.getString("description") + "/ => /" + featureTo.getString("description") +"/";
-                                //request.setAttribute("_ERROR_MESSAGE_", message);
-                                //return "incompatibilityVariantFeature";
                                 Debug.logWarning("Incompatible features", module);
                                 return null;
                             }
@@ -1026,11 +1021,7 @@ public class ProductWorker {
                             }
                         }
                         if (!found) {
-                            //GenericValue featureFrom = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featur));
-                            //GenericValue featureTo = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featurTo));
-                            //String message = UtilProperties.getMessage(resource, "cart.addToCart.dependencyVariantFeature", locale) + ":/" + featureFrom.getString("description") + "/ => /" + featureTo.getString("description") +"/";
-                            //request.setAttribute("_ERROR_MESSAGE_", message);
-                            Debug.logWarning("Dependancy features", module);
+                            Debug.logWarning("Dependency features", module);
                             return null;
                         }
                     }
