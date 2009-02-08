@@ -76,7 +76,6 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    ${layoutSettings.extraHead?if_exists}
     <#if layoutSettings.VT_EXTRA_HEAD?has_content>
         <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
             ${extraHead}
