@@ -950,7 +950,9 @@ public class RequestHandler implements Serializable {
     public boolean trackStats(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            return controllerConfig.requestMapMap.get(uriString).trackServerHit;
+            ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(uriString);
+            if (requestMap == null) return false;
+            return requestMap.trackServerHit;
         } else {
             return false;
         }
@@ -959,7 +961,9 @@ public class RequestHandler implements Serializable {
     public boolean trackVisit(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            return controllerConfig.requestMapMap.get(uriString).trackVisit;
+            ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(uriString);
+            if (requestMap == null) return false;
+            return requestMap.trackVisit;
         } else {
             return false;
         }

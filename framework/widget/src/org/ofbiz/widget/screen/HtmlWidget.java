@@ -21,7 +21,6 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +28,11 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
@@ -39,7 +40,13 @@ import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.w3c.dom.Element;
 
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -47,6 +54,37 @@ import freemarker.template.TemplateException;
 @SuppressWarnings("serial")
 public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
+
+    public static UtilCache<String, Template> specialTemplateCache = new UtilCache<String, Template>("widget.screen.template.ftl.general", 0, 0, false);
+    protected static BeansWrapper specialBeansWrapper = new ExtendedWrapper();
+    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(specialBeansWrapper);
+
+    // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
+    public static class ExtendedWrapper extends BeansWrapper {
+        public TemplateModel wrap(Object object) throws TemplateModelException {
+            /* NOTE: don't use this and the StringHtmlWrapperForFtl or things will be double-encoded
+            if (object instanceof GenericValue) {
+                return new GenericValueHtmlWrapperForFtl((GenericValue) object, this);
+            }*/ 
+            // This StringHtmlWrapperForFtl option seems to be the best option
+            // and handles most things without causing too many problems
+            if (object instanceof String) {
+                return new StringHtmlWrapperForFtl((String) object, this);
+            }
+            return super.wrap(object);
+        }
+    }
+
+    public static class StringHtmlWrapperForFtl extends StringModel {
+        public StringHtmlWrapperForFtl(String str, BeansWrapper wrapper) {
+            super(str, wrapper);
+        }
+        public String getAsString() {
+            return StringUtil.htmlEncoder.encode(super.getAsString());
+        }
+    }
+    
+    // End Static, begin class section
     
     protected List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>();
     
@@ -87,6 +125,64 @@ public class HtmlWidget extends ModelScreenWidget {
             throw new IllegalArgumentException("Template location is empty");
         }
         
+
+        /*
+        // ======================================================================= 
+        // Go through the context and find GenericValue objects and wrap them
+        
+        // NOTE PROBLEM: there are still problems with this as it gets some things
+        // but does not get non-entity data including lots of strings
+        // directly in the context or things prepared or derived right in
+        // the FTL file, like the results of service calls, etc; we could
+        // do something more aggressive to encode and wrap EVERYTHING in
+        // the context, but I've been thinking that even this is too much
+        // overhead and that would be crazy
+        
+        // NOTE ALTERNATIVE1: considering instead to use the FTL features to wrap
+        // everything in an <#escape x as x?html>...</#escape>, but that could 
+        // cause problems with ${} expansions that have HTML in them, including:
+        // included screens (using ${screens.render(...)}), content that should 
+        // have HTML in it (lots of general, product, category, etc content), etc
+        
+        // NOTE ALTERNATIVE2: kind of like the "#escape X as x?html" option,
+        // implement an FTL *Model class and load it through a ObjectWrapper
+        // FINAL NOTE: after testing all of these alternatives, this one seems
+        // to behave the best, so going with that for now. 
+        
+        // isolate the scope so these wrapper objects go away after rendering is done 
+        MapStack<String> contextMs;
+        if (!(context instanceof MapStack)) {
+            contextMs = MapStack.create(context);
+            context = contextMs;
+        } else {
+            contextMs = UtilGenerics.cast(context);
+        }
+
+        contextMs.push();
+        for(Map.Entry<String, Object> mapEntry: contextMs.entrySet()) {
+            Object value = mapEntry.getValue();
+            if (value instanceof GenericValue) {
+                contextMs.put(mapEntry.getKey(), GenericValueHtmlWrapper.create((GenericValue) value));
+            } else if (value instanceof List) {
+                if (((List) value).size() > 0 && ((List) value).get(0) instanceof GenericValue) {
+                    List<GenericValue> theList = (List<GenericValue>) value;
+                    List<GenericValueHtmlWrapper> newList = FastList.newInstance();
+                    for (GenericValue gv: theList) {
+                        newList.add(GenericValueHtmlWrapper.create(gv));
+                    }
+                    contextMs.put(mapEntry.getKey(), newList);
+                }
+            }
+            // TODO and NOTE: should get most stuff, but we could support Maps 
+            // and Lists in Maps and such; that's tricky because we have to go 
+            // through the entire Map and not just one entry, and we would 
+            // have to shallow copy the whole Map too
+            
+        }
+        // this line goes at the end of the method, but moved up here to be part of the big comment about this
+        contextMs.pop();
+         */
+        
         if (location.endsWith(".ftl")) {
             try {
                 Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
@@ -94,7 +190,11 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
-                FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+                
+                //FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+                Template template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                FreeMarkerWorker.renderTemplate(template, context, writer);
+                
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
