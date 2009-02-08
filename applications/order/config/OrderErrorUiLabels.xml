@@ -2644,7 +2644,7 @@
     </property>
     <property key="cart.addToCart.incompatibilityVariantFeature">
         <value xml:lang="en">Selected options are incompatible.</value>
-        <value xml:lang="fr">Les options choisies sont incompatible entre-elles.</value>
+        <value xml:lang="fr">Les options choisies sont incompatibles entre-elles.</value>
     </property>
     <property key="cart.addToCart.noProductInfoPassed">
         <value xml:lang="de">Keine Produktinformationen übergeben. Warenkorb bleibt unverändert.</value>
