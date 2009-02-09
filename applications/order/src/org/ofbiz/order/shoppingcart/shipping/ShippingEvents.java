@@ -118,7 +118,6 @@ public class ShippingEvents {
         String carrierRoleTypeId = shipGroup.getString("carrierRoleTypeId");
         String carrierPartyId = shipGroup.getString("carrierPartyId");
         String supplierPartyId = shipGroup.getString("supplierPartyId");
-        String productStoreShipMethId = shipGroup.getString("productStoreShipMethId");
 
         GenericValue shipAddr = orh.getShippingAddress(shipGroupSeqId);
         if (shipAddr == null) {
@@ -133,7 +132,7 @@ public class ShippingEvents {
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
                 contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId),
-                orh.getShippableQuantity(shipGroupSeqId), orh.getShippableTotal(shipGroupSeqId), partyId, productStoreShipMethId);
+                orh.getShippableQuantity(shipGroupSeqId), orh.getShippableTotal(shipGroupSeqId), partyId, null);
     }
 
     // version with no support for using the supplier's address as the origin
