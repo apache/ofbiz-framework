@@ -18,10 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -34,15 +30,23 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
+
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.owasp.esapi.Encoder;
+import org.owasp.esapi.ValidationErrorList;
+import org.owasp.esapi.Validator;
 import org.owasp.esapi.codecs.CSSCodec;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.JavaScriptCodec;
 import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.reference.DefaultEncoder;
+import org.owasp.esapi.reference.DefaultValidator;
 
 /**
  * Misc String Utility Functions
@@ -55,12 +59,12 @@ public class StringUtil {
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
     public static final Encoder defaultWebEncoder;
-    //public static final Validator defaultWebValidator;
+    public static final Validator defaultWebValidator;
     static {
         // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
         List<Codec> codecList = Arrays.asList(new CSSCodec(), new HTMLEntityCodec(), new JavaScriptCodec(), new PercentCodec());
         defaultWebEncoder = new DefaultEncoder(codecList);
-        //defaultWebValidator = new DefaultValidator();
+        defaultWebValidator = new DefaultValidator();
     }
     
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
@@ -81,6 +85,8 @@ public class StringUtil {
             return StringUtil.defaultWebEncoder.encodeForXML(original);
         }
     }
+    
+    // ================== Begin General Functions ==================
     
     public static String internString(String value) {
         return value != null ? value.intern() : null;
@@ -459,6 +465,72 @@ public class StringUtil {
     }
 
     /**
+     * Uses a black-list approach for necessary characters for HTML. 
+     * Does not allow various characters (after canonicalization), including "<", ">", "&" (if not followed by a space), and "%" (if not followed by a space).
+     * 
+     * @param value
+     * @param errorMessageList
+     */
+    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList) {
+        if (UtilValidate.isEmpty(value)) return value;
+        
+        // canonicalize, strict (error on double-encoding)
+        try {
+            value = defaultWebEncoder.canonicalize(value, true);
+        } catch (EncodingException e) {
+            // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
+            Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
+            errorMessageList.add("In field [" + valueName + "] found character espacing (mixed or double) that is not allowed or other format consistency error: " + e.toString());
+        }
+        
+        // check for "<", ">"
+        if (value.indexOf("<") >= 0 || value.indexOf("<") >= 0) {
+            errorMessageList.add("In field [" + valueName + "] greater-than (>) and less-than (<) symbols are not allowed.");
+        }
+        
+        // check for & not followed by a space (can be used for escaping chars)
+        int curAmpIndex = value.indexOf("&");
+        while (curAmpIndex >= 0) {
+            if (' ' != value.charAt(curAmpIndex + 1)) {
+                errorMessageList.add("In field [" + valueName + "] the ampersand (&) symbol is only allowed if followed by a space.");
+                // once we find one like this we have the message so no need to check for more
+                break;
+            }
+            curAmpIndex = value.indexOf("&", curAmpIndex + 1);
+        }
+        
+        // check for % not followed by a space (can be used for escaping chars)
+        int curPercIndex = value.indexOf("%");
+        while (curPercIndex >= 0) {
+            if (' ' != value.charAt(curPercIndex + 1)) {
+                errorMessageList.add("In field [" + valueName + "] the percent (%) symbol is only allowed if followed by a space.");
+                // once we find one like this we have the message so no need to check for more
+                break;
+            }
+            curPercIndex = value.indexOf("%", curPercIndex + 1);
+        }
+        
+        // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
+        
+        return value;
+    }
+
+    /**
+     * Uses a white-list approach to check for safe HTML.
+     * Based on the ESAPI validator configured in the antisamy-esapi.xml file.
+     * 
+     * @param value
+     * @param errorMessageList
+     * @return String with updated value if needed for safer HTML.
+     */
+    public static String checkStringForHtmlSafeOnly(String valueName, String value, List<String> errorMessageList) {
+        ValidationErrorList vel = new ValidationErrorList();
+        value = defaultWebValidator.getValidSafeHTML(valueName, value, Integer.MAX_VALUE, true, vel);
+        errorMessageList.addAll(vel.errors());
+        return value;
+    }
+    
+    /**
      * Translates various HTML characters in a string so that the string can be displayed in a browser safely
      * <p>
      * This function is useful in preventing user-supplied text from containing HTML markup, such as in a message board or
@@ -473,6 +545,8 @@ public class StringUtil {
      *    <li>'>' (greater than) becomes '&gt;'
      *    <li>\n (Carriage Return) becomes '&lt;br&gt;gt;'
      * </ol>
+     * 
+     * @deprecated Use StringUtil.htmlEncoder instead.
      */
     public static String htmlSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
         html = StringUtil.replaceString(html, "&", "&amp;");

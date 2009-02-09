@@ -56,7 +56,7 @@ import freemarker.template.utility.StringUtil;
 /**
  * Generic Service - Service Definition Reader
  */
-
+@SuppressWarnings("serial")
 public class ModelServiceReader implements Serializable {
 
     public static final String module = ModelServiceReader.class.getName();
@@ -510,6 +510,7 @@ public class ModelServiceReader implements Serializable {
                             param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
                             param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
                             param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false                        
+                            param.allowHtml = UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern(); // default to none
                             modelParamMap.put(field.getName(), param);
                         }
                     }
@@ -532,7 +533,7 @@ public class ModelServiceReader implements Serializable {
                 Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, module);
             } catch (GeneralException e) {
                 Debug.logError(e, "Cannot load auto-attributes : " + e.getMessage() + " for " + service.name, module);
-            }            
+            }
         }
     }
             
@@ -551,6 +552,7 @@ public class ModelServiceReader implements Serializable {
             param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label").intern():null;
             param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
             param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
+            param.allowHtml = UtilXml.checkEmpty(attribute.getAttribute("allow-html"), "none").intern(); // default to none
 
             // default value
             String defValue = attribute.getAttribute("default-value");
@@ -644,8 +646,8 @@ public class ModelServiceReader implements Serializable {
     }
     
     protected void createOverrideDefs(Element baseElement, ModelService service) {
-        for (Element attribute: UtilXml.childElementList(baseElement, "override")) {
-            String name = UtilXml.checkEmpty(attribute.getAttribute("name"));
+        for (Element overrideElement: UtilXml.childElementList(baseElement, "override")) {
+            String name = UtilXml.checkEmpty(overrideElement.getAttribute("name"));
             ModelParam param = service.getParam(name);
             boolean directToParams = true;
             if (param == null) {
@@ -662,38 +664,42 @@ public class ModelServiceReader implements Serializable {
             
             if (param != null) {                                                        
                 // set only modified values
-                if (attribute.getAttribute("type") != null && attribute.getAttribute("type").length() > 0) {                
-                    param.type = UtilXml.checkEmpty(attribute.getAttribute("type")).intern();
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("type"))) {                
+                    param.type = UtilXml.checkEmpty(overrideElement.getAttribute("type")).intern();
                 }
-                if (attribute.getAttribute("mode") != null && attribute.getAttribute("mode").length() > 0) {                            
-                    param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("mode"))) {                            
+                    param.mode = UtilXml.checkEmpty(overrideElement.getAttribute("mode")).intern();
                 }
-                if (attribute.getAttribute("entity-name") != null && attribute.getAttribute("entity-name").length() > 0) {
-                   param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("entity-name"))) {
+                   param.entityName = UtilXml.checkEmpty(overrideElement.getAttribute("entity-name")).intern();
                 }
-                if (attribute.getAttribute("field-name") != null && attribute.getAttribute("field-name").length() > 0) {
-                    param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern();
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("field-name"))) {
+                    param.fieldName = UtilXml.checkEmpty(overrideElement.getAttribute("field-name")).intern();
                 }
-                if (attribute.getAttribute("form-label") != null && attribute.getAttribute("form-label").length() > 0) {                
-                    param.formLabel = UtilXml.checkEmpty(attribute.getAttribute("form-label")).intern();
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-label"))) {                
+                    param.formLabel = UtilXml.checkEmpty(overrideElement.getAttribute("form-label")).intern();
                 }
-                if (attribute.getAttribute("optional") != null && attribute.getAttribute("optional").length() > 0) {                            
-                    param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("optional"))) {                            
+                    param.optional = "true".equalsIgnoreCase(overrideElement.getAttribute("optional")); // default to true
                     param.overrideOptional = true;
                 }
-                if (attribute.getAttribute("form-display") != null && attribute.getAttribute("form-display").length() > 0) {
-                    param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-display"))) {
+                    param.formDisplay = !"false".equalsIgnoreCase(overrideElement.getAttribute("form-display")); // default to false
                     param.overrideFormDisplay = true;
                 }                
 
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("allow-html"))) {
+                    param.allowHtml = UtilXml.checkEmpty(overrideElement.getAttribute("allow-html")).intern();
+                }                
+
                 // default value
-                String defValue = attribute.getAttribute("default-value");
+                String defValue = overrideElement.getAttribute("default-value");
                 if (UtilValidate.isNotEmpty(defValue)) {
                     param.setDefaultValue(defValue);
                 }
 
                 // override validators
-                this.addValidators(attribute, param);
+                this.addValidators(overrideElement, param);
 
                 if (directToParams) {
                     service.addParam(param);

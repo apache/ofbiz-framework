@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * Generic Service Model Parameter
  */
+@SuppressWarnings("serial")
 public class ModelParam implements Serializable {
 
     public static final String module = ModelParam.class.getName();
@@ -77,6 +78,9 @@ public class ModelParam implements Serializable {
     public boolean formDisplay = true;
     public boolean overrideFormDisplay = false;
     
+    /** Default value */
+    public String allowHtml = null;
+    
     /** Is this Parameter set internally? */
     public boolean internal = false;
     
@@ -97,6 +101,7 @@ public class ModelParam implements Serializable {
         this.overrideOptional = param.overrideOptional;
         this.formDisplay = param.formDisplay;
         this.overrideFormDisplay = param.overrideFormDisplay;
+        this.allowHtml = param.allowHtml;
         this.internal = param.internal;
     }
 
@@ -190,6 +195,7 @@ public class ModelParam implements Serializable {
         buf.append(overrideOptional).append("::");
         buf.append(formDisplay).append("::");
         buf.append(overrideFormDisplay).append("::");
+        buf.append(allowHtml).append("::");
         buf.append(defaultValue).append("::");
         buf.append(internal);
         if (validators != null)

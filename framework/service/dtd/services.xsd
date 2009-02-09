@@ -268,6 +268,16 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="allow-html" use="optional" default="none">
+            <xs:annotation><xs:documentation>See the documentation on the allow-html attribute of the "attribute" element.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="exclude">
         <xs:complexType>
@@ -321,6 +331,22 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="allow-html" use="optional" default="none">
+            <xs:annotation><xs:documentation>
+                Applies only to String fields.
+                Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
+                Defualts to "none" meaning no HTML is allowed (will result in an error message).
+                If some HTML is desired then use "safe" which will follow the rules in the antisamy-esapi.xml file. This should be safe for both internal and public users.
+                In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
+            </xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="override">
         <xs:complexType>
@@ -359,6 +385,16 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="allow-html" use="optional">
+            <xs:annotation><xs:documentation>See the documentation on the allow-html attribute of the "attribute" element. Note that it is slightly different here as there is no defualt.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
+                    <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
