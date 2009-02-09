@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -78,12 +79,12 @@ public class ProductContentWrapper implements ContentWrapper {
         this.mimeTypeId = "text/html";
     }
     
-    public String get(String productContentTypeId) {
+    public StringUtil.StringWrapper get(String productContentTypeId) {
         if (this.product == null) {
             Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
             return null;
         }
-        return getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, this.product.getDelegator(), dispatcher);
+        return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, this.product.getDelegator(), dispatcher));
     }
     
     public static String getProductContentAsText(GenericValue product, String productContentTypeId, HttpServletRequest request) {

@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
+import org.ofbiz.base.util.StringUtil;
+
 /**
  * ContentWrapper Interface
  */
 
 public interface ContentWrapper {
 
-    public String get(String contentTypeId);
+    public StringUtil.StringWrapper get(String contentTypeId);
    
 }

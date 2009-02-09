@@ -45,6 +45,7 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * Product Config Item Content Worker: gets product content to display
  */
+@SuppressWarnings("serial")
 public class ProductConfigItemContentWrapper implements java.io.Serializable {
     
     public static final String module = ProductConfigItemContentWrapper.class.getName();
