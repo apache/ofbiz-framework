@@ -303,7 +303,7 @@ if (inlineProduct) {
                     jsBuf.append(variantPriceJS.toString());
                     jsBuf.append("</script>");
 
-                    context.virtualJavaScript = jsBuf.toString();
+                    context.virtualJavaScript = jsBuf;
                 }
             }
         }
