@@ -22,31 +22,22 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="movePortletToPortalPage" short-description="Moves a PortalPortlet from the actual portalPage to a different one">
-        <entity-one entity-name="PortalPagePortlet" value-field="oldEntity" auto-field-map="true"/>      
-        <entity-one entity-name="PortalPage" value-field="getOwnerUserLoginId" auto-field-map="true">
-            <field-map field-name="portalPageId" from-field="parameters.newPortalPageId"/>
-        </entity-one>    
-        <check-errors/>
-        <if-compare field="getOwnerUserLoginId.ownerUserLoginId" value="_NA_" operator="equals">
-            <set field="parameters.portalPageId" from-field="parameters.newPortalPageId"/>
-            <call-simple-method method-name="copyIfRequiredSystemPage" xml-resource="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
-            <set field="parameters.newPortalPageId" from-field="portalPageId"/>
-        </if-compare>
-
+        <call-simple-method method-name="checkOwnerShip"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="oldEntity"/>
+        <set field="parameters.portalPageId" from-field="parameters.newPortalPageId"/>
+        <call-simple-method method-name="copyIfRequiredSystemPage" xml-resource="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <set field="parameters.newPortalPageId" from-field="portalPageId"/>
         <make-value value-field="newEntity" entity-name="PortalPagePortlet"/>
         <set field="newEntity.portalPortletId" from-field="parameters.portalPortletId"/>
         <set field="newEntity.portalPageId" from-field="parameters.newPortalPageId"/>
         <set field="newEntity.columnNum" value="1"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="portletSeqId"/>
-
         <create-value value-field="newEntity"/>
-        <check-errors/>
-
         <remove-value value-field="oldEntity"/>
-        <check-errors/>
     </simple-method>
 
     <simple-method method-name="addPortalPageColumn" short-description="Add a new Column to a PortalPage">
+        <call-simple-method method-name="checkOwnerShip"/>
         <make-value entity-name="PortalPageColumn" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.columnSeqId">
@@ -54,28 +45,28 @@ under the License.
         </if-empty>
         <field-to-result field="newEntity.columnSeqId" result-name="columnSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>  
+        <create-value value-field="newEntity"/>
     </simple-method>
-
+    
     <simple-method method-name="deletePortalPageColumn" short-description="Delete a Column from a PortalPage">
+        <call-simple-method method-name="checkOwnerShip"/>
         <entity-one entity-name="PortalPageColumn" value-field="column" auto-field-map="true" use-cache="true"/>
-
         <if-not-empty field="column">
             <entity-and entity-name="PortalPagePortlet" list="portalPortletList">
                 <field-map field-name="portalPageId" from-field="column.portalPageId"/>
                 <field-map field-name="columnSeqId"  from-field="column.columnSeqId"/>
             </entity-and>
-
             <iterate list="portalPortletList" entry="portalPortlet">
                 <set-service-fields service-name="deletePortalPagePortlet" to-map="deletePortalPagePortletInMap" map="portalPortlet"/>
                 <call-service service-name="deletePortalPagePortlet" in-map-name="deletePortalPagePortletInMap"/>
             </iterate>
-           
             <remove-value value-field="column"/>
         </if-not-empty>
+        <check-errors/>
     </simple-method>
-
+    
     <simple-method method-name="createPortalPagePortlet" short-description="Add a registered PortalPortlet to a PortalPage">
+        <call-simple-method method-name="checkOwnerShip"/>
         <make-value entity-name="PortalPagePortlet" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="portletSeqId"/>
@@ -85,19 +76,18 @@ under the License.
         <make-value entity-name="PortalPageColumn" value-field="newEntity1"/>
         <set-pk-fields map="parameters" value-field="newEntity1"/>
         <make-next-seq-id value-field="newEntity1" seq-field-name="columnSeqId"/>
-        <create-value value-field="newEntity1"/>  
+        <create-value value-field="newEntity1"/>
     </simple-method>
-
+    
     <simple-method method-name="deletePortalPagePortlet" short-description="Delete a PortalPortlet from a PortalPageColumn">
+        <call-simple-method method-name="checkOwnerShip"/>
         <entity-one entity-name="PortalPagePortlet" value-field="portlet" auto-field-map="true" use-cache="true"/>
-
         <if-not-empty field="portlet">
             <make-value value-field="newEntity" entity-name="PortletAttribute"/>
             <set field="newEntity.portalPageId" from-field="portlet.portalPageId"/>
             <set field="newEntity.portalPortletId" from-field="portlet.portalPortletId"/>
             <set field="newEntity.portletSeqId" from-field="portlet.portletSeqId"/>
             <remove-by-and entity-name="PortletAttribute" map="newEntity"/>
-            
             <remove-value value-field="portlet"/>
         </if-not-empty>
     </simple-method>
@@ -123,23 +113,34 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
         <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>
         <create-value value-field="newPortalPage"/>  
-
         <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
         <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>
-
         <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
     </simple-method>
     
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
-        <entity-one entity-name="PortalPage" value-field="portalPage"/>
-        <if-not-empty field="portalPage">
-            <if-compare field="portalPage.ownerUserLoginId" value="_NA_" operator="not-equals">
-                <remove-related value-field="portalPage" relation-name="PortalPageColumn"/>
-                <remove-related value-field="portalPage" relation-name="PortalPagePortlet"/>
-                <remove-value value-field="portalPage"/>
-            </if-compare>
-        </if-not-empty>
+        <call-simple-method method-name="checkOwnerShip"/>
+        <remove-related value-field="portalPage" relation-name="PortalPageColumn"/>
+        <remove-related value-field="portalPage" relation-name="PortalPagePortlet"/>
+        <remove-value value-field="portalPage"/>
+    </simple-method>
 
+    <simple-method method-name="checkOwnerShip" short-description="Check the ownership of a Portal Page">
+        <if-not-empty field="parameters.portalPageId">
+            <entity-one entity-name="PortalPage" value-field="portalPage"/>
+            <if-empty field="portalPage">
+                <add-error>
+                    <fail-property resource="CommonUiLabels" property="PortalPageNotFound"/>
+                </add-error>
+            </if-empty>
+            <check-errors/>
+            <if-compare field="portalPage.ownerUserLoginId" operator="not-equals" value="${parameters.userLogin.userLoginId}">
+                <add-error>
+                    <fail-property resource="CommonUiLabels" property="PortalPageNotOwned"/>
+                </add-error>
+            </if-compare>
+            <check-errors/>
+        </if-not-empty>
     </simple-method>
 
 </simple-methods>

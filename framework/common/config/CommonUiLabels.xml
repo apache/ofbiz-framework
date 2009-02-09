@@ -4708,6 +4708,12 @@
         <value xml:lang="zh">人员</value>
         <value xml:lang="zh_CN">人</value>
     </property>
+    <property key="PortalPageNotFound">
+        <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
+    </property>
+    <property key="PortalPageNotOwned">
+        <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
+    </property>
     <property key="CommonPostedBy">
         <value xml:lang="ar">مرسلة من</value>
         <value xml:lang="de">Übermittelt von</value>

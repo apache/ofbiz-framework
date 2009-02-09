@@ -41,6 +41,7 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
