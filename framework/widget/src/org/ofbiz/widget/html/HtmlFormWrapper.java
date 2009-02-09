@@ -103,7 +103,7 @@ public class HtmlFormWrapper {
     }
     
     @SuppressWarnings("unchecked")
-    public String renderFormString(Object contextStack) throws IOException {
+    public StringWriter renderFormString(Object contextStack) throws IOException {
         if (contextStack instanceof MapStack) {
             return renderFormString((MapStack) contextStack);
         } else {
@@ -111,18 +111,18 @@ public class HtmlFormWrapper {
             return renderFormString();
         }
     }
-    public String renderFormString(MapStack<String> contextStack) throws IOException {
+    public StringWriter renderFormString(MapStack<String> contextStack) throws IOException {
         // create a new context with the current context on the bottom
         contextStack.push(this.context);
         StringWriter buffer = new StringWriter();
         modelForm.renderFormString(buffer, contextStack, renderer);
         contextStack.pop();
-        return buffer.toString();
+        return buffer;
     }
-    public String renderFormString() throws IOException {
+    public StringWriter renderFormString() throws IOException {
         StringWriter buffer = new StringWriter();
         modelForm.renderFormString(buffer, context, renderer);
-        return buffer.toString();
+        return buffer;
     }
 
     /** 
