@@ -21,6 +21,7 @@ ofbiz/trunk/framework/base/lib/juel-2.1.1-rc1.jar
 ofbiz/trunk/framework/base/lib/log4j-1.2.15.jar
 ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
+ofbiz/trunk/framework/base/lib/nekohtml.jar
 ofbiz/trunk/framework/base/lib/resolver.jar
 ofbiz/trunk/framework/base/lib/xercesImpl-2.6.2.jar
 ofbiz/trunk/framework/base/lib/xmlParserAPIs-2.2.1.jar
@@ -421,6 +422,7 @@ The JDOM License
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the 
 BSD License:
+ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.15.jar
 ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/ical4j-1.0-beta5.jar
