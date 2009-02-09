@@ -56,10 +56,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.service">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="engine" use="required"/>
-        <xs:attribute type="xs:string" name="location"/>
-        <xs:attribute type="xs:string" name="invoke"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="engine" type="xs:string" use="required"/>
+        <xs:attribute name="location" type="xs:string"/>
+        <xs:attribute name="invoke" type="xs:string"/>
         <xs:attribute name="auth" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -84,7 +84,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="default-entity-name"/>
+        <xs:attribute name="default-entity-name" type="xs:string"/>
         <xs:attribute name="use-transaction" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -101,8 +101,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:int" name="transaction-timeout" default="0"/>
-        <xs:attribute type="xs:int" name="max-retry" default="-1"/>
+        <xs:attribute name="transaction-timeout" type="xs:int" default="0"/>
+        <xs:attribute name="max-retry" type="xs:int" default="-1"/>
         <xs:attribute name="debug" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -120,8 +120,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:int" name="semaphore-wait-seconds" default="300"/>
-        <xs:attribute type="xs:int" name="semaphore-sleep" default="500"/>
+        <xs:attribute name="semaphore-wait-seconds" type="xs:int" default="300"/>
+        <xs:attribute name="semaphore-sleep" type="xs:int" default="500"/>
     </xs:attributeGroup>
     <xs:element name="notification">
         <xs:complexType>
@@ -138,7 +138,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="group" use="required"/>        
+        <xs:attribute name="group" type="xs:string" use="required"/>        
     </xs:attributeGroup>
     <xs:element name="permission-service">
         <xs:complexType>
@@ -146,8 +146,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.permission-service">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="resource-description" use="optional">
+        <xs:attribute name="service-name" type="xs:string" use="required"/>
+        <xs:attribute name="resource-description" type="xs:string" use="optional">
             <xs:annotation><xs:documentation>This will be used in error messages, et cetera. If not specified will default to a service name.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="main-action" use="optional">
@@ -186,8 +186,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-permission">
-        <xs:attribute type="xs:string" name="permission" use="required"/>
-        <xs:attribute type="xs:string" name="action"/>
+        <xs:attribute name="permission" type="xs:string" use="required"/>
+        <xs:attribute name="action" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="check-role-member">
         <xs:complexType>
@@ -195,7 +195,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-role-member">
-        <xs:attribute type="xs:string" name="role-type" use="required"/>
+        <xs:attribute name="role-type" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="service-security">
         <xs:complexType>
@@ -203,8 +203,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.service-security">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="class" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="class" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="implements">
         <xs:complexType>
@@ -212,7 +212,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
-        <xs:attribute type="xs:string" name="service" use="required"/>
+        <xs:attribute name="service" type="xs:string" use="required"/>
         <xs:attribute name="optional" default="false">
             <xs:annotation><xs:documentation>If set to true all attributes inherited will have be optional whether or not they were in the implemented service definition.</xs:documentation></xs:annotation>
             <xs:simpleType>
@@ -233,7 +233,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.auto-attributes">
-        <xs:attribute type="xs:string" name="entity-name"/>
+        <xs:attribute name="entity-name" type="xs:string"/>
         <xs:attribute name="include" default="all">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -275,7 +275,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.exclude">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="attribute">
         <xs:complexType>
@@ -286,8 +286,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.attribute">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="type" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
         <xs:attribute name="mode" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -305,14 +305,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="default-value">
+        <xs:attribute name="default-value" type="xs:string">
             <xs:annotation><xs:documentation>The value specified will be used for the attribute if no value is passed in. This will only happen if it is okay to not pass a value in, so if this is set then optional will be set to true. If optional=false and this is set then the value will be overridden and with a value in default-value is will set optional=true anyway.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="form-label"/>
-        <xs:attribute type="xs:string" name="entity-name"/>
-        <xs:attribute type="xs:string" name="field-name"/>
-        <xs:attribute type="xs:string" name="string-map-prefix"/>
-        <xs:attribute type="xs:string" name="string-list-suffix"/>
+        <xs:attribute name="form-label" type="xs:string"/>
+        <xs:attribute name="entity-name" type="xs:string"/>
+        <xs:attribute name="field-name" type="xs:string"/>
+        <xs:attribute name="string-map-prefix" type="xs:string"/>
+        <xs:attribute name="string-list-suffix" type="xs:string"/>
         <xs:attribute name="form-display" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -331,10 +331,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.override">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="type"/>
-        <xs:attribute type="xs:string" name="entity-name"/>
-        <xs:attribute type="xs:string" name="field-name"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="entity-name" type="xs:string"/>
+        <xs:attribute name="field-name" type="xs:string"/>
         <xs:attribute name="mode">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -352,8 +352,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="default-value"/>
-        <xs:attribute type="xs:string" name="form-label"/>
+        <xs:attribute name="default-value" type="xs:string"/>
+        <xs:attribute name="form-label" type="xs:string"/>
         <xs:attribute name="form-display">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -373,8 +373,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.type-validate">
-        <xs:attribute type="xs:string" name="method"/>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
+        <xs:attribute name="method" type="xs:string"/>
+        <xs:attribute name="class" type="xs:string" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
     <xs:element name="fail-message">
         <xs:complexType>
@@ -382,7 +382,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.fail-message">
-        <xs:attribute type="xs:string" name="message" use="required"/>
+        <xs:attribute name="message" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="fail-property">
         <xs:complexType>
@@ -390,7 +390,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.fail-property">
-        <xs:attribute type="xs:string" name="resource" use="required"/>
-        <xs:attribute type="xs:string" name="property" use="required"/>
+        <xs:attribute name="resource" type="xs:string" use="required"/>
+        <xs:attribute name="property" type="xs:string" use="required"/>
     </xs:attributeGroup>
 </xs:schema>
