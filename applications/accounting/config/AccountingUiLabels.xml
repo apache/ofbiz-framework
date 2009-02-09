@@ -154,7 +154,7 @@
         <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
-    <property key="AccountingAcctgTranss">
+    <property key="AccountingAcctgTrans">
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
         <value xml:lang="it">Prime Note</value>
@@ -420,6 +420,10 @@
         <value xml:lang="th">ข้อสัญญา</value>
         <value xml:lang="zh">合同条款</value>
     </property>
+    <property key="AccountingAgreementItemProductsForReport">
+        <value xml:lang="en">Agreement Item Products For Report</value>
+        <value xml:lang="it">Prodotti riga contratto per i report</value>
+    </property>
     <property key="AccountingAgreementItemSeqId">
         <value xml:lang="ar">رمز التسلسلي لبند إتفاق</value>
         <value xml:lang="en">Agreement Item Seq Id</value>
@@ -431,6 +435,10 @@
         <value xml:lang="ru">Код элемента договора</value>
         <value xml:lang="th">รหัสรายการข้อสัญญา</value>
         <value xml:lang="zh">合同条款顺序编号</value>
+    </property>
+    <property key="AccountingAgreementItemSupplierProductsForReport">
+        <value xml:lang="en">Agreement Item Supplier Products For Report</value>
+        <value xml:lang="it">Prodotti fornitore riga contratto per i report</value>
     </property>
     <property key="AccountingAgreementItemTerms">
         <value xml:lang="ar">فصول</value>
@@ -2653,17 +2661,12 @@
         <value xml:lang="zh">固定资产</value>
     </property>
     <property key="AccountingFixedAssetCalendar">
-        <value xml:lang="ar">رزمانة</value>
-        <value xml:lang="de">Kalender</value>
-        <value xml:lang="en">Calendar</value>
-        <value xml:lang="es">Calendario</value>
-        <value xml:lang="fr">Calendrier d'immobilisation</value>
-        <value xml:lang="it">Calendario</value>
-        <value xml:lang="nl">Kalender</value>
-        <value xml:lang="ro">Calendar</value>
-        <value xml:lang="ru">Календарь</value>
-        <value xml:lang="th">ปฏิทิน</value>
-        <value xml:lang="zh">日历</value>
+        <value xml:lang="en">Fixed Asset Calendar</value>
+        <value xml:lang="it">Calendario cespite</value>
+    </property>
+    <property key="AccountingFixedAssetClassEnumId">
+        <value xml:lang="en">Fixed Asset Class Enum Id</value>
+        <value xml:lang="it">Classe cespite</value>
     </property>
     <property key="AccountingFixedAssetDepreciation">
         <value xml:lang="de">Abschreibung</value>
@@ -2884,6 +2887,10 @@
         <value xml:lang="ru">Закупочные заказы </value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
     </property>
+    <property key="AccountingFixedAssetMaintSeqId">
+        <value xml:lang="en">Fixed Asset Maint Seq Id</value>
+        <value xml:lang="it">Riga manutenzione cespite</value>
+    </property>
     <property key="AccountingFixedAssetMaintType">
         <value xml:lang="ar">نوع الصيانة</value>
         <value xml:lang="en">Maintenance Type</value>
@@ -2922,6 +2929,10 @@
         <value xml:lang="ru">Регламенты обслуживания</value>
         <value xml:lang="th">การบำรุงรักษา</value>
         <value xml:lang="zh">维修保养</value>
+    </property>
+    <property key="AccountingFixedAssetManufacturerId">
+        <value xml:lang="en">Fixed Asset Manufacturer Id</value>
+        <value xml:lang="it">Produttore cespite</value>
     </property>
     <property key="AccountingFixedAssetMessage1">
         <value xml:lang="ar">*) فارغة, لكن الحد الأقصى من الأصل الثابت معرض</value>
@@ -3496,6 +3507,10 @@
         <value xml:lang="fr">Valeur héritée</value>
         <value xml:lang="it">Valore ereditato</value>
         <value xml:lang="nl">Overgenomen waarde</value>
+    </property>
+    <property key="AccountingInstanceOfProductId">
+        <value xml:lang="en">Instance Of Product Id</value>
+        <value xml:lang="it">Istanza del prodotto</value>
     </property>
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>

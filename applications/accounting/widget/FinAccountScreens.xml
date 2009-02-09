@@ -44,7 +44,7 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                                <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
                         <decorator-section-include name="body"/>

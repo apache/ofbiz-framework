@@ -123,7 +123,7 @@
         </tr>
         <tr><td colspan="2">&nbsp;</td></tr>        
         <tr>
-            <td colspan="2" align="center"><input id="submit" type="button" onclick="javascript:saveMetaInfo(cmsmetaform);" class="smallSubmit" value="Save"/></td>
+            <td colspan="2" align="center"><input id="submit" type="button" onclick="javascript:saveMetaInfo(cmsmetaform);" class="smallSubmit" value="${uiLabeMap.CommonSave}"/></td>
         </tr>
     </table>
 </form>

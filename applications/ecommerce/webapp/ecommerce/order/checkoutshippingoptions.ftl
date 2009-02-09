@@ -170,7 +170,7 @@ function submitForm(form, mode, value) {
               </tr>
               <tr>
                 <td colspan="2">
-                  <div class="tabletext">${uiLabelMap. OrderEmailSentToFollowingAddresses}:</div>
+                  <div class="tabletext">${uiLabelMap.OrderEmailSentToFollowingAddresses}:</div>
                   <div class="tabletext">
                     <b>
                       <#list emailList as email>

@@ -28,10 +28,10 @@ under the License.
         <field name="contentName"><text-find/></field>
         <field name="contentTypeId">
             <drop-down no-current-selected-key="COMPDOC_TEMPLATE">
-                <option key="COMPDOC_TEMPLATE" description="Root Template"/>             
-                <option key="COMPDOC_INSTANCE" description="Root Instance"/>             
-                <option key="TEMPLATE" description="Template Child"/>             
-                <option key="DOCUMENT" description="Instance Child"/>             
+                <option key="COMPDOC_TEMPLATE" description="${uiLabelMap.ContentTemplateRoot}"/>
+                <option key="COMPDOC_INSTANCE" description="${uiLabelMap.ContentTemplateRootInstance}"/>
+                <option key="TEMPLATE" description="${uiLabelMap.ContentTemplateChild}"/>
+                <option key="DOCUMENT" description="${uiLabelMap.ContentTemplateInstanceChild}"/>
             </drop-down>
         </field>
         <!-- <field name="rootonly" map-name="dummy" title="Root CompDocs Only"><check/></field> -->
@@ -73,12 +73,12 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId"><display/></field>
         <field name="contentName"><display/></field>
-        <field name="rootContentId" title="Content Id To"><display/></field>
-        <field name="caContentAssocTypeId" title="Content Assoc Type ID"><display/></field>
-        <field name="caFromDate" title="From Date"><display/></field>
+        <field name="rootContentId" title="${uiLabelMap.FormFieldTitle_contentIdTo}"><display/></field>
+        <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}"><display/></field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="caThruDate"><hidden/></field>
         <field name="editTemplate" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="Edit" target="EditRootCompDoc?rootContentId=${contentId}"/> 
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?rootContentId=${contentId}"/> 
         </field>
         <field name="templateTree" widget-style="buttontext">
             <hyperlink also-hidden="false" description="Tree" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
@@ -320,27 +320,27 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
         
-        <field name="mimeTypeId" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
+        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
             <hidden value="application/vnd.ofbiz.survey.response"/>
         </field>
-        <field name="displayMimeTypeId" map-name="empty" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+        <field name="displayMimeTypeId" map-name="empty" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
             <display description="Survey Response"/>
         </field>
-        <field name="mimeTypeId" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
             <display-entity entity-name="MimeType" description="${description}"/>
         </field>
-        <field name="mimeTypeId" title="Document Type" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
+        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="MS Word"/>
-                <option key="application/pdf" description="PDF File"/>
-                <option key="application/vnd.ofbiz.survey" description="Survey"/>
-                <option key="text/html" description="HTML Text"/>
-                <option key="text/plain" description="Plain Text"/>
-                <option key="image/jpeg" description="JPEG"/>
-                <option key="image/gif" description="GIF"/>
-                <option key="image/tiff" description="TIFF"/>
-                <option key="image/png" description="PNG"/>
-                <option key="application/octet-stream" description="Other"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="rootContentId"><hidden/></field>
@@ -363,16 +363,16 @@ under the License.
         <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
             use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="MS Word"/>
-                <option key="application/pdf" description="PDF File"/>
-                <option key="application/vnd.ofbiz.survey" description="Survey"/>
-                <option key="text/html" description="HTML Text"/>
-                <option key="text/plain" description="Plain Text"/>
-                <option key="image/jpeg" description="JPEG"/>
-                <option key="image/gif" description="GIF"/>
-                <option key="image/tiff" description="TIFF"/>
-                <option key="image/png" description="PNG"/>
-                <option key="application/octet-stream" description="Other"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
@@ -425,11 +425,11 @@ under the License.
         <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentIdTo" widget-style="tabletext" title="Parent Content ID"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
-        <field name="fromDate" title="From Date" widget-style="tabletext"><display/></field>
-        <field name="thruDate" title="Thru Date"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="sequenceNum" title="Sequence Num"><display/></field>
         
-       <field name="mimeTypeId" map-name="dataResource" title="Document Type"  widget-style="tabletext">
+       <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}"  widget-style="tabletext">
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
         </field>
         <field name="relatedDetailId" map-name="dataResource" title="Survey ID" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
@@ -472,7 +472,7 @@ under the License.
         <field name="contentApprovalId"><display/></field>
 
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="approvalCount &gt; 0">
-            <hyperlink also-hidden="false" description="Edit" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </field>
         <field name="create" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="Create" target="EditContentRevisionItem"/>
@@ -506,8 +506,8 @@ under the License.
         <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
         <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
         <!-- <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field> -->
-        <field name="pdfName" title="PDF/Survey Name"><text/></field>
-        <field name="imageData" title="Enter a PDF file path to automatically create a survey."><file size="60"/></field>
+        <field name="pdfName" title="${uiLabelMap.ContentPDFSurveyName}"><text/></field>
+        <field name="imageData" title="${uiLabelMap.ContentPDFFilePath}"><file size="60"/></field>
         <field name="rootContentId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit/></field>
     </form>
@@ -523,7 +523,7 @@ under the License.
         <field name="dataResourceId" map-name="dataResource"><hidden/></field>
         <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
         <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
-        <field name="textData" title="Text Data"><textarea rows="30" cols="60"/></field>
+        <field name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}"><textarea rows="30" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
     </form>
 
@@ -538,7 +538,7 @@ under the License.
         <field name="dataResourceId" map-name="dataResource"><hidden/></field>
         <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
         <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
-        <field name="objectInfo" title="Survey Id"><lookup target-form-name="LookupSurvey"/></field>
+        <field name="objectInfo" title="${uiLabelMap.ContentSurveySurveyId}"><lookup target-form-name="LookupSurvey"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
     </form>
 </forms>

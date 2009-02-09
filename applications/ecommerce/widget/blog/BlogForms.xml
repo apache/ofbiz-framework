@@ -33,7 +33,7 @@
         <field name="caContentAssocTypeId" title="Assoc Type Id">
             <text-find/>
         </field>
-        <field name="caFromDate" title="From Date">
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}">
             <date-find/>
         </field>
         <field name="contentId" title="Content Id">
@@ -45,7 +45,7 @@
         <field name="contentName" title="Name">
             <text-find/>
         </field>
-        <field name="submitButton" title="Find" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="createBlog" title=" " widget-style="buttontext">
@@ -67,7 +67,7 @@
         </actions>
 
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="Edit" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
         </field>
         <field name="contentId" title="Content Id">
             <display/>

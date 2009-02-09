@@ -288,10 +288,10 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
         <field name="send" title="&amp;nbsp;" position="1">
-            <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPortalNewEmail.submit())"/>
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.MyPortalNewEmail.submit())"/>
         </field>
         <field name="save" title="&amp;nbsp;" position="2">
-            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPortalNewEmail.statusId.value='COM_PENDING'),(document.MyPortalNewEmail.submit())"/>
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.MyPortalNewEmail.statusId.value='COM_PENDING'),(document.MyPortalNewEmail.submit())"/>
         </field>
         <field name="dummy" position="320"><hidden/></field>
     </form>

@@ -510,16 +510,16 @@ under the License.
         <field name="sequenceNum"><text/></field>
         <field name="drMimeTypeId" widget-style="smallSelect">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="MS Word"/>
-                <option key="application/pdf" description="PDF File"/>
-                <option key="application/vnd.ofbiz.survey" description="Survey"/>
-                <option key="text/html" description="HTML Text"/>
-                <option key="text/plain" description="Plain Text"/>
-                <option key="image/jpeg" description="JPEG"/>
-                <option key="image/gif" description="GIF"/>
-                <option key="image    iff" description="TIFF"/>
-                <option key="image/png" description="PNG"/>
-                <option key="application/octet-stream" description="Other"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
@@ -543,16 +543,16 @@ under the License.
         <field name="sequenceNum"><text/></field>
         <field name="drMimeTypeId">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="MS Word"/>
-                <option key="application/pdf" description="PDF File"/>
-                <option key="application/vnd.ofbiz.survey" description="Survey"/>
-                <option key="text/html" description="HTML Text"/>
-                <option key="text/plain" description="Plain Text"/>
-                <option key="image/jpeg" description="JPEG"/>
-                <option key="image/gif" description="GIF"/>
-                <option key="image/tiff" description="TIFF"/>
-                <option key="image/png" description="PNG"/>
-                <option key="application/octet-stream" description="Other"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
@@ -619,7 +619,7 @@ under the License.
         <field name="drMimeTypeId" ><hidden/></field>
         <field name="communicationEventId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
-        <field name="textData" map-name="electronicText" title="Text Data"><textarea rows="30" cols="60"/></field>
+        <field name="textData" map-name="electronicText" title="${uiLabelMap.FormFieldTitle_textDataTitle}"><textarea rows="30" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 

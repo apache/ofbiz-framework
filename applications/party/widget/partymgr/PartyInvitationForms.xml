@@ -59,7 +59,7 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="lastInviteDate"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitation?partyInvitationId=${partyInvitationId}" description="${UiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitation?partyInvitationId=${partyInvitationId}" description="${uiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  
@@ -103,7 +103,7 @@ under the License.
             </display-entity>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationGroupAssoc?partyInvitationId=${partyInvitationId}&amp;partyIdTo=${partyIdTo}" description="${UiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitationGroupAssoc?partyInvitationId=${partyInvitationId}&amp;partyIdTo=${partyIdTo}" description="${uiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  
@@ -135,7 +135,7 @@ under the License.
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationRoleAssoc?partyInvitationId=${partyInvitationId}&amp;roleTypeId=${roleTypeId}" description="${UiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitationRoleAssoc?partyInvitationId=${partyInvitationId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  

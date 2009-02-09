@@ -156,7 +156,7 @@ ${menuWrapper.renderMenuString()}
                     </tr>
                     <tr>
                       <td colspan="1">
-                          <input type="submit" name="submitBtn" value="Update"/>
+                          <input type="submit" name="submitBtn" value="${uiLabelMap.CommonUpdate}"/>
                       </td>
                     </tr>
               </table>

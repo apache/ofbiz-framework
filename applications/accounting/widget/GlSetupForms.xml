@@ -860,7 +860,7 @@ under the License.
                 <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile?partyId=${taxAuthPartyId}" target-type="inter-app" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="glAccountId" title="${uiLabelMap.${uiLabelMap.AccountingGlAccountId}}">
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
                 <entity-options description="${glAccountId} ${accountName}" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>

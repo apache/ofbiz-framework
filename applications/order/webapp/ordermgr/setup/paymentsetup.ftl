@@ -85,8 +85,8 @@ under the License.
                 <tr>
                   <td colspan="8"><div>No settings found.</div></td>
                 </tr>
-              </#if>              
-            </table>   		  
+              </#if>
+            </table>
           </td>
         </tr>
       </table>
@@ -192,10 +192,10 @@ under the License.
               </tr>  
               <tr>
                 <td colspan='2'>&nbsp;</td>
-                <td colspan='1'><input type="submit" value="Update"></td>
-              </tr>            
-            </table>               
-            </form>		  
+                <td colspan='1'><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+              </tr>
+            </table>
+            </form>
           </td>
         </tr>
       </table>

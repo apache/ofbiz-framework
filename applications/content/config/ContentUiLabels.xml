@@ -19,6 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ContentAbsoluteFile">
+        <value xml:lang="en">Absolute File</value>
+        <value xml:lang="it">File assoluto</value>
+    </property>
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
         <value xml:lang="de">Antwort</value>
@@ -105,12 +109,24 @@
         <value xml:lang="th">CMS</value>
         <value xml:lang="zh">内容管理系统</value>
     </property>
+    <property key="ContentCMSAddSubContent">
+        <value xml:lang="en">CMS Content Add Sub Content</value>
+        <value xml:lang="it">CMS aggiungi sotto contenuto</value>
+    </property>
+    <property key="ContentCMSEditPage">
+        <value xml:lang="en">CMS Content Edit Page</value>
+        <value xml:lang="it">CMS aggiorna pagina</value>
+    </property>
     <property key="ContentCMSNotExist">
         <value xml:lang="de">Es gibt keinen Inhalt PUBLISH_POINT (Veröffentlichungsort) für diese Webseite!</value>
         <value xml:lang="en">There is no Content PUBLISH_POINT for this WebSite!</value>
         <value xml:lang="fr">Il n'y a aucun contenu PUBLISH_POINT pour ce site Web !</value>
         <value xml:lang="it">Non c'è nessun Contenuto PUBLISH_POINT per questo Sito Web!</value>
         <value xml:lang="th">ไม่มีหัวข้อ PUBLISH_POINT สำหรับเว็บไซต์นี้</value>
+    </property>
+    <property key="ContentCMSSearchPage">
+        <value xml:lang="en">CMS Search Page</value>
+        <value xml:lang="it">CMS pagina di ricerca</value>
     </property>
     <property key="ContentCategory">
         <value xml:lang="ar">الفئة</value>
@@ -151,6 +167,10 @@
         <value xml:lang="ro">CompDoc</value>
         <value xml:lang="th">เอกสารคอมพิวเตอร์</value>
         <value xml:lang="zh">合成文档</value>
+    </property>
+    <property key="ContentCompDocAddDocumentInstancePageForTemplate">
+        <value xml:lang="en">Add Composite Document Instance Page for Template</value>
+        <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
     </property>
     <property key="ContentCompDocApprovals">
         <value xml:lang="de">Genehmigungen</value>
@@ -296,6 +316,10 @@
         <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
     </property>
+    <property key="ContentDataBaseText">
+        <value xml:lang="en">DataBase Text</value>
+        <value xml:lang="it">Testo database</value>
+    </property>
     <property key="ContentDataResource">
         <value xml:lang="ar">مورد معلومات</value>
         <value xml:lang="de">Datenressource</value>
@@ -391,6 +415,10 @@
         <value xml:lang="it">Tipo Dati</value>
         <value xml:lang="th">ประเภทข้อมูล</value>
     </property>
+    <property key="ContentDocumentType">
+        <value xml:lang="en">Document Type</value>
+        <value xml:lang="it">Tipo documento</value>
+    </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
         <value xml:lang="de">Produktladen bearbeiten</value>
@@ -434,6 +462,14 @@
         <value xml:lang="ro">Parcurs Fisier</value>
         <value xml:lang="th">ไฟล์ Path</value>
         <value xml:lang="zh">文件路径</value>
+    </property>
+    <property key="ContentFileRelToOFBizHome">
+        <value xml:lang="en">File Rel. to OFBIZ_HOME</value>
+        <value xml:lang="it">File relativo alla OFBIZ_HOME</value>
+    </property>
+    <property key="ContentFileRelToWebappRoot">
+        <value xml:lang="en">File Rel. to webapp root</value>
+        <value xml:lang="it">File relativo alla webapp root</value>
     </property>
     <property key="ContentForum">
         <value xml:lang="ar">منتدى</value>
@@ -524,6 +560,10 @@
         <value xml:lang="it">Discussione</value>
         <value xml:lang="th">Thread</value>
     </property>
+    <property key="ContentGIF">
+        <value xml:lang="en">GIF</value>
+        <value xml:lang="it">GIF</value>
+    </property>
     <property key="ContentGoToContent">
         <value xml:lang="en">Go to Content</value>
         <value xml:lang="fr">Aller au contenu</value>
@@ -540,6 +580,10 @@
         <value xml:lang="th">ไปยังแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">转到数据资源</value>
     </property>
+    <property key="ContentGoToFind">
+        <value xml:lang="en">Goto Find"</value>
+        <value xml:lang="it">Torna alla ricerca</value>
+    </property>
     <property key="ContentHtml">
         <value xml:lang="ar">Html</value>
         <value xml:lang="de">Html</value>
@@ -550,6 +594,10 @@
         <value xml:lang="ro">Html</value>
         <value xml:lang="th">Html</value>
         <value xml:lang="zh">Html</value>
+    </property>
+    <property key="ContentHtmlText">
+        <value xml:lang="en">Html Text</value>
+        <value xml:lang="it">Teso html</value>
     </property>
     <property key="ContentImage">
         <value xml:lang="ar">صورة</value>
@@ -593,6 +641,10 @@
         <value xml:lang="ro">Introduceti Coduri de Indicizare</value>
         <value xml:lang="th">ดัชนีเข้าสู่รหัส</value>
         <value xml:lang="zh">为输入的标识建立索引</value>
+    </property>
+    <property key="ContentJPEG">
+        <value xml:lang="en">JPEG</value>
+        <value xml:lang="it">JPEG</value>
     </property>
     <property key="ContentLayout">
         <value xml:lang="ar">الوضعية</value>
@@ -672,6 +724,10 @@
         <value xml:lang="it">Tipo Mime Template</value>
         <value xml:lang="th">รูปแบบประเภทแบบจำลอง</value>
     </property>
+    <property key="ContentMSWord">
+        <value xml:lang="en">MS Word</value>
+        <value xml:lang="it">MS Word</value>
+    </property>
     <property key="ContentNavigate">
         <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
@@ -698,6 +754,14 @@
         <value xml:lang="ro">Continut PDF</value>
         <value xml:lang="th">หัวข้อ PDF</value>
         <value xml:lang="zh">PDF内容标识</value>
+    </property>
+    <property key="ContentPDFSurveyName">
+        <value xml:lang="en">PDF/Survey Name</value>
+        <value xml:lang="it">PDF/Nome sondaggio</value>
+    </property>
+    <property key="ContentPDFFilePath">
+        <value xml:lang="en">Enter a PDF file path to automatically create a survey.</value>
+        <value xml:lang="it">Inserire un path file PDF che automaticamente creerà un sondaggio.</value>
     </property>
     <property key="ContentParent">
         <value xml:lang="de">Übergeordneter Inhalt</value>
@@ -726,6 +790,18 @@
         <value xml:lang="en">Path Alias list</value>
         <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
         <value xml:lang="it">Lista path alias</value>
+    </property>
+    <property key="ContentPDFFile">
+        <value xml:lang="en">PDF File</value>
+        <value xml:lang="it">File PDF</value>
+    </property>
+    <property key="ContentPlainText">
+        <value xml:lang="en">Plain Text</value>
+        <value xml:lang="it">Testo fisso</value>
+    </property>
+    <property key="ContentPNG">
+        <value xml:lang="en">PNG</value>
+        <value xml:lang="it">PNG</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
@@ -1126,6 +1202,22 @@
         <value xml:lang="th">รูปแบบ</value>
         <value xml:lang="zh">模板</value>
     </property>
+    <property key="ContentTemplateChild">
+        <value xml:lang="en">Template Child</value>
+        <value xml:lang="it">Template figlio</value>
+    </property>
+    <property key="ContentTemplateInstanceChild">
+        <value xml:lang="en">Instance Child</value>
+        <value xml:lang="it">Istanza figlia</value>
+    </property>
+    <property key="ContentTemplateRoot">
+        <value xml:lang="en">Root Template</value>
+        <value xml:lang="it">Template principale</value>
+    </property>
+    <property key="ContentTemplateRootInstance">
+        <value xml:lang="en">Root Instance</value>
+        <value xml:lang="it">Istanza principale</value>
+    </property>
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
         <value xml:lang="de">Vorlagen</value>
@@ -1145,6 +1237,10 @@
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
+    </property>
+    <property key="ContentTIFF">
+        <value xml:lang="en">TIFF</value>
+        <value xml:lang="it">TIFF</value>
     </property>
     <property key="ContentTree">
         <value xml:lang="ar">شجرة</value>
