@@ -626,7 +626,10 @@ public class StringUtil {
 
         return sb.toString();
     }
-    
+
+    public static StringWrapper wrapString(String theString) {
+        return makeStringWrapper(theString);
+    }
     public static StringWrapper makeStringWrapper(String theString) {
         if (theString == null) return null;
         if (theString.length() == 0) return StringWrapper.EMPTY_STRING_WRAPPER; 
