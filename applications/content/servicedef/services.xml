@@ -291,12 +291,12 @@
 
     <service name="createSimpleTextContent" engine="simple" location="org/ofbiz/content/content/ContentServices.xml" invoke="createSimpleTextContent">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateSimpleTextContent" engine="simple" location="org/ofbiz/content/content/ContentServices.xml" invoke="updateSimpleTextContent">
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <!-- Util -->

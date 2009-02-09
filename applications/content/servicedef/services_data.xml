@@ -36,6 +36,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="GenericValue" mode="OUT" optional="true"/>
+        <override name="objectInfo" allow-html="safe"/>
     </service>
     <service name="updateDataResource" engine="simple" default-entity-name="DataResource" auth="true"
             location="org/ofbiz/content/data/DataServices.xml" invoke="updateDataResource">
@@ -48,6 +49,7 @@
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="GenericValue" mode="OUT" optional="true"/>
+        <override name="objectInfo" allow-html="safe"/>
     </service>
     <service name="removeDataResource" engine="simple" default-entity-name="DataResource" auth="true"
             location="org/ofbiz/content/data/DataServices.xml" invoke="deleteDataResource">
@@ -102,6 +104,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
+        <override name="textData" allow-html="safe"/>
     </service>
     <service name="updateElectronicText" default-entity-name="ElectronicText" engine="simple"
             location="org/ofbiz/content/data/DataServices.xml" invoke="updateElectronicText" auth="true">
@@ -110,6 +113,7 @@
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
+        <override name="textData" allow-html="safe"/>
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
             location="org/ofbiz/content/data/DataServices.xml" invoke="removeElectronicText" auth="true">
