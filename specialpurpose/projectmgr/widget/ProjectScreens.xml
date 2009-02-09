@@ -52,9 +52,21 @@ under the License.
                 <set field="workEffortId" from-field="parameters.projectId"/>
             </actions>                                                
             <widgets>  
+                <section>
+                    <condition>
+                        <not><if-has-permission permission="PROJECTMGR" action="_ADMIN"/></not>
+                    </condition>
+                    <actions>
+                        <set field="parameters.partyId" from-field="parameters.userLogin.partyId"/>
+                        <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+                        <set field="filterByDate" from-field="nowDate"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                        <container style="clear"/>
                         <screenlet name="findProject" collapsible="true" title="${uiLabelMap.PageTitleFindProject}">
                             <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
