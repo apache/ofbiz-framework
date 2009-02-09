@@ -25,7 +25,7 @@ under the License.
         <menu-item name="adddataresource" title="Add" >
             <link target="AddDataResource" name="AddDataResource" target-window="_top" style="tabButton" />
         </menu-item>
-        <menu-item name="finddataresource" title="Find" >
+        <menu-item name="finddataresource" title="${uiLabelMap.CommonFind}" >
             <link target="FindDataResource" name="FindDataResource" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="browsedataresource" title="Browse" >

@@ -157,11 +157,11 @@ under the License.
         <field name="caContentIdTo" title="Publish-to content" ><text-find/></field>
         <field name="caMapKey" title="Map Key" ><text-find/></field>
         <field name="caContentAssocTypeId" title="Assoc Type Id" ><text-find/></field>
-        <field name="caFromDate" title="From Date" ><date-find/></field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" ><date-find/></field>
         <field name="contentId" title="Content Id" ><text-find/></field>
         <field name="dataResourceId" title="Data Resource Id" ><text-find/></field>
         <field name="contentName" title="Name" ><text-find/></field>
-        <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
 <!--
         <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="Create New"  target="AddContent"/>
@@ -174,9 +174,9 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
         paginate-target="/FindContent">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="Edit" target="EditContent?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/> 
 <!--
-            <hyperlink also-hidden="false" description="Edit" target="EditContent?caContentIdTo=${caContentIdTo}&amp;caFromDate=${caFromDate}&amp;contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;caContentId=${contentId}&amp;contentIdStart=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent?caContentIdTo=${caContentIdTo}&amp;caFromDate=${caFromDate}&amp;contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;caContentId=${contentId}&amp;contentIdStart=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}"/> 
 -->
         </field>
 <!--
@@ -338,12 +338,12 @@ under the License.
         <field name="createdDate" position="2"><display/></field>
         <field name="lastModifiedByUserLogin" position="1"><display/></field>
         <field name="lastModifiedDate" position="2"><display/></field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  target="AddContent"/>
         </field>
         <field name="findContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="2">
-            <hyperlink also-hidden="false" description="Find"  target="FindContent"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonFind}"  target="FindContent"/>
         </field>
        <field name="nodeTrailCsv" map-name="dummy">
                 <hidden value="${nodeTrailCsv}"/>

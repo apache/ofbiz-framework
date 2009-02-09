@@ -85,7 +85,7 @@ under the License.
         <field name="locationSeqId"><hidden/></field>
         <field name="locationSeqIdNew" title="Location" entry-name="locationSeqId"><text size="10" default-value=""/></field>
         <field name="quantity" title="Quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeProductFromCategory?productId=${productId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>

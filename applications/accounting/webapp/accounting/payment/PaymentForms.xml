@@ -355,7 +355,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="amountToApply" parameter-name="amountApplied" tooltip="${AccountingUiLabels.AccountingLeaveEmptyForMaximumAmount}"><text/></field>
+        <field name="amountToApply" parameter-name="amountApplied" tooltip="${uiLabelMap.AccountingLeaveEmptyForMaximumAmount}"><text/></field>
         <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><check/></field>
         <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;N&quot;)"><check/></field>
         <field name="applyButton" widget-style="smallSubmit">

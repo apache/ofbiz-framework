@@ -417,7 +417,7 @@ under the License.
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container>
-                            <link target="FindCompDoc?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootTemplateContentId=${rootTemplateContentId}&amp;rootTemplateRevSeqId=${rootTemplateRevSeqId}&amp;rootInstanceContentId=${rootInstanceContentId}&amp;rootInstanceRevSeqId=${rootInstanceRevSeqId}" text="Find"  style="buttontext"/>
+                            <link target="FindCompDoc?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootTemplateContentId=${rootTemplateContentId}&amp;rootTemplateRevSeqId=${rootTemplateRevSeqId}&amp;rootInstanceContentId=${rootInstanceContentId}&amp;rootInstanceRevSeqId=${rootInstanceRevSeqId}" text="${uiLabelMap.CommonFind}"  style="buttontext"/>
                             <link target="AddRootCompDocTemplate?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootTemplateContentId=${rootTemplateContentId}&amp;rootTemplateRevSeqId=${rootTemplateRevSeqId}&amp;rootInstanceContentId=${rootInstanceContentId}&amp;rootInstanceRevSeqId=${rootInstanceRevSeqId}" text="Create New Root CompDoc Template" style="buttontext"/>
                         </container>
                     </decorator-section>
@@ -932,7 +932,7 @@ under the License.
                 <set from-field="templateContent.contentName" field="contentName"/>
                 
                 <set field="menuName" value="tree"/>
-                <set field="title" value="Add Composite Document Instance Page for Template: ${rootContentId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocAddDocumentInstancePageForTemplate}: ${rootContentId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
@@ -1042,7 +1042,7 @@ under the License.
                 <set from-field="parameters.rootContentRevisionSeqId" default-value="${mostRecentRevisionSeqId}" field="rootContentRevisionSeqId"/>
 
                 <set field="menuName" value="tree"/>
-                <set field="title" value="Root Template ${rootContentId}, rev. ${rootContentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentTemplateRoot} ${rootContentId}, ${uiLabelMap.ContentCompDocRev} ${rootContentRevisionSeqId}"/>
                 <set field="currentMenuItemName" value="viewtree"/>
             </actions>
             <widgets>

@@ -190,7 +190,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
     <#if 0 < mostRecentList?size >
         <tr>
           <td colspan="5">
-            <input type="submit" name="submitBtn" value="Update"/>
+            <input type="submit" name="submitBtn" value="${uiLabelMap.CommonUpdate}"/>
           </td>
         </tr>
     </#if>
@@ -252,7 +252,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
         </tr>
           <tr>
             <td>
-            <input type="submit" name="submitBtn" value="Update"/>
+            <input type="submit" name="submitBtn" value="${uiLabelMap.CommonUpdate}"/>
             </td>
           </tr>
       </table>

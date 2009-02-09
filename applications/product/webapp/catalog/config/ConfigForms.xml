@@ -61,7 +61,7 @@ under the License.
         <auto-fields-service service-name="updateProductConfigOption" map-name="configOption"/>
 
         <field name="configItemId"><hidden/></field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="CreateConfigOption" type="single" target="createProductConfigOption" title="" default-map-name="configOption"
         header-row-style="header-row" default-table-style="basic-table">

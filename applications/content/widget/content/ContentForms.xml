@@ -178,7 +178,7 @@ under the License.
                 <entity-options description="${description}" entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>

@@ -77,7 +77,7 @@ under the License.
         <field name="productStoreId">
             <lookup target-form-name="/marketing/control/LookupProductStore"/>
         </field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListOrderHeaders" type="single" target="" title=""
         header-row-style="header-row" default-table-style="basic-table">

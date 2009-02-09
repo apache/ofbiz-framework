@@ -242,7 +242,7 @@
                                 </condition>
                                 <widgets>
                                     <container style="rightjustify">
-                                        <link text="Edit" target="EditBlogArticle?contentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="buttontext"/>
+                                        <link text="${uiLabelMap.CommonEdit}" target="EditBlogArticle?contentId=${articleContentId}&amp;blogContentId=${blogContentId}" style="buttontext"/>
                                     </container>
                                 </widgets>
                             </section>
@@ -312,10 +312,10 @@
                                                 <if-compare field="parameters.edit" operator="not-equals" value="Y"/>
                                             </condition>
                                             <widgets>
-                                                <link text="Edit" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=Y" style="buttontext"/>
+                                                <link text="${uiLabelMap.CommonEdit}" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=Y" style="buttontext"/>
                                             </widgets>
                                             <fail-widgets>
-                                                <link text="View" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=N" style="buttontext"/>
+                                                <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=N" style="buttontext"/>
                                             </fail-widgets>
                                         </section>
                                     </container>
@@ -459,7 +459,7 @@
                     <widgets>
                         <container>
                             <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                            <link text="View" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                            <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
                                 <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>
@@ -474,7 +474,7 @@
                     <widgets>
                         <container style="responseSelected">
                             <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                            <link text="View" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                            <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
                                 <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>

@@ -30,7 +30,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
         paginate-target="/AdminSearch">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="Edit" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
         </field>
         <field name="contentId" title="${uiLabelMap.ProductContentId}" ><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.EcommerceDataResourceId}" ><display/></field>

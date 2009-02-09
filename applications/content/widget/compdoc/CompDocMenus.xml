@@ -83,7 +83,7 @@ under the License.
             </condition>
             <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="edit" title="Edit">
+        <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditChildCompDoc?contentId=${contentId}&amp;itemContentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp;caFromDate=${parameters.caFromDate}"/>
         </menu-item>
     </menu>
@@ -93,7 +93,7 @@ under the License.
         <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="h2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="edit-link" title="Edit">
+        <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="child" title="+Child">
@@ -122,7 +122,7 @@ under the License.
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="edit-link" title="Edit">
+        <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
             <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
@@ -160,7 +160,7 @@ under the License.
         <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="h2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="edit" title="Edit">
+        <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="viewtree" title="View Template Tree">
