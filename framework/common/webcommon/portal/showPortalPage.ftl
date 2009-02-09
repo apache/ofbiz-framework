@@ -36,6 +36,7 @@ under the License.
           <#assign firstInColumn = false/>
         </#if>
       </#list>
+      </td>
       <#if portalPageColumn_has_next>
         <td>&nbsp;</td>
       </#if>
