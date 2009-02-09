@@ -22,8 +22,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastMap;
 
@@ -403,6 +405,8 @@ public class FindServices {
         String orderBy = (String) context.get("orderBy");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
+        String distinct = (String) context.get("distinct");
+        List fieldList =  (List) context.get("fieldList");
         GenericValue userLogin = (GenericValue) context.get("userLogin"); 
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
@@ -432,7 +436,7 @@ public class FindServices {
         
         Map<String, Object> executeResult = null;
         try {
-            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
+            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "fieldList", fieldList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "distinct", distinct, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error finding iterator: " + gse.getMessage());
         }
@@ -538,15 +542,16 @@ public class FindServices {
         EntityConditionList entityConditionList = (EntityConditionList) context.get("entityConditionList");
         List<String> orderByList = checkList(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals((String) context.get("noConditionFind"));
-        
+        boolean distinct = "Y".equals((String) context.get("distinct"));
+        List fieldList =  (List) context.get("fieldList");
+        Set fieldSet = new HashSet(fieldList);        
         GenericDelegator delegator = dctx.getDelegator();
-        
         // Retrieve entities  - an iterator over all the values
         EntityListIterator listIt = null;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
-                listIt = delegator.find(entityName, entityConditionList, null, null, orderByList, 
-                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false));
+                listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList, 
+                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, distinct));
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());
