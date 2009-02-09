@@ -156,7 +156,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="parameters.portalPageId" value="MYPORTAL"/>
+                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
             </actions>

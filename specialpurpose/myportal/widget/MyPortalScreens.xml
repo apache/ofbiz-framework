@@ -1019,7 +1019,7 @@ under the License.
     <screen name="Party">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1048,7 +1048,7 @@ under the License.
     <screen name="Contact">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1077,7 +1077,7 @@ under the License.
     <screen name="contactsAndAccounts">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1106,7 +1106,7 @@ under the License.
     <screen name="LoyaltyPoints">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1135,7 +1135,7 @@ under the License.
     <screen name="PaymentMethods">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1164,7 +1164,7 @@ under the License.
     <screen name="AvsSettings">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1193,7 +1193,7 @@ under the License.
     <screen name="FinAccounts">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1222,7 +1222,7 @@ under the License.
     <screen name="UserLogin">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1251,7 +1251,7 @@ under the License.
     <screen name="Attributes">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1280,7 +1280,7 @@ under the License.
     <screen name="Visits">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1309,7 +1309,7 @@ under the License.
     <screen name="Cart">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1338,7 +1338,7 @@ under the License.
     <screen name="SerializedInventory">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1367,7 +1367,7 @@ under the License.
     <screen name="Subscriptions">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1396,7 +1396,7 @@ under the License.
     <screen name="Content">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1425,7 +1425,7 @@ under the License.
     <screen name="ShipperAccount">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1454,7 +1454,7 @@ under the License.
     <screen name="Notes">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1483,7 +1483,7 @@ under the License.
     <screen name="mytasksParty">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -1512,7 +1512,7 @@ under the License.
     <screen name="ViewInternalOrg">
         <section>
             <actions>
-                <set field="parameters.partyId" from-field="userLogin.userLoginId"/> 
+                <set field="parameters.partyId" from-field="userLogin.partyId"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>

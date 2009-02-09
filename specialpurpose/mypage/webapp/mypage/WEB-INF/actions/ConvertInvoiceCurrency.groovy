@@ -42,7 +42,7 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
   if (currencyUomId && otherCurrency && otherCurrency != currencyUomId && !otherCurrency.equals(currencyUomId)) {
     result = dispatcher.runSync("convertUom", [uomId : currencyUomId, 
                                                uomIdTo : otherCurrency, 
-                                               originalValue : BigDecimal.ONE), 
+                                               originalValue : BigDecimal.ONE, 
                                                asOfDate : invoiceDate]);
     
     if (result.convertedValue != null) {
