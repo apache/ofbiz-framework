@@ -236,9 +236,11 @@ under the License.
     <service name="executeFind" auth="false" engine="java" invoke="executeFind" location="org.ofbiz.common.FindServices">
         <description>Generic service to return an entity iterator</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="fieldList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="orderByList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="IN" optional="true"/>
         <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="distinct" type="String" mode="IN" optional="true"><!-- distinct find only done when this is Y --></attribute>
         <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
     </service>
 
@@ -247,8 +249,10 @@ under the License.
            set noConditionFind to Y to find without conditions.  </description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
+        <attribute name="fieldList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="orderBy" type="String" mode="IN" optional="true"/>
         <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="distinct" type="String" mode="IN" optional="true"><!-- distinct find only done when this is Y --></attribute>
         <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDateValue" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
