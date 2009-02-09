@@ -37,7 +37,6 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    ${layoutSettings?if_exists.extraHead?if_exists}
     
     <#-- Append CSS for catalog -->
     <#if catalogStyleSheet?exists>
