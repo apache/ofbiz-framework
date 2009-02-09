@@ -22,9 +22,8 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.GenericDelegator;
 
 /**
  * Generic Services Local Dispatcher
@@ -130,15 +129,15 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     }
 
     public void disableEcas(){
-        this.ecasDisabled = true;
+        ecasDisabled = true;
     }
 
     public void enableEcas() {
-        this.ecasDisabled = false;
+        ecasDisabled = false;
     }
 
     public boolean isEcasDisabled() {
-        return this.ecasDisabled;
+        return ecasDisabled;
     }
 
     /**

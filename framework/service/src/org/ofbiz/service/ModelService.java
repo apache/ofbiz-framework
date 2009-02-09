@@ -58,7 +58,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -75,6 +75,7 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
 /**
  * Generic Service Model Class
  */
+@SuppressWarnings("serial")
 public class ModelService extends AbstractMap<String, Object> implements Serializable {
     private static final Field[] MODEL_SERVICE_FIELDS;
     private static final Map<String, Field> MODEL_SERVICE_FIELD_MAP = FastMap.newInstance();
@@ -459,16 +460,16 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param test The Map object to test
      * @param mode Test either mode IN or mode OUT
      */
-    public void validate(Map<String, ? extends Object> test, String mode, Locale locale) throws ServiceValidationException {
+    public void validate(Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
         Map<String, String> requiredInfo = FastMap.newInstance();
         Map<String, String> optionalInfo = FastMap.newInstance();
         boolean verboseOn = Debug.verboseOn();
 
-        if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + test, module);
+        if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
 
         // do not validate results with errors
-        if (mode.equals(OUT_PARAM) && test != null && test.containsKey(RESPONSE_MESSAGE)) {
-            if (RESPOND_ERROR.equals(test.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(test.get(RESPONSE_MESSAGE))) {
+        if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
+            if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
                 if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
                 return;
             }
@@ -490,8 +491,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, Object> requiredTest = FastMap.newInstance();
         Map<String, Object> optionalTest = FastMap.newInstance();
 
-        if (test == null) test = FastMap.newInstance();
-        requiredTest.putAll(test);
+        if (context == null) context = FastMap.newInstance();
+        requiredTest.putAll(context);
 
         List<String> requiredButNull = FastList.newInstance();
         List<String> keyList = FastList.newInstance();
@@ -544,6 +545,30 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         } catch (ServiceValidationException e) {
             Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), module);
             throw e;
+        }
+        
+        // required and type validation complete, do allow-html validation
+        if ("IN".equals(mode)) {
+            List<String> errorMessageList = FastList.newInstance();
+            for (ModelParam modelParam: this.contextInfo.values()) {
+                if (context.get(modelParam.name) != null && 
+                        ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) && 
+                        !"any".equals(modelParam.allowHtml) && 
+                        ("INOUT".equals(modelParam.mode) || "IN".equals(modelParam.mode))) {
+                    // the param is a String, allow-html is none or safe, and we are looking at an IN parameter during input parameter validation
+                    String value = (String) context.get(modelParam.name);
+                    if ("none".equals(modelParam.allowHtml)) {
+                        value = StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
+                        context.put(modelParam.name, value);
+                    } else if ("safe".equals(modelParam.allowHtml)) {
+                        value = StringUtil.checkStringForHtmlSafeOnly(modelParam.name, value, errorMessageList);
+                        context.put(modelParam.name, value);
+                    }
+                }
+            }
+            if (errorMessageList.size() > 0) {
+                throw new ServiceValidationException(errorMessageList, this, mode);
+            }
         }
     }
 
