@@ -1971,13 +1971,7 @@
         <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="de">&#160;</value>
         <value xml:lang="en">&#160;</value>
-        <value xml:lang="es">&#160;</value>
-        <value xml:lang="fr">&#160;</value>
-        <value xml:lang="it">&#160;</value>
-        <value xml:lang="pt">&#160;</value>
-        <value xml:lang="th">&#160;</value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
