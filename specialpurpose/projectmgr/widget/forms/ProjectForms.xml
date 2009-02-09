@@ -122,10 +122,14 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
+            <set field="fieldList[]" value="workEffortId"/>
+            <set field="fieldList[]" value="lastStatusUpdate"/>
             <service service-name="performFind" result-map-list="listIt">
+                <field-map field-name="fieldList" from-field="fieldList"/>
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="WorkEffort"/>
-                <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
+                <field-map field-name="entityName" value="WorkEffortAndPartyAssign"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="orderBy" value="-lastStatusUpdate"/>
             </service>
         </actions>
         <row-actions>
