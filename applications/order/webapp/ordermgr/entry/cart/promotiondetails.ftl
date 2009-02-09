@@ -22,7 +22,7 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionDetails}:</div>
     </div>
     <div class="screenlet-body">
-        <div>${productPromo.promoText?if_exists}</div>
+        <div>${StringUtil.wrapString(productPromo.promoText?if_exists)}</div>
         <div>Generated Description: ${promoAutoDescription?if_exists}</div>
     </div>
 </div>
