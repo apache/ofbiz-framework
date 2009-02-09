@@ -119,11 +119,12 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <container style="clear"/>
                                         <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] ${uiLabelMap.ProjectMgrPhaseName}: ${phaseName} ${uiLabelMap.ProjectMgrProjectName}: ${projectName}"/>
                                         <link style="h1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
                                     </widgets>                                    
                                 </section>
-                                <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

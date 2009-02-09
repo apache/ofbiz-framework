@@ -376,9 +376,6 @@
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
         </menu-item>
-        <menu-item name="custRequestContent" title="${uiLabelMap.CommonContent}">
-            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
-        </menu-item>
     </menu>
     <menu name="TimesheetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="findtimesheet" title="${uiLabelMap.CommonFind}">
