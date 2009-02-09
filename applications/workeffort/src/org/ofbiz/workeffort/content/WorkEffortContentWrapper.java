@@ -32,6 +32,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
@@ -81,8 +82,8 @@ public class WorkEffortContentWrapper implements ContentWrapper {
      * @param contentTypeId Type of content to return
      * @return String containing the content data
      */
-    public String get(String contentTypeId) {
-        return get(contentTypeId, true);
+    public StringUtil.StringWrapper get(String contentTypeId) {
+        return StringUtil.makeStringWrapper(get(contentTypeId, true));
     }
 
     /**
