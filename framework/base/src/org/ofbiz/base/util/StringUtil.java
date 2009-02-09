@@ -626,5 +626,41 @@ public class StringUtil {
 
         return sb.toString();
     }
+    
+    public static StringWrapper makeStringWrapper(String theString) {
+        if (theString == null) return null;
+        if (theString.length() == 0) return StringWrapper.EMPTY_STRING_WRAPPER; 
+        return new StringWrapper(theString);
+    }
 
+    /**
+     * A super-lightweight object to wrap a String object. Mainly used with FTL templates
+     * to avoid the general HTML auto-encoding that is now done through the Screen Widget.
+     */
+    public static class StringWrapper {
+        public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper(""); 
+        
+        protected String theString;
+        protected StringWrapper() { }
+        public StringWrapper(String theString) {
+            this.theString = theString;
+        }
+        
+        /**
+         * Fairly simple method used for the plus (+) base concatenation in Groovy. 
+         * 
+         * @param value
+         * @return
+         */
+        public String plus(Object value) {
+            return this.theString + value;
+        }
+
+        /**
+         * @return The String this object wraps.
+         */
+        public String toString() {
+            return this.theString;
+        }
+    }
 }
