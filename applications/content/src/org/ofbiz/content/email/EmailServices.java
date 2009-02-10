@@ -116,7 +116,7 @@ public class EmailServices {
         results.put("partyId", partyId);
         results.put("subject", subject);
         if (UtilValidate.isNotEmpty(body)) {
-            results.put("body", body);
+            results.put("body", StringUtil.htmlEncoder.encode(body));
         }
         if (UtilValidate.isNotEmpty(bodyParts)) {
             results.put("bodyParts", bodyParts);
