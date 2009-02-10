@@ -2661,8 +2661,17 @@
         <value xml:lang="zh">固定资产</value>
     </property>
     <property key="AccountingFixedAssetCalendar">
-        <value xml:lang="en">Fixed Asset Calendar</value>
-        <value xml:lang="it">Calendario cespite</value>
+        <value xml:lang="ar">رزمانة</value>
+        <value xml:lang="de">Kalender</value>
+        <value xml:lang="en">Calendar</value>
+        <value xml:lang="es">Calendario</value>
+        <value xml:lang="fr">Calendrier d'immobilisation</value>
+        <value xml:lang="it">Calendario</value>
+        <value xml:lang="nl">Kalender</value>
+        <value xml:lang="ro">Calendar</value>
+        <value xml:lang="ru">Календарь</value>
+        <value xml:lang="th">ปฏิทิน</value>
+        <value xml:lang="zh">日历</value>
     </property>
     <property key="AccountingFixedAssetClassEnumId">
         <value xml:lang="en">Fixed Asset Class Enum Id</value>
