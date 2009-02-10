@@ -108,7 +108,7 @@ under the License.
         <make-value entity-name="PortalPage" value-field="newPortalPage"/>
         <set-pk-fields map="parameters" value-field="newPortalPage"/>
         <if-empty field="newPortalPage.portalPageId">
-            <make-next-seq-id value-field="newPortalPage" seq-field-name="portalPageId"/>
+            <sequenced-id sequence-name="PortalPage" field="newPortalPage.portalPageId"/>
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
         <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>

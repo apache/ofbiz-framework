@@ -3153,7 +3153,7 @@ public class GenericDelegator implements DelegatorInterface {
                                 highestSeqVal = Integer.valueOf(seqVal);
                             }
                         } catch (Exception e) {
-                            Debug.logWarning("Error in make-next-seq-id converting SeqId [" + currentSeqId + "] to a number: " + e.toString(), module);
+                            Debug.logWarning("Error in make-next-seq-id converting SeqId [" + currentSeqId + "] in field: " + seqFieldName + " from entity: " + value.getEntityName() + " to a number: " + e.toString(), module);
                         }
                     }
                 }
