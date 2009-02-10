@@ -65,8 +65,8 @@ under the License.
             location="org.ofbiz.content.email.EmailServices" invoke="sendMailFromUrl">
         <description>Send E-Mail From URL Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="bodyUrl" type="String" mode="IN" optional="false"/>
-        <attribute name="bodyUrlParameters" type="Map" mode="IN" optional="true"/>
+        <attribute name="bodyUrl" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="bodyUrlParameters" type="Map" mode="IN" optional="true" allow-html="any"/>
         <attribute name="body" type="String" mode="OUT" optional="false" allow-html="any"/>
     </service>
     <service name="sendMailFromScreen" max-retry="3" engine="java"
