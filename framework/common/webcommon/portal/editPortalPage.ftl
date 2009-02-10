@@ -100,14 +100,11 @@ under the License.
                 <br class="clear"/>
               </div> 
               <div class="screenlet-body">
-        
-            <#assign screenFileName = portlet.screenLocation + "#" + portlet.screenName/>
             <div>
             ${setRequestAttribute("portalPageId", portalPage.portalPageId)}
             ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
             ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
-            
-            ${screens.render(screenFileName)}
+            ${screens.render(portlet.screenLocation, portlet.screenName)}
             </div>
           
                 </div>
