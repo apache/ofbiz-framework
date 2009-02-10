@@ -46,7 +46,7 @@ under the License.
         <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail 
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sednMailInterface for more comments.</description>
         <implements service="sendMailInterface"/>
-        <attribute name="body" type="String" mode="INOUT" optional="false"/>
+        <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="any"/>
         <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
@@ -67,14 +67,14 @@ under the License.
         <implements service="sendMailInterface"/>
         <attribute name="bodyUrl" type="String" mode="IN" optional="false"/>
         <attribute name="bodyUrlParameters" type="Map" mode="IN" optional="true"/>
-        <attribute name="body" type="String" mode="OUT" optional="false"/>
+        <attribute name="body" type="String" mode="OUT" optional="false" allow-html="any"/>
     </service>
     <service name="sendMailFromScreen" max-retry="3" engine="java"
         location="org.ofbiz.content.email.EmailServices" invoke="sendMailFromScreen">
         <description>Send E-Mail From Screen Widget Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="bodyText" type="String" mode="IN" optional="true"/>
-        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="xslfoAttachScreenLocation" type="String" mode="IN" optional="true"/>
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
@@ -86,8 +86,8 @@ under the License.
             location="" invoke="">
         <description>Send Template Based Notification Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="body" type="String" mode="INOUT" optional="true"/>
-        <attribute name="baseUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="INOUT" optional="true" allow-html="any"/>
+        <attribute name="baseUrl" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="templateName" type="String" mode="IN" optional="false"/>
         <attribute name="templateData" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
@@ -96,7 +96,7 @@ under the License.
             location="" invoke="">
         <description>Send Template Based Notification Service</description>
         <implements service="prepareNotificationInterface"/>
-        <attribute name="body" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="templateName" type="String" mode="IN" optional="false"/>
         <attribute name="templateData" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
@@ -114,7 +114,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
-        <attribute name="body" type="String" mode="IN" optional="false"/>
+        <attribute name="body" type="String" mode="IN" optional="false" allow-html="any"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="emailType" type="String" mode="IN" optional="true"/>
     </service>
