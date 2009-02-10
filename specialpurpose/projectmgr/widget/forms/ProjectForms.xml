@@ -208,6 +208,7 @@
         <field name="actualStartDate"><display type="date"/></field>
         <field name="actualCompletionDate"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
+        <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>                                         
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject"

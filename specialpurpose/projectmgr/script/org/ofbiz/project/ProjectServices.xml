@@ -864,6 +864,7 @@
                     <then>
                         <field-to-list field="taskParty" list="taskParties"/>
                         <clear-field field="taskParty"/>
+                        <clear-field field="highInfo"/>
                     </then>
                 </if>
                 
@@ -883,11 +884,12 @@
                 
                 <!-- get the planned hours -->
                 <set field="lowInfo" from-field="task"/>
-                <set field="hoursPartyId" from-field="task.partyId"/>
+                <set field="parameters.hoursPartyId" from-field="task.partyId"/>
                 <get-related-one value-field="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
                 <call-simple-method method-name="getHours"/>
                 <set field="taskParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>                    
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours" type="Double"/>                    
+                <set field="taskParty.originalActualHours" from-field="highInfo.originalActualHours" type="Double"/>                    
                 
             </iterate>
             <if-not-empty field="taskParty">

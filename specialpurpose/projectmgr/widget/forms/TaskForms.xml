@@ -466,6 +466,7 @@
         <field name="actualStartDate"><display type="date"/></field>
         <field name="actualCompletionDate"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
+        <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>                                         
     <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns"
@@ -501,6 +502,7 @@
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>        
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="originalActualHours"><display/></field> 
         <field name="actualHours"><display/></field> 
     </form>  
     <form name="ListTaskContent" type="list" paginate-target="/ListCommContent"
