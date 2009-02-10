@@ -738,7 +738,7 @@ public class RequestHandler implements Serializable {
     	if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
-            return queryString;
+            return "?" + queryString;
     	} else {
             StringBuilder queryString = new StringBuilder();
             queryString.append("?");
@@ -767,7 +767,7 @@ public class RequestHandler implements Serializable {
     public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url, ConfigXMLReader.RequestResponse requestResponse) {
         String initialLink = this.makeLink(request, response, url);
         String queryString = this.makeQueryString(request, requestResponse);
-        return initialLink + "?" + queryString;
+        return initialLink + queryString;
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url) {
