@@ -544,7 +544,10 @@ public class FindServices {
         boolean noConditionFind = "Y".equals((String) context.get("noConditionFind"));
         boolean distinct = "Y".equals((String) context.get("distinct"));
         List fieldList =  (List) context.get("fieldList");
-        Set fieldSet = new HashSet(fieldList);        
+        Set fieldSet = null;        
+        if (fieldList != null) {
+        	fieldSet = new HashSet(fieldList);
+        }
         GenericDelegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values
         EntityListIterator listIt = null;
