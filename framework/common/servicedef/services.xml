@@ -624,6 +624,11 @@ under the License.
         <description>Delete a Portal Page, related colums and used portlets</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="updatePortalPagePortletSeq" engine="simple" default-entity-name="PortalPagePortlet" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="updatePortalPagePortletSeq">
+        <auto-attributes mode="IN" include="pk"/>
+        <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
+    </service>
 
     <!-- PortalPageColumn services -->
     <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"

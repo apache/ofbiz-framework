@@ -53,6 +53,12 @@ under the License.
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
+    <request-map uri="updatePortalPagePortletSeq">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPagePortletSeq"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
+    </request-map>
     <request-map uri="deletePortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPagePortlet"/>

@@ -142,5 +142,54 @@ under the License.
             <check-errors/>
         </if-not-empty>
     </simple-method>
+    <simple-method method-name="updatePortalPagePortletSeq" short-description="Update the portal page sequence numbers">
+        <call-simple-method method-name="checkOwnerShip"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="portalPagePortlet"/>
+        <if-compare field="parameters.mode" value="UP" operator="equals">
+            <set field="portalPagePortlet.sequenceNum" value="${portalPagePortlet.sequenceNum - 1}" type="Long"/>
+        </if-compare>
+        <if-compare field="parameters.mode" value="DOWN" operator="equals">
+            <set field="portalPagePortlet.sequenceNum" value="${portalPagePortlet.sequenceNum + 1}" type="Long"/>
+        </if-compare>
+        <if-compare field="parameters.mode" value="TOP" operator="equals">
+            <set field="portalPagePortlet.sequenceNum" value="0" type="Long"/>
+        </if-compare>
+        <if-compare field="parameters.mode" value="BOTTOM" operator="equals">
+            <entity-and entity-name="PortalPagePortlet" list="ppList">
+                <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                <order-by field-name="-sequenceNum"/>
+            </entity-and>
+            <first-from-list entry="ppEntry" list="ppList"/>
+            <set field="portalPagePortlet.sequenceNum" value="${ppEntry.sequenceNum + 1}" type="Long"/>
+        </if-compare>
+        <!-- update conflicting entries -->
+        <if-compare field="parameters.mode" value="BOTTOM" operator="not-equals">
+            <if-compare field="parameters.mode" value="DOWN" operator="equals">
+                <entity-and entity-name="PortalPagePortlet" list="ppList">
+                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                    <field-map field-name="sequenceNum" from-field="portalPagePortlet.sequenceNum"/>
+                    <order-by field-name="+sequenceNum"/>
+                </entity-and>
+                <if-not-empty field="ppList">
+                    <first-from-list entry="ppEntry" list="ppList"/>
+                    <set field="ppEntry.sequenceNum" value="${portalPagePortlet.sequenceNum - 1}" type="Long"/>
+                    <store-value value-field="ppEntry"/>
+                </if-not-empty>
+                <else>
+                    <entity-and entity-name="PortalPagePortlet" list="ppList">
+                        <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                        <field-map field-name="sequenceNum" from-field="portalPagePortlet.sequenceNum"/>
+                        <order-by field-name="-sequenceNum"/>
+                    </entity-and>
+                    <if-not-empty field="ppList">
+                        <first-from-list entry="ppEntry" list="ppList"/>
+                        <set field="ppEntry.sequenceNum" value="${portalPagePortlet.sequenceNum + 1}" type="Long"/>
+                        <store-value value-field="ppEntry"/>
+                    </if-not-empty>
+                </else>
+            </if-compare>
+        </if-compare>
+        <store-value value-field="portalPagePortlet"/>
+    </simple-method>
 
 </simple-methods>
