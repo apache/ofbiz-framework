@@ -108,7 +108,7 @@
         </if-not-empty>
         <!-- optionally enter estimated time and required skill -->
         <if-not-empty field="parameters.estimatedHours">
-            <set field="parameters.estimatedDuration" from-field="parameters.estimatedHours"/>
+            <set field="parameters.estimatedDuration" from-field="parameters.estimatedHours" type="Double"/>
             <if-empty field="parameters.skillTypeId">
                 <set field="parameters.skillTypeId" value="_NA_"/>
             </if-empty>
@@ -280,28 +280,28 @@
                         <if-not-empty field="estimatedHours">
                             <if-not-empty field="actualHours">
                                 <if-compare-field field="estimatedHours" operator="greater" to-field="actualHours">
-                                    <set field="hours" from-field="estimatedHours"/>
+                                    <set field="hours" from-field="estimatedHours" type="Double"/>
                                     <else>
-                                        <set field="hours" from-field="actualHours"/>
+                                        <set field="hours" from-field="actualHours" type="Double"/>
                                     </else>
                                 </if-compare-field>
                                 <else>
-                                    <set field="hours" from-field="estimatedHours"/>
+                                    <set field="hours" from-field="estimatedHours" type="Double"/>
                                 </else>
                             </if-not-empty>
                         </if-not-empty>
                         <if-not-empty field="actualHours">
-                            <set field="hours" from-field="actualHours"/>
+                            <set field="hours" from-field="actualHours" type="Double"/>
                         </if-not-empty>
                         <if-empty field="hours">
                             <set field="hours" value="16" type="Double"/>
                         </if-empty>
                         <if-empty field="highestHours">
-                            <set field="highestHours" from-field="hours"/>
+                            <set field="highestHours" from-field="hours" type="Double"/>
                             <set field="preDesessorId" from-field="assoc.workEffortIdFrom"/>
                             <else>
                                 <if-compare-field field="highestHours" operator="less" to-field="hours">
-                                    <set field="highestHours" from-field="hours"/>
+                                    <set field="highestHours" from-field="hours" type="Double"/>
                                     <set field="preDesessorId" from-field="assoc.workEffortIdFrom"/>
                                 </if-compare-field>
                             </else>
@@ -427,9 +427,9 @@
                                 </call-class-method>
                                 <!-- get the related field -->
                                 <if-not-empty field="parameters.hoursDay${dayNumber}">
-                                    <set field="hours" from-field="parameters.hoursDay${dayNumber}"/>
+                                    <set field="hours" from-field="parameters.hoursDay${dayNumber}" type="Double"/>
                                     <else>
-                                        <set field="hours" value="0"/>
+                                        <set field="hours" value="0" type="Double"/>
                                     </else>
                                 </if-not-empty>
                                 <call-simple-method method-name="updateTimeEntry"/>                        
@@ -445,7 +445,7 @@
         <loop count="7" field="dayNr">
             <if-not-empty field="parameters.hoursDay${dayNr}">
                 <if-compare field="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
-                    <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
+                    <set field="hours" from-field="parameters.hoursDay${dayNr}" type="Double"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="fromDate">
                         <field field="timesheet.fromDate" type="java.sql.Timestamp"/>
                         <field field="dayNr" type="int"/>
@@ -827,8 +827,8 @@
                 <set field="lowInfo" from-field="task"/>
                 <set field="parameters.hoursPartyId" from-field="task.partyId"/>
                 <call-simple-method method-name="getHours"/>
-                <set field="projectParty.plannedHours" from-field="highInfo.plannedHours"/>                    
-                <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    
+                <set field="projectParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>                    
+                <set field="projectParty.actualHours" from-field="highInfo.actualHours" type="Double"/>                    
                 
             </iterate>
             <if-not-empty field="projectParty">
@@ -842,16 +842,10 @@
     
     <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->
-        <if-empty field="parameters.partyId">
-            <set field="parameters.partyId" value="%"/>
-        </if-empty>
-        <if-empty field="parameters.workEffortId">
-            <set field="parameters.workEffortId" value="%"/>
-        </if-empty>
         <entity-condition entity-name="WorkEffortPartyAssignment" list="tasks" filter-by-date="true">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="like" from-field="parameters.partyId"/>
-                <condition-expr field-name="workEffortId" operator="like" from-field="parameters.workEffortId"/>
+                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
             </condition-list>
             <order-by field-name="workEffortId"/>
             <order-by field-name="partyId"/>
@@ -892,8 +886,8 @@
                 <set field="hoursPartyId" from-field="task.partyId"/>
                 <get-related-one value-field="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
                 <call-simple-method method-name="getHours"/>
-                <set field="taskParty.plannedHours" from-field="highInfo.plannedHours"/>                    
-                <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    
+                <set field="taskParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>                    
+                <set field="taskParty.actualHours" from-field="highInfo.actualHours" type="Double"/>                    
                 
             </iterate>
             <if-not-empty field="taskParty">
@@ -1017,13 +1011,13 @@
             <iterate entry="estimate" list="estimates">
                 <if-not-empty field="estimate.estimatedDuration">
                     <if-not-empty field="highInfo.plannedHours">
-                        <calculate field="highInfo.plannedHours">
+                        <calculate field="highInfo.plannedHours" type="Double">
                             <calcop operator="add" field="estimate.estimatedDuration">
                                 <calcop operator="get" field="highInfo.plannedHours"/>
                             </calcop>
                         </calculate>
                         <else>
-                            <set field="highInfo.plannedHours" from-field="estimate.estimatedDuration"/>
+                            <set field="highInfo.plannedHours" from-field="estimate.estimatedDuration" type="Double"/>
                         </else>
                     </if-not-empty>
                 </if-not-empty>
@@ -1037,7 +1031,7 @@
                     <get-related-one value-field="actual" relation-name="Timesheet" to-value-field="timesheet"/>
 
                     <!-- check if only a part of the registered hours need to be taken into account -->
-                    <set field="originalActualHours" from-field="actual.hours"/>
+                    <set field="originalActualHours" from-field="actual.hours" type="Double"/>
                     <entity-condition entity-name="PartyRate" list="partyRates">
                         <condition-list combine="and">
                             <condition-expr field-name="partyId" from-field="timesheet.partyId"/>
@@ -1052,12 +1046,12 @@
                     <if-not-empty field="partyRates">
                         <first-from-list entry="partyRate" list="partyRates"/>
                         <if-not-empty field="partyRate.percentageUsed">
-                            <calculate field="actual.hours">
+                            <calculate field="actual.hours" type="Double">
                                 <calcop operator="multiply" field="actual.hours">
                                     <calcop operator="get" field="partyRate.percentageUsed"/>
                                 </calcop>
                             </calculate>
-                            <calculate field="actual.hours">
+                            <calculate field="actual.hours" type="Double">
                                 <calcop operator="divide" field="actual.hours">
                                     <number value="100"/>
                                 </calcop>
@@ -1076,34 +1070,34 @@
                         </condition>
                         <then>
                             <if-not-empty field="highInfo.originalActualHours">
-                                <calculate field="highInfo.originalActualHours">
+                                <calculate field="highInfo.originalActualHours" type="Double">
                                     <calcop operator="get" field="highInfo.originalActualHours">
                                         <calcop operator="add" field="originalActualHours"/>
                                     </calcop>
                                 </calculate>
                                 <else>
-                                    <set field="highInfo.originalActualHours" from-field="originalActualHours"/>
+                                    <set field="highInfo.originalActualHours" from-field="originalActualHours" type="Double"/>
                                 </else>                            
                             </if-not-empty>
                             <if-not-empty field="highInfo.actualHours">
-                                <calculate field="highInfo.actualHours">
+                                <calculate field="highInfo.actualHours" type="Double">
                                     <calcop operator="get" field="highInfo.actualHours">
                                         <calcop operator="add" field="actual.hours"/>
                                     </calcop>
                                 </calculate>
                                 <else>
-                                    <set field="highInfo.actualHours" from-field="actual.hours"/>
+                                    <set field="highInfo.actualHours" from-field="actual.hours" type="Double"/>
                                 </else>                            
                             </if-not-empty>
                             <if-empty field="actual.invoiceId">
                                 <if-not-empty field="highInfo.actualNonBilledHours">
-                                    <calculate field="highInfo.actualNonBilledHours">
+                                    <calculate field="highInfo.actualNonBilledHours" type="Double">
                                         <calcop operator="get" field="highInfo.actualNonBilledHours">
                                             <calcop operator="add" field="actual.hours"/>
                                         </calcop>
                                     </calculate>
                                     <else>
-                                        <set field="highInfo.actualNonBilledHours" from-field="actual.hours"/>
+                                        <set field="highInfo.actualNonBilledHours" from-field="actual.hours" type="Double"/>
                                     </else>                            
                                 </if-not-empty>
                             </if-empty>
@@ -1111,25 +1105,25 @@
                     </if>
                     <!-- keep also a general total for the actual hours of all participants -->
                     <if-not-empty field="highInfo.actualTotalHours">
-                        <calculate field="highInfo.actualTotalHours">
+                        <calculate field="highInfo.actualTotalHours" type="Double">
                             <calcop operator="add" field="actual.hours">
                                 <calcop operator="get" field="highInfo.actualTotalHours"/>
                             </calcop>
                         </calculate>
                         <else>
-                            <set field="highInfo.actualTotalHours" from-field="actual.hours"/>
+                            <set field="highInfo.actualTotalHours" from-field="actual.hours" type="Double"/>
                         </else>                            
                     </if-not-empty>
                     <!-- keep also a general total for the actual hours of all participants however not yet billed -->
                     <if-empty field="actual.invoiceId">
                         <if-not-empty field="highInfo.actualNonBilledTotalHours">
-                            <calculate field="highInfo.actualNonBilledTotalHours">
+                            <calculate field="highInfo.actualNonBilledTotalHours" type="Double">
                                 <calcop operator="add" field="actual.hours">
                                     <calcop operator="get" field="highInfo.actualNonBilledTotalHours"/>
                                 </calcop>
                             </calculate>
                             <else>
-                                <set field="highInfo.actualNonBilledTotalHours" from-field="actual.hours"/>
+                                <set field="highInfo.actualNonBilledTotalHours" from-field="actual.hours" type="Double"/>
                             </else>                            
                         </if-not-empty>
                     </if-empty>
@@ -1167,7 +1161,7 @@
                 <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
                 <else>
                     <clear-field field="teUpdMap"/>
-                    <set field="teUpdMap.hours" from-field="hours"/>
+                    <set field="teUpdMap.hours" from-field="hours" type="Double"/>
                     <set field="teUpdMap.timeEntryId" from-field="timeEntry.timeEntryId"/>
                     <set field="teUpdMap.rateTypeId" from-field="parameters.rateTypeId"/>
                     <call-service service-name="updateTimeEntry" in-map-name="teUpdMap"/>
@@ -1176,7 +1170,7 @@
             <else>
                 <if-compare field="hours" operator="not-equals" value="0">
                     <set-service-fields service-name="createTimeEntry" map="parameters" to-map="teCreMap"/>
-                    <set field="teCreMap.hours" from-field="hours"/>
+                    <set field="teCreMap.hours" from-field="hours" type="Double"/>
                     <set field="teCreMap.fromDate" from-field="fromDate"/>
                     <call-service service-name="createTimeEntry" in-map-name="teCreMap"/>
                 </if-compare>
