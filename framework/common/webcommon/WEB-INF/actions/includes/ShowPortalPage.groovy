@@ -71,5 +71,5 @@ if (portalPage) {
     parameters.portalPageId = portalPage.portalPageId;
     context.portalPage = portalPage;
     context.portalPageColumns = portalPage.getRelated("PortalPageColumn");
-    context.portalPagePortlets = delegator.findByAnd("PortalPagePortletView", [portalPageId : portalPage.portalPageId]);
+    context.portalPagePortlets = delegator.findByAnd("PortalPagePortletView", [portalPageId : portalPage.portalPageId], ["columnSeqId", "sequenceNum"]);
 } 

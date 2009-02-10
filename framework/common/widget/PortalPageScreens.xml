@@ -59,12 +59,13 @@ under the License.
                             <actions>
                                 <set field="portalPages[]" from-field="portalPage"/>    
                                 <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
-                                    <condition-expr field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
                                     <order-by field-name="columnSeqId"/>
                                 </entity-condition>               
                                 <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
-                                    <condition-expr field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                    <order-by field-name="sequenceNum"/>
+                                    <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="+columnSeqId"/>
+                                    <order-by field-name="+sequenceNum"/>
                                 </entity-condition>
                             </actions>
                             <widgets>
