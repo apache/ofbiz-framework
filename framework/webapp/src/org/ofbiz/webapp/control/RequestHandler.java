@@ -767,7 +767,7 @@ public class RequestHandler implements Serializable {
     public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url, ConfigXMLReader.RequestResponse requestResponse) {
         String initialLink = this.makeLink(request, response, url);
         String queryString = this.makeQueryString(request, requestResponse);
-        return initialLink + queryString;
+        return initialLink + "?" + queryString;
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url) {
