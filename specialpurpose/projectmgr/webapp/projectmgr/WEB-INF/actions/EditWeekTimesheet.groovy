@@ -86,6 +86,14 @@ void retrieveWorkEffortData() {
                 }
             }
             entry.plannedHours = pHours;
+            actualHours = entryWorkEffort.getRelated("TimeEntry");
+            aHours = 0.00;
+            actualHours.each { actualHour ->
+                if (actualHour.hours) {
+                    aHours += actualHour.hours;
+                }
+            }
+            entry.actualHours = aHours;
             // get party assignment data to be able to set the task to complete
             workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", ["partyId" : partyId]));
             if (workEffortPartyAssigns) {
