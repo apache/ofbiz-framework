@@ -67,7 +67,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
         
-        if ("service".equals(this.requestInfoMap.event.type)) {
+        if (this.requestInfoMap.event != null && "service".equals(this.requestInfoMap.event.type)) {
             String serviceName = (String) this.requestInfoMap.event.invoke;
             try {
                 this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
@@ -82,7 +82,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         
         Map<String, ConfigXMLReader.RequestResponse> requestResponseMap = UtilGenerics.checkMap(this.requestInfoMap.requestResponseMap);
         for (ConfigXMLReader.RequestResponse response: requestResponseMap.values()) {
-            if (response.type.equals("view")) {
+            if ("view".equals(response.type)) {
                 String viewUri = response.value;
                 if (viewUri.startsWith("/")) {
                     viewUri = viewUri.substring(1);
