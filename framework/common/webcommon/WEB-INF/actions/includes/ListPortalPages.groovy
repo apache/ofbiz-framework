@@ -58,7 +58,7 @@ if (parameters.userLogin) {
                     EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_")
                 ],EntityOperator.OR),
             ],EntityOperator.AND);
-    portalPages = delegator.findList("PortalPage", ppCond, null, null, null, false);
+    portalPages = delegator.findList("PortalPage", ppCond, null, ["sequenceNum"], null, false);
 
     // remove overridden system pages
     portalPages.each { portalPage ->
