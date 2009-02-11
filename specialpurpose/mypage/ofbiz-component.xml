@@ -37,5 +37,5 @@ under the License.
         server="default-server"
         location="webapp/mypage"
         mount-point="/mypage"
-        app-bar-display="true"/>
+        app-bar-display="false"/>
 </ofbiz-component>

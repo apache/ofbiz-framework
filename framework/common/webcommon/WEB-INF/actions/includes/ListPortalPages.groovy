@@ -72,5 +72,6 @@ if (parameters.userLogin) {
     
     context.portalPages = portalPages;
     context.userLoginSecurityGroupId = userLoginSecurityGroupId;
-    
+    parameters.parentPortalPageId = parentPortalPageId
 }
+
