@@ -25,7 +25,9 @@ under the License.
   <ul>
     <#if portalPages?has_content>
       <#list portalPages as page>
+       <#if page.portalPageName?has_content>
         <li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalPageName}</a></li>
+       </#if>
       </#list>
     </#if>
     <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Portal?decorator=printable" url-mode="plain" target-window="new">${uiLabelMap.CommonHelp}</a></li>
