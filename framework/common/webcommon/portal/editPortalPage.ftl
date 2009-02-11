@@ -90,7 +90,7 @@ under the License.
   
                       <#list portalPages as portalPageList>
                           <#if portalPage.portalPageId != portalPageList.portalPageId>
-                          <option value="<@ofbizUrl>movePortletToPortalPage?${portletUrlLink}&amp;newPortalPageId=${portalPageList.portalPageId}</@ofbizUrl>">${portalPageList.portalPageName}</option>
+                          <option value="<@ofbizUrl>movePortletToPortalPage?${portletUrlLink}&amp;newPortalPageId=${portalPageList.portalPageId}</@ofbizUrl>">${portalPageList.portalPageName?if_exists}</option>
                           </#if>
                       </#list>                          
                     </select>
