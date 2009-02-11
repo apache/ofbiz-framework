@@ -2673,6 +2673,10 @@
         <value xml:lang="th">ระดับสูงเท่ากัน</value>
         <value xml:lang="zh">上边坐标</value>
     </property>
+    <property key="FormFieldTitle_visualThemeSetId">
+        <value xml:lang="en">Visual Theme Set</value>
+        <value xml:lang="it">Set di temi grafici</value>
+    </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
         <value xml:lang="de">Webseite Inhaltstyp ID</value>
         <value xml:lang="en">Web Site Content Type Id</value>

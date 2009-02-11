@@ -543,13 +543,26 @@ under the License.
     <!-- org.ofbiz.common.theme -->
     <!-- ============================ -->
 
+    <entity entity-name="VisualThemeSet"
+            package-name="org.ofbiz.common.theme"
+            title="Defines a set of Visual Themes">
+      <description>Groups toghether Visual Themes that can be used for one (or a set of) application.</description>
+      <field name="visualThemeSetId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="visualThemeSetId"/>
+    </entity>
+
     <entity entity-name="VisualTheme"
             package-name="org.ofbiz.common.theme"
             title="Defines a Visual Theme">
       <description>The VisualTheme entity contains one entry per visual theme.</description>
       <field name="visualThemeId" type="id-ne"></field>
+      <field name="visualThemeSetId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="visualThemeId"/>
+      <relation type="one" fk-name="VT_THEME_SET" rel-entity-name="VisualThemeSet">
+        <key-map field-name="visualThemeSetId"/>
+      </relation>
     </entity>
 
     <entity entity-name="VisualThemeResource"
