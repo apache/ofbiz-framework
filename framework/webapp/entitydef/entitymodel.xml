@@ -242,6 +242,10 @@ under the License.
       <field name="standardContentPrefix" type="url"></field>
       <field name="secureContentPrefix" type="url"></field>
       <field name="cookieDomain" type="long-varchar"></field>
+      <field name="visualThemeSetId" type="id"></field>
+      <relation type="one" fk-name="WEB_SITE_THEME_SET" rel-entity-name="VisualThemeSet">
+        <key-map field-name="visualThemeSetId"/>
+      </relation>
       <prim-key field="webSiteId"/>
     </entity>
 </entitymodel>
