@@ -112,6 +112,9 @@ under the License.
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
         <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>
+        <if-empty field="parameters.sequenceNum">
+            <make-next-seq-id value-field="newPortalPage" seq-field-name="sequenceNum"/>
+        </if-empty>
         <create-value value-field="newPortalPage"/>  
         <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
         <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>

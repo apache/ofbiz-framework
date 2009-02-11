@@ -57,7 +57,7 @@ under the License.
         <actions>
             <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
         </actions>
-        <field name="parentPortalPageId"><hidden value="${parameters.portalPageId}"/></field>
+        <field name="parentPortalPageId"><hidden value="${parameters.parentPortalPageId}"/></field>
         <field name="portalPageName" position="1"><text/></field>
         <field name="description" position="2"><text/></field>
         <field name="createButton"><submit button-type="button"/></field>

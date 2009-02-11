@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- PortalPortlet Seed Data: system pages -->
-    <PortalPage portalPageId="EXAMPLE" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="EXAMPLE" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_" sequenceNum="0"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
     
@@ -30,6 +30,6 @@ under the License.
         screenName="loginPortlet"       screenLocation="component://common/widget/PortletScreens.xml"
         editFormName="LoginPortletEdit" editFormLocation="component://common/widget/PortletEditForms.xml"/>
 
-    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="WELCOME" portletSeqId="1" columnSeqId="00001" sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="LOGIN"   portletSeqId="1" columnSeqId="00002" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="WELCOME" portletSeqId="1" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="LOGIN"   portletSeqId="1" columnSeqId="00002" sequenceNum="0"/>
 </entity-engine-xml>
