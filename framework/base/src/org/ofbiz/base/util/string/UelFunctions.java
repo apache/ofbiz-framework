@@ -18,7 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Locale;
@@ -29,6 +31,7 @@ import javax.el.*;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 
@@ -124,6 +127,7 @@ import org.ofbiz.base.util.UtilDateTime;
  * <tr><td><code>util:defaultTimeZone()</code></td><td>Returns the default <code>TimeZone</code>.</td></tr>
  * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
+ * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
  * </table>
  */
 public class UelFunctions {
@@ -224,6 +228,7 @@ public class UelFunctions {
                 this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
+                this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
             } catch (Exception e) {
                 Debug.logWarning("Error while initializing UelFunctions.Functions instance: " + e, module);
             }
@@ -367,5 +372,19 @@ public class UelFunctions {
             return System.getProperty(str);
         } catch (Exception e) {}
         return null;
+    }
+
+    public static boolean urlExists(String str) {
+        boolean result = false;
+        try {
+            URL url = FlexibleLocation.resolveLocation(str);
+            if (url == null) {
+                return false;
+            }
+            InputStream is = url.openStream();
+            result = true;
+            is.close();
+        } catch (Exception e) {}
+        return result;
     }
 }
