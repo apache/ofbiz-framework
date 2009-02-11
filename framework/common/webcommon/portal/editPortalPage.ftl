@@ -65,11 +65,11 @@ under the License.
                     <li class="edit"><a href="<@ofbizUrl>EditPortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonEditPortletAttributes}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
 
-                  <#if portlet_has_next> <#-- TODO: this doesn't take into account that later items in the list might be in a different column -->
-                    <li class="move-down"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=DOWN</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletDown}">&nbsp;&nbsp;&nbsp;</a></li>
-                  </#if>  
                   <#if !firstInColumn>
                     <li class="move-up"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=UP</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletUp}">&nbsp;&nbsp;&nbsp;</a></li>
+                  </#if>  
+                  <#if portlet_has_next>
+                    <li class="move-down"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=DOWN</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletDown}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if portalPageColumn_has_next>
                     <li class="move-right"><a href="<@ofbizUrl>updatePortalPagePortlet?${portletUrlLink}&amp;columnSeqId=${portalPageColumnList[portalPageColumn_index+1].columnSeqId}</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletRight}">&nbsp;&nbsp;&nbsp;</a></li>
@@ -80,7 +80,7 @@ under the License.
                   <#if !firstInColumn>
                     <li class="move-top"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=TOP</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletTop}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
-                  <#if portlet_has_next> <#-- TODO: this doesn't take into account that later items in the list might be in a different column -->
+                  <#if portlet_has_next>
                     <li class="move-bottom"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=BOTTOM</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletBottom}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if (portalPages.size() > 1)>
