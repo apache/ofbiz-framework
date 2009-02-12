@@ -30,7 +30,9 @@ under the License.
         <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>        
         <#if portalPages?has_content>
         	<#list portalPages as page>
+        	  <#if page.portalPageName?has_content>
             	<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>showPortalPage?portalPageId=${page.portalPageId}</@ofbizUrl>"><#if page.portalPageName?exists>${page.portalPageName}<#else>?</#if></a></li>
+              </#if>
         	</#list>
         </#if>
         <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?parentPortalPageId=EXAMPLE</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
