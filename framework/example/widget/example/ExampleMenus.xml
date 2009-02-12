@@ -27,7 +27,7 @@ under the License.
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}"><link target="FormWidgetExamples"/></menu-item>
         <menu-item name="AjaxExample" title="Ajax Examples"><link target="authview/findExampleAjax"/></menu-item>
         <menu-item portal-page="EXAMPLE"/>
-        <menu-item name="Dashboard" title="Dashboard" align-style="opposed"><link target="ManagePortalPages?portalPageId=${currentPortalPage.portalPageId}"/></menu-item>
+        <menu-item name="Dashboard" title="Dashboard" align-style="opposed"><link target="ManagePortalPages?portalPageId=${currentPortalPage.portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/></menu-item>
     </menu>
 
     <menu name="EditExample" default-selected-style="selected" type="simple"
