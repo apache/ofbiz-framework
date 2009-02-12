@@ -155,7 +155,7 @@ public class RequestHandler implements Serializable {
 
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we an process
-            if (!requestMap.securityDirectRequest) {
+            if (!requestMap.securityDirectRequest && controllerConfig.defaultRequest != null) {
                 if (!controllerConfig.requestMapMap.get(controllerConfig.defaultRequest).securityDirectRequest) {
                     // use the same message as if it was missing for security reasons, ie so can't tell if it is missing or direct request is not allowed
                     throw new RequestHandlerException(requestMissingErrorMessage);

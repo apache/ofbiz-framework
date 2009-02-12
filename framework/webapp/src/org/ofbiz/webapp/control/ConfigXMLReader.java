@@ -356,26 +356,21 @@ public class ConfigXMLReader {
     
     public static class RequestMap {
         public String uri;
-        public boolean edit;
-        public boolean trackVisit;
-        public boolean trackServerHit;
+        public boolean edit = true;
+        public boolean trackVisit = true;
+        public boolean trackServerHit = true;
         public String description;
         
         public Event event;
         
-        public boolean securityHttps;
-        public boolean securityAuth;
-        public boolean securityCert;
-        public boolean securityExternalView;
-        public boolean securityDirectRequest;
+        public boolean securityHttps = false;
+        public boolean securityAuth = false;
+        public boolean securityCert = false;
+        public boolean securityExternalView = true;
+        public boolean securityDirectRequest = true;
                 
         public Map<String, RequestResponse> requestResponseMap = FastMap.newInstance();
 
-        /*
-        public static final String ERROR_PAGE_DEFAULT = "error";
-        public static final String NEXT_PAGE_DEFAULT = "success";
-        */
-        
         public RequestMap(Element requestMapElement) {
 
             // Get the URI info
@@ -415,7 +410,7 @@ public class ConfigXMLReader {
         public String type;
         public String path;
         public String invoke;
-        public boolean globalTransaction;
+        public boolean globalTransaction = true;
 
         public Event(Element eventElement) {
             this.type = eventElement.getAttribute("type");
