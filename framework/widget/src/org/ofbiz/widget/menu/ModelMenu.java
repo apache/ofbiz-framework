@@ -26,13 +26,19 @@ import java.util.Map;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.menu.ModelMenuItem.Link;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -244,11 +250,34 @@ public class ModelMenu extends ModelWidget {
             }
         }
 
-        // read in add item defs, add/override one by one using the menuItemList and menuItemMap
+        // read in add item defs, add/override one by one using the menuItemList and menuItemMap and add portal pages
         List<? extends Element> itemElements = UtilXml.childElementList(menuElement, "menu-item");
         for (Element itemElement : itemElements) {
-            ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-            modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
+            String portalResource = itemElement.getAttribute("portal-page");
+        	if (UtilValidate.isNotEmpty(portalResource)) {
+  	            ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
+        		List <GenericValue> portalPages = null;
+                List exprs = UtilMisc.toList(EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalResource),
+                        EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, portalResource));
+                EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
+        		try {
+        			portalPages = delegator.findList("PortalPage", cond, null, UtilMisc.toList("sequenceNum"), null, false);
+                } catch (GenericEntityException e) {
+                    Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
+                }
+        		for (GenericValue portalPage : portalPages) {
+        			if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
+        				modelMenuItem.setName(portalPage.getString("portalPageName"));        			
+        				modelMenuItem.setTitle(portalPage.getString("portalPageName"));        			
+        				modelMenuItem.link = new Link(itemElement, modelMenuItem);
+        				modelMenuItem.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId"));
+        				modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
+        			}
+        		}
+        	} else {
+                ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
+        		modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
+        	}
         }
     }
     /**
@@ -340,7 +369,6 @@ public class ModelMenu extends ModelWidget {
         for (ModelMenuItem item : this.menuItemList) {
             item.renderMenuItemString(writer, context, menuStringRenderer);
         }
-
         // render formatting wrapper close
         menuStringRenderer.renderFormatSimpleWrapperClose(writer, context, this);
 

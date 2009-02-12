@@ -40,9 +40,9 @@ under the License.
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ExampleCompanySubtitle" global="true"/>
                 <set field="activeApp" value="example" global="true"/>
-                <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
-                <set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/>
+                <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
+                <!--set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/-->
                 <set field="parameters.parentPortalPageId" value="EXAMPLE"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
