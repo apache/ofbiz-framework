@@ -20,7 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createProduct" short-description="Create an Product">
+    <simple-method method-name="createProduct" short-description="Create a Product">
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
             <fail-message message="Security Error: to run createProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
