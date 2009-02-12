@@ -29,6 +29,9 @@ if(!portalPageId){
 
 if (portalPageId) {
     portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : portalPageId]);
+    if (portalPage.parentPortalPageId && !parameters.parentPortalPageId) {
+    parameters.parentPortalPageId = portalPage.parentPortalPageId;
+    }
 }
 
 if (!portalPage) {

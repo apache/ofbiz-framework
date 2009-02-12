@@ -544,6 +544,11 @@ public class ModelMenuItem {
 
         }
 
+        // create link only for portal page
+        public Link(ModelMenuItem parentMenuItem) {
+            this.linkMenuItem = parentMenuItem;
+        }        
+
         public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
             menuStringRenderer.renderLink(writer, context, this);
         }
