@@ -1169,6 +1169,10 @@
         <value xml:lang="zh">把订单明细添加到购物列表</value>
         <value xml:lang="zh_CN">添加订单项目到购物清单</value>
     </property>
+    <property key="OrderAddQntToOrder">
+        <value xml:lang="en">to Order</value>
+        <value xml:lang="it">all'ordine</value>
+    </property>
     <property key="OrderAddToCart">
         <value xml:lang="cs">přidat do košíku</value>
         <value xml:lang="de">In den Warenkorb legen</value>

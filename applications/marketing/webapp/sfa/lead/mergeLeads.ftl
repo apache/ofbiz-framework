@@ -28,79 +28,79 @@
               <br/><br/>
             </tr>
             <tr width="100%">
-              <td width="20%">${uiLabelMap.CommonFirstName?if_exists}</td>
+              <td width="20%">${uiLabelMap.CommonFirstName}</td>
               <td width="30%"><h3>${contactInfo1.firstName?if_exists}</h3></td>
               <td width="30%"><h3>${contactInfo2.firstName?if_exists}</h3></td>
               <td width="20%"></td>
             </tr>
             <tr width="100%">
-              <td width="20%">${uiLabelMap.CommonLastName?if_exists}</td>
+              <td width="20%">${uiLabelMap.CommonLastName}</td>
               <td width="30%"><h3>${contactInfo1.lastName?if_exists}</h3></td>
               <td width="30%"><h3>${contactInfo2.lastName?if_exists}</h3></td>
               <td width="20%"></td>
             </tr><br/>
             <tr>
-              <td width="30"><br/><h3>${uiLabelMap.PartyGeneralCorrespondenceAddress?if_exists}</h3></td>
+              <td width="30"><br/><h3>${uiLabelMap.PartyGeneralCorrespondenceAddress}</h3></td>
               <td width="30"></td>
             <tr>
-              <td width="20%" >${uiLabelMap.CommonAddress1?if_exists}</td>
+              <td width="20%" >${uiLabelMap.CommonAddress1}</td>
               <td width="30%">${contactInfo1.address1?if_exists}</td>
               <td width="30%">${contactInfo2.address1?if_exists}</td>
               <td width="20%"><input type="checkbox" name="useAddress2" value="Y"/></td>
             </tr>
 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonAddress2?if_exists}</td>
+              <td width="20%" >${uiLabelMap.CommonAddress2}</td>
               <td width="30%">${contactInfo1.address2?if_exists}</td>
               <td width="30%">${contactInfo2.address2?if_exists}</td>
               <td width="20%"></td>
             </tr>
 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonCity?if_exists}</td>
+              <td width="20%" >${uiLabelMap.CommonCity}</td>
               <td width="30%">${contactInfo1.city?if_exists}</td>
               <td width="30%">${contactInfo2.city?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%">${uiLabelMap.CommonState?if_exists}</td>
+              <td width="20%">${uiLabelMap.CommonState}</td>
               <td width="30%">${contactInfo1.state?if_exists}</td>
               <td width="30%">${contactInfo2.state?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%">${uiLabelMap.CommonZipPostalCode?if_exists}</td>
+              <td width="20%">${uiLabelMap.CommonZipPostalCode}</td>
               <td width="30%">${contactInfo1.postalCode?if_exists}</td>
               <td width="30%">${contactInfo2.postalCode?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%" >${uiLabelMap.CommonCountry?if_exists}</td>
+              <td width="20%" >${uiLabelMap.CommonCountry}</td>
               <td width="30%">${contactInfo1.country?if_exists}</td>
               <td width="30%">${contactInfo2.country?if_exists}</td>
               <td width="20%"></td>
             </tr><br/>
-            <tr><td><br/><h3>${uiLabelMap.PartyPrimaryPhone?if_exists}</h3></td></tr>
+            <tr><td><br/><h3>${uiLabelMap.PartyPrimaryPhone}</h3></td></tr>
             <tr>
-              <td width="20%">${uiLabelMap.PartyCountryCode?if_exists}</td>
+              <td width="20%">${uiLabelMap.PartyCountryCode}</td>
               <td width="30%">${contactInfo1.countryCode?if_exists}</td>
               <td width="30%">${contactInfo2.countryCode?if_exists}</td>
               <td width="10%"><input type="checkbox" name="useContactNum2" value="Y"/></td>
             </tr>
             <tr>
-              <td width="20%" >${uiLabelMap.PartyAreaCode?if_exists}</td>
+              <td width="20%" >${uiLabelMap.PartyAreaCode}</td>
               <td width="30%">${contactInfo1.areaCode?if_exists}</td>
               <td width="30%">${contactInfo2.areaCode?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%" >${uiLabelMap.PartyPhoneNumber?if_exists}</td>
+              <td width="20%" >${uiLabelMap.PartyPhoneNumber}</td>
               <td width="30%">${contactInfo1.contactNumber?if_exists}</td>
               <td width="30%">${contactInfo2.contactNumber?if_exists}</td>
               <td width="20%"></td>
             </tr> 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonEmail?if_exists}</td>
+              <td width="20%" >${uiLabelMap.CommonEmail}</td>
               <td width="30%">${contactInfo1.primaryEmail?if_exists}</td>
               <td width="30%">${contactInfo2.primaryEmail?if_exists}</td>
               <td width="10%"><input type="checkbox" name="useEmail2" value="Y"/></td>
@@ -112,7 +112,7 @@
             </tr>
           </table>
         <#else>
-          <h3>${uiLabelMap.SfaNoLeadsSelectedToMerged?if_exists}</h3>
+          <h3>${uiLabelMap.SfaNoLeadsSelectedToMerged}</h3>
         </#if>
       </td>
     </tr>
