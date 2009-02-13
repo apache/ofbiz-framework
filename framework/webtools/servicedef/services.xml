@@ -31,7 +31,7 @@ under the License.
         <description>Parses an entity xml file or an entity xml text</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
-        <attribute name="xmltext" type="String" mode="IN" optional="true"/>
+        <attribute name="xmltext" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
         <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
@@ -45,7 +45,7 @@ under the License.
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="filename" type="String" mode="IN" optional="true"/>
         <attribute name="fmfilename" type="String" mode="IN" optional="true"/>
-        <attribute name="fulltext" type="String" mode="IN" optional="true"/>
+        <attribute name="fulltext" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="isUrl" type="String" mode="IN" optional="true"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
         <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
