@@ -81,7 +81,7 @@ if (find == null) {
     find = "false";
 }
 
-String curFindString = "entityName=" + entityName + "&amp;find=" + find;
+String curFindString = "entityName=" + entityName + "&find=" + find;
  
 GenericEntity findByEntity = delegator.makeValue(entityName);
 List errMsgList = FastList.newInstance();
@@ -90,7 +90,7 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     String fval = parameters.get(field.getName());
     if (fval != null) {
         if (fval.length() > 0) {
-            curFindString = curFindString + "&amp;" + field.getName() + "=" + fval;
+            curFindString = curFindString + "&" + field.getName() + "=" + fval;
             try {
                 findByEntity.setString(field.getName(), fval);
             } catch (NumberFormatException nfe) {
@@ -234,7 +234,7 @@ if (resultPartialList != null) {
         for (int pknum = 0; pknum < modelEntity.getPksSize(); pknum++) {
             ModelField pkField = modelEntity.getPk(pknum);
             ModelFieldType type = delegator.getEntityFieldType(modelEntity, pkField.getType());
-            findString += "&amp;" + pkField.getName() + "=" + value.get(pkField.getName());
+            findString += "&" + pkField.getName() + "=" + value.get(pkField.getName());
         }
         record.put("findString", findString);
         
