@@ -423,11 +423,10 @@ public class RequestHandler implements Serializable {
         }
 
         ConfigXMLReader.RequestResponse successResponse = requestMap.requestResponseMap.get("success");
-        if ("success".equals(eventReturn) && successResponse != null && "request".equals(successResponse.type)) {
+        if ((eventReturn == null || "success".equals(eventReturn)) && successResponse != null && "request".equals(successResponse.type)) {
             // chains will override any url defined views; but we will save the view for the very end
-            if (nextRequestResponse != null) {
-                // NOTE: possible issue if nextRequestResponse.type != view
-                request.setAttribute("_POST_CHAIN_VIEW_", nextRequestResponse.value);
+            if (UtilValidate.isNotEmpty(overrideViewUri)) {
+                request.setAttribute("_POST_CHAIN_VIEW_", overrideViewUri);
             }
             nextRequestResponse = successResponse;
         }
