@@ -117,8 +117,7 @@ if (inlineProduct) {
     mainDetailImage = productContentWrapper.get("DETAIL_IMAGE_URL");
     if (mainDetailImage) {
         mainDetailImageUrl = ContentUrlTag.getContentPrefix(request) + mainDetailImage;
-        mainDetailImageUrl = URLEncoder.encode(Base64.base64Encode(mainDetailImage), "UTF-8");
-        context.mainDetailImageUrl = mainDetailImageUrl;
+        context.mainDetailImageUrl = mainDetailImageUrl.toString();
     }
  
  
@@ -235,8 +234,6 @@ if (inlineProduct) {
                             // append the content prefix
                             if (detailImage) {
                                 detailImageUrl = ContentUrlTag.getContentPrefix(request) + detailImage;
-                                // base64 encode the image url for a little protection
-                                detailImageUrl = URLEncoder.encode(Base64.base64Encode(detailImageUrl), "UTF-8");
                             }
                             if (largeImage) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage;
