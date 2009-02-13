@@ -35,7 +35,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.LRUMap;
 
-
+@SuppressWarnings("serial")
 public class CacheLineTable<K, V> implements Serializable {
 
     public static final String module = CacheLineTable.class.getName();
