@@ -48,6 +48,7 @@ import org.ofbiz.webapp.stats.VisitHandler;
 /**
  * ControlServlet.java - Master servlet for the web application.
  */
+@SuppressWarnings("serial")
 public class ControlServlet extends HttpServlet {
 
     public static final String module = ControlServlet.class.getName();
