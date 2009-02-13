@@ -192,7 +192,12 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 
                 //FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
-                Template template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                Template template = null;
+                if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
+                    template = FreeMarkerWorker.getTemplate(location);
+                } else {
+                    template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
                 
                 if (insertWidgetBoundaryComments) {
