@@ -18,10 +18,8 @@ under the License.
 -->
 <#if product?exists>
     <#-- variable setup -->
-    <#assign targetRequestName = "product">
-    <#if requestAttributes.targetRequestName?has_content>
-        <#assign targetRequestName = requestAttributes.targetRequestName>
-    </#if>
+    <#assign productUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, product.productId, categoryId, "")/>
+    
     <#if requestAttributes.productCategoryMember?exists>
         <#assign prodCatMem = requestAttributes.productCategoryMember>
     </#if>    
@@ -34,7 +32,7 @@ under the License.
     <#assign productDetailId = productDetailId + product.productId/>
     <div class="productsummary">
         <div class="smallimage">
-            <a href="<@ofbizUrl>${targetRequestName}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>">
+            <a href="${productUrl}">
                 <span id="${productInfoLinkId}" class="popup_link"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/></span>
             </a>
         </div>
@@ -62,16 +60,16 @@ under the License.
             <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
           <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "ASSET_USAGE">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
+            <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
           <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "AGGREGATED">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
+            <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
           <#-- check to see if the product is a virtual product -->
           <#elseif product.isVirtual?exists && product.isVirtual == "Y">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
+            <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
           <#-- check to see if the product requires an amount -->
           <#elseif product.requireAmount?exists && product.requireAmount == "Y">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
+            <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
           <#else>
             <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form" style="margin: 0;">
               <input type="hidden" name="add_product_id" value="${product.productId}"/>
@@ -102,7 +100,7 @@ under the License.
         </div>
         <div class="productinfo">
           <div>
-            <a href="<@ofbizUrl>${targetRequestName}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="linktext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
+            <a href="${productUrl}" class="linktext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
           </div>
           <div>${productContentWrapper.get("DESCRIPTION")?if_exists}<#if daysToShip?exists>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
           
