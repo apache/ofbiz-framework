@@ -20,7 +20,6 @@ package org.ofbiz.base.util.cache;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -46,6 +45,7 @@ import org.ofbiz.base.util.UtilValidate;
  * </ul>
  *
  */
+@SuppressWarnings("serial")
 public class UtilCache<K, V> implements Serializable {
 
     public static final String module = UtilCache.class.getName();

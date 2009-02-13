@@ -25,6 +25,7 @@ import java.util.Map;
  * LifoSet - Set interface wrapper around a LinkedList
  *
  */
+@SuppressWarnings("serial")
 public class LRUMap<K, V> extends LinkedHashMap<K, V> {
     private int maxSize;
 
@@ -57,4 +58,12 @@ public class LRUMap<K, V> extends LinkedHashMap<K, V> {
         return size() > maxSize;
     }
 
+    /**
+     * An override for the LinkedHashMap.get method that is synchronized to be thread safe.
+     * The LinkedHashMap.get method is not synchronized, as made very clear in the JavaDocs, and since it does modify internal state and in this case needs to be usable by more than one thread at once, making it synchronized.
+     */
+    @Override
+    public synchronized V get(Object key) {
+        return super.get(key);
+    }
 }
