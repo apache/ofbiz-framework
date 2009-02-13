@@ -22,9 +22,6 @@ under the License.
 
 <#-- looping macro -->
 <#macro categoryList parentCategory category wrapInBox>
-  <#if parentCategory.productCategoryId != category.productCategoryId>
-    <#local pStr = "/~pcategory=" + parentCategory.productCategoryId>
-  </#if>
   <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
       <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")>
   <#else>
@@ -49,7 +46,7 @@ under the License.
       <div class="browsecategorylist">
   </#if>
         <div class="browsecategorytext">
-          <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
+          <a href="${Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, parentCategory.productCategoryId)}" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
         </div>
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>

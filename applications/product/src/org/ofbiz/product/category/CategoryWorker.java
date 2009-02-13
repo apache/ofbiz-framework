@@ -58,7 +58,7 @@ public class CategoryWorker {
 
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        Map requestParameters = UtilHttp.getParameterMap(httpRequest);
+        Map<String, Object> requestParameters = UtilHttp.getParameterMap(httpRequest);
         String topCatName = null;
         boolean fromSession = false;
 
@@ -274,74 +274,78 @@ public class CategoryWorker {
     public static void setTrail(ServletRequest request, String currentCategory) {
         Map<String, Object> requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         String previousCategory = (String) requestParameters.get("pcategory");
-
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory +
-                " currentCategory=" + currentCategory, module);
+        setTrail(request, currentCategory, previousCategory);
+    }
+    
+    public static void setTrail(ServletRequest request, String currentCategory, String previousCategory) {
+        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, module);
 
         // if there is no current category, just return and do nothing to that the last settings will stay
-        if (currentCategory == null || currentCategory.length() <= 0)
+        if (UtilValidate.isEmpty(currentCategory)) {
             return;
+        }
 
         // always get the last crumb list
         List<String> crumb = getTrail(request);
-
-        if (crumb == null) {
-            crumb = FastList.newInstance();
+        crumb = adjustTrail(crumb, currentCategory, previousCategory);
+        setTrail(request, crumb);
+    }
+    
+    public static List<String> adjustTrail(List<String> origTrail, String currentCategoryId, String previousCategoryId) {
+        List<String> trail = FastList.newInstance();
+        if (origTrail != null) {
+            trail.addAll(origTrail);
         }
 
         // if no previous category was specified, check to see if currentCategory is in the list
-        if (previousCategory == null || previousCategory.length() <= 0) {
-            if (crumb.contains(currentCategory)) {
+        if (UtilValidate.isEmpty(previousCategoryId)) {
+            if (trail.contains(currentCategoryId)) {
                 // if cur category is in crumb, remove everything after it and return
-                int cindex = crumb.lastIndexOf(currentCategory);
+                int cindex = trail.lastIndexOf(currentCategoryId);
 
-                if (cindex < (crumb.size() - 1)) {
-                    for (int i = crumb.size() - 1; i > cindex; i--) {
-                        String deadCat = crumb.remove(i);
-
-                        if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i +
-                                " catname: " + deadCat, module);
+                if (cindex < (trail.size() - 1)) {
+                    for (int i = trail.size() - 1; i > cindex; i--) {
+                        String deadCat = trail.remove(i);
+                        //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
                     }
                 }
-                return;
+                return trail;
             } else {
                 // current category is not in the list, and no previous category was specified, go back to the beginning
-                crumb.clear();
-                crumb.add("TOP");
-                if (UtilValidate.isNotEmpty(previousCategory)) {
-                    crumb.add(previousCategory);
+                trail.clear();
+                trail.add("TOP");
+                if (UtilValidate.isNotEmpty(previousCategoryId)) {
+                    trail.add(previousCategoryId);
                 }
-                if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Starting new list, added TOP and previousCategory: " + previousCategory, module);
+                //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Starting new list, added TOP and previousCategory: " + previousCategoryId, module);
             }
         }
 
-        if (!crumb.contains(previousCategory)) {
+        if (!trail.contains(previousCategoryId)) {
             // previous category was NOT in the list, ERROR, start over
-            if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] ERROR: previousCategory (" + previousCategory +
-                    ") was not in the crumb list, position is lost, starting over with TOP", module);
-            crumb.clear();
-            crumb.add("TOP");
-            if (UtilValidate.isNotEmpty(previousCategory)) {
-                crumb.add(previousCategory);
+            //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] previousCategory (" + previousCategoryId + ") was not in the crumb list, position is lost, starting over with TOP", module);
+            trail.clear();
+            trail.add("TOP");
+            if (UtilValidate.isNotEmpty(previousCategoryId)) {
+                trail.add(previousCategoryId);
             }
         } else {
             // remove all categories after the previous category, preparing for adding the current category
-            int index = crumb.indexOf(previousCategory);
+            int index = trail.indexOf(previousCategoryId);
 
-            if (index < (crumb.size() - 1)) {
-                for (int i = crumb.size() - 1; i > index; i--) {
-                    String deadCat = crumb.remove(i);
-
-                    if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after previous category index: " + i +
-                            " catname: " + deadCat, module);
+            if (index < (trail.size() - 1)) {
+                for (int i = trail.size() - 1; i > index; i--) {
+                    String deadCat = trail.remove(i);
+                    //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after previous category index: " + i + " catname: " + deadCat, module);
                 }
             }
         }
 
         // add the current category to the end of the list
-        crumb.add(currentCategory);
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategory, module);
-        setTrail(request, crumb);
+        trail.add(currentCategoryId);
+        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, module);
+        
+        return trail;
     }
 
     /** @deprecated */
@@ -374,10 +378,11 @@ public class CategoryWorker {
     public static boolean checkTrailItem(ServletRequest request, String category) {
         List<String> crumb = getTrail(request);
 
-        if (crumb != null && crumb.contains(category))
+        if (crumb != null && crumb.contains(category)) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /** @deprecated */
