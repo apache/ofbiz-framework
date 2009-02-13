@@ -24,12 +24,18 @@ under the License.
     <form name="BaseSummaryOptions" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="month" required-field="true">
             <drop-down allow-empty="false">
-                <option key="01" description="1-January"/><option key="02" description="2-February"/>
-                <option key="03" description="3-March"/><option key="04" description="4-April"/>
-                <option key="05" description="5-May"/><option key="06" description="6-June"/>
-                <option key="07" description="7-July"/><option key="08" description="8-August"/>
-                <option key="09" description="9-September"/><option key="10" description="10-October"/>
-                <option key="11" description="11-November"/><option key="12" description="12-December"/>
+                <option key="01" description="${uiLabelMap.CommonJanuary}"/>
+                <option key="02" description="${uiLabelMap.CommonFebruary}"/>
+                <option key="03" description="${uiLabelMap.CommonMarch}"/>
+                <option key="04" description="${uiLabelMap.CommonApril}"/>
+                <option key="05" description="${uiLabelMap.CommonMay}"/>
+                <option key="06" description="${uiLabelMap.CommonJune}"/>
+                <option key="07" description="${uiLabelMap.CommonJuly}"/>
+                <option key="08" description="${uiLabelMap.CommonAugust}"/>
+                <option key="09" description="${uiLabelMap.CommonSeptember}"/>
+                <option key="10" description="${uiLabelMap.CommonOctober}"/>
+                <option key="11" description="${uiLabelMap.CommonNovember}"/>
+                <option key="12" description="${uiLabelMap.CommonDecember}"/>
             </drop-down>
         </field>
         <field name="year" required-field="true"><text size="4"/></field>

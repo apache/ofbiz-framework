@@ -36,7 +36,7 @@
     <div class="screenlet-body">
       <table class="basic-table" cellspacing="0">
         <tr valign="bottom" class="header-row">
-          <td width="10%"><b>${uiLabelMap.EcommerceProduct}</b></td>               
+          <td width="10%"><b>${uiLabelMap.ProductProduct}</b></td>
           <td width="10%" align="center"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></td>
           <td width="10%" align="right"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></td>
           <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></td>

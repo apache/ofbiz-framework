@@ -122,7 +122,7 @@ under the License.
         </field>
         <field name="addToCart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="additem/editShoppingList?shoppingListId=${shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItemSeqId}&amp;add_product_id=${productId}&amp;quantity=${quantity}&amp;configId=${configId}"
-                description="Add ${quantity} to Order" also-hidden="false"/>
+                description="${uiLabelMap.CommonAdd} ${quantity} ${uiLabelMap.OrderAddQntToOrder}" also-hidden="false"/>
         </field>
     </form>
     <form name="AddFromShoppingListAll" type="single" target="">

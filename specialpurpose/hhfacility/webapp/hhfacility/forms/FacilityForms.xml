@@ -69,10 +69,10 @@ under the License.
     <form name="ProductStocktake" type="single" target="updateproductstocktake"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
-        <field name="productId" title="Product"><display/></field>
-        <field name="productName" title="Name" entry-name="product.productName"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="productName" entry-name="product.productName"><display/></field>
         <field name="atp_qoh" title="ATP/QOH" entry-name="quantitySummary.atp_qoh"><display/></field>
-        <field name="locationSeqId" title="Location" entry-name="locationSeqId"><display/></field>
+        <field name="locationSeqId" entry-name="locationSeqId"><display/></field>
         <!--<field name="submitButton" title="Submit" widget-style="standardSubmit"><submit button-type="button"/></field>-->
     </form>
     <form name="UpdateProductStocktake" type="list"
@@ -83,8 +83,8 @@ under the License.
         <field name="facilityId"><hidden/></field>
         <field name="atp_qoh" title="ATP/QOH" entry-name="atp_qoh"><display/></field>
         <field name="locationSeqId"><hidden/></field>
-        <field name="locationSeqIdNew" title="Location" entry-name="locationSeqId"><text size="10" default-value=""/></field>
-        <field name="quantity" title="Quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
+        <field name="locationSeqIdNew" entry-name="locationSeqId"><text size="10" default-value=""/></field>
+        <field name="quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeProductFromCategory?productId=${productId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}"
@@ -94,11 +94,11 @@ under the License.
 
     <form name="MainMenu" type="single" target="menu">
         <field name="facilityId"><hidden/></field>
-        <field name="m1" title="Facility : ${facilityId}" position="1"><display/></field>
+        <field name="m1" title="${uiLabelMap.FacilityFacility} : ${facilityId}" position="1"><display/></field>
         <field name="receipt" title="1. Goods Receipt">
             <submit button-type="text-link"/>
         </field>
-        <field name="picking" title="2. Picking" position="1">
+        <field name="picking" title="2. ${uiLabelMap.ProductPicking}" position="1">
             <submit button-type="text-link"/>
         </field>
     </form>

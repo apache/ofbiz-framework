@@ -1905,6 +1905,10 @@
         <value xml:lang="fr">Adresse d'expédition principale</value>
         <value xml:lang="it">Indirizzo primario di spedizione</value>
     </property>
+    <property key="EcommerceProductNotConfigured">
+        <value xml:lang="en">Product not configured</value>
+        <value xml:lang="it">Prodotto non configurato</value>
+    </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="de">Produktnummer</value>
         <value xml:lang="en">Product Number</value>
@@ -2830,6 +2834,10 @@
         <value xml:lang="ru">Просмотреть отосланные и принятые</value>
         <value xml:lang="th">ดูที่ส่ง</value>
         <value xml:lang="zh">浏览已发送和已接收</value>
+    </property>
+    <property key="EcommerceYourGiftCardReloaded">
+        <value xml:lang="en">Your Gift Card Reloaded Have</value>
+        <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
     </property>
     <property key="EcommerceYouHave">
         <value xml:lang="de">Sie haben</value>
