@@ -46,7 +46,7 @@ under the License.
             </#if>
 
             <script language="JavaScript" type="text/javascript">
-                function setNow(field) { eval('document.transferform.' + field + '.value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}"'); }
+                function setNow(field) { eval('document.transferform.' + field + '.value="${nowTimestamp}"'); }
             </script>
 
             <table cellspacing="0" class="basic-table">

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="JavaScript">
-    function setNow(field) { eval('document.selectAllForm.' + field + '.value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}"'); }
+    function setNow(field) { eval('document.selectAllForm.' + field + '.value="${nowTimestamp}"'); }
 </script>
 <h1>${title}</h1>
         <#if invalidProductId?exists>
@@ -152,7 +152,7 @@ under the License.
                 <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductDateReceived}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="datetimeReceived" size="24" value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}">
+                  <input type="text" name="datetimeReceived" size="24" value="${nowTimestamp}">
                   <#-- <a href="#" onclick="setNow("datetimeReceived")" class="buttontext">[Now]</a> -->
                 </td>
               </tr>
@@ -296,7 +296,6 @@ under the License.
             <input type="hidden" name="shipmentIdReceived" value="${shipment.shipmentId}"/>
             </#if>
             <input type="hidden" name="_useRowSubmit" value="Y"/>
-            <#assign now = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()/>
             <#assign rowCount = 0/>
             <table class="basic-table" cellspacing="0">
               <#if !purchaseOrderItems?exists || purchaseOrderItemsSize == 0>
@@ -330,7 +329,7 @@ under the License.
                   <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                   <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
                   <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId?if_exists}"/>
-                  <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}"/>
+                  <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${nowTimestamp}"/>
                   <#if shipment?exists && shipment.shipmentId?has_content>
                     <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipment.shipmentId}"/>
                   </#if>
