@@ -46,14 +46,14 @@ under the License.
                             <input type="hidden" name="productStoreId" value="${productStorePromoAppl.productStoreId}">
                             <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}">
                             <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}">
-                            <input type="text" size="20" name="thruDate" value="${(productStorePromoAppl.thruDate.toString())?if_exists}" <#if hasExpired>style="color: red;"</#if>>
-                            <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                            <input type="text" size="20" name="thruDate" value="${(productStorePromoAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
+                            <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${nowTimestamp}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                             <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)?if_exists}">
                             <input type="submit" value="${uiLabelMap.CommonUpdate}">
                         </form>
                     </td>
                     <td align="center">
-                        <a href="<@ofbizUrl>promo_deleteProductStorePromoAppl?productStoreId=${(productStorePromoAppl.productStoreId)?if_exists}&productPromoId=${(productStorePromoAppl.productPromoId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productStorePromoAppl.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
+                        <a href="<@ofbizUrl>promo_deleteProductStorePromoAppl?productStoreId=${(productStorePromoAppl.productStoreId)?if_exists}&productPromoId=${(productStorePromoAppl.productPromoId)?if_exists}&fromDate=${productStorePromoAppl.getTimestamp("fromDate").toString()}</@ofbizUrl>" class="buttontext">
                         ${uiLabelMap.CommonDelete}</a>
                     </td>
                 </tr>
@@ -81,7 +81,7 @@ under the License.
                 </#list>
                 </select>
                 <input type="text" size="20" name="fromDate"/>
-                <a href="javascript:call_cal(document.addProductPromoToCatalog.fromDate, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                <a href="javascript:call_cal(document.addProductPromoToCatalog.fromDate, '${nowTimestamp}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                 <input type="submit" value="${uiLabelMap.CommonAdd}"/>
             </form>
         </div>

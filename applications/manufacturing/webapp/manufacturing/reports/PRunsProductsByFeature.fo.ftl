@@ -89,7 +89,7 @@ under the License.
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
                                 <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPrintoutDate}:</fo:inline>
-                                <fo:inline font-weight="bold" font-size="10pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</fo:inline>
+                                <fo:inline font-weight="bold" font-size="10pt">${nowTimestamp}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

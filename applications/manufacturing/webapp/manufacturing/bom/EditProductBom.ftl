@@ -268,12 +268,10 @@ function lookupBom() {
         <td>&nbsp;${(assocFromProduct.estimateCalcMethod)?if_exists}</td>
         <td>&nbsp;${(assocFromProduct.routingWorkEffortId)?if_exists}</td>
         <td>
-        <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&productId=${productId}&productIdTo=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
-        ${uiLabelMap.CommonDelete}</a>
+        <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&productId=${productId}&productIdTo=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}&fromDate=${assocFromProduct.getString("fromDate")}&useValues=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
         </td>
         <td>
-        <a href="<@ofbizUrl>EditProductBom?productId=${productId}&productIdTo=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
-        ${uiLabelMap.CommonEdit}</a>
+        <a href="<@ofbizUrl>EditProductBom?productId=${productId}&productIdTo=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}&fromDate=${assocFromProduct.getString("fromDate")}&useValues=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
         </td>
       </tr>
       <#-- toggle the row color -->

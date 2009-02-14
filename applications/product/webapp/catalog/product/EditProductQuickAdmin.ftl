@@ -326,7 +326,7 @@ function doPublish() {
                 <#list standardFeatureAppls as standardFeatureAppl>
                     <#assign featureId = standardFeatureAppl.productFeatureId/>
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                        <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveFeatureFromProduct?productId=${standardFeatureAppl.productId?if_exists}&productFeatureId=${featureId?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(standardFeatureAppl.getTimestamp("fromDate").toString())}</@ofbizUrl>' class="buttontext">x</a>
+                        <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveFeatureFromProduct?productId=${standardFeatureAppl.productId?if_exists}&productFeatureId=${featureId?if_exists}&fromDate=${standardFeatureAppl.getString("fromDate")}</@ofbizUrl>' class="buttontext">x</a>
                         ${productFeatureTypeLookup.get(featureId).description}: ${standardFeatureLookup.get(featureId).description}
                         </td>
                     </tr>
@@ -391,7 +391,7 @@ function doPublish() {
                     <#list productCategoryMembers as prodCatMemb>
                         <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory")/>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                            <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveProductFromCategory?productId=${prodCatMemb.productId?if_exists}&amp;productCategoryId=${prodCatMemb.productCategoryId}&amp;fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(prodCatMemb.getTimestamp("fromDate").toString())}</@ofbizUrl>' class="buttontext">x</a>
+                            <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveProductFromCategory?productId=${prodCatMemb.productId?if_exists}&amp;productCategoryId=${prodCatMemb.productCategoryId}&amp;fromDate=${prodCatMemb.getString("fromDate")}</@ofbizUrl>' class="buttontext">x</a>
                             ${prodCat.description?if_exists} ${prodCat.productCategoryId}</td>
                         </tr>
                         <#-- toggle the row color -->

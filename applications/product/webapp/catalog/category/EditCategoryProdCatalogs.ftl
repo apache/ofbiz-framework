@@ -72,7 +72,7 @@ under the License.
                     </form>
                 </td>
                 <td align="center">
-                <a href="<@ofbizUrl>category_removeProductCategoryFromProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}&productCategoryId=${(prodCatalogCategory.productCategoryId)?if_exists}&prodCatalogCategoryTypeId=${(prodCatalogCategory.prodCatalogCategoryTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(prodCatalogCategory.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
+                <a href="<@ofbizUrl>category_removeProductCategoryFromProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}&productCategoryId=${(prodCatalogCategory.productCategoryId)?if_exists}&prodCatalogCategoryTypeId=${(prodCatalogCategory.prodCatalogCategoryTypeId)?if_exists}&fromDate=${prodCatalogCategory.getString("fromDate")}</@ofbizUrl>" class="buttontext">
                 ${uiLabelMap.CommonDelete}</a>
                 </td>
             </tr>

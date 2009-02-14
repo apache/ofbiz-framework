@@ -56,8 +56,7 @@ under the License.
                 </FORM>
             </td>
             <td align="center">
-                <a href="<@ofbizUrl>removePartyFromCategory?productCategoryId=${(productCategoryRole.productCategoryId)?if_exists}&partyId=${(productCategoryRole.partyId)?if_exists}&roleTypeId=${(productCategoryRole.roleTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productCategoryRole.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
-                ${uiLabelMap.CommonDelete}</a>
+                <a href="<@ofbizUrl>removePartyFromCategory?productCategoryId=${(productCategoryRole.productCategoryId)?if_exists}&partyId=${(productCategoryRole.partyId)?if_exists}&roleTypeId=${(productCategoryRole.roleTypeId)?if_exists}&fromDate=${productCategoryRole.getString("fromDate")}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
             </td>
             </tr>
             <#-- toggle the row color -->

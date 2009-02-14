@@ -25,7 +25,7 @@ under the License.
         <#-- Render the survey -->
         <#if surveyWrapper?has_content>
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>profilesurvey/profilesurvey</@ofbizUrl>" style="margin: 0;">
-              ${surveyWrapper.render().toString()}
+              ${surveyWrapper.render()}
             </form>
         <#else>
             <h1>${uiLabelMap.OrderNothingToDoHere}</h1>

@@ -54,8 +54,7 @@ under the License.
                         </form>
                     </td>
                     <td align="center">
-                        <a href="<@ofbizUrl>removeProductFeatureCatGrpAppl?productFeatureGroupId=${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}&productCategoryId=${(productFeatureCatGrpAppl.productCategoryId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productFeatureCatGrpAppl.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
-                        ${uiLabelMap.CommonDelete}</a>
+                        <a href="<@ofbizUrl>removeProductFeatureCatGrpAppl?productFeatureGroupId=${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}&productCategoryId=${(productFeatureCatGrpAppl.productCategoryId)?if_exists}&fromDate=${productFeatureCatGrpAppl.getString("fromDate")}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </td>
                 </tr>
                 <#-- toggle the row color -->
@@ -126,8 +125,7 @@ under the License.
                         </form>
                     </td>
                     <td align="center">
-                    <a href="<@ofbizUrl>removeProductFeatureCategoryAppl?productFeatureCategoryId=${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}&productCategoryId=${(productFeatureCategoryAppl.productCategoryId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productFeatureCategoryAppl.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
-                    ${uiLabelMap.CommonDelete}</a>
+                    <a href="<@ofbizUrl>removeProductFeatureCategoryAppl?productFeatureCategoryId=${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}&productCategoryId=${(productFeatureCategoryAppl.productCategoryId)?if_exists}&fromDate=${productFeatureCategoryAppl.getString("fromDate")}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </td>
                 </tr>
                 <#-- toggle the row color -->

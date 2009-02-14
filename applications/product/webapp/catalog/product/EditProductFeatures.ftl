@@ -77,8 +77,7 @@ under the License.
                         <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
                     </td>
                     <td>
-                        <a href='<@ofbizUrl>RemoveFeatureFromProduct?productId=${(productFeatureAndAppl.productId)?if_exists}&productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productFeatureAndAppl.getTimestamp("fromDate").toString())}</@ofbizUrl>' class="buttontext">
-                        ${uiLabelMap.CommonDelete}</a>
+                        <a href='<@ofbizUrl>RemoveFeatureFromProduct?productId=${(productFeatureAndAppl.productId)?if_exists}&productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}&fromDate=${productFeatureAndAppl.getString("fromDate")}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </td>
                 </tr>
                 <#assign rowCount = rowCount + 1>

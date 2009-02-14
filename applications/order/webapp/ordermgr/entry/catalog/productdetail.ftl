@@ -500,8 +500,8 @@ ${virtualJavaScript?if_exists}
             </div>
             <#if product.productTypeId?if_exists == "ASSET_USAGE">
                 <table width="100%"><tr>
-                <td nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal_notime(document.addform.reservStart, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
-                <td nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal_notime(document.addform.reservEnd, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
+                <td nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal_notime(document.addform.reservStart, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
+                <td nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal_notime(document.addform.reservEnd, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
                 <tr>
                 <#--td nowrap align="right">Number<br/>of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td align="right" nowrap>&nbsp;</td-->
                 <td nowrap align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>

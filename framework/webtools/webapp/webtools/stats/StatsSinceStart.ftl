@@ -22,7 +22,7 @@ under the License.
     </div>
     <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
     <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
-    <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
+    <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${nowTimestamp}</p>
 </div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>
   <#-- Request Table -->
