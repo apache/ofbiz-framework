@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.marketing.marketing;
 
+import java.sql.Timestamp;
 import java.util.Locale;
 import java.util.Map;
-import java.sql.Timestamp;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -30,7 +30,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * MarketingServices contains static service methods for Marketing Campaigns and Contact Lists.
@@ -53,7 +56,7 @@ public class MarketingServices {
         String email = (String) context.get("email");
 
         if (!UtilValidate.isEmail(email)) {
-            String error = UtilProperties.getMessage(resourceMarketing, "MarketingInvalidEmailInput", locale);
+            String error = UtilProperties.getMessage(resourceMarketing, "MarketingCampaignInvalidEmailInput", locale);
             return ServiceUtil.returnError(error);
         }
 

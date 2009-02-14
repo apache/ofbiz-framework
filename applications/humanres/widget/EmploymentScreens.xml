@@ -209,7 +209,7 @@
     <screen name="EditPerformanceNotes">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResEditPerfNote"/>
+                <set field="titleProperty" value="HumanResPerfNote"/>
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditPerformanceNotes"/>
                 <set field="partyId" from-field="parameters.partyId"/>

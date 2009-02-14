@@ -101,6 +101,10 @@
         <value xml:lang="it">Tipo Budget</value>
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
     </property>
+    <property key="FormFieldTitle_company">
+        <value xml:lang="en">Company</value>
+        <value xml:lang="it">Azienda</value>
+    </property>
     <property key="FormFieldTitle_dateModified">
         <value xml:lang="en">Date Modified</value>
         <value xml:lang="fr">Date modifiée</value>
@@ -125,6 +129,10 @@
         <value xml:lang="fr">Réf. de la position de l'employé contrôlé par</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">โดยการจัดการรหัสตำแหน่งพนักงาน</value>
+    </property>
+    <property key="FormFieldTitle_emplPositionIdReportingTo">
+        <value xml:lang="en">Empl Position Id Reporting To</value>
+        <value xml:lang="it">Posizione impiegato gestito da</value>
     </property>
     <property key="FormFieldTitle_employeePartyId">
         <value xml:lang="en">Employee Party Id</value>
@@ -251,6 +259,10 @@
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
     </property>
+    <property key="FormFieldTitle_position">
+        <value xml:lang="en">Position</value>
+        <value xml:lang="it">Posizione</value>
+    </property>
     <property key="FormFieldTitle_primaryFlag">
         <value xml:lang="en">Primary Flag</value>
         <value xml:lang="fr">Balise primaire</value>
@@ -300,6 +312,10 @@
         <value xml:lang="fr">N° de routage</value>
         <value xml:lang="it">Numero Routing</value>
         <value xml:lang="th">หมายเลข Routing</value>
+    </property>
+    <property key="FormFieldTitle_salary">
+        <value xml:lang="en">Salary</value>
+        <value xml:lang="it">Salario</value>
     </property>
     <property key="FormFieldTitle_salaryFlag">
         <value xml:lang="en">Salary Flag</value>
@@ -510,11 +526,20 @@
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
         <value xml:lang="fr">Information actuelles sur l'emploi</value>
+        <value xml:lang="it">Attuali informazioni impiegato</value>
     </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
         <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>
         <value xml:lang="it">Aggiorna applicazioni contratti impiegato</value>
+    </property>
+    <property key="HumanResEditEmplLeave">
+        <value xml:lang="en">Edit Empl Leave</value>
+        <value xml:lang="it">Aggiorna licenziamento impiegato</value>
+    </property>
+    <property key="HumanResEditEmplLeaveType">
+        <value xml:lang="en">Edit Empl Leave Type</value>
+        <value xml:lang="it">Aggiorna tipo licenziamento impiegato</value>
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Edit Employee Position</value>
@@ -648,6 +673,10 @@
         <value xml:lang="en">Responsibilities</value>
         <value xml:lang="fr">Responsabilités</value>
         <value xml:lang="it">Responsibilità</value>
+    </property>
+    <property key="HumanResEmplPositionSummary">
+        <value xml:lang="en">Empl Position Summary</value>
+        <value xml:lang="it">Sommario posizione impiegato</value>
     </property>
     <property key="HumanResEmplPositionType">
         <value xml:lang="de">Stellenarten</value>

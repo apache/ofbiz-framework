@@ -212,9 +212,9 @@ under the License.
             <entity-condition entity-name="EmplPositionResponsibility"/>
         </actions>
         <auto-fields-service service-name="updateValidResponsibility"/>        
-        <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmplPositionTypeId}"><display /></field>        
-        <field name="responsibilityTypeId" title="${uiLabelMap.ResponsibilityTypeId}"><display /></field>
-        <field name="fromDate" title="fromDates"><display /></field>
+        <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmployeePositionTypeId}"><display /></field>        
+        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display /></field>
+        <field name="fromDate"><display /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteValidResponsibility?emplPositionTypeId=${emplPositionId}&amp;responsibilityTypeId=${responsibilityTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>

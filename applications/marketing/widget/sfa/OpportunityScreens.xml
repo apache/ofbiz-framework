@@ -24,6 +24,7 @@ under the License.
     <screen name="FindOpportunity">
         <section>
             <actions>
+                <set field="titleProperty" value="SfaFindOpportunities"/>
                 <set field="headerItem" value="Opportunities"/>
             </actions>
             <widgets>
@@ -69,8 +70,8 @@ under the License.
     <screen name="EditOpportunity">
         <section>
             <actions>
-                <set field="titleProperty" value="Opportunities"/> 
-                <set field="tabButtonItem" value="EditOpportunity"/>            
+                <set field="titleProperty" value="SfaEditOpportunity"/>
+                <set field="tabButtonItem" value="EditOpportunity"/>
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
                 <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
             </actions>
@@ -100,8 +101,8 @@ under the License.
     <screen name="ViewOpportunity">
         <section>
             <actions>
-                <set field="titleProperty" value="Opportunities"/>
-                <set field="tabButtonItem" value="ViewOpportunity"/>   
+                <set field="titleProperty" value="SfaOpportunityInfo"/>
+                <set field="tabButtonItem" value="ViewOpportunity"/>
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
                 <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
             </actions>

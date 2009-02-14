@@ -37,7 +37,7 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="30" maxlength="60"/>
         </field>
-        <field name="numEmployees" title="${uiLabelMap.MarketingEmployees}"><text size="30"/></field>
+        <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
         <field name="siteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label">
             <display description=" " also-hidden="false"/>

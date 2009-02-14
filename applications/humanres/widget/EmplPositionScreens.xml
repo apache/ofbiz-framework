@@ -181,7 +181,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResNewValidResponsibility}" style="buttontext"/>
+                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListValidResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
@@ -211,7 +211,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResNewValidResponsibility}" style="buttontext"/>
+                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
                                         </container>
                                         <include-form name="AddValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>

@@ -58,7 +58,7 @@
     <screen name="NewEmplLeave">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResNewEmplLeave"/>
+                <set field="titleProperty" value="HumanResAddEmplLeave"/>
                 <set field="headerItem" value="Leave"/>
                 <set field="emplLeaveCtx" from-field="parameters.PartyId"/>
             </actions>
