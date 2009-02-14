@@ -478,9 +478,9 @@ under the License.
               <td width="20%" nowrap><div class="tableheadtext"><b>&nbsp;</b></div></td>
             </tr>
           <#list contactListPartyList as contactListParty>
-            <#assign contactList = contactListParty.getRelatedOne("ContactList")/>
+            <#assign contactList = contactListParty.getRelatedOne("ContactList")?if_exists/>
             <#assign statusItem = contactListParty.getRelatedOneCache("StatusItem")?if_exists/>
-            <#assign emailAddress = contactListParty.getRelatedOneCache("PreferredContactMech")/>
+            <#assign emailAddress = contactListParty.getRelatedOneCache("PreferredContactMech")?if_exists/>
             <#-- <#assign contactListType = contactList.getRelatedOneCache("ContactListType")/> -->
             <tr><td colspan="7"><hr/></td></tr>
             <tr>
