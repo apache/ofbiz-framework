@@ -24,6 +24,11 @@
     <description>Oagis Implementation component of the Open For Business Project</description>
     
     <context-param>
+        <param-name>webSiteId</param-name>
+        <param-value>OAGIS</param-value>
+        <description>A unique ID used to look up the WebSite entity to get information about catalogs, etc.</description>
+    </context-param>
+    <context-param>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
