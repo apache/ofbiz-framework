@@ -18,25 +18,41 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.apache.commons.codec.binary.Base64;
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.config.GenericConfigException;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
-import java.security.*;
-import java.security.cert.*;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Collection;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 import javolution.util.FastMap;
 
-import javax.security.auth.x500.X500Principal;
+import org.apache.commons.codec.binary.Base64;
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers

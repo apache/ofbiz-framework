@@ -21,9 +21,15 @@ package org.ofbiz.webapp.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -32,12 +38,12 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
 
-import org.ofbiz.webapp.control.RequestHandler;
-
 /**
  * OfbizUrlTransform - Freemarker Transform for URLs (links)
  */
 public class OfbizUrlTransform implements TemplateTransformModel {
+
+    public final static String module = OfbizUrlTransform.class.getName();
     
     public boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {        
@@ -80,10 +86,18 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         if (res != null) {
                             response = (HttpServletResponse) res.getWrappedObject();
                         }
-                                            
+                        
+                        String requestUrl = buf.toString();
+                        // just in case the request is encoded, decode before making the link
+                        try {
+                            requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
+                        } catch (EncodingException e) {
+                            Debug.logError(e, "Error decoding URL string [" + requestUrl + "]: " + e.toString(), module);
+                        }
+                        
                         // make the link
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                        out.write(rh.makeLink(request, response, buf.toString(), fullPath, secure, encode));
+                        out.write(rh.makeLink(request, response, requestUrl, fullPath, secure, encode));
                     } else if (prefix != null) {
                         if (prefix instanceof TemplateScalarModel) {
                             TemplateScalarModel s = (TemplateScalarModel) prefix;

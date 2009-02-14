@@ -59,7 +59,7 @@ public class GenericEngineFactory {
         Element engineElement = UtilXml.firstChildElement(rootElement, "engine", "name", engineName);
 
         if (engineElement == null) {
-            throw new GenericServiceException("Cannot find an engine definition for the engine name [" + engineName + "] in the serviceengine.xml file");
+            throw new GenericServiceException("Cannot find a service engine definition for the engine name [" + engineName + "] in the serviceengine.xml file");
         }
 
         String className = engineElement.getAttribute("class");

@@ -24,7 +24,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -36,35 +39,45 @@ import freemarker.template.TemplateTransformModel;
  */
 public class OfbizContentTransform implements TemplateTransformModel {
         
-        public Writer getWriter(final Writer out, Map args) {              
-            final StringBuilder buf = new StringBuilder();
-            return new Writer(out) {
-                public void write(char cbuf[], int off, int len) {
-                    buf.append(cbuf, off, len);
-                }
+    public final static String module = OfbizUrlTransform.class.getName();
+    
+    public Writer getWriter(final Writer out, Map args) {              
+        final StringBuilder buf = new StringBuilder();
+        return new Writer(out) {
+            public void write(char cbuf[], int off, int len) {
+                buf.append(cbuf, off, len);
+            }
 
-                public void flush() throws IOException {
-                    out.flush();
-                }
+            public void flush() throws IOException {
+                out.flush();
+            }
 
-                public void close() throws IOException {  
-                    try {                              
-                        Environment env = Environment.getCurrentEnvironment();
-                        BeanModel req = (BeanModel)env.getVariable("request");
-                        HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
-                        
-                        // make the link
-                        StringBuffer newURL = new StringBuffer();
-                        ContentUrlTag.appendContentPrefix(request, newURL);
-                        if (newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/' && buf.charAt(0) != '/') {
-                            newURL.append('/');
-                        }
-                        newURL.append(buf.toString());                                        
-                        out.write(newURL.toString());
-                    } catch (TemplateModelException e) {
-                        throw new IOException(e.getMessage());
+            public void close() throws IOException {  
+                try {                              
+                    Environment env = Environment.getCurrentEnvironment();
+                    BeanModel req = (BeanModel)env.getVariable("request");
+                    HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
+                    
+                    String requestUrl = buf.toString();
+                    // just in case the request is encoded, decode before making the link
+                    try {
+                        requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
+                    } catch (EncodingException e) {
+                        Debug.logError(e, "Error decoding URL string [" + requestUrl + "]: " + e.toString(), module);
                     }
+                    
+                    // make the link
+                    StringBuffer newURL = new StringBuffer();
+                    ContentUrlTag.appendContentPrefix(request, newURL);
+                    if (newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/' && requestUrl.charAt(0) != '/') {
+                        newURL.append('/');
+                    }
+                    newURL.append(requestUrl);                                        
+                    out.write(newURL.toString());
+                } catch (TemplateModelException e) {
+                    throw new IOException(e.getMessage());
                 }
-            };
-        }
+            }
+        };
     }
+}
