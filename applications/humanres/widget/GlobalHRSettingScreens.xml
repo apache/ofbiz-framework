@@ -113,7 +113,7 @@
     <screen name="EditEmplPositionTypes">
         <section>
             <actions>
-                <set field="titleProperty" value="${uiLabelMap.HumanResEditFindPositionTypes}"/>
+                <set field="titleProperty" value="HumanResFindPositionTypes"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem" value="EmplPositionTypes"/>  
                 <set field="tabButtonItem2" value="EditEmplPositionType"/>
@@ -148,7 +148,7 @@
     <screen name="EditEmplPositionTypeRates">
         <section>
             <actions>
-                <set field="titleProperty" value="EditEmplPositionTypeRate"/>
+                <set field="titleProperty" value="HumanResEmplPositionTypeRate"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem" value="EmplPositionTypes"/> 
                 <set field="tabButtonItem2" value="EditEmplPositionTypeRate"/>

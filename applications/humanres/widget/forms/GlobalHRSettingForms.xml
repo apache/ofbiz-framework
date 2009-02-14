@@ -142,7 +142,7 @@ under the License.
         <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
         <field name="payGradeId"><display-entity entity-name="PayGrade" description="${description}"/></field>        
-        <field name="salaryStepSeqId"><display/></field>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="deleteButton" widget-style="buttontext"><submit/></field>
     </form>            
@@ -167,7 +167,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="salaryStepSeqId" position="2"><lookup target-form-name="LookupSalaryStep"/></field>  
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}" position="2"><lookup target-form-name="LookupSalaryStep"/></field>  
         <field name="rateAmount"><text/></field>
         <field name="rateCurrencyUomId" position="2">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">

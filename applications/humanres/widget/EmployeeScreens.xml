@@ -167,7 +167,7 @@ under the License.
     <screen name="EditEmployeeQuals">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResViewPartyQual"/>
+                <set field="titleProperty" value="HumanResEditPartyQual"/>
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditEmployeeQuals"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -253,7 +253,7 @@ under the License.
     <screen name="EditEmployeePerformanceNotes">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResEditPerfNote"/>
+                <set field="titleProperty" value="HumanResPerfNote"/>
                 <set field="tabButtonItem" value="EditEmployeePerformanceNotes"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>

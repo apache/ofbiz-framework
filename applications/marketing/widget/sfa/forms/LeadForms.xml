@@ -115,7 +115,7 @@ under the License.
                <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${lead.partyId}&quot;, false)} [${lead.partyId}]"/>
             </drop-down>
         </field>
-        <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeleads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
+        <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeLeads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
     
     <form name="CreateLeadFromVCard" type="upload" target="createLeadFromVCard" header-row-style="header-row" default-table-style="basic-table">
