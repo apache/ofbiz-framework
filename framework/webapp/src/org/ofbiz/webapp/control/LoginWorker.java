@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.security.auth.x500.X500Principal;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -43,13 +42,11 @@ import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.KeyStoreUtil;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -81,25 +78,25 @@ public class LoginWorker {
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
     public static Map<String, GenericValue> externalLoginKeys = FastMap.newInstance();
     
-    public static StringWrapper makeLoginUrl(PageContext pageContext) {
+    public static String makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
     }
 
-    public static StringWrapper makeLoginUrl(HttpServletRequest request) {
+    public static String makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
     
-    public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
+    public static String makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
-    public static StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
+    public static String makeLoginUrl(HttpServletRequest request, String requestName) {
         Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
         String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
         String currentView = UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
 
         String loginUrl = "/" + requestName;
         if ("login".equals(currentView)) {
-            return StringUtil.wrapString(loginUrl);
+            return loginUrl;
         }
         if (UtilValidate.isNotEmpty(currentView)) {
             loginUrl += "/" + currentView;
@@ -108,7 +105,8 @@ public class LoginWorker {
             loginUrl += "?" + queryString;
         }
 
-        return StringUtil.wrapString(loginUrl);
+        //return StringUtil.wrapString(loginUrl);
+        return loginUrl;
     }
     
     /**
@@ -360,7 +358,7 @@ public class LoginWorker {
                     String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 }
-                request.setAttribute("_ERROR_MESSAGE_LIST_", (List) result.get(ModelService.ERROR_MESSAGE_LIST));
+                request.setAttribute("_ERROR_MESSAGE_LIST_", result.get(ModelService.ERROR_MESSAGE_LIST));
                 return "error";
             } else {
                 password = request.getParameter("newPassword");
@@ -720,10 +718,10 @@ public class LoginWorker {
                     String userLoginId = null;
 
                     for (int i = 0; i < clientCerts.length; i++) {
-                        X500Principal x500 = clientCerts[i].getSubjectX500Principal();
+                        //X500Principal x500 = clientCerts[i].getSubjectX500Principal();
                         //Debug.log("Checking client certification for authentication: " + x500.getName(), module);
 
-                        Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
+                        Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                         if (i == 0) {
                             String cn = (String) x500Map.get("CN");
                             cn = cn.replaceAll("\\\\", "");
@@ -765,7 +763,7 @@ public class LoginWorker {
         return "success";
     }
 
-    protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map, BigInteger serialNumber) throws GeneralException {
+    protected static boolean checkValidIssuer(GenericDelegator delegator, Map<String, String> x500Map, BigInteger serialNumber) throws GeneralException {
         List<EntityCondition> conds = FastList.newInstance();
         conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("commonName", x500Map.get("CN")),
                 EntityCondition.makeConditionMap("commonName", null),
