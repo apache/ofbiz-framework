@@ -484,8 +484,8 @@ public class StringUtil {
         }
         
         // check for "<", ">"
-        if (value.indexOf("<") >= 0 || value.indexOf("<") >= 0) {
-            errorMessageList.add("In field [" + valueName + "] greater-than (>) and less-than (<) symbols are not allowed.");
+        if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
+            errorMessageList.add("In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.");
         }
         
         // check for & not followed by a space (can be used for escaping chars)
