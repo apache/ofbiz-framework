@@ -24,6 +24,11 @@ under the License.
     <description>Facility Handheld Application</description>
 
     <context-param>
+        <param-name>webSiteId</param-name>
+        <param-value>HHFACILITY</param-value>
+        <description>A unique ID used to look up the WebSite entity to get information about catalogs, etc.</description>
+    </context-param>
+    <context-param>
         <param-name>localDispatcherName</param-name>
         <param-value>hhfacility</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
