@@ -80,4 +80,7 @@ under the License.
     
     <EmplLeaveType description="Medical" hasTable="N" parentTypeId="" leaveTypeId="MEDICAL"/>
     <EmplLeaveType description="Casual" hasTable="N" parentTypeId="" leaveTypeId="CASUAL"/>
+    
+    <WebSite webSiteId="HR" siteName="Human Resource Manager" visualThemeSetId="BACKOFFICE" />
+    
 </entity-engine-xml>

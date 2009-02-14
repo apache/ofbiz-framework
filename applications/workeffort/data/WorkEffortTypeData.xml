@@ -223,4 +223,7 @@ under the License.
     <StatusValidChange condition="" statusId="WERV_PENDING" statusIdTo="WERV_APPROVED" transitionName="Review Approved"/>
     <StatusValidChange condition="" statusId="WERV_PENDING" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
     <StatusValidChange condition="" statusId="WERV_APPROVED" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
+    
+    <WebSite webSiteId="WORKEFFORT" siteName="Work Effort Manager" visualThemeSetId="BACKOFFICE" />
+    
 </entity-engine-xml>

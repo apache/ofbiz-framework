@@ -149,5 +149,7 @@
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="8"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+
+    <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE" />
     
 </entity-engine-xml>
