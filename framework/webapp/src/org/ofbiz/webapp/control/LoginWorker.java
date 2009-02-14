@@ -42,11 +42,13 @@ import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.KeyStoreUtil;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -78,25 +80,25 @@ public class LoginWorker {
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
     public static Map<String, GenericValue> externalLoginKeys = FastMap.newInstance();
     
-    public static String makeLoginUrl(PageContext pageContext) {
+    public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
     }
 
-    public static String makeLoginUrl(HttpServletRequest request) {
+    public static StringWrapper makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
     
-    public static String makeLoginUrl(PageContext pageContext, String requestName) {
+    public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
-    public static String makeLoginUrl(HttpServletRequest request, String requestName) {
+    public static StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
         Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
         String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
         String currentView = UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
 
         String loginUrl = "/" + requestName;
         if ("login".equals(currentView)) {
-            return loginUrl;
+            return StringUtil.wrapString(loginUrl);
         }
         if (UtilValidate.isNotEmpty(currentView)) {
             loginUrl += "/" + currentView;
@@ -105,8 +107,7 @@ public class LoginWorker {
             loginUrl += "?" + queryString;
         }
 
-        //return StringUtil.wrapString(loginUrl);
-        return loginUrl;
+        return StringUtil.wrapString(loginUrl);
     }
     
     /**

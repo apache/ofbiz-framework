@@ -59,12 +59,6 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
                     
                     String requestUrl = buf.toString();
-                    // just in case the request is encoded, decode before making the link
-                    try {
-                        requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
-                    } catch (EncodingException e) {
-                        Debug.logError(e, "Error decoding URL string [" + requestUrl + "]: " + e.toString(), module);
-                    }
                     
                     // make the link
                     StringBuffer newURL = new StringBuffer();

@@ -88,12 +88,6 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         }
                         
                         String requestUrl = buf.toString();
-                        // just in case the request is encoded, decode before making the link
-                        try {
-                            requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
-                        } catch (EncodingException e) {
-                            Debug.logError(e, "Error decoding URL string [" + requestUrl + "]: " + e.toString(), module);
-                        }
                         
                         // make the link
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
