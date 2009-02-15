@@ -1176,7 +1176,16 @@ public class ShoppingCartItem implements java.io.Serializable {
                     if (configWrapper != null) {
                         // TODO: for configurable products need to do something to make them VAT aware... for now base and display prices are the same
                         this.setBasePrice(configWrapper.getTotalPrice());
-                        this.setDisplayPrice(configWrapper.getTotalPrice());
+                        // Check if price display with taxes
+                        GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
+                        if (UtilValidate.isNotEmpty(productStore) && productStore.get("showPricesWithVatTax").equals("Y")){
+                            BigDecimal totalPrice = configWrapper.getTotalPrice();
+                            // Get Taxes
+                            Map totalPriceWithTaxMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPrice, "productId", this.productId, "productStoreId", cart.getProductStoreId()));
+                            this.setDisplayPrice((BigDecimal) totalPriceWithTaxMap.get("priceWithTax"));
+                        }else{
+                            this.setDisplayPrice(configWrapper.getTotalPrice());
+                        }
                     }
                     
                     // no try to do a recurring price calculation; not all products have recurring prices so may be null
