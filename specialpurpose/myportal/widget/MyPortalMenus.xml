@@ -20,7 +20,7 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
-    <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.middleName?if_exists} ${partyNameView.lastName?if_exists} ${partyNameView.groupName?if_exists}" 
+    <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}" 
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
         <menu-item name="Help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
