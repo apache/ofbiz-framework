@@ -25,6 +25,7 @@ under the License.
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerKey}</td>
       <td>${uiLabelMap.WebtoolsLabelManagerFileName}</td>
+      <td>${uiLabelMap.WebtoolsLabelManagerReferences}</td>
       <#list localesFound as localeFound>
         <#assign showLocale = true>
         <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
@@ -63,9 +64,16 @@ under the License.
           <#assign showLabel = false>
         </#if>
         <#if showLabel == true>
+          <#assign labelKey = label.labelKey>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
-            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${label.labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment}</@ofbizUrl>" <#if previousKey == label.labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
+            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
+            <#assign referenceNum = 0>
+            <#assign reference = references.get(labelKey)?if_exists>
+            <#if reference?exists && reference?has_content>
+                 <#assign referenceNum = reference.size()>
+            </#if>
+            <td align="center">${referenceNum}</td>
             <#list localesFound as localeFound>
               <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
               <#assign showLocale = true>
@@ -86,7 +94,7 @@ under the License.
           <#else>
             <#assign rowNum = "2">
           </#if>
-          <#assign previousKey = label.labelKey>
+          <#assign previousKey = labelKey>
         </#if>
       </#list> 
     </#if>

@@ -33,10 +33,10 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-
 import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * File Utilities
@@ -215,6 +215,28 @@ public class FileUtil {
             }
         }
     }
+    
+    public static List<File> findFiles(String fileExt, String basePath, String partialPath, String stringToFind) throws IOException {
+        if (basePath == null) {
+            basePath = System.getProperty("ofbiz.home");
+        }
+        
+        Set<String> stringsToFindInPath = FastSet.newInstance();
+        Set<String> stringsToFindInFile = FastSet.newInstance();
+        
+        if (partialPath != null) {
+           stringsToFindInPath.add(partialPath);
+        }
+        if (stringToFind != null) {
+           stringsToFindInFile.add(stringToFind);
+        }
+        
+        List<File> fileList = FastList.newInstance();
+        FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter(fileExt, stringsToFindInPath, stringsToFindInFile), true);
+        
+        return fileList;
+    }
+    
     public static List<File> findXmlFiles(String basePath, String partialPath, String rootElementName, String xsdOrDtdName) throws IOException {
         if (basePath == null) {
             basePath = System.getProperty("ofbiz.home");

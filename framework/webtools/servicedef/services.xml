@@ -43,8 +43,8 @@ under the License.
             location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
-        <attribute name="filename" type="String" mode="IN" optional="true"/>
-        <attribute name="fmfilename" type="String" mode="IN" optional="true"/>
+        <attribute name="filename" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="fmfilename" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="fulltext" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="isUrl" type="String" mode="IN" optional="true"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>

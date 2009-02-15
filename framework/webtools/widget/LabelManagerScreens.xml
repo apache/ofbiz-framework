@@ -37,7 +37,10 @@ under the License.
                         </screenlet>
                         <screenlet id="ViewLabelsPanel" title="${uiLabelMap.WebtoolsLabelManager}" collapsible="false">
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
-                        </screenlet>                        
+                        </screenlet>
+                        <screenlet id="ViewHardcodedLabelsPanel" title="${uiLabelMap.WebtoolsLabelManagerHardcoded}" collapsible="false">
+                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewHardcodedLabels.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
