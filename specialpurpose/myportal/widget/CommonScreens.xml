@@ -34,22 +34,12 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
-                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
-                    then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
-                
-                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
-                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
-                <!-- TODO: Use transform to specify component URI -->
-                <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
-                    <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
-                <set field="appheaderTemplate" value="component://myportal/templates/appheader.ftl"/>
-                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
-                <set field="parameters.userLogin.userLoginId" from-field="userLogin.userLoginId"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
+                <set field="applicationMenuName" value="MyPortalAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://myportal/widget/MyPortalMenus.xml" global="true"/>
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 </entity-one>
@@ -155,15 +145,10 @@ under the License.
 
     <screen name="main">
         <section>
-            <actions>
-                <set field="parameters.parentPortalPageId" value="MYPORTAL"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
-                <set field="headerItem" from-field="parameters.portalPageId"/>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                        <include-screen name="showPortalPageInclude" location="component://common/widget/PortalPageScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
