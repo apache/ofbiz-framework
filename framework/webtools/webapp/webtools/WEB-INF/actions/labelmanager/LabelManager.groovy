@@ -26,4 +26,7 @@ context.labelsList = LabelManagerFactory.getLabelsList();
 context.localesFound = LabelManagerFactory.getLocalesFound();
 context.fileNamesFound = LabelManagerFactory.getFileNamesFound();
 context.componentNamesFound = LabelManagerFactory.getComponentNamesFound();
+context.references = LabelManagerFactory.getReferences();
+context.referencesList = LabelManagerFactory.getReferencesList();
 context.duplicatedLocalesLabels = LabelManagerFactory.getDuplicatedLocalesLabels();
+context.keySeparator = LabelManagerFactory.keySeparator;

@@ -564,16 +564,13 @@
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
-        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
-        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
@@ -1471,6 +1468,10 @@
         <value xml:lang="fr">Nom de fichier</value>
         <value xml:lang="it">Nome File</value>
     </property>
+    <property key="WebtoolsLabelManagerHardcoded">
+        <value xml:lang="en">Hardcoded labels</value>
+        <value xml:lang="it">Label non traducibili</value>
+    </property>
     <property key="WebtoolsLabelManagerKey">
         <value xml:lang="en">Key</value>
         <value xml:lang="fr">Clef</value>
@@ -1501,10 +1502,18 @@
         <value xml:lang="fr">La traduction ${key} existe déjà dans le fichier ${fileName}</value>
         <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
     </property>
+    <property key="WebtoolsLabelManagerReferences">
+        <value xml:lang="en">References</value>
+        <value xml:lang="it">Referenze</value>
+    </property>
     <property key="WebtoolsLabelManagerRemove">
         <value xml:lang="en">Remove Label</value>
         <value xml:lang="fr">Supprimer la traduction</value>
         <value xml:lang="it">Rimuovi label</value>
+    </property>
+    <property key="WebtoolsLabelManagerRow">
+        <value xml:lang="en">Row n.</value>
+        <value xml:lang="it">N.riga</value>
     </property>
     <property key="WebtoolsLabelManagerSearchBy">
         <value xml:lang="en">Filter Labels Info By</value>
@@ -1672,6 +1681,14 @@
         <value xml:lang="th">หน่วยความจำ</value>
         <value xml:lang="zh">内存</value>
     </property>
+    <property key="WebtoolsMessage1">
+        <value xml:lang="en">This page can be used to export data from the database </value>
+        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base</value>
+        <value xml:lang="it">Questa pagine può essere usata per esportare i dati dal database</value>
+        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database</value>
+        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูล</value>
+        <value xml:lang="zh">本页面用于从数据库导出数据 </value>
+    </property>
     <property key="WebtoolsMessage10">
         <value xml:lang="en">number of time the job will retry on error; use -1 for no limit or leave empty for service default</value>
         <value xml:lang="fr">Nombre de fois où le job sera relancé en cas d'erreur; utilisez -1 pour ne définir aucune limite ou laissez vide pour utilisez la valeur par défaut du service</value>
@@ -1750,13 +1767,13 @@
         <value xml:lang="it">Scritti XML per tutti i dati in</value>
         <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน</value>
     </property>
-    <property key="WebtoolsMessage1">
-        <value xml:lang="en">This page can be used to export data from the database </value>
-        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base</value>
-        <value xml:lang="it">Questa pagine può essere usata per esportare i dati dal database</value>
-        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database</value>
-        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูล</value>
-        <value xml:lang="zh">本页面用于从数据库导出数据 </value>
+    <property key="WebtoolsMessage2">
+        <value xml:lang="en">The exported documents will have a root tag of "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="fr">Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="it">I documenti esportati avranno un root tag "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="ro">Documentele exportate vor avea un root tag "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="th">การส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="zh">导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签</value>
     </property>
     <property key="WebtoolsMessage20">
         <value xml:lang="en">Wrote</value>
@@ -1819,13 +1836,13 @@
         <value xml:lang="it">NOTA: Questi risultati delle prestazioni potrebbero variare in base ai differenti database,</value>
         <value xml:lang="th">หมายเหตุ:การกระทำเหล่านี้อาจจะเป็นผลให้เกิดการซื้อขายที่ดีสำหรับความแตกต่าง</value>
     </property>
-    <property key="WebtoolsMessage2">
-        <value xml:lang="en">The exported documents will have a root tag of "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="fr">Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="it">I documenti esportati avranno un root tag "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="ro">Documentele exportate vor avea un root tag "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="th">การส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="zh">导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签</value>
+    <property key="WebtoolsMessage3">
+        <value xml:lang="en">There will be one file for each Entity in the configured delegator for this webapp</value>
+        <value xml:lang="fr">Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp</value>
+        <value xml:lang="it">C'è un file per ogni Entità nel delegator configurato per questa applicazione web</value>
+        <value xml:lang="ro">Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
+        <value xml:lang="th">มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
+        <value xml:lang="zh">在为这个应用配置的代表中，会对每个实体有一个文件。</value>
     </property>
     <property key="WebtoolsMessage30">
         <value xml:lang="en">databases, JDBC drivers, JTA implementations (transaction managers), connection pools, </value>
@@ -1846,14 +1863,6 @@
         <value xml:lang="fr">serveur, connections réseaux).</value>
         <value xml:lang="it">server hardware, connessioni di rete).</value>
         <value xml:lang="th">server ฮาร์ดแวร์,เชื่อมโยงเครือข่าย).</value>
-    </property>
-    <property key="WebtoolsMessage3">
-        <value xml:lang="en">There will be one file for each Entity in the configured delegator for this webapp</value>
-        <value xml:lang="fr">Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp</value>
-        <value xml:lang="it">C'è un file per ogni Entità nel delegator configurato per questa applicazione web</value>
-        <value xml:lang="ro">Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
-        <value xml:lang="th">มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
-        <value xml:lang="zh">在为这个应用配置的代表中，会对每个实体有一个文件。</value>
     </property>
     <property key="WebtoolsMessage4">
         <value xml:lang="en">Complete XML document (root tag: entity-engine-xml)</value>
@@ -2299,6 +2308,12 @@
         <value xml:lang="th">Pop up หน้าหลักเครื่องมือพัฒนาเว็บ</value>
         <value xml:lang="zh">弹出Web工具首页</value>
     </property>
+    <property key="WebtoolsPreConfiguredSet">
+        <value xml:lang="en">Pre-configured set</value>
+        <value xml:lang="fr">Ensemble pré-configuré</value>
+        <value xml:lang="it">Impostazioni Pre-configurate</value>
+        <value xml:lang="th">ตั้งค่าก่อนการสร้าง</value>
+    </property>
     <property key="WebtoolsPreConfiguredSet1">
         <value xml:lang="en">Catalog Export</value>
         <value xml:lang="fr">Exporter le catalogue</value>
@@ -2328,12 +2343,6 @@
         <value xml:lang="fr">Produit Partie 4</value>
         <value xml:lang="it">Prodotti Parte 4</value>
         <value xml:lang="th">สินค้าส่วนที่ 4</value>
-    </property>
-    <property key="WebtoolsPreConfiguredSet">
-        <value xml:lang="en">Pre-configured set</value>
-        <value xml:lang="fr">Ensemble pré-configuré</value>
-        <value xml:lang="it">Impostazioni Pre-configurate</value>
-        <value xml:lang="th">ตั้งค่าก่อนการสร้าง</value>
     </property>
     <property key="WebtoolsPriority">
         <value xml:lang="de">Dringlichkeit</value>
@@ -3069,6 +3078,14 @@
         <value xml:lang="th">การเลือกระดับในการกำหนดเวลาที่เหมาะสมที่สุดโดยข้อมูลจำนวนมากผลลัพธ์ที่ได้จะใช้แก้ไขข้อผิดพลาดของแอพพลิเคชั่น</value>
         <value xml:lang="zh">Timing（定时）级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
     </property>
+    <property key="WebtoolsTitle">
+        <value xml:lang="en">Title</value>
+        <value xml:lang="fr">Titre</value>
+        <value xml:lang="it">Titolo</value>
+        <value xml:lang="ro">Titlu</value>
+        <value xml:lang="th">หัวเรื่อง</value>
+        <value xml:lang="zh">标题</value>
+    </property>
     <property key="WebtoolsTitle1">
         <value xml:lang="en">The purpose of this Web Tools administration package is to contain all of the</value>
         <value xml:lang="fr">Le but de cet d'ensemble d'outils Web d'administration est de contenir tout les outils</value>
@@ -3116,14 +3133,6 @@
         <value xml:lang="ro">gestiune continuturi, analiza date, si asa mai departe</value>
         <value xml:lang="th">ความพึงพอใจและความรู้ความสามารถในการจัดการ วิเคราะห์ข้อมูล พัฒนาไปข้างหน้าอย่างเต็มที่</value>
         <value xml:lang="zh">内容和知识管理、数据分析等。</value>
-    </property>
-    <property key="WebtoolsTitle">
-        <value xml:lang="en">Title</value>
-        <value xml:lang="fr">Titre</value>
-        <value xml:lang="it">Titolo</value>
-        <value xml:lang="ro">Titlu</value>
-        <value xml:lang="th">หัวเรื่อง</value>
-        <value xml:lang="zh">标题</value>
     </property>
     <property key="WebtoolsToFindAll">
         <value xml:lang="en">To find ALL of Entity</value>
