@@ -18,13 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.content.data;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -41,6 +49,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -51,9 +60,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.common.email.NotificationServices;
 import org.ofbiz.content.content.UploadContentAndImage;
-import org.ofbiz.content.email.NotificationServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -69,7 +77,6 @@ import org.xml.sax.SAXException;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import javolution.util.FastMap;
 
 /**
  * DataResourceWorker Class

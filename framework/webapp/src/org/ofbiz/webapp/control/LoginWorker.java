@@ -49,7 +49,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.StringUtil.StringWrapper;
-import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -57,6 +56,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
@@ -634,7 +634,7 @@ public class LoginWorker {
                     userLogin.store();
 
                     // login the user
-                    Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                    Map<String, Object> ulSessionMap = LoginWorker.getUserLoginSession(userLogin);
                     return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
                 }
             }
@@ -748,7 +748,7 @@ public class LoginWorker {
                                         userLogin.store();
 
                                         // login the user
-                                        Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                                        Map<String, Object> ulSessionMap = LoginWorker.getUserLoginSession(userLogin);
                                         return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
                                     }
                                 }
@@ -871,5 +871,25 @@ public class LoginWorker {
         }
 
         return true;
+    }
+
+    public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {
+        GenericDelegator delegator = userLogin.getDelegator();
+        GenericValue userLoginSession;
+        Map<String, Object> userLoginSessionMap = null;
+        try {
+            userLoginSession = userLogin.getRelatedOne("UserLoginSession");
+            if (userLoginSession != null) {
+                Object deserObj = XmlSerializer.deserialize(userLoginSession.getString("sessionData"), delegator);
+                //don't check, just cast, if it fails it will get caught and reported below; if (deserObj instanceof Map)
+                userLoginSessionMap = checkMap(deserObj, String.class, Object.class);
+            }
+        } catch (GenericEntityException ge) {
+            Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " +
+                    userLogin.getString("userLoginId"), module);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
+        }
+        return userLoginSessionMap;
     }
 }
