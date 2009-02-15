@@ -245,7 +245,7 @@ public class UtilHttp {
     
     public static String canonicalizeParameter(String paramValue) {
         try {
-            if (paramValue.contains(":\\")) {
+            if (paramValue.startsWith(":\\", 1)) { // This allows to use Windows paths from input fields
                 paramValue = paramValue.replace("\\", "/");
             }
             String cannedStr = StringUtil.defaultWebEncoder.canonicalize(paramValue, StringUtil.esapiCanonicalizeStrict);
