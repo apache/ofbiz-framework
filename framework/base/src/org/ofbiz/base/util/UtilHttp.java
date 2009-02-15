@@ -245,6 +245,9 @@ public class UtilHttp {
     
     public static String canonicalizeParameter(String paramValue) {
         try {
+            if (paramValue.contains(":\\")) {
+                paramValue = paramValue.replace("\\", "/");
+            }
             String cannedStr = StringUtil.defaultWebEncoder.canonicalize(paramValue, StringUtil.esapiCanonicalizeStrict);
             if (Debug.verboseOn()) Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
             return cannedStr;
