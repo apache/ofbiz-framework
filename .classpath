@@ -135,7 +135,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.15.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4.jar"/>    
+	<classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
@@ -145,7 +145,6 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/fop-0.94.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.93.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-java5-1.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-util-1.0.1.jar"/>
@@ -153,5 +152,8 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
+	<classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/fop-0.94.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/nekohtml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

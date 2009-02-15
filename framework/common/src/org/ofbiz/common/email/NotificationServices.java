@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.content.email;
+package org.ofbiz.common.email;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.InetAddress;
@@ -28,8 +27,6 @@ import java.net.UnknownHostException;
 import java.util.Map;
 
 import javolution.util.FastMap;
-
-import freemarker.template.TemplateException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -45,6 +42,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+
+import freemarker.template.TemplateException;
 
 /**
  * Provides generic services related to preparing and

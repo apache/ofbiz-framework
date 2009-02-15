@@ -32,7 +32,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -43,7 +42,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
@@ -52,6 +50,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.control.LoginWorker;
 
 /**
  * <b>Title:</b> Login Services
@@ -198,7 +197,7 @@ public class LoginServices {
 
                             if (!isServiceAuth) {
                                 // get the UserLoginSession if this is not a service auth
-                                Map userLoginSessionMap = getUserLoginSession(userLogin);
+                                Map userLoginSessionMap = LoginWorker.getUserLoginSession(userLogin);
                                 GenericValue userLoginSession = null;
 
                                 // return the UserLoginSession Map
@@ -899,25 +898,5 @@ public class LoginServices {
         }
         
         return hashType;
-    }
-
-    public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {
-        GenericDelegator delegator = userLogin.getDelegator();
-        GenericValue userLoginSession;
-        Map<String, Object> userLoginSessionMap = null;
-        try {
-            userLoginSession = userLogin.getRelatedOne("UserLoginSession");
-            if (userLoginSession != null) {
-                Object deserObj = XmlSerializer.deserialize(userLoginSession.getString("sessionData"), delegator);
-                //don't check, just cast, if it fails it will get caught and reported below; if (deserObj instanceof Map)
-                userLoginSessionMap = checkMap(deserObj, String.class, Object.class);
-            }
-        } catch (GenericEntityException ge) {
-            Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " +
-                    userLogin.getString("userLoginId"), module);
-        } catch (Exception e) {
-            Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
-        }
-        return userLoginSessionMap;
     }
 }

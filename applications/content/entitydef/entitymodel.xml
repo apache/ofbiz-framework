@@ -36,6 +36,7 @@ under the License.
   <!--  - org.ofbiz.content.content -->
   <!--  - org.ofbiz.content.data -->
   <!--  - org.ofbiz.content.document -->
+  <!--  - org.ofbiz.content.email -->
   <!--  - org.ofbiz.content.preference -->
   <!--  - org.ofbiz.content.survey -->
   <!--  - org.ofbiz.content.website -->
@@ -1123,7 +1124,7 @@ under the License.
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.preference -->
   <!-- ========================================================= -->
-
+    
     <entity entity-name="WebPreferenceType"
             package-name="org.ofbiz.content.preference"
             title="Web Preference Type Entity">
