@@ -1266,6 +1266,10 @@
         <value xml:lang="th">ค้นหาส่วนของกลุ่ม</value>
         <value xml:lang="zh">查找分区组</value>
     </property>
+    <property key="PageTitleFindTrackingCode">
+        <value xml:lang="en">Find Tracking Code</value>
+        <value xml:lang="it">Ricerca codice tracciatura</value>
+    </property>
     <property key="PageTitleFindTrackingCodeOrder">
         <value xml:lang="en">Find Tracking Code Orders</value>
         <value xml:lang="es">Buscar órdenes de seguimiento</value>
@@ -1274,6 +1278,10 @@
         <value xml:lang="ro">Cauta Coduri Comenzi Traseu ?</value>
         <value xml:lang="th">ค้นหารหัส Tracking การสั่งซื้อสินค้า</value>
         <value xml:lang="zh">查找跟踪码订单</value>
+    </property>
+    <property key="PageTitleFindTrackingCodeVisit">
+        <value xml:lang="en">Find Tracking Code Visit</value>
+        <value xml:lang="it">Ricerca codice tracciatura visita</value>
     </property>
     <property key="PageTitleFindTrackingCodeVisits">
         <value xml:lang="en">Find Tracking Code Visits</value>

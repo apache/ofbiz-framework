@@ -186,6 +186,14 @@
         <value xml:lang="it">Approvazioni Contenuto</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
     </property>
+    <property key="ContentCompDocContentRoleEditPage">
+        <value xml:lang="en">Content Role Edit Page</value>
+        <value xml:lang="it">Pagina aggiornamento ruolo contenuto composizione documenti</value>
+    </property>
+    <property key="ContentCompDocCurrentInstance">
+        <value xml:lang="en">Comp Doc Current Instance</value>
+        <value xml:lang="it">Istanza attuale</value>
+    </property>
     <property key="ContentCompDocRev">
         <value xml:lang="de">Ver.</value>
         <value xml:lang="en">rev.</value>
@@ -213,6 +221,10 @@
         <value xml:lang="fr">Révisions</value>
         <value xml:lang="it">Revisioni</value>
         <value xml:lang="th">ปรับปรุงใหม่</value>
+    </property>
+    <property key="ContentCompDocTemplateName">
+        <value xml:lang="en">Comp Doc Template Name</value>
+        <value xml:lang="it">Nome template composizione documenti</value>
     </property>
     <property key="ContentCompDocViewInstances">
         <value xml:lang="de">Instanz Anzeigen</value>
@@ -3591,6 +3603,10 @@
         <value xml:lang="fr">Parcourir les ressources de données utilisant des catégories de données</value>
         <value xml:lang="it">Naviga nelle Risorse Dati usando i Dati Categorie</value>
         <value xml:lang="th">หาแหล่งที่มาของข้อมูลที่ใช้ในหมวดหมู่ของข้อมูล</value>
+    </property>
+    <property key="PageTitleSearchContent">
+        <value xml:lang="en">Search Content</value>
+        <value xml:lang="it">Ricerca contenuti</value>
     </property>
     <property key="PageTitleUploadImageDataResource">
         <value xml:lang="ar">إشحن علويا الصورة</value>

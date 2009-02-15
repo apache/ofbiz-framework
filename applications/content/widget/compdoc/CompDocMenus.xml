@@ -166,7 +166,7 @@ under the License.
         <menu-item name="viewtree" title="View Template Tree">
             <link target="ViewCompDocTemplateTree?rootContentRevisionSeqId=${templateContentRevisionSeqId}&amp;rootContentId=${templateContentId}"/>
         </menu-item>
-        <menu-item name="latest" title="Current Instance CompDoc">
+        <menu-item name="latest" title="${uiLabelMap.ContentCompDocCurrentInstance}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="greater" to-field="rootContentRevisionSeqId"/>
             </condition>

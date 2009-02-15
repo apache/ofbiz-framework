@@ -10260,6 +10260,10 @@
         <value xml:lang="th">รายการสถานะใบกำกับสินค้า</value>
         <value xml:lang="zh">发票角色列表</value>
     </property>
+    <property key="PageTitleListInvoiceTimeEntries">
+        <value xml:lang="en">List Invoice TimeEntries</value>
+        <value xml:lang="it">Lista fatture timbrature</value>
+    </property>
     <property key="PageTitleListInvoices">
         <value xml:lang="de">Rechnungen auflisten</value>
         <value xml:lang="en">List Invoices</value>
@@ -10398,6 +10402,10 @@
         <value xml:lang="ru">Просмотреть бухгалтерскую проводку</value>
         <value xml:lang="th">แสดงรายการบัญชี</value>
         <value xml:lang="zh">浏览财务交易</value>
+    </property>
+    <property key="PageTitleViewGatewayResponse">
+        <value xml:lang="en">View Gateway Response</value>
+        <value xml:lang="it">Mostra risposte gateway</value>
     </property>
     <property key="PageTitleViewGlAccountEntries">
         <value xml:lang="en">View Gl Account Entries</value>

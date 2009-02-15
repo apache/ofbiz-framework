@@ -1290,7 +1290,7 @@ under the License.
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
-                <set field="title" value="CompDoc ContentRole Edit Page"/>
+                <set field="titleProperty" value="ContentCompDocContentRoleEditPage"/>
                 <set field="currentMenuItemName" value="role"/>
                 
                 <set field="defaultContentId" from-field="contentId" from-scope="user"/>

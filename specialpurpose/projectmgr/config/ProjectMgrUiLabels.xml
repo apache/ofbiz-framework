@@ -220,6 +220,14 @@
         <value xml:lang="th">เพิ่มข้อความงาน</value>
         <value xml:lang="zh">增加任务备注</value>
     </property>
+    <property key="PageTitleAddTimesheetEntry">
+        <value xml:lang="en">Add Timesheet Entry</value>
+        <value xml:lang="it">Aggiungi voce timbratura</value>
+    </property>
+    <property key="PageTitleAddTimesheetRole">
+        <value xml:lang="en">Add Timesheet role</value>
+        <value xml:lang="it">Aggiungi ruolo timbratura</value>
+    </property>
     <property key="PageTitleCreateTaskbyRequest">
         <value xml:lang="en">Create a new Task for this Request</value>
         <value xml:lang="fr">Créer une nouvelle tâche pour cette demande</value>
@@ -352,6 +360,10 @@
         <value xml:lang="it">Ore che non sono ancora fatturate</value>
         <value xml:lang="th">ชั่วโมงที่ทำรายการไม่เสร็จ</value>
         <value xml:lang="zh">未开账单的工时</value>
+    </property>
+    <property key="PageTitleListBillingHours">
+        <value xml:lang="en">List Billing Hours</value>
+        <value xml:lang="it">Lista ore da fatturare</value>
     </property>
     <property key="PageTitleListProjectByParty">
         <value xml:lang="en">List Project by Party</value>
