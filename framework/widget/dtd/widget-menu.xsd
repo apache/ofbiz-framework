@@ -45,7 +45,6 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute type="xs:string" name="portal-page"/>
         <xs:attribute type="xs:string" name="title"/>
         <xs:attribute type="xs:string" name="tooltip"/>
         <xs:attribute type="xs:string" name="default-entity-name"/>
@@ -105,6 +104,7 @@ under the License.
     <xs:attributeGroup name="attlist.menu-item">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="parent-portal-page-value"><xs:annotation><xs:documentation>an expanded value of the parentPortalPageId in the Portal entity, will insert buttons using the portalId as the menuitem name portalPageName as the buttom title</xs:documentation></xs:annotation></xs:attribute>
         <xs:attribute type="xs:string" name="tooltip"/>
         <xs:attribute type="xs:string" name="title-style"/>
         <xs:attribute type="xs:string" name="widget-style"/>

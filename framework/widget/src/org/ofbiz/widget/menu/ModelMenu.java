@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.menu.ModelMenuItem.Link;
@@ -138,7 +139,7 @@ public class ModelMenu extends ModelWidget {
                     }
                 }
                 if (parent == null) {
-                    Debug.logError("Failed to find parent menu defenition '" + parentMenu + "' in same document.", module);
+                    Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", module);
                 }
             }
 
@@ -147,7 +148,6 @@ public class ModelMenu extends ModelWidget {
                 this.target = parent.target;
                 this.id = parent.id;
                 this.title = parent.title;
-                this.tooltip = parent.tooltip;
                 this.tooltip = parent.tooltip;
                 this.defaultEntityName = parent.defaultEntityName;
                 this.defaultTitleStyle = parent.defaultTitleStyle;
@@ -250,34 +250,11 @@ public class ModelMenu extends ModelWidget {
             }
         }
 
-        // read in add item defs, add/override one by one using the menuItemList and menuItemMap and add portal pages
+        // read in add item defs, add/override one by one using the menuItemList
         List<? extends Element> itemElements = UtilXml.childElementList(menuElement, "menu-item");
         for (Element itemElement : itemElements) {
-            String portalResource = itemElement.getAttribute("portal-page");
-        	if (UtilValidate.isNotEmpty(portalResource)) {
-  	            ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-        		List <GenericValue> portalPages = null;
-                List exprs = UtilMisc.toList(EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalResource),
-                        EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, portalResource));
-                EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
-        		try {
-        			portalPages = delegator.findList("PortalPage", cond, null, UtilMisc.toList("sequenceNum"), null, false);
-                } catch (GenericEntityException e) {
-                    Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
-                }
-        		for (GenericValue portalPage : portalPages) {
-        			if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-        				modelMenuItem.setName(portalPage.getString("portalPageName"));        			
-        				modelMenuItem.setTitle(portalPage.getString("portalPageName"));        			
-        				modelMenuItem.link = new Link(itemElement, modelMenuItem);
-        				modelMenuItem.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId"));
-        				modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
-        			}
-        		}
-        	} else {
-                ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-        		modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
-        	}
+            ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
+            modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
         }
     }
     /**
@@ -363,11 +340,61 @@ public class ModelMenu extends ModelWidget {
         // render formatting wrapper open
         menuStringRenderer.renderFormatSimpleWrapperOpen(writer, context, this);
 
-            //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
+        //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
         // render each menuItem row, except hidden & ignored rows
+        // include portal pages if specified
         //menuStringRenderer.renderFormatSimpleWrapperRows(writer, context, this);
         for (ModelMenuItem item : this.menuItemList) {
-            item.renderMenuItemString(writer, context, menuStringRenderer);
+            String parentPortalPageId = item.getParentPortalPageId(context);
+            if (UtilValidate.isNotEmpty(parentPortalPageId)) {
+                List <GenericValue> portalPages = null;
+                try {
+                    // first get public pages
+                    EntityCondition cond = 
+                        EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                            EntityCondition.makeCondition(UtilMisc.toList(
+                                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
+                                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                                    EntityOperator.OR)),
+                            EntityOperator.AND);
+                    portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    // replace with private pages
+                       for (GenericValue portalPage : portalPages) {
+                           cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                      EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                                      EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
+                                   EntityOperator.AND);
+                           List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                        if (UtilValidate.isNotEmpty(privatePortalPages)) {
+                            portalPages.remove(portalPage);
+                            portalPages.add(privatePortalPages.get(0));
+                        }
+                    } 
+                    // add any other created private pages
+                        cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                   EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                                   EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
+                                   EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                                EntityOperator.AND);
+                        portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
+                    portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
+                } catch (GenericEntityException e) {
+                    Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
+                }
+                for (GenericValue portalPage : portalPages) {
+                    if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
+                        item.setName(portalPage.getString("portalPageId"));                    
+                        item.setTitle(portalPage.getString("portalPageName"));                    
+                        item.link = new Link(item);
+                        item.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId") + "&parentPortalPageId=" + parentPortalPageId);
+                        item.renderMenuItemString(writer, context, menuStringRenderer);
+                    }
+                }
+            } else {
+                item.renderMenuItemString(writer, context, menuStringRenderer);
+            }
         }
         // render formatting wrapper close
         menuStringRenderer.renderFormatSimpleWrapperClose(writer, context, this);

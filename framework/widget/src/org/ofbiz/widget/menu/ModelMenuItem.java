@@ -50,6 +50,7 @@ public class ModelMenuItem {
     protected String entityName;
     protected FlexibleStringExpander title;
     protected FlexibleStringExpander tooltip;
+    protected FlexibleStringExpander parentPortalPageId;
     protected String titleStyle;
     protected String disabledTitleStyle;
     protected String widgetStyle;
@@ -102,6 +103,7 @@ public class ModelMenuItem {
         this.entityName = fieldElement.getAttribute("entity-name");
         this.setTitle(fieldElement.getAttribute("title"));
         this.setTooltip(fieldElement.getAttribute("tooltip"));
+        this.setParentPortalPageId(fieldElement.getAttribute("parent-portal-page-value"));
         this.titleStyle = fieldElement.getAttribute("title-style");
         this.disabledTitleStyle = fieldElement.getAttribute("disabled-title-style");
         this.widgetStyle = fieldElement.getAttribute("widget-style");
@@ -217,19 +219,17 @@ public class ModelMenuItem {
          return this.disabled;   
     }
 
-    public void mergeOverrideModelMenuItem(ModelMenuItem overrideModelMenuItem) {
-        if (overrideModelMenuItem == null)
+    public void mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
+        if (overrideMenuItem == null)
             return;
-/*
+
         // incorporate updates for values that are not empty in the overrideMenuItem
         if (UtilValidate.isNotEmpty(overrideMenuItem.name))
             this.name = overrideMenuItem.name;
         if (UtilValidate.isNotEmpty(overrideMenuItem.entityName))
             this.entityName = overrideMenuItem.entityName;
-        if (overrideMenuItem.entryAcsr != null && !overrideMenuItem.entryAcsr.isEmpty())
-            this.entryAcsr = overrideMenuItem.entryAcsr;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.attributeName))
-            this.attributeName = overrideMenuItem.attributeName;
+        if (UtilValidate.isNotEmpty(overrideMenuItem.parentPortalPageId))
+            this.parentPortalPageId = overrideMenuItem.parentPortalPageId;
         if (overrideMenuItem.title != null && !overrideMenuItem.title.isEmpty())
             this.title = overrideMenuItem.title;
         if (overrideMenuItem.tooltip != null && !overrideMenuItem.tooltip.isEmpty())
@@ -242,7 +242,7 @@ public class ModelMenuItem {
             this.widgetStyle = overrideMenuItem.widgetStyle;
         if (overrideMenuItem.position != null)
             this.position = overrideMenuItem.position;
-*/
+
     }
 
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
@@ -345,6 +345,13 @@ public class ModelMenuItem {
         }
     }
 
+    public void setParentPortalPageId(String string) {
+        this.parentPortalPageId = FlexibleStringExpander.getInstance(string);
+    }
+
+    public String getParentPortalPageId(Map<String, Object> context) {
+    	return this.parentPortalPageId.expandString(context);
+    }
 
     public String getWidgetStyle() {
         if (UtilValidate.isNotEmpty(this.widgetStyle)) {
@@ -418,7 +425,6 @@ public class ModelMenuItem {
     public void setTooltip(String string) {
         this.tooltip = FlexibleStringExpander.getInstance(string);
     }
-
 
     /**
      * @param string
@@ -541,13 +547,23 @@ public class ModelMenuItem {
             if (imageElement != null) {
                 this.image = new Image(imageElement);
             }
-
         }
 
-        // create link only for portal page
         public Link(ModelMenuItem parentMenuItem) {
+
             this.linkMenuItem = parentMenuItem;
-        }        
+            setText("");
+            setId("");
+            setStyle("");
+            setTarget("");
+            setTargetWindow("");
+            setPrefix("");
+            setUrlMode("");
+            setFullPath("");
+            setSecure("");
+            setEncode("");
+            setName("");
+        }
 
         public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
             menuStringRenderer.renderLink(writer, context, this);

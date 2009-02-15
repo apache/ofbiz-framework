@@ -25,18 +25,28 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ShowPortalPage.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ManagePortalPages">
         <section>
             <actions>

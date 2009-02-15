@@ -27,6 +27,10 @@
     
     <description>Show personal information in the system</description>
     
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="request-redirect-noparam" value="showPortalPage"/>
+    </request-map>
     <request-map uri="newRegisterLogin">
         <security https="true" auth="false"/>
         <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
@@ -105,7 +109,7 @@
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEvent"/>
         <response name="success" type="request" value="myCommunications"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request-redirect" value="showPortalPage"/>
     </request-map>
     <request-map uri="deletePartyCommunicationEvent">
         <security https="true" auth="true"/>
@@ -140,7 +144,7 @@
         <security https="true" auth="true"/>
         <event type="service" invoke="setCommunicationEventRoleStatus"/>
         <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
     </request-map>
     <request-map uri="ViewCommunicationEvent">
         <security https="true" auth="true"/>
@@ -161,19 +165,19 @@
         <security https="true" auth="true"/>
         <event type="simple" invoke="createCommunicationEventRoles" path="org/ofbiz/myportal/Events.xml"/>
         <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
     </request-map>
     
     <request-map uri="getToNextDonePage">
         <security https="true" auth="true"/>
         <event type="simple" invoke="getToNextDonePage" path="org/ofbiz/myportal/Events.xml"/>
-        <response name="main" type="request" value="main"/>
+        <response name="main" type="request-redirect" value="showPortalPage"/>
         <response name="ViewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
         <response name="otherCommunications" type="request" value="otherCommunications"/>
         <response name="myTimesheet" type="request" value="myTimesheet"/>
         <response name="myTasks" type="request" value="myTasks"/>
         <response name="myCompanyComms" type="request" value="myCompanyComms"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
     </request-map>
     
     <!-- Create Customer Request-->
@@ -184,7 +188,7 @@
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
-        <response name="success" type="view" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="updateRequest">

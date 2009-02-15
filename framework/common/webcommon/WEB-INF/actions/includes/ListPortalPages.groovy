@@ -22,7 +22,6 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 // only execute when a user is logged in
 if (parameters.userLogin) {
-    // find 
     userLoginSecurityGroupId = null;
     condSec = EntityCondition.makeCondition([
                   EntityCondition.makeCondition("groupId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
@@ -34,7 +33,7 @@ if (parameters.userLogin) {
         userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
     }
 
-    //get the portal page
+    //get the portal mainpage
     cond1 = EntityCondition.makeCondition([
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
             EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, userLoginSecurityGroupId),
@@ -45,7 +44,7 @@ if (parameters.userLogin) {
     if (portalMainPages) {
         parentPortalPageId = portalMainPages.get(0).portalPageId;
     }
-
+    // get user and system pages
     ppCond = 
             EntityCondition.makeCondition([
                 EntityCondition.makeCondition([
@@ -72,6 +71,5 @@ if (parameters.userLogin) {
     
     context.portalPages = portalPages;
     context.userLoginSecurityGroupId = userLoginSecurityGroupId;
-    parameters.parentPortalPageId = parentPortalPageId
 }
 
