@@ -81,6 +81,17 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="sendMailFromTemplateSetting" engine="simple"
+        location="org/ofbiz/common/email/EmailServices.xml" invoke="sendMailFromTemplateSetting">
+        <description>Send Email From Email Template Setting Service</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
+        <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="false"/>
+    </service>
     
     <service name="prepareNotificationInterface" engine="interface"
             location="" invoke="">

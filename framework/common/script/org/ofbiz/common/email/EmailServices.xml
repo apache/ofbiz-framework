@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="sendMailFromTemplateSetting" short-description="Send Mail from Email Template Setting">
+        <entity-one entity-name="EmailTemplateSetting" value-field="emailTemplateSetting"/>
+        
+        <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
+        <set field="emailParams.xslfoAttachScreenLocation" from-field="emailTemplateSetting.xslfoAttachScreenLocation"/>
+        <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
+        <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
+        <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
+        <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>
+        <set field="emailParams.contentType" from-field="emailTemplateSetting.contentType" default-value="text/html"/>
+
+        <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
+        <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
+        
+        <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
+            <result-to-result result-name="body"/>
+        </call-service>
+    </simple-method>
+</simple-methods>
