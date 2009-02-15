@@ -22,19 +22,18 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 
 // executes only on startup when no parameters.portalPageId is available
-if (parameters.parentPortalPageId && !parameters.portalPageId) {
+if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
 	// look for system page according the current securitygroup
 	//get the security group
 	userLoginSecurityGroupId = null;
 	condSec = EntityCondition.makeCondition([
 			EntityCondition.makeCondition("groupId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
-			EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId)
+			EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
 			],EntityOperator.AND);
 	userLoginSecurityGroups = delegator.findList("UserLoginSecurityGroup", condSec, null, null, null, false);
 	if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
 		userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
 	}
-	Debug.log("=====security group found: " + userLoginSecurityGroupId);
 	//get the portal page
 	cond1 = EntityCondition.makeCondition([
 			EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
@@ -45,7 +44,6 @@ if (parameters.parentPortalPageId && !parameters.portalPageId) {
 	portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
 	if (portalMainPages) {
 		portalPage = portalMainPages.get(0);
-		Debug.log("=====page found: " + portalPage.portalPageId);
 		if ("_NA_".equals(portalPage.ownerUserLoginId)) {
 			context.parameters.parentPortalPageId = portalPage.portalPageId;
 		} else {
