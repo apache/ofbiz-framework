@@ -194,7 +194,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditTrackingCodeOder}"/>
+                                    <label text="${uiLabelMap.PageTitleEditTrackingCodeOrder}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">

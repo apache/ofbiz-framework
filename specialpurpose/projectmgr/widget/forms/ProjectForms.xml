@@ -661,8 +661,8 @@
         <field name="invoiceId"><hidden/></field>
         <field name="reCreate" position="1" title="re-create Invoice: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
             <drop-down no-current-selected-key="N">
-                <option key="Y" description="Yes"/>
-                <option key="N" description="No"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
            </field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>

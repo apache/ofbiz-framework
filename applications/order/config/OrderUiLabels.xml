@@ -762,6 +762,10 @@
         <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>
     </property>
+    <property key="FormFieldTitle_salesChannelEnumId">
+        <value xml:lang="en">Sales Channel Enum Id</value>
+        <value xml:lang="it">Canale di vendita</value>
+    </property>
     <property key="FormFieldTitle_salesTaxAmount">
         <value xml:lang="de">Verkaufssteuern Betrag</value>
         <value xml:lang="en">Sales Tax Amount</value>
@@ -9661,6 +9665,14 @@
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">你的价格</value>
     </property>
+    <property key="PageTitleApprovedProductRequirements">
+        <value xml:lang="en">Approved Product Requirements</value>
+        <value xml:lang="it">Approva fabbisogni prodotto</value>
+    </property>
+    <property key="PageTitleApprovedProductRequirementsByVendor">
+        <value xml:lang="en">Approved Product Requirements By Vendor</value>
+        <value xml:lang="it">Approva fabbisogni prodotto per fornitore</value>
+    </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="de">Neue Offerte und Offertelement für Kundenanfrage erstellen</value>
         <value xml:lang="en">Create a new Quote and QuoteItem for a CustRequest</value>
@@ -9673,6 +9685,10 @@
         <value xml:lang="th">สร้างคำร้องใหม่และหัวข้อคำร้องสำหรับการร้องขอของลูกค้า</value>
         <value xml:lang="zh">为客户请求新建询价和询价明细</value>
     </property>
+    <property key="PageTitleEditOrderHeader">
+        <value xml:lang="en">Edit Order Header</value>
+        <value xml:lang="it">Aggiorna testata ordine</value>
+    </property>
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="de">Offertelement für Kundenanfrage bearbeiten</value>
         <value xml:lang="en">Edit a QuoteItem For a CustRequest</value>
@@ -9684,6 +9700,10 @@
         <value xml:lang="ru">Изменить позиции предложения по запросу клиента</value>
         <value xml:lang="th">แก้ไขหัวข้อคำร้องสำหรับการร้องขอของลูกค้า</value>
         <value xml:lang="zh">为客户请求编辑询价明细</value>
+    </property>
+    <property key="PageTitleEditRequestContent">
+        <value xml:lang="en">Edit Request Content</value>
+        <value xml:lang="it">Aggiorna contenuto richiesta</value>
     </property>
     <property key="PageTitleEditRequestItem">
         <value xml:lang="de">Anfrageelemen bearbeiten</value>
@@ -9728,6 +9748,10 @@
         <value xml:lang="ru">Изменить требование</value>
         <value xml:lang="th">แก้ไขสิ่งที่ต้องการ</value>
         <value xml:lang="zh">编辑需求</value>
+    </property>
+    <property key="PageTitleEditRequirementRole">
+        <value xml:lang="en">Edit Requirement Role</value>
+        <value xml:lang="it">Aggiorna ruolo fabbisogno</value>
     </property>
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="de">Genehmigten Bedarf suchen</value>
@@ -9776,6 +9800,10 @@
         <value xml:lang="ru">Найти возврат</value>
         <value xml:lang="th">ค้นหาผลตอบแทน</value>
         <value xml:lang="zh">查找退货</value>
+    </property>
+    <property key="PageTitleListOrderHeaders">
+        <value xml:lang="en">List Order Headers</value>
+        <value xml:lang="it">Lista testate ordini</value>
     </property>
     <property key="PageTitleListRequirementCustRequests">
         <value xml:lang="de">Liste Bedarf Kundenanfragen</value>
@@ -10049,6 +10077,10 @@
         <value xml:lang="ru">Список возврата</value>
         <value xml:lang="th">กลับสู่รายการ</value>
         <value xml:lang="zh">退货列表</value>
+    </property>
+    <property key="PageTitleShoppingListItem">
+        <value xml:lang="en">Shopping List Item</value>
+        <value xml:lang="it">Riga lista d'acquisto</value>
     </property>
     <property key="PageTitleViewRequest">
         <value xml:lang="de">Anfrage anzeigen</value>

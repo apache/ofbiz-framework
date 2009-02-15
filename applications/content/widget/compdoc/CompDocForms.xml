@@ -290,7 +290,7 @@ under the License.
     
     <form name="AddRootCompDocTemplate" default-map-name="" type="single" target="createRootCompDocTemplate"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentName" title="CompDoc Template Name"><text/></field>
+        <field name="contentName" title="${uiLabelMap.ContentCompDocTemplateName}"><text/></field>
         <field name="contentTypeId" map-name="dummy"><hidden value="COMPDOC_TEMPLATE"/></field>
         <field name="rootTemplateContentId"><hidden/></field>
         <field name="rootTemplateRevSeqId"><hidden/></field>

@@ -4240,12 +4240,16 @@
         <value xml:lang="th">แก้ไขลักษณะหมวดหมู่</value>
         <value xml:lang="zh">编辑特征分类特征</value>
     </property>
+    <property key="PageTitleEditFeatureInterAction">
+        <value xml:lang="en">Edit Feature InterAction</value>
+        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
+    </property>
     <property key="PageTitleEditFeatureInterActions">
         <value xml:lang="de">Merkmal Interaktionen bearbeiten</value>
         <value xml:lang="en">Edit Feature InterActions</value>
         <value xml:lang="es">Editar características</value>
         <value xml:lang="fr">Modifier les interactions entre caractéristiques</value>
-        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
+        <value xml:lang="it">Aggiorna caratteristiche interattive</value>
     </property>
     <property key="PageTitleEditFeaturePrice">
         <value xml:lang="de">Merkmal Preis bearbeiten</value>

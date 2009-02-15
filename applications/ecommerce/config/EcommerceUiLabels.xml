@@ -3683,4 +3683,8 @@
         <value xml:lang="th">ดูประวัติ</value>
         <value xml:lang="zh">浏览简介</value>
     </property>
+    <property key="PageTitleViewQuote">
+        <value xml:lang="en">View Quote</value>
+        <value xml:lang="it">Mostra preventivo</value>
+    </property>
 </resource>
