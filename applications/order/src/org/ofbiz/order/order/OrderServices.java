@@ -1272,8 +1272,27 @@ public class OrderServices {
             // get the new grand total
             BigDecimal updatedTotal = orh.getOrderGrandTotal();
 
-            // calculate subTotal as grandTotal - returnsTotal - (tax + shipping of items not returned)
-            BigDecimal remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotal()).subtract(orh.getOrderNonReturnedTaxAndShipping());
+            String productStoreId = orderHeader.getString("productStoreId");
+            String showPricesWithVatTax = null;
+            if (UtilValidate.isNotEmpty(productStoreId)) {
+                GenericValue productStore = null;
+                try {
+                    productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+                } catch (GenericEntityException e) {
+                    String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorCouldNotFindProductStoreWithID", UtilMisc.toMap("productStoreId", productStoreId), (Locale) context.get("locale")) + e.toString();
+                    Debug.logError(e, errorMessage, module);
+                    return ServiceUtil.returnError(errorMessage + e.getMessage() + ").");
+                }                
+                showPricesWithVatTax  = productStore.getString("showPricesWithVatTax");
+            }
+            BigDecimal remainingSubTotal = ZERO;
+            if (UtilValidate.isNotEmpty(productStoreId) && "Y".equalsIgnoreCase(showPricesWithVatTax)) {
+                // calculate subTotal as grandTotal + taxes - (returnsTotal + shipping of all items)
+                remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotal()).subtract(orh.getShippingTotal());                
+            } else {
+                // calculate subTotal as grandTotal - returnsTotal - (tax + shipping of items not returned)
+                remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotal()).subtract(orh.getOrderNonReturnedTaxAndShipping());
+            }
 
             if (currentTotal == null || currentSubTotal == null || updatedTotal.compareTo(currentTotal) != 0 ||
                     remainingSubTotal.compareTo(currentSubTotal) != 0) {
@@ -3352,7 +3371,7 @@ public class OrderServices {
         Map itemPriceMap = (Map) context.get("itemPriceMap");
         Map itemQtyMap = (Map) context.get("itemQtyMap");
         Map itemReasonMap = (Map) context.get("itemReasonMap");
-        Map itemCommentMap = (Map) context.get("itemCommentMap");    
+        Map itemCommentMap = (Map) context.get("itemCommentMap");
         Map itemAttributesMap = (Map) context.get("itemAttributesMap");
 
         // obtain a shopping cart object for updating
@@ -3519,6 +3538,28 @@ public class OrderServices {
         return result;
     }
     
+    public static Map loadCartForUpdate(DispatchContext dctx, Map context){
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        String orderId = (String) context.get("orderId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        ShoppingCart cart = null;
+        Map result = null;
+        try {
+            cart = loadCartForUpdate(dispatcher, delegator, userLogin, orderId); 
+            result = ServiceUtil.returnSuccess();
+            result.put("shoppingCart", cart);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            result = ServiceUtil.returnError(e.getMessage());
+        } 
+        
+        result.put("orderId", orderId);
+        return result;
+    }
+
     /*
      *  Warning: loadCartForUpdate(...) and saveUpdatedCartToOrder(...) must always
      *           be used together in this sequence.
@@ -3683,6 +3724,31 @@ public class OrderServices {
         }
 
         return cart;
+    }
+
+    public static Map saveUpdatedCartToOrder(DispatchContext dctx, Map context) throws GeneralException {
+        
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        String orderId = (String) context.get("orderId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        Map changeMap = (Map) context.get("changeMap");
+        Locale locale = (Locale) context.get("locale");
+        
+        Map result = null;
+        try {
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap);
+            result = ServiceUtil.returnSuccess();
+            //result.put("shoppingCart", cart);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            result = ServiceUtil.returnError(e.getMessage());
+        } 
+        
+        result.put("orderId", orderId);
+        return result;
     }
 
     private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap) throws GeneralException {
