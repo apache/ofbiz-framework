@@ -32,9 +32,14 @@ under the License.
                         <section>
                             <actions>
                                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
+                                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-and>
                                 <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
                                     <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                    <order-by field-name="sequenceNum"/>
                                 </entity-and>
                             </actions>
                             <widgets>
@@ -79,7 +84,7 @@ under the License.
                                 </entity-condition>
                             </actions>
                             <widgets>
-                                <screenlet title="Edit portal page: ${portalPage.portalPageName} [${parameters.portalPageId}]">
+                                <screenlet title="Edit portal page: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
                                     <link target="addPortalPageColumn?portalPageId=${portalPage.portalPageId}&amp;parentPortalPageId=${portalPage.parentPortalPageId}" text="${uiLabelMap.CommonAddColumn}" style="buttontext"/>
                                     <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
                                 </screenlet>

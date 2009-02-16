@@ -58,7 +58,7 @@ under the License.
               <div class="portlet-config">
               <div class="portlet-config-title-bar">
                 <ul>
-                  <li class="title">Portlet : ${portlet.portletName}</li>
+                  <li class="title">Portlet : ${portlet.portletName?if_exists} [${portlet.portalPortletId}]</li>
                   <li class="remove"><a href="<@ofbizUrl>deletePortalPagePortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonRemovePortlet}">&nbsp;&nbsp;&nbsp;</a></li>
 
                   <#if (portlet.editFormName?has_content && portlet.editFormLocation?has_content)>
