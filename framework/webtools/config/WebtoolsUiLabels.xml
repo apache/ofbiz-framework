@@ -1502,6 +1502,10 @@
         <value xml:lang="fr">La traduction ${key} existe déjà dans le fichier ${fileName}</value>
         <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
     </property>
+    <property key="WebtoolsLabelManagerOnlyMissingTranslations">
+        <value xml:lang="en">Only Missing Translations</value>
+        <value xml:lang="it">Solo traduzioni mancanti</value>
+    </property>
     <property key="WebtoolsLabelManagerReferences">
         <value xml:lang="en">References</value>
         <value xml:lang="it">Referenze</value>
@@ -1534,6 +1538,14 @@
         <value xml:lang="en">Update Labels Files</value>
         <value xml:lang="fr">Mettre à jour les fichiers de traduction</value>
         <value xml:lang="it">Aggiorna files delle labels</value>
+    </property>
+    <property key="WebtoolsLabelManagerViewFile">
+        <value xml:lang="en">View file</value>
+        <value xml:lang="it">Mostra file</value>
+    </property>
+    <property key="WebtoolsLabelManagerViewReferences">
+        <value xml:lang="en">View Labels References</value>
+        <value xml:lang="it">Mostra referenze labels</value>
     </property>
     <property key="WebtoolsLabelManagerWarningMessage">
         <value xml:lang="en">There are some labels with more than translation for the same language</value>

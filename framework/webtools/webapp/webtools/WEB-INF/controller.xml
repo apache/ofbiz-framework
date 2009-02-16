@@ -489,7 +489,19 @@ under the License.
         <response name="success" type="view" value="SearchLabels"/>
         <response name="error" type="view" value="UpdateLabel"/>
     </request-map>
-
+    
+    <request-map uri="ViewReferences">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewReferences"/>
+        <response name="error" type="view" value="ViewReferences"/>
+    </request-map>
+    
+    <request-map uri="ViewFile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewFile"/>
+        <response name="error" type="view" value="ViewFile"/>
+    </request-map>
+    
     <!-- cert requests -->
     <request-map uri="myCertificates">
         <security https="true"/>
@@ -638,7 +650,9 @@ under the License.
     <!-- Label Manager Views -->
     <view-map name="SearchLabels" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#SearchLabels"/>
     <view-map name="UpdateLabel" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#UpdateLabel"/>
-
+    <view-map name="ViewReferences" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#ViewReferences"/>
+    <view-map name="ViewFile" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#ViewFile"/>
+    
     <!-- Temporal expression views -->
     <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>
     <view-map name="findTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#FindTemporalExpression"/>
