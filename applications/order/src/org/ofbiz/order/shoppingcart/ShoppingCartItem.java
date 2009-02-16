@@ -1178,7 +1178,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         this.setBasePrice(configWrapper.getTotalPrice());
                         // Check if price display with taxes
                         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-                        if (UtilValidate.isNotEmpty(productStore) && productStore.get("showPricesWithVatTax").equals("Y")){
+                        if (UtilValidate.isNotEmpty(productStore) && "Y".equals(productStore.get("showPricesWithVatTax"))){
                             BigDecimal totalPrice = configWrapper.getTotalPrice();
                             // Get Taxes
                             Map totalPriceWithTaxMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPrice, "productId", this.productId, "productStoreId", cart.getProductStoreId()));
