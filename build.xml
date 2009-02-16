@@ -125,14 +125,14 @@ under the License.
         <xmlproperty file="runtime/svninfo_tmp.xml"/>
         <echo message="Rev:${info.entry(revision)}"/>
         <basename property="releasePath" file="${info.entry.url}"/>
-        <echo message=" - Release and revision : ${releasePath} ${info.entry(revision)}" file="runtime/svninfo.ftl"/>
+        <echo message=" - Release.revision : ${releasePath}.${info.entry(revision)}" file="runtime/svninfo.ftl"/>
         <delete file="runtime/svninfo_tmp.xml"/>
         <echo message="Done!"/>
     </target>
 
-    <target name="svninfo-clean">
-        <echo message="Deleting svninfo..."/>
-        <echo message="" file="runtime/svninfo.ftl"/>
+    <target name="clean-svninfo">
+        <echo message="Resetting svninfo..."/>
+        <echo message=" " file="runtime/svninfo.ftl"/>
         <echo message="Done!"/>
     </target>
     
@@ -158,7 +158,7 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="svninfo-clean"></antcall>      
+        <antcall target="clean-svninfo"></antcall>      
         
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
@@ -276,13 +276,13 @@ under the License.
     <!-- Start OFBiz                                                        -->
     <!-- ================================================================== -->
 
-    <target name="run" depends="build">
+    <target name="run">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
         </java>
     </target>
-    <target name="run-pos" depends="build">
+    <target name="run-pos">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
