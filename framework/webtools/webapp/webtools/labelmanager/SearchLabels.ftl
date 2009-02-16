@@ -70,6 +70,15 @@ under the License.
         </td>
       </tr>
       <tr>
+        <td colspan="2">&nbsp;</td>
+        <td align="right" class="label">
+          ${uiLabelMap.WebtoolsLabelManagerOnlyMissingTranslations}
+        </td>
+        <td align="left">
+          <input type="checkbox" name="onlyMissingTranslations" value="Y" <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y">checked</#if>>
+        </td>
+      </tr>
+      <tr>
         <td colspan="4" align="center">
           <#if (duplicatedLocalesLabels > 0)>
             <br/>
