@@ -2541,7 +2541,7 @@
         <value xml:lang="de">An Befragung teilnehmen</value>
         <value xml:lang="en">Take Survey</value>
         <value xml:lang="es">Tome la Encuesta</value>
-        <value xml:lang="fr">"[Enregistrer le commentaire]"</value>
+        <value xml:lang="fr">Répondre au sondage</value>
         <value xml:lang="hi_IN">सर्वे किजीये</value>
         <value xml:lang="it">Rispondi sondaggio</value>
         <value xml:lang="ja">Take Survey</value>
@@ -2825,7 +2825,7 @@
         <value xml:lang="de">Gesendete Anzeigen</value>
         <value xml:lang="en">View Sent</value>
         <value xml:lang="es">Ver enviado y recibido</value>
-        <value xml:lang="fr">Voir ceux envoyés et reçus</value>
+        <value xml:lang="fr">Voir ceux envoyés et ceux reçus</value>
         <value xml:lang="hi_IN">मिला हुआ व भेजा हुआ संदेश देखें</value>
         <value xml:lang="it">Visualizza inviati e ricevuti</value>
         <value xml:lang="ja">View Sent and Received</value>
