@@ -50,6 +50,8 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
 			context.parameters.parentPortalPageId = portalPage.orginalPortalPageId;
 		}
 		context.parameters.portalPageId = portalPage.portalPageId; //make sure we have a starting portalPageId
-		context.headerItem = portalPage.portalPageId; // and the menu item is highlighted
+		if (!context.headerItem) {
+			context.headerItem = portalPage.portalPageId; // and the menu item is highlighted
+		}
 	}
 }
