@@ -142,7 +142,7 @@ under the License.
         <menu-item name="EditBlog" title="${uiLabelMap.CommonEdit}">
             <link target="editBlog?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
-        <menu-item name="Articles" title="${uiLabelMap.ContentBlogActicleList}">
+        <menu-item name="Articles" title="${uiLabelMap.ContentBlogArticleList}">
             <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
         <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">

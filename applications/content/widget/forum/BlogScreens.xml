@@ -168,7 +168,7 @@ under the License.
             <widgets>
                 <decorator-screen name="blogDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ContentBlogActicleList}" navigation-form-name="BlogContent">
+                        <screenlet title="${uiLabelMap.ContentBlogArticleList}" navigation-form-name="BlogContent">
                             <include-form name="BlogContent" location="component://content/widget/forum/BlogForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -237,7 +237,7 @@ under the License.
                         </container>
                         <container style="clear"/>
                         <horizontal-separator/>
-                        <label style="h3" text="${uiLabelMap.ContentBlogActicle}"/>
+                        <label style="h3" text="${uiLabelMap.ContentBlogArticle}"/>
                         <container>
                             <sub-content content-id="${contentId}" map-key="MAIN"/>
                         </container>
