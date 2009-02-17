@@ -3925,7 +3925,7 @@
         <value xml:lang="de">Neue Anlageverwendung</value>
         <value xml:lang="en">New Asset Usage</value>
         <value xml:lang="es">Nuevo uso de activo</value>
-        <value xml:lang="fr">Nouvelle utilisation de capitaux</value>
+        <value xml:lang="fr">Nouvelle utilisation d'un bien immobilisé</value>
         <value xml:lang="it">Nuovo Bene a Noleggio</value>
         <value xml:lang="th">New Asset Usage</value>
     </property>
@@ -8629,6 +8629,10 @@
         <value xml:lang="th">รหัสหน่วยวัดสกุลเงิน</value>
         <value xml:lang="zh">货币币种标识</value>
     </property>
+    <property key="ProductCurrentPackageSequence">
+        <value xml:lang="en">Current package sequence</value>        
+        <value xml:lang="fr">Séquence d'empaquetage actuelle</value>        
+    </property>    
     <property key="ProductCustomer">
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
@@ -12834,6 +12838,10 @@
         <value xml:lang="es">Nuevo método</value>
         <value xml:lang="fr">Nouvelle méthode</value>
         <value xml:lang="it">Nuovo metodo</value>
+    </property>    
+    <property key="ProductNextPackage">
+        <value xml:lang="en">Next Package</value>
+        <value xml:lang="fr">Paquet suivant</value>
     </property>
     <property key="ProductNextShipment">
         <value xml:lang="de">Nächste Lieferung</value>
@@ -15070,6 +15078,10 @@
         <value xml:lang="th">สินค้านี้ไม่ใช่สินค้าสำหรับขาย</value>
         <value xml:lang="zh">这个产品还不可销售</value>
     </property>
+    <property key="ProductProductNumber">
+        <value xml:lang="en">Product #</value>
+        <value xml:lang="fr">N° d'article</value>
+    </property>    
     <property key="ProductProductPage">
         <value xml:lang="de">Produktseite</value>
         <value xml:lang="en">Product Page</value>
