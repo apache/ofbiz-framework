@@ -103,7 +103,7 @@ public class Operator {
         if (OPER_TOTAL[0].equals(fieldName)) {
             String total = "0.00";
             if (trans != null) {
-                total = UtilFormatOut.formatPrice(trans.getTotalDue().doubleValue());
+                total = UtilFormatOut.formatPrice(trans.getTotalDue());
             }
             field.setText(total);
         } else if (OPER_DATE[0].equals(fieldName)) {

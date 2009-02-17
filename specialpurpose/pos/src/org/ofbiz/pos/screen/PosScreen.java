@@ -217,10 +217,10 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
                     output.print(UtilProperties.getMessage(PosTransaction.resource,"PosChange",defaultLocale)
-                            + UtilFormatOut.formatPrice(trans.getTotalDue().negate().doubleValue()));
+                            + UtilFormatOut.formatPrice(trans.getTotalDue().negate()));
                 } else if (input.isFunctionSet("TOTAL")) {
                     if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
-                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosTotalD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue().doubleValue()));
+                        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosTotalD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue()));
                     } else {
                         output.print(UtilProperties.getMessage(PosTransaction.resource,"PosPayFin",defaultLocale));
                     }

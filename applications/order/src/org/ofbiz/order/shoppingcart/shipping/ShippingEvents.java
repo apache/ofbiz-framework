@@ -152,6 +152,10 @@ public class ShippingEvents {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
 
+        if (shipmentMethodTypeId.equals("NO_SHIPPING")){
+                return ServiceUtil.returnSuccess();
+        }
+
         if (shipmentMethodTypeId == null || carrierPartyId == null) {
             if ("SALES_ORDER".equals(orderTypeId)) {
                 errorMessageList.add("Please Select Your Shipping Method.");

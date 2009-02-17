@@ -467,13 +467,13 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("orderId", trans.getOrderId());
         expandMap.put("dateStamp", dateString);
         expandMap.put("drawerNo", Integer.toString(trans.getDrawerNumber()));
-        expandMap.put("taxTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getTaxTotal().doubleValue()), priceLength[type], false, ' '));
-        expandMap.put("grandTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getGrandTotal().doubleValue()), priceLength[type], false, ' '));
-        expandMap.put("totalPayments", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getPaymentTotal().doubleValue()), priceLength[type], false, ' '));
+        expandMap.put("taxTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getTaxTotal()), priceLength[type], false, ' '));
+        expandMap.put("grandTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getGrandTotal()), priceLength[type], false, ' '));
+        expandMap.put("totalPayments", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getPaymentTotal()), priceLength[type], false, ' '));
         expandMap.put("change", UtilFormatOut.padString((trans.getTotalDue().compareTo(BigDecimal.ZERO) < 0 ?
-                UtilFormatOut.formatPrice(trans.getTotalDue().negate().doubleValue()) : "0.00"), priceLength[type], false, ' '));
+                UtilFormatOut.formatPrice(trans.getTotalDue().negate()) : "0.00"), priceLength[type], false, ' '));
         expandMap.put("saleDiscount", UtilFormatOut.padString((trans.GetTotalDiscount().compareTo(BigDecimal.ZERO) != 0 ?
-                UtilFormatOut.formatPrice(trans.GetTotalDiscount().doubleValue()) : "0.00"), priceLength[type], false, ' '));
+                UtilFormatOut.formatPrice(trans.GetTotalDiscount()) : "0.00"), priceLength[type], false, ' '));
 
         return expandMap;
     }

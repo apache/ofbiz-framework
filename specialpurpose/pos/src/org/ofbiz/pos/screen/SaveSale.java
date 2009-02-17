@@ -50,7 +50,7 @@ public class SaveSale extends XPage {
     protected XButton m_save = null;
     protected XButton m_saveAndClear = null;
     // New button for Save and Print funtion
-    protected XButton m_saveAndPrint = null;
+    //protected XButton m_saveAndPrint = null; //FIXME : button does not exist yet
     protected static PosTransaction m_trans = null;
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"PosDateTimeFormat",Locale.getDefault()));
     private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
@@ -73,7 +73,7 @@ public class SaveSale extends XPage {
         m_save = (XButton) m_dialog.findComponent("BtnSave");
         m_saveAndClear = (XButton) m_dialog.findComponent("BtnSaveAndClear");
         // Save and Print
-        m_saveAndPrint = (XButton) m_dialog.findComponent("BtnSaveAndPrint");
+        //m_saveAndPrint = (XButton) m_dialog.findComponent("BtnSaveAndPrint"); //FIXME : button does not exist yet
 
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
         XEventHelper.addMouseHandler(this, m_save, "save");
@@ -144,7 +144,8 @@ public class SaveSale extends XPage {
     private void saveSale(String sale) {
         final ClassLoader cl = this.getClassLoader(m_pos);
         Thread.currentThread().setContextClassLoader(cl);
-        m_trans.saveSale(sale, m_pos);
+        m_trans.saveSale(sale, m_pos);        
+//        m_trans.saveOrder(sale, m_pos); // TODO use order instead of shopping list
         this.m_dialog.closeDlg();
     }
 
