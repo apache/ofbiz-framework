@@ -82,11 +82,11 @@
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
     </property>
-    <property key="ContentBlogActicle">
+    <property key="ContentBlogArticle">
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
     </property>
-    <property key="ContentBlogActicleList">
+    <property key="ContentBlogArticleList">
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
     </property>

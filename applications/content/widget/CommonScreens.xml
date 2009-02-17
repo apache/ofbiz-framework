@@ -290,10 +290,10 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.ContentWelcome}"/>
+                                <label style="boxhead" text="${uiLabelMap.ContentMain}"/>
                             </container>
                             <container style="screenlet-body">
-                                <container><label style="tabletext" text=""/></container>
+                                <container><label style="tabletext" text="${uiLabelMap.ContentWelcome}"/></container>
                             </container>
                         </container>
                     </decorator-section>
