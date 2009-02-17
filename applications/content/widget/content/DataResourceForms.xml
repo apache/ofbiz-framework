@@ -85,7 +85,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
             <field-group>
                 <sort-field name="dataResourceId"/>
@@ -125,15 +125,15 @@ under the License.
         <field name="dataResourceId">
             <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
         </field>
-        <field name="dataResourceName" title="Name"><display/></field>
+        <field name="dataResourceName"><display/></field>
     </form>
     <form name="mruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="contentId" title="Id" widget-style="buttontext">
+        <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
         </field>
-        <field name="dataResourceName" title="Name" widget-style="buttontext"><display/></field>
-        <field name="dataCategoryId" title="Category" widget-style="buttontext"><display/></field>
+        <field name="dataResourceName" widget-style="buttontext"><display/></field>
+        <field name="dataCategoryId" widget-style="buttontext"><display/></field>
     </form>
     <form name="EditDataResource" target="updateDataResource" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
@@ -423,7 +423,7 @@ under the License.
     </form>
     <form name="mruLookupProductFeature" default-entity-name="ProductFeature" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="contentId" title="Id" widget-style="buttontext">
+        <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
         </field>
         <field name="description" title="Name" widget-style="buttontext"><display/></field>

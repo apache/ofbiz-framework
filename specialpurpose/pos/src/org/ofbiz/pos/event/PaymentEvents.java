@@ -176,7 +176,7 @@ public class PaymentEvents {
                     input.clearLastFunction();
                     input.setFunction("SECURITYCODE");
                     input.setFunction("POSTALCODE");
-                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosPostalCodePosProcessing",Locale.getDefault()));
+                    pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosPostalCode",Locale.getDefault()));
                 } else {
                     clearInputPaymentFunctions(pos);
                     input.clearInput();

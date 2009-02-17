@@ -19,11 +19,23 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ProductCreateCommunicationEventProductPermissionError">
+        <value xml:lang="en">Create Communication Event Product Permission Error</value>
+        <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
+    </property>
+    <property key="ProductErrorInventoryItemLabelIdNotFound">
+        <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
+        <value xml:lang="it">Errore riga etichetta inventario non trovata</value>
+    </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
         <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
+    </property>
+    <property key="ProductRemoveCommunicationEventProductPermissionError">
+        <value xml:lang="en">Remove Communication Event Product Permission Error</value>
+        <value xml:lang="it">Errore permesso durante la rimozione dell'evento comunicazione prodotto</value>
     </property>
     <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>

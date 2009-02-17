@@ -618,7 +618,7 @@ under the License.
                         <if-compare field="itemContent.contentTypeId" operator="equals" value="TEMPLATE"/>
                     </condition>
                     <actions>
-                        <set field="title" value="Edit CompDoc Template Part [${contentId}, part of ${rootContentId}]"/>
+                        <set field="title" value="${uiLabelMap.PageTitleEditCompDocTemplate} [${contentId}, part of ${rootContentId}]"/>
                         <set field="childCompDocTarget" value="updateChildCompDocTemplate"/>
                         <set field="contentTypeId" value="TEMPLATE"/>
                     </actions>
@@ -646,8 +646,8 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container>
-                                            <label style="tableheadtext" text="Viewing Revision [${rootContentRevisionSeqId}], Latest is [${mostRecentRevisionSeqId}]"/>
-                                            <link style="buttontext" text="Latest" target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}"></link>
+                                            <label style="tableheadtext" text="${uiLabelMap.ContentCompDocRevisions} [${rootContentRevisionSeqId}], Latest is [${mostRecentRevisionSeqId}]"/>
+                                            <link style="buttontext" text="${uiLabelMap.ContentLatest}" target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}"></link>
                                             <include-screen name="ContentViewLink"/>
                                         </container>
                                         <include-form name="ViewChildCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
@@ -662,7 +662,7 @@ under the License.
                         <if-compare field="itemContent.contentTypeId" operator="equals" value="DOCUMENT"/>
                     </condition>
                     <actions>
-                        <set field="title" value="Edit CompDoc Instance Part [${contentId} of ${contentId}]"/>
+                        <set field="title" value="${uiLabelMap.PageTitleEditCompDocInstance} [${contentId} of ${contentId}]"/>
                         <set value="updateChildCompDocInstance" field="childCompDocTarget"/>
                         <set value="DOCUMENT" field="contentTypeId"/>
                         <!--
@@ -720,7 +720,7 @@ under the License.
                     <actions>
                     </actions>
                     <widgets>
-                        <container><link target="ViewCompDocContentBinary?contentId=${contentId}&amp;contentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}" text="View CompDoc Content" style="buttontext"/></container>
+                        <container><link target="ViewCompDocContentBinary?contentId=${contentId}&amp;contentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
                     </widgets>
                 </section>
                 <section>
@@ -733,7 +733,7 @@ under the License.
                     <actions>
                     </actions>
                     <widgets>
-                        <container><link target="ViewCompDocContentHtml?contentId=${contentId}&amp;contentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}" text="View CompDoc Content" style="buttontext"/></container>
+                        <container><link target="ViewCompDocContentHtml?contentId=${contentId}&amp;contentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
                     </widgets>
                 </section>
                 <section>
@@ -744,7 +744,7 @@ under the License.
                     </actions>
                     <widgets>
                         <!-- link on form
-                        <container><link target="EditSurvey?surveyId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="View CompDoc Content" style="buttontext"/></container>
+                        <container><link target="EditSurvey?surveyId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
                             -->
                     </widgets>
                 </section>
@@ -756,7 +756,7 @@ under the License.
                     </actions>
                     <widgets>
                         <!-- link on form
-                        <container><link target="EditSurveyResponse?surveyResponseId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="View CompDoc Content" style="buttontext"/></container>
+                        <container><link target="EditSurveyResponse?surveyResponseId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
                             -->
                     </widgets>
                 </section>
@@ -950,7 +950,7 @@ under the License.
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
-                <set field="title" value="Add Composite Document Template Page"/>
+                <set field="titleProperty" value="PageTitleAddCompositeDocumentTemplate"/>
                 <set field="contentTypeId" value="COMPDOC_TEMPLATE"/>
                 <set field="createChildCompDoc" value="createChildCompDocTemplate"/>
             </actions>
@@ -970,7 +970,7 @@ under the License.
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
-                <set field="title" value="Add Composite Document Instance Part Page"/>
+                <set field="titleProperty" value="PageTitleAddCompositeDocumentInstance"/>
                 <set field="contentIdTo" from-field="parameters.rootContentId"/>
                 <set field="templateContentId" from-field="parameters.instanceOfContentId"/>
                 <entity-one entity-name="Content" value-field="templateContent">
@@ -1006,7 +1006,7 @@ under the License.
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
-                <set field="title" value="Add Composite Document Template Part Page"/>
+                <set field="titleProperty" value="PageTitleAddCompositeDocumentTemplate"/>
                 <set field="contentIdTo" from-field="parameters.rootContentId" default-value="${parameters.contentIdTo}"/>
                 <set field="rootContentId" from-field="contentIdTo"/>
                 <set field="rootContentRevisionSeqId" from-field="parameters.rootContentRevisionSeqId"/>
@@ -1049,8 +1049,8 @@ under the License.
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                                 <container>
-                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="View Instances" style="buttontext"/>
-                                    <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" text="Create Instance of This Template" style="buttontext"/>
+                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.ContentCompDocViewInstances}" style="buttontext"/>
+                                    <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext"/>
                                 </container>
                         <include-tree name="CompDocTemplateTree" location="component://content/widget/compdoc/CompDocTemplateTree.xml"/>
                     </decorator-section>
@@ -1088,12 +1088,12 @@ under the License.
                     <order-by field-name="-contentRevisionSeqId"/>
                 </entity-condition>
                 <set field="templateContentRevisionSeqId" from-field="contentTemplateRevisions[0].contentRevisionSeqId"/>
-                <set field="title" value="Root ${rootContentId}, rev. ${rootContentRevisionSeqId} instance of ${instanceContent.instanceOfContentId}, rev. ${templateContentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentRoot} ${rootContentId}, ${uiLabelMap.ContentCompDocRev} ${rootContentRevisionSeqId}  ${uiLabelMap.FormFieldTitle_instanceOfContentId} ${instanceContent.instanceOfContentId}, ${uiLabelMap.ContentCompDocRev} ${templateContentRevisionSeqId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                       <container><link target="GenCompDocPdf?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="Generate Composite PDF" style="buttontext"/></container>
+                       <container><link target="GenCompDocPdf?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.ContentCompDocGeneratePDF}" style="buttontext"/></container>
                        <include-tree name="CompDocInstanceTree" location="component://content/widget/compdoc/CompDocTemplateTree.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -1128,7 +1128,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <label text="Approval Status: ${statusItem.description}" style="h2"/>
+                    <label text="${uiLabelMap.ContentCompDocApprovalStatus}: ${statusItem.description}" style="h2"/>
                     <section>
                         <condition>
                             <and>
@@ -1137,7 +1137,7 @@ under the License.
                             </and>
                         </condition>
                         <widgets>
-                            <link text="Start Approval Process" target="prepForApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" style="buttontext"/>
+                            <link text="${uiLabelMap.ContentCompDocStartApprovalProcess}" target="prepForApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" style="buttontext"/>
                         </widgets>
                     </section>
                 </container>
@@ -1207,7 +1207,7 @@ under the License.
                             <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
                         </condition>
                         <widgets>
-                            <link text="Add Instance" 
+                            <link text="${uiLabelMap.PageTitleAddCompDocInstance}" 
                                 target="AddChildCompDocInstance?rootContentId=${rootContentId}&amp;instanceOfContentId=${contentId}&amp;caSequenceNum=${maxRevisionSeqId}" 
                                 style="buttontext"/>
                         </widgets>
@@ -1226,10 +1226,10 @@ under the License.
                         <widgets>
                             <container>
                                 <label text="- ${instanceContent.contentName} [${instanceContent.contentId}] - ${instanceDataResource.objectInfo} ${instanceDataResource.relatedDetailId}" style="tableheadtext"/>
-                                <link text="Edit Instance"
+                                <link text="${uiLabelMap.PageTitleEditCompDocInstance}"
                                     target="EditChildCompDoc?contentId=${assocRevisionItemView.contentId}&amp;rootContentId=${assocRevisionItemView.contentIdTo}&amp;caContentAssocTypeId=${assocRevisionItemView.contentAssocTypeId}&amp;caFromDate=${assocRevisionItemView.fromDate}&amp;contentRevisionSeqId=${assocRevisionItemView.maxRevisionSeqId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"
                                     style="buttontext"/>
-                                <link text="View as PDF"
+                                <link text="${uiLabelMap.ContentCompDocGeneratePDF}"
                                     target="GenContentPdf?contentId=${assocRevisionItemView.contentId}&amp;caSequenceNum=${sequenceNum}"
                                     style="buttontext"/>
                             </container>

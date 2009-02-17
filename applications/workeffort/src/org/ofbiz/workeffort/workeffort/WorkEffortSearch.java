@@ -1110,7 +1110,7 @@ public class WorkEffortSearch {
         }
 
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "WorkEffortKeywordRelevency", locale);
+            return UtilProperties.getMessage(resource, "WorkEffortKeywordRelevancy", locale);
         }
 
         public boolean isAscending() {
@@ -1152,7 +1152,7 @@ public class WorkEffortSearch {
 
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("workEffortName".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "WorkEffortWorkEffortName", locale);
+                return UtilProperties.getMessage(resource, "WorkEffortName", locale);
             } else if ("totalQuantityOrdered".equals(this.fieldName)) {
                 return UtilProperties.getMessage(resource, "WorkEffortPopularityByOrders", locale);
             } else if ("totalTimesViewed".equals(this.fieldName)) {

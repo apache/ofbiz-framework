@@ -861,7 +861,7 @@ under the License.
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
         <if-not-empty field="lookedUpValue">
             <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAlreadyExist"/>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortFixedAssetAlreadyExist"/>
             </add-error>
             <check-errors />
         <else>
@@ -875,7 +875,7 @@ under the License.
     <simple-method method-name="updateWorkEffortFixedAssetStd" 
             short-description="Update an existing WorkEffort FixedAsset Standard">
         <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionERror"/>
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
@@ -900,7 +900,7 @@ under the License.
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
         <if-not-empty field="lookedUpValue">
             <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAsgAlreadyExist"/>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortFixedAssetAlreadyExist"/>
             </add-error>
         <else>
             <make-value entity-name="WorkEffortFixedAssetAssign" value-field="newWEFixedAssetAssign" />
@@ -964,7 +964,7 @@ under the License.
     <simple-method method-name="updateWorkEffortContent" short-description="Update Work Effort Content">
         <!-- need a better way to handle permissions
         <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionERror"/>
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
         </check-permission>
         <check-errors />
         -->
@@ -1049,7 +1049,7 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortKeywordAlreadyExist"/></add-error>
+            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortKeywordAlreadyExist"/></add-error>
         <else>
         <make-value value-field="newEntity" entity-name="WorkEffortKeyword"/>
         <if-empty field="parameters.workEffortId">

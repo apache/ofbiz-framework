@@ -290,10 +290,10 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
-                                <label style="boxhead" text="Content Manager Main Page"/>
+                                <label style="boxhead" text="${uiLabelMap.ContentWelcome}"/>
                             </container>
                             <container style="screenlet-body">
-                                <container><label style="tabletext" text="Welcome to the Content Manager!"/></container>
+                                <container><label style="tabletext" text=""/></container>
                             </container>
                         </container>
                     </decorator-section>

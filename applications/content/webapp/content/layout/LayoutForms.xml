@@ -136,10 +136,10 @@ under the License.
                 <option key="text/plain" description="${uiLabelMap.ContentPlainText}" />
             </drop-down>
         </field>
-        <field name="drObjectInfo" title="File Path">
+        <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
             <text />
         </field>
-        <field name="textData" title="Text (Use '&lt;&gt;' to enter plain text)"  id-name="textData"> 
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData"> 
         <textarea rows="24" cols="80" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
@@ -227,7 +227,7 @@ under the License.
         <field name="drMimeTypeId" >
             <display description="text/plain"/>
         </field>
-        <field name="textData" title="Text (Use '&lt;&gt;' to enter plain text)"  id-name="textData"> 
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData"> 
         <textarea rows="24" cols="80" />
         </field>
         <field name="createdByUserLogin" position="1">
@@ -256,7 +256,7 @@ under the License.
         <field name="drMimeTypeId" >
             <display description="text/plain"/>
         </field>
-        <field name="textData" title="Text" > 
+        <field name="textData" title="${uiLabelMap.ContentText}" > 
         <textarea rows="24" cols="80" />
         </field>
         <field name="createdByUserLogin" position="1">
@@ -289,7 +289,7 @@ under the License.
                 <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
             </drop-down>
         </field>
-        <field name="drObjectInfo" title="Image File Name">
+        <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
             <display description="${currentValue.drObjectInfo}" />
         </field>
         <field name="imageData" entity-name="ImageDataResource" map-name="dummy">
@@ -327,7 +327,7 @@ under the License.
                 <option key="image/tiff" description="${uiLabelMap.ContentTIFF}" />
             </drop-down>
         </field>
-        <field name="drObjectInfo" title="Image File Name">
+        <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
             <display description="${currentValue.drObjectInfo}" />
         </field>
         <field name="imageData" entity-name="ImageDataResource">

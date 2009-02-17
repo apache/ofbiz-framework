@@ -145,7 +145,7 @@ under the License.
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductQuantityToBin}#</fo:block></fo:table-cell>
 
               <#-- Not display details here, just the summary info for the bins
-                <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductOrderItemss}</fo:block></fo:table-cell>
+                <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductOrderItems}</fo:block></fo:table-cell>
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductInventoryItems}</fo:block></fo:table-cell>
               -->
             </fo:table-row>

@@ -23,7 +23,6 @@ under the License.
     <screen name="EditProdCatalog">
         <section>
             <actions>
-                <set field="title" value="Edit Product Catalog"/>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
@@ -61,7 +60,6 @@ under the License.
     <screen name="EditProdCatalogCategories">
         <section>
             <actions>
-                <set field="title" value="Edit Product Catalog Categories"/>
                 <set field="titleProperty" value="PageTitleEditProductCatalogCategories"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
@@ -123,7 +121,6 @@ under the License.
     <screen name="EditProdCatalogParties">
         <section>
             <actions>
-                <set field="title" value="Edit Product Catalog Parties"/>
                 <set field="titleProperty" value="PageTitleEditProductCatalogParties"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
@@ -181,7 +178,6 @@ under the License.
     <screen name="EditProdCatalogStores">
         <section>
             <actions>
-                <set field="title" value="Edit Product Catalog Stores"/>
                 <set field="titleProperty" value="PageTitleEditProductCatalogStores"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>

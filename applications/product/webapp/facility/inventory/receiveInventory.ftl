@@ -105,7 +105,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductDescription}</td>
+                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductProductDescription}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   ${product.description?if_exists}

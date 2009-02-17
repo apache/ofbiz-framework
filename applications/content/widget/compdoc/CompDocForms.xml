@@ -81,7 +81,7 @@ under the License.
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?rootContentId=${contentId}"/> 
         </field>
         <field name="templateTree" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Tree" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
         </field>
     </form>
     
@@ -177,9 +177,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="Soft Rejected"/>
-                <option key="REJECTED" description="Rejected"/>
-                <option key="APPROVED" description="Approved"/>
+                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
+                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
+                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"><date-time/></field>
@@ -226,9 +226,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="Soft Rejected"/>
-                <option key="REJECTED" description="Rejected"/>
-                <option key="APPROVED" description="Approved"/>
+                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
+                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
+                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"   use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)"><date-time/></field>
@@ -256,9 +256,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="Soft Rejected"/>
-                <option key="REJECTED" description="Rejected"/>
-                <option key="APPROVED" description="Approved"/>
+                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
+                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
+                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"><date-time/></field>
@@ -311,8 +311,8 @@ under the License.
         <field name="contentId"><ignored/></field>
         <field name="contentName"><text/></field>
         <field name="contentTypeId"><hidden/></field>
-        <field name="instanceOfContentId" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="caContentIdTo" entry-name="rootContentId" map-name="parameters" widget-style="tabletext" title="Parent Content ID">
+        <field name="instanceOfContentId" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="caContentIdTo" entry-name="rootContentId" map-name="parameters" widget-style="tabletext" title="${uiLabelMap.ContentCompDocParentContentId}">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/>
         </field>
         <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType"/></field>
@@ -353,7 +353,7 @@ under the License.
         <field name="contentId" widget-style="tabletext"><display/></field>
         <field name="contentName" map-name="itemContent"><text/></field>
         <field name="contentTypeId" map-name="itemContent"><hidden/></field>
-        <field name="instanceOfContentId" map-name="itemContent" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentIdTo" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
@@ -422,8 +422,8 @@ under the License.
         <field name="contentId" widget-style="tabletext"><display/></field>
         <field name="contentName" map-name="itemContent"><display/></field>
         <field name="contentTypeId" map-name="itemContent"><hidden/></field>
-        <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="contentIdTo" widget-style="tabletext" title="Parent Content ID"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentIdTo" widget-style="tabletext" title="${uiLabelMap.ContentCompDocParentContentId}"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
@@ -490,7 +490,7 @@ under the License.
         <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
         <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
         <!-- would show previous file name... doesn't make too much sense <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field> -->
-        <field name="imageData" title="File"><file/></field>
+        <field name="imageData" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="rootContentId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit/></field>
     </form>

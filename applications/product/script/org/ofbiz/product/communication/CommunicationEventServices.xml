@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCommunicationEventProduct" short-description="Create a CommunicationEventProduct">
         <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="ProductUiLabels" property="ProductCreateCommunicationEventProductPermissionError"/>
+            <fail-property resource="ProductErrorUiLabels" property="ProductCreateCommunicationEventProductPermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="CommunicationEventProduct"/>
@@ -32,7 +32,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeCommunicationEventProduct" short-description="Remove a CommunicationEventProduct">
         <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="PartyUiLabels" property="ProductRemoveCommunicationEventProductPermissionError"/>
+            <fail-property resource="PartyErrorUiLabels" property="ProductRemoveCommunicationEventProductPermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="CommunicationEventProduct" value-field="eventProduct"/>

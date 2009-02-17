@@ -39,7 +39,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -224,20 +224,20 @@ under the License.
                         <container><label text="${blogEntry.contentName}: ${blogEntry.description}" style="h2"/></container>
                         <horizontal-separator/>
                         <container style="lefthalf">
-                            <label style="h3" text="Image"/>
+                            <label style="h3" text="${uiLabelMap.ContentImage}"/>
                             <container>
                                 <sub-content content-id="${contentId}" map-key="IMAGE"/>
                             </container>
                         </container>
                         <container style="righthalf">
-                            <label style="h3" text="Summary"/>
+                            <label style="h3" text="${uiLabelMap.ContentBlogSummary}"/>
                             <container>
                                 <sub-content content-id="${contentId}" map-key="SUMMARY"/>
                             </container>
                         </container>
                         <container style="clear"/>
                         <horizontal-separator/>
-                        <label style="h3" text="Article"/>
+                        <label style="h3" text="${uiLabelMap.ContentBlogActicle}"/>
                         <container>
                             <sub-content content-id="${contentId}" map-key="MAIN"/>
                         </container>

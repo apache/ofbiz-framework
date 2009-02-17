@@ -114,7 +114,7 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
     
-                <set field="title" value="Find Product By ID"/>
+                <set field="titleProperty" value="ProductFindProductWithIdValue"/>
                 
                 <set field="idValue" from-field="parameters.idValue"/>
                 <entity-one entity-name="Product" value-field="idProduct" auto-field-map="false">
