@@ -130,7 +130,7 @@ under the License.
             <hyperlink target="addAllFromShoppingList?shoppingListId=${shoppingListId}" description="Quick Add All" also-hidden="false"/>
         </field>
         <field name="returnToOrderEntry" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="orderentry" description="Return" also-hidden="false"/>
+            <hyperlink target="orderentry" description="${uiLabelMap.OrderOrderReturn}" also-hidden="false"/>
         </field>
     </form>
 

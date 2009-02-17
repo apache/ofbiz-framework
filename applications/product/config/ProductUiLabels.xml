@@ -43,6 +43,10 @@
         <value xml:lang="th">OFBiz: การจัดการคลังสินค้า</value>
         <value xml:lang="zh">OFBiz：场所管理程序</value>
     </property>
+    <property key="FacilityCompanySubtitle">
+        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+    </property>
     <property key="FacilityFacility">
         <value xml:lang="de">Lager</value>
         <value xml:lang="en">Facility</value>
@@ -8585,6 +8589,10 @@
         <value xml:lang="it">creato/modificato da</value>
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
     </property>
+    <property key="ProductCreateSimpleTextContentForAlternateLocale">
+        <value xml:lang="en">Create Simple Text Content For Alternate Locale</value>
+        <value xml:lang="it">Creare testo semplice per contenuto con locale alternativo</value>
+    </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Sie könnten auch diese Interessant finden:</value>
         <value xml:lang="en">You might be interested in these as well:</value>
@@ -11742,6 +11750,10 @@
         <value xml:lang="ru">Тип ссылки</value>
         <value xml:lang="th">แจกแจงประเภทการเชื่อมต่อ</value>
     </property>
+    <property key="ProductListAssociatedContentInfos">
+        <value xml:lang="en">List Associated Content Infos</value>
+        <value xml:lang="it">Lista informazioni contenuto associato</value>
+    </property>
     <property key="ProductListFeatureInteractions">
         <value xml:lang="de">Liste Merkmal Interaktionen</value>
         <value xml:lang="en">List Feature Interactions</value>
@@ -12327,7 +12339,7 @@
         <value xml:lang="th">ผลรวมจำนวนน้อย</value>
         <value xml:lang="zh">最小合计</value>
     </property>
-    <property key="ProductMinTotalMesssage">
+    <property key="ProductMinTotalMessage">
         <value xml:lang="de">Wird nur angezeigt falls der Totalpreis gleich oder grösser diesem Wert ist</value>
         <value xml:lang="en">Displays only if total price is equal/greater than this value</value>
         <value xml:lang="es">Se muestra sólo si el precio total es igual o mayor que este valor</value>

@@ -583,8 +583,8 @@
         <field name="maxSize" tooltip="${uiLabelMap.ProductMaxSizeMessage}"><text/></field>
         <field name="minWeight" tooltip="${uiLabelMap.ProductMinWeightMessage}"><text/></field>
         <field name="maxWeight" tooltip="${uiLabelMap.ProductMaxWeightMessage}"><text/></field>
-        <field name="minTotal" tooltip="${uiLabelMap.ProductMinTotalMesssage}"><text/></field>
-        <field name="maxTotal" tooltip="${uiLabelMap.ProductMaxTotalMesssage}"><text/></field>
+        <field name="minTotal" tooltip="${uiLabelMap.ProductMinTotalMessage}"><text/></field>
+        <field name="maxTotal" tooltip="${uiLabelMap.ProductMaxTotalMessage}"><text/></field>
         <field name="allowUspsAddr" tooltip="${uiLabelMap.ProductAllowUSPSAddr}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>

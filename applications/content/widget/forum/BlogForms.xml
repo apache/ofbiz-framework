@@ -53,8 +53,8 @@ under the License.
         <field name="contentTypeId" use-when="content==null"><hidden value="WEB_SITE_PUB_PT"/></field>
         <field name="contentIdFrom" use-when="content==null"><hidden value="BLOGROOT"/></field>
         <field name="contentAssocTypeId"><hidden value="SUB_CONTENT"/></field>
-        <field name="contentName" title="${uiLabelMap.BlogName}"><text size="30" maxlength="60"/></field>
-        <field name="description" title="${uiLabelMap.BlogDescription}"><text size="30" maxlength="60"/></field>
+        <field name="contentName" title="${uiLabelMap.ContentBlogName}"><text size="30" maxlength="60"/></field>
+        <field name="description" title="${uiLabelMap.ContentBlogDescription}"><text size="30" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     

@@ -62,9 +62,9 @@ under the License.
         </field>
         <field name="dataResourceId" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="Text only" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="Image centered above" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="Image left, text flows around." />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.ContentTemplateTextOnly}" />
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.ContentTemplateImageCentered}" />
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.ContentTemplateImageLeft}" />
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
@@ -82,7 +82,7 @@ under the License.
         <field name="description">
             <text size="60"/>
         </field>
-       <field name="summaryData" title="Summary"
+       <field name="summaryData" title="${uiLabelMap.ContentBlogSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
                 <textarea rows="8" cols="80" />
@@ -489,10 +489,10 @@ under the License.
         </field>
         <field name="dataResourceId">
             <lookup target-form-name="LookupDataResource">
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="Go to Data Resource"/>
+            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
 <!--
-            <sub-hyperlink link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="Go to Data Resource"/>
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="Go to Data Resource"/>
+            <sub-hyperlink link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
+            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
 -->
             </lookup>
         </field>

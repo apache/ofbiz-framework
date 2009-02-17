@@ -89,7 +89,7 @@ under the License.
     <screen name="ReturnPDF">
         <section>
             <actions>
-                <set field="title" value="Return"/>
+                <set field="titleProperty" value="OrderOrderReturn"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>

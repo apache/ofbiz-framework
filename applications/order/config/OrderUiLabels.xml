@@ -1282,6 +1282,10 @@
         <value xml:lang="zh">调整</value>
         <value xml:lang="zh_CN">调整</value>
     </property>
+    <property key="OrderAffiliate">
+        <value xml:lang="en">Affiliate</value>
+        <value xml:lang="it">Affiliato</value>
+    </property>
     <property key="OrderAgent">
         <value xml:lang="de">Auftrag Bearbeiter</value>
         <value xml:lang="en">Order Agent</value>

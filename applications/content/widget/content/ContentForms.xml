@@ -109,7 +109,7 @@ under the License.
         <field name="contentId">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
         </field> 
-        <field name="contentName" title="contenName" widget-style="tabletext"><display/></field>
+        <field name="contentName" widget-style="tabletext"><display/></field>
         <field name="createdByUserLogin"><ignored/></field>
     </form>
     

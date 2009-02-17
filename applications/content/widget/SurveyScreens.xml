@@ -343,7 +343,7 @@ under the License.
                                     <widgets>    
                                         <section>
                                             <condition><not><if-empty field="parameters.rootContentId"/></not></condition>
-                                            <widgets><container><link text="Go Back to CompDoc Root [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
+                                            <widgets><container><link text="${uiLabelMap.ContentCompDocGoBack} [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
                                         </section>
                                         <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
                                     </widgets>

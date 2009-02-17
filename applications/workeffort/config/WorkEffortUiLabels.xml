@@ -1532,6 +1532,10 @@
         <value xml:lang="th">แสดงปฏิทินรายสัปดาห์</value>
         <value xml:lang="zh">浏览日历周</value>
     </property>
+    <property key="WorkEffortCommEventId">
+        <value xml:lang="en">Comm Event Id</value>
+        <value xml:lang="it">Evento comunicazioni</value>
+    </property>
     <property key="WorkEffortCommEvents">
         <value xml:lang="en">Communications</value>
         <value xml:lang="es">Comunicaciones</value>
@@ -1649,6 +1653,10 @@
         <value xml:lang="ru">Создано</value>
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">已创建</value>
+    </property>
+    <property key="WorkEffortCustomerRating">
+        <value xml:lang="en">Customer Rating</value>
+        <value xml:lang="it">Posizione cliente</value>
     </property>
     <property key="WorkEffortDayView">
         <value xml:lang="en">Day View</value>
@@ -1870,6 +1878,10 @@
         <value xml:lang="th">ผิดพลาดถึงการดึงค่าการกรอกข้อมูลปฏิทิน</value>
         <value xml:lang="zh">获取日历记录时失败</value>
     </property>
+    <property key="WorkEffortFixedAssetAlreadyExist">
+        <value xml:lang="en">Fixed Asset Already Exist</value>
+        <value xml:lang="it">Cespite già esistente</value>
+    </property>
     <property key="WorkEffortForRequirement">
         <value xml:lang="en">For Requirement</value>
         <value xml:lang="es">Para requerimieto</value>
@@ -1983,7 +1995,7 @@
     <property key="WorkEffortKeywordAlreadyExist">
         <value xml:lang="en">WorkEffort - Keyword already exist</value>
         <value xml:lang="fr">Tâche - Mot-clé existant déjà</value>
-        <value xml:lang="it">Impegno di Lavor - Chiave già esistente</value>
+        <value xml:lang="it">Impegno di lavoro - chiave già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีคีย์เวิร์ดอยู่แล้ว</value>
         <value xml:lang="zh">人工服务 - 关键字已经存在了</value>
     </property>
@@ -2533,6 +2545,14 @@
         <value xml:lang="ru">Задания фазы</value>
         <value xml:lang="th">ภารกิจขั้นตอนการทำงาน</value>
         <value xml:lang="zh">阶段任务</value>
+    </property>
+    <property key="WorkEffortPopularityByOrders">
+        <value xml:lang="en">Popularity By Orders</value>
+        <value xml:lang="it">Popularità per ordini</value>
+    </property>
+    <property key="WorkEffortPopularityByViews">
+        <value xml:lang="en">Popularity By Views</value>
+        <value xml:lang="it">Popularità per visti</value>
     </property>
     <property key="WorkEffortPreviousDay">
         <value xml:lang="en">Previous Day</value>

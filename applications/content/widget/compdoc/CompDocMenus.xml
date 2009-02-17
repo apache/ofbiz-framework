@@ -65,7 +65,7 @@ under the License.
         
     <menu name="subtree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
-        <menu-item name="viewtree" title="View Tree">
+        <menu-item name="viewtree" title="${uiLabelMap.PageTitleViewCompDocTree}">
             <condition>
                 <or>
                     <if-compare value="COMPDOC_TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
@@ -74,7 +74,7 @@ under the License.
             </condition>
             <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="viewtree2" title="View Tree">
+        <menu-item name="viewtree2" title="${uiLabelMap.PageTitleViewCompDocTree}">
             <condition>
                 <or>
                     <if-compare value="COMPDOC_INSTANCE" field="contentTypeId" operator="equals"></if-compare>
@@ -96,13 +96,13 @@ under the License.
         <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="child" title="+Child">
+        <menu-item name="child" title="${uiLabelMap.ContentCompDocChild}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="AddChildCompDocTemplate?rootContentId=${contentId}&amp;sequenceNum=9999"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
-        <menu-item name="latest" title="Current Template CompDoc">
+        <menu-item name="latest" title="${uiLabelMap.ContentCompDocCurrentTemplate}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="greater" to-field="rootContentRevisionSeqId"/>
             </condition>
@@ -130,25 +130,25 @@ under the License.
             <link target="AddChildCompDocTemplate?contentIdTo=${contentId}&amp;sequenceNum=9999"/>
         </menu-item>
         -->
-        <menu-item name="bef" title="+Bef">
+        <menu-item name="bef" title="${uiLabelMap.ContentCompDocBefore}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
-        <menu-item name="aft" title="+Aft">
+        <menu-item name="aft" title="${uiLabelMap.ContentCompDocAfter}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumAfter}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
-        <menu-item name="up" title="^Up">
+        <menu-item name="up" title="${uiLabelMap.ContentCompDocUp}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="resequenceCompDocPart?contentId=${contentId}&amp;dir=up&amp;contentAssocTypeId=COMPDOC_PART&amp;contentIdTo=${contentIdTo}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="down" title="vDn">
+        <menu-item name="down" title="${uiLabelMap.ContentCompDocDown}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
@@ -163,7 +163,7 @@ under the License.
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="viewtree" title="View Template Tree">
+        <menu-item name="viewtree" title="${uiLabelMap.PageTitleViewCompDocTemplateTree}">
             <link target="ViewCompDocTemplateTree?rootContentRevisionSeqId=${templateContentRevisionSeqId}&amp;rootContentId=${templateContentId}"/>
         </menu-item>
         <menu-item name="latest" title="${uiLabelMap.ContentCompDocCurrentInstance}">

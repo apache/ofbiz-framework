@@ -36,13 +36,13 @@
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}">
             <date-find/>
         </field>
-        <field name="contentId" title="Content Id">
+        <field name="contentId" title="${uiLabelMap.ContentContent}">
             <text-find/>
         </field>
-        <field name="dataResourceId" title="Data Resource Id">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResource}">
             <text-find/>
         </field>
-        <field name="contentName" title="Name">
+        <field name="contentName">
             <text-find/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
@@ -69,13 +69,13 @@
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
         </field>
-        <field name="contentId" title="Content Id">
+        <field name="contentId" title="${uiLabelMap.ContentContent}">
             <display/>
         </field>
-        <field name="dataResourceId" title="Data Resource Id">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResource}">
             <display/>
         </field>
-        <field name="contentName" title="Name">
+        <field name="contentName">
             <display/>
         </field>
     </form>
@@ -98,7 +98,7 @@
                 <option key="CTNT_INITIAL_DRAFT" description="PREVIEW"/>
             </radio>
         </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
@@ -165,7 +165,7 @@
                 <option key="CTNT_INITIAL_DRAFT" description="PREVIEW"/>
             </radio>
         </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
@@ -212,12 +212,12 @@
                 <option key="CTNT_INITIAL_DRAFT" description="Preview"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true" 
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
