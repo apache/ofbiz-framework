@@ -64,6 +64,7 @@ public class OrderLookupServices {
         // list of fields to select (initial list)
         List fieldsToSelect = FastList.newInstance();
         fieldsToSelect.add("orderId");
+        fieldsToSelect.add("orderName");
         fieldsToSelect.add("statusId");
         fieldsToSelect.add("orderTypeId");
         fieldsToSelect.add("orderDate");

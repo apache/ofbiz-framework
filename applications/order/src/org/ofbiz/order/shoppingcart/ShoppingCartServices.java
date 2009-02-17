@@ -204,6 +204,12 @@ public class ShoppingCartServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
+        // set the order name
+        String orderName = orh.getOrderName();
+        if (orderName != null){
+            cart.setOrderName(orderName);
+        }
+        
         // set the role information
         GenericValue placingParty = orh.getPlacingParty();
         if (placingParty != null) {
@@ -453,7 +459,13 @@ public class ShoppingCartServices {
 
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
-
+                
+                List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
+                if(itemAdjustments != null){    
+                    for(GenericValue itemAdjustment : itemAdjustments){
+                        cartItem.addAdjustment(itemAdjustment);                
+                    }
+                }
             }
 
             if (UtilValidate.isNotEmpty(orderItems)) {
@@ -520,6 +532,13 @@ public class ShoppingCartServices {
             }
         }
 
+        List adjustments = orh.getOrderHeaderAdjustments();     
+        // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
+        if (!adjustments.isEmpty()) {
+            // The cart adjustments are added to the cart
+            cart.getAdjustments().addAll(adjustments);
+        }
+        
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         return result;

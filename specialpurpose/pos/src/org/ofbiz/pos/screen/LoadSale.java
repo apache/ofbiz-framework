@@ -26,6 +26,8 @@ import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
+import javolution.util.FastMap;
+
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
@@ -46,7 +48,7 @@ public class LoadSale extends XPage {
     public static final String module = LoadSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
-    static protected Hashtable m_saleMap = new Hashtable();
+    static protected Map<String, String> m_saleMap = FastMap.newInstance();
     protected XList m_salesList = null;
     protected XButton m_cancel = null;
     protected XButton m_add = null;
@@ -58,7 +60,7 @@ public class LoadSale extends XPage {
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
-    public LoadSale(Hashtable saleMap, PosTransaction trans, PosScreen page) {
+    public LoadSale(Map<String, String> saleMap, PosTransaction trans, PosScreen page) {
         m_saleMap.putAll(saleMap);
         m_trans = trans;
         m_pos = page;
@@ -212,6 +214,7 @@ public class LoadSale extends XPage {
         final ClassLoader cl = this.getClassLoader(m_pos);
         Thread.currentThread().setContextClassLoader(cl);
         if (!m_trans.addListToCart(sale, m_pos, addToCart)) {
+//        if (!m_trans.restoreOrder(sale, m_pos, addToCart)) { // TODO use order instead of shopping list
             Debug.logError("Error while loading cart from shopping list : " + sale, module);
         } 
         else {

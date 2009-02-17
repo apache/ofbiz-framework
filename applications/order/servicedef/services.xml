@@ -304,7 +304,21 @@ under the License.
         <attribute name="itemAttributesMap" type="Map" mode="IN" string-map-prefix="iam_" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
-
+    <service name="loadCartForUpdate" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="loadCartForUpdate">
+        <description>Load an existing shopping cart</description>
+        <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
+        <!-- <attribute name="userLogin" type="String" mode="IN" optional="false"/> -->
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+    </service>
+    <service name="saveUpdatedCartToOrder" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="saveUpdatedCartToOrder">
+        <description>Update the quantities/prices for an existing order</description>
+        <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <!-- <attribute name="locale" type="" mode="IN" optional="false"/> -->
+        <attribute name="changeMap" type="Map" mode="IN" optional="false"/>
+    </service>
     <service name="appendOrderItem" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderServices" invoke="addItemToApprovedOrder">
         <description>Append an itemto an existing order</description>

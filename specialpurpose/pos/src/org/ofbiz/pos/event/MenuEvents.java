@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.awt.AWTEvent;
 
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -43,6 +44,11 @@ public class MenuEvents {
 
     public static final String module = MenuEvents.class.getName();
 
+    // scales and rounding modes for BigDecimal math
+    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);    
+    
     // extended number events
     public static synchronized void triggerClear(PosScreen pos) {
         // clear the pieces
@@ -298,18 +304,18 @@ public class MenuEvents {
             Input input = pos.getInput();
             String value = input.value();
             if (UtilValidate.isNotEmpty(value)) {
-                double amount = 0.00;
+                BigDecimal amount = ZERO;
                 boolean percent = false;
                 if (value.endsWith("%")) {
                     percent = true;
                     value = value.substring(0, value.length() - 1);
                 }
                 try {
-                    amount = Double.parseDouble(value);
+                    amount = new BigDecimal(value);
                 } catch (NumberFormatException e) {
                 }
 
-                amount = (amount / 100) * -1;
+                amount = amount.movePointLeft(2).negate();
                 trans.addDiscount(null, amount, percent);
                 trans.calcTax();
             }
@@ -337,18 +343,18 @@ public class MenuEvents {
             Input input = pos.getInput();
             String value = input.value();
             if (UtilValidate.isNotEmpty(value)) {
-                double amount = 0.00;
+                BigDecimal amount = ZERO;
                 boolean percent = false;
                 if (value.endsWith("%")) {
                     percent = true;
                     value = value.substring(0, value.length() - 1);
                 }
                 try {
-                    amount = Double.parseDouble(value);
+                    amount = new BigDecimal(value);
                 } catch (NumberFormatException e) {
                 }
 
-                amount = (amount / 100) * -1;
+                amount = amount.movePointLeft(2).negate();                
                 trans.addDiscount(sku, amount, percent);
                 trans.calcTax();
             }
@@ -411,6 +417,7 @@ public class MenuEvents {
     public static synchronized void loadSale(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.loadSale(pos);
+//        trans.loadOrder(pos); // TODO use order instead of shopping list
     }
 
     public static synchronized String getSelectedItem(PosScreen pos) {

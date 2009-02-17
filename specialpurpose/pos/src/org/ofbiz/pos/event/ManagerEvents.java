@@ -33,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -63,6 +64,11 @@ public class ManagerEvents {
     public static boolean mgrLoggedIn = false;
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
 
+    // scales and rounding modes for BigDecimal math
+    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);    
+
     public static synchronized void modifyPrice(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         String sku = null;
@@ -80,7 +86,7 @@ public class ManagerEvents {
         Input input = pos.getInput();
         String value = input.value();
         if (UtilValidate.isNotEmpty(value)) {
-            BigDecimal price = BigDecimal.ZERO;
+            BigDecimal price = ZERO;
             boolean parsed = false;
             try {
                 price = new BigDecimal(value);
@@ -111,13 +117,12 @@ public class ManagerEvents {
         Input input = pos.getInput();
         if (!trans.isOpen()) {
             if (input.isFunctionSet("OPEN")) {
+                BigDecimal amt = ZERO;
                 String amountStr = input.value();
-                if (UtilValidate.isNotEmpty(amountStr))
-                {
+                if (UtilValidate.isNotEmpty(amountStr)) {
                     try {
-                        double amt = Double.parseDouble(amountStr);
-                        amt = amt / 100;
-                        amountStr = UtilFormatOut.formatPrice(amt);
+                        amt = new BigDecimal(amountStr);
+                        amt = amt.movePointLeft(2);
                     } catch (NumberFormatException e)
                     {
                         Debug.logError(e, module);
@@ -128,14 +133,7 @@ public class ManagerEvents {
                 state.set("openedDate", UtilDateTime.nowTimestamp());
                 state.set("openedByUserLoginId", pos.getSession().getUserId());
                 state.set("startingTxId", trans.getTransactionId());
-                try
-                {
-                    state.set("startingDrawerAmount", new Double(priceDecimalFormat.parse(amountStr).doubleValue()));
-                }
-                catch (ParseException pe)
-                {
-                    Debug.logError(pe, module);
-                }
+                state.set("startingDrawerAmount", amt);
                 try {
                     state.create();
                 } catch (GenericEntityException e) {
@@ -172,10 +170,11 @@ public class ManagerEvents {
             String[] func = input.getFunction("CLOSE");
             String lastValue = input.value();
             if (UtilValidate.isNotEmpty(lastValue)) {
+                
                 try {
-                    double dbl = Double.parseDouble(lastValue);
-                    dbl = dbl / 100;
-                    lastValue = UtilFormatOut.formatPrice(dbl);
+                    BigDecimal amt = new BigDecimal(lastValue);
+                    amt = amt.movePointLeft(2);
+                    lastValue = amt.toString();
                 } catch (NumberFormatException e) {
                     Debug.logError(e, module);
                 }
@@ -210,18 +209,11 @@ public class ManagerEvents {
                     GenericValue state = trans.getTerminalState();
                     state.set("closedDate", UtilDateTime.nowTimestamp());
                     state.set("closedByUserLoginId", pos.getSession().getUserId());
-                    try
-                    {
-                        state.set("actualEndingCash", new Double(priceDecimalFormat.parse(closeInfo[0]).doubleValue()));
-                        state.set("actualEndingCheck", new Double(priceDecimalFormat.parse(closeInfo[1]).doubleValue()));
-                        state.set("actualEndingCc", new Double(priceDecimalFormat.parse(closeInfo[2]).doubleValue()));
-                        state.set("actualEndingGc", new Double(priceDecimalFormat.parse(closeInfo[3]).doubleValue()));
-                        state.set("actualEndingOther", new Double(priceDecimalFormat.parse(closeInfo[4]).doubleValue()));
-                    }
-                    catch (ParseException pe)
-                    {
-                        Debug.logError(pe, module);
-                    }
+                    state.set("actualEndingCash", new BigDecimal(closeInfo[0]));
+                    state.set("actualEndingCheck", new BigDecimal(closeInfo[1]));
+                    state.set("actualEndingCc", new BigDecimal(closeInfo[2]));
+                    state.set("actualEndingGc", new BigDecimal(closeInfo[3]));
+                    state.set("actualEndingOther", new BigDecimal(closeInfo[4]));
                     state.set("endingTxId", trans.getTransactionId());
                     Debug.log("Updated State - " + state, module);
                     try {
@@ -427,8 +419,10 @@ public class ManagerEvents {
         Map mapInOut = PaidInOut.openDlg();
         if (null != mapInOut.get("amount")) {
             String amount = (String) mapInOut.get("amount");
+            BigDecimal amt = ZERO;
             try {
-                double dbl = Double.parseDouble(amount);
+                amt = new BigDecimal(amount);
+                amt = amt.movePointLeft(2);
             } catch (NumberFormatException e) {
                 Debug.logError(e, module);
                 return;
@@ -436,15 +430,7 @@ public class ManagerEvents {
 
             GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx");
             internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
-            try
-            {
-                internTx.set("paidAmount", new Double(priceDecimalFormat.parse(amount).doubleValue() / 100));
-            }
-            catch (ParseException pe)
-            {
-                Debug.logError(pe, module);
-                return;
-            }
+            internTx.set("paidAmount", amt);
             internTx.set("reasonComment", mapInOut.get("reasonComment"));
             internTx.set("reasonEnumId", mapInOut.get("reason"));
             try {
@@ -470,12 +456,12 @@ public class ManagerEvents {
             state = trans.getTerminalState();
         }
 
-        double checkTotal = 0.00;
-        double cashTotal = 0.00;
-        double gcTotal = 0.00;
-        double ccTotal = 0.00;
-        double othTotal = 0.00;
-        double total = 0.00;
+        BigDecimal checkTotal = ZERO;
+        BigDecimal cashTotal = ZERO;
+        BigDecimal gcTotal = ZERO;
+        BigDecimal ccTotal = ZERO;
+        BigDecimal othTotal = ZERO;
+        BigDecimal total = ZERO;
 
         GenericDelegator delegator = pos.getSession().getDelegator();
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
@@ -500,20 +486,20 @@ public class ManagerEvents {
                 Timestamp orderDate = ohpp.getTimestamp("orderDate");
                 if (orderDate.after(dayStart) && orderDate.before(dayEnd)) {
                     String pmt = ohpp.getString("paymentMethodTypeId");
-                    Double amt = ohpp.getDouble("maxAmount");
+                    BigDecimal amt = ohpp.getBigDecimal("maxAmount");
 
                     if ("CASH".equals(pmt)) {
-                        cashTotal += amt.doubleValue();
+                        cashTotal = cashTotal.add(amt);
                     } else  if ("PERSONAL_CHECK".equals(pmt)) {
-                        checkTotal += amt.doubleValue();
+                        checkTotal = checkTotal.add(amt);
                     } else if ("GIFT_CARD".equals(pmt)) {
-                        gcTotal += amt.doubleValue();
+                        gcTotal = gcTotal.add(amt);
                     } else if ("CREDIT_CARD".equals(pmt)) {
-                        ccTotal += amt.doubleValue();
+                        ccTotal = ccTotal.add(amt);
                     } else {
-                        othTotal += amt.doubleValue();
+                        othTotal = othTotal.add(amt);
                     }
-                    total += amt.doubleValue();
+                    total = total.add(amt);
                 }
             }
 
@@ -553,12 +539,12 @@ public class ManagerEvents {
 
         if (runBalance) {
             // actuals
-            double cashEnd = state.getDouble("actualEndingCash").doubleValue();
-            double checkEnd = state.getDouble("actualEndingCheck").doubleValue();
-            double ccEnd = state.getDouble("actualEndingCc").doubleValue();
-            double gcEnd = state.getDouble("actualEndingGc").doubleValue();
-            double othEnd = state.getDouble("actualEndingOther").doubleValue();
-            double grossEnd = cashEnd + checkEnd + ccEnd + gcEnd + othEnd;
+            BigDecimal cashEnd = state.getBigDecimal("actualEndingCash");
+            BigDecimal checkEnd = state.getBigDecimal("actualEndingCheck");
+            BigDecimal ccEnd = state.getBigDecimal("actualEndingCc");
+            BigDecimal gcEnd = state.getBigDecimal("actualEndingGc");
+            BigDecimal othEnd = state.getBigDecimal("actualEndingOther");
+            BigDecimal grossEnd = cashEnd.add(checkEnd.add(ccEnd.add(gcEnd.add(othEnd))));
 
             reportMap.put("cashEnd", UtilFormatOut.padString(UtilFormatOut.formatPrice(cashEnd), 8, false, ' '));
             reportMap.put("checkEnd", UtilFormatOut.padString(UtilFormatOut.formatPrice(checkEnd), 8, false, ' '));
@@ -568,12 +554,12 @@ public class ManagerEvents {
             reportMap.put("grossEnd", UtilFormatOut.padString(UtilFormatOut.formatPrice(grossEnd), 8, false, ' '));
 
             // diffs
-            double cashDiff = cashEnd - cashTotal;
-            double checkDiff = checkEnd - checkTotal;
-            double ccDiff = ccEnd - ccTotal;
-            double gcDiff = gcEnd - gcTotal;
-            double othDiff = othEnd - othTotal;
-            double grossDiff = cashDiff + checkDiff + ccDiff + gcDiff + othDiff;
+            BigDecimal cashDiff = cashEnd.subtract(cashTotal);
+            BigDecimal checkDiff = checkEnd.subtract(checkTotal);
+            BigDecimal ccDiff = ccEnd.subtract(ccTotal);
+            BigDecimal gcDiff = gcEnd.subtract(gcTotal);
+            BigDecimal othDiff = othEnd.subtract(othTotal);
+            BigDecimal grossDiff = cashDiff.add(checkDiff.add(ccDiff.add(gcDiff.add(othDiff))));
 
             reportMap.put("cashDiff", UtilFormatOut.padString(UtilFormatOut.formatPrice(cashDiff), 8, false, ' '));
             reportMap.put("checkDiff", UtilFormatOut.padString(UtilFormatOut.formatPrice(checkDiff), 8, false, ' '));

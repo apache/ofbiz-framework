@@ -52,6 +52,15 @@ public class UtilFormatOut {
         return formatPrice(price.doubleValue());
     }
 
+    /** Formats a BigDecimal representing a price into a string
+     * @param price The price BigDecimal to be formatted
+     * @return A String with the formatted price
+     */
+    public static String formatPrice(BigDecimal price) {
+        if (price == null) return "";
+        return priceDecimalFormat.format(price);
+    }
+
     /** Formats a double representing a price into a string
      * @param price The price double to be formatted
      * @return A String with the formatted price
@@ -155,6 +164,15 @@ public class UtilFormatOut {
         return formatPercentage(percentage.doubleValue());
     }
 
+    /** Formats a BigDecimal representing a percentage into a string
+     * @param percentage The percentage Decimal to be formatted
+     * @return A String with the formatted percentage
+     */
+    public static String formatPercentage(BigDecimal percentage) {
+        if (percentage == null) return "";
+        return formatPercentage(percentage);
+    }
+
     /** Formats a double representing a percentage into a string
      * @param percentage The percentage double to be formatted
      * @return A String with the formatted percentage
@@ -232,6 +250,17 @@ public class UtilFormatOut {
             return "";
         else
             return formatQuantity(quantity.doubleValue());
+    }
+
+    /** Formats an BigDecimal representing a quantity into a string
+     * @param quantity The quantity BigDecimal to be formatted
+     * @return A String with the formatted quantity
+     */
+    public static String formatQuantity(BigDecimal quantity) {
+        if (quantity == null)
+            return "";
+        else
+            return quantityDecimalFormat.format(quantity);
     }
 
     /** Formats an double representing a quantity into a string
