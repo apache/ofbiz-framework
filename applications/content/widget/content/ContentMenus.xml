@@ -187,4 +187,12 @@ under the License.
             <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
     </menu>
+    <menu name="contentTopMenu" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="findContent" title="${uiLabelMap.CommonFind}">
+            <link target="findContent"/>
+        </menu-item>
+        <menu-item name="navigateContent" title="${uiLabelMap.ContentNavigate}">
+            <link target="navigateContent"/>
+        </menu-item>
+    </menu>
 </menus>

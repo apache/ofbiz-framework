@@ -134,4 +134,16 @@ under the License.
         <call-service in-map-name="context3" service-name="assocContent"></call-service>
 
     </simple-method>
+    <simple-method method-name="createDocument" short-description="Create Document Tree">
+        <set field="content.contentName" from-field="parameters.contentName"/>
+        <set field="content.contentTypeId" from-field="parameters.contentTypeId"/>
+        <session-to-field field="content.userLogin" session-name="userLogin"/>
+        <call-service service-name="createContent" in-map-name="content">
+            <result-to-field result-name="contentId" field="contentAssoc.contentIdTo"/>
+        </call-service>
+        <set field="contentAssoc.contentId" from-field="parameters.contentId"/>
+        <set field="contentAssoc.contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
+        <session-to-field field="contentAssoc.userLogin" session-name="userLogin"/>
+        <call-service service-name="createContentAssoc" in-map-name="contentAssoc"/>
+    </simple-method>
 </simple-methods>

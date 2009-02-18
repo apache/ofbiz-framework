@@ -491,6 +491,10 @@
         <value xml:lang="en">Document Type</value>
         <value xml:lang="it">Tipo documento</value>
     </property>
+    <property key="ContentDeleteFolder">
+        <value xml:lang="en">Delete Folder</value>
+        <value xml:lang="th">ลบกล่อง</value>
+    </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
         <value xml:lang="de">Produktladen bearbeiten</value>
@@ -811,6 +815,20 @@
         <value xml:lang="it">Naviga</value>
         <value xml:lang="th">หาเส้นทาง</value>
     </property>
+    <property key="ContentNewContentInFolder">
+        <value xml:lang="de">New Content in Folder</value>
+        <value xml:lang="en">New Content in Folder</value>
+        <value xml:lang="fr">New Content in Folder</value>
+        <value xml:lang="it">New Content in Folder</value>
+        <value xml:lang="th">สร้างเนื้อหาใหม่ในกล่อง</value>
+    </property>    
+    <property key="ContentNewFolder">
+        <value xml:lang="de">New Folder</value>
+        <value xml:lang="en">New Folder</value>
+        <value xml:lang="fr">New Folder</value>
+        <value xml:lang="it">New Folder</value>
+        <value xml:lang="th">สร้างกล่องใหม่</value>
+    </property>
     <property key="ContentOtherLayout">
         <value xml:lang="ar">الوضعيات الأخرى المستعملة لهذا المحتوى التحتي</value>
         <value xml:lang="de">Andere Layouts die dieses untergeordneten Inhalt verwenden</value>
@@ -899,6 +917,10 @@
     <property key="ContentRejected">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="it">Rifiutato</value>
+    </property>    
+    <property key="ContentRenameFolder">
+        <value xml:lang="en">Rename Folder</value>
+        <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
     </property>
     <property key="ContentResourceAudio">
         <value xml:lang="de">Audio</value>
@@ -3700,6 +3722,10 @@
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
         <value xml:lang="zh">查找调查回答</value>
+    </property>
+    <property key="PageTitleNavigateContent">
+        <value xml:lang="en">Navigate Content</value>
+        <value xml:lang="th">เลือกดูเนื้อหา</value>
     </property>
     <property key="PageTitleNavigateDataResources">
         <value xml:lang="de">Durch Datenressourcen navigieren mittels Datenkategorien</value>
