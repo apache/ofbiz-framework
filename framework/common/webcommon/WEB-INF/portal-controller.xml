@@ -113,6 +113,12 @@ under the License.
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
+    <request-map uri="updatePortalPageSeq">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPageSeq"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
+    </request-map>
 
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
