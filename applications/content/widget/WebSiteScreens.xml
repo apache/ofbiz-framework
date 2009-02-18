@@ -359,7 +359,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="content"/>
-
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.groovy"/>
             </actions>
             <widgets>
