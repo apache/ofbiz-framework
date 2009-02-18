@@ -69,7 +69,27 @@ if (parameters.userLogin) {
         }
     }
     
+    // get sequenceNumMin and sequenceNumMax
+    sequenceNumCond = 
+            EntityCondition.makeCondition([
+                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),                           
+                EntityCondition.makeCondition([
+                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId),
+                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parentPortalPageId)
+                ],EntityOperator.OR),
+            ],EntityOperator.AND);
+    sequenceNums = delegator.findList("PortalPage", sequenceNumCond, null, ["sequenceNum"], null, false);
+    if(sequenceNums){
+       parameters.sequenceNumMin = sequenceNums.get(0).sequenceNum;
+       parameters.sequenceNumMax = sequenceNums.get(sequenceNums.size()-1).sequenceNum;
+    }
+    else{
+       parameters.sequenceNumMin = "null";
+       parameters.sequenceNumMax = "null";
+    }
+    
     context.portalPages = portalPages;
     context.userLoginSecurityGroupId = userLoginSecurityGroupId;
+    parameters.portalPagesSize = portalPages.get(portalPages.size()-1).sequenceNum;
 }
 

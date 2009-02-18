@@ -105,23 +105,44 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPortalPage" short-description="Create a new Portal Page">
-        <make-value entity-name="PortalPage" value-field="newPortalPage"/>
-        <set-pk-fields map="parameters" value-field="newPortalPage"/>
-        <if-empty field="newPortalPage.portalPageId">
-            <sequenced-id sequence-name="PortalPage" field="newPortalPage.portalPageId"/>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
-        <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>
-        <if-empty field="parameters.sequenceNum">
-            <make-next-seq-id value-field="newPortalPage" seq-field-name="sequenceNum"/>
-        </if-empty>
-        <create-value value-field="newPortalPage"/>  
-        <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
-        <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>
-        <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
+        <if-not-empty field="parameters.portalPageName">
+            <make-value entity-name="PortalPage" value-field="newPortalPage"/>
+            <set-pk-fields map="parameters" value-field="newPortalPage"/>
+            <if-empty field="newPortalPage.portalPageId">
+                <sequenced-id sequence-name="PortalPage" field="newPortalPage.portalPageId"/>
+            </if-empty>
+            <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
+            <set field="newPortalPage.ownerUserLoginId" from-field="parameters.userLogin.userLoginId"/>
+            <if-empty field="parameters.sequenceNum">
+                <make-next-seq-id value-field="newPortalPage" seq-field-name="sequenceNum"/>
+            </if-empty>
+            <create-value value-field="newPortalPage"/>  
+            <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
+            <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>
+            <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
+        </if-not-empty>
     </simple-method>
     
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
+        <entity-one entity-name="PortalPage" value-field="getPortalPage"/>
+        <if-not-empty field="getPortalPage.originalPortalPageId">
+            <entity-one entity-name="PortalPage" value-field="getOldSequenceNum">
+                <field-map field-name="portalPageId" from-field="getPortalPage.originalPortalPageId"/>
+            </entity-one>
+            <entity-condition entity-name="PortalPage" list="checkSequenceNums">
+                <condition-list combine="and">
+                    <condition-expr field-name="sequenceNum" operator="equals" from-field="getOldSequenceNum.sequenceNum"/>
+                    <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
+                    <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                </condition-list>
+            </entity-condition>
+            <first-from-list entry="checkSequenceNum" list="checkSequenceNums"/>
+            <if-not-empty field="checkSequenceNum.portalPageId">
+                <set field="first.portalPageId" from-field="checkSequenceNum.portalPageId"/>
+                <set field="first.sequenceNum" from-field="getPortalPage.sequenceNum" type="Long"/>
+                <call-service service-name="updatePortalPage" in-map-name="first"/>
+            </if-not-empty>
+        </if-not-empty>
         <call-simple-method method-name="checkOwnerShip"/>
         <remove-related value-field="portalPage" relation-name="PortalPageColumn"/>
         <remove-related value-field="portalPage" relation-name="PortalPagePortlet"/>
@@ -200,5 +221,67 @@ under the License.
         </if-compare>
         <store-value value-field="portalPagePortlet"/>
     </simple-method>
-
+    <simple-method method-name="updatePortalPageSeq" short-description="Update the portal page sequence numbers">
+        <call-simple-method method-name="checkOwnerShip"/>
+        <entity-one entity-name="PortalPage" value-field="getSequenceNum"/>               
+        <if-compare field="parameters.mode" value="UP" operator="equals">
+            <entity-condition entity-name="PortalPage" list="getDatas">
+                <condition-list combine="and">
+                    <condition-expr field-name="sequenceNum" operator="less" from-field="getSequenceNum.sequenceNum"/>
+                    <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>                    
+                    <condition-list combine="or">
+                        <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="-sequenceNum"/>
+            </entity-condition>
+        </if-compare>
+        <if-compare field="parameters.mode" value="DWN" operator="equals">     
+            <entity-condition entity-name="PortalPage" list="getDatas">
+                <condition-list combine="and">
+                    <condition-expr field-name="sequenceNum" operator="greater" from-field="getSequenceNum.sequenceNum"/>
+                    <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </if-compare>
+        <if-compare field="parameters.mode" value="TOP" operator="equals">
+            <entity-condition entity-name="PortalPage" list="getDatas">
+                <condition-list combine="and">
+                    <condition-expr field-name="sequenceNum" operator="less" from-field="getSequenceNum.sequenceNum"/>
+                    <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </if-compare>
+        <if-compare field="parameters.mode" value="BOT" operator="equals">
+            <entity-condition entity-name="PortalPage" list="getDatas">
+                <condition-list combine="and">
+                    <condition-expr field-name="sequenceNum" operator="greater" from-field="getSequenceNum.sequenceNum"/>
+                    <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="-sequenceNum"/>
+            </entity-condition>
+        </if-compare>
+        <first-from-list entry="getData" list="getDatas"/>
+        <set field="portalPage.sequenceNum" from-field="getData.sequenceNum" type="Long"/>
+        <store-value value-field="portalPage"/>
+        <set field="first.portalPageId" from-field="getData.portalPageId"/>
+        <set field="first.sequenceNum" from-field="getSequenceNum.sequenceNum" type="Long"/>
+        <call-service service-name="updatePortalPage" in-map-name="first"/>
+    </simple-method>
+    
 </simple-methods>
