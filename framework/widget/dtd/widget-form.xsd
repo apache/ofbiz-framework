@@ -812,6 +812,7 @@ under the License.
             <xs:annotation><xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="target-window"/>
+        <xs:attribute type="xs:string" name="image-location"/>
     </xs:attributeGroup>
     <xs:element name="ignored" substitutionGroup="AllFields">
         <xs:complexType/>
