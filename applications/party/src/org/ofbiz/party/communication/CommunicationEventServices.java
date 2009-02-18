@@ -369,7 +369,7 @@ public class CommunicationEventServices {
         // only create a new communication event if the email is not already associated with one
         if (communicationEventId == null) {
             String partyIdFrom = (String) userLogin.get("partyId");
-            Map commEventMap = FastMap.newInstance();
+            Map<String, Object> commEventMap = FastMap.newInstance();
             commEventMap.put("communicationEventTypeId", "EMAIL_COMMUNICATION");
             commEventMap.put("statusId", "COM_COMPLETE");
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
