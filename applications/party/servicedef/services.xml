@@ -658,8 +658,8 @@ under the License.
 
     <service name="createCommunicationEventInterface" engine="interface" location="" invoke="">
         <description>Create a Communication Event with or w/o permission check</description>
-        <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true" allow-html="any"/>
+        <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true" allow-html="any"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
