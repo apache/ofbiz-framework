@@ -145,7 +145,7 @@ under the License.
         <field name="description">
             <display/>
         </field>
-        <field name="textData" title="Text" id-name="textData"><display/></field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><display/></field>
         <field name="privilegeEnumId" >
             <display/>
         </field>
@@ -154,13 +154,13 @@ under the License.
 
     <form name="findContent" default-entity-name="ContentAssocDataResourceViewFrom" target="FindContent" title="" type="single"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="caContentIdTo" title="Publish-to content" ><text-find/></field>
-        <field name="caMapKey" title="Map Key" ><text-find/></field>
-        <field name="caContentAssocTypeId" title="Assoc Type Id" ><text-find/></field>
+        <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}"><text-find/></field>
+        <field name="caMapKey"><text-find/></field>
+        <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}" ><text-find/></field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" ><date-find/></field>
-        <field name="contentId" title="Content Id" ><text-find/></field>
-        <field name="dataResourceId" title="Data Resource Id" ><text-find/></field>
-        <field name="contentName" title="Name" ><text-find/></field>
+        <field name="contentId"><text-find/></field>
+        <field name="dataResourceId"><text-find/></field>
+        <field name="contentName"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
 <!--
         <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -184,9 +184,9 @@ under the License.
         <field name="caMapKey" title="Map Key" ><display/></field>
         <field name="caFromDate" title="From Date" ><display/></field>
 -->
-        <field name="contentId" title="Content Id" ><display/></field>
-        <field name="dataResourceId" title="Data Resource Id" ><display/></field>
-        <field name="contentName" title="Name" ><display/></field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="contentName"><display/></field>
     </form>
 
     <form name="EditContent" target="uploadContentAndImage" title="" type="upload"
@@ -222,7 +222,7 @@ under the License.
                 <textarea rows="8" cols="80" />
         </field>
 
-        <field name="textData" title="Text" id-name="textData"><textarea rows="20" cols="60"/></field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="60"/></field>
         <field name="statusId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
                 <list-options list-name="statusList" key-name="statusId" description="${description}"/>
@@ -401,7 +401,7 @@ under the License.
         <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId" >
             <display description="ELECTRONIC_TEXT" also-hidden="false" />
         </field>
-        <field name="textData" title="Text" id-name="textData"><textarea rows="20" cols="120"/> </field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="120"/> </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ImageUpload" target="uploadImage" title="" type="upload"
@@ -459,7 +459,7 @@ under the License.
         <field name="contentAssocTypeId" >
             <hidden value="${contentAssocTypeId}"/>
         </field>
-       <field name="contentPurposeString" title="Purpose">
+       <field name="contentPurposeString">
                 <hidden value="${contentPurpose}"/>
         </field>
        <field name="targetOperationString" >

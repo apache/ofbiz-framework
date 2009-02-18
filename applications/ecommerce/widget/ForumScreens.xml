@@ -124,7 +124,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="blogheader">Full message:</label>
+                        <label style="blogheader">${uiLabelMap.EcommerceBlogFullMessage}:</label>
                         <container style="blogcontentwrapper">
                         <label>${contentText}</label>
                         </container>
@@ -133,15 +133,15 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="CREATE"/>
                             </condition>
                             <widgets>
-                                <label style="blogheader">Add response:</label>
+                                <label style="blogheader">${uiLabelMap.EcommerceBlogAddResponse}</label>
                                 <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="blogheader">You must be logged in to add a response.</label>
+                                <label style="blogheader">${uiLabelMap.EcommerceBlogAddResponseMessage}</label>
                             </fail-widgets>
                         </section>
                         <container>
-                        <label style="blogheader">Message tree:</label>
+                        <label style="blogheader">${uiLabelMap.EcommerceBlogMessageTree}:</label>
                         </container>
                         <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml" /> 
                     </decorator-section>
@@ -495,7 +495,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="Add a thread:"></label>
+                        <label text="${uiLabelMap.EcommerceBlogAddThread}"></label>
                         <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -517,7 +517,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="Add a response:"></label>
+                        <label text="${uiLabelMap.EcommerceBlogAddResponse}"></label>
                         <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

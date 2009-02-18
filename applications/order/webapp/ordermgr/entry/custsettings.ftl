@@ -128,29 +128,6 @@ under the License.
                   <input type="text" name="userLoginId" value="${requestParameters.USERNAME?if_exists}" size="20" maxlength="250"/>
                 </td>
               </tr>
-              <#--
-              <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.OrderPassword}</div></td>
-                <td width="5">&nbsp;</td>
-                <td width="74%">
-                  <input type="password" name="PASSWORD" value="" size="20" maxlength="50">
-                *</td>
-              </tr>
-              <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.OrderConfirm} Password</div></td>
-                <td width="5">&nbsp;</td>
-                <td width="74%">
-                  <input type="password" name="CONFIRM_PASSWORD" value="" size="20" maxlength="50">
-                *</td>
-              </tr>
-              <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.OrderPassword} Hint</div></td>
-                <td width="5">&nbsp;</td>
-                <td width="74%">
-                  <input type="text" name="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT?if_exists}" size="40" maxlength="100">
-                </td>
-              </tr>
-              -->
               </form>
             </table>
           </td>

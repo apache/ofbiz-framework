@@ -49,7 +49,7 @@
                                 <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
                             </condition>
                             <widgets>
-                                <link text="Add New" target="NewBlogArticle?blogContentId=${blogContentId}" style="buttontext"/>
+                                <link text="${uiLabelMap.CommonAddNew}" target="NewBlogArticle?blogContentId=${blogContentId}" style="buttontext"/>
                             </widgets>
                         </section>
 
@@ -60,7 +60,7 @@
                 </container>
             </widgets>
             <fail-widgets>
-                <label text="Unable to find Blog content!" style="blogtitle"/>
+                <label text="${uiLabelMap.EcommerceBlogContentNotFound}" style="blogtitle"/>
             </fail-widgets>
         </section>
     </screen>    
@@ -249,7 +249,7 @@
                         </container>
                         <container style="blogcontentwrapper">
                             <container style="responsetext">
-                                <label text="Posted: ${content.createdDate}" style="responsetext"/>
+                                <label text="${uiLabelMap.EcommerceBlogPostedOn}: ${content.createdDate}" style="responsetext"/>
                                 <label text="&lt;p/&gt;"/>
                             </container>
                             <content content-id="${articleContentId}"/>
@@ -435,9 +435,9 @@
             <widgets>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="Latest Responses"/>
+                        <label text="${uiLabelMap.EcommerceBlogLatestResponses}"/>
                         <iterate-section list="responseList" entry="rsp">
-                            <section name="Blog Responses">
+                            <section name="BlogResponses">
                                 <widgets>
                                     <include-screen name="responseTreeLine"/>                                            
                                 </widgets>
@@ -462,7 +462,7 @@
                             <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
-                                <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>
+                                <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
                             </container>
                         </container>
                     </widgets>
@@ -477,7 +477,7 @@
                             <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
-                                <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>
+                                <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
                             </container>
                         </container>
                     </widgets>
@@ -491,10 +491,10 @@
             <widgets>
                 <container>
                     <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                    <link text="View Blog Article" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                    <link text="${uiLabelMap.EcommerceBlogViewArticle}" target="ViewBlogArticle?articleContentId=${articleContentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
                     <container style="responsetext">
                         <label text="${rsp.description}" style="responsetext"/>
-                        <label text="(Posted on: ${rsp.createdDate})" style="responsetext"/>
+                        <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
                     </container>
                 </container>
             </widgets>

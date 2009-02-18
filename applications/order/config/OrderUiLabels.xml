@@ -1524,7 +1524,7 @@
         <value xml:lang="th">กลับสู่หน้าการซื้อสินค้าจากบัตร</value>
         <value xml:lang="zh">返回购物车</value>
     </property>
-    <property key="OrderBesureIncludeOrder">
+    <property key="OrderBeSureIncludeOrder">
         <value xml:lang="cs">Ujistěte se že jste vložili objednávku</value>
         <value xml:lang="de">Seien Sie sicher, Ihre Bestellung einzufügen</value>
         <value xml:lang="en">Be sure to include your order</value>
@@ -1565,6 +1565,10 @@
         <value xml:lang="it">Indirizzo di fatturazione</value>
         <value xml:lang="ru">Платежный адрес</value>
         <value xml:lang="th">ที่อยู่ใบเสร็จรับเงิน</value>
+    </property>
+	<property key="OrderBoxNumber">
+        <value xml:lang="en">Box Number</value>
+        <value xml:lang="it">Scatola numero</value>
     </property>
     <property key="OrderCOD">
         <value xml:lang="cs">Platba v hotovosti při doručení (dobírka)</value>
@@ -2424,6 +2428,10 @@
         <value xml:lang="th">จุดหมายปลายทาง</value>
         <value xml:lang="zh">目的地</value>
     </property>
+    <property key="OrderDigitalProductFiles">
+        <value xml:lang="en">Digital Product Files</value>
+        <value xml:lang="it">Files prodotto digitale</value>
+    </property>
     <property key="OrderDistributor">
         <value xml:lang="cs">Dodavatel</value>
         <value xml:lang="de">Lieferant</value>
@@ -2636,6 +2644,10 @@
         <value xml:lang="ru">Введенные коды</value>
         <value xml:lang="th">เข้ารหัส</value>
         <value xml:lang="zh">已输入的代码</value>
+    </property>
+    <property key="OrderEntityExceptionSeeLogs">
+        <value xml:lang="en">Entity Exception See Logs</value>
+        <value xml:lang="it">Eccezione entità, controllare i logs</value>
     </property>
     <property key="OrderEntryDate">
         <value xml:lang="de">Erfassungsdatum</value>

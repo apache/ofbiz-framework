@@ -377,7 +377,7 @@ under the License.
                           <div class="tabletext">
                             <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
                             Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
-                            <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNubmer}${orderShipmentInfoSummary.boxNumber}</#if> 
+                            <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNumber}${orderShipmentInfoSummary.boxNumber}</#if> 
                             <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
                           </div>
                         </#list>

@@ -239,19 +239,69 @@
         <value xml:lang="th">แน่ใจในการรวมรายการสินค้าของคุณ #</value>
         <value xml:lang="zh">确信包括了你的订单 #</value>
     </property>
-    <property key="EcommerceBronze">
-        <value xml:lang="de">Bronze</value>
+	<property key="EcommerceBlogAddResponse">
+        <value xml:lang="en">Add a response:</value>
+        <value xml:lang="it">Aggiungi una risposta:</value>
+    </property>
+	<property key="EcommerceBlogAddResponseMessage">
+        <value xml:lang="en">You must be logged in to add a response.</value>
+        <value xml:lang="it">Devi essere autenticato per aggiungere una risposta.</value>
+    </property>
+	<property key="EcommerceBlogAddThread">
+        <value xml:lang="en">Add a thread:</value>
+        <value xml:lang="it">Aggiungi una discussione:</value>
+    </property>
+	<property key="EcommerceBlogArticle">
+        <value xml:lang="en">Article</value>
+        <value xml:lang="it">Articolo</value>
+    </property>
+	<property key="EcommerceBlogContentNotFound">
+        <value xml:lang="en">Unable to find Blog content!</value>
+        <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
+    </property>
+	<property key="EcommerceBlogEntryId">
+        <value xml:lang="en">Blog entry Id</value>
+        <value xml:lang="it">Voce blog</value>
+    </property>
+	<property key="EcommerceBlogFullMessage">
+        <value xml:lang="en">Full message</value>
+        <value xml:lang="it">Messaggio completo</value>
+    </property>
+	<property key="EcommerceBlogLatestResponses">
+        <value xml:lang="en">Latest Responses</value>
+        <value xml:lang="it">Ultime risposte</value>
+    </property>
+	<property key="EcommerceBlogMessageTree">
+        <value xml:lang="en">Message tree</value>
+        <value xml:lang="it">Albero messaggi</value>
+    </property>
+    <property key="EcommerceBlogPostedOn">
+        <value xml:lang="en">Posted on</value>
+        <value xml:lang="it">Inviato il</value>
+    </property>
+	<property key="EcommerceBlogPreview">
+        <value xml:lang="en">Preview</value>
+        <value xml:lang="it">Anteprima</value>
+    </property>
+	<property key="EcommerceBlogPublish">
+        <value xml:lang="en">Publish</value>
+        <value xml:lang="it">Pubblica</value>
+    </property>
+	<property key="EcommerceBlogTopCenter">
+        <value xml:lang="en">Top Center</value>
+        <value xml:lang="it">Alto al centro</value>
+    </property>
+	<property key="EcommerceBlogTopLeft">
+        <value xml:lang="en">Top Left</value>
+        <value xml:lang="it">Alto a sinistra</value>
+    </property>
+	<property key="EcommerceBlogViewArticle">
+        <value xml:lang="en">View Blog Article</value>
+        <value xml:lang="it">Mostra articolo blog</value>
+    </property>
+	<property key="EcommerceBronze">
         <value xml:lang="en">Bronze</value>
-        <value xml:lang="es">Bronce</value>
-        <value xml:lang="fr">Bronze</value>
-        <value xml:lang="hi_IN">कांस्य</value>
         <value xml:lang="it">Bronzo</value>
-        <value xml:lang="ja">Bronze</value>
-        <value xml:lang="nl">Brons</value>
-        <value xml:lang="ro">Bronz</value>
-        <value xml:lang="ru">Бронза</value>
-        <value xml:lang="th">สีบรอนซ์</value>
-        <value xml:lang="zh">铜牌</value>
     </property>
     <property key="EcommerceCartHas">
         <value xml:lang="cs">Košík má</value>
