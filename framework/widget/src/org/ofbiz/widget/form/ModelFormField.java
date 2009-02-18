@@ -2222,6 +2222,7 @@ public class ModelFormField {
 
         protected boolean alsoHidden = true;
         protected String targetType;
+        protected String image;
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
@@ -2246,6 +2247,7 @@ public class ModelFormField {
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+            this.image = element.getAttribute("image-location");
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -2275,6 +2277,10 @@ public class ModelFormField {
 
         public String getTarget(Map<String, Object> context) {
             return this.target.expandString(context);
+        }
+        
+        public String getImage(){
+        	return this.image;
         }
 
         /**
