@@ -81,6 +81,11 @@
     <property key="ContentBlog">
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
+		<value xml:lang="it">Blog</value>
+    </property>
+	<property key="ContentBlogs">
+        <value xml:lang="en">Blogs</value>
+        <value xml:lang="it">Blogs</value>
     </property>
     <property key="ContentBlogArticle">
         <value xml:lang="en">Article</value>
@@ -105,6 +110,10 @@
     <property key="ContentBlogName">
         <value xml:lang="en">Blog Name</value>
         <value xml:lang="it">Nome blog</value>
+    </property>
+	<property key="ContentBlogPost">
+        <value xml:lang="en">POST</value>
+        <value xml:lang="it">Inviare</value>
     </property>
     <property key="ContentBlogSummary">
         <value xml:lang="en">Summary</value>
@@ -629,6 +638,10 @@
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
+	<property key="ContentForums">
+        <value xml:lang="en">Forums</value>
+        <value xml:lang="it">Forums</value>
+    </property>
     <property key="ContentForumThread">
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Thread</value>
@@ -896,6 +909,10 @@
     <property key="ContentPNG">
         <value xml:lang="en">PNG</value>
         <value xml:lang="it">PNG</value>
+    </property>
+	<property key="ContentPublishToContent">
+        <value xml:lang="en">Publish-to content</value>
+        <value xml:lang="it">Pubblica sul contenuto</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>

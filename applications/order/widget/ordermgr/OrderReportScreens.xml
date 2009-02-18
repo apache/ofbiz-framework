@@ -36,7 +36,7 @@ under the License.
     <screen name="OrderReportList">
         <section>
             <actions>
-                <set field="title" value="Order Reports"/>
+                <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/ReportList.groovy"/>
             </actions>

@@ -23,7 +23,7 @@ under the License.
     <form name="searchQuery" target="AdminSearch" title="" type="single"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="queryLine" title="${uiLabelMap.EcommerceEnterQueryParameters}"><text size="60"/></field>
-        <field name="submitButton" title="Query" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
     </form>
     <form name="searchList" type="list" target="" list-name="queryResults" 
@@ -32,8 +32,8 @@ under the License.
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
         </field>
-        <field name="contentId" title="${uiLabelMap.ProductContentId}" ><display/></field>
-        <field name="dataResourceId" title="${uiLabelMap.EcommerceDataResourceId}" ><display/></field>
-        <field name="contentName" title="${uiLabelMap.CommonName}" ><display/></field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="contentName"><display/></field>
     </form>
 </forms>

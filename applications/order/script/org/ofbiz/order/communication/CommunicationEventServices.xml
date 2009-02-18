@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCommunicationEventOrder" short-description="Create a CommunicationEventOrder">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderUiLabels" property="OrderCreateCommunicationEventProductPermissionError"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderCreateCommunicationEventProductPermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="CommunicationEventOrder"/>

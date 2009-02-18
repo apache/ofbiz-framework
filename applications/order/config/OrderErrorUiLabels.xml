@@ -286,6 +286,10 @@
         <value xml:lang="th">ไม่สามารถเลือกทางเลือกของขวัญ, ไม่พบรายการข้อความบัตรสำหรับ # ${alternateGwpLine}. </value>
         <value xml:lang="zh">无法选择另一个礼品，没有找到用于 # ${alternateGwpLine} 的购物车行明细。 </value>
     </property>
+    <property key="OrderCreateCommunicationEventProductPermissionError">
+        <value xml:lang="en">Create Communication Event Product Permission Error</value>
+        <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
+    </property>
     <property key="OrderDispatcherOrDelegatorOrCartArgumentIsNull">
         <value xml:lang="en">Dispatcher or Delegator or Cart argument is null</value>
         <value xml:lang="es">El argumento del despachador, el delegador o el carro es nulo</value>
