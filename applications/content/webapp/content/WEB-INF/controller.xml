@@ -1775,6 +1775,31 @@ under the License.
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
+    
+    <!-- ================ Content Navigate Requests ================= -->
+    <request-map uri="navigateContent">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="navigateContent"/>
+    </request-map>
+    <request-map uri="updateDocumentTree">
+        <security auth="true" https="true"/>
+        <event invoke="updateContent" type="service"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
+        <response name="error" type="view" value="navigateContent"/>
+    </request-map>
+    <request-map uri="removeDocumentFromTree">
+        <security auth="true" https="true"/>
+        <event invoke="removeContentAssoc" path="" type="service"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
+        <response name="error" type="view" value="navigateContent"/>
+    </request-map>
+    <request-map uri="addDocumentToTree">
+        <security auth="true" https="true"/>
+        <event invoke="createDocument" path="org/ofbiz/content/content/ContentEvents.xml" type="simple"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
+        <response name="error" type="request" value="navigateContent"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
@@ -1820,7 +1845,7 @@ under the License.
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
     <view-map name="ListWebSite" page="component://content/widget/content/ContentScreens.xml#ListWebSite" type="screen"/>
-    
+            
     <view-map name="EditContentAttribute" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute" type="screen"/>
     <view-map name="EditContentMetaData" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData" type="screen"/>
     <view-map name="EditContentType" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentType" type="screen"/>
@@ -1933,5 +1958,12 @@ under the License.
     <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
-    <!-- end of view mappings -->
+    
+    <!-- content navigate view -->
+    <view-map name="navigateContent" type="screen" page="component://content/widget/content/ContentScreens.xml#navigateContent"/>
+    <view-map name="EditDocumentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocumentTree"/>
+    <view-map name="EditDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocument"/>
+    <view-map name="ListDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#ListDocument"/>
+        
+        <!-- end of view mappings -->
 </site-conf>

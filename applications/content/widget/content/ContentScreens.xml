@@ -30,12 +30,13 @@ under the License.
                 <set field="headerItem" value="Content"/>
                 <set field="titleProperty" value="PageTitleFindContent"/>
                 <set field="entityName" value="Content"/>
+                <set field="tabButtonItem" value="findContent"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -68,6 +69,101 @@ under the License.
         <section>
             <widgets>
                 <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="navigateContent">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <set field="titleProperty" value="PageTitleNavigateContent"/>
+                <set field="tabButtonItem" value="navigateContent"/>
+                <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
+                <entity-and entity-name="ContentAssoc" list="contentAssoc">
+                    <field-map field-name="contentId" value="TREE_ROOT"/>
+                    <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="left-border">
+                                    <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
+                                        <container id="EditDocumentTree"/>
+                                        <include-screen name="navigateMenu"/>
+                                    </screenlet>
+                                </container>
+                                <container style="leftonly">
+                                    <container  style="screenlet-title-bar h3">
+                                        <label text="${uiLabelMap.ContentContent}"/>
+                                    </container>
+                                    <container id="Document" style="screenlet">
+                                        <include-screen name="ListDocument"/>
+                                    </container>
+                                </container>
+                           </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="navigateMenu">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDocument">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
+            <widgets>
+                <container>
+                    <include-form name="AddDocument" location="component://content/widget/content/ContentForms.xml"/> 
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListDocument">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="contentIdTo" from-field="parameters.contentIdTo"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-condition entity-name="ContentAssoc" list="contentAssoc">
+                    <condition-list  combine="and">
+                        <condition-expr field-name="contentId" from-field="contentId" operator="equals"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>   
+            <widgets>
+                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDocumentTree">
+        <section>
+        <actions>
+            <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+            <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+        </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://content/webapp/content/content/EditContentTree.ftl"/>
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>

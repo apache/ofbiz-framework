@@ -493,4 +493,66 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
         </field>
     </form>
+    <form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="Content" value-field="content">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-one>
+            <set field="contentTypeId" from-field="content.contentTypeId"/>
+            <set field="statusId" from-field="content.statusId"/>
+            <entity-one entity-name="DataResource" value-field="dataResource">
+                <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
+            </entity-one>
+            <set field="mimeTypeId" from-field="dataResource.mimeTypeId"/>
+        </row-actions>
+        <field name="contentId">
+            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent?contentId=${content.contentId}&amp;dataResourceId=${content.dataResourceId}"/> 
+        </field>
+        <field name="contentTypeId">
+            <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>
+        </field>
+        <field name="mimeTypeId">
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+        </field>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="createdDate"><display description="${content.createdDate}"/></field>
+        <field name="delete">
+            <hyperlink target="removeDocumentFromTree?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}" description="Delete"/>
+        </field>
+    </form>
+    <form name="AddDocument"  target="addDocumentToTree" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="Content" value-field="content">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+            </entity-one>
+        </actions>
+        <field name="contentIdTo"><hidden/></field>
+        <field name="contentId" title="${uiLabelMap.ContentRoot}"><display description="${content.contentName}[${content.contentId}]"/></field>
+        <field name="contentName"><text/></field>
+        <field name="contentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ContentType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="contentAssocTypeId"><hidden value="SUB_CONTENT"/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="contentAssocPredicateId"><text/></field>
+        <field name="dataSourceId"><lookup target-form-name="LookupDataResource"></lookup></field>
+        <field name="mapKey"><text/></field>
+        <field name="upperCoordinate"><text/></field>
+        <field name="leftCoordinate"><text/></field>
+        <field name="metaDataPredicateId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="MetaDataPredicate"/>
+            </drop-down>
+        </field>
+        <field name="submit"><submit/></field>
+    </form>
 </forms>

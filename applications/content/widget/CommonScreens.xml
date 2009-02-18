@@ -112,6 +112,33 @@ under the License.
         </section>
     </screen>
     
+    <screen name="contentDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Content"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>  
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    
     <screen name="commonDataResourceDecorator">
         <section>
             <actions>
