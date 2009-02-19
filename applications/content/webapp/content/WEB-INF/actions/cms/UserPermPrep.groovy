@@ -27,7 +27,7 @@ blogRoles = delegator.findList("RoleType", EntityCondition.makeCondition([parent
 
 if (forumId) {
     siteRoleMap = [:];
-    for (int i=0; i < blogRoles.size; i++) {
+    for (int i=0; i < blogRoles.size(); i++) {
         roleType = blogRoles.get(i);
         roleTypeId = roleType.roleTypeId;
         contentRoleList = delegator.findList("ContentRole", EntityCondition.makeCondition([contentId : forumId, roleTypeId : roleTypeId]), null, null, null, false);

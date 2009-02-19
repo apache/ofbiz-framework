@@ -17,44 +17,12 @@
  * under the License.
  */
 
-/*
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.widget.html.*;
-import org.ofbiz.widget.form.*;
-import org.ofbiz.securityext.login.*;
-import org.ofbiz.common.*;
-import org.ofbiz.entity.model.*;
-
-import org.ofbiz.widget.html.HtmlMenuWrapper;
-import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-
-import freemarker.template.SimpleHash;
-import freemarker.template.SimpleSequence;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-*/
-
 import org.ofbiz.base.util.*
 import org.ofbiz.entity.util.*
 import org.ofbiz.content.ContentManagementWorker;
 import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 
 Debug.logInfo("in mostrecentprep(1):","");
 paramMap = UtilHttp.getParameterMap(request);
