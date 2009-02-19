@@ -638,6 +638,10 @@
         <value xml:lang="fr">Modifier le profil</value>
         <value xml:lang="it">Aggiorna profilo</value>
     </property>
+    <property key="EcommerceEditThisComment">
+        <value xml:lang="en">Edit this comment</value>
+        <value xml:lang="it">Aggiorna questo commento</value>
+    </property>
     <property key="EcommerceEmptyBody">
         <value xml:lang="de">Leerer Meldungstext</value>
         <value xml:lang="en">Empty Body</value>
@@ -3650,34 +3654,6 @@
         <value xml:lang="ru">Корзина покупок</value>
         <value xml:lang="th">การซื้อสินค้าลงตะกร้า</value>
         <value xml:lang="zh">购物车</value>
-    </property>
-    <property key="PageTitleShowAllPromotions">
-        <value xml:lang="de">Alle Aktionen anzeigen</value>
-        <value xml:lang="en">Show All Promotions</value>
-        <value xml:lang="es">Mostrar las promociones</value>
-        <value xml:lang="fr">Montrer toutes les promotions</value>
-        <value xml:lang="hi_IN">सारे प्रोत्साहन सामान दिखाइये</value>
-        <value xml:lang="it">Mostra tutte le promozioni</value>
-        <value xml:lang="ja">Show All Promotions</value>
-        <value xml:lang="nl">Bekijk alle promoties</value>
-        <value xml:lang="ro">Afiseaza Toate Promotiile </value>
-        <value xml:lang="ru">Показать все акции</value>
-        <value xml:lang="th">แสดงโปรโมชั่นทั้งหมด</value>
-        <value xml:lang="zh">显示全部促销</value>
-    </property>
-    <property key="PageTitleShowPromotionDetails">
-        <value xml:lang="de">Aktionsdetails anzeigen</value>
-        <value xml:lang="en">Show Promotion Details</value>
-        <value xml:lang="es">Mostrar Detalles de la promoción</value>
-        <value xml:lang="fr">Montrer les détails de la promotion</value>
-        <value xml:lang="hi_IN">प्रोत्साहन विवरण दिखाइये</value>
-        <value xml:lang="it">Mostra dettagli promozioni</value>
-        <value xml:lang="ja">Show Promotion Details</value>
-        <value xml:lang="nl">Bekijk promotie detail</value>
-        <value xml:lang="ro">Afiseaza Detalii Promotii </value>
-        <value xml:lang="ru">Показать детали акции</value>
-        <value xml:lang="th">แสดงรายละเอียดของโปรโมชั่น</value>
-        <value xml:lang="zh">显示促销详细信息</value>
     </property>
     <property key="PageTitleSplitItemsForShipping">
         <value xml:lang="de">Positionen aufteilen für Versand</value>

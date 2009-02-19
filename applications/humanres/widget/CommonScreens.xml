@@ -72,7 +72,7 @@ under the License.
                 <set field="partyId" value="Company"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.Company}">
+                <screenlet title="${uiLabelMap.FormFieldTitle_company}">
                     <section>
                         <widgets>
                             <include-tree name="OrgTree" location="component://humanres/widget/PartyTrees.xml"/>

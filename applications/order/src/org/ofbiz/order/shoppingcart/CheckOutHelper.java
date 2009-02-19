@@ -1024,7 +1024,7 @@ public class CheckOutHelper {
                     }
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerService;PaymentReturnCodeUnknown.", Locale.getDefault()));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed

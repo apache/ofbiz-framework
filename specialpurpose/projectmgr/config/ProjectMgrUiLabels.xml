@@ -641,6 +641,14 @@
         <value xml:lang="th">แก้ไข</value>
         <value xml:lang="zh">编辑</value>
     </property>
+    <property key="ProjectMgrEditAssoc">
+        <value xml:lang="en">Edit Assoc</value>
+        <value xml:lang="it">Aggiorna associazione</value>
+    </property>
+    <property key="ProjectMgrEditAssocDetail">
+        <value xml:lang="en">Edit Assoc Detail</value>
+        <value xml:lang="it">Aggiorna dettagli associazione</value>
+    </property>
     <property key="ProjectMgrEditPartySkill">
         <value xml:lang="en">Edit PartySkill</value>
         <value xml:lang="fr">Modifier les compétences de l'acteur</value>

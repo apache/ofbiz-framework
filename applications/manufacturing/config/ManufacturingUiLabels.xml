@@ -605,6 +605,10 @@
         <value xml:lang="it">Ordini di Produzione Associati</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
     </property>
+    <property key="ManufacturingEngineeringBillOfMaterials">
+        <value xml:lang="en">Engineering Bill of Materials</value>
+        <value xml:lang="it">Distinta base ingegnerizzata</value>
+    </property>
     <property key="ManufacturingBillOfMaterials">
         <value xml:lang="de">Stückliste</value>
         <value xml:lang="en">Bill Of Materials</value>

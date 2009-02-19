@@ -236,8 +236,7 @@ public class WebPosTransaction {
         // get the change due
         BigDecimal change = grandTotal.subtract(paymentAmt);
         
-        // notify the change due
-        //output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
+        // TODO notify the change due
         
         // threaded drawer/receipt printing
         // TODO open the drawer

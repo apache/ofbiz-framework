@@ -386,30 +386,30 @@ under the License.
         <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"  widget-style="tabletext"><display/></field> -->
         <!-- <field name="contentTypeId" map-name="content" title="Content Type"  widget-style="tabletext"><display/></field> -->
         
-        <field name="relatedDetailId" map-name="dataResource" title="Survey ID"
+        <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}"
             use-when="dataResource!=null &amp;&amp; &quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
             <lookup target-form-name="LookupSurvey">
-                <sub-hyperlink target="EditSurvey?surveyId=${dataResource.relatedDetailId}" description="Edit Survey" link-style="buttontext" 
+                <sub-hyperlink target="EditSurvey?surveyId=${dataResource.relatedDetailId}" description="${uiLabelMap.PageTitleEditSurvey}" link-style="buttontext" 
                     use-when="dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
             </lookup>
         </field>
-        <field name="relatedDetailId" map-name="dataResource" title="Survey Response ID" 
+        <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurveyResponse}" 
             use-when="dataResource!=null &amp;&amp; &quot;SURVEY_RESPONSE&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
             <lookup target-form-name="LookupSurveyResponse">
                 <sub-hyperlink target="EditSurveyResponse?surveyResponseId=${dataResource.relatedDetailId}" 
-                    description="Edit Survey Response" link-style="buttontext" use-when="dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
+                    description="${uiLabelMap.PageTitleEditSurveyResponse}" link-style="buttontext" use-when="dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
             </lookup>
         </field>
         <field name="addSurveyResponse" map-name="dummy" widget-style="buttontext" 
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
+            <hyperlink description="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
         </field>
         <field name="updateSurveyResponse" map-name="dummy" widget-style="buttontext" 
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="Update Response (for Survey ${templateDataResource.relatedDetailId}, Response ${dataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;surveyResponseId=${dataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
+            <hyperlink description="${uiLabelMap.CommonUpdate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId}, Response ${dataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;surveyResponseId=${dataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
         </field>
         
-        <field name="objectInfo" title="Current File Name" map-name="dataResource" widget-style="tabletext"
+        <field name="objectInfo" map-name="dataResource" widget-style="tabletext"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
             <display also-hidden="false"/>
         </field>

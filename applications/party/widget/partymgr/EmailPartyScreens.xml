@@ -23,7 +23,7 @@ under the License.
     <screen name="CreatePartyNotification">
         <section>
             <actions>
-                <set field="title" value="Party Account Creation Notification Mail"/>
+                <set field="titleProperty" value="PartyNotificationMailCreate"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>
@@ -33,7 +33,7 @@ under the License.
     <screen name="ChangePersonalInfoNotification">
         <section>
             <actions>
-                <set field="title" value="Change Personal Info Notification Mail"/>
+                <set field="titleProperty" value="PartyNotificationMailChange"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/templates/email/ChangePersonalInfoNotification.ftl"/></html></platform-specific>
@@ -43,11 +43,11 @@ under the License.
     <screen name="VerifyEmailAddressNotification">
         <section>
             <actions>
-                <set field="title" value="Email Address Verification"/>
+                <set field="titleProperty" value="PartyNotificationMailVerification"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/templates/email/VerifyEmailAddressNotification.ftl"/></html></platform-specific>
             </widgets>
-        </section>        
+        </section>
     </screen>
 </screens>

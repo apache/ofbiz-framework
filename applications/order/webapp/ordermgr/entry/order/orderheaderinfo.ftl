@@ -95,7 +95,7 @@ under the License.
         <#if trackingNumber?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div>&nbsp;<b>${uiLabelMap.FacilityTrackingNumber}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderTrackingNumber}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">

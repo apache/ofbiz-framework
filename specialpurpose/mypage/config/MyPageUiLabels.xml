@@ -73,6 +73,18 @@
         <value xml:lang="it">Proprie richieste cliente</value>
         <value xml:lang="th">ลูกค้าเรียกร้อง</value>
     </property>
+    <property key="MyPageCustRequestNotificationMailCompleted">
+        <value xml:lang="en">Customer Request Completed Notification Mai</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
+    </property>
+    <property key="MyPageCustRequestNotificationMailCreation">
+        <value xml:lang="en">Customer Request Creation Notification Mail</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
+    </property>
+    <property key="MyPageDraftEmails">
+        <value xml:lang="en">Draft Emails</value>
+        <value xml:lang="it">Bozze emails</value>
+    </property>
     <property key="MyPageEmailsFromKnownOrigin">
         <value xml:lang="en">Emails from known origin</value>
         <value xml:lang="fr">Courriel issue d'une origine connue</value>

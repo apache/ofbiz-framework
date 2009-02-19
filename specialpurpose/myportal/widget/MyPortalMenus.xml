@@ -126,7 +126,7 @@ under the License.
             </condition>
             <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;parentCommEventId=${parameters.communicationEventId}&amp;portalPageId=${parameters.portalPageId}"/>
         </menu-item>
-        <menu-item name="forward" title="${uiLabelMap.Forward}">
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
             <condition>
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
@@ -179,15 +179,15 @@ under the License.
         </menu-item>
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ViewRequest" title="Overview" >
+        <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}" >
             <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
-        <menu-item name="custRequestContent" title="Content">
+        <menu-item name="custRequestContent" title="${uiLabelMap.ContentContent}">
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
-        <menu-item name="cancelledRequest" title="Cancel request" >
+        <menu-item name="cancelledRequest" title="${uiLabelMap.CommonCancel} ${uiLabelMap.OrderRequest}" >
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -197,7 +197,7 @@ under the License.
             </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
         </menu-item>
-        <menu-item name="addContent" title="Add content">
+        <menu-item name="addContent" title="${uiLabelMap.PageTitleAddContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>

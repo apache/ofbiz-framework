@@ -532,7 +532,6 @@ public class ShoppingCartHelper {
         if (categoryId == null || categoryId.length() <= 0) {
             errMsg = UtilProperties.getMessage(resource,"cart.category_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
-//          result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoCategorySpecifiedToAddFrom.",this.cart.getLocale()));
             return result;
         }
 

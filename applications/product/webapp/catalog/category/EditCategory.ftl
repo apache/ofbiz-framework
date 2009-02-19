@@ -100,7 +100,7 @@ function insertImageName(type,nameValue) {
                     <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
-                    <td width="26%" align="right" class="label">${uiLabelMap.Description}</td>
+                    <td width="26%" align="right" class="label">${uiLabelMap.ProductProductDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%"><textarea name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)?if_exists}</#if></textarea></td>
                 </tr>

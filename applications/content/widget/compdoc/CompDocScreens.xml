@@ -630,7 +630,7 @@ under the License.
                                         <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
                                     </condition>
                                     <widgets>
-                                        <container><label style="tableheadtext" text="Editing Latest Revision [${mostRecentRevisionSeqId}]"/></container>
+                                        <container><label style="tableheadtext" text="${uiLabelMap.ContentEditingLatestRevision} [${mostRecentRevisionSeqId}]"/></container>
                                         <include-form name="EditChildCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
                                         <include-screen name="ContentViewLink"/>
                                         <include-screen name="UploadCompDocContent"/>

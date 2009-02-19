@@ -95,7 +95,7 @@ under the License.
         <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
           <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
-              <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+              <fail-property resource="PartyUiLabels" property="PartyProvinceInCanadaMissing"/>
             </add-error>
           </if-empty>
         </if-compare>                        
@@ -123,7 +123,7 @@ under the License.
         <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
           <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
-              <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+              <fail-property resource="PartyUiLabels" property="PartyProvinceInCanadaMissing"/>
             </add-error>
           </if-empty>
         </if-compare>                        

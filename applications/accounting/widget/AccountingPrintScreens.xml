@@ -88,16 +88,16 @@ under the License.
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
-                <set field="title" value="Check"/>
+                <set field="titleProperty" value="AccountingPrintChecks"/>
             </actions>
             <widgets>
                 <platform-specific>
                     <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></xsl-fo>
-                </platform-specific>                
+                </platform-specific>
             </widgets>
             <fail-widgets>
                 <label style="h3" text="${uiLabelMap.AccountingPrintChecksPermissionError}"/>
             </fail-widgets>
         </section>
-    </screen>    
+    </screen>
 </screens>

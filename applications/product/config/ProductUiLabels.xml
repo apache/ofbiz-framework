@@ -5297,6 +5297,10 @@
         <value xml:lang="th">เพิ่มความจุสินค้า</value>
         <value xml:lang="zh">批量添加产品</value>
     </property>
+    <property key="PageTitleLookupBulkAddSupplierProduct">
+        <value xml:lang="en">Bulk Add Supplier Product</value>
+        <value xml:lang="it">Aggiungi prodotti fornitore in massa</value>
+    </property>
     <property key="PageTitleLookupFacility">
         <value xml:lang="de">Einrichtung nachschlagen</value>
         <value xml:lang="en">Lookup Facility</value>
@@ -10520,6 +10524,10 @@
         <value xml:lang="fr">Valeur de l'identifiant produit</value>
         <value xml:lang="it">Valore Identificazione Prodotto</value>
         <value xml:lang="th">ค่าการแสดงตัวถูกต้อง</value>
+    </property>
+    <property key="ProductGoodsReceipt">
+        <value xml:lang="en">Goods Receipt</value>
+        <value xml:lang="it">Ricezione bene</value>
     </property>
     <property key="ProductGrams">
         <value xml:lang="de">Gramm</value>

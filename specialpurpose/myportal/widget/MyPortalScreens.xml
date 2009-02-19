@@ -260,7 +260,7 @@ under the License.
                             </not>
                         </condition>
                         <widgets>
-                            <label style="h2" text="${uiLabelMap.DraftEmails}"></label>
+                            <label style="h2" text="${uiLabelMap.MyPageDraftEmails}"></label>
                             <include-form
                                 location="component://myportal/widget/MyPortalForms.xml"
                                 name="ListDraftEmails" />
@@ -515,7 +515,7 @@ under the License.
     <screen name="CreateCustRequestNotification">
         <section>
             <actions>
-                <set field="title" value="Customer Request Creation Notification Mail #${custRequestId}"/>
+                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCreation} #${custRequestId}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://myportal/templates/email/CreateCustRequestNotification.ftl"/></html></platform-specific>
@@ -525,7 +525,7 @@ under the License.
     <screen name="CompletedCustRequestNotification">
         <section>
             <actions>
-                <set field="title" value="Customer Request Completed Notification Mail #${custRequestId}"/>
+                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCompleted} #${custRequestId}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://myportal/templates/email/CompletedCustRequestNotification.ftl"/></html></platform-specific>
@@ -853,7 +853,7 @@ under the License.
             <widgets>
                 <section>
                     <widgets>
-                        <screenlet title="${uiLabelMap.MyOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
+                        <screenlet title="${uiLabelMap.MyPortalOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
                             <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="ListCustRequests" location="component://myportal/widget/MyPortalForms.xml"/>
                         </screenlet>
@@ -1541,7 +1541,7 @@ under the License.
     <screen name="CreateUserNotification">
         <section>
             <actions>
-                <set field="title" value="Myportal Account Creation Notification Mail"/>
+                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCreation}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>

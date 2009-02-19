@@ -321,7 +321,7 @@
             </tr>
           <#elseif (dataResourceTypeId == 'URL_RESOURCE')>
             <tr>
-              <td class="label">${uiLabelMap.ContentURL}</td>
+              <td class="label">${uiLabelMap.ContentUrl}</td>
               <td>
                 <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
               </td>

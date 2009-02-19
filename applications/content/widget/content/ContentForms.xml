@@ -207,11 +207,11 @@ under the License.
     <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         
-        <field name="contentId" title="Id" widget-style="buttontext">
+        <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
         </field>
-        <field name="contentName" title="Content Name" widget-style="buttontext"><display/></field>
-        <field name="description" title="Description" widget-style="buttontext"><display/></field>
+        <field name="contentName" widget-style="buttontext"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" widget-style="buttontext"><display/></field>
     </form>
     <!-- ContentAssoc forms -->
     <form name="EditContentAssoc" target="updateContentAssoc" title="" type="single"
@@ -520,7 +520,7 @@ under the License.
         </field>
         <field name="createdDate"><display description="${content.createdDate}"/></field>
         <field name="delete">
-            <hyperlink target="removeDocumentFromTree?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}" description="Delete"/>
+            <hyperlink target="removeDocumentFromTree?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
     <form name="AddDocument"  target="addDocumentToTree" title="" type="single"

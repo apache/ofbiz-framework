@@ -3954,6 +3954,10 @@
         <value xml:lang="th">วันที่กลุ่มผู้ใช้สร้าง</value>
         <value xml:lang="zh">会员创建日期</value>
     </property>
+    <property key="PartyCurrency">
+        <value xml:lang="en">In party currency</value>
+        <value xml:lang="it">Nella valuta del soggetto</value>
+    </property>
     <property key="PartyCurrentShoppingCart">
         <value xml:lang="de">Aktueller Einkaufswagen</value>
         <value xml:lang="en">Current Shopping Cart</value>
@@ -4341,6 +4345,10 @@
         <value xml:lang="it">Email da soggetti sconosciuti</value>
         <value xml:lang="nl">E-mail van een onbekende relatie of contact</value>
     </property>
+    <property key="PartyEmailMessage">
+        <value xml:lang="en">Allocate this message to a existing or new party and add an email address</value>
+        <value xml:lang="it">Allocare questo messagio ad un soggetto esistente o nuovo e aggiungere un indirizzo email</value>
+    </property>    
     <property key="PartyEmailTo">
         <value xml:lang="en">Email to</value>
         <value xml:lang="fr">Courriel dest.</value>
@@ -4586,6 +4594,10 @@
         <value xml:lang="ru">Найденные коммуникационные события</value>
         <value xml:lang="th">ผลการค้นหาการติดต่อ</value>
         <value xml:lang="zh">找到的沟通事件</value>
+    </property>
+    <property key="PartyForward">
+        <value xml:lang="en">Forward</value>
+        <value xml:lang="it">Inoltra</value>
     </property>
     <property key="PartyFromContactMech">
         <value xml:lang="de">Von Kontaktmechanismus</value>
@@ -6273,6 +6285,18 @@
         <value xml:lang="th">ไม่มีผู้จัดหาสิ่งของให้</value>
         <value xml:lang="zh">没有供货商</value>
     </property>
+    <property key="PartyNotificationMailChange">
+        <value xml:lang="en">Change Personal Info Notification Mail</value>
+        <value xml:lang="it">Mail di notifica per cambio informazioni personali</value>
+    </property>
+    <property key="PartyNotificationMailCreate">
+        <value xml:lang="en">Party Account Creation Notification Mail</value>
+        <value xml:lang="it">Mail di notifica creazione utenza</value>
+    </property>
+    <property key="PartyNotificationMailVerification">
+        <value xml:lang="en">Email Address Verification</value>
+        <value xml:lang="it">Verifica indirizzo Email</value>
+    </property>
     <property key="PartyNoUserLogin">
         <value xml:lang="de">Keine Benutzeranmeldung gefunden für diesen Akteur.</value>
         <value xml:lang="en">No UserLogin(s) found for this party.</value>
@@ -6378,6 +6402,10 @@
         <value xml:lang="ru">Код участника организации</value>
         <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
         <value xml:lang="zh">机构会员标识</value>
+    </property>
+    <property key="PartyOriginEmailNotKnown">
+        <value xml:lang="en">Origin Email address not known!</value>
+        <value xml:lang="it">Indirizzo origine email address not conosciuto!</value>
     </property>
     <property key="PartyOverrideDefaultRateAmount">
         <value xml:lang="en">Override Default Rate Amount</value>

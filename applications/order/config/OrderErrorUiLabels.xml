@@ -843,6 +843,10 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถเรียกบันทึกรายการที่คืนค่าจากหัวข้อการคืนค่า</value>
         <value xml:lang="zh">错误：无法从退货头获得退货明细记录</value>
     </property>
+    <property key="OrderErrorUnableToGetTheItemReturnableProduct">
+        <value xml:lang="en">ERROR : Unable to get the item returnable product.</value>
+        <value xml:lang="it">ERRORE : Non è possibile ottenere il prodotto riga resa.</value>
+    </property>
     <property key="OrderErrorUnableToGetTheItemReturnableQuantity">
         <value xml:lang="en">ERROR : Unable to get the item returnable quantity.</value>
         <value xml:lang="es">ERROR: No se pudo obtener la cantidad de ítem retornable.</value>
@@ -1485,6 +1489,10 @@
         <value xml:lang="th">ปัญหาด้วยการสร้างใบกำกับสินค้า; ไม่พบรายการดิจิตอล</value>
         <value xml:lang="zh">创建发票时出现问题；数字明细没有执行。 </value>
     </property>
+    <property key="OrderProblemWithInvoiceCreationServiceItems">
+        <value xml:lang="en">Problem with invoice creation service items</value>
+        <value xml:lang="it">Problema con il servizio di creazione righe fattura</value>
+    </property>
     <property key="OrderProblemsAddingItemFromListToCart">
         <value xml:lang="en">Problems adding item from list to cart</value>
         <value xml:lang="es">Problemas agregando ítem de una lista hacia el carro</value>
@@ -1606,11 +1614,19 @@
         <value xml:lang="th">ปัญหาการจัดเก็บข้อมูลรายการข้อมูลการติดต่ออีเมล</value>
         <value xml:lang="zh">存储订单电子邮件联系信息时出现问题</value>
     </property>
+    <property key="OrderProblemsWithCheckPaymentAmountForRefund">
+        <value xml:lang="en">Problems with check payment amount for refund</value>
+        <value xml:lang="it">Problema nel controllo importo pagamento per reso</value>
+    </property>
     <property key="OrderProblemsWithGetPartyAcctgPreferences">
         <value xml:lang="en">Problems with getting PartyAcctgPreference. </value>
         <value xml:lang="es">Hay problemas al obtener preferencias de contabilidad de participante.</value>
         <value xml:lang="fr">Problème à l'obtention des préférences comptabilité de l'acteur</value>
         <value xml:lang="it">Problema nell'ottenere PartyAcctgPreference.</value>
+    </property>
+    <property key="OrderProblemsWithGetReturnAmountByOrder">
+        <value xml:lang="en">Problems with getting return amount by order</value>
+        <value xml:lang="it">Problema nell'ottenere importo reso dell'ordine</value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
         <value xml:lang="en">Problems with PaymentType lookup. </value>
@@ -1685,6 +1701,14 @@
         <value xml:lang="ru">Получено пустое значение для записей позиций заказа с кодом: ${orderId}</value>
         <value xml:lang="th">ได้รับ NULL สำหรับรายการใบคำสั่งซื้อบันทึกรหัสใบคำสั่งซื้อ : ${orderId}</value>
         <value xml:lang="zh">接收到的订单标识为 ${orderId} 的订单明细记录是 NULL</value>
+    </property>
+    <property key="OrderRefundAmountExceedsOrderTotal">
+        <value xml:lang="en">Refund Amount Exceeds Order Total</value>
+        <value xml:lang="it">Importo restituito eccede il totale ordine</value>
+    </property>
+    <property key="OrderRemoveCommunicationEventOrderPermissionError">
+        <value xml:lang="en">Remove Communication Event Order Permission Error</value>
+        <value xml:lang="it">Errore permesso durante la rimozione di un'evento comunicazione</value>
     </property>
     <property key="OrderRentalOrderItems">
         <value xml:lang="en">Rental order items in the order, however no workEfforts with start/end date and number of persons</value>
@@ -1791,6 +1815,14 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ addPaymentMethodToOrder คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 addPaymentMethodToOrder，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunAutoCreateOrderAdjustments">
+        <value xml:lang="en">Security Error To Run Auto Create Order Adjustments</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione automatica aggiustamenti ordine</value>
+    </property>
+    <property key="OrderSecurityErrorToRunAutoCreateQuoteAdjustments">
+        <value xml:lang="en">Security Error To Run Auto Create Quote Adjustments</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione automatica aggiustamenti preventivo</value>
+    </property>
     <property key="OrderSecurityErrorToRunAutoUpdateQuotePrice">
         <value xml:lang="en">Security Error : to run autoUpdateQuotePrice you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar autoUpdateQuotePrice debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -1850,6 +1882,26 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ checkCreateStockRequirementคุรต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 checkCreateStockRequirement，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunCheckUpdateQuoteStatus">
+        <value xml:lang="en">Security Error To Run Check Update Quote Status</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione del controllo dello stato aggiornamento preventivo</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCopyCustRequestItem">
+        <value xml:lang="en">Security Error To Run Copy Cust Request Item</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga richiesta cliente</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCopyQuote">
+        <value xml:lang="en">Security Error To Run Copy Quote</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia preventivo</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCopyQuoteItem">
+        <value xml:lang="en">Security Error To Run Copy Quote Item</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga preventivo</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCreateCustRequest">
+        <value xml:lang="en">Security Error To Run Create Cust Request</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione richiesta cliente</value>
+    </property>
     <property key="OrderSecurityErrorToRunCreateOrderAdjustement">
         <value xml:lang="en">Security Error : to run createOrderAdjustment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createOrderAdjustment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -1879,6 +1931,14 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createOrderShipment คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 createOrderShipment，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunCreateOrderTerm">
+        <value xml:lang="en">Security Error To Run Create Order Term</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione termine ordine</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCreateQuantityBreak">
+        <value xml:lang="en">Security Error To Run Create Quantity Break</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione intervallo quantità</value>
+    </property>
     <property key="OrderSecurityErrorToRunCreateQuote">
         <value xml:lang="en">Security Error : to run createQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -1888,6 +1948,10 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuote у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createQuote คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 createQuote，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCreateQuoteAdjustment">
+        <value xml:lang="en">Security Error To Run Create Quote Adjustment</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione aggiustamenti preventivo</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest">
         <value xml:lang="en">Security Error : to run createQuoteAndQuoteItemForRequest you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -1919,6 +1983,14 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createQuoteCoefficient คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 createQuoteCoefficient，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunCreateQuoteFromCart">
+        <value xml:lang="en">Security Error To Run Create Quote From Cart</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dal carrello</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCreateQuoteFromCustRequest">
+        <value xml:lang="en">Security Error To Run Create Quote From Cust Request</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dalla richiesta cliente</value>
+    </property>
     <property key="OrderSecurityErrorToRunCreateQuoteItem">
         <value xml:lang="en">Security Error : to run createQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -1928,6 +2000,10 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuoteItem у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createQuoteItem คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 createQuoteItem，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
+    </property>
+    <property key="OrderSecurityErrorToRunCreateReturnItemShipment">
+        <value xml:lang="en">Security Error To Run Create Return Item Shipment</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione riga reso spedizione</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateRequirementFromItemATP">
         <value xml:lang="en">Security Error: to run createRequirementFromItemATP you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2025,6 +2101,14 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ  removeOrderContactMech คุณต้องมี ORDERMGR_DELETE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 removeOrderContactMech，你必须具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunRemoveOrderTerm">
+        <value xml:lang="en">Security Error while running removeOrderTerm</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeOrderTerm</value>
+    </property>
+    <property key="OrderSecurityErrorToRunRemoveQuantityBreak">
+        <value xml:lang="en">Security Error while running removeQuantityBreak</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeQuantityBreak</value>
+    </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteAttribute">
         <value xml:lang="en">Security Error : to run removeQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar removeQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -2034,6 +2118,10 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeQuoteAttribute у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ removeQuoteAttribute คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 removeQuoteAttribute，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
+    </property>
+    <property key="OrderSecurityErrorToRunRemoveQuoteAdjustment">
+        <value xml:lang="en">Security Error while running removeQuoteAdjustment</value>
+        <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeQuoteAdjustment</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteCoefficient">
         <value xml:lang="en">Security Error : to run removeQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2100,6 +2188,16 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderItemShipGroup คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderItemShipGroup，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
+    <property key="OrderSecurityErrorToRunUpdateOrderNote">
+        <value xml:lang="de">Fehler beim Wechseln einer Anmerkung Privat/Öffentlich</value>
+        <value xml:lang="en">Error in toggling notes to Private/Public</value>
+        <value xml:lang="es">Error al cambiar notas a privado/público</value>
+        <value xml:lang="fr">Erreur dans le basculement de notes entre privé et public</value>
+        <value xml:lang="it">Errore nella impostazione delle note a private/pubbliche</value>
+        <value xml:lang="ru">Ошибка переключения заметки в приватную/публичную</value>
+        <value xml:lang="th">Error in toggling notes to Private/Public</value>
+        <value xml:lang="zh">把便笺做私有/公开切换时发生错误</value>
+    </property>
     <property key="OrderSecurityErrorToRunUpdateOrderStatusFromReceipt">
         <value xml:lang="en">Security Error : to run updateOrderStatusFromReceipt you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateOrderStatusFromReceipt debe contar con los permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
@@ -2109,7 +2207,7 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderStatusFromReceipt у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderStatusFromReceipt คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderStatusFromReceipt，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
-    </property>
+    </property>    
     <property key="OrderSecurityErrorToRunUpdateQuote">
         <value xml:lang="en">Security Error : to run updateQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -2159,6 +2257,18 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateReturnHeader у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateReturnHeader คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateReturnHeader，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
+    </property>
+    <property key="OrderSecurityErrorToRunUpdateOrderTerm">
+        <value xml:lang="en">Security Error while running service updateOrderTerm</value>
+        <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateOrderTerm</value>
+    </property>
+    <property key="OrderSecurityErrorToRunUpdateQuantityBreak">
+        <value xml:lang="en">Security Error while running service updateQuantityBreak</value>
+        <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateQuantityBreak</value>
+    </property>
+    <property key="OrderSecurityErrorToRunUpdateQuoteAdjustment">
+        <value xml:lang="en">Security Error while running service updateQuoteAdjustment</value>
+        <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateQuoteAdjustment</value>
     </property>
     <property key="OrderSelectASuplierOrAProduct">
         <value xml:lang="en">Select A Suplier Or A Product</value>

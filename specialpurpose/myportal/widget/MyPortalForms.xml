@@ -150,7 +150,7 @@ under the License.
         </row-actions>
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
-        <field name="custRequestDate" title="Date"><display type="date"/></field>
+        <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="priority">
             <drop-down allow-empty="true">

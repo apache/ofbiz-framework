@@ -92,7 +92,7 @@
             <display-entity entity-name="PartyGroup" description="${groupName}"/>
         </field>
 
-        <field name="description" title="${uiLabelMap.Description}"><text size="40"/></field>
+        <field name="description" title="${uiLabelMap.ProductProductDescription}"><text size="40"/></field>
         <field name="idCode" title="${uiLabelMap.ProductIdCode}"><text size="5"/></field>
         <field name="uomId" title="${uiLabelMap.ProductCurrency}">
             <drop-down allow-empty="true">
