@@ -90,7 +90,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Goods Receipt</label>
+                            <label style="h1">${uiLabelMap.ProductGoodsReceipt}</label>
                         </container>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/receipt.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -185,7 +185,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Picking</label>
+                            <label style="h1">${uiLabelMap.ProductPicking}</label>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -199,7 +199,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Packing</label>
+                            <label style="h1">${uiLabelMap.ProductPacking}</label>
                         </container>
                     </decorator-section>
                 </decorator-screen>

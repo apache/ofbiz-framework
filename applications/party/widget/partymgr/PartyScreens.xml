@@ -1046,7 +1046,7 @@ under the License.
                                                     <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
                                                 </actions>
                                                 <widgets>
-                                                    <label style="h2" text="In party currency"></label>
+                                                    <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
                                                     <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                                 </widgets>
                                             </section>
@@ -1075,7 +1075,7 @@ under the License.
                                             <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
                                         </actions>
                                         <widgets>
-                                            <label style="h2" text="In party currency"></label>
+                                            <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
                                             <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                         </widgets>
                                     </section>
@@ -1102,7 +1102,7 @@ under the License.
                                             <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
                                         </actions>
                                         <widgets>
-                                            <label style="h2" text="In party currency"></label>
+                                            <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
                                             <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                         </widgets>
                                     </section>
@@ -1129,7 +1129,7 @@ under the License.
                                             <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
                                         </actions>
                                         <widgets>
-                                            <label style="h2" text="In party currency"></label>
+                                            <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
                                             <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                         </widgets>
                                     </section>

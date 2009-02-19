@@ -349,7 +349,7 @@
                             </condition>
                             <widgets>
                                 <container style="bloghr">
-                                    <label text="Edit this comment: " style="blogtitle"/>
+                                    <label text="${uiLabelMap.EcommerceEditThisComment}: " style="blogtitle"/>
                                 </container>
                                 <include-screen name="EditBlogResponse"/>
                             </widgets>
@@ -543,7 +543,7 @@
                     </actions>
                     <widgets>
                         <container style="bloghr">
-                            <label text="Add Comment [${content.contentId}]: " style="blogtitle"/>
+                            <label text="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonComment} ${content.contentId}: " style="blogtitle"/>
                             <section>
                                 <condition>                                                                        
                                     <if-service-permission service-name="genericContentPermission" main-action="CREATE"/>

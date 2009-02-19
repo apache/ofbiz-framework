@@ -98,7 +98,7 @@
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
-        <field name="primaryProductCategoryId" title="Category"><display/></field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>

@@ -145,7 +145,7 @@ under the License.
                 <td>${uiLabelMap.FormFieldTitle_orderDate}</td>
                 <td>${uiLabelMap.ProductChannel}</td>
                 <td>${uiLabelMap.ProductOrderItem}</td>
-                <td>${uiLabelMap.Description}</td>
+                <td>${uiLabelMap.ProductProductDescription}</td>
                 <td>${uiLabelMap.ProductOrderShipGroupId}</td>
                 <td>${uiLabelMap.ProductQuantity}</td>
                 <td>${uiLabelMap.ProductQuantityNotAvailable}</td>

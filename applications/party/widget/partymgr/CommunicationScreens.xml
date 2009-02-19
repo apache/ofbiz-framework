@@ -175,7 +175,7 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <label style="h1" text="Communication Event id: ${parameters.communicationEventId}"></label>
+                            <label style="h1" text="${uiLabelMap.PartyCommEvent}: ${parameters.communicationEventId}"></label>
                             <include-screen name="commEvent" />
                             <section>
                                 <condition>
@@ -264,11 +264,10 @@ under the License.
                                 <widgets>
                                     <screenlet>
                                         <container>
-                                            <label style="h1" text="Origin Email address not known!" />
+                                            <label style="h1" text="${uiLabelMap.PartyOriginEmailNotKnown}" />
                                         </container>
                                         <container>
-                                            <label style="h2"
-                                                text="Allocate this message to a existing or new party and add an email address" />
+                                            <label style="h2" text="${uiLabelMap.PartyEmailMessage}" />
                                         </container>
                                         <include-form name="allocateMsgToPartyForm"
                                             location="component://party/webapp/partymgr/communication/CommForms.xml" />

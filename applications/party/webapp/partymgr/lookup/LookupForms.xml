@@ -194,7 +194,7 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
         <field name="personalTitle" title="${uiLabelMap.PartyPersonalTitle}"><display/></field>
         <field name="suffix" title="${uiLabelMap.PartySuffix}"><display/></field>
-        <field name="nickname" title="${uiLabelMap.PartyNickname}"><display/></field>
+        <field name="nickname" title="${uiLabelMap.PartyNickName}"><display/></field>
     </form>
     
     <form name="lookupPartyAndUserLoginAndPerson" type="single" target="LookupPartyAndUserLoginAndPerson" 

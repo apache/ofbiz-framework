@@ -32,7 +32,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeCommunicationEventOrder" short-description="Remove a CommunicationEventOrder">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderUiLabels" property="OrderRemoveCommunicationEventOrderPermissionError"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderRemoveCommunicationEventOrderPermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="CommunicationEventOrder" value-field="eventOrder"/>

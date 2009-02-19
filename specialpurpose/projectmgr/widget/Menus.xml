@@ -459,7 +459,7 @@
             </condition>
             <link target="EditRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
-        <menu-item name="custRequestContent" title="Content">
+        <menu-item name="custRequestContent" title="${uiLabelMap.ContentContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -480,7 +480,7 @@
     </menu>
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2">
-        <menu-item name="cancelledRequest" title="Cancel request" >
+        <menu-item name="cancelledRequest" title="${uiLabelMap.CommonCancel} ${uiLabelMap.OrderRequest}" >
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -490,7 +490,7 @@
             </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
         </menu-item>
-        <menu-item name="addContent" title="Add content">
+        <menu-item name="addContent" title="${uiLabelMap.PageTitleAddContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>

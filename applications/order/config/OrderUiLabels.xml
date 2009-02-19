@@ -1566,7 +1566,7 @@
         <value xml:lang="ru">Платежный адрес</value>
         <value xml:lang="th">ที่อยู่ใบเสร็จรับเงิน</value>
     </property>
-	<property key="OrderBoxNumber">
+    <property key="OrderBoxNumber">
         <value xml:lang="en">Box Number</value>
         <value xml:lang="it">Scatola numero</value>
     </property>
@@ -4030,6 +4030,14 @@
         <value xml:lang="ru">Нет доступных адресов</value>
         <value xml:lang="th">ไม่สามารถติดต่อที่อยู่นี้ได้</value>
         <value xml:lang="zh">没有有效地址</value>
+    </property>
+    <property key="OrderNoAgreementFoundWithIdNotDoingPromotions">
+        <value xml:lang="en">No Agreement Found With Id Not Doing Promotions</value>
+        <value xml:lang="it">Nessun contratto trovato con questo id nessuna promozione verrà creata</value>
+    </property>
+    <property key="OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions">
+        <value xml:lang="en">No Agreement Item Found With Id Not Doing Promotions</value>
+        <value xml:lang="it">Nessuna riga contratto trovata con questo id nessuna promozione verrà creata</value>
     </property>
     <property key="OrderNoChannel">
         <value xml:lang="de">Kein Kanal</value>
@@ -6780,6 +6788,10 @@
         <value xml:lang="th">อ้างอิง</value>
         <value xml:lang="zh">询价</value>
     </property>
+    <property key="OrderQuotePricePermissionError">
+        <value xml:lang="en">Quote Price Permission Error</value>
+        <value xml:lang="it">Errore permesso prezzo preventivo</value>
+    </property>
     <property key="OrderRanking">
         <value xml:lang="cs">Pořadí</value>
         <value xml:lang="de">Rangfolge</value>
@@ -7946,6 +7958,10 @@
         <value xml:lang="zh">销售订单</value>
         <value xml:lang="zh_CN">销售订单</value>
     </property>
+    <property key="OrderSalesOrderLookupFailed">
+        <value xml:lang="en">Sales Order Lookup Failed</value>
+        <value xml:lang="it">Ricerca ordini di vendita fallita</value>
+    </property>
     <property key="OrderSalesTax">
         <value xml:lang="cs">DPH</value>
         <value xml:lang="de">Mehrwertsteuer</value>
@@ -8003,16 +8019,6 @@
         <value xml:lang="ru">Задолженность</value>
         <value xml:lang="th">แต้ม</value>
         <value xml:lang="zh">记分</value>
-    </property>
-    <property key="OrderSecurityErrorToRunUpdateOrderNote">
-        <value xml:lang="de">Fehler beim Wechseln einer Anmerkung Privat/Öffentlich</value>
-        <value xml:lang="en">Error in toggling notes to Private/Public</value>
-        <value xml:lang="es">Error al cambiar notas a privado/público</value>
-        <value xml:lang="fr">Erreur dans le basculement de notes entre privé et public</value>
-        <value xml:lang="it">Errore nella impostazione delle note a private/pubbliche</value>
-        <value xml:lang="ru">Ошибка переключения заметки в приватную/публичную</value>
-        <value xml:lang="th">Error in toggling notes to Private/Public</value>
-        <value xml:lang="zh">把便笺做私有/公开切换时发生错误</value>
     </property>
     <property key="OrderSelAmount">
         <value xml:lang="en">Sel. amount</value>
@@ -10097,6 +10103,34 @@
     <property key="PageTitleShoppingListItem">
         <value xml:lang="en">Shopping List Item</value>
         <value xml:lang="it">Riga lista d'acquisto</value>
+    </property>
+    <property key="PageTitleShowAllPromotions">
+        <value xml:lang="de">Alle Aktionen anzeigen</value>
+        <value xml:lang="en">Show All Promotions</value>
+        <value xml:lang="es">Mostrar las promociones</value>
+        <value xml:lang="fr">Montrer toutes les promotions</value>
+        <value xml:lang="hi_IN">सारे प्रोत्साहन सामान दिखाइये</value>
+        <value xml:lang="it">Mostra tutte le promozioni</value>
+        <value xml:lang="ja">Show All Promotions</value>
+        <value xml:lang="nl">Bekijk alle promoties</value>
+        <value xml:lang="ro">Afiseaza Toate Promotiile </value>
+        <value xml:lang="ru">Показать все акции</value>
+        <value xml:lang="th">แสดงโปรโมชั่นทั้งหมด</value>
+        <value xml:lang="zh">显示全部促销</value>
+    </property>
+    <property key="PageTitleShowPromotionDetails">
+        <value xml:lang="de">Aktionsdetails anzeigen</value>
+        <value xml:lang="en">Show Promotion Details</value>
+        <value xml:lang="es">Mostrar Detalles de la promoción</value>
+        <value xml:lang="fr">Montrer les détails de la promotion</value>
+        <value xml:lang="hi_IN">प्रोत्साहन विवरण दिखाइये</value>
+        <value xml:lang="it">Mostra dettagli promozioni</value>
+        <value xml:lang="ja">Show Promotion Details</value>
+        <value xml:lang="nl">Bekijk promotie detail</value>
+        <value xml:lang="ro">Afiseaza Detalii Promotii </value>
+        <value xml:lang="ru">Показать детали акции</value>
+        <value xml:lang="th">แสดงรายละเอียดของโปรโมชั่น</value>
+        <value xml:lang="zh">显示促销详细信息</value>
     </property>
     <property key="PageTitleViewRequest">
         <value xml:lang="de">Anfrage anzeigen</value>

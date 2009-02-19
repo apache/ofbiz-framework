@@ -28,13 +28,13 @@
               <br/><br/>
             </tr>
             <tr width="100%">
-              <td width="20%">${uiLabelMap.CommonFirstName}</td>
+              <td width="20%">${uiLabelMap.PartyFirstName}</td>
               <td width="30%"><h3>${contactInfo1.firstName?if_exists}</h3></td>
               <td width="30%"><h3>${contactInfo2.firstName?if_exists}</h3></td>
               <td width="20%"></td>
             </tr>
             <tr width="100%">
-              <td width="20%">${uiLabelMap.CommonLastName}</td>
+              <td width="20%">${uiLabelMap.PartyLastName}</td>
               <td width="30%"><h3>${contactInfo1.lastName?if_exists}</h3></td>
               <td width="30%"><h3>${contactInfo2.lastName?if_exists}</h3></td>
               <td width="20%"></td>
@@ -43,39 +43,39 @@
               <td width="30"><br/><h3>${uiLabelMap.PartyGeneralCorrespondenceAddress}</h3></td>
               <td width="30"></td>
             <tr>
-              <td width="20%" >${uiLabelMap.CommonAddress1}</td>
+              <td width="20%" >${uiLabelMap.PartyAddressLine1}</td>
               <td width="30%">${contactInfo1.address1?if_exists}</td>
               <td width="30%">${contactInfo2.address1?if_exists}</td>
               <td width="20%"><input type="checkbox" name="useAddress2" value="Y"/></td>
             </tr>
 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonAddress2}</td>
+              <td width="20%" >${uiLabelMap.PartyAddressLine2}</td>
               <td width="30%">${contactInfo1.address2?if_exists}</td>
               <td width="30%">${contactInfo2.address2?if_exists}</td>
               <td width="20%"></td>
             </tr>
 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonCity}</td>
+              <td width="20%" >${uiLabelMap.PartyCity}</td>
               <td width="30%">${contactInfo1.city?if_exists}</td>
               <td width="30%">${contactInfo2.city?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%">${uiLabelMap.CommonState}</td>
+              <td width="20%">${uiLabelMap.PartyState}</td>
               <td width="30%">${contactInfo1.state?if_exists}</td>
               <td width="30%">${contactInfo2.state?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%">${uiLabelMap.CommonZipPostalCode}</td>
+              <td width="20%">${uiLabelMap.PartyZipCode}</td>
               <td width="30%">${contactInfo1.postalCode?if_exists}</td>
               <td width="30%">${contactInfo2.postalCode?if_exists}</td>
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%" >${uiLabelMap.CommonCountry}</td>
+              <td width="20%" >${uiLabelMap.PartyCountry}</td>
               <td width="30%">${contactInfo1.country?if_exists}</td>
               <td width="30%">${contactInfo2.country?if_exists}</td>
               <td width="20%"></td>
@@ -100,14 +100,14 @@
               <td width="20%"></td>
             </tr> 
             <tr>
-              <td width="20%" >${uiLabelMap.CommonEmail}</td>
+              <td width="20%" >${uiLabelMap.PartyEmailAddress}</td>
               <td width="30%">${contactInfo1.primaryEmail?if_exists}</td>
               <td width="30%">${contactInfo2.primaryEmail?if_exists}</td>
               <td width="10%"><input type="checkbox" name="useEmail2" value="Y"/></td>
             </tr>     
             <tr>
               <td colspan="4" align="center"><br/>
-                <input type="submit" value="submit"/>
+                <input type="submit" value="${uiLabelMap.CommonSubmit}"/>
               </td>
             </tr>
           </table>

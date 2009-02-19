@@ -115,7 +115,7 @@ under the License.
     <td><input type="text" name="squareFootage" value="${facility.squareFootage?if_exists}" size="10" maxlength="20"></td>
   </tr>
   <tr>
-    <td class="label">${uiLabelMap.Description}</td>
+    <td class="label">${uiLabelMap.ProductProductDescription}</td>
     <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
   </tr>
   <tr>

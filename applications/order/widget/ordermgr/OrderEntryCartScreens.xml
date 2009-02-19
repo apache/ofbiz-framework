@@ -96,7 +96,7 @@ under the License.
     <screen name="survey">
         <section>
             <actions>
-                <set field="title" value="Show Cart"/>
+                <set field="titleProperty" value="PageTitleOrderShowCart"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
@@ -116,7 +116,7 @@ under the License.
             <actions>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
-                <set field="title" value="Show All Promotions"/>
+                <set field="titleProperty" value="PageTitleShowAllPromotions"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
@@ -136,7 +136,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
 
-                <set field="title" value="Show Promotion Details"/>
+                <set field="titleProperty" value="PageTitleShowPromotionDetails"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/ShowPromotionDetails.groovy"/>
             </actions>
@@ -167,7 +167,6 @@ under the License.
     <screen name="LookupBulkAddProducts">
      <section>
             <actions>
-                <set field="title" value="Bulk Add Product"/>
                 <set field="titleProperty" value="PageTitleLookupBulkAddProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/> <!-- 10 rows seems more appropriate given screen size, etc. -->
@@ -185,7 +184,7 @@ under the License.
     <screen name="LookupBulkAddSupplierProducts">
      <section>
             <actions>
-                <set field="title" value="Bulk Add Supplier Product"/>
+                <set field="titleProperty" value="PageTitleLookupBulkAddSupplierProduct"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>

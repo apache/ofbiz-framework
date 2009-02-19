@@ -49,7 +49,7 @@ under the License.
       <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="productName" value="${(product.productName)?if_exists}"/>*</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.Description}</div></td>
+      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.ProductProductDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${(product.description)?if_exists}"/></td>
     </tr>

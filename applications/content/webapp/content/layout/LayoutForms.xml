@@ -159,7 +159,7 @@ under the License.
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
         </field>
-        <field name="dummy" title="Clip" widget-style="buttontext" map-name="dummy">
+        <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
             <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}&amp;entityName=${entityName}"/>
         </field>
         <field name="contentName"><display/></field>

@@ -653,7 +653,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createQuoteAdjustment" short-description="Create a QuoteAdjustment">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAdjustement"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAdjustment"/>
         </check-permission>
         <check-errors/>
 

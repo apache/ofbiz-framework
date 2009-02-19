@@ -49,7 +49,7 @@ under the License.
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductHeight}</fo:block></fo:table-cell>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductQuantity}</fo:block></fo:table-cell>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductProduct}</fo:block></fo:table-cell>
-                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.Description}</fo:block></fo:table-cell>
+                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductProductDescription}</fo:block></fo:table-cell>
                     </fo:table-row>
                 </fo:table-header>
                 <fo:table-body>

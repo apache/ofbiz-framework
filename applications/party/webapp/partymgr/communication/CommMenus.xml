@@ -90,7 +90,7 @@ under the License.
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
         </menu-item>
-        <menu-item name="forward" title="${uiLabelMap.Forward}">
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
             <condition>
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>

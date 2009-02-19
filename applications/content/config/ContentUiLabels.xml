@@ -123,6 +123,10 @@
         <value xml:lang="en">Browse</value>
         <value xml:lang="fr">Sfoglia</value>
     </property>
+    <property key="ContentClip">
+        <value xml:lang="en">Clip</value>
+        <value xml:lang="it">Taglia</value>
+    </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
         <value xml:lang="de">CMS</value>
@@ -496,13 +500,21 @@
         <value xml:lang="it">Tipo Dati</value>
         <value xml:lang="th">ประเภทข้อมูล</value>
     </property>
-    <property key="ContentDocumentType">
-        <value xml:lang="en">Document Type</value>
-        <value xml:lang="it">Tipo documento</value>
+    <property key="ContentDecorator">
+        <value xml:lang="en">Decorator</value>
+        <value xml:lang="it">Decorazione</value>
     </property>
     <property key="ContentDeleteFolder">
         <value xml:lang="en">Delete Folder</value>
         <value xml:lang="th">ลบกล่อง</value>
+    </property>
+    <property key="ContentDocumentType">
+        <value xml:lang="en">Document Type</value>
+        <value xml:lang="it">Tipo documento</value>
+    </property>
+    <property key="ContentEditingLatestRevision">
+        <value xml:lang="en">Editing Latest Revision</value>
+        <value xml:lang="it">Aggiorna ultima revisione</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>

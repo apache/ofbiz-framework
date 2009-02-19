@@ -784,7 +784,7 @@ under the License.
                 </container>
             </widgets>
             <fail-widgets>
-                <label style="h3">${uiLabelMap.OrderErrorQuoteNotFound}</label>
+                <label style="h3">${uiLabelMap.OrderNoQuoteFound}</label>
             </fail-widgets>
         </section>
     </screen>
