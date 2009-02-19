@@ -19,7 +19,7 @@ under the License.
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
     <#assign showInput = requestParameters.showInput?default("Y")>
-    <#assign hideGrid = requestParameters.hideGrid?default("N")>    
+    <#assign hideGrid = requestParameters.hideGrid?default("N")>
 
     <#if (requestParameters.forceComplete?has_content && !shipmentId?has_content)>
         <#assign forceComplete = "true">
@@ -35,19 +35,19 @@ under the License.
         <div class="screenlet-body">
             <#if shipmentId?has_content>
                 <div>
-                ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/PackingSlip.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a> ${uiLabelMap.CommonOr} 
+                ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/PackingSlip.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a> ${uiLabelMap.CommonOr}
                 ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/ShipmentBarCode.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductBarcode}</a> ${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
                 </div>
                 <#if invoiceIds?exists && invoiceIds?has_content>
                 <div>
-                    <p>${uiLabelMap.AccountingInvoices}:</p> 
+                    <p>${uiLabelMap.AccountingInvoices}:</p>
                     <ul>
-                     <#list invoiceIds as invoiceId>
-                       <li>
-                         #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
-                         (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
-                       </li>
-                     </#list>
+                    <#list invoiceIds as invoiceId>
+                      <li>
+                        #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
+                        (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
+                      </li>
+                    </#list>
                     </ul>
                 </div>
                 </#if>
@@ -59,7 +59,7 @@ under the License.
               <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
               <table cellspacing="0" class="basic-table">
                 <tr>
-                  <td width="25%" align="right"><span class="label">${uiLabelMap.ProductOrderId} #</span></td>
+                  <td width="25%" align="right"><span class="label">${uiLabelMap.ProductOrderId}</span></td>
                   <td width="1">&nbsp;</td>
                   <td width="25%">
                     <input type="text" name="orderId" size="20" maxlength="20" value="${orderId?if_exists}"/>
@@ -85,10 +85,10 @@ under the License.
               <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
               <table cellspacing="0" class="basic-table">
                 <tr>
-                  <td width="25%" align='right'><span class="label">${uiLabelMap.FormFieldTitle_picklistBinId} #</span></td>
+                  <td width="25%" align='right'><span class="label">${uiLabelMap.FormFieldTitle_picklistBinId}</span></td>
                   <td width="1">&nbsp;</td>
                   <td width="25%">
-                    <input type="text" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId?if_exists}"/>            
+                    <input type="text" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId?if_exists}"/>
                   </td>
                   <td><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if>></td>
                   <td>&nbsp;</td>
@@ -114,7 +114,7 @@ under the License.
             </form>
         </div>
     </div>
-            
+
     <#if showInput != "N" && ((orderHeader?exists && orderHeader?has_content))>
     <div class="screenlet">
         <div class="screenlet-title-bar">
@@ -175,9 +175,9 @@ under the License.
                     </td>
                     <td>&nbsp;</td>
                     <td valign="top">
-                      <span class="label">${uiLabelMap.ProductShipping} ${uiLabelMap.ProductInstruction}</span>
+                      <span class="label">${uiLabelMap.OrderInstructions}</span>
                       <br/>
-                      ${orderItemShipGroup.shippingInstructions?default("(none)")}
+                      ${orderItemShipGroup.shippingInstructions?default("(${uiLabelMap.CommonNone})")}
                     </td>
                   </tr>
                 </table>
@@ -196,7 +196,7 @@ under the License.
                     <tr>
                       <td>
                         <div>
-                            <span class="label">${uiLabelMap.ProductProduct} #</span>
+                            <span class="label">${uiLabelMap.ProductProductNumber}</span>
                             <input type="text" name="productId" size="20" maxlength="20" value=""/>
                             @
                             <input type="text" name="quantity" size="6" maxlength="6" value="1"/>
@@ -204,9 +204,9 @@ under the License.
                         </div>
                       </td>
                       <td>
-                          <span class="label">${uiLabelMap.CommonCurrent} ${uiLabelMap.ProductPackage} ${uiLabelMap.CommonSequence}</span>
+                          <span class="label">${uiLabelMap.ProductCurrentPackageSequence}</span>
                           ${packingSession.getCurrentPackageSeq()}
-                          <input type="button" value="${uiLabelMap.CommonNext} ${uiLabelMap.ProductPackage}" onclick="javascript:document.incPkgSeq.submit();">
+                          <input type="button" value="${uiLabelMap.ProductNextPackage}" onclick="javascript:document.incPkgSeq.submit();">
                       </td>
                     </tr>
                   </table>
@@ -229,19 +229,20 @@ under the License.
                       <td>&nbsp;</td>
                       <td>${uiLabelMap.ProductItem} #</td>
                       <td>${uiLabelMap.ProductProductId}</td>
-                      <td>${uiLabelMap.Description}</td>
+                      <td>${uiLabelMap.ProductInternalName}</td>
                       <td align="right">${uiLabelMap.ProductOrderedQuantity}</td>
                       <td align="right">${uiLabelMap.ProductQuantityShipped}</td>
                       <td align="right">${uiLabelMap.ProductPackedQty}</td>
                       <td>&nbsp;</td>
                       <td align="center">${uiLabelMap.ProductPackQty}</td>
-                      <#--td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td-->
+                      <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
                       <td align="center">${uiLabelMap.ProductPackage}</td>
+                      <td align="right">&nbsp;<b>*</b>&nbsp;${uiLabelMap.ProductPackages}</td>
                     </tr>
-                                
-                    <#if (itemInfos?has_content)>              
+
+                    <#if (itemInfos?has_content)>
                       <#assign rowKey = 1>
-                      <#list itemInfos as itemInfo>                                            
+                      <#list itemInfos as itemInfo>
                       <#-- <#list itemInfos as orderItem>  -->
                         <#assign orderItem = itemInfo.orderItem/>
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)?if_exists>
@@ -255,8 +256,7 @@ under the License.
                           <#assign orderItemQuantity = orderItem.quantity>
                         </#if>
                         -->
-
-                        <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId))>
+                        <#assign inputQty = orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)>
                         <tr>
                           <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
                           <td>${orderItem.orderItemSeqId}</td>
@@ -279,17 +279,28 @@ under the License.
                           <td align="center">
                             <input type="text" size="7" name="qty_${rowKey}" value="${inputQty}">
                           </td>
-                          <#--td align="center">
+                          <td align="center">
                             <input type="text" size="7" name="wgt_${rowKey}" value="">
-                          </td-->
+                          </td>
                           <td align="center">
                             <select name="pkg_${rowKey}">
-                              <option value="1">${uiLabelMap.ProductPackage} 1</option>
-                              <option value="2">${uiLabelMap.ProductPackage} 2</option>
-                              <option value="3">${uiLabelMap.ProductPackage} 3</option>
-                              <option value="4">${uiLabelMap.ProductPackage} 4</option>
-                              <option value="5">${uiLabelMap.ProductPackage} 5</option>
+                              <#if packingSession.getPackageSeqIds()?exists>
+                                <#list packingSession.getPackageSeqIds() as packageSeqId>
+                                  <option value="${packageSeqId}">${uiLabelMap.ProductPackage} ${packageSeqId}</option>
+                                </#list>
+                                <#assign nextPackageSeqId = packingSession.getPackageSeqIds().size() + 1>
+                                <option value="${nextPackageSeqId}">${uiLabelMap.ProductNextPackage}</option>
+                              <#else>
+                                <option value="1">${uiLabelMap.ProductPackage} 1</option>
+                                <option value="2">${uiLabelMap.ProductPackage} 2</option>
+                                <option value="3">${uiLabelMap.ProductPackage} 3</option>
+                                <option value="4">${uiLabelMap.ProductPackage} 4</option>
+                                <option value="5">${uiLabelMap.ProductPackage} 5</option>
+                              </#if>
                             </select>
+                          </td>
+                          <td align="right">
+                            <input type="text" size="7" name="numPackages_${rowKey}" value="1">
                           </td>
                           <input type="hidden" name="prd_${rowKey}" value="${itemInfo.productId?if_exists}"/>
                           <input type="hidden" name="ite_${rowKey}" value="${orderItem.orderItemSeqId}"/>
@@ -299,10 +310,10 @@ under the License.
                     </#if>
                     <tr><td colspan="10">&nbsp;</td></tr>
                     <tr>
-                      <td colspan="10" align="right">
+                      <td colspan="12" align="right">
                         <input type="submit" value="${uiLabelMap.ProductPackItem}">
                         &nbsp;
-                        <input type="button" value="${uiLabelMap.CommonClear}" onclick="javascript:document.clearPackForm.submit();"/>
+                        <input type="button" value="${uiLabelMap.CommonClear} (${uiLabelMap.CommonAll})" onclick="javascript:document.clearPackForm.submit();"/>
                       </td>
                     </tr>
                   </table>
@@ -328,7 +339,7 @@ under the License.
                                 <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):</span>
                                 <br/>
                                 <#list packageSeqIds as packageSeqId>
-                                    ${uiLabelMap.ProductPackage} ${packageSeqId}  
+                                    ${uiLabelMap.ProductPackage} ${packageSeqId}
                                     <input type="text" size="7" name="packageWeight_${packageSeqId}" value="${packingSession.getPackageWeight(packageSeqId?int)?if_exists}">
                                     <br/>
                                 </#list>
@@ -369,10 +380,28 @@ under the License.
                   <br/>
                 </form>
               </#if>
+        </div>
+    </div>
 
-              <!-- packed items display -->
-              <#assign packedLines = packingSession.getLines()?if_exists>
+    <!-- display items in packages, per packed package and in order -->
+    <#assign linesByPackageResultMap = packingSession.getPackingSessionLinesByPackage()?if_exists>
+    <#assign packageMap = linesByPackageResultMap.get("packageMap")?if_exists>
+    <#assign sortedKeys = linesByPackageResultMap.get("sortedKeys")?if_exists>
+    <#if ((packageMap?has_content) && (sortedKeys?has_content))>
+      <div class="screenlet">
+        <div class="screenlet-title-bar">
+            <ul>
+                <li class="h3">${uiLabelMap.ProductPackages} : ${sortedKeys.size()?if_exists}</li>
+            </ul>
+            <br class="clear"/>
+        </div>
+          <div class="screenlet-body">
+            <#list sortedKeys as key>
+              <#assign packedLines = packageMap.get(key)>
               <#if packedLines?has_content>
+                <br/>
+                <#assign packedLine = packedLines.get(0)?if_exists>
+                <span class="label" style="font-size:1.2em">${uiLabelMap.ProductPackage}&nbsp;${packedLine.getPackageSeq()?if_exists}</span>
                 <br/>
                 <table class="basic-table" cellspacing='0'>
                   <tr class="header-row">
@@ -381,7 +410,7 @@ under the License.
                     <td>${uiLabelMap.Description}</td>
                     <td>${uiLabelMap.ProductInventoryItem} #</td>
                     <td align="right">${uiLabelMap.ProductPackedQty}</td>
-                    <#--td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td-->
+                    <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
                     <td align="right">${uiLabelMap.ProductPackage} #</td>
                     <td>&nbsp;</td>
                   </tr>
@@ -395,26 +424,72 @@ under the License.
                       </td>
                       <td>${line.getInventoryItemId()}</td>
                       <td align="right">${line.getQuantity()}</td>
-                      <#--td align="right">${line.getWeight()}</td-->
+                      <td align="right">${line.getWeight()} (${packingSession.getPackageWeight(line.getPackageSeq()?int)?if_exists})</td>
                       <td align="right">${line.getPackageSeq()}</td>
                       <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&amp;productId=${line.getProductId()?default("")}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
                     </tr>
                   </#list>
                 </table>
               </#if>
-            </#if>
+            </#list>
+          </div>
+      </div>
+    </#if>
 
-            <#if orderId?has_content>
-              <script language="javascript">
-                document.singlePackForm.productId.focus();
-              </script>
-            <#else>
-              <script language="javascript">
-                document.selectOrderForm.orderId.focus();
-              </script>
-            </#if>
-        </div>
-    </div>
+    <!-- packed items display -->
+    <#assign packedLines = packingSession.getLines()?if_exists>
+    <#if packedLines?has_content>
+      <div class="screenlet">
+          <div class="screenlet-title-bar">
+              <ul>
+                  <li class="h3">${uiLabelMap.ProductItems} (${uiLabelMap.ProductPackages}): ${packedLines.size()?if_exists}</li>
+              </ul>
+              <br class="clear"/>
+          </div>
+          <div class="screenlet-body">
+            <table class="basic-table" cellspacing='0'>
+              <tr class="header-row">
+                  <td>${uiLabelMap.ProductItem} #</td>
+                  <td>${uiLabelMap.ProductProductId}</td>
+                  <td>${uiLabelMap.Description}</td>
+                  <td>${uiLabelMap.ProductInventoryItem} #</td>
+                  <td align="right">${uiLabelMap.ProductPackedQty}</td>
+                  <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
+                  <td align="right">${uiLabelMap.ProductPackage} #</td>
+                  <td>&nbsp;</td>
+              </tr>
+              <#list packedLines as line>
+                  <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
+                  <tr>
+                      <td>${line.getOrderItemSeqId()}</td>
+                      <td>${line.getProductId()?default("N/A")}</td>
+                      <td>
+                          <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
+                      </td>
+                      <td>${line.getInventoryItemId()}</td>
+                      <td align="right">${line.getQuantity()}</td>
+                      <td align="right">${line.getWeight()} (${packingSession.getPackageWeight(line.getPackageSeq()?int)?if_exists})</td>
+                      <td align="right">${line.getPackageSeq()}</td>
+                      <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&amp;productId=${line.getProductId()?default("")}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
+                  </tr>
+              </#list>
+            </table>
+          </div>
+      </div>
+    </#if>
+  </#if>
+
+  <#if orderId?has_content>
+    <script language="javascript">
+      document.singlePackForm.productId.focus();
+    </script>
+  <#else>
+    <script language="javascript">
+      document.selectOrderForm.orderId.focus();
+    </script>
+  </#if>
+  </div>
+  </div>
 <#else>
-    <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
+  <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
 </#if>

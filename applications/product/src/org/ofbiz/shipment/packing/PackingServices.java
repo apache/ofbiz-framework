@@ -70,6 +70,23 @@ public class PackingServices {
         return ServiceUtil.returnSuccess();
     }
 
+    /**
+     * <p>Create or update package lines.</p>
+     * <p>Context parameters:
+     * <ul>
+     * <li>selInfo - selected rows</li>
+     * <li>iteInfo - orderItemIds</li>
+     * <li>prdInfo - productIds</li>
+     * <li>pkgInfo - package numbers</li>
+     * <li>wgtInfo - weights to pack</li>
+     * <li>numPackagesInfo - number of packages to pack per line (>= 1, default: 1)<br/>
+     * Packs the same items n times in consecutive packages, starting from the package number retrieved from pkgInfo.</li>
+     * <ul>
+     * </p>
+     * @param dctx
+     * @param context
+     * @return
+     */
     public static Map<String, Object> packBulk(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         String orderId = (String) context.get("orderId");
@@ -93,6 +110,7 @@ public class PackingServices {
         Map<String, String> qtyInfo = UtilGenerics.checkMap(context.get("qtyInfo"));
         Map<String, String> pkgInfo = UtilGenerics.checkMap(context.get("pkgInfo"));
         Map<String, String> wgtInfo = UtilGenerics.checkMap(context.get("wgtInfo"));
+        Map<String, String> numPackagesInfo = UtilGenerics.checkMap(context.get("numPackagesInfo"));
 
         if (selInfo != null) {
             for (String rowKey: selInfo.keySet()) {
@@ -158,7 +176,20 @@ public class PackingServices {
                     }
 
                     try {
-                        session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq, weightSeq, updateQuantity.booleanValue());
+                        String numPackagesStr = numPackagesInfo.get(rowKey);
+                        int numPackages = 1;
+                        if (numPackagesStr != null) {
+                            try {
+                                numPackages = Integer.parseInt(numPackagesStr);
+                                if (numPackages < 1) {
+                                    numPackages = 1;
+                                }
+                            } catch (NumberFormatException nex) {
+                            }
+                        }
+                        for (int numPackage=0; numPackage<numPackages; numPackage++) {
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity.booleanValue());
+                        }
                     } catch (GeneralException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());

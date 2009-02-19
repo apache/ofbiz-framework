@@ -325,6 +325,40 @@ public class PackingSession implements java.io.Serializable {
         return itemInfos;
     }
 
+    /**
+     * <p>Delivers all the packing lines grouped by package.</p>
+     * <p>Output map:
+     * <ul>
+     * <li>packageMap - a Map of type Map<Integer, List<PackingSessionLine>>
+     * that maps package sequence ids to the lines that belong in
+     * that package</li>
+     * <li>sortedKeys - a List of type List<Integer> with the sorted package
+     * sequence numbers to index the packageMap</li>
+     * @return result Map with packageMap and sortedKeys
+     */
+    public Map<Object, Object> getPackingSessionLinesByPackage() {
+        FastMap<Integer, List<PackingSessionLine>> packageMap = FastMap.newInstance();
+        for (PackingSessionLine line : packLines) {
+           int pSeq = line.getPackageSeq();
+           List<PackingSessionLine> packageLineList = packageMap.get(pSeq);
+           if (packageLineList == null) {
+               packageLineList = FastList.newInstance();
+               packageMap.put(pSeq, packageLineList);
+           }
+           packageLineList.add(line);
+        }
+        Object[] keys = packageMap.keySet().toArray();
+        java.util.Arrays.sort(keys);
+        List<Object> sortedKeys = FastList.newInstance();
+        for (Object key : keys) {
+            sortedKeys.add(key);
+        }
+        Map<Object, Object> result = FastMap.newInstance();
+        result.put("packageMap", packageMap);
+        result.put("sortedKeys", sortedKeys);
+        return result;
+    }
+
     public void clearItemInfos() {
         itemInfos.clear();
     }
@@ -539,15 +573,29 @@ public class PackingSession implements java.io.Serializable {
                 this.clearLine(line);
             }
         }
-        return --packageSeq;
+        //return --packageSeq;
+        return packageSeq;
     }
 
     public void clearLine(PackingSessionLine line) {
         this.packLines.remove(line);
+        BigDecimal packageWeight = this.packageWeights.get(line.packageSeq);
+        if (packageWeight != null) {
+            packageWeight = packageWeight.subtract(line.weight);
+            if (packageWeight.compareTo(BigDecimal.ZERO) < 0) {
+                packageWeight = BigDecimal.ZERO;
+            }
+            this.packageWeights.put(line.packageSeq, packageWeight);
+        }
+        if (line.packageSeq == packageSeq) {
+            packageSeq--;
+        }
     }
 
     public void clearAllLines() {
         this.packLines.clear();
+        this.packageWeights.clear();
+        this.packageSeq = 1;
     }
 
     public void clear() {
