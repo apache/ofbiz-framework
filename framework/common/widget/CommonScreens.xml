@@ -421,6 +421,7 @@ under the License.
                     </fail-widgets>
                 </section>
                 <decorator-section-include name="menu-bar"/>
+                <container style="clear"/>
                 <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
                     <container style="screenlet-body">
                         <container style="h2">

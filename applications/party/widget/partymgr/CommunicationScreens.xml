@@ -175,32 +175,8 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <section>
-                                <widgets>
-                                    <label style="h1"
-                                        text="Communication Event id: ${parameters.communicationEventId}"></label>
-                                    <include-screen name="commEvent" />
-                                </widgets>
-                            </section>
-                        </container>
-                        <container style="righthalf">
-                            <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
-                            <section>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                        <include-form name="ViewCommRoles"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                            <section>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.PartyCommContent}">
-                                        <include-form name="listCommContent"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                                    </screenlet>
-                                </widgets>
-                            </section>
+                            <label style="h1" text="Communication Event id: ${parameters.communicationEventId}"></label>
+                            <include-screen name="commEvent" />
                             <section>
                                 <condition>
                                     <not>
@@ -219,6 +195,17 @@ under the License.
                                     <include-screen name="commEvent" />
                                 </widgets>
                             </section>
+                        </container>
+                        <container style="righthalf">
+                            <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
+                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                <include-form name="ViewCommRoles"
+                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.PartyCommContent}">
+                                <include-form name="listCommContent"
+                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                            </screenlet>
                             <section>
                                 <actions>
                                     <entity-and list="commEvents" entity-name="CommunicationEvent">
