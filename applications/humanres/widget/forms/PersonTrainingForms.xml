@@ -34,7 +34,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPersonTrainings" type="list" list-name="listIt" separate-columns="true" target="updatePersonTrainingsExt?partyId=${partyId}" paginate-target="FindPersonTrainings"
+    <form name="ListPersonTrainings" type="multi" list-name="listIt" separate-columns="true" target="updatePersonTrainingsExt?partyId=${partyId}" paginate-target="FindPersonTrainings"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
