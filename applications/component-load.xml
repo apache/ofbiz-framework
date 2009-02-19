@@ -24,10 +24,10 @@ under the License.
     <load-component component-location="securityext"/>
     <load-component component-location="content"/>
     <load-component component-location="workeffort"/>
-    <load-component component-location="humanres"/>
     <load-component component-location="product"/>
     <load-component component-location="manufacturing"/>
     <load-component component-location="accounting"/>
+    <load-component component-location="humanres"/>
     <load-component component-location="order"/>
     <load-component component-location="marketing"/>
     <load-component component-location="ecommerce"/>
