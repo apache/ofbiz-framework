@@ -284,7 +284,7 @@ under the License.
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
-        <field name="idValue" title="UPCA"><display/></field>
+        <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" widget-area-style="align-text"><display/></field>
         <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
@@ -309,7 +309,7 @@ under the License.
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
-        <field name="idValue" title="UPCA"><display/></field>
+        <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display/></field>
         <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>

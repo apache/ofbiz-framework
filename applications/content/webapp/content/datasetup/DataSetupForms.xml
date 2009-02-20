@@ -68,7 +68,7 @@ under the License.
         <field name="dataResourceTypeId">
             <display/>
         </field>
-        <field name="attrName" title="Attribute Name">
+        <field name="attrName" title="${uiLabelMap.ContentAttributeName}">
             <display/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">

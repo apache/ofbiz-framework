@@ -25,7 +25,7 @@ under the License.
         <h3>
             <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]</b>
             <#if productFeatureAndTypeDatas?has_content>
-            ${uiLabelMap.CommonWhere }
+            ${uiLabelMap.CommonWhere}
                 <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
                     <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
                     <#assign productFeature = productFeatureAndTypeData.productFeature>

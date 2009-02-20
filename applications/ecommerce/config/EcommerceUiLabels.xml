@@ -2455,6 +2455,10 @@
         <value xml:lang="th">สีเงิน</value>
         <value xml:lang="zh">银牌</value>
     </property>
+    <property key="EcommerceSorryDigitalProductUploadNotEnabled">
+        <value xml:lang="en">Sorry, digital product upload is not enabled.</value>
+        <value xml:lang="it">Spiacente, l'upload di prodotti digitali non è abilitato.</value>
+    </property>
     <property key="EcommerceStartDate">
         <value xml:lang="de">Startdatum</value>
         <value xml:lang="en">Start</value>
@@ -2513,6 +2517,10 @@
         <value xml:lang="ru">Подписаться</value>
         <value xml:lang="th">ชำระค่าสั่งซื้อ</value>
         <value xml:lang="zh">注册</value>
+    </property>
+    <property key="EcommerceSubscriptionVerifyEmail">
+        <value xml:lang="en">Subscription Verify Email</value>
+        <value xml:lang="it">Sottiscrivi verifica email</value>
     </property>
     <property key="EcommerceSummary">
         <value xml:lang="de">Zusammenfassung</value>

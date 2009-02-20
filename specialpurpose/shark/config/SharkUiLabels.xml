@@ -67,4 +67,20 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลักของการจัดการ Shark</value>
     </property>
+    <property key="SharkProcessDetailList">
+        <value xml:lang="en">Process Detail List</value>
+        <value xml:lang="it">Lista dettagli processi</value>
+    </property>
+    <property key="SharkProcessHistory">
+        <value xml:lang="en">Process History</value>
+        <value xml:lang="it">Lista processi</value>
+    </property>
+    <property key="SharkProcessSteps">
+        <value xml:lang="en">Process Steps</value>
+        <value xml:lang="it">Passi processi</value>
+    </property>
+    <property key="SharkWorkList">
+        <value xml:lang="en">Work List</value>
+        <value xml:lang="it">Lista lavoro</value>
+    </property>
 </resource>

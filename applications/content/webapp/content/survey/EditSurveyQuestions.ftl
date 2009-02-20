@@ -239,7 +239,7 @@ under the License.
       <br class="clear"/>
     </div>  
     <div class="screenlet-body">  
-      <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.SurveyQuestion}</a>
+      <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}</a>
     <#else>
     <div class="screenlet-title-bar">
       <ul>

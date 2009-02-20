@@ -105,7 +105,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">PO Receipt</label>
+                            <label style="h1">${uiLabelMap.ProductReceiptPurchaseOrder}</label>
                         </container>
                         <include-form name="POEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
                     </decorator-section>
@@ -120,7 +120,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">PO Line Receipt</label>
+                            <label style="h1">${uiLabelMap.ProductReceiptPurchaseOrder}</label>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -137,7 +137,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Product Receipt</label>
+                            <label style="h1">${uiLabelMap.ProductReceipt}</label>
                         </container>
                         <include-form name="ProductEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/setFocusOnField.ftl"/></html></platform-specific>
@@ -171,7 +171,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Movement</label>
+                            <label style="h1">${uiLabelMap.ProductFacilityMovement}</label>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -217,7 +217,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Find Product Stocktake</label>
+                            <label style="h1">${uiLabelMap.PageTitleFindProductStocktake}</label>
                         </container>
                         <include-form name="FindProductStock" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/stocktake.ftl"/></html></platform-specific>
@@ -238,7 +238,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="h1">Stocktake</label>
+                            <label style="h1">${uiLabelMap.PageTitleProductStocktake}</label>
                         </container>
                         <include-form name="ProductStocktake" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
                         <include-form name="UpdateProductStocktake" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>

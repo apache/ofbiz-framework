@@ -118,6 +118,14 @@
         <value xml:lang="it">Proprie informazioni</value>
         <value xml:lang="th">ข้อมูลของฉัน</value>
     </property>
+    <property key="MyPortalMyTasks">
+        <value xml:lang="en">myTasks</value>
+        <value xml:lang="it">Propri compiti</value>
+    </property>
+    <property key="MyPortalMyTime">
+        <value xml:lang="en">myTime</value>
+        <value xml:lang="it">Propri tempo</value>
+    </property>
     <property key="MyPortalNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>

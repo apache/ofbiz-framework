@@ -82,12 +82,12 @@ under the License.
             </service>
         </actions>
         <field name="replace" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="Replace[${dataResourceId}/${coContentId}]" 
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.FormFieldTitle_replace} [${dataResourceId}/${coContentId}]" 
                target="javascript:execRemoteCall('replaceSubContent','${dataResourceId}','${coContentId}', '${contentIdTo}', '${mapKey}')"
             />
         </field>
         <field name="pasteContent" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="Paste[${dataResourceId}/${coContentId}]" 
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ContentPaste} [${dataResourceId}/${coContentId}]"
                target="javascript:execRemoteCall('pasteContent','${dataResourceId}','${coContentId}')"/>
         </field>
         <field name="dataResourceName" widget-style="buttontext">

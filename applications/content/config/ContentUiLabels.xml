@@ -78,12 +78,16 @@
         <value xml:lang="th">คุณสมบัติ</value>
         <value xml:lang="zh">属性</value>
     </property>
+    <property key="ContentAttributeName">
+        <value xml:lang="en">Attribute Name</value>
+        <value xml:lang="it">Nome attributo</value>
+    </property>
     <property key="ContentBlog">
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
-		<value xml:lang="it">Blog</value>
+        <value xml:lang="it">Blog</value>
     </property>
-	<property key="ContentBlogs">
+    <property key="ContentBlogs">
         <value xml:lang="en">Blogs</value>
         <value xml:lang="it">Blogs</value>
     </property>
@@ -111,7 +115,7 @@
         <value xml:lang="en">Blog Name</value>
         <value xml:lang="it">Nome blog</value>
     </property>
-	<property key="ContentBlogPost">
+    <property key="ContentBlogPost">
         <value xml:lang="en">POST</value>
         <value xml:lang="it">Inviare</value>
     </property>
@@ -650,7 +654,7 @@
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
-	<property key="ContentForums">
+    <property key="ContentForums">
         <value xml:lang="en">Forums</value>
         <value xml:lang="it">Forums</value>
     </property>
@@ -922,7 +926,7 @@
         <value xml:lang="en">PNG</value>
         <value xml:lang="it">PNG</value>
     </property>
-	<property key="ContentPublishToContent">
+    <property key="ContentPublishToContent">
         <value xml:lang="en">Publish-to content</value>
         <value xml:lang="it">Pubblica sul contenuto</value>
     </property>
@@ -1379,6 +1383,10 @@
         <value xml:lang="en">Text only</value>
         <value xml:lang="it">Solo testo</value>
     </property>
+    <property key="ContentTestPermission">
+        <value xml:lang="en">Test Permission</value>
+        <value xml:lang="it">Test Permesso</value>
+    </property>
     <property key="ContentText">
         <value xml:lang="ar">نص</value>
         <value xml:lang="de">Text</value>
@@ -1428,6 +1436,10 @@
         <value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina. (Necessario "CONTENTMGR_UPDATE" o "CONTENTMGR_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="zh">你没有浏览本页面的权限。(需要具备"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
+    </property>
+    <property key="ContentUploadedFile">
+        <value xml:lang="en">Uploaded File</value>
+        <value xml:lang="it">File caricato</value>
     </property>
     <property key="ContentUrl">
         <value xml:lang="ar">Url</value>
@@ -3060,6 +3072,10 @@
         <value xml:lang="ro">Adauga o asociatie</value>
         <value xml:lang="th">แก้ไขความคิดเห็น</value>
         <value xml:lang="zh">编辑关联</value>
+    </property>
+    <property key="PageTitleEditBlogArticlePermissionError">
+        <value xml:lang="en">Permissions failed to edit Article</value>
+        <value xml:lang="it">Aggiorna una associazione</value>
     </property>
     <property key="PageTitleEditCMSContent">
         <value xml:lang="de">CMS Inhalt bearbeiten</value>

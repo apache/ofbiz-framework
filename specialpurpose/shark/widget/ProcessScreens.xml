@@ -41,7 +41,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Process Detail List"/>
+                <set field="titleProperty" value="SharkProcessDetailList"/>
                 
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processDetailList.bsh"/>
             </actions>
@@ -58,7 +58,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Process History"/>
+                <set field="titleProperty" value="SharkProcessHistory"/>
                 
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processHistory.bsh"/>
             </actions>
@@ -75,7 +75,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Process Steps"/>
+                <set field="titleProperty" value="SharkProcessSteps"/>
                 
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processSteps.bsh"/>
             </actions>

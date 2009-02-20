@@ -182,7 +182,7 @@
             </td>
           </tr>
           <tr>
-            <td class="label">${uiLabelMap.CommonKey}</td>
+            <td class="label">${uiLabelMap.ContentMapKey}</td>
             <td>
                 <input type="text" name="mapKey" value="${(assoc.mapKey)?if_exists}" size="40"/>
             </td>

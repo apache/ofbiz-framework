@@ -204,7 +204,7 @@ under the License.
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
-                        <label text="Permissions failed to edit Article: ${contentId} in Blog: ${blogContentId}"></label>
+                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}: ${contentId} ${uiLabelMap.ContentBlog} ${blogContentId}"></label>
                     </fail-widgets>
                 </section>
             </widgets>

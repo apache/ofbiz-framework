@@ -347,7 +347,7 @@ under the License.
         <field name="drMimeTypeId" >
             <display description="text/plain"/>
         </field>
-        <field name="drObjectInfo" title="Url">
+        <field name="drObjectInfo" title="${uiLabelMap.ContentUrl}">
             <text />
         </field>
         <field name="createdByUserLogin" position="1">

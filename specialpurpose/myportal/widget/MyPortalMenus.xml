@@ -68,7 +68,7 @@ under the License.
     </menu>    
     
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
+        <menu-item name="myTasks" title="${uiLabelMap.MyPortalMyTasks}"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
     
     <menu name="MyTimesheetMenu">
@@ -90,7 +90,7 @@ under the License.
             </condition>
             <link target="statusToCompleteKey?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
-        <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
+        <menu-item name="myTime" title="${uiLabelMap.MyPortalMyTime}"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
     <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">

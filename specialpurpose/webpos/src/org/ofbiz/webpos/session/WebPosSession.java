@@ -176,7 +176,7 @@ public class WebPosSession {
     public GenericValue checkLogin(String username, String password, LocalDispatcher dispatcher) throws UserLoginFailure {
         // check the required parameters and objects
         if (UtilValidate.isEmpty(dispatcher)) {
-            throw new UserLoginFailure(UtilProperties.getMessage("WebPosUiLabels", "UnableToLogIn", getLocale()));
+            throw new UserLoginFailure(UtilProperties.getMessage("WebPosUiLabels", "WebPosUnableToLogIn", getLocale()));
         }
         if (UtilValidate.isEmpty(username)) {
             throw new UserLoginFailure(UtilProperties.getMessage("PartyUiLabels", "PartyUserNameMissing", getLocale()));
@@ -202,7 +202,7 @@ public class WebPosSession {
         } else {
             GenericValue ul = (GenericValue) result.get("userLogin");
             if (ul == null) {
-                throw new UserLoginFailure(UtilProperties.getMessage("WebPosUiLabels", "UserLoginNotValid", getLocale()));
+                throw new UserLoginFailure(UtilProperties.getMessage("WebPosUiLabels", "WebPosUserLoginNotValid", getLocale()));
             }
             return ul;
         }

@@ -924,6 +924,10 @@
         <value xml:lang="th">องค์กรภายในที่สามารถใช้ประโยชน์ได้</value>
         <value xml:lang="zh">可用的内部团体</value>
     </property>
+    <property key="AccountingBackToAdmin">
+        <value xml:lang="en">Back to Admin</value>
+        <value xml:lang="it">Torna indietro all'amministrazione</value>
+    </property>
     <property key="AccountingBalanceDue">
         <value xml:lang="ar">العجز المالي</value>
         <value xml:lang="en">Balance Due</value>
