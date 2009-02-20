@@ -39,6 +39,7 @@ under the License.
         <description>Create a custRequest record and optionally create a custRequest item.</description>
         <permission-service service-name="custRequestPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
     </service>
@@ -46,6 +47,7 @@ under the License.
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
         <description>Update a custRequest record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT"/>
     </service>
