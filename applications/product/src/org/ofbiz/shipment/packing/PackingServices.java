@@ -81,7 +81,7 @@ public class PackingServices {
      * <li>wgtInfo - weights to pack</li>
      * <li>numPackagesInfo - number of packages to pack per line (>= 1, default: 1)<br/>
      * Packs the same items n times in consecutive packages, starting from the package number retrieved from pkgInfo.</li>
-     * <ul>
+     * </ul>
      * </p>
      * @param dctx
      * @param context
