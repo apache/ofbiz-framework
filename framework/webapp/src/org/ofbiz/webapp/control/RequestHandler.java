@@ -40,6 +40,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
@@ -299,7 +300,7 @@ public class RequestHandler implements Serializable {
         // after security check but before running the event, see if a post-login redirect has completed and we have data from the pre-login request form to use now
         // we know this is the case if the _PREVIOUS_PARAM_MAP_ attribute is there, but the _PREVIOUS_REQUEST_ attribute has already been removed
         if (request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_") != null && request.getSession().getAttribute("_PREVIOUS_REQUEST_") == null) {
-            Map<String, Object> previousParamMap = (Map<String, Object>) request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_");
+            Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_"), String.class, Object.class);
             for (Map.Entry<String, Object> previousParamEntry: previousParamMap.entrySet()) {
                 request.setAttribute(previousParamEntry.getKey(), previousParamEntry.getValue());
             }
@@ -407,7 +408,7 @@ public class RequestHandler implements Serializable {
                 if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
                 
                 // note that the previous form parameters are not setup (only the URL ones here), they will be found in the session later and handled when the old request redirect comes back
-                Map<String, Object> previousParamMap = (Map<String, Object>) request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_");
+                Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_"), String.class, Object.class);
                 String queryString = UtilHttp.urlEncodeArgs(previousParamMap, false);
                 String redirectTarget = previousRequest;
                 if (UtilValidate.isNotEmpty(queryString)) {

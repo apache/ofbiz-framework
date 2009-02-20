@@ -20,7 +20,6 @@ package org.ofbiz.widget.menu;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +75,7 @@ public class ModelMenuItem {
     protected ModelMenuItem parentMenuItem;
     protected ModelMenuCondition condition;
     protected boolean disabled = false;
-    protected List actions;
+    protected List<ModelMenuAction> actions;
     protected String align;
     protected String alignStyle;
     
@@ -162,10 +161,8 @@ public class ModelMenuItem {
 //            permissionChecker = new EntityPermissionChecker(permissionElement);
 
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
-        List itemElements = UtilXml.childElementList(fieldElement, "menu-item");
-        Iterator itemElementIter = itemElements.iterator();
-        while (itemElementIter.hasNext()) {
-            Element itemElement = (Element) itemElementIter.next();
+        List<? extends Element> itemElements = UtilXml.childElementList(fieldElement, "menu-item");
+        for (Element itemElement: itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
             modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
             //Debug.logInfo("Added item " + modelMenuItem.getName() + " from def, mapName=" + modelMenuItem.getMapName(), module);

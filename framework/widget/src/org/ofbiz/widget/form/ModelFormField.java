@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -63,9 +62,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.Encoder;
-import org.owasp.esapi.codecs.Codec;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -684,7 +680,7 @@ public class ModelFormField {
         // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used
         if ((Boolean.TRUE.equals(isError) && !Boolean.FALSE.equals(useRequestParameters)) || (Boolean.TRUE.equals(useRequestParameters))) {
             //Debug.logInfo("Getting entry, isError true so getting from parameters for field " + this.getName() + " of form " + this.modelForm.getName(), module);
-            Map parameters = (Map) context.get("parameters");
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             String parameterName = this.getParameterName(context);
             if (parameters != null && parameters.get(parameterName) != null) {
                 Object parameterValue = parameters.get(parameterName);
@@ -999,7 +995,7 @@ public class ModelFormField {
             }
             
             // search for a localized label for the field's name
-            Map uiLabelMap = (Map) context.get("uiLabelMap");
+            Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"), String.class, String.class);
             if (uiLabelMap != null) {
                 String titleFieldName = "FormFieldTitle_" + this.name;
                 String localizedName = (String) uiLabelMap.get(titleFieldName);
@@ -1503,11 +1499,9 @@ public class ModelFormField {
             noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
 
             // read all option and entity-options sub-elements, maintaining order
-            List childElements = UtilXml.childElementList(element);
+            List<? extends Element> childElements = UtilXml.childElementList(element);
             if (childElements.size() > 0) {
-                Iterator childElementIter = childElements.iterator();
-                while (childElementIter.hasNext()) {
-                    Element childElement = (Element) childElementIter.next();
+                for (Element childElement: childElements) {
                     if ("option".equals(childElement.getTagName())) {
                         this.addOptionSource(new SingleOption(childElement, this));
                     } else if ("list-options".equals(childElement.getTagName())) {
@@ -1524,15 +1518,13 @@ public class ModelFormField {
 
         public List<OptionValue> getAllOptionValues(Map<String, Object> context, GenericDelegator delegator) {
             List<OptionValue> optionValues = new LinkedList<OptionValue>();
-            Iterator optionSourceIter = this.optionSources.iterator();
-            while (optionSourceIter.hasNext()) {
-                OptionSource optionSource = (OptionSource) optionSourceIter.next();
+            for (OptionSource optionSource: this.optionSources) {
                 optionSource.addOptionValues(optionValues, context, delegator);
             }
             return optionValues;
         }
 
-        public static String getDescriptionForOptionKey(String key, List allOptionValues) {
+        public static String getDescriptionForOptionKey(String key, List<OptionValue> allOptionValues) {
             if (UtilValidate.isEmpty(key)) {
                 return "";
             }
@@ -1541,9 +1533,7 @@ public class ModelFormField {
                 return key;
             }
 
-            Iterator optionValueIter = allOptionValues.iterator();
-            while (optionValueIter.hasNext()) {
-                OptionValue optionValue = (OptionValue) optionValueIter.next();
+            for (OptionValue optionValue: allOptionValues) {
                 if (key.equals(optionValue.getKey())) {
                     return optionValue.getDescription();
                 }
@@ -1676,22 +1666,18 @@ public class ModelFormField {
             this.cache = !"false".equals(entityOptionsElement.getAttribute("cache"));
             this.filterByDate = entityOptionsElement.getAttribute("filter-by-date");
 
-            List constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
+            List<? extends Element> constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
             if (UtilValidate.isNotEmpty(constraintElements)) {
                 this.constraintList = new LinkedList<EntityFinderUtil.ConditionExpr>();
-                Iterator constraintElementIter = constraintElements.iterator();
-                while (constraintElementIter.hasNext()) {
-                    Element constraintElement = (Element) constraintElementIter.next();
+                for (Element constraintElement: constraintElements) {
                     constraintList.add(new EntityFinderUtil.ConditionExpr(constraintElement));
                 }
             }
 
-            List orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
+            List<? extends Element> orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
             if (UtilValidate.isNotEmpty(orderByElements)) {
                 this.orderByList = new LinkedList<String>();
-                Iterator orderByElementIter = orderByElements.iterator();
-                while (orderByElementIter.hasNext()) {
-                    Element orderByElement = (Element) orderByElementIter.next();
+                for (Element orderByElement: orderByElements) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
                 }
             }
@@ -1713,9 +1699,7 @@ public class ModelFormField {
             EntityCondition findCondition = null;
             if (UtilValidate.isNotEmpty(this.constraintList)) {
                 List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
-                Iterator constraintIter = constraintList.iterator();
-                while (constraintIter.hasNext()) {
-                    EntityFinderUtil.Condition condition = (EntityFinderUtil.Condition) constraintIter.next();
+                for (EntityFinderUtil.Condition condition: constraintList) {
                     expandedConditionList.add(condition.createCondition(context, this.entityName, delegator));
                 }
                 findCondition = EntityCondition.makeCondition(expandedConditionList);
@@ -1738,9 +1722,7 @@ public class ModelFormField {
                     }
                 }
 
-                Iterator valueIter = values.iterator();
-                while (valueIter.hasNext()) {
-                    GenericValue value = (GenericValue) valueIter.next();
+                for (GenericValue value: values) {
                     // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
                     MapStack<String> localContext = MapStack.create(context);
                     localContext.push(value);
