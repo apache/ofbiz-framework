@@ -33,8 +33,7 @@ shoppingCart = ShoppingCartEvents.getCartObject(request);
 context.shoppingCartSize = shoppingCart.size();
 context.shoppingCart = shoppingCart;
 context.currencyUomId = shoppingCart.getCurrency();
-
-mode = shoppingCart.getOrderType();
+context.orderType = shoppingCart.getOrderType();
 
 // get all the possible gift wrap options
 allgiftWraps = delegator.findByAnd("ProductFeature", [productFeatureTypeId : "GIFT_WRAP"], ["defaultSequenceNum"]);

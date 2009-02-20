@@ -49,7 +49,7 @@ under the License.
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td >&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
+          <td width=300 align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
           <td >&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
@@ -100,7 +100,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <input type="text" name="userLoginId" value="${requestParameters.userLoginId?if_exists}"/>
+              <input type="text" name="userLoginId" value="${parameters.userLogin.userLoginId}"/>
               <a href="javascript:call_fieldlookup2(document.salesentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
               </a>
@@ -109,7 +109,7 @@ under the License.
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
+          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderCustomer}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
@@ -151,7 +151,7 @@ under the License.
         </#if>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
+          <td width=300 align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
@@ -166,6 +166,20 @@ under the License.
             </div>
           </td>
         </tr>
+        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
+          <td>&nbsp;</td>
+          <td valign='middle'>
+            <div class='tabletext' valign='top'>
+              <input type='text' class='inputBox' name='userLoginId' value='${parameters.userLogin.userLoginId}'/>
+              <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+              </a>
+            </div>
+          </td>
+        </tr>
         <tr>
           <td>&nbsp;</td>
           <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartySupplier}</div></td>
@@ -173,24 +187,11 @@ under the License.
           <td valign='middle'>
             <div class='tabletext' valign='top'>
               <select name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
-                <option value="">${uiLabelMap.PartyNoSupplier}</option>
+                <option value="">${uiLabelMap.OrderSelectSupplier}</option>
                 <#list suppliers as supplier>
                   <option value="${supplier.partyId}"<#if supplier.partyId == thisPartyId> selected</#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                 </#list>
               </select>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
-          <td>&nbsp;</td>
-          <td valign='middle'>
-            <div class='tabletext' valign='top'>
-              <input type='text' class='inputBox' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/>
-              <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
-              </a>
             </div>
           </td>
         </tr>

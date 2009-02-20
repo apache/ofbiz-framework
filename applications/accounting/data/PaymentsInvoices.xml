@@ -25,7 +25,7 @@ under the License.
     <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
     <Party partyId="AcctBigSupplier" partyTypeId="PARTY_GROUP"/>
-    <PartyGroup partyId="AcctBigSupplier" groupName="Big Supplier"/>
+    <PartyGroup partyId="AcctBigSupplier" groupName="Acct Big Supplier"/>
     <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER"/>
 
     <Payment paymentId="demo10000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="AcctBuyer" partyIdTo="TESTING" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="190.97" currencyUomId="USD" lastUpdatedStamp="2006-04-25 13:13:27.746" lastUpdatedTxStamp="2006-04-25 13:13:27.711" createdStamp="2006-04-25 12:56:54.292" createdTxStamp="2006-04-25 12:56:54.292"/>
