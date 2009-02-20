@@ -206,7 +206,7 @@
                 <option key="BLOG_TPL_TOPCENTER" description="${uiLabelMap.EcommerceBlogTopCenter}"/>
             </drop-down>
         </field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="${uiLabelMap.EcommerceBlogPublish}"/>
                 <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.EcommerceBlogPreview}"/>

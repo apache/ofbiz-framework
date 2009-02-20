@@ -812,6 +812,10 @@
         <value xml:lang="th">ยกเลิกโลโก้ URL</value>
         <value xml:lang="zh">替代徽标网址</value>
     </property>
+    <property key="MarketingTrackingCodeProdCatalogId">
+        <value xml:lang="en">Tracking Code Prod Catalog Id</value>
+        <value xml:lang="it">Codice tracciatura catalogo</value>
+    </property>
     <property key="MarketingTrackingCodeRedirectUrl">
         <value xml:lang="en">Redirect URL</value>
         <value xml:lang="es">URL</value>
@@ -967,6 +971,10 @@
         <value xml:lang="ro">Numar Origine</value>
         <value xml:lang="th">รหัสแหล่งที่มา</value>
         <value xml:lang="zh">源标识</value>
+    </property>
+    <property key="MarketingTrackingCodeVisitUserLoginId">
+        <value xml:lang="en">Tracking Code Visit User Login Id</value>
+        <value xml:lang="it">Codice tracciatura utente visita</value>
     </property>
     <property key="MarketingTrackingCodeVisitVisitId">
         <value xml:lang="en">Visit Id</value>

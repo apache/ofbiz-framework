@@ -113,7 +113,7 @@ under the License.
                                 <fo:inline font-size="10pt">${uiLabelMap.ManufacturingEstimatedShipDate} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${shipment.estimatedShipDate?if_exists}</fo:inline>
                                 <#else>
-                                <fo:inline font-size="10pt">${uiLabelMap.PickingPeriod} :</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPickingPeriod} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${mrpName}</fo:inline>
                                 </#if>
                             </fo:block>

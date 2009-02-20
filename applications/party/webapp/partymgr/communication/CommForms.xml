@@ -351,7 +351,7 @@ under the License.
                 <order-by field-name="-lastUpdatedStamp" />
             </entity-and>
         </actions>
-        <field name="_rowSubmit" title="S">
+        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check/>
         </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">
@@ -645,7 +645,7 @@ under the License.
         <field name="note" widget-area-style="fieldWidth200">
             <display />
         </field>
-        <field name="_rowSubmit" title="S">
+        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check />
         </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">

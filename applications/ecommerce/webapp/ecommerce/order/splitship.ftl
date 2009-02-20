@@ -237,7 +237,7 @@ function submitForm(form, mode, value) {
                         <#assign groupNumber = groupIdx + 1>
                         <option value="${groupIdx}">${uiLabelMap.CommonGroup} ${groupNumber}</option>
                       </#list>
-                      <option value="-1">${uiLabelMap.CommonNew} ${uiLabelMap.Group}</option>
+                      <option value="-1">${uiLabelMap.CommonNew} ${uiLabelMap.CommonGroup}</option>
                     </select>
                   </div>
                 </td>

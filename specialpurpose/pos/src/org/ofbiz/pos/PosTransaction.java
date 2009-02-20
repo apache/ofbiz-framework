@@ -806,7 +806,7 @@ public class PosTransaction implements Serializable {
 
         // store the "order"
          if (UtilValidate.isEmpty(this.orderId)){  // if order does not exist
-             output.print(UtilProperties.getMessage(PosTransaction.resource,"Saving",defaultLocale));
+             output.print(UtilProperties.getMessage(PosTransaction.resource,"PosSaving",defaultLocale));
              Map orderRes = ch.createOrder(session.getUserLogin());
              //Debug.log("Create Order Resp : " + orderRes, module);
           
@@ -1395,7 +1395,6 @@ public class PosTransaction implements Serializable {
             cart.setOrderName(shoppingListName);
             //cart.setExternalId(shoppingListName);
             //cart.setInternalCode("Internal Code");
-            //Debug.logInfo(UtilProperties.getMessage("pos","Saving",defaultLocale), module);
             //ch.setCheckOutOptions(null, null, null, null, null, "shipping instructions", null, null, null, "InternalId", null, null, null);
             Map orderRes = ch.createOrder(session.getUserLogin());
             

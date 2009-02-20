@@ -123,14 +123,14 @@ under the License.
       </fo:table-row>
       <#if scheduleWorkEffort?has_content>
         <fo:table-row>
-          <fo:table-cell><fo:block>${uiLabelMap.WorkEffortActualStartDate}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_actualStartDate}</fo:block></fo:table-cell>
             <#if scheduleWorkEffort.actualStartDate?has_content>
               <#assign actualStartDate = scheduleWorkEffort.get("actualStartDate")>
                 <fo:table-cell><fo:block>${actualStartDate?string.short}</fo:block></fo:table-cell>
             <#else>
                 <fo:table-cell><fo:block></fo:block></fo:table-cell>
             </#if>
-          <fo:table-cell><fo:block>${uiLabelMap.WorkEffortActualCompletionDate}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_actualCompletionDate}</fo:block></fo:table-cell>
             <#if scheduleWorkEffort.actualCompletionDate?has_content>
               <#assign actualCompletionDate = scheduleWorkEffort.get("actualCompletionDate")>
               <fo:table-cell><fo:block>${actualCompletionDate?string.short}</fo:block></fo:table-cell>
@@ -141,7 +141,7 @@ under the License.
         <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType")?if_exists>
         <#if workEffortPurposeType?has_content>
         <fo:table-row>
-          <fo:table-cell><fo:block>${uiLabelMap.WorkEffortWorkEffortPurposeTypeId}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_workEffortPurposeTypeId}</fo:block></fo:table-cell>
           <fo:table-cell number-columns-spanned="3"><fo:block>${workEffortPurposeType.workEffortPurposeTypeId}--${workEffortPurposeType.description}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>

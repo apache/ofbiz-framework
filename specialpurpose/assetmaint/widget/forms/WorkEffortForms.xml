@@ -37,7 +37,7 @@
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
         <field name="fromDate"><hidden value="${parameters.fromDate}"/></field>
-        <field map-name="workEffortAssoc" name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}" use-when="workEffortIdFrom!=null">
+        <field map-name="workEffortAssoc" name="workEffortAssocTypeId" title="${uiLabelMap.FormFieldTitle_workEffortAssocTypeId}" use-when="workEffortIdFrom!=null">
             <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
         </field>
         <!-- End of child workeffort fields -->

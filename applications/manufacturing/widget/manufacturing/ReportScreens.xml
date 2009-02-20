@@ -57,7 +57,7 @@ under the License.
     <screen name="CuttingListReport">
         <section>
             <actions>
-                <set field="title" value="Cutting List Report"/>
+                <set field="titlePropery" value="ManufacturingCuttingListReport"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -75,7 +75,7 @@ under the License.
     <screen name="MRPPRunsProductsByFeature">
         <section>
             <actions>
-                <set field="title" value="MRPPRunsProductsByFeature"/>
+                <set field="titleProperty" value="ManufacturingProductionRunComponentsByFeature"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -99,7 +99,7 @@ under the License.
     <screen name="SPPRunsProductsByFeature">
         <section>
             <actions>
-                <set field="title" value="SPPRunsProductsByFeature"/>
+                <set field="titleProperty" value="ManufacturingProductionRunComponentsByFeature"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="planName" value="SP_${shipmentId}"/>
 
@@ -126,7 +126,7 @@ under the License.
     <screen name="MRPPRunsComponentsByFeature">
         <section>
             <actions>
-                <set field="title" value="MRPPRunsComponentsByFeature"/>
+                <set field="titleProperty" value="ManufacturingProductionRunComponentsByFeature"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -151,7 +151,7 @@ under the License.
     <screen name="SPPRunsComponentsByFeature">
         <section>
             <actions>
-                <set field="title" value="SPPRunsComponentsByFeature"/>
+                <set field="titleProperty" value="ManufacturingProductionRunComponentsByFeature"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="planName" value="SP_${shipmentId}"/>
                 <set field="showLocation" from-field="parameters.showLocation"/>
@@ -180,7 +180,7 @@ under the License.
     <screen name="PRunsProductsStacks">
         <section>
             <actions>
-                <set field="title" value="PRunsProductsStacks"/>
+                <set field="titleProperty" value="ManufacturingProductsStacks"/>
                 <set field="mrpName" from-field="parameters.mrpName"/>
                 <set field="planName" value="MRP_${mrpName}"/>
 
@@ -206,14 +206,15 @@ under the License.
     <screen name="PackageContentsAndOrder">
         <section>
             <actions>
-                <set field="title" value="PackageContentsAndOrder"/>
+                <set field="titleProperty" value="ManufacturingPackageContentsAndOrder"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="planName" value="SP_${shipmentId}"/>
 
                 <set field="taskNamePar" from-field="parameters.taskNamePar"/>
                 <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
-
+                
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -232,7 +233,7 @@ under the License.
     <screen name="PRunsProductsAndOrder">
         <section>
             <actions>
-                <set field="title" value="PRunsProductsAndOrder"/>
+                <set field="titleProperty" value="ManufacturingPackageContentsAndOrder"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="planName" value="SP_${shipmentId}"/>
 
@@ -257,7 +258,7 @@ under the License.
     <screen name="PRunsInfoAndOrder">
         <section>
             <actions>
-                <set field="title" value="PRunsInfoAndOrder"/>
+                <set field="titleProperty" value="ManufacturingProductionRunInfoAndOrder"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="planName" value="SP_${shipmentId}"/>
 
@@ -282,7 +283,7 @@ under the License.
     <screen name="ShipmentPlanStockReport">
         <section>
             <actions>
-                <set field="title" value="ShipmentPlanStockReport"/>
+                <set field="titleProperty" value="ManufacturingShipmentPlanStockReport"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -301,10 +302,11 @@ under the License.
     <screen name="ShipmentLabel">
         <section>
             <actions>
-                <set field="title" value="ShipmentLabel"/>
+                <set field="titleProperty" value="ProductShippingLabel"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.groovy"/>
@@ -320,7 +322,7 @@ under the License.
     <screen name="ShipmentWorkEffortTasks">
         <section>
             <actions>
-                <set field="title" value="ShipmentWorkEffortTasks"/>
+                <set field="titleProperty" value="ManufacturingShipmentWorkEffortTasks"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>

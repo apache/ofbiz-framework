@@ -1011,7 +1011,7 @@ public class ShoppingCartHelper {
             this.cart.setCurrency(this.dispatcher,currencyUomId);
             result = ServiceUtil.returnSuccess();
          } catch (CartItemModifyException ex) {
-             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"Set currency error",this.cart.getLocale()) + ex.getMessage());
+             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
              return result;
          }
         return result;

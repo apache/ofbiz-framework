@@ -529,6 +529,10 @@
         <value xml:lang="th">เพิ่มส่วนประกอบสินค้าในการผลิตสินค้า</value>
         <value xml:lang="zh">把产品组件添加到生产运行</value>
     </property>
+    <property key="ManufacturingAddProductionRunRoutingTaskNotCreated">
+        <value xml:lang="en">Add Production Run Routing Task Not Created</value>
+        <value xml:lang="it">Aggiunta componente prodotto ad un´compito non creato</value>
+    </property>
     <property key="ManufacturingAddQuantityProduced">
         <value xml:lang="de">Produzierte Menge hinzufügen</value>
         <value xml:lang="en">Add Qty Produced</value>
@@ -890,6 +894,10 @@
         <value xml:lang="ro">Completeaza</value>
         <value xml:lang="th">เสร็จสิ้น</value>
         <value xml:lang="zh">完成</value>
+    </property>
+    <property key="ManufacturingConfigurationNotAvailable">
+        <value xml:lang="en">Configuration Not Available</value>
+        <value xml:lang="it">Configurazione non disponibile</value>
     </property>
     <property key="ManufacturingConfirmProductionRun">
         <value xml:lang="de">Bestätigen</value>
@@ -1643,6 +1651,10 @@
         <value xml:lang="th">เกิดความผิดพลาดขณะที่ลงรายการของสินค้า</value>
         <value xml:lang="zh">在进行材料清单列表时发生错误</value>
     </property>
+    <property key="ManufacturingLotNotExists">
+        <value xml:lang="en">Lot Not Exists</value>
+        <value xml:lang="it">Lotto non esiste</value>
+    </property>
     <property key="ManufacturingMachine">
         <value xml:lang="de">Anlage</value>
         <value xml:lang="en">Fixed Asset</value>
@@ -1998,6 +2010,14 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单明细</value>
     </property>
+    <property key="ManufacturingPackageConfiguratorError">
+        <value xml:lang="en">Package Configurator Error</value>
+        <value xml:lang="it">Errore configurazione pacco</value>
+    </property>
+    <property key="ManufacturingPackageContentsAndOrder">
+        <value xml:lang="en">Package Contents And Order</value>
+        <value xml:lang="it">Pacco contenuti e ordine</value>
+    </property>
     <property key="ManufacturingPackageLabelsReport">
         <value xml:lang="de">Etiketten</value>
         <value xml:lang="en">Package Labels Report</value>
@@ -2007,6 +2027,10 @@
         <value xml:lang="ro">Tipareste Etichete Pachet</value>
         <value xml:lang="th">รายงานการติดฉลากหีบห่อ</value>
         <value xml:lang="zh">包装标签报告</value>
+    </property>
+    <property key="ManufacturingPackageNumber">
+        <value xml:lang="en">Package Number</value>
+        <value xml:lang="it">Numero pacco</value>
     </property>
     <property key="ManufacturingPrintProductionRun">
         <value xml:lang="de">Produktionsauftrag drucken</value>
@@ -2026,6 +2050,10 @@
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
         <value xml:lang="zh">入库数量</value>
+    </property>
+    <property key="ManufacturingProduceQuantityMessage">
+        <value xml:lang="en">If required, materials will be issued as well.</value>
+        <value xml:lang="it">Se richiesto, i materiali saranno prelevati.</value>
     </property>
     <property key="ManufacturingProductAssocNotExist">
         <value xml:lang="de">Produkt-Zuordnung nicht vorhanden</value>
@@ -2097,6 +2125,10 @@
         <value xml:lang="th">รหัสสินค้าถึง</value>
         <value xml:lang="zh">产品标识到</value>
     </property>
+    <property key="ManufacturingProductIsWIP">
+        <value xml:lang="en">Product is WIP</value>
+        <value xml:lang="it">Prodotto è di tipo WIP</value>
+    </property>
     <property key="ManufacturingProductLevel">
         <value xml:lang="de">Produkt-Ebene</value>
         <value xml:lang="en">Product Level</value>
@@ -2145,6 +2177,10 @@
         <value xml:lang="it">Virtuale</value>
         <value xml:lang="th">โดยทั้งหมด</value>
     </property>
+    <property key="ManufacturingProductionResQtyCalc">
+        <value xml:lang="en">Production Res Qty Calc</value>
+        <value xml:lang="it">Quantità riservata produzione</value>
+    </property>
     <property key="ManufacturingProductionRun">
         <value xml:lang="de">Produktionsauftrag</value>
         <value xml:lang="en">Production Run</value>
@@ -2183,6 +2219,22 @@
         <value xml:lang="th">ปิดการผลิตสินค้า</value>
         <value xml:lang="zh">关闭生产运行</value>
     </property>
+    <property key="ManufacturingProductionRunCompletionDateNotCorrect">
+        <value xml:lang="en">Production Run Completion Date Not Correct</value>
+        <value xml:lang="it">Data completamento ordine di produzione non corretta</value>
+    </property>
+    <property key="ManufacturingProductionRunComponentAdded">
+        <value xml:lang="en">Production Run Component Added</value>
+        <value xml:lang="it">Aggiunta componente ordine di produzione</value>
+    </property>
+    <property key="ManufacturingProductionRunComponentNotAdded">
+        <value xml:lang="en">Production Run Component Not Added</value>
+        <value xml:lang="it">Componente ordine di produzione non aggiunto</value>
+    </property>
+    <property key="ManufacturingProductionRunComponentNotExists">
+        <value xml:lang="en">Production Run Component Not Exists</value>
+        <value xml:lang="it">Componente ordine di produzione non esiste</value>
+    </property>
     <property key="ManufacturingProductionRunComponents">
         <value xml:lang="de">Komponenten des Produktionsauftrages</value>
         <value xml:lang="en">Production Run Components</value>
@@ -2190,6 +2242,10 @@
         <value xml:lang="fr">Composants de l'ordre de fabrication</value>
         <value xml:lang="it">Compomenti Ordine di Produzione</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
+    </property>
+    <property key="ManufacturingProductionRunComponentUpdated">
+        <value xml:lang="en">Production Run Component Updated</value>
+        <value xml:lang="it">Componente ordine di produzione aggiornato</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -2219,6 +2275,10 @@
         <value xml:lang="ro">Declaratie Comanda de Productie</value>
         <value xml:lang="th">ยืนยันการผลิต</value>
         <value xml:lang="zh">生产运行情况</value>
+    </property>
+    <property key="ManufacturingProductionRunDeclareAndProduce">
+        <value xml:lang="en">Production Run Declare And Produce</value>
+        <value xml:lang="it">Ordine di produzione dichiara e produci</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
@@ -2267,6 +2327,14 @@
         <value xml:lang="th">ชื่อผลิตผล</value>
         <value xml:lang="zh">生产运行名称</value>
     </property>
+    <property key="ManufacturingProductionRunNotCreated">
+        <value xml:lang="en">Production Run Not Created</value>
+        <value xml:lang="it">Ordine di produzione non creato</value>
+    </property>
+    <property key="ManufacturingProductionRunNotExists">
+        <value xml:lang="en">Production Run Not Exists</value>
+        <value xml:lang="it">Ordine di produzione non esiste</value>
+    </property>
     <property key="ManufacturingProductionRunNotUpdated">
         <value xml:lang="de">Aktualisierung des Produktionsauftrages nicht erfolgreich, für weitere Informationen siehe Log</value>
         <value xml:lang="en">Production Run update failed see log for more information</value>
@@ -2284,6 +2352,22 @@
         <value xml:lang="fr">Documents d'impression de l'ordre de fabrication</value>
         <value xml:lang="it">Stampa documento ordine di produzione</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
+    </property>
+    <property key="ManufacturingProductionRunPrinted">
+        <value xml:lang="en">Production Run Printed</value>
+        <value xml:lang="it">Ordine di produzione stampato</value>
+    </property>
+    <property key="ManufacturingProductionRunPriorityMissing">
+        <value xml:lang="en">Production Run Priority Missing</value>
+        <value xml:lang="it">Ordine di produzione priorità mancante</value>
+    </property>
+    <property key="ManufacturingProductionRunProduce">
+        <value xml:lang="en">Production Run Produce</value>
+        <value xml:lang="it">Ordine di produzione prodotto</value>
+    </property>
+    <property key="ManufacturingProductionRunProductProducedNotStillAvailable">
+        <value xml:lang="en">Production Run Product Produce Not Still Available</value>
+        <value xml:lang="it">Ordine di produzione prodotto da produrre non ancora disponibile</value>
     </property>
     <property key="ManufacturingProductionRunProductComponent">
         <value xml:lang="de">Komponente für Produktionsauftrag</value>
@@ -2342,6 +2426,38 @@
         <value xml:lang="fr">Statut de l'ordre de fabrication changé avec succès.</value>
         <value xml:lang="it">Stato Ordine di Produzione cambiato con successo.</value>
         <value xml:lang="th">ได้เปลี่ยนสถานะการผลิตเรียบร้อยแล้ว</value>
+    </property>
+    <property key="ManufacturingProductionRunStatusNotChanged">
+        <value xml:lang="en">Production Run Status Not Changed</value>
+        <value xml:lang="it">Stato ordine di produzione non cambiato</value>
+    </property>
+    <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunFound">
+        <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Found</value>
+        <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione trovato</value>
+    </property>
+    <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted">
+        <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Not Completed</value>
+        <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione non completato</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
+        <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
+        <value xml:lang="it">Compito ordine di produzione non può iniziare con documento non stampato</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted">
+        <value xml:lang="en">Production Run Task Cannot Start Prev Tasks Not Completed</value>
+        <value xml:lang="it">Compito ordine di produzione non può iniziare un precedente compito non completato</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskNotExists">
+        <value xml:lang="en">Production Run Task Not Exists</value>
+        <value xml:lang="it">Compito ordine di produzione non esiste</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskNotRunning">
+        <value xml:lang="en">Production Run Task Not Running</value>
+        <value xml:lang="it">Compito ordine di produzione non in esecuzione</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskStatusChanged">
+        <value xml:lang="en">Production Run Task Status Changed</value>
+        <value xml:lang="it">Compito ordine di produzione stato cambiato</value>
     </property>
     <property key="ManufacturingProductionRunTasks">
         <value xml:lang="de">Arbeitsgänge des Produktionsauftrages</value>
@@ -2509,6 +2625,18 @@
         <value xml:lang="it">Fabbisogno</value>
         <value xml:lang="th">รหัสความต้องการ</value>
     </property>
+    <property key="ManufacturingRequirementNotDeleted">
+        <value xml:lang="en">Requirement Non Deleted</value>
+        <value xml:lang="it">Fabbisogno non cancellato</value>
+    </property>
+    <property key="ManufacturingRequirementNotExists">
+        <value xml:lang="en">Requirement Non Exists</value>
+        <value xml:lang="it">Fabbisogno non esistente</value>
+    </property>
+    <property key="ManufacturingRequirementNotUpdated">
+        <value xml:lang="en">Requirement Non Updated</value>
+        <value xml:lang="it">Fabbisogno non aggiornato</value>
+    </property>
     <property key="ManufacturingRequirementStartDate">
         <value xml:lang="de">Start-Datum Bedarf</value>
         <value xml:lang="en">Requirement Start Date</value>
@@ -2665,6 +2793,22 @@
         <value xml:lang="th">รหัสการทำงาน</value>
         <value xml:lang="zh">规程任务标识</value>
     </property>
+    <property key="ManufacturingRoutingTaskIdMissing">
+        <value xml:lang="en">Routing Task Id Missing</value>
+        <value xml:lang="it">Codice operazione mancante</value>
+    </property>
+    <property key="ManufacturingRoutingTaskNotExists">
+        <value xml:lang="en">Routing Task Not Exists</value>
+        <value xml:lang="it">Codice operazione non esiste</value>
+    </property>
+    <property key="ManufacturingRoutingTaskSeqIdAlreadyExist">
+        <value xml:lang="en">Routing Task Seq Id Already Exists</value>
+        <value xml:lang="it">Codice operazione sequenza già esistente</value>
+    </property>
+    <property key="ManufacturingRoutingTaskStartDateBeforePRun">
+        <value xml:lang="en">Routing Task Start Date Before Production Run</value>
+        <value xml:lang="it">Codice operazione data inizio prima dell'ordine di produzione</value>
+    </property>
     <property key="ManufacturingRoutingTaskToMissing">
         <value xml:lang="de">Arbeitsgang An fehlt</value>
         <value xml:lang="en">Routing Task To is Missing</value>
@@ -2723,6 +2867,10 @@
         <value xml:lang="th">ชิ้นส่วนประกอบ %</value>
         <value xml:lang="zh">废品因素 %</value>
     </property>
+    <property key="ManufacturingSelectedFeatures">
+        <value xml:lang="en">Selected Features</value>
+        <value xml:lang="it">Caratteristica selezionata</value>
+    </property>
     <property key="ManufacturingShipmentPlanStockReport">
         <value xml:lang="de">Bericht über Bestände für Versand-Plan</value>
         <value xml:lang="en">Shipment Plan Stock Report </value>
@@ -2742,6 +2890,10 @@
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
         <value xml:lang="zh">运输计划</value>
+    </property>
+    <property key="ManufacturingShipmentWorkEffortTasks">
+        <value xml:lang="en">Shipment WorkEffort Tasks</value>
+        <value xml:lang="it">Compiti impegni di lavoro spedizione</value>
     </property>
     <property key="ManufacturingShowBOMAssocs">
         <value xml:lang="de">Stückliste anzeigen</value>

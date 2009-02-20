@@ -80,7 +80,7 @@ under the License.
     
     <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
         <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
-        <field name="sendCustRequestEmail" title="Send Email To Every Customer Request Change"><check/></field>
+        <field name="sendCustRequestEmail" title="${uiLabelMap.MyPageSendEmailToEveryCustomerRequestChange}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
     
@@ -109,7 +109,7 @@ under the License.
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${parameters.donePage}"/>
         </field>
-        <field name="_rowSubmit" title="S">
+        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check />
         </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">

@@ -156,7 +156,7 @@ under the License.
     <screen name="MyTimesheet">
         <section>
             <actions>
-                <set field="titleProperty" value="TimesheetMyTime"/>
+                <set field="titleProperty" value="WorkEffortMyTimesheets"/>
                 <set field="headerItem" value="mytimesheet"/>
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>

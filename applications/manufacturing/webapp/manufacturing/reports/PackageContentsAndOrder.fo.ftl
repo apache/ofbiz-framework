@@ -89,7 +89,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>     
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.PackageNumber}: </fo:inline>
+                                <fo:inline font-size="8pt">${uiLabelMap.ManufacturingPackageNumber}: </fo:inline>
                                 <fo:inline font-size="11pt">${package.packageId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>

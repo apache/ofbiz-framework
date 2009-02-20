@@ -772,7 +772,7 @@ under the License.
         <field name="timeEntryId"><hidden/></field>
         <field name="timesheetId">
             <lookup size="10" target-form-name="LookupTimesheet">
-                <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="TS:${timesheetId}"/>
+                <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}"/>
             </lookup>
         </field>
         
