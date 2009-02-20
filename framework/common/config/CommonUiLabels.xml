@@ -3416,6 +3416,49 @@
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_CN">查找</value>
     </property>
+    <property key="CommonLookup">
+        <value xml:lang="ar">البحث</value>
+        <value xml:lang="de">Ansehen</value>
+        <value xml:lang="en">Lookup</value>
+        <value xml:lang="es">Buscar</value>
+        <value xml:lang="fr">Rechercher</value>
+        <value xml:lang="it">Ricerca</value>
+        <value xml:lang="nl">Zoek</value>
+        <value xml:lang="pt">Procurar</value>
+        <value xml:lang="pt_PT">Vistoria</value>
+        <value xml:lang="ro">Cauta</value>
+        <value xml:lang="ru">Просмотр</value>
+        <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="zh">查找</value>
+        <value xml:lang="zh_CN">查找</value>
+    </property>
+    <property key="CommonLookupWhitepages">
+        <value xml:lang="en">Look up White pages</value>
+        <value xml:lang="es">Páginas Blancas</value>
+        <value xml:lang="fr">Chercher dans les pages blanches</value>
+        <value xml:lang="it">Ricerca:whitepages.com</value>
+        <value xml:lang="nl">Opzoeken in whitepages.com</value>
+        <value xml:lang="th">ค้นหา:whitepages.com</value>
+        <value xml:lang="zh">查找：whitepages.com</value>
+    </property>
+    <property key="CommonLookupWhitepagesAddressLink">
+        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29 y=18</value>
+        <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
+        <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
+        <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a</value>
+    </property>
+    <property key="CommonLookupWhitepagesTelNumberLink">
+        <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode?if_exists}&amp;s=&amp;p=${telecomNumber.contactNumber?if_exists}&amp;pt=b&amp;x=40&amp;y=9</value>
+            <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
+    </property>    
+    <property key="CommonLookupAnywho">
+        <value xml:lang="en">lookup:anywho.com</value>
+        <value xml:lang="fr">A qui est ce n° ?</value>
+    </property>
+    <property key="CommonLookupAnywhoLink">
+        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
+    </property>    
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="cs">Úvodní stránka</value>

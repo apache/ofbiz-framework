@@ -167,7 +167,7 @@ under the License.
                       <#if (addr1.indexOf(" ") > 0)>
                         <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
                         <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <a target="_blank" href="${uiLabelMap.EcommerceLookupWhitepagesLink}" class="linktext">(${uiLabelMap.EcommerceLookupWhitepages})</a>
+                        <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesAddressLink}" class="linktext">(${uiLabelMap.CommonLookupWhitepages})</a>
                       </#if>
                     </#if>
                   <#else>
@@ -182,8 +182,8 @@ under the License.
                     <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber?if_exists}
                     <#if partyContactMech.extension?has_content>ext&nbsp;${partyContactMech.extension}</#if>
                     <#if (!telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011")>
-                      <a target="_blank" href="${uiLabelMap.EcommerceLookupWhoLink}" class="linktext">${uiLabelMap.EcommerceLookupWho}</a>
-                      <a target="_blank" href="http://whitepages.com/find_person_results.pl?fid=p&ac=${telecomNumber.areaCode?if_exists}&s=&p=${telecomNumber.contactNumber?if_exists}&pt=b&x=40&y=9" class="linktext">(lookup:whitepages.com)</a>
+                      <a target="_blank" href="${uiLabelMap.CommonLookupWhoLink}" class="linktext">${uiLabelMap.CommonLookupWho}</a>
+                      <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="linktext">${uiLabelMap.CommonLookupWhitepages}</a>
                     </#if>
                   <#else>
                     ${uiLabelMap.PartyPhoneNumberInfoNotFound}.
