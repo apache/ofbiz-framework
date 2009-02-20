@@ -897,6 +897,10 @@
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
         <value xml:lang="zh">已计划工时</value>
     </property>
+    <property key="ProjectMgrPrintableNote">
+        <value xml:lang="en">Printable Note</value>
+        <value xml:lang="it">Nota stampabile</value>
+    </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="fr">Privé/Public</value>
@@ -1060,6 +1064,10 @@
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="th">หยุดไว้ชั่วคราว</value>
         <value xml:lang="zh">暂停</value>
+    </property>
+    <property key="ProjectMgrSetStatusInProgress">
+        <value xml:lang="en">Set status to In Progress</value>
+        <value xml:lang="it">Imposta stato a in corso</value>
     </property>
     <property key="ProjectMgrSkillStandards">
         <value xml:lang="en">Skill Standards</value>

@@ -131,7 +131,7 @@ under the License.
                                 <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
-                                <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}" text="New Content"/>
+                                <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentContent}"/>
                                 <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>

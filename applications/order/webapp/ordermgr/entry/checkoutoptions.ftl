@@ -365,7 +365,7 @@ function submitForm(form, mode, value) {
                           <input type="radio" name="checkOutPaymentId" value="FIN_ACCOUNT|${finAccount.finAccountId}" <#if "FIN_ACCOUNT" == checkOutPaymentId>checked="checked"</#if>/>                         
                         </td>
                         <td width="50%">
-                          <span>${uiLabelMap.FinancialAccount} #${finAccount.finAccountId}</span>
+                          <span>${uiLabelMap.AccountingFinAccount} #${finAccount.finAccountId}</span>
                         </td>
                       </tr>
                   </#list>

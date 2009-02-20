@@ -446,7 +446,7 @@ under the License.
                 <textarea rows="8" cols="80" />
         </field>
 
-        <field name="textData" title="Text" id-name="textData"><textarea rows="20" cols="80"/></field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="80"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

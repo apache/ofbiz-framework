@@ -27,7 +27,7 @@ under the License.
     <screen name="OrderPDF">
         <section>
             <actions>
-                <set field="title" value="Order"/>
+                <set field="titleProperty" value="OrderOrder"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -141,7 +141,7 @@ under the License.
     <screen name="ShipGroupsPDF">
         <section>
             <actions>
-                <set field="title" value="Ship Groups"/>
+                <set field="titleProperty" value="OrderShipGroups"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ShipGroups.groovy"/>

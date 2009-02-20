@@ -181,6 +181,10 @@
         <value xml:lang="it">Mio profilo</value>
         <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
     </property>
+    <property key="MyPageSendEmailToEveryCustomerRequestChange">
+        <value xml:lang="en">Send Email To Every Customer Request Change</value>
+        <value xml:lang="it">Invia email ad ogni cambio richiesta cliente</value>
+    </property>
     <property key="MyPageTaskActEndDate">
         <value xml:lang="en">Task Act End</value>
         <value xml:lang="fr">Fin réelle de de la tâche</value>

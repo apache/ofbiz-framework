@@ -128,7 +128,7 @@ under the License.
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="deleteCommunicationEvents?portalPageId=${parameters.portalPageId}"/>
         </field>
-        <field name="_rowSubmit" title="S">
+        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check />
         </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">
@@ -306,7 +306,7 @@ under the License.
     <form name="RegisterPerson" type="single" target="createRegister" default-map-name="personInfo"
         focus-field-name="salutation" header-row-style="header-row" default-table-style="basic-table">
         <field name="webSiteId"><hidden value="${webSiteId}"/></field>
-        <field name="salutation" title="Salutation" ><text size="40" maxlength="60"/></field>
+        <field name="salutation"><text size="40" maxlength="60"/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="40" maxlength="60"/></field>
         <field name="middleName" title="${uiLabelMap.PartyMiddleName}" ><text size="40" maxlength="60"/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="40" maxlength="60"/></field>

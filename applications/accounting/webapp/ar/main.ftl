@@ -84,12 +84,12 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td colspan="3"><h1>${uiLabelMap.Reports}</h1></td>
+      <td colspan="3"><h1>${uiLabelMap.AccountingReports}</h1></td>
     </tr>
     <tr>
       <td colspan="3">  
         <ul>
-          <li><a href="<@ofbizUrl>ListReports</@ofbizUrl>">${uiLabelMap.ReportsAvailable}</a></li>
+          <li><a href="<@ofbizUrl>ListReports</@ofbizUrl>">${uiLabelMap.AccountingArPageTitleListReports}</a></li>
         </ul>
       <br/>
       </td>

@@ -45,7 +45,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Main"/>
+                <set field="titleProperty" value="CommonMain"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSharkDecorator" location="${parameters.mainDecoratorLocation}">
@@ -60,7 +60,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="login"></set>
-                <set field="titleProperty" value="Login"/>
+                <set field="titleProperty" value="CommonLogin"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSharkDecorator" location="${parameters.mainDecoratorLocation}">

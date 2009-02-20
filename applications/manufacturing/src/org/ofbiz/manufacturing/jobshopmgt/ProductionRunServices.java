@@ -209,7 +209,7 @@ public class ProductionRunServices {
             // Find the product
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             if (product == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExists", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -1178,7 +1178,7 @@ public class ProductionRunServices {
             // Find the product
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             if (product == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExists", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -1252,7 +1252,7 @@ public class ProductionRunServices {
             // Find the product
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             if (product == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExists", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);

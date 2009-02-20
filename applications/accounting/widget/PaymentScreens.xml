@@ -287,7 +287,7 @@ under the License.
                                                     <not><if-empty field="invoicesOtherCurrency"/></not>
                                                 </condition>
                                                 <widgets>
-                                                    <label style="h2" text="Othercurrency invoices"/>
+                                                    <label style="h2" text="${uiLabelMap.FormFieldTitle_otherCurrency}"/>
                                                     <include-form name="listInvoicesNotAppliedOtherCurrency" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>

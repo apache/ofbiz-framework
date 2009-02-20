@@ -399,7 +399,7 @@
             </condition>
             <link target="TimeSheetStatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
-        <menu-item name="TimeSheetStatustoProgress" title="Set status to In Progress">
+        <menu-item name="TimeSheetStatustoProgress" title="${uiLabelMap.ProjectMgrSetStatusInProgress}">
             <condition>
                 <and>
                     <not><if-empty field="timesheet"/></not>

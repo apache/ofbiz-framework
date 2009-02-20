@@ -27,7 +27,7 @@ under the License.
         <field name="forumId"><hidden value="${parameters.forumId}"/></field>
         <field name="threadContentId"><hidden value="${parameters.threadContentId}"/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
-        <field name="contentName" title="Short Name" ><text/></field>
+        <field name="contentName" title="${uiLabelMap.EcommerceShortName}"><text/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
         <field name="contentIdFrom"><hidden value="${contentAssoc.contentId}"/></field>
         <field name="pubPtContentId"><hidden value="${parameters.forumId}"/></field>

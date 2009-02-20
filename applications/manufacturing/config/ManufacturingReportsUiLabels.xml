@@ -208,6 +208,14 @@
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
     </property>
+    <property key="ManufacturingProductionRunComponentsByFeature">
+        <value xml:lang="en">Production Runs Componentes By Feature</value>
+        <value xml:lang="it">Componenti ordini di produzione per caratteristica</value>
+    </property>
+    <property key="ManufacturingProductionRunInfoAndOrder">
+        <value xml:lang="en">Production Runs Info And Order</value>
+        <value xml:lang="it">Ordini di produzione ifnroper caratteristica</value>
+    </property>
     <property key="ManufacturingProductsComponents">
         <value xml:lang="en">Products Components</value>
         <value xml:lang="es">Componentes de productos</value>
@@ -216,6 +224,10 @@
         <value xml:lang="ro">Componente Produse</value>
         <value xml:lang="th">ส่วนประกอบของสินค้า</value>
         <value xml:lang="zh">产品组件</value>
+    </property>
+     <property key="ManufacturingProductsStacks">
+        <value xml:lang="en">Products Stacks</value>
+        <value xml:lang="it">Pila prodotti</value>
     </property>
     <property key="ManufacturingQtyM2">
         <value xml:lang="en">Square meters</value>
