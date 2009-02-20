@@ -995,7 +995,7 @@ public class ModelFormField {
             }
             
             // search for a localized label for the field's name
-            Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"), String.class, String.class);
+            Map<String, String> uiLabelMap = (Map) context.get("uiLabelMap");
             if (uiLabelMap != null) {
                 String titleFieldName = "FormFieldTitle_" + this.name;
                 String localizedName = (String) uiLabelMap.get(titleFieldName);
@@ -3140,7 +3140,12 @@ public class ModelFormField {
 
         public String getValue(Map<String, Object> context) {
             if (this.value != null && !this.value.isEmpty()) {
-                return this.value.expandString(context);
+                String valueEnc = this.value.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    valueEnc = simpleEncoder.encode(valueEnc);
+                }
+                return valueEnc;
             } else {
                 return modelFormField.getEntry(context);
             }

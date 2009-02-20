@@ -210,7 +210,7 @@ public class ModelTree extends ModelWidget {
      *   use the same tree definitions for many types of tree UIs
      */
     public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer) throws GeneralException {
-        Map parameters = (Map) context.get("parameters");
+        Map<String, Object> parameters = (Map<String, Object>) context.get("parameters");
         setWidgetBoundaryComments(context);
 
         ModelNode node = (ModelNode)nodeMap.get(rootNodeName);
@@ -764,7 +764,12 @@ public class ModelTree extends ModelWidget {
             }
             
             public String getText(Map<String, Object> context) {
-                return this.textExdr.expandString(context);
+                String text = this.textExdr.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    text = simpleEncoder.encode(text);
+                }
+                return text;
             }
             
             public String getId(Map<String, Object> context) {
@@ -839,7 +844,12 @@ public class ModelTree extends ModelWidget {
             }
             
             public String getText(Map<String, Object> context) {
-                return this.textExdr.expandString(context);
+                String text = this.textExdr.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    text = simpleEncoder.encode(text);
+                }
+                return text;
             }
             
             public String getId(Map<String, Object> context) {
@@ -854,11 +864,21 @@ public class ModelTree extends ModelWidget {
                 return this.nameExdr.expandString(context);
             }
             public String getTitle(Map<String, Object> context) {
-                return this.titleExdr.expandString(context);
+                String title = this.titleExdr.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    title = simpleEncoder.encode(title);
+                }
+                return title;
             }
         
             public String getTarget(Map<String, Object> context) {
-                return this.targetExdr.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    return this.targetExdr.expandString(StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder));
+                } else {
+                    return this.targetExdr.expandString(context);
+                }
             }
             
             public String getTargetWindow(Map<String, Object> context) {
