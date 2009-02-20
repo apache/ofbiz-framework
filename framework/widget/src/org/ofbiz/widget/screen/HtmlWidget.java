@@ -265,7 +265,6 @@ public class HtmlWidget extends ModelScreenWidget {
             }
         }
 
-        @SuppressWarnings("unchecked")
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
             MapStack<String> contextMs;

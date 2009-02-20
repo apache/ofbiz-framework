@@ -21,7 +21,6 @@ package org.ofbiz.widget.form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +37,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -1913,6 +1913,12 @@ public class ModelForm extends ModelWidget {
      * @return The target for this Form
      */
     public String getTarget(Map<String, Object> context, String targetType) {
+        Map<String, Object> expanderContext = context;
+        StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+        if (simpleEncoder != null) {
+            expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
+        }
+        
         try {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
@@ -1931,7 +1937,7 @@ public class ModelForm extends ModelWidget {
                 }
 
                 if (condTrue && !targetType.equals("inter-app")) {
-                    return altTarget.target;
+                    return altTarget.targetExdr.expandString(expanderContext);
                 }
             }
         } catch (EvalError e) {
@@ -1940,7 +1946,7 @@ public class ModelForm extends ModelWidget {
             throw new IllegalArgumentException(errmsg);
         }
 
-        return target.expandString(context);
+        return target.expandString(expanderContext);
     }
 
     public String getContainerId() {
@@ -2618,10 +2624,10 @@ public class ModelForm extends ModelWidget {
     
     public static class AltTarget {
         public String useWhen;
-        public String target;
+        public FlexibleStringExpander targetExdr;
         public AltTarget(Element altTargetElement) {
             this.useWhen = altTargetElement.getAttribute("use-when");
-            this.target = altTargetElement.getAttribute("target");
+            this.targetExdr = FlexibleStringExpander.getInstance(altTargetElement.getAttribute("target"));
         }
         public int hashCode() {
             return useWhen.hashCode();
@@ -2970,7 +2976,7 @@ public class ModelForm extends ModelWidget {
 
         if (this.altTargets != null) {
             for (AltTarget altTarget: this.altTargets) {
-                String target = altTarget.target;
+                String target = altTarget.targetExdr.getOriginal();
                 String urlMode = "intra-app";
                 
                 Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);

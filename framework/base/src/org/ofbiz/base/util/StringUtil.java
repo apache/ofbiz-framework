@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,8 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javolution.context.ObjectFactory;
+import javolution.lang.Reusable;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -39,10 +42,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.owasp.esapi.Encoder;
 import org.owasp.esapi.ValidationErrorList;
 import org.owasp.esapi.Validator;
-import org.owasp.esapi.codecs.CSSCodec;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
-import org.owasp.esapi.codecs.JavaScriptCodec;
 import org.owasp.esapi.codecs.PercentCodec;
 import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.reference.DefaultEncoder;
@@ -526,7 +527,7 @@ public class StringUtil {
     public static String checkStringForHtmlSafeOnly(String valueName, String value, List<String> errorMessageList) {
         ValidationErrorList vel = new ValidationErrorList();
         value = defaultWebValidator.getValidSafeHTML(valueName, value, Integer.MAX_VALUE, true, vel);
-        errorMessageList.addAll(vel.errors());
+        errorMessageList.addAll(UtilGenerics.checkList(vel.errors(), String.class));
         return value;
     }
     
@@ -665,5 +666,63 @@ public class StringUtil {
         public String toString() {
             return this.theString;
         }
+    }
+
+    /**
+     * A simple Map wrapper class that will do HTML encoding. To be used for passing a Map to something that will expand Strings with it as a context, etc. 
+     * To reduce memory allocation impact this object is recyclable and minimal in that it only keeps a reference to the original Map. 
+     */
+    public static class HtmlEncodingMapWrapper<K> implements Map<K, Object>, Reusable {
+        protected static final ObjectFactory<HtmlEncodingMapWrapper<?>> mapStackFactory = new ObjectFactory<HtmlEncodingMapWrapper<?>>() {
+            protected HtmlEncodingMapWrapper<?> create() {
+                return new HtmlEncodingMapWrapper();
+            }
+        };
+        public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
+            if (mapToWrap == null) return null;
+            
+            HtmlEncodingMapWrapper<K> mapWrapper = (HtmlEncodingMapWrapper<K>) UtilGenerics.<K, Object>checkMap(mapStackFactory.object());
+            mapWrapper.setup(mapToWrap, encoder);
+            return mapWrapper;
+        }
+
+        protected Map<K, Object> internalMap = null;
+        protected SimpleEncoder encoder = null;
+        protected HtmlEncodingMapWrapper() { }
+        
+        public void setup(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
+            this.internalMap = mapToWrap;
+            this.encoder = encoder;
+        }
+        public void reset() {
+            this.internalMap = null;
+            this.encoder = null;
+        }
+        
+        public int size() { return this.internalMap.size(); }
+        public boolean isEmpty() { return this.internalMap.isEmpty(); }
+        public boolean containsKey(Object key) { return this.internalMap.containsKey(key); }
+        public boolean containsValue(Object value) { return this.internalMap.containsValue(value); }
+        public Object get(Object key) {
+            Object theObject = this.internalMap.get(key);
+            if (theObject instanceof String) {
+                if (this.encoder != null) {
+                    return encoder.encode((String) theObject); 
+                } else {
+                    return StringUtil.defaultWebEncoder.encodeForHTML((String) theObject);
+                }
+            } else if (theObject instanceof Map) {
+                return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper((Map) theObject, this.encoder);
+            }
+            return theObject;
+        }
+        public Object put(K key, Object value) { return this.internalMap.put(key, value); }
+        public Object remove(Object key) { return this.internalMap.remove(key); }
+        public void putAll(Map<? extends K, ? extends Object> arg0) { this.internalMap.putAll(arg0); }
+        public void clear() { this.internalMap.clear(); }
+        public Set<K> keySet() { return this.internalMap.keySet(); }
+        public Collection<Object> values() { return this.internalMap.values(); }
+        public Set<Map.Entry<K, Object>> entrySet() { return this.internalMap.entrySet(); }
+        public String toString() { return this.internalMap.toString(); }
     }
 }

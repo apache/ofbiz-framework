@@ -19,7 +19,6 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -132,13 +131,8 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void renderFormatSimpleWrapperRows(Appendable writer, Map<String, Object> context, Object menuObj) throws IOException {
-
-        List menuItemList = ((ModelMenu)menuObj).getMenuItemList();
-        Iterator menuItemIter = menuItemList.iterator();
-        ModelMenuItem currentMenuItem = null;
-
-        while (menuItemIter.hasNext()) {
-            currentMenuItem = (ModelMenuItem)menuItemIter.next();
+        List<ModelMenuItem> menuItemList = ((ModelMenu) menuObj).getMenuItemList();
+        for (ModelMenuItem currentMenuItem: menuItemList) {
             renderMenuItem(writer, context, currentMenuItem);
         }
     }
@@ -194,14 +188,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
-
         boolean disabled = false;
         String disableIfEmpty = menuItem.getDisableIfEmpty();
         if (UtilValidate.isNotEmpty(disableIfEmpty)) {
-            List keys = StringUtil.split(disableIfEmpty, "|");
-            Iterator iter = keys.iterator();
-            while (iter.hasNext()) {
-                Object obj = context.get(disableIfEmpty);
+            List<String> keys = StringUtil.split(disableIfEmpty, "|");
+            for (String key: keys) {
+                Object obj = context.get(key);
                 if (obj == null) {
                     disabled = true;
                     break;

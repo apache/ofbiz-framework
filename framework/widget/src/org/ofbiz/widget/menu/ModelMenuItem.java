@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -568,8 +569,13 @@ public class ModelMenuItem {
 
         public String getText(Map<String, Object> context) {
             String txt = this.textExdr.expandString(context);
-            if (UtilValidate.isEmpty(txt))
-                txt = linkMenuItem.getTitle(context);
+            if (UtilValidate.isEmpty(txt)) txt = linkMenuItem.getTitle(context);
+
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                txt = simpleEncoder.encode(txt);
+            }
+            
             return txt;
         }
 
@@ -590,7 +596,12 @@ public class ModelMenuItem {
         }
 
         public String getTarget(Map<String, Object> context) {
-            return this.targetExdr.expandString(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                return this.targetExdr.expandString(StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder));
+            } else {
+                return this.targetExdr.expandString(context);
+            }
         }
 
         public String getTargetWindow(Map<String, Object> context) {

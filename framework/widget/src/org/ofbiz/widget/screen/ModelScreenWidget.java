@@ -34,6 +34,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -747,7 +748,12 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
         
         public String getText(Map<String, Object> context) {
-            return this.textExdr.expandString(context);
+            String text = this.textExdr.expandString(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                text = simpleEncoder.encode(text);
+            }
+            return text;
         }
         
         public String getId(Map<String, Object> context) {
@@ -1321,7 +1327,12 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
         
         public String getText(Map<String, Object> context) {
-            return this.textExdr.expandString(context);
+            String text = this.textExdr.expandString(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                text = simpleEncoder.encode(text);
+            }
+            return text;
         }
         
         public String getId(Map<String, Object> context) {
@@ -1333,7 +1344,12 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
         
         public String getTarget(Map<String, Object> context) {
-            return this.targetExdr.expandString(context);
+            Map<String, Object> expanderContext = context;
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
+            }
+            return this.targetExdr.expandString(expanderContext);
         }
         
         public String getName(Map<String, Object> context) {
