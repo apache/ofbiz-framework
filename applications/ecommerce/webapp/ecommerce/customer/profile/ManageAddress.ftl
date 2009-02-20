@@ -203,7 +203,7 @@ under the License.
                       <#if (addr1.indexOf(" ") gt 0)>
                         <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
                         <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <a target="_blank" href="#" class="linktext">(${uiLabelMap.EcommerceLookupWhitepages})</a>
+                        <a target="_blank" href="#" class="linktext">(${uiLabelMap.CommonLookupWhitepages})</a>
                       </#if>
                     </#if>
                   </div>

@@ -1339,45 +1339,6 @@
         <value xml:lang="th">หัวข้อใหญ่</value>
         <value xml:lang="zh">长主题</value>
     </property>
-    <property key="EcommerceLookupWhitepages">
-        <value xml:lang="de">In den Weissen Seiten nachschlagen</value>
-        <value xml:lang="en">Look up White pages</value>
-        <value xml:lang="es">Páginas Blancas</value>
-        <value xml:lang="fr">Chercher dans les pages blanches</value>
-        <value xml:lang="hi_IN">lookup:whitepages.com</value>
-        <value xml:lang="it">Ricerca sulle pagine bianche</value>
-        <value xml:lang="ja">lookup:whitepages.com</value>
-        <value xml:lang="nl">Opzoeken in whitepages.com</value>
-        <value xml:lang="ro">lookup:whitepages.com</value>
-        <value xml:lang="ru">lookup:whitepages.com</value>
-        <value xml:lang="th">ค้นหา:whitepages.com</value>
-        <value xml:lang="zh">查找：whitepages.com</value>
-    </property>
-    <property key="EcommerceLookupWhitepagesLink">
-        <value xml:lang="de">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
-        <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
-        <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a</value>
-        <value xml:lang="nl">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="ro">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="ru">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="th">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="zh">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-    </property>
-    <property key="EcommerceLookupWho">
-        <value xml:lang="de">(lookup:anywho.com)</value>
-        <value xml:lang="en">(lookup:anywho.com)</value>
-        <value xml:lang="fr">(A qui est ce n° ?)</value>
-        <value xml:lang="it">(lookup:anywho.com)</value>
-    </property>
-    <property key="EcommerceLookupWhoLink">
-        <value xml:lang="de">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
-        <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
-        <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
-    </property>
     <property key="EcommerceLosePassword">
         <value xml:lang="de">Falls Sie Ihr Passwort vergessen können Sie jederzeit ein neues beantragen.</value>
         <value xml:lang="en">If you ever lose your password, you can request a new one at any time.</value>

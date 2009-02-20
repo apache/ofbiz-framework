@@ -3663,24 +3663,6 @@
         <value xml:lang="zh">查找退货</value>
         <value xml:lang="zh_CN">查找退货单</value>
     </property>
-    <property key="OrderLookupWhitepages">
-        <value xml:lang="en">Look up White pages</value>
-        <value xml:lang="es">Páginas Blancas</value>
-        <value xml:lang="fr">Chercher dans les pages blanches</value>
-        <value xml:lang="hi_IN">lookup:whitepages.com</value>
-        <value xml:lang="it">Ricerca:whitepages.com</value>
-        <value xml:lang="ja">lookup:whitepages.com</value>
-        <value xml:lang="nl">Opzoeken in whitepages.com</value>
-        <value xml:lang="ro">lookup:whitepages.com</value>
-        <value xml:lang="ru">lookup:whitepages.com</value>
-        <value xml:lang="th">ค้นหา:whitepages.com</value>
-        <value xml:lang="zh">查找：whitepages.com</value>
-    </property>
-    <property key="OrderLookupWhitepagesLink">
-        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
-        <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
-        <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
-    </property>
     <property key="OrderMTD">
         <value xml:lang="de">Total Monat</value>
         <value xml:lang="en">MTD</value>
