@@ -34,7 +34,7 @@ under the License.
     <form name="POEnter" type="single" target="polinereceipt"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
-        <field name="OrderId" required-field="true" title="PO Number"><text size="10"/></field>
+        <field name="OrderId" required-field="true" title="${uiLabelMap.OrderPONumber}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -54,7 +54,7 @@ under the License.
         <field name="productId" entry-name="product.productId" ><display/></field>
         <field name="productName" title="${uiLabelMap.CommonEmptyHeader}" entry-name="product.productName" ><display/></field>
         <field name="productLocation" event="onkeypress" action="return enter(event,document.forms[0].productQty)"><text size="10"/></field>
-        <field name="productQty" required-field="true" title="Qty" ><text default-value="1" size="5"/></field>
+        <field name="productQty" required-field="true" title="${uiLabelMap.CommonQty}" ><text default-value="1" size="5"/></field>
         <field name="submitButton" title="${uiLabelMap.ProductReceiveProduct}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 

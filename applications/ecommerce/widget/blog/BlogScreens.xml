@@ -169,7 +169,7 @@
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
-                        <label text="Permissions failed."></label>
+                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}"></label>
                     </fail-widgets>
                 </section>
             </widgets>
@@ -202,7 +202,7 @@
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
-                        <label text="Permissions failed to edit Article: ${contentId} in Blog: ${blogContentId}"></label>
+                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}: ${contentId} ${uiLabelMap.ContentBlog}: ${blogContentId}"></label>
                     </fail-widgets>
                 </section>
             </widgets>
@@ -331,11 +331,10 @@
                         <label text="&lt;p/&gt;"/>
                         
                         <container style="bloghr">
-                            <label text="Thread: " style="blogtitle"/>
+                            <label text="${uiLabelMap.ContentForumThread}: " style="blogtitle"/>
                         </container>
                         <include-tree name="ResponseTree" location="component://ecommerce/widget/blog/BlogTrees.xml"/>
                         <label text="&lt;p/&gt;"/>
-                                                
                         <section>
                             <condition>
                                 <or>
@@ -406,10 +405,10 @@
             </actions>
             <widgets>
                 <container style="bloghr">
-                    <label text="Comments: " style="blogtitle"/>
+                    <label text="${uiLabelMap.CommonComments}: " style="blogtitle"/>
                 </container>
                 <iterate-section list="responseList" entry="rsp" view-size="10">
-                    <section name="Blog Responses">                        
+                    <section name="BlogResponses">
                         <widgets>
                             <include-screen name="responseTreeLine"/>
                         </widgets>
@@ -439,7 +438,7 @@
                         <iterate-section list="responseList" entry="rsp">
                             <section name="BlogResponses">
                                 <widgets>
-                                    <include-screen name="responseTreeLine"/>                                            
+                                    <include-screen name="responseTreeLine"/> 
                                 </widgets>
                             </section>
                         </iterate-section>

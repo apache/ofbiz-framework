@@ -560,9 +560,17 @@
         <value xml:lang="fr">Montant dû</value>
         <value xml:lang="it">Totale Dovuto</value>
     </property>
+    <property key="WebPosUnableToLogIn">
+        <value xml:lang="en">Unable To Log In</value>
+        <value xml:lang="it">Non è stato possibile autenticarsi</value>
+    </property>
     <property key="WebPosUnitPrice">
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="fr">Prix unitaire</value>
         <value xml:lang="it">Prezzo unitario</value>
+    </property>
+    <property key="WebPosUserLoginNotValid">
+        <value xml:lang="en">User Login Not Valid</value>
+        <value xml:lang="it">Utente non valido</value>
     </property>
 </resource>

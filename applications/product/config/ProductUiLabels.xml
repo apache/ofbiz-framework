@@ -5154,6 +5154,10 @@
         <value xml:lang="th">ค้นหารหัสโปรโมชันสินค้า</value>
         <value xml:lang="zh">查找产品促销代码</value>
     </property>
+    <property key="PageTitleFindProductStocktake">
+        <value xml:lang="en">Find Product Stocktake</value>
+        <value xml:lang="it">Ricerca prodotti in stock</value>
+    </property>
     <property key="PageTitleFindSubscription">
         <value xml:lang="de">Abonnemente suchen</value>
         <value xml:lang="en">Find Subscription</value>
@@ -5423,8 +5427,7 @@
         <value xml:lang="it">Schedulazione Spedizione Pacchi</value>
         <value xml:lang="ro">Planificare Expediere Pachete</value>
         <value xml:lang="ru">Планирование поставки мест</value>
-        <value xml:lang="th">ตารางการขนส่งหีบห่อ
-        </value>
+        <value xml:lang="th">ตารางการขนส่งหีบห่อ</value>
         <value xml:lang="zh">包装货运计划</value>
     </property>
     <property key="PageTitlePickList">
@@ -5468,8 +5471,7 @@
         <value xml:lang="it">Prelievo : Mostra Inizio Prelievo</value>
         <value xml:lang="ro">Prelievo : Afiseaza Inceput Preluare</value>
         <value xml:lang="ru">Сортировка: просмотр начальных сортировок</value>
-        <value xml:lang="th">การเลือก : แสดงการเลือกเริ่มต้น
-        </value>
+        <value xml:lang="th">การเลือก : แสดงการเลือกเริ่มต้น</value>
         <value xml:lang="zh">分拣：浏览已开始的分拣</value>
     </property>
     <property key="PageTitleProductExport">
@@ -5526,6 +5528,10 @@
         <value xml:lang="ru">Результаты поиска</value>
         <value xml:lang="th">ค้นหาผลลัพธ์</value>
         <value xml:lang="zh">搜索结果</value>
+    </property>
+    <property key="PageTitleProductStocktake">
+        <value xml:lang="en">Product Stocktake</value>
+        <value xml:lang="it">Prodotti in stock</value>
     </property>
     <property key="PageTitleTransferInventoryItem">
         <value xml:lang="de">Bestandspositionen transferieren von ${facility.facilityName} [${facility.facilityId}]</value>
@@ -9839,6 +9845,10 @@
         <value xml:lang="ru">Управление объектами</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理应用程序</value>
+    </property>
+    <property key="ProductFacilityMovement">
+        <value xml:lang="en">Movement</value>
+        <value xml:lang="it">Movimenti</value>
     </property>
     <property key="ProductFacilityNameId">
         <value xml:lang="de">Einrichtung Namen [ID]</value>
@@ -18522,7 +18532,7 @@
     </property>
     <property key="ProductSubscriptionCommEvent">
         <value xml:lang="de">Abonnement Kommunikationsereignis</value>
-        <value xml:lang="en">Subscription Communication Event</value>
+        <value xml:lang="en">k Communication Event</value>
         <value xml:lang="es">Evento de comunicación de suscripción</value>
         <value xml:lang="fr">Evènement de communication d'abonnement</value>
         <value xml:lang="it">Evento Comunicazioni Abbonamento</value>
@@ -18552,6 +18562,10 @@
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">订阅资源</value>
     </property>
+    <property key="ProductSubscriptionResourceViewPermissionError">
+        <value xml:lang="en">Subscription Resource View Permission Error</value>
+        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione risorse</value>
+    </property>
     <property key="ProductSubscriptions">
         <value xml:lang="de">Abonnemente</value>
         <value xml:lang="en">Subscriptions</value>
@@ -18562,6 +18576,10 @@
         <value xml:lang="ru">Подписки</value>
         <value xml:lang="th">การสั่งซื้อ</value>
         <value xml:lang="zh">订阅</value>
+    </property>
+    <property key="ProductSubscriptionViewPermissionError">
+        <value xml:lang="en">Subscription View Permission Error</value>
+        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione</value>
     </property>
     <property key="ProductSupplier">
         <value xml:lang="de">Lieferant</value>
@@ -19252,6 +19270,10 @@
         <value xml:lang="ru">Попробуйте эти вместо</value>
         <value xml:lang="th">พยายามแทนที่เหล่านี้</value>
         <value xml:lang="zh">尝试这些而不是</value>
+    </property>
+    <property key="ProductUPCA">
+        <value xml:lang="en">UPCA</value>
+        <value xml:lang="it">UPCA</value>
     </property>
     <property key="ProductUpdateCategories">
         <value xml:lang="de">Kategorien aktualisieren</value>

@@ -88,7 +88,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${uiLabelMap.CommonEffected}:</fo:inline>
+                                <fo:inline font-size="10pt">${uiLabelMap.FormFieldTitle_effectiveDate}:</fo:inline>
                                 <fo:inline font-size="10pt">___________________</fo:inline>
                             </fo:block>
                         </fo:table-cell>

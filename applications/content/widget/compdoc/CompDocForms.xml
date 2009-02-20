@@ -427,15 +427,15 @@ under the License.
         <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="sequenceNum" title="Sequence Num"><display/></field>
+        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         
        <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}"  widget-style="tabletext">
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
         </field>
-        <field name="relatedDetailId" map-name="dataResource" title="Survey ID" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
+        <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
             <display/>
         </field>
-        <field name="relatedDetailId" map-name="dataResource" title="Survey Response ID" use-when="dataResource!=null&amp;&amp;&quot;SURVEY_RESPONSE&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))&amp;&amp;dataResource.get(&quot;relatedDetailId&quot;)!=null">      
+        <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurveyResponse}" use-when="dataResource!=null&amp;&amp;&quot;SURVEY_RESPONSE&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))&amp;&amp;dataResource.get(&quot;relatedDetailId&quot;)!=null">      
             <display/>
         </field>
     </form>

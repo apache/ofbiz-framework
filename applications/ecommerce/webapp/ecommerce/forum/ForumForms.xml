@@ -398,7 +398,7 @@ under the License.
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="dataResourceId"><display/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
-        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId" >
+        <field name="dataResourceTypeIdDisplay" title="${uiLabelMap.CommonType}" field-name="dataResourceTypeId" >
             <display description="ELECTRONIC_TEXT" also-hidden="false" />
         </field>
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="120"/> </field>

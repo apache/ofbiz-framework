@@ -262,7 +262,6 @@ public class TechDataServices {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
-            //                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "PbReadingTechDataCalendarWeekAssociated", locale));
             return 0;
         }
         // TODO read TechDataCalendarExcDay to manage execption day
@@ -295,7 +294,6 @@ public class TechDataServices {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
-            //                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "PbReadingTechDataCalendarWeekAssociated", locale));
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
         }
         // TODO read TechDataCalendarExcDay to manage execption day

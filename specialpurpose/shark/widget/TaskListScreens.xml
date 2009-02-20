@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Work List"/>
+                <set field="titleProperty" value="SharkWorkList"/>
 
                 <script location="component://shark/webapp/shark/WEB-INF/actions/tasklist/worklist.bsh"/>
             </actions>

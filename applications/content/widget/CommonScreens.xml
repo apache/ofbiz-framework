@@ -344,7 +344,7 @@ under the License.
                     <widgets>
                         <container style="responseSelected">
                             <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
-                            <link  text="Reply" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
                             </container>
@@ -353,7 +353,7 @@ under the License.
                     <fail-widgets>
                         <container>
                             <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
-                            <link  text="Reply" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
                             </container>

@@ -373,7 +373,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="Test Permission"/>
+                <set field="titleProperty" value="ContentTestPermission"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -381,7 +381,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="Test Permission"/>
+                                    <label text="${uiLabelMap.ContentTestPermission}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">

@@ -164,7 +164,7 @@ under the License.
       <fo:table-column column-width="80%"/>
       <fo:table-header>
         <fo:table-row>
-          <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.FixedAssetMaintItemIssuance}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.AssetMaintItemIssuance}</fo:block></fo:table-cell>
           <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
         </fo:table-row>        
       </fo:table-header>

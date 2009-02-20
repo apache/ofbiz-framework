@@ -186,14 +186,14 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="Not Applicable"/>
+                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
                 <entity-options description="${description}"
                     entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="Not Applicable"/>
+                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
                 <entity-options description="${description}"
                     entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PUBLISH_STATUS"/>
@@ -202,7 +202,7 @@ under the License.
         </field>
         <field name="privilegeEnumId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="Not Applicable"/>
+                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
                 <entity-options description="${description}"
                     entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="SUBSCRIPTION_TYPE"/>

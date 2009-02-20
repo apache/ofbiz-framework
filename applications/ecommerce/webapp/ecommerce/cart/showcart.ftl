@@ -174,7 +174,7 @@ function setAlternateGwp(field) {
           <#else>
             <td NOWRAP>&nbsp;</td>
           </#if>
-          <#if fixedAssetExist == true><td NOWRAP align="center"><table><tr><td class="tabletext" nowrap align="center"><b>- ${uiLabelMap.Startdate} -</b></td><td class="tabletext" nowrap><b>- ${uiLabelMap.EcommerceNbrOfDays} -</b></td></tr><tr><td class="tabletext" nowrap><b>- ${uiLabelMap.EcommerceNbrOfPersons} -</b></td><td class="tabletext" nowrap align="center"><b>- ${uiLabelMap.CommonQuantity} -</b></td></tr></table></td>
+          <#if fixedAssetExist == true><td NOWRAP align="center"><table><tr><td class="tabletext" nowrap align="center"><b>- ${uiLabelMap.EcommerceStartDate} -</b></td><td class="tabletext" nowrap><b>- ${uiLabelMap.EcommerceNbrOfDays} -</b></td></tr><tr><td class="tabletext" nowrap><b>- ${uiLabelMap.EcommerceNbrOfPersons} -</b></td><td class="tabletext" nowrap align="center"><b>- ${uiLabelMap.CommonQuantity} -</b></td></tr></table></td>
           <#else><td NOWRAP align="center"><div class="tabletext"><b>${uiLabelMap.CommonQuantity}</b></div></td></#if>
           <td NOWRAP align="right"><div class="tabletext"><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
           <td NOWRAP align="right"><div class="tabletext"><b>${uiLabelMap.EcommerceAdjustments}</b></div></td>

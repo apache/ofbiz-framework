@@ -1,19 +1,19 @@
   <div id="partyContentList">   
     <div class="screenlet-title-bar">
-      <h3>Attached file</h3>
+      <h3>${uiLabelMap.MyPageAttachFile}</h3>
     </div>
     <div class="screenlet-body">
       <#if commEventContent?has_content>
         <table class="basic-table" cellspacing="0">
           <#list commEventContent as commContent>
-          	<#list partyContent as pContent>
-   				<#assign partyId = pContent.partyId/>
-   				<#if commContent.contentId == pContent.contentId>
-   					<#assign content = pContent.getRelatedOne("Content")>
-   					<#assign fromDate = commContent.fromDate>
-   					<#assign ptype = pContent.partyContentTypeId/>
-   				</#if>
-  			 </#list>
+              <#list partyContent as pContent>
+                   <#assign partyId = pContent.partyId/>
+                   <#if commContent.contentId == pContent.contentId>
+                       <#assign content = pContent.getRelatedOne("Content")>
+                       <#assign fromDate = commContent.fromDate>
+                       <#assign ptype = pContent.partyContentTypeId/>
+                   </#if>
+               </#list>
             <tr>
               <td width="30%">
               <#if content?has_content>

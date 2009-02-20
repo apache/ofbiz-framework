@@ -31,6 +31,10 @@
         <value xml:lang="it">Mia pagina</value>
         <value xml:lang="th">แอปพริเคชันของฉัน</value>
     </property>
+    <property key="MyPageAttachFile">
+        <value xml:lang="en">Attach File</value>
+        <value xml:lang="it">Allega file</value>
+    </property>
     <property key="MyPageCommunicationEventId">
         <value xml:lang="en">Communication Event id:</value>
         <value xml:lang="fr">Réf. d'évènement de comm.</value>

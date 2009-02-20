@@ -1,10 +1,10 @@
   <div id="partyContent" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>Attach File</h3>
+      <h3>${uiLabelMap.MyPageAttachFile}</h3>
     </div>
     <div class="screenlet-body">
 
-      <div class="label">${uiLabelMap.Attach}</div>
+      <div class="label">${uiLabelMap.MyPageAttachFile}</div>
       <form id="uploadPartyContent" method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadAttachFiletoEmail</@ofbizUrl>">
         <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
         <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
@@ -15,7 +15,7 @@
         <input type="hidden" name="communicationEventId" value="${communicationEventId}"/>   
         <input type="hidden" name="communicationEventTypeId" value="${communicationEventTypeId}"/>        
         <input type="hidden" name="parentCommEventId" value="${parameters.parentCommEventId?if_exists}"/>
-		<input type="hidden" name="originalCommEventId" value="${parameters.originalCommEventId?if_exists}"/>
+        <input type="hidden" name="originalCommEventId" value="${parameters.originalCommEventId?if_exists}"/>
               
         <input type="file" name="uploadedFile" size="25" id="uploadedFile"/>
         <input type="submit" value="${uiLabelMap.CommonUpload}"/><br><br>

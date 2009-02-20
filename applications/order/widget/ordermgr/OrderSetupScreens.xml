@@ -36,7 +36,7 @@ under the License.
     <screen name="OrderPaymentSetup">
         <section>
             <actions>
-                <set field="title" value="Payment Settings"/>
+                <set field="titleProperty" value="OrderOrderEntryPaymentSettings"/>
                 <set field="headerItem" value="setup"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/setup/PaymentSetup.groovy"/>
             </actions>
