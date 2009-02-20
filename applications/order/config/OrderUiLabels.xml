@@ -8167,6 +8167,9 @@
         <value xml:lang="th">เลือกวิธีการขนส่ง</value>
         <value xml:lang="zh">选择送货方法</value>
     </property>
+    <property key="OrderSelectSupplier">
+        <value xml:lang="en">Select Supplier</value>
+    </property>
     <property key="OrderSelectVariant">
         <value xml:lang="de">Variante auswählen</value>
         <value xml:lang="en">Select Variant</value>

@@ -31,7 +31,7 @@ under the License.
                 <entity-options entity-name="ProductType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
-             </drop-down>
+            </drop-down>
         </field>
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
@@ -40,7 +40,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
         <!-- NOTE DEJ20070829 not sure why this is here, but it doesn't seem applicable for a general product lookup, also doesn't handle case where isVariant is null <field name="isVariant"><hidden value="N"/></field> -->
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -61,6 +61,38 @@ under the License.
         <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>
+    </form>
+    <form name="lookupSupplierProduct" target="LookupSupplierProduct" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains"/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupSupplierProduct" list-name="listIt" title="" type="list" paginate-target="LookupSupplierProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="SupplierProductAndProduct"/>
+                <field-map field-name="orderBy" value="productId"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+        </field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
+        <field name="supplierProductId"><display/></field>
+        <field name="minimumOrderQuantity"><display/></field>
     </form>
     
     <form name="lookupVirtualProduct" extends="lookupProduct" default-map-name= "inputFields" target="LookupVirtualProduct" title="" type="single"
@@ -135,6 +167,7 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductAndPriceView"/>
+                <field-map field-name="orderBy" value="productId"/>
             </service>
         </actions>
         <!--

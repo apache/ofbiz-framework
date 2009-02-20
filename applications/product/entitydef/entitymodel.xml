@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -4527,6 +4526,19 @@ under the License.
         <key-map field-name="agreementItemSeqId"/>
       </relation>
     </entity>
+    <view-entity entity-name="SupplierProductAndProduct"
+      package-name="org.ofbiz.product.supplier"
+      title="Supplier-product and product antityview for purchase order entry">
+      <member-entity entity-alias="SP" entity-name="SupplierProduct"/>
+      <member-entity entity-alias="PR" entity-name="Product"/>
+      <alias-all entity-alias="SP"/>
+      <alias-all entity-alias="PR">
+        <exclude field="productId"/>
+      </alias-all>
+      <view-link entity-alias="SP" rel-entity-alias="PR">
+        <key-map field-name="productId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="SupplierProductFeature" 
             package-name="org.ofbiz.product.supplier"
             title="Supplier-specific product feature information">

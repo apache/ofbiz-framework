@@ -5390,6 +5390,9 @@
         <value xml:lang="th">ค้นหาสินค้าทั้งหมด</value>
         <value xml:lang="zh">查找虚拟产品</value>
     </property>
+    <property key="PageTitleLookupSupplierProduct">
+        <value xml:lang="en">Lookup Product for supplier:</value>
+    </property>
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="de">Neuer Einrichtungs-Kontaktmechanismus für ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="en">New Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
