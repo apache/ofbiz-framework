@@ -448,9 +448,10 @@ under the License.
     <!-- request form -->  
     <form name="requestInfo" type="single" title="request information" default-map-name="custRequest"
         header-row-style="header-row" default-table-style="basic-table">
-        <actions>    
+        <actions>
+            <set field="lookupPartyId" from-field="custRequest.fromPartyId" default-value="_NA_"/>
             <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
-                <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
+                <field-map field-name="partyId" from-field="lookupPartyId"/>
                 <field-map field-name="compareDate" from-field="custRequest.custRequestDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>

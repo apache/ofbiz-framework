@@ -255,7 +255,7 @@ under the License.
         <action service="updateCommunicationEvent" mode="sync"/>
     </eca>
 
-    <eca service="createCustRequest" event="commit">
+    <eca service="updateCustRequest" event="commit">
         <condition field-name="communicationEventId" operator="is-not-empty"/>
         <condition field-name="custRequestId" operator="is-not-empty"/>
         <action service="updateCommunicationEvent" mode="sync"/>
