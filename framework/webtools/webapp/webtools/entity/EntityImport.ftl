@@ -25,10 +25,10 @@ under the License.
 <br />
 
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsMessage6}:<br />
-    <input type="text" size="60" name="fmfilename" value="${fmfilename?if_exists}"/><br />
     ${uiLabelMap.WebtoolsMessage7}:<br />
     <input type="text" size="60" name="filename" value="${filename?if_exists}"/><br />
+    ${uiLabelMap.WebtoolsMessage6}:<br />
+    <input type="text" size="40" name="fmfilename" value="${fmfilename?if_exists}"/><br />
     <input type="checkbox" name="isUrl" <#if isUrl?exists>"checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
     <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
     <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
