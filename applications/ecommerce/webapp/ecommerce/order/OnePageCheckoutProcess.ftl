@@ -55,7 +55,7 @@ under the License.
                       <#assign parentProductId = cartLine.getProductId()/>
                     </#if>
                     <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                    <#if !smallsmallImageUrl?string?has_content><#assign smallImageUrl = ""></#if>
+                    <#if !smallImageUr?string?has_content><#assign smallImageUrl = ""></#if>
                   </#if>
                   <tr id="cartItemDisplayRow_${cartLineIndex}">
                     <td><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
@@ -133,8 +133,8 @@ under the License.
                             <#assign parentProductId = cartLine.getProductId()/>
                           </#if>
                           <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                          <#if !smallsmallImageUrl?string?has_content><#assign smallImageUrl = ""></#if>
-                          <#if smallsmallImageUrl?string?has_content>
+                          <#if !smallImageUr?string?has_content><#assign smallImageUrl = ""></#if>
+                          <#if smallImageUr?string?has_content>
                             <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" border="0" height="50" hspace="0" vspace="0" width="50"/>
                           </#if>
                         </#if>

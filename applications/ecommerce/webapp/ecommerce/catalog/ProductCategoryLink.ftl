@@ -40,7 +40,7 @@ under the License.
     </#if>
     
     <div class="productcategorylink">
-      <#if smallImageUrl?string?has_content>
+      <#if imageUrl?string?has_content>
         <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>" alt="${titleText?default("Link Image")}"/></a></div>
       </#if>
       <#if titleText?has_content>
