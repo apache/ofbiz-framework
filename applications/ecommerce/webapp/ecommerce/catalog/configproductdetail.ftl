@@ -470,7 +470,7 @@ function getConfigDetails(event) {
                   <a href="javascript:alert('${instructions}');" class="buttontext">Instructions</a>
                 </#if>
                 <#assign image = question.content.get("IMAGE_URL")?if_exists>
-                <#if image?has_content>
+                <#if image?string?has_content>
                   <img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${image?if_exists}</@ofbizContentUrl>' vspace='5' hspace='5' border='0' width='200' align='left'>
                 </#if>
               <#else>
