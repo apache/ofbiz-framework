@@ -175,8 +175,8 @@ function submitForm(form, mode, value) {
                       <#-- product item -->
                       <#-- start code to display a small image of the product -->
                       <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                      <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
-                      <#if smallImageUrl?has_content>
+                      <#if !smallsmallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
+                      <#if smallsmallImageUrl?string?has_content>
                         <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>">
                           <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" width="50" class="imageborder" border="0"/>
                         </a>

@@ -68,9 +68,9 @@ under the License.
     </#if>
     <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
     <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
-    <#if categoryImageUrl?has_content || longDescription?has_content>
+    <#if categorysmallImageUrl?string?has_content || longDescription?has_content>
       <div>
-        <#if categoryImageUrl?has_content>
+        <#if categorysmallImageUrl?string?has_content>
           <#assign height=100/>
           <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='${height}' align='left'/>
         </#if>
@@ -96,7 +96,7 @@ under the License.
       <#assign numCol = numCol?number>
       <#assign tabCol = 1>
       <div
-      <#if categoryImageUrl?has_content>
+      <#if categorysmallImageUrl?string?has_content>
         style="position: relative; margin-top: ${height}px;"
       </#if>
       class="productsummary-container<#if (numCol?int > 1)> matrix</#if>">
