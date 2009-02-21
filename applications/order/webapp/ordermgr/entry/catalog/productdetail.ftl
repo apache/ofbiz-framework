@@ -287,7 +287,7 @@ ${virtualJavaScript?if_exists}
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
-      <#if productLargeImageUrl?has_content>
+      <#if productLargesmallImageUrl?string?has_content>
         <a href="javascript:popupDetail();"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200"></a>
       </#if>
     </td>
@@ -566,10 +566,10 @@ ${virtualJavaScript?if_exists}
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
                 <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)?if_exists>
-                <#if !imageUrl?has_content>
+                <#if !smallImageUrl?string?has_content>
                   <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
                 </#if>
-                <#if !imageUrl?has_content>
+                <#if !smallImageUrl?string?has_content>
                   <#assign imageUrl = "/images/defaultImage.jpg">
                 </#if>
                 <td align="center" valign="bottom">

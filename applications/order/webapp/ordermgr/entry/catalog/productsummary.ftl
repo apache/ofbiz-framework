@@ -24,7 +24,7 @@ under the License.
         <#assign prodCatMem = requestAttributes.productCategoryMember>
     </#if>    
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
-    <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
+    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
     <#assign productInfoLinkId = "productInfoLink">
     <#assign productInfoLinkId = productInfoLinkId + product.productId/>
