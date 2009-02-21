@@ -50,10 +50,10 @@ under the License.
                 <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
                 
                 <!-- Get the store VisualTheme -->
-                <set field="visualThemeId" from-field="productStore.visualThemeId" default="EC_DEFAULT"/>
+                <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
-                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
                 <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://ecommerce/webapp/ecommerce/includes/header.ftl"/>
