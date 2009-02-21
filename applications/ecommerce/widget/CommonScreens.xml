@@ -49,15 +49,19 @@ under the License.
 
                 <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
                 
-                <!-- The default (main) stylesheets -->
-                <set field="layoutSettings.styleSheets[+0]" value="/ecommerce/images/blog.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/images/ecommain.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/> 
-                <set field="layoutSettings.styleSheets[]" value="/content/images/contentForum.css" global="true"/> 
+                <!-- Get the store VisualTheme -->
+                <set field="visualThemeId" from-field="productStore.visualThemeId" default="EC_DEFAULT"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://ecommerce/webapp/ecommerce/includes/header.ftl"/>
+                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://ecommerce/webapp/ecommerce/includes/footer.ftl"/>			
             </actions>
             <widgets>
                 <!-- render header -->
-                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/header.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
                 
                 <container id="ecom-mainarea">
                     <!-- by default will render left-bar only if left/rightbarScreenName value not empty -->
@@ -74,7 +78,7 @@ under the License.
                 </container>
                 
                 <!-- render footer -->
-                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/footer.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
