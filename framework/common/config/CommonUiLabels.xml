@@ -3416,22 +3416,6 @@
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_CN">查找</value>
     </property>
-    <property key="CommonLookup">
-        <value xml:lang="ar">البحث</value>
-        <value xml:lang="de">Ansehen</value>
-        <value xml:lang="en">Lookup</value>
-        <value xml:lang="es">Buscar</value>
-        <value xml:lang="fr">Rechercher</value>
-        <value xml:lang="it">Ricerca</value>
-        <value xml:lang="nl">Zoek</value>
-        <value xml:lang="pt">Procurar</value>
-        <value xml:lang="pt_PT">Vistoria</value>
-        <value xml:lang="ro">Cauta</value>
-        <value xml:lang="ru">Просмотр</value>
-        <value xml:lang="th">ค้นหา</value>
-        <value xml:lang="zh">查找</value>
-        <value xml:lang="zh_CN">查找</value>
-    </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
         <value xml:lang="es">Páginas Blancas</value>
