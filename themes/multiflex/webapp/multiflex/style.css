@@ -1,0 +1,1124 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* NON-HEADER */
+*{padding:0; margin:0;}
+ body {text-align:center; font-size:62.5%; background-color:#FFFFFF; font-family:verdana,arial,sans-serif;} /*Font-size: 1.0em = 10px when browser default size is 16px*/
+.page-container {text-align:left; width:900px; margin:0px auto; margin-top:10px; margin-bottom:10px; border:solid 1px #969696; font-size:1.0em;}
+
+#ecom-mainarea {clear:both; width:900px; padding-bottom:30px; background:transparent url(/multiflex/bg_main_withnav.jpg) top left repeat-y;}
+.left {display:inline /*Fix IE floating margin bug*/; float:left; width:200px; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.center {display:inline; /*Fix IE floating margin bug*/; float:left; width:470px; margin:0 0 0 15px; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.right {display:inline /*Fix IE floating margin bug*/; float:right; width:185px; margin:0 15px 0 0; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.footer {clear:both; width:900px; padding:1.0em 0 1.0em 0; background:rgb(225,225,225) url(/multiflex/bg_foot.jpg) no-repeat; font-size:1.0em; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+
+/* HEADER */
+.header {width:900px; font-family:"trebuchet ms",arial,sans-serif;}
+.header-top {width:900px; height:80px; background:#F0F0F0 url(/multiflex/bg_head_top.jpg); overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.header-middle {width:900px; height:150px; background:#E6E6E6 url(/multiflex/bg_head_middle.jpg); overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.header-bottom {width:900px; height:40px; background:#FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;}
+.header-breadcrumbs {clear:both; width:900px; height:10px; padding:1.0em 0 1.0em 0; background:#FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;}
+
+.sitelogo {width:90px; height:58px; position:absolute; z-index:1; margin:10px 0 0 20px; background:url(/multiflex/ofbizLogo.gif);}
+.sitename {width:400px; height:45px; position:absolute; z-index:1; margin:20px 0 0 130px; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+.sitename h1 {font-size:240%;}
+.sitename h2 {margin:-4px 0 0 0; color:#7D7D7D; font-size:120%;}
+.sitename a {text-decoration:none; color:#7D7D7D;}
+.sitename a:hover {text-decoration:none; color:#323232;}
+.microcart {width:400px; height:45px; position:absolute; z-index:1; margin:20px 0 0 600px; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}
+
+.nav0 {width:350px; position:absolute; z-index:2; margin:25px 0 0 0; margin-left:550px !important /*Non-IE6*/; margin-left:553px /*IE6*/;}
+.nav0 ul {float:right; padding:0 20px 0 0;}
+.nav0 li {display:inline; list-style:none;}
+.nav0 li a {padding:0 0 0 3px;}
+.nav0 a:hover {text-decoration:none;}
+.nav0 a img {height:14px; border:none;}
+
+.nav1 {width:350px; position:absolute; z-index:3; margin:45px 0 0 550px;}
+.nav1 ul {float:right; padding:0 15px 0 0; font-weight:bold;}	
+.nav1 li {display:inline; list-style:none;}
+.nav1 li a {display:block; float:left; padding:2px 5px 2px 5px; color:#7D7D7D; text-decoration:none; font-size:120%;}
+.nav1 a:hover {text-decoration:none; color:#323232;}
+
+.sitemessage {width:400px; height:120px; position:absolute; z-index:1; margin:20px 0 0 480px; color:rgb(234,239,247); /*overflow:visible !important /*Activate if Firefox print problems*/; overflow:hidden /*IE6*/;}
+.sitemessage h1 {width:400px; text-align:right; font-size:230%;}
+.sitemessage h2 {float:right; width:320px; margin:8px 0 0 0; text-align:right; line-height:100%; font-size:160%;}
+.sitemessage h3 {float:right; width:320px; margin:10px 0 0 0; text-align:right; font-size:140%;}
+.sitemessage h3 a {text-decoration:none; color:rgb(234,239,247);}
+.sitemessage h3 a:hover {text-decoration:none; color:rgb(50,50,50);}
+
+/*Drop-down menu*/
+.nav2 {float:left; width:900px; border:none; background:#DCDCDC url(/multiflex/bg_head_bottom_nav.jpg) no-repeat; color:#4B4B4B; font-size:130%;} /*Color navigation bar normal mode*/
+.nav2 ul {list-style-type:none;}
+.nav2 ul li {float:left; position:relative; z-index:auto !important /*Non-IE6*/; z-index:1000 /*IE6*/; border-right:solid 1px #AFAFAF;}
+.nav2 ul li a {float:none !important /*Non-IE6*/; float:left /*IE-6*/; display:block; height:3.1em; line-height:3.1em; padding:0 16px 0 16px; text-decoration:none; font-weight:bold; color: #646464;}
+.nav2 ul li ul {display:none; border:none;}
+
+/*Non-IE6 hovering*/
+.nav2 ul li:hover a {background-color:#D2D2D2; text-decoration:none;} /*Color main cells hovering mode*/
+.nav2 ul li:hover ul {display:block; width:10.0em; position:absolute; z-index:999; top:3.0em; margin-top:0.1em; left:0;}
+.nav2 ul li:hover ul li a {display:block; width:10.0em; height:auto; line-height:1.3em; margin-left:-1px; padding:4px 16px 4px 16px; border-left:solid 1px #AFAFAF; border-bottom: solid 1px #AFAFAF; background-color:#EDEDED; font-weight:normal; color:#323232;} /*Color subcells normal mode*/
+.nav2 ul li:hover ul li a:hover {background-color:#D2D2D2; text-decoration:none;} /*Color subcells hovering mode*/
+
+/*IE6 hovering*/
+.nav2 table {position:absolute; top:0; left:0; border-collapse:collapse;}
+.nav2 ul li a:hover {background-color:#D2D2D2; text-decoration:none;} /*Color main cells hovering mode*/
+.nav2 ul li a:hover ul {display:block; width:10.0em; position:absolute; z-index:999; top:3.1em; t\op:3.0em; left:0; marg\in-top:0.1em;}
+.nav2 ul li a:hover ul li a {display:block; w\idth:10.0em; height:1px; line-height:1.3em; padding:4px 16px 4px 16px; border-left:solid 1px #AFAFAF; border-bottom: solid 1px #AFAFAF; background-color:#EDEDED; font-weight:normal; color:#323232;} /*Color subcells normal mode*/
+.nav2 ul li a:hover ul li a:hover {background-color:#D2D2D2; text-decoration:none;} /*Color subcells hovering mode*/
+
+.center .breadcrumbs ul {float:left; width:560px; list-style:none; padding:0 0 0 15px; font-family:verdana,arial,sans-serif;}
+.center .breadcrumbs ul li {display:inline; padding:0 0 0 10px; background:transparent url(/multiflex/bg_bullet_arrow.gif) no-repeat 0 50%; font-weight:bold; color:#7D7D7D; font-size:100%;}
+.center .breadcrumbs ul a {color:#467AA7; text-decoration:none;}
+.center .breadcrumbs ul a:hover {color:#2A5A8A; text-decoration:underline;}
+
+
+/********************/
+/*  COMMON CLASSES  */
+/********************/
+#ecom-mainarea img {clear:both; float:left; margin:3px 10px 7px 0; padding:1px; border:1px solid rgb(150,150,150);}
+#ecom-mainarea img.center {clear:both; float:none; display:block; margin:0 auto; padding:1px; border:1px solid rgb(150,150,150);}
+#ecom-mainarea img.right {clear:both; float:right; margin:3px 0 7px 10px; padding:1px; border:1px solid rgb(150,150,150);}
+
+#ecom-mainarea a {color:rgb(70,122,167); font-weight:bold; text-decoration:none;}
+.center h1 a {color:rgb(70,122,167); font-weight:normal; text-decoration:none;}
+#ecom-mainarea a:hover {color:rgb(42,90,138); text-decoration:underline;}
+#ecom-mainarea a:visited {color:rgb(42,90,138);}
+
+#ecom-mainarea a img {border:solid 1px rgb(150,150,150);}
+#ecom-mainarea a:hover img {border:solid 1px rgb(220,220,220);}
+
+.nocolumns {width:900px; background:#FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;}
+
+/******************/
+/*  MAIN SECTION  */
+/******************/
+
+/* MAIN NAVIGATION */
+.left .round-border-topright {width:10px; height:10px; position:absolute; z-index:100; margin:0 0 0 190px; background:url(/multiflex/bg_corner_topright.gif) no-repeat;}
+
+/* MAIN CONTENT */
+.column1-unit {width:440px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/;}
+.column2-unit-left {float:left; width:200px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/;}
+.column2-unit-right {float:right; width:200px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/;}
+.column3-unit-left {float:left; width:120px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/;}
+.column3-unit-middle {float:left; width:120px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/; margin-left:40px;}
+.column3-unit-right {float:right; width:120px; margin-bottom:10px !important /*Non-IE6*/; margin-bottom:5px /*IE6*/;}
+
+/* MAIN SUBCONTENT */
+.subcontent-unit-border {width:183px; margin:0 0 2.0em 0; padding:0 0 5px 0; border:solid 1px rgb(190,190,190); background:rgb(235,235,235);}
+.right .screenlet {width:183px; margin:0 0 2.0em 0; padding:0 0 5px 0; border:solid 1px rgb(190,190,190); background:rgb(235,235,235);}
+
+.subcontent-unit-border-green {width:183px; margin:0 0 2.5em 0; padding:0 0 10px 0; border:solid 1px rgb(160,214,81); background-color:rgb(217,239,185);}
+.subcontent-unit-border-blue  {width:183px; margin:0 0 2.5em 0; padding:0 0 10px 0; border:solid 1px rgb(137,170,214); background-color:rgb(213,225,240);}
+.subcontent-unit-border-orange {width:183px; margin:0 0 2.5em 0px; padding:0 0 10px 0; border:solid 1px rgb(232,177,13); background-color:rgb(248,224,150);}
+
+
+.subcontent-unit-noborder {width:185px; margin:0 0 2.5em 0; padding:0 0 10px 0; background:rgb(235,235,235);}
+.subcontent-unit-noborder-green {width:185px; margin:0 0 2.5em 0; padding:0 0 10px 0; background-color:rgb(217,239,185);}
+.subcontent-unit-noborder-blue  {width:185px; margin:0 0 2.5em 0; padding:0 0 10px 0; background-color:rgb(213,225,240);}
+.subcontent-unit-noborder-orange {width:185px; margin:0 0 2.5em 0; padding:0 0 10px 0; background-color:rgb(248,224,150);}
+
+.round-border-topleft {width:10px; height:10px; position:absolute; z-index:100; background:url(/multiflex/bg_corner_topleft.gif) no-repeat; margin-top:-1px; margin-left:-1px;}
+.round-border-topright {width:10px; height:10px; position:absolute; z-index:100; background:url(/multiflex/bg_corner_topright.gif) no-repeat; margin-top:-1px; margin-left:174px;}
+.round-noborder-topleft {width:10px; height:10px; position:absolute; z-index:100; background:url(/multiflex/bg_corner_topleft.gif) no-repeat; margin-top:0px; margin-left:0px;}
+.round-noborder-topright {width:10px; height:10px; position:absolute; z-index:100; background:url(/multiflex/bg_corner_topright.gif) no-repeat; margin-top:0px; margin-left:175px;}
+
+/********************/
+/*  FOOTER SECTION  */
+/********************/
+.footer p {line-height:1.3em; text-align:center; color:rgb(125,125,125); font-weight:bold; font-size:110%;}
+.footer p.credits {font-weight:normal;}
+.footer a {text-decoration:underline; color:rgb(125,125,125);}
+.footer a:hover {text-decoration:none; color:rgb(0,0,0);}
+.footer a:visited {color:rgb(0,0,0);}
+
+/******************/
+/*  CLEAR FLOATS  */
+/******************/
+.page-container:after, .header:after, .breadcrumbs:after, #ecom-mainarea:after, .left:after, .center:after, .center div:after, .right:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.column1-unit:after, .column2-unit-left:after, .column2-unit-right:after, .column3-unit-left:after, .column3-unit-middle:after, .column3-unit-right:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.subcontent-unit-border:after, .subcontent-unit-noborder:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.subcontent-unit-border-blue:after, .subcontent-unit-border-green:after, .subcontent-unit-border-orange:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.subcontent-unit-noborder-blue:after, .subcontent-unit-noborder-green:after, .subcontent-unit-noborder-orange:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.footer:after, p:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.clear-contentunit {clear:both; width:440px; height:0.1em; border:none; background:rgb(210,210,210); color:rgb(210,210,210);}
+
+/********************************/
+/*  PRINTING and MISCELLANEOUS  */
+/********************************/
+@media print {.header-top {width:900px; height:80px; background:rgb(240,240,240); overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}}
+@media print {.breadcrumbs {width:900px; background:transparent;}}
+@media print {.nav2 {float:left; width:900px; border:none; background:rgb(240,240,240); color:rgb(75,75,75); font-size:1.0em; font-size:130%;}} /*Color navigation bar normal mode*/
+@media print {#ecom-mainarea {clear:both; width:900px; padding-bottom:30px; background:transparent;}}
+@media print {.left {display:inline /*Fix IE floating margin bug*/; float:left; width:199px; border-right:solid 1px rgb(200,200,200); border-bottom:solid 1px rgb(200,200,200); background-color:rgb(240,240,240); overflow:visible !important /*Firefox*/; overflow:hidden /*IE*/;}}
+@media print {.footer {clear:both; width:900px; height:3.7em; padding:1.1em 0 0; background:rgb(240,240,240); font-size:1.0em; overflow:visible !important /*Firefox*/; overflow:hidden /*IE6*/;}}
+
+
+/******************/
+/*  MAIN SECTION  */
+/******************/
+
+/* MAIN NAVIGATION */
+.nav3-grid {width:199px; border-bottom:solid 1px rgb(200,200,200);}
+.nav3-grid dt a, .nav3-grid dt a:visited {display:block; min-height:2.0em /*Non-IE6*/; height:auto !important; height:2.0em /*IE6*/; line-height:2.0em; padding:0px 10px 0px 20px;  border-top: solid 1px rgb(200,200,200); text-decoration:none; color:rgb(70,122,167); font-weight:bold; font-size:120%;}
+.nav3-grid dd a, .nav3-grid dd a:visited {display:block; min-height:1.7em /*Non-IE6*/; height:auto !important; height:1.7em /*IE6*/; line-height:1.7em; padding:0px 10px 0px 40px; border:none; font-weight:normal; text-decoration:none; color:rgb(70,122,167); font-size:120%;}
+.nav3-grid dt a:hover, .nav3-grid dd a:hover {background-color:rgb(225,225,225); color:rgb(42,90,138); text-decoration:none;}
+
+.nav3-bullet {width:170px; margin:10px 0 0 20px;}
+.nav3-bullet dt a, .nav3-bullet dt a:visited {line-height:2.0em; padding:0 0 0 10px; background:url(/multiflex/bg_bullet_full_1.gif) no-repeat 0px 50%; text-decoration:none; color:rgb(70,122,167); font-weight:bold; font-size:120%;}
+.nav3-bullet dd a, .nav3-bullet dd a:visited {line-height:1.7em; margin:0 0 0 15px; padding:0 0 0 10px; background:url(/multiflex/bg_bullet_half_1.gif) no-repeat 0px 50%; text-decoration:none; color:rgb(70,122,167); font-weight:normal; font-size:120%;}
+.nav3-bullet dt a:hover {background:url(/multiflex/bg_bullet_full_2.gif) no-repeat 0px 50%; text-decoration:underline; color:rgb(42,90,138);}
+.nav3-bullet dd a:hover {background:url(/multiflex/bg_bullet_half_2.gif) no-repeat 0px 50%; text-decoration:underline; color:rgb(42,90,138);}
+
+.nav3-nobullet {width:170px; margin:10px 0 0 20px;}
+.nav3-nobullet dt a, .nav3-nobullet dt a:visited {line-height:2.0em; text-decoration:none; color:rgb(70,122,167); font-weight:bold; font-size:120%;}
+.nav3-nobullet dd a, .nav3-nobullet dd a:visited {line-height:1.7em; margin:0 0 0 15px; text-decoration:none; color:rgb(70,122,167); font-weight:normal; font-size:120%;}
+.nav3-nobullet dt a:hover, .nav3-nobullet dd a:hover {text-decoration:underline; color:rgb(42,90,138);}
+
+.left .loginform {width:160px; margin:-10px 20px 0 20px;}
+.left .loginform p {clear:both; margin:0; padding:0;}
+.left .loginform fieldset {width:160px; border:none;}
+.left .loginform label.top {float:left; width:125px; margin:0 0 2px 0; font-size:110%;}
+.left .loginform label.right {float:left; width:125px; margin:5px 0 0 0; padding:0 0 0 3px; /*IE6*/; font-size:110%;}
+.left .loginform input.field {width:158px; margin:0 0 5px 0; padding:0.1em 0 0.2em 0 !important /*Non-IE6*/; padding:0.2em 0 0.3em 0 /*IE6*/; border:solid 1px rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:110%;}
+.left .loginform input.checkbox {float:left; margin:5px 0 0 0 !important /*Non-IE6*/; margin:2px 0 0 -3px /*IE6*/; border:none;}
+.left .loginform input.button {float:left; width:5.0em; margin:10px 0 5px 0; padding:1px; background:rgb(230,230,230); border:solid 1px rgb(150,150,150); text-align:center; font-family:verdana,arial,sans-serif; color:rgb(150,150,150); font-size:110%;}
+.left .loginform input.button:hover {cursor:pointer; border:solid 1px rgb(80,80,80); background:rgb(220,220,220); color:rgb(80,80,80);}
+
+.left .searchform {width:160px; margin:0 20px 0 20px;}
+.left .searchform p {clear:both; margin:0; padding:0;}
+.left .searchform fieldset {border:none;}
+.left .searchform input.field {float:left; width:158px; padding:0.1em 0 0.2em 0 !important /*Non-IE6*/; padding:0.2em 0 0.3em 0 /*IE6*/; border:1px solid rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:120%;}
+.left .searchform input.button {float:left; width:3.0em; margin-top: 0.5em; padding:1px; background:rgb(230,230,230); border:solid 1px rgb(150,150,150); text-align:center; font-family:verdana,arial,sans-serif; color:rgb(150,150,150); font-size:120%;}
+.left .searchform input.button:hover {cursor:pointer; border:solid 1px rgb(80,80,80); background:rgb(220,220,220); color:rgb(80,80,80);}
+
+.left h1.first {clear:both; margin:0px; padding:4px 20px 3px 20px; background-color:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:150%;}
+.left .first .screenlet-header {clear:both; margin:0px; padding:4px 20px 3px 20px; background-color:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:150%;}
+
+.left h1 {clear:both; margin:30px 0 20px 0; padding:4px 20px 3px 20px; background:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:150%;}
+.left .screenlet-header {clear:both; margin:30px 0 20px 0; padding:4px 20px 3px 20px; background:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:150%;}
+
+.left h2 {clear:both; margin:20px 10px 10px 20px; font-family:"trebuchet ms",arial,sans-serif; color:rgb(100,100,100); font-weight:bold; font-size:150%;}
+.left h3 {clear:both; margin:10px 10px 5px 20px; color:rgb(80,80,80); font-weight:bold; font-size:110%;} /* Note: h2 not existent, to make identical to formats for left for easier exchange */
+.left p {clear:both; margin:0 10px 10px 20px; color:rgb(80,80,80); line-height:1.3em; font-size:110%;}
+.left p.center {text-align:center;}
+.left p.right {text-align:right;}
+
+.left ul {list-style:none; margin:0.5em 10px 1.0em 20px;}
+.left ul li {margin:5px 0 0.2em 2px; padding:0px 0px 0 11px; background:url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.4em; line-height:1.2em; font-size:110%;}
+.left ol {margin:0.5em 10px 1.0em 40px !important /*Non-IE6*/; margin:0.5em 10px 1.0em 45px /*IE6*/;}
+.left ol li {list-style-position:outside; margin:0 0 0.4em 0; font-size:110%;}
+
+/* MAIN CONTENT */
+.center h1.pagetitle {margin:0 0 0.4em 0; padding:0 0 2px 0; border-bottom:solid 7px rgb(225,225,225); font-family:"trebuchet ms",arial,sans-serif; color:rgb(100,100,100); font-weight:bold; font-size:220%;}
+.center h1.block {clear:both; margin:1.0em 0 0em 0; padding:2px 0 2px 2px; background:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:220%;}
+.center h1 {clear:both; margin:1.0em 0 0.5em 0; font-family:"trebuchet ms",arial,sans-serif; color:rgb(80,80,80); font-weight:normal; font-size:210%;}
+.center h2 {clear:both; margin:1.0em 0 0.5em 0; font-family:"trebuchet ms",arial,sans-serif; color:rgb(80,80,80); font-weight:normal; font-size:170%;}
+.center h3 {clear:both; margin:-1.0em 0 0.5em 0; font-family:"trebuchet ms",arial,sans-serif; color:rgb(125,125,125); font-weight:normal; font-size:130%;}
+.center h1.side {clear:none;}
+.center h2.side {clear:none;}
+.center h3.side {clear:none;}
+
+.center h4 {margin:1.5em 0 1.0em 0; color:rgb(80,80,80); font-family:"trebuchet ms",arial,sans-serif; font-weight:normal; font-size:170%;}
+.center h5 {margin:1.5em 0 1.0em 0; color:rgb(80,80,80); font-family:"trebuchet ms",arial,sans-serif; font-size:140%;}
+.center h6 {margin:1.2em 0 0.2em 0; color:rgb(80,80,80); font-weight:bold; font-size:120%;}
+.center p {margin:0 0 1.0em 0; line-height:1.5em; font-size:120%;}
+.center p.center {text-align:center;}
+.center p.right {text-align:right;}
+.center p.details {clear:both; margin:-0.25em 0 1.0em 0; line-height:1.0em; font-size:110%;}
+.center blockquote {clear:both; margin:0 30px 0.6em 30px; font-size:90%;}
+
+.center table {clear:both; width:100%; margin:2.0em 0 0.2em 0; table-layout: fixed; border-style:hidden; border-collapse:collapse; empty-cells:show; background-color:rgb(233,232,244);}
+.center table th.top {height:3.5em; padding:0 7px 0 7px; empty-cells:show; background-color:rgb(175,175,175); text-align:left; color:rgb(255,255,255); font-weight:bold; font-size:110%;}
+.center table th {height:3.0em; padding:2px 20px 2px 7px; border-left:solid 2px rgb(255,255,255); border-right:solid 2px rgb(255,255,255); border-top:solid 2px rgb(255,255,255); border-bottom:solid 2px rgb(255,255,255); background-color:rgb(225,225,225); text-align:left; color:rgb(80,80,80); font-weight:bold; font-size:110%;}
+.center table td {height:3.0em; padding:2px 7px 2px 7px; border-left:solid 2px rgb(255,255,255); border-right:solid 2px rgb(255,255,255); border-top:solid 2px rgb(255,255,255); border-bottom:solid 2px rgb(255,255,255); background-color:rgb(225,225,225); text-align:left; font-weight:normal; color:rgb(80,80,80); font-size:110%;}
+p.caption {clear:both; margin:0.5em 0 2.0em 20px; text-align:left; color:rgb(80,80,80); font-size:110%;}
+
+.center ul {list-style:none; margin:0.5em 0 1.0em 0;}
+.center ul li {margin:0 0 0.2em 2px; padding:0 0 0 12px; background:url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.5em; line-height:1.4em; font-size:120%;}
+.center ol {margin:0.5em 0 1.0em 20px !important /*Non-IE6*/; margin:0.5em 0 1.0em 25px /*IE6*/;}
+.center ol li {list-style-position:outside; margin:0 0 0.2em 0; line-height:1.4em; font-size:120%;}
+
+.contactform {width:418px; margin:2.0em 0 0 0; padding:10px 10px 0 10px; border:solid 1px rgb(200,200,200); background-color:rgb(240,240,240);}
+.contactform fieldset {padding:20px 0 0 0 !important /*Non-IE6*/; padding:0 /*IE6*/; margin:0 0 20px 0; border:solid 1px rgb(220,220,220);}
+.contactform fieldset legend {margin:0 0 0 5px !important /*Non-IE*/; margin:0 0 20px 5px /*IE6*/; padding:0 2px 0 2px; color:rgb(80,80,80); font-weight:bold; font-size:130%;}
+.contactform label.left {float:left; width:100px; margin:0 0 0 10px; padding:2px; font-size:110%;}
+.contactform select.combo {width:175px; padding:2px; border:solid 1px rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:110%;}
+.contactform input.field {width:275px; padding:2px; border:solid 1px rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:110%;}
+.contactform textarea {width:275px; padding:2px; border:solid 1px rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:110%;}
+.contactform input.button {float:right; width:9.0em; margin-right:20px; padding:1px !important /*Non-IE6*/; padding:0 /*IE6*/; background:rgb(230,230,230); border:solid 1px rgb(150,150,150); text-align:center; font-family:verdana,arial,sans-serif; color:rgb(150,150,150); font-size:110%;}
+.contactform input.button:hover {cursor: pointer; border:solid 1px rgb(80,80,80); background:rgb(220,220,220); color:rgb(80,80,80);}
+
+/* MAIN SUBCONTENT */
+.right h1 {clear:both; margin:0 0 10px 0; padding:4px 10px 3px 10px; background-color:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:140%;}
+.right .screenlet-header {clear:both; margin:0 0 10px 0; padding:4px 10px 3px 10px; background-color:rgb(190,190,190); font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:140%;}
+
+.right h1.green {clear:both; margin:0 0 5px 0; padding:4px 10px 3px 10px; background-color:rgb(160,214,81); font-family:"trebuchet ms",verdana,arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:140%;}
+.right h1.blue {clear:both; margin:0 0 5px 0; padding:4px 10px 3px 10px; background-color:rgb(137,170,214); font-family:"trebuchet ms",verdana,arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:140%;}
+.right h1.orange {clear:both; margin:0 0 5px 0; padding:4px 10px 3px 10px; background-color:rgb(232,177,13); font-family:"trebuchet ms",verdana,arial,sans-serif; color:rgb(255,255,255); font-weight:bold; font-size:140%;}
+ /* Note: h2 non-existent, to make HTML-code interchangeable between 'left' and 'right' */
+.right h3 {clear:both; margin:1.0em 10px 0.5em 10px; color:rgb(80,80,80); font-weight:bold; font-size:110%;}
+.right p {clear:both; margin:0 10px 1.0em 10px; color:rgb(80,80,80); line-height:1.3em; font-size:110%;}
+.right p.center {text-align:center;}
+.right p.right {text-align:right;}
+
+
+.right ul {list-style:none; margin:0.5em 10px 1.0em 10px;}
+.right ul li {margin:5px 0 0.2em 2px; padding:0 0 0 11px; background:url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.4em; line-height:1.2em; font-size:110%;}
+.right ol {margin:0.5em 10px 1.0em 30px !important /*Non-IE6*/; margin:0.5em 10px 1.0em 35px /*IE6*/;}
+.right ol li {list-style-position:outside; margin:0 0 0.4em 0; font-size:110%;}
+
+.right .loginform {width:160px; margin:0 10px 0 10px;}
+.right .loginform p {clear:both; margin:0; padding:0;}
+.right .loginform fieldset {width:160px; border:none;}
+.right .loginform label.top {float:left; width:125px; margin:0 0 2px 0; font-size:110%;}
+.right .loginform label.right {float:left; width:125px; margin:5px 0 0 0; padding:0 0 0 3px; /*IE6*/; font-size:110%;}
+.right .loginform input.field {width:158px; margin:0 0 5px 0; padding:0.1em 0 0.2em 0 !important /*Non-IE6*/; padding:0.2em 0 0.3em 0 /*IE6*/; border:solid 1px rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:110%;}
+.right .loginform input.checkbox {float:left; margin:5px 0 0 0 !important /*Non-IE6*/; margin:2px 0 0 -3px /*IE6*/; border:none;}
+.right .loginform input.button {float:left; width:5.0em; margin:10px 0 5px 0; padding:1px; background:rgb(230,230,230); border:solid 1px rgb(150,150,150); text-align:center; font-family:verdana,arial,sans-serif; color:rgb(150,150,150); font-size:110%;}
+.right .loginform input.button:hover {cursor:pointer; border:solid 1px rgb(80,80,80); background:rgb(220,220,220); color:rgb(80,80,80);}
+
+.right .searchform {width:160px; margin:0 10px 0 10px;}
+.right .searchform fieldset {border:none;}
+.right .searchform input.field {float:left; width:158px; padding:0.1em 0 0.2em 0 !important /*Non-IE6*/; padding:0.2em 0 0.3em 0 /*IE6*/; border:1px solid rgb(200,200,200); font-family:verdana,arial,sans-serif; font-size:120%;}
+.right .searchform input.button {float:left; width:3.0em; margin-top: 0.5em; padding:1px; background:rgb(230,230,230); border:solid 1px rgb(150,150,150); text-align:center; font-family:verdana,arial,sans-serif; color:rgb(150,150,150); font-size:120%;}
+.right .searchform input.button:hover {cursor:pointer; border:solid 1px rgb(80,80,80); background:rgb(220,220,220); color:rgb(80,80,80);}
+
+a, address, caption, cite, code, dfn, em, th, var {
+font-style: normal;
+font-weight: normal;
+text-decoration: none;
+}
+
+caption, th {
+text-align: left;
+}
+
+ol, ul {
+list-style: none;
+}
+
+/* ===== Basic Element Styles ===== */
+
+
+a, a:visited {
+color: #000099;
+font-weight: bold;
+}
+
+a:hover, a:active {
+text-decoration: underline;
+}
+
+.disabled {
+color: #333366;
+text-decoration: none;
+}
+
+textarea, input, select {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+hr {
+background-color: #999999;
+border: 0;
+height: 1px;
+margin: 5px 0 5px 0;
+}
+
+input[type="radio"], input[type="checkbox"] {
+font-size: 8pt;
+}
+
+input[type="text"], input[type="password"] {
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+input[type="submit"], input[type="button"],
+input[type="reset"] {
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+input[type="submit"]:hover {
+color: #ff0000;
+cursor: pointer;
+text-decoration: underline;
+}
+
+input[type="file"] {
+font-size: 11px;
+}
+
+select {
+background: #FFFFFF;
+font-size: 8pt;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+/* IE7 fix */
+table {
+font-size: 10px;
+}
+
+/* IE7 fix */
+table input {
+border: #999999 solid 1px;
+}
+
+textarea {
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+th, th a {
+color: #000000;
+font-weight: bold;
+}
+
+img {
+behavior: url("/images/pngbehavior.htc");
+}
+
+.endcolumns {
+clear: both;
+height: 0px;
+visibility: hidden;
+}
+
+.hidden {
+visibility: hidden;
+}
+
+.label {
+/* Used for <input> element labels */
+font-weight: bold;
+padding-right: 11px;
+text-align: right;
+white-space: nowrap;
+width: 1%;
+}
+
+#microcart {
+font-weight: bold;
+text-decoration: none;
+}
+#microcart a {
+text-decoration: none;
+color: #000099;
+}
+#microcart a:hover {
+color: black;
+text-decoration: underline;
+}
+#microcart .disabled {
+color: #666666;
+}
+
+
+
+.boxlink {
+float: right;
+}
+
+A.boxheadbutton {
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+A.boxheadbutton:hover {
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: red;
+}
+
+/* Form layout styles to simulate a table-style layout */
+#ecom-mainarea .form-row {
+clear: both;
+padding-top: 2px;
+}
+#ecom-mainarea .form-label {
+float: left;
+width: 180px;
+text-align: right;
+padding-top: 5px;
+}
+#ecom-mainarea .form-field {
+float: left;
+margin-left: 10px;
+text-align: left;
+}
+
+/* ===== Text/Label Styles ===== */
+.tablebuttontext {
+color: #1E3C66;
+}
+
+.contenttext {
+font-size: 8pt;
+}
+
+DIV.tabletexthidden {
+visibility: hidden;
+}
+
+.info {
+font-style: normal;
+color: #000000;
+}
+
+DIV.graybox {
+font-weight: bold;
+background: #CCCCCC;
+border: 1px solid #000000;
+text-align: center;
+margin: 2px auto;
+width: auto;
+padding: 4px;
+}
+
+
+.boxoutside {
+background: #FFFFFF;
+border-color: #999999;
+border-style: solid;
+border-width: 1px 1px 1px 1px;
+}
+
+.boxtop {
+background: #000099;
+padding-top: 1px;
+padding-bottom: 1px;
+padding-right: 4px;
+padding-left: 4px;
+border-color: #999999;
+border-style: solid;
+border-width: 0px 0px 0px 0px;
+}
+
+.boxbottom {
+background: #FFFFFF;
+padding: 4px;
+border-color: #999999;
+border-style: solid;
+border-width: 0px 0px 0px 0px;
+}
+
+.button {
+border-style: outset; border-color: #9999CC; border-width: 2px;
+background: #dddddd;
+padding-right: 5px; padding-left: 5px;
+}
+
+
+.tableheadtext {
+font-weight: bold;
+color: black;
+}
+
+A.tableheadbutton {
+font-weight: bold;
+color: black;
+}
+
+A.tableheadbutton:hover {
+font-weight: bold;
+color: red;
+}
+
+.browsecategorylist {
+margin-left: 10px;
+}
+
+.browsecategorytext {
+font-weight: bold;
+color: #000099;
+padding-left: 10px;
+background:url(/multiflex/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
+}
+
+A.browsecategorybutton {
+font-weight: bold;
+color: #000099;
+}
+
+A.browsecategorybutton:hover {
+color: #000099;
+}
+
+.browsecategorybuttondisabled {
+font-weight: bold;
+color: #333333;
+}
+
+A.buttontext, .buttontextdisabled {
+font-weight: bold;
+background: white;
+border: #999999 solid 1px;
+margin: 2px 1px 2px 1px;
+padding: 1px 4px 1px 4px;
+}
+
+A.buttontext {
+color: #000099;
+}
+
+A.buttontext:hover {
+color: red;
+}
+
+A.linktext {
+font-weight: bold;
+color: #000099;
+}
+
+A.linktext:hover {
+color: red;
+}
+
+.buttontextdisabled {
+color: #333333;
+}
+
+.submenutextinfo {
+font-weight: bold;
+color: white;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+.submenutext, A.submenutext, A.submenutext:visited {
+font-weight: bold;
+color: yellow;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+A.submenutext:hover {
+color: yellow;
+}
+
+.submenutextdisabled, A.submenutextdisabled {
+font-weight: bold;
+color: #CCCCCC;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+A.submenutextdisabled:hover {
+font-weight: bold;
+color: yellow;
+}
+
+.submenutextinforight {
+font-weight: bold;
+color: white;
+padding-left: 6px;
+}
+
+.submenutextright, A.submenutextright {
+font-weight: bold;
+color: yellow;
+padding-left: 6px;
+}
+
+A.submenutextright:hover {
+color: yellow;
+text-decoration: underline;
+}
+
+.submenutextrightdisabled, A.submenutextrightdisabled {
+font-weight: bold;
+color: #CCCCCC;
+padding-left: 6px;
+}
+
+A.submenutextrightdisabled:hover {
+color: yellow;
+}
+
+A.lightbuttontext {
+font-weight: bold;
+color: yellow;
+border: none;
+}
+
+A.lightbuttontext:hover {
+color: yellow;
+}
+
+A.lightbuttontextsmall {
+font-size: 8px;
+font-weight: bold;
+color: yellow;
+border: none;
+}
+
+.lightbuttontextdisabled {
+font-weight: bold;
+color: #CCCCCC;
+}
+
+A.buttontextbig, .buttontextbigdisabled {
+font-size: 15px;
+font-weight: bold;
+background: white;
+border: #999999 solid 1px;
+margin: 2px 2px 2px 2px;
+padding: 1px 4px 1px 4px;
+}
+A.buttontextbig {
+color: #000099;
+}
+.buttontextbigdisabled {
+color: #CCCCCC;
+}
+A.buttontextbig:hover {
+color: red;
+}
+
+A IMG.imageborder {
+border-style: solid;
+border-width: 1px;
+border-color: #999999;
+}
+
+/* ===== Other Header Styles ===== */
+
+
+.headersmalltext {
+font-size: 8pt;
+font-weight: bold;
+color: black;
+}
+a.headersmalllink {
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+}
+a.headersmalllink:hover {
+color: red;
+}
+
+/* ===== Misc/General Styles ===== */
+.errorMessage {
+font-size: 8pt;
+font-weight: bold;
+color: red;
+}
+
+.eventMessage {
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+}
+
+.ontab {
+font-size: 8pt;
+background: black;
+padding: 2px;
+border-style: inset;
+border-width: 3px;
+}
+
+a.onlnk {
+font-size: 8pt;
+font-weight: bold;
+color: #FFFFFF;
+padding: 2px;
+}
+
+.offtab {
+background: #CCCCCC;
+padding: 2px;
+border-style: outset;
+border-width: 3px;
+}
+
+a.offlnk {
+font-weight: bold;
+color: #000099;
+padding: 2px;
+}
+
+a.offlnk:hover {
+color: red;
+}
+
+.areaheader {
+font-weight: bold;
+color: #FFFFFF;
+width: 100%;
+background: black;
+padding: 2px;
+}
+
+.edittable {
+border-color: #000000 #000000 #003333;
+border-style: solid;
+border-top-width: thin;
+border-right-width: thin;
+border-bottom-width: thin;
+border-left-width: thin
+}
+
+.editInputBox {
+font-size: 8pt;
+background: #FFFFFF;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+.smallSubmit {
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.mediumSubmit,.largeSubmit,.loginButton {
+font-size: 10pt;
+font-weight: bold;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.smallSubmit:hover,.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
+color: red;
+}
+
+.smallAltSubmit,.mediumAltSubmit,.largeAltSubmit {
+font-size: 8pt;
+}
+
+.basePrice {
+color: black;
+}
+
+.normalPrice {
+color: green;
+}
+
+.salePrice {
+color: red;
+}
+
+/* ===== Product Summary Styles ===== */
+.product-prevnext {
+text-align: right;
+}
+
+.product-prevnext .tabletext {
+font-weight: bold;
+}
+
+.productcategorylink-container {
+position: relative;
+margin-top: 10px;
+margin-bottom: 5px;
+border-top: #999 solid 1px;
+}
+
+.productcategorylink {
+position: relative;
+padding: 5px;
+border-bottom: #999 solid 1px;
+height: 60px;
+}
+
+.productcategorylink .smallimage {
+float: left;
+/* position: absolute; top: 5px; left: 5px; */
+margin: 0px 5px 5px 0px;
+}
+.productcategorylink .smallimage img {
+border: #CCC solid 1px;
+height: 50px;
+}
+
+.productsummary-container {
+position: relative;
+margin-top: 10px;
+margin-bottom: 5px;
+border-top: #999 solid 1px;
+}
+
+.productsummary {
+position: relative;
+padding: 5px;
+border-bottom: #999 solid 1px;
+min-height: 60px;
+}
+
+.productsummary .smallimage {
+float: left;
+/* position: absolute; top: 5px; left: 5px; */
+margin: 0px 5px 5px 0px;
+}
+.productsummary .smallimage img {
+border: #CCC solid 1px;
+height: 50px;
+}
+
+.productsummary .productbuy {
+float: right;
+width: 160px;
+margin: 5px;
+text-align: right;
+}
+
+.matrix .productsummary {
+border: none;
+}
+
+.matrix table td {
+vertical-align: top;
+background: none;
+}
+
+.matrix .productsummary .smallimage {
+float: none;
+text-align: center;
+}
+.matrix .productsummary .smallimage img {
+height: 100px;
+}
+
+.matrix .productsummary .productbuy {
+float: none;
+text-align: left;
+}
+
+.productsummary .productinfo {
+text-align: left;
+}
+
+/* ===== Product Detail Styles ===== */
+#productdetail #download-files {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #long-description {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #reviews {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #associated-products {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+.lefthalf{
+left:0;
+width:49%;
+height:1%;
+margin:0% 1% 1% 0%;
+float:left;
+}
+.righthalf {
+float:right;
+height:1%;
+width:49%;
+right:0;
+margin:0 0 1% 1%;
+}
+.leftclear{
+height:1%;
+clear: left;
+}
+.bothclear{
+height:1%;
+clear: both;
+}
+
+/* ================================= */
+/* ===== Calendar Date Select ====== */
+/* ================================= */
+
+.calendar_date_select {
+  color: #fff;
+  border: #777 1px solid;
+  display: block;
+  width: 200px;
+  z-index: 1000;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select thead th {
+  font-weight:bold;
+  background-color: #4682B4;
+  border-top:1px solid #777;
+  border-bottom:2px solid #777;
+  color: white !important;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+  background-color: #4682B4;
+}
+
+.calendar_date_select .cds_footer {
+  background-color: #4682B4;
+  padding:3px;
+  font-size:12px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+.calendar_date_select .cds_header {
+  background-color: #87CEEB;
+  border-bottom: 2px solid #87CEEB;
+  text-align:center;
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: #000;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: #fff;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color: #000 !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+
+.calendar_date_select .cds_buttons a {
+  color: #fff;
+  font-size: 9px;
+}
+.calendar_date_select td {
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+  background-color: #87CEEB;
+}
+.calendar_date_select td.weekend {
+  background-color: #ADD8E6;
+}
+
+.calendar_date_select td div {
+  color: #fff;
+}
+.calendar_date_select td div.other {
+  color: #888;
+}
+.calendar_date_select td.selected div {
+  color: #000;
+}
+
+.calendar_date_select tbody td {
+  border-bottom: 1px solid #FFD700;
+}
+.calendar_date_select td.selected {
+  background-color: #fff;
+}
+
+.calendar_date_select td:hover {
+  background-color:#00BFFF;
+}
+
+.calendar_date_select td.today {
+  border: 1px dashed #FFFF00;
+}
+
+.calendar_date_select td.disabled div {
+  color: #454545;
+}
+
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid #FF0000;
+}
+
+.bl {background: url(/multiflex/bg_corner_topleft.gif) #AAAAAA 0 100% no-repeat}
+.br {background: url(/multiflex/bg_corner_topleft.gif) 100% 100% no-repeat}
+.tl {background: url(/multiflex/bg_corner_topleft.gif) 0 0 no-repeat}
+.tr {background: url(/multiflex/bg_corner_topright.gif) 100% 0 no-repeat; padding:10px}
+.clear {font-size: 1px; height: 1px}
+
