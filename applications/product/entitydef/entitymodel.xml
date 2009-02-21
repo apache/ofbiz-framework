@@ -3567,10 +3567,14 @@ under the License.
       <field name="authDeclinedMessage" type="long-varchar"></field>
       <field name="authFraudMessage" type="long-varchar"></field>
       <field name="authErrorMessage" type="long-varchar"></field>
-      <field name="styleSheet" type="url"></field>
-      <field name="headerLogo" type="url"></field>
-      <field name="headerMiddleBackground" type="url"></field>
-      <field name="headerRightBackground" type="url"></field>
+      <field name="visualThemeId" type="id"></field>
+
+      <!-- old fields, deprecated -->
+      <field name="oldStyleSheet" col-name="STYLE_SHEET" type="url"></field>
+      <field name="oldHeaderLogo" col-name="HEADER_LOGO" type="url"></field>
+      <field name="oldHeaderMiddleBackground" col-name="HEADER_MIDDLE_BACKGROUND" type="url"></field>
+      <field name="oldHeaderRightBackground" col-name="HEADER_RIGHT_BACKGROUND" type="url"></field>
+
       <field name="usePrimaryEmailUsername" type="indicator"></field>
       <field name="requireCustomerRole" type="indicator"></field>
       <field name="autoInvoiceDigitalItems" type="indicator"><description>Default Y. Invoice digital items when order is placed rather than waiting for completing order items (though shipment/fulfillment).</description></field>

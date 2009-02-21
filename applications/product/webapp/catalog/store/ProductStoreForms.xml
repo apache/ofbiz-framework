@@ -211,8 +211,17 @@
             </drop-down>
         </field>
         
-        <field name="styleSheet"><text size="60" maxlength="250"/></field>
-        <field name="headerLogo"><text size="60" maxlength="250"/></field>
+        <field name="visualThemeId">
+            <drop-down allow-empty="false">
+                <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
+                    <entity-constraint name="visualThemeSetId" operator="equals" value="ECOMMERCE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="oldStyleSheet"><hidden/></field>
+        <field name="oldHeaderLogo"><hidden/></field>
+        <field name="oldHeaderMiddleBackground"><hidden/></field>
+        <field name="oldHeaderRightBackground"><hidden/></field>
         <!--
         <field name="contentPathPrefix" tooltip="If specified will be prepended to image and other content paths. Should start with a slash but not end with one."><text size="60" maxlength="250"/></field>
         <field name="templatePathPrefix" tooltip="If specified will be prepended to template paths. Should start with a slash but not end with one."><text size="60" maxlength="250"/></field>
@@ -288,6 +297,7 @@
                 <sort-field name="subtitle"/>
                 <sort-field name="companyName"/>
                 <sort-field name="isDemoStore"/>
+                <sort-field name="visualThemeId"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonInventory}" collapsible="true">
                 <sort-field name="inventoryFacilityId"/>
@@ -369,12 +379,6 @@
                 <sort-field name="usePrimaryEmailUsername"/>
                 <sort-field name="requireCustomerRole"/>
                 <sort-field name="enableAutoSuggestionList"/>
-            </field-group>
-            <field-group title="${uiLabelMap.CommonVisualTheme}" collapsible="true" initially-collapsed="true">
-                <sort-field name="styleSheet"/>
-                <sort-field name="headerLogo"/>
-                <sort-field name="headerMiddleBackground"/>
-                <sort-field name="headerRightBackground"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonUpload}" collapsible="true" initially-collapsed="true">
                 <sort-field name="enableDigProdUpload"/>

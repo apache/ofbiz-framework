@@ -1392,28 +1392,6 @@
         <value xml:lang="th">สัญลักษณ์ของหัวข้อ</value>
         <value xml:lang="zh">头标志</value>
     </property>
-    <property key="FormFieldTitle_headerMiddleBackground">
-        <value xml:lang="de">Kopfbereich mittlerer Hintergrund</value>
-        <value xml:lang="en">Header Middle Background</value>
-        <value xml:lang="es">Fondo media cabecera</value>
-        <value xml:lang="fr">Arrière plan du milieu de l'entête</value>
-        <value xml:lang="it">Sfondo Centrale Intestazione</value>
-        <value xml:lang="ro">Sfond Central Antet</value>
-        <value xml:lang="ru">Фон середины заголовка</value>
-        <value xml:lang="th">หัวข้อตรงกลางพื้นหลัง</value>
-        <value xml:lang="zh">头中间背景</value>
-    </property>
-    <property key="FormFieldTitle_headerRightBackground">
-        <value xml:lang="de">Kopfbereich rechter Hintergrund</value>
-        <value xml:lang="en">Header Right Background</value>
-        <value xml:lang="es">Fondo derecho cabecera</value>
-        <value xml:lang="fr">Arrière plan à droite de l'entête</value>
-        <value xml:lang="it">Sfondo di Destra Intestazione</value>
-        <value xml:lang="ro">Sfond de Dreapta Antet</value>
-        <value xml:lang="ru">Фон правой части заголовка</value>
-        <value xml:lang="th">หัวข้อทางซ้ายพื้นหลัง</value>
-        <value xml:lang="zh">头右侧背景</value>
-    </property>
     <property key="FormFieldTitle_idCode">
         <value xml:lang="de">Code ID</value>
         <value xml:lang="en">Id Code</value>
@@ -2079,7 +2057,7 @@
         <value xml:lang="fr">Pourcentage du prix de commande</value>
         <value xml:lang="it">Percentual Prezzo Ordine</value>
         <value xml:lang="ru">Процент цены заказа</value>
-        <value xml:lang="th">เปอร์เซ็นราคารายการสั่งซื้อ</value>
+        <value xml:lang="th">เปอร์เซ็นราคารายการสั่งซื้อ</value>
     </property>
     <property key="FormFieldTitle_orderQtyIncrements">
         <value xml:lang="de">Auftragsmenge Erhöhungen</value>
@@ -3606,6 +3584,10 @@
         <value xml:lang="ru">Просмотр корзины после добавления</value>
         <value xml:lang="th">แสดงตระกร้าในการเพิ่ม</value>
         <value xml:lang="zh">添加时浏览购物车</value>
+    </property>
+    <property key="FormFieldTitle_visualThemeId">
+        <value xml:lang="en">Visual Theme</value>
+        <value xml:lang="it">Tema grafico</value>
     </property>
     <property key="FormFieldTitle_weightBreakId">
         <value xml:lang="de">Gewicht Sprung ID</value>
