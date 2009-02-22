@@ -90,7 +90,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display type="date"/></field>
-        <field name="delete"><submit button-type="text-link"/></field>
+        <field name="delete" title="${uiLabelMap.CommonDelete}"><submit button-type="text-link"/></field>
     </form>
     
     <form name="newEvent" type="single" target="createEvent">

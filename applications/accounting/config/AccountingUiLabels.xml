@@ -7482,6 +7482,10 @@
         <value xml:lang="th">ข้อความสัญญา</value>
         <value xml:lang="zh">合同文本</value>
     </property>
+    <property key="FormFieldTitle_agreementTypeId">
+        <value xml:lang="en">Agreement Type Id</value>
+        <value xml:lang="it">Tipo contratto</value>
+    </property>
     <property key="FormFieldTitle_allocatedDate">
         <value xml:lang="en">Allocated Date</value>
         <value xml:lang="fr">Date assignée</value>

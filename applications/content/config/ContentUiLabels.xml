@@ -2824,6 +2824,10 @@
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
     </property>
+    <property key="FormFieldTitle_topic">
+        <value xml:lang="en">Topic</value>
+        <value xml:lang="it">Argomento</value>
+    </property>
     <property key="FormFieldTitle_tree">
         <value xml:lang="ar">شجرة</value>
         <value xml:lang="de">Baum</value>
@@ -3774,6 +3778,7 @@
     </property>
     <property key="PageTitleNavigateContent">
         <value xml:lang="en">Navigate Content</value>
+        <value xml:lang="it">Naviga contenuto</value>
         <value xml:lang="th">เลือกดูเนื้อหา</value>
     </property>
     <property key="PageTitleNavigateDataResources">

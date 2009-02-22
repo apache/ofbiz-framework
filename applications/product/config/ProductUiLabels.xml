@@ -3162,6 +3162,10 @@
         <value xml:lang="th">รหัสกลุ่มกำหนดเส้นทางการขนส่งสินค้า</value>
         <value xml:lang="zh">货运路线分区标识</value>
     </property>
+    <property key="FormFieldTitle_shipmentTypeId">
+        <value xml:lang="en">Shipment Type Id</value>
+        <value xml:lang="it">Tipo spedizione</value>
+    </property>
     <property key="FormFieldTitle_shippingPricePercent">
         <value xml:lang="de">Lieferpreis Prozent</value>
         <value xml:lang="en">Shipping Price Percent</value>

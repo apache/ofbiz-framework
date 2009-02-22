@@ -463,7 +463,7 @@ under the License.
     </form>
 
     <form name="ViewCommRoles" extends="ListCommRoles">
-        <field name="removeLink"><ignored/></field>
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}"><ignored/></field>
     </form> 
 
     <form name="AddEventRole" type="single" target="createCommunicationEventRole"

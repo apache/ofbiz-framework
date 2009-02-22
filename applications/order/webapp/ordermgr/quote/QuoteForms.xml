@@ -232,7 +232,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="uomId" title="${uiLabelMap.OrderOrderQuoteuomId}">
+        <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
             <drop-down allow-empty="true">
                 <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
                     <!--<entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>-->
