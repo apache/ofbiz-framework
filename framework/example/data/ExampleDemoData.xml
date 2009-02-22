@@ -30,4 +30,12 @@ under the License.
     <PortalPortlet portalPortletId="EXAMPLE_3" portletName="Example 3" description="Example portlet n. 3"
         screenName="ExamplePortlet3" screenLocation="component://example/widget/example/PortletScreens.xml"
         editFormName="ExamplePortlet3Edit" editFormLocation="component://example/widget/example/PortletEditForms.xml" />
+    
+    <PortletCategory portletCategoryId="SAMPLE" description="Sample Portlet(s)"/>
+    
+    <PortletPortletCategory portalPortletId="WELCOME" portletCategoryId="SAMPLE"/>
+    <PortletPortletCategory portalPortletId="LOGIN" portletCategoryId="SAMPLE"/>
+    <PortletPortletCategory portalPortletId="EXAMPLE_1" portletCategoryId="SAMPLE"/>
+    <PortletPortletCategory portalPortletId="EXAMPLE_2" portletCategoryId="SAMPLE"/>
+    <PortletPortletCategory portalPortletId="EXAMPLE_3" portletCategoryId="SAMPLE"/>
 </entity-engine-xml>

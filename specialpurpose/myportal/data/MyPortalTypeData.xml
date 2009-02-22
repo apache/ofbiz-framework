@@ -73,6 +73,13 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001" />
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
+    <PortletCategory portletCategoryId="PROFILE" description="Profiles"/>
+    <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
+    <PortletCategory portletCategoryId="TASKS" description="Task(s)"/>
+    <PortletCategory portletCategoryId="TIMESHEETS" description="Timesheet(s)"/>
+    <PortletCategory portletCategoryId="LIST_REQUEST" description="List(s) Request"/>
+    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
+    
     <PortalPortlet portalPortletId="Attributes" portletName="Attributes" screenName="Attributes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Attributes in myportal from party" />
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" screenName="AvsSettings" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Avs Settings in myportal from party" />
     <PortalPortlet portalPortletId="Content" portletName="Content" screenName="Content" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Content in myportal from party" />
@@ -84,13 +91,13 @@
     <PortalPortlet portalPortletId="UserLogin" portletName="User Login" screenName="UserLogin" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="User Login in myportal from party" />
     <PortalPortlet portalPortletId="Visits" portletName="Visits" screenName="Visits" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Visits in myportal from party" />
     <PortalPortlet portalPortletId="contact" portletName="Contact" screenName="Contact" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="contact in myportal from party" />
-    <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
+    <PortalPortlet portalPortletId="party" portletName="Party" screenName="Party" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="profile in myportal from party" />
     <PortalPortlet portalPortletId="mycommunications" portletName="My Communications" screenName="MyCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Communications From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
-    <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="otherCommunications" portletName="Other Communications" screenName="OtherCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Other Communications From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="party" portletName="Party" screenName="Party" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="profile in myportal from party" />
+    <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
+    <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
+    <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
@@ -150,6 +157,33 @@
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
 
+    <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="AvsSettings" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Content" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="LoyaltyPoints" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="MYTASKSPARTY" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Notes" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="PaymentMethods" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="ShipperAccount" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="UserLogin" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="contact" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="party" portletCategoryId="PROFILE"/>
+    
+    <PortletPortletCategory portalPortletId="mycommunications" portletCategoryId="COMMUNICATIONS"/>
+    <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="COMMUNICATIONS"/>
+    <PortletPortletCategory portalPortletId="otherCommunications" portletCategoryId="COMMUNICATIONS"/>
+    
+    <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="TASKS"/>
+    <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="TIMESHEETS"/>
+    <PortletPortletCategory portalPortletId="listrequestlist" portletCategoryId="LIST_REQUEST"/>
+    
+    <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
+    <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
+    <PortletPortletCategory portalPortletId="ListCustRequestsComp" portletCategoryId="LIST_CUSTOMER"/>
+    <PortletPortletCategory portalPortletId="ListPartyCommEvents" portletCategoryId="LIST_CUSTOMER"/>
+    <PortletPortletCategory portalPortletId="ListProjects" portletCategoryId="LIST_CUSTOMER"/>
+    
     <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE" />
     
 </entity-engine-xml>

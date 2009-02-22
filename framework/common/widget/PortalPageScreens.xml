@@ -105,7 +105,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="body">                        
+                        <screenlet title="Category of portlet pages for application: ${parameters.parentPortalPageId}">
+                            <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
                         <platform-specific><html><html-template location="component://common/webcommon/portal/listPortalPortlets.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>

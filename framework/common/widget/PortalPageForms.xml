@@ -67,5 +67,14 @@ under the License.
         <field name="portalPageName" position="1"><text/></field>
         <field name="description" position="2"><text/></field>
         <field name="createButton"><submit button-type="button"/></field>
-    </form>       
+    </form>
+    
+    <form name="PortletCategoryAndPortlet" type="list" list-name="portletCat" paginate-target="AddPortlet" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="portletCategoryId" title="Category">
+            <hyperlink description="${portletCategoryId}" target="AddPortlet?portletCategoryId=${portletCategoryId}&amp;portalPortletId=${portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" field-name="${description}"><display/></field>
+    </form>
+
 </forms>
