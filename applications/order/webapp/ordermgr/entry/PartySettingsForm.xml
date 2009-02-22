@@ -25,7 +25,7 @@ under the License.
         <field name="optionalPartyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPerson"/>
         </field>
-        <field name="optionalRoleTypeId" title="roleTypeId">
+        <field name="optionalRoleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}"
                     entity-name="RoleType"

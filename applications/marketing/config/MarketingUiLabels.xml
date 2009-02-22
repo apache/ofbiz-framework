@@ -1795,4 +1795,8 @@
         <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
         <value xml:lang="it">Carica vCard</value>
     </property>
+    <property key="SfaVCard">
+        <value xml:lang="en">vCard</value>
+        <value xml:lang="it">vCard</value>
+    </property>
 </resource>

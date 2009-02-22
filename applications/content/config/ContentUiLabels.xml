@@ -87,10 +87,6 @@
         <value xml:lang="fr">Blog</value>
         <value xml:lang="it">Blog</value>
     </property>
-    <property key="ContentBlogs">
-        <value xml:lang="en">Blogs</value>
-        <value xml:lang="it">Blogs</value>
-    </property>
     <property key="ContentBlogArticle">
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
@@ -123,13 +119,13 @@
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Summario</value>
     </property>
+    <property key="ContentBlogs">
+        <value xml:lang="en">Blogs</value>
+        <value xml:lang="it">Blogs</value>
+    </property>
     <property key="ContentBrowse">
         <value xml:lang="en">Browse</value>
         <value xml:lang="fr">Sfoglia</value>
-    </property>
-    <property key="ContentClip">
-        <value xml:lang="en">Clip</value>
-        <value xml:lang="it">Taglia</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -183,6 +179,10 @@
         <value xml:lang="th">เซ็ตลักษณะ</value>
         <value xml:lang="zh">字符集</value>
     </property>
+    <property key="ContentClip">
+        <value xml:lang="en">Clip</value>
+        <value xml:lang="it">Taglia</value>
+    </property>
     <property key="ContentCloneLayout">
         <value xml:lang="de">Layout duplizieren</value>
         <value xml:lang="en">Clone Layout</value>
@@ -209,6 +209,10 @@
         <value xml:lang="en">+Aft</value>
         <value xml:lang="it">+Dopo</value>
     </property>
+    <property key="ContentCompDocApprovalStatus">
+        <value xml:lang="en">Approval Status</value>
+        <value xml:lang="it">Stato approvazione</value>
+    </property>
     <property key="ContentCompDocApprovals">
         <value xml:lang="de">Genehmigungen</value>
         <value xml:lang="en">Approvals</value>
@@ -222,10 +226,6 @@
         <value xml:lang="fr">Approbations de contenu pour</value>
         <value xml:lang="it">Approvazioni Contenuto</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
-    </property>
-    <property key="ContentCompDocApprovalStatus">
-        <value xml:lang="en">Approval Status</value>
-        <value xml:lang="it">Stato approvazione</value>
     </property>
     <property key="ContentCompDocBefore">
         <value xml:lang="en">+Bef</value>
@@ -516,10 +516,6 @@
         <value xml:lang="en">Document Type</value>
         <value xml:lang="it">Tipo documento</value>
     </property>
-    <property key="ContentEditingLatestRevision">
-        <value xml:lang="en">Editing Latest Revision</value>
-        <value xml:lang="it">Aggiorna ultima revisione</value>
-    </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
         <value xml:lang="de">Produktladen bearbeiten</value>
@@ -530,6 +526,10 @@
         <value xml:lang="ro">Actualizeaza Magazin</value>
         <value xml:lang="th">แก้ไขคลังสินค้า</value>
         <value xml:lang="zh">编辑产品店铺</value>
+    </property>
+    <property key="ContentEditingLatestRevision">
+        <value xml:lang="en">Editing Latest Revision</value>
+        <value xml:lang="it">Aggiorna ultima revisione</value>
     </property>
     <property key="ContentFile">
         <value xml:lang="ar">ملف</value>
@@ -654,16 +654,16 @@
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
-    <property key="ContentForums">
-        <value xml:lang="en">Forums</value>
-        <value xml:lang="it">Forums</value>
-    </property>
     <property key="ContentForumThread">
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Thread</value>
         <value xml:lang="fr">Fil de discussion</value>
         <value xml:lang="it">Discussione</value>
         <value xml:lang="th">Thread</value>
+    </property>
+    <property key="ContentForums">
+        <value xml:lang="en">Forums</value>
+        <value xml:lang="it">Forums</value>
     </property>
     <property key="ContentGIF">
         <value xml:lang="en">GIF</value>
@@ -771,6 +771,10 @@
         <value xml:lang="fr">Voir vos propres modèles</value>
         <value xml:lang="it">Lista templates personali creati</value>
     </property>
+    <property key="ContentMSWord">
+        <value xml:lang="en">MS Word</value>
+        <value xml:lang="it">MS Word</value>
+    </property>
     <property key="ContentMain">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="de">Primärer</value>
@@ -833,10 +837,6 @@
         <value xml:lang="it">Tipo Mime Template</value>
         <value xml:lang="th">รูปแบบประเภทแบบจำลอง</value>
     </property>
-    <property key="ContentMSWord">
-        <value xml:lang="en">MS Word</value>
-        <value xml:lang="it">MS Word</value>
-    </property>
     <property key="ContentNavigate">
         <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
@@ -850,7 +850,7 @@
         <value xml:lang="fr">New Content in Folder</value>
         <value xml:lang="it">New Content in Folder</value>
         <value xml:lang="th">สร้างเนื้อหาใหม่ในกล่อง</value>
-    </property>    
+    </property>
     <property key="ContentNewFolder">
         <value xml:lang="de">New Folder</value>
         <value xml:lang="en">New Folder</value>
@@ -878,13 +878,21 @@
         <value xml:lang="th">หัวข้อ PDF</value>
         <value xml:lang="zh">PDF内容标识</value>
     </property>
-    <property key="ContentPDFSurveyName">
-        <value xml:lang="en">PDF/Survey Name</value>
-        <value xml:lang="it">PDF/Nome sondaggio</value>
+    <property key="ContentPDFFile">
+        <value xml:lang="en">PDF File</value>
+        <value xml:lang="it">File PDF</value>
     </property>
     <property key="ContentPDFFilePath">
         <value xml:lang="en">Enter a PDF file path to automatically create a survey.</value>
         <value xml:lang="it">Inserire un path file PDF che automaticamente creerà un sondaggio.</value>
+    </property>
+    <property key="ContentPDFSurveyName">
+        <value xml:lang="en">PDF/Survey Name</value>
+        <value xml:lang="it">PDF/Nome sondaggio</value>
+    </property>
+    <property key="ContentPNG">
+        <value xml:lang="en">PNG</value>
+        <value xml:lang="it">PNG</value>
     </property>
     <property key="ContentParent">
         <value xml:lang="de">Übergeordneter Inhalt</value>
@@ -914,17 +922,9 @@
         <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
         <value xml:lang="it">Lista path alias</value>
     </property>
-    <property key="ContentPDFFile">
-        <value xml:lang="en">PDF File</value>
-        <value xml:lang="it">File PDF</value>
-    </property>
     <property key="ContentPlainText">
         <value xml:lang="en">Plain Text</value>
         <value xml:lang="it">Testo fisso</value>
-    </property>
-    <property key="ContentPNG">
-        <value xml:lang="en">PNG</value>
-        <value xml:lang="it">PNG</value>
     </property>
     <property key="ContentPublishToContent">
         <value xml:lang="en">Publish-to content</value>
@@ -950,7 +950,7 @@
     <property key="ContentRejected">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="it">Rifiutato</value>
-    </property>    
+    </property>
     <property key="ContentRenameFolder">
         <value xml:lang="en">Rename Folder</value>
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
@@ -1334,6 +1334,10 @@
         <value xml:lang="th">W/คำถาม</value>
         <value xml:lang="zh">带有问题</value>
     </property>
+    <property key="ContentTIFF">
+        <value xml:lang="en">TIFF</value>
+        <value xml:lang="it">TIFF</value>
+    </property>
     <property key="ContentTemplate">
         <value xml:lang="ar">نموذج</value>
         <value xml:lang="de">Vorlage</value>
@@ -1349,6 +1353,14 @@
         <value xml:lang="en">Template Child</value>
         <value xml:lang="it">Template figlio</value>
     </property>
+    <property key="ContentTemplateImageCentered">
+        <value xml:lang="en">Image centered above</value>
+        <value xml:lang="it">Immagine centrata sopra</value>
+    </property>
+    <property key="ContentTemplateImageLeft">
+        <value xml:lang="en">Image left, text flows around.</value>
+        <value xml:lang="it">Immagine a sinistra.</value>
+    </property>
     <property key="ContentTemplateInstanceChild">
         <value xml:lang="en">Instance Child</value>
         <value xml:lang="it">Istanza figlia</value>
@@ -1361,6 +1373,10 @@
         <value xml:lang="en">Root Instance</value>
         <value xml:lang="it">Istanza principale</value>
     </property>
+    <property key="ContentTemplateTextOnly">
+        <value xml:lang="en">Text only</value>
+        <value xml:lang="it">Solo testo</value>
+    </property>
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
         <value xml:lang="de">Vorlagen</value>
@@ -1370,18 +1386,6 @@
         <value xml:lang="ro">Templates</value>
         <value xml:lang="th">รูปแบบ</value>
         <value xml:lang="zh">模板</value>
-    </property>
-    <property key="ContentTemplateImageCentered">
-        <value xml:lang="en">Image centered above</value>
-        <value xml:lang="it">Immagine centrata sopra</value>
-    </property>
-    <property key="ContentTemplateImageLeft">
-        <value xml:lang="en">Image left, text flows around.</value>
-        <value xml:lang="it">Immagine a sinistra.</value>
-    </property>
-    <property key="ContentTemplateTextOnly">
-        <value xml:lang="en">Text only</value>
-        <value xml:lang="it">Solo testo</value>
     </property>
     <property key="ContentTestPermission">
         <value xml:lang="en">Test Permission</value>
@@ -1396,10 +1400,6 @@
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
-    </property>
-    <property key="ContentTIFF">
-        <value xml:lang="en">TIFF</value>
-        <value xml:lang="it">TIFF</value>
     </property>
     <property key="ContentTree">
         <value xml:lang="ar">شجرة</value>
@@ -1574,6 +1574,10 @@
         <value xml:lang="ro">Data Aprovare</value>
         <value xml:lang="th">วันที่ลงความเห็น</value>
         <value xml:lang="zh">批准日期</value>
+    </property>
+    <property key="FormFieldTitle_approvalStatusId">
+        <value xml:lang="en">Approval Status Id</value>
+        <value xml:lang="it">Stato approvazione</value>
     </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
@@ -2894,6 +2898,10 @@
         <value xml:lang="th">เพิ่มคุณสมบัติ</value>
         <value xml:lang="zh">新建属性</value>
     </property>
+    <property key="PageTitleAddCompDocInstance">
+        <value xml:lang="en">Add CompDoc Instance</value>
+        <value xml:lang="it">Aggiungi Istanza CompDoc</value>
+    </property>
     <property key="PageTitleAddCompositeDocumentInstance">
         <value xml:lang="en">Add Composite Document Instance Part Page</value>
         <value xml:lang="it">Aggiungi instanza composizione documenti</value>
@@ -2973,10 +2981,6 @@
         <value xml:lang="ro">Adauga un raspuns la mesaj: </value>
         <value xml:lang="th">เพิ่มคำตอบในข้อความ:</value>
         <value xml:lang="zh">新建回答：信息</value>
-    </property>
-    <property key="PageTitleAddCompDocInstance">
-        <value xml:lang="en">Add CompDoc Instance</value>
-        <value xml:lang="it">Aggiungi Istanza CompDoc</value>
     </property>
     <property key="PageTitleAddMetaData">
         <value xml:lang="ar">إضافة  ميتا معلومات</value>

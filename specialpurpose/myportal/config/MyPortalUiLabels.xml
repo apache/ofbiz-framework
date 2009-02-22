@@ -200,6 +200,10 @@
         <value xml:lang="it">Mio profilo</value>
         <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
     </property>
+    <property key="MyPortalReloadImage">
+        <value xml:lang="en">reload image</value>
+        <value xml:lang="it">Ricarica immagine</value>
+    </property>
     <property key="MyPortalSendMailEveryCust">
         <value xml:lang="en">Send Email To Every Customer Request Change</value>
         <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>

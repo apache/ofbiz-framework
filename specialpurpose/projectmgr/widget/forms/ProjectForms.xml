@@ -82,7 +82,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="add"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="FindProject" type="single" target="FindProject" title="Find and List Project"
         header-row-style="header-row" default-table-style="basic-table">

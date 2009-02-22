@@ -25,6 +25,10 @@
         <value xml:lang="it">Ore attuali</value>
         <value xml:lang="zh">实际工时</value>
     </property>
+    <property key="FormFieldTitle_actualNonBilledHours">
+        <value xml:lang="en">Actual Non Billed Hours</value>
+        <value xml:lang="it">Ore attuali non fatturate</value>
+    </property>
     <property key="FormFieldTitle_clientBillingPartyId">
         <value xml:lang="en">Client Billing Party Id</value>
         <value xml:lang="fr">Réf. de facturation client</value>

@@ -227,7 +227,7 @@ under the License.
             </drop-down>
         </field>
         <field name="actualAmount" position="1" title="${uiLabelMap.AccountingActualCurrencyAmount}"><text/></field>
-        <field position="2" name="actualCurrencyUomId" title="${uiLabelMap.AccountingActualCurrencyUomId}">
+        <field name="actualCurrencyUomId" position="2" title="${uiLabelMap.AccountingActualCurrencyUomId}">
             <drop-down allow-empty="true" no-current-selected-key="${uomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -387,7 +387,7 @@ under the License.
         <field name="paymentRefNum" position="1"><display/></field>
         <field name="paymentPreferenceId" position="2"><display/></field>
         <field name="amount" position="1"><display type="currency" currency="${payment.currencyUomId}"/></field>
-        <field name="actualCurrencyAmount" position="2"><display type="currency" currency="${payment.actualCurrencyUomId}"/></field>
+        <field name="actualCurrencyAmount" title="${uiLabelMap.AccountingActualCurrencyAmount}" position="2"><display type="currency" currency="${payment.actualCurrencyUomId}"/></field>
         <field name="effectiveDate" position="1"><display type="date"/></field>
         <field name="comments" position="2"><display/></field>
         <!--field name="paymentGatewayResponseId" title="Paym Gatw Resp." position="2"><display/></field-->

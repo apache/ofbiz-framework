@@ -53,7 +53,7 @@ under the License.
                                 </decorator-screen>
                             </widgets>
                             <fail-widgets>
-                                <label>${uiLabelMap.SubscriptionViewPermissionError}</label>
+                                <label>${uiLabelMap.ProductSubscriptionViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -175,7 +175,7 @@ under the License.
                                 <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label>${uiLabelMap.SubscriptionViewPermissionError}</label>
+                                <label>${uiLabelMap.ProductSubscriptionViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
