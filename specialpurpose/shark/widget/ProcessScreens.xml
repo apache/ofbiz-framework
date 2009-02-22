@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="Process List"/>
+                <set field="titleProperty" value="SharkProcessList"/>
                 
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processList.bsh"/>
             </actions>

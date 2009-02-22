@@ -73,6 +73,10 @@
     </property>
     <property key="SharkProcessHistory">
         <value xml:lang="en">Process History</value>
+        <value xml:lang="it">Storia processi</value>
+    </property>
+    <property key="SharkProcessList">
+        <value xml:lang="en">Process List</value>
         <value xml:lang="it">Lista processi</value>
     </property>
     <property key="SharkProcessSteps">

@@ -147,19 +147,19 @@
         <value xml:lang="nl">Afstemmingen</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
-    <property key="AccountingAcctgTransEntries">
-        <value xml:lang="en">Accounting Transactions Entries</value>
-        <value xml:lang="fr">Entrées de transactions comptables</value>
-        <value xml:lang="it">Righe Prime Note</value>
-        <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
-        <value xml:lang="th">รายการบัญชีรายรับ</value>
-    </property>
     <property key="AccountingAcctgTrans">
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
         <value xml:lang="it">Prime Note</value>
         <value xml:lang="nl">Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชี</value>
+    </property>
+    <property key="AccountingAcctgTransEntries">
+        <value xml:lang="en">Accounting Transactions Entries</value>
+        <value xml:lang="fr">Entrées de transactions comptables</value>
+        <value xml:lang="it">Righe Prime Note</value>
+        <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
+        <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
@@ -5613,14 +5613,6 @@
         <value xml:lang="fr">Assigner un méthode de paiement à un type de compte</value>
         <value xml:lang="it">Assegna Metodo Pagamento a Tipo Conto Gl</value>
     </property>
-    <property key="AccountingPaymentMethodId........">
-        <value xml:lang="en">AccountingPaymentMethodId........</value>
-        <value xml:lang="fr">Réf. de méthode de paiement      </value>
-        <value xml:lang="it">Metodo di pagamento..............</value>
-        <value xml:lang="nl">AccountingPaymentMethodId........</value>
-        <value xml:lang="ro">No values are passed............???</value>
-        <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
-    </property>
     <property key="AccountingPaymentMethodId">
         <value xml:lang="en">Payment Method Id</value>
         <value xml:lang="es">Id Metodo de Pago</value>
@@ -5631,6 +5623,14 @@
         <value xml:lang="ru">Код метода платежа</value>
         <value xml:lang="th">รหัสวิธีการชำระเงิน</value>
         <value xml:lang="zh">支付方法标识</value>
+    </property>
+    <property key="AccountingPaymentMethodId........">
+        <value xml:lang="en">AccountingPaymentMethodId........</value>
+        <value xml:lang="fr">Réf. de méthode de paiement      </value>
+        <value xml:lang="it">Metodo di pagamento..............</value>
+        <value xml:lang="nl">AccountingPaymentMethodId........</value>
+        <value xml:lang="ro">No values are passed............???</value>
+        <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
     </property>
     <property key="AccountingPaymentMethodIdPaymentMethodTypeIdNullError">
         <value xml:lang="en">No values are passed for paymentMethodId or paymentMethodTypeId. At least pass paymentMethodId.</value>
@@ -7412,6 +7412,10 @@
         <value xml:lang="ru">Фактический остаток</value>
         <value xml:lang="th">ยอดเงินจริง</value>
     </property>
+    <property key="FormFieldTitle_actualCurrencyAmount">
+        <value xml:lang="en">Actual Currency Amount</value>
+        <value xml:lang="it">Importo attuale in valuta</value>
+    </property>
     <property key="FormFieldTitle_actualEndOfLife">
         <value xml:lang="de">Ist-Lebensdauer</value>
         <value xml:lang="en">Actual End Of Life</value>
@@ -7422,6 +7426,10 @@
         <value xml:lang="ru">Реальная дата списания</value>
         <value xml:lang="th">Actual End Of Life</value>
         <value xml:lang="zh">实际使用寿命</value>
+    </property>
+    <property key="FormFieldTitle_addSurveyResponse">
+        <value xml:lang="en">Add Survey Response</value>
+        <value xml:lang="it">Aggiungi risposta sondaggio</value>
     </property>
     <property key="FormFieldTitle_agreementDate">
         <value xml:lang="ar">تاريخ الإتفاقية</value>

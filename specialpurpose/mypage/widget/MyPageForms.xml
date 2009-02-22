@@ -65,7 +65,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="actualStartDate" title="${uiLabelMap.MyPageTaskActStartDate}"><date-time type="date"/></field>
-        <field name="add"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
 
     <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">

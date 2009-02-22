@@ -70,7 +70,7 @@ under the License.
                 <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
-        <field name="statusId" title="status Id">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>

@@ -282,7 +282,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPerformanceNote" map-name="performanceNote"/>
         <field name="partyId"><hidden/></field>
-        <field name="roleTypeId" title="roleType Id">
+        <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>

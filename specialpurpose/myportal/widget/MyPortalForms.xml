@@ -100,7 +100,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="actualStartDate"><date-time type="date"/></field>
-        <field name="add"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
@@ -317,7 +317,7 @@ under the License.
         <field name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="VerifyCaptchaTitle" title="${uiLabelMap.VerifyCaptcha}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="picOfcaptcha" title="${uiLabelMap.PicCaptcha}"><image value="/tempfiles/captcha/${parameters.fileName}"></image></field>
-        <field name="reload" title=" "><hyperlink target="newRegisterLogin" description="reload image"/></field>
+        <field name="reload" title=" "><hyperlink target="newRegisterLogin" description="${uiLabelMap.MyPortalReloadImage}"/></field>
         <field name="captcha" title="${uiLabelMap.VerifyCaptcha}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="23" maxlength="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" title-area-style="group-label"><submit button-type="button"/></field>
     </form>

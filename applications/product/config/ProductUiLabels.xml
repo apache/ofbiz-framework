@@ -206,6 +206,14 @@
         <value xml:lang="th">ย่อความ</value>
         <value xml:lang="zh">缩写</value>
     </property>
+    <property key="FormFieldTitle_accountCodeLength">
+        <value xml:lang="en">Account Code Length</value>
+        <value xml:lang="it">Lunghezza codice utenza</value>
+    </property>
+    <property key="FormFieldTitle_accountValidDays">
+        <value xml:lang="en">Account Valid Days</value>
+        <value xml:lang="it">Giorni validità utenza</value>
+    </property>
     <property key="FormFieldTitle_activationNumber">
         <value xml:lang="de">Aktivierungsnummer</value>
         <value xml:lang="en">Activation Number</value>
@@ -261,6 +269,10 @@
         <value xml:lang="fr">Réf. d'allée</value>
         <value xml:lang="it">Corridoio</value>
         <value xml:lang="th">รหัสชั้นวางสินค้า</value>
+    </property>
+    <property key="FormFieldTitle_allowAuthToNegative">
+        <value xml:lang="en">Allow Auth To Negative</value>
+        <value xml:lang="it">Autorizzazione permessa è negativa</value>
     </property>
     <property key="FormFieldTitle_allowCompanyAddr">
         <value xml:lang="de">Unternehmensadresse zulassen</value>
@@ -383,6 +395,10 @@
         <value xml:lang="ru">Сообщение о мошеннической аутентификации</value>
         <value xml:lang="th">Auth Fraud Message</value>
         <value xml:lang="zh">授权欺骗信息</value>
+    </property>
+    <property key="FormFieldTitle_authValidDays">
+        <value xml:lang="en">Auth Valid Days</value>
+        <value xml:lang="it">Giorni validità autorizzazione</value>
     </property>
     <property key="FormFieldTitle_autoApproveInvoice">
         <value xml:lang="de">Automatische Genehmigung Rechnungen</value>
@@ -1917,6 +1933,10 @@
         <value xml:lang="th">รหัสหน่วยวัด</value>
         <value xml:lang="zh">仪表度量单位标识</value>
     </property>
+    <property key="FormFieldTitle_minBalance">
+        <value xml:lang="en">Min Balance</value>
+        <value xml:lang="it">Bilancio minimo</value>
+    </property>
     <property key="FormFieldTitle_minSize">
         <value xml:lang="de">Minimale Grösse</value>
         <value xml:lang="en">Min Size</value>
@@ -2195,6 +2215,10 @@
         <value xml:lang="it">Lista di Prelievo</value>
         <value xml:lang="ru">Код списка сортировки</value>
         <value xml:lang="th">Picklist Bin</value>
+    </property>
+    <property key="FormFieldTitle_pinCodeLength">
+        <value xml:lang="en">Pin Code Length</value>
+        <value xml:lang="it">Lunghezza codice pin</value>
     </property>
     <property key="FormFieldTitle_positionId">
         <value xml:lang="de">Position ID</value>
@@ -2580,6 +2604,14 @@
         <value xml:lang="ru">Пропорциональные налоги</value>
         <value xml:lang="th">แบ่งตามส่วนภาษี</value>
     </property>
+    <property key="FormFieldTitle_purchSurveyCopyMe">
+        <value xml:lang="en">Purch Survey Copy Me</value>
+        <value xml:lang="it">Sondaggio acquisti con me in copia</value>
+    </property>
+    <property key="FormFieldTitle_purchSurveySendTo">
+        <value xml:lang="en">Purch Survey Send To</value>
+        <value xml:lang="it">Sondaggio acquisti inviare a</value>
+    </property>
     <property key="FormFieldTitle_purchaseFromDate">
         <value xml:lang="de">Einkauf Von Datum</value>
         <value xml:lang="en">Purchase From Date</value>
@@ -2590,6 +2622,10 @@
         <value xml:lang="ru">Приобрести после даты</value>
         <value xml:lang="th">สั่งซื้อจากวันที่</value>
         <value xml:lang="zh">购物开始日期</value>
+    </property>
+    <property key="FormFieldTitle_purchaseSurveyId">
+        <value xml:lang="en">Purchase Survey Id</value>
+        <value xml:lang="it">Sondaggio acquisti</value>
     </property>
     <property key="FormFieldTitle_purchaseThruDate">
         <value xml:lang="de">Einkauf Bis Datum</value>
@@ -2765,6 +2801,14 @@
         <value xml:lang="th">นับจำนวนอีกครั้ง</value>
         <value xml:lang="zh">重复计数</value>
     </property>
+    <property key="FormFieldTitle_replenishMethodEnumId">
+        <value xml:lang="en">Replenish Method Enum Id</value>
+        <value xml:lang="it">Metodo rifornimento</value>
+    </property>
+    <property key="FormFieldTitle_replenishThreshold">
+        <value xml:lang="en">Replenish Threshold</value>
+        <value xml:lang="it">Soglia per rifornimento</value>
+    </property>
     <property key="FormFieldTitle_reportType">
         <value xml:lang="de">Bericht Typ</value>
         <value xml:lang="en">Report Type</value>
@@ -2847,6 +2891,10 @@
         <value xml:lang="ru">Требуется наличие</value>
         <value xml:lang="th">กำหนดสินค้าคงเหลือ</value>
         <value xml:lang="zh">需要库存</value>
+    </property>
+    <property key="FormFieldTitle_requirePinCode">
+        <value xml:lang="en">Require Pin Code</value>
+        <value xml:lang="it">Richiesto codice pin</value>
     </property>
     <property key="FormFieldTitle_requireUspsAddr">
         <value xml:lang="de">Benötigt Usps Adresse</value>
@@ -3532,6 +3580,10 @@
         <value xml:lang="ru">Введенный пользователь</value>
         <value xml:lang="th">ใช้การเข้าสู่</value>
         <value xml:lang="zh">用户输入</value>
+    </property>
+    <property key="FormFieldTitle_validateGCFinAcct">
+        <value xml:lang="en">Validate GC Fin Acct</value>
+        <value xml:lang="it">Valida carta regalo conto finanaza</value>
     </property>
     <property key="FormFieldTitle_varianceReasonId">
         <value xml:lang="de">Varianz Grund ID</value>
@@ -5465,6 +5517,10 @@
         <value xml:lang="ru">Экспорт продукта</value>
         <value xml:lang="th">การส่งออกสินค้า</value>
     </property>
+    <property key="PageTitleProductStocktake">
+        <value xml:lang="en">Product Stocktake</value>
+        <value xml:lang="it">Prodotti in stock</value>
+    </property>
     <property key="PageTitleQuickAddProductVariants">
         <value xml:lang="de">Rasches hinzufügen Produktvarianten</value>
         <value xml:lang="en">Quick Add Product Variants</value>
@@ -5510,10 +5566,6 @@
         <value xml:lang="ru">Результаты поиска</value>
         <value xml:lang="th">ค้นหาผลลัพธ์</value>
         <value xml:lang="zh">搜索结果</value>
-    </property>
-    <property key="PageTitleProductStocktake">
-        <value xml:lang="en">Product Stocktake</value>
-        <value xml:lang="it">Prodotti in stock</value>
     </property>
     <property key="PageTitleTransferInventoryItem">
         <value xml:lang="de">Bestandspositionen transferieren von ${facility.facilityName} [${facility.facilityId}]</value>
@@ -7844,16 +7896,13 @@
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
-        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
-        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
@@ -8532,6 +8581,10 @@
         <value xml:lang="th">สร้างข้อบังคับ</value>
         <value xml:lang="zh">创建规则</value>
     </property>
+    <property key="ProductCreateSimpleTextContentForAlternateLocale">
+        <value xml:lang="en">Create Simple Text Content For Alternate Locale</value>
+        <value xml:lang="it">Creare testo semplice per contenuto con locale alternativo</value>
+    </property>
     <property key="ProductCreateVirtualProduct">
         <value xml:lang="de">Virtuelles Produkt erstellen</value>
         <value xml:lang="en">Create Virtual Product</value>
@@ -8584,10 +8637,6 @@
         <value xml:lang="it">creato/modificato da</value>
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
     </property>
-    <property key="ProductCreateSimpleTextContentForAlternateLocale">
-        <value xml:lang="en">Create Simple Text Content For Alternate Locale</value>
-        <value xml:lang="it">Creare testo semplice per contenuto con locale alternativo</value>
-    </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Sie könnten auch diese Interessant finden:</value>
         <value xml:lang="en">You might be interested in these as well:</value>
@@ -8633,9 +8682,9 @@
         <value xml:lang="zh">货币币种标识</value>
     </property>
     <property key="ProductCurrentPackageSequence">
-        <value xml:lang="en">Current package sequence</value>        
-        <value xml:lang="fr">Séquence d'empaquetage actuelle</value>        
-    </property>    
+        <value xml:lang="en">Current package sequence</value>
+        <value xml:lang="fr">Séquence d'empaquetage actuelle</value>
+    </property>
     <property key="ProductCustomer">
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
@@ -12237,15 +12286,15 @@
         <value xml:lang="zh">最低明细价格</value>
     </property>
     <property key="ProductMinMax">
-        <value xml:lang="de">0 min -> bis zum max; 0 max -> vom Minimum aufwärts</value>
-        <value xml:lang="en">0 min -> up to max; 0 max -> from min and up</value>
-        <value xml:lang="es">0 mínimo -> hasta máximo; 0 máximo -> de mínimo a más</value>
-        <value xml:lang="fr">0 comme mini -> jusqu'à la valeur maxi; 0 comme maxi -> à partir du mini</value>
-        <value xml:lang="it">0 min -> fino al massimo; 0 max -> da min e sù</value>
-        <value xml:lang="ro">0 min -> pana la maxim; 0 max -> de la min si sù</value>
-        <value xml:lang="ru">0 мин -> до макс; 0 макс -> от мин и выше</value>
-        <value xml:lang="th">0 น้อย -> ถึงมาก; 0 มาก -> จากหน้อยและมากกว่า</value>
-        <value xml:lang="zh">0 最小-> 到最大; 0 最大 -> 从最小起</value>
+        <value xml:lang="de">0 min -&gt; bis zum max; 0 max -&gt; vom Minimum aufwärts</value>
+        <value xml:lang="en">0 min -&gt; up to max; 0 max -&gt; from min and up</value>
+        <value xml:lang="es">0 mínimo -&gt; hasta máximo; 0 máximo -&gt; de mínimo a más</value>
+        <value xml:lang="fr">0 comme mini -&gt; jusqu'à la valeur maxi; 0 comme maxi -&gt; à partir du mini</value>
+        <value xml:lang="it">0 min -&gt; fino al massimo; 0 max -&gt; da min e sù</value>
+        <value xml:lang="ro">0 min -&gt; pana la maxim; 0 max -&gt; de la min si sù</value>
+        <value xml:lang="ru">0 мин -&gt; до макс; 0 макс -&gt; от мин и выше</value>
+        <value xml:lang="th">0 น้อย -&gt; ถึงมาก; 0 มาก -&gt; จากหน้อยและมากกว่า</value>
+        <value xml:lang="zh">0 最小-&gt; 到最大; 0 最大 -&gt; 从最小起</value>
     </property>
     <property key="ProductMinMaxSpan">
         <value xml:lang="de">Min - Max (Bereich)</value>
@@ -12853,7 +12902,7 @@
         <value xml:lang="es">Nuevo método</value>
         <value xml:lang="fr">Nouvelle méthode</value>
         <value xml:lang="it">Nuovo metodo</value>
-    </property>    
+    </property>
     <property key="ProductNextPackage">
         <value xml:lang="en">Next Package</value>
         <value xml:lang="fr">Paquet suivant</value>
@@ -13532,13 +13581,11 @@
     </property>
     <property key="ProductNoteRequireEmailParty">
         <value xml:lang="de">ANMERKUNG: Die "Benötigt E-Mail oder Akteur" Einstellung ist auf N (Nein) eingestellt, alle hier angegebenen E-Mail Adressen oder Akteure werden ignoriert. Um eine E-Mail Adresse oder Akteur von dieser Liste zu verwenden muss die Einstellung auf J (Ja) vorgenommen werden.</value>
-        <value xml:lang="en"><p>NOTE: The Require Email Or Party flag is set to N (No), so any email addresses or parties listed here will be ignored.</p><p>To require an email address or party from these lists, set the flag to Y (Yes).</p></value>
         <value xml:lang="es">NOTA: El flag "Requerir E-mail" está configurado como N (No). Cualquier dirección de e-mail o participantes listados aquí serán ignorados. Para usar alguna de estas direcciones, debe configurar el flag a Y(Si)</value>
         <value xml:lang="fr">NOTE: Pour rendre obligatoire et prendre en compte le champ acteur ou courriel, cocher (O), sinon mettre (N)</value>
         <value xml:lang="it">NOTA: L'email richiesta o se il flag soggetto è impostato a N (No), così qualsiasi indirizzo email o soggetti listati qui saranno ignorati. Per richiedere un'indirizzo email o il soggetto da queste liste, imposta il flag a Y (Si).</value>
         <value xml:lang="ro">NOTA: Email-ul cerut O daca flag Subiect este setat N (Nu), asa ca orice adresa email sau Subiectii listati aici vor fi ignorati. Pentru a cere o adresa email sau Subiectul din aceste liste, seteaza flag Y (Da).</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: Флаги Требуется Email или Участник установлены в Н (Нет), поэтому все перечисленные адреса и участники будут проигнорированы. Если требуются адреса эл.почты или участники из этих списков, установите флаг в Д (Да).</value>
-        <value xml:lang="th"><p>NOTE: หมายเหตุ ต้องการอีเมลหรือเครื่องหมายกลุ่มผู้ใช้ในการตั้งค่าเป็น N (ไม่), ดังนั้นทุก ๆ ที่อยู่อีเมลหรือกลุ่มผู้ใช้แสดงที่นี่จะถูกมองข้าม.</p><p>ต้องการที่อยู่อีเมลหรือกลุ่มผู้ใช้จากรายการนี้, ตั้งค่าเครื่องหทายเป็น Y (ใช่).</p></value>
         <value xml:lang="zh">注意：所需的电子邮件或会员标志设为 N (否)，所以这里列出的任何电子邮件地址或会员都会被忽略。要从这些列表中使用电子邮件地址或会员，请把标志设为 Y (是)。</value>
     </property>
     <property key="ProductNoteUserPromotionEntered">
@@ -15096,7 +15143,7 @@
     <property key="ProductProductNumber">
         <value xml:lang="en">Product #</value>
         <value xml:lang="fr">N° d'article</value>
-    </property>    
+    </property>
     <property key="ProductProductPage">
         <value xml:lang="de">Produktseite</value>
         <value xml:lang="en">Product Page</value>
@@ -17743,15 +17790,15 @@
         <value xml:lang="th">รายการสำหรับแผนการขนส่ง</value>
     </property>
     <property key="ProductShipmentPlanToOrderItems">
-        <value xml:lang="de">Lieferplan --> Auftragspositionen</value>
-        <value xml:lang="en">Shipment Plan --> Order Items</value>
-        <value xml:lang="es">Plan de envío --> Artículos de pedido</value>
-        <value xml:lang="fr">Plan d'expédition --> Commande d'articles</value>
-        <value xml:lang="it">Piano di Spedizione --> Righe Ordine</value>
-        <value xml:lang="ro">Plan de Expediere --> Linii Comanda</value>
-        <value xml:lang="ru">План поставок --> Позиции заказа</value>
-        <value xml:lang="th">แผนการขนส่ง --> รายการการสั่งซื้อ</value>
-        <value xml:lang="zh">货运计划 --> 订单明细</value>
+        <value xml:lang="de">Lieferplan --&gt; Auftragspositionen</value>
+        <value xml:lang="en">Shipment Plan --&gt; Order Items</value>
+        <value xml:lang="es">Plan de envío --&gt; Artículos de pedido</value>
+        <value xml:lang="fr">Plan d'expédition --&gt; Commande d'articles</value>
+        <value xml:lang="it">Piano di Spedizione --&gt; Righe Ordine</value>
+        <value xml:lang="ro">Plan de Expediere --&gt; Linii Comanda</value>
+        <value xml:lang="ru">План поставок --&gt; Позиции заказа</value>
+        <value xml:lang="th">แผนการขนส่ง --&gt; รายการการสั่งซื้อ</value>
+        <value xml:lang="zh">货运计划 --&gt; 订单明细</value>
     </property>
     <property key="ProductShipmentQty">
         <value xml:lang="de">Liefermenge</value>
@@ -18533,6 +18580,10 @@
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">订阅资源</value>
     </property>
+    <property key="ProductSubscriptionResourceViewPermissionError">
+        <value xml:lang="en">Subscription Resource View Permission Error</value>
+        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione risorse</value>
+    </property>
     <property key="ProductSubscriptionResources">
         <value xml:lang="de">Abonnement Ressourcen</value>
         <value xml:lang="en">Subscription Resources</value>
@@ -18544,9 +18595,9 @@
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">订阅资源</value>
     </property>
-    <property key="ProductSubscriptionResourceViewPermissionError">
-        <value xml:lang="en">Subscription Resource View Permission Error</value>
-        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione risorse</value>
+    <property key="ProductSubscriptionViewPermissionError">
+        <value xml:lang="en">Subscription View Permission Error</value>
+        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione</value>
     </property>
     <property key="ProductSubscriptions">
         <value xml:lang="de">Abonnemente</value>
@@ -18558,10 +18609,6 @@
         <value xml:lang="ru">Подписки</value>
         <value xml:lang="th">การสั่งซื้อ</value>
         <value xml:lang="zh">订阅</value>
-    </property>
-    <property key="ProductSubscriptionViewPermissionError">
-        <value xml:lang="en">Subscription View Permission Error</value>
-        <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione</value>
     </property>
     <property key="ProductSupplier">
         <value xml:lang="de">Lieferant</value>
@@ -19177,6 +19224,10 @@
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
     </property>
+    <property key="ProductUPCA">
+        <value xml:lang="en">UPCA</value>
+        <value xml:lang="it">UPCA</value>
+    </property>
     <property key="ProductUnitOfMeasure">
         <value xml:lang="de">Masseinheit</value>
         <value xml:lang="en">Unit Of Measure</value>
@@ -19252,10 +19303,6 @@
         <value xml:lang="ru">Попробуйте эти вместо</value>
         <value xml:lang="th">พยายามแทนที่เหล่านี้</value>
         <value xml:lang="zh">尝试这些而不是</value>
-    </property>
-    <property key="ProductUPCA">
-        <value xml:lang="en">UPCA</value>
-        <value xml:lang="it">UPCA</value>
     </property>
     <property key="ProductUpdateCategories">
         <value xml:lang="de">Kategorien aktualisieren</value>
