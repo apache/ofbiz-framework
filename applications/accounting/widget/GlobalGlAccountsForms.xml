@@ -216,7 +216,7 @@ under the License.
         <field name="workEffortId" sort-field="true"><display description="${workEffortName}"/></field>
         <field name="emplPositionTypeId" sort-field="true"><display description="${employeePositionDescription}"/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
-        <field name="delete"><submit/></field>
+        <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
     </form>
     
     <form name="updateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount" 

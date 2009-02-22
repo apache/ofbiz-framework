@@ -139,6 +139,7 @@ under the License.
         <field name="productFeatureId"><hidden/></field>
         <field name="skillTypeId"><hidden/></field>
         <field name="deliverableTypeId"><hidden/></field>
+        <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"/>
         <field name="comments"><hidden/></field>
         <field name="uomId"><hidden/></field>
         <field name="custRequestId"><hidden/></field>
@@ -324,17 +325,17 @@ under the License.
         <field name="productFeatureId">
             <lookup target-form-name="LookupProductFeature"/>
         </field>
-        <field name="deliverableTypeId">
+        <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
             </drop-down>
         </field>
-        <field name="skillTypeId">
+        <field name="skillTypeId" title="${uiLabelMap.OrderOrderQuoteSkillTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SkillType" key-field-name="skillTypeId"/>
             </drop-down>
         </field>
-        <field name="uomId">
+        <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
             <drop-down allow-empty="true">
                 <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
                     <!--<entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>-->
@@ -343,6 +344,7 @@ under the License.
         </field>
         <field name="quantity" map-name="parameters" use-when="quoteItem==null"><text/></field>
         <field name="selectedAmount" map-name="parameters" use-when="quoteItem==null"><text/></field>
+        <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"/>
         <field name="comments" map-name="parameters" use-when="quoteItem==null"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>

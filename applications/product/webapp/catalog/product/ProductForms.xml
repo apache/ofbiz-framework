@@ -20,10 +20,12 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!--  UNSUED FORM
     <form name="EditProductSimpleTest" type="single" target="updateProduct" title="" 
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProduct" map-name="product"/>
     </form>
+    -->
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
         header-row-style="header-row" default-table-style="basic-table">
 

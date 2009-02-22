@@ -519,7 +519,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="createdDate"><display description="${content.createdDate}"/></field>
-        <field name="delete">
+        <field name="delete" title="${uiLabelMap.CommonDelete}">
             <hyperlink target="removeDocumentFromTree?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
@@ -553,6 +553,6 @@ under the License.
                 <entity-options description="${description}" entity-name="MetaDataPredicate"/>
             </drop-down>
         </field>
-        <field name="submit"><submit/></field>
+        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
 </forms>

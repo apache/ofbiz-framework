@@ -5570,7 +5570,7 @@
         <value xml:lang="zh">询价</value>
         <value xml:lang="zh_CN">报价</value>
     </property>
-    <property key="OrderOrderQuoteuomId">
+    <property key="OrderOrderQuoteUomId">
         <value xml:lang="de">Offerte Einheit ID</value>
         <value xml:lang="en">Quote Uom Id</value>
         <value xml:lang="es">Unidad de medida</value>
