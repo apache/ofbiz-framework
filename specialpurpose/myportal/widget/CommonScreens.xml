@@ -146,11 +146,7 @@ under the License.
     <screen name="main">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-screen name="showPortalPageInclude" location="component://common/widget/PortalPageScreens.xml"/>
-                    </decorator-section>
-                </decorator-screen>
+                <include-screen name="showPortalPage" location="component://common/widget/PortalPageScreens.xml"/>
             </widgets>
         </section>
     </screen>                 

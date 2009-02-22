@@ -49,6 +49,9 @@ margin: 1em;
                   <div class="tabletext">
                     ${portalPortlet.description}
                   </div>
+                  <div class="tabletext">
+                    ${parameters.portletCategoryId}
+                  </div>
                 </td>
                 <td>
                   <#if portalPortlet.screenshot?has_content>
@@ -66,6 +69,7 @@ margin: 1em;
         <#assign leftColumn = !leftColumn/> 
       </#list>
     </table>
-  
+    <#else/>
+    <h2>Please, choose new category again, No portlet in this category.</h2>
   </#if>
 </div>

@@ -620,6 +620,23 @@ under the License.
         <field name="securityMainAction" type="short-varchar"><description>The main action which can be done with this portlet, possible values: CREATE UPDATE VIEW DELETE</description></field>
         <prim-key field="portalPortletId"/>
     </entity>
+    <entity entity-name="PortletCategory" package-name="org.ofbiz.common.portal" title="Portlet Category Entity">
+      <field name="portletCategoryId" type="id-ne"></field>
+      <field name="description" type="id"></field>
+      <prim-key field="portletCategoryId"/>
+    </entity>
+    <entity entity-name="PortletPortletCategory" package-name="org.ofbiz.common.portal" title="Defines Portlets included into Categories">
+      <field name="portalPortletId" type="id-ne"></field>
+      <field name="portletCategoryId" type="id-ne"></field>
+      <prim-key field="portalPortletId"/>
+      <prim-key field="portletCategoryId"/>
+      <relation type="one" fk-name="PPTLTCAT_PTPL" rel-entity-name="PortalPortlet">
+        <key-map field-name="portalPortletId"/>
+      </relation>
+      <relation type="one" fk-name="PPTLTCAT_PTLTCAT" rel-entity-name="PortletCategory">
+        <key-map field-name="portletCategoryId"/>
+      </relation>
+    </entity>
     <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id-ne"></field>
         <field name="portalPageName" type="name"></field>

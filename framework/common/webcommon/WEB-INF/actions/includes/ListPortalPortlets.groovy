@@ -20,25 +20,30 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 
-
-ppIter = delegator.find("PortalPortlet", null, null, null, null, null);
+ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUALS, parameters.portletCategoryId);
+categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false);
 
 portalPortlets = [];
-inMap = [:];
-while (portlet = ppIter.next()) {
+	categories.each { category ->
+	pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"));
+	listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false);
 
-    if (portlet.securityServiceName && portlet.securityMainAction) {
-        inMap.mainAction = portlet.securityMainAction;
-        inMap.userLogin = context.userLogin;
-        result = dispatcher.runSync(portlet.securityServiceName, inMap)
-        hasPermission = result.hasPermission;
-    } else {
-        hasPermission = true;
-    }
+	inMap = [:];
+    listPortalPortlets.each { listPortalPortlet ->
+		if (listPortalPortlet.securityServiceName && listPortalPortlet.securityMainAction) {
+			inMap.mainAction = listPortalPortlet.securityMainAction;
+			inMap.userLogin = context.userLogin;
+			result = dispatcher.runSync(listPortalPortlet.securityServiceName, inMap)
+			hasPermission = result.hasPermission;
+		} else {
+			hasPermission = true;
+		}
     
-    if (hasPermission) {
-        portalPortlets.add(portlet);
-    }
+		if (hasPermission) {
+			portalPortlets.add(listPortalPortlet);
+		}
+	}
 }
-context.portalPortlets = portalPortlets;
 
+context.portletCat = delegator.findAll("PortletCategory");
+context.portalPortlets = portalPortlets;
