@@ -357,7 +357,7 @@ under the License.
     <request-map uri="updatePerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePerson"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="EditPerson"/>
     </request-map>
 
@@ -371,7 +371,7 @@ under the License.
     <request-map uri="updatePartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyGroup"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
 
