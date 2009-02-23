@@ -2311,6 +2311,7 @@ under the License.
 
     <!-- ================ Product Configuration Requests ================= -->
     <request-map uri="EditProductConfigs"><security https="true" auth="true"/><response name="success" type="view" value="EditProductConfigs"/></request-map>
+    <request-map uri="ProductConfigItemArticle"><security https="true" auth="true"/><response name="success" type="view" value="ProductConfigItemArticle"/></request-map>
     <request-map uri="createProductConfig">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductConfig"/>
@@ -2561,6 +2562,7 @@ under the License.
     <view-map name="EditProductContentContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContentContent"/>
     <view-map name="EditSupplierProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditSupplierProduct"/>
     <view-map name="EditProductConfigs" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductConfigs"/>
+    
 
     <view-map name="QuickAddVariants" type="screen" page="component://product/widget/catalog/ProductScreens.xml#QuickAddVariants"/>
     <view-map name="CreateVirtualWithVariantsForm" type="screen" page="component://product/widget/catalog/ProductScreens.xml#CreateVirtualWithVariantsForm"/>
@@ -2629,6 +2631,7 @@ under the License.
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>
     
     <!-- Product Configuration views -->
+    <view-map name="ProductConfigItemArticle" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#ProductConfigItemArticle"/>
     <view-map name="FindProductConfigItems" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#FindProductConfigItems"/>
     <view-map name="EditProductConfigItem" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItem"/>
     <view-map name="EditProductConfigOptions" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigOptions"/>

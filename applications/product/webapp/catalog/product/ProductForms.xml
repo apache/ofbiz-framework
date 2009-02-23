@@ -886,7 +886,7 @@ under the License.
         <!-- TODO: get descriptions from IDs <display description="${roleType.description}"/> -->
         <field name="sequenceNum"><display/></field>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItem}">
-            <display-entity entity-name="ProductConfigItem" key-field-name="configItemId" description="${configItemName} [${configItemId}] (${description})"/>
+            <display-entity entity-name="ProductConfigItem" key-field-name="configItemId" description="${configItemName} : (${description})"><sub-hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="[ ${configItemId} ]"/></display-entity>
         </field>
         <field name="configTypeId">
             <drop-down allow-empty="false">
