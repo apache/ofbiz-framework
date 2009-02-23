@@ -91,7 +91,7 @@ under the License.
             <actions>
                 <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                <entity-condition entity-name="VisualTheme" list-name="visualThemes">
+                <entity-condition entity-name="VisualTheme" list="visualThemes">
                     <condition-expr field-name="visualThemeSetId" from-field="webSite.visualThemeSetId"/>
                 </entity-condition>
             </actions>
