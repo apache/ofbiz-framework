@@ -144,7 +144,7 @@
 	<classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.93.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-java5-1.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-util-1.0.1.jar"/>
