@@ -420,8 +420,8 @@ under the License.
         <menu-item name="FixedAssetDepreciation" title="${uiLabelMap.AccountingFixedAssetDepreciation}">
             <link target="showFixedAssetDepreciation?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
-        <menu-item name="FixedAssetGeolocation" title="${uiLabelMap.CommonGeoLocation}">
-            <link target="FixedAssetGeolocation?fixedAssetId=${fixedAssetId}"/>
+        <menu-item name="FixedAssetGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
+            <link target="FixedAssetGeoLocation?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
     </menu>
     
