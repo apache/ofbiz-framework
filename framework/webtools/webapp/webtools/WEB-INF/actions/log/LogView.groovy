@@ -24,5 +24,5 @@ try {
     sb = FileUtil.readTextFile(logFileName, true);
 } catch(Exception exc) {}
 if (sb) {
-    context.logFileContent = sb.toString();
+    context.logFileContent = sb;
 }
