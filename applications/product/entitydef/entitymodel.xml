@@ -4593,4 +4593,15 @@ under the License.
     </view-link>
   </view-entity>
   
+  <view-entity entity-name="ProductConfigAndProduct" 
+    package-name="org.ofbiz.product.product" 
+    title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
+    <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
+    <member-entity entity-alias="PD" entity-name="Product"/>
+    <alias-all entity-alias="PDC"/>
+    <alias-all entity-alias="PD"/>
+    <view-link entity-alias="PDC" rel-entity-alias="PD">
+      <key-map field-name="productId"/>
+    </view-link>
+  </view-entity>
 </entitymodel>

@@ -279,5 +279,8 @@ under the License.
         <menu-item name="EditProductConfigItemContent" title="${uiLabelMap.ProductContent}">
             <link target="EditProductConfigItemContent?configItemId=${configItemId}"/>
         </menu-item>
+        <menu-item name="ProductConfigItemArticle" title="${uiLabelMap.Product}">
+            <link target="ProductConfigItemArticle?configItemId=${configItemId}"/>
+        </menu-item>
     </menu>
 </menus>

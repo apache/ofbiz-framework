@@ -20,20 +20,36 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindProductConfigItems" type="list" list-name="productConfigItems" 
-        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems">
+    <form name="FindProductConfigItems" type="list" list-name="listIt" 
+        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
+        target="" header-row-style="header-row-2" paginate="true">
+        <actions> 
+            <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="ProductConfigItem"/>
+            </service>
+        </actions>
         <row-actions>
             <set field="typeDescription" value="${bsh: return &quot;SINGLE&quot;.equals(configItemTypeId) ? uiLabelMap.get(&quot;ProductSingleChoice&quot;) : uiLabelMap.get(&quot;ProductMultiChoice&quot;)}"/>
         </row-actions>
-        <field name="configItemId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="configItemId" title="${uiLabelMap.CommonId}" widget-style="buttontext"><hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="${configItemId}"/></field>
         <field name="configItemName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="typeDescription" title="${uiLabelMap.CommonType}">
             <display description="${typeDescription}"/>
         </field>
         <field name="description"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="${uiLabelMap.CommonEdit}"/>
-        </field>
+    </form>
+    <form name="FindProductConfigItemsFrom" type="single" target="FindProductConfigItems" 
+        default-map-name="productconfigitems"  header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductConfigItem" default-field-type="find"/>
+        <field name="configItemId"/>
+        <field name="configItemTypeId"><hidden/></field>
+        <field name="configItemName"/>
+        <field name="description"/>
+        <field name="longDescription"><hidden/></field>
+        <field name="imageUrl"><hidden/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditProductConfigItem" type="single" target="updateProductConfigItem" title="" default-map-name="configItem"
         header-row-style="header-row" default-table-style="basic-table">
@@ -162,5 +178,50 @@ under the License.
         <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
+    
+    <form name="ListProductConfigItem" type="list" list-name="productConfigs" 
+        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
+        target="" header-row-style="header-row-2" paginate="true">
+        <actions>
+            <entity-condition entity-name="ProductConfigAndProduct" list="productConfigs" distinct="true">
+                <condition-list>
+                    <condition-expr field-name="configItemId" operator="equals" from-field="configItemId"/>
+                </condition-list>
+                <select-field field-name="productId"/>
+                <select-field field-name="configItemId"/>
+                <select-field field-name="productName"/>
+                <select-field field-name="piecesIncluded"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="ProductConfigAndProduct" default-field-type="hidden"/>
+        <field name="productId" widget-style="buttontext"  ><hyperlink target="EditProductConfigs?productId=${productId}" description="${productId}"/></field>
+        <field name="productName" ><display description="${productName}"/></field>
+        <field name="piecesIncluded" ><display description="${piecesIncluded}"/></field>
+    </form>
+    
+    <form name="ProductConfigOptionList" type="list" list-name="configOptionList" 
+        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
+        target="" header-row-style="header-row-2" paginate="true">
+        <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
+        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.Name}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
+        <field name="configOptionId" ><hidden/></field>
+        <field name="configOptionName" ><hidden/></field>
+        <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigOption?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${uiLabelMap.Remove}"/></field>
+    </form>
+    
+    <form name="ProductConfigList" type="list" list-name="configProducts" 
+        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
+        target="" header-row-style="header-row-2" paginate="true">
+        <row-actions>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId"/>
+            </entity-one>
+        </row-actions>
+        <auto-fields-service service-name="createProductConfigProduct" default-field-type="display"/>
+        <field name="configItemId" ><hidden/></field>
+        <field name="configOptionId" ><hidden/></field>
+        <field name="productId" widget-style="buttontext" title="${uiLabelMap.Product}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${product.productId} - ${product.productName}"/></field>
+        <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigProduct?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${uiLabelMap.Remove}"/></field>
+    </form>
+    
 </forms>
