@@ -1902,9 +1902,9 @@ under the License.
     </request-map>
 
     <!-- GeoLocation-->
-    <request-map uri="FixedAssetGeolocation">
+    <request-map uri="FixedAssetGeoLocation">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FixedAssetGeolocation"/>
+        <response name="success" type="view" value="FixedAssetGeoLocation"/>
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
     
@@ -2147,7 +2147,7 @@ under the License.
     <view-map name="taxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityForms.xml#TaxAuthorityVATReport"/>
     -->
 
-    <view-map name="FixedAssetGeolocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeolocation"/>    
+    <view-map name="FixedAssetGeoLocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeoLocation"/>    
 
     <!-- end of view mappings -->
 </site-conf>
