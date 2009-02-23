@@ -362,8 +362,13 @@ public class ImageTransform {
             result.put("errorMessage", errMsg);
             return result;
         }
-        
-        bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImg.getType());
+        if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
+            String errMsg = "Unknown BufferedImage type ";
+            Debug.logError(errMsg, module);
+            result.put("errorMessage", errMsg);
+            return result;            
+        }
+            bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImg.getType());
  
         result.put("responseMessage", "success");
         result.put("bufferedImage", bufNewImg);
