@@ -960,10 +960,9 @@ public class ProductServices {
             }
             
             /* scale Image in different sizes */
-            String viewNumber = new String(); 
-            viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
+            String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
             ImageTransform imageTransform = new ImageTransform();
-            FastMap resultResize = new FastMap();
+            Map<String, Object> resultResize = FastMap.newInstance();
             try{
                 resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
             }catch(IOException e){

@@ -366,7 +366,7 @@ Illinois, Urbana-Champaign.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 JDOM (Modified Apache)  License:
-ofbiz/trunk/framework/webapp/lib/jdom-1.0.jar
+ofbiz/trunk/framework/webapp/lib/jdom-1.1.jar
 =========================================================================
 The JDOM License
  Copyright (C) 2000-2004 Jason Hunter & Brett McLaughlin.
