@@ -293,13 +293,19 @@ public class ImageTransform {
                     imgUrlMap.put(sizeType, imageUrl);
         
                 } // scaleImgMap
-            } // sizeIter 
-        }
+            } // sizeIter
+            
+            result.put("responseMessage", "success");
+            result.put("imageUrlMap", imgUrlMap);
+            result.put("original", resultBufImgMap);
+            return result;     
         
-        result.put("responseMessage", "success");
-        result.put("imageUrlMap", imgUrlMap);
-        result.put("original", resultBufImgMap);
-        return result;    
+        }else{
+            String errMsg = "Impossible to scale original image : " + filenameToUse;
+            Debug.logError(errMsg, module);
+            result.put("errorMessage", errMsg);
+            return ServiceUtil.returnError(errMsg);
+        }    
         
     } // scaleImageInAllSize 
 
