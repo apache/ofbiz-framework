@@ -53,6 +53,7 @@
     </property>
     <property key="AccountingAccountId">
         <value xml:lang="ar">رمز الحساب</value>
+        <value xml:lang="de">Konton-Nr</value>
         <value xml:lang="en">Account ID</value>
         <value xml:lang="es">Id cuenta</value>
         <value xml:lang="fr">Réf. du compte</value>
@@ -116,6 +117,7 @@
     </property>
     <property key="AccountingAccounting">
         <value xml:lang="en">Accounting</value>
+        <value xml:lang="de">Buchhaltung</value>        
         <value xml:lang="fr">Comptabilité</value>
         <value xml:lang="it">Contabilità</value>
         <value xml:lang="nl">Boekhouding</value>
@@ -123,6 +125,7 @@
     </property>
     <property key="AccountingAccounts">
         <value xml:lang="ar">حسابات</value>
+        <value xml:lang="de">Konten</value>        
         <value xml:lang="en">Accounts</value>
         <value xml:lang="es">cuentas</value>
         <value xml:lang="fr">Comptes</value>
@@ -134,6 +137,7 @@
         <value xml:lang="zh">账户</value>
     </property>
     <property key="AccountingAcctRecon">
+        <value xml:lang="de">Kontoabstimmung</value>
         <value xml:lang="en">Account Reconciliation</value>
         <value xml:lang="fr">Rapprochement de compte</value>
         <value xml:lang="it">Riconciliazione</value>
@@ -141,6 +145,7 @@
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
+        <value xml:lang="de">Kontenabstimmungen</value>
         <value xml:lang="en">Account Reconciliations</value>
         <value xml:lang="fr">Rapprochements de compte</value>
         <value xml:lang="it">Riconciliazioni</value>
@@ -148,6 +153,7 @@
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctgTrans">
+        <value xml:lang="de">Kontenbewegungen</value>
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
         <value xml:lang="it">Prime Note</value>
@@ -155,6 +161,7 @@
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingAcctgTransEntries">
+        <value xml:lang="de">Kontenbewegungen</value>
         <value xml:lang="en">Accounting Transactions Entries</value>
         <value xml:lang="fr">Entrées de transactions comptables</value>
         <value xml:lang="it">Righe Prime Note</value>
@@ -162,6 +169,7 @@
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
+        <value xml:lang="de">Ist-Währungsbetrag</value>
         <value xml:lang="en">Actual Currency Amount</value>
         <value xml:lang="fr">Valeur réelle en devise</value>
         <value xml:lang="it">Attuale Importo in Valuta</value>
@@ -170,6 +178,7 @@
         <value xml:lang="th">จำนวนเงินที่มีอยู่จริง</value>
     </property>
     <property key="AccountingActualCurrencyUomId">
+        <value xml:lang="de">Ist-Währung</value>
         <value xml:lang="en">Actual Currency Uom Id</value>
         <value xml:lang="fr">réf. UOM de la devise réelle</value>
         <value xml:lang="it">Attuale Udm Valuta</value>
@@ -178,12 +187,14 @@
         <value xml:lang="th">รหัสหน่วยวัดจำนวนเงิน</value>
     </property>
     <property key="AccountingAddAgreementWorkEffortAppl">
+        <value xml:lang="de">Vereinbarung-Arbeitseinsatz hinzufügen</value>
         <value xml:lang="en">Add Agreement Work Effort Appl</value>
         <value xml:lang="fr">Ajouter une application d'accord commerciaux sur tâche</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
         <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
     </property>
     <property key="AccountingAddCategoryGlAccount">
+        <value xml:lang="de">Hauptkonten-Kategorie hinzufügen</value>
         <value xml:lang="en">Add Category GL Account</value>
         <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
         <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
@@ -191,6 +202,7 @@
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
+        <value xml:lang="de">Finanzkonten-Art Hauptkonto hinzufügen</value>
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
         <value xml:lang="fr">Ajouter le type de compte financier au GL</value>
         <value xml:lang="it">Aggiungi Tipo Conto Finanziario Gl</value>
@@ -198,6 +210,7 @@
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFixedAssetIdent">
+        <value xml:lang="de">Anlagen-Identifikation hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Identification</value>
         <value xml:lang="es">Editar Indents de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une identification d'immobilisation</value>
@@ -209,13 +222,14 @@
         <value xml:lang="zh">编辑固定资产标识</value>
     </property>
     <property key="AccountingAddFixedAssetMaintOrder">
+        <value xml:lang="de">Anlagen-Wartungs-Reihenfolge hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Maintenance Order</value>
         <value xml:lang="fr">Ajouter une commande de maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingAddFixedAssetMaintenance">
-        <value xml:lang="de">Anlagevermögensverwaltung hinzufügen</value>
+        <value xml:lang="de">Anlagen-Wartung hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Maintenance</value>
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une maintenance d'immobilisation</value>
@@ -227,6 +241,7 @@
         <value xml:lang="zh">编辑固定资产维修保养</value>
     </property>
     <property key="AccountingAddFixedAssetMeter">
+        <value xml:lang="de">Ablesen des Anlage-Zählers hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Meter Reading</value>
         <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
@@ -234,12 +249,14 @@
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
     </property>
     <property key="AccountingAddFixedAssetPartyAssignment">
+        <value xml:lang="de">Akteurszuweisung zu Anlage hinzufügen</value>
         <value xml:lang="en">Add Party Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter une tâche d'un acteur à une immobilisation</value>
         <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingAddFixedAssetRegistration">
+        <value xml:lang="de">Anlagen-Registierung hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Registration</value>
         <value xml:lang="es">Editar Registros de Activo Fijo</value>
         <value xml:lang="fr">Ajouter l'enregistrement d'immobilisation</value>
@@ -250,6 +267,7 @@
         <value xml:lang="zh">编辑固定资产登记</value>
     </property>
     <property key="AccountingAddFixedAssetStdCost">
+        <value xml:lang="de">Anlagen-Plankosten hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Standard Cost</value>
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
         <value xml:lang="fr">Ajouter un coût standard d'immobilisation</value>
@@ -310,6 +328,7 @@
         <value xml:lang="zh">新建礼品卡</value>
     </property>
     <property key="AccountingAddPartyGlAccount">
+        <value xml:lang="de">Personenkonto hinzufügen</value>
         <value xml:lang="en">Add Party Gl Account</value>
         <value xml:lang="fr">Ajouter le compte de tiers au GL</value>
         <value xml:lang="it">Aggiungi Conto Gl Soggetto</value>
@@ -317,6 +336,7 @@
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
+        <value xml:lang="de">Steuerkonto hinzufügen</value>
         <value xml:lang="en">Add TaxAuthority GL Account</value>
         <value xml:lang="fr">Ajouter le compte de taxe au GL</value>
         <value xml:lang="it">Aggiungi Conto Gl Autorità Tasse</value>
@@ -324,6 +344,7 @@
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAdditionalShippingChargeForShipment">
+        <value xml:lang="de">Zusätzliche Versandkosten für Lieferung #${shipmentId}</value>
         <value xml:lang="en">Additional Shipping Charge For Shipment #${shipmentId}</value>
         <value xml:lang="fr">Ajouter des frais de transport à la livraison</value>
         <value xml:lang="it">Ricarico spedizione aggiuntivo per la spedizione #${shipmentId}</value>
@@ -334,6 +355,7 @@
     </property>
     <property key="AccountingAdmin">
         <value xml:lang="ar">إدارة</value>
+        <value xml:lang="de">Administrator</value>
         <value xml:lang="en">Admin</value>
         <value xml:lang="es">Admin</value>
         <value xml:lang="fr">Admin</value>
@@ -346,6 +368,7 @@
     </property>
     <property key="AccountingAgreement">
         <value xml:lang="ar">إتفاق</value>
+        <value xml:lang="de">Vereinbarung</value>
         <value xml:lang="en">Agreement</value>
         <value xml:lang="es">Acuerdo</value>
         <value xml:lang="fr">Accord</value>
@@ -396,6 +419,7 @@
         <value xml:lang="zh">合同编号</value>
     </property>
     <property key="AccountingAgreementInformation">
+        <value xml:lang="de">Vereinbarungsinformation</value>
         <value xml:lang="en">Agreement Information</value>
         <value xml:lang="fr">Information sur l'accord commercial</value>
         <value xml:lang="it">Informazioni Contratto</value>
@@ -410,6 +434,7 @@
     </property>
     <property key="AccountingAgreementItem">
         <value xml:lang="ar">بند إتفاق</value>
+        <value xml:lang="de">Vereinbarungsposition</value>
         <value xml:lang="en">Agreement Item</value>
         <value xml:lang="es">Elemento de acuerdo</value>
         <value xml:lang="fr">Article de l'accord</value>
