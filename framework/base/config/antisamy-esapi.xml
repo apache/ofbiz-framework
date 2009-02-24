@@ -34,7 +34,7 @@ Slashdot allowed tags taken from "Reply" page:
     <directives>
         <directive name="omitXmlDeclaration" value="true"/>
         <directive name="omitDoctypeDeclaration" value="true"/>
-        <directive name="maxInputSize" value="5000"/>
+        <directive name="maxInputSize" value="100000"/>
         <directive name="embedStyleSheets" value="false"/>
     </directives>
     <common-regexps>
