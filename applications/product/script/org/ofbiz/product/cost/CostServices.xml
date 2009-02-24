@@ -334,4 +334,104 @@ under the License.
         
         <field-to-result field="totalCost"/>
     </simple-method>
+    <simple-method method-name="calculateProductAverageCost" short-description="Calculate inventory average cost for a product">
+        <entity-condition entity-name="InventoryItem" list="inventoryItems">
+            <condition-list>
+                <condition-expr field-name="productId" from-field="parameters.productId"/>
+                <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true"/>
+                <condition-expr field-name="ownerPartyId" from-field="parameters.ownerPartyId" ignore-if-empty="true"/>
+                <condition-expr field-name="unitCost" operator="not-equals" from-field="nullField"/>
+            </condition-list>
+            <select-field field-name="quantityOnHandTotal"/>
+            <select-field field-name="unitCost"/>
+            <select-field field-name="currencyUomId"/>
+        </entity-condition>
+        <set field="totalQuantityOnHand" type="BigDecimal" value="0"/>
+        <set field="totalInventoryCost" type="BigDecimal" value="0"/>
+        <set field="absValOfTotalQOH" type="BigDecimal" value="0"/>
+        <set field="absValOfTotalInvCost" type="BigDecimal" value="0"/>
+        <set field="differentCurrencies" type="Boolean" value="false"/>
+        <iterate list="inventoryItems" entry="inventoryItem">
+            <calculate field="totalQuantityOnHand">
+                <calcop operator="add" >
+                    <calcop operator="get" field="totalQuantityOnHand"/>
+                    <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
+                </calcop>
+            </calculate>
+            
+            <if-empty field="currencyUomId">
+                <set field="currencyUomId" from-field="inventoryItem.currencyUomId"/>
+            </if-empty>
+            <if-compare field="differentCurrencies" operator="equals" value="false" type="Boolean">
+                <if-compare-field field="inventoryItem.currencyUomId" operator="equals" to-field="currencyUomId">
+                    <calculate field="totalInventoryCost" type="BigDecimal">
+                        <calcop operator="add">
+                            <calcop operator="get" field="totalInventoryCost"/>
+                            <calcop operator="multiply">
+                                <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
+                                <calcop operator="get" field="inventoryItem.unitCost"/>
+                            </calcop>
+                        </calcop>
+                    </calculate>
+                    
+                    <!-- calculation of absolute values of QOH and total inventory cost -->
+                    <if-compare field="inventoryItem.quantityOnHandTotal" operator="less" value="0">
+                        <calculate field="absValOfTotalQOH">
+                            <calcop operator="add">
+                                <calcop operator="get" field="absValOfTotalQOH"/>
+                                <calcop operator="negative" field="inventoryItem.quantityOnHandTotal" />
+                            </calcop>
+                        </calculate>
+                        <calculate field="absValOfTotalInvCost" type="BigDecimal">
+                            <calcop operator="add">
+                                <calcop operator="get" field="absValOfTotalInvCost"/>
+                                <calcop operator="multiply">
+                                    <calcop operator="negative" field="inventoryItem.quantityOnHandTotal"/>
+                                    <calcop operator="get" field="inventoryItem.unitCost"/>
+                                </calcop>
+                            </calcop>
+                        </calculate>
+                        <else>
+                        <calculate field="absValOfTotalQOH">
+                            <calcop operator="add" >
+                                <calcop operator="get" field="absValOfTotalQOH"/>
+                                <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="absValOfTotalInvCost" type="BigDecimal">
+                            <calcop operator="add">
+                                <calcop operator="get" field="absValOfTotalInvCost"/>
+                                <calcop operator="multiply">
+                                    <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
+                                    <calcop operator="get" field="inventoryItem.unitCost"/>
+                                </calcop>
+                            </calcop>
+                        </calculate>
+                        </else>
+                    </if-compare>
+                <else>
+                    <set field="differentCurrencies" type="Boolean" value="true"/>
+                </else>
+                </if-compare-field>
+            </if-compare>
+        </iterate>
+        
+        <if-compare field="absValOfTotalQOH" operator="not-equals" value="0" type="BigDecimal">
+            <calculate field="productAverageCost" type="BigDecimal">
+                <calcop operator="divide">
+                    <calcop operator="get" field="absValOfTotalInvCost"/>
+                    <calcop operator="get" field="absValOfTotalQOH"/>
+                </calcop>
+            </calculate>
+        <else>
+            <set field="productAverageCost" type="BigDecimal" value="0"/>
+        </else>
+        </if-compare>
+        <field-to-result field="totalQuantityOnHand"/>
+        <if-compare field="differentCurrencies" operator="equals" value="false" type="Boolean">
+            <field-to-result field="totalInventoryCost"/>
+            <field-to-result field="productAverageCost"/>
+            <field-to-result field="currencyUomId"/>
+        </if-compare>
+    </simple-method>
 </simple-methods>

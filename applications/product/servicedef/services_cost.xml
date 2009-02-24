@@ -87,4 +87,15 @@ under the License.
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
     </service>
+    <service name="calculateProductAverageCost" engine="simple" auth="true"
+            location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductAverageCost">
+        <description>Calculate inventory average cost for a product</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="totalQuantityOnHand" type="BigDecimal" mode="OUT"/>
+        <attribute name="totalInventoryCost" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="productAverageCost" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>

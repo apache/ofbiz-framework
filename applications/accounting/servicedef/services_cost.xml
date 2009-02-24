@@ -70,4 +70,27 @@ under the License.
         <description>Accounting Cost Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    
+    <service name="createProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Product Average Cost record</description>
+        <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+        <override name="averageCost" optional="false"/>
+    </service>
+    
+    <service name="updateProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Product Average Cost record</description>
+        <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="deleteProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Product Average Cost record</description>
+        <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>
