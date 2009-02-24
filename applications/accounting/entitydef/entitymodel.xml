@@ -2197,21 +2197,43 @@ under the License.
     <entity entity-name="ProductAverageCost"
             package-name="org.ofbiz.accounting.ledger"
             title="Running tally of average cost">
-       <description>Running tally of a product's average cost in a particular company</description>
+       <description>Running tally of a product's average cost in a particular company and facility</description>
+       <field name="productAverageCostTypeId" type="id-ne"/>
        <field name="organizationPartyId" type="id-ne"/>
        <field name="productId" type="id-ne"/>
-       <field name="averageCost" type="fixed-point"/>
+       <field name="facilityId" type="id-ne"/>
        <field name="fromDate" type="date-time"/>
        <field name="thruDate" type="date-time"/>
+       <field name="averageCost" type="fixed-point"/>
+       <prim-key field="productAverageCostTypeId"/>
        <prim-key field="organizationPartyId"/>
        <prim-key field="productId"/>
+       <prim-key field="facilityId"/>
        <prim-key field="fromDate"/>
+       <relation type="one" rel-entity-name="ProductAverageCostType" fk-name="AVG_COST_TYPE">
+           <key-map field-name="productAverageCostTypeId"/>
+       </relation>
        <relation type="one" rel-entity-name="Party" fk-name="AVG_COST_PARTY">
            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
        </relation>
        <relation type="one" rel-entity-name="Product" fk-name="AVG_COST_PROD">
            <key-map field-name="productId"/>
        </relation>
+       <relation type="one" rel-entity-name="Facility" fk-name="AVG_COST_FACI">
+           <key-map field-name="facilityId"/>
+       </relation>
+    </entity>
+    <entity entity-name="ProductAverageCostType"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Product average cost type" default-resource-name="AccountingEntityLabels">
+        <field name="productAverageCostTypeId" type="id-ne"/>
+        <field name="parentTypeId" type="id-ne"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="productAverageCostTypeId"/>
+        <relation type="one" fk-name="AVGCOST_TYPE_PAR" title="Parent" rel-entity-name="ProductAverageCostType">
+            <key-map field-name="parentTypeId" rel-field-name="productAverageCostTypeId"/>
+        </relation>
     </entity>
     <entity entity-name="SettlementTerm"
             package-name="org.ofbiz.accounting.ledger"
