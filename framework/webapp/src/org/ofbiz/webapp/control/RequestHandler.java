@@ -611,7 +611,7 @@ public class RequestHandler implements Serializable {
 
         ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
         if (viewMap == null) {
-            throw new RequestHandlerException("No defitinition found for view with name [" + view + "]");
+            throw new RequestHandlerException("No definition found for view with name [" + view + "]");
         }
         
         String nextPage;
