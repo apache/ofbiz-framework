@@ -8971,6 +8971,10 @@
         <value xml:lang="th">สำหรับหน้าจอในไฟล์อื่น ๆ ใช้เหมือนบางสิ่ง</value>
         <value xml:lang="zh">为其它文件中的屏幕使用类似于</value>
     </property>
+    <property key="ProductDifferentCurrencies">
+        <value xml:lang="en">Items with different currencies</value>
+        <value xml:lang="fr">Articles utilisant diff�rentes devises</value>
+    </property>
     <property key="ProductDiscount">
         <value xml:lang="de">Rabatt</value>
         <value xml:lang="en">Discount</value>
@@ -11059,6 +11063,10 @@
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ru">Дост</value>
         <value xml:lang="th">ใช้ประโยชน์</value>
+    </property>
+    <property key="ProductInventoryAverageCosts">
+        <value xml:lang="en">Inventory Average Costs</value>
+        <value xml:lang="fr">Co�ts moyens de stockage</value>
     </property>
     <property key="ProductInventoryByProduct">
         <value xml:lang="de">Lager nach Produkt</value>

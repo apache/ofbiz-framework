@@ -415,6 +415,7 @@ under the License.
                                     <link target="InventoryItemTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext"/>
                                     <link target="InventoryItemGrandTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext"/>
                                     <link target="InventoryItemTotalsExport.csv?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext"/>
+                                    <link target="InventoryAverageCosts?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext"/>                                    
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -701,6 +702,36 @@ under the License.
         </section>
     </screen>
 
+    <screen name="InventoryAverageCosts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryAverageCosts.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductInventoryAverageCosts} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListInventoryAverageCosts" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="EditFacilityGroups">
         <section>
             <actions>

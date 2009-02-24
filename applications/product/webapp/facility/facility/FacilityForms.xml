@@ -576,6 +576,18 @@ under the License.
         <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>
         <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
     </form>
+    <form name="ListInventoryAverageCosts" type="list" target="" title="" list-name="inventoryAverageCosts" 
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            paginate-target="InventoryAverageCosts" override-list-size="${overrideListSize}">
+        <field name="productId2" title="${uiLabelMap.ProductProductId}" entry-name="productId" widget-style="buttontext">
+            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
+        </field>        
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="productAverageCost" use-when="currencyUomId!=null" title="${uiLabelMap.ProductAverageCost}" encode-output="false"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="productAverageCost" use-when="currencyUomId==null" title="${uiLabelMap.ProductAverageCost}" encode-output="false"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
+        <field name="totalInventoryCost" use-when="currencyUomId!=null" title="${uiLabelMap.CommonTotalCost}" encode-output="false"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalInventoryCost" use-when="currencyUomId==null" title="${uiLabelMap.CommonTotalCost}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
+    </form>
     <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
