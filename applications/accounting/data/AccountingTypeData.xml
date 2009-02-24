@@ -824,6 +824,10 @@ under the License.
     <Enumeration description="Delivered Duty Paid" enumCode="DDP" enumId="POTT_DDP" sequenceId="22" enumTypeId="PTSOFTTFR"/>
     <Enumeration description="Delivered Duty Unpaid" enumCode="DDQ" enumId="POTT_DDQ" sequenceId="23" enumTypeId="PTSOFTTFR"/>
     
+    <ProductAverageCostType productAverageCostTypeId="SIMPLE_AVG_COST" hasTable="N" description="Simple Average Cost"/>
+    <ProductAverageCostType productAverageCostTypeId="WEIGHTED_AVG_COST" hasTable="N" description="Weighted Average Cost"/>
+    <ProductAverageCostType productAverageCostTypeId="MOVING_AVG_COST" hasTable="N" description="Moving Average Cost"/>
+    
     <!--
         INCOTERM options found here: http://www.foreign-trade.com/reference/incoterms.cfm
      
