@@ -8973,7 +8973,7 @@
     </property>
     <property key="ProductDifferentCurrencies">
         <value xml:lang="en">Items with different currencies</value>
-        <value xml:lang="fr">Articles utilisant différentes devises</value>
+        <value xml:lang="fr">Articles utilisant diffÃ©rentes devises</value>
     </property>
     <property key="ProductDiscount">
         <value xml:lang="de">Rabatt</value>
@@ -11066,7 +11066,7 @@
     </property>
     <property key="ProductInventoryAverageCosts">
         <value xml:lang="en">Inventory Average Costs</value>
-        <value xml:lang="fr">Coûts moyens de stockage</value>
+        <value xml:lang="fr">coÃ»ts moyens de stokage</value>
     </property>
     <property key="ProductInventoryByProduct">
         <value xml:lang="de">Lager nach Produkt</value>
