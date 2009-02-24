@@ -28,6 +28,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -691,13 +693,16 @@ public class UtilXml {
         }
 
         public void error(SAXParseException exception) {
-            if (localResolver.hasDTD()) {
+            String exceptionMessage = exception.getMessage();
+            Pattern valueFlexExpr = Pattern.compile("value '\\$\\{.*\\}'");
+            Matcher matcher = valueFlexExpr.matcher(exceptionMessage.toLowerCase());
+            if (localResolver.hasDTD() && !matcher.find()) {
                 Debug.logError("XmlFileLoader: File "
                     + docDescription
                     + " process error. Line: "
                     + String.valueOf(exception.getLineNumber())
                     + ". Error message: "
-                    + exception.getMessage(), module
+                    + exceptionMessage, module
                 );
             }
         }
