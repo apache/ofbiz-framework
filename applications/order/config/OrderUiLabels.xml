@@ -7477,7 +7477,7 @@
     </property>
     <property key="OrderReturnCannotBeChanged">
         <value xml:lang="en">This cannot be changed without re-creating the Return.</value>
-        <value xml:lang="fr">Changement impossible sans recréation du retout</value>
+        <value xml:lang="fr">Changement impossible sans recréation du retour</value>
         <value xml:lang="it">Questo non può essere modificato senza ri-creare il reso.</value>
     </property>
     <property key="OrderReturnCannotBeFound">
@@ -7665,6 +7665,7 @@
     </property>
     <property key="OrderReturnNecessaryReceiveInventoryMessage">
         <value xml:lang="en">If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.</value>
+        <value xml:lang="fr">Si positif (Y) alors le retour sera automatiquement terminée dès qu'accepté (laissant de coté le status reçu)</value>
         <value xml:lang="it">Se questo è a Y all i resi saranno automaticamente completati quando verrà accettato, saltando il processo e gli stati della ricezione.</value>
     </property>
     <property key="OrderReturnNeedsAutoReceive">
