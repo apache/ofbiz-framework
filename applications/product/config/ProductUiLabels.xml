@@ -14056,7 +14056,7 @@
         <value xml:lang="de">Einfache Felder übersteuern</value>
         <value xml:lang="en">Override Simple Fields</value>
         <value xml:lang="es">Reemplazar campos simples</value>
-        <value xml:lang="fr">Mise à jour des champs descriptifs de la fiche article</value>
+        <value xml:lang="fr">Mise à jour des champs descriptifs de la fiche article (à supprimer si vous voulez utiliser "alternate locale", autrement dit traduire)</value>
         <value xml:lang="it">Sovrapponi Campi Semplici</value>
         <value xml:lang="ro">Suprapune Campuri Simple </value>
         <value xml:lang="ru">Заменить простые поля</value>
