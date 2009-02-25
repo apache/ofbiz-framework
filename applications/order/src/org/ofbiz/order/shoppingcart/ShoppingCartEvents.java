@@ -237,6 +237,9 @@ public class ShoppingCartEvents {
                 request.setAttribute("product_id", productId);
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.configureProductBeforeAddingToCart", locale));
                 return "product";
+            } else {
+                // load the Config Id
+                ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             }
         }
         

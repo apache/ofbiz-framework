@@ -63,7 +63,7 @@ under the License.
             </#list>
             <tr>
               <td colspan="3" align="right">
-                <div><b>${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
+                <div><b>${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
               </td>
             </tr>
           </table>

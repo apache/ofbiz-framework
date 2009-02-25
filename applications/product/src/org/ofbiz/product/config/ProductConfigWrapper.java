@@ -745,7 +745,9 @@ public class ProductConfigWrapper implements Serializable {
                 return false;
             }
             ConfigOption co = (ConfigOption)obj;
-            // TODO: we should compare also the GenericValues
+            if (componentOptions != null && !componentOptions.equals(co.getComponentOptions())) {
+                return false;
+            }
             
             return isSelected() == co.isSelected();
         }
