@@ -220,19 +220,19 @@ under the License.
                 <sort-field name="productId"/>
                 <sort-field name="productTypeId"/>
             </field-group>
-            <field-group title="${uiLabelMap.ProductVirtualFieldGroup}" collapsible="true">
+            <field-group title="${uiLabelMap.ProductWordingAndComment}" collapsible="true">
+                <sort-field name="internalName"/>
+                <sort-field name="brandName"/>
+                <sort-field name="manufacturerPartyId"/>
+                <sort-field name="comments"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductVirtualFieldGroup}" collapsible="true" initially-collapsed="true">
                 <sort-field name="isVirtual"/>
                 <sort-field name="isVariant"/>
                 <sort-field name="virtualVariantMethodEnum"/>
             </field-group>
             <field-group title="${uiLabelMap.ProductPrimaryCategory}" collapsible="true" initially-collapsed="true">
                 <sort-field name="primaryProductCategoryId"/>                
-            </field-group>
-            <field-group title="${uiLabelMap.ProductWordingAndComment}" collapsible="true" initially-collapsed="true">
-                <sort-field name="internalName"/>
-                <sort-field name="brandName"/>
-                <sort-field name="manufacturerPartyId"/>
-                <sort-field name="comments"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonDates}" collapsible="true" initially-collapsed="true">
                 <sort-field name="introductionDate"/>
