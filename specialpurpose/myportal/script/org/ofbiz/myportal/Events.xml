@@ -117,7 +117,6 @@ under the License.
         <entity-condition list="commEvents" entity-name="CommunicationEvent"/>
         <set field="count" value="0" type="Integer"/>
         <iterate entry="commEvent" list="commEvents">
-            <log level="always" message="====processing: ${commEvent.communicationEventId}"/>
             <get-related value-field="commEvent" relation-name="CommunicationEventRole"
                 list="roles"/>
             <if-empty field="roles">
@@ -167,7 +166,6 @@ under the License.
                 </calculate>
             </if-empty>
         </iterate>
-        <log level="always" message="========${count} records updated"/>
     </simple-method>
 
     <simple-method method-name="getToNextDonePage"
@@ -315,7 +313,6 @@ under the License.
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
         <call-bsh><![CDATA[
-            parameters.put("captchaCode",org.ofbiz.common.Captcha.ID_KEY);
             org.ofbiz.common.Captcha.getCodeCaptcha(request,response);
             ]]></call-bsh>
         <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="FirstName_Missing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>

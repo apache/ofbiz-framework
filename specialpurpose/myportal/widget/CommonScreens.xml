@@ -180,7 +180,6 @@ under the License.
                             </actions>
                             <widgets>
                                 <label style="h2" text="${uiLabelMap.RegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
-                                <label style="h2" text="&lt;br&gt;&lt;br&gt;"/>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}">
                                     <include-form name="ViewPartyPerson" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </screenlet> 
@@ -196,6 +195,7 @@ under the License.
                                         <section>
                                             <actions>
                                                 <set field="fileName" from-field="parameters.fileName"/>
+                                                <set field="idKey" from-field="parameters.ID_KEY"/>
                                             </actions>
                                             <widgets>
                                                 <include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>
