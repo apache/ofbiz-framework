@@ -102,15 +102,19 @@ under the License.
             <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>"/></a>
           </#if>
         </li>
-        <li>
-          <#if person?has_content>
-            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-          <#elseif partyGroup?has_content>
-            ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-          <#else>
-            ${uiLabelMap.CommonWelcome}!
-          </#if>
-        </li>
+        <#if layoutSettings.topLines?has_content>
+            <#list layoutSettings.topLines as topLine>
+              <li>
+              <#if topLine.text?exists>
+                ${topLine.text}<a href="<@ofbizUrl>${topLine.url?if_exists}</@ofbizUrl>">${topLine.urlText?if_exists}</a> 
+              <#else>
+                ${topLine?if_exists}
+              </#if>
+              </li>
+            </#list>
+        <#else>
+           <li>sss${userLogin.userLoginId}</li>
+        </#if>
         <li class="control-area">
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
@@ -131,20 +135,22 @@ under the License.
         <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
           <#if userLogin?exists>
             <p class="expanded">
-              <#if person?has_content>
-                ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists}
-              <#elseif partyGroup?has_content>
-                ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists}
-              </#if>
-              [${userLogin.userLoginId}]
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
               <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
             </p>
-            <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
+            <#if layoutSettings.topLines?has_content>
+              <#list layoutSettings.topLines as topLine>
+              <#if topLine.text?exists>
+                <p>${topLine.text}<a href="${topLine.url?if_exists}&externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p> 
+              <#else>
+                <p>${topLine?if_exists}</p>
+              </#if>
+              </#list>
+            <#else>
+              <p>${userLogin.userLoginId}</p>
+            </#if>
           <#else/>
-            <p>
-            ${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a>
-            </p>
+            <p>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></p>
           </#if>
           <ul id="preferences-menu">
             <!-- <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li> -->

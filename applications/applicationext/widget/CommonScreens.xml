@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="ApplicationDecorator">
+        <section>
+            <actions>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                </entity-one>
+                <property-to-field resource="general" property="defaultOrganizationPartyId" field="defaultOrganizationPartyIdProperties"/>
+                <set field="defaultOrganizationPartyId" value="${bsh:&quot;DEFAULT&quot;.equals(userPreferences.get(&quot;ORGANIZATION_PARTY&quot;))?defaultOrganizationPartyIdProperties:userPreferences.get(&quot;ORGANIZATION_PARTY&quot;)}" global="true"/>
+                <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
+                <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
+                    <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                </entity-one>
+                <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="defaultCurrencyUomId" global="true"/>
+                <set field="defaultOrganizationPartyGroupName" from-field="orgParty.groupName" global="true"/>
+                <set field="line.text" value="${uiLabelMap.CommonWelcome} ${person.firstName} ${person.middleName} ${person.lastName}"/>
+                <set field="line.urlText" value="[${userLogin.userLoginId}]"/>
+                <set field="line.url" value="/partymgr/control/viewprofile?partyId=${userLogin.partyId}"/>
+                <set field="layoutSettings.topLines[]" from-field="line" global="true"/>
+                <set field="layoutSettings.topLines[]" value="${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName} [${defaultOrganizationPartyId}]" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+</screens>

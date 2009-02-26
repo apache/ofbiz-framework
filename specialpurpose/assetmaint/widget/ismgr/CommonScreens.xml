@@ -41,7 +41,7 @@ under the License.
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
             </actions>
             <widgets>
-                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+                <include-screen name="ApplicationDecorator" location="component://applicationext/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
