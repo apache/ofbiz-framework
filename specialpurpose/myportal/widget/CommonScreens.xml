@@ -40,13 +40,10 @@ under the License.
                 <set field="applicationMenuLocation" value="component://myportal/widget/MyPortalMenus.xml" global="true"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
-                <entity-one entity-name="PartyNameView" value-field="partyNameView">
-                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
-                </entity-one>
                 <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
             </actions>
             <widgets>
-                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+                <include-screen name="ApplicationDecorator" location="component://applicationext/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
