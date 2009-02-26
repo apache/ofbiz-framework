@@ -24,12 +24,15 @@ package org.ofbiz.common;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.ofbiz.base.util.UtilHttp;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class Captcha {
 
@@ -140,8 +143,6 @@ public class Captcha {
     
     public static void writeImage(BufferedImage image, HttpServletRequest request)
     {
-        String fileName = UtilHttp.getSessionId(request).substring(0,6);
-        fileName += "_"+UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."));
         try {
             CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
             CAPTCHA_FILE_PATH += File.separator + "runtime" + File.separator + "tempfiles";
@@ -150,12 +151,16 @@ public class Captcha {
             if (!test.exists()) {
                 test.mkdir();
             }
-            CAPTCHA_FILE_PATH += fileName + ".png";
-            CAPTCHA_FILE_NAME = fileName + ".png";
+            CAPTCHA_FILE_NAME =  UtilHttp.getSessionId(request).substring(0,6);
+            CAPTCHA_FILE_NAME += UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."))+"_";
+        	Date date = new Date();
+        	CAPTCHA_FILE_NAME += date.toString()+".jpg";
+            CAPTCHA_FILE_PATH += CAPTCHA_FILE_NAME;
             request.setAttribute("fileName", CAPTCHA_FILE_NAME);
+            request.setAttribute("ID_KEY", ID_KEY);
             System.out.println("\n\nPath =  "+CAPTCHA_FILE_PATH+"\n");
             System.out.println("Captcha Key =  "+ID_KEY+"\n\n");
-            ImageIO.write(image, "png", new File( CAPTCHA_FILE_PATH ));
+            ImageIO.write(image, "jpg", new File( CAPTCHA_FILE_PATH ));
         } catch (IOException e) {
             return;
         }
