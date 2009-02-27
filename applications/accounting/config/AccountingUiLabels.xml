@@ -451,6 +451,7 @@
     </property>
     <property key="AccountingAgreementItemSeqId">
         <value xml:lang="ar">رمز التسلسلي لبند إتفاق</value>
+        <value xml:lang="de">Vereinbarungs-Positions-Nr.</value>
         <value xml:lang="en">Agreement Item Seq Id</value>
         <value xml:lang="es">Id elemento secuencia de acuerdo</value>
         <value xml:lang="fr">No séq. de l'article de l'accord</value>
@@ -480,6 +481,7 @@
     </property>
     <property key="AccountingAgreementItemTypeId">
         <value xml:lang="ar">رمز نوع بند إتفاق</value>
+        <value xml:lang="de">Vereinbarungs-Positions-Art</value>
         <value xml:lang="en">Agreement Item Type Id</value>
         <value xml:lang="es">Id tipo de elemento de acuerdo</value>
         <value xml:lang="fr">Type d'article de l'accord</value>
@@ -492,6 +494,7 @@
     </property>
     <property key="AccountingAgreementItems">
         <value xml:lang="ar">بنود إتفاق</value>
+        <value xml:lang="de">Vereinbarungs-Positionen</value>
         <value xml:lang="en">Agreement Items</value>
         <value xml:lang="es">Elementos de acuerdo</value>
         <value xml:lang="fr">Articles de l'accord</value>
@@ -504,6 +507,7 @@
     </property>
     <property key="AccountingAgreementPromoAppls">
         <value xml:lang="ar">ترقيات</value>
+        <value xml:lang="de">Promotionen</value>
         <value xml:lang="en">Promotions</value>
         <value xml:lang="es">Promociones</value>
         <value xml:lang="fr">Promotions</value>
@@ -515,12 +519,14 @@
         <value xml:lang="zh">促销</value>
     </property>
     <property key="AccountingAgreementRoles">
+        <value xml:lang="de">Vereinbarungs-Rollen</value>
         <value xml:lang="en">Agreement Roles</value>
         <value xml:lang="fr">Rôles d'accords commerciaux</value>
         <value xml:lang="it">Ruoli Contratto</value>
     </property>
     <property key="AccountingAgreementTermId">
         <value xml:lang="ar">رمز بند إتفاق</value>
+        <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Agreement Term Id</value>
         <value xml:lang="es">Id término de acuerdo</value>
         <value xml:lang="fr">Réf. du terme de l'accord</value>
@@ -533,6 +539,7 @@
     </property>
     <property key="AccountingAgreementTerms">
         <value xml:lang="ar">بنود إتفاق</value>
+        <value xml:lang="de">Vereinbarungs-Konditionen</value>
         <value xml:lang="en">Agreement Terms</value>
         <value xml:lang="es">Términos de acuerdo</value>
         <value xml:lang="fr">Articles de l'accord</value>
@@ -601,6 +608,7 @@
     </property>
     <property key="AccountingAmountApplied">
         <value xml:lang="ar">مبلغ مطبق</value>
+        <value xml:lang="de">Angewandter Betrag</value>
         <value xml:lang="en">Amount Applied </value>
         <value xml:lang="es">Cantidad aplicada</value>
         <value xml:lang="fr">Montant alloué</value>
@@ -613,6 +621,7 @@
     </property>
     <property key="AccountingAmountNotApplied">
         <value xml:lang="ar">مبلغ لم يطبق بعد</value>
+        <value xml:lang="de">Noch nicht angewandter Betrag</value>
         <value xml:lang="en">Amount not yet applied</value>
         <value xml:lang="es">Cantidad aún no aplicada</value>
         <value xml:lang="fr">Montant non encore alloué</value>
@@ -639,6 +648,7 @@
     </property>
     <property key="AccountingAnyInvoiceStatus">
         <value xml:lang="ar">أي وضعية للفاتورة</value>
+        <value xml:lang="de">Beliebiger Rechnungstatus</value>
         <value xml:lang="en">Any Invoice Status</value>
         <value xml:lang="es">Cualquier status de factura</value>
         <value xml:lang="fr">Tous statuts de facture</value>
@@ -653,6 +663,7 @@
     </property>
     <property key="AccountingAnyPaymentMethod">
         <value xml:lang="ar">أي طريقة تسديد</value>
+        <value xml:lang="de">Beliebige Zahlungsart</value>
         <value xml:lang="en">Any Payment Method</value>
         <value xml:lang="es">Cualquier método de pago</value>
         <value xml:lang="fr">Toutes méthode de paiement</value>
@@ -665,6 +676,7 @@
     </property>
     <property key="AccountingAnyPaymentStatus">
         <value xml:lang="ar">أي وضعية تسديد</value>
+        <value xml:lang="de">Beliebiger Zahlungs-Status</value>
         <value xml:lang="en">Any Payment Status</value>
         <value xml:lang="es">Cualquier status de pago</value>
         <value xml:lang="fr">Tous statuts de paiement</value>
@@ -676,25 +688,28 @@
         <value xml:lang="zh">任一支付状态</value>
     </property>
     <property key="AccountingAp">
+        <value xml:lang="de">Hauptseite Kreditorenbuchhaltung</value>
         <value xml:lang="en">Main Page Account Payable</value>
         <value xml:lang="fr">Compte fournisseur</value>
         <value xml:lang="it">Pagina principale conto debitori</value>
         <value xml:lang="nl">Crediteuren</value>
     </property>
     <property key="AccountingApCompanyName">
+        <value xml:lang="de">OFBiz: Kreditorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AP Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
         <value xml:lang="it">OFBiz: Gestione conti debitori</value>
         <value xml:lang="nl">OFBiz: Credit Manager</value>
     </property>
     <property key="AccountingApManagerApplication">
-        <value xml:lang="de">Forderungsverwaltung</value>
+        <value xml:lang="de">Kreditorenbuchhaltung</value>
         <value xml:lang="en">Account Payable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes fourn.</value>
         <value xml:lang="it">Applicazione gestione conto debitori</value>
         <value xml:lang="nl">Credit Manager applicatie</value>
     </property>
     <property key="AccountingApPageTitleEditVendor">
+        <value xml:lang="de">Lieferant bearbeiten</value>
         <value xml:lang="en">Edit Vendor</value>
         <value xml:lang="fr">Modifier le vendeur</value>
         <value xml:lang="it">Aggiorna fornitore</value>
@@ -714,12 +729,14 @@
         <value xml:lang="nl">Vind verkopende relaties</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
+        <value xml:lang="de">Lieferanten auflisten</value>
         <value xml:lang="en">List Vendors</value>
         <value xml:lang="fr">Liste des vendeurs</value>
         <value xml:lang="it">Lista fornitori</value>
         <value xml:lang="nl">Toon verkopende relaties</value>
     </property>
     <property key="AccountingApplicationSuccess">
+        <value xml:lang="de">${amountApplied?currency(${isoCode})} von Zahlung [${paymentId}] to ${toMessage} zugewiesen</value>
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
         <value xml:lang="fr">Allouer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
@@ -732,6 +749,7 @@
     </property>
     <property key="AccountingApplicationToBillingAccount">
         <value xml:lang="ar">إلى حساب الفوترة [${billingAccountId}]</value>
+        <value xml:lang="de">zu Rechnungskonto [${billingAccountId}]</value>
         <value xml:lang="en">to billing account [${billingAccountId}]</value>
         <value xml:lang="es">a cuenta de facturación [${billingAccountId}]</value>
         <value xml:lang="fr">au compte de facturation [${billingAccountId}]</value>
@@ -744,6 +762,7 @@
     </property>
     <property key="AccountingApplicationToInvoice">
         <value xml:lang="ar">إلى الفاتورة [${invoiceId}]</value>
+        <value xml:lang="de">zu Rechnung [${billingAccountId}]</value>
         <value xml:lang="en">to invoice [${invoiceId}]</value>
         <value xml:lang="es">a factura [${invoiceId}]</value>
         <value xml:lang="fr">à la facture [${invoiceId}]</value>
@@ -755,6 +774,7 @@
         <value xml:lang="zh">到发票[${invoiceId}]</value>
     </property>
     <property key="AccountingApplicationToInvoiceItem">
+        <value xml:lang="de">zu Rechnung [${paymentApplication.invoiceId}], Position [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="en">to invoice [${paymentApplication.invoiceId}] Item [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="es">a factura [${paymentApplication.invoiceId}] Elemento [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="fr">à la ligne [${paymentApplication.invoiceItemSeqId}] de la facture  [${paymentApplication.invoiceId}]</value>
@@ -767,6 +787,7 @@
     </property>
     <property key="AccountingApplicationToPayment">
         <value xml:lang="ar">إلى التسديد [${paymentId}]</value>
+        <value xml:lang="de">zu Zahlung [${paymentId}]</value>
         <value xml:lang="en">to payment [${paymentId}]</value>
         <value xml:lang="es">a pago [${paymentId}]</value>
         <value xml:lang="fr">au paiement [${paymentId}]</value>
@@ -779,6 +800,7 @@
     </property>
     <property key="AccountingApplicationToTax">
         <value xml:lang="ar">إلى منطقة السلطة الضريبية [${taxAuthGeoId}]</value>
+        <value xml:lang="de">zu Steuerbehördengebiet [${taxAuthGeoId}]</value>
         <value xml:lang="en">to Tax Authority area [${taxAuthGeoId}]</value>
         <value xml:lang="es">a área de Autoridad Fiscal [${taxAuthGeoId}]</value>
         <value xml:lang="fr">à la zone de taxation [${taxAuthGeoId}]</value>
@@ -791,6 +813,7 @@
     </property>
     <property key="AccountingApplications">
         <value xml:lang="ar">تطبيقات</value>
+        <value xml:lang="de">Zuweisungenen</value>
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
         <value xml:lang="fr">Allocations</value>
@@ -803,6 +826,7 @@
     </property>
     <property key="AccountingAppliedPayments">
         <value xml:lang="ar">تسديدات مطبقة</value>
+        <value xml:lang="de">Zugewiesene Zahlungen</value>
         <value xml:lang="en">Applied Payments</value>
         <value xml:lang="es">Pagos aplicados</value>
         <value xml:lang="fr">Paiements alloués</value>
@@ -815,6 +839,7 @@
     </property>
     <property key="AccountingApplyPaymentoTo">
         <value xml:lang="ar">تطبيق هذا التسديد على</value>
+        <value xml:lang="de">Weise Zahlungen zu</value>
         <value xml:lang="en">Apply this payment to</value>
         <value xml:lang="es">Aplicar este pago a</value>
         <value xml:lang="fr">Allouer ce paiement à</value>
@@ -835,6 +860,7 @@
     </property>
     <property key="AccountingApplyToInvoiceItems">
         <value xml:lang="ar">تطبيق على بنود الفاتورة</value>
+        <value xml:lang="de">Rechnungspositionen zuweisen</value>
         <value xml:lang="en">Apply to Invoice Items</value>
         <value xml:lang="es">Aplicar para facturar elementos</value>
         <value xml:lang="fr">Allouer à des lignes de facturation</value>
@@ -846,24 +872,27 @@
         <value xml:lang="zh">支付的发票明细</value>
     </property>
     <property key="AccountingAr">
+        <value xml:lang="de">Hauptseite Debitorenbuchhaltung</value>
         <value xml:lang="en">Main Page Account Receivable</value>
         <value xml:lang="fr">Page d'accueil de la comptabilité client</value>
         <value xml:lang="it">Pagina principale conto creditori</value>
     </property>
     <property key="AccountingArCompanyName">
+        <value xml:lang="de">OFBiz: Debitorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
         <value xml:lang="it">OFBiz: Gestione conto creditori</value>
         <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
     </property>
     <property key="AccountingArManagerApplication">
-        <value xml:lang="de">Forderungs-Manager</value>
+        <value xml:lang="de">Debitorenbuchhaltung</value>
         <value xml:lang="en">Account Receivable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes clients</value>
         <value xml:lang="it">Applicazione gestione conto creditore</value>
         <value xml:lang="nl">Debiteuren Manager toepassing</value>
     </property>
     <property key="AccountingArPageTitleListReports">
+        <value xml:lang="de">Berichte auflisten</value>
         <value xml:lang="en">List Reports</value>
         <value xml:lang="fr">Liste des rapports</value>
         <value xml:lang="it">Lista reports</value>
@@ -871,6 +900,7 @@
     </property>
     <property key="AccountingAritmeticPropertiesNotConfigured">
         <value xml:lang="ar">الخاصيات الحسابية لخدمات الفاتورة ليست مرتبة بطريقة ملائمة. لا يمكن المضي قدما.</value>
+        <value xml:lang="de">Die arithmetischen Einstellungen für die Rechnungs-Services sind nicht richtig konfiguriert. Die Verarbeitung kann nicht fortgesetzt werden.</value>
         <value xml:lang="en">Arithmetic properties for Invoice services not configured properly. Cannot proceed.</value>
         <value xml:lang="es">Propiedades aritméticas para factura de servicios no configurada apropiadamente. No es posible proceder.</value>
         <value xml:lang="fr">Les propriétés arithmétiques des services de facturation ne sont pas configurées convenablement. Transaction abandonnée.</value>
@@ -883,6 +913,7 @@
     </property>
     <property key="AccountingAssets">
         <value xml:lang="ar">الأصول</value>
+        <value xml:lang="de">Aktiva</value>
         <value xml:lang="en">Assets</value>
         <value xml:lang="es">Activos</value>
         <value xml:lang="fr">Actifs</value>
@@ -895,6 +926,7 @@
     </property>
     <property key="AccountingAssignPaymentToInvoice">
         <value xml:lang="ar">تعيين التسديد إلى هذه الفاتورة</value>
+        <value xml:lang="de">Zahlung zu dieser Rechnung zuweisen</value>
         <value xml:lang="en">Assign Payment to This Invoice</value>
         <value xml:lang="es">Asignar pago a esta factura</value>
         <value xml:lang="fr">Allouer le paiement à cette facture</value>
