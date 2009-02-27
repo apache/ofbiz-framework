@@ -129,8 +129,15 @@ public class RequestHandler implements Serializable {
         String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
         
         String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
-        
-        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(defaultRequestUri);
+		ConfigXMLReader.RequestMap requestMap = null;
+		if (defaultRequestUri != null) {
+			requestMap = controllerConfig.requestMapMap.get(defaultRequestUri);
+		}
+        // check for default request
+        if (requestMap == null) {
+        	requestMap = controllerConfig.requestMapMap.get(controllerConfig.defaultRequest);
+        }
+        // still not found so stop
         if (requestMap == null) {
             throw new RequestHandlerException(requestMissingErrorMessage);
         }
