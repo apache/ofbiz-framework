@@ -253,6 +253,7 @@ under the License.
     </entity>
     <entity entity-name="OrderBlacklistType"
             package-name="org.ofbiz.order.order"
+            default-resource-name="OrderEntityLabels"
             title="Order Blacklist Type Entity">
       <field name="orderBlacklistTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -912,6 +913,7 @@ under the License.
     </entity>
     <entity entity-name="OrderItemType"
             package-name="org.ofbiz.order.order"
+            default-resource-name="OrderEntityLabels"
             title="Order Item Type Entity">
       <field name="orderItemTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -1276,6 +1278,7 @@ under the License.
     </entity>
     <entity entity-name="OrderContentType"
             package-name="org.ofbiz.order.order"
+            default-resource-name="OrderEntityLabels"
             title="Order Content Type Entity">
       <field name="orderContentTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
