@@ -17,10 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet-body">
-  <#if parameters.searchLabels?exists>
-    <a href="<@ofbizUrl>UpdateLabel</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerAddNew}</a>
-    <a href="<@ofbizUrl>SaveLabelsToXmlFile?labelFileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
-  </#if>
+  <a href="<@ofbizUrl>UpdateLabel?fileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerAddNew}</a>
+  <a href="<@ofbizUrl>SaveLabelsToXmlFile?labelFileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
@@ -55,6 +53,12 @@ under the License.
       <#assign previousKey = "">
       <#list labelsList as labelList>
         <#assign label = labels.get(labelList)>
+        <#assign labelKey = label.labelKey>
+        <#assign referenceNum = 0>
+        <#assign reference = references.get(labelKey)?if_exists>
+        <#if reference?exists && reference?has_content>
+          <#assign referenceNum = reference.size()>
+        </#if>
         <#assign showLabel = true>
         <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y" &&
              parameters.labelLocaleName?exists && parameters.labelLocaleName != "">
@@ -66,6 +70,9 @@ under the License.
             </#if>
           </#if>
         </#if>
+        <#if showLabel && parameters.onlyNotUsedLabels?exists && parameters.onlyNotUsedLabels == "Y" && (referenceNum > 0)>
+            <#assign showLabel = false>
+        </#if>
         <#if showLabel && parameters.labelKey?exists && parameters.labelKey != "" && parameters.labelKey != label.labelKey>
           <#assign showLabel = false>
         </#if>
@@ -76,16 +83,10 @@ under the License.
           <#assign showLabel = false>
         </#if>
         <#if showLabel == true>
-          <#assign labelKey = label.labelKey>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
             <td>${rowNumber}</td>
             <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
-            <#assign referenceNum = 0>
-            <#assign reference = references.get(labelKey)?if_exists>
-            <#if reference?exists && reference?has_content>
-                 <#assign referenceNum = reference.size()>
-            </#if>
             <td align="center"><#if (referenceNum > 0)><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}</@ofbizUrl>">${referenceNum}</a><#else>${referenceNum}</#if></td>
             <#list localesFound as localeFound>
               <#assign labelVal = label.getLabelValue(localeFound)?if_exists>

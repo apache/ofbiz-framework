@@ -194,6 +194,10 @@
         <value xml:lang="it">Importa i Dati da XML Readers</value>
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
     </property>
+    <property key="PageTitleEntityEoModelBundle">
+        <value xml:lang="en">Entity Eo Model Bundle</value>
+        <value xml:lang="it">Entità Eo Model Bundle</value>
+    </property>
     <property key="PageTitleEntitySQLProcessor">
         <value xml:lang="en">Entity SQL Processor</value>
         <value xml:lang="fr">Processeur d'entités SQL</value>
@@ -1501,6 +1505,10 @@
         <value xml:lang="en">The label ${key} is already existing in file ${fileName}</value>
         <value xml:lang="fr">La traduction ${key} existe déjà dans le fichier ${fileName}</value>
         <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
+    </property>
+    <property key="WebtoolsLabelManagerOnlyNotUsedLabels">
+        <value xml:lang="en">Only Not Used Labels</value>
+        <value xml:lang="it">Solo traduzioni non usate</value>
     </property>
     <property key="WebtoolsLabelManagerOnlyMissingTranslations">
         <value xml:lang="en">Only Missing Translations</value>

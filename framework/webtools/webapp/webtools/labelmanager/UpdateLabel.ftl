@@ -30,7 +30,7 @@ under the License.
                         <input type="hidden" name="key" value="${parameters.sourceKey}">
                         <input type="hidden" name="update_label" value="Y">
                     <#else>
-                        <input type="text" name="key" size="70" value="${parameters.key?if_exists}">
+                        <input type="text" name="key" size="70">
                         <input type="hidden" name="update_label" value="N">
                     </#if>
                 </td>

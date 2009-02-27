@@ -19,6 +19,9 @@ under the License.
 <div class="screenlet-body">
     <table class="basic-table" cellspacing="3">
         <tr>
+            <td colspan="2"><b>${uiLabelMap.WebtoolsLabelManagerKey}</b> ${parameters.sourceKey?if_exists}</td>
+        </tr>
+        <tr>
             <td colspan="2"><b>${uiLabelMap.WebtoolsLabelManagerFileName}</b> ${parameters.fileName?if_exists}</td>
         </tr>
         <tr>

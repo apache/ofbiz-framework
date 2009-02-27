@@ -19,6 +19,14 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="SecurityGroup.description.ASSETMAINTADMIN">
+        <value xml:lang="en">Asset Maintenance Admin group, has all maintenance permissions.</value>
+        <value xml:lang="it">Gruppo permesso manutenzione cespiti, ha tutti i permessi di manutenzione.</value>
+    </property>
+    <property key="SecurityGroup.description.ASSETMAINTTECH">
+        <value xml:lang="en">Asset Maintenance Technician group, has view and update.</value>
+        <value xml:lang="it">Gruppo permesso manutenzione tecnica cespiti, ha i permessi di visualizzazione e aggiornamento.</value>
+    </property>
     <property key="SecurityGroup.description.BIZADMIN">
         <value xml:lang="en">Full Business Applications permission group, has all business app admin permissions, not technical permissions.</value>
         <value xml:lang="es">Permisos completos para las Aplicaciones de Negocio, no posee permisos técnicos.</value>
@@ -42,6 +50,10 @@
         <value xml:lang="ru">Группа 'Ограниченный администратор каталога', содержит ограниченные права на каталог.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบหมวดหมู่จำกัด, มีการอนุญาตหมวดหมู่จำกัด.</value>
     </property>
+    <property key="SecurityGroup.description.COMPDOCADMIN">
+        <value xml:lang="en">CompDoc admin group, all permissions.</value>
+        <value xml:lang="it">Gruppo permesso amministratore composizione documenti, ha tutti permessi di manutenzione.</value>
+    </property>
     <property key="SecurityGroup.description.CONTENT_USER">
         <value xml:lang="en">Content user group; all limited content permissions.</value>
         <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
@@ -63,6 +75,30 @@
         <value xml:lang="it">Gruppo amministratore completo, ha tutti i permessi.</value>
         <value xml:lang="ru">Группа 'Полный администратор', содержит все общие права.</value>
         <value xml:lang="th">Full Admin group, has all general permissions.</value>
+    </property>
+    <property key="SecurityGroup.description.MYPAGE_CUSTOMER">
+        <value xml:lang="en">Customer user of mypage, Limited access to own custRequests, and project</value>
+        <value xml:lang="it">Utente di mypage, accesso limitato al proprietario delle richieste cliente, e progetti</value>
+    </property>
+    <property key="SecurityGroup.description.MYPAGE_EMPL-NOEMAIL">
+        <value xml:lang="en">Employee user of mypage, Limited access to the projectmgr and comms, custReq, no email</value>
+        <value xml:lang="it">Utente impiegato di mypage, accesso limitato ai progetti e comunicazioni, richieste cliente, no email</value>
+    </property>
+    <property key="SecurityGroup.description.MYPAGE_EMPLOYEE">
+        <value xml:lang="en">Employee user of mypage, Limited access to the projectmgr, comms,custRequests</value>
+        <value xml:lang="it">Utente impiegato di mypage, accesso limitato ai progetti e comunicazioni, richieste cliente</value>
+    </property>
+    <property key="SecurityGroup.description.MYPORTAL_CUSTOMER">
+        <value xml:lang="en">Customer user of MYPORTAL, Limited access to own custRequests, and project</value>
+        <value xml:lang="it">Utente di myportal, accesso limitato al proprietario delle richieste cliente, e progetti</value>
+    </property>
+    <property key="SecurityGroup.description.MYPORTAL_EMPL-NOEML">
+        <value xml:lang="en">Employee user of MYPORTAL, Limited access to the projectmgr and comms, custReq, no email</value>
+        <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente, no email</value>
+    </property>
+    <property key="SecurityGroup.description.MYPORTAL_EMPLOYEE">
+        <value xml:lang="en">Employee user of myportal, Limited access to the projectmgr, comms,custRequests</value>
+        <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente</value>
     </property>
     <property key="SecurityGroup.description.ORDERADMIN">
         <value xml:lang="en">Order Admin group, has all order permissions.</value>
@@ -135,6 +171,14 @@
         <value xml:lang="it">Impiegato POS</value>
         <value xml:lang="ru">Служащий POS</value>
         <value xml:lang="th">พนักงาน ณ.จุดขาย</value>
+    </property>
+    <property key="SecurityGroup.description.PROJECTADMIN">
+        <value xml:lang="en">Project Admin group, has update access to own projects.</value>
+        <value xml:lang="it">Gruppo permesso amministrazione progetti, ha accesso in aggiornamento come proprietario progetti.</value>
+    </property>
+    <property key="SecurityGroup.description.PROJECTUSER">
+        <value xml:lang="en">Project User group, has read, task create/assign and timesheet create/update access to own projects.</value>
+        <value xml:lang="it">Gruppo permesso utente progetti, può leggere, creare/assegnare compiti e creare/aggiornare timbrature accedere ai propri progetti.</value>
     </property>
     <property key="SecurityGroup.description.SECURITYADMIN">
         <value xml:lang="en">Security Admin group, has all permissions to modify security settings in party manager.</value>
@@ -260,6 +304,10 @@
         <value xml:lang="ru">Операции просмотра в приложении Управление учетом.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการบัญชี</value>
     </property>
+    <property key="SecurityPermission.description.ACCTG_ATX_ADMIN">
+        <value xml:lang="en">ALL operations involving general ledger accounting transactions and entries.</value>
+        <value xml:lang="it">Tutte le operazioni che coinvolgono transazioni e voci di contabilità</value>
+    </property>
     <property key="SecurityPermission.description.ACCTG_ATX_CREATE">
         <value xml:lang="en">Create general ledger accounting transaction and entries.</value>
         <value xml:lang="es">Creación de transacciones y entradas de contabilidad de libro mayor.</value>
@@ -292,13 +340,21 @@
         <value xml:lang="ru">Обновление проводок и занесений главной книги.</value>
         <value xml:lang="th">อัพเดทรายการบัญชีแยกประเภททั่วไปและสิทธิในการเข้า</value>
     </property>
-    <property key="SecurityPermission.description.ACCTG_FX_ENTRY">
+    <property key="SecurityPermission.description.ACCTG_ATX_VIEW">
+        <value xml:lang="en">View general ledger accounting transaction and entries.</value>
+        <value xml:lang="it">Visualizzare le transazioni nella contabilità generale.</value>
+    </property>
+    <property key="SecurityPermission.description.ACCTG_FX_UPDATE">
         <value xml:lang="en">Set foreign exchange rates.</value>
         <value xml:lang="es">Establecer tasas de cambio de divisa.</value>
         <value xml:lang="fr">Fixer les taux de devises étrangères.</value>
         <value xml:lang="it">Impostare i valori cambio valuta.</value>
         <value xml:lang="ru">Устанавливать курсы иностранных валют.</value>
         <value xml:lang="th">กำหนดอัตราการปริวรรตเงินตรา</value>
+    </property>
+    <property key="SecurityPermission.description.ACCTG_PREF_ADMIN">
+        <value xml:lang="en">ALL organization accounting preferences operations</value>
+        <value xml:lang="it">Tutte le operazioni nelle preferenze di contabilità.</value>
     </property>
     <property key="SecurityPermission.description.ACCTG_PREF_CREATE">
         <value xml:lang="en">Set organization accounting preferences.</value>
@@ -307,6 +363,42 @@
         <value xml:lang="it">Impostare le preferenze di contabilità per l'organizzazione.</value>
         <value xml:lang="ru">Устанавливать учетные параметры организации.</value>
         <value xml:lang="th">กำหนดสิทธิพิเศษให้บัญชีขององค์กร</value>
+    </property>
+    <property key="SecurityPermission.description.ACCTG_PREF_DELETE">
+        <value xml:lang="en">Delete organization accounting preferences</value>
+        <value xml:lang="it">Operazioni di cancellazione nelle preferenze di contabilità.</value>
+    </property>
+    <property key="SecurityPermission.description.ACCTG_PREF_UPDATE">
+        <value xml:lang="en">Update organization accounting preferences</value>
+        <value xml:lang="it">Operazioni di aggiornamento nelle preferenze di contabilità.</value>
+    </property>
+    <property key="SecurityPermission.description.ACCTG_PREF_VIEW">
+        <value xml:lang="en">View organization accounting preferences</value>
+        <value xml:lang="it">Operazioni di visualizzazione nelle preferenze di contabilità.</value>
+    </property>
+    <property key="SecurityPermission.description.ARTIFACT_INFO_VIEW">
+        <value xml:lang="en">View the Artifact Info pages.</value>
+        <value xml:lang="it">Visualizzazione pagine informazioni artifatti.</value>
+    </property>
+    <property key="SecurityPermission.description.ASSETMAINT_ADMIN">
+        <value xml:lang="en">ALL Asset Maintenance operations.</value>
+        <value xml:lang="it">Tutte le operazioni per la gestione cespiti.</value>
+    </property>
+    <property key="SecurityPermission.description.ASSETMAINT_CREATE">
+        <value xml:lang="en">Asset Maintenance Create operations.</value>
+        <value xml:lang="it">Operazioni di creazione per la gestione cespiti.</value>
+    </property>
+    <property key="SecurityPermission.description.ASSETMAINT_DELETE">
+        <value xml:lang="en">Asset Maintenance Delete operations.</value>
+        <value xml:lang="it">Operazioni di cancellazione per la gestione cespiti.</value>
+    </property>
+    <property key="SecurityPermission.description.ASSETMAINT_UPDATE">
+        <value xml:lang="en">Asset Maintenance Update operations.</value>
+        <value xml:lang="it">Operazioni di aggiornamento per la gestione cespiti.</value>
+    </property>
+    <property key="SecurityPermission.description.ASSETMAINT_VIEW">
+        <value xml:lang="en">Asset Maintenance View permission.</value>
+        <value xml:lang="it">Operazioni di visualizzazione per la gestione cespiti.</value>
     </property>
     <property key="SecurityPermission.description.CATALOG_ADMIN">
         <value xml:lang="en">ALL operations in the Catalog Manager.</value>
@@ -339,6 +431,10 @@
         <value xml:lang="it">Permesso richiesto, in aggiunya agli altri permessi applicabili, per manutenere le informazioni sui prezzi prodotti, promozioni, e regole prezzi.</value>
         <value xml:lang="ru">Дополнительные права для редактирования ценовой информации, включая цены, акции и правила ценообразования.</value>
         <value xml:lang="th">ต้องการการอนุญาต, ในการเพิ่มถึงการอนุญาตการปฏิบัติอื่น ๆ, ถึงการรักษาราคาสินค้าข้อมูลการรวมราคา,โปรโมชัน,และข้อบังคับราคา</value>
+    </property>
+    <property key="SecurityPermission.description.CATALOG_PURCHASE_ALLOW">
+        <value xml:lang="en">Allow create/update of 'Purchase Allow' in the Catalog Manager.</value>
+        <value xml:lang="it">Permetti la creazione/aggiornamento di gestione cataloghi di 'Permetti acquisto'.</value>
     </property>
     <property key="SecurityPermission.description.CATALOG_ROLE_CREATE">
         <value xml:lang="en">Limited Create operations in the Catalog Manager.</value>
@@ -380,6 +476,26 @@
         <value xml:lang="ru">Операции просмотра в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการหมวดหมู่</value>
     </property>
+    <property key="SecurityPermission.description.CATALOG_VIEW_ALLOW">
+        <value xml:lang="en">Allow create/update of 'View Allow' in the Catalog Manager.</value>
+        <value xml:lang="it">Permetti la creazione/aggiornamento di gestione cataloghi di 'Visualizzazione permessa'.</value>
+    </property>
+    <property key="SecurityPermission.description.COMMON_CREATE">
+        <value xml:lang="en">Create operations in the Common Component.</value>
+        <value xml:lang="it">Operazioni di creazione nel componente Common.</value>
+    </property>
+    <property key="SecurityPermission.description.COMMON_DELETE">
+        <value xml:lang="en">Delete operations in the Common Component.</value>
+        <value xml:lang="it">Operazioni di cancellazione nel componente Common.</value>
+    </property>
+    <property key="SecurityPermission.description.COMMON_UPDATE">
+        <value xml:lang="en">Update operations in the Common Component.</value>
+        <value xml:lang="it">Operazioni di aggiornamento nel componente Common.</value>
+    </property>
+    <property key="SecurityPermission.description.COMMON_VIEW">
+        <value xml:lang="en">View operations in the Common Component.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nel componente Common.</value>
+    </property>
     <property key="SecurityPermission.description.CONTENTMGR_ADMIN">
         <value xml:lang="en">ALL operations in the Content Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Contenido.</value>
@@ -404,6 +520,22 @@
         <value xml:lang="ru">Операции удаления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การลบการทำงานในการจัดการหัวข้อ</value>
     </property>
+    <property key="SecurityPermission.description.CONTENTMGR_ROLE_CREATE">
+        <value xml:lang="en">Limited Create operations in the Content Manager.</value>
+        <value xml:lang="it">Operazioni limitate di creazione nella gestione contenuti.</value>
+    </property>
+    <property key="SecurityPermission.description.CONTENTMGR_ROLE_DELETE">
+        <value xml:lang="en">Limited Delete operations in the Content Manager.</value>
+        <value xml:lang="it">Operazioni limitate di cancellazione nella gestione contenuti.</value>
+    </property>
+    <property key="SecurityPermission.description.CONTENTMGR_ROLE_UPDATE">
+        <value xml:lang="en">Limited Update operations in the Content Manager.</value>
+        <value xml:lang="it">Operazioni limitate di aggiornamento nella gestione contenuti.</value>
+    </property>
+    <property key="SecurityPermission.description.CONTENTMGR_ROLE_VIEW">
+        <value xml:lang="en">Limited View operations in the Content Manager.</value>
+        <value xml:lang="it">Operazioni limitate di visualizzazione nella gestione contenuti.</value>
+    </property>
     <property key="SecurityPermission.description.CONTENTMGR_UPDATE">
         <value xml:lang="en">Update operations in the Content Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Contenido.</value>
@@ -427,6 +559,10 @@
         <value xml:lang="it">Usare le pagine di gestione file dati.</value>
         <value xml:lang="ru">Использование страниц Обслуживание файлов данных.</value>
         <value xml:lang="th">ใช้ไฟล์ข้อมูลในหน้าการบำรุงรักษา</value>
+    </property>
+    <property key="SecurityPermission.description.EBAY_VIEW">
+        <value xml:lang="en">View operations in the eBay application.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nell'applicazione eBay.</value>
     </property>
     <property key="SecurityPermission.description.ENTITY_DATA_ADMIN">
         <value xml:lang="en">ALL with the Entity Data Maintenance pages.</value>
@@ -476,6 +612,10 @@
         <value xml:lang="ru">Использование страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพเอนทิตี</value>
     </property>
+    <property key="SecurityPermission.description.ENTITY_SYNC_ADMIN">
+        <value xml:lang="en">Use the Entity Sync Admin pages.</value>
+        <value xml:lang="it">Usare le pagine di amministrazione sincronizzazione entità.</value>
+    </property>
     <property key="SecurityPermission.description.ENUM_STATUS_MAINT">
         <value xml:lang="en">Use the Enum and Status Maintenance pages.</value>
         <value xml:lang="es">Usar las páginas de Mantenimiento de Enumeraciones y Estados.</value>
@@ -483,6 +623,26 @@
         <value xml:lang="it">Pagine per gestire enumerazioni e stati.</value>
         <value xml:lang="ru">Использование страниц Обслуживание перечеслений и статусов.</value>
         <value xml:lang="th">Use the Enum and Status Maintenance pages.</value>
+    </property>
+    <property key="SecurityPermission.description.EXAMPLE_ADMIN">
+        <value xml:lang="en">ALL operations in the Example Management Screens.</value>
+        <value xml:lang="it">Tutte le operazioni di gestione esempi.</value>
+    </property>
+    <property key="SecurityPermission.description.EXAMPLE_CREATE">
+        <value xml:lang="en">Create operations in the Example Management Screens.</value>
+        <value xml:lang="it">Operazioni di creazione nella gestione esempi.</value>
+    </property>
+    <property key="SecurityPermission.description.EXAMPLE_DELETE">
+        <value xml:lang="en">Delete operations in the Example Management Screens.</value>
+        <value xml:lang="it">Operazioni di cancellazione nella gestione esempi.</value>
+    </property>
+    <property key="SecurityPermission.description.EXAMPLE_UPDATE">
+        <value xml:lang="en">Update operations in the Example Management Screens.</value>
+        <value xml:lang="it">Operazioni di aggiornamento nella gestione esempi.</value>
+    </property>
+    <property key="SecurityPermission.description.EXAMPLE_VIEW">
+        <value xml:lang="en">View operations in the Example Management Screens.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nella gestione esempi.</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_ADMIN">
         <value xml:lang="en">ALL operations in the Facility Manager.</value>
@@ -539,6 +699,30 @@
         <value xml:lang="it">Operazioni di visualizzazione nella gestione stabilimenti.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление объектами.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการคลังสินค้า</value>
+    </property>
+    <property key="SecurityPermission.description.GOOGLEBASE_VIEW">
+        <value xml:lang="en">View operations in the Google Base application.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nell'applicazione Google Base.</value>
+    </property>
+    <property key="SecurityPermission.description.HUMANRES_CREATE">
+        <value xml:lang="en">Create operations in the HumanRes Manager.</value>
+        <value xml:lang="it">Operazioni di creazione nella gestione risorse umane.</value>
+    </property>
+    <property key="SecurityPermission.description.HUMANRES_DELETE">
+        <value xml:lang="en">Delete operations in the HumanRes Manager.</value>
+        <value xml:lang="it">Operazioni di cancellazione nella gestione risorse umane.</value>
+    </property>
+    <property key="SecurityPermission.description.HUMANRES_UPDATE">
+        <value xml:lang="en">Update operations in the HumanRes Manager.</value>
+        <value xml:lang="it">Operazioni di aggiornamento nella gestione risorse umane.</value>
+    </property>
+    <property key="SecurityPermission.description.HUMANRES_VIEW">
+        <value xml:lang="en">View operations in the HumanRes Manager.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nella gestione risorse umane.</value>
+    </property>
+    <property key="SecurityPermission.description.LABEL_MANAGER_VIEW">
+        <value xml:lang="en">View the Labels Info pages.</value>
+        <value xml:lang="it">Visualizzazione pagine per gestione labels.</value>
     </property>
     <property key="SecurityPermission.description.MANUAL_PAYMENT">
         <value xml:lang="en">Manual Payment Transaction.</value>
@@ -643,6 +827,34 @@
         <value xml:lang="it">Operazioni di visualizzazione nella gestione vendite.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление маркетингом.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการการตลาด</value>
+    </property>
+    <property key="SecurityPermission.description.MYPAGE_CUSTOMER">
+        <value xml:lang="en">Use the customer screens in mypage.</value>
+        <value xml:lang="it">Usare la visualizzazione clienti in mypage.</value>
+    </property>
+    <property key="SecurityPermission.description.MYPAGE_EMPL-NOEMAIL">
+        <value xml:lang="en">Usage of the employee screens in mypage: projectmanager and internal notes.</value>
+        <value xml:lang="it">Usare la visualizzazione clienti in mypage: gestione progetti e note interne.</value>
+    </property>
+    <property key="SecurityPermission.description.MYPAGE_EMPLOYEE">
+        <value xml:lang="en">Use the employee screens in mypage.</value>
+        <value xml:lang="it">Usare la visualizzazione impiegati in mypage.</value>
+    </property>
+    <property key="SecurityPermission.description.MYPORTAL_CUSTOMER">
+        <value xml:lang="en">Use the customer screens in myportal.</value>
+        <value xml:lang="it">Usare la visualizzazione clienti in myportal.</value>
+    </property>
+    <property key="SecurityPermission.description.MYPORTAL_EMPL-NOEML">
+        <value xml:lang="en">Usage of the employee screens in myportal: projectmanager and internal notes.</value>
+        <value xml:lang="it">Usare la visualizzazione clienti in myportal: gestione progetti e note interne.</value>
+    </property>
+    <property key="SecurityPermission.description.MYPORTAL_EMPLOYEE">
+        <value xml:lang="en">Use the employee screens in myportal.</value>
+        <value xml:lang="it">Usare la visualizzazione impiegati in myportal.</value>
+    </property>
+    <property key="SecurityPermission.description.OAGIS_VIEW">
+        <value xml:lang="en">View operations in the Oagis application.</value>
+        <value xml:lang="it">Operazioni di visualizzazione nell'applicazione Oagis.</value>
     </property>
     <property key="SecurityPermission.description.OFBTOOLS_VIEW">
         <value xml:lang="en">Permission to access the Stock OFBiz Manager Applications.</value>
@@ -804,6 +1016,10 @@
         <value xml:lang="ru">Права на изменение цены в сбытовых заказах.</value>
         <value xml:lang="th">การอนุญาตการเปลี่ยนแปลงราคาสำหรับรายการขาย</value>
     </property>
+    <property key="SecurityPermission.description.ORDERMGR_SALES_UPDATE">
+        <value xml:lang="en">Update sales orders for all stores in the Order Manager.</value>
+        <value xml:lang="it">Permesso di aggiornamento ordini di vendita per tutti i negozi della gestione ordini.</value>
+    </property>
     <property key="SecurityPermission.description.ORDERMGR_SEND_CONFIRMATION">
         <value xml:lang="en">Send order confirmation notification.</value>
         <value xml:lang="es">Enviar notificación de confirmación de órden.</value>
@@ -835,6 +1051,22 @@
         <value xml:lang="it">Tutte le operazioni nella gestione soggetti.</value>
         <value xml:lang="ru">Все операции в приложении Управление участниками</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการกลุ่มผู้ใช้</value>
+    </property>
+    <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_CREATE">
+        <value xml:lang="en">Can create Email communication events for logged-in user.</value>
+        <value xml:lang="it">Può creare eventi comunicazione email per l'utente autenticato.</value>
+    </property>
+    <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_DELETE">
+        <value xml:lang="en">Can delete Email communication events for logged-in user.</value>
+        <value xml:lang="it">Può cancellare eventi comunicazione email per l'utente autenticato.</value>
+    </property>
+    <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_UPDATE">
+        <value xml:lang="en">Can update Email communication events for logged-in user.</value>
+        <value xml:lang="it">Può aggiornare eventi comunicazione email per l'utente autenticato.</value>
+    </property>
+    <property key="SecurityPermission.description.PARTYMGR_CME-NOTE_CREATE">
+        <value xml:lang="en">Can create Internal note communication event for logged-in user.</value>
+        <value xml:lang="it">Può creare note interne eventi comunicazione per l'utente autenticato.</value>
     </property>
     <property key="SecurityPermission.description.PARTYMGR_CME_CREATE">
         <value xml:lang="en">Create communication event.</value>
@@ -1092,6 +1324,46 @@
         <value xml:lang="ru">Использование страниц Обслуживание периода.</value>
         <value xml:lang="th">ใช้หน้าการรักษาช่วงเวลา</value>
     </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ADMIN">
+        <value xml:lang="en">ALL operations in the Project Manager.</value>
+        <value xml:lang="it">Tutte le operazioni nella gestione progetti.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_ADMIN">
+        <value xml:lang="en">All admin operations in the Project Manager for a project/phase/task the user is member of.</value>
+        <value xml:lang="it">Tutte le operazioni di amministrazione nella gestione progetti per un progetto/fase/compito di cui l'utente è membro.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_TASK_CREATE">
+        <value xml:lang="en">Be able to create a task (should be member of project)</value>
+        <value xml:lang="it">Essere autorizzato a creare un compito (dovrebbe essere membro del progetto)</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_TIMESHEET_CREATE">
+        <value xml:lang="en">Be able to create a weekly timesheet for the loginid.</value>
+        <value xml:lang="it">Essere autorizzato a creare una timbratura settimanale per l'utente autenticato.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_TIMESHEET_UPDATE">
+        <value xml:lang="en">Be able to update(report) on an existing own timesheet</value>
+        <value xml:lang="it">Essere autorizzato ad aggiornare una timbratura esistente</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_UPDATE">
+        <value xml:lang="en">Update operations in the Project Manager for a project/phase/task the user is member of.</value>
+        <value xml:lang="it">Operazioni di aggiornamento nella gestione progetti per un progetto/fase/compito ci cui l'utente è membro.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_ROLE_VIEW">
+        <value xml:lang="en">All view operations in the Project Manager for a project/phase/task the user is member of..</value>
+        <value xml:lang="it">Tutte le perazioni di visualizzazione nella gestione progetti per un progetto/fase/compito ci cui l'utente è membro.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_TIMESHEET_CREATE">
+        <value xml:lang="en">Be able to create any weekly timesheet.</value>
+        <value xml:lang="it">Essere autorizzato a creare qualiasi timbratura settimanale.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_TIMESHEET_UPDATE">
+        <value xml:lang="en">Be able to update any weekly timesheet.</value>
+        <value xml:lang="it">Essere autorizzato ad aggiornare qualiasi timbratura settimanale.</value>
+    </property>
+    <property key="SecurityPermission.description.PROJECTMGR_VIEW">
+        <value xml:lang="en">ALL View operations in the Project Manager(but can be limited by ROLE_VIEW)</value>
+        <value xml:lang="it">Tutte le operazioni di visualizzazione nella gestione progetti (ma può essere limitato a ROLE_VIEW)</value>
+    </property>
     <property key="SecurityPermission.description.SECURITY_ADMIN">
         <value xml:lang="en">ALL operations in the Security Management Screens.</value>
         <value xml:lang="es">TODAS las operaciones en las pantallas de Administración de Seguridad.</value>
@@ -1228,6 +1500,14 @@
         <value xml:lang="ru">Операции просмотра в Редакторе налоговых ставок.</value>
         <value xml:lang="th">แสดงการทำงานในการแก้ไขอัตราภาษี</value>
     </property>
+    <property key="SecurityPermission.description.TEMPEXPR_ADMIN">
+        <value xml:lang="en">Temporal expression admin</value>
+        <value xml:lang="it">Amministrazione espressioni temporali</value>
+    </property>
+    <property key="SecurityPermission.description.USERPREF_ADMIN">
+        <value xml:lang="en">User preferences admin</value>
+        <value xml:lang="it">Amministrazione preferenze utente</value>
+    </property>
     <property key="SecurityPermission.description.UTIL_CACHE_EDIT">
         <value xml:lang="en">Edit a UtilCache instance.</value>
         <value xml:lang="es">Editar una instancia de UtilCache.</value>
@@ -1260,6 +1540,22 @@
         <value xml:lang="ru">Просмотр экземпляра UtilDebug.</value>
         <value xml:lang="th">View a UtilDebug instance.</value>
     </property>
+    <property key="SecurityPermission.description.VISUALTHEME_ADMIN">
+        <value xml:lang="en">ALL operations on Visual Themes and Visual Theme Resources.</value>
+        <value xml:lang="it">Tutte le operazioni sui temi visuali e risorse dei temi visuali</value>
+    </property>
+    <property key="SecurityPermission.description.VISUALTHEME_CREATE">
+        <value xml:lang="en">Create Visual Themes and Visual Theme Resources.</value>
+        <value xml:lang="it">Creare temi visuali e risorse dei temi visuali</value>
+    </property>
+    <property key="SecurityPermission.description.VISUALTHEME_DELETE">
+        <value xml:lang="en">Delete Visual Themes and Visual Theme Resources.</value>
+        <value xml:lang="it">Cancella temi visuali e risorse dei temi visuali</value>
+    </property>
+    <property key="SecurityPermission.description.VISUALTHEME_UPDATE">
+        <value xml:lang="en">Update Visual Themes and Visual Theme Resources.</value>
+        <value xml:lang="it">Aggiorna temi visuali e risorse dei temi visuali</value>
+    </property>
     <property key="SecurityPermission.description.WEBTOOLS_VIEW">
         <value xml:lang="en">Permission to access the WebTools Menu.</value>
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
@@ -1291,6 +1587,22 @@
         <value xml:lang="it">Operazioni di cancellazione nella gestione impegni di lavoro.</value>
         <value xml:lang="ru">Операции удаления в приложении Организатор.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการความพยายามในการทำงาน</value>
+    </property>
+    <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_CREATE">
+        <value xml:lang="en">Limited Create operations in the Work Effort Manager.</value>
+        <value xml:lang="it">Operazioni limitate in creazione nelle gestione impegni di lavoro.</value>
+    </property>
+    <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_DELETE">
+        <value xml:lang="en">Limited Delete operations the Work Effort Manager.</value>
+        <value xml:lang="it">Operazioni limitate in cancellazione nelle gestione impegni di lavoro.</value>
+    </property>
+    <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_UPDATE">
+        <value xml:lang="en">Limited Update operations in the Work Effort Manager.</value>
+        <value xml:lang="it">Operazioni limitate in aggiornamento nelle gestione impegni di lavoro.</value>
+    </property>
+    <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_VIEW">
+        <value xml:lang="en">Limited View operations in the Work Effort Manager.</value>
+        <value xml:lang="it">Operazioni limitate in visualizzazione nelle gestione impegni di lavoro.</value>
     </property>
     <property key="SecurityPermission.description.WORKEFFORTMGR_UPDATE">
         <value xml:lang="en">Update operations in the Work Effort Manager.</value>
