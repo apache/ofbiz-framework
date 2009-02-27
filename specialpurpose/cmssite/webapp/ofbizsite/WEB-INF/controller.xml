@@ -47,11 +47,10 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
     </request-map>
-
-    <!-- Request Mappings  for a standard ofbiz starting using control/main , does work but disabled now-->
-    <!--request-map uri="main">
+    
+    <request-map uri="main">
         <security https="false" auth="false"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="request-redirect" value="cms"/>
     </request-map>
-    <view-map name="main" type="screen" page="component://cmssite/widget/OfbizsiteScreens.xml#main"/-->
+
 </site-conf>

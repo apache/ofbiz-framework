@@ -68,7 +68,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
-            <param-value>/cms</param-value>
+            <param-value>/cms/cms</param-value>
         </init-param>        
     </filter>
     <filter-mapping>
