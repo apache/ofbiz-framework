@@ -41,7 +41,7 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.AssetMaintApplication}"/>
             </actions>
             <widgets>
-                <include-screen name="ApplicationDecorator" location="component://applicationext/widget/CommonScreens.xml"/>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>

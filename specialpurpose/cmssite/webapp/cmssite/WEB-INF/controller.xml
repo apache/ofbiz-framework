@@ -38,7 +38,7 @@ under the License.
     </preprocessor>
 
     <!-- default request; call into CMS -->
-    <default-request request-uri="cms"/>
+    <!--default-request request-uri="cms"/-->
 
     <!-- Request Mappings -->
     <request-map uri="main">
