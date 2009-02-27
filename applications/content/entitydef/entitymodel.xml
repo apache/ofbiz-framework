@@ -150,6 +150,7 @@ under the License.
 
     <entity entity-name="Content"
             package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
             title="Content Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
@@ -412,6 +413,7 @@ under the License.
     </view-entity>
     <entity entity-name="ContentAssocPredicate"
             package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
             title="Content Association Predicate Entity">
       <field name="contentAssocPredicateId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -731,6 +733,7 @@ under the License.
     </entity>
     <entity entity-name="CharacterSet"
             package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
             title="Character Set Entity">
       <field name="characterSetId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
@@ -1093,6 +1096,7 @@ under the License.
     </entity>
     <entity entity-name="DocumentType"
             package-name="org.ofbiz.content.document"
+            default-resource-name="ContentEntityLabels"
             title="Document Type Entity">
       <field name="documentTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>

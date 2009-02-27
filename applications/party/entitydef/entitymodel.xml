@@ -1800,6 +1800,7 @@ under the License.
     </entity>
     <entity entity-name="PartyClassificationGroup"
             package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
             title="Party Classification Group Entity">
       <field name="partyClassificationGroupId" type="id-ne"></field>
       <field name="partyClassificationTypeId" type="id"></field>
