@@ -4538,6 +4538,8 @@ under the License.
       <alias-all entity-alias="SP"/>
       <alias-all entity-alias="PR">
         <exclude field="productId"/>
+        <exclude field="comments"/>
+        <exclude field="quantityUomId"/>
       </alias-all>
       <view-link entity-alias="SP" rel-entity-alias="PR">
         <key-map field-name="productId"/>
@@ -4598,7 +4600,10 @@ under the License.
     title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
     <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
     <member-entity entity-alias="PD" entity-name="Product"/>
-    <alias-all entity-alias="PDC"/>
+    <alias-all entity-alias="PDC">
+      <exclude field="description"/>
+      <exclude field="longDescription"/>
+    </alias-all>
     <alias-all entity-alias="PD"/>
     <view-link entity-alias="PDC" rel-entity-alias="PD">
       <key-map field-name="productId"/>
