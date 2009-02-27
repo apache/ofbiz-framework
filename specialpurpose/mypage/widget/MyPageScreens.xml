@@ -734,7 +734,7 @@ under the License.
                                 <if-empty field="projects"/>
                             </condition>
                             <widgets>
-                                <label style="h2" text="no projects found"></label>
+                                <label style="h2" text="${uiLabelMap.MyPageNoProjectsFound}"></label>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -553,7 +553,7 @@
                                 </actions>
                                 <widgets/>
                                 <fail-widgets>
-                                    <label text="&amp;nbsp;You must be logged in and viewing a published record in order to post comments."/>
+                                    <label text="${uiLabelMap.EcommerceBlogPostComments}"/>
                                 </fail-widgets>
                             </section>
                         </container>
@@ -609,7 +609,7 @@
                         </container>
                     </widgets>
                     <fail-widgets>
-                        <label text="&amp;nbsp;You must be logged in in order to edit comments."/>
+                        <label text="${uiLabelMap.EcommerceBlogEditComments}"/>
                     </fail-widgets>
                 </section>
             </widgets>

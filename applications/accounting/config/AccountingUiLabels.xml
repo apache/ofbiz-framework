@@ -6716,6 +6716,10 @@
         <value xml:lang="th">กลุ่มภาษี</value>
         <value xml:lang="zh">税务机关会员</value>
     </property>
+    <property key="AccountingTaxAuthorityRateProductUseCategoryTab">
+        <value xml:lang="en">Use the Categories tab to add other category options</value>
+        <value xml:lang="it">Usa il tab Categorie per aggiungere altre opzioni categoria</value>
+    </property>
     <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
         <value xml:lang="en">At least one Product Rate uses this Category</value>
         <value xml:lang="fr">Au moins un taux applicable aux produits utilise cette catégorie</value>

@@ -745,7 +745,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="rateAmount"  tooltip="override Default Rate amount"><text/></field>
+        <field name="rateAmount"  tooltip="${uiLabelMap.WorkEffortOverrideDefaultRateAmount}"><text/></field>
         <field name="rateCurrencyUomId" position="2">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">

@@ -991,6 +991,10 @@
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">计算方式</value>
     </property>
+    <property key="ProjectMgrRecreateInvoice">
+        <value xml:lang="en">re-create Invoice</value>
+        <value xml:lang="it">re-crea fattura</value>
+    </property>
     <property key="ProjectMgrRelease">
         <value xml:lang="en">Release</value>
         <value xml:lang="fr">Version</value>
