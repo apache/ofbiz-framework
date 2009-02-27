@@ -23,8 +23,6 @@ under the License.
     <screen name="ApplicationDecorator">
         <section>
             <actions>
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
-                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
                 <service service-name="getUserPreferenceGroup" result-map="prefResult">
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
