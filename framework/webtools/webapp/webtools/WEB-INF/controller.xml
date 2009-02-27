@@ -490,6 +490,13 @@ under the License.
         <response name="error" type="view" value="UpdateLabel"/>
     </request-map>
     
+    <request-map uri="UpdateAndSaveLabelKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="UpdateAndSaveLabelKey"/>
+        <response name="success" type="view" value="SearchLabels"/>
+        <response name="error" type="view" value="UpdateLabel"/>
+    </request-map>
+    
     <request-map uri="ViewReferences">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewReferences"/>

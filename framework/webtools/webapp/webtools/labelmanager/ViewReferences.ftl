@@ -30,15 +30,16 @@ under the License.
                 <td>${uiLabelMap.WebtoolsLabelManagerFileName}</td>
                 <td>${uiLabelMap.WebtoolsLabelManagerReferences}</td>
             </tr>
-            <#if parameters.sourceKey?exists>
+            <#if parameters.sourceKey?exists && parameters.sourceKey?has_content>
               <#assign rowNum = "2">
               <#assign rowNumber = 1>
-              <#assign reference = references.get(parameters.sourceKey)>
-              <#assign entries = reference.entrySet()>
-              <#list entries as entry>
+              <#assign reference = references.get(parameters.sourceKey)?if_exists>
+              <#if reference?exists &&  reference?has_content>
+                <#assign entries = reference.entrySet()>
+                <#list entries as entry>
                 <tr>
                     <td>${rowNumber}</td>
-                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}</@ofbizUrl>">${entry.getKey()}</a></td>
+                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&sourceKey=${parameters.sourceKey?if_exists}</@ofbizUrl>">${entry.getKey()}</a></td>
                     <td>${entry.getValue()}</td>
                 </tr>
                 <#if rowNum == "2">
@@ -47,7 +48,8 @@ under the License.
                   <#assign rowNum = "2">
                 </#if>
                 <#assign rowNumber = rowNumber + 1>
-              </#list>
+                </#list>
+              </#if>
             </#if>
         </table>
     </form>

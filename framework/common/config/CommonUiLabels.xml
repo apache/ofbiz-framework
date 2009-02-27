@@ -1387,7 +1387,7 @@
     <property key="CommonCopyright">
         <value xml:lang="en">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
-    </property>    
+    </property>
     <property key="CommonCouldBeUsedAs">
         <value xml:lang="ar">يحتمل استعمالها ك</value>
         <value xml:lang="cs">Může být použit jako</value>
@@ -3416,6 +3416,16 @@
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_CN">查找</value>
     </property>
+    <property key="CommonLookupAnywho">
+        <value xml:lang="en">lookup:anywho.com</value>
+        <value xml:lang="fr">A qui est ce n° ?</value>
+        <value xml:lang="it">lookup:anywho.com</value>
+    </property>
+    <property key="CommonLookupAnywhoLink">
+        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
+        <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+    </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
         <value xml:lang="es">Páginas Blancas</value>
@@ -3433,16 +3443,8 @@
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
         <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode?if_exists}&amp;s=&amp;p=${telecomNumber.contactNumber?if_exists}&amp;pt=b&amp;x=40&amp;y=9</value>
-            <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
-    </property>    
-    <property key="CommonLookupAnywho">
-        <value xml:lang="en">lookup:anywho.com</value>
-        <value xml:lang="fr">A qui est ce n° ?</value>
-    </property>
-    <property key="CommonLookupAnywhoLink">
-        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
-    </property>    
+    </property>
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="cs">Úvodní stránka</value>
@@ -4729,12 +4731,6 @@
         <value xml:lang="zh">人员</value>
         <value xml:lang="zh_CN">人</value>
     </property>
-    <property key="PortalPageNotFound">
-        <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
-    </property>
-    <property key="PortalPageNotOwned">
-        <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
-    </property>
     <property key="CommonPostedBy">
         <value xml:lang="ar">مرسلة من</value>
         <value xml:lang="de">Übermittelt von</value>
@@ -4764,7 +4760,7 @@
     <property key="CommonPoweredBy">
         <value xml:lang="en">Powered by</value>
         <value xml:lang="fr">Fonctionne grâce à </value>
-    </property>    
+    </property>
     <property key="CommonPreferences">
         <value xml:lang="de">Einstellungen</value>
         <value xml:lang="en">Preferences</value>
@@ -8169,6 +8165,10 @@
         <value xml:lang="fr">Mon portail</value>
         <value xml:lang="it">Mio portale</value>
     </property>
+    <property key="OFBiz Site">
+        <value xml:lang="en">OFBiz Site</value>
+        <value xml:lang="fr">Site officiel d'OFBiz</value>
+    </property>
     <property key="Oagis">
         <value xml:lang="de">Oagis</value>
         <value xml:lang="en">Oagis</value>
@@ -8176,10 +8176,6 @@
         <value xml:lang="fr">Oagis</value>
         <value xml:lang="it">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
-    </property>
-    <property key="OFBiz Site">
-        <value xml:lang="en">OFBiz Site</value>
-        <value xml:lang="fr">Site officiel d'OFBiz</value>
     </property>
     <property key="Order">
         <value xml:lang="ar">طلبية</value>
@@ -8341,6 +8337,12 @@
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员</value>
         <value xml:lang="zh_CN">团体</value>
+    </property>
+    <property key="PortalPageNotFound">
+        <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
+    </property>
+    <property key="PortalPageNotOwned">
+        <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
     </property>
     <property key="Project">
         <value xml:lang="de">Projekt</value>
