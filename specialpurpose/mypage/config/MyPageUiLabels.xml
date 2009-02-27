@@ -149,6 +149,10 @@
         <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
         <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
     </property>
+    <property key="MyPageNoProjectsFound">
+        <value xml:lang="en">no projects found</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
+    </property>
     <property key="MyPageOpenCustomerRequests">
         <value xml:lang="en">My Open Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients en-cours</value>

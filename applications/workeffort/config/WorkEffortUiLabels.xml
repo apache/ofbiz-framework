@@ -2459,6 +2459,10 @@
         <value xml:lang="th">องค์กร</value>
         <value xml:lang="zh">组织者</value>
     </property>
+    <property key="WorkEffortOverrideDefaultRateAmount">
+        <value xml:lang="en">override Default Rate amount</value>
+        <value xml:lang="it">Sostituisci importo di default tasso</value>
+    </property>
     <property key="WorkEffortParties">
         <value xml:lang="en">Parties</value>
         <value xml:lang="es">Participantes</value>

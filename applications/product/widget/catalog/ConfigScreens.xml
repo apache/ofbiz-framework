@@ -74,7 +74,7 @@ under the License.
                             <link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
                             <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItemsFrom"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleFindConfigItems} ${uiLabelMap.Result}">
+                        <screenlet title="${uiLabelMap.PageTitleFindConfigItems}">
                             <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItems"/>
                         </screenlet>
                     </decorator-section>

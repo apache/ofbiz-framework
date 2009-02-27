@@ -259,6 +259,10 @@
         <value xml:lang="en">Unable to find Blog content!</value>
         <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
     </property>
+    <property key="EcommerceBlogEditComments">
+        <value xml:lang="en">You must be logged in in order to edit comments.</value>
+        <value xml:lang="it">Devi essere autenticato per poter aggiornare un commento.</value>
+    </property>
     <property key="EcommerceBlogEntryId">
         <value xml:lang="en">Blog entry Id</value>
         <value xml:lang="it">Voce blog</value>
@@ -278,6 +282,10 @@
     <property key="EcommerceBlogPostedOn">
         <value xml:lang="en">Posted on</value>
         <value xml:lang="it">Inviato il</value>
+    </property>
+    <property key="EcommerceBlogPostComments">
+        <value xml:lang="en">You must be logged in and viewing a published record in order to post comments.</value>
+        <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
     </property>
     <property key="EcommerceBlogPreview">
         <value xml:lang="en">Preview</value>

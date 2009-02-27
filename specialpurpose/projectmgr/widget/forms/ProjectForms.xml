@@ -659,7 +659,7 @@
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="invoiceId"><hidden/></field>
-        <field name="reCreate" position="1" title="re-create Invoice: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
+        <field name="reCreate" position="1" title="${uiLabelMap.ProjectMgrRecreateInvoice}: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
             <drop-down no-current-selected-key="N">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
                 <option key="N" description="${uiLabelMap.CommonNo}"/>

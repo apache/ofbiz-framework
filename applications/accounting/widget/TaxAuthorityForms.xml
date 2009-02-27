@@ -261,7 +261,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}"><lookup size="10" target-form-name="LookupProductStore"/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" tooltip="Use the Categories tab to add other category options">
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" tooltip="${uiLabelMap.AccountingTaxAuthorityRateProductUseCategoryTab}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="TaxAuthorityCategoryView" description="${description} [${productCategoryId}]">
                     <entity-constraint name="taxAuthPartyId" env-name="taxAuthPartyId"/>
