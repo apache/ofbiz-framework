@@ -799,6 +799,10 @@
         <value xml:lang="th">ข้อมูลสินค้า</value>
         <value xml:lang="zh">产品信息</value>
     </property>
+    <property key="ContentPurposeType.description.PROJECT_INFO">
+        <value xml:lang="en">Project Info</value>
+        <value xml:lang="it">Informazione progetto</value>
+    </property>
     <property key="ContentPurposeType.description.RESPONSE">
         <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
@@ -1211,6 +1215,14 @@
         <value xml:lang="th">เปิดสำหรับทางธุรกิจ</value>
         <value xml:lang="zh">OFBiz</value>
     </property>
+    <property key="DataCategory.categoryName.TEMPLATE">
+        <value xml:lang="en">Template</value>
+        <value xml:lang="it">Template</value>
+    </property>
+    <property key="DataResourceType.description.AUDIO_OBJECT">
+        <value xml:lang="en">Audio</value>
+        <value xml:lang="it">Audio</value>
+    </property>
     <property key="DataResourceType.description.CONTEXT_FILE">
         <value xml:lang="de">Datei (relativ zu webapp Basisverzeichnis)</value>
         <value xml:lang="en">File (rel to webapp root)</value>
@@ -1336,6 +1348,10 @@
         <value xml:lang="ro">Resursa URL</value>
         <value xml:lang="th">แหล่งที่มาของ URL</value>
         <value xml:lang="zh">URL资源</value>
+    </property>
+    <property key="DataResourceType.description.VIDEO_OBJECT">
+        <value xml:lang="en">Video</value>
+        <value xml:lang="it">Video</value>
     </property>
     <property key="DataTemplateType.description.FTL">
         <value xml:lang="de">FreeMarker</value>
@@ -1549,6 +1565,10 @@
         <value xml:lang="th">Microsoft PowerPoint</value>
         <value xml:lang="zh">微软PowerPoint</value>
     </property>
+    <property key="MimeType.description.application/vnd.oasis.opendocument.spreadsheet">
+        <value xml:lang="en">OpenOffice OpenDocument Spreadsheet</value>
+        <value xml:lang="it">Foglio di lavoro OpenOffice OpenDocument</value>
+    </property>
     <property key="MimeType.description.application/vnd.oasis.opendocument.text">
         <value xml:lang="de">OpenOffice OpenDocument Text</value>
         <value xml:lang="en">OpenOffice OpenDocument Text</value>
@@ -1575,6 +1595,14 @@
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">สำรวจคำตอบ</value>
         <value xml:lang="zh">调查回答</value>
+    </property>
+    <property key="MimeType.description.application/x-shockwave-flash">
+        <value xml:lang="en">Shockwave Flash Movie</value>
+        <value xml:lang="it">Filem Shockwave flash</value>
+    </property>
+    <property key="MimeType.description.application/x-tgz">
+        <value xml:lang="en">Gzipped Tar archive file</value>
+        <value xml:lang="it">File archivio Gzipped Tar</value>
     </property>
     <property key="MimeType.description.application/x-zip-compressed">
         <value xml:lang="de">ZIP-komprimierte Datei</value>
@@ -1610,6 +1638,14 @@
         <value xml:lang="ro">Audio MPEG</value>
         <value xml:lang="th">เสียงประเภท MPEG</value>
         <value xml:lang="zh">MPEG音频</value>
+    </property>
+    <property key="MimeType.description.audio/x-ms-wax">
+        <value xml:lang="en">WAX Audio</value>
+        <value xml:lang="it">WAX Audio</value>
+    </property>
+    <property key="MimeType.description.audio/x-ms-wma">
+        <value xml:lang="en">WMA Audio</value>
+        <value xml:lang="it">WMA Audio</value>
     </property>
     <property key="MimeType.description.image/gif">
         <value xml:lang="de">GIF Bild</value>
@@ -1870,6 +1906,10 @@
         <value xml:lang="th">ใช้แท็บคั่นค่าตัวอักษร</value>
         <value xml:lang="zh">制表键分隔文本</value>
     </property>
+    <property key="MimeType.description.text/x-diff">
+        <value xml:lang="en">diff for patching files</value>
+        <value xml:lang="it">diff per files di patch</value>
+    </property>
     <property key="MimeType.description.text/xml">
         <value xml:lang="de">XML Text</value>
         <value xml:lang="en">XML Text</value>
@@ -1878,6 +1918,14 @@
         <value xml:lang="ro">Text XML</value>
         <value xml:lang="th">ตัวอักษร XML</value>
         <value xml:lang="zh">XML文本</value>
+    </property>
+    <property key="MimeType.description.video/avi">
+        <value xml:lang="en">AVI Video</value>
+        <value xml:lang="it">Video AVI</value>
+    </property>
+    <property key="MimeType.description.video/mp4">
+        <value xml:lang="en">MPEG-4 (H.264) Video</value>
+        <value xml:lang="it">Video MPEG-4 (H.264)</value>
     </property>
     <property key="MimeType.description.video/mpeg">
         <value xml:lang="de">MPEG/MPG Video</value>
@@ -1896,6 +1944,30 @@
         <value xml:lang="ro">Video Quicktime</value>
         <value xml:lang="th">วิดีโอแบบใช้เวลารวดเร็ว</value>
         <value xml:lang="zh">Quicktime视频</value>
+    </property>
+    <property key="MimeType.description.video/x-flv">
+        <value xml:lang="en">Flash Streaming Video</value>
+        <value xml:lang="it">Video flash in streaming</value>
+    </property>
+    <property key="MimeType.description.video/x-ms-asf">
+        <value xml:lang="en">ASF Video</value>
+        <value xml:lang="it">Video ASF</value>
+    </property>
+    <property key="MimeType.description.video/x-ms-wm">
+        <value xml:lang="en">WM Video</value>
+        <value xml:lang="it">Video WM</value>
+    </property>
+    <property key="MimeType.description.video/x-ms-wmv">
+        <value xml:lang="en">WMV Video</value>
+        <value xml:lang="it">Video WMV</value>
+    </property>
+    <property key="MimeType.description.video/x-ms-wmx">
+        <value xml:lang="en">WMX Video</value>
+        <value xml:lang="it">Video WMX</value>
+    </property>
+    <property key="MimeType.description.video/x-ms-wvx">
+        <value xml:lang="en">WVX Video</value>
+        <value xml:lang="it">Video WVX</value>
     </property>
     <property key="SurveyApplType.description.CART_ADD">
         <value xml:lang="de">Zum Warenkorb hinzufügen</value>
@@ -1997,6 +2069,10 @@
         <value xml:lang="th">หัวข้อการบันทึก</value>
         <value xml:lang="zh">内容记录</value>
     </property>
+    <property key="SurveyQuestionType.description.COUNTRY">
+        <value xml:lang="en">Country</value>
+        <value xml:lang="it">Paese</value>
+    </property>
     <property key="SurveyQuestionType.description.CREDIT_CARD">
         <value xml:lang="de">Kreditkartennummer</value>
         <value xml:lang="en">Credit Card Number</value>
@@ -2026,6 +2102,14 @@
         <value xml:lang="ro">Adresa Email</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
         <value xml:lang="zh">电子邮件地址</value>
+    </property>
+    <property key="SurveyQuestionType.description.ENUMERATION">
+        <value xml:lang="en">Enumeration</value>
+        <value xml:lang="it">Enumerare</value>
+    </property>
+    <property key="SurveyQuestionType.description.GEO">
+        <value xml:lang="en">Geo List</value>
+        <value xml:lang="it">Lista geografia</value>
     </property>
     <property key="SurveyQuestionType.description.GIFT_CARD">
         <value xml:lang="de">Geschenkgutschein Nummer</value>
@@ -2106,6 +2190,10 @@
         <value xml:lang="ro">Separator Text</value>
         <value xml:lang="th">เส้นคั่นตัวอักษร</value>
         <value xml:lang="zh">分隔文本</value>
+    </property>
+    <property key="SurveyQuestionType.description.STATE_PROVINCE">
+        <value xml:lang="en">State/Province</value>
+        <value xml:lang="it">Stato/Provincia    </value>
     </property>
     <property key="SurveyQuestionType.description.TEXTAREA">
         <value xml:lang="de">Text (mehrere Zeilen)</value>

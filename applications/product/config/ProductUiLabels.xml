@@ -8008,6 +8008,10 @@
         <value xml:lang="it">Righe Configurazioni Trovate</value>
         <value xml:lang="th">พบการสร้างรายการ</value>
     </property>
+    <property key="ProductConfigOptionList">
+        <value xml:lang="en">Config Option List</value>
+        <value xml:lang="it">Lista opzioni di prodotti configurabili</value>
+    </property>
     <property key="ProductConfigOptions">
         <value xml:lang="de">Konfigurationsoptionen</value>
         <value xml:lang="en">Config Options</value>
@@ -8368,6 +8372,10 @@
         <value xml:lang="ru">Новая категория</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
         <value xml:lang="zh">新建分类</value>
+    </property>
+    <property key="ProductCreateNewConfigOptions">
+        <value xml:lang="en">Create New Config Options</value>
+        <value xml:lang="it">Creare nuove opzioni di prodotti configurabili</value>
     </property>
     <property key="ProductCreateNewFacility">
         <value xml:lang="de">Neue Einrichtung erstellen</value>

@@ -71,12 +71,6 @@
         <value xml:lang="en">Disbursement</value>
         <value xml:lang="fr">Débours</value>
         <value xml:lang="it">Esborso</value>
-        <value xml:lang="th">การชำระเงิน</value>
-    </property>
-    <property key="AcctgTransType.description.DISBURSEMENT_ACCTG_T">
-        <value xml:lang="en">DISBURSEMENT_ACCTG_T</value>
-        <value xml:lang="fr">Débours</value>
-        <value xml:lang="it">Rimborso</value>
         <value xml:lang="ro">Rambursari</value>
         <value xml:lang="ru">Выплата</value>
         <value xml:lang="th">การชำระเงิน</value>
@@ -91,6 +85,10 @@
         <value xml:lang="th">ภายนอก</value>
         <value xml:lang="zh">外部</value>
     </property>
+    <property key="AcctgTransType.description.INCOMING_PAYMENT">
+        <value xml:lang="en">Incoming Payment</value>
+        <value xml:lang="it">Pagamento in entrata</value>
+    </property>
     <property key="AcctgTransType.description.INTERNAL_ACCTG_TRANS">
         <value xml:lang="en">Internal</value>
         <value xml:lang="fr">Interne</value>
@@ -99,6 +97,10 @@
         <value xml:lang="ru">Внутренняя</value>
         <value xml:lang="th">ภายใน</value>
         <value xml:lang="zh">内部</value>
+    </property>
+    <property key="AcctgTransType.description.INVENTORY">
+        <value xml:lang="en">Inventory</value>
+        <value xml:lang="it">Inventario</value>
     </property>
     <property key="AcctgTransType.description.INVENTORY_RETURN">
         <value xml:lang="en">Inventory from Return</value>
@@ -109,7 +111,7 @@
         <value xml:lang="th">สินค้าคงเหลือจากการผลตอบแทน</value>
         <value xml:lang="zh">退货库存</value>
     </property>
-    <property key="AcctgTransType.description.ITEM_VARIANCE_ACCTG">
+    <property key="AcctgTransType.description.ITEM_VARIANCE">
         <value xml:lang="en">Item Variance</value>
         <value xml:lang="fr">Différence d'inventaire</value>
         <value xml:lang="it">Riga Varianza</value>
@@ -117,6 +119,10 @@
         <value xml:lang="ru">Расхождение по позиции</value>
         <value xml:lang="th">รายการผลต่าง</value>
         <value xml:lang="zh">明细变量</value>
+    </property>
+    <property key="AcctgTransType.description.MANUFACTURING">
+        <value xml:lang="en">Manufacturing</value>
+        <value xml:lang="it">Produzione</value>
     </property>
     <property key="AcctgTransType.description.NOTE">
         <value xml:lang="en">Note</value>
@@ -140,12 +146,6 @@
         <value xml:lang="en">Other Internal</value>
         <value xml:lang="fr">Autre interne</value>
         <value xml:lang="it">Altri Interni</value>
-        <value xml:lang="th">ภายในอื่น ๆ</value>
-    </property>
-    <property key="AcctgTransType.description.OTHER_INTERNAL_ACCTG">
-        <value xml:lang="en">OTHER_INTERNAL_ACCTG</value>
-        <value xml:lang="fr">Autre interne</value>
-        <value xml:lang="it">Altro Interno</value>
         <value xml:lang="ro">Alt Intern</value>
         <value xml:lang="ru">Другая внутренняя</value>
         <value xml:lang="th">ภายในอื่น ๆ</value>
@@ -160,6 +160,10 @@
         <value xml:lang="th">สัญญาผูกมัดอื่น ๆ</value>
         <value xml:lang="zh">其它债务</value>
     </property>
+    <property key="AcctgTransType.description.OUTGOING_PAYMENT">
+        <value xml:lang="en">Outgoing Payment</value>
+        <value xml:lang="it">Pagamento in uscita</value>
+    </property>
     <property key="AcctgTransType.description.PAYMENT_ACCTG_TRANS">
         <value xml:lang="en">Payment</value>
         <value xml:lang="fr">Paiement</value>
@@ -168,6 +172,10 @@
         <value xml:lang="ru">Платеж</value>
         <value xml:lang="th">การชำระเงิน</value>
         <value xml:lang="zh">支付款</value>
+    </property>
+    <property key="AcctgTransType.description.PAYMENT_APPL">
+        <value xml:lang="en">Payment Applied</value>
+        <value xml:lang="it">Pagamento applicato</value>
     </property>
     <property key="AcctgTransType.description.PERIOD_CLOSING">
         <value xml:lang="en">Period Closing</value>
@@ -178,17 +186,15 @@
         <value xml:lang="th">ปิดช่วงเวลา</value>
         <value xml:lang="zh">一期结束</value>
     </property>
+    <property key="AcctgTransType.description.PURCHASE_INVOICE">
+        <value xml:lang="en">Purchase Invoice</value>
+        <value xml:lang="it">Fattura di acquisto</value>
+    </property>
     <property key="AcctgTransType.description.RECEIPT">
         <value xml:lang="de">Quittung</value>
         <value xml:lang="en">Receipt</value>
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevute</value>
-        <value xml:lang="th">ใบเสร็จรับเงิน</value>
-    </property>
-    <property key="AcctgTransType.description.RECEIPT_ACCTG_TRANS">
-        <value xml:lang="en">RECEIPT_ACCTG_TRANS</value>
-        <value xml:lang="fr">Reçu</value>
-        <value xml:lang="it">Ricevuta</value>
         <value xml:lang="ro">Chitanta</value>
         <value xml:lang="ru">Выручка</value>
         <value xml:lang="th">ใบเสร็จรับเงิน</value>
@@ -198,16 +204,22 @@
         <value xml:lang="en">Sales</value>
         <value xml:lang="fr">Ventes</value>
         <value xml:lang="it">Vendite</value>
-        <value xml:lang="th">การขาย</value>
-    </property>
-    <property key="AcctgTransType.description.SALES_ACCTG_TRANS">
-        <value xml:lang="en">SALES_ACCTG_TRANS</value>
-        <value xml:lang="fr">Ventes</value>
-        <value xml:lang="it">Vendite</value>
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="ru">Продажи</value>
         <value xml:lang="th">การขาย</value>
         <value xml:lang="zh">销售</value>
+    </property>
+    <property key="AcctgTransType.description.SALES_INVOICE">
+        <value xml:lang="en">Sales Invoice</value>
+        <value xml:lang="it">Fattura di vendita</value>
+    </property>
+    <property key="AcctgTransType.description.SALES_SHIPMENT">
+        <value xml:lang="en">Sales Shipment</value>
+        <value xml:lang="it">Spedizione di vendita</value>
+    </property>
+    <property key="AcctgTransType.description.SHIPMENT_RECEIPT">
+        <value xml:lang="en">Shipment Receipt</value>
+        <value xml:lang="it">Ricevuta di spedizione</value>
     </property>
     <property key="AcctgTransType.description.TAX_DUE">
         <value xml:lang="en">Tax Due</value>
@@ -385,6 +397,14 @@
         <value xml:lang="ru">Стандартная стоимость использования</value>
         <value xml:lang="th">การใช้ราคามาตรฐาน</value>
         <value xml:lang="zh">标准使用费用</value>
+    </property>
+    <property key="FixedAssetType.description.COMPUTER_HARDWARE">
+        <value xml:lang="en">Computer Hardware</value>
+        <value xml:lang="it">Hardware per computer</value>
+    </property>
+    <property key="FixedAssetType.description.COMPUTER_SOFTWARE">
+        <value xml:lang="en">Computer Software</value>
+        <value xml:lang="it">Software per computer</value>
     </property>
     <property key="FixedAssetType.description.EQUIPMENT">
         <value xml:lang="en">Equipment</value>
@@ -630,6 +650,10 @@
         <value xml:lang="th">ส่วนลดสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存调整</value>
     </property>
+    <property key="GlAccountClass.description.INVENTORY_ASSET">
+        <value xml:lang="en">Inventory Asset</value>
+        <value xml:lang="it">Inventario cespite</value>
+    </property>
     <property key="GlAccountClass.description.LIABILITY">
         <value xml:lang="en">Liability</value>
         <value xml:lang="fr">Dette</value>
@@ -741,7 +765,7 @@
     <property key="GlAccountType.description.ACCOUNTS_PAYABLE">
         <value xml:lang="en">Accounts Payable</value>
         <value xml:lang="fr">Comptes fournisseurs</value>
-        <value xml:lang="it">Conti Pagamenti</value>
+        <value xml:lang="it">Conto debiti</value>
         <value xml:lang="ro">Conturi Plati</value>
         <value xml:lang="ru">Счет кредиторов</value>
         <value xml:lang="th">เจ้าหนี้การค้า</value>
@@ -750,11 +774,19 @@
     <property key="GlAccountType.description.ACCOUNTS_RECEIVABLE">
         <value xml:lang="en">Accounts Receivable</value>
         <value xml:lang="fr">Comptes clients</value>
-        <value xml:lang="it">Crediti a Breve</value>
+        <value xml:lang="it">Conto crediti</value>
         <value xml:lang="ro">Credite pe termen scurt</value>
         <value xml:lang="ru">Счет дебиторов</value>
         <value xml:lang="th">ลูกหนี้การค้า</value>
         <value xml:lang="zh">应收账款</value>
+    </property>
+    <property key="GlAccountType.description.ACCTPAY_WRITEOFF">
+        <value xml:lang="en">Accounts Payables Write Off</value>
+        <value xml:lang="it">Conti debiti ammortizzati</value>
+    </property>
+    <property key="GlAccountType.description.ACCTRECV_WRITEOFF">
+        <value xml:lang="en">Accounts Receivables Write Off</value>
+        <value xml:lang="it">Conto crediti ammortizzati</value>
     </property>
     <property key="GlAccountType.description.BALANCE_ACCOUNT">
         <value xml:lang="en">Balance</value>
@@ -791,6 +823,18 @@
         <value xml:lang="ru">COGS - Поправка средней стоимости</value>
         <value xml:lang="th">ต้นทุนสินค้าขาย - ต้นทุนถัวเฉลี่ยการปรับปรุงรายการขาย</value>
         <value xml:lang="zh">已售商品的费用 - 平均费用调整</value>
+    </property>
+    <property key="GlAccountType.description.COMMISSIONS_PAYABLE">
+        <value xml:lang="en">Commissions Payables</value>
+        <value xml:lang="it">Provvigioni a debito</value>
+    </property>
+    <property key="GlAccountType.description.COMMISSIONS_WRITEOFF">
+        <value xml:lang="en">Commissions Payables Write Off</value>
+        <value xml:lang="it">Provvigioni a credito</value>
+    </property>
+    <property key="GlAccountType.description.COMMISSION_EXPENSE">
+        <value xml:lang="en">Commission Expense</value>
+        <value xml:lang="it">Provvigioni sulle spese</value>
     </property>
     <property key="GlAccountType.description.CREDIT_CARD">
         <value xml:lang="de">Kreditkarte</value>
@@ -865,6 +909,10 @@
         <value xml:lang="th">ส่วนลด</value>
         <value xml:lang="zh">折扣</value>
     </property>
+    <property key="GlAccountType.description.EXPENSE">
+        <value xml:lang="en">Expense</value>
+        <value xml:lang="it">Spese</value>
+    </property>
     <property key="GlAccountType.description.FIXED_ASSET">
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="fr">Actifs immobilisés</value>
@@ -873,6 +921,38 @@
         <value xml:lang="ru">Основные средства</value>
         <value xml:lang="th">ทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产</value>
+    </property>
+    <property key="GlAccountType.description.FIXED_ASSET_MAINT">
+        <value xml:lang="en">Fixed Asset Maintenance</value>
+        <value xml:lang="it">Manutenzione cespiti</value>
+    </property>
+    <property key="GlAccountType.description.FX_GAIN_ACCOUNT">
+        <value xml:lang="en">Foreign Exchange Gain</value>
+        <value xml:lang="it">Profitti da cambio di valuta</value>
+    </property>
+    <property key="GlAccountType.description.FX_GAIN_LOSS_ACCT">
+        <value xml:lang="en">Foreign Exchange Gain/Loss</value>
+        <value xml:lang="it">Profitti/perdite da cambio di valuta</value>
+    </property>
+    <property key="GlAccountType.description.FX_LOSS_ACCOUNT">
+        <value xml:lang="en">Foreign Exchange Loss</value>
+        <value xml:lang="it">Perdite da cambio di valuta</value>
+    </property>
+    <property key="GlAccountType.description.INCOME">
+        <value xml:lang="en">Income</value>
+        <value xml:lang="it">Reddito</value>
+    </property>
+    <property key="GlAccountType.description.INTEREST_INCOME">
+        <value xml:lang="en">Interest Income</value>
+        <value xml:lang="it">Reddito da interessi</value>
+    </property>
+    <property key="GlAccountType.description.INTRSTINC_RECEIVABLE">
+        <value xml:lang="en">Interest Income Receivables</value>
+        <value xml:lang="it">Reddito da interessi a credito</value>
+    </property>
+    <property key="GlAccountType.description.INTRSTINC_WRITEOFF">
+        <value xml:lang="en">Interest Income Write Off</value>
+        <value xml:lang="it">Reddito da interessi a debito</value>
     </property>
     <property key="GlAccountType.description.INVENTORY_ACCOUNT">
         <value xml:lang="en">Inventory</value>
@@ -909,6 +989,10 @@
         <value xml:lang="ru">Корректировка ТМЦ от средней стоимости</value>
         <value xml:lang="th">รายการปรับปรุงสินค้าคงเหลือจากต้นทุนถัวเฉลี่ย</value>
         <value xml:lang="zh">从平均费用调整库存</value>
+    </property>
+    <property key="GlAccountType.description.INV_ADJ_VAL">
+        <value xml:lang="en">Inventory Item Value Adjustment</value>
+        <value xml:lang="it">Aggiustamento valore riga inventario</value>
     </property>
     <property key="GlAccountType.description.INV_CHANGE_ACCOUNT">
         <value xml:lang="en">Inventory Change</value>
@@ -963,6 +1047,10 @@
         <value xml:lang="ru">Другие расходы</value>
         <value xml:lang="th">ค่าใช้จ่ายอื่น ๆ</value>
         <value xml:lang="zh">其它支出</value>
+    </property>
+    <property key="GlAccountType.description.OTHER_INCOME">
+        <value xml:lang="en">Other Income</value>
+        <value xml:lang="it">Altri redditi</value>
     </property>
     <property key="GlAccountType.description.OWNERS_EQUITY">
         <value xml:lang="en">Owner's Equity</value>
@@ -1072,6 +1160,10 @@
         <value xml:lang="th">ภาษี</value>
         <value xml:lang="zh">税</value>
     </property>
+    <property key="GlAccountType.description.UNDEPOSITED_RECEIPTS">
+        <value xml:lang="en">Undeposited Receipts</value>
+        <value xml:lang="it">Ricevute non depositate</value>
+    </property>
     <property key="GlAccountType.description.UNINVOICED_SHIP_RCPT">
         <value xml:lang="en">Uninvoiced Shipment Receipts</value>
         <value xml:lang="fr">Stock non réceptionné</value>
@@ -1089,6 +1181,10 @@
         <value xml:lang="ru">Незавершенная продукция</value>
         <value xml:lang="th">งานระหว่างผลิตสินค้าคงเหลือ</value>
         <value xml:lang="zh">在制品盘存</value>
+    </property>
+    <property key="GlAccountType.description.WRITEOFF">
+        <value xml:lang="en">Write Off</value>
+        <value xml:lang="it">Perdite</value>
     </property>
     <property key="GlFiscalType.description.ACTUAL">
         <value xml:lang="en">Actual</value>
@@ -1188,6 +1284,14 @@
         <value xml:lang="ru">Услуги</value>
         <value xml:lang="th">บริการ</value>
         <value xml:lang="zh">服务</value>
+    </property>
+    <property key="InvoiceItemType.description.COMM_INV_ADJ">
+        <value xml:lang="en">Commission Invoice Adjustment</value>
+        <value xml:lang="it">Aggiustamenti fattura provvigioni</value>
+    </property>
+    <property key="InvoiceItemType.description.COMM_INV_ITEM">
+        <value xml:lang="en">Commission Invoice Line Item</value>
+        <value xml:lang="it">Riga fattura provvigioni</value>
     </property>
     <property key="InvoiceItemType.description.CRT_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
@@ -1441,6 +1545,10 @@
         <value xml:lang="th">ใบกำกับรายการสินค้าสำเร็จรูป</value>
         <value xml:lang="zh">发票的制成品明细</value>
     </property>
+    <property key="InvoiceItemType.description.INV_INTRST_CHRG">
+        <value xml:lang="en">Invoice Interest Charge</value>
+        <value xml:lang="it">Interesse ricaricato fattura</value>
+    </property>
     <property key="InvoiceItemType.description.INV_MISC_CHARGE">
         <value xml:lang="en">Invoice Miscellaneous Charges</value>
         <value xml:lang="fr">Facturation charges diverses</value>
@@ -1629,6 +1737,138 @@
         <value xml:lang="ru">Гарантия по позиции накладной</value>
         <value xml:lang="th">การรับประกันรายการใบกำกับสินค้า</value>
         <value xml:lang="zh">发票明细的保证条款</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL">
+        <value xml:lang="en">Payrol</value>
+        <value xml:lang="it">Paghe</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_ADV_PAY">
+        <value xml:lang="en">Advance Pay</value>
+        <value xml:lang="it">Paghe avanzate</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_BONUS">
+        <value xml:lang="en">Bonus</value>
+        <value xml:lang="it">Premio</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_COMMISSION">
+        <value xml:lang="en">Commission</value>
+        <value xml:lang="it">Provvigione</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_125COMPY">
+        <value xml:lang="en">125*Compy. Contr Other Prem.</value>
+        <value xml:lang="it">125*Compy. Contr Altri Prem.</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_125HSA">
+        <value xml:lang="en">125*HSA Contribution (pre tax)</value>
+        <value xml:lang="it">125*HSA Contributo (prima delle tasse)</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_125PPO">
+        <value xml:lang="en">125*PPO (pre tax)</value>
+        <value xml:lang="it">125*PPO (prima delle tasse)</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_401K">
+        <value xml:lang="en">401K Emp.</value>
+        <value xml:lang="it">401K Emp.</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_CHAR_DONAT">
+        <value xml:lang="en">Charity Donation</value>
+        <value xml:lang="it">Donazione carità</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_CHILD_SUPP">
+        <value xml:lang="en">Child Support Garnishment</value>
+        <value xml:lang="it">Support figlio</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_FROM_GROSS">
+        <value xml:lang="en">Deductions from Gross</value>
+        <value xml:lang="it">Deduzione dal lordo</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_MISC">
+        <value xml:lang="en">Miscellaneous Deduction</value>
+        <value xml:lang="it">Deduzione varie</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_REPAY">
+        <value xml:lang="en">Advance Repayment</value>
+        <value xml:lang="it">Anticipo rimborso</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_ROTH_401K">
+        <value xml:lang="en">Roth 401k Emp.</value>
+        <value xml:lang="it">Roth 401k Emp.</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_SAL_TIMOFF">
+        <value xml:lang="en">Unpaid Salary Time off.</value>
+        <value xml:lang="it">Salario da pagare tempo libero.</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_SIMP_IRA">
+        <value xml:lang="en">Simple IRA emp.</value>
+        <value xml:lang="it">Semplice IRA emp.</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_UNION">
+        <value xml:lang="en">Union Dues</value>
+        <value xml:lang="it">Diritti sindacali dovuti</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_DD_WAG_GARN">
+        <value xml:lang="en">Wage Garnishment</value>
+        <value xml:lang="it">Salario</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_EARN_HOURS">
+        <value xml:lang="en">Earnings and Hours</value>
+        <value xml:lang="it">Guadagni e ore</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_HRLY_RATE">
+        <value xml:lang="en">Hourly Rate</value>
+        <value xml:lang="it">Percentuale oraria</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_HRLY_RATE_SIC">
+        <value xml:lang="en">Sick Hourly Rate</value>
+        <value xml:lang="it">Percentuale oraria per la malattia</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_MIL_REIMB">
+        <value xml:lang="en">Mileage Reimboursement</value>
+        <value xml:lang="it">Rimborso chilometrico</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_OFF_EXP_REIMB">
+        <value xml:lang="en">Office Exp. reimboursement</value>
+        <value xml:lang="it">Rimborso spese ufficio</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_PAYPER_OVRPAY">
+        <value xml:lang="en">Pay Period adj(over pay)</value>
+        <value xml:lang="it">Pagamento periodo avanzato</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_PAYPER_PAY">
+        <value xml:lang="en">Pay Period adj pay</value>
+        <value xml:lang="it">Pagamento periodo avanzato pagato</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_SALARY">
+        <value xml:lang="en">Salary</value>
+        <value xml:lang="it">Salario</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_SALARY_SICK">
+        <value xml:lang="en">Sick Salary</value>
+        <value xml:lang="it">Salario per la malattia</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_SALARY_VAC">
+        <value xml:lang="en">Vacation Salary</value>
+        <value xml:lang="it">Salario per le ferie</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_SOC_SEC_EMPL">
+        <value xml:lang="en">Social Security Employee</value>
+        <value xml:lang="it">Previdenza sociale impiegato</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_TAXES">
+        <value xml:lang="en">Taxes</value>
+        <value xml:lang="it">Tasse sulle paghe</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_TAX_FEDERAL">
+        <value xml:lang="en">Federal Witholding</value>
+        <value xml:lang="it">Tasse federali trattenute</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_TAX_MD_WITHOL">
+        <value xml:lang="en">MD Withholding</value>
+        <value xml:lang="it">Trattenute MD</value>
+    </property>
+    <property key="InvoiceItemType.description.PAYROL_TAX_MED_EMPL">
+        <value xml:lang="en">Medicare Employee</value>
+        <value xml:lang="it">Trattenute per la salute impiegato</value>
     </property>
     <property key="InvoiceItemType.description.PINVOICE_ADJ">
         <value xml:lang="en">Invoice Adjustment</value>
@@ -1918,6 +2158,86 @@
         <value xml:lang="th">ค่าธรรมเนียมใบกำกับสินค้า</value>
         <value xml:lang="zh">发票费用</value>
     </property>
+    <property key="InvoiceItemType.description.SRT_ADD_FEATURE_ADJ">
+        <value xml:lang="en">Return Additional Feature</value>
+        <value xml:lang="it">Reso caratteristica aggiuntiva</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_DISCOUNT_ADJ">
+        <value xml:lang="en">Return Discount</value>
+        <value xml:lang="it">Sconto reso</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_DPROD_ITEM">
+        <value xml:lang="en">Return Digital Good Item</value>
+        <value xml:lang="it">Riga reso bene digitale</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_FDPROD_ITEM">
+        <value xml:lang="en">Return Finished/Digital Good Item</value>
+        <value xml:lang="it">Riga reso bene finito/digitale</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_FEE_ADJ">
+        <value xml:lang="en">Return Fee</value>
+        <value xml:lang="it">Commissioni reso</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_FPROD_ITEM">
+        <value xml:lang="en">Return Finished Good Item</value>
+        <value xml:lang="it">Riga reso bene finito</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_MAN_ADJ">
+        <value xml:lang="en">Return Manual Adjustment</value>
+        <value xml:lang="it">Reso aggiustamento manuale</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_MISC_ADJ">
+        <value xml:lang="en">Return Miscellaneous Charges</value>
+        <value xml:lang="it">Reso ricarichi vari</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_MKTG_PKG_ADJ">
+        <value xml:lang="en">Return Marketing Package Adjustment</value>
+        <value xml:lang="it">Reso aggiustamento pacco di vendita</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_PROD_FEATR_ITEM">
+        <value xml:lang="en">Return Product-Feature Item</value>
+        <value xml:lang="it">Riga reso prodotto-caratteristica</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_PROD_ITEM">
+        <value xml:lang="en">Return Product Item</value>
+        <value xml:lang="it">Riga reso prodotto</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_PROMOTION_ADJ">
+        <value xml:lang="en">Return Promotion</value>
+        <value xml:lang="it">Promozione reso</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_REPLACE_ADJ">
+        <value xml:lang="en">Return Replacement</value>
+        <value xml:lang="it">Reso per sostituzione</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_SALES_TAX_ADJ">
+        <value xml:lang="en">Return Sales Tax</value>
+        <value xml:lang="it">Reso tasse di vendita</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_SHIPPING_ADJ">
+        <value xml:lang="en">Return Shipping and Handling</value>
+        <value xml:lang="it">Reso spese di spedizione e gestione</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_SPROD_ITEM">
+        <value xml:lang="en">Return Service Product Item</value>
+        <value xml:lang="it">Riga reso prodotto servizio</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_SURCHARGE_ADJ">
+        <value xml:lang="en">Return Surcharge</value>
+        <value xml:lang="it">Soprattassa reso</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_TE_ITEM">
+        <value xml:lang="en">Return Time-Entry Item</value>
+        <value xml:lang="it">Riga reso timbratura</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_WARRANTY_ADJ">
+        <value xml:lang="en">Return Warranty</value>
+        <value xml:lang="it">Garanzia reso</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_WE_ITEM">
+        <value xml:lang="en">Return Work-Effort Item</value>
+        <value xml:lang="it">Riga reso impegno di lavoro</value>
+    </property>
     <property key="InvoiceType.description.COMMISSION_INVOICE">
         <value xml:lang="de">Kommission</value>
         <value xml:lang="en">Commission</value>
@@ -1947,6 +2267,10 @@
         <value xml:lang="ru">Процентный доход</value>
         <value xml:lang="th">ดอกเบี้ย</value>
     </property>
+    <property key="InvoiceType.description.PAYROL_INVOICE">
+        <value xml:lang="en">Payrol</value>
+        <value xml:lang="it">Paghe</value>
+    </property>
     <property key="InvoiceType.description.PURCHASE_INVOICE">
         <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice</value>
@@ -1958,6 +2282,14 @@
         <value xml:lang="th">ใบกำกับซื้อสินค้า</value>
         <value xml:lang="zh">购货发票</value>
     </property>
+    <property key="InvoiceType.description.PURC_RTN_INVOICE">
+        <value xml:lang="en">Purchase Return</value>
+        <value xml:lang="it">Reso acquisto</value>
+    </property>
+    <property key="InvoiceType.description.PUR_INV_TEMPLATE">
+        <value xml:lang="en">Purchase Invoice Template</value>
+        <value xml:lang="it">Reso template fattura d'acquisto</value>
+    </property>
     <property key="InvoiceType.description.SALES_INVOICE">
         <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
@@ -1968,6 +2300,14 @@
         <value xml:lang="ru">Расходная накладная</value>
         <value xml:lang="th">ใบกำกับสินค้า</value>
         <value xml:lang="zh">销售发票</value>
+    </property>
+    <property key="InvoiceType.description.SALES_INV_TEMPLATE">
+        <value xml:lang="en">Sales Invoice Template</value>
+        <value xml:lang="it">Template fattura di vendita</value>
+    </property>
+    <property key="InvoiceType.description.TEMPLATE">
+        <value xml:lang="en">Invoice Template</value>
+        <value xml:lang="it">Template fattura</value>
     </property>
     <property key="PaymentMethodType.description.CASH">
         <value xml:lang="en">Cash</value>
@@ -2094,6 +2434,10 @@
         <value xml:lang="ru">WorldPay</value>
         <value xml:lang="th">WorldPay</value>
         <value xml:lang="zh">WorldPay</value>
+    </property>
+    <property key="PaymentMethodType.description.FIN_ACCOUNT">
+        <value xml:lang="en">Financial Account</value>
+        <value xml:lang="it">Conto finanziario</value>
     </property>
     <property key="PaymentMethodType.description.GIFT_CARD">
         <value xml:lang="de">Gutschriftskarte</value>
@@ -2238,6 +2582,10 @@
         <value xml:lang="ru">Payroll Tax Payment</value>
         <value xml:lang="th">การชำระภาษีของเงินเดือน</value>
         <value xml:lang="zh">工资税完税</value>
+    </property>
+    <property key="PaymentType.description.PAYROL_PAYMENT">
+        <value xml:lang="en">Payrol Payment</value>
+        <value xml:lang="it">Pagamento paghe</value>
     </property>
     <property key="PaymentType.description.PAY_CHECK">
         <value xml:lang="de">Lohnzahlung</value>

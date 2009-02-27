@@ -70,7 +70,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleFindConfigItems} ${uiLabelMap.Option}">
+                        <screenlet title="${uiLabelMap.PageTitleFindConfigItems}">
                             <link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
                             <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItemsFrom"/>
                         </screenlet>
@@ -156,19 +156,20 @@ under the License.
     <screen name="configOptions">
         <section>
             <widgets>
-                <screenlet title="${uiLabelMap.Config} ${uiLabelMap.Options}">
+                <screenlet title="${uiLabelMap.ProductConfigOptionList}">
                     <include-form name="ProductConfigOptionList" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                 </screenlet>
                 <section>
                     <condition><not><if-empty field="configOptionId"/></not></condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PageTitleEditConfigOptions}">
-                            <link style="buttontext" text="New Config Options" target="EditProductConfigOptions?configItemId=${configItemId}"/>
+                            <link style="buttontext" text="${uiLabelMap.ProductCreateNewConfigOptions}" target="EditProductConfigOptions?configItemId=${configItemId}"/>
                             <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
-                        <screenlet title="${uiLabelMap.Create} ${uiLabelMap.New} ${uiLabelMap.Config} ${uiLabelMap.Options}">
+                    
+                        <screenlet title="${uiLabelMap.ProductCreateNewConfigOptions}">
                             <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </fail-widgets>
@@ -271,7 +272,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.Product} ${uiLabelMap.Lists}">
+                        <screenlet title="${uiLabelMap.PageTitleEditProductConfigItemContent}">
                             <include-form name="ListProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </decorator-section>

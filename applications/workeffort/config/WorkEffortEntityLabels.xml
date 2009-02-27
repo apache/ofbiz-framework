@@ -283,6 +283,14 @@
         <value xml:lang="th">สามารถใช้ประโยชน์ได้</value>
         <value xml:lang="zh">有效</value>
     </property>
+    <property key="WorkEffortType.description.BUSINESS_TRAVEL">
+        <value xml:lang="en">Business Travel</value>
+        <value xml:lang="it">Viaggio di lavoro</value>
+    </property>
+    <property key="WorkEffortType.description.COMPANY_EVENT">
+        <value xml:lang="en">Company Events</value>
+        <value xml:lang="it">Eventi aziendali</value>
+    </property>
     <property key="WorkEffortType.description.EVENT">
         <value xml:lang="en">Event</value>
         <value xml:lang="es">Evento</value>
@@ -293,6 +301,14 @@
         <value xml:lang="th">เหตุการณ์</value>
         <value xml:lang="zh">事件</value>
     </property>
+    <property key="WorkEffortType.description.MEETING">
+        <value xml:lang="en">Meeting</value>
+        <value xml:lang="it">Incontri</value>
+    </property>
+    <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
+        <value xml:lang="en">Personal Time Off</value>
+        <value xml:lang="it">Tempo libero personale</value>
+    </property>
     <property key="WorkEffortType.description.PHASE">
         <value xml:lang="en">Project Phase</value>
         <value xml:lang="es">Fase</value>
@@ -302,6 +318,10 @@
         <value xml:lang="ru">Этап проекта</value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="zh">项目阶段</value>
+    </property>
+    <property key="WorkEffortType.description.PHASE_TEMPLATE">
+        <value xml:lang="en">Project Phase Template</value>
+        <value xml:lang="it">Fase progetto template</value>
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_HEADER">
         <value xml:lang="en">Production Run Header</value>
@@ -341,6 +361,14 @@
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>
     </property>
+    <property key="WorkEffortType.description.PROJECT_TEMPLATE">
+        <value xml:lang="en">Project Template</value>
+        <value xml:lang="it">Progetto template</value>
+    </property>
+    <property key="WorkEffortType.description.PUBLISH_PROPS">
+        <value xml:lang="en">Publish Properties</value>
+        <value xml:lang="it">Pubblica properties</value>
+    </property>
     <property key="WorkEffortType.description.ROUTING">
         <value xml:lang="en">Routing</value>
         <value xml:lang="fr">Routage</value>
@@ -368,6 +396,14 @@
         <value xml:lang="ru">Задача</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">任务</value>
+    </property>
+    <property key="WorkEffortType.description.TASK_TEMPLATE">
+        <value xml:lang="en">Project Task Template</value>
+        <value xml:lang="it">Compito progetto template</value>
+    </property>
+    <property key="WorkEffortType.description.TEMPLATE">
+        <value xml:lang="en">Template</value>
+        <value xml:lang="it">Template</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
