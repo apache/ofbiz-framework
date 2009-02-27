@@ -203,7 +203,7 @@ under the License.
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
-        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.Name}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
+        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.CommonName}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
         <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigOption?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${uiLabelMap.Remove}"/></field>
@@ -220,7 +220,7 @@ under the License.
         <auto-fields-service service-name="createProductConfigProduct" default-field-type="display"/>
         <field name="configItemId" ><hidden/></field>
         <field name="configOptionId" ><hidden/></field>
-        <field name="productId" widget-style="buttontext" title="${uiLabelMap.Product}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${product.productId} - ${product.productName}"/></field>
+        <field name="productId" widget-style="buttontext"><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${product.productId} - ${product.productName}"/></field>
         <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigProduct?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${uiLabelMap.Remove}"/></field>
     </form>
     

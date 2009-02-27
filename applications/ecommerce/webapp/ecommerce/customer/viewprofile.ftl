@@ -182,7 +182,7 @@ under the License.
                     <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber?if_exists}
                     <#if partyContactMech.extension?has_content>ext&nbsp;${partyContactMech.extension}</#if>
                     <#if (!telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011")>
-                      <a target="_blank" href="${uiLabelMap.CommonLookupWhoLink}" class="linktext">${uiLabelMap.CommonLookupWho}</a>
+                      <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="linktext">${uiLabelMap.CommonLookupAnywho}</a>
                       <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="linktext">${uiLabelMap.CommonLookupWhitepages}</a>
                     </#if>
                   <#else>

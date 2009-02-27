@@ -285,6 +285,10 @@
         <value xml:lang="th">คลังข้อมูล</value>
         <value xml:lang="zh">仓库</value>
     </property>
+    <property key="GoodIdentificationType.description.GOOGLE_ID">
+        <value xml:lang="en">Google Id</value>
+        <value xml:lang="it">Codice Google</value>
+    </property>
     <property key="GoodIdentificationType.description.ISBN">
         <value xml:lang="de">ISBN</value>
         <value xml:lang="en">ISBN</value>
@@ -632,6 +636,10 @@
         <value xml:lang="th">ส่วนประกอบสินค้าโดยแท้จริง</value>
         <value xml:lang="zh">实际产品组件</value>
     </property>
+    <property key="ProductAssocType.description.PRODUCT_CONF">
+        <value xml:lang="en">Configurable product instance</value>
+        <value xml:lang="it">Prodotto configurabile</value>
+    </property>
     <property key="ProductAssocType.description.PRODUCT_INCOMPATABLE">
         <value xml:lang="de">Inkompatibel</value>
         <value xml:lang="en">Incompatable</value>
@@ -738,6 +746,10 @@
         <value xml:lang="th">รายการลักษณะเฉพาะ</value>
         <value xml:lang="zh">独有的明细</value>
     </property>
+    <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_ALT">
+        <value xml:lang="en">Category Image Alt Text</value>
+        <value xml:lang="it">Testo alternativo immagine categoria</value>
+    </property>
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_URL">
         <value xml:lang="de">Kategorie Bild URL</value>
         <value xml:lang="en">Category Image URL</value>
@@ -781,6 +793,14 @@
         <value xml:lang="ru">Нижняя часть страницы</value>
         <value xml:lang="th">ท้ายกระดาษ</value>
         <value xml:lang="zh">页脚</value>
+    </property>
+    <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
+        <value xml:lang="en">Link 1 Alt Text</value>
+        <value xml:lang="it">Testo alternativo link 1</value>
+    </property>
+    <property key="ProductCategoryContentType.description.LINK2_ALT_TEXT">
+        <value xml:lang="en">Link 2 Alt Text</value>
+        <value xml:lang="it">Testo alternativo link 2</value>
     </property>
     <property key="ProductCategoryContentType.description.LONG_DESCRIPTION">
         <value xml:lang="de">Beschreibung - lang</value>
@@ -902,6 +922,34 @@
         <value xml:lang="ru">Использование</value>
         <value xml:lang="th">วิธีใช้</value>
         <value xml:lang="zh">用途</value>
+    </property>
+    <property key="ProductContentType.description.ADDITIONAL_IMAGE_1">
+        <value xml:lang="en">Image - Additional View 1</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
+    </property>
+    <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
+        <value xml:lang="en">Image - Additional View 2</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
+    </property>
+    <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
+        <value xml:lang="en">Image - Additional View 3</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
+    </property>
+    <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
+        <value xml:lang="en">Image - Additional View 4</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
+    </property>
+    <property key="ProductContentType.description.ADDTOCART_IMAGE">
+        <value xml:lang="en">Add To Cart Image</value>
+        <value xml:lang="it">Aggiungi immagine al carrello</value>
+    </property>
+    <property key="ProductContentType.description.ADDTOCART_LABEL">
+        <value xml:lang="en">Add To Cart Label</value>
+        <value xml:lang="it">Aggiungi label al carrello</value>
+    </property>
+    <property key="ProductContentType.description.DELIVERY_INFO">
+        <value xml:lang="en">Delivery Info</value>
+        <value xml:lang="it">Informazioni sulla consegna</value>
     </property>
     <property key="ProductContentType.description.DESCRIPTION">
         <value xml:lang="de">Beschreibung</value>
@@ -1062,6 +1110,10 @@
         <value xml:lang="th">สิทธ์ในการออนไลน์</value>
         <value xml:lang="zh">在线访问</value>
     </property>
+    <property key="ProductContentType.description.ORIGINAL_IMAGE_URL">
+        <value xml:lang="en">Image - Original</value>
+        <value xml:lang="it">Immagine - originale</value>
+    </property>
     <property key="ProductContentType.description.PRICE_DETAIL_TEXT">
         <value xml:lang="de">Preisdetail Text</value>
         <value xml:lang="en">Price Detail Text</value>
@@ -1083,6 +1135,10 @@
         <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
         <value xml:lang="zh">产品名称</value>
+    </property>
+    <property key="ProductContentType.description.SHORT_SALES_PITCH">
+        <value xml:lang="en">Short Sales Pitch</value>
+        <value xml:lang="it">Piccolo discorso di vendita</value>
     </property>
     <property key="ProductContentType.description.SMALL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Klein</value>
@@ -1114,6 +1170,10 @@
         <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
         <value xml:lang="zh">特别说明</value>
+    </property>
+    <property key="ProductContentType.description.TERMS_AND_CONDS">
+        <value xml:lang="en">Terms and Conditions</value>
+        <value xml:lang="it">Termini e condizioni</value>
     </property>
     <property key="ProductContentType.description.UNIQUE_INGREDIENTS">
         <value xml:lang="de">Einzigartige Inhaltsstoffe</value>
@@ -1206,6 +1266,34 @@
         <value xml:lang="fr">Substances dangeureuse</value>
         <value xml:lang="it">Caratteristiche danneggiate</value>
         <value xml:lang="th">Hazmat Features</value>
+    </property>
+    <property key="ProductFeatureCategory.description.1001">
+        <value xml:lang="en">Model Year Features</value>
+        <value xml:lang="it">Caratteristiche anno modello</value>
+    </property>
+    <property key="ProductFeatureCategory.description.1002">
+        <value xml:lang="en">Equipment Class Features</value>
+        <value xml:lang="it">Caratteristiche classe attrezzatura</value>
+    </property>
+    <property key="ProductFeatureCategory.description.2000">
+        <value xml:lang="en">Gift Card Features</value>
+        <value xml:lang="it">Caratteristiche carta regalo</value>
+    </property>
+    <property key="ProductFeatureCategory.description.2100">
+        <value xml:lang="en">Account Features</value>
+        <value xml:lang="it">Caratteristiche utenza</value>
+    </property>
+    <property key="ProductFeatureCategory.description.3000">
+        <value xml:lang="en">Taste</value>
+        <value xml:lang="it">Caratteristiche gusto</value>
+    </property>
+    <property key="ProductFeatureCategory.description.8000">
+        <value xml:lang="en">License Features</value>
+        <value xml:lang="it">Caratteristiche licenza</value>
+    </property>
+    <property key="ProductFeatureCategory.description.9000">
+        <value xml:lang="en">Widget Features</value>
+        <value xml:lang="it">Caratteristiche widget</value>
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
@@ -1555,6 +1643,26 @@
         <value xml:lang="it">vendite</value>
         <value xml:lang="th">ขาย</value>
     </property>
+    <property key="ProductMaintType.description.CHASSIS_LUBE">
+        <value xml:lang="en">Chassis Lubrication</value>
+        <value xml:lang="it">Lubrificazione telaio</value>
+    </property>
+    <property key="ProductMaintType.description.CHECK_BATTERY">
+        <value xml:lang="en">Check Battery</value>
+        <value xml:lang="it">Controllo batteria</value>
+    </property>
+    <property key="ProductMaintType.description.HVAC_CHECK_REFR">
+        <value xml:lang="en">Check/Recharge Refrigerant</value>
+        <value xml:lang="it">Controllo/Ricarica refrigerante</value>
+    </property>
+    <property key="ProductMaintType.description.HVAC_MAINT">
+        <value xml:lang="en">HVAC Maintenance</value>
+        <value xml:lang="it">Manutenzione HVAC</value>
+    </property>
+    <property key="ProductMaintType.description.HVAC_REPLACE_FILTER">
+        <value xml:lang="en">Replace Air Filter</value>
+        <value xml:lang="it">Sostituzione filtro aria</value>
+    </property>
     <property key="ProductMaintType.description.OIL_CHANGE">
         <value xml:lang="de">Ölwechsel</value>
         <value xml:lang="en">Oil Change</value>
@@ -1588,6 +1696,10 @@
         <value xml:lang="th">แทนที่แบตเตอรี่</value>
         <value xml:lang="zh">更换电池</value>
     </property>
+    <property key="ProductMaintType.description.ROTATE_TIRES">
+        <value xml:lang="en">Rotate Tires</value>
+        <value xml:lang="it">Invertire le gomme</value>
+    </property>
     <property key="ProductMaintType.description.SERP_BELT">
         <value xml:lang="de">Keilriemen Ersatz</value>
         <value xml:lang="en">Serpentine Belt Replacement</value>
@@ -1598,6 +1710,10 @@
         <value xml:lang="ru">Замена приводных ремней</value>
         <value xml:lang="th">การแทนที่ทางโค้งคดเคี้ยว</value>
         <value xml:lang="zh">更换平带</value>
+    </property>
+    <property key="ProductMaintType.description.TUNE_UP">
+        <value xml:lang="en">Tune Up</value>
+        <value xml:lang="it">Mettere a punto</value>
     </property>
     <property key="ProductMaintType.description.VEHICLE_MAINT">
         <value xml:lang="de">Fahrzeug Instandhaltung</value>
@@ -1653,6 +1769,10 @@
         <value xml:lang="ru">Счетчик времени наработки двигателя</value>
         <value xml:lang="th">มิเตอร์เวลาเครื่องยนต์</value>
         <value xml:lang="zh">马达计时器</value>
+    </property>
+    <property key="ProductMeterType.description.ODOMETER">
+        <value xml:lang="en">Odometer</value>
+        <value xml:lang="it">Odometro</value>
     </property>
     <property key="ProductMeterType.description.SPEEDOMETER">
         <value xml:lang="de">Geschwindigkeitsmesser</value>
@@ -1972,6 +2092,10 @@
         <value xml:lang="ru">Товар требующий конфигурации</value>
         <value xml:lang="th">สามารถสร้างสินค้า</value>
         <value xml:lang="zh">可配置商品</value>
+    </property>
+    <property key="ProductType.description.AGGREGATED_CONF">
+        <value xml:lang="en">Configurable Good Configuration</value>
+        <value xml:lang="it">Configurazione beni configurabili</value>
     </property>
     <property key="ProductType.description.ASSET_USAGE">
         <value xml:lang="de">Anlageverwendung</value>
@@ -2388,6 +2512,14 @@
         <value xml:lang="ru">Утеряно</value>
         <value xml:lang="th">สูญเสีย</value>
         <value xml:lang="zh">丢失</value>
+    </property>
+    <property key="VarianceReason.description.VAR_MISSHIP_ORDERED">
+        <value xml:lang="en">Mis-shipped Item Ordered (+)</value>
+        <value xml:lang="it">Riga non-spedita ordinata (+)</value>
+    </property>
+    <property key="VarianceReason.description.VAR_MISSHIP_SHIPPED">
+        <value xml:lang="en">Mis-shipped Item Shipped (-)</value>
+        <value xml:lang="it">Riga non-spedita spedita (-)</value>
     </property>
     <property key="VarianceReason.description.VAR_SAMPLE">
         <value xml:lang="de">Muster</value>

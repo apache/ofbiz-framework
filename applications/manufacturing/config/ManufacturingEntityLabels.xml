@@ -91,6 +91,10 @@
         <value xml:lang="th">ปฏิทินมาตรฐานใช้เมื่อไม่มีการระบุปฏิทินโดยเฉพาะ</value>
         <value xml:lang="zh">当没有指定日历时所用的缺省日历</value>
     </property>
+    <property key="TechDataCalendar.description.DEMO_CALENDAR">
+        <value xml:lang="en">Demo Workcenter Calendar</value>
+        <value xml:lang="it">Calendario demo</value>
+    </property>
     <property key="TechDataCalendar.description.DRYING">
         <value xml:lang="en">DRYING</value>
         <value xml:lang="es">Calendario del taller de secado</value>
@@ -126,6 +130,10 @@
         <value xml:lang="ro">8 ore/zi</value>
         <value xml:lang="th">8 ชั่วโมง/วัน</value>
         <value xml:lang="zh">8小时/天</value>
+    </property>
+    <property key="TechDataCalendarWeek.description.DEMO_WEEK">
+        <value xml:lang="en">Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday</value>
+        <value xml:lang="it">Calendario settimanale demo di 8 ore/giorno 5 giorni/settimana iniziando alle 8:30 dal lunedì al venerdì</value>
     </property>
     <property key="TechDataCalendarWeek.description.HOLIDAY">
         <value xml:lang="en">HOLIDAY</value>
