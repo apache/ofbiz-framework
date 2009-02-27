@@ -17,4 +17,4 @@ specific language governing permissions and limitations
 under the License.
 --%>
 
-<%pageContext.forward("/control/cms");%>
+<%pageContext.forward("cms/cms");%>

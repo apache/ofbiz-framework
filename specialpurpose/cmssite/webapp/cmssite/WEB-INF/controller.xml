@@ -38,13 +38,9 @@ under the License.
     </preprocessor>
 
     <!-- default request; call into CMS -->
-    <!--default-request request-uri="cms"/-->
+    <default-request request-uri="cms"/>
 
     <!-- Request Mappings -->
-    <request-map uri="main">
-        <security https="false" auth="false"/>
-        <response name="success" type="request" value="cms"/>
-    </request-map>
     <request-map uri="cms">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.content.cms.CmsEvents" invoke="cms"/>
@@ -53,7 +49,4 @@ under the License.
     </request-map>
     <!-- End of Request Mappings -->
 
-    <!-- View Mappings -->
-    <view-map name="main" type="default"/>
-    <!-- End of View Mappings -->
 </site-conf>
