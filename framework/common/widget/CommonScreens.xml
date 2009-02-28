@@ -135,6 +135,8 @@ under the License.
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/footer.ftl"/>
                 <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/appbar.ftl"/>
                 <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
+
+                <property-map resource="CommonHelpUrls" map-name="helpUrlsMap" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->
