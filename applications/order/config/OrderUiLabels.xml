@@ -7707,7 +7707,7 @@
         <value xml:lang="de">Preis enthält keine Steueranpassungen</value>
         <value xml:lang="en">Price not includes tax  adjustments</value>
         <value xml:lang="es">El precio no incluye impuestos</value>
-        <value xml:lang="fr">Le prix n'inclut pas de taxes d'ajustement</value>
+        <value xml:lang="fr">Le prix n'inclut pas de taxes</value>
         <value xml:lang="it">Prezzo non include tasse e aggiustamenti</value>
         <value xml:lang="nl">Price not includes tax  adjustments</value>
         <value xml:lang="ro">Pret nu include taxe si ajustari OrderReturnReason=Motivatie Returnare</value>
