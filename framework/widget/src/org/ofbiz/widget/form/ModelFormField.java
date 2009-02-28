@@ -704,7 +704,7 @@ public class ModelFormField {
                 dataMapIsContext = true;
             }
             Object retVal = null;
-            if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
+            if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) { 
                 //Debug.logInfo("Getting entry, using entryAcsr for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 if (dataMap instanceof GenericEntity) {
                     GenericEntity genEnt = (GenericEntity) dataMap;
@@ -2059,7 +2059,8 @@ public class ModelFormField {
             }
             if (retVal == null || retVal.length() == 0) {
                 retVal = "";
-            } else if ("currency".equals(type)) { 
+            } else if ("currency".equals(type)) {
+                retVal = retVal.replaceAll("&nbsp;", " "); // encoding currency is a problem for some locale, we should not have any &nbsp; in retVal
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) locale = Locale.getDefault();
                 String isoCode = null;

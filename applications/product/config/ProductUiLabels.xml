@@ -11074,7 +11074,7 @@
     </property>
     <property key="ProductInventoryAverageCosts">
         <value xml:lang="en">Inventory Average Costs</value>
-        <value xml:lang="fr">coûts moyens de stokage</value>
+        <value xml:lang="fr">Coûts moyens de stokage</value>
     </property>
     <property key="ProductInventoryByProduct">
         <value xml:lang="de">Lager nach Produkt</value>
