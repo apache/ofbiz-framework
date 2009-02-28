@@ -2060,7 +2060,7 @@ public class ModelFormField {
             if (retVal == null || retVal.length() == 0) {
                 retVal = "";
             } else if ("currency".equals(type)) {
-                retVal = retVal.replaceAll("&nbsp;", " "); // encoding currency is a problem for some locale, we should not have any &nbsp; in retVal
+                retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) locale = Locale.getDefault();
                 String isoCode = null;
