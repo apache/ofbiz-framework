@@ -156,6 +156,7 @@ under the License.
               <#if userLogin?exists>
                 <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
               </#if>
+              <#include "component://common/webcommon/includes/helplink.ftl" />
             </ul>
           </li>
         </#if>

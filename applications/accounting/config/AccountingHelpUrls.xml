@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ACCOUNTING_main">
+        <value xml:lang="en">01 Main</value>
+    </property>
+    <property key="ACCOUNTING_findInvoices">
+        <value xml:lang="en">02 Invoices</value>
+    </property>
+    <property key="ACCOUNTING_findPayments">
+        <value xml:lang="en">03 Payments</value>
+    </property>
+    <property key="ACCOUNTING_FindGatewayResponses">
+        <value xml:lang="en">04 Transactions</value>
+    </property>
+    <property key="ACCOUNTING_FindBillingAccount">
+        <value xml:lang="en">05 Billing Accounts</value>
+    </property>
+    <property key="ACCOUNTING_FindFinAccount">
+        <value xml:lang="en">06 Financial Accounts</value>
+    </property>   
+    <property key="ACCOUNTING_EditFinAccount">
+        <value xml:lang="en">06.1 Financial Account</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccountRoles">
+        <value xml:lang="en">06.2 Roles</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccountTrans">
+        <value xml:lang="en">06.3 Transactions</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccountAuths">
+        <value xml:lang="en">06.4 Authorizations</value>
+    </property>    
+    <property key="ACCOUNTING_FindTaxAuthority">
+        <value xml:lang="en">07 Tax Authorities</value>
+    </property>
+    <property key="ACCOUNTING_EditTaxAuthority">
+        <value xml:lang="en">07.1 Tax Authority</value>
+    </property>
+    <property key="ACCOUNTING_EditTaxAuthorityCategories">
+        <value xml:lang="en">07.2 Categories</value>
+    </property>
+    <property key="ACCOUNTING_EditTaxAuthorityAssocs">
+        <value xml:lang="en">07.3 Assocs</value>
+    </property>
+    <property key="ACCOUNTING_EditTaxAuthorityGlAccounts">
+        <value xml:lang="en">07.4 GL Accounts</value>
+    </property>
+    <property key="ACCOUNTING_EditTaxAuthorityRateProducts">
+        <value xml:lang="en">07.5 Product Rates</value>
+    </property>
+    <property key="ACCOUNTING_ListTaxAuthorityParties">
+        <value xml:lang="en">07.6 Parties</value>
+    </property>
+    <property key="ACCOUNTING_FindAgreement">
+        <value xml:lang="en">08 Agreements</value>
+    </property>
+    <property key="ACCOUNTING_ListFixedAssets">
+        <value xml:lang="en">09 Fixed Assets</value>
+    </property>
+    <property key="ACCOUNTING_FindGlobalGlAccount">
+        <value xml:lang="en">10 Global GL Settings</value>
+    </property>
+    <property key="ACCOUNTING_ListCompanies">
+        <value xml:lang="en">11 General Ledger</value>
+    </property>
+    <property key="ACCOUNTING_PartyAcctgPreference">
+        <value xml:lang="en">01 Accounting Preferences</value>
+    </property>
+    <property key="ACCOUNTING_ListGlAccountOrganization">
+        <value xml:lang="en">02 Chart of Accounts</value>
+    </property>
+    <property key="ACCOUNTING_SetupGlJournals">
+        <value xml:lang="en">03 Journals</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountTypeDefaults">
+        <value xml:lang="en">04 GL Account Defaults</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountTypeDefaults">
+        <value xml:lang="en">04.1 GL Account Type Defaults</value>
+    </property>
+    <property key="ACCOUNTING_EditProductGlAccounts">
+        <value xml:lang="en">04.2 Product GL Accounts</value>
+    </property>
+    <property key="ACCOUNTING_EditProductCategoryGlAccounts">
+        <value xml:lang="en">04.3 Product Category GL Account</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccountTypeGlAccounts">
+        <value xml:lang="en">04.4 FinAccount Type - GL Account</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountSalInvoice">
+        <value xml:lang="en">04.5 Sales Invoice</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountPurInvoice">
+        <value xml:lang="en">04.6 Purchase Invoice</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountTypePaymentType">
+        <value xml:lang="en">04.7 Payment Type - GL Account Type Id</value>
+    </property>
+    <property key="ACCOUNTING_GlAccountNrPaymentMethod">
+        <value xml:lang="en">04.8 Payment Method Id - Gl Account Id</value>
+    </property>
+    <property key="ACCOUNTING_EditVarianceReasonGlAccounts">
+        <value xml:lang="en">04.9 Variance Reason GL Accounts</value>
+    </property>
+    <property key="ACCOUNTING_EditCreditCardTypeGlAccounts">
+        <value xml:lang="en">04.10 Credit Card Type GL Account</value>
+    </property>
+    <property key="ACCOUNTING_EditOrganizationTaxAuthorityGlAccounts">
+        <value xml:lang="en">04.11 Tax Authority GL Accounts</value>
+    </property>
+    <property key="ACCOUNTING_EditPartyGlAccount">
+        <value xml:lang="en">04.12 Party GL Accounts</value>
+    </property>
+    <property key="ACCOUNTING_TimePeriods">
+        <value xml:lang="en">05 Time Period</value>
+    </property>
+    <property key="ACCOUNTING_ViewFXConversions">
+        <value xml:lang="en">06 Foreign Exchange Rates</value>
+    </property>
+    <property key="ACCOUNTING_PartyAccountsSummary">
+        <value xml:lang="en">11.2 Accounting</value>
+    </property>
+</resource>
