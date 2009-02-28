@@ -341,31 +341,14 @@ under the License.
             <if-compare-field field="parameters.returnQuantity" to-field="returnableQuantity" operator="greater" type="BigDecimal">
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist"/></add-error>
             </if-compare-field>
-
-            <!-- SC 20060202: Is this really needed?  Or does the above duplicate it.  If not, we should remove it -->
             <if-not-empty field="orderItem">
                 <if-compare-field field="parameters.returnQuantity" to-field="orderItem.quantity" operator="greater" type="BigDecimal">
                     <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnQuantityCannotExceedTheOrderedQuantity"/></add-error>
                 </if-compare-field>
             </if-not-empty>
-
-            <!-- Workaround for bug: returnPrice=16.99, returnablePrice=16.9894 => OrderReturnPriceCannotExceedThePurchasePrice -->
-            <set field="epsilon" value="0.01" type="BigDecimal"/>
-            <set field="zero" value="0.0" type="BigDecimal"/>
-            <calculate field="returnPriceDelta">
-                <calcop operator="subtract">
-                    <calcop operator="get" field="parameters.returnPrice"/>
-                    <calcop operator="get" field="returnablePrice"/>
-                </calcop>
-            </calculate>
-
-            <!-- just checking greater-equals sometimes returns an error if the difference is actually zero -->
-            <if-compare-field field="returnPriceDelta" to-field="zero" operator="not-equals" type="BigDecimal">
-                <if-compare-field field="returnPriceDelta" to-field="epsilon" operator="greater-equals" type="BigDecimal">
-                    <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
-                </if-compare-field >
-            </if-compare-field>
-
+            <if-compare-field field="parameters.returnPrice" to-field="returnablePrice" operator="greater" type="BigDecimal">
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>                
+            </if-compare-field>            
             <check-errors/>
 
             <else>
@@ -388,15 +371,11 @@ under the License.
             <set value="1" field="newEntity.returnItemSeqId"/>
         <else>
             <first-from-list entry="newestItem" list="currentItems"/>
-            <calculate field="newEntity.returnItemSeqId" type="Integer">
-               <calcop field="newestItem.returnItemSeqId" operator="add">
-                   <number value="1"/>
-               </calcop>
-           </calculate>
+            <set field="newestItem.returnItemSeqId" value="${newestItem.returnItemSeqId + 1}" type="Integer"/>
         </else>
         </if-empty>
-        <to-string field="returnItemSeqId" numeric-padding="5"/>
-        <set field="newEntity.returnItemSeqId" from-field="returnItemSeqId" type="PlainString"/>
+        <to-string field="newestItem.returnItemSeqId" numeric-padding="5"/>
+        <set field="newEntity.returnItemSeqId" from-field="newestItem.returnItemSeqId" type="PlainString"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusId" value="RETURN_REQUESTED"/>  <!-- default status for new return items -->
@@ -539,23 +518,18 @@ under the License.
         <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map="lookupPKMap" list="shipmentReceipts"/>
         <iterate list="shipmentReceipts" entry="receipt">
-            <if-empty field="totalsMap.${receipt.returnItemSeqId}">
-                <calculate field="totalsMap[receipt.returnItemSeqId]"><number value="0"/></calculate>
-            </if-empty>
-            <calculate field="totalsMap[receipt.returnItemSeqId]">
-                <calcop field="totalsMap[receipt.returnItemSeqId]" operator="add">
-                    <calcop field="receipt.quantityAccepted" operator="get"/>
-                    <calcop field="receipt.quantityRejected" operator="get"/>
-                </calcop>
-            </calculate>
+            <if-empty field="totalsMap.receipt.returnItemSeqId">
+                <set field="totalsMap.receipt.returnItemSeqId" value="0"  type="BigDecimal"/>
+            </if-empty> 
+            <set field="totalsMap.receipt.returnItemSeqId" value="${receipt.quantityAccepted + receipt.quantityRejected}" default-value="0" type="BigDecimal"/>
             
             <entity-one entity-name="ReturnItem" value-field="returnItem">
                 <field-map field-name="returnId" from-field="receipt.returnId"/>
                 <field-map field-name="returnItemSeqId" from-field="receipt.returnItemSeqId"/>
             </entity-one>
-            <set field="returnItem.receivedQuantity" from-field="totalsMap.${receipt.returnItemSeqId}"/>
+            <set field="returnItem.receivedQuantity" from-field="${totalsMap.receipt.returnItemSeqId}" type="BigDecimal"/>
             
-            <if-compare-field field="totalsMap.${receipt.returnItemSeqId}" to-field="returnItem.returnQuantity" operator="greater-equals" type="BigDecimal">
+            <if-compare-field field="totalsMap.receipt.returnItemSeqId" to-field="returnItem.returnQuantity" operator="greater-equals" type="BigDecimal">
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
                 <store-value value-field="returnItem"/>
