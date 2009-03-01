@@ -25,8 +25,8 @@ under the License.
         <img src="<@ofbizContentUrl>${sessionAttributes.overrideLogo}</@ofbizContentUrl>" alt="Logo"/>
       <#elseif catalogHeaderLogo?exists>
         <img src="<@ofbizContentUrl>${catalogHeaderLogo}</@ofbizContentUrl>" alt="Logo"/>
-      <#elseif (productStore.headerLogo)?has_content>
-        <img src="<@ofbizContentUrl>${productStore.headerLogo}</@ofbizContentUrl>" alt="Logo"/>
+      <#elseif layoutSettings.VT_HDR_IMAGE_URL?has_content>
+        <img src="<@ofbizContentUrl>${layoutSettings.VT_HDR_IMAGE_URL.get(0)}</@ofbizContentUrl>" alt="Logo"/>
       </#if>
     </div>
     <div id="right">
