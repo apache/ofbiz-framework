@@ -72,8 +72,13 @@ public class RegexpCondition implements Conditional {
     public RegexpCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        }
 
         this.exprExdr = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
     }
