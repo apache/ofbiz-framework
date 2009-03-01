@@ -91,7 +91,7 @@
     <property key="ACCOUNTING_SetupGlJournals">
         <value xml:lang="en">03 Journals</value>
     </property>
-    <property key="ACCOUNTING_GlAccountTypeDefaults">
+    <property key="ACCOUNTING_GlAccountDefaults">
         <value xml:lang="en">04 GL Account Defaults</value>
     </property>
     <property key="ACCOUNTING_GlAccountTypeDefaults">

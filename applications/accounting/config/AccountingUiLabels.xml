@@ -7530,6 +7530,14 @@
         <value xml:lang="th">ภาพข้อตกลง</value>
         <value xml:lang="zh">合同图片</value>
     </property>
+    <property key="FormFieldTitle_agreementItemSeqId">
+        <value xml:lang="en">Agreement Item Seq Id</value>
+        <value xml:lang="it">Riga contratto</value>
+    </property>
+    <property key="FormFieldTitle_agreementItemTypeId">
+        <value xml:lang="en">Agreement Item Type Id</value>
+        <value xml:lang="it">Tipo riga contratto</value>
+    </property>
     <property key="FormFieldTitle_agreementText">
         <value xml:lang="ar">نص الإتفاقية</value>
         <value xml:lang="de">Vereinbarungstext</value>

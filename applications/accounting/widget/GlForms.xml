@@ -517,8 +517,8 @@ under the License.
         <field name="productId"><text size="20"/></field>
         <field name="debitCreditFlag">
             <drop-down current="selected">
-                <option description="${uilabelMap.FormFieldTitle_credit}" key="C"/>
-                <option description="${uilabelMap.FormFieldTitle_debit}" key="D"/>
+                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
+                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
             </drop-down>
         </field>
         <field name="reconcileStatusId"><text size="30"/></field>
@@ -576,8 +576,8 @@ under the License.
         <field name="isSummary"><display/></field>
         <field name="debitCreditFlag">
             <drop-down current="selected">
-                <option description="${uilabelMap.FormFieldTitle_credit}" key="C"/>
-                <option description="${uilabelMap.FormFieldTitle_debit}" key="D"/>
+                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
+                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
             </drop-down>
         </field>
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
