@@ -150,7 +150,6 @@ under the License.
 
     <entity entity-name="Content"
             package-name="org.ofbiz.content.content"
-            default-resource-name="ContentEntityLabels"
             title="Content Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
