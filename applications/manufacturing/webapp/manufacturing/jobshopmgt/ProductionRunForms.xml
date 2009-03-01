@@ -463,7 +463,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.ManufacturingWorker}">
             <text/>
         </field>
-        <field name="submitButton" title="${uiLabelButton}">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
     </form>
@@ -574,7 +574,7 @@ under the License.
             </drop-down> -->
             <hidden />
         </field>
-        <field name="submitButton" title="${uiLabelButton}">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button" />
         </field>
     </form>
