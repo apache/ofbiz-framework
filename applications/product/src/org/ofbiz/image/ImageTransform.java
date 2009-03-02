@@ -55,7 +55,7 @@ public class ImageTransform {
     public static final String module = ImageTransform.class.getName();
     public static final String resource = "ProductErrorUiLabels";
 
-    public ImageTransform() {}    
+    public ImageTransform() {}
 
     /**
      * getBufferedImage
@@ -70,11 +70,11 @@ public class ImageTransform {
      */
     public Map<String, Object> getBufferedImage(String fileLocation, Locale locale)
         throws IllegalArgumentException, IOException {
-        
+
         /* VARIABLES */
         BufferedImage bufImg;
         Map<String, Object> result = FastMap.newInstance();
-        
+
         /* BUFFERED IMAGE */
         try{
             bufImg = ImageIO.read(new File(fileLocation));
@@ -91,12 +91,11 @@ public class ImageTransform {
         }
 
         result.put("responseMessage", "success");
-        result.put("bufferedImage", bufImg); 
-        return result;        
-    
+        result.put("bufferedImage", bufImg);
+        return result;
+
     }
-    
-    
+
     /**
      * scaleImageInAllSize
      * <p>
@@ -114,7 +113,7 @@ public class ImageTransform {
      */
     public Map<String, Object> scaleImageInAllSize(Map<String, ? extends Object> context, String filenameToUse, String viewType, String viewNumber)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
-    
+
         /* VARIABLES */
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = UtilMisc.toList("small", "medium", "large", "detail");
@@ -124,12 +123,12 @@ public class ImageTransform {
         BufferedImage bufImg, bufNewImg;
         double imgHeight, imgWidth, scaleFactor;
         AffineTransformOp op;
-        Map<String, String> imgUrlMap = FastMap.newInstance(); 
-        Map<String, Object> resultXMLMap = FastMap.newInstance(); 
+        Map<String, String> imgUrlMap = FastMap.newInstance();
+        Map<String, Object> resultXMLMap = FastMap.newInstance();
         Map<String, Object> resultBufImgMap = FastMap.newInstance();
         Map<String, Object> resultScaleImgMap = FastMap.newInstance();
         Map<String, Object> result = FastMap.newInstance();
-           
+
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
         resultXMLMap.putAll((Map<String, Object>) getXMLValue(imgPropertyFullPath, locale));
@@ -141,7 +140,7 @@ public class ImageTransform {
             result.put("errorMessage", errMsg);
             return result;
         }
-        
+
         /* IMAGE */
         // get Name and Extension
         index = filenameToUse.lastIndexOf(".");
@@ -151,7 +150,7 @@ public class ImageTransform {
         String mainFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-        
+
         String id = null;
         String type = null;
         if(viewType.toLowerCase().contains("main")){
@@ -169,15 +168,15 @@ public class ImageTransform {
         if (fileLocation.lastIndexOf("/") != -1) {
             filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
         }
-        
-        
-      
+
+
+
         /* get original BUFFERED IMAGE */
         resultBufImgMap.putAll(this.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
-        
+
         if(resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")){
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
-            
+
             // get Dimensions    
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
@@ -187,26 +186,26 @@ public class ImageTransform {
                 result.put("errorMessage", errMsg);
                 return result;
             }
-            
+
             // new Filename Format
             FlexibleStringExpander addFilenameExpander = mainFilenameExpander;
             if(viewType.toLowerCase().contains("additional")){
                 String addFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format");
                 addFilenameExpander = FlexibleStringExpander.getInstance(addFilenameFormat);
             }
-        
+
             /* scale Image for each Size Type */
             Iterator<String> sizeIter = sizeTypeList.iterator();
             while(sizeIter.hasNext()){
                 String sizeType = sizeIter.next();
-        
+
                 resultScaleImgMap.putAll(this.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
-                 
+
                 if(resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")){
-                    bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage"); 
-                    Double scaleFactorDb = (Double) resultScaleImgMap.get("scaleFactor"); 
+                    bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
+                    Double scaleFactorDb = (Double) resultScaleImgMap.get("scaleFactor");
                     scaleFactor = scaleFactorDb.doubleValue();
-        
+
                     // define Interpolation
                     Map<RenderingHints.Key, Object> rhMap = FastMap.newInstance();
                         rhMap.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -219,12 +218,12 @@ public class ImageTransform {
                         //rhMap.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
                         rhMap.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                     RenderingHints rh = new RenderingHints(rhMap);
-                    
-                    /* IMAGE TRANFORMATION */ 
+
+                    /* IMAGE TRANFORMATION */
                     AffineTransform tx = new AffineTransform();
                     tx.scale(scaleFactor, scaleFactor);
-                    
-                    
+
+
                     try{
                         op = new AffineTransformOp(tx, rh);
                     }catch(ImagingOpException e){
@@ -233,7 +232,7 @@ public class ImageTransform {
                         result.put("errorMessage", errMsg);
                         return result;
                     }
-        
+
                     // write the New Scaled Image
                     String newFileLocation = null;
                     if(viewType.toLowerCase().contains("main")){
@@ -245,7 +244,7 @@ public class ImageTransform {
                     if (newFileLocation.lastIndexOf("/") != -1) {
                         newFilePathPrefix = newFileLocation.substring(0, newFileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
                     }
-                    
+
                     // choose final extension
                     String finalExtension = null;
                     if(!extensionList.contains(imgExtension.toLowerCase())){
@@ -279,31 +278,31 @@ public class ImageTransform {
                         result.put("errorMessage", errMsg);
                         return result;
                     }
-            
+
                     /* write Return Result */
                     String imageUrl = imageUrlPrefix + "/" + newFilePathPrefix + filenameToUse;
                     imgUrlMap.put(sizeType, imageUrl);
-        
+
                 } // scaleImgMap
             } // sizeIter
-            
+
             result.put("responseMessage", "success");
             result.put("imageUrlMap", imgUrlMap);
             result.put("original", resultBufImgMap);
-            return result;     
+            return result;
 
-        
+
         }else{
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
             return ServiceUtil.returnError(errMsg);
-        }    
-        
+        }
 
-    } 
 
-    
+    }
+
+
     /**
      * scaleImage
      * <p>
@@ -317,13 +316,13 @@ public class ImageTransform {
      * @return                  New scaled buffered image 
      */
     private Map<String, Object> scaleImage(BufferedImage bufImg, double imgHeight, double imgWidth, Map<String, Map<String, String>> dimensionMap, String sizeType, Locale locale){
-    
+
         /* VARIABLES */
         BufferedImage bufNewImg;
         double defaultHeight, defaultWidth, scaleFactor;
         Map<String, Object> result = FastMap.newInstance();
-       
-        /* DIMENSIONS from ImageProperties */     
+
+        /* DIMENSIONS from ImageProperties */
         defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height").toString());
         defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width").toString());
         if(defaultHeight == 0.0 || defaultWidth == 0.0){
@@ -332,7 +331,7 @@ public class ImageTransform {
             result.put("errorMessage", errMsg);
             return result;
         }
-        
+
         /* SCALE FACTOR */
         // find the right Scale Factor related to the Image Dimensions
         if(imgHeight > imgWidth){
@@ -345,7 +344,7 @@ public class ImageTransform {
             }
             // get scaleFactor from the smallest width
             if(defaultWidth < (imgWidth * scaleFactor)){
-                scaleFactor = defaultWidth / imgWidth;    
+                scaleFactor = defaultWidth / imgWidth;
             }
         }else{
             scaleFactor = defaultWidth / imgWidth;
@@ -357,10 +356,10 @@ public class ImageTransform {
             }
             // get scaleFactor from the smallest height
             if(defaultHeight < (imgHeight * scaleFactor)){
-                scaleFactor = defaultHeight / imgHeight;    
-            }   
+                scaleFactor = defaultHeight / imgHeight;
+            }
         }
-            
+
         if(scaleFactor == 0.0){
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.final_scale_factor_is_null", locale) + " = " + scaleFactor;
             Debug.logError(errMsg, module);
@@ -372,21 +371,20 @@ public class ImageTransform {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unknown_buffered_image_type", locale);
             Debug.logWarning(errMsg, module);
             // apply a type for image majority
-            bufImgType = BufferedImage.TYPE_INT_ARGB_PRE; 
+            bufImgType = BufferedImage.TYPE_INT_ARGB_PRE;
         }else{
-            bufImgType = bufImg.getType();       
+            bufImgType = bufImg.getType();
         }
-        
+
         bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImgType);
- 
+
         result.put("responseMessage", "success");
         result.put("bufferedImage", bufNewImg);
         result.put("scaleFactor", scaleFactor);
         return result;
 
     }
-    
-    
+
     /**
      * getXMLValue
      * <p>
@@ -403,7 +401,7 @@ public class ImageTransform {
         Element rootElt;
         Map<String, Map<String, String>> valueMap = FastMap.newInstance();
         Map<String, Object> result = FastMap.newInstance();
-        
+
         /* PARSING */
         SAXBuilder sxb = new SAXBuilder();
         try{
@@ -428,8 +426,8 @@ public class ImageTransform {
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
             return result;
-        } 
-           
+        }
+
         /* get NAME and VALUE */
         List<Element> children = rootElt.getChildren(); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
         for (Element currentElt : children) {
@@ -439,18 +437,18 @@ public class ImageTransform {
                 // loop over Children 1st level
                 List<Element> children2 = currentElt.getChildren();
                 for (Element currentChild : children2) {
-                    childMap.put(currentChild.getAttributeValue("name"), currentChild.getAttributeValue("value"));  
-                }    
+                    childMap.put(currentChild.getAttributeValue("name"), currentChild.getAttributeValue("value"));
+                }
                 valueMap.put(currentElt.getAttributeValue("name"), childMap);
             }else{
                 eltMap.put(currentElt.getAttributeValue("name"), currentElt.getAttributeValue("value"));
-                valueMap.put(currentElt.getName(), eltMap);   
+                valueMap.put(currentElt.getName(), eltMap);
             }
-        }  
-        
+        }
+
         result.put("responseMessage", "success");
         result.put("xml", valueMap);
-        return result; 
-        
-    }    
+        return result;
+
+    }
 }
