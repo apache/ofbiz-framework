@@ -432,7 +432,7 @@
         <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjects}">
             <link target="listResourcesProject?partyId=${partyId}"></link>
         </menu-item>
-        <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTaskId}">
+        <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTasks}">
             <link target="listResourcesTask?partyId=${partyId}"></link>
         </menu-item>
         <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
