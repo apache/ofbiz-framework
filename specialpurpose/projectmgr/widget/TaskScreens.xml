@@ -177,7 +177,7 @@ under the License.
                                 </or>
                             </condition>
                             <actions>
-                                <set field="entityName" value="ProjectAndPhaseAndTask"/>
+                                <set field="entityName" value="ProjectAndPhaseAndTaskParty"/>
                             </actions>
                             <widgets>
                                 <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}" navigation-form-name="ListTasks">
