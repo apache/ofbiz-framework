@@ -367,13 +367,17 @@ public class ImageTransform {
             result.put("errorMessage", errMsg);
             return result;
         }
+        int bufImgType;
         if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unknown_buffered_image_type", locale);
-            Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
-            return result;            
+            Debug.logWarning(errMsg, module);
+            // apply a type for image majority
+            bufImgType = BufferedImage.TYPE_INT_ARGB_PRE; 
+        }else{
+            bufImgType = bufImg.getType();       
         }
-            bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImg.getType());
+        
+        bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImgType);
  
         result.put("responseMessage", "success");
         result.put("bufferedImage", bufNewImg);
