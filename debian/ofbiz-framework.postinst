@@ -180,7 +180,7 @@ case "$1" in
 		get ofbiz_admin_port ofbiz/admin-port
 		if ! [ "$2" ]; then
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
-				adduser --quiet --group --no-create-home --system --home /var/lib/ofbiz ofbiz
+				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi
 			dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
 		fi
