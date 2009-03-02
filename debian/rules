@@ -48,14 +48,14 @@ clean-debian:
 	rm -rf runtime/catalina/work debian/stamps
 
 clean: clean-debian
-	ant clean-all
+	$(SHELL) ant clean-all
 	debconf-updatepo
 
 build: debian/stamps/build-ofbiz debian/EncryptPassword.class
 build-ofbiz: debian/stamps/build-ofbiz
 binary-indep: debian/stamps/build-ofbiz
 debian/stamps/build-ofbiz:
-	ant
+	$(SHELL) ant
 	@mkdir -p $(@D) && touch $@
 
 binary-indep: debian/EncryptPassword.class
