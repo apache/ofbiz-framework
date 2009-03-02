@@ -1556,7 +1556,7 @@
         <value xml:lang="it">Mostra referenze labels</value>
     </property>
     <property key="WebtoolsLabelManagerWarningMessage">
-        <value xml:lang="en">There are some labels with more than translation for the same language</value>
+        <value xml:lang="en">There are some labels with more than one translation for the same language</value>
         <value xml:lang="fr">Il y a des traduction dupliquées pour le même langage</value>
         <value xml:lang="it">Ci sono alcune label con più di una traduzione per la stessa lingua</value>
     </property>
