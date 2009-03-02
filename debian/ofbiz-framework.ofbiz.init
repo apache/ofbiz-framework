@@ -84,7 +84,7 @@ run_ofbiz_cmd() {
 	)
 }
 
-if [ -n "$(which jsvc)" ]; then
+if [ -z "$(which jsvc)" ]; then
 	jsvc() {
 		jsvc_jvm=""
 		jsvc_wait=""
