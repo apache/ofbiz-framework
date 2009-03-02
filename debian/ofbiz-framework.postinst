@@ -182,6 +182,9 @@ case "$1" in
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --home /var/lib/ofbiz ofbiz
 			fi
+			dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
+		elif dpkg --compare-versions "$2" lt 595296-4; then
+			dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
 		fi
 		if false; then
 		cat << _EOF_ > /etc/ofbiz/debconf.cfg.dpkg-new
