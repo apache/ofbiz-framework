@@ -42,10 +42,26 @@ merge:
 		fi \
 	fi
 
+make-orig:
+	set -ex; \
+	rm -rf ../orig; \
+	set -- `(svk info . 2>/dev/null || true) | awk -F '[ ,]+' '/^(Depot Path|Mirrored From): /{print $$3, $$5}'`;\
+	if [ "$$1" ]; then \
+		mkdir -p ../orig; \
+		svk log -v > ../orig/changelog & \
+		svk co --export "$$1" "../orig/ofbiz-$$3"; \
+		wait; \
+		cp -a ../orig/changelog changelog; \
+		mv ../orig/changelog "../orig/ofbiz-$$3/changelog"; \
+		tar -C ../orig -c "ofbiz-$$3" | gzip -9 > "../orig/ofbiz_$$3.orig.tar.gz"; \
+		mv "../orig/ofbiz_$$3.orig.tar.gz" ..; \
+		rm -rf ../orig; \
+	fi \
+
 clean-debian:
 	dh_clean
 	rm -f debian/EncryptPassword.class
-	rm -rf runtime/catalina/work debian/stamps
+	rm -rf runtime/catalina/work debian/stamps debian/copyright
 
 clean: clean-debian
 	$(SHELL) ant clean-all
@@ -63,9 +79,12 @@ debian/EncryptPassword.class: %.class: %.java
 debian/EncryptPassword.class: debian/stamps/build-ofbiz
 	$(JAVAC) -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar -d $(@D) $*.java
 
+debian/copyright: debian/copyright.in LICENSE
+	cat $^ > $@.new
+	mv $@.new $@
 
 binary-indep: DH_OPTIONS=-i
-binary-indep:
+binary-indep: debian/copyright
 	dh_testdir
 	dh_testroot
 	dh_clean -k
@@ -76,14 +95,16 @@ binary-indep:
 	dh_link
 #	tar -c . --exclude debian --exclude src --exclude build.xml --exclude build/classes --exclude framework/example | tar -C debian/ofbiz-svn-$(UPSTREAM_VERSION)/var/lib/ofbiz/$(UPSTREAM_VERSION) -x 
 #	dh_strip
-	dh_compress
-	dh_fixperms
 #	dh_shlibdeps
-	dh_md5sums
-	dh_installdebconf
 	dh_installinit -N ofbiz-framework
 	dh_installinit -p ofbiz-framework --name ofbiz
+	dh_installchangelogs
+	dh_installdebconf
+	dh_installdocs
 	dh_installdeb
+	dh_fixperms
+	dh_compress
+	dh_md5sums
 	dh_gencontrol
 	dh_builddeb
 

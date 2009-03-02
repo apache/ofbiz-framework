@@ -1,0 +1,10 @@
+This package of ofbiz was made possible by Adam Heath
+<doogie@brainfood.com>, on Sunday, March 1, 2008.
+
+It was downloaded from http://ofbiz.apache.org.
+
+All debian-related files are released under the Apache License
+Version 2.0.
+
+There are several embedded libraries included in ofbiz.  The upstream
+LICENSE file contains everything needed to figure that out.
