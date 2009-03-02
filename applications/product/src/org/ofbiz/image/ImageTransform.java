@@ -55,7 +55,8 @@ public class ImageTransform {
     public static final String module = ImageTransform.class.getName();
     public static final String resource = "ProductErrorUiLabels";
 
-    public ImageTransform() {}
+    public ImageTransform() {
+    }
 
     /**
      * getBufferedImage
@@ -76,14 +77,14 @@ public class ImageTransform {
         Map<String, Object> result = FastMap.newInstance();
 
         /* BUFFERED IMAGE */
-        try{
+        try {
             bufImg = ImageIO.read(new File(fileLocation));
-        }catch(IllegalArgumentException e){
+        } catch(IllegalArgumentException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
             return result;
-        }catch(IOException e){
+        } catch(IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -132,9 +133,9 @@ public class ImageTransform {
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
         resultXMLMap.putAll((Map<String, Object>) getXMLValue(imgPropertyFullPath, locale));
-        if(resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")){
+        if(resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll((Map<String, Map<String, String>>) resultXMLMap.get("xml"));
-        }else{
+        } else {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_parse", locale) + " : ImageProperties.xml";
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -153,13 +154,13 @@ public class ImageTransform {
 
         String id = null;
         String type = null;
-        if(viewType.toLowerCase().contains("main")){
+        if(viewType.toLowerCase().contains("main")) {
             type = "original";
             id = imgName;
-        }else if(viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")){
+        } else if(viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")) {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
-        }else{
+        } else {
             return ServiceUtil.returnError("View Type : " + type + " is wrong");
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
@@ -174,13 +175,13 @@ public class ImageTransform {
         /* get original BUFFERED IMAGE */
         resultBufImgMap.putAll(this.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
 
-        if(resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")){
+        if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
 
             // get Dimensions    
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
-            if(imgHeight == 0.0 || imgWidth == 0.0){
+            if (imgHeight == 0.0 || imgWidth == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
                 result.put("errorMessage", errMsg);
@@ -189,19 +190,19 @@ public class ImageTransform {
 
             // new Filename Format
             FlexibleStringExpander addFilenameExpander = mainFilenameExpander;
-            if(viewType.toLowerCase().contains("additional")){
+            if (viewType.toLowerCase().contains("additional")) {
                 String addFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format");
                 addFilenameExpander = FlexibleStringExpander.getInstance(addFilenameFormat);
             }
 
             /* scale Image for each Size Type */
             Iterator<String> sizeIter = sizeTypeList.iterator();
-            while(sizeIter.hasNext()){
+            while (sizeIter.hasNext()) {
                 String sizeType = sizeIter.next();
 
                 resultScaleImgMap.putAll(this.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
 
-                if(resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")){
+                if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
                     Double scaleFactorDb = (Double) resultScaleImgMap.get("scaleFactor");
                     scaleFactor = scaleFactorDb.doubleValue();
@@ -224,9 +225,9 @@ public class ImageTransform {
                     tx.scale(scaleFactor, scaleFactor);
 
 
-                    try{
+                    try {
                         op = new AffineTransformOp(tx, rh);
-                    }catch(ImagingOpException e){
+                    } catch(ImagingOpException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ImageTransform.transform_is_non_invertible", locale)  + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
@@ -235,9 +236,9 @@ public class ImageTransform {
 
                     // write the New Scaled Image
                     String newFileLocation = null;
-                    if(viewType.toLowerCase().contains("main")){
+                    if (viewType.toLowerCase().contains("main")) {
                         newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", sizeType, "id", id));
-                    }else if(viewType.toLowerCase().contains("additional")){
+                    } else if(viewType.toLowerCase().contains("additional")) {
                         newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "viewtype", viewType, "sizetype", sizeType,"id", id));
                     }
                     String newFilePathPrefix = "";
@@ -247,9 +248,9 @@ public class ImageTransform {
 
                     // choose final extension
                     String finalExtension = null;
-                    if(!extensionList.contains(imgExtension.toLowerCase())){
+                    if (!extensionList.contains(imgExtension.toLowerCase())) {
                         finalExtension = imgPropertyMap.get("format").get("extension");
-                    }else{
+                    } else {
                         finalExtension = imgExtension;
                     }
 
@@ -265,14 +266,14 @@ public class ImageTransform {
                     }
 
                     // write new image
-                    try{
+                    try {
                         ImageIO.write(op.filter(bufImg, bufNewImg), imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
-                    }catch(IllegalArgumentException e){
+                    } catch(IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
                         return result;
-                    }catch(IOException e){
+                    } catch(IOException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
@@ -292,7 +293,7 @@ public class ImageTransform {
             return result;
 
 
-        }else{
+        } else {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -315,7 +316,7 @@ public class ImageTransform {
      * @param   sizeType        Size type to scale
      * @return                  New scaled buffered image 
      */
-    private Map<String, Object> scaleImage(BufferedImage bufImg, double imgHeight, double imgWidth, Map<String, Map<String, String>> dimensionMap, String sizeType, Locale locale){
+    private Map<String, Object> scaleImage(BufferedImage bufImg, double imgHeight, double imgWidth, Map<String, Map<String, String>> dimensionMap, String sizeType, Locale locale) {
 
         /* VARIABLES */
         BufferedImage bufNewImg;
@@ -325,7 +326,7 @@ public class ImageTransform {
         /* DIMENSIONS from ImageProperties */
         defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height").toString());
         defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width").toString());
-        if(defaultHeight == 0.0 || defaultWidth == 0.0){
+        if (defaultHeight == 0.0 || defaultWidth == 0.0) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -334,33 +335,33 @@ public class ImageTransform {
 
         /* SCALE FACTOR */
         // find the right Scale Factor related to the Image Dimensions
-        if(imgHeight > imgWidth){
+        if (imgHeight > imgWidth) {
             scaleFactor = defaultHeight / imgHeight;
-            if(scaleFactor == 0.0){
+            if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, module);
                 result.put("errorMessage", errMsg);
                 return result;
             }
             // get scaleFactor from the smallest width
-            if(defaultWidth < (imgWidth * scaleFactor)){
+            if (defaultWidth < (imgWidth * scaleFactor)) {
                 scaleFactor = defaultWidth / imgWidth;
             }
-        }else{
+        } else {
             scaleFactor = defaultWidth / imgWidth;
-            if(scaleFactor == 0.0){
+            if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
                 result.put("errorMessage", errMsg);
                 return result;
             }
             // get scaleFactor from the smallest height
-            if(defaultHeight < (imgHeight * scaleFactor)){
+            if (defaultHeight < (imgHeight * scaleFactor)) {
                 scaleFactor = defaultHeight / imgHeight;
             }
         }
 
-        if(scaleFactor == 0.0){
+        if (scaleFactor == 0.0) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.final_scale_factor_is_null", locale) + " = " + scaleFactor;
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -372,7 +373,7 @@ public class ImageTransform {
             Debug.logWarning(errMsg, module);
             // apply a type for image majority
             bufImgType = BufferedImage.TYPE_INT_ARGB_PRE;
-        }else{
+        } else {
             bufImgType = bufImg.getType();
         }
 
@@ -404,24 +405,24 @@ public class ImageTransform {
 
         /* PARSING */
         SAXBuilder sxb = new SAXBuilder();
-        try{
+        try {
             // JDOM
             document = sxb.build(new File(fileFullPath));
-        }catch(JDOMException e){
+        } catch(JDOMException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occur_in parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
             return result;
-        }catch(IOException e){
+        } catch(IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
             return result;
         }
         // set Root Element
-        try{
+        try {
             rootElt = document.getRootElement();
-        }catch(IllegalStateException e){
+        } catch(IllegalStateException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.root_element_has_not_been_set", locale) + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
@@ -432,7 +433,7 @@ public class ImageTransform {
         List<Element> children = rootElt.getChildren(); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
         for (Element currentElt : children) {
             Map<String, String> eltMap = FastMap.newInstance();
-            if(currentElt.getContentSize() > 0){
+            if (currentElt.getContentSize() > 0) {
                 Map<String, String> childMap = FastMap.newInstance();
                 // loop over Children 1st level
                 List<Element> children2 = currentElt.getChildren();
@@ -440,7 +441,7 @@ public class ImageTransform {
                     childMap.put(currentChild.getAttributeValue("name"), currentChild.getAttributeValue("value"));
                 }
                 valueMap.put(currentElt.getAttributeValue("name"), childMap);
-            }else{
+            } else {
                 eltMap.put(currentElt.getAttributeValue("name"), currentElt.getAttributeValue("value"));
                 valueMap.put(currentElt.getName(), eltMap);
             }
