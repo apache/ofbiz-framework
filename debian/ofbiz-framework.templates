@@ -44,8 +44,9 @@ _Description: Reimport data?
  Whether data should be reimported on upgrade.
 
 Template: ofbiz/database-type
-Type: singleselect
+Type: string
+Description: internal
 
 Template: ofbiz/_dbmethod
-Type: singleselect
-
+Type: string
+Description: internal
