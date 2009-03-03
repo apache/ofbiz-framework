@@ -286,7 +286,49 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>        
+    </screen>      
+    <screen name="projectAssoOrder">
+        <section>
+            <actions>
+                <set field="orderId" from-field="parameters.orderId"/>
+                <entity-and entity-name="WorkEffortOrderHeaderView" list="listProjectAssoOrder">
+                    <field-map field-name="orderId" from-field="orderId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
+                    <include-form name="projectAssoOrder" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProjectOrders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProjectOrder"/>
+                <set field="tabButtonItem" value="orders"/>
+                <set field="headerItem" value="editProjectOrders"/>
+                <set field="labelTitleProperty" value="PageTitleListOrder"/>                
+                <set field="projectId" from-field="parameters.projectId"/>
+                <entity-and entity-name="WorkEffortOrderHeaderView" list="listOrderAssoProject">
+                    <field-map field-name="workEffortId" from-field="projectId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.OrderFindOrder}">
+                            <include-form name="FindOrders" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <screenlet title="List Order">
+                            <include-form name="ListOrderInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+               </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+        
     <screen name="EditTask">
         <section>
             <actions>
@@ -505,6 +547,7 @@ under the License.
                            <include-screen name="PartiesInfo"/>
                            <include-screen name="NoteInfo"/>
                            <include-screen name="ListProjectContent"/>
+                            <include-screen name="OrderInfo"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -587,6 +630,22 @@ under the License.
                 <screenlet title="${uiLabelMap.ProjectMgrTasks}" navigation-form-name="ListTaskInfo">
                     <include-form name="ListTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                 </screenlet>                
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderInfo">
+        <section>
+            <actions>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="headerItem" value="orderInfo"/>
+                <entity-and entity-name="WorkEffortOrderHeaderView" list="listOrderAssoProject">
+                    <field-map field-name="workEffortId" from-field="projectId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="List Order">
+                    <include-form name="ListOrderInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

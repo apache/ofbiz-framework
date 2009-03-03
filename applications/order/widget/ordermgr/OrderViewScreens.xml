@@ -70,6 +70,7 @@ under the License.
                     <include-screen name="orderinfo"/>
                     <include-screen name="orderterms"/>
                     <include-screen name="orderpaymentinfo"/>
+                    <include-screen name="projectAssoOrder"/>
                 </container>
                 <container style="righthalf">
                     <include-screen name="ordercontactinfo"/>
@@ -106,6 +107,36 @@ under the License.
                     <html><html-template location="component://order/webapp/ordermgr/order/orderpaymentinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
+        </section>
+    </screen>
+    <screen name="projectAssoOrder">
+        <section>
+            <condition>
+                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+            </condition>
+            <actions>
+            <set field="orderId" from-field="parameters.orderId"/>
+            <entity-and entity-name="OrderHeaderAndWorkEffort" list="listProjectAssoOrder">
+                <field-map field-name="orderId" from-field="orderId"/>
+                <field-map field-name="workEffortTypeId" value="PROJECT"/>
+            </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>                                            
+                            <if-empty field="listProjectAssoOrder"/>                                                
+                        </not>                                        
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
+                            <include-form name="projectAssoOrder" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets></fail-widgets>
+                </section>
+            </widgets>
+            <fail-widgets></fail-widgets>
         </section>
     </screen>
     <screen name="ordercontactinfo">

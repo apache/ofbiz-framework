@@ -121,7 +121,19 @@
                 </and>
             </condition>
             <link target="EditProjectTasks?projectId=${projectId}"/>
-        </menu-item>        
+        </menu-item>    
+        <menu-item name="orders" title="${uiLabelMap.Orders}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="EditProjectOrders?projectId=${projectId}"/>
+        </menu-item>    
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>

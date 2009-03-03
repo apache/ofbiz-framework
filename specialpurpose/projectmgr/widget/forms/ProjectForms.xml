@@ -351,6 +351,32 @@
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
+    <form name="FindOrders" target="linkProjectOrder?projectId=${projectId}" type="single" title="Find and List Orders"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="orderId"><lookup target-form-name="/ordermgr/control/LookupOrderHeader"/></field>
+        <field name="workEffortId"><hidden value="${projectId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListOrderInfo" target="EditProjectOrders?projectId=${projectId}" type="list" list-name="listOrderAssoProject" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="orderId"><hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}"/></field>
+        <field name="orderName"><display/></field>
+        <field name="orderTypeId"><display-entity entity-name="OrderType" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="orderDate"><display/></field>
+        <field name="entryDate"><display/></field>
+        <field name="linkProjectOrder" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)"><hyperlink target="unLinkProjectOrder?workEffortId=${projectId}&amp;orderId=${orderId}&amp;projectId=${projectId}" description="Remove Link From The Project"/></field>
+    </form>
+    <form name="projectAssoOrder"  type="list" list-name="listProjectAssoOrder"
+        extends="ListProjects" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
+        <row-actions>
+            <service service-name="getProject" result-map="resultProject">
+                <field-map field-name="projectId" value="${workEffortId}"/>
+            </service>
+        </row-actions>
+        <field name="projectName" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
+            <hyperlink description="${resultProject.projectInfo.projectName}" target-type="inter-app" target="/projectmgr/control/projectView?projectId=${resultProject.projectInfo.projectId}"/>
+        </field>
+    </form>
     <form name="ListProjectProviderParties" type="list" list-name="assigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
