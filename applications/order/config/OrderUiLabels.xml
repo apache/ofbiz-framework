@@ -9990,6 +9990,13 @@
         <value xml:lang="th">แสดงบัตร</value>
         <value xml:lang="zh">显示购物车</value>
     </property>
+    <property key="PageTitleProjectInformation">
+        <value xml:lang="en">Project Information</value>
+        <value xml:lang="fr">Informations du projet</value>
+        <value xml:lang="it">Informazione progetto</value>
+        <value xml:lang="th">ข้อมูลโปรเจค</value>
+        <value xml:lang="zh">项目信息</value>
+    </property>
     <property key="PageTitleRequestItemNotes">
         <value xml:lang="de">Anfrageelement Anmerkungen</value>
         <value xml:lang="en">Request Item Notes</value>
@@ -10130,4 +10137,26 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
     </property>
+    <property key="ProjectMgrActualHours">
+        <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="fr">Heures réelles</value>
+        <value xml:lang="it">Ore attuali</value>
+        <value xml:lang="th">ชั่วโมงจริง</value>
+        <value xml:lang="zh">实际工时</value>
+    </property>
+    <property key="ProjectMgrPlannedHours">
+        <value xml:lang="en">Planned Hours</value>
+        <value xml:lang="fr">Heures planifiées</value>
+        <value xml:lang="it">Ore pianificate</value>
+        <value xml:lang="th">ชั่วโมงที่วางแผน</value>
+        <value xml:lang="zh">已计划工时</value>
+    </property>
+    <property key="ProjectMgrProjectName">
+        <value xml:lang="en">Project Name</value>
+        <value xml:lang="fr">Nom du projet</value>
+        <value xml:lang="it">Nome progetto</value>
+        <value xml:lang="th">ชื่อโปรเจค</value>
+        <value xml:lang="zh">项目名称</value>
+    </property>
+    
 </resource>
