@@ -40,6 +40,7 @@
     <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa102" groupName="A promising Lead Company"/>
     <PartyRole partyId="sfa102" roleTypeId="ACCOUNT_LEAD"/>
+    <PartyRole partyId="sfa102" roleTypeId="_NA_"/>
     <Party partyId="sfa101" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="sfa101" firstName="John" lastName="Lead"/>
     <PartyRole partyId="sfa101" roleTypeId="_NA_"/>
@@ -51,7 +52,8 @@
     <ContactMech contactMechId="sfa103" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztestLead@yahoo.com"/>
     <PartyContactMech partyId="sfa101" contactMechId="sfa103" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
-    
+    <!-- Status Valid Change   -->
+    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_CONVERTED" transitionName="Convert Lead To Contact"/>
 </entity-engine-xml>
 
 
