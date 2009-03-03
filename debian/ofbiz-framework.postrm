@@ -33,6 +33,7 @@ case "$1" in
 		if which ucf >/dev/null; then ucf --purge /etc/ofbiz/debconf.cfg; fi
 		if which ucfr >/dev/null; then ucfr --purge ofbiz /etc/ofbiz/debconf.cfg; fi
 		find /var/log/ofbiz -mindepth 1 -maxdepth 1 -print0 | xargs -0 --no-run-if-empty rm -rf
+		dpkg-statoverride --remove /var/lib/ofbiz
 	;;
 esac
 
