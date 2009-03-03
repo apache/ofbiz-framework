@@ -71,6 +71,7 @@ under the License.
 
     <screen name="leftbar">
         <section>
+            <condition><not><if-empty field="userLogin"/></not></condition>
             <widgets>
                 <container style="left">
                     <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
