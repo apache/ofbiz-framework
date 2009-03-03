@@ -1701,9 +1701,9 @@
         <value xml:lang="it">Applicazione gestione forze esterne</value>
     </property>
     <property key="SfaManagerWelcome">
-        <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;design document&lt;/a&gt; and &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
-        <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;Un &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;document d'analyse détaillée&lt;/a&gt; et &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;un document de gestion de projet Jira&lt;/a&gt; sont disponibles</value>
-        <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne. Questa è un'applicazione in sviluppo e non è ancora completata.&lt;br/&gt;&lt;br/&gt;Un &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;design document&lt;/a&gt; e &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;documenti di Jira&lt;/a&gt; sono disponibili.</value>
+        <value xml:lang="en">Welcome to the Sales Force Automation Manager Application.</value>
+        <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes.</value>
+        <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne.</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
