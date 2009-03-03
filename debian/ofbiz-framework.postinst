@@ -103,7 +103,7 @@ configure_ofbiz() {
 				extra="$extra -file=\"$files\""
 			fi
 		fi
-		/etc/init.d/ofbiz install $extra
+		eval /etc/init.d/ofbiz install $extra
 	fi
 	#rm -f "$tempfile1" "$tempfile2"
 }
