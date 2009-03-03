@@ -16,7 +16,7 @@
 #specific language governing permissions and limitations
 #under the License.
 
-set -ex
+set -e
 : "$0" "$@"
 
 . /usr/share/debconf/confmodule
