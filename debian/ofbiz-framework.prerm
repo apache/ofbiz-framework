@@ -20,6 +20,9 @@ set -e
 : "$0" "$@"
 
 . /usr/share/debconf/confmodule
+
+#DEBHELPER#
+
 . /usr/share/dbconfig-common/dpkg/prerm 
 dbc_go ofbiz "$@"
 
@@ -29,7 +32,4 @@ case "$1" in
 		;;
 esac
 
-#DEBHELPER#
 db_stop
-
-
