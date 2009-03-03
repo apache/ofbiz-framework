@@ -300,10 +300,13 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
+                                        <and>
                                         <or>
                                             <not><if-empty field="leadDescription"/></not>                                        
                                             <not><if-empty field="accountLeadDescription"/></not>
                                         </or>
+                                            <if-compare field="headerItem" operator="equals" value="Leads"/>
+                                        </and>
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">
