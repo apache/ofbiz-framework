@@ -93,7 +93,7 @@ public class ScaleImage {
         if(resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll((Map<String, Map<String, String>>) resultXMLMap.get("xml"));
         } else {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_parse", locale) + " : ImageProperties.xml";
+            String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
             return result;
@@ -139,7 +139,7 @@ public class ScaleImage {
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {
-                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
                 result.put("errorMessage", errMsg);
                 return result;
@@ -185,7 +185,7 @@ public class ScaleImage {
                     try {
                         op = new AffineTransformOp(tx, rh);
                     } catch(ImagingOpException e) {
-                        String errMsg = UtilProperties.getMessage(resource, "ImageTransform.transform_is_non_invertible", locale)  + e.toString();
+                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.transform_is_non_invertible", locale)  + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
                         return result;
@@ -208,7 +208,7 @@ public class ScaleImage {
                     if (!targetDir.exists()) {
                         boolean created = targetDir.mkdirs();
                         if (!created) {
-                            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                            String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
                             Debug.logFatal(errMsg, module);
                             return ServiceUtil.returnError(errMsg);
                         }
@@ -218,12 +218,12 @@ public class ScaleImage {
                     try {
                         ImageIO.write(op.filter(bufImg, bufNewImg), imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
                     } catch(IllegalArgumentException e) {
-                        String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_parameter_is_null", locale) + e.toString();
+                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
                         return result;
                     } catch(IOException e) {
-                        String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_writing", locale) + e.toString();
+                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
                         return result;
@@ -242,7 +242,7 @@ public class ScaleImage {
             return result;
 
         } else {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unable_to_scale_original_image", locale) + " : " + filenameToUse;
+            String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
             return ServiceUtil.returnError(errMsg);
