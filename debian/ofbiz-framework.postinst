@@ -138,7 +138,7 @@ get() {
 	debconf_name="$2"
 	shift 2
 	if db_get "$debconf_name"; then
-		if eval ! [ \"\$$var_name\" = \"\$RET\" ]; then
+		if eval ! [ "\"\$$var_name\" = \"\$RET\"" ]; then
 			while [ $# -gt 0 ]; do
 				eval $1=1
 				shift
