@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ImageTransform.errors_occured_during_parsing">
+        <value xml:lang="en">Errors occured during parsing</value>
+        <value xml:lang="fr">Des erreurs sont survenues lors de l'analyse</value>
+    </property>
+    <property key="ImageTransform.error_occurs_during_reading">
+        <value xml:lang="en">An error occurs during reading</value>
+        <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
+    </property>
+    <property key="ImageTransform.final_scale_factor_is_null">
+        <value xml:lang="en">Final scale factor is null</value>
+        <value xml:lang="fr">Le facteur final de redimensionnement est nul</value>
+    </property>
+    <property key="ImageTransform.height_scale_factor_is_null">
+        <value xml:lang="en">Height scale factor is null</value>
+        <value xml:lang="fr">Le facteur 'hauteur' de redimensionnement est nul</value>
+    </property>
+    <property key="ImageTransform.input_is_null">
+        <value xml:lang="en">Input is null</value>
+        <value xml:lang="fr">La valeur saisie est nulle</value>
+    </property>
+    <property key="ImageTransform.error_prevents_the document_from_being_fully_parsed">
+        <value xml:lang="en">Error prevents the document from being fully parsed</value>
+        <value xml:lang="fr">Une erreur empêche que le document soit entièrement analysé</value>
+    </property>
+    <property key="ImageTransform.one_default_dimension_is_null">
+        <value xml:lang="en">One default dimension is null</value>
+        <value xml:lang="fr">Une des dimensions par défaut est nulle</value>
+    </property>
+    <property key="ImageTransform.root_element_has_not_been_set">
+        <value xml:lang="en">Root element has not been set</value>
+        <value xml:lang="fr">L'élement racine n'a pas pu être chargé</value>
+    </property>
+    <property key="ImageTransform.unknown_buffered_image_type">
+        <value xml:lang="en">Unknown buffered image type</value>
+        <value xml:lang="fr">Le type d'image bufferisée est inconnu</value>
+    </property>
+    <property key="ImageTransform.width_scale_factor_is_null">
+        <value xml:lang="en">Width scale factor is null</value>
+        <value xml:lang="fr">Le facteur 'largeur' de redimensionnement est nul</value>
+    </property>
+</resource>
+

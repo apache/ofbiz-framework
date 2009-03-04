@@ -44,7 +44,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.image.ImageTransform;
+import org.ofbiz.product.image.ScaleImage;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.service.DispatchContext;
@@ -79,7 +79,6 @@ public class ProductServices {
         // * Map selectedFeatures  -- Selected features
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String productId = (String) context.get("productId");
         Map selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
         List<GenericValue> products = FastList.newInstance();
         // All the variants for this products are retrieved
@@ -961,7 +960,7 @@ public class ProductServices {
             
             /* scale Image in different sizes */
             String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
-            ImageTransform imageTransform = new ImageTransform();
+            ScaleImage imageTransform = new ScaleImage();
             Map<String, Object> resultResize = FastMap.newInstance();
             try{
                 resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));

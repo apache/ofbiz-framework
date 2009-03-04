@@ -20,7 +20,7 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.string.*;
-import org.ofbiz.image.ImageTransform;
+import org.ofbiz.product.image.ScaleImage;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
@@ -125,8 +125,7 @@ if (fileType) {
             
             // call scaleImageInAllSize
             if(fileType.equals("original")){
-                ImageTransform imageTransform = new ImageTransform();
-                result = imageTransform.scaleImageInAllSize(context, filenameToUse, "main", "0"); 
+                result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0"); 
                 
                 if(result.containsKey("responseMessage") && result.get("responseMessage").equals("success")){
                     imgMap = result.get("imageUrlMap");
