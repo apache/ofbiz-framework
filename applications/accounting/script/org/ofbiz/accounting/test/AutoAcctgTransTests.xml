@@ -33,10 +33,10 @@ under the License.
                               Debit in account 140000- INVENTORY amount = grand total of order.  -->
 
         <!-- set few variables so that they can be changed easily to test with different values -->
-        <set field="orderId" value="WS10000"/>
+        <set field="orderId" value="DEMO10091"/>
         <set field="productId" value="WG-1111"/>
         <set field="orderItemSeqId" value="00001"/>
-        <set field="shipmentId" value="10000"/>
+        <set field="shipmentId" value="9999"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
