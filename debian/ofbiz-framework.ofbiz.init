@@ -280,12 +280,13 @@ install() {
 		jsvc -pidfile "$PIDFILE" \
 			-nodetach \
 			-user $USER \
-			-outfile /dev/tty -errfile '&1' \
+			-outfile /dev/fd/3 -errfile '&1' \
 			-home "$JAVA_HOME" -cp "$CLASSPATH" \
 			$PROPS \
 			$MEMIF \
 			$CLASS \
-			install "$@"
+			install "$@" 3>&1 | \
+			tee -a /var/log/ofbiz/install.log
 	)
 }
 
