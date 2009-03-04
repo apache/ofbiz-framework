@@ -193,16 +193,6 @@ case "$1" in
 			fi
 			dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
 		fi
-		if false; then
-		cat << _EOF_ > /etc/ofbiz/debconf.cfg.dpkg-new
-ofbiz_readers='$ofbiz_readers'
-ofbiz_admin_port='$ofbiz_admin_port'
-ofbiz_admin_key='$ofbiz_admin_key'
-_EOF_
-		ucf /etc/ofbiz/debconf.cfg.dpkg-new /etc/ofbiz/debconf.cfg
-		ucfr ofbiz /etc/ofbiz/debconf.cfg
-		rm /etc/ofbiz/debconf.cfg.dpkg-new
-		fi
 	;;
 esac
 #DEBHELPER#
