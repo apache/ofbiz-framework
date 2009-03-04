@@ -150,6 +150,15 @@ get() {
 		exit 1
 	fi
 }
+start_ofbiz() {
+	if [ -x "/etc/init.d/ofbiz" ]; then
+		if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+			invoke-rc.d ofbiz start || exit $?
+		else
+			/etc/init.d/ofbiz start || exit $?
+		fi
+	fi
+}
 
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst 
@@ -197,6 +206,7 @@ _EOF_
 	;;
 esac
 #DEBHELPER#
+start_ofbiz
 db_stop
 exit
 

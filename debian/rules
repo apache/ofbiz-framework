@@ -97,7 +97,7 @@ binary-indep: debian/copyright
 #	dh_strip
 #	dh_shlibdeps
 	dh_installinit -N ofbiz-framework
-	dh_installinit -p ofbiz-framework --name ofbiz
+	dh_installinit -p ofbiz-framework --name ofbiz -r --no-start
 	dh_installchangelogs
 	dh_installdebconf
 	dh_installdocs
