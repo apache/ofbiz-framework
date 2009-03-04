@@ -448,7 +448,14 @@ public class RequestHandler implements Serializable {
         
         if (Debug.verboseOn()) Debug.logVerbose("[Event Response Selected]  type=" + nextRequestResponse.type + ", value=" + nextRequestResponse.value + ", sessionId=" + UtilHttp.getSessionId(request), module);
 
-        // Handle the responses - chains/views
+        // ========== Handle the responses - chains/views ==========
+        
+        // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
+        if (nextRequestResponse.saveLastView) {
+            session.setAttribute("_SAVED_VIEW_NAME_", session.getAttribute("_LAST_VIEW_NAME_"));
+            session.setAttribute("_SAVED_VIEW_URL_PARAMS_", session.getAttribute("_LAST_VIEW_URL_PARAMS_"));
+        }
+        
         if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
             // chained request
             Debug.logInfo("[RequestHandler.doRequest]: Response is a chained request." + " sessionId=" + UtilHttp.getSessionId(request), module);
@@ -487,6 +494,28 @@ public class RequestHandler implements Serializable {
                 
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
+                renderView(viewName, requestMap.securityExternalView, request, response);
+            } else if ("view-last".equals(nextRequestResponse.type)) {
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                
+                // check for an override view, only used if "success" = eventReturn
+                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
+                
+                // as a further override, look for the _SAVED and then _LAST session attributes
+                Map<String, Object> urlParams = null;
+                if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
+                    urlParams = (Map<String, Object>) session.getAttribute("_SAVED_VIEW_URL_PARAMS_");
+                } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
+                    urlParams = (Map<String, Object>) session.getAttribute("_LAST_VIEW_URL_PARAMS_");
+                }
+                if (urlParams != null) {
+                    for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
+                        request.setAttribute(urlParamEntry.getKey(), urlParamEntry.getValue());
+                    }
+                }
+                
                 renderView(viewName, requestMap.securityExternalView, request, response);
             } else if ("none".equals(nextRequestResponse.type)) {
                 // no view to render (meaning the return was processed by the event)
@@ -613,8 +642,13 @@ public class RequestHandler implements Serializable {
 
         if (Debug.verboseOn()) Debug.logVerbose("[Getting View Map]: " + view + " sessionId=" + UtilHttp.getSessionId(req), module);
 
-        // before mapping the view, set a session attribute so we know where we are
+        // before mapping the view, set a request attribute so we know where we are
         req.setAttribute("_CURRENT_VIEW_", view);
+        
+        // save the view in the session for the last view, plus the URL parameters Map; note that this is saved after the request/view processing has finished so when those run they will get the value from the previous request
+        Map<String, Object> queryStringParamMap = UtilHttp.getQueryStringOnlyParameterMap(req);
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
+        req.getSession().setAttribute("_LAST_VIEW_URL_PARAMS_", queryStringParamMap);
 
         ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
         if (viewMap == null) {

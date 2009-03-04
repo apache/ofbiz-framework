@@ -217,9 +217,9 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.event">
-        <xs:attribute type="xs:string" name="type" use="required"/>
-        <xs:attribute type="xs:string" name="path"/>
-        <xs:attribute type="xs:string" name="invoke"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="path" type="xs:string"/>
+        <xs:attribute name="invoke" type="xs:string"/>
         <xs:attribute name="global-transaction" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -238,12 +238,13 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.response">
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="type" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="none"/>
                     <xs:enumeration value="view"/>
+                    <xs:enumeration value="view-last"><xs:annotation><xs:documentation>Will use the view from the last request unless there is a saved from some previous request (using the save-last-view attribute).</xs:documentation></xs:annotation></xs:enumeration>
                     <xs:enumeration value="request"/>
                     <xs:enumeration value="request-redirect"/>
                     <xs:enumeration value="request-redirect-noparam"/>
@@ -251,7 +252,16 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="save-last-view" default="false">
+            <xs:annotation><xs:documentation>Saves the last (previous) request's view for future use, generally with the view-last type of response.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="redirect-parameter">
         <xs:annotation><xs:documentation>Adds a parameter with the given name to the redirect. Finds value in a request attribute if exists, or a request parameter if no attribute is found.</xs:documentation></xs:annotation>

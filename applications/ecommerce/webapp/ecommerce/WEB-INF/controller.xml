@@ -140,7 +140,7 @@ under the License.
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     
