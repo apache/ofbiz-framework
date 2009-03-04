@@ -78,7 +78,7 @@ under the License.
     <!-- default request; call into CMS -->
     <default-request request-uri="cms"/>
 
-    <!-- Security Mappings -->
+    <!-- Security Request Mappings -->
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
@@ -107,20 +107,13 @@ under the License.
     </request-map>
     <!-- End of Security Mappings -->
 
-    <!-- Request Mappings -->
+    <!-- General Request Mappings -->
     <request-map uri="cms">
         <event type="java" path="org.ofbiz.content.cms.CmsEvents" invoke="cms"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
     </request-map>
     
-    <request-map uri="setdistributor">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
-
     <request-map uri="view">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
@@ -136,7 +129,8 @@ under the License.
     <!-- TO BE REMOVED
     <request-map uri="passwordemail"><security https="false" auth="false"/><response name="success" type="view" value="passwordemail"/></request-map>
     -->
-    
+
+    <!-- Session Setting Requests -->
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
@@ -147,17 +141,25 @@ under the License.
     <request-map uri="setSessionCurrencyUom">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionCurrencyUom"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     
     <request-map uri="setSessionProductStore">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.product.ProductStoreCartAwareEvents" invoke="setSessionProductStore"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    
+    <request-map uri="setdistributor">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     
+    <!-- ShoppingList Requests -->
     <request-map uri="editShoppingList">
         <security auth="true" https="false"/>
         <response name="success" type="view" value="editShoppingList"/>
@@ -938,10 +940,11 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
     
-    <request-map uri="editcontactmech">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="editcontactmech"/>
-    </request-map>
+    <!-- ContactMech Requests -->
+    <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech" save-last-view="true"/></request-map>
+    <request-map uri="editcontactmechnosave"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
+    <request-map uri="editcontactmechdone"><security https="true" auth="true"/><response name="success" type="view-last" value="editcontactmech"/></request-map>
+    
     <request-map uri="createContactMech">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyContactMech"/>
@@ -1079,6 +1082,7 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
+    <!-- Person and other profile requests -->
     <request-map uri="editperson">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editperson"/>
