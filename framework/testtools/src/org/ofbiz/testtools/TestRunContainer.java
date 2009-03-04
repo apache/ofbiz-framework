@@ -129,6 +129,7 @@ public class TestRunContainer implements Container {
 
             // run the tests
             suite.run(results);
+            test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
             xml.endTestSuite(test);            
 
             // dispay the results
