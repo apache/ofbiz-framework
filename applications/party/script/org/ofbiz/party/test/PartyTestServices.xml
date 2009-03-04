@@ -178,7 +178,7 @@ under the License.
         <clear-field field="telecomNumber"/>
                  
         <!-- try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time -->
-        <set field="serviceCtx.contactNumber" value="444-4444"/>
+        <set field="serviceCtx.contactNumber" value="555-5555"/>
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
            <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
