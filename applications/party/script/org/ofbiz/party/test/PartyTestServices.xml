@@ -395,7 +395,7 @@ under the License.
     <simple-method method-name="testCreateNewCommEvent" short-description="test to create a new communication event" login-required="false">
         <log level="info" message="====================Create a new communication event test case=========================================="/>
         <set field="createNewCommEventMap.communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
-        <set field="createNewCommEventMap.statusId" value="COM_COMPLETE"/>
+        <set field="createNewCommEventMap.statusId" value="COM_ENTERED"/>
         <set field="createNewCommEventMap.partyIdFrom" value="DemoCustomer"/>
         <set field="createNewCommEventMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <entity-one entity-name="UserLogin" value-field="createNewCommEventMap.userLogin">
@@ -422,7 +422,7 @@ under the License.
         <log level="info" message="====================Update communication event test case=========================================="/>
         <set field="updateCommEventMap.communicationEventId" from-field="commEventMap.communicationEventId"/>
         <set field="updateCommEventMap.communicationEventTypeId" value="AUTO_EMAIL_COMM"/>
-        <set field="updateCommEventMap.statusId" value="COM_ENTERED"/>
+        <set field="updateCommEventMap.statusId" value="COM_COMPLETE"/>
         <set field="updateCommEventMap.partyIdFrom" value="admin"/>
         <set field="updateCommEventMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
         <entity-one entity-name="UserLogin" value-field="updateCommEventMap.userLogin">
