@@ -22,6 +22,13 @@ set -e
 . /usr/share/debconf/confmodule
 
 #DEBHELPER#
+if [ -x "/etc/init.d/ofbiz" ]; then
+	if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+		invoke-rc.d ofbiz stop || exit $?
+	else
+		/etc/init.d/ofbiz stop || exit $?
+	fi
+fi
 
 . /usr/share/dbconfig-common/dpkg/prerm 
 dbc_go ofbiz "$@"
