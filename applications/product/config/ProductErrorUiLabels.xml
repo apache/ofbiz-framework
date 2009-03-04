@@ -19,31 +19,31 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="ImageTransform.error_occurs_during_writing">
+    <property key="ScaleImage.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>
     </property>
-    <property key="ImageTransform.one_current_image_dimension_is_null">
+    <property key="ScaleImage.one_current_image_dimension_is_null">
         <value xml:lang="en">One current image dimension is null</value>
         <value xml:lang="fr">Une des dimensions de l'image courrante est nulle</value>
     </property>
-    <property key="ImageTransform.one_parameter_is_null">
+    <property key="ScaleImage.one_parameter_is_null">
         <value xml:lang="en">One parameter is null</value>
         <value xml:lang="fr">Un des paramètres est nul</value>
     </property>
-    <property key="ImageTransform.transform_is_non_invertible">
+    <property key="ScaleImage.transform_is_non_invertible">
         <value xml:lang="en">Transform is non-invertible</value>
         <value xml:lang="fr">La transformation n'est pas réversible</value>
     </property>
-    <property key="ImageTransform.unable_to_create_target_directory">
+    <property key="ScaleImage.unable_to_create_target_directory">
         <value xml:lang="en">Unable to create target directory</value>
         <value xml:lang="fr">Impossible de créer le dossier cible</value>
     </property>
-    <property key="ImageTransform.unable_to_parse">
+    <property key="ScaleImage.unable_to_parse">
         <value xml:lang="en">Unable to parse</value>
         <value xml:lang="fr">Impossible d'analyser</value>
     </property>
-    <property key="ImageTransform.unable_to_scale_original_image">
+    <property key="ScaleImage.unable_to_scale_original_image">
         <value xml:lang="en">Unable to scale original image</value>
         <value xml:lang="fr">Impossible de redimensionner l'image originale</value>
     </property>
