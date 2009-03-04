@@ -19,49 +19,17 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="ImageTransform.error_occurs_during_reading">
-        <value xml:lang="en">An error occurs during reading</value>
-        <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
-    </property>
     <property key="ImageTransform.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>
-    </property>
-    <property key="ImageTransform.error_prevents_the document_from_being_fully_parsed">
-        <value xml:lang="en">Error prevents the document from being fully parsed</value>
-        <value xml:lang="fr">Une erreur empêche que le document soit entièrement analysé</value>
-    </property>
-    <property key="ImageTransform.errors_occurs_in_parsing">
-        <value xml:lang="en">Errors occur in parsing</value>
-        <value xml:lang="fr">Des erreurs sont survenues lors de l'analyse</value>
-    </property>
-    <property key="ImageTransform.final_scale_factor_is_null">
-        <value xml:lang="en">Final scale factor is null</value>
-        <value xml:lang="fr">Le facteur final de redimensionnement est nul</value>
-    </property>
-    <property key="ImageTransform.height_scale_factor_is_null">
-        <value xml:lang="en">Height scale factor is null</value>
-        <value xml:lang="fr">Le facteur 'hauteur' de redimensionnement est nul</value>
-    </property>
-    <property key="ImageTransform.input_is_null">
-        <value xml:lang="en">Input is null</value>
-        <value xml:lang="fr">L'entrée est nulle</value>
     </property>
     <property key="ImageTransform.one_current_image_dimension_is_null">
         <value xml:lang="en">One current image dimension is null</value>
         <value xml:lang="fr">Une des dimensions de l'image courrante est nulle</value>
     </property>
-    <property key="ImageTransform.one_default_dimension_is_null">
-        <value xml:lang="en">One default dimension is null</value>
-        <value xml:lang="fr">Une des dimensions par défaut est nulle</value>
-    </property>
     <property key="ImageTransform.one_parameter_is_null">
         <value xml:lang="en">One parameter is null</value>
         <value xml:lang="fr">Un des paramètres est nul</value>
-    </property>
-    <property key="ImageTransform.root_element_has_not_been_set">
-        <value xml:lang="en">Root element has not been set</value>
-        <value xml:lang="fr">L'élement racine n'a pas pu être chargé</value>
     </property>
     <property key="ImageTransform.transform_is_non_invertible">
         <value xml:lang="en">Transform is non-invertible</value>
@@ -78,14 +46,6 @@
     <property key="ImageTransform.unable_to_scale_original_image">
         <value xml:lang="en">Unable to scale original image</value>
         <value xml:lang="fr">Impossible de redimensionner l'image originale</value>
-    </property>
-    <property key="ImageTransform.unknown_buffered_image_type">
-        <value xml:lang="en">Unknown buffered image type</value>
-        <value xml:lang="fr">Le type d'image bufferisée est inconnu</value>
-    </property>
-    <property key="ImageTransform.width_scale_factor_is_null">
-        <value xml:lang="en">Width scale factor is null</value>
-        <value xml:lang="fr">Le facteur 'largeur' de redimensionnement est nul</value>
     </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
