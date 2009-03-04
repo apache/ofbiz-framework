@@ -22,7 +22,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import javax.imageio.spi.ServiceRegistry;
 
 /**
  * Caching Class Loader
@@ -30,6 +32,10 @@ import java.util.Map;
  */
 public class CachedClassLoader extends URLClassLoader {
     
+    public interface Init {
+        void loadClasses(ClassLoader loader, Map<String, Class<?>> classNameMap) throws ClassNotFoundException;
+    }
+
     public static final String module = CachedClassLoader.class.getName();
     
     private String contextName;
@@ -107,18 +113,16 @@ public class CachedClassLoader extends URLClassLoader {
         globalClassNameClassMap.put("byte", Byte.TYPE);
         globalClassNameClassMap.put("char", Character.TYPE);
 
-        try {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
-            // note: loadClass is necessary for these since this class doesn't know anything about the Entity Engine at compile time
-            globalClassNameClassMap.put("GenericValue", loader.loadClass("org.ofbiz.entity.GenericValue"));
-            globalClassNameClassMap.put("org.ofbiz.entity.GenericValue", loader.loadClass("org.ofbiz.entity.GenericValue"));
-            globalClassNameClassMap.put("GenericPK", loader.loadClass("org.ofbiz.entity.GenericPK"));
-            globalClassNameClassMap.put("org.ofbiz.entity.GenericPK", loader.loadClass("org.ofbiz.entity.GenericPK"));
-            globalClassNameClassMap.put("GenericEntity", loader.loadClass("org.ofbiz.entity.GenericEntity"));
-            globalClassNameClassMap.put("org.ofbiz.entity.GenericEntity", loader.loadClass("org.ofbiz.entity.GenericEntity"));
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+        Iterator<Init> cachedClassLoaders = ServiceRegistry.lookupProviders(Init.class, loader);
+        while (cachedClassLoaders.hasNext()) {
+            Init cachedClassLoader = cachedClassLoaders.next();
+            try {
+                cachedClassLoader.loadClasses(loader, globalClassNameClassMap);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            }
         }
     }
         
