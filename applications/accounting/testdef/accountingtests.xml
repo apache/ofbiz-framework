@@ -34,7 +34,7 @@
     </test-case>
 
     <!-- Test case for Accounting Transaction on Sales -->
-    <test-case case-name="auto-accounting-transaction-tests-SalesOrderShipments ">
+    <test-case case-name="auto-accounting-transaction-tests-SalesOrderShipments">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForSalesOrderShipments"/>
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-SalesInvoice">
