@@ -28,6 +28,7 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
@@ -453,7 +455,7 @@ public class RequestHandler implements Serializable {
         // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
         if (nextRequestResponse.saveLastView) {
             session.setAttribute("_SAVED_VIEW_NAME_", session.getAttribute("_LAST_VIEW_NAME_"));
-            session.setAttribute("_SAVED_VIEW_URL_PARAMS_", session.getAttribute("_LAST_VIEW_URL_PARAMS_"));
+            session.setAttribute("_SAVED_VIEW_PARAMS_", session.getAttribute("_LAST_VIEW_PARAMS_"));
         }
         
         if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
@@ -505,10 +507,10 @@ public class RequestHandler implements Serializable {
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
-                    urlParams = (Map<String, Object>) session.getAttribute("_SAVED_VIEW_URL_PARAMS_");
+                    urlParams = (Map<String, Object>) session.getAttribute("_SAVED_VIEW_PARAMS_");
                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
-                    urlParams = (Map<String, Object>) session.getAttribute("_LAST_VIEW_URL_PARAMS_");
+                    urlParams = (Map<String, Object>) session.getAttribute("_LAST_VIEW_PARAMS_");
                 }
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
@@ -645,10 +647,13 @@ public class RequestHandler implements Serializable {
         // before mapping the view, set a request attribute so we know where we are
         req.setAttribute("_CURRENT_VIEW_", view);
         
-        // save the view in the session for the last view, plus the URL parameters Map; note that this is saved after the request/view processing has finished so when those run they will get the value from the previous request
-        Map<String, Object> queryStringParamMap = UtilHttp.getQueryStringOnlyParameterMap(req);
+        // save the view in the session for the last view, plus the parameters Map (can use all parameters as they will never go into a URL, will only stay in the session and extra data will be ignored as we won't go to the original request just the view); note that this is saved after the request/view processing has finished so when those run they will get the value from the previous request
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(req);
+        // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
+        paramMap.putAll(UtilHttp.getAttributeMap(req));
+        UtilMisc.makeMapSerializable(paramMap);
         req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
-        req.getSession().setAttribute("_LAST_VIEW_URL_PARAMS_", queryStringParamMap);
+        req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
         if (viewMap == null) {
