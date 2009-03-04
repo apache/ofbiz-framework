@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -1345,7 +1344,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public String getTarget(Map<String, Object> context) {
             Map<String, Object> expanderContext = context;
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            StringUtil.SimpleEncoder simpleEncoder = context == null ? null : (StringUtil.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
             }
