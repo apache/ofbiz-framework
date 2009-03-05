@@ -213,7 +213,7 @@ function getConfigDetails(event) {
       <#if sizeProductFeatureAndAppls?has_content>
         <div>
           <#if (sizeProductFeatureAndAppls?size == 1)>
-          <#-- TODO : i18n -->
+            <#-- TODO : i18n -->
             Size:
           <#else>
             Sizes Available:
