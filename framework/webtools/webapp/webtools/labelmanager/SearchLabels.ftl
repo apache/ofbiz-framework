@@ -88,6 +88,11 @@ under the License.
           <#if (duplicatedLocalesLabels > 0)>
             <br/>
             <b>${uiLabelMap.WebtoolsLabelManagerWarningMessage} (${duplicatedLocalesLabels})</b>
+            <br/>
+            <#list duplicatedLocalesLabelsList as duplicatedLocalesLabel> 
+                <br>${duplicatedLocalesLabel.labelKey}
+            </#list>
+            <br/><br/>${uiLabelMap.WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels}
           <#else>
             <input type="submit" name="searchLabels" value="${uiLabelMap.CommonFind}"/>
           </#if>

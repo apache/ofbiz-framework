@@ -29,4 +29,5 @@ context.componentNamesFound = LabelManagerFactory.getComponentNamesFound();
 context.references = LabelManagerFactory.getReferences();
 context.referencesList = LabelManagerFactory.getReferencesList();
 context.duplicatedLocalesLabels = LabelManagerFactory.getDuplicatedLocalesLabels();
+context.duplicatedLocalesLabelsList = LabelManagerFactory.getDuplicatedLocalesLabelsList();
 context.keySeparator = LabelManagerFactory.keySeparator;

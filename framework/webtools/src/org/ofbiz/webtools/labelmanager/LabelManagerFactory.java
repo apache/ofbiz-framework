@@ -28,6 +28,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -64,6 +66,7 @@ public class LabelManagerFactory {
     protected static Set<String> localesFound = null;
     protected static Set<String> componentNamesFound = null;
     protected static Map<String, Map<String, Integer>> references = null;
+    protected static List<LabelInfo> duplicatedLocalesLabelsList = null;
     protected static int duplicatedLocalesLabels = 0;
 
     protected static GenericDelegator delegator;
@@ -97,6 +100,7 @@ public class LabelManagerFactory {
         fileComponent = new TreeMap<String, String>();
         localesFound = new TreeSet<String>();
         componentNamesFound = new TreeSet<String>();
+        duplicatedLocalesLabelsList = FastList.newInstance();
         references = null;
         int duplicatedLocales = 0;
 
@@ -133,6 +137,7 @@ public class LabelManagerFactory {
                                             labels.put(labelKey + keySeparator + fileName, label);
                                         } else {
                                             if (label.setLabelValue(localeName, labelValue, labelComment, false)) {
+                                                duplicatedLocalesLabelsList.add(label);
                                                 duplicatedLocales++;
                                             }
                                         }
@@ -249,6 +254,10 @@ public class LabelManagerFactory {
 
     public static int getDuplicatedLocalesLabels() {
         return duplicatedLocalesLabels;
+    }
+
+    public static List<LabelInfo> getDuplicatedLocalesLabelsList() {
+        return duplicatedLocalesLabelsList;
     }
 
     public static Map<String, Object> updateLabelKey(DispatchContext dctx, Map<String, ? extends Object> context) {
