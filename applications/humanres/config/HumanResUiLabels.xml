@@ -536,7 +536,7 @@
         <value xml:lang="en">Add Salary Step</value>
         <value xml:lang="fr">Ajouter l'augmentation de salaire</value>
         <value xml:lang="it">Aggiungi avanzamento di salario</value>
-        <value xml:lang="en">新建薪水等级</value>
+        <value xml:lang="zh">新建薪水等级</value>
     </property>
     <property key="HumanResAddSkillType">
         <value xml:lang="en">Add Skill Type</value>
