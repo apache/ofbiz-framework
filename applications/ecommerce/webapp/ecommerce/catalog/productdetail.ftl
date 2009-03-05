@@ -299,6 +299,7 @@ ${virtualJavaScript?if_exists}
       <#if sizeProductFeatureAndAppls?has_content>
         <div>
           <#if (sizeProductFeatureAndAppls?size == 1)>
+            <#-- TODO : i18n -->
             Size:
           <#else>
             Sizes Available:
