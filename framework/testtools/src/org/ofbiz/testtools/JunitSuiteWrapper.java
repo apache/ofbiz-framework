@@ -41,7 +41,7 @@ public class JunitSuiteWrapper {
     
     protected List<ModelTestSuite> modelTestSuiteList = FastList.newInstance();
     
-    public JunitSuiteWrapper(String componentName, String testCase) {
+    public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
 
@@ -53,6 +53,9 @@ public class JunitSuiteWrapper {
                 ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement, testCase);
 
                 // make sure there are test-cases configured for the suite
+                if (suiteName != null && !modelTestSuite.getSuiteName().equals(suiteName)) {
+                    continue;
+                }
                 if (modelTestSuite.getTestList().size() > 0) {
                     this.modelTestSuiteList.add(modelTestSuite);
                 }
