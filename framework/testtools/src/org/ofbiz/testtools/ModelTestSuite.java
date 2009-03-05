@@ -28,6 +28,7 @@ import junit.framework.TestSuite;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
@@ -63,46 +64,59 @@ public class ModelTestSuite {
         this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
         
-        for (Element testCaseElement : UtilXml.childElementList(mainElement, "test-case")) {
+        for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
             String caseName = testCaseElement.getAttribute("case-name");
+            String nodeName = testCaseElement.getNodeName();
             if (testCase == null || caseName.equals(testCase)) {
-                Element childElement = UtilXml.firstChildElement(testCaseElement);
-                String nodeName = childElement.getNodeName();
-                if ("junit-test-suite".equals(nodeName)) {
-                    String className = childElement.getAttribute("class-name");
-
-                    try {
-                        Class clz = ObjectType.loadClass(className);
-                        TestSuite suite = new TestSuite();
-                        suite.addTestSuite(clz);
-                        Enumeration testEnum = suite.tests();
-                        int testsAdded = 0;
-                        int casesAdded = 0;
-                        while (testEnum.hasMoreElements()) {
-                            Test tst = (Test) testEnum.nextElement();
-                            this.testList.add(tst);
-                            casesAdded += tst.countTestCases();
-                            testsAdded++;
-                        }
-                        Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
-                    } catch (Exception e) {
-                        String errMsg = "Unable to load test suite class : " + className;
-                        Debug.logError(e, errMsg, module);
+                if (nodeName.equals("test-case")) {
+                    parseTestElement(caseName, UtilXml.firstChildElement(testCaseElement));
+                } else if (nodeName.equals("test-group")) {
+                    int i = 0;
+                    for (Element childElement: UtilXml.childElementList(testCaseElement)) {
+                        parseTestElement(caseName + '-' + i, childElement);
+                        i++;
                     }
-                } else if ("service-test".equals(nodeName)) {
-                    this.testList.add(new ServiceTest(caseName, this, childElement));
-                } else if ("simple-method-test".equals(nodeName)) {
-                    this.testList.add(new SimpleMethodTest(caseName, this, childElement));
-                } else if ("entity-xml".equals(nodeName)) {
-                    this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
-                } else if ("entity-xml-assert".equals(nodeName)) {
-                    // this is the old, deprecated name for the element, changed because it now does assert or load
-                    this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
-                } else if ("jython-test".equals(nodeName)) {
-                    this.testList.add(new JythonTest(caseName, this, childElement));
                 }
             }
         }
+    }
+
+    private void parseTestElement(String caseName, Element testElement) {
+        String nodeName = testElement.getNodeName();
+        if ("junit-test-suite".equals(nodeName)) {
+            String className = testElement.getAttribute("class-name");
+
+            try {
+                Class clz = ObjectType.loadClass(className);
+                TestSuite suite = new TestSuite();
+                suite.addTestSuite(clz);
+                Enumeration testEnum = suite.tests();
+                int testsAdded = 0;
+                int casesAdded = 0;
+                while (testEnum.hasMoreElements()) {
+                    Test tst = (Test) testEnum.nextElement();
+                    this.testList.add(tst);
+                    casesAdded += tst.countTestCases();
+                    testsAdded++;
+                }
+                Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
+            } catch (Exception e) {
+                String errMsg = "Unable to load test suite class : " + className;
+                Debug.logError(e, errMsg, module);
+            }
+        } else if ("service-test".equals(nodeName)) {
+            this.testList.add(new ServiceTest(caseName, this, testElement));
+        } else if ("simple-method-test".equals(nodeName)) {
+            this.testList.add(new SimpleMethodTest(caseName, this, testElement));
+        } else if ("entity-xml".equals(nodeName)) {
+            this.testList.add(new EntityXmlAssertTest(caseName, this, testElement));
+        } else if ("entity-xml-assert".equals(nodeName)) {
+            // this is the old, deprecated name for the element, changed because it now does assert or load
+            this.testList.add(new EntityXmlAssertTest(caseName, this, testElement));
+        } else if ("jython-test".equals(nodeName)) {
+            this.testList.add(new JythonTest(caseName, this, testElement));
+        }
+
     }
     
     String getSuiteName() {

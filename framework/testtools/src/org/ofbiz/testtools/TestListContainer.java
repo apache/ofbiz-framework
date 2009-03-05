@@ -27,6 +27,7 @@ import org.ofbiz.base.container.ComponentContainer;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 
 import java.io.File;
@@ -69,7 +70,7 @@ public class TestListContainer implements Container {
             try {
                 Document testSuiteDocument = testSuiteResource.getDocument();
                 Element documentElement = testSuiteDocument.getDocumentElement();
-                for (Element testCaseElement : UtilXml.childElementList(documentElement, "test-case")) {
+                for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
                     String caseName = testCaseElement.getAttribute("case-name");
                     pout.println(componentName + ":" + caseName);
                 }
