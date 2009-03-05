@@ -425,7 +425,7 @@ under the License.
         </java>
         <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
         <mkdir dir="runtime/logs/test-results/${test.component}-${test.case}"/>
-	<move todir="runtime/logs/test-results/${test.component}-${test.case}">
+        <move todir="runtime/logs/test-results/${test.component}-${test.case}">
             <fileset dir="runtime/logs/test-results" includes="*.xml"/>
         </move>
     </target>
