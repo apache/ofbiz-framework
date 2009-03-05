@@ -417,7 +417,7 @@ ${virtualJavaScript?if_exists}
             <div>&nbsp;</div>
       </#if>
 
-      <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform"  style="margin: 0;">
+      <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="addform"  style="margin: 0;">
         <#assign inStock = true>
         <#-- Variant Selection -->
         <#if product.isVirtual?if_exists?upper_case == "Y">
@@ -434,7 +434,6 @@ ${virtualJavaScript?if_exists}
                 </select>
                 </div>
             </#list>
-              <input type="hidden" name="product_id" value="${product.productId}"/>
               <input type="hidden" name="add_product_id" value="${product.productId}"/>
             <div id="addCart1" style="display:none;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
@@ -458,21 +457,18 @@ ${virtualJavaScript?if_exists}
                 </select>
               </div>
             </#list>
-            <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
             <div>
               <b><span id="product_id_display"> </span></b>
               <b><div id="variant_price_display"> </div></b>
             </div>
           <#else>
-            <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
             <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
          </#if> 
         <#else>
-          <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
           <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0))>
           <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
@@ -518,9 +514,6 @@ ${virtualJavaScript?if_exists}
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->
             <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
-          </#if>
-          <#if requestParameters.category_id?exists>
-            <input type="hidden" name="category_id" value="${requestParameters.category_id}"/>
           </#if>
         </#if>
       </form>
