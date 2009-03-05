@@ -36,9 +36,10 @@ under the License.
     <!-- ELEMENTS start here -->
     <xs:element name="test-suite">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="1" maxOccurs="unbounded" ref="test-case"/>
-            </xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element ref="test-case"/>
+                <xs:element ref="test-group"/>
+	    </xs:choice>
             <xs:attributeGroup ref="attlist.test-suite"/>
         </xs:complexType>
     </xs:element>
@@ -55,6 +56,16 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.test-case">
+        <xs:attribute type="xs:string" name="case-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="test-group">
+        <xs:annotation><xs:documentation></xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:group minOccurs="1" maxOccurs="unbounded" ref="AllTestCaseTypes"/>
+            <xs:attributeGroup ref="attlist.test-group"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.test-group">
         <xs:attribute type="xs:string" name="case-name" use="required"/>
     </xs:attributeGroup>
 
