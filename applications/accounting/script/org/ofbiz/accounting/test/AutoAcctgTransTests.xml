@@ -201,12 +201,12 @@ under the License.
               * Debit; in account:500000 - Account Type:"COGS_ACCOUNT"
         -->
 
-        <set field="shipmentId" value="10000"/>
-        <set field="orderId" value="WSCO10000"/>
+        <set field="shipmentId" value="9998"/>
+        <set field="orderId" value="DEMO10090"/>
         <set field="shipGroupSeqId" value="00001"/>
         <set field="orderItemSeqId" value="00001"/>
         <set field="inventoryItemId" value="9001"/>
-        <set field="quantity" value="2" type="BigDecimal"/>
+        <set field="quantity" value="1" type="BigDecimal"/>
         <set field="productId" value="GZ-2644"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
@@ -225,7 +225,7 @@ under the License.
             <condition-expr field-name="productId" operator="equals" from-field="productId"/>
         </entity-condition>
         
-        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
