@@ -43,6 +43,7 @@ public class TestRunContainer implements Container {
 
     protected String configFile = null;
     protected String component = null;
+    protected String suiteName = null;
     protected String testCase = null;
     protected String logLevel = null;
 
@@ -70,6 +71,9 @@ public class TestRunContainer implements Container {
 
                     if ("component".equalsIgnoreCase(argumentName)) {
                         this.component = argumentVal;
+                    }
+                    if ("suitename".equalsIgnoreCase(argumentName)) {
+                        this.suiteName = argumentVal;
                     }
                     if ("case".equalsIgnoreCase(argumentName)) {
                         this.testCase = argumentVal;
@@ -102,9 +106,9 @@ public class TestRunContainer implements Container {
         }
 
         // get the tests to run
-        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, testCase);
+        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, suiteName, testCase);
         if (jsWrapper.getAllTestList().size() == 0) {
-            throw new ContainerException("No tests found (" + component + " / " + testCase + ")");
+            throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
         }
 
         for (TestSuite suite: jsWrapper.makeTestSuites()) {
