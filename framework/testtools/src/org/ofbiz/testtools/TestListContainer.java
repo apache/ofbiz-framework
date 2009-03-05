@@ -30,6 +30,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 
+import javolution.util.FastList;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileOutputStream;
@@ -46,23 +48,34 @@ public class TestListContainer implements Container {
     public static final String module = TestListContainer.class.getName();
 
     private String outputLocation;
+    private String mode = "text";
+
+    public static final class FoundTest {
+        public final String componentName;
+        public final String caseName;
+
+        public FoundTest(String componentName, String caseName) {
+            this.componentName = componentName;
+            this.caseName = caseName;
+        }
+    }
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String configFile) {
         this.outputLocation = args[0];
+        for (int i = 1; i < args.length; i++) {
+            if ("-ant".equals(args[i])) {
+                mode = "ant";
+            } else if ("-text".equals(args[i])) {
+                mode = "text";
+            }
+        }
     }
 
     public boolean start() throws ContainerException {
-        FileOutputStream fout;
-        try {
-            fout = new FileOutputStream(outputLocation + ".tmp");
-        } catch (IOException e) {
-            Debug.logError(e, module);
-            throw (IllegalArgumentException) new IllegalArgumentException(e.getMessage()).initCause(e);
-        }
-        PrintStream pout = new PrintStream(fout);
+        List<FoundTest> foundTests = FastList.newInstance();
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(null)) {
             String componentName = testSuiteInfo.componentConfig.getComponentName();
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
@@ -72,7 +85,7 @@ public class TestListContainer implements Container {
                 Element documentElement = testSuiteDocument.getDocumentElement();
                 for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
                     String caseName = testCaseElement.getAttribute("case-name");
-                    pout.println(componentName + ":" + caseName);
+                    foundTests.add(new FoundTest(componentName, caseName));
                 }
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
@@ -81,6 +94,27 @@ public class TestListContainer implements Container {
             }
         }
         try {
+            FileOutputStream fout = new FileOutputStream(outputLocation + ".tmp");
+            PrintStream pout = new PrintStream(fout);
+            if ("text".equals(mode)) {
+                for (FoundTest foundTest: foundTests) {
+                    pout.format("%s:%s\n", foundTest.componentName, foundTest.caseName);
+                }
+            } else if ("ant".equals(mode)) {
+                pout.println("<project default=\"all-tests\">");
+                pout.print(" <target name=\"all-tests\" depends=\"");
+                for (int i = 0; i < foundTests.size(); i++) {
+                    if (i != 0) pout.print(',');
+                    FoundTest foundTest = foundTests.get(i);
+                    pout.format("%s:%s", foundTest.componentName, foundTest.caseName.replace(' ', '_'));
+                }
+                pout.println("\"/>\n");
+                for (int i = 0; i < foundTests.size(); i++) {
+                    FoundTest foundTest = foundTests.get(i);
+                    pout.format(" <target name=\"%1$s:%2$s\">\n  <ant antfile=\"build.xml\" target=\"run-single-test\">\n   <property name=\"test.component\" value=\"%1$s\"/>\n   <property name=\"test.case\" value=\"%3$s\"/>\n  </ant>\n </target>\n", foundTest.componentName, foundTest.caseName.replace(' ', '_'), foundTest.caseName);
+                }
+                pout.println("</project>");
+            }
             pout.close();
             fout.close();
             new File(outputLocation + ".tmp").renameTo(new File(outputLocation));
