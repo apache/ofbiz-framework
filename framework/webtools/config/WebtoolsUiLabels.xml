@@ -1467,6 +1467,10 @@
         <value xml:lang="fr">Nom de composant</value>
         <value xml:lang="it">Nome Componente</value>
     </property>
+    <property key="WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels">
+        <value xml:lang="en">Clear Cache After Fixing Duplicate Labels</value>
+        <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
+    </property>    
     <property key="WebtoolsLabelManagerFileName">
         <value xml:lang="en">File Name</value>
         <value xml:lang="fr">Nom de fichier</value>
