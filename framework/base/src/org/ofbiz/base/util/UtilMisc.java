@@ -31,8 +31,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.servlet.ServletContext;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -200,32 +198,26 @@ public class UtilMisc {
     /** 
      * This change a Map to be Serializable by removing all entries with values that are not Serializable.  
      * 
-     * @param <K>
      * @param <V>
      * @param map
      * @return
      */
-    public static <K, V> void makeMapSerializable(Map<K, V> map) {
+    public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
-        Set<K> keysToRemove = FastSet.newInstance();
-        for (Map.Entry<K, V> mapEntry: map.entrySet()) {
+        Set<String> keysToRemove = FastSet.newInstance();
+        for (Map.Entry<String, V> mapEntry: map.entrySet()) {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
-                Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
+                //Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
             }
-            // this is very admittedly a hack, but this object seems to implement Serializable and may not really be, without this keep getting the error: "java.io.NotSerializableException: org.apache.catalina.core.ApplicationContextFacade"
-            if (entryValue instanceof ServletContext) {
-                keysToRemove.add(mapEntry.getKey());
-                Debug.logInfo("Found Map value that is a ServletContext: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
-            }            
         }
-        for (K keyToRemove: keysToRemove) { map.remove(keyToRemove); }
+        for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
         //if (!(map instanceof Serializable)) {
         //    Debug.logInfo("Parameter Map is not Serializable!", module);
         //}
         
-        //for (Map.Entry<K, V> mapEntry: map.entrySet()) {
+        //for (Map.Entry<String, V> mapEntry: map.entrySet()) {
         //    Debug.logInfo("Entry in Map made serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
         //}
     }

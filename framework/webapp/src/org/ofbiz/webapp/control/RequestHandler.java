@@ -28,7 +28,6 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
@@ -64,8 +62,7 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 /**
  * RequestHandler - Request Processor Object
  */
-@SuppressWarnings("serial")
-public class RequestHandler implements Serializable {
+public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
     public static final String err_resource = "WebappUiLabels";
