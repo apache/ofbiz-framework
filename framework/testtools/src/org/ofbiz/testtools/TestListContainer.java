@@ -52,11 +52,11 @@ public class TestListContainer implements Container {
 
     public static final class FoundTest {
         public final String componentName;
-        public final String caseName;
+        public final String suiteName;
 
-        public FoundTest(String componentName, String caseName) {
+        public FoundTest(String componentName, String suiteName) {
             this.componentName = componentName;
-            this.caseName = caseName;
+            this.suiteName = suiteName;
         }
     }
 
@@ -83,10 +83,7 @@ public class TestListContainer implements Container {
             try {
                 Document testSuiteDocument = testSuiteResource.getDocument();
                 Element documentElement = testSuiteDocument.getDocumentElement();
-                for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
-                    String caseName = testCaseElement.getAttribute("case-name");
-                    foundTests.add(new FoundTest(componentName, caseName));
-                }
+                foundTests.add(new FoundTest(componentName, documentElement.getAttribute("suite-name")));
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
                 Debug.logError(e, errMsg, module);
@@ -98,7 +95,7 @@ public class TestListContainer implements Container {
             PrintStream pout = new PrintStream(fout);
             if ("text".equals(mode)) {
                 for (FoundTest foundTest: foundTests) {
-                    pout.format("%s:%s\n", foundTest.componentName, foundTest.caseName);
+                    pout.format("%s:%s\n", foundTest.componentName, foundTest.suiteName);
                 }
             } else if ("ant".equals(mode)) {
                 pout.println("<project default=\"all-tests\">");
@@ -106,12 +103,12 @@ public class TestListContainer implements Container {
                 for (int i = 0; i < foundTests.size(); i++) {
                     if (i != 0) pout.print(',');
                     FoundTest foundTest = foundTests.get(i);
-                    pout.format("%s:%s", foundTest.componentName, foundTest.caseName.replace(' ', '_'));
+                    pout.format("%s:%s", foundTest.componentName, foundTest.suiteName);
                 }
                 pout.println("\"/>\n");
                 for (int i = 0; i < foundTests.size(); i++) {
                     FoundTest foundTest = foundTests.get(i);
-                    pout.format(" <target name=\"%1$s:%2$s\">\n  <ant antfile=\"build.xml\" target=\"run-single-test\">\n   <property name=\"test.component\" value=\"%1$s\"/>\n   <property name=\"test.case\" value=\"%3$s\"/>\n  </ant>\n </target>\n", foundTest.componentName, foundTest.caseName.replace(' ', '_'), foundTest.caseName);
+                    pout.format(" <target name=\"%1$s:%2$s\">\n  <ant antfile=\"build.xml\" target=\"run-single-test-suite\">\n   <property name=\"test.component\" value=\"%1$s\"/>\n   <property name=\"test.suiteName\" value=\"%2$s\"/>\n  </ant>\n </target>\n", foundTest.componentName, foundTest.suiteName);
                 }
                 pout.println("</project>");
             }
