@@ -57,6 +57,8 @@ under the License.
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
+        <delete file="runtime/data.zip"/>
+        <delete file="runtime/test-list-build.xml"/>
     </target>
 
     <target name="clean-logs">
@@ -383,7 +385,54 @@ under the License.
             <arg value="test"/>
         </java>
     </target>
+    <target name="save-runtime-data">
+        <delete file="runtime/data.zip"/>
+        <zip zipfile="runtime/data.zip" compress="no">
+            <fileset dir="runtime/data"/>
+        </zip>
+    </target>
+    <target name="restore-runtime-data">
+        <delete dir="runtime/data"/>
+        <mkdir dir="runtime/data"/>
+        <unzip src="runtime/data.zip" dest="runtime/data"/>
+    </target>
 
+    <target name="check-separated-tests-already-setup">
+        <available file="runtime/test-list-build.xml" property="separated-tests-already-setup"/>
+    </target>
+    <target name="setup-separated-test-run" depends="check-separated-tests-already-setup" unless="separated-tests-already-setup">
+        <subant target="clean-data">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+        <antcall target="run-install"/>
+        <antcall target="save-runtime-data"/>
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="testlist"/>
+            <arg file="runtime/test-list-build.xml"/>
+            <arg value="-ant"/>
+        </java>
+    </target>
+    <target name="run-single-test">
+        <antcall target="restore-runtime-data"/>
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="test"/>
+            <arg value="-component=${test.component}"/>
+            <arg value="-case=${test.case}"/>
+        </java>
+        <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+        <mkdir dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+	<move todir="runtime/logs/test-results/${test.component}-${test.case}">
+            <fileset dir="runtime/logs/test-results" includes="*.xml"/>
+        </move>
+    </target>
+    <target name="run-test-list" depends="setup-separated-test-run">
+        <delete dir="runtime/logs/test-results"/>
+        <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
+    </target>
     <target name="create-component"
         description="Creates the layout of an OFBiz component in the hot-deploy folder.">
         <input addproperty="component-name" message="Component name: "/>

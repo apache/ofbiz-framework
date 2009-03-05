@@ -11,3 +11,5 @@ syntax: regexp
 ^debian/ofbiz(|-(framework|applications|specialpurpose))\.debhelper\.log$
 ^debian/ofbiz(|-(framework|applications|specialpurpose))\.(pre|post)(inst|rm)\.debhelper$
 ^debian/ofbiz(|-(framework|applications|specialpurpose))\.substvars$
++^runtime/data.zip$
++^runtime/test-list-build.xml$
