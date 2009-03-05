@@ -212,16 +212,21 @@ public class UtilMisc {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
-                //Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
+                Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
             }
             // this is very admittedly a hack, but this object seems to implement Serializable and may not really be, without this keep getting the error: "java.io.NotSerializableException: org.apache.catalina.core.ApplicationContextFacade"
-            if (entryValue != null && !(entryValue instanceof ServletContext)) {
+            if (entryValue instanceof ServletContext) {
                 keysToRemove.add(mapEntry.getKey());
+                Debug.logInfo("Found Map value that is a ServletContext: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
             }            
         }
         for (K keyToRemove: keysToRemove) { map.remove(keyToRemove); }
         //if (!(map instanceof Serializable)) {
         //    Debug.logInfo("Parameter Map is not Serializable!", module);
+        //}
+        
+        //for (Map.Entry<K, V> mapEntry: map.entrySet()) {
+        //    Debug.logInfo("Entry in Map made serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
         //}
     }
 
