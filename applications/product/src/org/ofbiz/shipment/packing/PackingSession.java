@@ -220,7 +220,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, BigDecimal weight, int packageSeqId) throws GeneralException {
         // process the result; add new item if necessary
-        switch(checkCode) {
+        switch (checkCode) {
             case 0:
                 // not enough reserved
                 throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [201]");
