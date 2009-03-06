@@ -79,7 +79,7 @@ public class WidgetWorker {
     }
 
     public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow, String event, String action) throws IOException {
-    	if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
+        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
 
             if (UtilValidate.isNotEmpty(linkStyle)) {
@@ -110,8 +110,8 @@ public class WidgetWorker {
 
             writer.append('>');
             
-            if (request.getAttribute("image") != null) {
-            	writer.append("<img src = \""+request.getAttribute("image").toString()+"\"/>");
+            if(UtilValidate.isNotEmpty(request.getAttribute("image"))){
+                writer.append("<img src = \""+request.getAttribute("image").toString()+"\"/>");
             }
 
             writer.append(description);
