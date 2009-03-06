@@ -25,7 +25,6 @@ under the License.
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="service-variant" type="request" class="org.ofbiz.webapp.event.ServiceVariantsEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <firstvisit></firstvisit>
@@ -537,19 +536,19 @@ under the License.
     </request-map>
     <request-map uri="createProductPrice">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="createProductPrice"/>
+        <event type="service" path="" invoke="createProductPrice"/>
         <response name="success" type="view" value="EditProductPrices"/>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
     <request-map uri="updateProductPrice">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="updateProductPrice"/>
+        <event type="service" path="" invoke="updateProductPrice"/>
         <response name="success" type="view" value="EditProductPrices"/>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
     <request-map uri="deleteProductPrice">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="deleteProductPrice"/>
+        <event type="service" path="" invoke="deleteProductPrice"/>
         <response name="success" type="view" value="EditProductPrices"/>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
@@ -739,19 +738,19 @@ under the License.
     </request-map>
     <request-map uri="addProductToCategory">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="safeAddProductToCategory"/>
+        <event type="service" path="" invoke="safeAddProductToCategory"/>
         <response name="success" type="view" value="EditProductCategories"/>
         <response name="error" type="view" value="EditProductCategories"/>
     </request-map>
     <request-map uri="updateProductToCategory">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="updateProductToCategory"/>
+        <event type="service" path="" invoke="updateProductToCategory"/>
         <response name="success" type="view" value="EditProductCategories"/>
         <response name="error" type="view" value="EditProductCategories"/>
     </request-map>
     <request-map uri="removeProductFromCategory">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="removeProductFromCategory"/>
+        <event type="service" path="" invoke="removeProductFromCategory"/>
         <response name="success" type="view" value="EditProductCategories"/>
         <response name="error" type="view" value="EditProductCategories"/>
     </request-map>
@@ -2274,7 +2273,7 @@ under the License.
     <request-map uri="EditProductSuppliers"><security https="true" auth="true"/><response name="success" type="view" value="EditSupplierProduct"/></request-map>
     <request-map uri="createSupplierProduct">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="createSupplierProduct"/>
+        <event type="service" path="" invoke="createSupplierProduct"/>
         <response name="success" type="view" value="EditSupplierProduct"/>
         <response name="error" type="view" value="EditSupplierProduct"/>
     </request-map>
@@ -2286,7 +2285,7 @@ under the License.
     </request-map>
     <request-map uri="removeSupplierProduct">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="removeSupplierProduct"/>
+        <event type="service" path="" invoke="removeSupplierProduct"/>
         <response name="success" type="view" value="EditSupplierProduct"/>
         <response name="error" type="view" value="EditSupplierProduct"/>
     </request-map>
@@ -2315,19 +2314,19 @@ under the License.
     <request-map uri="ProductConfigItemArticle"><security https="true" auth="true"/><response name="success" type="view" value="ProductConfigItemArticle"/></request-map>
     <request-map uri="createProductConfig">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="createProductConfig"/>
+        <event type="service" path="" invoke="createProductConfig"/>
         <response name="success" type="view" value="EditProductConfigs"/>
         <response name="error" type="view" value="EditProductConfigs"/>
     </request-map>
     <request-map uri="updateProductConfig">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="updateProductConfig"/>
+        <event type="service" path="" invoke="updateProductConfig"/>
         <response name="success" type="view" value="EditProductConfigs"/>
         <response name="error" type="view" value="EditProductConfigs"/>
     </request-map>
     <request-map uri="deleteProductConfig">
         <security https="true" auth="true"/>
-        <event type="service-variant" path="" invoke="deleteProductConfig"/>
+        <event type="service" path="" invoke="deleteProductConfig"/>
         <response name="success" type="view" value="EditProductConfigs"/>
         <response name="error" type="view" value="EditProductConfigs"/>
     </request-map>
