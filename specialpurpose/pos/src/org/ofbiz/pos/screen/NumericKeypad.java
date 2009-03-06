@@ -195,7 +195,7 @@ public class NumericKeypad extends XPage
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
-            }finally{
+            } finally {
                 text=c+text;
             }
             if (countChars(text, c) > 1) {
@@ -253,7 +253,7 @@ public class NumericKeypad extends XPage
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
-            }finally{
+            } finally {
                 m_edit.setText(text + c);            
             }      
             m_dialog.repaint();
@@ -270,7 +270,7 @@ public class NumericKeypad extends XPage
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
-            }finally{
+            } finally {
                 m_edit.setText(text + c);            
             }      
             m_dialog.repaint();
