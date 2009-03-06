@@ -160,7 +160,7 @@ public class ShoppingCartEvents {
             productId = (String) paramMap.remove("ADD_PRODUCT_ID");
         } else if (paramMap.containsKey("add_product_id")) {
             Object object = paramMap.remove("add_product_id");
-            try{
+            try {
                 productId = (String) object;
             }catch(ClassCastException e) {
                 productId = (String)((List)object).get(0);
@@ -1468,7 +1468,7 @@ public class ShoppingCartEvents {
             }
             if (partyId != null && partyId.length() > 0) {
                 GenericValue thisParty = null;
-                try{
+                try {
                     thisParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
                 } catch(GenericEntityException gee) {
                     //

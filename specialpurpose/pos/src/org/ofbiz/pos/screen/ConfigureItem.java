@@ -408,7 +408,7 @@ public class ConfigureItem extends XPage {
         }
         
         public void valueChanged(ListSelectionEvent event) {
-            try{
+            try {
                 JList jlist = (JList)event.getSource();
                 boolean isAdjusting = event.getValueIsAdjusting();
                 if (!isAdjusting) {

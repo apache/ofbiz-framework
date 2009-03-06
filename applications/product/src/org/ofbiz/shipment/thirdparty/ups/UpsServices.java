@@ -1560,7 +1560,7 @@ public class UpsServices {
         cxt.put("shippableWeight", context.get("shippableWeight"));
         cxt.put("isResidentialAddress", context.get("isResidentialAddress"));
         cxt.put("shipFromAddress", shipFromAddress);
-        try{
+        try {
             return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
             
         }catch(GenericServiceException e) {

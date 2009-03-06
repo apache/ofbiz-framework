@@ -190,7 +190,7 @@ public class NumericKeypad extends XPage
     private synchronized void prependUnique(char c) {
         if (wasMouseClicked()) {
             String text = "";
-            try{
+            try {
                 text = m_edit.getText();            
             }catch (NullPointerException e) {
                 // getText throws exception if no text
@@ -248,7 +248,7 @@ public class NumericKeypad extends XPage
     private synchronized void append(char c) {
         if (wasMouseClicked()) {
             String text = "";
-            try{
+            try {
                 text = m_edit.getText();            
             }catch (NullPointerException e) {
                 // getText throws exception if no text
@@ -265,7 +265,7 @@ public class NumericKeypad extends XPage
     private synchronized void append(String c) {
         if (wasMouseClicked()) {
             String text = "";
-            try{
+            try {
                 text = m_edit.getText();            
             }catch (NullPointerException e) {
                 // getText throws exception if no text

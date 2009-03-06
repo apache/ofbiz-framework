@@ -324,7 +324,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
                             long xpdlClassVer) throws RepositoryException
     {
         Debug.log("XPDL Upload : " + xpdlId, module);
-        //try{throw new Exception ("XPDL Upload");}catch(Exception e) {e.printStackTrace();};
+        //try {throw new Exception ("XPDL Upload");}catch(Exception e) {e.printStackTrace();};
         String newVersion = null;
         try {
             newVersion = nextVersions.updateNextVersion(xpdlId);

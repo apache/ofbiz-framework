@@ -72,7 +72,7 @@ In order ta make this service active add the following to the service definition
         GenericValue Entity = null;
          try {
              BufferedReader input = null;
-             try{
+             try {
                  if (!UtilValidate.isEmpty(file)) {
                      input = new BufferedReader( new FileReader(file));
                      String line = null;
@@ -271,7 +271,7 @@ In order ta make this service active add the following to the service definition
         subContents = line.substring(index+1, line.length());
         subContents = subContents.replace(oldChar, newChar);
         int size = subContents.length();
-        try{
+        try {
             for(index = 0; index < size; index++) {//start character in line
                 boolean contentNameMatch = false;
                 if (subContents.charAt(index) == check.charAt(0)) {//store data

@@ -184,7 +184,7 @@ public class WebToolsServices {
         // The parsing takes place
         // #############################
         if (s != null || fulltext != null || url != null) {
-            try{
+            try {
                 Map<String, Object> inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
                                               "createDummyFks", createDummyFks,
                                               "checkDataOnly", checkDataOnly,
