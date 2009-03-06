@@ -192,7 +192,7 @@ public class NumericKeypad extends XPage
             String text = "";
             try {
                 text = m_edit.getText();            
-            }catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{
@@ -250,7 +250,7 @@ public class NumericKeypad extends XPage
             String text = "";
             try {
                 text = m_edit.getText();            
-            }catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{
@@ -267,7 +267,7 @@ public class NumericKeypad extends XPage
             String text = "";
             try {
                 text = m_edit.getText();            
-            }catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{

@@ -112,7 +112,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
          org.enhydra.shark.xpdl.elements.Tools tolls = implt.getTools();
          ArrayList al = tolls.toElements();
          tools = al.iterator();
-          }catch (Exception e) {
+          } catch (Exception e) {
               e.printStackTrace();
               throw new BaseException(e);
         }

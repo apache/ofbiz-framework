@@ -433,7 +433,7 @@ public class PosTransaction implements Serializable {
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             //throw e;
-        }catch (GenericEntityException e) {
+        } catch (GenericEntityException e) {
             trace("item lookup error", e);
             Debug.logError(e, module);
         } catch (Exception e) {
@@ -479,7 +479,7 @@ public class PosTransaction implements Serializable {
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             throw e;
-        }catch (GenericEntityException e) {
+        } catch (GenericEntityException e) {
             trace("item lookup error", e);
             Debug.logError(e, module);
         } catch (Exception e) {
