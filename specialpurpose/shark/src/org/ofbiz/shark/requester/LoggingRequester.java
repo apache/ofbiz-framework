@@ -40,7 +40,7 @@ public class LoggingRequester extends AbstractRequester {
     static GenericValue gv = null;
     
     
-    public LoggingRequester(){
+    public LoggingRequester() {
         super(gv);
     }
     

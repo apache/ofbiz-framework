@@ -78,7 +78,7 @@ public class ProductFeatureServices {
             fieldToSearch = "productFeatureGroupId";
             valueToSearch = (String) context.get("productFeatureGroupId");
             // use same orderBy as with a productFeatureCategoryId search
-        } else if (valueToSearch == null && context.get("productId") != null){
+        } else if (valueToSearch == null && context.get("productId") != null) {
             entityToSearch = "ProductFeatureAndAppl";
             fieldToSearch = "productId";
             valueToSearch = (String) context.get("productId");

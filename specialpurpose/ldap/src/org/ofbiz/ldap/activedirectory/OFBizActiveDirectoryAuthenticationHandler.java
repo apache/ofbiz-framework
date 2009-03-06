@@ -83,7 +83,7 @@ public final class OFBizActiveDirectoryAuthenticationHandler extends AbstractOFB
             String sub = UtilXml.childElementValue(rootElement, "Scope", "sub").toLowerCase().trim();
             if (sub.equals("sub")) {
                 controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            } else if (sub.equals("one")){
+            } else if (sub.equals("one")) {
                 controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
             } else {
                 controls.setSearchScope(SearchControls.OBJECT_SCOPE);

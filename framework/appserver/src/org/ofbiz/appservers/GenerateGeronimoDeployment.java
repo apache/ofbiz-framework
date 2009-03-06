@@ -143,7 +143,7 @@ public class GenerateGeronimoDeployment {
         return jar_version;
     }
 
-    private void parseTemplate(File templateFile, ComponentConfig.WebappInfo webApp){
+    private void parseTemplate(File templateFile, ComponentConfig.WebappInfo webApp) {
         Debug.log("Parsing template : " + templateFile.getAbsolutePath() + " for web app " + webApp.getName(), module);
 
         Map<String, Object> dataMap= new HashMap<String, Object>();

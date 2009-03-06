@@ -494,7 +494,7 @@ public class ProductsExportToEbay {
     private static String parseText(String text) {
         Pattern htmlPattern = Pattern.compile("[<](.+?)[>]");
         Pattern tabPattern = Pattern.compile("\\s");
-        if (null != text && text.length() > 0){
+        if (null != text && text.length() > 0) {
             Matcher matcher = htmlPattern.matcher(text);
             text = matcher.replaceAll("");
             matcher = tabPattern.matcher(text);

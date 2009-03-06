@@ -235,7 +235,7 @@ public class OrderReadHelper {
             if (chargedToPaymentPref.compareTo(ZERO) > 0) {
                 // key of the resulting map is paymentMethodId or paymentMethodTypeId if the paymentMethodId is not available
                 String paymentMethodKey = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
-                if(paymentMethodAmounts.containsKey(paymentMethodKey)){
+                if(paymentMethodAmounts.containsKey(paymentMethodKey)) {
                     BigDecimal value = (BigDecimal) paymentMethodAmounts.get(paymentMethodKey);
                     if (value != null) chargedToPaymentPref = chargedToPaymentPref.add(value);
                 }
@@ -2480,10 +2480,10 @@ public class OrderReadHelper {
         
         List promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
         
-        if(!promoAdjustments.isEmpty()){
+        if(!promoAdjustments.isEmpty()) {
             
             Iterator promoAdjIter = promoAdjustments.iterator();
-            while(promoAdjIter.hasNext()){
+            while(promoAdjIter.hasNext()) {
                 GenericValue promoAdjustment = (GenericValue) promoAdjIter.next();
                 
                 if (promoAdjustment != null) {
@@ -2495,7 +2495,7 @@ public class OrderReadHelper {
         return promoAdjTotal.setScale(scale, rounding);
     }
 
-    public static BigDecimal getWorkEffortRentalLength(GenericValue workEffort){
+    public static BigDecimal getWorkEffortRentalLength(GenericValue workEffort) {
         BigDecimal length = null;
         if (workEffort.get("estimatedStartDate") != null && workEffort.get("estimatedCompletionDate") != null) {
             length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"),workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
@@ -2503,7 +2503,7 @@ public class OrderReadHelper {
         return length;
     }
     
-    public static BigDecimal getWorkEffortRentalQuantity(GenericValue workEffort){
+    public static BigDecimal getWorkEffortRentalQuantity(GenericValue workEffort) {
         BigDecimal persons = BigDecimal.ONE;
         if (workEffort.get("reservPersons") != null)
             persons = workEffort.getBigDecimal("reservPersons");
@@ -2787,7 +2787,7 @@ public class OrderReadHelper {
     }
 
     // little helper method to set the scale according to tax type
-    public static BigDecimal setScaleByType(boolean isTax, BigDecimal value){
+    public static BigDecimal setScaleByType(boolean isTax, BigDecimal value) {
         return isTax ? value.setScale(taxCalcScale, taxRounding) : value.setScale(scale, rounding);
     }
 

@@ -201,7 +201,7 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (QueueConnectionFactory) jndi.lookup(jndiName);  
-        } catch (GeneralException ge){
+        } catch (GeneralException ge) {
             throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());        
         } catch (NamingException ne) {
             JNDIContextFactory.clearInitialContext(serverName);           
@@ -259,14 +259,14 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);                        
-        } catch (GeneralException ge){
+        } catch (GeneralException ge) {
             throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());
         } catch (NamingException ne) {
             JNDIContextFactory.clearInitialContext(serverName); 
             try {
                 jndi = JNDIContextFactory.getInitialContext(serverName);
                 factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);
-            } catch (GeneralException ge2){
+            } catch (GeneralException ge2) {
                 throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());                
             } catch (NamingException ne2) {
                 throw new GenericServiceException("JNDI lookup problems.", ne2);

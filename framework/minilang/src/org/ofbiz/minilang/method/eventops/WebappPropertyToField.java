@@ -90,7 +90,7 @@ public class WebappPropertyToField extends MethodOperation {
         }
 
         // if fieldVal is null, or has zero length, use defaultVal
-        if ((fieldVal == null) || (fieldVal.length() == 0)){
+        if ((fieldVal == null) || (fieldVal.length() == 0)) {
             fieldVal = defaultVal;
         }
 

@@ -406,7 +406,7 @@ public class CoreEvents {
         Map<String, Object> syncServiceResult = null;
         // schedule service
         try {
-            if(null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")){
+            if(null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")) {
                 syncServiceResult = dispatcher.runSync(serviceName, serviceContext);
             }else{
                 dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
@@ -419,7 +419,7 @@ public class CoreEvents {
         
         String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_scheduled", locale);
         request.setAttribute("_EVENT_MESSAGE_", errMsg);
-        if(null!=syncServiceResult){
+        if(null!=syncServiceResult) {
             request.getSession().setAttribute("_RUN_SYNC_RESULT_", syncServiceResult);
             return "sync_success";
         }
@@ -430,7 +430,7 @@ public class CoreEvents {
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> syncServiceResult = checkMap(session.getAttribute("_RUN_SYNC_RESULT_"), String.class, Object.class);
-        if(null==syncServiceResult){
+        if(null==syncServiceResult) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
             return "error";
@@ -443,13 +443,13 @@ public class CoreEvents {
         Map<String, Object> savedFields = FastMap.newInstance();
         
         for (String key: serviceFieldsToSave.keySet()) {
-            if(null!=serviceFieldsToSave.get(key) && request.getParameter(key).equalsIgnoreCase("on") && !key.equals("_CLEAR_PREVIOUS_PARAMS_")){
+            if(null!=serviceFieldsToSave.get(key) && request.getParameter(key).equalsIgnoreCase("on") && !key.equals("_CLEAR_PREVIOUS_PARAMS_")) {
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
                 savedFields.put(partialKey, getObjectFromServicePath(key ,syncServiceResult));
             }
         }
-        if(null!=session.getAttribute("_SAVED_SYNC_RESULT_")){
+        if(null!=session.getAttribute("_SAVED_SYNC_RESULT_")) {
             Map<String, Object> savedSyncResult = checkMap(session.getAttribute("_SAVED_SYNC_RESULT_"), String.class, Object.class);
             savedSyncResult.putAll(savedFields);
             savedFields = savedSyncResult; 
@@ -459,28 +459,28 @@ public class CoreEvents {
     }
     
     //Tries to return a map, if Object is one of Map, GenericEntity, List
-    public static Object getObjectFromServicePath(String servicePath, Map<String, ? extends Object> serviceResult){
+    public static Object getObjectFromServicePath(String servicePath, Map<String, ? extends Object> serviceResult) {
         String[] sp = servicePath.split("\\|\\|");
         Object servicePathObject = null;
         Map<String, Object> servicePathMap = null;
-        for(int i=0;i<sp.length;i++){
+        for(int i=0;i<sp.length;i++) {
             String servicePathEntry = sp[i];
-            if(null==servicePathMap){
+            if(null==servicePathMap) {
                 servicePathObject = serviceResult.get(servicePathEntry);
             }else{
                 servicePathObject = servicePathMap.get(servicePathEntry);
             }
             servicePathMap = null;
             
-            if(servicePathObject instanceof Map){
+            if(servicePathObject instanceof Map) {
                 servicePathMap = checkMap(servicePathObject);
-            }else if(servicePathObject instanceof GenericEntity){
+            }else if(servicePathObject instanceof GenericEntity) {
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
                 servicePathMap = FastMap.newInstance();
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
                 }
-            }else if(servicePathObject instanceof Collection){
+            }else if(servicePathObject instanceof Collection) {
                 Collection<?> servicePathColl = checkCollection(servicePathObject);
                 int count=0;
                 servicePathMap = FastMap.newInstance();
@@ -490,7 +490,7 @@ public class CoreEvents {
                 }
             }
         }
-        if(null==servicePathMap){
+        if(null==servicePathMap) {
             return servicePathObject;
         }else{
             return servicePathMap;

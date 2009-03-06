@@ -95,7 +95,7 @@ public class ProductionRunServices {
         String productionRunId = (String) context.get("productionRunId");
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         String currentStatusId = productionRun.getGenericValue().getString("currentStatusId");
@@ -458,7 +458,7 @@ public class ProductionRunServices {
 
         if (!UtilValidate.isEmpty(productionRunId)) {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-            if (productionRun.exist()){
+            if (productionRun.exist()) {
                 
                 if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
                       !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
@@ -525,7 +525,7 @@ public class ProductionRunServices {
         String statusId = (String) context.get("statusId");
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         String currentStatusId = productionRun.getGenericValue().getString("currentStatusId");
@@ -707,7 +707,7 @@ public class ProductionRunServices {
         }
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         List tasks = productionRun.getProductionRunRoutingTasks();
@@ -1072,7 +1072,7 @@ public class ProductionRunServices {
         String routingTaskId = (String) context.get("routingTaskId");
         if (! UtilValidate.isEmpty(productionRunId) && ! UtilValidate.isEmpty(routingTaskId)) {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-            if (productionRun.exist()){
+            if (productionRun.exist()) {
                 
                 if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
                       !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
@@ -1092,20 +1092,20 @@ public class ProductionRunServices {
                 Long priority = (Long) context.get("priority");
                 List pRRoutingTasks = productionRun.getProductionRunRoutingTasks();
                 boolean first = true;
-                for (Iterator iter=pRRoutingTasks.iterator();iter.hasNext();){
+                for (Iterator iter=pRRoutingTasks.iterator();iter.hasNext();) {
                     GenericValue routingTask = (GenericValue) iter.next();
                     if (priority.equals(routingTask.get("priority")) && ! routingTaskId.equals(routingTask.get("workEffortId")))
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskSeqIdAlreadyExist", locale));
-                    if (routingTaskId.equals(routingTask.get("workEffortId"))){
+                    if (routingTaskId.equals(routingTask.get("workEffortId"))) {
                         routingTask.set("estimatedSetupMillis", context.get("estimatedSetupMillis"));
                         routingTask.set("estimatedMilliSeconds", context.get("estimatedMilliSeconds"));
-                        if (first){    // for the first routingTask the estimatedStartDate update imply estimatedStartDate productonRun update
-                            if (! estimatedStartDate.equals(pRestimatedStartDate)){
+                        if (first) {    // for the first routingTask the estimatedStartDate update imply estimatedStartDate productonRun update
+                            if (! estimatedStartDate.equals(pRestimatedStartDate)) {
                                 productionRun.setEstimatedStartDate(estimatedStartDate);
                             }
                         }
                         // the priority has been changed
-                        if (! priority.equals(routingTask.get("priority"))){
+                        if (! priority.equals(routingTask.get("priority"))) {
                             routingTask.set("priority", priority);
                             // update the routingTask List and re-read it to be able to have it sorted with the new value
                             if ( ! productionRun.store()) {
@@ -1908,7 +1908,7 @@ public class ProductionRunServices {
         }
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         List tasks = productionRun.getProductionRunRoutingTasks();
@@ -2543,7 +2543,7 @@ public class ProductionRunServices {
         String productionRunId = (String) context.get("productionRunId");
 
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         List tasks = productionRun.getProductionRunRoutingTasks();
@@ -2578,7 +2578,7 @@ public class ProductionRunServices {
         String productionRunId = (String) context.get("productionRunId");
 
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-        if (!productionRun.exist()){
+        if (!productionRun.exist()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotExists", locale));
         }
         List tasks = productionRun.getProductionRunRoutingTasks();
@@ -2923,7 +2923,7 @@ public class ProductionRunServices {
             iteratorResult = resultList.iterator();
             String orderId = null;
             GenericValue orderDeliverySchedule = null;
-            while (iteratorResult.hasNext()){
+            while (iteratorResult.hasNext()) {
                 GenericValue genericResult = (GenericValue) iteratorResult.next();
                 String newOrderId =  genericResult.getString("orderId");
                 if (!newOrderId.equals(orderId)) {

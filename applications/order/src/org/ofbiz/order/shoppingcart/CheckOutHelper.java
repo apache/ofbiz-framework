@@ -1495,7 +1495,7 @@ public class CheckOutHelper {
         }
         if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount.compareTo(selectedPaymentTotal) < 0) {
             BigDecimal changeAmount = selectedPaymentTotal.subtract(requiredAmount);
-            if (!paymentTypes.contains("CASH")){
+            if (!paymentTypes.contains("CASH")) {
                 Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);
                 errMsg = UtilProperties.getMessage(resource_error, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 return ServiceUtil.returnError(errMsg);
@@ -1503,7 +1503,7 @@ public class CheckOutHelper {
                 int cashIndex = paymentTypes.indexOf("CASH");
                 String cashId = (String) paymentTypes.get(cashIndex);
                 BigDecimal cashAmount = cart.getPaymentAmount(cashId);
-                if (cashAmount.compareTo(changeAmount) < 0){
+                if (cashAmount.compareTo(changeAmount) < 0) {
                     Debug.logError("Change Amount : " + changeAmount + " / Cash Amount : " + cashAmount, module);
                     errMsg = UtilProperties.getMessage(resource_error, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     return ServiceUtil.returnError(errMsg);

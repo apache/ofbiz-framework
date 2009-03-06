@@ -174,7 +174,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 if (UtilValidate.isNotEmpty(contentId)) {
                     try {
                         content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
-                    } catch(GenericEntityException e){
+                    } catch(GenericEntityException e) {
                         // TODO: Not sure what to put here.
                         throw new RuntimeException(e.getMessage());
                     }

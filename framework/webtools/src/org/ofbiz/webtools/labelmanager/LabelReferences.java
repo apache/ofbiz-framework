@@ -101,7 +101,7 @@ public class LabelReferences {
                 String fileNameURI = ftlFile.toURI().toString();
                 String inFile = FileUtil.readString("UTF-8", ftlFile);
                 int pos = 0;
-                while (pos >= 0){
+                while (pos >= 0) {
                     pos = inFile.indexOf(uiLabelMap, pos);
 
                     if (pos >= 0) {
@@ -146,7 +146,7 @@ public class LabelReferences {
             String fileNameURI = javaFile.toURI().toString();
             String inFile = FileUtil.readString("UTF-8", javaFile);
             int pos = 0;
-            while (pos >= 0){
+            while (pos >= 0) {
                 pos = inFile.indexOf(message, pos);
 
                 if (pos >= 0) {
@@ -192,7 +192,7 @@ public class LabelReferences {
             String fileNameURI = javaFile.toURI().toString();
             String inFile = FileUtil.readString("UTF-8", javaFile);
             int pos = 0;
-            while (pos >= 0){
+            while (pos >= 0) {
                 pos = inFile.indexOf(message, pos);
 
                 if (pos >= 0) {
@@ -545,7 +545,7 @@ public class LabelReferences {
         if (UtilValidate.isNotEmpty(attributeValue)) {
             int pos = 0;
 
-            while (pos >= 0){
+            while (pos >= 0) {
                 pos = attributeValue.indexOf(stringToSearch, pos);
 
                 if (pos >= 0) {
@@ -805,7 +805,7 @@ public class LabelReferences {
 
                 if (UtilValidate.isNotEmpty(entity) && UtilValidate.isNotEmpty(entity.getDefaultResourceName())) {
                     int pos = 0;
-                    while (pos >= 0){
+                    while (pos >= 0) {
                         pos = description.indexOf(startExpression, pos);
 
                         if (pos >= 0) {
@@ -918,7 +918,7 @@ public class LabelReferences {
 
                 if (UtilValidate.isNotEmpty(entity) && UtilValidate.isNotEmpty(entity.getDefaultResourceName())) {
                     int pos = 0;
-                    while (pos >= 0){
+                    while (pos >= 0) {
                         pos = description.indexOf(startExpression, pos);
 
                         if (pos >= 0) {

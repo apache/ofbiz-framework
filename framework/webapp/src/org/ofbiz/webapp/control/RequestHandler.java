@@ -919,7 +919,7 @@ public class RequestHandler {
             boolean isSpider = false;
             
             // if the current request comes from a spider, we will not add the jsessionid to the link
-            if (UtilHttp.checkURLforSpiders(request)){
+            if (UtilHttp.checkURLforSpiders(request)) {
                 isSpider = true;
             }
             
@@ -936,7 +936,7 @@ public class RequestHandler {
             if (response != null && !forceManualJsessionid && !isSpider) {
                 encodedUrl = response.encodeURL(newURL.toString());
             } else {
-                if (!isSpider){
+                if (!isSpider) {
                     String sessionId = ";jsessionid=" + request.getSession().getId();
                     // this should be inserted just after the "?" for the parameters, if there is one, or at the end of the string
                     int questionIndex = newURL.indexOf("?");

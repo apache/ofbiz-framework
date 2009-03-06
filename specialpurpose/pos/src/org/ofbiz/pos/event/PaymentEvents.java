@@ -154,7 +154,7 @@ public class PaymentEvents {
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidcardnumber");
                 }
-            } else if (msrInfo == null && (securityCodeInfo == null) ){
+            } else if (msrInfo == null && (securityCodeInfo == null) ) {
                 // test expiration date
                 if (UtilValidate.isNotEmpty(input.value()) && (input.value().length() == 4)) {
                     // ask for Security Code, put in SECURITYCODE
@@ -168,7 +168,7 @@ public class PaymentEvents {
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidexpirationdate");
                 }
-            }else if (msrInfo == null && (postalCodeInfo == null) ){
+            }else if (msrInfo == null && (postalCodeInfo == null) ) {
                 // test security code - allow blank for illegible cards
                 if (UtilValidate.isEmpty(input.value()) ||
                         (UtilValidate.isNotEmpty(input.value()) && (input.value().length() <= 4))) {
@@ -184,12 +184,12 @@ public class PaymentEvents {
                 }
             } else {
                 String msrInfoStr = null;
-                if (msrInfo == null){
+                if (msrInfo == null) {
                     input.clearLastFunction();
                     input.setFunction("POSTALCODE");
                     postalCodeInfo = input.getFunction("POSTALCODE");
-                    if(UtilValidate.isNotEmpty(crtInfo[1])){
-                        if(UtilValidate.isNotEmpty(creditExpirationInfo[1])){
+                    if(UtilValidate.isNotEmpty(crtInfo[1])) {
+                        if(UtilValidate.isNotEmpty(creditExpirationInfo[1])) {
                             // setup keyed transaction
                             msrInfoStr = crtInfo[1] + "|" + creditExpirationInfo[1];
                         }else {
@@ -229,14 +229,14 @@ public class PaymentEvents {
                         if (pmId != null) {
                             trans.addPayment(pmId, amount);
                         }
-                        if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])){ 
+                        if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])) { 
                             // if swiped
                             trans.setPaymentTrack2(pmId, null, track2Info[1]);
                         }else{ //keyed
-                            if(securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])){
+                            if(securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])) {
                                 trans.setPaymentSecurityCode(pmId, null, securityCodeInfo[1]);
                             }
-                            if(postalCodeInfo != null && UtilValidate.isNotEmpty(postalCodeInfo[1])){
+                            if(postalCodeInfo != null && UtilValidate.isNotEmpty(postalCodeInfo[1])) {
                                 trans.setPaymentPostalCode(pmId, null, postalCodeInfo[1]);
                             }
                         }

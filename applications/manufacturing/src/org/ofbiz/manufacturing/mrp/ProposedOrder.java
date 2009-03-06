@@ -76,14 +76,14 @@ public class ProposedOrder {
      * get the quantity property.
      * @return the quantity property
      **/
-    public BigDecimal getQuantity(){
+    public BigDecimal getQuantity() {
         return quantity;
     }
     /**
      * get the requirementStartDate property.
      * @return the quantity property
      **/
-    public Timestamp getRequirementStartDate(){
+    public Timestamp getRequirementStartDate() {
         return requirementStartDate;
     }
     /**
@@ -97,7 +97,7 @@ public class ProposedOrder {
      * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.
      * <li>else null.
      **/
-    public Map calculateStartDate(int daysToShip, GenericValue routing, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin){
+    public Map calculateStartDate(int daysToShip, GenericValue routing, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
         Map result = null;
         Timestamp endDate = (Timestamp)requiredByDate.clone();
         Timestamp startDate = endDate;
@@ -203,7 +203,7 @@ public class ProposedOrder {
      * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity < reorderQuantity) quantity = reorderQuantity;
      **/
     // FIXME: facilityId
-    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator  listIterIEP){
+    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator  listIterIEP) {
         //      TODO : use a better algorithm using Order management cost et Product Stock cost to calculate the re-order quantity
         //                     the variable listIterIEP will be used for that
         if (quantity.compareTo(reorderQuantity) < 0) {

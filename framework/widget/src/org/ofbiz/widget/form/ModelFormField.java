@@ -2262,7 +2262,7 @@ public class ModelFormField {
             return this.target.expandString(context);
         }
         
-        public String getImage(){
+        public String getImage() {
         	return this.image;
         }
 

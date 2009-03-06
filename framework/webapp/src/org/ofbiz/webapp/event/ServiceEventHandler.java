@@ -194,7 +194,7 @@ public class ServiceEventHandler implements EventHandler {
                             if (encoding != null) {
                                 try {
                                     multiPartMap.put(fieldName, item.getString(encoding));
-                                } catch (java.io.UnsupportedEncodingException uee){
+                                } catch (java.io.UnsupportedEncodingException uee) {
                                     Debug.logError(uee, "Unsupported Encoding, using deafault", module);
                                     multiPartMap.put(fieldName, item.getString());
                                 }

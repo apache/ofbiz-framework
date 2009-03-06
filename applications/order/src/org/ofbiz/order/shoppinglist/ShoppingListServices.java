@@ -457,7 +457,7 @@ public class ShoppingListServices {
                     listCart.setOrderPartyId(shoppingList.getString("partyId"));
                     listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
                 } else {
-                    if (!listCart.getPartyId().equals(shoppingList.getString("partyId"))){
+                    if (!listCart.getPartyId().equals(shoppingList.getString("partyId"))) {
                         Debug.logError("CANNOT add shoppingList: " + shoppingList.getString("shoppingListId") 
                                 + " of partyId: " + shoppingList.getString("partyId")
                                 + " to a shoppingcart with a different orderPartyId: " 

@@ -136,7 +136,7 @@ public class PcChargeServices {
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
 
-        if(authTransaction == null){
+        if(authTransaction == null) {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
 
@@ -192,7 +192,7 @@ public class PcChargeServices {
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
 
-        if(authTransaction == null){
+        if(authTransaction == null) {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
 
@@ -253,7 +253,7 @@ public class PcChargeServices {
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
 
-        if(authTransaction == null){
+        if(authTransaction == null) {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
 

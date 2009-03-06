@@ -355,7 +355,7 @@ public class GiftCertificateServices {
         // get the authorizations
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");        
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
-        if (authTransaction == null){
+        if (authTransaction == null) {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {

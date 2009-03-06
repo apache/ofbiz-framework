@@ -207,7 +207,7 @@ public class WebToolsServices {
                     Long numberRead = (Long)outputMap.get("rowProcessed");
                     messages.add("Got " + numberRead.longValue() + " entities to write to the datasource.");
                 }
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 return ServiceUtil.returnError("ERROR parsing Entity Xml file: " + ex.getMessage());
             }
         } else {
@@ -456,7 +456,7 @@ public class WebToolsServices {
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = numberRead;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return ServiceUtil.returnError("Error parsing entity xml file: " + ex.toString());
         }
         // send the notification

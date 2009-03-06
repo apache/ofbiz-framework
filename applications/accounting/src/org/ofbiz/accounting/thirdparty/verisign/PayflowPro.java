@@ -62,7 +62,7 @@ public class PayflowPro {
             configString = "payment.properties";
         }
 
-        if (authTrans == null){
+        if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         }
 
@@ -160,7 +160,7 @@ public class PayflowPro {
             configString = "payment.properties";
         }
 
-        if (authTrans == null){
+        if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         }
 
@@ -223,7 +223,7 @@ public class PayflowPro {
             configString = "payment.properties";
         }
 
-        if (authTrans == null){
+        if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         }
 

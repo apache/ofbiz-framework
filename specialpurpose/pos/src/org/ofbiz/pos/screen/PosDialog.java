@@ -335,11 +335,11 @@ public class PosDialog {
         return new Point(maxX, maxY);
     }
 
-      public void posDialogSetVisible(boolean visible){
+      public void posDialogSetVisible(boolean visible) {
       posDialogVisible = visible;
       SwingUtilities.invokeLater( 
           new Runnable() {
-              public void run(){
+              public void run() {
                   dialog.setVisible(posDialogVisible);
               }
           }      

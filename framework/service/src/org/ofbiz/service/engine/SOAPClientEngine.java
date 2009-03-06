@@ -105,7 +105,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         
         call.setTargetEndpointAddress(endPoint);
         
-        if (UtilValidate.isNotEmpty(modelService.nameSpace)){
+        if (UtilValidate.isNotEmpty(modelService.nameSpace)) {
             call.setOperationName(new QName(modelService.nameSpace, modelService.invoke));
         } else {
             call.setOperationName(modelService.invoke);

@@ -462,7 +462,7 @@ public class ModelForm extends ModelWidget {
         }
 
         //alt-row-styles
-        for (Element altRowStyleElement : UtilXml.childElementList(formElement, "alt-row-style")){
+        for (Element altRowStyleElement : UtilXml.childElementList(formElement, "alt-row-style")) {
             AltRowStyle altRowStyle = new AltRowStyle(altRowStyleElement);
             this.altRowStyles.add(altRowStyle);
         }

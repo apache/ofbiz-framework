@@ -251,7 +251,7 @@ public class PosTransaction implements Serializable {
             itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
         }
         
-        if (isAggregatedItem(item.getProductId())){
+        if (isAggregatedItem(item.getProductId())) {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
             itemInfo.put("basePrice", UtilFormatOut.formatPrice(pcw.getDefaultPrice()));
@@ -267,15 +267,15 @@ public class PosTransaction implements Serializable {
         // to use foreach in receipt.java
 
         ShoppingCartItem item = cart.findCartItem(index);
-        if(this.isAggregatedItem(item.getProductId())){
+        if(this.isAggregatedItem(item.getProductId())) {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
             List selected = pcw.getSelectedOptions();
             Iterator iter = selected.iterator();
-            while(iter.hasNext()){
+            while(iter.hasNext()) {
                 ConfigOption configoption = (ConfigOption)iter.next();
                 Map itemInfo = FastMap.newInstance();
-                if (configoption.isSelected() && !configoption.isDefault()){
+                if (configoption.isSelected() && !configoption.isDefault()) {
                     itemInfo.put("productId", "");
                     itemInfo.put("sku", "");
                     itemInfo.put("configDescription", configoption.getDescription());
@@ -400,7 +400,7 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public boolean isAggregatedItem(String productId){
+    public boolean isAggregatedItem(String productId) {
         trace("is Aggregated Item", productId);
         try {
             GenericDelegator delegator = cart.getDelegator();
@@ -409,17 +409,17 @@ public class PosTransaction implements Serializable {
             if ("AGGREGATED".equals(product.getString("productTypeId"))) {
                 return true;
             }
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             trace("item lookup error", e);
             Debug.logError(e, module);
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }        
         return false;
     }
 
-    public ProductConfigWrapper getProductConfigWrapper(String productId){
+    public ProductConfigWrapper getProductConfigWrapper(String productId) {
         //Get a PCW for a new product
         trace("get Product Config Wrapper", productId);
         ProductConfigWrapper pcw = null;
@@ -433,17 +433,17 @@ public class PosTransaction implements Serializable {
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             //throw e;
-        }catch (GenericEntityException e){
+        }catch (GenericEntityException e) {
             trace("item lookup error", e);
             Debug.logError(e, module);
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         } 
         return pcw;
     }
 
-    public ProductConfigWrapper getProductConfigWrapper(String productId, String cartIndex ){
+    public ProductConfigWrapper getProductConfigWrapper(String productId, String cartIndex ) {
         // Get a PCW for a pre-configured product
          trace("get Product Config Wrapper", productId + "/" + cartIndex );
          ProductConfigWrapper pcw = null;
@@ -452,7 +452,7 @@ public class PosTransaction implements Serializable {
             ShoppingCartItem product = cart.findCartItem(index);
             GenericDelegator delegator = cart.getDelegator();
             pcw = product.getConfigWrapper();
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }         
@@ -479,10 +479,10 @@ public class PosTransaction implements Serializable {
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             throw e;
-        }catch (GenericEntityException e){
+        }catch (GenericEntityException e) {
             trace("item lookup error", e);
             Debug.logError(e, module);
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }
@@ -499,7 +499,7 @@ public class PosTransaction implements Serializable {
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             throw e;
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }
@@ -521,7 +521,7 @@ public class PosTransaction implements Serializable {
         } catch (ItemNotFoundException e) {
             trace("item not found", e);
             throw e;
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }
@@ -805,7 +805,7 @@ public class PosTransaction implements Serializable {
         }
 
         // store the "order"
-         if (UtilValidate.isEmpty(this.orderId)){  // if order does not exist
+         if (UtilValidate.isEmpty(this.orderId)) {  // if order does not exist
              output.print(UtilProperties.getMessage(PosTransaction.resource,"PosSaving",defaultLocale));
              Map orderRes = ch.createOrder(session.getUserLogin());
              //Debug.log("Create Order Resp : " + orderRes, module);
@@ -936,7 +936,7 @@ public class PosTransaction implements Serializable {
                 Journal.appendNode(line, "td", "price", UtilFormatOut.formatPrice(subTotal));
                 Journal.appendNode(line, "td", "index", Integer.toString(cart.getItemIndex(item)));
 
-                if (this.isAggregatedItem(item.getProductId())){
+                if (this.isAggregatedItem(item.getProductId())) {
                     // put alterations here
                     ProductConfigWrapper pcw = null;
                     // product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
@@ -944,9 +944,9 @@ public class PosTransaction implements Serializable {
                     pcw = item.getConfigWrapper();
                     List selected = pcw.getSelectedOptions();
                     Iterator iter = selected.iterator();
-                    while(iter.hasNext()){    
+                    while(iter.hasNext()) {    
                         ConfigOption configoption = (ConfigOption)iter.next();
-                        if (configoption.isSelected()){
+                        if (configoption.isSelected()) {
                             XModel option = Journal.appendNode(model, "tr", ""+cart.getItemIndex(item), "");
                             Journal.appendNode(option, "td", "sku", "");
                             Journal.appendNode(option, "td", "desc", configoption.getDescription());
@@ -987,13 +987,13 @@ public class PosTransaction implements Serializable {
             
             if (UtilValidate.isNotEmpty(adjustments)) {
                 Iterator iter = adjustments.iterator();
-                while(iter.hasNext()){
+                while(iter.hasNext()) {
                     GenericValue orderAdjustment = (GenericValue) iter.next();
                     BigDecimal amount = orderAdjustment.getBigDecimal("amount");                    
                 }
 
                 iter = adjustments.iterator();
-                while(iter.hasNext()){
+                while(iter.hasNext()) {
                     GenericValue orderAdjustment = (GenericValue) iter.next();
                     BigDecimal amount = orderAdjustment.getBigDecimal("amount");
                     BigDecimal sourcePercentage = orderAdjustment.getBigDecimal("sourcePercentage");
@@ -1223,7 +1223,7 @@ public class PosTransaction implements Serializable {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
             Integer orderListSize = (Integer) svcRes.get("orderListSize");
-            if (orderListSize > 0){
+            if (orderListSize > 0) {
                List orderList = (List) svcRes.get("orderList");
                return orderList;
             }
@@ -1246,7 +1246,7 @@ public class PosTransaction implements Serializable {
             else {
                 pos.showDialog("dialog/error/itemnotconfigurable");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             trace("general exception", e);
             Debug.logError(e, module);
         }         
@@ -1271,7 +1271,7 @@ public class PosTransaction implements Serializable {
     public Hashtable createSalesMap(List shoppingLists) {
         Hashtable salesMap = new Hashtable();
         Iterator i = shoppingLists.iterator();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             GenericValue shoppingList = (GenericValue) i.next();
             List items = null;
             try {
@@ -1293,7 +1293,7 @@ public class PosTransaction implements Serializable {
         for (GenericValue order : orders) {
             String orderName = order.getString("orderName");
             String orderId = order.getString("orderId");
-            if(orderName != null){
+            if(orderName != null) {
                 hash.put(orderId, orderName);
             }
         }
@@ -1340,7 +1340,7 @@ public class PosTransaction implements Serializable {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
             ShoppingCart restoredCart = (ShoppingCart) svcRes.get("shoppingCart");
-            if(append){
+            if(append) {
                 // TODO: add stuff to append items
                 this.cart = restoredCart;
                 this.orderId = orderId;

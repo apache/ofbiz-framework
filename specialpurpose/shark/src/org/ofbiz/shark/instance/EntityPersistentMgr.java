@@ -333,12 +333,12 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             while(st.hasMoreElements())
             {
                 Elem = (String)st.nextElement();
-                if(Elem.equalsIgnoreCase(org.ofbiz.shark.SharkConstants.packageId)){
+                if(Elem.equalsIgnoreCase(org.ofbiz.shark.SharkConstants.packageId)) {
                     st.nextElement();
                     strtoc = new StringTokenizer((String)st.nextElement(), "\'");
                     pkgId = strtoc.nextToken();
-                    for(int i = 0; i < l.size(); i++){
-                        if(((ProcessMgr)l.get(i)).getPackageId().equalsIgnoreCase(pkgId)){
+                    for(int i = 0; i < l.size(); i++) {
+                        if(((ProcessMgr)l.get(i)).getPackageId().equalsIgnoreCase(pkgId)) {
                             returnList.add((ProcessMgr)l.get(i));
                         }
                     }
@@ -1053,7 +1053,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                     String e = (String)st.nextElement();
                     strtoc = new StringTokenizer(e, "\'");
                     state = strtoc.nextToken();
-                } else if(element.equals("ActivityDefinitionId")){
+                } else if(element.equals("ActivityDefinitionId")) {
                     st.nextElement();
                     String e = (String)st.nextElement();
                     strtoc = new StringTokenizer(e, "\'");
@@ -1065,10 +1065,10 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             
             for(int i = 0; i < act_list.size(); i ++)
             {
-                if((state == null) && (defId  != null)){
+                if((state == null) && (defId  != null)) {
                     if(((Activity)act_list.get(i)).getActivityDefinitionId().equalsIgnoreCase(defId))
                         returnList.add(act_list.get(i));
-                } else if((state != null) && (defId  == null)){
+                } else if((state != null) && (defId  == null)) {
                     if(((Activity)act_list.get(i)).getState().startsWith(new String(state.substring(0, state.length()-1))))
                         returnList.add(act_list.get(i));
                 } else if ((state != null) && (defId  != null)) {
@@ -1164,10 +1164,10 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List tmpList = null;
         tmpList = getAllVariablesForProcess(processId, trans);
-        if(tmpList != null){
-            for(int i =0; i < tmpList.size(); i++){
-                for(int j =0; j < varList.size(); j++){
-                    if(((String)varList.get(j)).equalsIgnoreCase(((ProcessVariable)tmpList.get(i)).getDefinitionId())){
+        if(tmpList != null) {
+            for(int i =0; i < tmpList.size(); i++) {
+                for(int j =0; j < varList.size(); j++) {
+                    if(((String)varList.get(j)).equalsIgnoreCase(((ProcessVariable)tmpList.get(i)).getDefinitionId())) {
                         createdList.add(tmpList.get(i));
                     }
                 }
@@ -1184,10 +1184,10 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List tmpList = null;
         tmpList = getAllVariablesForActivity(activityId, trans);
-        if(tmpList != null){
-            for(int i =0; i < tmpList.size(); i++){
-                for(int j =0; j < varList.size(); j++){
-                    if(((String)varList.get(j)).equalsIgnoreCase(((ActivityVariable)tmpList.get(i)).getDefinitionId())){
+        if(tmpList != null) {
+            for(int i =0; i < tmpList.size(); i++) {
+                for(int j =0; j < varList.size(); j++) {
+                    if(((String)varList.get(j)).equalsIgnoreCase(((ActivityVariable)tmpList.get(i)).getDefinitionId())) {
                         createdList.add(tmpList.get(i));
                     }
                 }

@@ -162,7 +162,7 @@ public class ShoppingCartEvents {
             Object object = paramMap.remove("add_product_id");
             try{
                 productId = (String) object;
-            }catch(ClassCastException e){
+            }catch(ClassCastException e) {
                 productId = (String)((List)object).get(0);
             }
         }
@@ -367,7 +367,7 @@ public class ShoppingCartEvents {
             }
 
             //check accommodation for reservations
-            if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))){
+            if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))) {
                 accommodationMapId = (String) paramMap.remove("accommodationMapId");
                 accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
             }
@@ -1584,7 +1584,7 @@ public class ShoppingCartEvents {
                 if (paramMap.containsKey("quantity" + thisSuffix)) {
                     quantityStr = (String) paramMap.remove("quantity" + thisSuffix);
                 }
-                if ((quantityStr == null) || (quantityStr.equals(""))){    // otherwise, every empty value causes an exception and makes the log ugly
+                if ((quantityStr == null) || (quantityStr.equals(""))) {    // otherwise, every empty value causes an exception and makes the log ugly
                     quantityStr = "0";  // default quantity is 0, so without a quantity input, this field will not be added
                 }
 
@@ -1617,11 +1617,11 @@ public class ShoppingCartEvents {
                     itemDesiredDeliveryDateStr = (String) paramMap.remove("itemDesiredDeliveryDate" + thisSuffix);
                 }
                 // get the item type
-                if (paramMap.containsKey("itemType" + thisSuffix)){
+                if (paramMap.containsKey("itemType" + thisSuffix)) {
                     itemType = (String) paramMap.remove("itemType" + thisSuffix);
                 }
 
-                if (paramMap.containsKey("itemDescription" + thisSuffix)){
+                if (paramMap.containsKey("itemDescription" + thisSuffix)) {
                     itemDescription = (String) paramMap.remove("itemDescription" + thisSuffix);
                 }
 
@@ -1636,7 +1636,7 @@ public class ShoppingCartEvents {
                                                   itemGroupNumber, itemAttributes,null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
-                    if (controlDirective.equals(ERROR)){    // if the add to cart failed, then get out of this loop right away
+                    if (controlDirective.equals(ERROR)) {    // if the add to cart failed, then get out of this loop right away
                         return "error";
                     }
                 }

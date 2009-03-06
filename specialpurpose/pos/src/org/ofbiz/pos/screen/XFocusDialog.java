@@ -39,10 +39,10 @@ public class XFocusDialog extends XDialog {
 //        setFocus();
 //    }
 //    
-//    public void setFocus(){
+//    public void setFocus() {
 //        SwingUtilities.invokeLater( 
 //            new Runnable() {
-//                public void run(){
+//                public void run() {
 //                    Debug.logInfo( "isEditable in setFocus :" + m_focused.isEditable(), "======================================" );
 //                    Debug.logInfo( "isEnabled in setFocus: " + m_focused.isEnabled(), "======================================" );
 //                    Debug.logInfo( "isFocusable in setFocus :" + m_focused.isFocusable(), "======================================" );                    

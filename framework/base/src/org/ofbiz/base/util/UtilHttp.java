@@ -1036,7 +1036,7 @@ public class UtilHttp {
                 }
                 if (!paramNames.contains(name)) {
                     cleanQuery.append(token);
-                    if(queryTokens.hasMoreTokens()){
+                    if(queryTokens.hasMoreTokens()) {
                         cleanQuery.append("&");
                     }
                 }
@@ -1208,12 +1208,12 @@ public class UtilHttp {
      * @param request
      * @return whether the request is from a web searchbot
      */
-    public static boolean checkURLforSpiders(HttpServletRequest request){
+    public static boolean checkURLforSpiders(HttpServletRequest request) {
         boolean result = false;
         
         String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
-        if (UtilValidate.isNotEmpty(spiderRequest)){
-            if ("Y".equals(spiderRequest)){
+        if (UtilValidate.isNotEmpty(spiderRequest)) {
+            if ("Y".equals(spiderRequest)) {
                 return true;
             }else{
                 return false;
@@ -1225,7 +1225,7 @@ public class UtilHttp {
                 for (String spiderNameElement: spiderList) {
                     Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE); 
                     Matcher m = p.matcher(initialUserAgent);
-                    if (m.find()){
+                    if (m.find()) {
                         request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
                         result = true;
                         break;

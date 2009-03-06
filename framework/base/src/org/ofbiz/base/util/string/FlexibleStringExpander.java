@@ -246,7 +246,7 @@ public class FlexibleStringExpander implements Serializable {
                 // Evaluation sequence is important - do not change it
                 if (expression.contains("?currency(")) {
                     strElems.add(new CurrElem(expression));
-                } else if (expression.contains(openBracket)){
+                } else if (expression.contains(openBracket)) {
                     strElems.add(new NestedVarElem(expression));
                 } else {
                     strElems.add(new VarElem(expression));

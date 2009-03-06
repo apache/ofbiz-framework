@@ -121,7 +121,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
             Tool tool = (Tool)tools.next();
             cus.info("Activity"+activity.toString()+" - Executing tool [id="+tool.getId()+"]");
             // implement me
-            /*if (tool.get("Type").toValue().toString().equals("APPLICATION")){
+            /*if (tool.get("Type").toValue().toString().equals("APPLICATION")) {
              } else {*/
             try {
                invokeApplication(tool);
@@ -245,7 +245,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
 
          // copy the return values into the workflow data
          Map newData=new HashMap();
-         for(int i = 0; i < returnValues.length; i++){
+         for(int i = 0; i < returnValues.length; i++) {
             if (returnValues[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_OUT) ||
                    returnValues[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_INOUT)) {
                String name = returnValues[i].the_actual_name;

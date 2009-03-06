@@ -54,9 +54,9 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
             String registeredPwd = sharkUser.getString(org.ofbiz.shark.SharkConstants.passwd);
             if (password.equals(registeredPwd)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(password).equals(registeredPwd)){
+            } else if (LoginServices.getPasswordHash(password).equals(registeredPwd)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(registeredPwd).equals(password)){
+            } else if (LoginServices.getPasswordHash(registeredPwd).equals(password)) {
                 return true;
             } else {
                 return false;

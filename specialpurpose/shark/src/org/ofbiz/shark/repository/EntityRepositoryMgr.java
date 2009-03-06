@@ -253,7 +253,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         List refs = null;
         try {
             refs = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfRepositoryRef, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.xpdlId, referringXPDLId, org.ofbiz.shark.SharkConstants.xpdlVersion, referringXPDLVersion));
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         }
         try
@@ -324,7 +324,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
                             long xpdlClassVer) throws RepositoryException
     {
         Debug.log("XPDL Upload : " + xpdlId, module);
-        //try{throw new Exception ("XPDL Upload");}catch(Exception e){e.printStackTrace();};
+        //try{throw new Exception ("XPDL Upload");}catch(Exception e) {e.printStackTrace();};
         String newVersion = null;
         try {
             newVersion = nextVersions.updateNextVersion(xpdlId);

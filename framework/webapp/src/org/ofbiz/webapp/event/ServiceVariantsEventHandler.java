@@ -156,33 +156,33 @@ public class ServiceVariantsEventHandler implements EventHandler {
                             variantList.addAll(assocProductsList);
                             
                             // get Sub-Variant
-                            for(GenericValue assocProduct: assocProductsList){
+                            for(GenericValue assocProduct: assocProductsList) {
                                 try{
                                     GenericValue variant = (GenericValue) dispatcher.runSync("getProduct", UtilMisc.toMap("productId", assocProduct.get("productIdTo"))).get("product");
-                                    if(variant.get("isVirtual").toString().equals("Y")){
+                                    if(variant.get("isVirtual").toString().equals("Y")) {
                                         // save Sub-Variant Products
                                         try{
                                             Map<String, Object> subVariantMap = dispatcher.runSync("getAllProductVariants", UtilMisc.toMap("productId", assocProduct.get("productIdTo")));
-                                            if(subVariantMap.get("responseMessage").equals("success") && subVariantMap.get("assocProducts") != null){
+                                            if(subVariantMap.get("responseMessage").equals("success") && subVariantMap.get("assocProducts") != null) {
                                                 variantList.addAll((FastList<GenericValue>) subVariantMap.get("assocProducts"));
                                             }
-                                        }catch(GenericServiceException e){
+                                        }catch(GenericServiceException e) {
                                             Debug.logError(e, "Unable to getAllProductVariants for productId (" + assocProduct.get("productIdTo") +"): ", module);
                                         } 
                                     }    
-                                }catch(GenericServiceException e){
+                                }catch(GenericServiceException e) {
                                     Debug.logError(e, "Unable to getProduct for productId (" + assocProduct.get("productIdTo") +"): ", module);
                                 }     
                             }
                         }
-                    }catch(GenericServiceException e){
+                    }catch(GenericServiceException e) {
                         Debug.logError(e, "Unable to getAllProductVariants for productId (" + productId +"): ", module);
                     }                    
                 } // Variants
                 
                 // save (Virtual) Product
                 variantList.addFirst(product);
-            }catch(GenericServiceException e){
+            }catch(GenericServiceException e) {
                 Debug.logError(e, "Unable to getProduct for productId (" + productId +"): ", module);
             }   
         }
@@ -220,7 +220,7 @@ public class ServiceVariantsEventHandler implements EventHandler {
 
             // now loop throw the Variant Products and prepare/invoke the service for each
             //for (int i = 0; i < rowCount; i++) {
-            for(GenericValue variant : variantList){
+            for(GenericValue variant : variantList) {
                 String currentProductId = new String();
 
                 // build the context
@@ -239,8 +239,8 @@ public class ServiceVariantsEventHandler implements EventHandler {
 
                     Object value = null;
                     // set Product Id
-                    if("productId".equals(paramName)){
-                        if(variant.getEntityName().equals("ProductAssoc")){
+                    if("productId".equals(paramName)) {
+                        if(variant.getEntityName().equals("ProductAssoc")) {
                             value = variant.get("productIdTo");
                             currentProductId = (String) value;
                         }else{

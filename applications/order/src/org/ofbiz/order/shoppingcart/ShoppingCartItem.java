@@ -1178,7 +1178,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         this.setBasePrice(configWrapper.getTotalPrice());
                         // Check if price display with taxes
                         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-                        if (UtilValidate.isNotEmpty(productStore) && "Y".equals(productStore.get("showPricesWithVatTax"))){
+                        if (UtilValidate.isNotEmpty(productStore) && "Y".equals(productStore.get("showPricesWithVatTax"))) {
                             BigDecimal totalPrice = configWrapper.getTotalPrice();
                             // Get Taxes
                             Map totalPriceWithTaxMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPrice, "productId", this.productId, "productStoreId", cart.getProductStoreId()));
@@ -1839,7 +1839,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue product = getProduct();
         if (product != null) {
             itemInfo.put("inShippingBox", product.getString("inShippingBox"));
-            if (product.getString("inShippingBox") != null && product.getString("inShippingBox").equals("Y")){
+            if (product.getString("inShippingBox") != null && product.getString("inShippingBox").equals("Y")) {
                 itemInfo.put("shippingHeight", product.getBigDecimal("shippingHeight"));
                 itemInfo.put("shippingWidth", product.getBigDecimal("shippingWidth"));
                 itemInfo.put("shippingDepth", product.getBigDecimal("shippingDepth"));
@@ -2463,7 +2463,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
     }
-    public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale){
+    public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale) {
           String itemDescription = "";
           String supplierProductId = supplierProduct.getString("supplierProductId");
           if (supplierProductId == null) {

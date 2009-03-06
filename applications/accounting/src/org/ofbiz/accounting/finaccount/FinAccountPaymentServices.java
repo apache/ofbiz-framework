@@ -312,7 +312,7 @@ public class FinAccountPaymentServices {
         String currency = (String) context.get("currency");
 
         // get the authorization transaction
-        if (authTrans == null){
+        if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTrans == null) {
