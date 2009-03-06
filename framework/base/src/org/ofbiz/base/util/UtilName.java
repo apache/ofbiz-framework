@@ -138,7 +138,7 @@ public class UtilName {
         if (name == null || name.length == 0) {
             return null;
         }
-        switch(field) {
+        switch (field) {
             case 1:
                 // prefix
                 String prefixChk = name[0].toUpperCase();

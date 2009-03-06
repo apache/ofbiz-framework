@@ -222,7 +222,7 @@ public class JavaMailContainer implements Container {
 
         public void notification(StoreEvent event) {
             String typeString = "";
-            switch(event.getMessageType()) {
+            switch (event.getMessageType()) {
                 case StoreEvent.ALERT:
                     typeString = "ALERT: ";
                     break;

@@ -207,7 +207,7 @@ public class TechDataServices {
         Double capacity = null;
         Time startTime = null;
         while (capacity == null || capacity.doubleValue()==0) {
-            switch( dayStart) {
+            switch ( dayStart) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
                     startTime =  techDataCalendarWeek.getTime("mondayStartTime");
@@ -362,7 +362,7 @@ public class TechDataServices {
         Double capacity = null;
         Time startTime = null;
         while (capacity == null || capacity.doubleValue() == 0) {
-            switch( dayEnd) {
+            switch ( dayEnd) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
                     startTime =  techDataCalendarWeek.getTime("mondayStartTime");

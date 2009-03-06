@@ -194,7 +194,7 @@ public class SSLUtil {
     }
 
     public static HostnameVerifier getHostnameVerifier(int level) {
-        switch(level) {           
+        switch (level) {           
             case HOSTCERT_MIN_CHECK:
                 return new HostnameVerifier() {
                     public boolean verify(String hostname, SSLSession session) {                        
