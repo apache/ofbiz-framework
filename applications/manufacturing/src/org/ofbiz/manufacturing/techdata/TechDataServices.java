@@ -160,20 +160,20 @@ public class TechDataServices {
      */
     public static GenericValue getTechDataCalendar(GenericValue routingTask) {
         GenericValue machineGroup = null, techDataCalendar = null;
-        try{
+        try {
             machineGroup = routingTask.getRelatedOneCache("FixedAsset");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading FixedAsset associated with routingTask"+e.getMessage(), module);
         }
         if (machineGroup != null) {
             if (machineGroup.getString("calendarId") != null) {
-                try{
+                try {
                     techDataCalendar = machineGroup.getRelatedOneCache("TechDataCalendar");
                 } catch (GenericEntityException e) {
                     Debug.logError("Pb reading TechDataCalendar associated with machineGroup"+e.getMessage(), module);
                 }
             }else {
-                try{
+                try {
                     List  machines = machineGroup.getRelatedCache("ChildFixedAsset");
                     if (machines != null && machines.size()>0) {
                         GenericValue machine = EntityUtil.getFirst(machines);
@@ -258,7 +258,7 @@ public class TechDataServices {
     public static long capacityRemaining(GenericValue techDataCalendar,  Timestamp  dateFrom) {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage execption week (maybe it's needed to refactor the entity definition
-        try{
+        try {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
@@ -290,7 +290,7 @@ public class TechDataServices {
         Timestamp dateTo = null;
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage execption week (maybe it's needed to refactor the entity definition
-        try{
+        try {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
@@ -412,7 +412,7 @@ public class TechDataServices {
     public static long capacityRemainingBackward(GenericValue techDataCalendar,  Timestamp  dateFrom) {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage exception week (maybe it's needed to refactor the entity definition
-        try{
+        try {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
@@ -444,7 +444,7 @@ public class TechDataServices {
         Timestamp dateTo = null;
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage exception week (maybe it's needed to refactor the entity definition
-        try{
+        try {
             techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);

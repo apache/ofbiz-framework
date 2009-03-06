@@ -105,7 +105,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
 
       public void run () throws BaseException, ToolAgentGeneralException {
           Iterator tools = null;
-          try{
+          try {
          ActivityTypes acTypes = actDef.getActivityTypes();
          org.enhydra.shark.xpdl.elements.Implementation impl = acTypes.getImplementation();
          ImplementationTypes implt = impl.getImplementationTypes();

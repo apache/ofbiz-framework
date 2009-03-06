@@ -378,7 +378,7 @@ public class FindServices {
         int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = null;
-        try{
+        try {
             EntityListIterator it = (EntityListIterator) result.get("listIt");
             list = it.getPartialList(start+1, viewSize.intValue()); // list starts at '1'
             it.last();
@@ -660,7 +660,7 @@ public class FindServices {
         
         List<GenericValue> list = null;
         GenericValue item= null;
-        try{
+        try {
             EntityListIterator it = (EntityListIterator) result.get("listIt");
             list = it.getPartialList(1, 1); // list starts at '1'
             if (list != null && list.size() > 0 ) {

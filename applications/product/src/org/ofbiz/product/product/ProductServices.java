@@ -962,7 +962,7 @@ public class ProductServices {
             String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
             ScaleImage imageTransform = new ScaleImage();
             Map<String, Object> resultResize = FastMap.newInstance();
-            try{
+            try {
                 resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
             }catch(IOException e) {
                 String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
