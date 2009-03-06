@@ -198,7 +198,7 @@ public class MenuEvents {
             ProductConfigWrapper pcw = null;
             try {
                 aggregatedItem = trans.isAggregatedItem(productId);
-                if(aggregatedItem) {
+                if (aggregatedItem) {
                     pcw = trans.getProductConfigWrapper(productId);
                     pcw.setDefaultConfig();
                     ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
@@ -213,7 +213,7 @@ public class MenuEvents {
             // add the item to the cart; report any errors to the user
             if (productId != null) {
                 try {
-                    if(!aggregatedItem) {
+                    if (!aggregatedItem) {
                         trans.addItem(productId, quantity);                    
                     }else{
                         trans.addItem(productId, pcw);
@@ -436,7 +436,7 @@ public class MenuEvents {
         ProductConfigWrapper pcw = null;
         try {
             aggregatedItem = trans.isAggregatedItem(productId);
-            if(aggregatedItem) {
+            if (aggregatedItem) {
                 pcw = trans.getProductConfigWrapper(productId, index);
                 ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
                 pcw = configureItem.openDlg();

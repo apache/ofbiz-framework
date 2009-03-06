@@ -254,7 +254,7 @@ public class ModelEntityChecker {
                             if (field != null && rfield != null) {
                                 //this was the old check, now more constrained
                                 // to keep things cleaner:
-                                // if(!field.getType().equals(rfield.getType())
+                                // if (!field.getType().equals(rfield.getType())
                                 // &&
                                 // !field.getType().startsWith(rfield.getType())
                                 // &&

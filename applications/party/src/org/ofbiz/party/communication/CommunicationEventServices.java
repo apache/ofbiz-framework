@@ -465,7 +465,7 @@ public class CommunicationEventServices {
             //          only execute when config file has been set && header variable found
             if (!spamHeaderName.equals("N") && message.getHeader(spamHeaderName) != null && message.getHeader(spamHeaderName).length > 0) { 
                 String msgHeaderValue = message.getHeader(spamHeaderName)[0];
-                if(msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
+                if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
                     return ServiceUtil.returnSuccess(" Message Ignored: detected by external spam checker");
                 }
@@ -865,7 +865,7 @@ public class CommunicationEventServices {
                 }
                 // Debug.logInfo("=====attachment not contains attachment, index:" + currentIndex, module);
                 // Debug.logInfo("=====check for currentIndex(" + currentIndex  + ") against master contentIndex(" + EmailServices.contentIndex + ")", module);
-                if(currentIndex.concat("." + i).equals(CommunicationEventServices.contentIndex)) continue;
+                if (currentIndex.concat("." + i).equals(CommunicationEventServices.contentIndex)) continue;
 
                 // The first test should not pass, because if it exists, it should be the bodyContentIndex part
                 // Debug.logInfo("====check for disposition: " + disposition + " contentType: '" + thisContentType + "' variable i:" + i, module);

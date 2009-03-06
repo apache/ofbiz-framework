@@ -288,7 +288,7 @@ public class FindServices {
             }
 
             Object fieldObject = null;
-            if(fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection)) {
+            if (fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection)) {
                 fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
             } else {
                 fieldObject = fieldValue;

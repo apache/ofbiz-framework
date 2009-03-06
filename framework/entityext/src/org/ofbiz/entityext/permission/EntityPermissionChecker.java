@@ -223,7 +223,7 @@ public class EntityPermissionChecker {
         if (!(targetOperationList == null) && userLoginId != null) {
             hasRoleOperation = checkHasRoleOperations(partyId, targetOperationList, delegator);
         }
-        if( hasRoleOperation ) {
+        if ( hasRoleOperation ) {
             return true;
         }
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
@@ -504,7 +504,7 @@ public class EntityPermissionChecker {
     
         boolean checkAncestors = false;
         boolean hasRoleOperation =  checkHasRoleOperations(partyId, permissionConditionGetter, delegator);
-        if( hasRoleOperation ) {
+        if ( hasRoleOperation ) {
             return true;
         }
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
@@ -766,7 +766,7 @@ public class EntityPermissionChecker {
      */
     public static List<String> getRelatedPurposes(GenericValue entity, List<String> passedPurposes) {
     
-        if(entity == null) return passedPurposes;
+        if (entity == null) return passedPurposes;
     
         List<String> purposeIds = null;
         if (passedPurposes == null) {
@@ -806,7 +806,7 @@ public class EntityPermissionChecker {
     
         String entityName = entity.getEntityName();
         List<String> roles = FastList.newInstance();
-        if(entity == null) return roles;
+        if (entity == null) return roles;
             // TODO: Need to use ContentManagementWorker.getAuthorContent first
     
     
@@ -825,7 +825,7 @@ public class EntityPermissionChecker {
         List<GenericValue> relatedRoles = null;
         List<GenericValue> tmpRelatedRoles = entity.getRelatedCache(entityName + "Role");
         relatedRoles = EntityUtil.filterByDate(tmpRelatedRoles);
-        if(relatedRoles != null ) {
+        if (relatedRoles != null ) {
             for (GenericValue contentRole: relatedRoles) {
                 String roleTypeId = (String)contentRole.get("roleTypeId");
                 String targPartyId = (String)contentRole.get("partyId");

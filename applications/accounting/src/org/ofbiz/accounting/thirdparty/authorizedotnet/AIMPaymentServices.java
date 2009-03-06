@@ -79,7 +79,7 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+        if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
@@ -127,7 +127,7 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+        if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
@@ -174,7 +174,7 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+        if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
@@ -279,7 +279,7 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+        if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
@@ -309,7 +309,7 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+        if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
@@ -333,7 +333,7 @@ public class AIMPaymentServices {
             url = "https://certification.authorize.net/gateway/transact.dll"; // test url
             Debug.logWarning("No payment.authorizedotnet.url found.  Using a default of [" + url + "]", module);
         }
-        if(isTestMode()) {
+        if (isTestMode()) {
             Debug.logInfo("TEST Authorize.net using url [" + url + "]", module);
             Debug.logInfo("TEST Authorize.net request string " + request.toString(),module);
             Debug.logInfo("TEST Authorize.net properties string " + props.toString(),module);
@@ -380,7 +380,7 @@ public class AIMPaymentServices {
 
     private static Properties buildAIMProperties(Map context) {
         String configStr = (String)context.get("paymentConfig");
-        if(configStr == null) {
+        if (configStr == null) {
             configStr = "payment.properties";
         }
 
@@ -405,11 +405,11 @@ public class AIMPaymentServices {
             ver = "3.0";
         }
 
-        if(login == null || login.length() == 0) {
+        if (login == null || login.length() == 0) {
             Debug.logInfo("the login property in " + configStr + " is not configured.",module);
         }
 
-        if(password == null || password.length() == 0) {
+        if (password == null || password.length() == 0) {
             Debug.logInfo("The password property in " + configStr + " is not configured.",module);
         }
 
@@ -618,7 +618,7 @@ public class AIMPaymentServices {
         results.put("authMessage",ar.getReasonText());
 
 
-        if(authResult.booleanValue()) { //passed
+        if (authResult.booleanValue()) { //passed
             results.put("authCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
@@ -642,7 +642,7 @@ public class AIMPaymentServices {
         results.put("captureMessage",ar.getReasonText());
         results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
-        if(captureResult.booleanValue()) { //passed
+        if (captureResult.booleanValue()) { //passed
             results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("captureAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
@@ -662,7 +662,7 @@ public class AIMPaymentServices {
         results.put("refundMessage",ar.getReasonText());
         results.put("refundRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
-        if(captureResult.booleanValue()) { //passed
+        if (captureResult.booleanValue()) { //passed
             results.put("refundCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("refundAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
@@ -682,7 +682,7 @@ public class AIMPaymentServices {
         results.put("releaseMessage",ar.getReasonText());
         results.put("releaseRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
-        if(captureResult.booleanValue()) { //passed
+        if (captureResult.booleanValue()) { //passed
             results.put("releaseCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("releaseAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
@@ -705,7 +705,7 @@ public class AIMPaymentServices {
         results.put("captureMessage",ar.getReasonText());
         results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
-        if(authResult.booleanValue()) { //passed
+        if (authResult.booleanValue()) { //passed
             results.put("authCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));

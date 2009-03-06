@@ -41,7 +41,7 @@ public class Captcha {
     public static String CAPTCHA_FILE_PATH = null;
 
     public static String getCodeCaptcha(HttpServletRequest request,HttpServletResponse response) {
-        if(CAPTCHA_FILE_PATH != null) deleteFile();
+        if (CAPTCHA_FILE_PATH != null) deleteFile();
         StringBuffer finalString = new StringBuffer();
         String elegibleChars = "ABCDEFGHJKLMPQRSTUVWXYabcdefhjkmnpqrstuvwxy23456789";
         int charsToPrint = 6;
@@ -54,7 +54,7 @@ public class Captcha {
             finalString.append(characterToShow);
         }
         ID_KEY = finalString.toString();
-        if(createImageCaptcha (request,response)) return "success";
+        if (createImageCaptcha (request,response)) return "success";
         return "error";
     }
 
@@ -167,7 +167,7 @@ public class Captcha {
     }
     
     public static void deleteFile() {
-        if(CAPTCHA_FILE_PATH != null) {
+        if (CAPTCHA_FILE_PATH != null) {
                File file = new File(CAPTCHA_FILE_PATH);
                file.delete();
         }

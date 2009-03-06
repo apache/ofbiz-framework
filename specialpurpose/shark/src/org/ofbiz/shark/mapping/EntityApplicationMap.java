@@ -151,7 +151,7 @@ public class EntityApplicationMap implements ApplicationMap {
                 return false;
 
         if ((applicationMap.getProcessDefinitionId() != null && this.getProcessDefinitionId() != null))
-            if( !(applicationMap.getProcessDefinitionId().equals(this.getProcessDefinitionId())))
+            if ( !(applicationMap.getProcessDefinitionId().equals(this.getProcessDefinitionId())))
                 return false;
 
         if ((applicationMap.getApplicationDefinitionId() != null && this.getApplicationDefinitionId() != null))

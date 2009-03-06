@@ -1100,7 +1100,7 @@ public class ProductSearch {
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureCategory != null) {                                
                 ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureCategory", locale)).append(": ");
-                if(productFeatureCategory.get("description") != null) {
+                if (productFeatureCategory.get("description") != null) {
                     ppBuf.append(productFeatureCategory.get("description"));    
                 } else {
                     ppBuf.append("[").append(this.productFeatureCategoryId).append("]");
@@ -1177,7 +1177,7 @@ public class ProductSearch {
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureGroup != null) {
                 ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureGroup", locale)).append(": ");
-                if(productFeatureGroup.get("description") != null) {
+                if (productFeatureGroup.get("description") != null) {
                     ppBuf.append(productFeatureGroup.get("description"));    
                 } else {
                     ppBuf.append("[").append(this.productFeatureGroupId).append("]");

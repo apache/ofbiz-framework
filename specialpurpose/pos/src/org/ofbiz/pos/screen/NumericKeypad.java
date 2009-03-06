@@ -96,13 +96,13 @@ public class NumericKeypad extends XPage
         button = (XButton) m_dialog.findComponent("menuEnter");
         XEventHelper.addMouseHandler(this, button, "triggerEnter");
 
-        if(getMinus()) {
+        if (getMinus()) {
             button = (XButton) m_dialog.findComponent("numMinus");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");
         }else{
             disableButton("numMinus");
         }
-        if(getPercent()) {
+        if (getPercent()) {
             button = (XButton) m_dialog.findComponent("numPercent");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");            
         }else{
@@ -188,7 +188,7 @@ public class NumericKeypad extends XPage
     }
 
     private synchronized void prependUnique(char c) {
-        if(wasMouseClicked()) {
+        if (wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            
@@ -198,7 +198,7 @@ public class NumericKeypad extends XPage
             }finally{
                 text=c+text;
             }
-            if(countChars(text, c) > 1) {
+            if (countChars(text, c) > 1) {
                 text = stripChars(text, c);
             }
             m_edit.setText(text);
@@ -230,14 +230,14 @@ public class NumericKeypad extends XPage
     }
 
     private synchronized void close() {
-        if(wasMouseClicked()) {
+        if (wasMouseClicked()) {
             m_dialog.closeDlg();
             return;
         }
     }
 
     private synchronized void clear() {
-        if(wasMouseClicked()) {
+        if (wasMouseClicked()) {
             String text = "";
             m_edit.setText(text);            
             m_dialog.repaint();
@@ -246,7 +246,7 @@ public class NumericKeypad extends XPage
     }
 
     private synchronized void append(char c) {
-        if(wasMouseClicked()) {
+        if (wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            
@@ -263,7 +263,7 @@ public class NumericKeypad extends XPage
     }
 
     private synchronized void append(String c) {
-        if(wasMouseClicked()) {
+        if (wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            

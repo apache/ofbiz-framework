@@ -489,7 +489,7 @@ public class OagisInventoryServices {
                     Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
                     orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
                     String orderTypeId = UtilXml.childElementValue(documentRefElement, "of:DOCTYPE");
-                    if(orderTypeId.equals("PO")) {
+                    if (orderTypeId.equals("PO")) {
                         orderTypeId = "PURCHASE_ORDER";
                     }
                     
@@ -802,7 +802,7 @@ public class OagisInventoryServices {
                     ripCtx.put("returnId", returnId);
                     
                     String returnHeaderTypeId = UtilXml.childElementValue(documentRefElement, "of:DOCTYPE");
-                    if(returnHeaderTypeId.equals("RMA")) {
+                    if (returnHeaderTypeId.equals("RMA")) {
                         returnHeaderTypeId = "CUSTOMER_RETURN";
                     }
                     
@@ -884,7 +884,7 @@ public class OagisInventoryServices {
                             
                         //do some validations
                         Integer messageQuantity = Integer.valueOf(itemQtyStr);
-                        if(UtilValidate.isNotEmpty(serialNumsList)) {
+                        if (UtilValidate.isNotEmpty(serialNumsList)) {
                             if (messageQuantity.intValue() != serialNumsList.size()) {
                                 String errMsg = "Not enough serial numbers [" + serialNumsList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
@@ -1360,7 +1360,7 @@ public class OagisInventoryServices {
                     
                     //do some validations
                     Integer messageQuantity = Integer.valueOf(itemQtyStr);
-                    if(UtilValidate.isNotEmpty(serialNumsList)) {
+                    if (UtilValidate.isNotEmpty(serialNumsList)) {
                         if (messageQuantity.intValue() != serialNumsList.size()) {
                             String errMsg = "Not enough serial numbers [" + serialNumsList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));

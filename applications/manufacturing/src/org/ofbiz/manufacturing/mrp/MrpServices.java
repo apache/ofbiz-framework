@@ -756,7 +756,7 @@ public class MrpServices {
                     }
                     
                     stockTmp = stockTmp.add(eventQuantity);
-                    if(stockTmp.compareTo(minimumStock) < 0) {
+                    if (stockTmp.compareTo(minimumStock) < 0) {
                         BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
                         //need to buy or build the product as we have not enough stock
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");

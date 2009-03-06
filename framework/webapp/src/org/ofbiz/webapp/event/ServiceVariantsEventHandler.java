@@ -137,14 +137,14 @@ public class ServiceVariantsEventHandler implements EventHandler {
         // get All Variant Products related to the Virtual Product
         String productId = new String();
         FastList<GenericValue> variantList = FastList.newInstance();
-        if(UtilValidate.isNotEmpty(request.getParameter("productId"))) {
+        if (UtilValidate.isNotEmpty(request.getParameter("productId"))) {
             productId = request.getParameter("productId");
             // check Virtual Current Product
             try{
                 GenericValue product = (GenericValue) dispatcher.runSync("getProduct", UtilMisc.toMap("productId", productId)).get("product");
                 
                 // check if we have to implement changes to all Product Variants
-                if(!request.getParameterMap().containsKey("modifyVariants")
+                if (!request.getParameterMap().containsKey("modifyVariants")
                    || request.getParameterMap().containsKey("modifyVariants")
                    && request.getParameter("modifyVariants").equals("Y")
                    && product.get("isVirtual").toString().equals("Y")) {
@@ -159,11 +159,11 @@ public class ServiceVariantsEventHandler implements EventHandler {
                             for(GenericValue assocProduct: assocProductsList) {
                                 try{
                                     GenericValue variant = (GenericValue) dispatcher.runSync("getProduct", UtilMisc.toMap("productId", assocProduct.get("productIdTo"))).get("product");
-                                    if(variant.get("isVirtual").toString().equals("Y")) {
+                                    if (variant.get("isVirtual").toString().equals("Y")) {
                                         // save Sub-Variant Products
                                         try{
                                             Map<String, Object> subVariantMap = dispatcher.runSync("getAllProductVariants", UtilMisc.toMap("productId", assocProduct.get("productIdTo")));
-                                            if(subVariantMap.get("responseMessage").equals("success") && subVariantMap.get("assocProducts") != null) {
+                                            if (subVariantMap.get("responseMessage").equals("success") && subVariantMap.get("assocProducts") != null) {
                                                 variantList.addAll((FastList<GenericValue>) subVariantMap.get("assocProducts"));
                                             }
                                         }catch(GenericServiceException e) {
@@ -239,8 +239,8 @@ public class ServiceVariantsEventHandler implements EventHandler {
 
                     Object value = null;
                     // set Product Id
-                    if("productId".equals(paramName)) {
-                        if(variant.getEntityName().equals("ProductAssoc")) {
+                    if ("productId".equals(paramName)) {
+                        if (variant.getEntityName().equals("ProductAssoc")) {
                             value = variant.get("productIdTo");
                             currentProductId = (String) value;
                         }else{

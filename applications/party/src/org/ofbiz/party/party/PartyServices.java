@@ -584,10 +584,10 @@ public class PartyServices {
         //Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
 
         //Make sure the note Id actually exists if one is passed to avoid a foreign key error below
-        if(noteId != null) {
+        if (noteId != null) {
             try {
                 GenericValue value = delegator.findByPrimaryKey("NoteData", UtilMisc.toMap("noteId", noteId));
-                if(value == null) {
+                if (value == null) {
                     Debug.logError("ERROR: Note id does not exist for : " + noteId + ", autogenerating." , module);
                     noteId = null;
                 }

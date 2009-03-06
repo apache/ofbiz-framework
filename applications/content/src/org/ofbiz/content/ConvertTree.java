@@ -73,11 +73,11 @@ In order ta make this service active add the following to the service definition
          try {
              BufferedReader input = null;
              try{
-                 if(!UtilValidate.isEmpty(file)) {
+                 if (!UtilValidate.isEmpty(file)) {
                      input = new BufferedReader( new FileReader(file));
                      String line = null;
                      int size=0;
-                     if(file != null) {
+                     if (file != null) {
                         int counterLine=0;
                         //Home Document
                         Entity = null;
@@ -121,7 +121,7 @@ In order ta make this service active add the following to the service definition
                              rootContent=null,
                              contentId = null;
                              counterLine++;
-                             if(counterLine>1) {
+                             if (counterLine>1) {
                                 size = line.length();
                                 String 
                                 check = "\\",
@@ -139,27 +139,27 @@ In order ta make this service active add the following to the service definition
                                     List<GenericValue> contentAssocs = null;
                                     if (data.charAt(index) == check.charAt(0)||data.charAt(index)== checkSubContent.charAt(0)) {//store data
                                         contentName = contentName + contentNameInprogress;
-                                        if(contentName.length()>100) {
+                                        if (contentName.length()>100) {
                                             contentName = contentName.substring(0,100);
                                         }
                                         //check duplicate folder
                                         contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName));
-                                        if(contents.size() > 0) {
+                                        if (contents.size() > 0) {
                                             GenericValue contentResult = contents.get(0);
                                             contentId = contentResult.get("contentId").toString();
                                         }
-                                        if(contents.size() > 0 && hasFolder==true) {
+                                        if (contents.size() > 0 && hasFolder==true) {
                                             GenericValue contentResult = contents.get(0);
                                             contentId = contentResult.get("contentId").toString();
-                                            if(rootContent != null) {
+                                            if (rootContent != null) {
                                                 contentAssocs= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentId, "contentIdTo", rootContent));
                                                 List<GenericValue> contentAssocCheck= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdTo", rootContent));
                                                 Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
                                                 while(contentAssChecks.hasNext() && contentNameMatch == false) {
                                                      GenericValue contentAss = contentAssChecks.next();
                                                      GenericValue contentcheck = delegator.findByPrimaryKey("Content",UtilMisc.toMap("contentId",contentAss.get("contentId")));
-                                                     if(contentcheck!=null) {
-                                                         if(contentcheck.get("contentName").equals(contentName) && contentNameMatch==false) {
+                                                     if (contentcheck!=null) {
+                                                         if (contentcheck.get("contentName").equals(contentName) && contentNameMatch==false) {
                                                              contentNameMatch = true; 
                                                              contentId = contentcheck.get("contentId").toString();
                                                          }
@@ -173,7 +173,7 @@ In order ta make this service active add the following to the service definition
                                             contentAssocSize=contentAssocs.size();
                                         }
                                         
-                                        if( contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
+                                        if ( contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
                                             Entity = null;
                                             contentId = delegator.getNextSeqId("Content");
                                             Entity = delegator.makeValue("Content");
@@ -194,12 +194,12 @@ In order ta make this service active add the following to the service definition
                                             hasFolder = true;
                                         }
                                         //Relation Content
-                                        if(rootContent==null) {
+                                        if (rootContent==null) {
                                             rootContent = "HOME_DUCUMENT";
                                         }
                                             contentAssocs = delegator.findByAnd("ContentAssoc", 
                                                     UtilMisc.toMap("contentId",contentId,"contentIdTo",rootContent,"contentAssocTypeId","TREE_CHILD"));
-                                            if(contentAssocs.size()==0) {
+                                            if (contentAssocs.size()==0) {
                                                 contentAssoc = FastMap.newInstance();
                                                 contentAssoc.put("contentId", contentId);
                                                 contentAssoc.put("contentAssocTypeId", "TREE_CHILD");
@@ -214,14 +214,14 @@ In order ta make this service active add the following to the service definition
                                         contentName = "";
                                         contentNameInprogress="";
                                     }
-                                    if(data.charAt(index)== checkSubContent.charAt(0)) {//Have sub content
+                                    if (data.charAt(index)== checkSubContent.charAt(0)) {//Have sub content
                                         createSubContent(index, data, rootContent, context, dctx);
                                         index=size;
                                         continue;
                                     }
-                                     if((data.charAt(index))!= check.charAt(0)) {
+                                     if ((data.charAt(index))!= check.charAt(0)) {
                                              contentNameInprogress = contentNameInprogress.concat(Character.toString(data.charAt(index)));
-                                             if(contentNameInprogress.length()>99) {
+                                             if (contentNameInprogress.length()>99) {
                                                  contentName = contentName + contentNameInprogress;
                                                  contentNameInprogress="";
                                              }
@@ -277,24 +277,24 @@ In order ta make this service active add the following to the service definition
                 if (subContents.charAt(index) == check.charAt(0)) {//store data
                     contentName = contentName + contentNameInprogress;
                     //Debug.log("subcontentName---->"+contentName);
-                    if(contentName.length()>100) {
+                    if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
                     List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName),null,"-contentId");
-                    if(contents!=null) {
+                    if (contents!=null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while(contentCheck.hasNext() && contentNameMatch==false) {
                             GenericValue contentch = contentCheck.next();
-                            if(contentch!=null) {
+                            if (contentch!=null) {
                                 List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentch.get("contentId"), "contentIdTo", rootContent));
-                                if(contentAssocsChecks.size() > 0) {
+                                if (contentAssocsChecks.size() > 0) {
                                     contentNameMatch = true;
                                 }
                             }
                         }
                     }
                     contentId = null;
-                    if(contentNameMatch==false) {
+                    if (contentNameMatch==false) {
                         //create DataResource
                         Map<String,Object> data = FastMap.newInstance();
                         data.put("userLogin", userLogin);
@@ -330,31 +330,31 @@ In order ta make this service active add the following to the service definition
                     contentNameInprogress="";
                 }
                 
-                   if((subContents.charAt(index))!= check.charAt(0)) {
+                   if ((subContents.charAt(index))!= check.charAt(0)) {
                         contentNameInprogress = contentNameInprogress.concat(Character.toString(subContents.charAt(index)));
-                        if(contentNameInprogress.length() > 99) {
+                        if (contentNameInprogress.length() > 99) {
                             contentName = contentName + contentNameInprogress;
                             contentNameInprogress="";
                         }
                     }
                    //lastItem
-                   if(index==size-1) {
+                   if (index==size-1) {
                        contentNameMatch = false;
                     List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName));
-                    if(contents!=null) {
+                    if (contents!=null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while(contentCheck.hasNext() && contentNameMatch==false) {
                             GenericValue contentch = contentCheck.next();
-                            if(contentch!=null) {
+                            if (contentch!=null) {
                                 List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentch.get("contentId"), "contentIdTo", rootContent));
-                                if(contentAssocsChecks.size() > 0) {
+                                if (contentAssocsChecks.size() > 0) {
                                     contentNameMatch = true;
                                 }
                             }
                         }
                     }
                     contentId = null;
-                    if(contentNameMatch == false) {
+                    if (contentNameMatch == false) {
                         //create DataResource
                         Map<String,Object> data = FastMap.newInstance();
                         data.put("userLogin", userLogin);

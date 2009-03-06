@@ -489,7 +489,7 @@ public class ShoppingCart implements Serializable {
                 if (sci.getItemType().equals("RENTAL_ORDER_ITEM")) {
                     // check to see if the related fixed asset is available for the new quantity
                     String isAvailable = ShoppingCartItem.checkAvailability(productId, newQuantity, reservStart, reservLength, this);
-                    if(isAvailable.compareTo("OK") != 0) {
+                    if (isAvailable.compareTo("OK") != 0) {
                         Map messageMap = UtilMisc.toMap("productId", productId, "availableMessage", isAvailable);
                         String excMsg = UtilProperties.getMessage(ShoppingCartItem.resource, "item.product_not_available", messageMap, this.getLocale() );                
                         Debug.logInfo(excMsg, module);

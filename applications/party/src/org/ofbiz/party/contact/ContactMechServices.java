@@ -892,7 +892,7 @@ public class ContactMechServices {
             deletePcmCtx.put("userLogin", context.get("userLogin"));
             try {
                 Map<String, Object> deletePcmResult = ctx.getDispatcher().runSync("deletePartyContactMechPurpose", deletePcmCtx);
-                if(ServiceUtil.isError(deletePcmResult)) {
+                if (ServiceUtil.isError(deletePcmResult)) {
                     return deletePcmResult;
                 }
             } catch (GenericServiceException e) {
@@ -1064,7 +1064,7 @@ public class ContactMechServices {
                     Debug.logError(e.getMessage(), module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                if(UtilValidate.isEmpty(emailAddVerifications)) {
+                if (UtilValidate.isEmpty(emailAddVerifications)) {
                     GenericValue emailAddressVerification = delegator.makeValue("EmailAddressVerification");
                     emailAddressVerification.set("emailAddress", emailAddress);
                     emailAddressVerification.set("verifyHash", verifyHash);

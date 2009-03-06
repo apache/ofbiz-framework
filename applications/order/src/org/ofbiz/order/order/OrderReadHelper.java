@@ -235,7 +235,7 @@ public class OrderReadHelper {
             if (chargedToPaymentPref.compareTo(ZERO) > 0) {
                 // key of the resulting map is paymentMethodId or paymentMethodTypeId if the paymentMethodId is not available
                 String paymentMethodKey = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
-                if(paymentMethodAmounts.containsKey(paymentMethodKey)) {
+                if (paymentMethodAmounts.containsKey(paymentMethodKey)) {
                     BigDecimal value = (BigDecimal) paymentMethodAmounts.get(paymentMethodKey);
                     if (value != null) chargedToPaymentPref = chargedToPaymentPref.add(value);
                 }
@@ -1804,7 +1804,7 @@ public class OrderReadHelper {
             }
             Map itemAdjustmentCondition = UtilMisc.toMap("returnId", returnedItem.get("returnId"), "returnItemSeqId", returnedItem.get("returnItemSeqId"));
             returnedAmount = returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), itemAdjustmentCondition));
-            if(orderId.equals(returnedItem.getString("orderId")) && (!returnHeaderList.contains(returnedItem.getString("returnId")))) {
+            if (orderId.equals(returnedItem.getString("orderId")) && (!returnHeaderList.contains(returnedItem.getString("returnId")))) {
                 returnHeaderList.add(returnedItem.getString("returnId"));
             }
         }
@@ -2480,7 +2480,7 @@ public class OrderReadHelper {
         
         List promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
         
-        if(!promoAdjustments.isEmpty()) {
+        if (!promoAdjustments.isEmpty()) {
             
             Iterator promoAdjIter = promoAdjustments.iterator();
             while(promoAdjIter.hasNext()) {
@@ -2521,7 +2521,7 @@ public class OrderReadHelper {
         if (persons.compareTo(BigDecimal.ONE) == 1)    {
             if (persons.compareTo(new BigDecimal(2)) == 1) {
                 persons = persons.subtract(new BigDecimal(2));
-                if(nthPersonPerc.signum() == 1)
+                if (nthPersonPerc.signum() == 1)
                     rentalAdjustment = persons.multiply(nthPersonPerc);
                 else
                     rentalAdjustment = persons.multiply(secondPersonPerc);

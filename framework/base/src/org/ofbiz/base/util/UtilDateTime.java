@@ -746,9 +746,9 @@ public class UtilDateTime {
         Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(startOfWeek);
         
-        if(startOfWeek == Calendar.MONDAY) {
+        if (startOfWeek == Calendar.MONDAY) {
            calendar.setMinimalDaysInFirstWeek(4);
-        } else if(startOfWeek == Calendar.SUNDAY) { 
+        } else if (startOfWeek == Calendar.SUNDAY) { 
            calendar.setMinimalDaysInFirstWeek(3);
         }
         

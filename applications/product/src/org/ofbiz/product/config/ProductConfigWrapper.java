@@ -188,7 +188,7 @@ public class ProductConfigWrapper implements Serializable {
         for (ConfigItem ci: questions) {
             if (ci.isMandatory()) {
                 ConfigOption co = ci.getDefault();
-                if(co != null) {
+                if (co != null) {
                     co.setSelected(true);
                 }else if (ci.getOptions().size() > 0) {
                     co = ci.getOptions().get(0);
@@ -481,7 +481,7 @@ public class ProductConfigWrapper implements Serializable {
         
         public ConfigOption getDefault() {
             String defaultConfigOptionId = configItemAssoc.getString("defaultConfigOptionId");
-            if(UtilValidate.isNotEmpty(defaultConfigOptionId)) {
+            if (UtilValidate.isNotEmpty(defaultConfigOptionId)) {
                 for(ConfigOption oneOption : getOptions()) {
                     String currentConfigOptionId = oneOption.getId();
                     if (defaultConfigOptionId.compareToIgnoreCase(currentConfigOptionId) == 0  ) {

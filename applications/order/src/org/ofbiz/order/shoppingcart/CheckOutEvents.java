@@ -840,7 +840,7 @@ public class CheckOutEvents {
             // If the user has just created a new payment method, add it to the map with a null amount, so that
             //  it becomes the sole payment method for the order.
             String newPaymentMethodId = (String) request.getAttribute("paymentMethodId");
-            if(! UtilValidate.isEmpty(newPaymentMethodId)) {
+            if (! UtilValidate.isEmpty(newPaymentMethodId)) {
                 selectedPaymentMethods.put(newPaymentMethodId, null);
                 if (!selectedPaymentMethods.containsKey(newPaymentMethodId)) {
                     selectedPaymentMethods.put(newPaymentMethodId, UtilMisc.toMap("amount", null, "securityCode", null));

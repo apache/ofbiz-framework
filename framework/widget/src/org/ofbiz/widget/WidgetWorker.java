@@ -110,7 +110,7 @@ public class WidgetWorker {
 
             writer.append('>');
             
-            if(request.getAttribute("image") != null) {
+            if (request.getAttribute("image") != null) {
             	writer.append("<img src = \""+request.getAttribute("image").toString()+"\"/>");
             }
 

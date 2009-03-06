@@ -95,15 +95,15 @@ public class AuthorizeResponse {
     private void setApproval() {
         String rc = (String)response.get(RESPONSE_CODE);
 
-        if(rc.equals("1")) {
+        if (rc.equals("1")) {
             this.respCode = APPROVED;
         }
 
-        if(rc.equals("2")) {
+        if (rc.equals("2")) {
             this.respCode = DECLINED;
         }
 
-        if(rc.equals("3")) {
+        if (rc.equals("3")) {
             this.respCode = ERROR;
         }
 
@@ -141,7 +141,7 @@ public class AuthorizeResponse {
             if (posNum == CID_RESPONSE_CODE)
                 return "M";
         }
-        if(posNum < 1 || posNum > maxPos) {
+        if (posNum < 1 || posNum > maxPos) {
             return "unknown_field";
         }
         else {
@@ -159,12 +159,12 @@ public class AuthorizeResponse {
         out.add("empty");
         while(true) {
             s2 = r.indexOf(delim, s1);
-            if(s2 != -1) {
+            if (s2 != -1) {
                 out.add(r.substring(s1, s2));
             }else{
                 //the end part of the string (string not pattern terminated)
                 String _ = r.substring(s1);
-                if(_ != null && !_.equals("")) {
+                if (_ != null && !_.equals("")) {
                     out.add(_);
                 }
                 break;

@@ -310,7 +310,7 @@ public class ContentPermissionServices {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }
             permissionStatus = (String)permResults.get("permissionStatus");
-            if(permissionStatus == null || !permissionStatus.equals("granted") ) {
+            if (permissionStatus == null || !permissionStatus.equals("granted") ) {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
                      String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
                      results.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -326,7 +326,7 @@ public class ContentPermissionServices {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }
             permissionStatus = (String)permResults.get("permissionStatus");
-            if(permissionStatus != null && permissionStatus.equals("granted") ) {
+            if (permissionStatus != null && permissionStatus.equals("granted") ) {
                 results.put("permissionStatus", "granted");   
             } else {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {

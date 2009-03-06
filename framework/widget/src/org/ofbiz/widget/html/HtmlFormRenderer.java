@@ -568,7 +568,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            if(value.length() > maxlength) {
+            if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
             }
             writer.append(" value=\"");
@@ -912,7 +912,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("</noscript>");
                 writer.append("\n<script type='text/javascript' language='JavaScript'><!--");
                 writer.append("\ndisa = ' disabled';");
-                writer.append("\nif(other_choice(document.");
+                writer.append("\nif (other_choice(document.");
                 writer.append(modelForm.getName());
                 writer.append(".");
                 writer.append(fieldName);
@@ -930,7 +930,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(".");
                 writer.append(fieldName);
                 writer.append(")'/>\");");
-                writer.append("\nif(disa && document.styleSheets)");
+                writer.append("\nif (disa && document.styleSheets)");
                 writer.append(" document.");
                 writer.append(modelForm.getName());
                 writer.append(".");
@@ -1425,7 +1425,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             this.renderNextPrev(writer, context, modelForm);
         }
         writer.append(" <table cellspacing=\"0\" class=\"");
-        if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
+        if (UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
             writer.append(modelForm.getDefaultTableStyle());
         } else {
             writer.append("basic-table form-widget-table dark-grid");
@@ -1648,7 +1648,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append(" <table cellspacing=\"0\"");
-        if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
+        if (UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
             writer.append(" class=\"" + modelForm.getDefaultTableStyle() + "\"");
         }
         writer.append(">");
