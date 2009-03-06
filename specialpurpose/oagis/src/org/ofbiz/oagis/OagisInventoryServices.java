@@ -239,7 +239,7 @@ public class OagisInventoryServices {
                 }
 
                 Iterator fcmIter  = facilityContactMechs.iterator();
-                while(fcmIter.hasNext()) {
+                while (fcmIter.hasNext()) {
                     GenericValue facilityContactMech = (GenericValue) fcmIter.next();
                     String contactMechId = facilityContactMech.getString("contactMechId");
                     try {

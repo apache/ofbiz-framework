@@ -280,7 +280,7 @@ public class GenerateContainer implements Container {
                         java.io.InputStream is = process.getInputStream();
                     byte[] buf = new byte[2024];
                     int readLen = 0;
-                    while((readLen = is.read(buf,0,buf.length)) != -1) {
+                    while ((readLen = is.read(buf,0,buf.length)) != -1) {
                         if ("\\".equals(separator)) {   //Windows
                             System.out.print(new String(buf,0,readLen));
                         } else {
@@ -341,7 +341,7 @@ public class GenerateContainer implements Container {
                     java.io.InputStream is = process.getInputStream();
                     byte[] buf = new byte[2024];
                     int readLen = 0;
-                    while((readLen = is.read(buf,0,buf.length)) != -1) {
+                    while ((readLen = is.read(buf,0,buf.length)) != -1) {
                         if ("\\".equals(separator)) {   //Windows
                             System.out.print(new String(buf,0,readLen));
                         } else {

@@ -115,7 +115,7 @@ public class SelectProduct extends XPage {
         if (null != m_productsList.getSelectedValue()) {
             String product = (String) m_productsList.getSelectedValue();
             Iterator i = m_productsMap.entrySet().iterator();
-            while(i.hasNext()) {
+            while (i.hasNext()) {
                 Object o = i.next();
                 Map.Entry entry = (Map.Entry)o;
                 String val = entry.getValue().toString();

@@ -115,7 +115,7 @@ public class BOMNode {
         Iterator childrenIterator = children.iterator();
         GenericValue oneChild = null;
         BOMNode oneChildNode = null;
-        while(childrenIterator.hasNext()) {
+        while (childrenIterator.hasNext()) {
             oneChild = (GenericValue)childrenIterator.next();
             // Configurator
             oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), inDate);
@@ -342,7 +342,7 @@ public class BOMNode {
         Iterator childrenIterator = children.iterator();
         GenericValue oneChild = null;
         BOMNode oneChildNode = null;
-        while(childrenIterator.hasNext()) {
+        while (childrenIterator.hasNext()) {
             oneChild = (GenericValue)childrenIterator.next();
             oneChildNode = new BOMNode(oneChild.getString("productId"), delegator, dispatcher, userLogin);
             // Configurator

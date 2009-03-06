@@ -157,7 +157,7 @@ public class AuthorizeResponse {
         int s1=0, s2=-1;
         List out = new ArrayList(40);
         out.add("empty");
-        while(true) {
+        while (true) {
             s2 = r.indexOf(delim, s1);
             if (s2 != -1) {
                 out.add(r.substring(s1, s2));

@@ -224,7 +224,7 @@ public class OrderReadHelper {
 
             BigDecimal chargedToPaymentPref = ZERO;
             Iterator payit = payments.iterator();
-            while(payit.hasNext()) {
+            while (payit.hasNext()) {
                 GenericValue payment = (GenericValue) payit.next();
                 if (payment.get("amount") != null) {
                     chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(scale+1, rounding);
@@ -1810,7 +1810,7 @@ public class OrderReadHelper {
         }
         //get  returnedAmount from returnHeader adjustments whose orderId must equals to current orderHeader.orderId
         Iterator returnHeaderIterator = returnHeaderList.iterator();
-        while(returnHeaderIterator.hasNext()) {
+        while (returnHeaderIterator.hasNext()) {
             String returnId = (String) returnHeaderIterator.next();
             Map returnHeaderAdjFilter = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", "_NA_");
             returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
@@ -2483,7 +2483,7 @@ public class OrderReadHelper {
         if (!promoAdjustments.isEmpty()) {
             
             Iterator promoAdjIter = promoAdjustments.iterator();
-            while(promoAdjIter.hasNext()) {
+            while (promoAdjIter.hasNext()) {
                 GenericValue promoAdjustment = (GenericValue) promoAdjIter.next();
                 
                 if (promoAdjustment != null) {

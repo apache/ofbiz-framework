@@ -155,7 +155,7 @@ In order ta make this service active add the following to the service definition
                                                 contentAssocs= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentId, "contentIdTo", rootContent));
                                                 List<GenericValue> contentAssocCheck= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdTo", rootContent));
                                                 Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
-                                                while(contentAssChecks.hasNext() && contentNameMatch == false) {
+                                                while (contentAssChecks.hasNext() && contentNameMatch == false) {
                                                      GenericValue contentAss = contentAssChecks.next();
                                                      GenericValue contentcheck = delegator.findByPrimaryKey("Content",UtilMisc.toMap("contentId",contentAss.get("contentId")));
                                                      if (contentcheck!=null) {
@@ -283,7 +283,7 @@ In order ta make this service active add the following to the service definition
                     List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName),null,"-contentId");
                     if (contents!=null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
-                        while(contentCheck.hasNext() && contentNameMatch==false) {
+                        while (contentCheck.hasNext() && contentNameMatch==false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch!=null) {
                                 List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentch.get("contentId"), "contentIdTo", rootContent));
@@ -343,7 +343,7 @@ In order ta make this service active add the following to the service definition
                     List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName));
                     if (contents!=null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
-                        while(contentCheck.hasNext() && contentNameMatch==false) {
+                        while (contentCheck.hasNext() && contentNameMatch==false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch!=null) {
                                 List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentch.get("contentId"), "contentIdTo", rootContent));

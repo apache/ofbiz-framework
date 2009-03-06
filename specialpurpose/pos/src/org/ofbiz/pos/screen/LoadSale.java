@@ -198,7 +198,7 @@ public class LoadSale extends XPage {
         if (null != m_salesList.getSelectedValue()) {
             String sale = (String) m_salesList.getSelectedValue();
             Iterator i = m_saleMap.entrySet().iterator();
-            while(i.hasNext()) {
+            while (i.hasNext()) {
                 Object o = i.next();
                 Map.Entry entry = (Map.Entry)o;
                 String val = entry.getValue().toString();

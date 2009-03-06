@@ -217,7 +217,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()) {
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
@@ -328,7 +328,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()) {
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("estimatedQuantity").negate();
@@ -360,7 +360,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()) {
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))) {
                 continue;
@@ -405,7 +405,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Unable to retrieve ProductFacility records.");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()) {
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId = genericResult.getString("productId");
             BigDecimal minimumStock = genericResult.getBigDecimal("minimumStock");

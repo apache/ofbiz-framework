@@ -919,7 +919,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         Iterator<ModelField> fldsIt = flds.iterator();
-        while(fldsIt.hasNext()) {
+        while (fldsIt.hasNext()) {
             ModelField field = fldsIt.next();
             returnString.append(field.colName);
             if (fldsIt.hasNext()) {

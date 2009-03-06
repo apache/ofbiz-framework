@@ -930,7 +930,7 @@ public class InventoryServices {
             // Sum the sales usage quantities found
             BigDecimal salesUsageQuantity = BigDecimal.ZERO;
             GenericValue salesUsageItem = null;
-            while((salesUsageItem = salesUsageIt.next()) != null) {
+            while ((salesUsageItem = salesUsageIt.next()) != null) {
                 if (salesUsageItem.get("quantity") != null) {
                     try {
                         salesUsageQuantity = salesUsageQuantity.add(salesUsageItem.getBigDecimal("quantity"));
@@ -967,7 +967,7 @@ public class InventoryServices {
             // Sum the production usage quantities found
             BigDecimal productionUsageQuantity = BigDecimal.ZERO;
             GenericValue productionUsageItem = null;
-            while((productionUsageItem = productionUsageIt.next()) != null) {
+            while ((productionUsageItem = productionUsageIt.next()) != null) {
                 if (productionUsageItem.get("quantity") != null) {
                     try {
                         productionUsageQuantity = productionUsageQuantity.add(productionUsageItem.getBigDecimal("quantity"));

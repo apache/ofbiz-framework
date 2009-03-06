@@ -140,7 +140,7 @@ public class ProductConfigWorker {
                                             // get the selected features
                                             List<String> selectedFeatures = FastList.newInstance();
                                             Enumeration paramNames = request.getParameterNames();
-                                            while(paramNames.hasMoreElements()) {
+                                            while (paramNames.hasMoreElements()) {
                                                 String paramName = (String)paramNames.nextElement();
                                                 if (paramName.startsWith("FT" + k + "_" + cnt + "_" + variantIndex)) {
                                                     selectedFeatures.add(request.getParameterValues(paramName)[0]);

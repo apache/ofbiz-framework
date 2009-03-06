@@ -251,7 +251,7 @@ public class ShoppingCartEvents {
                 // get the selected features.
                 List <String> selectedFeatures = new LinkedList<String>();
                 java.util.Enumeration paramNames = request.getParameterNames();
-                while(paramNames.hasMoreElements()) {
+                while (paramNames.hasMoreElements()) {
                     String paramName = (String)paramNames.nextElement();
                     if (paramName.startsWith("FT")) {
                         selectedFeatures.add(request.getParameterValues(paramName)[0]);

@@ -112,7 +112,7 @@ public class HttpRequestFileUpload {
 
         /* System.out.println("Header:");
          Enumeration ee = request.getHeaderNames();
-         while(ee.hasMoreElements()) {
+         while (ee.hasMoreElements()) {
          String ss = (String)ee.nextElement();
          System.out.println(ss + " = [" + request.getHeader(ss) + "]");
          }*/

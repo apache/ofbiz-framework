@@ -105,7 +105,7 @@ public class Various {
                 actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
                 if (actuals.size() > 0) {
                     Iterator ite = actuals.iterator();
-                    while(ite.hasNext()) {
+                    while (ite.hasNext()) {
                         GenericValue actual =(GenericValue)ite.next();
                          Double hour = (Double) actual.get("hours");
                          double hours = hour.doubleValue();

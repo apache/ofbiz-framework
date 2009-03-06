@@ -162,11 +162,11 @@ public class ConfigureItem extends XPage {
         if (questions==null) ; // no questions, we shouldn't be here
         else{
             Iterator iter = questions.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 ConfigItem question = (ConfigItem)iter.next();
                 List options = question.getOptions();
                 Iterator itero = options.iterator();
-                while(itero.hasNext()) {
+                while (itero.hasNext()) {
                     ConfigOption configoption = (ConfigOption)itero.next();
                     if (configoption.isSelected()) {
                         listModel.addElement("  "+configoption.getDescription());
@@ -188,7 +188,7 @@ public class ConfigureItem extends XPage {
         else{
             Iterator iter = questions.iterator();
             Iterator buttons = m_buttonList.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 Question buttonQuestion = qf.get((ConfigItem)iter.next());
                 XButton button = (XButton)buttons.next();
                 questionHashMap.put(button.getName(), buttonQuestion );
@@ -224,7 +224,7 @@ public class ConfigureItem extends XPage {
         if (questions==null) return; // no questions, return
      
         Iterator iter = questions.iterator();
-        while(iter.hasNext()) {
+        while (iter.hasNext()) {
             ConfigItem question = (ConfigItem)iter.next();
             /*Debug.logInfo("Question: " + question.getQuestion(), module);
             Debug.logInfo("IsFirst: "+question.isFirst()+
@@ -236,7 +236,7 @@ public class ConfigureItem extends XPage {
             List options = question.getOptions();
             Iterator itero = options.iterator();
             
-            while(itero.hasNext()) {
+            while (itero.hasNext()) {
                 ConfigOption configoption = (ConfigOption)itero.next();
                 /*Debug.logInfo("Found option " + configoption.getDescription(), module);
                 Debug.logInfo("IsAvailable: "+configoption.isAvailable()+
@@ -376,7 +376,7 @@ public class ConfigureItem extends XPage {
            
             DefaultListModel listModel = new DefaultListModel();
             
-            while(options.hasNext()) {
+            while (options.hasNext()) {
                 ConfigOption configoption = (ConfigOption)options.next();
                 listModel.addElement(configoption.getDescription());
                 //Debug.logInfo("Found option " + configoption.getDescription(), module);

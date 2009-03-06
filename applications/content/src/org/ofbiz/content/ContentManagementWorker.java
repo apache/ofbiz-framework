@@ -262,7 +262,7 @@ public class ContentManagementWorker {
             useCached = true;
             keyColl = cachedPK.getPrimaryKey().getAllKeys();
             keyIt = keyColl.iterator();
-            while(keyIt.hasNext()) {
+            while (keyIt.hasNext()) {
                 String sCached = null;
                 String sPassed = null;
                 Object oPassed = null;
@@ -320,7 +320,7 @@ public class ContentManagementWorker {
         
         // Check that user has permission to admin sites
         Iterator it = allPublishPoints.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             GenericValue webSitePP = (GenericValue)it.next();
             String contentId = (String)webSitePP.get("contentId");
             String templateTitle = (String)webSitePP.get("templateTitle");
@@ -433,7 +433,7 @@ public class ContentManagementWorker {
         List staticValueList = FastList.newInstance();
         Iterator it = assocValueList.iterator();
         int counter = 0;
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             GenericValue content = (GenericValue)it.next();
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
@@ -666,7 +666,7 @@ public class ContentManagementWorker {
         
         // Check that user has permission to admin sites
         Iterator it = allDepartmentPoints.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             GenericValue content = (GenericValue)it.next();
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
