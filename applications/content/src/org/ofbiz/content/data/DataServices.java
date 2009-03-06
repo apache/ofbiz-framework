@@ -131,7 +131,7 @@ public class DataServices {
                 dataResource.create();
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
-            } catch(Exception e2) {
+            } catch (Exception e2) {
                 return ServiceUtil.returnError(e2.getMessage());
             }
             result.put("dataResourceId", dataResourceId);

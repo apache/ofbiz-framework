@@ -215,17 +215,17 @@ public class HtmlMenuWrapper {
                 Class cls = Class.forName("org.ofbiz.widget.html." + menuWrapperClassName);
                 menuWrapper = (HtmlMenuWrapper)cls.newInstance();
                 menuWrapper.init(menuDefFile, menuName, request, response);
-            } catch(InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException(e.getMessage());
-            } catch(IllegalAccessException e2) {
+            } catch (IllegalAccessException e2) {
                 throw new RuntimeException(e2.getMessage());
-            } catch(ClassNotFoundException e3) {
+            } catch (ClassNotFoundException e3) {
                 throw new RuntimeException("Class not found:" + e3.getMessage());
-            } catch(IOException e4) {
+            } catch (IOException e4) {
                 throw new RuntimeException(e4.getMessage());
-            } catch(SAXException e5) {
+            } catch (SAXException e5) {
                 throw new RuntimeException(e5.getMessage());
-            } catch(ParserConfigurationException e6) {
+            } catch (ParserConfigurationException e6) {
                 throw new RuntimeException(e6.getMessage());
             }
         } else {

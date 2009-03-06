@@ -209,7 +209,7 @@ public class SubscriptionServices {
                     return ServiceUtil.returnError("Error processing subscriptions for Product with ID [" + productId + "]", null, null, processExtendSubscriptionResult);
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -266,7 +266,7 @@ public class SubscriptionServices {
                     }
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }

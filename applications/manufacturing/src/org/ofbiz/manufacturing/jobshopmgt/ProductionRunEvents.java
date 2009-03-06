@@ -56,7 +56,7 @@ public class ProductionRunEvents {
         BigDecimal quantity = null;
         try {
             quantity = new BigDecimal((String)parameters.get("quantity"));
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             String errMsg = "Invalid format for quantity field: " + nfe.toString();
             Debug.logError(nfe, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -69,7 +69,7 @@ public class ProductionRunEvents {
             Timestamp fromDate = null;
             try {
                 fromDate = Timestamp.valueOf((String)componentRow.get("fromDate"));
-            } catch(IllegalArgumentException iae) {
+            } catch (IllegalArgumentException iae) {
                 String errMsg = "Invalid format for date field: " + iae.toString();
                 Debug.logError(iae, errMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);

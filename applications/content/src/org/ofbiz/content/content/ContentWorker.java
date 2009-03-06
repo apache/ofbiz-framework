@@ -889,7 +889,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 getContentAncestry(delegator, contentAssoc.getString(contentIdOtherField), contentAssocTypeId, direction, contentAncestorList);
                 contentAncestorList.add(contentAssoc.getString(contentIdOtherField));
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e,module); 
             return;
         }
@@ -927,7 +927,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     }
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e,module); 
             return;
         }
@@ -979,7 +979,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 
                 contentAncestorList.add(content);
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e,module); 
             return;
         }
@@ -1249,7 +1249,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List contentTypeAncestry = FastList.newInstance();
         try {
             getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
         }
         context.put("typeAncestry", contentTypeAncestry);
         boolean isReturnBefore = checkReturnWhen(context, (String)whenMap.get("returnBeforePickWhen"));
@@ -1400,7 +1400,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             thisNode.put("mapKey", thisContent.get("caMapKey"));
             thisNode.put("fromDate", thisContent.get("caFromDate"));
             thisNode.put("contentAssocTypeId", thisContent.get("caContentAssocTypeId"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             // This ignores the case when thisContent does not have ContentAssoc values
         }
         return thisNode;
@@ -1439,7 +1439,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentId = (String)it.next();
             try {
                 content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
                 return FastList.newInstance();
             }
@@ -1467,7 +1467,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentId = (String)it.next();
             try {
                 content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
                 return FastList.newInstance();
             }

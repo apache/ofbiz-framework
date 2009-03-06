@@ -105,13 +105,13 @@ public class ModelTree extends ModelWidget {
         setDefaultEntityName(treeElement.getAttribute("entity-name"));
         try {
             openDepth = Integer.parseInt(treeElement.getAttribute("open-depth"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             openDepth = 0;
         }
 
         try {
             postTrailOpenDepth = Integer.parseInt(treeElement.getAttribute("post-trail-open-depth"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             postTrailOpenDepth = 999;
         }
 
@@ -493,7 +493,7 @@ public class ModelTree extends ModelWidget {
                         obj = entity.get("childBranchCount");
                        if (obj != null)
                            nodeCount = (Long)obj;
-                    } catch(GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e, module); 
                        throw new RuntimeException(e.getMessage());
                     }
@@ -553,7 +553,7 @@ public class ModelTree extends ModelWidget {
                      }
                      try {
                          eli.close();
-                     } catch(GenericEntityException e) {
+                     } catch (GenericEntityException e) {
                          Debug.logError(e, module);
                          throw new RuntimeException(e.getMessage());
                      }

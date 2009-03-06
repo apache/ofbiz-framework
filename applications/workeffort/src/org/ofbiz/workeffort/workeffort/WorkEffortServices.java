@@ -723,7 +723,7 @@ public class WorkEffortServices {
                 outgoingProductionRunList.add(outgoingProductionRun);
             }
 
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error retrieving manufacturing data for productId [" + productId + "]: " + gee.getMessage());
         }
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();

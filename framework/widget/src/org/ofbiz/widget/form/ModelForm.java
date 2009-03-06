@@ -1373,7 +1373,7 @@ public class ModelForm extends ModelWidget {
         if (iter instanceof EntityListIterator) {
             try {
                 ((EntityListIterator) iter).first();
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, "Error rewinding list form render EntityListIterator: " + e.toString(), module);
             }
         }
@@ -1590,7 +1590,7 @@ public class ModelForm extends ModelWidget {
             if (iter instanceof EntityListIterator) {
                 try {
                     ((EntityListIterator) iter).close();
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), module);
                 }
             }
@@ -2407,7 +2407,7 @@ public class ModelForm extends ModelWidget {
         try {
             Integer sz = Integer.valueOf(val);
             defaultViewSize = sz.intValue();
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             defaultViewSize = DEFAULT_PAGE_SIZE;   
         }
     }

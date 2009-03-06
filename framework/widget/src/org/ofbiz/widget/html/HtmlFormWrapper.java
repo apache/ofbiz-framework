@@ -67,7 +67,7 @@ public class HtmlFormWrapper {
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             this.modelForm = FormFactory.getFormFromLocation(resourceName, formName, delegator.getModelReader(), dispatcher.getDispatchContext());
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             Debug.logWarning("Could not find form with name [" + formName + "] in class resource [" + resourceName + "], will try to load it using relative path syntax.", module);
             this.modelForm = FormFactory.getFormFromWebappContext(resourceName, formName, request);
         }

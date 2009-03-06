@@ -258,7 +258,7 @@ public class CommonServices {
         /*
         try {
             newEntity.remove();
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
         */

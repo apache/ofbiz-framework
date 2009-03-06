@@ -142,7 +142,7 @@ public class ContentServicesComplex {
         try {
             //relatedAssocs = delegator.findByCondition(viewName, joinExpr, 
             relatedAssocs = delegator.findList(viewName, assocExprList, null,UtilMisc.toList("caFromDate"), null, false);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         for (int i=0; i < relatedAssocs.size(); i++) {
@@ -201,9 +201,9 @@ public class ContentServicesComplex {
             results = getAssocAndContentAndDataResourceCacheMethod(delegator,
                           contentId, mapKey, direction, fromDate, 
                           fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
-        } catch(MiniLangException e2) {
+        } catch (MiniLangException e2) {
             return ServiceUtil.returnError(e2.getMessage());
         }
         return results;

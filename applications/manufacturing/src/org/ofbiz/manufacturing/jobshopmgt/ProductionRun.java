@@ -424,7 +424,7 @@ public class ProductionRun {
                     Map resultService = dispatcher.runSync(serviceName, serviceContext);
                     totalTaskTime = ((Double)resultService.get("totalTime")).doubleValue();
                 }
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }
         }

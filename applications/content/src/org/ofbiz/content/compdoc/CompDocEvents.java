@@ -86,7 +86,7 @@ public class CompDocEvents {
             try {
                 GenericValue val = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
                 if (val == null)  contentExists = false;
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
                 request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + " [" + "persistContentAndAssoc" + "]: " + e.toString());
@@ -137,7 +137,7 @@ public class CompDocEvents {
                 return "error";
             }
             
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
             String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
             Debug.logError(errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
@@ -186,13 +186,13 @@ public class CompDocEvents {
         Map results = null;
         try {
             results = dispatcher.runSync("renderCompDocPdf", mapIn);
-        } catch(ServiceAuthException e) {
+        } catch (ServiceAuthException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
-        } catch(Exception e) {
+        } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
@@ -213,13 +213,13 @@ public class CompDocEvents {
         try {
             FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
             fos.write(outByteBuffer.getBytes());
-        } catch(FileNotFoundException e) {
-        } catch(IOException e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
         }
         */
         try {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
-        } catch(IOException e) {
+        } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
@@ -260,13 +260,13 @@ public class CompDocEvents {
         Map results = null;
         try {
             results = dispatcher.runSync("renderContentPdf", mapIn);
-        } catch(ServiceAuthException e) {
+        } catch (ServiceAuthException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
-        } catch(Exception e) {
+        } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
@@ -288,13 +288,13 @@ public class CompDocEvents {
             FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
             fos.write(outByteBuffer.getBytes());
             fos.close();
-        } catch(FileNotFoundException e) {
-        } catch(IOException e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
         }
         */
         try {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
-        } catch(IOException e) {
+        } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }

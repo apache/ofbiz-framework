@@ -892,9 +892,9 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableTotal", shippableTotal);
     
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             Debug.logError(e, module);
-        } catch( GenericServiceException e ) {
+        } catch ( GenericServiceException e ) {
             Debug.logError(e, module);
         }
         

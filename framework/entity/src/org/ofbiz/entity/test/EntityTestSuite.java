@@ -144,7 +144,7 @@ public class EntityTestSuite extends TestCase {
 
         // Normally, newlyStored = alreadyStored + created
         TestCase.assertEquals("Created/Stored Nodes", newlyStored, created + alreadyStored);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logInfo(e.getMessage(), module);
         }
     }
@@ -246,7 +246,7 @@ public class EntityTestSuite extends TestCase {
     public void testForeignKeyCreate() throws Exception {
         try {
             delegator.create("Testing", "testingId", delegator.getNextSeqId("Testing"), "testingTypeId", "NO-SUCH-KEY");
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logInfo(e.toString(), module);
             return;
         }
@@ -260,7 +260,7 @@ public class EntityTestSuite extends TestCase {
         try {
             EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1");
             delegator.removeByCondition("TestingNode", isLevel1);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logInfo(e.toString(), module);
             return;
         }
@@ -514,7 +514,7 @@ public class EntityTestSuite extends TestCase {
           testingBlob.create();
           
           TestCase.assertTrue("Blob with byte value successfully created...", true);
-      } catch(Exception ex) {
+      } catch (Exception ex) {
         TestCase.fail(ex.getMessage());
       } finally {
           // Remove all our newly inserted values.

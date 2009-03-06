@@ -99,7 +99,7 @@ public class LayoutEvents {
                 SimpleMapProcessor.runSimpleMapProcessor(
                       "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
                       formInput, context, errorMessages, locale);
-            } catch(MiniLangException e) {
+            } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -165,7 +165,7 @@ public class LayoutEvents {
         } catch (GenericEntityException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
             return "error";
-        } catch( GenericServiceException e) {
+        } catch ( GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -269,7 +269,7 @@ public class LayoutEvents {
                     GenericValue dataResourceContentView  = (GenericValue)lst.get(0);
                     contentId = (String)dataResourceContentView.get("coContentId");
                 }
-            } catch( GenericEntityException e) {
+            } catch ( GenericEntityException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -300,7 +300,7 @@ public class LayoutEvents {
         
                 //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
                 Map result2 = dispatcher.runSync("deactivateAssocs", context2);
-            } catch( GenericServiceException e) {
+            } catch ( GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -377,7 +377,7 @@ public class LayoutEvents {
             newContentAssoc.set("fromDate", UtilDateTime.nowTimestamp());
             newContentAssoc.create();
             Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
         }
@@ -396,7 +396,7 @@ public class LayoutEvents {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
             }
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
         }
@@ -416,10 +416,10 @@ public class LayoutEvents {
                 SimpleMapProcessor.runSimpleMapProcessor(
                       "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
                       view, serviceIn, errorMessages, locale);
-            } catch(IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
-            } catch(MiniLangException e) {
+            } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -435,7 +435,7 @@ public class LayoutEvents {
                 serviceIn.put("thruDate", null);
                 try {
                     results = dispatcher.runSync("persistContentAndAssoc", serviceIn);
-                } catch(GenericServiceException e) {
+                } catch (GenericServiceException e) {
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
                 }
@@ -485,7 +485,7 @@ public class LayoutEvents {
                 SimpleMapProcessor.runSimpleMapProcessor(
                       "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
                       paramMap, context, errorMessages, loc);
-            } catch(MiniLangException e) {
+            } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -522,7 +522,7 @@ public class LayoutEvents {
     
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
-        } catch( GenericServiceException e) {
+        } catch ( GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -558,7 +558,7 @@ public class LayoutEvents {
                 SimpleMapProcessor.runSimpleMapProcessor(
                       "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
                       paramMap, context, errorMessages, loc);
-            } catch(MiniLangException e) {
+            } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -594,7 +594,7 @@ public class LayoutEvents {
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
             */
-        } catch( GenericServiceException e) {
+        } catch ( GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }

@@ -168,9 +168,9 @@ public class LabelManagerFactory {
 
             // get labels references from sources
             references = LabelReferences.getLabelReferences();
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
         duplicatedLocalesLabels = duplicatedLocales;
@@ -346,7 +346,7 @@ public class LabelManagerFactory {
                         String componentName = getFileComponent(fileName);
                         label = new LabelInfo(key, keyComment, fileName, componentName, localeName, localeValue, localeComment);
                         labels.put(key + keySeparator + fileName, label);
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {

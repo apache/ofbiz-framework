@@ -474,7 +474,7 @@ public class ShoppingCartHelper {
                 GenericValue requirement = null;
                 try {
                     requirement = delegator.findByPrimaryKey("Requirement", UtilMisc.toMap("requirementId", requirementId));
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                 }
                 if (requirement == null) {
                     return ServiceUtil.returnError("Requirement with id [" + requirementId + "] doesn't exist.");

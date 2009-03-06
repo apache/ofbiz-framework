@@ -90,7 +90,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             }
             try {
                 ModelService modelService = aif.getModelService(serviceName);
-            } catch(GeneralException e) {
+            } catch (GeneralException e) {
                 Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
                 continue;
             }
@@ -137,7 +137,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
             try {
                 ModelForm modelForm = aif.getModelForm(formName);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
                 continue;
             }

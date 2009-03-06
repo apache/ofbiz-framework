@@ -1540,7 +1540,7 @@ public class UpsServices {
         GenericValue destCountryGeo = null;
         try {
             destCountryGeo = shipToAddress.getRelatedOne("CountryGeo");
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -1563,7 +1563,7 @@ public class UpsServices {
         try {
             return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
             
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }

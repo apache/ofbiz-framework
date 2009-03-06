@@ -713,7 +713,7 @@ public class PaymentGatewayServices {
             Map releaseResult = null;
             try {
                 releaseResult = dispatcher.runSync("releaseOrderPaymentPreference", releaseContext);
-            } catch( GenericServiceException e ) {
+            } catch ( GenericServiceException e ) {
                 String errMsg = "Problem calling releaseOrderPaymentPreference service for orderPaymentPreferenceId" + paymentPref.getString("orderPaymentPreferenceId");
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
@@ -752,7 +752,7 @@ public class PaymentGatewayServices {
         GenericValue paymentPref = null;
         try {
             paymentPref = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             String errMsg = "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + orderPaymentPreferenceId; 
             Debug.logWarning(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
@@ -769,7 +769,7 @@ public class PaymentGatewayServices {
         GenericValue orderHeader = null;
         try {
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", paymentPref.getString("orderId")));
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             String errMsg = "Problem getting OrderHeader for orderId " + paymentPref.getString("orderId"); 
             Debug.logWarning(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);

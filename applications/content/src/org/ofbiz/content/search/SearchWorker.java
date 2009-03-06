@@ -191,7 +191,7 @@ public class SearchWorker {
         try {
                writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
                     if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
                writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
                     if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
         }
@@ -230,7 +230,7 @@ public class SearchWorker {
         IndexWriter writer = null;
         try {
             writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
         }
         indexDataResource(delegator, context, id, writer);

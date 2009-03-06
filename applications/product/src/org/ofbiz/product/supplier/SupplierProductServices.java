@@ -115,7 +115,7 @@ public class SupplierProductServices {
         } catch (GenericEntityException ex) {
             Debug.logError(ex, ex.getMessage(), module);
             return ServiceUtil.returnError(ex.getMessage());
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             Debug.logError(ex, ex.getMessage(), module);
             return ServiceUtil.returnError(ex.getMessage());
         }

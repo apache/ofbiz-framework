@@ -192,7 +192,7 @@ public class PaymentEvents {
                         if (UtilValidate.isNotEmpty(creditExpirationInfo[1])) {
                             // setup keyed transaction
                             msrInfoStr = crtInfo[1] + "|" + creditExpirationInfo[1];
-                        }else {
+                        } else {
                             msrInfoStr = crtInfo[1];
                         }                        
                     }

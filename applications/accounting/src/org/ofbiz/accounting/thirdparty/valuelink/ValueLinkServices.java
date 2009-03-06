@@ -159,7 +159,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to update MWK");
         }
@@ -239,7 +239,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to activate gift card");
         }
@@ -295,7 +295,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to link gift card(s)");
         }
@@ -353,7 +353,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to call disble pin");
         }
@@ -417,7 +417,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to redeem gift card");
         }
@@ -484,7 +484,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to reload gift card");
         }
@@ -542,7 +542,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to call balance inquire");
         }
@@ -596,7 +596,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to call history inquire");
         }
@@ -661,7 +661,7 @@ public class ValueLinkServices {
         Map response = null;
         try {
             response = vl.send(request);
-        } catch(HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem communicating with VL");
             return ServiceUtil.returnError("Unable to refund gift card");
         }

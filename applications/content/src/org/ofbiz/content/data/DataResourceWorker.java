@@ -243,7 +243,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     if (returnMsg.equals("error")) {
                         return "error";
                     }
-                } catch(GenericServiceException e) {
+                } catch (GenericServiceException e) {
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
                 }
@@ -1160,7 +1160,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             } else {
                 throw new GeneralException("The dataResourceTypeId [" + dataResourceTypeId + "] is not supported in streamDataResource");
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new GeneralException("Error in streamDataResource", e);
         }
     }

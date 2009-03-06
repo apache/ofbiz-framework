@@ -60,7 +60,7 @@ public class ContentDocument {
         GenericValue content;
           try {
               content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId",id));
-          } catch(GenericEntityException e) {
+          } catch (GenericEntityException e) {
               Debug.logError(e, module);
               return doc;
           }

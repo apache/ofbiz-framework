@@ -60,7 +60,7 @@ public class GroovyEventHandler implements EventHandler {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());           
             }
             return (String) result;
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new EventHandlerException("Groovy Event Error", e);
         }                
     }

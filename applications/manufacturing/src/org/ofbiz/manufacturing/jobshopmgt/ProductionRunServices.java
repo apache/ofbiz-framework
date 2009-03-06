@@ -228,7 +228,7 @@ public class ProductionRunServices {
             Map routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
             routing = (GenericValue)routingOutMap.get("routing");
             routingTaskAssocs = (List)routingOutMap.get("tasks");
-        } catch(GenericServiceException gse) {
+        } catch (GenericServiceException gse) {
             Debug.logWarning(gse.getMessage(), module);
         }
         // =================================
@@ -607,7 +607,7 @@ public class ProductionRunServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted", locale));
                     }
                 }
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
             }
 
@@ -909,7 +909,7 @@ public class ProductionRunServices {
             }
             result.put("totalCost", totalCost);
             result.put("totalCostNoMaterials", totalCostNoMaterials);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Cannot retrieve costs for work effort [" + workEffortId + "]: " + gee.getMessage());
         }
         return result;
@@ -932,7 +932,7 @@ public class ProductionRunServices {
                 totalCost = totalCost.add(taskCost);
             }
             result.put("totalCost", totalCost);
-        } catch(Exception exc) {
+        } catch (Exception exc) {
             return ServiceUtil.returnError("Cannot retrieve costs for production run [" + workEffortId + "]: " + exc.getMessage());
         }
         return result;
@@ -1012,7 +1012,7 @@ public class ProductionRunServices {
                     dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ServiceUtil.returnError("Unable to create routing costs for the production run task [" + productionRunTaskId + "]: " + e.getMessage());
         }
         // materials costs: these are the costs derived from the materials used by the production run task
@@ -1044,7 +1044,7 @@ public class ProductionRunServices {
                 inMap.put("cost", materialsCost);
                 dispatcher.runSync("createCostComponent", inMap);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ServiceUtil.returnError("Unable to create materials costs for the production run task [" + productionRunTaskId + "]: " + e.getMessage());
         }
         return ServiceUtil.returnSuccess();
@@ -1563,7 +1563,7 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 }
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         } else {
@@ -1603,7 +1603,7 @@ public class ProductionRunServices {
                     serviceContext.put("priorityOrderItemSeqId", orderItem.getString("orderItemSeqId"));
                 }
                 resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         }
@@ -1751,7 +1751,7 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 }
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         } else {
@@ -1787,7 +1787,7 @@ public class ProductionRunServices {
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         }
@@ -1835,7 +1835,7 @@ public class ProductionRunServices {
             if (quantity.compareTo(totalIssued.subtract(totalReturned)) > 0) {
                 return ServiceUtil.returnError("Production Run Task with id [" + productionRunTaskId + "] cannot return more items [" + quantity + "] than the ones currently allocated [" + (totalIssued.subtract(totalReturned)) + "]");
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
         }
         String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
@@ -1851,7 +1851,7 @@ public class ProductionRunServices {
             if (ServiceUtil.isError(inventoryResult)) {
                 return ServiceUtil.returnError("Error calling productionRunTaskProduce: " + ServiceUtil.getErrorMessage(inventoryResult));
             }
-        } catch(GenericServiceException exc) {
+        } catch (GenericServiceException exc) {
             return ServiceUtil.returnError(exc.getMessage());
         }
         return ServiceUtil.returnSuccess();
@@ -1990,9 +1990,9 @@ public class ProductionRunServices {
                             Map resultService = dispatcher.runSync("issueProductionRunTaskComponent", serviceContext);
                         }
                     }
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     
-                } catch(GenericServiceException gee) {
+                } catch (GenericServiceException gee) {
                     
                 }
             }
@@ -2024,7 +2024,7 @@ public class ProductionRunServices {
             serviceContext.put("quantityRejected", totalQuantityRejected);
             serviceContext.put("userLogin", userLogin);
             Map resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
-        } catch(Exception exc) {
+        } catch (Exception exc) {
             return ServiceUtil.returnError(exc.getMessage());
         }
         
@@ -2042,7 +2042,7 @@ public class ProductionRunServices {
         GenericValue requirement = null;
         try {
             requirement = delegator.findByPrimaryKey("Requirement", UtilMisc.toMap("requirementId", requirementId));
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
         }
 
         if (requirement == null) {
@@ -2070,7 +2070,7 @@ public class ProductionRunServices {
         GenericValue requirement = null;
         try {
             requirement = delegator.findByPrimaryKey("Requirement", UtilMisc.toMap("requirementId", requirementId));
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
         }
         if (requirement == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotExists", locale));
@@ -2392,7 +2392,7 @@ public class ProductionRunServices {
                     orderItem.set("quantity", quantity);
                 }
                 orderItems = UtilMisc.toList(orderItem);
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error reading the OrderItem: " + gee.getMessage());
             }
         } else {
@@ -2401,7 +2401,7 @@ public class ProductionRunServices {
                 if (orderItems == null) {
                     return ServiceUtil.returnError("OrderItems for order [" + orderId + "] not found.");
                 }
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error reading the OrderItems: " + gee.getMessage());
             }
         }
@@ -2421,7 +2421,7 @@ public class ProductionRunServices {
                     Debug.logWarning("Production Run for order item [" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + "] already exists.", module);
                     continue;
                 }
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error reading the WorkOrderItemFulfillment: " + gee.getMessage());
             }
             if (orderItem.get("selectedAmount") != null) {
@@ -2437,7 +2437,7 @@ public class ProductionRunServices {
                 tree.setRootAmount(amount);
                 tree.print(components);
                 tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin);
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
             }
         }
@@ -2470,7 +2470,7 @@ public class ProductionRunServices {
             tree.setRootAmount(BigDecimal.ZERO);
             tree.print(components);
             workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, userLogin);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         if (workEffortId == null) {
@@ -3020,7 +3020,7 @@ public class ProductionRunServices {
                     }
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Error", module);
             return ServiceUtil.returnError("Problem running the setEstimatedDeliveryDates service");
         }

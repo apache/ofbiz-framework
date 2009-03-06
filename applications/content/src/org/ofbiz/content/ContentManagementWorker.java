@@ -307,7 +307,7 @@ public class ContentManagementWorker {
             GenericValue currentValue = null;
             try {
                 currentValue = delegator.findOne(currentPK.getEntityName(), currentPK, false); 
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
             }
             request.setAttribute("currentValue", currentValue);
         }
@@ -364,7 +364,7 @@ public class ContentManagementWorker {
             //relatedPubPts = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentIdTo", parentPubPt));
             relatedPubPts = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentIdTo", parentPubPt, "contentAssocTypeId", "SUBSITE"));
 
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
         List allPublishPoints = FastList.newInstance();
@@ -426,7 +426,7 @@ public class ContentManagementWorker {
         List assocValueList = null;
         try {
             assocValueList = delegator.findByAndCache("Content", UtilMisc.toMap("contentTypeId", parentPlaceholderId));
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
 
@@ -596,7 +596,7 @@ public class ContentManagementWorker {
         try {
             List rawAssocValueList = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentAssocTypeId", "PUBLISH_LINK"));
             assocValueList = EntityUtil.filterByDate(rawAssocValueList);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
         Map publishedLinkMap = FastMap.newInstance();
@@ -653,8 +653,8 @@ public class ContentManagementWorker {
                 authorContent.setNonPKFields(value);
             //if (Debug.infoOn()) Debug.logInfo("in getAuthorContent, authorContent:" + authorContent, module);
             }
-        } catch(GenericEntityException e) {
-        } catch(MiniLangException e2) {
+        } catch (GenericEntityException e) {
+        } catch (MiniLangException e2) {
         }
 
         return authorContent;
@@ -709,7 +709,7 @@ public class ContentManagementWorker {
             //relatedPubPts = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentIdTo", parentPubPt));
             relatedPubPts = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentIdTo", parentPubPt, "contentAssocTypeId", "DEPARTMENT"));
 
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
         List allDepartmentPoints = FastList.newInstance();

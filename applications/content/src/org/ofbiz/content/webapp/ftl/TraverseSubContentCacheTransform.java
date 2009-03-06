@@ -98,7 +98,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
             // It may have already been there, but getCurrentContent will compare its contentId
             // to values in templateRoot.
             val = ContentWorker.getCurrentContent(delegator, globalNodeTrail, userLogin, templateRoot, nullThruDatesOnly, contentAssocPredicateId);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
         final GenericValue view = val;

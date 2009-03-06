@@ -162,7 +162,7 @@ public class ShoppingCartEvents {
             Object object = paramMap.remove("add_product_id");
             try {
                 productId = (String) object;
-            } catch(ClassCastException e) {
+            } catch (ClassCastException e) {
                 productId = (String)((List)object).get(0);
             }
         }
@@ -845,7 +845,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(cartIndexStr) && UtilValidate.isInteger(cartIndexStr)) {
             try {
                 cartIndex = Integer.parseInt(cartIndexStr);
-            } catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
@@ -882,7 +882,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(cartIndexStr) && UtilValidate.isInteger(cartIndexStr)) {
             try {
                 cartIndex = Integer.parseInt(cartIndexStr);
-            } catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
@@ -1230,7 +1230,7 @@ public class ShoppingCartEvents {
                     UtilMisc.<String, Object>toMap("shoppingListId", shoppingListId,
                     "userLogin", userLogin));
             cart = (ShoppingCart)outMap.get("shoppingCart");
-        } catch(GenericServiceException exc) {
+        } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
             return "error";
         }
@@ -1410,7 +1410,7 @@ public class ShoppingCartEvents {
                         try {
                             storeReps = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"),
                                                             "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP"));
-                        } catch(GenericEntityException gee) {
+                        } catch (GenericEntityException gee) {
                             //
                         }
                         storeReps = EntityUtil.filterByDate(storeReps);
@@ -1457,7 +1457,7 @@ public class ShoppingCartEvents {
                 GenericValue thisUserLogin = null;
                 try {
                     thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     //
                 }
                 if (thisUserLogin != null) {
@@ -1470,7 +1470,7 @@ public class ShoppingCartEvents {
                 GenericValue thisParty = null;
                 try {
                     thisParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     //
                 }
                 if (thisParty == null) {
@@ -1529,7 +1529,7 @@ public class ShoppingCartEvents {
                     if (promo != null) {
                         manualPromotions.add(promo);
                     }
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     request.setAttribute("_ERROR_MESSAGE_", gee.getMessage());
                     return "error";
                 }

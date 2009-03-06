@@ -86,7 +86,7 @@ public class BOMServices {
                 while (bomTypesValuesIt.hasNext()) {
                     bomTypes.add(((GenericValue)bomTypesValuesIt.next()).getString("productAssocTypeId"));
                 }
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
             }
         } else {
@@ -104,7 +104,7 @@ public class BOMServices {
                     maxDepth = depth;
                 }
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
         }
         result.put("depth", new Long(maxDepth));
@@ -229,7 +229,7 @@ public class BOMServices {
                 try {
                     Map depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
-                } catch(Exception exc) {
+                } catch (Exception exc) {
                     Debug.logWarning(exc.getMessage(), module);
                 }
             }
@@ -264,7 +264,7 @@ public class BOMServices {
         GenericValue duplicatedProductAssoc = null;
         try {
             duplicatedProductAssoc = BOMHelper.searchDuplicatedAncestor(productId, productIdKey, bomType, fromDate, delegator, dispatcher, userLogin);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error running duplicated ancestor search: " + gee.getMessage());
         }
         result.put("duplicatedProductAssoc", duplicatedProductAssoc);
@@ -311,7 +311,7 @@ public class BOMServices {
         BOMTree tree = null;
         try {
             tree = new BOMTree(productId, bomType, fromDate, type.intValue(), delegator, dispatcher, userLogin);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         if (tree != null && quantity != null) {
@@ -377,7 +377,7 @@ public class BOMServices {
             tree.setRootAmount(amount);
             tree.print(components, excludeWIPs.booleanValue());
             if (components.size() > 0) components.remove(0);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         //
@@ -397,7 +397,7 @@ public class BOMServices {
             if (routing != null) {
                 workEffortId = routing.getString("workEffortId");
             }
-        } catch(GenericServiceException gse) {
+        } catch (GenericServiceException gse) {
             Debug.logWarning(gse.getMessage(), module);
         }
         if (workEffortId != null) {
@@ -455,7 +455,7 @@ public class BOMServices {
             tree.setRootQuantity(quantity);
             tree.setRootAmount(amount);
             tree.print(components);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         Iterator componentsIt = components.iterator();
@@ -485,14 +485,14 @@ public class BOMServices {
             if (!UtilValidate.isEmpty(packages)) {
                 return ServiceUtil.returnError("Packages already found.");
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error loading the ShipmentPackages");
         }
         // ShipmentItems are loaded
         List shipmentItems = null;
         try {
             shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error loading the ShipmentItems");
         }
         Iterator shipmentItemsIt = shipmentItems.iterator();
@@ -780,7 +780,7 @@ public class BOMServices {
             tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
             tree.setRootQuantity(quantity);
             tree.getProductsInPackages(components);
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
         

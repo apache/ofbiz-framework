@@ -91,7 +91,7 @@ public class CompDocServices {
             try {
                 GenericValue val = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
                 if (val == null)  contentExists = false;
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
                 return ServiceUtil.returnError(errMsg);
@@ -133,7 +133,7 @@ public class CompDocServices {
 
             result.putAll(persistRevResult);
             return result;
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
             String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
@@ -291,7 +291,7 @@ public class CompDocServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in CompDoc operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in CompDoc operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -423,7 +423,7 @@ public class CompDocServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in PDF generation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in PDF generation: ", module);
             return ServiceUtil.returnError(e.toString());
         }

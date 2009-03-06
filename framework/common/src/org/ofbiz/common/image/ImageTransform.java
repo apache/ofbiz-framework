@@ -71,12 +71,12 @@ public class ImageTransform {
         /* BUFFERED IMAGE */
         try {
             bufImg = ImageIO.read(new File(fileLocation));
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
             return result;
-        } catch(IOException e) {
+        } catch (IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", errMsg);
@@ -193,12 +193,12 @@ public class ImageTransform {
         try {
             // JDOM
             document = sxb.build(new File(fileFullPath));
-        } catch(JDOMException e) {
+        } catch (JDOMException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occured_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
             return result;
-        } catch(IOException e) {
+        } catch (IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");
@@ -207,7 +207,7 @@ public class ImageTransform {
         // set Root Element
         try {
             rootElt = document.getRootElement();
-        } catch(IllegalStateException e) {
+        } catch (IllegalStateException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.root_element_has_not_been_set", locale) + e.toString();
             Debug.logError(errMsg, module);
             result.put("errorMessage", "error");

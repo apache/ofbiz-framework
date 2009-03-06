@@ -258,7 +258,7 @@ public class OrderReadHelper {
             List returnItemResponses = new ArrayList();
             try {
                 returnItemResponses = orderHeader.getDelegator().findByAnd("ReturnItemResponse", UtilMisc.toMap("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId")));
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
             BigDecimal refundedToPaymentPref = ZERO;

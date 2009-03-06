@@ -124,7 +124,7 @@ public class LabelReferences {
                 getFtlEntityLabels(ftlFile, getEntityLabel);
             }
             */
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
         }
     }
@@ -136,7 +136,7 @@ public class LabelReferences {
             for (File javaFile: javaFiles) {
                 getJavaLabels(javaFile, getMessage);
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
         }
     }
@@ -182,7 +182,7 @@ public class LabelReferences {
                     pos += 1;
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
         }
     }
@@ -216,7 +216,7 @@ public class LabelReferences {
                     pos += 1;
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
         }
     }
@@ -249,9 +249,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -304,9 +304,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -389,9 +389,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -437,9 +437,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -476,9 +476,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -506,9 +506,9 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new GeneralException(ioe.getMessage());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -616,7 +616,7 @@ public class LabelReferences {
                     autoFieldsEntity.put(field.getName(), "N");
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }
@@ -660,7 +660,7 @@ public class LabelReferences {
                     }
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new GeneralException(e.getMessage());
         }
     }

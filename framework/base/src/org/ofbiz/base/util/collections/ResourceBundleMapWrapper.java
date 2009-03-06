@@ -224,14 +224,14 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                 if (value == null) {
                     try {
                         value = this.resourceBundle.getObject((String) arg0);
-                    } catch(MissingResourceException mre) {
+                    } catch (MissingResourceException mre) {
                         // do nothing, this will be handled by recognition that the value is still null
                     }
                 }
                 if (value == null) {
                     try {
                         value = this.resourceBundle.getString((String) arg0);
-                    } catch(MissingResourceException mre) {
+                    } catch (MissingResourceException mre) {
                         // do nothing, this will be handled by recognition that the value is still null
                     }
                 }

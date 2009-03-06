@@ -359,7 +359,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
             if (transactionTimeoutPar != null) {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutPar);
-                } catch(NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) {
                     String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + this.name + "] is invalid and it will be ignored: " + nfe.toString();
                     Debug.logWarning(msg, module);
                 }

@@ -162,7 +162,7 @@ public class ArtifactInfoFactory {
                 screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
                 formFiles = FileUtil.findXmlFiles(rootComponentPath, null, "forms", "widget-form.xsd");
                 controllerFiles = FileUtil.findXmlFiles(rootComponentPath, null, "site-conf", "site-conf.xsd");
-            } catch(IOException ioe) {
+            } catch (IOException ioe) {
                 throw new GeneralException(ioe.getMessage());
             }
             if (screenFiles != null) {
@@ -174,7 +174,7 @@ public class ArtifactInfoFactory {
                     Map modelScreenMap = null;
                     try {
                         modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
-                    } catch(Exception exc) {
+                    } catch (Exception exc) {
                         throw new GeneralException(exc.getMessage());
                     }
                     Iterator screenNames = modelScreenMap.keySet().iterator();
@@ -193,7 +193,7 @@ public class ArtifactInfoFactory {
                     Map modelFormMap = null;
                     try {
                         modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
-                    } catch(Exception exc) {
+                    } catch (Exception exc) {
                         throw new GeneralException(exc.getMessage());
                     }
                     Iterator formNames = modelFormMap.keySet().iterator();
@@ -208,21 +208,21 @@ public class ArtifactInfoFactory {
                     URL controllerUrl = null;
                     try {
                         controllerUrl = controllerFile.toURL();
-                    } catch(MalformedURLException mue) {
+                    } catch (MalformedURLException mue) {
                         throw new GeneralException(mue.getMessage());
                     }
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
                     for (String requestUri: cc.requestMapMap.keySet()) {
                         try {
                             this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
-                        } catch(GeneralException e) {
+                        } catch (GeneralException e) {
                             Debug.logWarning(e.getMessage(), module);
                         }
                     }
                     for (String viewUri: cc.viewMapMap.keySet()) {
                         try {
                             this.getControllerViewArtifactInfo(controllerUrl, viewUri);
-                        } catch(GeneralException e) {
+                        } catch (GeneralException e) {
                             Debug.logWarning(e.getMessage(), module);
                         }
                     }
@@ -317,7 +317,7 @@ public class ArtifactInfoFactory {
                 curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
                 this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
                 curInfo.populateAll();
-            } catch(GeneralException e) {
+            } catch (GeneralException e) {
                 Debug.logWarning("Error loading screen [" + screenName + "] from resource [" + screenLocation + "]: " + e.toString(), module);
                 return null;
             }
