@@ -269,7 +269,7 @@ public class UtilValidate {
     public static boolean charInString(char c, String s) {
         return (s.indexOf(c) != -1);
         // for(int i = 0; i < s.length; i++) {
-        // if(s.charAt(i) == c) return true;
+        // if (s.charAt(i) == c) return true;
         // }
         // return false;
     }
@@ -342,10 +342,10 @@ public class UtilValidate {
         // int startPos = 0;
         // boolean secondArg = defaultEmptyOK;
 
-        // if(isSignedInteger.arguments.length > 1) secondArg = isSignedInteger.arguments[1];
+        // if (isSignedInteger.arguments.length > 1) secondArg = isSignedInteger.arguments[1];
 
         // skip leading + or -
-        // if((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
+        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
         // return(isInteger(s.substring(startPos, s.length), secondArg))
     }
 
@@ -536,9 +536,9 @@ public class UtilValidate {
 
         //The old way:
         // int startPos = 0;
-        // if(isSignedFloat.arguments.length > 1) secondArg = isSignedFloat.arguments[1];
+        // if (isSignedFloat.arguments.length > 1) secondArg = isSignedFloat.arguments[1];
         // skip leading + or -
-        // if((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
+        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
         // return(isFloat(s.substring(startPos, s.length), secondArg))
     }
 

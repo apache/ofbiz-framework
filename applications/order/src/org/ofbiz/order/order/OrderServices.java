@@ -389,7 +389,7 @@ public class OrderServices {
                         
                         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
                             Iterator firstOne = selFixedAssetProduct.iterator();
-                            if(firstOne.hasNext())        {
+                            if (firstOne.hasNext())        {
                                 GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct");
                                 fixedAssetProduct = (GenericValue) firstOne.next();                                
                                 workEffort.set("fixedAssetId",fixedAssetProduct.get("fixedAssetId"));                                
@@ -688,7 +688,7 @@ public class OrderServices {
                         }
                     }
                 }                
-                if(techDataCalendar == null ) {
+                if (techDataCalendar == null ) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar");
                     Debug.logInfo("create techdata calendar because it does not exist",module);
                     String calendarId = delegator.getNextSeqId("TechDataCalendar");
@@ -1428,7 +1428,7 @@ public class OrderServices {
         Iterator otait = UtilMisc.toIterator(orderTaxAdjustments);
         while (otait != null && otait.hasNext()) {
             GenericValue orderTaxAdjustment = (GenericValue) otait.next();   
-            if( orderTaxAdjustment.get("amount") != null) {
+            if ( orderTaxAdjustment.get("amount") != null) {
                 totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
             }
         }
@@ -1538,7 +1538,7 @@ public class OrderServices {
                         Iterator oai = orderAdj.iterator();
                         while (oai.hasNext()) {
                             GenericValue oa = (GenericValue) oai.next();
-                            if( oa.get("amount") != null) {
+                            if ( oa.get("amount") != null) {
                                 totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                             }
 
@@ -1553,7 +1553,7 @@ public class OrderServices {
                             Iterator ida = itemAdjustments.iterator();
                             while (ida.hasNext()) {
                                 GenericValue ia = (GenericValue) ida.next();
-                                if( ia.get("amount") != null) {
+                                if ( ia.get("amount") != null) {
                                     totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                                 }
                             }
@@ -2395,7 +2395,7 @@ public class OrderServices {
         uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
         Map bodyParameters = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "uiLabelMap", uiLabelMap, "locale", locale);
-        if( placingParty!= null) {
+        if ( placingParty!= null) {
             bodyParameters.put("partyId", placingParty.get("partyId"));
         }
         bodyParameters.put("note", note);
@@ -3139,11 +3139,11 @@ public class OrderServices {
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, "ERROR: Could not run external fulfillment service '" + fulfillmentService + "'; " + e.getMessage(), module);
                             }
-                        } else if("FULFILLMENT_EMAIL".equals(fulfillmentType)) {
+                        } else if ("FULFILLMENT_EMAIL".equals(fulfillmentType)) {
                             // digital email fulfillment
                             // TODO: Add support for fulfillment email
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderEmailFulfillmentTypeNotYetImplemented", locale));
-                        } else if("DIGITAL_DOWNLOAD".equals(fulfillmentType)) {
+                        } else if ("DIGITAL_DOWNLOAD".equals(fulfillmentType)) {
                             // digital download fulfillment
 
                             // Nothing to do for here. Downloads are made available to the user
@@ -3249,7 +3249,7 @@ public class OrderServices {
                 GenericValue productType = null;
                 GenericValue product = (GenericValue) serviceProducts.get(item);
                 boolean markComplete = false;
-                if(product != null) {
+                if (product != null) {
                     try {
                         productType = product.getRelatedOne("ProductType");
                     } catch (GenericEntityException e) {

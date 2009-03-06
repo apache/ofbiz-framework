@@ -139,7 +139,7 @@ public class FedexServices {
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
 
-        if(! replaceMeterNumber.booleanValue()) {
+        if (! replaceMeterNumber.booleanValue()) {
             String meterNumber = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.fedex.access.meterNumber");
             if (UtilValidate.isNotEmpty(meterNumber)) {
                 return ServiceUtil.returnError("MeterNumber already exists: " + shipmentPropertiesFile + ":shipment.fedex.access.meterNumber=" + meterNumber);
@@ -156,7 +156,7 @@ public class FedexServices {
             return ServiceUtil.returnError("accountNbr not found for Fedex subscription request.");
         }
 
-        if(UtilValidate.isEmpty(contactPartyName)) {
+        if (UtilValidate.isEmpty(contactPartyName)) {
             return ServiceUtil.returnError("Contact name can't be empty.");
         }
 
@@ -258,7 +258,7 @@ public class FedexServices {
             faxNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, ""));
             List<GenericValue> faxNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(faxNumberConditions, EntityOperator.AND));
             GenericValue faxNumberValue = EntityUtil.getFirst(faxNumbers);
-            if(! UtilValidate.isEmpty(faxNumberValue)) {
+            if (! UtilValidate.isEmpty(faxNumberValue)) {
                 faxNumber = faxNumberValue.getString("areaCode") + faxNumberValue.getString("contactNumber");
                 // Fedex doesn't want the North American country code
                 if (UtilValidate.isNotEmpty(faxNumberValue.getString("countryCode")) && !(countryCode.equals("CA") || countryCode.equals("US"))) {
@@ -274,7 +274,7 @@ public class FedexServices {
             emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, ""));
             List<GenericValue> emailAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(emailConditions, EntityOperator.AND));
             GenericValue emailAddressValue = EntityUtil.getFirst(emailAddresses);
-            if(! UtilValidate.isEmpty(emailAddressValue)) {
+            if (! UtilValidate.isEmpty(emailAddressValue)) {
                 emailAddress = emailAddressValue.getString("infoString");
             }
 

@@ -159,7 +159,7 @@ public class ConfigureItem extends XPage {
         listModel.addElement(gv.get("description")); 
         
         List questions = m_pcw.getQuestions();
-        if(questions==null) ; // no questions, we shouldn't be here
+        if (questions==null) ; // no questions, we shouldn't be here
         else{
             Iterator iter = questions.iterator();
             while(iter.hasNext()) {
@@ -184,7 +184,7 @@ public class ConfigureItem extends XPage {
         questionHashMap = new Hashtable();
         
         List questions = m_pcw.getQuestions();
-        if(questions==null) ; // no questions, we shouldn't be here
+        if (questions==null) ; // no questions, we shouldn't be here
         else{
             Iterator iter = questions.iterator();
             Iterator buttons = m_buttonList.iterator();
@@ -193,7 +193,7 @@ public class ConfigureItem extends XPage {
                 XButton button = (XButton)buttons.next();
                 questionHashMap.put(button.getName(), buttonQuestion );
                 buttonQuestion.setupButton(button);
-                if(buttonQuestion instanceof ListQuestion) {
+                if (buttonQuestion instanceof ListQuestion) {
                     ((ListQuestion)buttonQuestion).setupListPane(m_optionListPane);
                 }
                 XEventHelper.addMouseHandler(this, button, "buttonPressed");
@@ -221,7 +221,7 @@ public class ConfigureItem extends XPage {
         //Debug.logInfo("Product: " +gv.get("description"), module);
         
         List questions = m_pcw.getQuestions();
-        if(questions==null) return; // no questions, return
+        if (questions==null) return; // no questions, return
      
         Iterator iter = questions.iterator();
         while(iter.hasNext()) {
@@ -272,8 +272,8 @@ public class ConfigureItem extends XPage {
         public Question get(ConfigItem question) {
 
             List options = question.getOptions();         
-            if(question.isSingleChoice()) {
-                if(options.size()>2) {
+            if (question.isSingleChoice()) {
+                if (options.size()>2) {
                    return new ListButtonQuestion(question);
                 }else{
                     //TODO: this doesn't handle the case of 
@@ -311,7 +311,7 @@ public class ConfigureItem extends XPage {
         public void setupButton(XButton button) {
             this.button = button;
             List options = question.getOptions();
-            if(question.isSelected()) {
+            if (question.isSelected()) {
                 ConfigOption selectedOption = question.getSelected();
                 showOption = options.indexOf(selectedOption);
             }
@@ -339,7 +339,7 @@ public class ConfigureItem extends XPage {
         public void reset() {
             showOption = 0;
             List options = question.getOptions();
-            if(question.isSelected()) {
+            if (question.isSelected()) {
                 ConfigOption selectedOption = question.getSelected();
                 showOption = options.indexOf(selectedOption);
             }
@@ -411,7 +411,7 @@ public class ConfigureItem extends XPage {
             try{
                 JList jlist = (JList)event.getSource();
                 boolean isAdjusting = event.getValueIsAdjusting();
-                if(!isAdjusting) {
+                if (!isAdjusting) {
                     int[] selected = jlist.getSelectedIndices();
                     //for(int i: selected) {
                     //    Debug.logInfo(""+i, module);

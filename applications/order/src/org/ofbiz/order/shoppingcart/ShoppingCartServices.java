@@ -461,7 +461,7 @@ public class ShoppingCartServices {
                 cart.setPoNumber(item.getString("correspondingPoId"));
                 
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
-                if(itemAdjustments != null) {    
+                if (itemAdjustments != null) {    
                     for(GenericValue itemAdjustment : itemAdjustments) {
                         cartItem.addAdjustment(itemAdjustment);                
                     }
@@ -923,7 +923,7 @@ public class ShoppingCartServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
-        if(shoppingCart != null) {
+        if (shoppingCart != null) {
             String isoCode = shoppingCart.getCurrency();
             result.put("totalQuantity", shoppingCart.getTotalQuantity());
             result.put("currencyIsoCode",isoCode);

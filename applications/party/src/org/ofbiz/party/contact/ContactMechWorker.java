@@ -67,11 +67,11 @@ public class ContactMechWorker {
 
         try {
             List<GenericValue> tempCol = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId));
-            if(contactMechTypeId != null) {
+            if (contactMechTypeId != null) {
                 List<GenericValue> tempColTemp = FastList.newInstance();
                 for (GenericValue partyContactMech: tempCol) {
                     GenericValue contactMech = delegator.getRelatedOne("ContactMech", partyContactMech);
-                    if(contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
+                    if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
                         
@@ -138,11 +138,11 @@ public class ContactMechWorker {
 
         try {
             List<GenericValue> tempCol = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId));
-            if(contactMechTypeId != null) {
+            if (contactMechTypeId != null) {
                 List<GenericValue> tempColTemp = FastList.newInstance();
                 for (GenericValue partyContactMech: tempCol) {
                     GenericValue contactMech = delegator.getRelatedOne("ContactMech", partyContactMech);
-                    if(contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
+                    if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
                         

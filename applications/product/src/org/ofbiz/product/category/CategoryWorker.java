@@ -459,7 +459,7 @@ public class CategoryWorker {
             CategoryContentWrapper catContentWrapper = new CategoryContentWrapper(cat, request);
             catContentWrappers.put(productCategoryId, catContentWrapper);
             List<GenericValue> subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);
-            if(subCat != null) {                
+            if (subCat != null) {                
                 getCategoryContentWrappers(catContentWrappers, subCat, request );
             }    
         }

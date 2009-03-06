@@ -307,7 +307,7 @@ public class PaymentGatewayServices {
         String orderId = (String) context.get("orderId");
         Map result = new HashMap();
         boolean reAuth = false;
-        if(context.get("reAuth") != null) {
+        if (context.get("reAuth") != null) {
             reAuth = ((Boolean)context.get("reAuth")).booleanValue();
         }
         // get the order header and payment preferences
@@ -1242,7 +1242,7 @@ public class PaymentGatewayServices {
             GenericValue productStore = orh.getProductStore();
             if (!UtilValidate.isEmpty(productStore)) {
                 boolean shipIfCaptureFails = UtilValidate.isEmpty(productStore.get("shipIfCaptureFails")) || "Y".equalsIgnoreCase(productStore.getString("shipIfCaptureFails"));
-                if(! shipIfCaptureFails) {
+                if (! shipIfCaptureFails) {
                     return ServiceUtil.returnError("Cannot ship order because credit card captures were unsuccessful");
                 }
             }

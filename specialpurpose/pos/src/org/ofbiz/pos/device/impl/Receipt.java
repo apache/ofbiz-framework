@@ -386,7 +386,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                 String[] lines = toPrint.split("\\n");
                 for (int x = 0; x < lines.length; x++) {
                     String trimmed = lines[x].trim();
-                    if(trimmed.length()>1) {  // if empty string don't println
+                    if (trimmed.length()>1) {  // if empty string don't println
                         this.println(lines[x]);
                     }
                 }
@@ -394,7 +394,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                 this.println(toPrint);
             }
             
-            if(trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
+            if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
                 List<Map> maps = trans.getItemConfigInfo(i);
                 for (Map map: maps) {
                     expandMap = this.makeCodeExpandMap(trans, type);
@@ -410,7 +410,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                         String[] lines = toPrint.split("\\n");
                         for (int x = 0; x < lines.length; x++) {
                             String trimmed = lines[x].trim();
-                            if(trimmed.length()>1) {
+                            if (trimmed.length()>1) {
                                 this.println(lines[x]);
                             }
                         }

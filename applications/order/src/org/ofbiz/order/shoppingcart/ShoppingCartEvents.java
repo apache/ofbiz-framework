@@ -367,7 +367,7 @@ public class ShoppingCartEvents {
             }
 
             //check accommodation for reservations
-            if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))) {
+            if ((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))) {
                 accommodationMapId = (String) paramMap.remove("accommodationMapId");
                 accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
             }

@@ -546,7 +546,7 @@ public class GenericDAO {
         }
 
         /*
-         if(entity == null || entity.<%=modelEntity.pkNameString(" == null || entity."," == null")%>) {
+         if (entity == null || entity.<%=modelEntity.pkNameString(" == null || entity."," == null")%>) {
          Debug.logWarning("[GenericDAO.select]: Cannot select GenericEntity: required primary key field(s) missing.", module);
          return false;
          }

@@ -208,7 +208,7 @@ public class UtilTimer {
 
         String retString = retStringBuf.toString();
 
-        // if(!quiet) Debug.logInfo(retString, module);
+        // if (!quiet) Debug.logInfo(retString, module);
         if (log && Debug.timingOn()) Debug.logTiming(retString, module);
         return retString;
     }

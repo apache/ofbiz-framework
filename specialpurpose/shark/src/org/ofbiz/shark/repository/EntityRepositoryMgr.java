@@ -410,7 +410,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         try
         {
             byte [] b = getXPDL(null, xpdlId);
-            if(b == null)
+            if (b == null)
                 return null;
             return b;
         }

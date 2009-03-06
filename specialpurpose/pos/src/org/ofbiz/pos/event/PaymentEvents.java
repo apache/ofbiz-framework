@@ -188,8 +188,8 @@ public class PaymentEvents {
                     input.clearLastFunction();
                     input.setFunction("POSTALCODE");
                     postalCodeInfo = input.getFunction("POSTALCODE");
-                    if(UtilValidate.isNotEmpty(crtInfo[1])) {
-                        if(UtilValidate.isNotEmpty(creditExpirationInfo[1])) {
+                    if (UtilValidate.isNotEmpty(crtInfo[1])) {
+                        if (UtilValidate.isNotEmpty(creditExpirationInfo[1])) {
                             // setup keyed transaction
                             msrInfoStr = crtInfo[1] + "|" + creditExpirationInfo[1];
                         }else {
@@ -233,10 +233,10 @@ public class PaymentEvents {
                             // if swiped
                             trans.setPaymentTrack2(pmId, null, track2Info[1]);
                         }else{ //keyed
-                            if(securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])) {
+                            if (securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])) {
                                 trans.setPaymentSecurityCode(pmId, null, securityCodeInfo[1]);
                             }
-                            if(postalCodeInfo != null && UtilValidate.isNotEmpty(postalCodeInfo[1])) {
+                            if (postalCodeInfo != null && UtilValidate.isNotEmpty(postalCodeInfo[1])) {
                                 trans.setPaymentPostalCode(pmId, null, postalCodeInfo[1]);
                             }
                         }

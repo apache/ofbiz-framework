@@ -638,7 +638,7 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(totalCurrencyCode)) {
                 if (UtilValidate.isEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
                     shipmentRouteSegment.set("currencyUomId", totalCurrencyCode);
-                } else if(!totalCurrencyCode.equals(shipmentRouteSegment.getString("currencyUomId"))) {
+                } else if (!totalCurrencyCode.equals(shipmentRouteSegment.getString("currencyUomId"))) {
                     errorList.add("The Currency Unit of Measure returned [" + totalCurrencyCode + "] is not the same as the original [" + shipmentRouteSegment.getString("currencyUomId") + "], setting to the new one.");
                     shipmentRouteSegment.set("currencyUomId", totalCurrencyCode);
                 }
@@ -904,7 +904,7 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(totalCurrencyCode)) {
                 if (UtilValidate.isEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
                     shipmentRouteSegment.set("currencyUomId", totalCurrencyCode);
-                } else if(!totalCurrencyCode.equals(shipmentRouteSegment.getString("currencyUomId"))) {
+                } else if (!totalCurrencyCode.equals(shipmentRouteSegment.getString("currencyUomId"))) {
                     errorList.add("The Currency Unit of Measure returned [" + totalCurrencyCode + "] is not the same as the original [" + shipmentRouteSegment.getString("currencyUomId") + "], setting to the new one.");
                     shipmentRouteSegment.set("currencyUomId", totalCurrencyCode);
                 }
@@ -1607,7 +1607,7 @@ public class UpsServices {
             Iterator<String> i = packageMap.keySet().iterator();
             String productId = i.next();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
-            if(productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
+            if (productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
                     && productInfo.get("shippingDepth") !=null && productInfo.get("shippingWidth") !=null && productInfo.get("shippingHeight") !=null ) {
                 Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
                 UtilXml.addChildElementValue(dimensionsElement, "Length", productInfo.get("shippingDepth").toString(), requestDoc);
@@ -1653,7 +1653,7 @@ public class UpsServices {
                 for (int z = 1; z <= totalQuantity.intValue(); z++) {
                     BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
                     for (long x = 0; x < pieces; x++) {
-                        if(itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
+                        if (itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
                             Map<String, BigDecimal> newPackage = FastMap.newInstance();
                             newPackage.put(productId, partialQty);
                             packages.add(newPackage);

@@ -134,7 +134,7 @@ public class SharkContainer implements Container, Runnable
         Shark.configure(props);
         
         String java_home = System.getenv("JAVA_HOME");
-        if((java_home == null) && (java_home.length() > 0))
+        if ((java_home == null) && (java_home.length() > 0))
         {
             Debug.logError("OUT :Java home variable is undefined", module);
         } else
@@ -211,7 +211,7 @@ public class SharkContainer implements Container, Runnable
         if (dispatcher != null) {
             dispatcher.deregister();
         }
-        if(p != null) {
+        if (p != null) {
             p.destroy();
         }
 

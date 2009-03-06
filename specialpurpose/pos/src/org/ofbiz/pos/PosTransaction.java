@@ -267,7 +267,7 @@ public class PosTransaction implements Serializable {
         // to use foreach in receipt.java
 
         ShoppingCartItem item = cart.findCartItem(index);
-        if(this.isAggregatedItem(item.getProductId())) {
+        if (this.isAggregatedItem(item.getProductId())) {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
             List selected = pcw.getSelectedOptions();
@@ -1239,7 +1239,7 @@ public class PosTransaction implements Serializable {
             GenericDelegator delegator = cart.getDelegator();
             ProductConfigWrapper pcw = null;
             pcw = product.getConfigWrapper();
-            if(pcw != null) {
+            if (pcw != null) {
                 ConfigureItem configItem = new ConfigureItem(cartIndex, pcw, this, pos);
                 configItem.openDlg();
             }
@@ -1293,7 +1293,7 @@ public class PosTransaction implements Serializable {
         for (GenericValue order : orders) {
             String orderName = order.getString("orderName");
             String orderId = order.getString("orderId");
-            if(orderName != null) {
+            if (orderName != null) {
                 hash.put(orderId, orderName);
             }
         }
@@ -1340,7 +1340,7 @@ public class PosTransaction implements Serializable {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
             ShoppingCart restoredCart = (ShoppingCart) svcRes.get("shoppingCart");
-            if(append) {
+            if (append) {
                 // TODO: add stuff to append items
                 this.cart = restoredCart;
                 this.orderId = orderId;

@@ -840,7 +840,7 @@ public class LoginServices {
         }
         Debug.logInfo(" password.change.history.limit is set to " + passwordChangeHistoryLimit, module);
         Debug.logInfo(" userLogin is set to " + userLogin, module);
-        if(passwordChangeHistoryLimit > 0 && userLogin != null ) {
+        if (passwordChangeHistoryLimit > 0 && userLogin != null ) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
             GenericDelegator delegator = userLogin.getDelegator();
             String newPasswordHash = newPassword;
@@ -850,7 +850,7 @@ public class LoginServices {
             try {
                 List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash));
                 Debug.logInfo(" checkNewPassword pwdHistListpwdHistList " + pwdHistList.size(), module);
-                if(pwdHistList.size() >0) {
+                if (pwdHistList.size() >0) {
                     Map<String, Integer> messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);
                     errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_different_from_last_passwords", messageMap, locale);
                     errorMessageList.add(errMsg);

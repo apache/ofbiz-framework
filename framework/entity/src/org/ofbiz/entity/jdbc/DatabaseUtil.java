@@ -1733,7 +1733,7 @@ public class DatabaseUtil {
             sqlBuf.append(" ");
             sqlBuf.append(type.getSqlType());
 
-            if("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
+            if ("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
                 // if there is a characterSet, add the CHARACTER SET arg here
                 if (UtilValidate.isNotEmpty(this.datasourceInfo.characterSet)) {
                     sqlBuf.append(" CHARACTER SET ");
@@ -1933,7 +1933,7 @@ public class DatabaseUtil {
         sqlBuf.append(" ");
         sqlBuf.append(type.getSqlType());
 
-        if("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
+        if ("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
             // if there is a characterSet, add the CHARACTER SET arg here
             if (UtilValidate.isNotEmpty(this.datasourceInfo.characterSet)) {
                 sqlBuf.append(" CHARACTER SET ");
@@ -1961,7 +1961,7 @@ public class DatabaseUtil {
             sql2Buf.append(" ");
             sql2Buf.append(type.getSqlType());
 
-            if("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
+            if ("String".equals(type.getJavaType()) || "java.lang.String".equals(type.getJavaType())) {
                 // if there is a characterSet, add the CHARACTER SET arg here
                 if (UtilValidate.isNotEmpty(this.datasourceInfo.characterSet)) {
                     sql2Buf.append(" CHARACTER SET ");
@@ -3225,7 +3225,7 @@ public class DatabaseUtil {
                     messages.add("Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not creating table.");
                     continue;
                 }
-                if(!"String".equals(type.getJavaType()) && !"java.lang.String".equals(type.getJavaType())) {
+                if (!"String".equals(type.getJavaType()) && !"java.lang.String".equals(type.getJavaType())) {
                     continue;
                 }
 

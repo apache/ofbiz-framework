@@ -1036,7 +1036,7 @@ public class UtilHttp {
                 }
                 if (!paramNames.contains(name)) {
                     cleanQuery.append(token);
-                    if(queryTokens.hasMoreTokens()) {
+                    if (queryTokens.hasMoreTokens()) {
                         cleanQuery.append("&");
                     }
                 }

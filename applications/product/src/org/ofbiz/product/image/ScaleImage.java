@@ -90,7 +90,7 @@ public class ScaleImage {
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
         resultXMLMap.putAll((Map<String, Object>) ImageTransform.getXMLValue(imgPropertyFullPath, locale));
-        if(resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
+        if (resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll((Map<String, Map<String, String>>) resultXMLMap.get("xml"));
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
@@ -111,10 +111,10 @@ public class ScaleImage {
 
         String id = null;
         String type = null;
-        if(viewType.toLowerCase().contains("main")) {
+        if (viewType.toLowerCase().contains("main")) {
             type = "original";
             id = imgName;
-        } else if(viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")) {
+        } else if (viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")) {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
         } else {
@@ -195,7 +195,7 @@ public class ScaleImage {
                     String newFileLocation = null;
                     if (viewType.toLowerCase().contains("main")) {
                         newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", sizeType, "id", id));
-                    } else if(viewType.toLowerCase().contains("additional")) {
+                    } else if (viewType.toLowerCase().contains("additional")) {
                         newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "viewtype", viewType, "sizetype", sizeType,"id", id));
                     }
                     String newFilePathPrefix = "";

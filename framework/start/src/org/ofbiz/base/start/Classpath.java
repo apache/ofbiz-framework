@@ -78,7 +78,7 @@ public class Classpath {
 
     
     private void appendPath(StringBuilder cp, String path) {
-        if(path.indexOf(' ') >= 0) {
+        if (path.indexOf(' ') >= 0) {
             cp.append('\"');
             cp.append(path);
             cp.append('"');

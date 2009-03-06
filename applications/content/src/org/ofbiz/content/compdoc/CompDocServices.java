@@ -195,7 +195,7 @@ public class CompDocServices {
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");
                 GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", thisDataResourceId));
                 String inputMimeType = null;
-                if(dataResource != null) {
+                if (dataResource != null) {
                     inputMimeType = dataResource.getString("mimeTypeId");
                 }
                 byte [] inputByteArray = null;
@@ -344,7 +344,7 @@ public class CompDocServices {
                 dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
             }
             String inputMimeType = null;
-            if(dataResource != null) {
+            if (dataResource != null) {
                 inputMimeType = dataResource.getString("mimeTypeId");
             }
             byte [] inputByteArray = null;

@@ -531,7 +531,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             
             // check to see if the related fixed asset is available for rent
             String isAvailable = checkAvailability(product.getString("productId"), quantity, reservStart, reservLength, cart);
-            if(isAvailable.compareTo("OK") != 0) {
+            if (isAvailable.compareTo("OK") != 0) {
                 Map messageMap = UtilMisc.toMap("productId", product.getString("productId"), 
                                                 "availableMessage", isAvailable);
                 String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available",
@@ -890,7 +890,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
-        if(techDataCalendar == null) {            
+        if (techDataCalendar == null) {            
             // no calendar ok, when not more that total capacity
             if (fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) >= 0) {
                 String msg = UtilProperties.getMessage(resource_error, "item.availableOk", cart.getLocale());
@@ -1228,7 +1228,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (addDays.compareTo(BigDecimal.ZERO) == 0)
                 return this.reservStart;
         else    {
-            if(this.reservStart != null)
+            if (this.reservStart != null)
                 return new Timestamp((long)(this.reservStart.getTime() + (addDays.doubleValue() * 86400000.0)));
             else
                 return null;
@@ -1947,7 +1947,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (persons.compareTo(BigDecimal.ONE) > 0)    {
             if (persons.compareTo(new BigDecimal("2")) > 0 ) {
                 persons = persons.subtract(new BigDecimal("2"));
-                if(getReservNthPPPerc().compareTo(BigDecimal.ZERO) > 0) {
+                if (getReservNthPPPerc().compareTo(BigDecimal.ZERO) > 0) {
                     rentalValue = persons.multiply(getReservNthPPPerc());
                 } else {
                     rentalValue = persons.multiply(getReserv2ndPPPerc());

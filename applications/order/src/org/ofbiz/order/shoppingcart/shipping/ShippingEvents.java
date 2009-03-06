@@ -68,7 +68,7 @@ public class ShippingEvents {
         int shipGroups = cart.getShipGroupSize();
         for (int i = 0; i < shipGroups; i++) {
             String shipmentMethodTypeId = cart.getShipmentMethodTypeId(i);
-            if(UtilValidate.isEmpty(shipmentMethodTypeId)) {
+            if (UtilValidate.isEmpty(shipmentMethodTypeId)) {
                 continue;
             }
             Map result = getShipGroupEstimate(dispatcher, delegator, cart, i);
@@ -279,12 +279,12 @@ public class ShippingEvents {
         // invoke the external shipping estimate service
         String serviceName = (String)storeShipMeth.get("serviceName");
         BigDecimal externalShipAmt = null;
-        if(serviceName != null) {
+        if (serviceName != null) {
             String doEstimates = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true");
             //If all estimates are not turned off, check for the individual one
-            if("true".equals(doEstimates)) {
+            if ("true".equals(doEstimates)) {
                 String dothisEstimate = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck." + serviceName, "true");
-                if("false".equals(dothisEstimate))
+                if ("false".equals(dothisEstimate))
                  serviceName = null;
             } else {
                 //Rate checks inhibited
