@@ -95,7 +95,7 @@ public class ContentManagementServices {
         try {
             view = ContentWorker.getSubContentCache( delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, Boolean.FALSE, null);
             content = ContentWorker.getContentFromView(view);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         }
 
@@ -118,7 +118,7 @@ public class ContentManagementServices {
 
         try {
             view = ContentWorker.getContentCache( delegator, contentId);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         }
 
@@ -297,7 +297,7 @@ public class ContentManagementServices {
                 try {
                     GenericValue val = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
                     if (val == null) contentExists = false;
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
                 }
             }
@@ -354,7 +354,7 @@ public class ContentManagementServices {
                             contentPurpose.create();
                         }
                     }
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
                 }
             }
@@ -473,7 +473,7 @@ public class ContentManagementServices {
       List siteRoles = null;
       try {
           siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
-      } catch(GenericEntityException e) {
+      } catch (GenericEntityException e) {
           return ServiceUtil.returnError( e.toString());
       }
         
@@ -616,7 +616,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               GenericValue val = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
               if (val == null)
                   dataResourceExists = false;
-          } catch(GenericEntityException e) {
+          } catch (GenericEntityException e) {
               return ServiceUtil.returnError(e.toString());
           }
       }
@@ -796,7 +796,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       List siteRoles = null;
       try {
             siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
-      } catch(GenericEntityException e) {
+      } catch (GenericEntityException e) {
           return ServiceUtil.returnError( e.toString());
       }
       Iterator siteRoleIter = siteRoles.iterator();
@@ -960,7 +960,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                  }
                  seqNum += seqIncrement;
              }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
          }
@@ -1019,7 +1019,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 serviceIn.put("sequenceNum", Long.valueOf(50));
                 try {
                     Map thisResult = dispatcher.runSync("persistContentAndAssoc", serviceIn);
-                } catch(ServiceAuthException e) {
+                } catch (ServiceAuthException e) {
                     return ServiceUtil.returnError(e.toString());             
                 }
                 
@@ -1027,7 +1027,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, contentId, typeList);
             }
             
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
         }
@@ -1047,7 +1047,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         try {
             int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, startContentId, typeList);
             result.put("leafCount", Integer.valueOf(leafCount));
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
         }
@@ -1103,7 +1103,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             }
         
         
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
         }
@@ -1151,7 +1151,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                     updatePageNodeChildren(kidContent, context);
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -1198,7 +1198,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                     }
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -1335,7 +1335,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
          try {
              List lst = delegator.findList("ContentAssocDataResourceViewFrom", entityCondList, null, UtilMisc.toList("caSequenceNum", "caFromDate", "createdDate"), null, false);
              results.put("_LIST_", lst);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
         }
@@ -1399,7 +1399,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 int changeBranchCount = 1;
                 
                 ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
             }
         return result;
@@ -1425,7 +1425,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 int changeBranchCount = -1;
                 
                 ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
             }
         return result;
@@ -1446,7 +1446,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         
         try {
             ContentManagementWorker.updateStatsTopDown(delegator, contentId, typeList);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -1557,7 +1557,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             } else if (listOrdered.size() > 0) {
                 productContent = (GenericValue) listOrdered.get(0);   
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -1622,7 +1622,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                     Map thisResult = dispatcher.runSync("updateContentSubscriptionByProduct", ctx);   
                 }
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -1656,7 +1656,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             
             GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             result = followNodeChildrenMethod(content, dispatcher, serviceName, ctx);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -1708,7 +1708,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       if (UtilValidate.isNotEmpty(oldDataResourceId)) {
           try {
               dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId));
-          } catch(GenericEntityException e) {
+          } catch (GenericEntityException e) {
               Debug.logError(e.toString(), module);
               return ServiceUtil.returnError(e.toString());
           }

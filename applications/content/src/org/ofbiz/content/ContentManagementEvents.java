@@ -77,7 +77,7 @@ public class ContentManagementEvents {
             allPublishPointList = ContentManagementWorker.getAllPublishPoints(delegator, webSiteId);
             permittedPublishPointList = ContentManagementWorker.getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security, "_ADMIN", null, null);
             valueList = ContentManagementWorker.getStaticValues(delegator, parentPlaceholderId, permittedPublishPointList);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             Debug.logError(e.getMessage(), module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -139,7 +139,7 @@ public class ContentManagementEvents {
                                 Map results = dispatcher.runSync("updateContentAssoc", serviceIn);
                         }
                     }
-                } catch(GenericServiceException e) {
+                } catch (GenericServiceException e) {
                     Debug.logError(e.getMessage(), module);
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
@@ -201,10 +201,10 @@ public class ContentManagementEvents {
             // TODO: this needs to be given author userLogin
             GenericValue authorUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", authorId));
             origPublishedLinkList = ContentManagementWorker.getPublishedLinks(delegator, targContentId, webSiteId, userLogin, security, permittedAction, permittedOperations, roles );
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
-        } catch(GeneralException e2) {
+        } catch (GeneralException e2) {
             request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
             return "error";
         }
@@ -314,7 +314,7 @@ public class ContentManagementEvents {
                                 targContent.set("statusId", "CTNT_PUBLISHED");
                                 targContent.store();
                                 statusIdUpdated = true;
-                            } catch(GenericEntityException e) {
+                            } catch (GenericEntityException e) {
                                 Debug.logError(e.getMessage(), module);
                                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                                 return "error";
@@ -338,11 +338,11 @@ public class ContentManagementEvents {
                         cAssoc.store();
                     }
                 }
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                     Debug.logError(e.getMessage(), module);
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
-            } catch(GenericServiceException e2) {
+            } catch (GenericServiceException e2) {
                     Debug.logError(e2, module);
                     request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
                     return "error";

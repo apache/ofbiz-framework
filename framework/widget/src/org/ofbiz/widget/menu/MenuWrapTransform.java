@@ -99,7 +99,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
             } else {
                 Debug.logError("Not rendering content, not ContentWorker found.", module);
             }
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
         final GenericValue view = val;

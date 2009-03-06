@@ -352,7 +352,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     numberRead += reader.parse(s);
                 } catch (TemplateException e) {
                     throw new SAXException("Error storing value", e);
-                } catch(IOException e) {
+                } catch (IOException e) {
                     throw new SAXException("Error storing value", e);
                 }
             }

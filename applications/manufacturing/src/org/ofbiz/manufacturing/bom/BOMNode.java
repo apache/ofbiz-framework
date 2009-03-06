@@ -149,7 +149,7 @@ public class BOMNode {
                 BigDecimal ruleQuantity = BigDecimal.ZERO;
                 try {
                     ruleQuantity = rule.getBigDecimal("quantity");
-                } catch(Exception exc) {
+                } catch (Exception exc) {
                     ruleQuantity = BigDecimal.ZERO;
                 }
 
@@ -201,7 +201,7 @@ public class BOMNode {
         oneChildNode.setProductAssoc(node);
         try {
             oneChildNode.setQuantityMultiplier(node.getBigDecimal("quantity"));
-        } catch(Exception nfe) {
+        } catch (Exception nfe) {
             oneChildNode.setQuantityMultiplier(BigDecimal.ONE);
         }
         try {
@@ -216,7 +216,7 @@ public class BOMNode {
                 percScrapFactor = BigDecimal.ONE;
             }
             oneChildNode.setScrapFactor(percScrapFactor);
-        } catch(Exception nfe) {
+        } catch (Exception nfe) {
             oneChildNode.setScrapFactor(BigDecimal.ONE);
         }
         BOMNode newNode = oneChildNode;
@@ -393,7 +393,7 @@ public class BOMNode {
             BigDecimal bomQuantity = BigDecimal.ZERO;
             try {
                 bomQuantity = oneChild.getBigDecimal("quantity");
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 bomQuantity = BigDecimal.ONE;
             }
             oneChildNode = (BOMNode)childrenNodes.get(i);
@@ -415,7 +415,7 @@ public class BOMNode {
                 if (genericService != null && genericService.getString("customMethodName") != null) {
                     serviceName = genericService.getString("customMethodName");
                 }
-            } catch(Exception exc) {
+            } catch (Exception exc) {
             }
         }
         if (serviceName != null) {
@@ -641,7 +641,7 @@ public class BOMNode {
                     }
                 }
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isWarehouseManaged()", module);
         }
     return isWarehouseManaged;
@@ -656,7 +656,7 @@ public class BOMNode {
         List supplierProducts = null;
         try {
             supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"), UtilMisc.toList("minimumOrderQuantity"));
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isManufactured()", module);
         }
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);

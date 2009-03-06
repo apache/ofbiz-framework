@@ -272,7 +272,7 @@ public class CheckOutHelper {
                             }
                         }
                     }
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     Debug.logWarning("Error copying billing account terms to order terms: " + gee.getMessage(), module);
                 }
             } else {

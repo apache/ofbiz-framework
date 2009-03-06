@@ -423,7 +423,7 @@ public class OrderReturnServices {
                     GenericValue item = null;
                     try {
                         item = orderItemQuantityIssued.getRelatedOne("OrderItem");
-                    } catch( GenericEntityException e ) {
+                    } catch ( GenericEntityException e ) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemInformation", locale));
                     }
@@ -931,7 +931,7 @@ public class OrderReturnServices {
                     if (UtilValidate.isNotEmpty(orgAcctgPref)) {
                         try {
                             refundPaymentMethod = orgAcctgPref.getRelatedOne("PaymentMethod");
-                        } catch( GenericEntityException e ) {
+                        } catch ( GenericEntityException e ) {
                             Debug.logError("Error retrieving related refundPaymentMethod from PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);    
                         }
                     }
@@ -1001,7 +1001,7 @@ public class OrderReturnServices {
                 List otherPaymentMethodTypes = new ArrayList();
                 try {
                     otherPaymentMethodTypes = delegator.findList("PaymentMethodType", pmtConditionList, null, null, null, true);
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get PaymentMethodTypes", module);
                     return ServiceUtil.returnError("Problems getting PaymentMethodTypes: " + e.toString());
                 }
@@ -1539,7 +1539,7 @@ public class OrderReturnServices {
                                         GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", quantity));
                                         orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
                                     }
-                                } catch(GenericEntityException gee) {
+                                } catch (GenericEntityException gee) {
                                     Debug.logError(gee, module);
                                 }
                                 // Create an association between the replacement order item and the order item of the original order
@@ -1595,7 +1595,7 @@ public class OrderReturnServices {
                                                 Map priceResult = null;
                                                 try {
                                                     priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
-                                                } catch(GenericServiceException gse) {
+                                                } catch (GenericServiceException gse) {
                                                     Debug.logError(gse, module);
                                                     continue;
                                                 }

@@ -119,7 +119,7 @@ public class ProposedOrder {
                             tree.setRootQuantity(quantity);
                             tree.print(components, true);
                             if (components.size() > 0) components.remove(0);
-                        } catch(Exception exc) {
+                        } catch (Exception exc) {
                             Debug.logWarning(exc.getMessage(), module);
                             tree = null;
                         }
@@ -129,7 +129,7 @@ public class ProposedOrder {
                             routing = (GenericValue)routingOutMap.get("routing");
                         }
                     }
-                } catch(GenericServiceException gse) {
+                } catch (GenericServiceException gse) {
                     Debug.logWarning(gse.getMessage(), module);
                 }
             }
@@ -141,7 +141,7 @@ public class ProposedOrder {
                         Map routingTasksInMap = UtilMisc.toMap("workEffortId", routing.getString("workEffortId"), "userLogin", userLogin);
                         Map routingTasksOutMap = dispatcher.runSync("getRoutingTaskAssocs", routingTasksInMap);
                         listRoutingTaskAssoc = (List)routingTasksOutMap.get("routingTaskAssocs");
-                    } catch(GenericServiceException gse) {
+                    } catch (GenericServiceException gse) {
                         Debug.logWarning(gse.getMessage(), module);
                     }
                 }
@@ -189,7 +189,7 @@ public class ProposedOrder {
             try {
                 GenericValue techDataCalendar = product.getDelegator().findByPrimaryKeyCache("TechDataCalendar", UtilMisc.toMap("calendarId", "SUPPLIER"));
                 startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), module);
             }
         }

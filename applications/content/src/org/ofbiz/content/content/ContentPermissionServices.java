@@ -123,7 +123,7 @@ public class ContentPermissionServices {
                     if (userLogin != null) {
                         partyId = userLogin.getString("partyId");   
                     }
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     ServiceUtil.returnError(e.getMessage());
                 }
             }

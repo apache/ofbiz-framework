@@ -119,7 +119,7 @@ public class BsfEventHandler implements EventHandler {
             }
             
             return (String) result;
-        } catch(BSFException e) {        
+        } catch (BSFException e) {        
             throw new EventHandlerException("BSF Error", e);
         } catch (IOException e) {
             throw new EventHandlerException("Problems reading script", e);     

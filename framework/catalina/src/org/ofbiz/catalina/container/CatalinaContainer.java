@@ -419,7 +419,7 @@ public class CatalinaContainer implements Container {
         try {
             MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProps, "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).newInstance();
             trans.setTransport(mps);
-        } catch(Exception exc) {
+        } catch (Exception exc) {
             throw new ContainerException("Cluster configuration requires a valid replication-mode property: " + exc.getMessage());
         }
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProps, "manager-class", "org.apache.catalina.cluster.session.DeltaManager");

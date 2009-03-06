@@ -59,7 +59,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
             } else {
                 Debug.logError("Not rendering image because can't get WebSitePublishPoint, not ContentWorker found.", module);
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
                 //Debug.logInfo("in HtmlMenuRendererImage, GEException:" + e.getMessage(),"");
             throw new RuntimeException(e.getMessage());
         }

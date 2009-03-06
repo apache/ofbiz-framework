@@ -678,11 +678,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 writer.append(renderedContent);
             }
 
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
             Debug.logError(e, errMsg, module);
             //throw new RuntimeException(errMsg);
-        } catch(IOException e2) {
+        } catch (IOException e2) {
             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e2.toString();
             Debug.logError(e2, errMsg, module);
             //throw new RuntimeException(errMsg);
@@ -799,11 +799,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     writer.append(renderedContent);
                 }
 
-            } catch(GeneralException e) {
+            } catch (GeneralException e) {
                 String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
                 Debug.logError(e, errMsg, module);
                 //throw new RuntimeException(errMsg);
-            } catch(IOException e2) {
+            } catch (IOException e2) {
                 String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e2.toString();
                 Debug.logError(e2, errMsg, module);
                 //throw new RuntimeException(errMsg);
@@ -841,7 +841,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 GenericValue view = null;
                 try {
                     view = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, userLogin, null, UtilDateTime.nowTimestamp(), Boolean.valueOf(false), null);
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     throw new IOException("Originally a GenericEntityException. " + e.getMessage());
                 }
                 */

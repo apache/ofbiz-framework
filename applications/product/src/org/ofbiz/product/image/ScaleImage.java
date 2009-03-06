@@ -184,7 +184,7 @@ public class ScaleImage {
 
                     try {
                         op = new AffineTransformOp(tx, rh);
-                    } catch(ImagingOpException e) {
+                    } catch (ImagingOpException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.transform_is_non_invertible", locale)  + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
@@ -217,12 +217,12 @@ public class ScaleImage {
                     // write new image
                     try {
                         ImageIO.write(op.filter(bufImg, bufNewImg), imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
-                    } catch(IllegalArgumentException e) {
+                    } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);
                         return result;
-                    } catch(IOException e) {
+                    } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, module);
                         result.put("errorMessage", errMsg);

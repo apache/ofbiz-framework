@@ -53,7 +53,7 @@ public class DataResourceDocument {
         GenericValue dataResource = null;
           try {
               dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId",id));
-          } catch(GenericEntityException e) {
+          } catch (GenericEntityException e) {
               Debug.logError(e, module);
               return doc;
           }
@@ -76,9 +76,9 @@ public class DataResourceDocument {
         StringWriter outWriter = new StringWriter();
           try {
               DataResourceWorker.writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
-          } catch(GeneralException e) {
+          } catch (GeneralException e) {
               Debug.logError(e, module);
-          } catch(IOException e) {
+          } catch (IOException e) {
               Debug.logError(e, module);
           }
           String text = outWriter.toString();

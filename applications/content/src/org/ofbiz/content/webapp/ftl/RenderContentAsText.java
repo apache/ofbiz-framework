@@ -86,7 +86,7 @@ public class RenderContentAsText implements TemplateTransformModel {
         GenericValue val = null;
         try {
             val = FreeMarkerWorker.getCurrentContent(delegator, trail, userLogin, templateRoot, nullThruDatesOnly, contentAssocPredicateId);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
         final GenericValue view = val;

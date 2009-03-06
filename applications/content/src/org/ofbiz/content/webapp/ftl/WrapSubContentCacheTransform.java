@@ -98,7 +98,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         GenericValue val = null;
         try {
             val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
                 //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, trail(1):" + trail, "");

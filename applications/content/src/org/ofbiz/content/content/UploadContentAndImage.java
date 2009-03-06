@@ -324,12 +324,12 @@ public class UploadContentAndImage {
             request.setAttribute("passedParams", passedParams);
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]newTrail: " + newTrail, module);
             TransactionUtil.commit();
-        } catch( Exception e) {
+        } catch ( Exception e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                     TransactionUtil.rollback();
-            } catch(GenericTransactionException e2) {
+            } catch (GenericTransactionException e2) {
             request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
             return "error";
             }
@@ -402,7 +402,7 @@ public class UploadContentAndImage {
                 if (returnMsg.equals("error")) {
                     try {
                         TransactionUtil.rollback();
-                    } catch(GenericTransactionException e2) {
+                    } catch (GenericTransactionException e2) {
                         ServiceUtil.setMessages(request, e2.getMessage(), null, null);
                         return "error";
                     }
@@ -410,12 +410,12 @@ public class UploadContentAndImage {
                 }
             }
             TransactionUtil.commit();
-        } catch( Exception e) {
+        } catch ( Exception e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
-            } catch(GenericTransactionException e2) {
+            } catch (GenericTransactionException e2) {
                 request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
                 return "error";
             }
@@ -453,7 +453,7 @@ public class UploadContentAndImage {
                     Long sequenceNum = null;
                     try {
                         sequenceNum = Long.valueOf((String)objSequenceNum);
-                    } catch(NumberFormatException e) {}
+                    } catch (NumberFormatException e) {}
                     passedParams.put("caSequenceNum", sequenceNum);
                 }
             }
@@ -483,7 +483,7 @@ public class UploadContentAndImage {
                 ftlContext3 = FastMap.newInstance();
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", ftlContext2, ftlContext3, errorMessages, loc);
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", ftlContext3, ftlContext, errorMessages, loc);
-            } catch(MiniLangException e) {
+            } catch (MiniLangException e) {
                 throw new GenericServiceException(e.getMessage());
             }
 
@@ -498,7 +498,7 @@ public class UploadContentAndImage {
             Map ftlResults = null;
             try {
                 ftlResults = dispatcher.runSync("persistContentAndAssoc", ftlContext);
-            } catch(ServiceAuthException e) {
+            } catch (ServiceAuthException e) {
                 String msg = e.getMessage();
                 request.setAttribute("_ERROR_MESSAGE_", msg);
                 List errorMsgList = (List)request.getAttribute("_EVENT_MESSAGE_LIST_");
@@ -539,7 +539,7 @@ public class UploadContentAndImage {
                 resequenceContext.put("userLogin", userLogin);
                 try {
                     ftlResults = dispatcher.runSync("resequence", resequenceContext);
-                } catch(ServiceAuthException e) {
+                } catch (ServiceAuthException e) {
                     msg = e.getMessage();
                     request.setAttribute("_ERROR_MESSAGE_", msg);
                     List errorMsgList = (List)request.getAttribute("_EVENT_MESSAGE_LIST_");

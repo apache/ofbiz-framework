@@ -172,7 +172,7 @@ public class TechDataServices {
                 } catch (GenericEntityException e) {
                     Debug.logError("Pb reading TechDataCalendar associated with machineGroup"+e.getMessage(), module);
                 }
-            }else {
+            } else {
                 try {
                     List  machines = machineGroup.getRelatedCache("ChildFixedAsset");
                     if (machines != null && machines.size()>0) {

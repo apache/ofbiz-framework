@@ -57,7 +57,7 @@ public class ConfigXMLReader {
     public static URL getControllerConfigURL(ServletContext context) {
         try {
             return context.getResource(controllerXmlFileName);
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             Debug.logError(e, "Error Finding XML Config File: " + controllerXmlFileName, module);
             return null;
         }
@@ -280,7 +280,7 @@ public class ConfigXMLReader {
                     URL controllerUrl = null;
                     try {
                         controllerUrl = controllerFile.toURL();
-                    } catch(MalformedURLException mue) {
+                    } catch (MalformedURLException mue) {
                         throw new GeneralException(mue);
                     }
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);

@@ -964,11 +964,11 @@ public class ProductServices {
             Map<String, Object> resultResize = FastMap.newInstance();
             try {
                 resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
-            } catch(IOException e) {
+            } catch (IOException e) {
                 String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
-            } catch(JDOMException e) {
+            } catch (JDOMException e) {
                 String errMsg = "Errors occur in parsing ImageProperties.xml : " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);

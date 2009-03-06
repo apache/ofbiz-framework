@@ -398,7 +398,7 @@ public class ProductsExportToGoogle {
     					if (UtilValidate.isNotEmpty(googleProduct)) {
     						googleProductId = googleProduct.getString("idValue");
     					}
-    				} catch(GenericEntityException gee) {
+    				} catch (GenericEntityException gee) {
     					Debug.logError("Unable to obtain GoodIdentification entity value of the Google id for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
     				}
     			}
@@ -452,7 +452,7 @@ public class ProductsExportToGoogle {
     				if (UtilValidate.isNotEmpty(googleProduct)) {
     					UtilXml.addChildElementValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument);
     				}
-    			} catch(GenericEntityException gee) {
+    			} catch (GenericEntityException gee) {
     				Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
     			}
 

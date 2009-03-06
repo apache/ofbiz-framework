@@ -94,7 +94,7 @@ public class OpenOfficeWorker{
          
             // Create a service manager from the initial object
             xmulticomponentfactory = (XMultiComponentFactory) UnoRuntime.queryInterface(XMultiComponentFactory.class, objectInitial);
-        } catch(Exception e) {
+        } catch (Exception e) {
             // TODO: None of this works. Need a programmable start solution.
             //String ooxvfb = UtilProperties.getPropertyValue("openoffice-uno", "oo.start.xvfb");
             //String ooexport = UtilProperties.getPropertyValue("openoffice-uno", "oo.start.export");
@@ -123,10 +123,10 @@ public class OpenOfficeWorker{
             factory = getRemoteServer("localhost", "8100");
             List filterList = getFilterNames(factory);
             request.setAttribute("filterList", filterList);
-        } catch(IOException e) {
+        } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
-        } catch(Exception e) {
+        } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }

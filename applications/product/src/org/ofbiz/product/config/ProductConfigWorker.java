@@ -74,9 +74,9 @@ public class ProductConfigWorker {
             } else {
                 configWrapper = new ProductConfigWrapper(productConfigCache.get(cacheKey));
             }
-        } catch(ProductConfigWrapperException we) {
+        } catch (ProductConfigWrapperException we) {
             configWrapper = null;
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logWarning(e.getMessage(), module);
         }
         return configWrapper;
@@ -97,7 +97,7 @@ public class ProductConfigWorker {
                         if (UtilValidate.isNotEmpty(comments)) {
                             try {
                                 configWrapper.setSelected(k, i, comments);
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 Debug.logWarning(e.getMessage(), module);
                             }                            
                         }
@@ -167,7 +167,7 @@ public class ProductConfigWorker {
                             }
                         }
                     } 
-                } catch(Exception e) {
+                } catch (Exception e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
             }

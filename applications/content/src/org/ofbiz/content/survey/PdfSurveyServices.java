@@ -225,7 +225,7 @@ public class PdfSurveyServices {
             String errMsg = "Error generating PDF: " + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
@@ -302,7 +302,7 @@ public class PdfSurveyServices {
             String errMsg = "Error generating PDF: " + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
@@ -344,13 +344,13 @@ public class PdfSurveyServices {
                 acroFieldMap.put(fieldName, parmValue);
             }            
                  
-        } catch(DocumentException e) {
+        } catch (DocumentException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
             ServiceUtil.returnError(ioe.getMessage());
         }
@@ -408,19 +408,19 @@ public class PdfSurveyServices {
             baos.close();
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
-        } catch(DocumentException e) {
+        } catch (DocumentException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
             ServiceUtil.returnError(ioe.getMessage());
-        } catch(Exception ioe) {
+        } catch (Exception ioe) {
             System.err.println(ioe.getMessage());
             ServiceUtil.returnError(ioe.getMessage());
         }
@@ -619,10 +619,10 @@ public class PdfSurveyServices {
                 fos.write(outByteBuffer.array());
                 fos.close();
             }
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
@@ -647,9 +647,9 @@ public class PdfSurveyServices {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     while ((c = fis.read()) != -1) baos.write(c);
                     inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
-                } catch(FileNotFoundException e) {
+                } catch (FileNotFoundException e) {
                     throw(new GeneralException(e.getMessage()));
-                } catch(IOException e) {
+                } catch (IOException e) {
                     throw(new GeneralException(e.getMessage()));
                 }
             } else if (UtilValidate.isNotEmpty(contentId)) {

@@ -2120,7 +2120,7 @@ public class ShoppingCart implements Serializable {
             GenericValue shippingAddress = null;
             try {
                 shippingAddress = this.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + shippingContactMechId + "].", module);
             }
             if (shippingAddress != null) {
@@ -4422,7 +4422,7 @@ public class ShoppingCart implements Serializable {
                 GenericValue shippingAddress = null;
                 try {
                     shippingAddress = item.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", this.internalContactMechId));
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + this.internalContactMechId + "].", module);
                 }
                 if (shippingAddress != null) {

@@ -1047,7 +1047,7 @@ public class ContentServices {
         try {
             content.put("statusId", "CTNT_PUBLISHED");
             content.store(); 
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }

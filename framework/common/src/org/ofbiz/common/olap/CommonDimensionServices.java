@@ -87,7 +87,7 @@ public class CommonDimensionServices {
             GenericValue dateValue = null;
             try {
                 dateValue = EntityUtil.getFirst(delegator.findByAnd("DateDimension", UtilMisc.toMap("dateValue", currentDate)));
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(gee.getMessage());
             }
             boolean newValue = (dateValue == null);
@@ -117,7 +117,7 @@ public class CommonDimensionServices {
                 } else {
                     dateValue.store();
                 }
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(gee.getMessage());
             }
             calendar.add(Calendar.DATE, 1);

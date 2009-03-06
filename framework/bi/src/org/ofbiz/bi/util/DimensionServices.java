@@ -63,7 +63,7 @@ public class DimensionServices {
         try {
             // TODO: improve performance
             lastDimensionValue = EntityUtil.getFirst(delegator.findByAnd(dimensionEntityName, naturalKeyFields, UtilMisc.toList("-createdTxStamp")));
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
         }
         if (UtilValidate.isNotEmpty(lastDimensionValue)) {
@@ -91,7 +91,7 @@ public class DimensionServices {
             List<GenericValue> existingDimensionValues = null;
             try {
                 existingDimensionValues = delegator.findByAnd(dimensionValue.getEntityName(), andCondition);
-            } catch(GenericEntityException gee) {
+            } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(gee.getMessage());
             }
             if (UtilValidate.isEmpty(existingDimensionValues)) {
@@ -113,7 +113,7 @@ public class DimensionServices {
                     return ServiceUtil.returnError("The update mode: " + updateMode + " is still not supported.");
                 }
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
         }
         return ServiceUtil.returnSuccess();

@@ -357,7 +357,7 @@ public class FedexServices {
     
             result.put("meterNumber", meterNumber);
 
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }

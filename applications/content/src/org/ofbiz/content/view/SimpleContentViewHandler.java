@@ -148,11 +148,11 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 fileName = dataResource.getString("dataResourceName").replace(" ", "_"); // spaces in filenames can be a problem
             }
             UtilHttp.streamContentToBrowser(response, bais, byteBuffer.limit(), contentType2, fileName);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new ViewHandlerException(e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new ViewHandlerException(e.getMessage());
-        } catch(GeneralException e) {
+        } catch (GeneralException e) {
             throw new ViewHandlerException(e.getMessage());
         }
     }

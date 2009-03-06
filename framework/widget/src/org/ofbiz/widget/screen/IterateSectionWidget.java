@@ -168,7 +168,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 if (globalCtx != null) {
                     globalCtx.put("PAGINATOR_NUMBER", lastPageNumber);
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Debug.logError(e, module);   
                 throw new RuntimeException(e.getMessage());
             }
@@ -201,7 +201,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public void setViewSize(String val) {
         try {
             viewSize = Integer.parseInt(val);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             viewSize = DEFAULT_PAGE_SIZE;   
         }
     }

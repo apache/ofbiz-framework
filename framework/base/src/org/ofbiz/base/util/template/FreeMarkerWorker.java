@@ -373,7 +373,7 @@ public class FreeMarkerWorker {
         Object o = null;
         try {
             o = args.get(key);
-        } catch(TemplateModelException e) {
+        } catch (TemplateModelException e) {
             Debug.logVerbose(e.getMessage(), module);
             return returnObj;
         }
@@ -384,7 +384,7 @@ public class FreeMarkerWorker {
             Object ctxObj = null;
             try {
                 ctxObj = args.get("context");
-            } catch(TemplateModelException e) {
+            } catch (TemplateModelException e) {
                 Debug.logInfo(e.getMessage(), module);
                 return returnObj;
             }
@@ -399,7 +399,7 @@ public class FreeMarkerWorker {
                 if (templateContext != null) {
                     returnObj = (String)templateContext.get(key);
                 }
-            } catch(ClassCastException e2) {
+            } catch (ClassCastException e2) {
                 //return null;
             }
             */
@@ -566,7 +566,7 @@ public class FreeMarkerWorker {
        TemplateModel templateModelObj = null;
        try {
            templateModelObj = wrapper.wrap(obj);
-       } catch(TemplateModelException e) {
+       } catch (TemplateModelException e) {
            throw new RuntimeException(e.getMessage());
        }
        return templateModelObj;

@@ -427,7 +427,7 @@ public class ConfigureItem extends XPage {
                     m_configureItem.listPressed();
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 Debug.logInfo(ex.getMessage(), module);
                 ex.printStackTrace();                
             }

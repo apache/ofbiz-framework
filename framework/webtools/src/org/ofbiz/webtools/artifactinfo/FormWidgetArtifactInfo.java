@@ -89,7 +89,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
 
             try {
                 ModelForm modelForm = aif.getModelForm(formName);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
                 return;
             }
@@ -133,7 +133,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
             try {
                 ModelService modelService = aif.getModelService(serviceName);
-            } catch(GeneralException e) {
+            } catch (GeneralException e) {
                 Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
                 continue;
             }

@@ -238,15 +238,15 @@ In order ta make this service active add the following to the service definition
                  input.close();
              }
              return ServiceUtil.returnSuccess(sucMsg);
-         } catch(IOException e) {
+         } catch (IOException e) {
                 errMsg = "IOException "+ UtilMisc.toMap("errMessage", e.toString());
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
-         } catch(GenericServiceException e) {
+         } catch (GenericServiceException e) {
              errMsg = "GenericServiceException "+ UtilMisc.toMap("errMessage", e.toString());
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-         } catch(GenericEntityException e) {
+         } catch (GenericEntityException e) {
                  errMsg = "GenericEntityException "+ UtilMisc.toMap("errMessage", e.toString());
                     Debug.logError(e, errMsg, module);
                     e.printStackTrace();
@@ -390,12 +390,12 @@ In order ta make this service active add the following to the service definition
     
             }
         return ServiceUtil.returnSuccess(sucMsg);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
              errMsg = "GenericEntityException "+ UtilMisc.toMap("errMessage", e.toString());
                  Debug.logError(e, errMsg, module);
                  e.printStackTrace();
                  return ServiceUtil.returnError(errMsg);
-        } catch(GenericServiceException e) {
+        } catch (GenericServiceException e) {
              errMsg = "GenericServiceException"+ UtilMisc.toMap("errMessage", e.toString());
              Debug.logError(e, errMsg, module);
              e.printStackTrace();

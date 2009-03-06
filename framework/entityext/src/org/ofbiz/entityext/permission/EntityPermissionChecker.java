@@ -140,7 +140,7 @@ public class EntityPermissionChecker {
                  List<Object> errorMessageList = checkList(context.get("errorMessageList"));
                  errorMessageList.add(errMsg);
             }
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         }
         return passed;
@@ -283,7 +283,7 @@ public class EntityPermissionChecker {
                     String sequenceId = privEnum.getString("sequenceId");   
                     try {
                         privilegeEnumSeq = Integer.parseInt(sequenceId);
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         // just leave it at -1   
                     }
                 }
@@ -303,7 +303,7 @@ public class EntityPermissionChecker {
                         String sequenceId = privEnum.getString("sequenceId");   
                         try {
                             targetPrivilegeEnumSeq = Integer.parseInt(sequenceId);
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             // just leave it at -1   
                         }
                         if (targetPrivilegeEnumSeq > privilegeEnumSeq) {
@@ -1009,7 +1009,7 @@ public class EntityPermissionChecker {
                     String sequenceId = privEnum.getString("sequenceId");   
                     try {
                         privilegeEnumSeq = Integer.parseInt(sequenceId);
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         // just leave it at -1   
                     }
                 }
@@ -1305,7 +1305,7 @@ public class EntityPermissionChecker {
                             }
                         }
                     }
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logInfo(e.getMessage() + " Returning false for 'isOwner'.", module);
                        
                 }
@@ -1366,7 +1366,7 @@ public class EntityPermissionChecker {
                 String sequenceId = privEnum.getString("sequenceId");   
                 try {
                     privilegeEnumSeq = Integer.parseInt(sequenceId);
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     // just leave it at -1   
                 }
             }

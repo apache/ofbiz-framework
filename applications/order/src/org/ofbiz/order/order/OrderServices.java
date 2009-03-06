@@ -1418,7 +1418,7 @@ public class OrderServices {
         List orderTaxAdjustments = null;
         try {
             orderTaxAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderAdjustmentTypeId", "SALES_TAX"));
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             Debug.logError(e, "Unable to retrieve SALES_TAX adjustments for order : " + orderId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToRetrieveSalesTaxAdjustments",locale));
         }
@@ -1578,7 +1578,7 @@ public class OrderServices {
                 Map createOrderAdjResponse = null;
                 try {
                     createOrderAdjResponse = dispatcher.runSync("createOrderAdjustment", createOrderAdjContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     String createOrderAdjErrMsg = UtilProperties.getMessage(resource_error, "OrderErrorCallingCreateOrderAdjustmentService", locale);
                     Debug.logError(createOrderAdjErrMsg, module);
                     return ServiceUtil.returnError(createOrderAdjErrMsg);
@@ -4432,7 +4432,7 @@ public class OrderServices {
                                     sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
                                     sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
                                     // TODO: we should consider also the ship group in the association between sales and purchase orders
-                                } catch(Exception e) {
+                                } catch (Exception e) {
                                     ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
                                 }
                             }
@@ -4460,7 +4460,7 @@ public class OrderServices {
                     }
                 }
             }
-        } catch(Exception exc) {
+        } catch (Exception exc) {
             // TODO: imporve error handling
             ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + exc.getMessage());
         }

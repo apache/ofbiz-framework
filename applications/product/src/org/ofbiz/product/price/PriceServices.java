@@ -486,7 +486,7 @@ public class PriceServices {
                 GenericValue customMethod = null;
                 try {
                     customMethod = defaultPriceValue.getRelatedOne("CustomMethod");
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     Debug.logError(gee, "An error occurred while getting the customPriceCalcService", module);
                 }
                 if (UtilValidate.isNotEmpty(customMethod) && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
@@ -511,7 +511,7 @@ public class PriceServices {
                                 validPriceFound = true;
                             }
                         }
-                    } catch(GenericServiceException gse) {
+                    } catch (GenericServiceException gse) {
                         Debug.logError(gse, "An error occurred while running the customPriceCalcService [" + customMethod.getString("customMethodName") + "]", module);
                     }
                 }
@@ -1313,7 +1313,7 @@ public class PriceServices {
                     return ServiceUtil.returnError(errMsg);
                 }
                 productSuppliers = UtilGenerics.checkList(priceResult.get("supplierProducts"));
-            } catch(GenericServiceException gse) {
+            } catch (GenericServiceException gse) {
                 Debug.logError(gse, module);
                 return ServiceUtil.returnError(gse.getMessage());
             }

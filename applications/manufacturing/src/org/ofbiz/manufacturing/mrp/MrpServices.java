@@ -78,14 +78,14 @@ public class MrpServices {
         try {
             listResult = delegator.findList("MrpEvent", null, null, null, null, false);
             //int numOfRecordsRemoved = delegator.removeByCondition("MrpEvent", null);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", module);
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         if (listResult != null) {
             try {
                 delegator.removeAll(listResult);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, module);
                 return ServiceUtil.returnError("Problem, we can not remove the MrpEvent items, for more detail look at the log");
             }
@@ -96,7 +96,7 @@ public class MrpServices {
         List listResultRoles = new ArrayList();
         try {
             listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_PROPOSED"));
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         if (listResult != null) {
@@ -109,20 +109,20 @@ public class MrpServices {
                 }
                 delegator.removeAll(listResultRoles);
                 delegator.removeAll(listResult);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem, we can not remove the MrpEvent items, for more detail look at the log");
             }
         }
         listResult = null;
         try {
             listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "INTERNAL_REQUIREMENT", "statusId", "REQ_PROPOSED"));
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         if (listResult != null) {
             try {
                 delegator.removeAll(listResult);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem, we can not remove the MrpEvent items, for more detail look at the log");
             }
         }
@@ -150,7 +150,7 @@ public class MrpServices {
         parameters.put("facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("OrderHeaderItemAndShipGroup", parameters, UtilMisc.toList("orderId"));
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
@@ -213,7 +213,7 @@ public class MrpServices {
         parameters = UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_APPROVED", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("Requirement", parameters);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
@@ -253,7 +253,7 @@ public class MrpServices {
             Set fieldsToSelect = UtilMisc.toSet("orderId", "orderItemSeqId", "productId", "quantity", "cancelQuantity", "oiEstimatedDeliveryDate");
             resultList = delegator.findList("OrderHeaderItemAndShipGroup", EntityCondition.makeCondition(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"), null, false);
 
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
@@ -322,7 +322,7 @@ public class MrpServices {
         parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
@@ -354,7 +354,7 @@ public class MrpServices {
         parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
@@ -400,7 +400,7 @@ public class MrpServices {
         parameters = UtilMisc.toMap("facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("ProductFacility", parameters);
-        } catch(GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to retrieve ProductFacility records.", module);
             return ServiceUtil.returnError("Unable to retrieve ProductFacility records.");
         }
@@ -418,7 +418,7 @@ public class MrpServices {
                 if (numOfEvents > 0) {
                     continue;
                 }
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to count MrpEvent records.", module);
                 return ServiceUtil.returnError("Unable to count MrpEvent records.");
             }
@@ -691,7 +691,7 @@ public class MrpServices {
             }
             try {
                 listInventoryEventForMRP = delegator.findList("MrpEventView", filterByConditions, null, UtilMisc.toList("productId", "eventDate"), null, false);
-            } catch(GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("MRP Error retieving MRP event for the bom level: " + bomLevel + ". Error: " + e.getMessage());
             }
             

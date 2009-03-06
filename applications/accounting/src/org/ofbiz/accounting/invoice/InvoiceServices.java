@@ -127,7 +127,7 @@ public class InvoiceServices {
 
             return dispatcher.runSync("createInvoiceForOrder", context);
         }
-        catch(GenericServiceException e) {
+        catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resource,"AccountingEntityDataProblemCreatingInvoiceFromOrderItems",UtilMisc.toMap("reason",e.toString()),(Locale) context.get("locale"));
             Debug.logError (e, errMsg, module);
             return ServiceUtil.returnError(errMsg);            
@@ -1339,7 +1339,7 @@ public class InvoiceServices {
                             invoiceableShipments = delegator.findList("Shipment", EntityCondition.makeCondition("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null, null, false);
                         }
                     }
-                } catch( GenericEntityException e ) {
+                } catch ( GenericEntityException e ) {
                     String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentsService", locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
@@ -1395,7 +1395,7 @@ public class InvoiceServices {
                         GenericValue destinationContactMech = null;
                         try {
                             destinationContactMech = shipment.getRelatedOne("DestinationPostalAddress");
-                        } catch( GenericEntityException e ) {
+                        } catch ( GenericEntityException e ) {
                             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentService", locale);
                             Debug.logError(e, errMsg, module);
                             return ServiceUtil.returnError(errMsg);
@@ -1440,7 +1440,7 @@ public class InvoiceServices {
                             }
                             try {
                                 delegator.storeAll(orderAdjustments);
-                            } catch( GenericEntityException e ) {
+                            } catch ( GenericEntityException e ) {
                                 String errMsg = UtilProperties.getMessage(resource, "AccountingProblemStoringOrderAdjustments", UtilMisc.toMap("orderAdjustments", orderAdjustments), locale);
                                 Debug.logError(e, errMsg, module);
                                 return ServiceUtil.returnError(errMsg);
@@ -1451,7 +1451,7 @@ public class InvoiceServices {
                         List orderPaymentPreferences = null;
                         try {
                             orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"));
-                        } catch( GenericEntityException e ) {
+                        } catch ( GenericEntityException e ) {
                             String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderPaymentPreferences", locale);
                             Debug.logError(e, errMsg, module);
                             return ServiceUtil.returnError(errMsg);
@@ -1484,7 +1484,7 @@ public class InvoiceServices {
                                         Map prefReleaseResult = null;
                                         try {
                                             prefReleaseResult = dispatcher.runSync("releaseOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"), "userLogin", context.get("userLogin")));
-                                        } catch( GenericServiceException e ) {
+                                        } catch ( GenericServiceException e ) {
                                             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale);
                                             Debug.logError(e, errMsg, module);
                                             return ServiceUtil.returnError(errMsg);
@@ -1958,7 +1958,7 @@ public class InvoiceServices {
         GenericValue invoice = null ;
         try {
             invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             Debug.logError(e, "Problem getting Invoice for Invoice ID" + invoiceId, module);
             return ServiceUtil.returnError("Problem getting Invoice for Invoice ID" + invoiceId);
         }
@@ -2075,7 +2075,7 @@ public class InvoiceServices {
                 Map createInvoiceItemResult = null;
                 try {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceItemFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -2094,7 +2094,7 @@ public class InvoiceServices {
 
                 try {
                     Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
                 }
 
@@ -2133,7 +2133,7 @@ public class InvoiceServices {
                 Map createInvoiceItemResult = null;
                 try {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceItemFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -2152,7 +2152,7 @@ public class InvoiceServices {
 
                 try {
                     Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
                 }
 
@@ -2190,7 +2190,7 @@ public class InvoiceServices {
                 Map createInvoiceTermResult = null;
                 try {
                     createInvoiceTermResult = dispatcher.runSync("createInvoiceTerm", createInvoiceTermContext);
-                } catch( GenericServiceException e ) {
+                } catch ( GenericServiceException e ) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceTermFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -2954,7 +2954,7 @@ public class InvoiceServices {
         List invoicedAdjustments = null;
         try {
             invoicedAdjustments = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")));
-        } catch( GenericEntityException e ) {
+        } catch ( GenericEntityException e ) {
             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService" + ": " + e.getMessage(), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);

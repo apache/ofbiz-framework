@@ -127,7 +127,7 @@ public class OpenOfficeServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
         } finally {
@@ -160,7 +160,7 @@ public class OpenOfficeServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -205,7 +205,7 @@ public class OpenOfficeServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -250,7 +250,7 @@ public class OpenOfficeServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -275,7 +275,7 @@ public class OpenOfficeServices {
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }

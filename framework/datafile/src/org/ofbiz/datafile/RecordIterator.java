@@ -71,7 +71,7 @@ public class RecordIterator {
         this.dataFileStream = dataFileStream;
         try {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, "UTF-8"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new DataFileException("UTF-8 is not supported");
         }
 

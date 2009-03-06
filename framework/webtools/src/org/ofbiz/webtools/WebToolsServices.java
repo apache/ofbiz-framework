@@ -130,11 +130,11 @@ public class WebToolsServices {
                 url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
                 InputStream is = url.openStream();
                 ins = new InputSource(is);
-            } catch(MalformedURLException mue) {
+            } catch (MalformedURLException mue) {
                 return ServiceUtil.returnError("ERROR: invalid file name (" + filename + "): " + mue.getMessage());
-            } catch(IOException ioe) {
+            } catch (IOException ioe) {
                 return ServiceUtil.returnError("ERROR reading file name (" + filename + "): " + ioe.getMessage());
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 return ServiceUtil.returnError("ERROR: reading file name (" + filename + "): " + exc.getMessage());
             }
         }
@@ -155,7 +155,7 @@ public class WebToolsServices {
             FileReader templateReader = null;
             try {
                 templateReader = new FileReader(fmfilename);
-            } catch(FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 return ServiceUtil.returnError("ERROR reading template file (" + fmfilename + "): " + e.getMessage());
             }
 
@@ -175,7 +175,7 @@ public class WebToolsServices {
 
                 template.process(fmcontext, outWriter);
                 s = outWriter.toString();
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 return ServiceUtil.returnError("ERROR processing template file (" + fmfilename + "): " + ex.getMessage());
             }
         }
@@ -281,7 +281,7 @@ public class WebToolsServices {
                                 messages.add("Deleting " + f);
                                 f.delete();
                             }
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             unprocessedFiles.add(f);
                             messages.add("Failed " + f + " adding to retry list for next pass");
                         }
@@ -290,7 +290,7 @@ public class WebToolsServices {
                             Debug.log("Pausing for [" + pauseLong + "] seconds - " + UtilDateTime.nowTimestamp());
                             try {
                                 Thread.sleep((pauseLong * 1000));
-                            } catch(InterruptedException ie) {
+                            } catch (InterruptedException ie) {
                                 Debug.log("Pause finished - " + UtilDateTime.nowTimestamp());
                             }
                         }
@@ -486,7 +486,7 @@ public class WebToolsServices {
                     ModelReader reader = delegator.getModelReader();
                     Collection<String> ec = reader.getEntityNames();
                     passedEntityNames = new TreeSet<String>(ec);
-                } catch(Exception exc) {
+                } catch (Exception exc) {
                     return ServiceUtil.returnError("Error retrieving entity names.");
                 }
                 int fileNumber = 1;
@@ -533,7 +533,7 @@ public class WebToolsServices {
                         if (values != null) {
                             try {
                                 values.close();
-                            } catch(Exception exc) {
+                            } catch (Exception exc) {
                                 //Debug.warning();
                             }
                         }
