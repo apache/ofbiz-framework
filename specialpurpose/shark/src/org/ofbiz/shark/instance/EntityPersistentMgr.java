@@ -345,7 +345,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                     return returnList;
                 }
             }
-        }else{
+        } else {
             return getAllProcessMgrs(trans);
         }
         return returnList;
@@ -996,7 +996,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 if (((Process)l.get(i)).getState().startsWith(new String(procState.substring(0, procState.length()-1))))
                     returnList.add(l.get(i));
             }
-        }else{
+        } else {
             returnList = getAllProcesses(trans);
             return returnList;
         }

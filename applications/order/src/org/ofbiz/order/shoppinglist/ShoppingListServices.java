@@ -574,7 +574,7 @@ public class ShoppingListServices {
                         BigDecimal orderQuantity = orderItem.getBigDecimal("quantity");
                         if (quantityPurchased != null) {
                             shoppingListItem.set("quantityPurchased", orderQuantity.add(quantityPurchased));
-                        }else{
+                        } else {
                             shoppingListItem.set("quantityPurchased", orderQuantity);
                         }
                         shoppingListItem.store();

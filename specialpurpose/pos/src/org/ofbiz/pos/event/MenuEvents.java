@@ -215,7 +215,7 @@ public class MenuEvents {
                 try {
                     if (!aggregatedItem) {
                         trans.addItem(productId, quantity);                    
-                    }else{
+                    } else {
                         trans.addItem(productId, pcw);
                     }
                 } catch (CartItemModifyException e) {
@@ -442,7 +442,7 @@ public class MenuEvents {
                 pcw = configureItem.openDlg();
                 configureItem = null;
                 trans.modifyConfig(productId, pcw, index);
-            }else{
+            } else {
                 pos.showDialog("dialog/error/itemnotconfigurable");
             }
         } catch(Exception e) {

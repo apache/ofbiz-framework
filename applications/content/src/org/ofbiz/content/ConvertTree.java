@@ -165,7 +165,7 @@ In order ta make this service active add the following to the service definition
                                                          }
                                                      }
                                                 }
-                                            }else{
+                                            } else {
                                                 rootContent = "HOME_DUCUMENT";
                                                 contentAssocs= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentId, "contentIdTo", rootContent));
                                                 
@@ -189,7 +189,7 @@ In order ta make this service active add the following to the service definition
                                             Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                                             delegator.create(Entity);
                                             hasFolder = false;
-                                        }else{
+                                        } else {
                                             //Debug.log("Content Name = [ "+contentId+"] already exist.");//ShoW log file
                                             hasFolder = true;
                                         }
@@ -207,7 +207,7 @@ In order ta make this service active add the following to the service definition
                                                 contentAssoc.put("userLogin", userLogin);
                                                 dispatcher.runSync("createContentAssoc", contentAssoc);
                                                 rootContent=contentId;
-                                            }else{
+                                            } else {
                                                 //Debug.log("ContentAssoc [contentId= "+contentId+",contentIdTo="+rootContent+"] already exist.");//ShoW log file
                                                 rootContent=contentId;
                                             }

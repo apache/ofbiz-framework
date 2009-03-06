@@ -866,7 +866,7 @@ public class InventoryServices {
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
             }else if (onePrice.getString("productPriceTypeId").equals("LIST_PRICE")) {//listPrice
                 result.put("listPrice", onePrice.getBigDecimal("price"));
-            }else{
+            } else {
                 result.put("defultPrice", onePrice.getBigDecimal("price"));
                 result.put("listPrice", onePrice.getBigDecimal("price"));
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
