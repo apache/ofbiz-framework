@@ -130,6 +130,8 @@ under the License.
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/default-screenshot.gif" sequenceId="01"/>
 
+    <WebSite webSiteId="WEBTOOLS" siteName="Web Tools" visualThemeSetId="BACKOFFICE" />
+    
     <!-- Uom Conversion Purposes -->
     <EnumerationType enumTypeId="CONVERSION_PURPOSE" description="Conversion Purpose"/>
     <Enumeration enumId="INTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="INTERNAL" sequenceId="10" description="Internal Conversion"/>
