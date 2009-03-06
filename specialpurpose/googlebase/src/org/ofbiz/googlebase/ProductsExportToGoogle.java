@@ -370,7 +370,7 @@ public class ProductsExportToGoogle {
     		int index = 0;
     		String itemActionType = null;
     		GenericValue googleProduct;
-    		while(productsListItr.hasNext()) {
+    		while (productsListItr.hasNext()) {
     			itemActionType = actionType;
     			GenericValue prod = (GenericValue)productsListItr.next();
     			String price = getProductPrice(dispatcher, prod);

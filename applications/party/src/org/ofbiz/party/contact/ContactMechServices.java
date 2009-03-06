@@ -1054,7 +1054,7 @@ public class ContactMechServices {
         SecureRandom secureRandom = new SecureRandom();
 
         synchronized(ContactMechServices.class) {
-            while(true) {
+            while (true) {
                 Long random = secureRandom.nextLong();
                 verifyHash = HashCrypt.getDigestHash(Long.toString(random), "MD5");
                 List<GenericValue> emailAddVerifications = null;

@@ -183,7 +183,7 @@ public class ProductsExportToEbay {
                  
                 // Iterate the product list getting all the relevant data
                 Iterator productsListItr = productsList.iterator();
-                while(productsListItr.hasNext()) {
+                while (productsListItr.hasNext()) {
                     GenericValue prod = (GenericValue)productsListItr.next();
                     String title = parseText(prod.getString("internalName"));
                     String description = parseText(prod.getString("internalName"));

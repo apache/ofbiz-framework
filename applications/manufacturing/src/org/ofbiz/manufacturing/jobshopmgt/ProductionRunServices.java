@@ -365,7 +365,7 @@ public class ProductionRunServices {
                 }
                 if (workEffortPartyAssignments != null) {
                     Iterator i = workEffortPartyAssignments.iterator();
-                    while(i.hasNext()) {
+                    while (i.hasNext()) {
                         GenericValue workEffortPartyAssignment = (GenericValue) i.next();
                         Map partyToWorkEffort = UtilMisc.toMap(
                                 "workEffortId",  productionRunTaskId,
@@ -1392,7 +1392,7 @@ public class ProductionRunServices {
         }
         if (workEffortPartyAssignments != null) {
             Iterator i = workEffortPartyAssignments.iterator();
-            while(i.hasNext()) {
+            while (i.hasNext()) {
                 GenericValue workEffortPartyAssignment = (GenericValue) i.next();
                 Map partyToWorkEffort = UtilMisc.toMap(
                         "workEffortId",  productionRunTaskId,

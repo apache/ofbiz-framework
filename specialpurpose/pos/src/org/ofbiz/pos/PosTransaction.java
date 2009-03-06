@@ -272,7 +272,7 @@ public class PosTransaction implements Serializable {
             pcw = item.getConfigWrapper();
             List selected = pcw.getSelectedOptions();
             Iterator iter = selected.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 ConfigOption configoption = (ConfigOption)iter.next();
                 Map itemInfo = FastMap.newInstance();
                 if (configoption.isSelected() && !configoption.isDefault()) {
@@ -944,7 +944,7 @@ public class PosTransaction implements Serializable {
                     pcw = item.getConfigWrapper();
                     List selected = pcw.getSelectedOptions();
                     Iterator iter = selected.iterator();
-                    while(iter.hasNext()) {    
+                    while (iter.hasNext()) {    
                         ConfigOption configoption = (ConfigOption)iter.next();
                         if (configoption.isSelected()) {
                             XModel option = Journal.appendNode(model, "tr", ""+cart.getItemIndex(item), "");
@@ -987,13 +987,13 @@ public class PosTransaction implements Serializable {
             
             if (UtilValidate.isNotEmpty(adjustments)) {
                 Iterator iter = adjustments.iterator();
-                while(iter.hasNext()) {
+                while (iter.hasNext()) {
                     GenericValue orderAdjustment = (GenericValue) iter.next();
                     BigDecimal amount = orderAdjustment.getBigDecimal("amount");                    
                 }
 
                 iter = adjustments.iterator();
-                while(iter.hasNext()) {
+                while (iter.hasNext()) {
                     GenericValue orderAdjustment = (GenericValue) iter.next();
                     BigDecimal amount = orderAdjustment.getBigDecimal("amount");
                     BigDecimal sourcePercentage = orderAdjustment.getBigDecimal("sourcePercentage");

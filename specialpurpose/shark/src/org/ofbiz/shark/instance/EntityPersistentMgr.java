@@ -330,7 +330,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         if (sqlWhere != null)
         {
             st = new StringTokenizer(sqlWhere);
-            while(st.hasMoreElements())
+            while (st.hasMoreElements())
             {
                 Elem = (String)st.nextElement();
                 if (Elem.equalsIgnoreCase(org.ofbiz.shark.SharkConstants.packageId)) {
@@ -967,7 +967,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         if (sqlWhere != null)
         {
             st =  new StringTokenizer(sqlWhere);
-            while(st.hasMoreElements())
+            while (st.hasMoreElements())
             {
                 element = (String)st.nextElement();
                 if (element.equalsIgnoreCase("ProcessDefinitions"))
@@ -1036,7 +1036,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         if (sqlWhere != null)
         {
             st =  new StringTokenizer(sqlWhere);
-            while(st.hasMoreElements())
+            while (st.hasMoreElements())
             {
                 element = (String)st.nextElement();
                 if (element.equals("Id"))

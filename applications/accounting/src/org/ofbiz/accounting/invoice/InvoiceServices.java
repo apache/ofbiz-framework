@@ -1350,7 +1350,7 @@ public class InvoiceServices {
                 BigDecimal totalAdditionalShippingCharges = ZERO;
                 if (UtilValidate.isNotEmpty(invoiceableShipments)) {
                     Iterator isit = invoiceableShipments.iterator();
-                    while(isit.hasNext()) {
+                    while (isit.hasNext()) {
                         GenericValue shipment = (GenericValue) isit.next();
                         if (shipment.get("additionalShippingCharge") == null) continue;
                         BigDecimal shipmentAdditionalShippingCharges = shipment.getBigDecimal("additionalShippingCharge").setScale(decimals, rounding);

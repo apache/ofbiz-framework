@@ -1122,7 +1122,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             List surveyResponses = (List) attributes.get("surveyResponses");
                             if (UtilValidate.isNotEmpty(surveyResponses)) {
                                 Iterator surveyItr = surveyResponses.iterator();
-                                while(surveyItr.hasNext()) {
+                                while (surveyItr.hasNext()) {
                                     String surveyResponseId = (String)surveyItr.next();
                                     // TODO: implement multiple survey per product
                                     if (UtilValidate.isNotEmpty(surveyResponseId)) {
