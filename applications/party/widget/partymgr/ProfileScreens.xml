@@ -24,8 +24,6 @@
         <section>
             <actions>
                 <set field="parameters.partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
                 <entity-and entity-name="PartyNameHistory" list="partyNameHistoryList">
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="-changeDate"/>
