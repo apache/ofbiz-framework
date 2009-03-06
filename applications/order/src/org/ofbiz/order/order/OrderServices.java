@@ -2032,7 +2032,7 @@ public class OrderServices {
 
                 orderItem.set("statusId", statusId);
                 toBeStored.add(orderItem);
-                if (statusDateTime == null){
+                if (statusDateTime == null) {
                     statusDateTime = UtilDateTime.nowTimestamp();
                 }
                 // now create a status change
@@ -3159,7 +3159,7 @@ public class OrderServices {
     }
     
     /** Service to invoice service items from order*/
-    public static Map invoiceServiceItems(DispatchContext dctx, Map context){
+    public static Map invoiceServiceItems(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3249,7 +3249,7 @@ public class OrderServices {
                 GenericValue productType = null;
                 GenericValue product = (GenericValue) serviceProducts.get(item);
                 boolean markComplete = false;
-                if(product != null){
+                if(product != null) {
                     try {
                         productType = product.getRelatedOne("ProductType");
                     } catch (GenericEntityException e) {
@@ -3552,7 +3552,7 @@ public class OrderServices {
         return result;
     }
     
-    public static Map loadCartForUpdate(DispatchContext dctx, Map context){
+    public static Map loadCartForUpdate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 

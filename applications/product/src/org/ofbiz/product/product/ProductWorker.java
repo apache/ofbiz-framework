@@ -876,7 +876,7 @@ public class ProductWorker {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
         }
         
-        if (UtilValidate.isNotEmpty(product)){
+        if (UtilValidate.isNotEmpty(product)) {
             if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
             else productsFound = UtilMisc.toList(product);
         }
@@ -911,8 +911,8 @@ public class ProductWorker {
     public static List<GenericValue> findProducts(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
         List<GenericValue> productsByIds = findProductsById(delegator, idToFind, goodIdentificationTypeId);
         List<GenericValue> products = null;
-        if (UtilValidate.isNotEmpty(productsByIds)){
-            for (GenericValue product : productsByIds){
+        if (UtilValidate.isNotEmpty(productsByIds)) {
+            for (GenericValue product : productsByIds) {
                 GenericValue productToAdd = product;
                 //retreive product GV if the actual genericValue came from viewEntity
                 if (! "Product".equals(product.getEntityName())) {
@@ -995,10 +995,10 @@ public class ProductWorker {
                         "productFeatureIactnTypeId","FEATURE_IACTN_INCOMP"));
                 for (GenericValue incompatibilityVariant: incompatibilityVariants) {
                     String featur = incompatibilityVariant.getString("productFeatureId");
-                    if(paramValue.equals(featur)){
+                    if(paramValue.equals(featur)) {
                         String featurTo = incompatibilityVariant.getString("productFeatureIdTo");
                         for (String paramValueTo: selectedFeatures) {
-                            if(featurTo.equals(paramValueTo)){
+                            if(featurTo.equals(paramValueTo)) {
                                 Debug.logWarning("Incompatible features", module);
                                 return null;
                             }
@@ -1011,11 +1011,11 @@ public class ProductWorker {
                         "productFeatureIactnTypeId","FEATURE_IACTN_DEPEND"));
                 for (GenericValue dpVariant: dependenciesVariants) {
                     String featur = dpVariant.getString("productFeatureId");
-                    if(paramValue.equals(featur)){
+                    if(paramValue.equals(featur)) {
                         String featurTo = dpVariant.getString("productFeatureIdTo");
                         boolean found = false;
                         for (String paramValueTo: selectedFeatures) {
-                            if(featurTo.equals(paramValueTo)){
+                            if(featurTo.equals(paramValueTo)) {
                                 found = true;
                                 break;
                             }

@@ -2661,11 +2661,11 @@ public class ShoppingCart implements Serializable {
         orderTerms.clear();
     }
 
-    public boolean isOrderTermSet(){
+    public boolean isOrderTermSet() {
        return orderTermSet;
     }
 
-    public void setOrderTermSet(boolean orderTermSet){
+    public void setOrderTermSet(boolean orderTermSet) {
          this.orderTermSet = orderTermSet;
      }
 
@@ -2683,11 +2683,11 @@ public class ShoppingCart implements Serializable {
         return false;
     }
 
-    public boolean isReadOnlyCart(){
+    public boolean isReadOnlyCart() {
        return readOnlyCart;
     }
 
-    public void setReadOnlyCart(boolean readOnlyCart){
+    public void setReadOnlyCart(boolean readOnlyCart) {
          this.readOnlyCart = readOnlyCart;
      }
 

@@ -145,14 +145,14 @@ public class PaidInOut extends XPage {
         }
     }
 
-    public synchronized void editAmount(){
+    public synchronized void editAmount() {
         if (wasMouseClicked() && ShowKeyboardInSaveSale) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);
                 numericKeypad.setPercent(false);               
                 m_amountEdit.setText(numericKeypad.openDlg());
-            }catch(Exception e){
+            }catch(Exception e) {
                 Debug.logError(e, module);
             }
             m_dialog.repaint();

@@ -211,7 +211,7 @@ public class SharkContainer implements Container, Runnable
         if (dispatcher != null) {
             dispatcher.deregister();
         }
-        if(p != null){
+        if(p != null) {
             p.destroy();
         }
 

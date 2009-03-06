@@ -79,7 +79,7 @@ public class ContentManagementWorker {
         if (pk == null) return;
 
         Map lookupCaches = (Map)session.getAttribute("lookupCaches");
-        if(lookupCaches == null){
+        if(lookupCaches == null) {
             lookupCaches = FastMap.newInstance();
             session.setAttribute("lookupCaches", lookupCaches);
         }    
@@ -100,7 +100,7 @@ public class ContentManagementWorker {
 
         String cacheEntityName = entityName;
         LifoSet lkupCache = (LifoSet)lookupCaches.get(cacheEntityName);
-        if(lkupCache == null){
+        if(lkupCache == null) {
             lkupCache    = new LifoSet();
             lookupCaches.put(cacheEntityName, lkupCache);
         }    
@@ -113,7 +113,7 @@ public class ContentManagementWorker {
 
         String cacheEntityName = entityName;
         LifoSet lkupCache = (LifoSet)lookupCaches.get(cacheEntityName);
-        if(lkupCache == null){
+        if(lkupCache == null) {
             lkupCache    = new LifoSet();
             lookupCaches.put(cacheEntityName, lkupCache);
         }    
@@ -162,7 +162,7 @@ public class ContentManagementWorker {
                                  String entityName, GenericEntity ent) {
         HttpSession session = request.getSession();
         Map currentEntityMap = (Map)session.getAttribute("currentEntityMap");
-        if(currentEntityMap == null){
+        if(currentEntityMap == null) {
             currentEntityMap     = FastMap.newInstance();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
@@ -218,7 +218,7 @@ public class ContentManagementWorker {
 
         HttpSession session = request.getSession();
         Map currentEntityMap = (Map)session.getAttribute("currentEntityMap");
-        if(currentEntityMap == null){
+        if(currentEntityMap == null) {
             currentEntityMap     = FastMap.newInstance();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
@@ -271,14 +271,14 @@ public class ContentManagementWorker {
                 oPassed = passedPK.get(ky);
                 if(oPassed != null) {
                     sPassed = oPassed.toString();
-                    if(UtilValidate.isEmpty(sPassed)){
+                    if(UtilValidate.isEmpty(sPassed)) {
                         // If any part of passed key is not available, it can't be used
                         usePassed = false;
                     } else {
                         oCached = cachedPK.get(ky);
                         if(oCached != null) {
                             sCached = oCached.toString();
-                            if(UtilValidate.isEmpty(sCached)){
+                            if(UtilValidate.isEmpty(sCached)) {
                                 useCached = false;
                             } else {
                             }

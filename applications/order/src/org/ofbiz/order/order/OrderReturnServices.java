@@ -878,7 +878,7 @@ public class OrderReturnServices {
             Map serviceResult = null;
             try {
                 serviceResult = dispatcher.runSync("checkPaymentAmountForRefund", UtilMisc.toMap("returnId", returnId));
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem running the checkPaymentAmountForRefund service", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithCheckPaymentAmountForRefund", locale));                
             }
@@ -922,7 +922,7 @@ public class OrderReturnServices {
                     Map acctgPreferencesResult = null;
                     try {
                         acctgPreferencesResult = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.toMap("organizationPartyId", productStore.get("payToPartyId"), "userLogin", userLogin));
-                    } catch (GenericServiceException e){
+                    } catch (GenericServiceException e) {
                         Debug.logError(e, "Error retrieving PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithGetPartyAcctgPreferences", locale));                
                     }
@@ -2169,7 +2169,7 @@ public class OrderReturnServices {
     }
 
     //  used as a dispatch service, invoke different service based on the parameters passed in
-    public static Map createReturnItemOrAdjustment(DispatchContext dctx, Map context){
+    public static Map createReturnItemOrAdjustment(DispatchContext dctx, Map context) {
         Debug.logInfo("createReturnItemOrAdjustment's context:" + context, module);
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         Debug.logInfo("orderItemSeqId:" + orderItemSeqId +"#", module);
@@ -2192,7 +2192,7 @@ public class OrderReturnServices {
     }
     
     //  used as a dispatch service, invoke different service based on the parameters passed in
-    public static Map updateReturnItemOrAdjustment(DispatchContext dctx, Map context){
+    public static Map updateReturnItemOrAdjustment(DispatchContext dctx, Map context) {
         Debug.logInfo("updateReturnItemOrAdjustment's context:" + context, module);
         String returnAdjustmentId = (String) context.get("returnAdjustmentId");
         Debug.logInfo("returnAdjustmentId:" + returnAdjustmentId +"#", module);
@@ -2269,7 +2269,7 @@ public class OrderReturnServices {
             String paramName =  modelParam.name;
  
             Object value = context.get(paramName);
-            if(value != null){
+            if(value != null) {
                 serviceContext.put(paramName, value);
             }             
         }

@@ -167,7 +167,7 @@ public class Captcha {
     }
     
     public static void deleteFile() {
-        if(CAPTCHA_FILE_PATH != null){
+        if(CAPTCHA_FILE_PATH != null) {
                File file = new File(CAPTCHA_FILE_PATH);
                file.delete();
         }

@@ -120,7 +120,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 currentNodeTrail.add(lastContentId);
             }
             renderLink(writer, context, expandCollapseLink);
-        } else if (!hasChildren){
+        } else if (!hasChildren) {
             context.put("processChildren", Boolean.FALSE);
             expandCollapseLink.setStyle("leafnode");
             expandCollapseLink.setText("&nbsp;");
@@ -136,7 +136,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
         appendWhitespace(writer);
         writer.append("</li>");
-        if (node.isRootNode()){
+        if (node.isRootNode()) {
             appendWhitespace(writer);
             writer.append("</ul>");
             appendWhitespace(writer);

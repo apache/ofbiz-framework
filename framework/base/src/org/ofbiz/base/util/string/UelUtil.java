@@ -246,7 +246,7 @@ public class UelUtil {
                     context.setPropertyResolved(true);
                     List list = (List) base;
                     list.add(val);
-                } else if (str.startsWith("insert@")){
+                } else if (str.startsWith("insert@")) {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = " + property + ", value = " + val, module);
                     }

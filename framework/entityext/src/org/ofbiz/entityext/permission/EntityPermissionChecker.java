@@ -365,7 +365,7 @@ public class EntityPermissionChecker {
                 if (purposeList.size() > 0) {
                     passed = hasMatch(entityName, targetOperationEntityList, roleList, hasPurposeOp, purposeList, hasStatusOp, statusId);
                 }
-                if (passed){
+                if (passed) {
                     break;
                 }
                 purposes.put(entityId, purposeList);
@@ -559,7 +559,7 @@ public class EntityPermissionChecker {
                 checkAncestors = false;
                 passed = hasMatch(entity, permissionConditionGetter, relatedRoleGetter, auxiliaryValueGetter, partyId, checkAncestors);
                  
-                if (passed){
+                if (passed) {
                     break;
                 }
             }
@@ -578,7 +578,7 @@ public class EntityPermissionChecker {
                 checkAncestors = false;
                 passed = hasMatch(entity, permissionConditionGetter, relatedRoleGetter, auxiliaryValueGetter, partyId, checkAncestors);
                  
-                if (passed){
+                if (passed) {
                     break;
                 }
             }
@@ -594,7 +594,7 @@ public class EntityPermissionChecker {
                 checkAncestors = true;
                 passed = hasMatch(entity, permissionConditionGetter, relatedRoleGetter, auxiliaryValueGetter, partyId, checkAncestors);
                  
-                if (passed){
+                if (passed) {
                     break;
                 }
             }

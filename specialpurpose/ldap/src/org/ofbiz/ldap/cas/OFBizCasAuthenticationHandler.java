@@ -118,7 +118,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
         return "error";
     }
 
-    public static String randomString(int lo, int hi){
+    public static String randomString(int lo, int hi) {
         int n = rand(lo, hi);
         byte b[] = new byte[n];
         for (int i = 0; i < n; i++) {
@@ -127,7 +127,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
         return new String(b);
     }
 
-    private static int rand(int lo, int hi){
+    private static int rand(int lo, int hi) {
         java.util.Random rn = new java.util.Random();
         int n = hi - lo + 1;
         int i = rn.nextInt() % n;
@@ -136,7 +136,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
         return lo + i;
     }
 
-    public static String randomString(){
+    public static String randomString() {
         return randomString(5, 15);
     }
 

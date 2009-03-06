@@ -128,7 +128,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher] : Created Dispatcher for: " + name, module);
     }
 
-    public void disableEcas(){
+    public void disableEcas() {
         ecasDisabled = true;
     }
 

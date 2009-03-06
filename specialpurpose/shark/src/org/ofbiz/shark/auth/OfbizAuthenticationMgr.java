@@ -61,9 +61,9 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
         if (adminUser != null) {
             if (password.equals(p)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(password).equals(p)){
+            } else if (LoginServices.getPasswordHash(password).equals(p)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(p).equals(password)){
+            } else if (LoginServices.getPasswordHash(p).equals(password)) {
                 return true;
             } else {
                 return false;

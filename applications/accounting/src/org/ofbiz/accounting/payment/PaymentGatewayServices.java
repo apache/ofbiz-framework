@@ -3230,7 +3230,7 @@ public class PaymentGatewayServices {
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
         Debug.logInfo("Test Capture with 2 minute delay failure/re-auth process", module);
 
-        if (authTransaction == null){
+        if (authTransaction == null) {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
 

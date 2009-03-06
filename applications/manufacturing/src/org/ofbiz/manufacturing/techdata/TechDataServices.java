@@ -166,7 +166,7 @@ public class TechDataServices {
             Debug.logError("Pb reading FixedAsset associated with routingTask"+e.getMessage(), module);
         }
         if (machineGroup != null) {
-            if (machineGroup.getString("calendarId") != null){
+            if (machineGroup.getString("calendarId") != null) {
                 try{
                     techDataCalendar = machineGroup.getRelatedOneCache("TechDataCalendar");
                 } catch (GenericEntityException e) {
@@ -207,7 +207,7 @@ public class TechDataServices {
         Double capacity = null;
         Time startTime = null;
         while (capacity == null || capacity.doubleValue()==0) {
-            switch( dayStart){
+            switch( dayStart) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
                     startTime =  techDataCalendarWeek.getTime("mondayStartTime");
@@ -331,7 +331,7 @@ public class TechDataServices {
     public static Timestamp addForward(GenericValue techDataCalendar,  Timestamp  dateFrom, long amount) {
         Timestamp dateTo = (Timestamp) dateFrom.clone();
         long nextCapacity = capacityRemaining(techDataCalendar, dateFrom);
-        if (amount <= nextCapacity){
+        if (amount <= nextCapacity) {
             dateTo.setTime(dateTo.getTime()+amount);
             amount = 0;
         }else amount -= nextCapacity;
@@ -341,7 +341,7 @@ public class TechDataServices {
             result = startNextDay(techDataCalendar, dateTo);
             dateTo = (Timestamp) result.get("dateTo");
             nextCapacity = ((Double) result.get("nextCapacity")).longValue();
-            if (amount <= nextCapacity){
+            if (amount <= nextCapacity) {
                 dateTo.setTime(dateTo.getTime()+amount);
                 amount = 0;
             }else amount -= nextCapacity;
@@ -362,7 +362,7 @@ public class TechDataServices {
         Double capacity = null;
         Time startTime = null;
         while (capacity == null || capacity.doubleValue() == 0) {
-            switch( dayEnd){
+            switch( dayEnd) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
                     startTime =  techDataCalendarWeek.getTime("mondayStartTime");
@@ -487,7 +487,7 @@ public class TechDataServices {
     public static Timestamp addBackward(GenericValue techDataCalendar,  Timestamp  dateFrom, long amount) {
         Timestamp dateTo = (Timestamp) dateFrom.clone();
         long previousCapacity = capacityRemainingBackward(techDataCalendar, dateFrom);
-        if (amount <= previousCapacity){
+        if (amount <= previousCapacity) {
             dateTo.setTime(dateTo.getTime()-amount);
             amount = 0;
         }else amount -= previousCapacity;
@@ -497,7 +497,7 @@ public class TechDataServices {
             result = endPreviousDay(techDataCalendar, dateTo);
             dateTo = (Timestamp) result.get("dateTo");
             previousCapacity = ((Double) result.get("previousCapacity")).longValue();
-            if (amount <= previousCapacity){
+            if (amount <= previousCapacity) {
                 dateTo.setTime(dateTo.getTime()-amount);
                 amount = 0;
             }else amount -= previousCapacity;

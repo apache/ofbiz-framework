@@ -72,7 +72,7 @@ public class CreateValue extends MethodOperation {
             return false;
         }
         try {
-            if (createOrStore = true){
+            if (createOrStore = true) {
                 methodContext.getDelegator().createOrStore(value, doCacheClear);
             } else {
                 methodContext.getDelegator().create(value, doCacheClear);

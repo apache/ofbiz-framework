@@ -100,12 +100,12 @@ public class Various {
     public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
         List actuals = FastList.newInstance();
         double actualHours = 0.00;
-        if(timesheetId != null){
+        if(timesheetId != null) {
             try {
                 actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
-                if(actuals.size() > 0){
+                if(actuals.size() > 0) {
                     Iterator ite = actuals.iterator();
-                    while(ite.hasNext()){
+                    while(ite.hasNext()) {
                         GenericValue actual =(GenericValue)ite.next();
                          Double hour = (Double) actual.get("hours");
                          double hours = hour.doubleValue();

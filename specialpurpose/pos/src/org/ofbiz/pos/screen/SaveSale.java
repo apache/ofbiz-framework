@@ -127,13 +127,13 @@ public class SaveSale extends XPage {
         }
     }
 
-    public synchronized void editSaleName(){
+    public synchronized void editSaleName() {
         if (wasMouseClicked() && ShowKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_saleName.getText());                
                 m_saleName.setText(keyboard.openDlg());
-            }catch(Exception e){
+            }catch(Exception e) {
                 Debug.logError(e, module);
             }
             m_dialog.repaint();

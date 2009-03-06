@@ -198,14 +198,14 @@ public class MenuEvents {
             ProductConfigWrapper pcw = null;
             try {
                 aggregatedItem = trans.isAggregatedItem(productId);
-                if(aggregatedItem){
+                if(aggregatedItem) {
                     pcw = trans.getProductConfigWrapper(productId);
                     pcw.setDefaultConfig();
                     ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
                     pcw = configureItem.openDlg();
                     configureItem = null;
                 }
-            }catch(Exception e){
+            }catch(Exception e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/producterror");                
             }
@@ -213,7 +213,7 @@ public class MenuEvents {
             // add the item to the cart; report any errors to the user
             if (productId != null) {
                 try {
-                    if(!aggregatedItem){
+                    if(!aggregatedItem) {
                         trans.addItem(productId, quantity);                    
                     }else{
                         trans.addItem(productId, pcw);
@@ -436,7 +436,7 @@ public class MenuEvents {
         ProductConfigWrapper pcw = null;
         try {
             aggregatedItem = trans.isAggregatedItem(productId);
-            if(aggregatedItem){
+            if(aggregatedItem) {
                 pcw = trans.getProductConfigWrapper(productId, index);
                 ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
                 pcw = configureItem.openDlg();
@@ -445,7 +445,7 @@ public class MenuEvents {
             }else{
                 pos.showDialog("dialog/error/itemnotconfigurable");
             }
-        }catch(Exception e){
+        }catch(Exception e) {
             Debug.logError(e, module);
             pos.showDialog("dialog/error/producterror");                
         }

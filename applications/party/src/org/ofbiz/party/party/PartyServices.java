@@ -650,7 +650,7 @@ public class PartyServices {
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
-        if (email.length() == 0){
+        if (email.length() == 0) {
             errMsg = UtilProperties.getMessage(resource,"partyservices.required_parameter_email_cannot_be_empty", locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -686,7 +686,7 @@ public class PartyServices {
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
-        if (email.length() == 0){
+        if (email.length() == 0) {
             errMsg = UtilProperties.getMessage(resource,"partyservices.required_parameter_email_cannot_be_empty", locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -775,7 +775,7 @@ public class PartyServices {
         if (lastName == null) {
             lastName = "";
         }
-        if (firstName.length() == 0 && lastName.length() == 0){
+        if (firstName.length() == 0 && lastName.length() == 0) {
             String errMsg = UtilProperties.getMessage(resource,"partyservices.both_names_cannot_be_empty", locale);
             return ServiceUtil.returnError(errMsg);
         }

@@ -206,7 +206,7 @@ public class ShoppingCartServices {
 
         // set the order name
         String orderName = orh.getOrderName();
-        if (orderName != null){
+        if (orderName != null) {
             cart.setOrderName(orderName);
         }
         
@@ -367,7 +367,7 @@ public class ShoppingCartServices {
                             Debug.logError(e, module);
                         }
                     }             
-                    if (workEffort != null && "ASSET_USAGE".equals(workEffort.getString("workEffortTypeId"))){
+                    if (workEffort != null && "ASSET_USAGE".equals(workEffort.getString("workEffortTypeId"))) {
                         reservStart = workEffort.getTimestamp("estimatedStartDate");
                         reservLength = OrderReadHelper.getWorkEffortRentalLength(workEffort);
                         reservPersons = workEffort.getBigDecimal("reservPersons");
@@ -461,8 +461,8 @@ public class ShoppingCartServices {
                 cart.setPoNumber(item.getString("correspondingPoId"));
                 
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
-                if(itemAdjustments != null){    
-                    for(GenericValue itemAdjustment : itemAdjustments){
+                if(itemAdjustments != null) {    
+                    for(GenericValue itemAdjustment : itemAdjustments) {
                         cartItem.addAdjustment(itemAdjustment);                
                     }
                 }
@@ -571,7 +571,7 @@ public class ShoppingCartServices {
         // create the cart
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currency);
         // set shopping cart type
-        if ("PURCHASE_QUOTE".equals(quote.getString("quoteTypeId"))){
+        if ("PURCHASE_QUOTE".equals(quote.getString("quoteTypeId"))) {
             cart.setOrderType("PURCHASE_ORDER");
             cart.setBillFromVendorPartyId(quote.getString("partyId"));
         }
@@ -919,11 +919,11 @@ public class ShoppingCartServices {
         return result;
     }
     
-    public static Map<String, Object>getShoppingCartData(DispatchContext dctx, Map<String, Object> context){
+    public static Map<String, Object>getShoppingCartData(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
-        if(shoppingCart != null){
+        if(shoppingCart != null) {
             String isoCode = shoppingCart.getCurrency();
             result.put("totalQuantity", shoppingCart.getTotalQuantity());
             result.put("currencyIsoCode",isoCode);
@@ -951,11 +951,11 @@ public class ShoppingCartServices {
         return result;
     }
     
-    public static Map<String, Object>getShoppingCartItemIndex(DispatchContext dctx, Map<String, Object> context){
+    public static Map<String, Object>getShoppingCartItemIndex(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         String productId = (String) context.get("productId");
-        if (shoppingCart != null && UtilValidate.isNotEmpty(shoppingCart.items())){
+        if (shoppingCart != null && UtilValidate.isNotEmpty(shoppingCart.items())) {
             List allItems = shoppingCart.items(); 
             List items = shoppingCart.findAllCartItems(productId);
             if (items.size() > 0) {

@@ -112,7 +112,7 @@ public class LayoutEvents {
             context.put("contentIdTo", formInput.get("contentIdTo"));
             context.put("textData", formInput.get("textData"));
             String contentPurposeTypeId = (String)formInput.get("contentPurposeTypeId");
-            if (UtilValidate.isNotEmpty(contentPurposeTypeId)){
+            if (UtilValidate.isNotEmpty(contentPurposeTypeId)) {
                 context.put("contentPurposeList", UtilMisc.toList(contentPurposeTypeId));
             }
     

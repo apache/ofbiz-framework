@@ -19,7 +19,7 @@ public class NumericKeypad extends XPage
     boolean m_minus = false;
     boolean m_percent = false;
 
-    public NumericKeypad(PosScreen pos){
+    public NumericKeypad(PosScreen pos) {
         m_pos = pos;
         return;
     }
@@ -41,34 +41,34 @@ public class NumericKeypad extends XPage
     }
 
     //call before openDlg
-    public void setMinus(boolean minus){
+    public void setMinus(boolean minus) {
         m_minus = minus;
     }
 
-    public boolean getMinus(){
+    public boolean getMinus() {
         return m_minus;
     }
 
     //call before openDlg
-    public void setPercent(boolean percent){
+    public void setPercent(boolean percent) {
         m_percent = percent;
     }
 
-    public boolean getPercent(){
+    public boolean getPercent() {
         return m_percent;
     }
 
-    private void disableButton(String button){
+    private void disableButton(String button) {
         XButton xbutton = (XButton) m_dialog.findComponent(button);
         xbutton.setVisible(false);
     }
 
-    private void enableButton(String button){
+    private void enableButton(String button) {
         XButton xbutton = (XButton) m_dialog.findComponent(button);
         xbutton.setVisible(true);
     }
 
-    private void setupEvents(){
+    private void setupEvents() {
         XButton button = (XButton) m_dialog.findComponent("numOne");
         XEventHelper.addMouseHandler(this, button, "triggerOne");
         button = (XButton) m_dialog.findComponent("numTwo");
@@ -96,13 +96,13 @@ public class NumericKeypad extends XPage
         button = (XButton) m_dialog.findComponent("menuEnter");
         XEventHelper.addMouseHandler(this, button, "triggerEnter");
 
-        if(getMinus()){
+        if(getMinus()) {
             button = (XButton) m_dialog.findComponent("numMinus");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");
         }else{
             disableButton("numMinus");
         }
-        if(getPercent()){
+        if(getPercent()) {
             button = (XButton) m_dialog.findComponent("numPercent");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");            
         }else{
@@ -187,18 +187,18 @@ public class NumericKeypad extends XPage
         prependUnique('%');
     }
 
-    private synchronized void prependUnique(char c){
-        if(wasMouseClicked()){
+    private synchronized void prependUnique(char c) {
+        if(wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            
-            }catch (NullPointerException e){
+            }catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{
                 text=c+text;
             }
-            if(countChars(text, c) > 1){
+            if(countChars(text, c) > 1) {
                 text = stripChars(text, c);
             }
             m_edit.setText(text);
@@ -208,36 +208,36 @@ public class NumericKeypad extends XPage
         }        
     }
 
-    private int countChars(String string, char c){
+    private int countChars(String string, char c) {
         int count = 0;
-        for(int i=0; i<string.length(); i++){
-            if (string.charAt(i) == c){
+        for(int i=0; i<string.length(); i++) {
+            if (string.charAt(i) == c) {
                 count++;
             }
         }
         return count;
     }
 
-    private String stripChars(String string, char c){
+    private String stripChars(String string, char c) {
         StringBuffer buf = new StringBuffer();
-        for(int i=0; i<string.length(); i++){
+        for(int i=0; i<string.length(); i++) {
             char current = string.charAt(i);
-            if (current != c){
+            if (current != c) {
                 buf.append(current);
             }
         }
         return buf.toString();
     }
 
-    private synchronized void close(){
-        if(wasMouseClicked()){
+    private synchronized void close() {
+        if(wasMouseClicked()) {
             m_dialog.closeDlg();
             return;
         }
     }
 
-    private synchronized void clear(){
-        if(wasMouseClicked()){
+    private synchronized void clear() {
+        if(wasMouseClicked()) {
             String text = "";
             m_edit.setText(text);            
             m_dialog.repaint();
@@ -245,12 +245,12 @@ public class NumericKeypad extends XPage
         }
     }
 
-    private synchronized void append(char c){
-        if(wasMouseClicked()){
+    private synchronized void append(char c) {
+        if(wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            
-            }catch (NullPointerException e){
+            }catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{
@@ -262,12 +262,12 @@ public class NumericKeypad extends XPage
         }
     }
 
-    private synchronized void append(String c){
-        if(wasMouseClicked()){
+    private synchronized void append(String c) {
+        if(wasMouseClicked()) {
             String text = "";
             try{
                 text = m_edit.getText();            
-            }catch (NullPointerException e){
+            }catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             }finally{

@@ -584,7 +584,7 @@ public class DatabaseUtil {
             if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
         }
         
-        if (datasourceInfo.checkIndicesOnStart){
+        if (datasourceInfo.checkIndicesOnStart) {
             int numIndicesCreated = 0;
             // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
 

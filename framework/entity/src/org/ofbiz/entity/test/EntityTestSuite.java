@@ -390,12 +390,12 @@ public class EntityTestSuite extends TestCase {
      */
     public void testCreateManyAndStoreOneAtATime() throws Exception {
         try {
-            for (int i = 0; i < TEST_COUNT; i++){
+            for (int i = 0; i < TEST_COUNT; i++) {
                 delegator.create(delegator.makeValue("Testing", "testingId", getTestId("T2-", i)));
             }
             List<GenericValue> newlyCreatedValues = delegator.findList("Testing", null, null, UtilMisc.toList("testingId"), null, false);
             TestCase.assertEquals("Test to create " + TEST_COUNT + " and store one at a time: ", TEST_COUNT, newlyCreatedValues.size());
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             assertTrue("GenericEntityException:" + e.toString(), false);
             return;
         }

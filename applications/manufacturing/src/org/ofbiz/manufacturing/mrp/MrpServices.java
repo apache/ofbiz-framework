@@ -82,7 +82,7 @@ public class MrpServices {
             Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", module);
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
-        if (listResult != null){
+        if (listResult != null) {
             try{
                 delegator.removeAll(listResult);
             } catch(GenericEntityException e) {
@@ -99,10 +99,10 @@ public class MrpServices {
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
-        if (listResult != null){
+        if (listResult != null) {
             try{
                 Iterator listResultIt = listResult.iterator();
-                while (listResultIt.hasNext()){
+                while (listResultIt.hasNext()) {
                     GenericValue tmpRequirement = (GenericValue)listResultIt.next();
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
                     //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
@@ -119,7 +119,7 @@ public class MrpServices {
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
-        if (listResult != null){
+        if (listResult != null) {
             try{
                 delegator.removeAll(listResult);
             } catch(GenericEntityException e) {
@@ -217,7 +217,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while(iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
@@ -328,7 +328,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while(iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("estimatedQuantity").negate();
@@ -360,7 +360,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while(iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))) {
                 continue;
@@ -405,7 +405,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Unable to retrieve ProductFacility records.");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while(iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId = genericResult.getString("productId");
             BigDecimal minimumStock = genericResult.getBigDecimal("minimumStock");
@@ -756,7 +756,7 @@ public class MrpServices {
                     }
                     
                     stockTmp = stockTmp.add(eventQuantity);
-                    if(stockTmp.compareTo(minimumStock) < 0){
+                    if(stockTmp.compareTo(minimumStock) < 0) {
                         BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
                         //need to buy or build the product as we have not enough stock
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");

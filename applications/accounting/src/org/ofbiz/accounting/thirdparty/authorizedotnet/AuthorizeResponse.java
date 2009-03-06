@@ -157,14 +157,14 @@ public class AuthorizeResponse {
         int s1=0, s2=-1;
         List out = new ArrayList(40);
         out.add("empty");
-        while(true){
+        while(true) {
             s2 = r.indexOf(delim, s1);
-            if(s2 != -1){
+            if(s2 != -1) {
                 out.add(r.substring(s1, s2));
             }else{
                 //the end part of the string (string not pattern terminated)
                 String _ = r.substring(s1);
-                if(_ != null && !_.equals("")){
+                if(_ != null && !_.equals("")) {
                     out.add(_);
                 }
                 break;

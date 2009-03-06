@@ -347,7 +347,7 @@ public abstract class ModelFormAction {
                     String queryString = (String)result.get("queryString");
                     context.put("queryString", queryString);
                     context.put("queryStringMap", result.get("queryStringMap"));
-                    if (UtilValidate.isNotEmpty(queryString)){
+                    if (UtilValidate.isNotEmpty(queryString)) {
                         try {
                             String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
