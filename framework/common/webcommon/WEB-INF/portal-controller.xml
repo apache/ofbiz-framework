@@ -26,7 +26,7 @@ under the License.
     <!-- Portal requests -->
     <request-map uri="showPortalPage">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="showPortalPage"/>
+        <response name="success" type="view" value="showPortalPage" save-last-view="true"/>
     </request-map>
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>

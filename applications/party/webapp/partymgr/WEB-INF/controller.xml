@@ -46,7 +46,7 @@ under the License.
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
-    <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile"/></request-map>
+    <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile" save-last-view="true"/></request-map>
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
@@ -357,7 +357,7 @@ under the License.
     <request-map uri="updatePerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePerson"/>
-        <response name="success" type="request" value="viewprofile"/>
+        <response name="success" type="view-last"/>
         <response name="error" type="view" value="EditPerson"/>
     </request-map>
 
