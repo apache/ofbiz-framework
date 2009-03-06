@@ -384,6 +384,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="modifyVariants" title="Modify Variants">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices"
@@ -471,6 +477,12 @@ under the License.
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
         <field name="quantity" title="${uiLabelMap.ProductQuantity}" ></field>
         <field name="comments" ><textarea/></field>
+        <field name="modifyVariants" title="Modify Variants">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductCategoryMemeber" type="list" target="updateProductToCategory" title="" list-name="productCategoryMembers"
@@ -820,6 +832,12 @@ under the License.
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
+        <field name="modifyVariants" title="Modify Variants">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field use-when="supplierProduct == null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field use-when="supplierProduct != null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
@@ -849,10 +867,11 @@ under the License.
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=lastPrice" header-link-style="buttontext">
                 <display type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <!-- not usable : no fields modifiable -->
+        <!--field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductSuppliers?productId=${productId}&amp;partyId=${partyId}&amp;currencyUomId=${currencyUomId}&amp;minimumOrderQuantity=${minimumOrderQuantity}&amp;availableFromDate=${availableFromDate}"
                 description="${uiLabelMap.CommonUpdate}" also-hidden="false"/>
-        </field>
+        </field-->
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeSupplierProduct?productId=${productId}&amp;partyId=${partyId}&amp;currencyUomId=${currencyUomId}&amp;minimumOrderQuantity=${minimumOrderQuantity}&amp;availableFromDate=${availableFromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -875,6 +894,12 @@ under the License.
                 <entity-options entity-name="ProductConfigItem" description="${configItemName} [${configItemId}] (${description})"> <!-- [${productTypeId}] -->
                     <entity-order-by field-name="configItemName"/>
                 </entity-options>
+            </drop-down>
+        </field>
+        <field name="modifyVariants" title="Modify Variants">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
