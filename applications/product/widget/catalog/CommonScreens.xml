@@ -28,7 +28,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                
                 <set field="MainColumnStyle" value="nocolumns" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ProductCatalogCompanyName" global="true"/>
