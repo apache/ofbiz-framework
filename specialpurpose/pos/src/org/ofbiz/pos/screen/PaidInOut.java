@@ -152,7 +152,7 @@ public class PaidInOut extends XPage {
                 numericKeypad.setMinus(true);
                 numericKeypad.setPercent(false);               
                 m_amountEdit.setText(numericKeypad.openDlg());
-            }catch(Exception e) {
+            } catch(Exception e) {
                 Debug.logError(e, module);
             }
             m_dialog.repaint();

@@ -162,7 +162,7 @@ public class ShoppingCartEvents {
             Object object = paramMap.remove("add_product_id");
             try {
                 productId = (String) object;
-            }catch(ClassCastException e) {
+            } catch(ClassCastException e) {
                 productId = (String)((List)object).get(0);
             }
         }

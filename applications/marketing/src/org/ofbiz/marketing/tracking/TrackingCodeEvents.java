@@ -462,7 +462,7 @@ public class TrackingCodeEvents {
                     if (affiliateReferredTime !=null && !affiliateReferredTime.equals("")) {
                         try {
                             affiliateReferredTimeStamp = Timestamp.valueOf(affiliateReferredTime);
-                        }catch (IllegalArgumentException  e) {
+                        } catch (IllegalArgumentException  e) {
                             Debug.logError(e, "Error parsing affiliateReferredTimeStamp value from cookie", module);
                         }
                     }

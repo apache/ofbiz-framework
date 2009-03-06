@@ -205,7 +205,7 @@ public class MenuEvents {
                     pcw = configureItem.openDlg();
                     configureItem = null;
                 }
-            }catch(Exception e) {
+            } catch(Exception e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/producterror");                
             }
@@ -445,7 +445,7 @@ public class MenuEvents {
             }else{
                 pos.showDialog("dialog/error/itemnotconfigurable");
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             Debug.logError(e, module);
             pos.showDialog("dialog/error/producterror");                
         }
