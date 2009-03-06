@@ -232,7 +232,7 @@ public class PaymentEvents {
                         if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])) { 
                             // if swiped
                             trans.setPaymentTrack2(pmId, null, track2Info[1]);
-                        }else{ //keyed
+                        } else { //keyed
                             if (securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])) {
                                 trans.setPaymentSecurityCode(pmId, null, securityCodeInfo[1]);
                             }

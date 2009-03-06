@@ -275,7 +275,7 @@ public class ConfigureItem extends XPage {
             if (question.isSingleChoice()) {
                 if (options.size()>2) {
                    return new ListButtonQuestion(question);
-                }else{
+                } else {
                     //TODO: this doesn't handle the case of 
                     // two options with none required to be selected
                    return new SingleButtonQuestion(question);

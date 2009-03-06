@@ -291,7 +291,7 @@ public class ShoppingListEvents {
                 // i cannot get the addOrDecrease function to accept a null reservStart field: i get a null pointer exception a null constant works....
                 if (reservStart == null) {
                        cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
-                }else{                
+                } else {                
                     cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);

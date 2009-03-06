@@ -1183,7 +1183,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             // Get Taxes
                             Map totalPriceWithTaxMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPrice, "productId", this.productId, "productStoreId", cart.getProductStoreId()));
                             this.setDisplayPrice((BigDecimal) totalPriceWithTaxMap.get("priceWithTax"));
-                        }else{
+                        } else {
                             this.setDisplayPrice(configWrapper.getTotalPrice());
                         }
                     }

@@ -99,13 +99,13 @@ public class NumericKeypad extends XPage
         if (getMinus()) {
             button = (XButton) m_dialog.findComponent("numMinus");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");
-        }else{
+        } else {
             disableButton("numMinus");
         }
         if (getPercent()) {
             button = (XButton) m_dialog.findComponent("numPercent");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");            
-        }else{
+        } else {
             disableButton("numPercent");
         }
 

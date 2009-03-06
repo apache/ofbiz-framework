@@ -1215,10 +1215,10 @@ public class UtilHttp {
         if (UtilValidate.isNotEmpty(spiderRequest)) {
             if ("Y".equals(spiderRequest)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
             List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
             if (UtilValidate.isNotEmpty(spiderList)) {

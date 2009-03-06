@@ -161,7 +161,7 @@ public class AuthorizeResponse {
             s2 = r.indexOf(delim, s1);
             if (s2 != -1) {
                 out.add(r.substring(s1, s2));
-            }else{
+            } else {
                 //the end part of the string (string not pattern terminated)
                 String _ = r.substring(s1);
                 if (_ != null && !_.equals("")) {

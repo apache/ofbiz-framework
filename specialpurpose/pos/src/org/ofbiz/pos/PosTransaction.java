@@ -1344,7 +1344,7 @@ public class PosTransaction implements Serializable {
                 // TODO: add stuff to append items
                 this.cart = restoredCart;
                 this.orderId = orderId;
-            }else{
+            } else {
                 this.cart = restoredCart;
                 this.orderId = orderId;                 
             }

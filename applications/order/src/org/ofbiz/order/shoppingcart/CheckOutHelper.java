@@ -1499,7 +1499,7 @@ public class CheckOutHelper {
                 Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);
                 errMsg = UtilProperties.getMessage(resource_error, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 return ServiceUtil.returnError(errMsg);
-            }else{
+            } else {
                 int cashIndex = paymentTypes.indexOf("CASH");
                 String cashId = (String) paymentTypes.get(cashIndex);
                 BigDecimal cashAmount = cart.getPaymentAmount(cashId);

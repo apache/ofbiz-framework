@@ -408,7 +408,7 @@ public class CoreEvents {
         try {
             if (null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")) {
                 syncServiceResult = dispatcher.runSync(serviceName, serviceContext);
-            }else{
+            } else {
                 dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
             }
         } catch (GenericServiceException e) {
@@ -467,7 +467,7 @@ public class CoreEvents {
             String servicePathEntry = sp[i];
             if (null==servicePathMap) {
                 servicePathObject = serviceResult.get(servicePathEntry);
-            }else{
+            } else {
                 servicePathObject = servicePathMap.get(servicePathEntry);
             }
             servicePathMap = null;
@@ -492,7 +492,7 @@ public class CoreEvents {
         }
         if (null==servicePathMap) {
             return servicePathObject;
-        }else{
+        } else {
             return servicePathMap;
         }
     }
