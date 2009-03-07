@@ -291,6 +291,22 @@
         <value xml:lang="th">รายงานเหตุการณ์ที่เกิดขึ้นต่อเนื่องกัน</value>
         <value xml:lang="zh">线程列表</value>
     </property>
+    <property key="WebtoolsAbsoluteFileNameOrUrl">
+        <value xml:lang="en">Absolute Filename or URL</value>
+        <value xml:lang="fr">Nom de fichier absolu ou URL</value>
+        <value xml:lang="it">Nome file assoluto o URL</value>
+        <value xml:lang="ro">Nume file absolut sau URL</value>
+        <value xml:lang="th">ชื่อไฟล์ที่สมบูรณ์หรือ URL</value>
+        <value xml:lang="zh">绝对文件名或网址</value>
+    </property>
+    <property key="WebtoolsAbsoluteFTLFilename">
+        <value xml:lang="en">Absolute Filename of FreeMarker template file to filter data by (optional)</value>
+        <value xml:lang="fr">Nom absolu de fichier template FreeMarker utilisé pour filtrer les données (facultatif)</value>
+        <value xml:lang="it">Nome assoluto di un file template FreeMarker per filtrare i dati (opzionale)</value>
+        <value xml:lang="ro">Nume file absolut al unui file template FreeMarker pentru filtrarea datelor dupa (optional)</value>
+        <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
+        <value xml:lang="zh">用于过滤数据的FreeMarker模板文件的绝对文件名（可选）</value>
+    </property>
     <property key="WebtoolsAbsolutePath">
         <value xml:lang="en">Absolute directory path</value>
         <value xml:lang="fr">Chemin de répertoire absolu</value>
@@ -585,6 +601,14 @@
         <value xml:lang="ro">Tip Confront</value>
         <value xml:lang="th">รูปแบบการเปรียบเทียบ</value>
         <value xml:lang="zh">比较类型</value>
+    </property>
+    <property key="WebtoolsCompleteXMLDocument">
+        <value xml:lang="en">Complete XML document (root tag: entity-engine-xml)</value>
+        <value xml:lang="fr">Compléter le document XML (balise racine : entity-engine-xml)(</value>
+        <value xml:lang="it">Documento XML (includere il tag root: entity-engine-xml)</value>
+        <value xml:lang="ro">Completeaza documentul XML (root tag: entity-engine-xml)</value>
+        <value xml:lang="th">เอกสาร XML เสร็จเรียบร้อยแล้ว (root tag: entity-engine-xml)</value>
+        <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
     </property>
     <property key="WebtoolsComponentsLoaded">
         <value xml:lang="en">Loaded Components</value>
@@ -1183,6 +1207,14 @@
         <value xml:lang="th">รูปแบบ</value>
         <value xml:lang="zh">格式</value>
     </property>
+    <property key="WebtoolsForUseWithFrequency">
+        <value xml:lang="en">for use with frequency</value>
+        <value xml:lang="fr">à utiliser avec la fréquence</value>
+        <value xml:lang="it">per usare con frequenza</value>
+        <value xml:lang="ro">pentru folosirea cu frecventa</value>
+        <value xml:lang="th">สำหรับใช้กับความบ่อย</value>
+        <value xml:lang="zh">使用频率</value>
+    </property>
     <property key="WebtoolsFreeMemory">
         <value xml:lang="en">FREE</value>
         <value xml:lang="fr">LIBRE</value>
@@ -1705,22 +1737,6 @@
         <value xml:lang="th">หน่วยความจำ</value>
         <value xml:lang="zh">内存</value>
     </property>
-    <property key="WebtoolsMessage1">
-        <value xml:lang="en">This page can be used to export data from the database </value>
-        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base</value>
-        <value xml:lang="it">Questa pagine può essere usata per esportare i dati dal database</value>
-        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database</value>
-        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูล</value>
-        <value xml:lang="zh">本页面用于从数据库导出数据 </value>
-    </property>
-    <property key="WebtoolsMessage10">
-        <value xml:lang="en">number of time the job will retry on error; use -1 for no limit or leave empty for service default</value>
-        <value xml:lang="fr">Nombre de fois où le job sera relancé en cas d'erreur; utilisez -1 pour ne définir aucune limite ou laissez vide pour utilisez la valeur par défaut du service</value>
-        <value xml:lang="it">numero di volte che il lavoro riproverà su errore; usare -1 per nessun limite o lasciare vuoto per il servizio di default</value>
-        <value xml:lang="ro">numar de ori ca lucrul va reincerca eroarea; folositi -1 fara nici-o limita sau lasati gol pentru serviciul de default</value>
-        <value xml:lang="th">จำนวนของเวลางานจะทดสอบใหม่เมื่อเกิดข้อผิดพลาด; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัดหรือปล่อยให้เป็นค่าว่างสำหรับค่าเริ่มต้น</value>
-        <value xml:lang="zh">任务出错时的重试次数；-1表示没有限制，或空白表示使用服务缺省设置</value>
-    </property>
     <property key="WebtoolsMessage11">
         <value xml:lang="en">Step 1: Service And Recurrence Information</value>
         <value xml:lang="fr">Etape 1: Service et paramètre de récurrence</value>
@@ -1791,14 +1807,6 @@
         <value xml:lang="it">Scritti XML per tutti i dati in</value>
         <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน</value>
     </property>
-    <property key="WebtoolsMessage2">
-        <value xml:lang="en">The exported documents will have a root tag of "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="fr">Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="it">I documenti esportati avranno un root tag "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="ro">Documentele exportate vor avea un root tag "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="th">การส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="zh">导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签</value>
-    </property>
     <property key="WebtoolsMessage20">
         <value xml:lang="en">Wrote</value>
         <value xml:lang="fr">Ecrire</value>
@@ -1860,14 +1868,6 @@
         <value xml:lang="it">NOTA: Questi risultati delle prestazioni potrebbero variare in base ai differenti database,</value>
         <value xml:lang="th">หมายเหตุ:การกระทำเหล่านี้อาจจะเป็นผลให้เกิดการซื้อขายที่ดีสำหรับความแตกต่าง</value>
     </property>
-    <property key="WebtoolsMessage3">
-        <value xml:lang="en">There will be one file for each Entity in the configured delegator for this webapp</value>
-        <value xml:lang="fr">Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp</value>
-        <value xml:lang="it">C'è un file per ogni Entità nel delegator configurato per questa applicazione web</value>
-        <value xml:lang="ro">Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
-        <value xml:lang="th">มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
-        <value xml:lang="zh">在为这个应用配置的代表中，会对每个实体有一个文件。</value>
-    </property>
     <property key="WebtoolsMessage30">
         <value xml:lang="en">databases, JDBC drivers, JTA implementations (transaction managers), connection pools, </value>
         <value xml:lang="fr">bases de données, pilotes JDBC,  implémentations  JTA (gestionnaire de transaction), pools de connection,</value>
@@ -1887,54 +1887,6 @@
         <value xml:lang="fr">serveur, connections réseaux).</value>
         <value xml:lang="it">server hardware, connessioni di rete).</value>
         <value xml:lang="th">server ฮาร์ดแวร์,เชื่อมโยงเครือข่าย).</value>
-    </property>
-    <property key="WebtoolsMessage4">
-        <value xml:lang="en">Complete XML document (root tag: entity-engine-xml)</value>
-        <value xml:lang="fr">Compléter le document XML (balise racine : entity-engine-xml)(</value>
-        <value xml:lang="it">Completa documento XML (root tag: entity-engine-xml)</value>
-        <value xml:lang="ro">Completeaza documentul XML (root tag: entity-engine-xml)</value>
-        <value xml:lang="th">เอกสาร XML เสร็จเรียบร้อยแล้ว (root tag: entity-engine-xml)</value>
-        <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
-    </property>
-    <property key="WebtoolsMessage5">
-        <value xml:lang="en">This page can be used to import exported Entity Engine XML documents. These documents all have a root tag of "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="fr">Cette page peut être utilisée pour importer des documents XML exportés par le moteur d'entité. Ces documents ont tous une balise racine de "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="it">Questa pagina può essere usata per importare documenti XML contenenti export di Entita'. Tali documenti hanno un tag root "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor XML de Entity Engine. Toate aceste documente au un root tag "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;"</value>
-    </property>
-    <property key="WebtoolsMessage6">
-        <value xml:lang="en">Absolute Filename of FreeMarker template file to filter data by (optional)</value>
-        <value xml:lang="fr">Nom absolu de fichier template FreeMarker utilisé pour filtrer les données (facultatif)</value>
-        <value xml:lang="it">Nome file assoluto di un file template FreeMarker per filtrare i dati da (opzionale)</value>
-        <value xml:lang="ro">Nume file absolut al unui file template FreeMarker pentru filtrarea datelor dupa (optional)</value>
-        <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
-        <value xml:lang="zh">用于过滤数据的FreeMarker模板文件的绝对文件名（可选）</value>
-    </property>
-    <property key="WebtoolsMessage7">
-        <value xml:lang="en">Absolute Filename or URL</value>
-        <value xml:lang="fr">Nom de fichier absolu ou URL</value>
-        <value xml:lang="it">Nome file assoluto o URL</value>
-        <value xml:lang="ro">Nume file absolut sau URL</value>
-        <value xml:lang="th">ชื่อไฟล์ที่สมบูรณ์หรือ URL</value>
-        <value xml:lang="zh">绝对文件名或网址</value>
-    </property>
-    <property key="WebtoolsMessage8">
-        <value xml:lang="en">for use with frequency</value>
-        <value xml:lang="fr">à utiliser avec la fréquence</value>
-        <value xml:lang="it">per usare con frequenza</value>
-        <value xml:lang="ro">pentru folosirea cu frecventa</value>
-        <value xml:lang="th">สำหรับใช้กับความบ่อย</value>
-        <value xml:lang="zh">使用频率</value>
-    </property>
-    <property key="WebtoolsMessage9">
-        <value xml:lang="en">number of time the job will run; use -1 for no limit i.e. forever</value>
-        <value xml:lang="fr">Nombre de fois où le job s'exécutera; utiliser -1 pour aucune limite (i.e. perpétuel)</value>
-        <value xml:lang="it">numero di volte che il lavoro verrà eseguito; usare -1 per nessun limite (in questo esempio infinito)</value>
-        <value xml:lang="ro">numar de ori lucrul va fi executat; folositi -1 fara nici-o  limita (in acest exemplu infinit)</value>
-        <value xml:lang="th">จำนวนของเวลางานจะดำเนินงานเมื่อ; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัด i.e. ตลอดไป</value>
-        <value xml:lang="zh">任务将执行的次数；-1表示没有限制即会一直执行下去</value>
     </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="en">Misc. Setup Tools</value>
@@ -2127,6 +2079,22 @@
         <value xml:lang="fr">c'est Java 5 </value>
         <value xml:lang="it">è Java 5</value>
         <value xml:lang="th"> Java 5</value>
+    </property>
+    <property key="WebtoolsNumberOfJobRetry">
+        <value xml:lang="en">number of time the job will retry on error; use -1 for no limit or leave empty for service default</value>
+        <value xml:lang="fr">Nombre de fois où le job sera relancé en cas d'erreur; utilisez -1 pour ne définir aucune limite ou laissez vide pour utilisez la valeur par défaut du service</value>
+        <value xml:lang="it">numero di volte che il lavoro riproverà su errore; usare -1 per nessun limite; lasciare vuoto per usare il valore di default del servizio</value>
+        <value xml:lang="ro">numar de ori ca lucrul va reincerca eroarea; folositi -1 fara nici-o limita sau lasati gol pentru serviciul de default</value>
+        <value xml:lang="th">จำนวนของเวลางานจะทดสอบใหม่เมื่อเกิดข้อผิดพลาด; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัดหรือปล่อยให้เป็นค่าว่างสำหรับค่าเริ่มต้น</value>
+        <value xml:lang="zh">任务出错时的重试次数；-1表示没有限制，或空白表示使用服务缺省设置</value>
+    </property>
+    <property key="WebtoolsNumberOfTimeTheJobWillRun">
+        <value xml:lang="en">number of time the job will run; use -1 for no limit i.e. forever</value>
+        <value xml:lang="fr">Nombre de fois où le job s'exécutera; utiliser -1 pour aucune limite (i.e. perpétuel)</value>
+        <value xml:lang="it">numero di volte che il lavoro verrà eseguito; usare -1 per nessun limite (eseguire per sempre)</value>
+        <value xml:lang="ro">numar de ori lucrul va fi executat; folositi -1 fara nici-o  limita (in acest exemplu infinit)</value>
+        <value xml:lang="th">จำนวนของเวลางานจะดำเนินงานเมื่อ; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัด i.e. ตลอดไป</value>
+        <value xml:lang="zh">任务将执行的次数；-1表示没有限制即会一直执行下去</value>
     </property>
     <property key="WebtoolsOperator">
         <value xml:lang="en">Operator</value>
@@ -3397,6 +3365,22 @@
         <value xml:lang="fr">Workflows</value>
         <value xml:lang="it">Flussi di Lavoro</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
+    </property>
+    <property key="WebtoolsXMLExportInfo">
+        <value xml:lang="en">This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;". There will be one file for each Entity in the configured delegator for this webapp.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base. Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;". Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp.</value>
+        <value xml:lang="it">Questa pagina può essere usata per esportare i dati dal database. I documenti esportati avranno un root tag "&lt;entity-engine-xml&gt;". C'è un file per ogni Entità nel delegator configurato per questa applicazione web.</value>
+        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database. Documentele exportate vor avea un root tag "&lt;entity-engine-xml&gt;". Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
+        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูลการส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
+        <value xml:lang="zh">本页面用于从数据库导出数据 导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
+    </property>
+    <property key="WebtoolsXMLImportInfo">
+        <value xml:lang="en">This page can be used to import exported Entity Engine XML documents. These documents all have a root tag of "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour importer des documents XML exportés par le moteur d'entité. Ces documents ont tous une balise racine de "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="it">Questa pagina può essere usata per importare documenti XML contenenti export di Entita'. Tali documenti hanno un tag root "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor XML de Entity Engine. Toate aceste documente au un root tag "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
     </property>
     <property key="WebtoolsXpdlFilenameOrUrl">
         <value xml:lang="en">XPDL Filename or URL</value>

@@ -37,10 +37,7 @@ under the License.
 
 <h1>${uiLabelMap.PageTitleEntityExport}</h1>
 <br />
-<p> ${uiLabelMap.WebtoolsMessage1}. 
-    ${uiLabelMap.WebtoolsMessage2}.
-    ${uiLabelMap.WebtoolsMessage3}.
-</p>
+<p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
 <hr/>
 
 <#if security.hasPermission("ENTITY_MAINT", session)>
