@@ -19,15 +19,15 @@ under the License.
 
 <h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
 <br />
-<p>${uiLabelMap.WebtoolsMessage5}.</p>
+<p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
 <hr/>
 <h2>${uiLabelMap.WebtoolsImport}:</h2>
 <br />
 
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsMessage7}:<br />
+    ${uiLabelMap.WebtoolsAbsoluteFileNameOrUrl}:<br />
     <input type="text" size="60" name="filename" value="${filename?if_exists}"/><br />
-    ${uiLabelMap.WebtoolsMessage6}:<br />
+    ${uiLabelMap.WebtoolsAbsoluteFTLFilename}:<br />
     <input type="text" size="40" name="fmfilename" value="${fmfilename?if_exists}"/><br />
     <input type="checkbox" name="isUrl" <#if isUrl?exists>"checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
     <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
@@ -38,7 +38,7 @@ under the License.
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsMessage4}:<br />
+    ${uiLabelMap.WebtoolsCompleteXMLDocument}:<br />
     <textarea rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>\n</entity-engine-xml>")}</textarea>
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/></div>
   </form>

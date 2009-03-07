@@ -19,7 +19,7 @@ under the License.
 
 <h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
 <br />
-<p>${uiLabelMap.WebtoolsMessage5}.</p>
+<p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
 <hr/>
 <h2>${uiLabelMap.WebtoolsImport}:</h2>
 

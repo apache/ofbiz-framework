@@ -40,9 +40,9 @@ under the License.
                 <option key="1" description="${uiLabelMap.CommonSecondly}"/>
             </drop-down>
         </field>
-        <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsMessage8}"><text/></field>
-        <field name="SERVICE_COUNT" title="${uiLabelMap.WebtoolsCount}" tooltip="${uiLabelMap.WebtoolsMessage9}"><text default-value="1"/></field>
-        <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsMessage10}"><text/></field>
+        <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsForUseWithFrequency}"><text/></field>
+        <field name="SERVICE_COUNT" title="${uiLabelMap.WebtoolsCount}" tooltip="${uiLabelMap.WebtoolsNumberOfTimeTheJobWillRun}"><text default-value="1"/></field>
+        <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsNumberOfJobRetry}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
 
