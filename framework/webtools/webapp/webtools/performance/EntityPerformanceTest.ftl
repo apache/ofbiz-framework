@@ -23,11 +23,7 @@ under the License.
   </div>
   <div class="screenlet-body">  
     <#if security.hasPermission("ENTITY_MAINT", session)>
-      <p>${uiLabelMap.WebtoolsMessage29}
-      ${uiLabelMap.WebtoolsMessage30}
-      ${uiLabelMap.WebtoolsMessage31}
-      ${uiLabelMap.WebtoolsMessage32}
-      </p>
+      <p>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</p>
       <br/>
       <#if performanceList?has_content>
         <table class="basic-table hover-bar" cellspacing="0">

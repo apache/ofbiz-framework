@@ -124,7 +124,7 @@ function ShowTab(lname) {
               <#else>
                 <#if hasCreatePermission>
                   <#if newFieldPkList?has_content>
-                    <p>${uiLabelMap.WebtoolsMessage15} ${entityName} ${uiLabelMap.WebtoolsMessage16}.</p>
+                    <p>${uiLabelMap.WebtoolsYouMayCreateAnEntity}</p>
                     <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
                     <#list newFieldPkList as field> 
                       <tr<#if alt_row> class="alternate-row"</#if>>

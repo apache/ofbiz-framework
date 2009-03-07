@@ -19,7 +19,7 @@ under the License.
 
 <h1>${uiLabelMap.WebtoolsReadXPDLFile}</h1>
 <br />
-<p>${uiLabelMap.WebtoolsMessage25}</p>
+<p>${uiLabelMap.WebtoolsImportXPDLPageDescription}</p>
 <hr/>
 <#if security.hasPermission("WORKFLOW_MAINT", session)>
   <form method="post" action="<@ofbizUrl>readxpdl</@ofbizUrl>">
@@ -58,7 +58,7 @@ under the License.
           <pre>${entity}</pre>
       </#list>
       <hr/>
-      <div>${uiLabelMap.WebtoolsMessage26} ${toBeStored.size()} ${uiLabelMap.WebtoolsEntities}.</div>
+      <div>${uiLabelMap.WebtoolsReadAndPrintedNEntities}</div>
     <#else>
       <div>${uiLabelMap.WebtoolsNoEntitiesRead}.</div>
     </#if>

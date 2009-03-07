@@ -50,17 +50,11 @@ text-decoration: underline;
   </div>
   <div class="screenlet-body">
     <#if !userLogin?has_content>
-      <div>${uiLabelMap.WebtoolsMessage14}.</div>
+      <div>${uiLabelMap.WebtoolsForSomethingInteresting}.</div>
       <br />
-      <div>${uiLabelMap.WebtoolsNote1}</div>
+      <div>${uiLabelMap.WebtoolsNoteAntRunInstall}</div>
     </#if>
     <#if userLogin?has_content>
-      <!--
-      <div>${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.
-        <br /><br />
-        ${uiLabelMap.WebtoolsMessage13}.
-      </div>
-      -->
       <ul class="webToolList">
         <li><h3>${uiLabelMap.WebtoolsCacheDebugTools}</h3></li>
         <li><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>

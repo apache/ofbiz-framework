@@ -43,14 +43,14 @@ under the License.
 <#if security.hasPermission("ENTITY_MAINT", session)>
   <h2>${uiLabelMap.WebtoolsResults}:</h2>
   <#if Static["org.ofbiz.base.util.UtilValidate"].isNotEmpty(parameters.filename) && (numberOfEntities?number > 0)>
-    <p>${uiLabelMap.WebtoolsMessage19} ${numberOfEntities} ${uiLabelMap.WebtoolsEntities}.</p>
-    <p>${uiLabelMap.WebtoolsMessage20} ${numberWritten} ${uiLabelMap.WebtoolsMessage21} ${parameters.filename}</p>
+    <p>${uiLabelMap.WebtoolsWroteXMLForAllDataIn}</p>
+    <p>${uiLabelMap.WebtoolsWroteNRecordsToXMLFile}</p>
   <#elseif Static["org.ofbiz.base.util.UtilValidate"].isNotEmpty(parameters.outpath) && (numberOfEntities?number > 0)>
     <#list results as result>
       <p>${result}</p>
     </#list>
   <#else>
-    <p>${uiLabelMap.WebtoolsMessage22}</p>
+    <p>${uiLabelMap.WebtoolsNoFilenameSpecified}</p>
   </#if>
     
   <hr/>
