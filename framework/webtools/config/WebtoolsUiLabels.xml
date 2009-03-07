@@ -1215,6 +1215,14 @@
         <value xml:lang="th">สำหรับใช้กับความบ่อย</value>
         <value xml:lang="zh">使用频率</value>
     </property>
+    <property key="WebtoolsForSomethingInteresting">
+        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
+        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, et le mot de passe : ofbiz</value>
+        <value xml:lang="it">Per accedere all'applicazione devi essere autenticato, prova con Nome utente:admin, Password:ofbiz</value>
+        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
+        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
+        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
+    </property>
     <property key="WebtoolsFreeMemory">
         <value xml:lang="en">FREE</value>
         <value xml:lang="fr">LIBRE</value>
@@ -1308,6 +1316,12 @@
         <value xml:lang="fr">Import/ Mise à jour vers DB ?</value>
         <value xml:lang="it">Importa/Aggiorna sul DB?</value>
         <value xml:lang="th">นำเข้า/เปลี่ยนแปลง ฐานข้อมูล?</value>
+    </property>
+    <property key="WebtoolsImportXPDLPageDescription">
+        <value xml:lang="en">This page is used to read and import XPDL files into the workflow process repository.</value>
+        <value xml:lang="fr">Cette page est utilisée pour lire et importer des fichiers XPDL dans le dépôt de processus du workflow.</value>
+        <value xml:lang="it">Questa pagina è usata per leggere e importare files XPDL nel repository processi flussi di lavoro.</value>
+        <value xml:lang="th">หน้านี้ใช้อ่านและนำเข้าไฟล์ XPDL เข้าสู่ที่เก็บขั้นตอนการทำงาน</value>
     </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="en">Important</value>
@@ -1737,157 +1751,6 @@
         <value xml:lang="th">หน่วยความจำ</value>
         <value xml:lang="zh">内存</value>
     </property>
-    <property key="WebtoolsMessage11">
-        <value xml:lang="en">Step 1: Service And Recurrence Information</value>
-        <value xml:lang="fr">Etape 1: Service et paramètre de récurrence</value>
-        <value xml:lang="it">Passo 1: Servizio e Informazioni Ricorrenti</value>
-        <value xml:lang="ro">Passo 1: Serviciu si Informatii Recurente</value>
-        <value xml:lang="th">ขั้นตอนที่ 1: ข้อมูลของเซอร์วิสและการนำกลับขึ้นมาพิจารณาอีก</value>
-        <value xml:lang="zh">步骤一：服务和循环信息</value>
-    </property>
-    <property key="WebtoolsMessage12">
-        <value xml:lang="en">Step 2: Service Parameters</value>
-        <value xml:lang="fr">Etape 2: paramètres du service</value>
-        <value xml:lang="it">Passo 2: Servizio Parametri</value>
-        <value xml:lang="ro">Passo 2: Servizio Parametri</value>
-        <value xml:lang="th">ขั้นตอนที่ 2: ค่าตัวแปรเซอร์วิส</value>
-        <value xml:lang="zh">步骤二：服务参数</value>
-    </property>
-    <property key="WebtoolsMessage13">
-        <value xml:lang="en">This application is primarily intended for developers and system administrators</value>
-        <value xml:lang="fr">Cette application est principalement destinée au développeurs et administrateurs du système</value>
-        <value xml:lang="it">Questa applicazione è progettat per gli sviluppatori e amministratori di sistema</value>
-        <value xml:lang="ro">Aceasta aplicatie este pentru programatorii si administratori de sistem</value>
-        <value xml:lang="th">แอพพลิเคซั่นนี้เป็นสิ่งแรกเริ่มจึงอยากให้เข้าร่วมพัฒนาระบบสำหรับนักพัฒนาระบบและระบบของผู้ดูแลระบบ</value>
-        <value xml:lang="zh">本应用程序主要供开发人员和系统管理员使用</value>
-    </property>
-    <property key="WebtoolsMessage14">
-        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
-        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, et le mot de passe : ofbiz</value>
-        <value xml:lang="it">Se interessato, devi essere autenticato, provare con Nome utente:admin, Password:ofbiz</value>
-        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
-        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
-        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
-    </property>
-    <property key="WebtoolsMessage15">
-        <value xml:lang="en">You may create an Entity</value>
-        <value xml:lang="fr">Vous pouvez créer une entité</value>
-        <value xml:lang="it">Tu puoi creare una Entità</value>
-        <value xml:lang="ro">Tu poti crea o Entitate</value>
-        <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้</value>
-        <value xml:lang="zh">创建一个实体</value>
-    </property>
-    <property key="WebtoolsMessage16">
-        <value xml:lang="en">by entering the values you want, and clicking Create</value>
-        <value xml:lang="fr">En entrant les valeurs que vous voulez, et en cliquant sur Créez</value>
-        <value xml:lang="it">e inserendo i valori che vuoi, e cliccando il tasto Creare</value>
-        <value xml:lang="ro">si introducand valorile care le vrei, si click_and tasta Creare</value>
-        <value xml:lang="th">โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create</value>
-        <value xml:lang="zh">：输入值，然后点击新建</value>
-    </property>
-    <property key="WebtoolsMessage17">
-        <value xml:lang="en">You do not have permission to create a entity</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de créer une entité</value>
-        <value xml:lang="it">Tu non hai il permesso di creare una entità</value>
-        <value xml:lang="ro">Nu ai permisul de creare o entitate</value>
-        <value xml:lang="th">คุณไม่ได้รับอนุญาติให้สร้าง Entity</value>
-        <value xml:lang="zh">你没有创建实体的权限</value>
-    </property>
-    <property key="WebtoolsMessage18">
-        <value xml:lang="en">_ADMIN, or _CREATE needed.</value>
-        <value xml:lang="fr">Vous avez besoin de _ADMIN, ou _CREATE</value>
-        <value xml:lang="it">_ADMIN, o _CREATE necessitano.</value>
-        <value xml:lang="ro">este nevoie de _ADMIN, sau _CREATE.</value>
-        <value xml:lang="th">_ADMIN, หรือ _CREATE ที่ต้องการ.</value>
-        <value xml:lang="zh">需要_ADMIN或 _CREATE。</value>
-    </property>
-    <property key="WebtoolsMessage19">
-        <value xml:lang="en">Wrote XML for all data in</value>
-        <value xml:lang="fr">Ecrire XML pour toute les donnée inclues</value>
-        <value xml:lang="it">Scritti XML per tutti i dati in</value>
-        <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน</value>
-    </property>
-    <property key="WebtoolsMessage20">
-        <value xml:lang="en">Wrote</value>
-        <value xml:lang="fr">Ecrire</value>
-        <value xml:lang="it">Scritti</value>
-        <value xml:lang="th">เขียน</value>
-    </property>
-    <property key="WebtoolsMessage21">
-        <value xml:lang="en">records to XML file</value>
-        <value xml:lang="fr">les enregistrements dans le fichier XML</value>
-        <value xml:lang="it">records su file XML</value>
-        <value xml:lang="th">บันทึกมูล XML ไฟล์</value>
-    </property>
-    <property key="WebtoolsMessage22">
-        <value xml:lang="en">No filename specified or no entity names specified, doing nothing.</value>
-        <value xml:lang="fr">Aucun nom de fichier ou d'entité spécifié, rien ne se passera</value>
-        <value xml:lang="it">Nessun nome di file specificato o nessuna nome di entità specificata, niente verrà fatto.</value>
-        <value xml:lang="th">ไม่มีชื่อไฟล์ที่ระบุหรือไม่มีชื่อเอนติตี้ที่ระบุหรือไม่มีอะไร</value>
-    </property>
-    <property key="WebtoolsMessage23">
-        <value xml:lang="en">This page is used to view the status of running workflows.</value>
-        <value xml:lang="fr">Cette page est utilisée pour voir le statut du déroulement des opérations du workflow</value>
-        <value xml:lang="it">Questa pagina è usata per mostrare lo stato del flussi di lavoro in esecuzione.</value>
-        <value xml:lang="th">หน้านี้ใช้ตรวจสอบค่าสถานะของการดำเนินงานโครงสร้าง</value>
-    </property>
-    <property key="WebtoolsMessage24">
-        <value xml:lang="en">No steps found for running workflow process</value>
-        <value xml:lang="fr">Aucune étape trouvée pour exécuter une opération de workflow</value>
-        <value xml:lang="it">Nessun passo trovato per l'esecuzione del processo flusso di lavoro</value>
-        <value xml:lang="th">ไม่พบขั้นตอนการดำเนินงาน</value>
-    </property>
-    <property key="WebtoolsMessage25">
-        <value xml:lang="en">This page is used to read and import XPDL files into the workflow process repository.</value>
-        <value xml:lang="fr">Cette page est utilisée pour lire et importer des fichiers XPDL dans le dépôt de processus du workflow.</value>
-        <value xml:lang="it">Questa pagina è usata per leggere e importare files XPDL nel repository processi flussi di lavoro.</value>
-        <value xml:lang="th">หน้านี้ใช้อ่านและนำเข้าไฟล์ XPDL เข้าสู่ที่เก็บขั้นตอนการทำงาน</value>
-    </property>
-    <property key="WebtoolsMessage26">
-        <value xml:lang="en">Read and printed</value>
-        <value xml:lang="fr">Lu et imprimé</value>
-        <value xml:lang="it">Letti e stampati</value>
-        <value xml:lang="th">อ่านและพิมพ์</value>
-    </property>
-    <property key="WebtoolsMessage27">
-        <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
-        <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
-        <value xml:lang="it">Nessun Periodo di Tempo Personalizzati Attuale Selezionato; "Periodi Figli" sotto non hanno Periodo Padre.</value>
-        <value xml:lang="th">ไม่มีลูกค้าในช่วงเวลาที่เลือก; "Children" ด้านล่างนี้ไม่มีกลุ่มช่วงเวลา
-        </value>
-    </property>
-    <property key="WebtoolsMessage28">
-        <value xml:lang="en">No child periods found</value>
-        <value xml:lang="fr">Aucune période enfant trouvée</value>
-        <value xml:lang="it">Nessun periodo figlio trovato</value>
-        <value xml:lang="th">ไม่พบช่วงเวลาสั้น ๆ</value>
-    </property>
-    <property key="WebtoolsMessage29">
-        <value xml:lang="en">NOTE: These performance results may vary a great deal for different</value>
-        <value xml:lang="fr">NOTE: Ces résultats d'exécution peuvent beaucoup varier  pour différent</value>
-        <value xml:lang="it">NOTA: Questi risultati delle prestazioni potrebbero variare in base ai differenti database,</value>
-        <value xml:lang="th">หมายเหตุ:การกระทำเหล่านี้อาจจะเป็นผลให้เกิดการซื้อขายที่ดีสำหรับความแตกต่าง</value>
-    </property>
-    <property key="WebtoolsMessage30">
-        <value xml:lang="en">databases, JDBC drivers, JTA implementations (transaction managers), connection pools, </value>
-        <value xml:lang="fr">bases de données, pilotes JDBC,  implémentations  JTA (gestionnaire de transaction), pools de connection,</value>
-        <value xml:lang="it">drivers JDBC, implementazioni JTA (gestore delle transazioni), pool di connessioni, </value>
-        <value xml:lang="th">ฐานขอมูล,JDBC drivers, JTA implementations  (การจัดการดำเนินการ), connection pools
-        </value>
-    </property>
-    <property key="WebtoolsMessage31">
-        <value xml:lang="en">local vs. remote deployment configurations, and hardware (app server hardware, database </value>
-        <value xml:lang="fr">configurations de déploiement locale ou à distance, et matériel (serveur d'application, base de données, </value>
-        <value xml:lang="it">configurazioni locali verso remote, e hardware (app server hardware, database </value>
-        <value xml:lang="th">local vs. องค์ประกอบของรีโมทเคลื่อนที่,และฮาร์ดแวร์ (app server hardware, ฐานข้อมูล
-        </value>
-    </property>
-    <property key="WebtoolsMessage32">
-        <value xml:lang="en">server hardware, network connections).</value>
-        <value xml:lang="fr">serveur, connections réseaux).</value>
-        <value xml:lang="it">server hardware, connessioni di rete).</value>
-        <value xml:lang="th">server ฮาร์ดแวร์,เชื่อมโยงเครือข่าย).</value>
-    </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="en">Misc. Setup Tools</value>
         <value xml:lang="fr">Divers outils de configuration</value>
@@ -1966,11 +1829,30 @@
         <value xml:lang="th">ชื่อหรือหน้าที่</value>
         <value xml:lang="zh">名称或角色</value>
     </property>
+    <property key="WebtoolsNoChildPeriodsFound">
+        <value xml:lang="en">No child periods found</value>
+        <value xml:lang="fr">Aucune période enfant trouvée</value>
+        <value xml:lang="it">Nessun periodo figlio trovato</value>
+        <value xml:lang="th">ไม่พบช่วงเวลาสั้น ๆ</value>
+    </property>
+    <property key="WebtoolsNoCurrentCustomTimePeriodSelected">
+        <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
+        <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
+        <value xml:lang="it">Nessun periodo di tempo personalizzato selezionato; i "Periodi figli" sottostanti non hanno alcun "Periodo padre".</value>
+        <value xml:lang="th">ไม่มีลูกค้าในช่วงเวลาที่เลือก; "Children" ด้านล่างนี้ไม่มีกลุ่มช่วงเวลา
+        </value>
+    </property>
     <property key="WebtoolsNoEntitiesRead">
         <value xml:lang="en">No entities read</value>
         <value xml:lang="fr">Aucune entité lue</value>
         <value xml:lang="it">Nessuna entità letta</value>
         <value xml:lang="th">ไม่มี entities</value>
+    </property>
+    <property key="WebtoolsNoFilenameSpecified">
+        <value xml:lang="en">No filename specified or no entity names specified, doing nothing.</value>
+        <value xml:lang="fr">Aucun nom de fichier ou d'entité spécifié, rien ne se passera</value>
+        <value xml:lang="it">Nessun nome di file specificato o nessuna nome di entità specificata, niente verrà fatto.</value>
+        <value xml:lang="th">ไม่มีชื่อไฟล์ที่ระบุหรือไม่มีชื่อเอนติตี้ที่ระบุหรือไม่มีอะไร</value>
     </property>
     <property key="WebtoolsNoParametersDefined">
         <value xml:lang="en">No parameters defined</value>
@@ -2001,6 +1883,12 @@
         <value xml:lang="ro">Nici-un serviciu gasit</value>
         <value xml:lang="th">ไม่พบ services</value>
         <value xml:lang="zh">找不到服务</value>
+    </property>
+    <property key="WebtoolsNoStepsFoundForRunningWorkflow">
+        <value xml:lang="en">No steps found for running workflow process: ${workflow}</value>
+        <value xml:lang="fr">Aucune étape trouvée pour exécuter une opération de workflow: ${workflow}</value>
+        <value xml:lang="it">Nessun passo trovato per l'esecuzione del processo flusso di lavoro: ${workflow}</value>
+        <value xml:lang="th">ไม่พบขั้นตอนการดำเนินงาน: ${workflow}</value>
     </property>
     <property key="WebtoolsNoUtilCacheElementsFound">
         <value xml:lang="en">No UtilCache elements found</value>
@@ -2046,7 +1934,7 @@
         <value xml:lang="th">ไม่มีการนำเสนอ</value>
         <value xml:lang="zh">没有出现</value>
     </property>
-    <property key="WebtoolsNote1">
+    <property key="WebtoolsNoteAntRunInstall">
         <value xml:lang="en">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "ant run-install" or "java -jar ofbiz.jar install"</value>
         <value xml:lang="fr">NOTE: Si vous n'avez pas déjà exécuté le script de chargement des données d'installation : à partir du répertoire racine d'ofbiz, exécutez "ant run-install" ou "java -jar ofbiz.jar install"</value>
         <value xml:lang="it">NOTA: Se non hai ancora eseguito lo script di installazione di caricamento dei dati, esegui dalla home directory di ofbiz "ant run-install" o "java -jar ofbiz.jar install"</value>
@@ -2054,31 +1942,31 @@
         <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "ant run-install" หรือ "java -jar ofbiz.jar install"</value>
         <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"ant run-install"或"java -jar ofbiz.jar install"</value>
     </property>
-    <property key="WebtoolsNote2">
-        <value xml:lang="en">NOTE: Use the following at your own risk; make sure you know what you are doing before running these...</value>
-        <value xml:lang="fr">NOTE: utilisez la suite vos propres risques; veillez à savoir ce que vous faites avant l'exécution de ces derniers ...</value>
-        <value xml:lang="it">NOTA: Usare questo sopra è a tuo rischio; devi essere sicuro di conoscere cosa stai facendo prima di eseguire questi...</value>
-        <value xml:lang="th">หมายเหตุ: ใช้ตามความเสี่ยงของคุณ; สร้างความแน่ใจว่าคุณควรทำอะไรก่อนดำเนินการสิ่งนี้...</value>
-        <value xml:lang="zh">注意：使用下列的功能，风险自行承担；运行前请确信你知道你在做什么</value>
-    </property>
-    <property key="WebtoolsNote3">
+    <property key="WebtoolsNoteForeighKeysMayAlsoBeCreated">
         <value xml:lang="en">NOTE: Foreign keys may also be created in the Check/Update database operation if the check-fks-on-start and other options on the datasource element are setup to do so.</value>
         <value xml:lang="fr">NOTE: Des clefs étrangères peuvent également être créées durant l'opération de contrôle/mise à jour de la base de données si check-fks-on-start et d'autres options au sujet de l'élément de la source de données sont configurées pour faire ainsi.</value>
-        <value xml:lang="it">NOTA: Chiave esterne potrebbero anche essere create nelle operazione di Controlla/Aggiorna Databasete se il controllo di chiavi esterne inizia e altre opzioni sull'elemento datasource che sono configurati per fare cosi'.</value>
+        <value xml:lang="it">NOTA: Nell' operazione di Controlla/Aggiorna Database potrebbero essere create delle chiavi esterne se check-fks-on-start e altre opzioni sull'elemento datasource sono state configurate per fare questo.</value>
         <value xml:lang="th">หมายเหตุ: Foreign keys อาจจะสร้างเฉพาะในการ ตรวจสอบ/อัพเดท ฐานข้อมูล การดำเนินการถ้า check-fks-on-start และทางเลือกอื่นๆในแหล่งข้อมูลที่ติดตั้งในการทำ</value>
         <value xml:lang="zh">注意：如果设置了数据源元素的check-fks-on-start（启动时检查外键）和其它选项，可能会创建外键。</value>
     </property>
-    <property key="WebtoolsNote4">
-        <value xml:lang="en">Note: certain things only work in Java 5. Java Version is</value>
-        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: </value>
-        <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è</value>
-        <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่</value>
+    <property key="WebtoolsJavaVersionIs5">
+        <value xml:lang="en">Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5 ?</value>
+        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: ${javaVer}; c'est Java 5 ?</value>
+        <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è ${javaVer}; è Java 5 ?</value>
+        <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่${javaVer};  Java 5 ?</value>
     </property>
-    <property key="WebtoolsNote5">
-        <value xml:lang="en">is Java 5</value>
-        <value xml:lang="fr">c'est Java 5 </value>
-        <value xml:lang="it">è Java 5</value>
-        <value xml:lang="th"> Java 5</value>
+    <property key="WebtoolsNotePerformanceResultsMayVary">
+        <value xml:lang="en">NOTE: These performance results may vary a great deal for different databases, JDBC drivers, JTA implementations (transaction managers), connection pools, local vs. remote deployment configurations, and hardware (app server hardware, database server hardware, network connections).</value>
+        <value xml:lang="fr">NOTE: Ces résultats d'exécution peuvent beaucoup varier  pour différent bases de données, pilotes JDBC,  implémentations  JTA (gestionnaire de transaction), pools de connection, configurations de déploiement locale ou à distance, et matériel (serveur d'application, base de données, serveur, connections réseaux).</value>
+        <value xml:lang="it">NOTA: I risultati delle prestazioni potrebbero variare in base ai differenti database, drivers JDBC, implementazioni JTA (gestore delle transazioni), pool di connessioni, configurazioni locali/remote, e hardware (app server hardware, database server, connessioni di rete).</value>
+        <value xml:lang="th">หมายเหตุ:การกระทำเหล่านี้อาจจะเป็นผลให้เกิดการซื้อขายที่ดีสำหรับความแตกต่าง ฐานขอมูล,JDBC drivers, JTA implementations  (การจัดการดำเนินการ), connection poolslocal vs. องค์ประกอบของรีโมทเคลื่อนที่,และฮาร์ดแวร์ (app server hardware, ฐานข้อมูลserver ฮาร์ดแวร์,เชื่อมโยงเครือข่าย).</value>
+    </property>
+    <property key="WebtoolsNoteUseAtYourOwnRisk">
+        <value xml:lang="en">NOTE: Use the following at your own risk; make sure you know what you are doing before running these...</value>
+        <value xml:lang="fr">NOTE: utilisez la suite vos propres risques; veillez à savoir ce que vous faites avant l'exécution de ces derniers ...</value>
+        <value xml:lang="it">NOTA: Usare quanto segue a proprio rischio; devi essere sicuro di sapere cosa stai facendo prima di eseguirli...</value>
+        <value xml:lang="th">หมายเหตุ: ใช้ตามความเสี่ยงของคุณ; สร้างความแน่ใจว่าคุณควรทำอะไรก่อนดำเนินการสิ่งนี้...</value>
+        <value xml:lang="zh">注意：使用下列的功能，风险自行承担；运行前请确信你知道你在做什么</value>
     </property>
     <property key="WebtoolsNumberOfJobRetry">
         <value xml:lang="en">number of time the job will retry on error; use -1 for no limit or leave empty for service default</value>
@@ -2358,6 +2246,12 @@
         <value xml:lang="ro">Nume valoare RHS</value>
         <value xml:lang="th">ชื่อค่า RHS</value>
         <value xml:lang="zh">右手选择值名称</value>
+    </property>
+    <property key="WebtoolsReadAndPrintedNEntities">
+        <value xml:lang="en">Read and printed ${toBeStored.size()} entities.</value>
+        <value xml:lang="fr">Lu et imprimé ${toBeStored.size()} Entités.</value>
+        <value xml:lang="it">Lette e stampate ${toBeStored.size()} entità.</value>
+        <value xml:lang="th">อ่านและพิมพ์ ${toBeStored.size()} entities.</value>
     </property>
     <property key="WebtoolsReadXPDLFile">
         <value xml:lang="en">Read XPDL File</value>
@@ -2953,6 +2847,22 @@
         <value xml:lang="th">พัก</value>
         <value xml:lang="zh">睡眠中</value>
     </property>
+    <property key="WebtoolsStep1ServiceAndRecurrenceInfo">
+        <value xml:lang="en">Step 1: Service And Recurrence Information</value>
+        <value xml:lang="fr">Etape 1: Service et paramètre de récurrence</value>
+        <value xml:lang="it">Passo 1: Informazioni sul servizio e sulla ricorrenza dell'esecuzione</value>
+        <value xml:lang="ro">Passo 1: Serviciu si Informatii Recurente</value>
+        <value xml:lang="th">ขั้นตอนที่ 1: ข้อมูลของเซอร์วิสและการนำกลับขึ้นมาพิจารณาอีก</value>
+        <value xml:lang="zh">步骤一：服务和循环信息</value>
+    </property>
+    <property key="WebtoolsStep2ServiceParameters">
+        <value xml:lang="en">Step 2: Service Parameters</value>
+        <value xml:lang="fr">Etape 2: paramètres du service</value>
+        <value xml:lang="it">Passo 2: Parametri del servizio</value>
+        <value xml:lang="ro">Passo 2: Servizio Parametri</value>
+        <value xml:lang="th">ขั้นตอนที่ 2: ค่าตัวแปรเซอร์วิส</value>
+        <value xml:lang="zh">步骤二：服务参数</value>
+    </property>
     <property key="WebtoolsSync">
         <value xml:lang="en">SYNC</value>
         <value xml:lang="fr">SYNCHRO</value>
@@ -3077,54 +2987,6 @@
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="th">หัวเรื่อง</value>
         <value xml:lang="zh">标题</value>
-    </property>
-    <property key="WebtoolsTitle1">
-        <value xml:lang="en">The purpose of this Web Tools administration package is to contain all of the</value>
-        <value xml:lang="fr">Le but de cet d'ensemble d'outils Web d'administration est de contenir tout les outils</value>
-        <value xml:lang="it">La funzione di questo pacchetto di Strumenti Web di amministrazione è di contenere tutti gli</value>
-        <value xml:lang="ro">Functia acestui pachet de Instrumente Web de administratie este de a contine toate </value>
-        <value xml:lang="th">วัตถุประสงค์ของเครื่องมือผู้ดูแลระบบโดยมีแพ็คเกจที่ประกอบไปด้วย</value>
-        <value xml:lang="zh">本Web工具管理包的目的是为了包含所有与各种核心</value>
-    </property>
-    <property key="WebtoolsTitle2">
-        <value xml:lang="en">administration tools that directly relate to the various Core Tool Components. The Core Tool Component layer is</value>
-        <value xml:lang="fr">ce qui se rapportent directement aux divers outils des composants du noyau. La couche d'outil du noyau est</value>
-        <value xml:lang="it">strumenti di amministrazione che sono direttamente relativi alle varie Componenti Principali. Lo strato dei Componenti Principali è</value>
-        <value xml:lang="ro">instrumentele de administratie care sunt relative la variile Componente Principale. Stratul Componentelor Principale </value>
-        <value xml:lang="th">การจัดการเครื่องมือต่างๆ นั้นโดยตรงต้องทำให้สัมพันธ์กับเครื่องมือของส่วนประกอบที่สำคัญหลายประเภท ซึ่งมีชั้นของส่วนประกอบของเครื่องมือคือ</value>
-        <value xml:lang="zh">工具组件直接相关的管理工具。内核工具组件层是</value>
-    </property>
-    <property key="WebtoolsTitle3">
-        <value xml:lang="en">defined in the architecture documents as the container</value>
-        <value xml:lang="fr">définie dans les documents d'architecture comme conteneur</value>
-        <value xml:lang="it">definito nei documenti architetturali come il container</value>
-        <value xml:lang="ro">definit in documentele arhitecturale ca un container</value>
-        <value xml:lang="th">กำหนดในโครงสร้างเอกสารตามที่บรรจุ</value>
-        <value xml:lang="zh">定义在了架构文档中，作为全部实体定义的容器，</value>
-    </property>
-    <property key="WebtoolsTitle4">
-        <value xml:lang="en">of all entity definitions shared by the vertical applications that</value>
-        <value xml:lang="fr">de toutes les définitions d'entité partagées par les applications verticales.</value>
-        <value xml:lang="it">di tutte le definizioni delle entità condivise da tuttle le applicazioni che</value>
-        <value xml:lang="ro">al tuturor definitiilor entitatilor admise de toate aplicatiile care </value>
-        <value xml:lang="th">จากเอนติตี้ทั้งหมดมีการกำหนดให้ใช้งานร่วมกันโดยตำแหน่งและความสัมพันธ์ของแอพพลิเคชั่นนั้น</value>
-        <value xml:lang="zh">在垂直应用间共享。这些垂直应用构建在这些实体</value>
-    </property>
-    <property key="WebtoolsTitle5">
-        <value xml:lang="en">are built on top of these entity definitions and the tools surrounding them such as the entity, workflow, and rule engines,</value>
-        <value xml:lang="fr">Les applications verticales et les outils les entourant tels que les moteurs d'entité, de workflow et de règles,</value>
-        <value xml:lang="it">sono costruite alla base di queste definizioni di entità e strumenti intorno a questi come entità, flussi di lavoro, e engine delle regole,</value>
-        <value xml:lang="ro">construiesc un top de definitii de entitati si  instrumente ca si entitati, fluxuri de lucru, si reguli motorii,</value>
-        <value xml:lang="th">เป็นการสร้างบน entity นี้ และมีเครื่องมือล้อมรอบ เช่น entity, workflow, และ rule engines,</value>
-        <value xml:lang="zh">定义之上，围绕它们的工具如实体、工作流、规则引擎、</value>
-    </property>
-    <property key="WebtoolsTitle6">
-        <value xml:lang="en">content and knowledge management, data analysis, and so forth</value>
-        <value xml:lang="fr">la gestion de contenu et de connaissance, l'analyse de données, etc., sont construites sur ces définitions d'entité </value>
-        <value xml:lang="it">gestione contenuti, analisi dati, e così via</value>
-        <value xml:lang="ro">gestiune continuturi, analiza date, si asa mai departe</value>
-        <value xml:lang="th">ความพึงพอใจและความรู้ความสามารถในการจัดการ วิเคราะห์ข้อมูล พัฒนาไปข้างหน้าอย่างเต็มที่</value>
-        <value xml:lang="zh">内容和知识管理、数据分析等。</value>
     </property>
     <property key="WebtoolsToFindAll">
         <value xml:lang="en">To find ALL of Entity</value>
@@ -3348,6 +3210,12 @@
         <value xml:lang="it">Pacchetto/Versione</value>
         <value xml:lang="th">แพ็คเกจ/เวอร์ชั่น</value>
     </property>
+    <property key="WebtoolsWorkflowPageDescription">
+        <value xml:lang="en">This page is used to view the status of running workflows.</value>
+        <value xml:lang="fr">Cette page est utilisée pour voir le statut du déroulement des opérations du workflow</value>
+        <value xml:lang="it">Questa pagina è usata per mostrare lo stato del flussi di lavoro in esecuzione.</value>
+        <value xml:lang="th">หน้านี้ใช้ตรวจสอบค่าสถานะของการดำเนินงานโครงสร้าง</value>
+    </property>
     <property key="WebtoolsWorkflowProcessVersion">
         <value xml:lang="en">Process/Version</value>
         <value xml:lang="fr">Processus/Version</value>
@@ -3365,6 +3233,18 @@
         <value xml:lang="fr">Workflows</value>
         <value xml:lang="it">Flussi di Lavoro</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
+    </property>
+    <property key="WebtoolsWroteNRecordsToXMLFile">
+        <value xml:lang="en">Wrote ${numberWritten} records to XML file ${parameters.filename}.</value>
+        <value xml:lang="fr">Ecrire ${numberWritten} les enregistrements dans le fichier XML ${parameters.filename}.</value>
+        <value xml:lang="it">Scritti ${numberWritten} records su file XML ${parameters.filename}.</value>
+        <value xml:lang="th">เขียน ${numberWritten} บันทึกมูล XML ไฟล์ ${parameters.filename}.</value>
+    </property>
+    <property key="WebtoolsWroteXMLForAllDataIn">
+        <value xml:lang="en">Wrote XML for all data in ${numberOfEntities} entities.</value>
+        <value xml:lang="fr">Ecrire XML pour toute les donnée inclues ${numberOfEntities} Entités.</value>
+        <value xml:lang="it">Scritti XML per tutti i dati in ${numberOfEntities} entità.</value>
+        <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน ${numberOfEntities} entities.</value>
     </property>
     <property key="WebtoolsXMLExportInfo">
         <value xml:lang="en">This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;". There will be one file for each Entity in the configured delegator for this webapp.</value>
@@ -3387,5 +3267,13 @@
         <value xml:lang="fr">Nom de fichier XPDL ou URL</value>
         <value xml:lang="it">Nome file XPDL o URL</value>
         <value xml:lang="th">ชื่อไฟล์ XPDL หรือ URL</value>
+    </property>
+    <property key="WebtoolsYouMayCreateAnEntity">
+        <value xml:lang="en">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
+        <value xml:lang="fr">Vous pouvez créer une entité  ${entityName} En entrant les valeurs que vous voulez, et en cliquant sur Créez.</value>
+        <value xml:lang="it">Puoi creare una Entità ${entityName} inserendo i valori che vuoi, e cliccando il tasto Creare.</value>
+        <value xml:lang="ro">Tu poti crea o Entitate ${entityName} si introducand valorile care le vrei, si click_and tasta Creare.</value>
+        <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้ ${entityName} โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create.</value>
+        <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
     </property>
 </resource>

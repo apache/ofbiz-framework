@@ -133,7 +133,7 @@ under the License.
         </form>
       </table>
     <#else>
-      <div class="screenlet-body">${uiLabelMap.WebtoolsMessage27}</div>
+      <div class="screenlet-body">${uiLabelMap.WebtoolsNoCurrentCustomTimePeriodSelected}</div>
     </#if>
   </div>
   <div class="screenlet">
@@ -227,7 +227,7 @@ under the License.
         </#list>
       </table>
     <#else>
-      <div class="screenlet-body">${uiLabelMap.WebtoolsMessage28}</div>
+      <div class="screenlet-body">${uiLabelMap.WebtoolsNoChildPeriodsFound}</div>
     </#if>
   </div>
   <div class="screenlet">

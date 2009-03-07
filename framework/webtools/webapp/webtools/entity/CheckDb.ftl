@@ -28,7 +28,7 @@ under the License.
         &nbsp;<input type="checkbox" name="repair" value="true"/>&nbsp;${uiLabelMap.WebtoolsRepairColumnSizes}
         <input type="submit" value="${uiLabelMap.WebtoolsCheckUpdateDatabase}"/>
     </form>
-    <p>${uiLabelMap.WebtoolsNote2}</p>
+    <p>${uiLabelMap.WebtoolsNoteUseAtYourOwnRisk}</p>
     <script language="JavaScript" type="text/javascript">
          function enableTablesRemove() {
              document.forms["TablesRemoveForm"].elements["TablesRemoveButton"].disabled=false;
@@ -94,7 +94,7 @@ under the License.
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeys}</h3>
-    <p>${uiLabelMap.WebtoolsNote3}</p>
+    <p>${uiLabelMap.WebtoolsNoteForeighKeysMayAlsoBeCreated}</p>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createfks"/>
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>

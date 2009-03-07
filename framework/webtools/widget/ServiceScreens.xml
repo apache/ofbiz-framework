@@ -124,7 +124,7 @@ under the License.
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
                                  <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsMessage11}"/>
+                                     <label text="${uiLabelMap.WebtoolsStep1ServiceAndRecurrenceInfo}"/>
                                  </container>
                              </container>
                              <container style="screenlet-body">
@@ -176,7 +176,7 @@ under the License.
                     <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
-                                 <label style="h3">${uiLabelMap.WebtoolsMessage12}</label>
+                                 <label style="h3">${uiLabelMap.WebtoolsStep2ServiceParameters}</label>
                              </container>
                              <container style="screenlet-body">
                                  <platform-specific>

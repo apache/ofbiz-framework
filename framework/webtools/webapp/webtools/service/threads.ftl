@@ -57,7 +57,7 @@ under the License.
   </div>
 <br />
 <p>${uiLabelMap.WebtoolsThisThread}<b> ${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
-<p>${uiLabelMap.WebtoolsNote4} ${javaVer}; ${uiLabelMap.WebtoolsNote5}? <#if isJava5> ${uiLabelMap.CommonYes}<#else>${uiLabelMap.CommonNo}</#if><p>
+<p>${uiLabelMap.WebtoolsJavaVersionIs5} <#if isJava5> ${uiLabelMap.CommonYes}<#else>${uiLabelMap.CommonNo}</#if><p>
 <br />
 <table class="basic-table hover-bar" cellspacing="0">
   <tr class="header-row">

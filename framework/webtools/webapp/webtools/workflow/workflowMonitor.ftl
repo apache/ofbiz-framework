@@ -24,7 +24,7 @@ under the License.
   <#-- list all running processes -->
   <#if !parameters.workflow?exists>
     <#if runningProcesses?exists>
-      <p>${uiLabelMap.WebtoolsMessage23}</p>
+      <p>${uiLabelMap.WebtoolsWorkflowPageDescription}</p>
       <table class="basic-table dark-grid" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.WebtoolsWorkflowPackageVersion}</td>
@@ -92,7 +92,7 @@ under the License.
         </table>
       </div>
     <#else>
-      <h3>${uiLabelMap.WebtoolsMessage24}: ${workflow}</h3>
+      <h3>${uiLabelMap.WebtoolsNoStepsFoundForRunningWorkflow}</h3>
     </#if>
   </#if>
 <#else>
