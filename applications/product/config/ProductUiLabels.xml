@@ -601,6 +601,10 @@
         <value xml:lang="th">รหัสประเภทหัวข้อที่เกี่ยวข้อง</value>
         <value xml:lang="zh">关联类型标识</value>
     </property>
+    <property key="FormFieldTitle_canDropShip">
+        <value xml:lang="en">Can Drop Ship</value>
+        <value xml:lang="it">Possono essere effettuare spedizione c/terzi</value>
+    </property>
     <property key="FormFieldTitle_cancelQuantity">
         <value xml:lang="de">Annullierungsmenge</value>
         <value xml:lang="en">Cancel Quantity</value>

@@ -74,7 +74,7 @@ under the License.
             <display-entity entity-name="AgreementType"/>
         </field>
         <field name="fromDate" sort-field="true"></field>
-        <field name="thruDate" sort-field="true"></field>
+        <field name="thruDate" title="${uiLabelMap.AccountingThruDate}" sort-field="true"></field>
         <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="description" sort-field="true"></field>
@@ -293,7 +293,7 @@ under the License.
             <display-entity entity-name="PartyGroup" key-field-name="partyId" description="${partyId} - ${groupName}"/>
         </field>
         <field name="fromDate"><display/></field>
-        <field name="thruDate"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.AccountingThruDate}"><display/></field>
         <field name="description"><display/></field>
     </form>
     <form name="ViewAgreementItemInfoForReport" type="single" title="" default-map-name="agreementItem"
