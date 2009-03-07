@@ -109,7 +109,7 @@
     </property>
     <property key="BusinessIntelligenceNote15">
         <value xml:lang="en">history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).</value>
-        <value xml:lang="fr">l'historique des changements de données sont déjà implémentés. Il seront améliorés quand le datawarehouse se développera (par exemple des perfectionnements en performance).</value>
+        <value xml:lang="fr">l'historique des changements de données sont déjà implémentés. Ils seront améliorés quand le datawarehouse se développera (par exemple des perfectionnements en performance).</value>
         <value xml:lang="it">storia di cambio di dati che sono già implementati; sarà aumentato di caratteristiche non appena crescerà il datawarehouse (e.g. aumento prestazioni).</value>
         <value xml:lang="th">ความเป็นมาของข้อมูลได้เปลี่ยนแปลงเรียบร้อยแล้ว; ได้มีการปรับปรุงข้อมูลคลังสินค้าให้ดีขึ้น (ตัวอย่างเช่น การทำให้ดีขึ้น)</value>
     </property>
