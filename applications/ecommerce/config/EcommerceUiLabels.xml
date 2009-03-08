@@ -103,7 +103,7 @@
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="de">Neues digitales Produkt hinzufügen</value>
         <value xml:lang="en">Add New Digital Product</value>
-        <value xml:lang="fr">Ajouter le nouveau produit numérique</value>
+        <value xml:lang="fr">Ajouter le nouvel article numérique</value>
         <value xml:lang="hi_IN">नयी डिजीटल फल जोडें</value>
         <value xml:lang="it">Aggiungi nuovo prodotto digitale</value>
         <value xml:lang="ro">Adauga Nou Produs Digital</value>
@@ -241,74 +241,92 @@
     </property>
     <property key="EcommerceBlogAddResponse">
         <value xml:lang="en">Add a response:</value>
+        <value xml:lang="fr">Ajouter une réponse : </value>
         <value xml:lang="it">Aggiungi una risposta:</value>
     </property>
     <property key="EcommerceBlogAddResponseMessage">
         <value xml:lang="en">You must be logged in to add a response.</value>
+        <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir ajouter une réponse : </value>
         <value xml:lang="it">Devi essere autenticato per aggiungere una risposta.</value>
     </property>
     <property key="EcommerceBlogAddThread">
         <value xml:lang="en">Add a thread:</value>
+        <value xml:lang="fr">Ajouter un fil de discussion : </value>
         <value xml:lang="it">Aggiungi una discussione:</value>
     </property>
     <property key="EcommerceBlogArticle">
         <value xml:lang="en">Article</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
     </property>
     <property key="EcommerceBlogContentNotFound">
         <value xml:lang="en">Unable to find Blog content!</value>
+        <value xml:lang="fr">Impossible de trouver le contenu du blog !</value>
         <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
     </property>
     <property key="EcommerceBlogEditComments">
         <value xml:lang="en">You must be logged in in order to edit comments.</value>
+        <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir modifier les commentaires.</value>
         <value xml:lang="it">Devi essere autenticato per poter aggiornare un commento.</value>
     </property>
     <property key="EcommerceBlogEntryId">
         <value xml:lang="en">Blog entry Id</value>
+        <value xml:lang="fr">Réf. de note de blog</value>
         <value xml:lang="it">Voce blog</value>
     </property>
     <property key="EcommerceBlogFullMessage">
         <value xml:lang="en">Full message</value>
+        <value xml:lang="fr">Message complet</value>
         <value xml:lang="it">Messaggio completo</value>
     </property>
     <property key="EcommerceBlogLatestResponses">
         <value xml:lang="en">Latest Responses</value>
+        <value xml:lang="fr">Dernière réponse</value>
         <value xml:lang="it">Ultime risposte</value>
     </property>
     <property key="EcommerceBlogMessageTree">
         <value xml:lang="en">Message tree</value>
+        <value xml:lang="fr">Arborescence de messages</value>
         <value xml:lang="it">Albero messaggi</value>
     </property>
     <property key="EcommerceBlogPostedOn">
         <value xml:lang="en">Posted on</value>
+        <value xml:lang="fr">Envoyé le </value>
         <value xml:lang="it">Inviato il</value>
     </property>
     <property key="EcommerceBlogPostComments">
         <value xml:lang="en">You must be logged in and viewing a published record in order to post comments.</value>
+        <value xml:lang="fr">Vous devez être connecté(e) et entrain de visualiser un commentaire afinf de pouvoir envoyer les votres</value>
         <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
     </property>
     <property key="EcommerceBlogPreview">
         <value xml:lang="en">Preview</value>
+        <value xml:lang="fr">Visionner</value>
         <value xml:lang="it">Anteprima</value>
     </property>
     <property key="EcommerceBlogPublish">
         <value xml:lang="en">Publish</value>
+        <value xml:lang="fr">Publier</value>
         <value xml:lang="it">Pubblica</value>
     </property>
     <property key="EcommerceBlogTopCenter">
         <value xml:lang="en">Top Center</value>
+        <value xml:lang="fr">En haut au centre</value>
         <value xml:lang="it">Alto al centro</value>
     </property>
     <property key="EcommerceBlogTopLeft">
         <value xml:lang="en">Top Left</value>
+        <value xml:lang="fr">En haut à gauche</value>
         <value xml:lang="it">Alto a sinistra</value>
     </property>
     <property key="EcommerceBlogViewArticle">
         <value xml:lang="en">View Blog Article</value>
+        <value xml:lang="fr">Voir l'article du blog</value>
         <value xml:lang="it">Mostra articolo blog</value>
     </property>
     <property key="EcommerceBronze">
         <value xml:lang="en">Bronze</value>
+        <value xml:lang="fr">Bronze</value>
         <value xml:lang="it">Bronzo</value>
     </property>
     <property key="EcommerceCartHas">
@@ -574,7 +592,7 @@
     <property key="EcommerceDigitalNewProduct">
         <value xml:lang="de">Neues digitales Produkt</value>
         <value xml:lang="en">Digital New Product</value>
-        <value xml:lang="fr">Nouveau produit numérique</value>
+        <value xml:lang="fr">Nouvel article numérique</value>
         <value xml:lang="hi_IN">नया डिजीटल सामान</value>
         <value xml:lang="it">Nuovo prodotto digitale</value>
         <value xml:lang="ro">Nou Produs Digital</value>
@@ -585,7 +603,7 @@
     <property key="EcommerceDigitalProductFiles">
         <value xml:lang="de">Digitales Produkt Dateien</value>
         <value xml:lang="en">Digital Product Files</value>
-        <value xml:lang="fr">Fichiers de produit numérique</value>
+        <value xml:lang="fr">Fichiers d'article numérique</value>
         <value xml:lang="hi_IN">डिजीटल सामान फाइल</value>
         <value xml:lang="it">Files prodotti digitali</value>
         <value xml:lang="ro">Fisiere Produse Digitale</value>
@@ -596,7 +614,7 @@
     <property key="EcommerceDigitalProductPurchaseHistoryCommission">
         <value xml:lang="de">Historie über Kommissionen digitale Produkteinkäufe</value>
         <value xml:lang="en">Digital Product Purchase History Commission</value>
-        <value xml:lang="fr">Historique des commissions sur l'achat de produit(s) numérique(s)</value>
+        <value xml:lang="fr">Historique des commissions sur l'achat d'articles(s) numérique(s)</value>
         <value xml:lang="hi_IN">डिजीटल सामान ख़रीदारी का इतिहास व दलाली</value>
         <value xml:lang="it">Storia delle provvigioni sugli acquisti di prodotti digitali</value>
         <value xml:lang="ro">Storia Cumparari si  Provizioane Produse Digitale</value>
@@ -608,7 +626,7 @@
         <value xml:lang="de">Digitales Produkt hochladen</value>
         <value xml:lang="en">Digital Product Upload</value>
         <value xml:lang="es">carga de productos digitales</value>
-        <value xml:lang="fr">Téléchargement du produit numérique vers le serveur</value>
+        <value xml:lang="fr">Téléchargement de l'article numérique vers le serveur</value>
         <value xml:lang="hi_IN">अंकीय फल अपलोड</value>
         <value xml:lang="it">Upload prodotto digitale</value>
         <value xml:lang="ro">Upload Produs Digital</value>
@@ -648,6 +666,7 @@
     </property>
     <property key="EcommerceEditThisComment">
         <value xml:lang="en">Edit this comment</value>
+        <value xml:lang="fr">Modifier ce commentaire</value>
         <value xml:lang="it">Aggiorna questo commento</value>
     </property>
     <property key="EcommerceEmptyBody">
@@ -1189,7 +1208,7 @@
         <value xml:lang="de">Letzte Produkte</value>
         <value xml:lang="en">Last Products</value>
         <value xml:lang="es">Últimos productos</value>
-        <value xml:lang="fr">Derniers produits visités</value>
+        <value xml:lang="fr">Derniers articles visités</value>
         <value xml:lang="hi_IN">अतिंम सामान</value>
         <value xml:lang="it">Ultimi prodotti</value>
         <value xml:lang="ja">Last Products</value>
@@ -1583,7 +1602,7 @@
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="de">Keine digitalen Produkte gefunden</value>
         <value xml:lang="en">No Digital Products Found</value>
-        <value xml:lang="fr">Aucun produit numérique trouvé</value>
+        <value xml:lang="fr">Aucun article numérique trouvé</value>
         <value xml:lang="hi_IN">कोई डिजीटल सामान नही मिला</value>
         <value xml:lang="it">Nessun prodotto digitale trovato</value>
         <value xml:lang="ro">Nici-un Produs Digital Gasit</value>
@@ -1930,13 +1949,14 @@
     </property>
     <property key="EcommerceProductNotConfigured">
         <value xml:lang="en">Product not configured</value>
+        <value xml:lang="fr">Article non configuré</value>
         <value xml:lang="it">Prodotto non configurato</value>
     </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="de">Produktnummer</value>
         <value xml:lang="en">Product Number</value>
         <value xml:lang="es">Producto</value>
-        <value xml:lang="fr">N° de produit</value>
+        <value xml:lang="fr">N° d'article</value>
         <value xml:lang="hi_IN">सामान नम्बर:</value>
         <value xml:lang="it">Codice prodotto:</value>
         <value xml:lang="ja">Product ID:</value>
@@ -2412,6 +2432,7 @@
     </property>
     <property key="EcommerceShortName">
         <value xml:lang="en">Short Name</value>
+        <value xml:lang="fr">Nom court</value>
         <value xml:lang="it">Nome corto</value>
     </property>
     <property key="EcommerceShortSubject">
@@ -2465,6 +2486,7 @@
     </property>
     <property key="EcommerceSorryDigitalProductUploadNotEnabled">
         <value xml:lang="en">Sorry, digital product upload is not enabled.</value>
+        <value xml:lang="fr">Désolé, article numérique non accessible</value>
         <value xml:lang="it">Spiacente, l'upload di prodotti digitali non è abilitato.</value>
     </property>
     <property key="EcommerceStartDate">
@@ -2528,6 +2550,7 @@
     </property>
     <property key="EcommerceSubscriptionVerifyEmail">
         <value xml:lang="en">Subscription Verify Email</value>
+        <value xml:lang="fr">Vérification d'adresse couriel pour subscription</value>
         <value xml:lang="it">Sottiscrivi verifica email</value>
     </property>
     <property key="EcommerceSummary">
@@ -2737,7 +2760,7 @@
     <property key="EcommerceUpdateDigitalProduct">
         <value xml:lang="de">Digitales Produkt aktualisieren</value>
         <value xml:lang="en">Update Digital Product</value>
-        <value xml:lang="fr">Mise à jour du produit numérique</value>
+        <value xml:lang="fr">Mise à jour de l'article numérique</value>
         <value xml:lang="hi_IN">डिजीटम सामान सुधार किजीये</value>
         <value xml:lang="it">Aggiorna prodotto digitale</value>
         <value xml:lang="ro">Adauga Produs Digital</value>
@@ -2872,6 +2895,7 @@
     </property>
     <property key="EcommerceYourGiftCardReloaded">
         <value xml:lang="en">Your Gift Card Reloaded Have</value>
+        <value xml:lang="fr">Votre carte cadeau est rechargée</value>
         <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
     </property>
     <property key="EcommerceYouHave">
