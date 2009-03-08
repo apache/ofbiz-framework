@@ -418,6 +418,13 @@ public class ConfigXMLReader {
             this.invoke = eventElement.getAttribute("invoke");
             this.globalTransaction = !"false".equals(eventElement.getAttribute("global-transaction"));
         }
+
+        public Event(String type, String path, String invoke, boolean globalTransaction) {
+            this.type = type;
+            this.path = path;
+            this.invoke = invoke;
+            this.globalTransaction = globalTransaction;
+        }
     }
     
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();

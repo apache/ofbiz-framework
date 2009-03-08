@@ -30,6 +30,8 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 public class GroovyEventHandler implements EventHandler {
     
@@ -38,7 +40,7 @@ public class GroovyEventHandler implements EventHandler {
     public void init(ServletContext context) throws EventHandlerException {
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         try {
             Map<String, Object> groovyContext = FastMap.newInstance();
             groovyContext.put("request", request);
@@ -54,7 +56,7 @@ public class GroovyEventHandler implements EventHandler {
             groovyContext.put("userLogin", session.getAttribute("userLogin"));
             groovyContext.put("parameters", UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
 
-            Object result = GroovyUtil.runScriptAtLocation(eventPath + eventMethod, groovyContext);
+            Object result = GroovyUtil.runScriptAtLocation(event.path + event.invoke, groovyContext);
             // check the result
             if (result != null && !(result instanceof String)) {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());           

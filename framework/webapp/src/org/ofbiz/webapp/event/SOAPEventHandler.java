@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +49,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.w3c.dom.Document;
 
 /**
@@ -65,15 +66,10 @@ public class SOAPEventHandler implements EventHandler {
     public void init(ServletContext context) throws EventHandlerException {
     }
     
-    /** Invoke the web event
-     *@param eventPath The path or location of this event
-     *@param eventMethod The method to invoke
-     *@param request The servlet request object
-     *@param response The servlet response object
-     *@return String Result code
-     *@throws EventHandlerException
+    /**
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         AxisServer axisServer;
 
@@ -188,7 +184,7 @@ public class SOAPEventHandler implements EventHandler {
             throw new EventHandlerException("Cannot get the envelope", e);
         }
         
-        List bodies = null;
+        List<Object> bodies = null;
 
         try {
             bodies = reqEnv.getBodyElements();
@@ -205,8 +201,7 @@ public class SOAPEventHandler implements EventHandler {
             if (o instanceof RPCElement) {
                 RPCElement body = (RPCElement) o;
                 String serviceName = body.getMethodName();
-                List params = null;
-
+                List<RPCParam> params = null;
                 try {
                     params = body.getParams();
                 } catch (Exception e) {
@@ -214,11 +209,7 @@ public class SOAPEventHandler implements EventHandler {
                     throw new EventHandlerException(e.getMessage(), e);
                 }
                 Map<String, Object> serviceContext = FastMap.newInstance();
-                Iterator p = params.iterator();
-
-                while (p.hasNext()) {
-                    RPCParam param = (RPCParam) p.next();
-
+                for (RPCParam param: params) {
                     if (Debug.verboseOn()) Debug.logVerbose("[Reading Param]: " + param.getName(), module);
                     serviceContext.put(param.getName(), param.getObjectValue());
                 }

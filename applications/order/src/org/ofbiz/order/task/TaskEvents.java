@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.event.EventHandler;
 import org.ofbiz.webapp.event.EventHandlerException;
 import org.ofbiz.entity.GenericValue;
@@ -93,7 +94,7 @@ public class TaskEvents {
         if (addToOrderRole(request)) {
             try {                
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
-                eh.invoke("", "wfAcceptRoleAssignment", request, response); 
+                eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response); 
             } catch (EventHandlerException e) {
                 Debug.logError(e, "Invocation error", module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfAcceptRoleAssignmentService", locale));
@@ -113,7 +114,7 @@ public class TaskEvents {
         if (addToOrderRole(request)) {
             try {
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
-                eh.invoke("", "wfDelegateAndAcceptAssignmet", request, response); 
+                eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response); 
             } catch (EventHandlerException e) {
                 Debug.logError(e, "Invocation error", module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfDelegateAndAcceptAssignmentService", locale));

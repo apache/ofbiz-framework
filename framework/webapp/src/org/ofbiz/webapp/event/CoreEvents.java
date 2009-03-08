@@ -55,6 +55,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.calendar.RecurrenceRule;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 
 /**
  * CoreEvents - WebApp Events Related To Framework pieces
@@ -555,8 +556,9 @@ public class CoreEvents {
         
         // call the service via the ServiceEventHandler which 
         // adapts an event to a service.
+        Event event = new Event("service", mode, serviceName, false);
         try {
-            return seh.invoke(mode, serviceName, request, response);
+            return seh.invoke(event, null, request, response);
         } catch (EventHandlerException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_eventhandler_exception", locale);                                  
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + ": " + e.getMessage());

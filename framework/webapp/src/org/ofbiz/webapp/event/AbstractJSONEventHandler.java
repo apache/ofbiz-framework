@@ -35,8 +35,10 @@ import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
-public abstract class AbstractJSONEventHandler  implements EventHandler{
+public abstract class AbstractJSONEventHandler implements EventHandler {
 
     public static final String module = JSONSimpleEventHandler.class.getName();
     protected EventHandler service;
@@ -44,9 +46,9 @@ public abstract class AbstractJSONEventHandler  implements EventHandler{
 
     public abstract void init(ServletContext context) throws EventHandlerException;
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
                 // call into the java handler for parameters parsing and invocation
-        String respCode = service.invoke(eventPath, eventMethod, request, response);
+        String respCode = service.invoke(null, requestMap, request, response);
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = getAttributesAsMap(request);
             
@@ -80,7 +82,7 @@ public abstract class AbstractJSONEventHandler  implements EventHandler{
 
     private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
         Map<String, Object> attrMap = FastMap.newInstance();
-        Enumeration en = request.getAttributeNames();
+        Enumeration<String> en = request.getAttributeNames();
         while (en.hasMoreElements()) {
             String name = (String) en.nextElement();
             Object val = request.getAttribute(name);

@@ -19,28 +19,45 @@
 
 package org.ofbiz.webapp.event;
 
-import org.apache.xmlrpc.common.ServerStreamConnection;
-import org.apache.xmlrpc.common.XmlRpcHttpRequestConfig;
-import org.apache.xmlrpc.common.XmlRpcHttpRequestConfigImpl;
-import org.apache.xmlrpc.server.*;
-import org.apache.xmlrpc.util.HttpUtil;
-import org.apache.xmlrpc.XmlRpcHandler;
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.XmlRpcRequest;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.base.util.Debug;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
-import org.ofbiz.base.util.UtilValidate;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Writer;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.Map;
-import java.util.Locale;
 
 import javolution.util.FastMap;
+
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.XmlRpcHandler;
+import org.apache.xmlrpc.XmlRpcRequest;
+import org.apache.xmlrpc.common.ServerStreamConnection;
+import org.apache.xmlrpc.common.XmlRpcHttpRequestConfig;
+import org.apache.xmlrpc.common.XmlRpcHttpRequestConfigImpl;
+import org.apache.xmlrpc.server.AbstractReflectiveHandlerMapping;
+import org.apache.xmlrpc.server.XmlRpcHttpServer;
+import org.apache.xmlrpc.server.XmlRpcHttpServerConfig;
+import org.apache.xmlrpc.server.XmlRpcNoSuchHandlerException;
+import org.apache.xmlrpc.util.HttpUtil;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * XmlRpcEventHandler
@@ -71,7 +88,10 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         }
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    /**
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
+     */
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String report = request.getParameter("echo");
         if (report != null) {
             StringBuilder buf = new StringBuilder();
