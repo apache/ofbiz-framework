@@ -190,7 +190,7 @@
     </property>
     <property key="ContentClip">
         <value xml:lang="en">Clip</value>
-        <value xml:lang="fr">Découper(?)</value>
+        <value xml:lang="fr">Extraire</value>
         <value xml:lang="it">Taglia</value>
     </property>
     <property key="ContentCloneLayout">
