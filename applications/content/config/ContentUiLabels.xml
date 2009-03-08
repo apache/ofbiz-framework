@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ContentAbsoluteFile">
         <value xml:lang="en">Absolute File</value>
+        <value xml:lang="fr">Fichier à nom absolu</value>
         <value xml:lang="it">File assoluto</value>
     </property>
     <property key="ContentAnswer">
@@ -80,6 +81,7 @@
     </property>
     <property key="ContentAttributeName">
         <value xml:lang="en">Attribute Name</value>
+        <value xml:lang="fr">Nom d'attribut</value>
         <value xml:lang="it">Nome attributo</value>
     </property>
     <property key="ContentBlog">
@@ -97,6 +99,7 @@
     </property>
     <property key="ContentBlogDescription">
         <value xml:lang="en">Blog Description</value>
+        <value xml:lang="fr">Description du blog</value>
         <value xml:lang="it">Descrizione blog</value>
     </property>
     <property key="ContentBlogEdit">
@@ -109,10 +112,12 @@
     </property>
     <property key="ContentBlogName">
         <value xml:lang="en">Blog Name</value>
+        <value xml:lang="fr">Nom du blog</value>
         <value xml:lang="it">Nome blog</value>
     </property>
     <property key="ContentBlogPost">
         <value xml:lang="en">POST</value>
+        <value xml:lang="fr">POST</value>
         <value xml:lang="it">Inviare</value>
     </property>
     <property key="ContentBlogSummary">
@@ -121,6 +126,7 @@
     </property>
     <property key="ContentBlogs">
         <value xml:lang="en">Blogs</value>
+        <value xml:lang="fr">Blogs</value>
         <value xml:lang="it">Blogs</value>
     </property>
     <property key="ContentBrowse">
@@ -140,10 +146,12 @@
     </property>
     <property key="ContentCMSAddSubContent">
         <value xml:lang="en">CMS Content Add Sub Content</value>
+        <value xml:lang="fr">Ajout d'un sous-contenu au contenu de CMS</value>
         <value xml:lang="it">CMS aggiungi sotto contenuto</value>
     </property>
     <property key="ContentCMSEditPage">
         <value xml:lang="en">CMS Content Edit Page</value>
+        <value xml:lang="fr">Modifier la page du contenu de CMS</value>
         <value xml:lang="it">CMS aggiorna pagina</value>
     </property>
     <property key="ContentCMSNotExist">
@@ -155,6 +163,7 @@
     </property>
     <property key="ContentCMSSearchPage">
         <value xml:lang="en">CMS Search Page</value>
+        <value xml:lang="fr">Recherche de la page de CMS</value>
         <value xml:lang="it">CMS pagina di ricerca</value>
     </property>
     <property key="ContentCategory">
@@ -181,6 +190,7 @@
     </property>
     <property key="ContentClip">
         <value xml:lang="en">Clip</value>
+        <value xml:lang="fr">Découper(?)</value>
         <value xml:lang="it">Taglia</value>
     </property>
     <property key="ContentCloneLayout">
@@ -203,14 +213,17 @@
     </property>
     <property key="ContentCompDocAddDocumentInstancePageForTemplate">
         <value xml:lang="en">Add Composite Document Instance Page for Template</value>
+        <value xml:lang="fr">Ajouter une page, instance de document composite pour modèle</value>
         <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
     </property>
     <property key="ContentCompDocAfter">
         <value xml:lang="en">+Aft</value>
+        <value xml:lang="fr">+Après</value>
         <value xml:lang="it">+Dopo</value>
     </property>
     <property key="ContentCompDocApprovalStatus">
         <value xml:lang="en">Approval Status</value>
+        <value xml:lang="fr">Statut de l'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
     </property>
     <property key="ContentCompDocApprovals">
@@ -229,44 +242,53 @@
     </property>
     <property key="ContentCompDocBefore">
         <value xml:lang="en">+Bef</value>
+        <value xml:lang="fr">+Avant</value>
         <value xml:lang="it">+Prima</value>
     </property>
     <property key="ContentCompDocChild">
         <value xml:lang="en">+Child</value>
+        <value xml:lang="fr">+Enfant</value>
         <value xml:lang="it">+Figlio</value>
     </property>
     <property key="ContentCompDocContentRoleEditPage">
         <value xml:lang="en">Content Role Edit Page</value>
+        <value xml:lang="fr">Page d'étition des rôles de contenu</value>
         <value xml:lang="it">Pagina aggiornamento ruolo contenuto composizione documenti</value>
     </property>
     <property key="ContentCompDocCurrentInstance">
         <value xml:lang="en">Comp Doc Current Instance</value>
+        <value xml:lang="fr">Instance courante de document composite</value>
         <value xml:lang="it">Istanza attuale</value>
     </property>
     <property key="ContentCompDocCurrentTemplate">
         <value xml:lang="en">Current Template CompDoc</value>
+        <value xml:lang="fr">Modèle courant de document composite</value>
         <value xml:lang="it">Template attuale</value>
     </property>
     <property key="ContentCompDocDown">
         <value xml:lang="en">vDn</value>
+        <value xml:lang="fr">vBas</value>
         <value xml:lang="it">vGiù</value>
     </property>
     <property key="ContentCompDocGeneratePDF">
         <value xml:lang="en">Generate Composite PDF</value>
+        <value xml:lang="fr">Générer un document PDF composite</value>
         <value xml:lang="it">Genera PDF composizione</value>
     </property>
     <property key="ContentCompDocGoBack">
         <value xml:lang="en">Go Back to CompDoc Root</value>
+        <value xml:lang="fr">Retourner à la racine du document composite</value>
         <value xml:lang="it">Torna indietro alla composizione documenti</value>
     </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="en">Parent Content ID</value>
+        <value xml:lang="fr">Réf. du contenu parent</value>
         <value xml:lang="it">Contenuto padre</value>
     </property>
     <property key="ContentCompDocRev">
         <value xml:lang="de">Ver.</value>
         <value xml:lang="en">rev.</value>
-        <value xml:lang="fr">rev.</value>
+        <value xml:lang="fr">Ver.</value>
         <value xml:lang="it">rev.</value>
         <value xml:lang="th">รายได้</value>
     </property>
@@ -293,14 +315,17 @@
     </property>
     <property key="ContentCompDocStartApprovalProcess">
         <value xml:lang="en">Start Approval Process</value>
+        <value xml:lang="fr">Démarrer le processus d'approbation</value>
         <value xml:lang="it">Inizio processo approvazione</value>
     </property>
     <property key="ContentCompDocTemplateName">
         <value xml:lang="en">Comp Doc Template Name</value>
+        <value xml:lang="fr">Nom du modèle de document composite</value>
         <value xml:lang="it">Nome template composizione documenti</value>
     </property>
     <property key="ContentCompDocUp">
         <value xml:lang="en">^Up</value>
+        <value xml:lang="fr">^Haut</value>
         <value xml:lang="it">^Sù</value>
     </property>
     <property key="ContentCompDocViewInstances">
@@ -407,6 +432,7 @@
     </property>
     <property key="ContentDataBaseText">
         <value xml:lang="en">DataBase Text</value>
+        <value xml:lang="fr">Texte de base de données</value>
         <value xml:lang="it">Testo database</value>
     </property>
     <property key="ContentDataResource">
@@ -506,14 +532,17 @@
     </property>
     <property key="ContentDecorator">
         <value xml:lang="en">Decorator</value>
+        <value xml:lang="fr">Décorateur</value>
         <value xml:lang="it">Decorazione</value>
     </property>
     <property key="ContentDeleteFolder">
         <value xml:lang="en">Delete Folder</value>
+        <value xml:lang="fr">Suppression de répertoire</value>
         <value xml:lang="th">ลบกล่อง</value>
     </property>
     <property key="ContentDocumentType">
         <value xml:lang="en">Document Type</value>
+        <value xml:lang="fr">Type de document</value>
         <value xml:lang="it">Tipo documento</value>
     </property>
     <property key="ContentEditProductStore">
@@ -529,6 +558,7 @@
     </property>
     <property key="ContentEditingLatestRevision">
         <value xml:lang="en">Editing Latest Revision</value>
+        <value xml:lang="fr">Modification de la dernière version</value>
         <value xml:lang="it">Aggiorna ultima revisione</value>
     </property>
     <property key="ContentFile">
@@ -566,10 +596,12 @@
     </property>
     <property key="ContentFileRelToOFBizHome">
         <value xml:lang="en">File Rel. to OFBIZ_HOME</value>
+        <value xml:lang="fr">Fichier au nom relatif à OFBIZ_HOME</value>
         <value xml:lang="it">File relativo alla OFBIZ_HOME</value>
     </property>
     <property key="ContentFileRelToWebappRoot">
         <value xml:lang="en">File Rel. to webapp root</value>
+        <value xml:lang="fr">Fichier au nom relatif à la racine de l'application (webapp)</value>
         <value xml:lang="it">File relativo alla webapp root</value>
     </property>
     <property key="ContentForum">
@@ -663,10 +695,12 @@
     </property>
     <property key="ContentForums">
         <value xml:lang="en">Forums</value>
+        <value xml:lang="fr">Forums</value>
         <value xml:lang="it">Forums</value>
     </property>
     <property key="ContentGIF">
         <value xml:lang="en">GIF</value>
+        <value xml:lang="fr">GIF</value>
         <value xml:lang="it">GIF</value>
     </property>
     <property key="ContentGoToContent">
@@ -687,6 +721,7 @@
     </property>
     <property key="ContentGoToFind">
         <value xml:lang="en">Goto Find"</value>
+        <value xml:lang="fr">Aller à la recherche</value>
         <value xml:lang="it">Torna alla ricerca</value>
     </property>
     <property key="ContentHtml">
@@ -702,6 +737,7 @@
     </property>
     <property key="ContentHtmlText">
         <value xml:lang="en">Html Text</value>
+        <value xml:lang="fr">Texte HTML</value>
         <value xml:lang="it">Teso html</value>
     </property>
     <property key="ContentImage">
@@ -749,10 +785,12 @@
     </property>
     <property key="ContentJPEG">
         <value xml:lang="en">JPEG</value>
+        <value xml:lang="fr">JPG</value>
         <value xml:lang="it">JPEG</value>
     </property>
     <property key="ContentLatest">
         <value xml:lang="en">Latest</value>
+        <value xml:lang="fr">Dernier</value>
         <value xml:lang="it">Ultimo</value>
     </property>
     <property key="ContentLayout">
@@ -773,6 +811,7 @@
     </property>
     <property key="ContentMSWord">
         <value xml:lang="en">MS Word</value>
+        <value xml:lang="fr">MS Word</value>
         <value xml:lang="it">MS Word</value>
     </property>
     <property key="ContentMain">
@@ -880,24 +919,28 @@
     </property>
     <property key="ContentPDFFile">
         <value xml:lang="en">PDF File</value>
+        <value xml:lang="fr">Fichier PDF</value>
         <value xml:lang="it">File PDF</value>
     </property>
     <property key="ContentPDFFilePath">
         <value xml:lang="en">Enter a PDF file path to automatically create a survey.</value>
+        <value xml:lang="fr">Entrez un chemin vers un fichier PDF pour créer automatiquement le sondage</value>
         <value xml:lang="it">Inserire un path file PDF che automaticamente creerà un sondaggio.</value>
     </property>
     <property key="ContentPDFSurveyName">
         <value xml:lang="en">PDF/Survey Name</value>
+        <value xml:lang="fr">PDF/Nom de sondage</value>
         <value xml:lang="it">PDF/Nome sondaggio</value>
     </property>
     <property key="ContentPNG">
         <value xml:lang="en">PNG</value>
+        <value xml:lang="fr">PNG</value>
         <value xml:lang="it">PNG</value>
     </property>
     <property key="ContentParent">
         <value xml:lang="de">Übergeordneter Inhalt</value>
         <value xml:lang="en">Parent Content</value>
-        <value xml:lang="fr">Contenu de parent</value>
+        <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto Padre</value>
         <value xml:lang="th">ครอบครัว</value>
     </property>
@@ -924,10 +967,12 @@
     </property>
     <property key="ContentPlainText">
         <value xml:lang="en">Plain Text</value>
+        <value xml:lang="fr">Texte simple</value>
         <value xml:lang="it">Testo fisso</value>
     </property>
     <property key="ContentPublishToContent">
         <value xml:lang="en">Publish-to content</value>
+        <value xml:lang="fr">Contenu à publier</value>
         <value xml:lang="it">Pubblica sul contenuto</value>
     </property>
     <property key="ContentQueryLine">
@@ -949,10 +994,12 @@
     </property>
     <property key="ContentRejected">
         <value xml:lang="en">Rejected</value>
+        <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
     </property>
     <property key="ContentRenameFolder">
         <value xml:lang="en">Rename Folder</value>
+        <value xml:lang="fr">Renommer le répertoire</value>
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
     </property>
     <property key="ContentResourceAudio">
@@ -1006,10 +1053,12 @@
     </property>
     <property key="ContentRoot">
         <value xml:lang="en">Root</value>
+        <value xml:lang="fr">Racine</value>
         <value xml:lang="it">Principale</value>
     </property>
     <property key="ContentSoftRejected">
         <value xml:lang="en">Soft Rejected</value>
+        <value xml:lang="fr">Rejeté publiquement(?)</value>
         <value xml:lang="it">Rifiutato leggermente</value>
     </property>
     <property key="ContentSubContent">
@@ -1336,6 +1385,7 @@
     </property>
     <property key="ContentTIFF">
         <value xml:lang="en">TIFF</value>
+        <value xml:lang="fr">TIFF</value>
         <value xml:lang="it">TIFF</value>
     </property>
     <property key="ContentTemplate">
@@ -1351,30 +1401,37 @@
     </property>
     <property key="ContentTemplateChild">
         <value xml:lang="en">Template Child</value>
+        <value xml:lang="fr">Modèle enfant</value>
         <value xml:lang="it">Template figlio</value>
     </property>
     <property key="ContentTemplateImageCentered">
         <value xml:lang="en">Image centered above</value>
+        <value xml:lang="fr">Image centrée au-dessus</value>
         <value xml:lang="it">Immagine centrata sopra</value>
     </property>
     <property key="ContentTemplateImageLeft">
         <value xml:lang="en">Image left, text flows around.</value>
+        <value xml:lang="fr">Image à gauche, texte flottant autour</value>
         <value xml:lang="it">Immagine a sinistra.</value>
     </property>
     <property key="ContentTemplateInstanceChild">
         <value xml:lang="en">Instance Child</value>
+        <value xml:lang="fr">Instance enfant</value>
         <value xml:lang="it">Istanza figlia</value>
     </property>
     <property key="ContentTemplateRoot">
         <value xml:lang="en">Root Template</value>
+        <value xml:lang="fr">Racine du modèle</value>
         <value xml:lang="it">Template principale</value>
     </property>
     <property key="ContentTemplateRootInstance">
         <value xml:lang="en">Root Instance</value>
+        <value xml:lang="fr">Instance racine</value>
         <value xml:lang="it">Istanza principale</value>
     </property>
     <property key="ContentTemplateTextOnly">
         <value xml:lang="en">Text only</value>
+        <value xml:lang="fr">Texte seulement</value>
         <value xml:lang="it">Solo testo</value>
     </property>
     <property key="ContentTemplates">
@@ -1389,6 +1446,7 @@
     </property>
     <property key="ContentTestPermission">
         <value xml:lang="en">Test Permission</value>
+        <value xml:lang="fr">Tester l'autorisation</value>
         <value xml:lang="it">Test Permesso</value>
     </property>
     <property key="ContentText">
@@ -1439,6 +1497,7 @@
     </property>
     <property key="ContentUploadedFile">
         <value xml:lang="en">Uploaded File</value>
+        <value xml:lang="fr">Fichier téléchargé vers le serveur</value>
         <value xml:lang="it">File caricato</value>
     </property>
     <property key="ContentUrl">
@@ -1533,6 +1592,7 @@
     </property>
     <property key="ContentWelcome">
         <value xml:lang="en">Welcome to the Content Manager!</value>
+        <value xml:lang="fr">Gestionnaire de contenu : bienvenue !</value>
         <value xml:lang="it">Benvenuti nella gestione contenuti!</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
@@ -2904,14 +2964,17 @@
     </property>
     <property key="PageTitleAddCompDocInstance">
         <value xml:lang="en">Add CompDoc Instance</value>
+        <value xml:lang="fr">Ajouter une instance de document composite</value>
         <value xml:lang="it">Aggiungi Istanza CompDoc</value>
     </property>
     <property key="PageTitleAddCompositeDocumentInstance">
         <value xml:lang="en">Add Composite Document Instance Part Page</value>
+        <value xml:lang="fr">Ajouter une instance d'une partie de page de document composite</value>
         <value xml:lang="it">Aggiungi instanza composizione documenti</value>
     </property>
     <property key="PageTitleAddCompositeDocumentTemplate">
         <value xml:lang="en">Add Composite Document Template Page</value>
+        <value xml:lang="fr">Ajouter une page de modèle de document composite</value>
         <value xml:lang="it">Aggiungi template composizione documenti</value>
     </property>
     <property key="PageTitleAddContent">
@@ -3083,6 +3146,7 @@
     </property>
     <property key="PageTitleEditBlogArticlePermissionError">
         <value xml:lang="en">Permissions failed to edit Article</value>
+        <value xml:lang="fr">Les autorisations ne permettent pas de modifier l'article</value>
         <value xml:lang="it">Aggiorna una associazione</value>
     </property>
     <property key="PageTitleEditCMSContent">
@@ -3778,6 +3842,7 @@
     </property>
     <property key="PageTitleNavigateContent">
         <value xml:lang="en">Navigate Content</value>
+        <value xml:lang="fr">Naviguer dans le contenu</value>
         <value xml:lang="it">Naviga contenuto</value>
         <value xml:lang="th">เลือกดูเนื้อหา</value>
     </property>
@@ -3804,14 +3869,17 @@
     </property>
     <property key="PageTitleViewCompDocContent">
         <value xml:lang="en">View CompDoc Content</value>
+        <value xml:lang="fr">Voir le contenu du document composite</value>
         <value xml:lang="it">Mostra contenuto composizione documenti</value>
     </property>
     <property key="PageTitleViewCompDocTemplateTree">
         <value xml:lang="en">View Template Tree</value>
+        <value xml:lang="fr">Voir l'arborescence modèle</value>
         <value xml:lang="it">Mostra albero template</value>
     </property>
     <property key="PageTitleViewCompDocTree">
         <value xml:lang="en">View Tree</value>
+        <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra albero</value>
     </property>
     <property key="PageTitleViewSurveyResponses">
