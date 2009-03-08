@@ -122,14 +122,14 @@ public class LabelManagerFactory {
                         for (Node propertyNode: UtilXml.childNodeList(resourceElem.getFirstChild())) {
                             if (propertyNode instanceof Element) {
                                 Element propertyElem = (Element)propertyNode;
-                                String labelKey = StringUtil.htmlSpecialChars(propertyElem.getAttribute("key"), true, true, false);
+                                String labelKey = StringUtil.htmlEncoder.encode(propertyElem.getAttribute("key"));
                                 String labelComment = "";
 
                                 for (Node valueNode: UtilXml.childNodeList(propertyElem.getFirstChild())) {
                                     if (valueNode instanceof Element) {
                                         Element valueElem = (Element)valueNode;
                                         String localeName = valueElem.getAttribute("xml:lang");
-                                        String labelValue = StringUtil.htmlSpecialChars(UtilXml.nodeValue(valueElem.getFirstChild()), true, true, false);
+                                        String labelValue = StringUtil.htmlEncoder.encode(UtilXml.nodeValue(valueElem.getFirstChild()));
                                         LabelInfo label = (LabelInfo)labels.get(labelKey + keySeparator + fileName);
 
                                         if (UtilValidate.isEmpty(label)) {
@@ -147,12 +147,12 @@ public class LabelManagerFactory {
                                         fileComponent.put(fileName, componentName);
                                         labelComment = "";
                                     } else if (valueNode instanceof Comment) {
-                                        labelComment = labelComment + StringUtil.htmlSpecialChars(valueNode.getNodeValue(), true, true, false);
+                                        labelComment = labelComment + StringUtil.htmlEncoder.encode(valueNode.getNodeValue());
                                     }
                                 }
                                 labelKeyComment = "";
                             } else if (propertyNode instanceof Comment) {
-                                labelKeyComment = labelKeyComment + StringUtil.htmlSpecialChars(propertyNode.getNodeValue(), true, true, false);
+                                labelKeyComment = labelKeyComment + StringUtil.htmlEncoder.encode(propertyNode.getNodeValue());
                             }
                         }
                     }
