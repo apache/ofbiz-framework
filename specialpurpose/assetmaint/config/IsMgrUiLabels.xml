@@ -86,10 +86,12 @@
     </property>
     <property key="PageTitleLookupComputerHardware">
         <value xml:lang="en">Lookup Computer Hardware</value>
+        <value xml:lang="fr">Recherche de matériel informatique</value>
         <value xml:lang="it">Ricerca hardware per computer</value>
     </property>
     <property key="PageTitleLookupComputerSoftware">
         <value xml:lang="en">Lookup Computer Software</value>
+        <value xml:lang="fr">Recherche de logiciel</value>
         <value xml:lang="it">Ricerca software per computer</value>
     </property>
 </resource>
