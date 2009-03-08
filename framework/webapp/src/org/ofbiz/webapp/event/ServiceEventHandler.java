@@ -22,11 +22,10 @@ import static org.ofbiz.base.util.UtilGenerics.checkList;
 
 import java.io.File;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -53,6 +52,8 @@ import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceValidationException;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * ServiceEventHandler - Service Event Handler
@@ -73,7 +74,7 @@ public class ServiceEventHandler implements EventHandler {
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // make sure we have a valid reference to the Service Engine
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         if (dispatcher == null) {
@@ -88,14 +89,14 @@ public class ServiceEventHandler implements EventHandler {
         String mode = SYNC;
         String serviceName = null;
 
-        if (eventPath == null || eventPath.length() == 0) {
+        if (UtilValidate.isEmpty(event.path)) {
             mode = SYNC;
         } else {
-            mode = eventPath;
+            mode = event.path;
         }
 
-        // nake sure we have a defined service to call
-        serviceName = eventMethod;
+        // make sure we have a defined service to call
+        serviceName = event.invoke;
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
@@ -161,16 +162,14 @@ public class ServiceEventHandler implements EventHandler {
             }
             upload.setSizeMax(maxUploadSize);
 
-            List uploadedItems = null;
+            List<FileItem> uploadedItems = null;
             try {
                 uploadedItems = upload.parseRequest(request);
             } catch (FileUploadException e) {
                 throw new EventHandlerException("Problems reading uploaded data", e);
             }
             if (uploadedItems != null) {
-                Iterator i = uploadedItems.iterator();
-                while (i.hasNext()) {
-                    FileItem item = (FileItem) i.next();
+                for (FileItem item: uploadedItems) {
                     String fieldName = item.getFieldName();
                     //byte[] itemBytes = item.get();
                     /*
@@ -227,6 +226,7 @@ public class ServiceEventHandler implements EventHandler {
         request.setAttribute("multiPartMap", multiPartMap);
 
         Map<String, Object> rawParametersMap = UtilHttp.getParameterMap(request, null, null);
+        Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = FastMap.newInstance();
@@ -242,11 +242,11 @@ public class ServiceEventHandler implements EventHandler {
 
             Object value = null;
             if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
-                Map paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
+                Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
                 value = paramMap;
                 if (Debug.verboseOn()) Debug.log("Set [" + modelParam.name + "]: " + paramMap, module);
             } else if (modelParam.stringListSuffix != null && modelParam.stringListSuffix.length() > 0) {
-                List paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
+                List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
                 value = paramList;
             } else {
                 // first check the multi-part map
@@ -262,6 +262,17 @@ public class ServiceEventHandler implements EventHandler {
 
                 // check the request parameters
                 if (UtilValidate.isEmpty(value)) {
+                    // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
+                    // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
+                    if (requestMap != null && requestMap.securityHttps) {
+                        if (urlOnlyParameterNames.contains(name)) {
+                            String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons!";
+                            Debug.logWarning(errMsg, module);
+                            throw new EventHandlerException(errMsg);
+                        }
+                        // TODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
+                    }
+                    
                     // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
                     value = rawParametersMap.get(name);
                     

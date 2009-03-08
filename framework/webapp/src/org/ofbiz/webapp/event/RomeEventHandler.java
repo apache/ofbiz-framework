@@ -19,17 +19,19 @@
 
 package org.ofbiz.webapp.event;
 
-import org.ofbiz.webapp.control.RequestHandler;
+import java.io.IOException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.syndication.feed.WireFeed;
-import com.sun.syndication.io.WireFeedOutput;
-import com.sun.syndication.io.FeedException;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
-import java.io.IOException;
+import com.sun.syndication.feed.WireFeed;
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.WireFeedOutput;
 
 /**
  * RomeEventHandler
@@ -58,7 +60,10 @@ public class RomeEventHandler implements EventHandler {
         this.out = new WireFeedOutput();
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    /**
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
+     */
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // generate the main and entry links
         String entryLinkReq = request.getParameter("entryLinkReq");
         String mainLinkReq = request.getParameter("mainLinkReq");
@@ -75,7 +80,7 @@ public class RomeEventHandler implements EventHandler {
         }
 
         // invoke the feed generator service (implements rssFeedInterface)
-        String respCode = service.invoke(eventPath, eventMethod, request, response);
+        String respCode = service.invoke(null, requestMap, request, response);
 
         // pull out the RSS feed from the request attributes
         WireFeed wireFeed = (WireFeed) request.getAttribute("wireFeed");

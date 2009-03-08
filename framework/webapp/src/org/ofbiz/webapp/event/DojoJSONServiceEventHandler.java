@@ -22,15 +22,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.List;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -38,11 +37,12 @@ import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * DojoJSONServiceEventHandler - JSON Object Wrapper around the ServiceEventHandler
@@ -64,9 +64,9 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         this.service.init(context);
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // call into the service handler for parameters parsing and invocation
-        String respCode = service.invoke(eventPath, eventMethod, request, response);
+        String respCode = service.invoke(null, requestMap, request, response);
 
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = getAttributesAsMap(request);
@@ -85,11 +85,11 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         String serviceName = null;
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
-        HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        //HttpSession session = request.getSession();
+        //GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-        // nake sure we have a defined service to call
-        serviceName = eventMethod;
+        // make sure we have a defined service to call
+        serviceName = event.invoke;
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
@@ -140,7 +140,7 @@ public class DojoJSONServiceEventHandler implements EventHandler {
 
     private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
         Map<String, Object> attrMap = FastMap.newInstance();
-        Enumeration en = request.getAttributeNames();
+        Enumeration<String> en = request.getAttributeNames();
         while (en.hasMoreElements()) {
             String name = (String) en.nextElement();
             Object val = request.getAttribute(name);

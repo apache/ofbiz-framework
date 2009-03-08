@@ -65,7 +65,6 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    public static final String err_resource = "WebappUiLabels";
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
@@ -171,20 +170,29 @@ public class RequestHandler {
                 }
             }
 
-            // Check if we SHOULD be secure and are not. If we are posting let it pass to not lose data. (too late now anyway)
-            if (!request.isSecure() && requestMap.securityHttps && !request.getMethod().equalsIgnoreCase("POST")) {
-                StringBuilder urlBuf = new StringBuilder();
-                urlBuf.append(request.getPathInfo());
-                if (request.getQueryString() != null) {
-                    urlBuf.append("?").append(request.getQueryString());
-                }
-                String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString());
-                if (newUrl.toUpperCase().startsWith("HTTPS")) {
-                    // if we are supposed to be secure, redirect secure.
-                    callRedirect(newUrl, response, request);
+            // Check if we SHOULD be secure and are not.
+            if (!request.isSecure() && requestMap.securityHttps) {
+                // If the requet method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
+                if (request.getMethod().equalsIgnoreCase("POST")) {
+                    // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
+                    Locale locale = UtilHttp.getLocale(request);
+                    String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
+                    Debug.logError("Got a insecure (non-https) form POST to a secure (http) request [" + requestMap.uri + "], returning error", module);
+                    throw new RequestHandlerException(errMsg);
+                } else {
+                    StringBuilder urlBuf = new StringBuilder();
+                    urlBuf.append(request.getPathInfo());
+                    if (request.getQueryString() != null) {
+                        urlBuf.append("?").append(request.getQueryString());
+                    }
+                    String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString());
+                    if (newUrl.toUpperCase().startsWith("HTTPS")) {
+                        // if we are supposed to be secure, redirect secure.
+                        callRedirect(newUrl, response, request);
+                    }
                 }
             }
-
+            
             // Check for HTTPS client (x.509) security
             if (request.isSecure() && requestMap.securityCert) {            
                 X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
@@ -228,7 +236,7 @@ public class RequestHandler {
                 if (visit != null) {
                     for (ConfigXMLReader.Event event: controllerConfig.firstVisitEventList) {
                         try {
-                            String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "firstvisit");
+                            String returnString = this.runEvent(request, response, event, null, "firstvisit");
                             if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                                 throw new EventHandlerException("First-Visit event did not return 'success'.");
                             } else if (returnString == null) {
@@ -244,7 +252,7 @@ public class RequestHandler {
             // Invoke the pre-processor (but NOT in a chain)
             for (ConfigXMLReader.Event event: controllerConfig.preprocessorEventList) {
                 try {
-                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "preprocessor");
+                    String returnString = this.runEvent(request, response, event, null, "preprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                         if (!returnString.contains(":_protect_:")) {
                             throw new EventHandlerException("Pre-Processor event did not return 'success'.");
@@ -292,7 +300,7 @@ public class RequestHandler {
             String checkLoginReturnString = null;
 
             try {
-                checkLoginReturnString = this.runEvent(request, response, checkLoginEvent.type, checkLoginEvent.path, checkLoginEvent.invoke, "security-auth");
+                checkLoginReturnString = this.runEvent(request, response, checkLoginEvent, null, "security-auth");
             } catch (EventHandlerException e) {
                 throw new RequestHandlerException(e.getMessage(), e);
             }
@@ -325,7 +333,7 @@ public class RequestHandler {
                     long eventStartTime = System.currentTimeMillis();
 
                     // run the request event
-                    eventReturn = this.runEvent(request, response, requestMap.event.type, requestMap.event.path, requestMap.event.invoke, "request");
+                    eventReturn = this.runEvent(request, response, requestMap.event, requestMap, "request");
 
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
@@ -342,7 +350,7 @@ public class RequestHandler {
                     if (requestMap.requestResponseMap.containsKey("error")) {
                         eventReturn = "error";
                         Locale locale = UtilHttp.getLocale(request);
-                        String errMsg = UtilProperties.getMessage(RequestHandler.err_resource, "requestHandler.error_call_event", locale);
+                        String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.error_call_event", locale);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg + ": " + e.toString());
                     } else {
                         throw new RequestHandlerException("Error calling event and no error response was specified", e);
@@ -465,7 +473,7 @@ public class RequestHandler {
             // first invoke the post-processor events.
             for (ConfigXMLReader.Event event: controllerConfig.postprocessorEventList) {
                 try {
-                    String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "postprocessor");
+                    String returnString = this.runEvent(request, response, event, requestMap, "postprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                         throw new EventHandlerException("Post-Processor event did not return 'success'.");
                     }
@@ -504,10 +512,10 @@ public class RequestHandler {
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
-                    urlParams = (Map<String, Object>) session.getAttribute("_SAVED_VIEW_PARAMS_");
+                    urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_SAVED_VIEW_PARAMS_"));
                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
-                    urlParams = (Map<String, Object>) session.getAttribute("_LAST_VIEW_PARAMS_");
+                    urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_LAST_VIEW_PARAMS_"));
                 }
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
@@ -524,11 +532,11 @@ public class RequestHandler {
     }
 
     /** Find the event handler and invoke an event. */
-    public String runEvent(HttpServletRequest request, HttpServletResponse response, String type,
-            String path, String method, String trigger) throws EventHandlerException {
-        EventHandler eventHandler = eventFactory.getEventHandler(type);
-        String eventReturn = eventHandler.invoke(path, method, request, response);
-        if (Debug.verboseOn() || (Debug.infoOn() && "request".equals(trigger))) Debug.logInfo("Ran Event [" + type + ":" + path + "#" + method + "] from [" + trigger + "], result is [" + eventReturn + "]", module);
+    public String runEvent(HttpServletRequest request, HttpServletResponse response,
+            ConfigXMLReader.Event event, ConfigXMLReader.RequestMap requestMap, String trigger) throws EventHandlerException {
+        EventHandler eventHandler = eventFactory.getEventHandler(event.type);
+        String eventReturn = eventHandler.invoke(event, requestMap, request, response);
+        if (Debug.verboseOn() || (Debug.infoOn() && "request".equals(trigger))) Debug.logInfo("Ran Event [" + event.type + ":" + event.path + "#" + event.invoke + "] from [" + trigger + "], result is [" + eventReturn + "]", module);
         return eventReturn;
     }
 
@@ -974,7 +982,7 @@ public class RequestHandler {
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
         for (ConfigXMLReader.Event event: getControllerConfig().afterLoginEventList) {
             try {
-                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "after-login");
+                String returnString = this.runEvent(request, response, event, null, "after-login");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                     throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }
@@ -987,7 +995,7 @@ public class RequestHandler {
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
         for (ConfigXMLReader.Event event: getControllerConfig().beforeLogoutEventList) {
             try {
-                String returnString = this.runEvent(request, response, event.type, event.path, event.invoke, "before-logout");
+                String returnString = this.runEvent(request, response, event, null, "before-logout");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                     throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }

@@ -121,7 +121,7 @@ public class EventFactory {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         RequestHandler handler = (RequestHandler) application.getAttribute("_REQUEST_HANDLER_");
         ConfigXMLReader.ControllerConfig controllerConfig = handler.getControllerConfig();
-        ConfigXMLReader.Event event = controllerConfig.requestMapMap.get(requestUri).event;
-        return handler.runEvent(request, response, event.type, event.path, event.invoke, "unknown");        
+        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(requestUri);
+        return handler.runEvent(request, response, requestMap.event, requestMap, "unknown");        
     }
 }

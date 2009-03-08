@@ -19,20 +19,26 @@
 
 package org.ofbiz.webapp.event;
 
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.base.util.Debug;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.Map;
 
 import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * ServiceStreamHandler
@@ -50,7 +56,7 @@ public class ServiceStreamHandler implements EventHandler {
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {        
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {        
         InputStream in;
         try {
             in = request.getInputStream();
@@ -72,7 +78,7 @@ public class ServiceStreamHandler implements EventHandler {
         
         Map<String, Object> resp;
         try {
-            resp = dispatcher.runSync(eventMethod, context);
+            resp = dispatcher.runSync(event.invoke, context);
         } catch (GenericServiceException e) {
             outputError(out, e, "Exception thrown in runSync()");
             throw new EventHandlerException(e.getMessage(), e);

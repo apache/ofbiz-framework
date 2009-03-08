@@ -19,15 +19,18 @@
 package org.ofbiz.webapp.event;
 
 import java.util.Locale;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletContext;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * SimpleEventHandler - Simple Event Mini-Lang Handler
@@ -45,17 +48,11 @@ public class SimpleEventHandler implements EventHandler {
     }
     
     /**
-     * Invoke the web event
-     *@param eventPath The path or location of this event
-     *@param eventMethod The method to invoke
-     *@param request The servlet request object
-     *@param response The servlet response object
-     *@return String Result code
-     *@throws EventHandlerException
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        String xmlResource = eventPath;
-        String eventName = eventMethod;
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        String xmlResource = event.path;
+        String eventName = event.invoke;
         Locale locale = UtilHttp.getLocale(request); 
         
         if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, module);

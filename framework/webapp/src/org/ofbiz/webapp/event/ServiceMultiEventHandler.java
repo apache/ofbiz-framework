@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -33,6 +34,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -49,6 +51,8 @@ import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ServiceValidationException;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -72,7 +76,7 @@ public class ServiceMultiEventHandler implements EventHandler {
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // TODO: consider changing this to use the new UtilHttp.parseMultiFormData method
         
         // make sure we have a valid reference to the Service Engine
@@ -89,10 +93,10 @@ public class ServiceMultiEventHandler implements EventHandler {
         String mode = SYNC;
         String serviceName = null;
 
-        if (eventPath == null || eventPath.length() == 0) {
+        if (UtilValidate.isEmpty(event.path)) {
             mode = SYNC;
         } else {
-            mode = eventPath;
+            mode = event.path;
         }
 
         // we only support SYNC mode in this handler
@@ -101,7 +105,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         }
 
         // nake sure we have a defined service to call
-        serviceName = eventMethod;
+        serviceName = event.invoke;
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
@@ -159,11 +163,12 @@ public class ServiceMultiEventHandler implements EventHandler {
         ConfigXMLReader.ControllerConfig controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
         boolean eventGlobalTransaction = controllerConfig.requestMapMap.get(requestUri).event.globalTransaction;
 
+        Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
+        
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
         String returnString = null;
         try {
-
             if (eventGlobalTransaction) {
                 // start the global transaction
                 try {
@@ -206,10 +211,10 @@ public class ServiceMultiEventHandler implements EventHandler {
 
                     Object value = null;
                     if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
-                        Map paramMap = UtilHttp.makeParamMapWithPrefix(request, modelParam.stringMapPrefix, curSuffix);
+                        Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, modelParam.stringMapPrefix, curSuffix);
                         value = paramMap;
                     } else if (modelParam.stringListSuffix != null && modelParam.stringListSuffix.length() > 0) {
-                        List paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.stringListSuffix, null);
+                        List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.stringListSuffix, null);
                         value = paramList;
                     } else {
                         // check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
@@ -217,7 +222,20 @@ public class ServiceMultiEventHandler implements EventHandler {
 
                         // first check for request parameters
                         if (value == null) {
-                            String[] paramArr = request.getParameterValues(paramName + curSuffix);
+                            String name = paramName + curSuffix;
+                            
+                            // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
+                            // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
+                            if (requestMap != null && requestMap.securityHttps) {
+                                if (urlOnlyParameterNames.contains(name)) {
+                                    String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons!";
+                                    Debug.logWarning(errMsg, module);
+                                    throw new EventHandlerException(errMsg);
+                                }
+                                // TODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
+                            }
+                            
+                            String[] paramArr = request.getParameterValues(name);
                             if (paramArr != null) {
                                 if (paramArr.length > 1) {
                                     value = Arrays.asList(paramArr);
@@ -327,8 +345,8 @@ public class ServiceMultiEventHandler implements EventHandler {
                             successMessages.add(newSuccessMessage);
                         }
                     }
-                    if (!UtilValidate.isEmpty((List)result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
-                        List newSuccessMessages = (List)result.get(ModelService.SUCCESS_MESSAGE_LIST);
+                    if (!UtilValidate.isEmpty(result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
+                        List<String> newSuccessMessages = UtilGenerics.<String>checkList(result.get(ModelService.SUCCESS_MESSAGE_LIST));
                         for (int j = 0; j < newSuccessMessages.size(); j++) {
                             String newSuccessMessage = (String)newSuccessMessages.get(j);
                             if (!successMessages.contains(newSuccessMessage)) {

@@ -18,68 +18,41 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event ;
 
-import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
-import java.io.OutputStream;
-import java.io.InputStream;
-import java.util.Iterator;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.net.URI;
-import java.net.URL;
-import java.net.URISyntaxException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletContext;
-import org.ofbiz.webapp.event.EventHandler;
-import org.ofbiz.webapp.event.EventHandlerException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.SimpleMethod;
-
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.dom.NodeModel;
 import freemarker.template.Configuration;
-import freemarker.template.SimpleSequence;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -107,8 +80,8 @@ public class WfsEventHandler implements EventHandler {
      *@return String Result code
      *@throws EventHandlerException
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        //LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String typeName = null;
         Element queryElem = null;
 
@@ -137,7 +110,7 @@ public class WfsEventHandler implements EventHandler {
             SimpleMethod meth = new SimpleMethod(simpleElem, null, null);
             MethodContext methodContext = new MethodContext(request, response, null);
             String retStr = meth.exec(methodContext); //Need to check return string
-            List entityList = (List)request.getAttribute("entityList");
+            List entityList = (List) request.getAttribute("entityList");
             request.setAttribute("entityList", entityList);
             
         } catch (TemplateException ioe) {

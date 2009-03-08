@@ -20,13 +20,16 @@ package org.ofbiz.webapp.event;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletContext;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * JavaEventHandler - Static Method Java Event Handler
@@ -44,35 +47,35 @@ public class JavaEventHandler implements EventHandler {
     }
     
     /**
-     * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        Class<?> eventClass = this.eventClassMap.get(eventPath);
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        Class<?> eventClass = this.eventClassMap.get(event.path);
 
         if (eventClass == null) {
             synchronized (this) {
-                eventClass = this.eventClassMap.get(eventPath);
+                eventClass = this.eventClassMap.get(event.path);
                 if (eventClass == null) {
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                        eventClass = loader.loadClass(eventPath);
+                        eventClass = loader.loadClass(event.path);
                     } catch (ClassNotFoundException e) {
-                        Debug.logError(e, "Error loading class with name: " + eventPath + ", will not be able to run event...", module);
+                        Debug.logError(e, "Error loading class with name: " + event.path + ", will not be able to run event...", module);
                     }
                     if (eventClass != null) {
-                        eventClassMap.put(eventPath, eventClass);
+                        eventClassMap.put(event.path, eventClass);
                     }
                 }
             }
         }
-        if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + eventPath + " / " + eventMethod, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + event.path + " / " + event.invoke, module);
 
         Class<?>[] paramTypes = new Class<?>[] {HttpServletRequest.class, HttpServletResponse.class};
 
         Debug.logVerbose("*[[Event invocation]]*", module);
         Object[] params = new Object[] {request, response};
 
-        return invoke(eventPath, eventMethod, eventClass, paramTypes, params);
+        return invoke(event.path, event.invoke, eventClass, paramTypes, params);
     }
 
     private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class[] paramTypes, Object[] params) throws EventHandlerException {

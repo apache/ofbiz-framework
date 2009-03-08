@@ -275,6 +275,10 @@
         <value xml:lang="th">เกิดความผิดพลาดในการเรียกเหตุการณ์</value>
         <value xml:lang="zh">调用事件时出错</value>
     </property>
+    <property key="requestHandler.InsecureFormPostToSecureRequest">
+        <value xml:lang="en">Not accepting insecure form data posted to a secure request</value>
+        <value xml:lang="es">No permite enviarle un forma inseguro a un pedido seguro</value>
+    </property>
     <property key="simpleEventHandler.event_not_completed">
         <value xml:lang="de">Event konnte nicht abgeschlossen werden</value>
         <value xml:lang="en">Could not complete event</value>

@@ -22,8 +22,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,8 @@ import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * JSONJavaEventHandler - JSON Object Wrapper around the JavaEventHandler
@@ -46,9 +49,9 @@ public class JSONJavaEventHandler implements EventHandler {
         this.service.init(context);
     }
 
-    public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // call into the java handler for parameters parsing and invocation
-        String respCode = service.invoke(eventPath, eventMethod, request, response);
+        String respCode = service.invoke(event, requestMap, request, response);
 
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = getAttributesAsMap(request);
@@ -84,7 +87,7 @@ public class JSONJavaEventHandler implements EventHandler {
 
     private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
         Map<String, Object> attrMap = FastMap.newInstance();
-        Enumeration en = request.getAttributeNames();
+        Enumeration<String> en = request.getAttributeNames();
         while (en.hasMoreElements()) {
             String name = (String) en.nextElement();
             Object val = request.getAttribute(name);
