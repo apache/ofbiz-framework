@@ -41,6 +41,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -164,7 +165,7 @@ public class ServiceEventHandler implements EventHandler {
 
             List<FileItem> uploadedItems = null;
             try {
-                uploadedItems = upload.parseRequest(request);
+                uploadedItems = UtilGenerics.<FileItem>checkList(upload.parseRequest(request));
             } catch (FileUploadException e) {
                 throw new EventHandlerException("Problems reading uploaded data", e);
             }
@@ -270,7 +271,8 @@ public class ServiceEventHandler implements EventHandler {
                             Debug.logWarning(errMsg, module);
                             throw new EventHandlerException(errMsg);
                         }
-                        // TODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
+                        // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
+                        // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
                     }
                     
                     // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
