@@ -8050,6 +8050,7 @@
         <value xml:lang="ar">مجموع</value>
         <value xml:lang="de">Total</value>
         <value xml:lang="en">Total</value>
+        <value xml:lang="fr">Total</value>
         <value xml:lang="es">Total</value>
         <value xml:lang="it">Totale</value>
         <value xml:lang="nl">Totaal</value>
@@ -8340,9 +8341,11 @@
     </property>
     <property key="PortalPageNotFound">
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
+        <value xml:lang="fr">Impossible de trouver la page : (${parameters.portalPageId}) !</value>
     </property>
     <property key="PortalPageNotOwned">
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
+        <value xml:lang="fr">La page : '${portalPage.portalPageName}' [${portalPage.portalPageId}] ne vous appartient pas, vous ne pouvez la changer !</value>
     </property>
     <property key="Project">
         <value xml:lang="de">Projekt</value>
