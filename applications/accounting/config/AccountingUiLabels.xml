@@ -189,7 +189,7 @@
     <property key="AccountingAddAgreementWorkEffortAppl">
         <value xml:lang="de">Vereinbarung-Arbeitseinsatz hinzufügen</value>
         <value xml:lang="en">Add Agreement Work Effort Appl</value>
-        <value xml:lang="fr">Ajouter une application d'accord commerciaux sur tâche</value>
+        <value xml:lang="fr">Ajouter une application de tâche d'accord commercial</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
         <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
     </property>
@@ -473,7 +473,7 @@
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Terms</value>
         <value xml:lang="es">Términos</value>
-        <value xml:lang="fr">Termes</value>
+        <value xml:lang="fr">Termes d'un point d'accord commercial</value>
         <value xml:lang="it">Termini</value>
         <value xml:lang="nl">Condities</value>
         <value xml:lang="ro">Termene</value>
@@ -486,7 +486,7 @@
         <value xml:lang="de">Vereinbarungs-Positions-Art</value>
         <value xml:lang="en">Agreement Item Type Id</value>
         <value xml:lang="es">Id tipo de elemento de acuerdo</value>
-        <value xml:lang="fr">Type de point d'accord</value>
+        <value xml:lang="fr">Réf. de type de point d'accord commercial</value>
         <value xml:lang="it">Tipo Contratto Riga</value>
         <value xml:lang="nl">Overeenkomst Item type Nr</value>
         <value xml:lang="ro">Tip Contract Linie</value>
@@ -499,7 +499,7 @@
         <value xml:lang="de">Vereinbarungs-Positionen</value>
         <value xml:lang="en">Agreement Items</value>
         <value xml:lang="es">Elementos de acuerdo</value>
-        <value xml:lang="fr">Articles de l'accord</value>
+        <value xml:lang="fr">Points d'accord commercial</value>
         <value xml:lang="it">Righe Contratto</value>
         <value xml:lang="nl">Overeenkomst Items</value>
         <value xml:lang="ro">Linii Contract</value>
@@ -523,7 +523,7 @@
     <property key="AccountingAgreementRoles">
         <value xml:lang="de">Vereinbarungs-Rollen</value>
         <value xml:lang="en">Agreement Roles</value>
-        <value xml:lang="fr">Rôles d'accords commerciaux</value>
+        <value xml:lang="fr">Rôles d'accord commercial</value>
         <value xml:lang="it">Ruoli Contratto</value>
     </property>
     <property key="AccountingAgreementTermId">
@@ -531,7 +531,7 @@
         <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Agreement Term Id</value>
         <value xml:lang="es">Id término de acuerdo</value>
-        <value xml:lang="fr">Réf. du terme de l'accord</value>
+        <value xml:lang="fr">Réf. du terme de l'accord commecial</value>
         <value xml:lang="it">Codice Termine Contratto</value>
         <value xml:lang="nl">Conditie Nr</value>
         <value xml:lang="ro">Cod Termen Contract</value>
@@ -544,7 +544,7 @@
         <value xml:lang="de">Vereinbarungs-Konditionen</value>
         <value xml:lang="en">Agreement Terms</value>
         <value xml:lang="es">Términos de acuerdo</value>
-        <value xml:lang="fr">Articles de l'accord</value>
+        <value xml:lang="fr">Termes de l'accord commercial</value>
         <value xml:lang="it">Termini Contratto</value>
         <value xml:lang="nl">Condities overeenkomst</value>
         <value xml:lang="ro">Termen Contract</value>
@@ -557,7 +557,7 @@
         <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Agreement Type Id</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
-        <value xml:lang="fr">Type d'accord</value>
+        <value xml:lang="fr">Réf de type d'accord commercial</value>        
         <value xml:lang="it">Tipo Contratto</value>
         <value xml:lang="nl">Overeenkomst Type Nr</value>
         <value xml:lang="ro">Tip Contract</value>
@@ -567,13 +567,13 @@
     </property>
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
-        <value xml:lang="fr">Cette application  d'accord commercial de tâche existe déjà</value>
+        <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
         <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
         <value xml:lang="nl">Overeenkomst Work Effort Appl bestaat al</value>
     </property>
     <property key="AccountingAgreementWorkEffortAppls">
         <value xml:lang="en">Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Applications d'accords commerciaux de service</value>
+        <value xml:lang="fr">Applications de tâche d'accord commercial</value>
         <value xml:lang="it">Applicazioni Impegni di Lavoro</value>
         <value xml:lang="nl">Applicaties overeenkomst Werkitem</value>
     </property>
@@ -582,7 +582,7 @@
         <value xml:lang="de">Vereinbarungen</value>
         <value xml:lang="en">Agreements</value>
         <value xml:lang="es">Acuerdos</value>
-        <value xml:lang="fr">Accords</value>
+        <value xml:lang="fr">Accords commerciaux</value>
         <value xml:lang="it">Contratti</value>
         <value xml:lang="nl">Overeenkomsten</value>
         <value xml:lang="ro">Contract</value>
@@ -1671,7 +1671,7 @@
         <value xml:lang="ar">نسخ الإتفاقية</value>
         <value xml:lang="en">Copy Agreement</value>
         <value xml:lang="es">Copia de acuerdo</value>
-        <value xml:lang="fr">Copier l'accord</value>
+        <value xml:lang="fr">Copier l'accord commercial</value>
         <value xml:lang="it">Copia Contratto</value>
         <value xml:lang="nl">Kopiëer overeenkomst</value>
         <value xml:lang="ro">Copieaza Contractul</value>
@@ -7565,7 +7565,7 @@
     </property>
     <property key="FormFieldTitle_agreementTypeId">
         <value xml:lang="en">Agreement Type Id</value>
-        <value xml:lang="fr">Type d'accord</value>
+        <value xml:lang="fr">Réf de type d'accord</value>
         <value xml:lang="it">Tipo contratto</value>
     </property>
     <property key="FormFieldTitle_allocatedDate">
