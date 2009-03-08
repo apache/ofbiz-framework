@@ -111,7 +111,7 @@ public class WidgetWorker {
             writer.append('>');
             
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))){
-                writer.append("<img src = \""+request.getAttribute("image").toString()+"\"/>");
+            	writer.append("<img src=\""+request.getAttribute("image").toString()+"\"/>");
             }
 
             writer.append(description);
