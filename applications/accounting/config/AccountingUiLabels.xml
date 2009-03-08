@@ -486,7 +486,7 @@
         <value xml:lang="de">Vereinbarungs-Positions-Art</value>
         <value xml:lang="en">Agreement Item Type Id</value>
         <value xml:lang="es">Id tipo de elemento de acuerdo</value>
-        <value xml:lang="fr">Type d'article de l'accord</value>
+        <value xml:lang="fr">Type de point d'accord</value>
         <value xml:lang="it">Tipo Contratto Riga</value>
         <value xml:lang="nl">Overeenkomst Item type Nr</value>
         <value xml:lang="ro">Tip Contract Linie</value>
@@ -6725,7 +6725,7 @@
     </property>
     <property key="AccountingTaxAuthorityRateProductUseCategoryTab">
         <value xml:lang="en">Use the Categories tab to add other category options</value>
-        <value xml:lang="en">Utilisez l'onglet Catégories pour ajouter d'autres options de catégorie</value>
+        <value xml:lang="fr">Utilisez l'onglet Catégories pour ajouter d'autres options de catégorie</value>
         <value xml:lang="it">Usa il tab Categorie per aggiungere altre opzioni categoria</value>
     </property>
     <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
@@ -7483,6 +7483,7 @@
     </property>
     <property key="FormFieldTitle_actualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
+        <value xml:lang="fr">Montant réel en devise</value>
         <value xml:lang="it">Importo attuale in valuta</value>
     </property>
     <property key="FormFieldTitle_actualEndOfLife">
@@ -7498,6 +7499,7 @@
     </property>
     <property key="FormFieldTitle_addSurveyResponse">
         <value xml:lang="en">Add Survey Response</value>
+        <value xml:lang="fr">Ajouter une réponse de sondage</value>
         <value xml:lang="it">Aggiungi risposta sondaggio</value>
     </property>
     <property key="FormFieldTitle_agreementDate">
@@ -7540,10 +7542,12 @@
     </property>
     <property key="FormFieldTitle_agreementItemSeqId">
         <value xml:lang="en">Agreement Item Seq Id</value>
+        <value xml:lang="fr">No séq. du point d'accord</value>
         <value xml:lang="it">Riga contratto</value>
     </property>
     <property key="FormFieldTitle_agreementItemTypeId">
         <value xml:lang="en">Agreement Item Type Id</value>
+        <value xml:lang="fr">Type de point d'accord</value>
         <value xml:lang="it">Tipo riga contratto</value>
     </property>
     <property key="FormFieldTitle_agreementText">
@@ -7561,6 +7565,7 @@
     </property>
     <property key="FormFieldTitle_agreementTypeId">
         <value xml:lang="en">Agreement Type Id</value>
+        <value xml:lang="fr">Type d'accord</value>
         <value xml:lang="it">Tipo contratto</value>
     </property>
     <property key="FormFieldTitle_allocatedDate">
@@ -10355,6 +10360,7 @@
     </property>
     <property key="PageTitleListInvoiceTimeEntries">
         <value xml:lang="en">List Invoice TimeEntries</value>
+        <value xml:lang="fr">List des horaires de facture</value>
         <value xml:lang="it">Lista fatture timbrature</value>
     </property>
     <property key="PageTitleListInvoices">
@@ -10498,6 +10504,7 @@
     </property>
     <property key="PageTitleViewGatewayResponse">
         <value xml:lang="en">View Gateway Response</value>
+        <value xml:lang="fr">Voir la réponse du terminal de paiement</value>
         <value xml:lang="it">Mostra risposte gateway</value>
     </property>
     <property key="PageTitleViewGlAccountEntries">
