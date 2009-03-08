@@ -1637,6 +1637,7 @@
     </property>
     <property key="FormFieldTitle_approvalStatusId">
         <value xml:lang="en">Approval Status Id</value>
+        <value xml:lang="fr">Réf. de statu d'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
     </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
@@ -2886,6 +2887,7 @@
     </property>
     <property key="FormFieldTitle_topic">
         <value xml:lang="en">Topic</value>
+        <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
     </property>
     <property key="FormFieldTitle_tree">
@@ -2910,6 +2912,7 @@
     </property>
     <property key="FormFieldTitle_visualThemeSetId">
         <value xml:lang="en">Visual Theme Set</value>
+        <value xml:lang="fr">Ensemble de thèmes visuels</value>
         <value xml:lang="it">Set di temi grafici</value>
     </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
@@ -3855,6 +3858,7 @@
     </property>
     <property key="PageTitleSearchContent">
         <value xml:lang="en">Search Content</value>
+        <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca contenuti</value>
     </property>
     <property key="PageTitleUploadImageDataResource">
