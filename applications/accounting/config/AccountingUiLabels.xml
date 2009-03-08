@@ -371,7 +371,7 @@
         <value xml:lang="de">Vereinbarung</value>
         <value xml:lang="en">Agreement</value>
         <value xml:lang="es">Acuerdo</value>
-        <value xml:lang="fr">Accord</value>
+        <value xml:lang="fr">Accord commercial</value>
         <value xml:lang="it">Contratto</value>
         <value xml:lang="nl">Overeenkomst</value>
         <value xml:lang="ro">Contract</value>
@@ -384,7 +384,7 @@
         <value xml:lang="de">Liste verfügbarer Vereinbarungen</value>
         <value xml:lang="en">List Available Agreements</value>
         <value xml:lang="es">Lista de acuerdos disponibles</value>
-        <value xml:lang="fr">Liste des accords disponibles</value>
+        <value xml:lang="fr">Liste des accords commerciaux disponibles</value>
         <value xml:lang="it">Lista Contratti Disponibili</value>
         <value xml:lang="nl">Overzicht beschikbare overeenkomsten</value>
         <value xml:lang="ro">Lista Contractelor Disponibile</value>
@@ -397,7 +397,7 @@
         <value xml:lang="de">Vereinbarungsdatum</value>
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
-        <value xml:lang="fr">Date de l'accord</value>
+        <value xml:lang="fr">Date de l'accord commercial</value>
         <value xml:lang="it">Data Contratto</value>
         <value xml:lang="nl">Datum overeenkomst</value>
         <value xml:lang="ro">Data Contract</value>
@@ -410,7 +410,7 @@
         <value xml:lang="de">Vereinbarungs-ID</value>
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id acuerdo</value>
-        <value xml:lang="fr">Réf. de l'accord</value>
+        <value xml:lang="fr">Réf. de l'accord commercial</value>
         <value xml:lang="it">Codice Contratto</value>
         <value xml:lang="nl">Overeenkomst Nr</value>
         <value xml:lang="ro">Cod Contract</value>
@@ -437,7 +437,7 @@
         <value xml:lang="de">Vereinbarungsposition</value>
         <value xml:lang="en">Agreement Item</value>
         <value xml:lang="es">Elemento de acuerdo</value>
-        <value xml:lang="fr">Article de l'accord</value>
+        <value xml:lang="fr">Point de l'accord commercial</value>
         <value xml:lang="it">Riga Contratto</value>
         <value xml:lang="nl">Overeenkomst item</value>
         <value xml:lang="ro">Linie Contract</value>
@@ -447,6 +447,7 @@
     </property>
     <property key="AccountingAgreementItemProductsForReport">
         <value xml:lang="en">Agreement Item Products For Report</value>
+        <value xml:lang="fr">Point de l'accord commercial (articles) pour rapport</value>
         <value xml:lang="it">Prodotti riga contratto per i report</value>
     </property>
     <property key="AccountingAgreementItemSeqId">
@@ -454,7 +455,7 @@
         <value xml:lang="de">Vereinbarungs-Positions-Nr.</value>
         <value xml:lang="en">Agreement Item Seq Id</value>
         <value xml:lang="es">Id elemento secuencia de acuerdo</value>
-        <value xml:lang="fr">No séq. de l'article de l'accord</value>
+        <value xml:lang="fr">No séq. du point d'accord</value>
         <value xml:lang="it">Numero Seq Riga Contratto</value>
         <value xml:lang="nl">Overeenkomst Item Nr</value>
         <value xml:lang="ro">Nr.Com.Inrg.Contract</value>
@@ -464,6 +465,7 @@
     </property>
     <property key="AccountingAgreementItemSupplierProductsForReport">
         <value xml:lang="en">Agreement Item Supplier Products For Report</value>
+        <value xml:lang="fr">Point de l'accord commercial (articles/fournisseur) pour rapport</value>
         <value xml:lang="it">Prodotti fornitore riga contratto per i report</value>
     </property>
     <property key="AccountingAgreementItemTerms">
@@ -983,6 +985,7 @@
     </property>
     <property key="AccountingBackToAdmin">
         <value xml:lang="en">Back to Admin</value>
+        <value xml:lang="fr">Retour à l'administration</value>
         <value xml:lang="it">Torna indietro all'amministrazione</value>
     </property>
     <property key="AccountingBalanceDue">
@@ -2736,6 +2739,7 @@
     </property>
     <property key="AccountingFixedAssetClassEnumId">
         <value xml:lang="en">Fixed Asset Class Enum Id</value>
+        <value xml:lang="fr">Réf. de la classe d'actif immobilisé</value>
         <value xml:lang="it">Classe cespite</value>
     </property>
     <property key="AccountingFixedAssetDepreciation">
@@ -2959,6 +2963,7 @@
     </property>
     <property key="AccountingFixedAssetMaintSeqId">
         <value xml:lang="en">Fixed Asset Maint Seq Id</value>
+        <value xml:lang="fr">Réf. de maintenance de la classe d'actif immobilisé</value>
         <value xml:lang="it">Riga manutenzione cespite</value>
     </property>
     <property key="AccountingFixedAssetMaintType">
@@ -3002,6 +3007,7 @@
     </property>
     <property key="AccountingFixedAssetManufacturerId">
         <value xml:lang="en">Fixed Asset Manufacturer Id</value>
+        <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
         <value xml:lang="it">Produttore cespite</value>
     </property>
     <property key="AccountingFixedAssetMessage1">
@@ -3580,6 +3586,7 @@
     </property>
     <property key="AccountingInstanceOfProductId">
         <value xml:lang="en">Instance Of Product Id</value>
+        <value xml:lang="fr">Instance de réf. d'article</value>
         <value xml:lang="it">Istanza del prodotto</value>
     </property>
     <property key="AccountingInvNr">
@@ -6718,6 +6725,7 @@
     </property>
     <property key="AccountingTaxAuthorityRateProductUseCategoryTab">
         <value xml:lang="en">Use the Categories tab to add other category options</value>
+        <value xml:lang="en">Utilisez l'onglet Catégories pour ajouter d'autres options de catégorie</value>
         <value xml:lang="it">Usa il tab Categorie per aggiungere altre opzioni categoria</value>
     </property>
     <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
