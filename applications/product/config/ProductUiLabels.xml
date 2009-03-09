@@ -45,6 +45,7 @@
     </property>
     <property key="FacilityCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
     </property>
     <property key="FacilityFacility">
@@ -208,10 +209,12 @@
     </property>
     <property key="FormFieldTitle_accountCodeLength">
         <value xml:lang="en">Account Code Length</value>
+        <value xml:lang="fr">Longueur du code de compte</value>
         <value xml:lang="it">Lunghezza codice utenza</value>
     </property>
     <property key="FormFieldTitle_accountValidDays">
         <value xml:lang="en">Account Valid Days</value>
+        <value xml:lang="fr">Jours valides du compte</value>
         <value xml:lang="it">Giorni validità utenza</value>
     </property>
     <property key="FormFieldTitle_activationNumber">
@@ -603,6 +606,7 @@
     </property>
     <property key="FormFieldTitle_canDropShip">
         <value xml:lang="en">Can Drop Ship</value>
+        <value xml:lang="fr">Peut faire de l'expédition par tiers</value>
         <value xml:lang="it">Possono essere effettuare spedizione c/terzi</value>
     </property>
     <property key="FormFieldTitle_cancelQuantity">
@@ -1939,6 +1943,7 @@
     </property>
     <property key="FormFieldTitle_minBalance">
         <value xml:lang="en">Min Balance</value>
+        <value xml:lang="fr">Solde mini</value>
         <value xml:lang="it">Bilancio minimo</value>
     </property>
     <property key="FormFieldTitle_minSize">
@@ -2222,6 +2227,7 @@
     </property>
     <property key="FormFieldTitle_pinCodeLength">
         <value xml:lang="en">Pin Code Length</value>
+        <value xml:lang="fr">Longueur du code PIN</value>
         <value xml:lang="it">Lunghezza codice pin</value>
     </property>
     <property key="FormFieldTitle_positionId">
@@ -2610,10 +2616,12 @@
     </property>
     <property key="FormFieldTitle_purchSurveyCopyMe">
         <value xml:lang="en">Purch Survey Copy Me</value>
+        <value xml:lang="fr">A copier</value>
         <value xml:lang="it">Sondaggio acquisti con me in copia</value>
     </property>
     <property key="FormFieldTitle_purchSurveySendTo">
         <value xml:lang="en">Purch Survey Send To</value>
+        <value xml:lang="fr">A envoyer à</value>
         <value xml:lang="it">Sondaggio acquisti inviare a</value>
     </property>
     <property key="FormFieldTitle_purchaseFromDate">
@@ -2629,6 +2637,7 @@
     </property>
     <property key="FormFieldTitle_purchaseSurveyId">
         <value xml:lang="en">Purchase Survey Id</value>
+        <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Sondaggio acquisti</value>
     </property>
     <property key="FormFieldTitle_purchaseThruDate">
@@ -2807,10 +2816,12 @@
     </property>
     <property key="FormFieldTitle_replenishMethodEnumId">
         <value xml:lang="en">Replenish Method Enum Id</value>
+        <value xml:lang="fr">réf. de méthode de reconstitution de stock</value>
         <value xml:lang="it">Metodo rifornimento</value>
     </property>
     <property key="FormFieldTitle_replenishThreshold">
         <value xml:lang="en">Replenish Threshold</value>
+        <value xml:lang="fr">Seuil de reconstitution de stock</value>
         <value xml:lang="it">Soglia per rifornimento</value>
     </property>
     <property key="FormFieldTitle_reportType">
@@ -2898,6 +2909,7 @@
     </property>
     <property key="FormFieldTitle_requirePinCode">
         <value xml:lang="en">Require Pin Code</value>
+        <value xml:lang="fr">Nécessite un code PIN</value>
         <value xml:lang="it">Richiesto codice pin</value>
     </property>
     <property key="FormFieldTitle_requireUspsAddr">
@@ -3168,6 +3180,7 @@
     </property>
     <property key="FormFieldTitle_shipmentTypeId">
         <value xml:lang="en">Shipment Type Id</value>
+        <value xml:lang="fr">Réf. de type d'expédition</value>
         <value xml:lang="it">Tipo spedizione</value>
     </property>
     <property key="FormFieldTitle_shippingPricePercent">
@@ -3591,6 +3604,7 @@
     </property>
     <property key="FormFieldTitle_validateGCFinAcct">
         <value xml:lang="en">Validate GC Fin Acct</value>
+        <value xml:lang="fr">Valider le compte financier de la carte cadeau</value>
         <value xml:lang="it">Valida carta regalo conto finanaza</value>
     </property>
     <property key="FormFieldTitle_varianceReasonId">
@@ -3647,6 +3661,7 @@
     </property>
     <property key="FormFieldTitle_visualThemeId">
         <value xml:lang="en">Visual Theme</value>
+        <value xml:lang="fr">Charte graphique</value>
         <value xml:lang="it">Tema grafico</value>
     </property>
     <property key="FormFieldTitle_weightBreakId">
@@ -4288,6 +4303,7 @@
     </property>
     <property key="PageTitleEditFeatureInterAction">
         <value xml:lang="en">Edit Feature InterAction</value>
+        <value xml:lang="fr">Modifier l'interactions entre caractéristiques</value>
         <value xml:lang="it">Aggiorna caratteristica interattiva</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
