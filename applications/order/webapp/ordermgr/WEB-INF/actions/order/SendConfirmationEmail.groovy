@@ -20,7 +20,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.content.email.NotificationServices;
+import org.ofbiz.common.email.NotificationServices;
 
 orderId = request.getParameter("orderId") ?: parameters.get("orderId");
 context.orderId = orderId;
