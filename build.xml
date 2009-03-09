@@ -459,7 +459,7 @@ under the License.
         <input addproperty="confirm-component-creation" message="Confirm: " defaultvalue="N" validargs="Y,N,y,n"/>
         <fail message="Component creation cancelled by the user.">
             <condition>
-                <equals arg1="${confirm-component-creation}" arg2="N"/>
+                <equals arg1="${confirm-component-creation}" arg2="N" casesensitive="false"/>
             </condition>
         </fail>
         <filterset id="replacePlaceholders">
