@@ -118,12 +118,12 @@ public class CacheLineTable<K, V> implements Serializable {
         CacheLine<V> oldValue;
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
-            if (memoryTable instanceof LRUMap) {
-                oldValue = memoryTable.put(key, value);
-            } else {
+            if (memoryTable instanceof FastMap) {
                 oldValue = isNullSet ? nullValue : null;
                 isNullSet = true;
                 nullValue = value;
+            } else {
+                oldValue = memoryTable.put(key, value);
             }
         } else {
             oldValue = memoryTable.put(key, value);
@@ -149,14 +149,14 @@ public class CacheLineTable<K, V> implements Serializable {
 
     protected CacheLine<V> getNoCheck(Object key) {
         CacheLine<V> value;
-        if (memoryTable instanceof LRUMap) {
-            value = memoryTable.get(key);
-        } else {
+        if (memoryTable instanceof FastMap) {
             if (key == null) {
                 value = isNullSet ? nullValue : null;
             } else {
                 value = memoryTable.get(key);
             }
+        } else {
+            value = memoryTable.get(key);
         }
         if (value == null) {
             if (fileTable != null) {
@@ -183,11 +183,11 @@ public class CacheLineTable<K, V> implements Serializable {
             }
         }
         if (key == null) {
-            if (memoryTable instanceof LRUMap) {
-                memoryTable.remove(key);
-            } else {
+            if (memoryTable instanceof FastMap) {
                 isNullSet = false;
                 nullValue = null;
+            } else {
+                memoryTable.remove(key);
             }
         } else {
             memoryTable.remove(key);
@@ -279,7 +279,7 @@ public class CacheLineTable<K, V> implements Serializable {
         }
 
         if (newSize > 0) {
-            this.memoryTable = new LRUMap<K, CacheLine<V>>(newSize);
+            this.memoryTable = Collections.synchronizedMap(new LRUMap<K, CacheLine<V>>(newSize));
             if (isNullSet) {
                 this.memoryTable.put(null, nullValue);
                 isNullSet = false;
@@ -311,4 +311,3 @@ public class CacheLineTable<K, V> implements Serializable {
         return null;
     }
 }
-
