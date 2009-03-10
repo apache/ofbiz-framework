@@ -2435,6 +2435,9 @@
         <value xml:lang="th">ถ้าคุณพร้อมจะมีบัญชี</value>
         <value xml:lang="zh">如果你已经有账户了</value>
     </property>
+    <property key="PartyAnyRole">
+        <value xml:lang="en">(Any Role)</value>
+    </property>
     <property key="PartyAppliedPayments">
         <value xml:lang="en">Applied payments to payments</value>
         <value xml:lang="fr">Paiements affectés à d'autres paiements</value>
@@ -2532,7 +2535,7 @@
         <value xml:lang="pt_PT">Encadeamento AVS</value>
         <value xml:lang="ro">Stringa AVS</value>
         <value xml:lang="ru">Строка AVS</value>
-        <value xml:lang="th">AVS ตัวหนังสือ</value>
+        <value xml:lang="th">AV ตัวหนังสือ</value>
         <value xml:lang="zh">地址验证服务字符串</value>
     </property>
     <property key="PartyBank">

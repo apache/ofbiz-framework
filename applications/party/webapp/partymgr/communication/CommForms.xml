@@ -242,6 +242,7 @@ under the License.
         <!-- field name="origCommEventId"><text-find/></field-->
         <field name="partyIdFrom" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.PartyAnyRole}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="communicationEventTypeId" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/>
@@ -313,13 +314,9 @@ under the License.
     <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEvent" list="commEvents">
+            <entity-condition entity-name="CommunicationEventAndRole" list="commEvents" distinct="true">
                 <condition-list combine="and">
-                    <condition-expr from-field="" field-name="statusId" operator="not-equals" value="COM_PENDING"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
-                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
-                    </condition-list>
+                    <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                 </condition-list>
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
