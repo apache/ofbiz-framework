@@ -8651,6 +8651,14 @@
         <value xml:lang="th">รหัสกลุ่มองค์กร</value>
         <value xml:lang="zh">团体会员标识</value>
     </property>
+    <property key="FormFieldTitle_origAmount">
+        <value xml:lang="en">Orig Amount</value>
+        <value xml:lang="it">Importo originale</value>
+    </property>
+    <property key="FormFieldTitle_origCurrencyUomId">
+        <value xml:lang="en">Orig Currency Uom Id</value>
+        <value xml:lang="it">Valuta di origine</value>
+    </property>
     <property key="FormFieldTitle_otherCurrency">
         <value xml:lang="en">Other Currency</value>
         <value xml:lang="fr">Autre devise</value>
@@ -9212,6 +9220,10 @@
         <value xml:lang="en">Salvage Value</value>
         <value xml:lang="fr">Valeur résiduelle</value>
         <value xml:lang="it">Valore di salvataggio</value>
+    </property>
+    <property key="FormFieldTitle_scheduledPostingDate">
+        <value xml:lang="en">Scheduled Posting Date</value>
+        <value xml:lang="it">Data contabilizzazione schedulata</value>
     </property>
     <property key="FormFieldTitle_scheduleWorkEffortId">
         <value xml:lang="en">Schedule Work Effort Id</value>

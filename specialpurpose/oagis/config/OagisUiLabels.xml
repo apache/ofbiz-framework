@@ -19,6 +19,74 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FormFieldTitle_authId">
+        <value xml:lang="en">Auth Id</value>
+        <value xml:lang="it">Codice autorizzazione</value>
+    </property>
+    <property key="FormFieldTitle_bsrNoun">
+        <value xml:lang="en">bsr Noun</value>
+        <value xml:lang="it">Nome bsr</value>
+    </property>
+    <property key="FormFieldTitle_bsrRevision">
+        <value xml:lang="en">bsr Revision</value>
+        <value xml:lang="it">Revisione bsr</value>
+    </property>
+    <property key="FormFieldTitle_bsrVerb">
+        <value xml:lang="en">bsr Verb</value>
+        <value xml:lang="it">Verbo bsr</value>
+    </property>
+    <property key="FormFieldTitle_component">
+        <value xml:lang="en">Component</value>
+        <value xml:lang="it">Componente</value>
+    </property>    
+    <property key="FormFieldTitle_confirmation">
+        <value xml:lang="en">Confirmation</value>
+        <value xml:lang="it">Conferma</value>
+    </property>
+    <property key="FormFieldTitle_errorSeqId">
+        <value xml:lang="en">Error Seq Id</value>
+        <value xml:lang="it">Seq. errore</value>
+    </property>
+    <property key="FormFieldTitle_fullMessageXml">
+        <value xml:lang="en">Full Message Xml</value>
+        <value xml:lang="it">Messaggio xml completo</value>
+    </property>
+    <property key="FormFieldTitle_logicalId">
+        <value xml:lang="en">Logical Id</value>
+        <value xml:lang="it">Logico</value>
+    </property>
+    <property key="FormFieldTitle_origRef">
+        <value xml:lang="en">Orig Ref</value>
+        <value xml:lang="it">Rif. origine</value>
+    </property>
+    <property key="FormFieldTitle_outgoingMessage">
+        <value xml:lang="en">Outgoing Message</value>
+        <value xml:lang="it">Messaggio in uscita</value>
+    </property>
+    <property key="FormFieldTitle_processingStatusId">
+        <value xml:lang="en">Processing Status Id</value>
+        <value xml:lang="it">Stato esecuzione</value>
+    </property>
+    <property key="FormFieldTitle_reasonCode">
+        <value xml:lang="en">Reason Code</value>
+        <value xml:lang="it">Codice motivazione</value>
+    </property>
+    <property key="FormFieldTitle_receivedDate">
+        <value xml:lang="en">Received Date</value>
+        <value xml:lang="it">Data di ricezione</value>
+    </property>
+    <property key="FormFieldTitle_referenceId">
+        <value xml:lang="en">Reference Id</value>
+        <value xml:lang="it">Riferimento</value>
+    </property>
+    <property key="FormFieldTitle_sentDate">
+        <value xml:lang="en">Sent Date</value>
+        <value xml:lang="it">Data di spedizione</value>
+    </property>
+    <property key="FormFieldTitle_task">
+        <value xml:lang="en">Task</value>
+        <value xml:lang="it">Compito</value>
+    </property>
     <property key="OagisApplication">
         <value xml:lang="en">Oagis Implementation</value>
         <value xml:lang="fr">Implémentation Oagis</value>

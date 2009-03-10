@@ -1012,6 +1012,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <!-- UNUSED FORMS     
     <form name="ListProductAssocs" type="list" use-row-submit="true"  title="" list-name="productAssocs" 
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductAssoc">
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
@@ -1029,6 +1030,7 @@ under the License.
             <hyperlink also-hidden="false" description="${productId}" target="EditProduct?productId=${productId}"/>
         </field>
     </form>
+    -->
 
     <form name="ListProductComponents" type="list" use-row-submit="true" title="" list-name="components"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">

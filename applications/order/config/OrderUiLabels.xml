@@ -434,6 +434,10 @@
         <value xml:lang="fr">Nouvelle carte de crédit</value>
         <value xml:lang="it">Nuova carta di credito</value>
     </property>
+    <property key="FormFieldTitle_noteDateTime">
+        <value xml:lang="en">Note Date Time</value>
+        <value xml:lang="it">Data ora nota</value>
+    </property>
     <property key="FormFieldTitle_noteInfo">
         <value xml:lang="de">Notiz Informationen</value>
         <value xml:lang="en">Note Info</value>
@@ -593,6 +597,10 @@
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
+    </property>
+    <property key="FormFieldTitle_quantityPurchased">
+        <value xml:lang="en">Quantity Purchased</value>
+        <value xml:lang="it">Quantità acquistata</value>
     </property>
     <property key="FormFieldTitle_quantityTotal">
         <value xml:lang="de">Menge Total</value>
@@ -833,6 +841,10 @@
         <value xml:lang="ru">Код списка покупок</value>
         <value xml:lang="th">รหัสรายการซื้อของ</value>
         <value xml:lang="zh">购物列表标识</value>
+    </property>
+    <property key="FormFieldTitle_shoppingListItemSeqId">
+        <value xml:lang="en">Shopping List Item Seq Id</value>
+        <value xml:lang="it">Seq. riga lista d'acquisto</value>
     </property>
     <property key="FormFieldTitle_shoppingListTypeId">
         <value xml:lang="de">Einkaufslistentyp ID</value>
