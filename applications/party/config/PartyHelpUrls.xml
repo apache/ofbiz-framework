@@ -40,4 +40,8 @@
     <property key="PARTY_partyInvitation">
         <value xml:lang="en">Invitation</value>
     </property>
+    <property key="PARTY_CreateNewParty">
+        <value xml:lang="en">Create new party</value>
+    </property>
+    
 </resource>
