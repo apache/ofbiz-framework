@@ -184,7 +184,7 @@ under the License.
                 <field-map field-name="entityName" value="PayrollPreference"/>
             </service>
         </actions>
-        <field name="payrollPreferenceSeqId" widget-style="buttontext">
+        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResLookupPayrollPreferenceSeqId}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${payrollPreferenceSeqId}" target="javascript:set_value('${payrollPreferenceSeqId}')"/>
         </field>        
         <field name="description"><display/></field>        

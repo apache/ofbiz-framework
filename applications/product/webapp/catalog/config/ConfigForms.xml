@@ -195,8 +195,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ProductConfigAndProduct" default-field-type="hidden"/>
         <field name="productId" widget-style="buttontext"  ><hyperlink target="EditProductConfigs?productId=${productId}" description="${productId}"/></field>
-        <field name="productName" ><display description="${productName}"/></field>
-        <field name="piecesIncluded" ><display description="${piecesIncluded}"/></field>
+        <field name="productName" title="${uiLabelMap.ProductName}"><display description="${productName}"/></field>
+        <field name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><display description="${piecesIncluded}"/></field>
     </form>
     
     <form name="ProductConfigOptionList" type="list" list-name="configOptionList" 

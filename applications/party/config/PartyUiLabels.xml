@@ -862,6 +862,10 @@
         <value xml:lang="th">รหัสการเสียภาษีของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员税务标识</value>
     </property>
+    <property key="FormFieldTitle_partyTypeId">
+        <value xml:lang="en">Party Type Id</value>
+        <value xml:lang="it">Tipo soggetto</value>
+    </property>
     <property key="FormFieldTitle_passportExpireDate">
         <value xml:lang="de">Ablaufdatum Pass</value>
         <value xml:lang="en">Passport Expire Date</value>

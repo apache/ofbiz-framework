@@ -114,6 +114,10 @@
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
         <value xml:lang="zh">预算类型编号</value>
     </property>
+    <property key="FormFieldTitle_communicationDate">
+        <value xml:lang="en">Communication Date</value>
+        <value xml:lang="it">Data comunicazione</value>
+    </property>
     <property key="FormFieldTitle_company">
         <value xml:lang="en">Company</value>
         <value xml:lang="it">Azienda</value>
