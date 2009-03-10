@@ -66,12 +66,16 @@ under the License.
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
         
-        <if-empty field="parameters.custRequestId">
-            <sequenced-id sequence-name="CustRequest" field="newEntity.custRequestId"/>
-        </if-empty>
+        <if-not-empty field="parameters.custRequestId">
+            <set field="newEntity.custRequestId" from-field="parameters.custRequestId"/>
+            <else>
+                <sequenced-id sequence-name="CustRequest" field="newEntity.custRequestId"/>
+            </else>
+        </if-not-empty>
+
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
-
+        
         <!-- jacopoc: Commented out the following code because it is too specific and not valid as a
                       general rule: a user may enter the request from a customer even if he will not work
                       on it -->
