@@ -558,11 +558,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     // the param is a String, allow-html is none or safe, and we are looking at an IN parameter during input parameter validation
                     String value = (String) context.get(modelParam.name);
                     if ("none".equals(modelParam.allowHtml)) {
-                        value = StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
-                        context.put(modelParam.name, value);
+                        StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
                     } else if ("safe".equals(modelParam.allowHtml)) {
-                        value = StringUtil.checkStringForHtmlSafeOnly(modelParam.name, value, errorMessageList);
-                        context.put(modelParam.name, value);
+                        StringUtil.checkStringForHtmlSafeOnly(modelParam.name, value, errorMessageList);
                     }
                 }
             }
