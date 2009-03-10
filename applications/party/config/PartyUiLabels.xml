@@ -30,7 +30,7 @@
         <value xml:lang="en">Birth Date</value>
         <value xml:lang="es">Fecha de nacimiento</value>
         <value xml:lang="fr">Date de naissance</value>
-        <value xml:lang="it">Data di Nascita</value>
+        <value xml:lang="it">Data di nascita</value>
         <value xml:lang="nl">Geboortedatum</value>
         <value xml:lang="ro">Data de Nastere</value>
         <value xml:lang="ru">Дата рождения</value>
@@ -41,7 +41,7 @@
         <value xml:lang="de">Zertifikatsaussteller ID</value>
         <value xml:lang="en">Cert Provision Id</value>
         <value xml:lang="fr">Réf. disposition de certificat</value>
-        <value xml:lang="it">Fornitore Certificato</value>
+        <value xml:lang="it">Fornitore certificato</value>
         <value xml:lang="nl">ID certificaat-uitgever</value>
         <value xml:lang="ru">Код обеспечения CERT</value>
         <value xml:lang="th">รหัสการจัดเตรียม</value>
@@ -51,7 +51,7 @@
         <value xml:lang="en">Cert String</value>
         <value xml:lang="es">Contenido de certificado</value>
         <value xml:lang="fr">Chaîne de caract. de certif.</value>
-        <value xml:lang="it">Stringa Certificato</value>
+        <value xml:lang="it">Stringa certificato</value>
         <value xml:lang="nl">Inhoud certificaat</value>
         <value xml:lang="ru">Строка CERT</value>
         <value xml:lang="th">อย่างต่อเนื่อง</value>
@@ -61,7 +61,7 @@
         <value xml:lang="en">City Locality</value>
         <value xml:lang="es">Localidad Ciudad</value>
         <value xml:lang="fr">Ville localité</value>
-        <value xml:lang="it">Località  Città</value>
+        <value xml:lang="it">Località  città</value>
         <value xml:lang="nl">Stad localiteit?</value>
         <value xml:lang="ru">Местонахождение города</value>
         <value xml:lang="th">เมือง</value>
@@ -71,7 +71,7 @@
         <value xml:lang="en">Contach Mech Detail</value>
         <value xml:lang="es">Detalles de mec. de contacto</value>
         <value xml:lang="fr">Détail des coordonnées</value>
-        <value xml:lang="it">Dettagli Contatto</value>
+        <value xml:lang="it">Dettagli contatto</value>
         <value xml:lang="nl">Details contactmech</value>
         <value xml:lang="ro">Detaliu Contact</value>
         <value xml:lang="th">รายละเอียดในการติดต่อ</value>
@@ -82,7 +82,7 @@
         <value xml:lang="en">Common Name</value>
         <value xml:lang="es">Nombre común</value>
         <value xml:lang="fr">Nom commun</value>
-        <value xml:lang="it">Nome Comune</value>
+        <value xml:lang="it">Nome comune</value>
         <value xml:lang="nl">Gebruikelijke naam</value>
         <value xml:lang="ru">Обычное имя</value>
         <value xml:lang="th">ชื่อ</value>
@@ -175,7 +175,7 @@
         <value xml:lang="de">Inhalt Mime Typ ID</value>
         <value xml:lang="en">Content Mime Type Id</value>
         <value xml:lang="fr">Type de contenu</value>
-        <value xml:lang="it">Codice Tipo Contenuto Mime</value>
+        <value xml:lang="it">Codice tipo contenuto mime</value>
         <value xml:lang="nl">ID content mime-type</value>
         <value xml:lang="ro">Cod Tip Continut Mime</value>
         <value xml:lang="ru">Код mime типа контента</value>
@@ -722,7 +722,7 @@
         <value xml:lang="en">Parent Comm Event Id</value>
         <value xml:lang="es">Codigo Precursor del evento de comunicación</value>
         <value xml:lang="fr">Réf. évènement de comm de parent</value>
-        <value xml:lang="it">Evento Comunicazione Padre</value>
+        <value xml:lang="it">Evento comunicazione padre</value>
         <value xml:lang="nl">Ouder comm.-actie ID</value>
         <value xml:lang="th">รหัสการติดต่อกับผู้ดูแล</value>
     </property>
@@ -731,7 +731,7 @@
         <value xml:lang="en">Parent Group Id</value>
         <value xml:lang="es">Código Precursos de grupo</value>
         <value xml:lang="fr">Réf. groupe père</value>
-        <value xml:lang="it">Codice Gruppo Padre</value>
+        <value xml:lang="it">Codice gruppo padre</value>
         <value xml:lang="nl">Ouder Groep-ID</value>
         <value xml:lang="ro">Cod Grup Parinte</value>
         <value xml:lang="ru">Код родительской группы</value>
@@ -768,7 +768,7 @@
         <value xml:lang="en">Party Classification Type Id</value>
         <value xml:lang="es">Codigo Tipo de clasificación</value>
         <value xml:lang="fr">Type de classification d'acteur</value>
-        <value xml:lang="it">Tipo Classificazione Soggetto</value>
+        <value xml:lang="it">Tipo classificazione soggetto</value>
         <value xml:lang="nl">Relatie klassetype ID</value>
         <value xml:lang="ro">Tip Clasificare Subiect</value>
         <value xml:lang="ru">Код типа классификации участника</value>
@@ -810,7 +810,7 @@
         <value xml:lang="en">To Party ID</value>
         <value xml:lang="es">Id Grupo Destino</value>
         <value xml:lang="fr">Vers l'acteur</value>
-        <value xml:lang="it">Soggetto A</value>
+        <value xml:lang="it">Soggetto a</value>
         <value xml:lang="nl">Naar relatie</value>
         <value xml:lang="ro">LA Cod Subiect</value>
         <value xml:lang="ru">На участника</value>
@@ -822,7 +822,7 @@
         <value xml:lang="en">Party Invitation Id</value>
         <value xml:lang="es">Código Invitación de participante</value>
         <value xml:lang="fr">Réf. invitation acteur</value>
-        <value xml:lang="it">Invito Soggetto</value>
+        <value xml:lang="it">Invito soggetto</value>
         <value xml:lang="nl">Uitnodigingnr. relatie</value>
         <value xml:lang="th">รหัสการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
@@ -996,7 +996,7 @@
         <value xml:lang="en">Role Type Id From</value>
         <value xml:lang="es">Código Tipo de rol desde</value>
         <value xml:lang="fr">Réf. rôle d'origine</value>
-        <value xml:lang="it">Tipo Ruolo Da</value>
+        <value xml:lang="it">Tipo ruolo da</value>
         <value xml:lang="nl">Roltype van</value>
         <value xml:lang="ro">Tip Rol De la</value>
         <value xml:lang="ru">Код типа роли от</value>
@@ -1008,7 +1008,7 @@
         <value xml:lang="en">Role Type Id To</value>
         <value xml:lang="es">Código Tipo de rol hacia</value>
         <value xml:lang="fr">Réf. rôle de destination</value>
-        <value xml:lang="it">Tipo Ruolo A</value>
+        <value xml:lang="it">Tipo ruolo a</value>
         <value xml:lang="nl">Role Type Id To</value>
         <value xml:lang="ro">Tip Rol pina la</value>
         <value xml:lang="ru">Код типа роли к</value>
@@ -1490,7 +1490,7 @@
         <value xml:lang="en">Edit Party Invitation GroupAssoc</value>
         <value xml:lang="es">Editar asociación de grupo de invitación de participante</value>
         <value xml:lang="fr">Modifier l'association groupe invitation de l'acteurs</value>
-        <value xml:lang="it">Aggiorna Associazione Gruppo Invito</value>
+        <value xml:lang="it">Aggiorna associazione gruppo invito</value>
         <value xml:lang="nl">Groepassociaties relatie-uitnodigingen wijzigen</value>
         <value xml:lang="th">แก้ไขการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
@@ -1499,7 +1499,7 @@
         <value xml:lang="en">Edit Party Invitation RoleAssoc</value>
         <value xml:lang="es">Editar asociación de rol de invitación de participante</value>
         <value xml:lang="fr">Modifier l'association de rôle d'invitation de l'acteur</value>
-        <value xml:lang="it">Aggiorna Associazione Ruolo Invito</value>
+        <value xml:lang="it">Aggiorna associazione ruolo invito</value>
         <value xml:lang="nl">Rolassociaties relatie-uitnodiging wijzigen</value>
         <value xml:lang="th">แก้ไขสถานะการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
@@ -1544,7 +1544,7 @@
         <value xml:lang="en">Edit Personal Information</value>
         <value xml:lang="es">Editar información personal</value>
         <value xml:lang="fr">Modifier les informations personnelles</value>
-        <value xml:lang="it">Aggiorna Informazioni Personali</value>
+        <value xml:lang="it">Aggiorna informazioni personali</value>
         <value xml:lang="nl">Persoonlijke informatie wijzigen</value>
         <value xml:lang="ro">Actualizare Informatii Personale</value>
         <value xml:lang="ru">Изменить персональную информацию</value>
@@ -1556,7 +1556,7 @@
         <value xml:lang="en">Edit Security Group</value>
         <value xml:lang="es">Editar grupo de seguridad</value>
         <value xml:lang="fr">Modifier le groupe de sécurité</value>
-        <value xml:lang="it">Aggiorna Gruppo Sicurezza</value>
+        <value xml:lang="it">Aggiorna gruppo sicurezza</value>
         <value xml:lang="nl">Beveiligingsgroepen wijzigen</value>
         <value xml:lang="pt_PT">Editar Grupo de Segurança</value>
         <value xml:lang="ro">Actualizare Grup Siguranta</value>
@@ -1569,7 +1569,7 @@
         <value xml:lang="en">Edit Security Group Permissions</value>
         <value xml:lang="es">Editar permisos</value>
         <value xml:lang="fr">Modifier les autorisations du groupe de sécurité</value>
-        <value xml:lang="it">Aggiorna Permessi Gruppo Sicurezza</value>
+        <value xml:lang="it">Aggiorna permessi gruppo sicurezza</value>
         <value xml:lang="nl">Toegangsrechten beveiligingsgroep wijzigen</value>
         <value xml:lang="pt_PT">Editar Permissões do Grupo de Segurança</value>
         <value xml:lang="ro">Actualizare Permisuri Grup Siguranta</value>
@@ -1582,7 +1582,7 @@
         <value xml:lang="en">Edit Security Group UserLogins</value>
         <value xml:lang="es">Editar grupo de ususario</value>
         <value xml:lang="fr">Modifier les identifiants de connexion du groupe de sécurité</value>
-        <value xml:lang="it">Aggiorna Gruppo Sicurezza Utente</value>
+        <value xml:lang="it">Aggiorna gruppo sicurezza utente</value>
         <value xml:lang="nl">Rechten gebruikers wijzigen</value>
         <value xml:lang="pt_PT">Editar Inícios Dos Utilizadores De Segurança</value>
         <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
@@ -1607,7 +1607,7 @@
         <value xml:lang="en">Find Communications</value>
         <value xml:lang="es">Buscar comunicaciones</value>
         <value xml:lang="fr">Rechercher les communications</value>
-        <value xml:lang="it">Ricerca Comunicazioni</value>
+        <value xml:lang="it">Ricerca comunicazioni</value>
         <value xml:lang="nl">Communicaties vinden</value>
         <value xml:lang="ro">Cautare Comunicatii</value>
         <value xml:lang="ru">Найти коммуникации</value>
@@ -1618,7 +1618,7 @@
         <value xml:lang="en">Find Matches</value>
         <value xml:lang="es">Buscar coincidencias</value>
         <value xml:lang="fr">Rechercher les correspondances</value>
-        <value xml:lang="it">Ricerca Uguaglianze</value>
+        <value xml:lang="it">Ricerca uguaglianze</value>
         <value xml:lang="nl">Matches vinden</value>
         <value xml:lang="ro">Cautare Egalitati</value>
         <value xml:lang="ru">Найти совпадения</value>
@@ -1655,7 +1655,7 @@
         <value xml:lang="en">Find Party Invitation</value>
         <value xml:lang="es">Buscar invitación de participante</value>
         <value xml:lang="fr">Rechercher l'invitation de l'acteur</value>
-        <value xml:lang="it">Ricerca Inviti Soggetti</value>
+        <value xml:lang="it">Ricerca inviti soggetti</value>
         <value xml:lang="nl">Uitnodigingen relatie vinden</value>
         <value xml:lang="th">ค้นหากลุ่มผู้ใช้ตามการเชิญชวน</value>
     </property>
@@ -1777,7 +1777,7 @@
         <value xml:lang="en">Security Groups List</value>
         <value xml:lang="es">Lista de grupos de seguridad</value>
         <value xml:lang="fr">Liste des groupes sécurité</value>
-        <value xml:lang="it">Lista Gruppi Sicurezza</value>
+        <value xml:lang="it">Lista gruppi sicurezza</value>
         <value xml:lang="nl">Overzicht beveiligingsgroepen</value>
         <value xml:lang="pt_PT">Lista de Grupos de Segurança</value>
         <value xml:lang="ro">Lista Grupuri Sigureta</value>
@@ -2698,7 +2698,7 @@
         <value xml:lang="en">Cert Issuers</value>
         <value xml:lang="es">Emisores de certificados</value>
         <value xml:lang="fr">Émetteurs de certificat</value>
-        <value xml:lang="it">Fornitori di Certificati</value>
+        <value xml:lang="it">Fornitori di certificati</value>
         <value xml:lang="nl">Certificaat-uitgever</value>
         <value xml:lang="ru">Эмитенты сертификата</value>
         <value xml:lang="th">ประเด็น</value>
@@ -2854,7 +2854,7 @@
         <value xml:lang="en">Classification Group Id</value>
         <value xml:lang="es">Grupo de clasificación</value>
         <value xml:lang="fr">Groupe de classification</value>
-        <value xml:lang="it">Codice Gruppo Classificazione</value>
+        <value xml:lang="it">Codice gruppo classificazione</value>
         <value xml:lang="nl">Classificatien Groep Id</value>
         <value xml:lang="ro">Cod Grup Clasificari</value>
         <value xml:lang="ru">Код группы классификации</value>
@@ -2878,7 +2878,7 @@
         <value xml:lang="en">Classification Groups</value>
         <value xml:lang="es">Grupo de clasificación</value>
         <value xml:lang="fr">Groupes de classification</value>
-        <value xml:lang="it">Gruppi Classificazione</value>
+        <value xml:lang="it">Gruppi classificazione</value>
         <value xml:lang="nl">Classificatie Groepen</value>
         <value xml:lang="ro">Grupuri Clasificare</value>
         <value xml:lang="ru">Группы классификации</value>
@@ -3733,7 +3733,7 @@
         <value xml:lang="en">Create Customer</value>
         <value xml:lang="es">Nuevo cliente</value>
         <value xml:lang="fr">Créer un nouveau client</value>
-        <value xml:lang="it">Creare Soggetto</value>
+        <value xml:lang="it">Creare soggetto</value>
         <value xml:lang="nl">Nieuwe klant</value>
         <value xml:lang="pt_PT">Criar Cliente</value>
         <value xml:lang="ro">Creare Subiect</value>
@@ -3761,7 +3761,7 @@
         <value xml:lang="en">Create Employee</value>
         <value xml:lang="es">Nuevo empleado</value>
         <value xml:lang="fr">Créer un nouvel employé</value>
-        <value xml:lang="it">Creare Dipendente</value>
+        <value xml:lang="it">Creare dipendente</value>
         <value xml:lang="nl">Nieuwe medewerker</value>
         <value xml:lang="pt_PT">Criar Empregado</value>
         <value xml:lang="ro">Creare Angajat</value>
@@ -3802,7 +3802,7 @@
         <value xml:lang="en">Create New Party Classification Group</value>
         <value xml:lang="es">Crear nuevo grupo de clasificación</value>
         <value xml:lang="fr">Créer un nouveau groupe de classification</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Classificazione Cliente</value>
+        <value xml:lang="it">Creare nuovo gruppo classificazione cliente</value>
         <value xml:lang="nl">Nieuw kenmerkgroep voor relatie</value>
         <value xml:lang="ro">Creare un Nou Grupo Clasificare Client</value>
         <value xml:lang="ru">Создать новую классификационную группу участника</value>
@@ -3814,7 +3814,7 @@
         <value xml:lang="en">Create New Party Group</value>
         <value xml:lang="es">Nuevo grupo de participantes</value>
         <value xml:lang="fr">Créer un nouveau groupe d'acteurs</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Soggetto</value>
+        <value xml:lang="it">Creare nuovo gruppo soggetto</value>
         <value xml:lang="nl">Nieuwe relatiegroep</value>
         <value xml:lang="pt_PT">Criar Nova Secção de Grupo</value>
         <value xml:lang="ro">Creare Nou Grup Subiect</value>
@@ -3827,7 +3827,7 @@
         <value xml:lang="en">Create New Person</value>
         <value xml:lang="es">Nueva persona</value>
         <value xml:lang="fr">Créer une nouvelle personne</value>
-        <value xml:lang="it">Creare Nuova Persona</value>
+        <value xml:lang="it">Creare nuova persona</value>
         <value xml:lang="nl">Nieuw contactpersoon</value>
         <value xml:lang="pt_PT">Criar Nova Pessoa</value>
         <value xml:lang="ro">Creare Noua Persoana</value>
@@ -3840,7 +3840,7 @@
         <value xml:lang="en">Create Prospect</value>
         <value xml:lang="es">Nuevo cliente potencial</value>
         <value xml:lang="fr">Créez le prospect</value>
-        <value xml:lang="it">Creare Prospetto</value>
+        <value xml:lang="it">Creare prospetto</value>
         <value xml:lang="nl">Nieuwe prospect</value>
         <value xml:lang="ro">Creare Prospect</value>
         <value xml:lang="ru">Создать перспективу</value>
@@ -3864,7 +3864,7 @@
         <value xml:lang="en">Create New SecurityGroup</value>
         <value xml:lang="es">Crear nuevo grupo de seguridad</value>
         <value xml:lang="fr">Créer un nouveau groupe de sécurité</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Sicurezza</value>
+        <value xml:lang="it">Creare nuovo gruppo sicurezza</value>
         <value xml:lang="nl">Nieuwe beveiliginsgroep</value>
         <value xml:lang="pt_PT">Criar Novo Grupo de Segurança</value>
         <value xml:lang="ro">Creare Nou Grup De Siguranta</value>
@@ -3970,7 +3970,7 @@
         <value xml:lang="en">Current Shopping Cart</value>
         <value xml:lang="es">Carro de compras</value>
         <value xml:lang="fr">Panier courant</value>
-        <value xml:lang="it">Carrello Attuale</value>
+        <value xml:lang="it">Carrello attuale</value>
         <value xml:lang="nl">Huidige boodschappenlijst</value>
         <value xml:lang="ro">Cos Actual</value>
         <value xml:lang="ru">Текущая корзина покупок</value>
@@ -4133,7 +4133,7 @@
         <value xml:lang="en">New Communication Work Effort</value>
         <value xml:lang="es">Nuevo esfuerzo</value>
         <value xml:lang="fr">Nouvelle tâche de communication</value>
-        <value xml:lang="it">Nuova Comunicazione Impegno di Lavoro</value>
+        <value xml:lang="it">Nuova comunicazione impegno di lavoro</value>
         <value xml:lang="nl">Nieuwe werkinzet communicatie-actie</value>
         <value xml:lang="ro">Noua Comunicare Sarcina de Lucru</value>
         <value xml:lang="ru">Новый коммуникационный рабочий процесс</value>
@@ -4210,7 +4210,7 @@
         <value xml:lang="en">Edit Security Group With ID</value>
         <value xml:lang="es">Editar grupo de seguridad con código</value>
         <value xml:lang="fr">Modification du groupe de securité avec l'identifiant</value>
-        <value xml:lang="it">Aggiorna Gruppo Sicurezza Con Codice</value>
+        <value xml:lang="it">Aggiorna gruppo sicurezza con codice</value>
         <value xml:lang="nl">Beveiliginsgroep met ID aanpassen</value>
         <value xml:lang="pt_PT">Editar Grupo de Segurança com ID</value>
         <value xml:lang="ro">Actualizare Cod Grup De Siguranta </value>
@@ -4533,7 +4533,7 @@
         <value xml:lang="en">Find Party Invitations</value>
         <value xml:lang="es">Buscar invitación de participante</value>
         <value xml:lang="fr">Rechercher les invitations de l'acteur</value>
-        <value xml:lang="it">Ricerca Inviti Soggetto</value>
+        <value xml:lang="it">Ricerca inviti soggetto</value>
         <value xml:lang="nl">Uitnodiging(en) relatie vinden</value>
         <value xml:lang="th">ค้นหาการเชิญชวนของกลุ่มผู้ใช้</value>
     </property>
@@ -4611,7 +4611,7 @@
         <value xml:lang="en">From Contact Mech</value>
         <value xml:lang="es">Mecanismo de contacto origen</value>
         <value xml:lang="fr">Coordonné appelante</value>
-        <value xml:lang="it">Da Contatto</value>
+        <value xml:lang="it">Da contatto</value>
         <value xml:lang="nl">Van contactmech</value>
         <value xml:lang="ro">De la Contact</value>
         <value xml:lang="ru">Из контактного механизма</value>
@@ -4964,7 +4964,7 @@
         <value xml:lang="en">GroupAssoc </value>
         <value xml:lang="es">Grupo de asociación</value>
         <value xml:lang="fr">Groupe d'associations</value>
-        <value xml:lang="it">Gruppo Associazione Inviti</value>
+        <value xml:lang="it">Gruppo associazione inviti</value>
         <value xml:lang="nl">Associaties</value>
         <value xml:lang="th">รวมกลุ่ม</value>
     </property>
@@ -4991,7 +4991,7 @@
         <value xml:lang="en">New Party Invitation</value>
         <value xml:lang="es">Nueva invitación de participante</value>
         <value xml:lang="fr">Nouvelle invitation pour l'acteur</value>
-        <value xml:lang="it">Nuovo Soggetto Invito</value>
+        <value xml:lang="it">Nuovo invito soggetto</value>
         <value xml:lang="nl">Nieuwe uitnodiging</value>
         <value xml:lang="th">คำเชิญของกลุ่มผู้ใช้ใหม่</value>
     </property>
@@ -5018,7 +5018,7 @@
         <value xml:lang="en">RoleAssoc</value>
         <value xml:lang="es">Asociación Rol</value>
         <value xml:lang="fr">Association de rôle</value>
-        <value xml:lang="it">Ruolo Associazione Inviti</value>
+        <value xml:lang="it">Ruolo associazione inviti</value>
         <value xml:lang="nl">Soort associatie</value>
         <value xml:lang="th">สถานะที่เกี่ยวเนื่องกัน</value>
     </property>
@@ -5149,7 +5149,7 @@
         <value xml:lang="en">WARNING: This cannot be un-done, confirm you wish to link the two party records listed below.</value>
         <value xml:lang="es">Advertencia: Esto no se puede deshacer, confirme que desea enlazar los dos participantes listados abajo.</value>
         <value xml:lang="fr">ATTENTION: Ceci ne peut pas être défait, confirmez votre souhait de lier les deux enregistrements de l'acteur énumérés ci-dessous.</value>
-        <value xml:lang="it">ATTENZIONE: Non è possibile non confermare, conferma che vuoi legare i due soggetti elencati qui sotto.</value>
+        <value xml:lang="it">ATTENZIONE: Questa operazione non può essere annullata, conferma che vuoi legare i due soggetti elencati qui sotto.</value>
         <value xml:lang="nl">WAARSCHUWING: Dit kan niet ongedaan gemaakt, bevestig hiermee dat u de onderstaande twee relaties aan elkaar wilt relateren</value>
         <value xml:lang="ro">ATENTIE: Nu este posibil sa nu confirmi, confirma ca vrei sa legi cei doi subiecti afisati dedesubt.</value>
         <value xml:lang="ru">ПРЕДУПРЕЖДЕНИЕ: Это не может быть отменено, подтвердите ваше намерение связать два участника указанных ниже.</value>
@@ -5816,7 +5816,7 @@
         <value xml:lang="en">New Communication</value>
         <value xml:lang="es">Nueva comunicación</value>
         <value xml:lang="fr">Nouvelle communication</value>
-        <value xml:lang="it">Nuova Comunicazione</value>
+        <value xml:lang="it">Nuova comunicazione</value>
         <value xml:lang="nl">Nieuw communicatie</value>
         <value xml:lang="pt_PT">Nova Comunicação</value>
         <value xml:lang="ro">Noua Comunicare</value>
@@ -5952,7 +5952,7 @@
         <value xml:lang="en">New Security Group</value>
         <value xml:lang="es">Nuevo grupo de seguridad</value>
         <value xml:lang="fr">Nouveau groupe de sécurité</value>
-        <value xml:lang="it">Nuovo Gruppo Sicurezza</value>
+        <value xml:lang="it">Nuovo gruppo sicurezza</value>
         <value xml:lang="nl">Nieuwe beveiligingsgroep</value>
         <value xml:lang="pt_PT">Novo Grupo de Segurança</value>
         <value xml:lang="ro">Nou Grup De Siguranta</value>
@@ -6513,7 +6513,7 @@
         <value xml:lang="en">Party From</value>
         <value xml:lang="es">de participante</value>
         <value xml:lang="fr">De l'acteur</value>
-        <value xml:lang="it">Soggetto Dal</value>
+        <value xml:lang="it">Soggetto dal</value>
         <value xml:lang="nl">Relatie van</value>
         <value xml:lang="pt_PT">Secção de</value>
         <value xml:lang="ro">Subiect De la</value>
@@ -7707,7 +7707,7 @@
         <value xml:lang="en">Security Group ID</value>
         <value xml:lang="es">Grupo de seguridad</value>
         <value xml:lang="fr">Réf. de groupe de sécurité </value>
-        <value xml:lang="it">Codice Gruppo Sicurezza</value>
+        <value xml:lang="it">Codice gruppo sicurezza</value>
         <value xml:lang="nl">ID beveiligingsgroep</value>
         <value xml:lang="pt_PT">Identificação de Grupo de Segurança</value>
         <value xml:lang="ro">Cod Grup De Siguranta</value>
@@ -8438,7 +8438,7 @@
         <value xml:lang="en">To Contact Mech</value>
         <value xml:lang="es">A mecanismo de contacto</value>
         <value xml:lang="fr">A la coordonnée</value>
-        <value xml:lang="it">Al Contatto</value>
+        <value xml:lang="it">Al contatto</value>
         <value xml:lang="nl">Naar contactmech</value>
         <value xml:lang="ro">La Contact</value>
         <value xml:lang="ru">В контактный механизм</value>
@@ -8694,7 +8694,7 @@
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario</value>
         <value xml:lang="fr">Réf. d'identifiant de connexion</value>
-        <value xml:lang="it">Codice Utente Login</value>
+        <value xml:lang="it">Codice utente login</value>
         <value xml:lang="nl">User Login Id</value>
         <value xml:lang="pt_PT">Identificação de Início de Secção</value>
         <value xml:lang="ro">Cod Utilizator Login</value>
@@ -8915,7 +8915,7 @@
         <value xml:lang="en">Visit Id</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Ident. connexion</value>
-        <value xml:lang="it">Numero Visita</value>
+        <value xml:lang="it">Numero visita</value>
         <value xml:lang="nl">Bezoek-Id</value>
         <value xml:lang="pt_PT">Id da Visita</value>
         <value xml:lang="ro">Numero Visita</value>
@@ -8941,7 +8941,7 @@
         <value xml:lang="en">Visitor ID</value>
         <value xml:lang="es">Código Visitante</value>
         <value xml:lang="fr">Réf. visiteur</value>
-        <value xml:lang="it">Codice Visitatore</value>
+        <value xml:lang="it">Codice visitatore</value>
         <value xml:lang="nl">Bezoeker-ID</value>
         <value xml:lang="ro">Cod Vizitator</value>
         <value xml:lang="ru">Код посетителя</value>
@@ -8988,7 +8988,7 @@
         <value xml:lang="en">WebApp</value>
         <value xml:lang="es">Aplicación web</value>
         <value xml:lang="fr">Application Web</value>
-        <value xml:lang="it">Applicazione Web</value>
+        <value xml:lang="it">Applicazione web</value>
         <value xml:lang="nl">WebApp</value>
         <value xml:lang="pt_PT">Aplicações  de Internet</value>
         <value xml:lang="ro">Aplicatie Web</value>
