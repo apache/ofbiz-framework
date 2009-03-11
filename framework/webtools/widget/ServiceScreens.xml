@@ -29,7 +29,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/AvailableServices.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -54,7 +54,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Services.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/services.ftl"/></html>
@@ -73,7 +73,7 @@ under the License.
                 <set field="jobCtx" from-field="parameters"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -101,7 +101,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Threads.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
@@ -111,6 +111,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ScheduleJob">
         <section>
             <actions>
@@ -119,7 +120,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -141,6 +142,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="RunService">
         <section>
             <actions>
@@ -149,7 +151,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -164,6 +166,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="setServiceParameters">
         <section>
             <actions>
@@ -172,7 +175,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonServiceDecorator">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
@@ -189,6 +192,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="setSyncServiceParameters">
         <section>
             <actions>
@@ -198,7 +202,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -215,6 +219,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ServiceResult">
         <section>
             <actions>
@@ -224,7 +229,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ServiceResult.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/serviceResult.ftl"/></html>
