@@ -46,7 +46,7 @@
     <property key="ACCOUNTING_sendPerEmail">
         <value xml:lang="en">02.7 Send per Email</value>
     </property>
-    <property key="ACCOUNTING_findPayments">
+    <property key="ACCOUNTING_Payments">
         <value xml:lang="en">03 Payments</value>
     </property>
     <property key="ACCOUNTING_findPayments">
