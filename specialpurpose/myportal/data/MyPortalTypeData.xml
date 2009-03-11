@@ -102,8 +102,6 @@
     <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListPartyCommEvents" portletName="List Party Comm Events" screenName="ListPartyCommEvents" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Party Comm Events in myportal from party" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListProjects" portletName="List Projects" screenName="ListProjects" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Projects From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="WELCOME" portletName="Welcome" screenName="welcomePortlet" screenLocation="component://common/widget/PortletScreens.xml" description="OFBiz Welcome Message" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="LOGIN" portletName="Login" screenName="loginPortlet" screenLocation="component://common/widget/PortletScreens.xml" editFormName="LoginPortletEdit" editFormLocation="component://common/widget/PortletEditForms.xml" description="Login Form" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
     

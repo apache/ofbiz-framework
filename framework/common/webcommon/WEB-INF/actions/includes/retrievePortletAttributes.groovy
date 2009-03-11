@@ -32,6 +32,5 @@ iter = portletAttributes.iterator();
 
 while (iter) {
   attribute = iter.next();
-
   context.put(attribute.attrName, attribute.attrValue);
 }

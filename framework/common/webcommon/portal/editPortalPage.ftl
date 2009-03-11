@@ -62,7 +62,7 @@ under the License.
                   <li class="remove"><a href="<@ofbizUrl>deletePortalPagePortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonRemovePortlet}">&nbsp;&nbsp;&nbsp;</a></li>
 
                   <#if (portlet.editFormName?has_content && portlet.editFormLocation?has_content)>
-                    <li class="edit"><a href="<@ofbizUrl>EditPortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonEditPortletAttributes}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="edit"><a href="<@ofbizUrl>ManagePortalPages?${portletUrlLink}&editAttributes=Y</@ofbizUrl>" title="${uiLabelMap.CommonEditPortletAttributes}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
 
                   <#if !firstInColumn>

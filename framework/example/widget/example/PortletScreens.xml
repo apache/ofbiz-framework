@@ -44,8 +44,19 @@ under the License.
 
     <screen name="ExamplePortlet3">
         <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
             <widgets>
-                <label text="Hi, this is a third example of portlet"/>
+                <container style="leftclear">
+                    <label style="h1" text="Hi, this is a third example of portlet with editable parameters."/>
+                </container>
+                <container style="leftclear">
+                    <label style="h2" text="SpecificTitle: ${SpecificTitle}"/>
+                </container>
+                <container style="leftclear">
+                    <label style="h2" text="SpecificSubTitle: ${SpecificSubTitle}"/>
+                </container>
             </widgets>
         </section>
     </screen>
