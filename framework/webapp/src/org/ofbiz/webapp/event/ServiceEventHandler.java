@@ -267,9 +267,9 @@ public class ServiceEventHandler implements EventHandler {
                     // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
                     if (requestMap != null && requestMap.securityHttps) {
                         if (urlOnlyParameterNames.contains(name)) {
-                            String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons!";
-                            Debug.logWarning(errMsg, module);
-                            throw new EventHandlerException(errMsg);
+                            String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body instead of the request URL.";
+                            Debug.logWarning("=============== " + errMsg, module);
+                            // TODO: restore this once more issues with existing links, like Delete links in forms, are resolved, for now just log warnings: throw new EventHandlerException(errMsg);
                         }
                         // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
                         // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
