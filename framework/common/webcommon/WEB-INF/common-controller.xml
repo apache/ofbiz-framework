@@ -107,7 +107,7 @@ under the License.
     <request-map uri="setUserPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="setUserPreference"/>
-        <response name="success" type="request" value="main"/>
+        <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
 

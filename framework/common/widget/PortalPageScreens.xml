@@ -90,6 +90,24 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="portalPage"/></not>
+                                    <not><if-empty field="parameters.editAttributes"/></not>
+                                </and>
+                            </condition>
+                            <actions>
+                                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
+                                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
+                                    <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -116,22 +134,4 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditPortlet">
-        <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
-                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
-                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <label style="h2">${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}</label>
-                        <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
-                        <!-- <include-screen name="${portalPortlet.screenName}" location="${portalPortlet.screenLocation}"/> -->
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 </screens>

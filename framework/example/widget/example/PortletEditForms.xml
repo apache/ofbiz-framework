@@ -50,6 +50,7 @@ under the License.
         <field name="SpecificSubTitle" entry-name="attributeMap.SpecificSubTitle">
             <text/>
         </field>
+        <field name="updateButton"><submit/></field>
     </form>
 
 </forms>

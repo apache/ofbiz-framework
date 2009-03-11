@@ -32,8 +32,6 @@ under the License.
         <field name="portalPageId"><hidden/></field>
         <field name="portalPortletId"><hidden/></field>
         <field name="portletSeqId"><hidden/></field>
-        
-        <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
     </form>
     
     <form name="LoginPortletEdit" extends="CommonPortletEdit">
