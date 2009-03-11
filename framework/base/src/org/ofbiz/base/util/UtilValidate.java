@@ -66,6 +66,9 @@ public class UtilValidate {
     /** digit characters */
     public static final String digits = "0123456789";
 
+    /** hex digit characters */
+    public static final String hexDigits = digits + "abcdefABCDEF";
+
     /** lower-case letter characters */
     public static final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
 
@@ -301,6 +304,11 @@ public class UtilValidate {
     /** Returns true if character c is a letter or digit. */
     public static boolean isLetterOrDigit(char c) {
         return Character.isLetterOrDigit(c);
+    }
+
+    /** Returns true if character c is a letter or digit. */
+    public static boolean isHexDigit(char c) {
+        return hexDigits.indexOf(c) >= 0;
     }
 
     /** Returns true if all characters in string s are numbers.
