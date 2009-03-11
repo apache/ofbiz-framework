@@ -81,6 +81,7 @@ under the License.
             ${extraHead}
         </#list>
     </#if>
+    <#if lastParameters?exists><#assign parametersURL = "&" + lastParameters></#if>
 </head>
 <#if layoutSettings.headerImageLinkUrl?exists>
   <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
@@ -107,6 +108,8 @@ under the License.
               <li>
               <#if topLine.text?exists>
                 ${topLine.text}<a href="<@ofbizUrl>${topLine.url?if_exists}</@ofbizUrl>">${topLine.urlText?if_exists}</a> 
+              <#elseif topLine.dropDownList?exists>
+                <#include "component://common/webcommon/includes/insertDropDown.ftl"/>
               <#else>
                 ${topLine?if_exists}
               </#if>
@@ -118,7 +121,7 @@ under the License.
         <li class="control-area">
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-            <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a>
+            <a href="${setPreferenceMain?if_exists}?userPrefGroupTypeId=GLOBAL_PREFERENCES&userPrefTypeId=COMPACT_HEADER&userPrefValue=N${StringUtil.wrapString(parametersURL?if_exists)}">&nbsp;&nbsp;</a>
           </p>
         </li>
       <#else>
@@ -136,12 +139,14 @@ under the License.
           <#if userLogin?exists>
             <p class="expanded">
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-              <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
+              <a href="${setPreferenceMain?if_exists}?userPrefGroupTypeId=GLOBAL_PREFERENCES&userPrefTypeId=COMPACT_HEADER&userPrefValue=Y${StringUtil.wrapString(parametersURL?if_exists)}">&nbsp;&nbsp;</a>
             </p>
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
               <#if topLine.text?exists>
-                <p>${topLine.text}<a href="${topLine.url?if_exists}&externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p> 
+                <p>${topLine.text}<a href="${topLine.url?if_exists}&externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p>
+              <#elseif topLine.dropDownList?exists>
+                <p><#include "component://common/webcommon/includes/insertDropDown.ftl"/></p> 
               <#else>
                 <p>${topLine?if_exists}</p>
               </#if>
