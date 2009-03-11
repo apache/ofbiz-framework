@@ -275,6 +275,7 @@
     </property>
     <property key="FormFieldTitle_allowAuthToNegative">
         <value xml:lang="en">Allow Auth To Negative</value>
+        <value xml:lang="fr">Permettre des autorisations de carte négatives</value>
         <value xml:lang="it">Autorizzazione permessa è negativa</value>
     </property>
     <property key="FormFieldTitle_allowCompanyAddr">
@@ -401,6 +402,7 @@
     </property>
     <property key="FormFieldTitle_authValidDays">
         <value xml:lang="en">Auth Valid Days</value>
+        <value xml:lang="fr">Autorisation des jours valides</value>
         <value xml:lang="it">Giorni validità autorizzazione</value>
     </property>
     <property key="FormFieldTitle_autoApproveInvoice">
@@ -5214,6 +5216,7 @@
     </property>
     <property key="PageTitleFindProductStocktake">
         <value xml:lang="en">Find Product Stocktake</value>
+        <value xml:lang="fr">Inventaire d'un article</value>
         <value xml:lang="it">Ricerca prodotti in stock</value>
     </property>
     <property key="PageTitleFindSubscription">
@@ -5361,13 +5364,14 @@
     </property>
     <property key="PageTitleLookupBulkAddSupplierProduct">
         <value xml:lang="en">Bulk Add Supplier Product</value>
+        <value xml:lang="fr">Ajouter un </value>
         <value xml:lang="it">Aggiungi prodotti fornitore in massa</value>
     </property>
     <property key="PageTitleLookupFacility">
         <value xml:lang="de">Einrichtung nachschlagen</value>
         <value xml:lang="en">Lookup Facility</value>
         <value xml:lang="es">Buscar almacén</value>
-        <value xml:lang="fr">Consulter le stock</value>
+        <value xml:lang="fr">Consulter le lieu de stockage</value>
         <value xml:lang="it">Ricerca Stabilimento</value>
         <value xml:lang="ro">Cauta Compartiment</value>
         <value xml:lang="ru">Искать объект</value>
@@ -5454,6 +5458,7 @@
     </property>
     <property key="PageTitleLookupSupplierProduct">
         <value xml:lang="en">Lookup Product for supplier:</value>
+        <value xml:lang="fr">Recherche de produit pour le fournisseur : </value>
     </property>
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="de">Neuer Einrichtungs-Kontaktmechanismus für ${facility.facilityName} [${facility.facilityId}]</value>
@@ -5543,6 +5548,7 @@
     </property>
     <property key="PageTitleProductStocktake">
         <value xml:lang="en">Product Stocktake</value>
+        <value xml:lang="fr">Inventaire d'un article</value>
         <value xml:lang="it">Prodotti in stock</value>
     </property>
     <property key="PageTitleQuickAddProductVariants">
@@ -8030,6 +8036,7 @@
     </property>
     <property key="ProductConfigOptionList">
         <value xml:lang="en">Config Option List</value>
+        <value xml:lang="fr">Liste des options de configuration</value>
         <value xml:lang="it">Lista opzioni di prodotti configurabili</value>
     </property>
     <property key="ProductConfigOptions">
@@ -8395,6 +8402,7 @@
     </property>
     <property key="ProductCreateNewConfigOptions">
         <value xml:lang="en">Create New Config Options</value>
+        <value xml:lang="fr">Créer de nouvelles options de configuration</value>
         <value xml:lang="it">Creare nuove opzioni di prodotti configurabili</value>
     </property>
     <property key="ProductCreateNewFacility">
@@ -8615,6 +8623,7 @@
     </property>
     <property key="ProductCreateSimpleTextContentForAlternateLocale">
         <value xml:lang="en">Create Simple Text Content For Alternate Locale</value>
+        <value xml:lang="fr">Créer un texte au format simple pour une traduction</value>
         <value xml:lang="it">Creare testo semplice per contenuto con locale alternativo</value>
     </property>
     <property key="ProductCreateVirtualProduct">
@@ -9915,6 +9924,7 @@
     </property>
     <property key="ProductFacilityMovement">
         <value xml:lang="en">Movement</value>
+        <value xml:lang="fr">Mouvement</value>
         <value xml:lang="it">Movimenti</value>
     </property>
     <property key="ProductFacilityNameId">
@@ -10607,6 +10617,7 @@
     </property>
     <property key="ProductGoodsReceipt">
         <value xml:lang="en">Goods Receipt</value>
+        <value xml:lang="fr">Réception d'articles</value>
         <value xml:lang="it">Ricezione bene</value>
     </property>
     <property key="ProductGrams">
@@ -11844,13 +11855,14 @@
     </property>
     <property key="ProductListAssociatedContentInfos">
         <value xml:lang="en">List Associated Content Infos</value>
+        <value xml:lang="fr">Liste des informations sur les contenus associés</value>
         <value xml:lang="it">Lista informazioni contenuto associato</value>
     </property>
     <property key="ProductListFeatureInteractions">
         <value xml:lang="de">Liste Merkmal Interaktionen</value>
         <value xml:lang="en">List Feature Interactions</value>
         <value xml:lang="es">Listar interacciones de características</value>
-        <value xml:lang="fr">Lister les interactions entre caractéristiques</value>
+        <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
         <value xml:lang="it">Lista caratteristiche interattive</value>
     </property>
     <property key="ProductListPrice">
@@ -18622,6 +18634,7 @@
     </property>
     <property key="ProductSubscriptionResourceViewPermissionError">
         <value xml:lang="en">Subscription Resource View Permission Error</value>
+        <value xml:lang="fr">Erreur due à une autorisation de visualisation des ressources de subscription</value>
         <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione risorse</value>
     </property>
     <property key="ProductSubscriptionResources">
@@ -18637,6 +18650,7 @@
     </property>
     <property key="ProductSubscriptionViewPermissionError">
         <value xml:lang="en">Subscription View Permission Error</value>
+        <value xml:lang="fr">Erreur due à une autorisation de visualisation des subscriptions</value>
         <value xml:lang="it">Errore permesso per visualizzazione sottoscrizione</value>
     </property>
     <property key="ProductSubscriptions">
@@ -19266,6 +19280,7 @@
     </property>
     <property key="ProductUPCA">
         <value xml:lang="en">UPCA</value>
+        <value xml:lang="fr">CUP (UPC-A)</value>
         <value xml:lang="it">UPCA</value>
     </property>
     <property key="ProductUnitOfMeasure">
