@@ -5314,7 +5314,7 @@
         <value xml:lang="de">Liste der Offertanpassungen</value>
         <value xml:lang="en">List Quote Adjustments</value>
         <value xml:lang="es">Lista de ajustes de presupuesto</value>
-        <value xml:lang="fr">Lister les ajustements du devis</value>
+        <value xml:lang="fr">Voir les ajustements du devis</value>
         <value xml:lang="it">Lista Aggiustamenti Preventivo</value>
         <value xml:lang="nl">List Offerte Adjustments</value>
         <value xml:lang="ro">Lista Modificari Oferta</value>
@@ -5326,7 +5326,7 @@
         <value xml:lang="de">Liste der Offertattribute</value>
         <value xml:lang="en">List Quote Attributes</value>
         <value xml:lang="es">Lista de atributos de presupuesto</value>
-        <value xml:lang="fr">Lister les attributs du devis</value>
+        <value xml:lang="fr">Voir les attributs du devis</value>
         <value xml:lang="it">Lista Attributi Preventivo</value>
         <value xml:lang="nl">List Offerte Attributen</value>
         <value xml:lang="ro">Lista Atribute Oferta</value>
@@ -5338,7 +5338,7 @@
         <value xml:lang="de">Liste der Offertkoeffizienten</value>
         <value xml:lang="en">List Quote Coefficients</value>
         <value xml:lang="es">Lista de coeficientes de presupuesto</value>
-        <value xml:lang="fr">Lister les coefficients du devis</value>
+        <value xml:lang="fr">Voir les coefficients du devis</value>
         <value xml:lang="it">Lista Coefficienti Preventivo</value>
         <value xml:lang="nl">List Offerte Coefficienten</value>
         <value xml:lang="ro">Lista Coeficienti Oferta</value>
@@ -5350,7 +5350,7 @@
         <value xml:lang="de">Liste der Offertelemente</value>
         <value xml:lang="en">List Quote Items</value>
         <value xml:lang="es">Lista de ítems de presupuesto</value>
-        <value xml:lang="fr">Lister les articles du devis</value>
+        <value xml:lang="fr">Voir les articles du devis</value>
         <value xml:lang="it">Lista Righe Preventivo</value>
         <value xml:lang="nl">List Offerte Items</value>
         <value xml:lang="ro">Lista Linie Oferta</value>
@@ -9829,7 +9829,7 @@
         <value xml:lang="de">Liste Bedarf Kundenanfragen</value>
         <value xml:lang="en">List Requirement Cust Requests</value>
         <value xml:lang="es">Listar requisitos de peticiones de clientes</value>
-        <value xml:lang="fr">Lister les besoins des demandes client</value>
+        <value xml:lang="fr">Voir les besoins des demandes client</value>
         <value xml:lang="it">Lista Fabbisogni Richieste Clienti</value>
         <value xml:lang="nl">List Requirement Cust Requests</value>
         <value xml:lang="ro">Lista Necesar Cereri Clienti</value>
@@ -9841,7 +9841,7 @@
         <value xml:lang="de">Liste Bedarf Aufträge</value>
         <value xml:lang="en">List Requirement Orders</value>
         <value xml:lang="es">Listar requisitos de pedidos</value>
-        <value xml:lang="fr">Lister les besoins de commandes</value>
+        <value xml:lang="fr">Voir les besoins de commandes</value>
         <value xml:lang="it">Lista Fabbisogni Ordini</value>
         <value xml:lang="nl">List Requirement Orders</value>
         <value xml:lang="ro">Lista Necesar Comenzi </value>
@@ -9853,7 +9853,7 @@
         <value xml:lang="de">Liste Rollen Bedarf</value>
         <value xml:lang="en">List Requirement Roles</value>
         <value xml:lang="es">Listar roles de requisitos</value>
-        <value xml:lang="fr">Lister les besoins de rôles</value>
+        <value xml:lang="fr">Voir les besoins de rôles</value>
         <value xml:lang="it">Lista Fabbisogni Ruoli</value>
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>

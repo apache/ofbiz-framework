@@ -27,6 +27,7 @@
     </property>
     <property key="FormFieldTitle_actualNonBilledHours">
         <value xml:lang="en">Actual Non Billed Hours</value>
+        <value xml:lang="fr">Heures réelles non facturées</value>
         <value xml:lang="it">Ore attuali non fatturate</value>
     </property>
     <property key="FormFieldTitle_clientBillingPartyId">
@@ -226,10 +227,12 @@
     </property>
     <property key="PageTitleAddTimesheetEntry">
         <value xml:lang="en">Add Timesheet Entry</value>
+        <value xml:lang="fr">Ajouter une feuille d'activité</value>
         <value xml:lang="it">Aggiungi voce timbratura</value>
     </property>
     <property key="PageTitleAddTimesheetRole">
         <value xml:lang="en">Add Timesheet role</value>
+        <value xml:lang="fr">Ajouter un rôle de feuille d'activité</value>
         <value xml:lang="it">Aggiungi ruolo timbratura</value>
     </property>
     <property key="PageTitleCreateTaskbyRequest">
@@ -367,6 +370,7 @@
     </property>
     <property key="PageTitleListBillingHours">
         <value xml:lang="en">List Billing Hours</value>
+        <value xml:lang="fr">Voir les heures facturées</value>
         <value xml:lang="it">Lista ore da fatturare</value>
     </property>
     <property key="PageTitleListProjectByParty">
@@ -647,10 +651,12 @@
     </property>
     <property key="ProjectMgrEditAssoc">
         <value xml:lang="en">Edit Assoc</value>
+        <value xml:lang="fr">Modifier l'association</value>
         <value xml:lang="it">Aggiorna associazione</value>
     </property>
     <property key="ProjectMgrEditAssocDetail">
         <value xml:lang="en">Edit Assoc Detail</value>
+        <value xml:lang="fr">Modifier le détail de l'association</value>
         <value xml:lang="it">Aggiorna dettagli associazione</value>
     </property>
     <property key="ProjectMgrEditPartySkill">
@@ -903,6 +909,7 @@
     </property>
     <property key="ProjectMgrPrintableNote">
         <value xml:lang="en">Printable Note</value>
+        <value xml:lang="fr">Note imprimable</value>
         <value xml:lang="it">Nota stampabile</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
@@ -993,6 +1000,7 @@
     </property>
     <property key="ProjectMgrRecreateInvoice">
         <value xml:lang="en">re-create Invoice</value>
+        <value xml:lang="fr">Re-créer la facture</value>
         <value xml:lang="it">re-crea fattura</value>
     </property>
     <property key="ProjectMgrRelease">
@@ -1075,6 +1083,7 @@
     </property>
     <property key="ProjectMgrSetStatusInProgress">
         <value xml:lang="en">Set status to In Progress</value>
+        <value xml:lang="fr">Positionner le statut à en cours</value>
         <value xml:lang="it">Imposta stato a in corso</value>
     </property>
     <property key="ProjectMgrSkillStandards">
