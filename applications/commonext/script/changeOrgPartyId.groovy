@@ -18,20 +18,6 @@
  */
 
 import org.ofbiz.base.util.*;
-//last Parameters
-requestParameters.remove("userPrefGroupTypeId");
-requestParameters.remove("userPrefTypeId");
-requestParameters.remove("userPrefValue");
-lastParameters = requestParameters.toString().replaceAll(",","&").replaceAll(" ","");
-if(lastParameters.length() > 2){
-   lastParameters = lastParameters.toString().substring(1,lastParameters.toString().length()-1);
-   globalContext.lastParameters = lastParameters;
-}
-setPreferenceMain="";
-if(!parameters.targetRequestUri.toString().equals("/setUserPreference")){
-   setPreferenceMain= "setUserPreference";
-}
-globalContext.setPreferenceMain = setPreferenceMain;
 //partyAcctgPrefAndGroupList
 partyAcctgPrefAndGroupList = [];
 partyAcctgPrefAndGroup = delegator.findAll("PartyAcctgPrefAndGroup");
@@ -43,7 +29,7 @@ while (iter.hasNext()) {
 globalContext.PartyAcctgPrefAndGroupList = partyAcctgPrefAndGroupList;
 //hiddenFileds
 hiddenFields = [];
-hiddenFields.add([name:"userPrefTypeId", value:"ORGANIZATION_PARTY"]);
-hiddenFields.add([name:"userPrefGroupTypeId", value:"GLOBAL_PREFERENCES"]);
+hiddenFields.add([name : "userPrefTypeId", value : "ORGANIZATION_PARTY"]);
+hiddenFields.add([name : "userPrefGroupTypeId", value : "GLOBAL_PREFERENCES"]);
 globalContext.hiddenFields = hiddenFields;
 
