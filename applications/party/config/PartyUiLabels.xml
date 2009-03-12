@@ -966,6 +966,10 @@
         <value xml:lang="th">กำหนดรหัสกลุ่มผู้ใช้อย่างรวดเร็ว</value>
         <value xml:lang="zh">快速指派会员标识</value>
     </property>
+    <property key="FormFieldTitle_rateDefaultAmount">
+        <value xml:lang="en">Rate Default Amount</value>
+        <value xml:lang="it">Importo percentuale di default</value>
+    </property>
     <property key="FormFieldTitle_residenceStatusEnumId">
         <value xml:lang="de">Wohnsitzstatus Aufzählung ID</value>
         <value xml:lang="en">Residence Status Enum Id</value>

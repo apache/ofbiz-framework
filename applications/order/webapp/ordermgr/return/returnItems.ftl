@@ -39,7 +39,7 @@ under the License.
         <td colspan="2">&nbsp;</td>
         <td><div>
            <#if (!adjEditable)>
-               ${adjReturnType.description?default("${uiLabelMap.CommonNA}")}
+               ${adjReturnType.get("description", locale)?default("${uiLabelMap.CommonNA}")}
            <#else>
                <select name="returnTypeId_o_${rowCount}">
                   <#if (adjReturnType?has_content)>
@@ -181,9 +181,9 @@ under the License.
                         <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right">
                     </#if>
                     <#if item.receivedQuantity?exists>
-                    <br/>Received: ${item.receivedQuantity}
+                    <br/>${uiLabelMap.OrderTotalQuantityReceive}: ${item.receivedQuantity}
                         <#list shipmentReceipts?if_exists as shipmentReceipt>
-                            <br/>Qty: ${shipmentReceipt.quantityAccepted}, ${shipmentReceipt.datetimeReceived}, <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                            <br/>${uiLabelMap.OrderQty}: ${shipmentReceipt.quantityAccepted}, ${shipmentReceipt.datetimeReceived}, <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
                         </#list>
                     </#if>
                     </div></td>

@@ -32,7 +32,7 @@ under the License.
         <row-actions>
             <set field="typeDescription" value="${bsh: return &quot;SINGLE&quot;.equals(configItemTypeId) ? uiLabelMap.get(&quot;ProductSingleChoice&quot;) : uiLabelMap.get(&quot;ProductMultiChoice&quot;)}"/>
         </row-actions>
-        <field name="configItemId" title="${uiLabelMap.CommonId}" widget-style="buttontext"><hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="${configItemId}"/></field>
+        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}" widget-style="buttontext"><hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="${configItemId}"/></field>
         <field name="configItemName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="typeDescription" title="${uiLabelMap.CommonType}">
             <display description="${typeDescription}"/>
@@ -42,7 +42,7 @@ under the License.
     <form name="FindProductConfigItemsFrom" type="single" target="FindProductConfigItems" 
         default-map-name="productconfigitems"  header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductConfigItem" default-field-type="find"/>
-        <field name="configItemId"/>
+        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}"/>
         <field name="configItemTypeId"><hidden/></field>
         <field name="configItemName"/>
         <field name="description"/>
@@ -75,7 +75,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         
         <auto-fields-service service-name="updateProductConfigOption" map-name="configOption"/>
-
+        <field use-when="configOption!=null" name="configOptionId"><hidden/></field>
         <field name="configItemId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -203,10 +203,10 @@ under the License.
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
-        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.CommonName}" ><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
+        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}"><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
-        <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigOption?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" ><hyperlink target="deleteProductConfigOption?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
     
     <form name="ProductConfigList" type="list" list-name="configProducts" 

@@ -508,6 +508,54 @@
         <value xml:lang="th">ความต้องการงาน</value>
         <value xml:lang="zh">工作需求</value>
     </property>
+    <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
+        <value xml:lang="en">Return Promotion</value>
+        <value xml:lang="it">Promozione reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
+        <value xml:lang="en">Return Replacement</value>
+        <value xml:lang="it">Reso in sostituzione</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
+        <value xml:lang="en">Return Discount</value>
+        <value xml:lang="it">Sconto sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_FEE_ADJ">
+        <value xml:lang="en">Return Fee</value>
+        <value xml:lang="it">Commissioni sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
+        <value xml:lang="en">Return Miscellaneous Charges</value>
+        <value xml:lang="it">Ricarichi vari sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
+        <value xml:lang="en">Return Sales Tax</value>
+        <value xml:lang="it">Tasse di vendita sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
+        <value xml:lang="en">Return Shipping and Handling</value>
+        <value xml:lang="it">Spese di trasporto sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
+        <value xml:lang="en">Return Surcharge</value>
+        <value xml:lang="it">Spese supplementari sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
+        <value xml:lang="en">Return Additional Feature</value>
+        <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
+        <value xml:lang="en">Return Warranty</value>
+        <value xml:lang="it">Garanzia sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
+        <value xml:lang="en">Return Marketing Package Adjustment</value>
+        <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
+        <value xml:lang="en">Return Manual Adjustment</value>
+        <value xml:lang="it">Aggiustamento manuale sul reso</value>
+    </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
         <value xml:lang="de">Vereinbarte Zahlung bei Lieferung abgeleht</value>
         <value xml:lang="en">COD Payment Rejected</value>

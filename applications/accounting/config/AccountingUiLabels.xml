@@ -5451,6 +5451,10 @@
         <value xml:lang="th">ได้รับการชำระเงินแล้ว</value>
         <value xml:lang="zh">已收到支付</value>
     </property>
+    <property key="AccountingPaymentAmount">
+        <value xml:lang="en">Payment Amount</value>
+        <value xml:lang="it">Importo pagamento</value>
+    </property>
     <property key="AccountingPaymentApplRemoved">
         <value xml:lang="en">PaymentID [${paymentApplication.paymentId}] with amount ${paymentApplication.amountApplied?currency(${currencyUomId})} removed from</value>
         <value xml:lang="es">IdPago[${paymentApplication.paymentId}] con cantidad ${paymentApplication.amountApplied?currency(${currencyUomId})} suprimido de</value>
@@ -8134,6 +8138,10 @@
         <value xml:lang="ru">Код шлюза</value>
         <value xml:lang="th">รหัสวิธี</value>
         <value xml:lang="zh">网关代码</value>
+    </property>
+    <property key="FormFieldTitle_gatewayCvResult">
+        <value xml:lang="en">Gateway Cv Result</value>
+        <value xml:lang="it">Risultato Cv gateway</value>
     </property>
     <property key="FormFieldTitle_gatewayFlag">
         <value xml:lang="ar">علامة العبور</value>

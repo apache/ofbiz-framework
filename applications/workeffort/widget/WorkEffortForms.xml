@@ -585,7 +585,7 @@ under the License.
     <form name="FindWorkEffortCommEvents" default-map-name="workEffortCommEvent" target="ListWorkEffortCommEvents" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
-        <field name="commEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="commEventId" title="${uiLabelMap.FormFieldTitle_communicationEventId}"><lookup target-form-name="LookupCommEvent"/></field>
         <field name="fromDate"><date-find/></field>
         <field name="thruDate"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>

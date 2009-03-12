@@ -242,6 +242,10 @@
         <value xml:lang="th">อ่านประมาณวันที่</value>
         <value xml:lang="zh">预计就绪日期</value>
     </property>
+    <property key="FormFieldTitle_expectedItemStatus">
+        <value xml:lang="en">Expected Item Status</value>
+        <value xml:lang="it">Stato riga atteso</value>
+    </property>
     <property key="FormFieldTitle_externalId">
         <value xml:lang="de">Externe ID</value>
         <value xml:lang="en">External Id</value>

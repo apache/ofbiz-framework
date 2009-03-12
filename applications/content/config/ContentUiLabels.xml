@@ -1995,6 +1995,10 @@
         <value xml:lang="th">ยับยั้งสิ่งที่มีอยู่</value>
         <value xml:lang="zh">令已存在的无效</value>
     </property>
+    <property key="FormFieldTitle_decoratorContentId">
+        <value xml:lang="en">Decorator Content Id</value>
+        <value xml:lang="it">Decoratore contenuto</value>
+    </property>
     <property key="FormFieldTitle_displayFailCond">
         <value xml:lang="ar">عرض ظروف الإخفاق</value>
         <value xml:lang="de">Grund für fehlschlagen anzeigen</value>
@@ -2146,6 +2150,10 @@
         <value xml:lang="ro">Extensie Fisier</value>
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
         <value xml:lang="zh">文件扩展标识</value>
+    </property>
+    <property key="FormFieldTitle_ftlContentId">
+        <value xml:lang="en">Ftl Content Id</value>
+        <value xml:lang="it">Contenuto ftl</value>
     </property>
     <property key="FormFieldTitle_formatString">
         <value xml:lang="en">Format String</value>
@@ -2571,6 +2579,14 @@
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
         <value xml:lang="zh">上级分类标识</value>
     </property>
+    <property key="FormFieldTitle_pathAlias">
+        <value xml:lang="en">Path Alias</value>
+        <value xml:lang="it">Path alias</value>
+    </property>
+    <property key="FormFieldTitle_pathAliasTo">
+        <value xml:lang="en">Path Alias To</value>
+        <value xml:lang="it">Path alias a</value>
+    </property>
     <property key="FormFieldTitle_pasteContent">
         <value xml:lang="de">Inhalt einfügen</value>
         <value xml:lang="en">Paste Content</value>
@@ -2609,6 +2625,10 @@
         <value xml:lang="ro">Functii</value>
         <value xml:lang="th">วัตถุประสงค์</value>
         <value xml:lang="zh">目的</value>
+    </property>
+    <property key="FormFieldTitle_queryLine">
+        <value xml:lang="en">Query Line</value>
+        <value xml:lang="it">Riga query</value>
     </property>
     <property key="FormFieldTitle_question">
         <value xml:lang="ar">سؤال</value>

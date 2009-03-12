@@ -102,7 +102,7 @@ under the License.
         <field name="createdBy"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+    <!-- UNUSED FORM
     <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="createReturnItem"/>
@@ -112,7 +112,7 @@ under the License.
         <field name="orderItemSeqId"><hidden/></field>
         <field name="statusId"><ignored/></field>
     </form>
-
+    -->
     <form name="FindReturns" type="single"  target="findreturn" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="returnHeaderTypeId">

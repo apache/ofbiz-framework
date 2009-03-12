@@ -58,6 +58,10 @@
         <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="it">Ore non fatturate</value>
     </property>
+    <property key="FormFieldTitle_originalActualHours">
+        <value xml:lang="en">Original Actual Hours</value>
+        <value xml:lang="it">Ore attuali originali</value>
+    </property>
     <property key="FormFieldTitle_parentProjectName">
         <value xml:lang="en">Parent Project Name</value>
         <value xml:lang="fr">Nom du projet parent</value>

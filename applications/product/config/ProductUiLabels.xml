@@ -1585,13 +1585,9 @@
         <value xml:lang="it">Tipo Etichetta Riga</value>
         <value xml:lang="th">รหัสประเภทฉลากสินค้าคงเหลือ</value>
     </property>
-    <property key="FormFieldTitle_inventoryTransferId">
-        <value xml:lang="de">Bestandstransfer ID</value>
-        <value xml:lang="en">Inventory Transfer Id</value>
-        <value xml:lang="es">Código Transferencia de inventario</value>
-        <value xml:lang="fr">Réf. de transfert d'inventaire</value>
-        <value xml:lang="it">Numero Trasferimento Inventario</value>
-        <value xml:lang="th">รหัสการเปลี่ยนสินค้าคงเหลือ</value>
+    <property key="FormFieldTitle_inventoryItemTypeId">
+        <value xml:lang="en">Inventory Item Type Id</value>
+        <value xml:lang="it">Tipo riga inventario</value>
     </property>
     <property key="FormFieldTitle_isDemoStore">
         <value xml:lang="de">Ist ein Demo-Laden</value>
