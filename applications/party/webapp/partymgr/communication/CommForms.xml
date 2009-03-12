@@ -318,7 +318,7 @@ under the License.
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                 </condition-list>
-                <order-by field-name="-lastUpdatedStamp"/>
+                <order-by field-name="-entryDate"/>
             </entity-condition>
         </actions>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
