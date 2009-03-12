@@ -44,8 +44,7 @@ under the License.
                 <set field="layoutSettings.topLines[]" from-field="line" global="true"/>
                 <script location="component://commonext/script/changeOrgPartyId.groovy"/>
                 <set field="dropdown.hiddenFieldList" from-field="hiddenFields" global="true"/>
-                <set field="dropdown.formName" value="changeOrganization"/>
-                <set field="dropdown.action" value="setUserPreference?${lastParameters}"/>
+                <set field="dropdown.action" value="setUserPreference"/>
                 <set field="dropdown.textBegin" value="${uiLabelMap.CommonDefaultOrganizationPartyId} :"/>
                 <set field="dropdown.dropDownList" from-field="PartyAcctgPrefAndGroupList"/>
                 <set field="dropdown.selectionName" value="userPrefValue"/>
