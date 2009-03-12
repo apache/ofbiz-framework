@@ -159,6 +159,10 @@
         <value xml:lang="th">การอัพเดทบนบัตรพบว่ามีข้อยกเว้น</value>
         <value xml:lang="zh">更新购物车时发生意外情况 </value>
     </property>
+    <property key="OrderCaughtGenericServiceExceptionWhileGettingOrderId">
+        <value xml:lang="en">Caught generic service exception while getting order Id </value>
+        <value xml:lang="fr">Erreur générique de service lors de l'acquisition de la réf. de commande </value>
+    </property>
     <property key="OrderCaughtNumberFormatExceptionOnCartUpdate">
         <value xml:lang="en">Caught number format exception on cart update. </value>
         <value xml:lang="es">Excepción de formato de número capturada en la actualización del carro.</value>
@@ -593,6 +597,10 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! การร้องขอของลูกค้าด้วยรหัส [ ${custRequestId} ] ไม่มีอยู่. </value>
         <value xml:lang="zh">错误：不存在标识为 [ ${custRequestId} ] 的客户请求。 </value>
     </property>
+    <property key="OrderErrorGettingNextOrderIdWhileCreatingOrder">
+        <value xml:lang="en">Error getting next order Id while creating order </value>
+        <value xml:lang="fr">Erreur lors de l'acquisition de la prochaine réf. de commande durant sa création </value>
+    </property>
     <property key="OrderErrorGettingOrderHeaderInformationNull">
         <value xml:lang="en">Error getting order header information; null</value>
         <value xml:lang="es">Error obteniendo información del encabezado del pedido; nulo</value>
@@ -936,6 +944,10 @@
         <value xml:lang="ru">Не указаны частота или интервал</value>
         <value xml:lang="th">ไม่ระบุอัตราการปรากฎขึ้นหรือเวลาระหว่าง </value>
         <value xml:lang="zh">没有指定频率或间隔</value>
+    </property>
+    <property key="OrderIdAlreadyExistsPleaseChooseAnother">
+        <value xml:lang="en">Order Id already exists please choose another </value>
+        <value xml:lang="fr">Cette réf. de commande existe déjà, SVP chjoisissez en une autre </value>
     </property>
     <property key="OrderIllegalCharacterInSelectedItemField">
         <value xml:lang="en">Illegal character in selectedItem field</value>

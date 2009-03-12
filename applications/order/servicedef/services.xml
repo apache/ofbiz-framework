@@ -138,6 +138,7 @@ under the License.
         <attribute name="orderItemAssociations" type="List" mode="IN" optional="true"/>
         <attribute name="orderInternalNotes" type="List" mode="IN" optional="true"/>
         <attribute name="orderNotes" type="List" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>

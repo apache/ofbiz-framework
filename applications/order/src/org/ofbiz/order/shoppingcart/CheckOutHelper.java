@@ -578,6 +578,7 @@ public class CheckOutHelper {
         if (distributorId != null) context.put("distributorId", distributorId);
         if (affiliateId != null) context.put("affiliateId", affiliateId);
 
+        context.put("orderId", orderId);
         context.put("grandTotal", grandTotal);
         context.put("userLogin", userLogin);
         context.put("visitId", visitId);

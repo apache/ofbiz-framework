@@ -75,7 +75,20 @@ under the License.
           </td>
         </tr>
       </#if>
-
+      
+      <#if "PURCHASE_ORDER" == cart.getOrderType()> 
+        <tr>
+          <td>&nbsp;</td>
+          <td align='right' valign='middle' class='tableheadtext'>
+            ${uiLabelMap.OrderOrderId}
+          </td>
+          <td>&nbsp;</td>
+          <td align='left'>
+            <input type='text' size='15' maxlength='100' name='orderId' value=""/>
+          </td>
+        </tr>  
+      </#if>
+      
       <tr>
         <td>&nbsp;</td>
         <td align='right' valign='middle' class='tableheadtext' nowrap>
