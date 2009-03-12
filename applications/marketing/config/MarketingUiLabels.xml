@@ -29,6 +29,7 @@
     </property>
     <property key="FormFieldTitle_bestCaseAmount">
         <value xml:lang="en">Best Case Amount</value>
+        <value xml:lang="fr">Montant en cas le meilleur</value>
         <value xml:lang="it">Importo migliore caso</value>
     </property>
     <property key="FormFieldTitle_budgetedCost">
@@ -45,6 +46,7 @@
     </property>
     <property key="FormFieldTitle_closedAmount">
         <value xml:lang="en">Closed Amount</value>
+        <value xml:lang="fr">Montant fermé</value>
         <value xml:lang="it">Importo chiuso</value>
     </property>
     <property key="FormFieldTitle_convertedLeads">
@@ -72,10 +74,12 @@
     </property>
     <property key="FormFieldTitle_forecastAmount">
         <value xml:lang="en">Forecast Amount</value>
+        <value xml:lang="fr">Montant prévu</value>
         <value xml:lang="it">Importo previsione di vendita</value>
     </property>
     <property key="FormFieldTitle_internalPartyId">
         <value xml:lang="en">Internal Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur interne</value>
         <value xml:lang="it">Soggetto interno</value>
     </property>
     <property key="FormFieldTitle_numSent">
@@ -85,18 +89,22 @@
     </property>
     <property key="FormFieldTitle_parentSalesForecastId">
         <value xml:lang="en">Parent Sales Forecast Id</value>
+        <value xml:lang="fr">Réf. de vente parente prévue</value>
         <value xml:lang="it">Previsione di vendita padre</value>
     </property>
     <property key="FormFieldTitle_percentOfQuotaClosed">
         <value xml:lang="en">Percent Of Quota Closed</value>
+        <value xml:lang="fr">Pourcentage de quota fermé</value>
         <value xml:lang="it">Quota di percentuale chiusa</value>
     </property>
     <property key="FormFieldTitle_percentOfQuotaForecast">
         <value xml:lang="en">Percent Of Quota Forecast</value>
+        <value xml:lang="fr">Pourcentage de quota prévu</value>
         <value xml:lang="it">Quota percentuale della previsione di vendita</value>
     </property>
     <property key="FormFieldTitle_pipelineAmount">
         <value xml:lang="en">Pipeline Amount</value>
+        <value xml:lang="fr">Montant transitoire</value>
         <value xml:lang="it">Importo di passaggio</value>
     </property>
     <property key="FormFieldTitle_prodCatalogId">
@@ -109,14 +117,17 @@
     </property>
     <property key="FormFieldTitle_quotaAmount">
         <value xml:lang="en">Quota Amount</value>
+        <value xml:lang="fr">Montant de quota</value>
         <value xml:lang="it">Importo quota</value>
     </property>
     <property key="FormFieldTitle_salesForecastDetailId">
         <value xml:lang="en">Sales Forecast Detail Id</value>
+        <value xml:lang="fr">Réf. de détail de vente prévue</value>
         <value xml:lang="it">Dettaglio previsione di vendita</value>
     </property>
     <property key="FormFieldTitle_salesForecastId">
         <value xml:lang="en">Sales Forecast Id</value>
+        <value xml:lang="fr">Réf. de vente prévue</value>
         <value xml:lang="it">Previsione di vendita</value>
     </property>
     <property key="MarketingCampaign">
@@ -814,6 +825,7 @@
     </property>
     <property key="MarketingTrackingCodeProdCatalogId">
         <value xml:lang="en">Tracking Code Prod Catalog Id</value>
+        <value xml:lang="fr">Réf. de code de suivi de catalogue</value>
         <value xml:lang="it">Codice tracciatura catalogo</value>
     </property>
     <property key="MarketingTrackingCodeRedirectUrl">
@@ -974,6 +986,7 @@
     </property>
     <property key="MarketingTrackingCodeVisitUserLoginId">
         <value xml:lang="en">Tracking Code Visit User Login Id</value>
+        <value xml:lang="fr">Réf. de code de suivi de visite d'identifiant de connexion</value>
         <value xml:lang="it">Codice tracciatura utente visita</value>
     </property>
     <property key="MarketingTrackingCodeVisitVisitId">
@@ -1276,6 +1289,7 @@
     </property>
     <property key="PageTitleFindTrackingCode">
         <value xml:lang="en">Find Tracking Code</value>
+        <value xml:lang="fr">Rechercher un code de suivi</value>
         <value xml:lang="it">Ricerca codice tracciatura</value>
     </property>
     <property key="PageTitleFindTrackingCodeOrder">
@@ -1289,6 +1303,7 @@
     </property>
     <property key="PageTitleFindTrackingCodeVisit">
         <value xml:lang="en">Find Tracking Code Visit</value>
+        <value xml:lang="fr">Rechercher un code de suivi de visite</value>
         <value xml:lang="it">Ricerca codice tracciatura visita</value>
     </property>
     <property key="PageTitleFindTrackingCodeVisits">
@@ -1581,6 +1596,7 @@
     </property>
     <property key="SfaCreateAccountForLead">
         <value xml:lang="en">Create Account For Lead</value>
+        <value xml:lang="fr">Créer un compte pour le prospect</value>
         <value xml:lang="it">Crea utenza per leader</value>
     </property>
     <property key="SfaCreateContactForLead">
@@ -1717,6 +1733,7 @@
     </property>
     <property key="SfaMergingFollowing">
         <value xml:lang="en">Merging Following</value>
+        <value xml:lang="fr">Fusionner les suivants</value>
         <value xml:lang="it">Merge seguendo i</value>
     </property>
     <property key="SfaNextStep">
@@ -1797,6 +1814,7 @@
     </property>
     <property key="SfaVCard">
         <value xml:lang="en">vCard</value>
+        <value xml:lang="fr">vCard</value>
         <value xml:lang="it">vCard</value>
     </property>
 </resource>
