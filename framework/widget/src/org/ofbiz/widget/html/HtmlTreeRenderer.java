@@ -86,7 +86,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                     expandCollapseLink.setStyle("collapsed");
-                    expandCollapseLink.setText("&nbsp;");
+                    expandCollapseLink.setText(" ");
                     String target = node.getModelTree().getExpandCollapseRequest(context);
                     String trailName = node.getModelTree().getTrailName(context);
                     if (target.indexOf("?") < 0) {
@@ -106,7 +106,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     currentNodeTrailPiped = "";
                 }
                 expandCollapseLink.setStyle("expanded");
-                expandCollapseLink.setText("&nbsp;");
+                expandCollapseLink.setText(" ");
                 String target = node.getModelTree().getExpandCollapseRequest(context);
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0) {
@@ -123,7 +123,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         } else if (!hasChildren) {
             context.put("processChildren", Boolean.FALSE);
             expandCollapseLink.setStyle("leafnode");
-            expandCollapseLink.setText("&nbsp;");
+            expandCollapseLink.setText(" ");
             renderLink(writer, context, expandCollapseLink);
         }
     }
