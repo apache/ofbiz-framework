@@ -182,7 +182,7 @@ under the License.
             <entity-and entity-name="AgreementTerm" list="agreementTerms">
                 <field-map field-name="agreementId" from-field="agreementId"/>
                 <order-by field-name="agreementItemSeqId"/>
-                <order-by field-name="agreementItemId"/>
+                <order-by field-name="agreementTermId"/>
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateAgreementTerm" />
