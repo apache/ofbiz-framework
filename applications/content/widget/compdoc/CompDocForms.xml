@@ -77,7 +77,7 @@ under the License.
         <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}"><display/></field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="caThruDate"><hidden/></field>
-        <field name="editTemplate" widget-style="buttontext">
+        <field name="editTemplate" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?rootContentId=${contentId}"/> 
         </field>
         <field name="templateTree" widget-style="buttontext">

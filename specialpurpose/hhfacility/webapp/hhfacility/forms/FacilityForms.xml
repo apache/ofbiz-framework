@@ -53,7 +53,7 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="productId" entry-name="product.productId" ><display/></field>
         <field name="productName" title="${uiLabelMap.CommonEmptyHeader}" entry-name="product.productName" ><display/></field>
-        <field name="productLocation" event="onkeypress" action="return enter(event,document.forms[0].productQty)"><text size="10"/></field>
+        <field name="productLocation" title="${uiLabelMap.FormFieldTitle_locationSeqId}" event="onkeypress" action="return enter(event,document.forms[0].productQty)"><text size="10"/></field>
         <field name="productQty" required-field="true" title="${uiLabelMap.CommonQty}" ><text default-value="1" size="5"/></field>
         <field name="submitButton" title="${uiLabelMap.ProductReceiveProduct}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
@@ -83,7 +83,7 @@ under the License.
         <field name="facilityId"><hidden/></field>
         <field name="atp_qoh" title="${uiLabelMap.ProductAtpQoh}" entry-name="atp_qoh"><display/></field>
         <field name="locationSeqId"><hidden/></field>
-        <field name="locationSeqIdNew" entry-name="locationSeqId"><text size="10" default-value=""/></field>
+        <field name="locationSeqIdNew" title="${uiLabelMap.FormFieldTitle_locationSeqId}" entry-name="locationSeqId"><text size="10" default-value=""/></field>
         <field name="quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">

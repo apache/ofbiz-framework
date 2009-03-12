@@ -89,6 +89,10 @@
         <value xml:lang="en">Draft Emails</value>
         <value xml:lang="it">Bozze emails</value>
     </property>
+    <property key="MyPageFileAttach">
+        <value xml:lang="en">File Attach</value>
+        <value xml:lang="it">Allega file</value>
+    </property>
     <property key="MyPageEmailsFromKnownOrigin">
         <value xml:lang="en">Emails from known origin</value>
         <value xml:lang="fr">Courriel issue d'une origine connue</value>

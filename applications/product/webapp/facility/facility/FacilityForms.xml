@@ -653,7 +653,7 @@ under the License.
             </entity-one>
         </row-actions>
 
-        <field name="inventoryTransferId" widget-style="buttontext">
+        <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
             <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
@@ -689,7 +689,7 @@ under the License.
                 <field-map field-name="productId" from-field="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
-        <field name="inventoryTransferId" widget-style="buttontext">
+        <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
             <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
@@ -726,7 +726,7 @@ under the License.
                 <field-map field-name="productId" from-field="inventoryItem.productId"/>
             </entity-one>
         </row-actions>
-        <field name="inventoryTransferId" widget-style="buttontext">
+        <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
             <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">

@@ -821,9 +821,9 @@ under the License.
                 <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
             </display-entity>
         </field>
-        <field name="pmEffectiveDate"><display type="date"/></field>
-        <field name="pmAmount" use-when="actualCurrency==false"><display type="currency" currency="${actualCurrencyUomId}"/></field>
-        <field name="pmAmount" entry-name="pmActualCurrencyAmount" use-when="actualCurrency==true"><display type="currency" currency="${actualCurrencyUomId}"/></field>
+        <field name="pmEffectiveDate" title="${uiLabelMap.AccountingEffectiveDate}"><display type="date"/></field>
+        <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" use-when="actualCurrency==false"><display type="currency" currency="${actualCurrencyUomId}"/></field>
+        <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" entry-name="pmActualCurrencyAmount" use-when="actualCurrency==true"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
     <form name="ListUnAppliedInvoices" type="list" list-name="ListUnAppliedInvoices" 
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"

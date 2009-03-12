@@ -316,7 +316,7 @@ under the License.
         <field name="drDataResourceTypeId" >
             <hidden value="IMAGE_OBJECT"/>
         </field>
-        <field name="drDataResourceTypeIdDisplay" >
+        <field name="drDataResourceTypeIdDisplay" title="${uiLabelMap.FormFieldTitle_drDataResourceTypeId}">
             <display description="IMAGE_OBJECT"/>
         </field>
         <field name="drMimeTypeId" >
@@ -379,7 +379,7 @@ under the License.
     <form name="EditLayoutSubContent" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutSubContent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="currentValue==null" target="createLayoutSubContent"/>
-        <field name="contentIdToDisplay" >
+        <field name="contentIdToDisplay" title="${uiLabelMap.ContentParent}">
            <ignored/>
         </field>
         <field name="mapKeyDisplay" >

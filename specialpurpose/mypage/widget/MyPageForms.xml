@@ -260,7 +260,8 @@ under the License.
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
-        <field name="fileAttach"><display/></field><field name="fileAttach">
+        <field name="fileAttach" title="${uiLabelMap.MyPageFileAttach}"><display/></field>
+        <field name="fileAttach" title="${uiLabelMap.MyPageFileAttach}">
             <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}" description="${uiLabelMap.MyPageAttachFile}"/>
         </field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>

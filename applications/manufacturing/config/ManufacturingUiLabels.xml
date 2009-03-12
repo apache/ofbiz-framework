@@ -146,6 +146,10 @@
         <value xml:lang="it">Nome lavoro</value>
         <value xml:lang="th">ชื่องาน</value>
     </property>
+    <property key="FormFieldTitle_lotId">
+        <value xml:lang="en">Lot Id</value>
+        <value xml:lang="it">Numero lotto</value>
+    </property>
     <property key="FormFieldTitle_manufacturingTask">
         <value xml:lang="de">Arbeitsgang</value>
         <value xml:lang="en">Manufacturing Task</value>
