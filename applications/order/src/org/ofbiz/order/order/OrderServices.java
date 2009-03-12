@@ -412,7 +412,7 @@ public class OrderServices {
         successResult.put("statusId", initialStatus);
 
         // create the order object
-        String orderId = null;
+        String orderId = (String) context.get("orderId");
         String orgPartyId = null;
         if (productStore != null) {
             orgPartyId = productStore.getString("payToPartyId");
@@ -426,18 +426,19 @@ public class OrderServices {
             if ((orderTypeId.equals("SALES_ORDER")) || (productStoreId != null)) {
                 getNextOrderIdContext.put("productStoreId", productStoreId);
             }
-            
-            try {
-                Map getNextOrderIdResult = dispatcher.runSync("getNextOrderId", getNextOrderIdContext);
-                if (ServiceUtil.isError(getNextOrderIdResult)) {
-                    return ServiceUtil.returnError("Error getting next orderId while creating order", null, null, getNextOrderIdResult);
+            if (UtilValidate.isEmpty(orderId)) {
+                try {
+                    Map getNextOrderIdResult = dispatcher.runSync("getNextOrderId", getNextOrderIdContext);
+                    if (ServiceUtil.isError(getNextOrderIdResult)) {
+                        String errMsg = UtilProperties.getMessage(resource_error, "OrderErrorGettingNextOrderIdWhileCreatingOrder", locale);
+                        return ServiceUtil.returnError(errMsg, null, null, getNextOrderIdResult);
+                    }
+                    orderId = (String) getNextOrderIdResult.get("orderId");
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(resource_error, "OrderCaughtGenericServiceExceptionWhileGettingOrderId", locale);
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
-                
-                orderId = (String) getNextOrderIdResult.get("orderId");
-            } catch (GenericServiceException e) {
-                String errMsg = "Error creating order while getting orderId: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
             }
         }
 

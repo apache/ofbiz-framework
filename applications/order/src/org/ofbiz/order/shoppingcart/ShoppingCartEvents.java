@@ -1647,7 +1647,7 @@ public class ShoppingCartEvents {
         return cart.viewCartOnAdd() ? "viewcart" : "success";
     }
 
-    // request method for setting the currency, agreement and shipment dates at once
+    // request method for setting the currency, agreement, OrderId and shipment dates at once
     public static String setOrderCurrencyAgreementShipDates(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -1659,8 +1659,10 @@ public class ShoppingCartEvents {
         String workEffortId = request.getParameter("workEffortId");
         String shipBeforeDateStr = request.getParameter("shipBeforeDate");
         String shipAfterDateStr = request.getParameter("shipAfterDate");
+        String orderId = request.getParameter("orderId");
         String orderName = request.getParameter("orderName");
         String correspondingPoId = request.getParameter("correspondingPoId");
+        Locale locale = UtilHttp.getLocale(request);
         Map result = null;
 
         // set the agreement if specified otherwise set the currency
@@ -1676,6 +1678,22 @@ public class ShoppingCartEvents {
 
         // set the work effort id
         cart.setWorkEffortId(workEffortId);
+
+        // set the order id if given
+        if(UtilValidate.isNotEmpty(orderId)) {
+            GenericValue thisOrder = null;
+            try {
+                thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            } catch (GenericEntityException e) {
+            	Debug.logError(e.getMessage(), module);
+            }
+            if (thisOrder == null) {
+                cart.setOrderId(orderId);
+            } else {
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                return "error";
+            }
+        }
 
         // set the order name
         cart.setOrderName(orderName);
