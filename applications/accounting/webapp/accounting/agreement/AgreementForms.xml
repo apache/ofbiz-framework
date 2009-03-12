@@ -28,7 +28,7 @@ under the License.
         </field>
         <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="AgreementType" key-field-name="agreementTypeId"/>
+                <entity-options description="${description}" entity-name="AgreementType"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
@@ -179,12 +179,11 @@ under the License.
     <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms" paginate-target="ListAgreementTerms" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="AgreementTerm">
-                <condition-list>
-                    <condition-expr field-name="agreementId" from-field="agreementId"/>
-                    <condition-expr field-name="agreementItemSeqId" from-field="null"/>
-                </condition-list>
-            </entity-condition>
+            <entity-and entity-name="AgreementTerm" list="agreementTerms">
+                <field-map field-name="agreementId" from-field="agreementId"/>
+                <order-by field-name="agreementItemSeqId"/>
+                <order-by field-name="agreementItemId"/>
+            </entity-and>
         </actions>
         <auto-fields-service service-name="updateAgreementTerm" />
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
