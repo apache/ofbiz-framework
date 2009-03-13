@@ -84,7 +84,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleListCommunications}"/></container>
-                                <container style="button-bar"><link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPartyCommEvents"/>
                             </widgets>
                             <fail-widgets>

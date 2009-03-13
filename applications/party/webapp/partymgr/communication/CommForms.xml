@@ -314,7 +314,7 @@ under the License.
     <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEventAndRole" list="commEvents" distinct="true">
+            <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                 </condition-list>
