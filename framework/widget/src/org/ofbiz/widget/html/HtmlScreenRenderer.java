@@ -658,7 +658,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 if (WidgetDataResourceWorker.dataresourceWorker != null) {
                     renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
-                    Debug.logError("Not rendering content, not WidgetDataResourceWorker.dataresourceWorker found.", module);
+                    Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", module);
                 }
             }
             if (UtilValidate.isEmpty(renderedContent)) {
@@ -780,7 +780,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     renderedContent = WidgetContentWorker.contentWorker.renderSubContentAsTextExt(dispatcher, delegator, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
                     //Debug.logInfo("renderedContent=" + renderedContent, module);
                 } else {
-                    Debug.logError("Not rendering content, not ContentWorker found.", module);
+                    Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
                 }
                 if (UtilValidate.isEmpty(renderedContent)) {
                     String editRequest = content.getEditRequest(context);
@@ -788,7 +788,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                         if (WidgetContentWorker.contentWorker != null) {
                             WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                         } else {
-                            Debug.logError("Not rendering content, ContentWorker not found.", module);
+                            Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
                         }
                     }
                 } else {
