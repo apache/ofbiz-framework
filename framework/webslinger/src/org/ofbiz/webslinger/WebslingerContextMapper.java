@@ -158,6 +158,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
     }
 
     protected class OfbizLayout implements Layout {
+        private final String contextPath;
         private final String id;
         private final String target;
         private final String[] bases;
@@ -166,6 +167,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         protected final String dispatcherName;
 
         protected OfbizLayout(GenericValue server) throws GenericEntityException {
+            contextPath = server.getString("contextPath");
             id = server.getString("webslingerServerId");
             target = server.getString("target");
             List<GenericValue> baseValues = server.getRelatedCache("WebslingerServerBase", UtilMisc.toList("seqNum"));
@@ -177,6 +179,10 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             delegatorName = server.getString("delegatorName");
             dispatcherName = server.getString("dispatcherName");
             hashCode = target.hashCode() ^ ObjectUtil.hashCodeHelper(delegatorName) ^ ArrayUtil.hashCodeHelper(bases);
+        }
+
+        public String getContextPath() {
+            return contextPath;
         }
 
         public String getId() {
@@ -198,6 +204,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         public boolean equals(Object o) {
             if (!(o instanceof OfbizLayout)) return false;
             OfbizLayout other = (OfbizLayout) o;
+            if (!contextPath.equals(other.contextPath)) return false;
             if (!target.equals(other.target)) return false;
             if (!ObjectUtil.equalsHelper(delegatorName, other.delegatorName)) return false;
             return ArrayUtil.equalsHelper(bases, other.bases);
