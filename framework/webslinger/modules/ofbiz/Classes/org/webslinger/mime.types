@@ -15,3 +15,4 @@
 # specific language governing permissions and limitations
 # under the License.
 application/x-ofbiz-condition			ofbiz-condition
+application/x-ofbiz-screen			ofbiz-screen

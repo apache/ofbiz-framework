@@ -1,0 +1,18 @@
+    <screen name="browsercerts">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+                <set field="titleProperty" value="WebtoolsCertsX509"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="component://webtools/widget/CommonScreens.xml#main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/cert/viewbrowsercerts.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+

@@ -6,3 +6,6 @@ Front page.
 Look at the <a href="#viewurl("/Showcase/")">showcase</a>, and at a <a href="#viewurl("/Showcase/StandAlonePage")">standalone</a> page.
 </p>
 
+<p>
+Also try looking at some deep <a href="#viewurl("/OfBiz/")">OfBiz</a> integration.
+</p>

@@ -18,5 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <module-state>
- <module name="defaults" url="ofbiz-component://webslinger/modules/defaults.zip" enabled="true"/>
+ <module name="defaults" url="wsmodule://defaults.zip" enabled="true"/>
+ <module name="ofbiz" url="wsmodule://ofbiz" enabled="true"/>
 </module-state>
