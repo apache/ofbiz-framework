@@ -1,5 +1,4 @@
 webslinger.getResponse().getWriter().println("java start");
-System.err.println("java:This will appear on the console.");
 webslinger.merge("Middle");
 webslinger.getResponse().getWriter().println("java end");
 return null;
