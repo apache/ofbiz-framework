@@ -1,0 +1,8 @@
+<pre>
+#Merge("Events/Groovy")
+#Merge("Events/Java")
+#Merge("Templates/Velocity")
+</pre>
+
+#Merge("Middle", "$ThemePath/Templates/Box/Blue")
+#Merge("StandAlonePage")
