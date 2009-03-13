@@ -226,12 +226,7 @@ _EOF_
 
 
 close(FIND);
-my $postinst = <<_EOF_;
-		if [ "\$ofbiz_reseed" ]; then
-			echo "Need to modify ofbiz data." 1>&2
-			configure_ofbiz
-		fi
-_EOF_
+my $postinst = '';
 push(@{$scripts{'ofbiz-framework'}->{'postinst'}->{'configure'}}, $postinst);
 foreach my $pkg (keys(%scripts)) {
 	foreach my $script (keys(%{$scripts{$pkg}})) {

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. /usr/share/debconf/confmodule
+case "$1" in
+	(configure|reconfigure)
+		if [ "z" = "z$2" ]; then
+			dpkg-trigger --no-await ofbiz-install
+		else
+			dpkg-trigger --no-await ofbiz-upgrade
+		fi
+		;;
+esac
+#DEBHELPER#
+db_stop
