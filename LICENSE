@@ -96,6 +96,10 @@ ofbiz/trunk/framework/webapp/lib/ws-commons-java5-1.0.1.jar
 ofbiz/trunk/framework/webapp/lib/ws-commons-util-1.0.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-connector-2.1.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-2.1.1.jar
+ofbiz/trunk/framework/webslinger/lib/webslinger-20090312-2018a822aa51.jar
+ofbiz/trunk/framework/webslinger/lib/webslinger-catalina-20090312-2018a822aa51.jar
+ofbiz/trunk/framework/webslinger/lib/webslinger-ext-20090312-2018a822aa51.jar
+ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20090312-2018a822aa51.jar
 ofbiz/trunk/applications/content/lib/lucene-2.2.0.jar
 ofbiz/trunk/applications/content/lib/poi.jar
 ==========================================================================
