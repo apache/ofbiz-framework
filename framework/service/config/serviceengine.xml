@@ -57,6 +57,7 @@ under the License.
         <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
         <engine name="ofbiz-workflow" class="org.ofbiz.workflow.WorkflowEngine"/>
         <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
+        <engine name="webslinger-server" class="org.ofbiz.webslinger.WebslingerServerEngine"/>
 
         <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
