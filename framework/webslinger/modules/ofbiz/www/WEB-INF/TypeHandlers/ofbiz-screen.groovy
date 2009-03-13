@@ -10,7 +10,6 @@ import org.ofbiz.widget.html.HtmlScreenRenderer
 import org.webslinger.commons.vfs.VFSUtil
 import org.webslinger.container.FileInfo
 
-System.err.println("webslinger.command=[$webslinger.command]")
 switch (webslinger.command) {
     case 'init':
         return new HtmlScreenRenderer()
