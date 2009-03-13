@@ -18,9 +18,10 @@ switch (webslinger.command) {
             createValue: { fi, name ->
                 def file = fi.file
                 def singleScreenText = VFSUtil.getString(file)
-                def fullDocumentText = '<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">' + singleScreenText + '</screens>'
+                def screenName = fi.servletFile.name.path
+                def fullDocumentText = '<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd"><screen name="' + screenName + '">' + singleScreenText + '</screen></screens>'
                 def doc = UtilXml.readXmlDocument(fullDocumentText)
-                def screens = ScreenFactory.readScreenDocument(doc, file.toString())
+                def screens = ScreenFactory.readScreenDocument(doc, "webslinger://$webslinger.webslingerServletContext.id")
                 if (screens.size() != 1) throw new IllegalArgumentException('wrong size')
                 return screens.values().iterator().next()
             }

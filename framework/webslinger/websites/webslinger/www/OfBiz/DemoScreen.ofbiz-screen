@@ -1,4 +1,3 @@
-    <screen name="browsercerts">
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
@@ -14,5 +13,3 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-
