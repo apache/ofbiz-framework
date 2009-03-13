@@ -82,7 +82,7 @@ public class DispatchContext implements Serializable {
     /** 
      * Returns the service attribute for the given name, or null if there is no attribute by that name.
      * @param name a String specifying the name of the attribute
-     * @return an Object conatining the value of the attribute, or null if there is no attribute by that name.
+     * @return an Object containing the value of the attribute, or null if there is no attribute by that name.
      */
     public Object getAttribute(String name) {
         if (attributes.containsKey(name))
