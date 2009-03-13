@@ -163,7 +163,7 @@ start_ofbiz() {
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst 
 dbc_generate_include=sh:/etc/ofbiz/debconf.cfg
-dbc_go ofbiz "$@"
+[ "$1" != "triggered" ] && dbc_go ofbiz "$@"
 if [ -e /etc/ofbiz/debconf.cfg ]; then
 	ofbiz_admin_key=""
 	. /etc/ofbiz/debconf.cfg
@@ -172,22 +172,44 @@ else
 	ofbiz_readers=""
 	ofbiz_admin_port=""
 fi
+
+if [ "$1" = "triggered" ]; then
+	case "$2" in
+		(ofbiz-daemon)
+			start_ofbiz
+			;;
+		(ofbiz-install|ofbiz-upgrade)
+			ofbiz_reseed=""
+			if [ "$2" = "ofbiz-install" ]; then
+				ofbiz_reseed=1
+				ofbiz_import_readers=1
+			fi
+			get ofbiz_readers ofbiz/readers ofbiz_import_readers ofbiz_reseed
+			if [ "z" = "z$ofbiz_readers" ]; then
+				ofbiz_readers="seed"
+			else
+				ofbiz_readers="seed,$ofbiz_readers"
+			fi
+			ofbiz_readers="$(fix_readers "$ofbiz_readers")"
+			get ofbiz_admin_port ofbiz/admin-port
+			if [ "z" != "z$ofbiz_reseed" ]; then
+				echo "Need to modify ofbiz data." 1>&2
+				configure_ofbiz
+			fi
+			start_ofbiz
+			;;
+	esac
+	db_stop
+	exit 0
+fi
+
 ofbiz_reseed=""
 case "$1" in
 	(configure|reconfigure)
-		if [ "z" = "z$2" ]; then
-			ofbiz_reseed=1
-			ofbiz_import_readers=1
-		fi
-		get ofbiz_readers ofbiz/readers ofbiz_import_readers ofbiz_reseed
-		if [ "z" = "z$ofbiz_readers" ]; then
-			ofbiz_readers="seed"
+		if [ "$2" ]; then
+			dpkg-trigger --no-await ofbiz-upgrade
 		else
-			ofbiz_readers="seed,$ofbiz_readers"
-		fi
-		ofbiz_readers="$(fix_readers "$ofbiz_readers")"
-		get ofbiz_admin_port ofbiz/admin-port
-		if ! [ "$2" ]; then
+			dpkg-trigger --no-await ofbiz-install
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. /usr/share/debconf/confmodule
+if [ -x "/etc/init.d/ofbiz" ]; then
+	if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+		invoke-rc.d ofbiz stop || exit $?
+	else
+		/etc/init.d/ofbiz stop || exit $?
+	fi
+fi
+#DEBHELPER#
+db_stop

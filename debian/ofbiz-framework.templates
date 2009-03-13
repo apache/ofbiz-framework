@@ -43,6 +43,15 @@ Default: false
 _Description: Reimport data?
  Whether data should be reimported on upgrade.
 
+Template: ofbiz/fieldtype/postgres
+Type: select
+Choices: exact, text
+Default: text
+_Description: Which field type mapping to use?
+ Postgresql 8.1 or later has no speed differences when using TEXT, or
+ using a blank-padded field type mapping.  New installs should prefer
+ the TEXT variant.
+
 Template: ofbiz/database-type
 Type: string
 Description: internal
