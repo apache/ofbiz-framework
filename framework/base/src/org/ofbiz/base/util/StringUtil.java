@@ -718,7 +718,7 @@ public class StringUtil {
                     return StringUtil.defaultWebEncoder.encodeForHTML((String) theObject);
                 }
             } else if (theObject instanceof Map) {
-                return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper((Map) theObject, this.encoder);
+                return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.<K, Object>checkMap(theObject), this.encoder);
             }
             return theObject;
         }

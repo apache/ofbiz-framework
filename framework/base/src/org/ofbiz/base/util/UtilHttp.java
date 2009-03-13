@@ -113,7 +113,7 @@ public class UtilHttp {
         Map<String, Object> paramMap = FastMap.newInstance();
 
         // add all the actual HTTP request parameters
-        Enumeration<String> e = request.getParameterNames();
+        Enumeration<String> e = UtilGenerics.cast(request.getParameterNames());
         while (e.hasMoreElements()) {
             String name = (String) e.nextElement();
             if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
@@ -234,7 +234,7 @@ public class UtilHttp {
                 paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
             } else if (paramEntry.getValue() instanceof Collection) {
                 List<String> newList = FastList.newInstance();
-                for (String listEntry: ((Collection<String>) paramEntry.getValue())) {
+                for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
                     newList.add(canonicalizeParameter((String) listEntry));
                 }
                 paramEntry.setValue(newList);
