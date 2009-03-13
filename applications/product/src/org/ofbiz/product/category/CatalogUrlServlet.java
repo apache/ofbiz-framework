@@ -20,7 +20,6 @@ package org.ofbiz.product.category;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -33,7 +32,6 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -47,7 +45,7 @@ public class CatalogUrlServlet extends HttpServlet {
 
     public static final String module = CatalogUrlServlet.class.getName();
     
-    public static final String CATALOG_URL_MOUNT_POINT = "catalog";
+    public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String CONTROL_MOUNT_POINT = "control";
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
@@ -147,7 +145,9 @@ public class CatalogUrlServlet extends HttpServlet {
     public static String makeCatalogUrl(HttpServletRequest request, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        urlBuilder.append("/");
+        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+            urlBuilder.append("/");
+        }
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);
         
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
