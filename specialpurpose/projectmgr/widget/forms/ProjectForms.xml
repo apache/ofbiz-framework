@@ -568,7 +568,7 @@
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
         <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field entry-name="statusId" name="Status"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field entry-name="statusId" name="Status" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="centered">
             <display description="${priority}"/>
