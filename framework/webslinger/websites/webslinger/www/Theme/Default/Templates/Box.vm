@@ -1,0 +1,2 @@
+#set($boxStyle = $webslinger.pathInfo.split("/").get(1))
+<div class="box-$boxStyle">#Content()</div>

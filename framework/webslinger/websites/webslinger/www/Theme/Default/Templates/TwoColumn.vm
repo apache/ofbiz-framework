@@ -1,0 +1,8 @@
+<div class="TwoColumn">
+ <div class="TwoColumnLeft">
+#Section("LeftMenu")
+ </div>
+ <div class="TwoColumnContent">
+#Content("Editable")
+ </div>
+</div>
