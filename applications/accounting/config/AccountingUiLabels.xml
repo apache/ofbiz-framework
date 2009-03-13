@@ -9334,6 +9334,10 @@
         <value xml:lang="th">ภาษีอัตราร้อยละ</value>
         <value xml:lang="zh">计税百分比</value>
     </property>
+    <property key="FormFieldTitle_taxPromotions">
+        <value xml:lang="en">Tax Promotions</value>
+        <value xml:lang="it">Tassa promozioni</value>
+    </property>
     <property key="FormFieldTitle_taxShipping">
         <value xml:lang="en">Tax Shipping</value>
         <value xml:lang="es">Impuesto Envío</value>

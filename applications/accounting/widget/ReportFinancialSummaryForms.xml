@@ -38,7 +38,7 @@ under the License.
                 <option key="12" description="${uiLabelMap.CommonDecember}"/>
             </drop-down>
         </field>
-        <field name="year" required-field="true"><text size="4"/></field>
+        <field name="year" title="${uiLabelMap.CommonYear}" required-field="true"><text size="4"/></field>
         <field name="organizationPartyId" required-field="false">
             <drop-down allow-empty="true" no-current-selected-key="Company">
                 <entity-options entity-name="PartyRoleNameDetail" description="${groupName} [${partyId}]" key-field-name="partyId">
@@ -59,7 +59,7 @@ under the License.
     
     <form name="SalesInvoiceByProductCategorySummaryOptions" type="single" target="SalesInvoiceByProductCategorySummary" extends="BaseSummaryOptions"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="rootProductCategoryId" required-field="true"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="rootProductCategoryId" title="${uiLabelMap.ProductCategoryId}" required-field="true"><lookup target-form-name="LookupProductCategory"/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="SalesInvoiceByProductGlAccountSummaryOptions" type="single" target="SalesInvoiceByProductGlAccountSummary" extends="BaseSummaryOptions"

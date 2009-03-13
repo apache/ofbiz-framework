@@ -434,6 +434,10 @@
         <value xml:lang="th">อนุมัติการตรวจสอบอัตโนมัติ</value>
         <value xml:lang="zh">自动批准浏览</value>
     </property>
+    <property key="FormFieldTitle_automaticExtend">
+        <value xml:lang="en">Automatic Extend</value>
+        <value xml:lang="it">Estendi automaticamente</value>
+    </property>
     <property key="FormFieldTitle_autoInvoiceDigitalItems">
         <value xml:lang="de">Automatische Rechnungsstellung Digitaler Produkte</value>
         <value xml:lang="en">Auto Invoice Digital Items</value>
@@ -3116,6 +3120,10 @@
         <value xml:lang="it">Imposta Proprietario durante il Prelievo</value>
         <value xml:lang="th">ตั้งค่าผู้เป็นเจ้าของในเวลาตีพิมพ์</value>
     </property>
+    <property key="FormFieldTitle_shipBeforeDate">
+        <value xml:lang="en">Ship Before Date</value>
+        <value xml:lang="it">Spedire prima della data</value>
+    </property>
     <property key="FormFieldTitle_shipGroupSeqId">
         <value xml:lang="de">Versandgruppe Seq. ID</value>
         <value xml:lang="en">Ship Group Seq Id</value>
@@ -3519,6 +3527,10 @@
         <value xml:lang="ru">Лимит дней использования</value>
         <value xml:lang="th">ใช้ข้อกำหนดวันที่</value>
         <value xml:lang="zh">使用天数限制</value>
+    </property>
+    <property key="FormFieldTitle_useLimitPerCode">
+        <value xml:lang="en">Use Limit Per Code</value>
+        <value xml:lang="it">Usa limite per codice</value>
     </property>
     <property key="FormFieldTitle_useLimitPerCustomer">
         <value xml:lang="de">Verwendung begrenzen pro Kunde</value>

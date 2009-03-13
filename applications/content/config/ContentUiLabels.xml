@@ -2704,6 +2704,10 @@
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">角色</value>
     </property>
+    <property key="FormFieldTitle_section">
+        <value xml:lang="en">section</value>
+        <value xml:lang="it">sezione</value>
+    </property>
     <property key="FormFieldTitle_secureContentPrefix">
         <value xml:lang="ar">مقدمة محتوى مؤمن</value>
         <value xml:lang="de">Prefix sicherer Inhalt</value>
@@ -2895,6 +2899,10 @@
         <value xml:lang="it">Posizione Template</value>
         <value xml:lang="th">ที่ตั้ง template</value>
     </property>
+    <property key="FormFieldTitle_templateTree">
+        <value xml:lang="en">Template Tree</value>
+        <value xml:lang="it">Albero template</value>
+    </property>
     <property key="FormFieldTitle_textDataTitle">
         <value xml:lang="ar">نص</value>
         <value xml:lang="de">Text</value>
@@ -2919,6 +2927,10 @@
         <value xml:lang="ro">Arbore</value>
         <value xml:lang="th">ต้นไม้</value>
         <value xml:lang="zh">树</value>
+    </property>
+    <property key="FormFieldTitle_updateSurveyResponse">
+        <value xml:lang="en">Update Survey Response</value>
+        <value xml:lang="it">Aggiorna risposta sondaggio</value>
     </property>
     <property key="FormFieldTitle_upperCoordinate">
         <value xml:lang="ar">الإحداثيات العليا</value>
