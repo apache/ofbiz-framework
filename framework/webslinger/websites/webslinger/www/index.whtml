@@ -1,0 +1,12 @@
+<p>
+This page is brought to you by Webslinger!
+</p>
+<p>
+It doesn't do a whole lot yet, but if you've gotten this far, here are the features that are available:
+</p>
+<ul>
+ <li>Extension mapper</li>
+ <li>janino/groovy event handler</li>
+ <li>velocity template markup</li>
+ <li>template/wrapper/section content split</li>
+</ul>
