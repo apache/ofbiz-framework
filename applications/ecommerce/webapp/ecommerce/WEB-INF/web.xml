@@ -60,7 +60,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/catalog:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
+            <param-value>/control:/products:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -121,7 +121,7 @@ under the License.
     -->
     <servlet-mapping>
         <servlet-name>CatalogUrlServlet</servlet-name>
-        <url-pattern>/catalog/*</url-pattern>
+        <url-pattern>/products/*</url-pattern>
     </servlet-mapping>
     
     <session-config>
