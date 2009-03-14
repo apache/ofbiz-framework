@@ -22,6 +22,7 @@
     <import file="../macros.xml"/>
     <filelist id="specialpurpose-builds" dir="."
         files="
+        ecommerce/build.xml, 
         pos/build.xml, 
         hhfacility/build.xml, 
         assetmaint/build.xml, 
