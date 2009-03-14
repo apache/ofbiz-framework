@@ -1061,29 +1061,23 @@ ul#preferences-menu a:hover {
     width:200px;
 }
 
-#main-navigation ul li:hover h2,
-#app-navigation ul li:hover h2 {
-    background-color: #B8DFFC;
-}
-
-/*Color main cells hovering mode*/
 #main-navigation ul li ul li a,
 #app-navigation ul li ul li a {
-    display: block;
-    padding: 4px 4px 4px 4px;
-    font-weight: bold;
-    color: #fff;
-    font-size:11px;
-    height:14px;
-}
+display:block;
+height:1.3em;
+padding:4px 16px 4px 16px;
+border: solid 1px #AFAFAF;
+border-top: none;
+font-weight:bold;
+color:#555555;
+} /*Color subcells normal mode*/
 
-/*Color subcells normal mode*/
 #main-navigation ul li ul li a:hover,
 #app-navigation ul li ul li a:hover {
-    text-decoration: none;
-}
+background-color:#D2D2D2;
+text-decoration:none;
+} /*Color subcells hovering mode*/
 
-/*Color subcells hovering mode*/
 
 /* ================================================= */
 /* ===== Screenlet Title Bar/Navigation Styles ===== */
