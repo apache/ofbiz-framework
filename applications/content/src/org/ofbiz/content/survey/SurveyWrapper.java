@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -32,10 +33,10 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericDelegator;
@@ -143,7 +144,12 @@ public class SurveyWrapper {
      * @throws SurveyWrapperException
      */
     public Writer render(String templatePath) throws SurveyWrapperException {
-        URL templateUrl = UtilURL.fromResource(templatePath);
+        URL templateUrl = null;
+        try {
+            templateUrl = FlexibleLocation.resolveLocation(templatePath);
+        } catch (MalformedURLException e) {
+            throw new SurveyWrapperException(e);
+        }
         if (templateUrl == null) {
             String errMsg = "Problem getting the template for Survey from URL: " + templatePath;
             Debug.logError(errMsg, module);
