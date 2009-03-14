@@ -25,7 +25,7 @@ under the License.
         files="content/build.xml,party/build.xml,
                workeffort/build.xml,product/build.xml,marketing/build.xml,
                order/build.xml,manufacturing/build.xml,
-               accounting/build.xml,ecommerce/build.xml,
+               accounting/build.xml,
                securityext/build.xml, humanres/build.xml"/>
 
     <!-- ================================================================== -->

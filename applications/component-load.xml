@@ -31,5 +31,4 @@ under the License.
     <load-component component-location="humanres"/>
     <load-component component-location="order"/>
     <load-component component-location="marketing"/>
-    <load-component component-location="ecommerce"/>
 </component-loader>
