@@ -62,7 +62,7 @@ under the License.
         </if-empty>
         <check-errors/>
 
-        <session-to-field session-name="currentEntityMap" field-name="entityMap"/>
+        <session-to-field session-name="currentEntityMap" field="entityMap"/>
         <if-not-empty field="entityMap">
             <set field="currentEntityMap" from-field="entityMap"/>
         </if-not-empty>
@@ -71,7 +71,7 @@ under the License.
         <log level="always" message="contentPK: ${contentPK}"/>
         <set field="currentEntityMap.Content" from-field="contentPK"/>
         <log level="always" message="currentEntityMap: ${currentEntityMap}"/>
-        <field-to-session session-name="currentEntityMap" field-name="currentEntityMap"/>
+        <field-to-session session-name="currentEntityMap" field="currentEntityMap"/>
 
         <if-not-empty field="parameters.contentPurposeTypeId">
             <log level="always" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>

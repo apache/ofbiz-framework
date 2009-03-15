@@ -31,7 +31,7 @@ under the License.
 
         <log level="always" message="currentContent: ${currentContent}"/>
 
-        <field-to-list field="contentPurposeTypeId" list="contentPurposeList" map-name="parameters"/>
+        <field-to-list field="parameters.contentPurposeTypeId" list="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
         <set field="context.currentContent" from-field="currentContent"/>
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
