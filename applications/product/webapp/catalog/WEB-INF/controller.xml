@@ -1128,25 +1128,25 @@ under the License.
     <request-map uri="CreateProductFeatureGroupAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProductFeatureGroupAppl"/>
-        <response name="success" type="view" value="EditFeatureGroupAppls"/>
+        <response name="success" type="request-redirect" value="EditFeatureGroupAppls"><redirect-parameter name="productFeatureGroupId"/></response>
         <response name="error" type="view" value="EditFeatureGroupAppls"/>
     </request-map>
     <request-map uri="UpdateProductFeatureGroupAppl">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateProductFeatureGroupAppl"/>
-        <response name="success" type="view" value="EditFeatureGroupAppls"/>
+        <response name="success" type="request-redirect" value="EditFeatureGroupAppls"><redirect-parameter name="productFeatureGroupId"/></response>
         <response name="error" type="view" value="EditFeatureGroupAppls"/>
     </request-map>
     <request-map uri="ApplyFeaturesFromCategoryToGroup">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="createProductFeatureGroupAppl"/>
-        <response name="success" type="view" value="EditFeatureGroupAppls"/>
+        <response name="success" type="request-redirect" value="EditFeatureGroupAppls"><redirect-parameter name="productFeatureGroupId"/></response>
         <response name="error" type="view" value="EditFeatureGroupAppls"/>
     </request-map>
     <request-map uri="RemoveProductFeatureGroupAppl">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeProductFeatureGroupAppl"/>
-        <response name="success" type="view" value="EditFeatureGroupAppls"/>
+        <response name="success" type="request-redirect" value="EditFeatureGroupAppls"><redirect-parameter name="productFeatureGroupId"/></response>
         <response name="error" type="view" value="EditFeatureGroupAppls"/>
     </request-map>
     <request-map uri="EditFeatureTypes">

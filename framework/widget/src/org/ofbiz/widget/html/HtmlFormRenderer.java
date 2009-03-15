@@ -19,6 +19,7 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -337,11 +338,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         if ("hidden-form".equals(hyperlinkField.getLinkType())) {
             if ("multi".equals(modelFormField.getModelForm().getType())) {
-                WidgetWorker.makeHyperlinkString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), this.request, this.response, context, hyperlinkField.getTargetWindow(context), modelFormField.getEvent(), modelFormField.getAction(context));
-                
-                //WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
-                // TODO: this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
-                //WidgetWorker.makeHiddenFormLinkForm(writer, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
+
+                // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
+                Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
+                Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
+                if (postMultiFormWriter == null) {
+                    postMultiFormWriter = new StringWriter();
+                    wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
+                }
+                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
             } else {
                 WidgetWorker.makeHiddenFormLinkForm(writer, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
@@ -1397,7 +1403,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append("</form>");
         appendWhitespace(writer);
-        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
+        
+        // see if there is anything that needs to be added outside of the multi-form
+        Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
+        Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
+        if (postMultiFormWriter != null) {
+            writer.append(postMultiFormWriter.toString());
+            appendWhitespace(writer);
+        }
+        
+        renderEndingBoundaryComment(writer, "Form Widget - Form Element (Multi)", modelForm);
     }
 
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1435,7 +1450,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
-        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
+        renderEndingBoundaryComment(writer, "Form Widget - Formal List Wrapper", modelForm);
     }
 
     /* (non-Javadoc)
