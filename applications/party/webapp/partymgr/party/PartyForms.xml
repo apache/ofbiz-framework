@@ -919,17 +919,20 @@ under the License.
         </row-actions>
         <field name="enumId" parameter-name="userPrefTypeId"><hidden value="${enumId}"/></field>
         <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
-        <field name="description" title="${uiLabelMap.CommonName}"><display/></field>
-        <field name="partyId" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;ORGANIZATION_PARTY&quot;)" parameter-name="userPrefValue" >
+        <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}" use-when="enumId.equals(&quot;ORGANIZATION_PARTY&quot;)" parameter-name="userPrefValue" >
             <drop-down current="selected" no-current-selected-key="defaultOrganizationPartyId">
                 <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}"/>
             </drop-down>
         </field>
         <field name="visualThemeId" title="${uiLabelMap.CommonEmptyHeader}" use-when="enumId.equals(&quot;VISUAL_THEME&quot;)" parameter-name="userPrefValue">
             <drop-down current="selected">
-                <entity-options entity-name="VisualTheme" description="${description}"/>
+                <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
+                    <entity-constraint name="visualThemeSetId" operator="equals" value="BACKOFFICE"/>
+                </entity-options>
             </drop-down>
         </field>
-        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+        
+        <field name="submit" title=" "><submit/></field>
     </form>
 </forms>
