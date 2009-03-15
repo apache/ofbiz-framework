@@ -1422,6 +1422,7 @@ public class ModelForm extends ModelWidget {
             // render item rows
             int itemIndex = -1;
             Object item = null;
+            context.put("wholeFormContext", context);
             Map<String, Object> previousItem = FastMap.newInstance();
             while ((item = this.safeNext(iter)) != null) {
                 itemIndex++;

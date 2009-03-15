@@ -420,12 +420,12 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductPrice" description="${uiLabelMap.CommonDelete}" link-type="hidden-form" also-hidden="false">
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="productPriceTypeId" from-field="productPriceTypeId"/>
-                <parameter param-name="productPricePurposeId" from-field="productPricePurposeId"/>
-                <parameter param-name="currencyUomId" from-field="currencyUomId"/>
-                <parameter param-name="productStoreGroupId" from-field="productStoreGroupId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="productPriceTypeId"/>
+                <parameter param-name="productPricePurposeId"/>
+                <parameter param-name="currencyUomId"/>
+                <parameter param-name="productStoreGroupId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

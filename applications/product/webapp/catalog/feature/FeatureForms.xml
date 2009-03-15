@@ -224,7 +224,11 @@
         </field>
         <field name="sequenceNum"><text size="3"/></field>
         <field name="removeFeatureGroupAppl" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="RemoveProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}&amp;productFeatureId=${productFeatureId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonRemove}"/>
+            <hyperlink target="RemoveProductFeatureGroupAppl" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+                <parameter param-name="productFeatureGroupId"/>
+                <parameter param-name="productFeatureId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit/>
