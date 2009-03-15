@@ -51,10 +51,6 @@
             </condition>
             <link target="requestlist"/>
         </menu-item>
-        
-        <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
-            <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles?decorator=printable" url-mode="plain" target-window="new"/>
-        </menu-item>
     </menu>
     <menu name="ProjectTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <actions>

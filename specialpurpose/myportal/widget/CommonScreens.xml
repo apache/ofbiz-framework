@@ -34,6 +34,9 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <property-map resource="MyPortalHelpUrls" map-name="helpUrlsMap" global="true"/>
+
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="MyPortalAppBar" global="true"/>
