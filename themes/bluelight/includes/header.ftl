@@ -92,8 +92,10 @@ under the License.
   <#assign userName = person.firstName?if_exists + " " + person.middleName?if_exists + " " + person.lastName?if_exists>
 <#elseif partyGroup?has_content>
   <#assign userName = partyGroup.groupName?if_exists>
-<#else>
+<#elseif userLogin?exists>
   <#assign userName = userLogin.userLoginId>
+<#else>
+  <#assign userName = "">
 </#if>
 
 <#if defaultOrganizationPartyGroupName?has_content>
@@ -132,8 +134,10 @@ under the License.
 
         <li class="control-area">
           <ul id="preferences-menu">
-            <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>            
-            <li class="org">${orgName}</li>
+            <#if userLogin?exists>
+              <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>            
+              <li class="org">${orgName}</li>
+            </#if>
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
             <#if userLogin?exists>
               <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>

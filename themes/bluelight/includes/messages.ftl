@@ -16,19 +16,18 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if userLogin?has_content>
     </div>
   </div>
   <div class="breadcrumbs-sep">
     <#if titleProperty?exists>
         ${uiLabelMap[titleProperty]}
     </#if>
-  </div> 
+  </div>
   <div class="breadcrumbs-end">
   </div>
 </div>
 <div class="clear">
-</div>    
-</#if>
-
+</div>
+<div id="messages-container">
 <#include "component://common/webcommon/includes/messages.ftl" />
+</div>

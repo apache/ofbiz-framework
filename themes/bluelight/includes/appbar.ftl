@@ -22,7 +22,6 @@ under the License.
 <#assign contextPath = request.getContextPath()>
 <#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
 
-<#if userLogin?has_content>
 <div class="tabbar">
   <div class="breadcrumbs">
     <div class="breadcrumbs-start">
@@ -50,13 +49,12 @@ under the License.
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
                 </#if>
-<!--            <#if !selected>-->
+<#--            <#if !selected>-->
                   <li><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
-<!--            </#if>-->
+<#--            </#if>-->
               </#if>
             </#list>
             </ul>
           </li>
         </ul>
       </div>
-</#if>
