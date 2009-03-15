@@ -87,6 +87,19 @@ under the License.
 <#else>
   <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
 </#if>
+
+<#if person?has_content>
+  <#assign userName = person.firstName?if_exists + " " + person.middleName?if_exists + " " + person.lastName?if_exists>
+<#elseif partyGroup?has_content>
+  <#assign userName = partyGroup.groupName?if_exists>
+<#else>
+  <#assign userName = userLogin.userLoginId>
+</#if>
+
+<#if defaultOrganizationPartyGroupName?has_content>
+  <#assign orgName = " - " + defaultOrganizationPartyGroupName?if_exists>
+</#if>
+
 <body>
   <div class="page-container">
     <div class="hidden">
@@ -102,23 +115,6 @@ under the License.
               <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>"/></a>
             </#if>
           </li>
-          <li>
-            <#if person?has_content>
-              ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
-            <#elseif partyGroup?has_content>
-              ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</#if>
-            <#else>
-              ${uiLabelMap.CommonWelcome}!
-            </#if>
-          </li>
-          <li class="control-area">
-            <p class="collapsed">
-              <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-              <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a>
-            </p>
-          </li>
         <#else>
           <#if layoutSettings.headerImageUrl?exists>
             <#assign headerImageUrl = layoutSettings.headerImageUrl>
@@ -130,36 +126,28 @@ under the License.
           <#if headerImageUrl?exists>
             <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${headerImageUrl}</@ofbizContentUrl>"/></a></li>
           </#if>
-          <li class="control-area">
-            <#if userLogin?exists>
-              <p class="expanded">
-                <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-                <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
-              </p>
-            </#if>
-            <p>
-            <#if person?has_content>
-              ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
-            <#elseif partyGroup?has_content>
-              ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
-              <#if defaultOrganizationPartyId?exists><p>${uiLabelMap.CommonDefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p></#if>
-            <#else>
-              ${uiLabelMap.CommonWelcome}!
-            </#if>
-            </p>
-            <ul id="preferences-menu">
-<!--
-              <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
--->
-              <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
-              <#if userLogin?exists>
-                <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
-              </#if>
-              <#include "component://common/webcommon/includes/helplink.ftl" />
-            </ul>
-          </li>
         </#if>
+
+        <li class="control-area">
+          <ul id="preferences-menu">
+            <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>
+            <li class="org">${orgName}</li>
+            <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
+            <#if userLogin?exists>
+              <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
+              <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+            </#if>
+            <#include "component://common/webcommon/includes/helplink.ftl" />
+
+            <#if userLogin?exists>
+              <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+                <li class="collapsed"><a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a></li>
+              <#else>
+                <li class="expanded"><a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a></li>
+              </#if>
+            </#if>
+          </ul>
+        </li>
       </ul>
       <br class="clear" />
     </div>

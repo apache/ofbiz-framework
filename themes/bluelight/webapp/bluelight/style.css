@@ -938,24 +938,10 @@ in contained elements. */
     /* placeholder */
 }
 
-#masthead ul .opposed,#masthead ul .control-area {
+#masthead ul .opposed,
+#masthead ul .control-area {
     float: right;
     text-align: right;
-}
-
-#masthead ul .control-area .expanded {
-    background: url(/images/collapse.gif) no-repeat right;
-    min-height: 10px;
-    min-width: 10px;
-    padding: 0 0.4em 0 0.4em;
-    margin: 0.5em;
-}
-
-#masthead ul .control-area .collapsed {
-    background: url(/images/expand.gif) no-repeat right;
-    min-height: 18px;
-    min-width: 10px;
-    padding: 0 0.4em 0 0.4em;
 }
 
 ul#preferences-menu {
@@ -966,11 +952,42 @@ ul#preferences-menu {
 ul#preferences-menu li {
     border-left: solid 1px #BBBBBB;
     padding: 0 1em 0 1em;
-    margin-top: 0.5em;
 }
 
-ul#preferences-menu li.first {
-    border: none;
+ul#preferences-menu li.first,
+ul#preferences-menu li.user,
+ul#preferences-menu li.org {
+border: none;
+}
+
+ul#preferences-menu li.user,
+ul#preferences-menu li.org {
+padding: 0;
+color: #777777;
+}
+
+ul#preferences-menu li.user a,
+ul#preferences-menu li.org a {
+color: #777777;
+}
+
+ul#preferences-menu li.user a:hover {
+background-color: #777777;
+color: #FFFFFF;
+text-decoration: none;
+}
+
+ul#preferences-menu li.expanded,
+ul#preferences-menu li.collapsed {
+padding: 0 0 0 5px;
+}
+
+ul#preferences-menu li.expanded {
+background: url(/images/collapse.gif) no-repeat right;
+}
+
+ul#preferences-menu li.collapsed {
+background: url(/images/expand.gif) no-repeat right;
 }
 
 ul#preferences-menu li a {
@@ -993,7 +1010,8 @@ ul#preferences-menu a:hover {
 /* ===== Footer Styles ===================== */
 /* ========================================= */
 #footer {
-    text-align: center;
+text-align: center;
+padding-bottom: 1em;
 }
 
 #footer p {
@@ -1043,7 +1061,8 @@ ul#preferences-menu a:hover {
     font-size: 130%;
 }
 
-#main-navigation ul li h2,#app-navigation ul li h2 {
+#main-navigation ul li h2,
+#app-navigation ul li h2 {
     color: #FFFFFF;
     font-size: 1.2em;
     font-weight: bold;
@@ -1077,6 +1096,11 @@ color:#555555;
 background-color:#D2D2D2;
 text-decoration:none;
 } /*Color subcells hovering mode*/
+
+#main-navigation ul li ul li a.disabled,
+#app-navigation ul li ul li a.disabled {
+color:#999999;
+} /*Color subcells disabled mode*/
 
 
 /* ================================================= */
@@ -1241,8 +1265,7 @@ text-decoration:none;
     /* ===== Button Bar Navigation Styles ===== */
     /* ======================================== */
 .button-bar {
-    margin-bottom: 1.0em;
-    width: 100%;
+margin: 0 1em 0 1em;
 }
 
 .button-bar ul {
