@@ -182,12 +182,12 @@ under the License.
                                 <if-not-empty field="partyRates">
                                     <first-from-list entry="partyRate" list="partyRates"/>
                                     <if-not-empty field="partyRate.percentageUsed">
-                                        <calculate field="timeEntry.hours" type="Double">
+                                        <calculate field="timeEntry.hours" type="BigDecimal">
                                             <calcop operator="multiply" field="timeEntry.hours">
                                                 <calcop operator="get" field="partyRate.percentageUsed"/>
                                             </calcop>
                                         </calculate>
-                                        <calculate field="timeEntry.hours" type="Double">
+                                        <calculate field="timeEntry.hours" type="BigDecimal">
                                             <calcop operator="divide" field="timeEntry.hours">
                                                 <number value="100"/>
                                             </calcop>
@@ -212,7 +212,7 @@ under the License.
                                     </or>
                                 </condition>
                                 <then>
-                                    <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
+                                    <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="BigDecimal"/>
                                     <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
                                         <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
                                         <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
@@ -223,7 +223,7 @@ under the License.
                                                 <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
                                             </if-not-empty>
                                         </if-not-empty>
-                                        <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+                                        <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
                                         <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                                         <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
                                             <result-to-field result-name="invoiceItemSeqId" field="invoiceItemMap.invoiceItemSeqId"/>
@@ -249,7 +249,7 @@ under the License.
                                 <if-empty field="invoiceItemMap.description">
                                     <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
                                 </if-empty>
-                                <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+                                <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
                                 <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                                 <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
                                     <result-to-field result-name="invoiceItemSeqId" field="invoiceItemMap.invoiceItemSeqId"/>

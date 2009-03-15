@@ -144,7 +144,7 @@ under the License.
         <description>Creates TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="currencyUomId" mode="IN" type="String" optional="true"/>
-        <attribute name="rateAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="rateAmount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     
     <!-- WorkEffortRate Services (WorkEffortAssignmentRate Services now depreciated and replced by RateAmount services )-->

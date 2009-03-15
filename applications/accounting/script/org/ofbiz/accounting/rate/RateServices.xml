@@ -279,7 +279,7 @@ under the License.
         <if-not-empty field="amounts">
             <first-from-list entry="amount" list="amounts"/>
             <if-empty field="amount.rateAmount">
-                <set field="amount.rateAmount" value="0" type="Double"/>
+                <set field="amount.rateAmount" value="0" type="BigDecimal"/>
             </if-empty>
             <field-to-result field="amount.rateAmount" result-name="rateAmount"/>
             <field-to-result field="amount.periodTypeId" result-name="periodTypeId"/>
