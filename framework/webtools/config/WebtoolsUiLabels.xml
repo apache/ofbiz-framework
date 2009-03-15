@@ -1690,7 +1690,7 @@
     </property>
     <property key="WebtoolsLogging">
         <value xml:lang="en">Logging</value>
-        <value xml:lang="fr">Voir la log</value>
+        <value xml:lang="fr">Voir la log (journal de bord)</value>
         <value xml:lang="it">Log</value>
         <value xml:lang="th">Logging</value>
     </property>
@@ -3100,7 +3100,7 @@
     </property>
     <property key="WebtoolsViewLog">
         <value xml:lang="en">View Log</value>
-        <value xml:lang="fr">Voir la log</value>
+        <value xml:lang="fr">Voir la log (journal de bord)</value>
         <value xml:lang="it">Mostra Log</value>
         <value xml:lang="ro">Afiseaza Log</value>
         <value xml:lang="th">ดูข้อมูลการจดบันทึก</value>

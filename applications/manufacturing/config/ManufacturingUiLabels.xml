@@ -2343,7 +2343,7 @@
         <value xml:lang="de">Aktualisierung des Produktionsauftrages nicht erfolgreich, für weitere Informationen siehe Log</value>
         <value xml:lang="en">Production Run update failed see log for more information</value>
         <value xml:lang="es">No se actualizó la orden de producción. Consulte los logs para más detalle.</value>
-        <value xml:lang="fr">La mise à jour de l'ordre de fabrication a échouée. Voir la log pour plus d'information</value>
+        <value xml:lang="fr">La mise à jour de l'ordre de fabrication a échouée. Voir la log (journal de bord) pour plus d'information</value>
         <value xml:lang="it">Aggiornamento Ordine di Produzione fallito, vedere il log per maggiori informazioni</value>
         <value xml:lang="ro">Actualizare Comanda de Productie falita, pentru mai multe informatii vezi log </value>
         <value xml:lang="th">เกิดความผิดพลาดในการเปลี่ยนแปลงการผลิตดูบันทึกสำหรับข้อมูลที่มากมาย</value>

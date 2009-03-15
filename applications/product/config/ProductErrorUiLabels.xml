@@ -357,7 +357,7 @@
         <value xml:lang="de">Erstellung Schlüsselwörter abgeschlossen für ${numProds} Produkte, mit Fehlern bei ${errProds} Produkten (siehe Log für mehr Details).</value>
         <value xml:lang="en">Keyword creation complete for ${numProds} products, with errors in ${errProds} products (see the log for more details).</value>
         <value xml:lang="es">Se completó la creación de palabras clave de ${numProds} productos, con errores en ${errProds} productos (ver el log para más detalles).</value>
-        <value xml:lang="fr">La création de mot-clé est terminée pour ${numProds} articles, avec des erreurs dans ${errProds} articles (voir la log pour plus de détails).</value>
+        <value xml:lang="fr">La création de mot-clé est terminée pour ${numProds} articles, avec des erreurs dans ${errProds} articles (voir la log - journal de bord - pour plus de détails).</value>
         <value xml:lang="it">Creazione Chiave completata per ${numProds} prodotto(i), con errori in ${errProds} prodotto(i) (vedi il log per maggiori dettagli).</value>
         <value xml:lang="ro">Creare Cheie complectata pentru ${numProds} produs(e), cu erori in ${errProds} produs(e) (vezi log pentru mai multe detalii).</value>
         <value xml:lang="ru">Создание ключевых слов завершено для ${numProds} продуктов, с ошибками в ${errProds} продуктах (подробности в лог файле).</value>
