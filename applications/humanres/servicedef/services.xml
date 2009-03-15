@@ -639,7 +639,7 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="rateAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="rateAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="IN"/>
         <override name="fromDate" optional="true"/>
