@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -52,14 +53,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class LabelManagerFactory {
-
+    
     public static final String module = LabelManagerFactory.class.getName();
     public static final String resource = "WebtoolsUiLabels";
-
+    
     public static final String keySeparator = "#";
-
+    
     protected static UtilCache<String, LabelManagerFactory> labelManagerFactoryCache = new UtilCache<String, LabelManagerFactory>("LabelManagerFactory");
-
+    
     protected static Map<String, LabelInfo> labels = null;
     protected static Map<String, String> fileNamesFound = null;
     protected static Map<String, String> fileComponent = null;
@@ -68,32 +69,32 @@ public class LabelManagerFactory {
     protected static Map<String, Map<String, Integer>> references = null;
     protected static List<LabelInfo> duplicatedLocalesLabelsList = null;
     protected static int duplicatedLocalesLabels = 0;
-
+    
     protected static GenericDelegator delegator;
     protected static ModelReader entityModelReader;
     protected static DispatchContext dispatchContext;
-
+    
     public static LabelManagerFactory getLabelManagerFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
             delegatorName = "default";
         }
-
+        
         LabelManagerFactory lmf = labelManagerFactoryCache.get(delegatorName);
-
+        
         if (lmf == null) {
             lmf = new LabelManagerFactory(delegatorName);
             labelManagerFactoryCache.put(delegatorName, lmf);
         }
         return lmf;
     }
-
+    
     protected LabelManagerFactory(String delegatorName) throws GeneralException {
         delegator = GenericDelegator.getGenericDelegator(delegatorName);
         entityModelReader = ModelReader.getModelReader(delegatorName);
         dispatchContext = new DispatchContext("LabelManagerFactoryDispCtx", null, this.getClass().getClassLoader(), null);
         prepareAll();
     }
-
+    
     private static void prepareAll() throws GeneralException {
         labels = new TreeMap<String, LabelInfo>();
         fileNamesFound = new TreeMap<String, String>();
@@ -103,35 +104,35 @@ public class LabelManagerFactory {
         duplicatedLocalesLabelsList = FastList.newInstance();
         references = null;
         int duplicatedLocales = 0;
-
+        
         try {
             boolean sharkComponent = false;
             Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
-
-            for (ComponentConfig componentConfig: componentConfigs) {
+            
+            for (ComponentConfig componentConfig : componentConfigs) {
                 String componentName = componentConfig.getComponentName();
                 List<File> resourceFiles = FileUtil.findXmlFiles(componentConfig.getRootLocation(), null, "resource", null);
                 boolean cycle = true;
                 while (cycle) {
-                    for (File resourceFile: resourceFiles) {
+                    for (File resourceFile : resourceFiles) {
                         String fileName = resourceFile.getName();
                         Document resourceDocument = UtilXml.readXmlDocument(resourceFile.toURI().toURL());
                         Element resourceElem = resourceDocument.getDocumentElement();
                         String labelKeyComment = "";
-
-                        for (Node propertyNode: UtilXml.childNodeList(resourceElem.getFirstChild())) {
+                        
+                        for (Node propertyNode : UtilXml.childNodeList(resourceElem.getFirstChild())) {
                             if (propertyNode instanceof Element) {
-                                Element propertyElem = (Element)propertyNode;
-                                String labelKey = StringUtil.htmlEncoder.encode(propertyElem.getAttribute("key"));
+                                Element propertyElem = (Element) propertyNode;
+                                String labelKey = StringUtil.defaultWebEncoder.canonicalize(propertyElem.getAttribute("key"));
                                 String labelComment = "";
-
-                                for (Node valueNode: UtilXml.childNodeList(propertyElem.getFirstChild())) {
+                                
+                                for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                                     if (valueNode instanceof Element) {
-                                        Element valueElem = (Element)valueNode;
+                                        Element valueElem = (Element) valueNode;
                                         String localeName = valueElem.getAttribute("xml:lang");
-                                        String labelValue = StringUtil.htmlEncoder.encode(UtilXml.nodeValue(valueElem.getFirstChild()));
-                                        LabelInfo label = (LabelInfo)labels.get(labelKey + keySeparator + fileName);
-
+                                        String labelValue = StringUtil.defaultWebEncoder.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
+                                        LabelInfo label = labels.get(labelKey + keySeparator + fileName);
+                                        
                                         if (UtilValidate.isEmpty(label)) {
                                             label = new LabelInfo(labelKey, labelKeyComment, fileName, componentName, localeName, labelValue, labelComment);
                                             labels.put(labelKey + keySeparator + fileName, label);
@@ -147,12 +148,12 @@ public class LabelManagerFactory {
                                         fileComponent.put(fileName, componentName);
                                         labelComment = "";
                                     } else if (valueNode instanceof Comment) {
-                                        labelComment = labelComment + StringUtil.htmlEncoder.encode(valueNode.getNodeValue());
+                                        labelComment = labelComment + StringUtil.defaultWebEncoder.canonicalize(valueNode.getNodeValue());
                                     }
                                 }
                                 labelKeyComment = "";
                             } else if (propertyNode instanceof Comment) {
-                                labelKeyComment = labelKeyComment + StringUtil.htmlEncoder.encode(propertyNode.getNodeValue());
+                                labelKeyComment = labelKeyComment + StringUtil.defaultWebEncoder.canonicalize(propertyNode.getNodeValue());
                             }
                         }
                     }
@@ -165,7 +166,7 @@ public class LabelManagerFactory {
                     }
                 }
             }
-
+            
             // get labels references from sources
             references = LabelReferences.getLabelReferences();
         } catch (IOException ioe) {
@@ -175,31 +176,31 @@ public class LabelManagerFactory {
         }
         duplicatedLocalesLabels = duplicatedLocales;
     }
-
+    
     public static GenericDelegator getDelegator() {
         return delegator;
     }
-
+    
     public static ModelReader getModelReader() {
         return entityModelReader;
     }
-
+    
     public static DispatchContext getDispatchContext() {
         return dispatchContext;
     }
-
+    
     public static Map<String, LabelInfo> getLabels() {
         return labels;
     }
-
+    
     public static Set<String> getLocalesFound() {
         return localesFound;
     }
-
+    
     public static Map<String, String> getFileNamesFound() {
         return fileNamesFound;
     }
-
+    
     public static String getFileComponent(String fileName) {
         String componentName = null;
         if (UtilValidate.isNotEmpty(fileName)) {
@@ -207,83 +208,83 @@ public class LabelManagerFactory {
         }
         return componentName;
     }
-
+    
     public static Set<String> getComponentNamesFound() {
         return componentNamesFound;
     }
-
+    
     public static Map<String, Map<String, Integer>> getReferences() {
         return references;
     }
-
+    
     public static Set<String> getLabelsList() {
         return labels.keySet();
     }
-
+    
     public static Set<String> getReferencesList() {
         return references.keySet();
     }
-
+    
     public static int getLabelReferenceFile(String key) {
         int refFile = 0;
         boolean keyFound = false;
-
+        
         if (key == null) {
             key = "";
         }
-
-        for (Map.Entry<String, String> e: fileNamesFound.entrySet()) {
+        
+        for (Map.Entry<String, String> e : fileNamesFound.entrySet()) {
             String keyToSearch = key + keySeparator + e.getKey();
-
+            
             if (labels.containsKey(keyToSearch)) {
                 keyFound = true;
                 break;
             }
         }
-
+        
         if (!keyFound) {
             Map<String, Integer> reference = references.get(key);
-
+            
             if (UtilValidate.isNotEmpty(reference)) {
                 refFile = reference.size();
             }
         }
-
+        
         return refFile;
     }
-
+    
     public static int getDuplicatedLocalesLabels() {
         return duplicatedLocalesLabels;
     }
-
+    
     public static List<LabelInfo> getDuplicatedLocalesLabelsList() {
         return duplicatedLocalesLabelsList;
     }
-
+    
     public static Map<String, Object> updateLabelKey(DispatchContext dctx, Map<String, ? extends Object> context) {
-        String key = (String)context.get("key");
-        String keyComment = (String)context.get("keyComment");
-        String update_label = (String)context.get("update_label");
-        String fileName = (String)context.get("fileName");
-        String confirm = (String)context.get("confirm");
-        String removeLabel = (String)context.get("removeLabel");
+        String key = (String) context.get("key");
+        String keyComment = (String) context.get("keyComment");
+        String update_label = (String) context.get("update_label");
+        String fileName = (String) context.get("fileName");
+        String confirm = (String) context.get("confirm");
+        String removeLabel = (String) context.get("removeLabel");
         List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
         List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
         List<String> localeComments = UtilGenerics.cast(context.get("localeComments"));
         Locale locale = (Locale) context.get("locale");
-
+        
         // Remove a Label
         if (UtilValidate.isNotEmpty(removeLabel)) {
-           labels.remove(key + keySeparator + fileName);
+            labels.remove(key + keySeparator + fileName);
         } else if (UtilValidate.isNotEmpty(confirm)) {
             LabelInfo label = labels.get(key + keySeparator + fileName);
-
+            
             // Update a Label
             if (update_label.equalsIgnoreCase("Y")) {
                 if (UtilValidate.isNotEmpty(label)) {
                     updateLabelValue(localeNames, localeValues, localeComments, label, key, keyComment, fileName);
                 }
-            // Insert a new Label
+                // Insert a new Label
             } else {
                 if (UtilValidate.isNotEmpty(label)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelExisting", UtilMisc.toMap("key", key, "fileName", fileName), locale));
@@ -299,47 +300,46 @@ public class LabelManagerFactory {
                 }
             }
         }
-
+        
         return ServiceUtil.returnSuccess();
     }
-
+    
     public static Map<String, Object> updateAndSaveLabelKey(DispatchContext dctx, Map<String, ? extends Object> context) {
-        String key = (String)context.get("key");
-        String keyComment = (String)context.get("keyComment");
-        String update_label = (String)context.get("update_label");
-        String fileName = (String)context.get("fileName");
-        String confirm = (String)context.get("confirm");
-        String removeLabel = (String)context.get("removeLabel");
+        String key = (String) context.get("key");
+        String keyComment = (String) context.get("keyComment");
+        String update_label = (String) context.get("update_label");
+        String fileName = (String) context.get("fileName");
+        String confirm = (String) context.get("confirm");
+        String removeLabel = (String) context.get("removeLabel");
         List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
         List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
         List<String> localeComments = UtilGenerics.cast(context.get("localeComments"));
-        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
-
-        Map<String, Object> contextInput = UtilMisc.toMap("key", key, "keyComment", keyComment, "update_label", update_label,
-                                                          "fileName", fileName, "confirm", confirm, "removeLabel", removeLabel,
-                                                          "localeNames", localeNames, "localeValues", localeValues, "localeComments", localeComments);
+        
+        Map<String, Object> contextInput = UtilMisc.toMap("key", key, "keyComment", keyComment, "update_label", update_label, "fileName", fileName, "confirm", confirm, "removeLabel", removeLabel,
+                "localeNames", localeNames, "localeValues", localeValues, "localeComments", localeComments, "userLogin", userLogin);
         try {
             Map<String, Object> updatedKey = dispatcher.runSync("updateLabelKey", contextInput);
-
+            
             if (ServiceUtil.isError(updatedKey)) {
                 return updatedKey;
             } else {
-                return dispatcher.runSync("saveLabelsToXmlFile", UtilMisc.toMap("fileName", fileName));
+                return dispatcher.runSync("saveLabelsToXmlFile", UtilMisc.toMap("labelFileName", fileName, "userLogin", userLogin));
             }
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError("error on saving label key :" + key);
         }
     }
-
+    
     private static int updateLabelValue(List<String> localeNames, List<String> localeValues, List<String> localeComments, LabelInfo label, String key, String keyComment, String fileName) {
         int notEmptyLabels = 0;
         int i = 0;
         while (i < localeNames.size()) {
-            String localeName = (String)localeNames.get(i);
-            String localeValue = (String)localeValues.get(i);
-            String localeComment = (String)localeComments.get(i);
-
+            String localeName = localeNames.get(i);
+            String localeValue = localeValues.get(i);
+            String localeComment = localeComments.get(i);
+            
             if (UtilValidate.isNotEmpty(localeValue) || UtilValidate.isNotEmpty(localeComment)) {
                 if (label == null) {
                     try {
@@ -357,8 +357,7 @@ public class LabelManagerFactory {
             }
             i++;
         }
-
+        
         return notEmptyLabels;
     }
 }
-

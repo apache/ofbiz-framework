@@ -492,7 +492,7 @@ under the License.
     
     <request-map uri="UpdateAndSaveLabelKey">
         <security https="true" auth="true"/>
-        <event type="service" invoke="UpdateAndSaveLabelKey"/>
+        <event type="service" invoke="updateAndSaveLabelKey"/>
         <response name="success" type="view" value="SearchLabels"/>
         <response name="error" type="view" value="UpdateLabel"/>
     </request-map>

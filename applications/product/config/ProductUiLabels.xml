@@ -434,10 +434,6 @@
         <value xml:lang="th">อนุมัติการตรวจสอบอัตโนมัติ</value>
         <value xml:lang="zh">自动批准浏览</value>
     </property>
-    <property key="FormFieldTitle_automaticExtend">
-        <value xml:lang="en">Automatic Extend</value>
-        <value xml:lang="it">Estendi automaticamente</value>
-    </property>
     <property key="FormFieldTitle_autoInvoiceDigitalItems">
         <value xml:lang="de">Automatische Rechnungsstellung Digitaler Produkte</value>
         <value xml:lang="en">Auto Invoice Digital Items</value>
@@ -503,6 +499,11 @@
         <value xml:lang="ru">Автосохранение корзины</value>
         <value xml:lang="th">บันทึกลงตระกร้าอัตโนมัติ</value>
         <value xml:lang="zh">自动保存购物车</value>
+    </property>
+    <property key="FormFieldTitle_automaticExtend">
+        <value xml:lang="en">Automatic Extend</value>
+        <value xml:lang="fr">Extension automatique</value>
+        <value xml:lang="it">Estendi automaticamente</value>
     </property>
     <property key="FormFieldTitle_availableFromDate">
         <value xml:lang="de">Verfügbar von Datum</value>
