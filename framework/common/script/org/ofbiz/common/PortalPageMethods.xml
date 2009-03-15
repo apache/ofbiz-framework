@@ -100,6 +100,16 @@ under the License.
                     <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet"/>
                     <set field="createPortLet.portalPageId" from-field="portalPageId" />
                     <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet"/>
+                    <!-- copy the attributes -->
+                    <entity-and entity-name="PortletAttribute" list="portletAttributes">
+                        <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                        <field-map field-name="portalPortletId" from-field="portalPagePortlet.portalPortletId"/>
+                        <field-map field-name="portletSeqId" from-field="portalPagePortlet.portletSeqId"/>
+                    </entity-and>
+                    <iterate entry="portletAttribute" list="portletAttributes">
+                        <set field="portletAttribute.portalPageId" from-field="portalPageId"/>
+                        <create-value value-field="portletAttribute"/>
+                    </iterate>
                 </iterate>
                 
                 <!-- delete the columns -->

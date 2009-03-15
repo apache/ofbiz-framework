@@ -33,22 +33,5 @@ under the License.
         <field name="portalPortletId"><hidden/></field>
         <field name="portletSeqId"><hidden/></field>
     </form>
-    
-    <form name="LoginPortletEdit" extends="CommonPortletEdit">
-        <field name="ItemsToShow" entry-name="attributeMap.ItemsToShow">
-            <drop-down allow-empty="false">
-                <option key="5"/>
-                <option key="15"/>
-                <option key="20"/>
-                <option key="25"/>
-                <option key="30"/>
-                <option key="35"/>
-            </drop-down>
-        </field>
-
-        <field name="SpecificTitle" entry-name="attributeMap.SpecificTitle">
-            <text/>
-        </field>
-    </form>
 
 </forms>

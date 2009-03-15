@@ -175,7 +175,7 @@ under the License.
 
     <menu name="personUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
-            <link target="editperson?partyId=${party.partyId}"/>
+            <link target="editperson?partyId=${parameters.partyId}"/>
         </menu-item>
     </menu>
 
@@ -193,5 +193,36 @@ under the License.
             <link target="editCarrierAccount?partyId=${party.partyId}"/>
         </menu-item>
     </menu>
+    <menu name="communicationsMenu">
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+            </condition>      
+            <link
+                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;statusId=COM_PENDING"/>
+        </menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+            </condition>      
+            <link
+                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;portalPageId=${parameters.portalPageId}" />
+        </menu-item>
+        <menu-item name="openEvents" title="${uiLabelMap.PartyOpenEvents}">
+            <condition>
+                <if-compare field="parameters.all" operator="equals" value="true" />
+            </condition>
+            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=false" />
+        </menu-item>
+        <menu-item name="allOtherEvents" title="${uiLabelMap.PartyAllEvents}">
+            <condition>
+                <or>
+                    <if-compare field="parameters.all" operator="equals" value="false" />
+                    <if-empty field="parameters.all"/>
+                </or>
+            </condition>
+            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=true" />
+        </menu-item>
+    </menu>    
     
 </menus>

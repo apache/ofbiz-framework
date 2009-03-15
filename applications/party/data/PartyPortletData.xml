@@ -23,7 +23,9 @@
     <PortalPortlet portalPortletId="party" portletName="Party Info" screenName="Party" screenLocation="component://party/widget/partymgr/ProfileScreens.xml" description="General information about a person or party group" />
 
     <!-- communications -->
-    <PortalPortlet portalPortletId="communicationList" portletName="Communications" screenName="Communications" screenLocation="component://party/widget/partymgr/CommunicationScreens.xml" description="My Communications From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
+    <PortalPortlet portalPortletId="communications" portletName="Communications"  description="Communication list" 
+        screenName="Communications" screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
+        editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml" />
     
 
 </entity-engine-xml>
