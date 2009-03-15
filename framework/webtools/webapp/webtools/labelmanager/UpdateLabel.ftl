@@ -16,6 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<script language="JavaScript" type="text/javascript">
+    function updateAndSaveLabel() {
+        document.UpdateLabelForm.action="<@ofbizUrl>UpdateAndSaveLabelKey</@ofbizUrl>";
+        document.UpdateLabelForm.submit();
+    }
+</script>
 <div class="screenlet-body">
     <form method="post" action="<@ofbizUrl>UpdateLabelKey</@ofbizUrl>" name="UpdateLabelForm">
         <table class="basic-table" cellspacing="3">
@@ -63,8 +69,10 @@ under the License.
                     <#if parameters.sourceKey?exists>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>
                         <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     </#if>
                 </td>
             </tr>
@@ -111,8 +119,10 @@ under the License.
                     <#if parameters.sourceKey?exists>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>
                         <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
+                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     </#if>
                 </td>
             </tr>

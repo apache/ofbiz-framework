@@ -1592,6 +1592,11 @@
         <value xml:lang="fr">Mettre à jour la traduction</value>
         <value xml:lang="it">Aggiorna Label</value>
     </property>
+    <property key="WebtoolsLabelManagerUpdateAndSave">
+        <value xml:lang="en">Update and Save to xml file the label</value>
+        <value xml:lang="fr">Mettre à jour et sauver la  traduction dans le fichier XML</value>
+        <value xml:lang="it">Aggiorna e salva la label</value>
+    </property>
     <property key="WebtoolsLabelManagerUpdateFile">
         <value xml:lang="en">Update Labels Files</value>
         <value xml:lang="fr">Mettre à jour les fichiers de traduction</value>
