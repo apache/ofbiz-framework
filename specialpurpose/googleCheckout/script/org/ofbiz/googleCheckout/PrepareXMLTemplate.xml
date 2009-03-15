@@ -63,32 +63,32 @@
     </simple-method>
     <simple-method method-name="createRequestUrl" short-description="">
         <!-- Setup Url spec -->
-        <property-to-field resource="googleCheckout" property="basePostUrl" field-name="basePostUrl"/>
-        <property-to-field resource="googleCheckout" property="merchantId" field-name="merchantId"/>
-        <property-to-field resource="googleCheckout" property="request" field-name="request"/>
+        <property-to-field resource="googleCheckout" property="basePostUrl" field="basePostUrl"/>
+        <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
+        <property-to-field resource="googleCheckout" property="request" field="request"/>
         <set field="urlSpec" value="${basePostUrl}${merchantId}${request}"/>
-        <create-object class-name="java.net.URL" field-name="url">
-            <field field-name="urlSpec"/>
+        <create-object class-name="java.net.URL" field="url">
+            <field field="urlSpec"/>
         </create-object>
     </simple-method>
     <simple-method method-name="getHttpAuth" short-description="">
-        <property-to-field resource="googleCheckout" property="merchantId" field-name="merchantId"/>
-        <property-to-field resource="googleCheckout" property="merchantKey" field-name="merchantKey"/>
+        <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
+        <property-to-field resource="googleCheckout" property="merchantKey" field="merchantKey"/>
         <set field="userNameAndPass" value="${merchantId}:${merchantKey}"/>
-        <call-class-method method-name="base64Encode" class-name="org.ofbiz.base.util.Base64" ret-field-name="encodedValue">
-            <field field-name="userNameAndPass"/>
+        <call-class-method method-name="base64Encode" class-name="org.ofbiz.base.util.Base64" ret-field="encodedValue">
+            <field field="userNameAndPass"/>
         </call-class-method>
         <set field="HttpAuth" value="Basic ${encodedValue}"/>
     </simple-method>
 <!-- Step 2 -->
     <simple-method method-name="createXMLOutput" short-description="">
         <!-- create writer -->
-        <create-object class-name="java.io.StringWriter" field-name="XMLWriter"/>
+        <create-object class-name="java.io.StringWriter" field="XMLWriter"/>
         <!-- create screen context -->
-        <call-class-method method-name="create" class-name="org.ofbiz.base.util.collections.MapStack" ret-field-name="xscreenContext"/>
+        <call-class-method method-name="create" class-name="org.ofbiz.base.util.collections.MapStack" ret-field="xscreenContext"/>
         <!-- Add the shoppingCart to the MapStack -->
         <set field="inMap.shoppingCart" from-field="parameters.shoppingCart"/>
-        <set-service-fields map-name="inMap" service-name="ConvertOfbizCartToGoogle" to-map-name="serMap"/>
+        <set-service-fields map="inMap" service-name="ConvertOfbizCartToGoogle" to-map="serMap"/>
         <call-service service-name="ConvertOfbizCartToGoogle" in-map-name="serMap">
             <result-to-field result-name="googleCart"/>
             <result-to-field result-name="flowSupport"/>
@@ -99,23 +99,23 @@
         <set field="xscreenContext.sendInitialAuthDetails" from-field="sendInitialAuthDetails"/>
         <set field="xscreenContext.shoppingCart" from-field="parameters.shoppingCart"/>
         <!-- create string renderer -->
-        <create-object class-name="org.ofbiz.widget.html.HtmlScreenRenderer" field-name="xhtmlStringRenderer"></create-object>
+        <create-object class-name="org.ofbiz.widget.html.HtmlScreenRenderer" field="xhtmlStringRenderer"></create-object>
         <!-- create screen renderer -->
-        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field-name="screens">
-            <field field-name="XMLWriter" type="java.io.Writer"/>
-            <field field-name="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
-            <field field-name="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
+        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="screens">
+            <field field="XMLWriter" type="java.io.Writer"/>
+            <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
+            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
         </create-object>
         <set field="xscreenContext.screens" from-field="screens"/>
-        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field-name="xscreens">
-            <field field-name="XMLWriter" type="java.io.Writer"/>
-            <field field-name="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
-            <field field-name="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
+        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="xscreens">
+            <field field="XMLWriter" type="java.io.Writer"/>
+            <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
+            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
         </create-object>
         <!-- get uri -->
-        <property-to-field resource="googleCheckout" property="xmlTemplateUri" field-name="screenUri"/>
+        <property-to-field resource="googleCheckout" property="xmlTemplateUri" field="screenUri"/>
         <call-object-method method-name="render" obj-field="xscreens">
-            <field field-name="screenUri" type="String"/>
+            <field field="screenUri" type="String"/>
         </call-object-method>
         <set field="content" value="${bsh:XMLWriter.toString()}"/>
     </simple-method>
@@ -125,17 +125,17 @@
         sWriter = new OutputStreamWriter(conn.getOutputStream());
         return org.ofbiz.base.util.UtilMisc.toMap("sWriter", sWriter);
         ]]></call-bsh>
-        <create-object class-name="java.io.BufferedWriter" field-name="writer">
-            <field field-name="sWriter" type="java.io.Writer"/>
+        <create-object class-name="java.io.BufferedWriter" field="writer">
+            <field field="sWriter" type="java.io.Writer"/>
         </create-object>
         <call-object-method method-name="write" obj-field="writer">
-            <field field-name="content" type="String"/>
+            <field field="content" type="String"/>
         </call-object-method>
         <call-object-method method-name="close" obj-field="writer"/>
     </simple-method>
 <!-- Step 4 -->
     <simple-method method-name="getResponse" short-description="">
-        <clear-field field-name="sReader"/>
+        <clear-field field="sReader"/>
         <call-bsh><![CDATA[
         try {
           sReader = new InputStreamReader(conn.getInputStream());
@@ -145,8 +145,8 @@
         return org.ofbiz.base.util.UtilMisc.toMap("sReader", sReader);
         ]]></call-bsh>
 
-        <create-object class-name="java.io.BufferedReader" field-name="reader">
-            <field field-name="sReader" type="java.io.Reader"/>
+        <create-object class-name="java.io.BufferedReader" field="reader">
+            <field field="sReader" type="java.io.Reader"/>
         </create-object>
         <call-bsh><![CDATA[
         StringBuffer buffer = new StringBuffer();
@@ -164,14 +164,14 @@
             document = org.ofbiz.base.util.UtilXml.readXmlDocument(response, false);
         return org.ofbiz.base.util.UtilMisc.toMap("document", document);
         ]]></call-bsh>
-        <call-object-method method-name="getDocumentElement" obj-field="document" ret-field-name="rootElement"/>
+        <call-object-method method-name="getDocumentElement" obj-field="document" ret-field="rootElement"/>
         <!-- May want to get the serial number to store eventually; would be an attribute of this rootElement,
                 Skipping for now -->
         <call-simple-method method-name="getRedirectFromRootElement"/>
     </simple-method>
     <simple-method method-name="getRedirectFromRootElement" short-description="">
-        <call-class-method method-name="childElementList" class-name="org.ofbiz.base.util.UtilXml" ret-field-name="childList">
-            <field field-name="rootElement" type="org.w3c.dom.Element"/>
+        <call-class-method method-name="childElementList" class-name="org.ofbiz.base.util.UtilXml" ret-field="childList">
+            <field field="rootElement" type="org.w3c.dom.Element"/>
         </call-class-method>
         <call-bsh><![CDATA[
         redirect = null;
@@ -206,23 +206,23 @@
         <set field="false" value="false" type="Boolean"/>
 
         <call-object-method method-name="setDoInput" obj-field="conn">
-            <field field-name="true" type="boolean"/>
+            <field field="true" type="boolean"/>
         </call-object-method>
 
         <call-object-method method-name="setDoOutput" obj-field="conn">
-            <field field-name="true" type="boolean"/>
+            <field field="true" type="boolean"/>
         </call-object-method>
 
         <call-object-method method-name="setUseCaches" obj-field="conn">
-            <field field-name="false" type="boolean"/>
+            <field field="false" type="boolean"/>
         </call-object-method>
 
         <call-object-method method-name="setFollowRedirects" obj-field="conn">
-            <field field-name="true" type="boolean"/>
+            <field field="true" type="boolean"/>
         </call-object-method>
 
         <call-object-method method-name="setInstanceFollowRedirects" obj-field="conn">
-            <field field-name="true" type="boolean"/>
+            <field field="true" type="boolean"/>
         </call-object-method>
 
         <call-object-method method-name="setRequestMethod" obj-field="conn">
@@ -232,13 +232,13 @@
         <call-simple-method method-name="getHttpAuth"/>
         <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="Authorization"/>
-            <field field-name="HttpAuth"/>
+            <field field="HttpAuth"/>
         </call-object-method>
 
         <call-simple-method method-name="getHttpHost"/>
         <call-object-method method-name="setRequestProperty" obj-field="conn">
             <string value="Host"/>
-            <field field-name="HttpHost"/>
+            <field field="HttpHost"/>
         </call-object-method>
 
         <call-object-method method-name="setRequestProperty" obj-field="conn">

@@ -33,7 +33,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="packSingleItemInMap.userLogin" from-field="userLogin"/>
-        <create-object class-name="org.ofbiz.shipment.packing.PackingSession" field-name="packingSession">
+        <create-object class-name="org.ofbiz.shipment.packing.PackingSession" field="packingSession">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
         </create-object>

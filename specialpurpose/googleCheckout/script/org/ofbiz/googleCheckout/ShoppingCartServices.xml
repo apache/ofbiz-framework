@@ -45,9 +45,9 @@
 
     </simple-method>
     <simple-method method-name="createCheckoutFlowSupport" short-description="">
-        <property-to-field resource="googleCheckout" property="editCartUrl" field="editCartUrl" map-name="flowSupport"/>
-        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field="continueShoppingUrl" map-name="flowSupport"/>
-        <property-to-field resource="googleCheckout" property="requestPhone" field="requestPhone" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="editCartUrl" field="flowSupport.editCartUrl"/>
+        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field="flowSupport.continueShoppingUrl"/>
+        <property-to-field resource="googleCheckout" property="requestPhone" field="flowSupport.requestPhone"/>
 
         <call-simple-method method-name="getTaxTables"/>
         <set field="flowSupport.taxTables" from-field="taxTables"/>
@@ -69,13 +69,13 @@
         <call-object-method method-name="items" obj-field="cart" ret-field="cartItems"/>
         <iterate entry="item" list="cartItems">
             <!-- itemName -->
-            <call-object-method method-name="getProductId" obj-field="item" ret-field="itemName" ret-map-name="thisItem"/>
+            <call-object-method method-name="getProductId" obj-field="item" ret-field="thisItem.itemName"/>
             <!-- itemDesc -->
-            <call-object-method method-name="getName" obj-field="item" ret-field="description" ret-map-name="thisItem"/>
+            <call-object-method method-name="getName" obj-field="item" ret-field="thisItem.description"/>
             <!-- unitPrice -->
-            <call-object-method method-name="getBasePrice" obj-field="item" ret-field="unitPrice" ret-map-name="thisItem"/>
+            <call-object-method method-name="getBasePrice" obj-field="item" ret-field="thisItem.unitPrice"/>
             <!-- quantity -->
-            <call-object-method method-name="getQuantity" obj-field="item" ret-field="quantity" ret-map-name="thisItem"/>
+            <call-object-method method-name="getQuantity" obj-field="item" ret-field="thisItem.quantity"/>
             <!-- merchantItemId -->
             <call-simple-method method-name="getMerchantItemId"/>
             <!-- merchant private item data -->
