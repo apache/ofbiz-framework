@@ -2379,6 +2379,12 @@
         <value xml:lang="th">ผลการติดต่อทั้งหมด</value>
         <value xml:lang="zh">全部沟通事件</value>
     </property>
+    <property key="PartyAllEvents">
+        <value xml:lang="en">All Communications</value>
+        <value xml:lang="fr">Toutes les communications</value>
+        <value xml:lang="it">Tutte le comunicazioni</value>
+        <value xml:lang="th">การติดต่อทั้งหมด</value>
+    </property>
     <property key="PartyAllPhoneNumbers">
         <value xml:lang="cs">Všechna telefonní čísla</value>
         <value xml:lang="de">Alle Telefonnummern</value>
@@ -3069,6 +3075,12 @@
         <value xml:lang="ru">Коммуникации</value>
         <value xml:lang="th">วิธีการติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通</value>
+    </property>
+    <property key="PartyCommunicationsOfParty">
+        <value xml:lang="en">Communications of party</value>
+        <value xml:lang="fr">Communications de l'acteur</value>
+        <value xml:lang="it">Comunicazioni del soggetto</value>
+        <value xml:lang="th">การติดต่อบุคคล</value>
     </property>
     <property key="PartyCommunicationsWith">
         <value xml:lang="de">Kommunikationen mit</value>
@@ -4246,6 +4258,18 @@
         <value xml:lang="ru">Адрес эл. почты</value>
         <value xml:lang="th">ที่อยู่อีเมล</value>
         <value xml:lang="zh">电子邮件地址</value>
+    </property>
+    <property key="PartyEmailsFromKnownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine connue</value>
+        <value xml:lang="it">Emails da origine sconosciuta</value>
+        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
+    </property>
+    <property key="PartyEmailsFromUnknownOrigin">
+        <value xml:lang="en">Emails from UN-known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+        <value xml:lang="it">Emails da origini conosciuta</value>
+        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
     </property>
     <property key="PartyEmailAddressMissing">
         <value xml:lang="de">E-Mail Adresse fehlt</value>
@@ -5714,6 +5738,10 @@
         <value xml:lang="th">ข้อมูลการติดต่อไม่ใช่ของคุณ, คุณไม่อาจจะดูหรือแก้ไขมันได้</value>
         <value xml:lang="zh">指定的联系信息不属于你，你不能浏览或编辑它。</value>
     </property>
+    <property key="PartyDraftEmails">
+        <value xml:lang="en">Draft Emails</value>
+        <value xml:lang="it">Bozze emails</value>
+    </property>
     <property key="PartyName">
         <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Name</value>
@@ -6368,6 +6396,12 @@
         <value xml:lang="ru">Текущий (старый) пароль</value>
         <value xml:lang="th">รหัสผ่านเดิม</value>
         <value xml:lang="zh">当前密码</value>
+    </property>
+    <property key="PartyOpenEvents">
+        <value xml:lang="en">Open Communications</value>
+        <value xml:lang="fr">Communications ouvertes</value>
+        <value xml:lang="it">Comunicazioni aperte</value>
+        <value xml:lang="th">เปิดการติดต่อ</value>
     </property>
     <property key="PartyOptional">
         <value xml:lang="de">Optional</value>
@@ -8436,6 +8470,12 @@
         <value xml:lang="ru">В корзину</value>
         <value xml:lang="th">ถึงบัตร</value>
         <value xml:lang="zh">到购物车</value>
+    </property>
+    <property key="PartyToComplete">
+        <value xml:lang="en">->Closed</value>
+        <value xml:lang="fr">->Fermé(e)</value>
+        <value xml:lang="it">->Chiuso</value>
+        <value xml:lang="th">เสร็จสิ้น</value>
     </property>
     <property key="PartyToContactMech">
         <value xml:lang="de">Zum Kontaktmechanismus</value>

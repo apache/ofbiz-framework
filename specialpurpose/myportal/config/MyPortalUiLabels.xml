@@ -34,12 +34,6 @@
         <value xml:lang="fr">Votre nom est absent</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
     </property>
-    <property key="MyPortalAllEvents">
-        <value xml:lang="en">All Communications</value>
-        <value xml:lang="fr">Toutes les communications</value>
-        <value xml:lang="it">Tutte le comunicazioni</value>
-        <value xml:lang="th">การติดต่อทั้งหมด</value>
-    </property>
     <property key="MyPortalAppBar">
         <value xml:lang="en">My Page App Bar</value>
         <value xml:lang="fr">Menu des applications</value>
@@ -57,12 +51,6 @@
         <value xml:lang="fr">Mes communications</value>
         <value xml:lang="it">Proprie comunicazioni</value>
         <value xml:lang="th">การติดต่อฉัน</value>
-    </property>
-    <property key="MyPortalCommunicationsOfParty">
-        <value xml:lang="en">Communications of party</value>
-        <value xml:lang="fr">Communications de l'acteur</value>
-        <value xml:lang="it">Comunicazioni del soggetto</value>
-        <value xml:lang="th">การติดต่อบุคคล</value>
     </property>
     <property key="MyPortalCompanyComms">
         <value xml:lang="en">Company communications</value>
@@ -93,18 +81,6 @@
         <value xml:lang="fr">Mon portail</value>
         <value xml:lang="it">Mio portale</value>
         <value xml:lang="th">ส่วนตัว</value>
-    </property>
-    <property key="MyPortalEmailsFromKnownOrigin">
-        <value xml:lang="en">Emails from known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine connue</value>
-        <value xml:lang="it">Emails da origine sconosciuta</value>
-        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
-    </property>
-    <property key="MyPortalEmailsFromUnknownOrigin">
-        <value xml:lang="en">Emails from known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
-        <value xml:lang="it">Emails da origini conosciuta</value>
-        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
     </property>
     <property key="MyPortalIncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
@@ -169,12 +145,6 @@
         <value xml:lang="fr">Mes demandes de clients en-cours</value>
         <value xml:lang="it">Proprie richieste clienti aperte</value>
         <value xml:lang="th">ความต้องการของลูกค้า</value>
-    </property>
-    <property key="MyPortalOpenEvents">
-        <value xml:lang="en">Open Communications</value>
-        <value xml:lang="fr">Communications ouvertes</value>
-        <value xml:lang="it">Comunicazioni aperte</value>
-        <value xml:lang="th">เปิดการติดต่อ</value>
     </property>
     <property key="MyPortalOtherCommunications">
         <value xml:lang="en">Other Communications</value>
@@ -251,12 +221,6 @@
         <value xml:lang="fr">Mes feuilles d'activité</value>
         <value xml:lang="it">Proprie timbrature</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
-    </property>
-    <property key="MyPortalToComplete">
-        <value xml:lang="en">->Closed</value>
-        <value xml:lang="fr">->Fermé(e)</value>
-        <value xml:lang="it">->Chiuso</value>
-        <value xml:lang="th">เสร็จสิ้น</value>
     </property>
     <property key="NewRegistration">
         <value xml:lang="en">New Registration </value>

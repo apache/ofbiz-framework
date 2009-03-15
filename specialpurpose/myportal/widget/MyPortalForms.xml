@@ -103,39 +103,6 @@ under the License.
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     
-    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
-        <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;toComplete&quot;:&quot;&quot;}"/>
-        </row-actions>
-        <field name="portalPageId"><hidden/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;portalPageId=${parameters.portalPageId}"/>
-        </field>
-        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;portalPageId=${portalPageId}"/>
-        </field>
-        <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.MyPortalToComplete}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
-            </display-entity>
-        </field>
-        <field name="createdStamp" entry-name="entryDate"/>
-    </form>
-    <form name="ListMyUnknownPartyEmails" type="multi"
-        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
-        <field name="portalPageId"><hidden/></field>
-        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="deleteCommunicationEvents?portalPageId=${parameters.portalPageId}"/>
-        </field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
-            <check />
-        </field>
-        <field name="deleteSelectedButton" widget-style="smallSubmit">
-            <submit />
-        </field>
-    </form>
-    
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
@@ -220,25 +187,6 @@ under the License.
         <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-
-    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
-         use-row-submit="true">
-        <actions>
-            <entity-condition entity-name="CommunicationEvent" list="commEvents">
-                <condition-list combine="and">
-                    <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
-                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
-                </condition-list>
-                <order-by field-name="-lastUpdatedStamp"/>
-            </entity-condition>
-        </actions>        
-        <field name="subject">
-            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
-        </field>
-        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;portalPageId=${portalPageId}"/>
-        </field>
     </form>
 
     <form name="MyPortalNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">

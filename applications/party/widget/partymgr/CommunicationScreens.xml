@@ -72,8 +72,6 @@ under the License.
                 <set field="partyIdFrom" value="${parameters.partyIdFrom}" default-value="${parameters.partyId}"/>
                 <set field="partyIdTo" value="${parameters.partyIdTo}" default-value="${parameters.partyId}"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListPartyCommEvents?partyId=${partyId}"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -674,6 +672,93 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- Portlet screens -->
+    <screen name="Communications">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+                <set field="partyId" from-field="parameters.partyId" default-value="${communicationPartyId}"/>
+                <set field="partyId" from-field="partyId" default-value="${userLogin.partyId}"/>
+                <set field="all" from-field="parameters.all"/>
+                <entity-condition entity-name="CommunicationEventAndRole"
+                    list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="not-equals"
+                            value="COM_UNKNOWN_PARTY" />
+                        <condition-expr field-name="statusId" operator="not-equals"
+                            value="COM_PENDING" />
+                        <condition-expr field-name="partyId" operator="equals"
+                            value="${partyId}" />
+                        <condition-expr field-name="roleStatusId"
+                            operator="not-equals" value="COM_ROLE_COMPLETED" ignore="${all}" />
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+                <entity-condition entity-name="CommunicationEventAndRole"
+                    list="commEventsUnknown">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="equals"
+                            value="COM_UNKNOWN_PARTY" />
+                        <condition-expr field-name="roleStatusId" operator="not-equals"
+                            value="COM_ROLE_COMPLETED" />
+                        <condition-expr field-name="partyId" operator="equals"
+                            value="${partyId}" />
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEventDraft">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="equals" 
+                            value="COM_PENDING"/>
+                        <condition-expr field-name="partyId" operator="equals" 
+                            value="${partyId}"/>                        
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
+                <entity-one entity-name="PartyNameView" value-field="partyName">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
+                    name="myComms">
+                    <include-menu name="communicationsMenu"
+                        location="component://party/widget/partymgr/PartyMenus.xml" />
+                    <section>
+                        <condition>
+                            <not>
+                                <if-empty field="commEventsUnknown" />
+                            </not>
+                        </condition>
+                        <widgets>
+                            <label style="h2" text="${uiLabelMap.PartyEmailsFromUnknownOrigin}"></label>
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="ListMyUnknownPartyEmails" />
+                        </widgets>
+                    </section>
+                    <label style="h2" text="${uiLabelMap.PartyEmailsFromKnownOrigin}"></label>
+                    <include-form name="ListPartyCommEvents"
+                        location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                        <section>
+                        <condition>
+                            <not>
+                                <if-empty field="commEventDraft" />
+                            </not>
+                        </condition>
+                        <widgets>
+                            <label style="h2" text="${uiLabelMap.PartyDraftEmails}"></label>
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="ListDraftEmails" />
+                        </widgets>
+                    </section>
+                </screenlet>
             </widgets>
         </section>
     </screen>
