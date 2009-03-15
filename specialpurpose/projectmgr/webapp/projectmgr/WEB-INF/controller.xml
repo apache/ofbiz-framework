@@ -667,7 +667,7 @@
     <request-map uri="EditPartyRates"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRates"/></request-map>
     <request-map uri="createPartyRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyRate"/>
+        <event type="service" invoke="updatePartyRate"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
@@ -787,7 +787,7 @@
     <request-map uri="EditPartyRates"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRates"/></request-map>
     <request-map uri="createPartyRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyRate"/>
+        <event type="service" invoke="updatePartyRate"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
