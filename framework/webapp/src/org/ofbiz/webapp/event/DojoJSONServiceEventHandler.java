@@ -21,7 +21,6 @@ package org.ofbiz.webapp.event;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,7 +34,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -69,7 +67,7 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         String respCode = service.invoke(null, requestMap, request, response);
 
         // pull out the service response from the request attribute
-        Map<String, Object> attrMap = getAttributesAsMap(request);
+        Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         if (dispatcher == null) {
@@ -138,21 +136,4 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         return respCode;
     }
 
-    private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
-        Map<String, Object> attrMap = FastMap.newInstance();
-        Enumeration<String> en = request.getAttributeNames();
-        while (en.hasMoreElements()) {
-            String name = (String) en.nextElement();
-            Object val = request.getAttribute(name);
-            if (val instanceof java.sql.Timestamp) {
-                val = val.toString();
-            }
-            if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List) {
-                if (Debug.verboseOn()) Debug.logVerbose("Adding attribute to JSON output: " + name, module);
-                attrMap.put(name, val);
-            }
-        }
-
-        return attrMap;
-    }
 }

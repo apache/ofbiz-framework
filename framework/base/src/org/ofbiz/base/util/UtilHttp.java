@@ -253,7 +253,28 @@ public class UtilHttp {
             return paramValue;
         }
     }
+    
+    /**
+     * Create a map from a HttpRequest (attributes) object used in JSON requests
+     * @return The resulting Map
+     */
+    public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
+        Map<String, Object> returnMap = FastMap.newInstance();
+        Map<String, Object> attrMap = getAttributeMap(request);
+        for (String key: attrMap.keySet()) {
+            Object val = attrMap.get(key);
+            if (val instanceof java.sql.Timestamp) {
+                val = val.toString();
+            }
+            if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List) {
+                if (Debug.verboseOn()) Debug.logVerbose("Adding attribute to JSON output: " + key, module);
+                returnMap.put(key, val);
+            }
+        }
 
+        return returnMap;
+    }
+    
     /**
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
