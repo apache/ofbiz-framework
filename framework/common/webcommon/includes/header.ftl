@@ -116,7 +116,7 @@ under the License.
               </li>
             </#list>
         <#else>
-           <li>sss${userLogin.userLoginId}</li>
+           <li>${userLogin.userLoginId}</li>
         </#if>
         <li class="control-area">
           <p class="collapsed">
