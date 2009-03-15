@@ -23,9 +23,6 @@ under the License.
     <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}" 
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
-        <menu-item name="Help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
-            <link target="http://docs.ofbiz.org/display/OFBENDUSER/My+Portal?decorator=printable" target-window="new"/>
-        </menu-item>
         <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
             <link target="ManagePortalPages?parentPortalPageId=${parameters.parentPortalPageId}"/>
         </menu-item>
