@@ -92,10 +92,12 @@
     <property key="ContentBlogArticle">
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
+        <value xml:lang="it">Articolo</value>
     </property>
     <property key="ContentBlogArticleList">
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
+        <value xml:lang="it">Lista degli articoli Blog</value>
     </property>
     <property key="ContentBlogDescription">
         <value xml:lang="en">Blog Description</value>
@@ -105,10 +107,12 @@
     <property key="ContentBlogEdit">
         <value xml:lang="en">Edit a Blog</value>
         <value xml:lang="fr">Modifier un blog</value>
+        <value xml:lang="it">Aggiorna un Blog</value>
     </property>
     <property key="ContentBlogList">
         <value xml:lang="en">List of Blogs</value>
         <value xml:lang="fr">Liste des blogs</value>
+        <value xml:lang="it">Lista dei Blog</value>
     </property>
     <property key="ContentBlogName">
         <value xml:lang="en">Blog Name</value>
@@ -123,6 +127,7 @@
     <property key="ContentBlogSummary">
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Summario</value>
+        <value xml:lang="it">Sommario</value>
     </property>
     <property key="ContentBlogs">
         <value xml:lang="en">Blogs</value>
@@ -131,7 +136,7 @@
     </property>
     <property key="ContentBrowse">
         <value xml:lang="en">Browse</value>
-        <value xml:lang="fr">Sfoglia</value>
+        <value xml:lang="it">Sfoglia</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -425,10 +430,12 @@
     <property key="ContentCreateNewBlog">
         <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
+        <value xml:lang="it">Creare nuovo Blog</value>
     </property>
     <property key="ContentCreateNewBlogArticle">
         <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
+        <value xml:lang="it">Creare nuovo articolo</value>
     </property>
     <property key="ContentDataBaseText">
         <value xml:lang="en">DataBase Text</value>
@@ -538,6 +545,7 @@
     <property key="ContentDeleteFolder">
         <value xml:lang="en">Delete Folder</value>
         <value xml:lang="fr">Suppression de répertoire</value>
+        <value xml:lang="it">Cancella cartella</value>
         <value xml:lang="th">ลบกล่อง</value>
     </property>
     <property key="ContentDocumentType">
@@ -1000,6 +1008,7 @@
     <property key="ContentRenameFolder">
         <value xml:lang="en">Rename Folder</value>
         <value xml:lang="fr">Renommer le répertoire</value>
+        <value xml:lang="it">Rinomina cartella</value>
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
     </property>
     <property key="ContentResourceAudio">
@@ -2151,10 +2160,6 @@
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
         <value xml:lang="zh">文件扩展标识</value>
     </property>
-    <property key="FormFieldTitle_ftlContentId">
-        <value xml:lang="en">Ftl Content Id</value>
-        <value xml:lang="it">Contenuto ftl</value>
-    </property>
     <property key="FormFieldTitle_formatString">
         <value xml:lang="en">Format String</value>
         <value xml:lang="fr">Format chaîne de caractères</value>
@@ -2239,6 +2244,10 @@
         <value xml:lang="ro">Forum </value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">论坛</value>
+    </property>
+    <property key="FormFieldTitle_ftlContentId">
+        <value xml:lang="en">Ftl Content Id</value>
+        <value xml:lang="it">Contenuto ftl</value>
     </property>
     <property key="FormFieldTitle_generalFeedback">
         <value xml:lang="ar">ردود عامة</value>
@@ -2579,6 +2588,13 @@
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
         <value xml:lang="zh">上级分类标识</value>
     </property>
+    <property key="FormFieldTitle_pasteContent">
+        <value xml:lang="de">Inhalt einfügen</value>
+        <value xml:lang="en">Paste Content</value>
+        <value xml:lang="fr">Coller le contenu</value>
+        <value xml:lang="it">Incolla Contenuto</value>
+        <value xml:lang="th">หัวข้อที่ผ่านมา</value>
+    </property>
     <property key="FormFieldTitle_pathAlias">
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="it">Path alias</value>
@@ -2586,13 +2602,6 @@
     <property key="FormFieldTitle_pathAliasTo">
         <value xml:lang="en">Path Alias To</value>
         <value xml:lang="it">Path alias a</value>
-    </property>
-    <property key="FormFieldTitle_pasteContent">
-        <value xml:lang="de">Inhalt einfügen</value>
-        <value xml:lang="en">Paste Content</value>
-        <value xml:lang="fr">Coller le contenu</value>
-        <value xml:lang="it">Incolla Contenuto</value>
-        <value xml:lang="th">หัวข้อที่ผ่านมา</value>
     </property>
     <property key="FormFieldTitle_pdfFileNameIn">
         <value xml:lang="ar">اسم ملف Pdf الداخل</value>
