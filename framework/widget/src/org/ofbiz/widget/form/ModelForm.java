@@ -2514,11 +2514,11 @@ public class ModelForm extends ModelWidget {
         return this.useRowSubmit;
     }
 
-    public List getMultiSubmitFields() {
+    public List<ModelFormField> getMultiSubmitFields() {
         return this.multiSubmitFields;
     }
 
-    public List getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
+    public List<Object> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
         ArrayList<Object> inbetweenList = new ArrayList<Object>();
         boolean firstFound = false;
         String startFieldGroupId = null;

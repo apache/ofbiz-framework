@@ -19,16 +19,21 @@
 package org.ofbiz.widget;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.form.ModelFormField;
 
 public class WidgetWorker {
 
@@ -36,32 +41,60 @@ public class WidgetWorker {
 
     public WidgetWorker () {}
 
-    public static void buildHyperlinkUrl(Appendable writer, String requestName, String targetType, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        String localRequestName = UtilHttp.encodeAmpersands(requestName);
+    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<ModelFormField.Parameter> parameterList, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+        String localRequestName = UtilHttp.encodeAmpersands(target);
+        Appendable localWriter = new StringWriter();
         
         if ("intra-app".equals(targetType)) {
-            appendOfbizUrl(writer, "/" + localRequestName, request, response);
+            appendOfbizUrl(localWriter, "/" + localRequestName, request, response);
         } else if ("inter-app".equals(targetType)) {
             String fullTarget = localRequestName;
-            writer.append(fullTarget);
+            localWriter.append(fullTarget);
             String externalLoginKey = (String) request.getAttribute("externalLoginKey");
             if (UtilValidate.isNotEmpty(externalLoginKey)) {
                 if (fullTarget.indexOf('?') == -1) {
-                    writer.append('?');
+                    localWriter.append('?');
                 } else {
-                    writer.append("&amp;");
+                    localWriter.append("&amp;");
                 }
-                writer.append("externalLoginKey=");
-                writer.append(externalLoginKey);
+                localWriter.append("externalLoginKey=");
+                localWriter.append(externalLoginKey);
             }
         } else if ("content".equals(targetType)) {
-            appendContentUrl(writer, localRequestName, request);
+            appendContentUrl(localWriter, localRequestName, request);
         } else if ("plain".equals(targetType)) {
-            writer.append(localRequestName);
+            localWriter.append(localRequestName);
         } else {
-            writer.append(localRequestName);
+            localWriter.append(localRequestName);
         }
-
+        
+        if (parameterList != null && parameterList.size() > 0) {
+            String localUrl = localWriter.toString();
+            externalWriter.append(localUrl);
+            boolean needsAmp = true;
+            if (localUrl.indexOf('?') == -1) {
+                externalWriter.append('?');
+                needsAmp = false;
+            }
+            
+            for (ModelFormField.Parameter parameter: parameterList) {
+                if (needsAmp) {
+                    externalWriter.append("&amp;");
+                } else {
+                    needsAmp = true;
+                }
+                externalWriter.append(parameter.getName());
+                externalWriter.append('=');
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    externalWriter.append(simpleEncoder.encode(parameter.getValue(context)));
+                } else {
+                    externalWriter.append(parameter.getValue(context));
+                }
+            }
+        } else {
+            externalWriter.append(localWriter.toString());
+        }
     }
 
     public static void appendOfbizUrl(Appendable writer, String location, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -78,7 +111,7 @@ public class WidgetWorker {
         writer.append(location);
     }
 
-    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow, String event, String action) throws IOException {
+    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<ModelFormField.Parameter> parameterList, String description, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow, String event, String action) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
 
@@ -90,7 +123,7 @@ public class WidgetWorker {
 
             writer.append(" href=\"");
 
-            buildHyperlinkUrl(writer, target, targetType, request, response, context);
+            buildHyperlinkUrl(writer, target, targetType, parameterList, request, response, context);
 
             writer.append("\"");
             
@@ -118,6 +151,85 @@ public class WidgetWorker {
 
             writer.append(description);
             writer.append("</a>");
+        }
+    }
+    
+    public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String event, String action, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
+            writer.append("<a");
+
+            if (UtilValidate.isNotEmpty(linkStyle)) {
+                writer.append(" class=\"");
+                writer.append(linkStyle);
+                writer.append("\"");
+            }
+
+            writer.append(" href=\"javascript:document.");
+            writer.append(makeLinkHiddenFormName(context, modelFormField));
+            writer.append(".submit()\"");
+            
+            if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
+                writer.append(" ");
+                writer.append(event);
+                writer.append("=\"");
+                writer.append(action);
+                writer.append('"');
+            }
+
+            writer.append('>');
+            
+            if (UtilValidate.isNotEmpty(request.getAttribute("image"))){
+                writer.append("<img src=\"");
+                writer.append(request.getAttribute("image").toString());
+                writer.append("\"/>");
+            }
+
+            writer.append(description);
+            writer.append("</a>");
+        }
+    }
+    
+    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<ModelFormField.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+        writer.append("<form method=\"post\"");
+        writer.append(" action=\"");
+        WidgetWorker.buildHyperlinkUrl(writer, target, targetType, null, request, response, context);
+        writer.append("\"");
+
+        if (UtilValidate.isNotEmpty(targetWindow)) {
+            writer.append(" target=\"");
+            writer.append(targetWindow);
+            writer.append("\"");
+        }
+
+        writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+
+        writer.append(" name=\"");
+        writer.append(makeLinkHiddenFormName(context, modelFormField));
+        writer.append("\">");
+
+        for (ModelFormField.Parameter parameter: parameterList) {
+            writer.append("<input name=\"");
+            writer.append(parameter.getName());
+            writer.append("\" value=\"");
+            writer.append(parameter.getValue(context));
+            writer.append("\" type=\"hidden\"/>");
+        }
+        
+        writer.append("</form>");
+    }
+    
+    public static String makeLinkHiddenFormName(Map<String, Object> context, ModelFormField modelFormField) {
+        ModelForm modelForm = modelFormField.getModelForm();
+        Integer itemIndex = (Integer) context.get("itemIndex");
+        String formName = (String) context.get("formName");
+        if (UtilValidate.isEmpty(formName)) {
+            formName = modelForm.getName();
+        }
+
+        if (itemIndex != null) {
+            return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue() + modelForm.getItemIndexSeparator() + modelFormField.getName();
+        } else {
+            return formName + modelForm.getItemIndexSeparator() + modelFormField.getName();
         }
     }
 }
