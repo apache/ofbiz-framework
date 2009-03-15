@@ -98,6 +98,8 @@ under the License.
 
 <#if defaultOrganizationPartyGroupName?has_content>
   <#assign orgName = " - " + defaultOrganizationPartyGroupName?if_exists>
+<#else>
+  <#assign orgName = "">
 </#if>
 
 <body>
@@ -112,7 +114,7 @@ under the License.
         <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
           <li class="logo-area">
             <#if shortcutIcon?has_content>
-              <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>"/></a>
+              <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>" height="16px" width="16px"/></a>
             </#if>
           </li>
         <#else>
@@ -130,7 +132,7 @@ under the License.
 
         <li class="control-area">
           <ul id="preferences-menu">
-            <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>
+            <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>            
             <li class="org">${orgName}</li>
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
             <#if userLogin?exists>
