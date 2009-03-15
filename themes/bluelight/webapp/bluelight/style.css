@@ -436,21 +436,29 @@ A IMG.imageborder {
     border: 0.1em solid #999999;
 }
 
-.eventMessage,.errorMessage {
-    background-color: #FFFFEE;
-    border: solid #000000 0.1em;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin: 1em;
-    padding: 1em;
+#messages-container {
+background-color: #FFFFFF;
+margin: 0 7px 0 7px;
+padding-bottom: 1em;
+}
+
+.eventMessage,
+.errorMessage {
+background-color: #B8DFFC;
+font-size: 1.3em;
+font-weight: bold;
+margin: 0 1em 0 1em;
+padding: 0 1em 0 1em;
 }
 
 .eventMessage {
-    color: #000099;
+color: #000099;
+border: solid 3px #000099;
 }
 
 .errorMessage {
-    color: #ff0000;
+color: #FF0000;
+border: solid 3px #FF0000;
 }
 
 .mediumSubmit,.largeSubmit,.loginButton {
