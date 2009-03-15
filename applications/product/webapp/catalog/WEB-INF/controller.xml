@@ -537,19 +537,19 @@ under the License.
     <request-map uri="createProductPrice">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductPrice"/>
-        <response name="success" type="view" value="EditProductPrices"/>
+        <response name="success" type="request-redirect" value="EditProductPrices"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
     <request-map uri="updateProductPrice">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateProductPrice"/>
-        <response name="success" type="view" value="EditProductPrices"/>
+        <response name="success" type="request-redirect" value="EditProductPrices"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
     <request-map uri="deleteProductPrice">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="deleteProductPrice"/>
-        <response name="success" type="view" value="EditProductPrices"/>
+        <response name="success" type="request-redirect" value="EditProductPrices"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
   <!-- ================ Category Content Requests ================= -->

@@ -44,7 +44,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.form">
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="type">
             <xs:annotation><xs:documentation>The form type is always required unless you are extending another form.</xs:documentation></xs:annotation>
             <xs:simpleType>
@@ -63,8 +63,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="target"/>
-        <xs:attribute type="xs:string" name="target-window"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="target-window" type="xs:string"/>
         <xs:attribute name="target-type" default="intra-app">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -75,15 +75,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute type="xs:string" name="style"/>
-        <xs:attribute type="xs:string" name="focus-field-name"/>
-        <xs:attribute type="xs:string" name="title"/>
-        <xs:attribute type="xs:string" name="tooltip"/>
-        <xs:attribute type="xs:string" name="list-name">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="style" type="xs:string"/>
+        <xs:attribute name="focus-field-name" type="xs:string"/>
+        <xs:attribute name="title" type="xs:string"/>
+        <xs:attribute name="tooltip" type="xs:string"/>
+        <xs:attribute name="list-name" type="xs:string">
             <xs:annotation><xs:documentation>for list type and other multiple data/form types this is the name of the list in the context to iterate over</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-entry-name">
+        <xs:attribute name="list-entry-name" type="xs:string">
             <xs:annotation><xs:documentation>if specified each list entry will be put in the context with this name; otherwise the list entry must be a Map and the entries in the Map will be put into the context by name</xs:documentation></xs:annotation>
         </xs:attribute>
         <!-- this is now deprecated, never made sense to separate anyway; use list-name instead <xs:attribute type="xs:string" name="list-iterator-name"/> -->
@@ -231,9 +231,9 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.alt-target">
-        <xs:attribute type="xs:string" name="use-when" use="required"/>
-        <xs:attribute type="xs:string" name="target"/>
-        <xs:attribute type="xs:string" name="target-type"/>
+        <xs:attribute name="use-when" type="xs:string" use="required"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="target-type" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="alt-row-style">
         <xs:annotation><xs:documentation>Active a style on a line if the use-when condition is validate</xs:documentation></xs:annotation>            
@@ -242,10 +242,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.alt-row-style">
-        <xs:attribute type="xs:string" name="use-when" use="required">
+        <xs:attribute name="use-when" type="xs:string" use="required">
             <xs:annotation><xs:documentation>Boolean expression tested for active the style on a line.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="style" use="required">
+        <xs:attribute name="style" type="xs:string" use="required">
             <xs:annotation><xs:documentation>If use-when return true, concat this style to existing style of the line.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
@@ -255,8 +255,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.auto-fields-service">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute name="service-name" type="xs:string" use="required"/>
+        <xs:attribute name="map-name" type="xs:string"/>
         <xs:attribute name="default-field-type" default="edit">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -267,7 +267,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:positiveInteger" name="default-position" default="1"/>
+        <xs:attribute name="default-position" type="xs:positiveInteger" default="1"/>
     </xs:attributeGroup>
     <xs:element name="auto-fields-entity">
         <xs:complexType>
@@ -275,8 +275,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.auto-fields-entity">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="map-name" type="xs:string"/>
         <xs:attribute name="default-field-type" default="edit">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -353,7 +353,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.sort-field">
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <!-- ================== Form Events ==================== -->
     <xs:attributeGroup name="attlist.on-form-event-update-area">
@@ -365,8 +365,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="area-id" use="required"/>
-        <xs:attribute type="xs:string" name="area-target" use="required"/>
+        <xs:attribute name="area-id" type="xs:string" use="required"/>
+        <xs:attribute name="area-target" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="on-event-update-area">
         <xs:annotation>
@@ -782,6 +782,9 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="hyperlink" substitutionGroup="AllFields">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.hyperlink"/>
         </xs:complexType>
     </xs:element>
@@ -792,6 +795,14 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="link-type" default="anchor">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="anchor"/>
+                    <xs:enumeration value="hidden-form"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -813,6 +824,16 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="target-window"/>
         <xs:attribute type="xs:string" name="image-location"/>
+    </xs:attributeGroup>
+    <xs:element name="parameter">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.parameter"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.parameter">
+        <xs:attribute type="xs:string" name="param-name" use="required"/>
+        <xs:attribute type="xs:string" name="from-field"/>
+        <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
     <xs:element name="ignored" substitutionGroup="AllFields">
         <xs:complexType/>

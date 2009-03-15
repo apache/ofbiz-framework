@@ -995,7 +995,7 @@ public class ModelFormField {
             }
             
             // search for a localized label for the field's name
-            Map<String, String> uiLabelMap = (Map) context.get("uiLabelMap");
+            Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
             if (uiLabelMap != null) {
                 String titleFieldName = "FormFieldTitle_" + this.name;
                 String localizedName = (String) uiLabelMap.get(titleFieldName);
@@ -2199,16 +2199,51 @@ public class ModelFormField {
             this.subHyperlink = newSubHyperlink;
         }
     }
+    
+    public static class Parameter {
+        protected String name;
+        protected FlexibleStringExpander value;
+        protected FlexibleMapAccessor<Object> fromField;
+
+        public Parameter(Element element) {
+            this.name = element.getAttribute("param-name");
+            this.value = UtilValidate.isNotEmpty(element.getAttribute("value")) ? FlexibleStringExpander.getInstance(element.getAttribute("value")) : null;
+            this.fromField = UtilValidate.isNotEmpty(element.getAttribute("from-field")) ? FlexibleMapAccessor.getInstance(element.getAttribute("from-field")) : null;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getValue(Map<String, Object> context) {
+            if (this.value != null) {
+                return this.value.expandString(context);
+            } else if (this.fromField != null) {
+                Object contextVal = this.fromField.get(context);
+                return contextVal.toString();
+            } else {
+                // as a last chance try finding a context field with the key of the name field
+                Object obj = context.get(this.name);
+                if (obj != null) {
+                    return obj.toString();
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
 
     public static class HyperlinkField extends FieldInfo {
         public static String DEFAULT_TARGET_TYPE = "intra-app";
 
         protected boolean alsoHidden = true;
+        protected String linkType;
         protected String targetType;
         protected String image;
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
+        protected List<Parameter> parameterList = FastList.newInstance();
 
         protected HyperlinkField() {
             super();
@@ -2228,9 +2263,15 @@ public class ModelFormField {
             this.setDescription(element.getAttribute("description"));
             this.setTarget(element.getAttribute("target"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
+            this.linkType = element.getAttribute("link-type");
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
             this.image = element.getAttribute("image-location");
+            
+            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
+            for (Element parameterElement: parameterElementList) {
+                this.parameterList.add(new Parameter(parameterElement));
+            }
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -2241,6 +2282,10 @@ public class ModelFormField {
             return this.alsoHidden;
         }
 
+        public String getLinkType() {
+            return this.linkType;
+        }
+        
         public String getTargetType() {
             if (UtilValidate.isNotEmpty(this.targetType)) {
                 return this.targetType;
@@ -2260,6 +2305,10 @@ public class ModelFormField {
 
         public String getTarget(Map<String, Object> context) {
             return this.target.expandString(context);
+        }
+        
+        public List<Parameter> getParameterList() {
+            return this.parameterList;
         }
         
         public String getImage() {

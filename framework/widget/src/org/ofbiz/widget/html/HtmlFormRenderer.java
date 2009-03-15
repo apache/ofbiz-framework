@@ -335,15 +335,20 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
     	this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-        this.makeHyperlinkString(
-            writer,
-            modelFormField.getWidgetStyle(),
-            hyperlinkField.getTargetType(),
-            hyperlinkField.getTarget(context),
-            hyperlinkField.getDescription(context),
-            hyperlinkField.getTargetWindow(context),
-            modelFormField.getEvent(),
-            modelFormField.getAction(context));
+        if ("hidden-form".equals(hyperlinkField.getLinkType())) {
+            if ("multi".equals(modelFormField.getModelForm().getType())) {
+                WidgetWorker.makeHyperlinkString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), this.request, this.response, context, hyperlinkField.getTargetWindow(context), modelFormField.getEvent(), modelFormField.getAction(context));
+                
+                //WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
+                // TODO: this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
+                //WidgetWorker.makeHiddenFormLinkForm(writer, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
+            } else {
+                WidgetWorker.makeHiddenFormLinkForm(writer, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
+            }
+        } else {
+            WidgetWorker.makeHyperlinkString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), this.request, this.response, context, hyperlinkField.getTargetWindow(context), modelFormField.getEvent(), modelFormField.getAction(context));
+        }
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
     }
@@ -354,19 +359,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
-            this.makeHyperlinkString(
-                writer,
-                subHyperlink.getLinkStyle(),
-                subHyperlink.getTargetType(),
-                subHyperlink.getTarget(context),
-                subHyperlink.getDescription(context),
-                subHyperlink.getTargetWindow(context),
-                null, null);
+            WidgetWorker.makeHyperlinkString(writer, subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context), null, subHyperlink.getDescription(context), this.request, this.response, context, subHyperlink.getTargetWindow(context), null, null);
         }
-    }
-
-    public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, String description, String targetWindow, String event, String action) throws IOException {
-        WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, description, this.request, this.response, null, targetWindow, event, action);
     }
 
     /* (non-Javadoc)
@@ -522,7 +516,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
         
-        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
@@ -872,7 +866,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             // list out all options according to the option list
-            Iterator optionValueIter = allOptionValues.iterator();
+            Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
             while (optionValueIter.hasNext()) {
                 ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
@@ -898,7 +892,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (otherFieldSize > 0) {
             
                 String fieldName = modelFormField.getParameterName(context);
-                Map dataMap = modelFormField.getMap(context);
+                Map<String, Object> dataMap = UtilGenerics.checkMap(modelFormField.getMap(context));
                 if (dataMap == null) {
                     dataMap = context;
                 }
@@ -956,12 +950,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
         
-        List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
         // list out all options according to the option list
-        Iterator optionValueIter = allOptionValues.iterator();
+        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
 
@@ -1008,13 +1002,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
         // list out all options according to the option list
-        Iterator optionValueIter = allOptionValues.iterator();
+        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
 
@@ -1296,7 +1290,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
+        renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
         writer.append("<form method=\"post\" ");
         String targetType = modelForm.getTargetType();
         String targ = modelForm.getTarget(context, targetType);
@@ -1305,7 +1299,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" action=\"");
         if (targ != null && targ.length() > 0) {
             //this.appendOfbizUrl(writer, "/" + targ);
-            WidgetWorker.buildHyperlinkUrl(writer, targ, targetType, request, response, context);
+            WidgetWorker.buildHyperlinkUrl(writer, targ, targetType, null, request, response, context);
         }
         writer.append("\" ");
 
@@ -1371,16 +1365,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("</script>");
         }
         appendWhitespace(writer);
-        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
+        renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        Iterator submitFields = modelForm.getMultiSubmitFields().iterator();
+        Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
         while (submitFields.hasNext()) {
-            ModelFormField submitField = (ModelFormField)submitFields.next();
+            ModelFormField submitField = (ModelFormField) submitFields.next();
             if (submitField != null) {
 
                 // Threw this in that as a hack to keep the submit button from expanding the first field
@@ -1974,7 +1968,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String opUpThruDay = UtilProperties.getMessage("conditional", "up_thru_day", locale);
         String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
 
-        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
@@ -2227,18 +2221,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append(appendExternalLoginKey(lookupField.getFormName(context)));
         writer.append("'");
-        List targetParameterList = lookupField.getTargetParameterList();
-        if (targetParameterList.size() > 0) {
-            Iterator targetParameterIter = targetParameterList.iterator();
-            while (targetParameterIter.hasNext()) {
-                String targetParameter = (String) targetParameterIter.next();
-                // named like: document.${formName}.${targetParameter}.value
-                writer.append(", document.");
-                writer.append(modelFormField.getModelForm().getCurrentFormName(context));
-                writer.append(".");
-                writer.append(targetParameter);
-                writer.append(".value");
-            }
+        List<String> targetParameterList = lookupField.getTargetParameterList();
+        for (String targetParameter: targetParameterList) {
+            // named like: document.${formName}.${targetParameter}.value
+            writer.append(", document.");
+            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(".");
+            writer.append(targetParameter);
+            writer.append(".value");
         }
         writer.append(");\">");
         writer.append("<img src=\"");
@@ -2292,7 +2282,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             return; 
         }
 
-        // get the parametrized pagination index and size fields
+        // get the parameterized pagination index and size fields
         int paginatorNumber = modelForm.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getPaginateIndexField(context);
         String viewSizeParam = modelForm.getPaginateSizeField(context);
@@ -2309,7 +2299,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (actualPageSize >= listSize && listSize >= 0) return;
 
         // needed for the "Page" and "rows" labels
-        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         String pageLabel = "";
         String commonDisplaying = "";
         if (uiLabelMap == null) {
@@ -2747,7 +2737,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 String expandToolTip = null;
                 String collapseToolTip = null;
                 Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
-                Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+                //Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
                 if (uiLabelMap != null) {
                     expandToolTip = (String) uiLabelMap.get("CommonExpand");
                     collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
@@ -2873,7 +2863,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                 targetType="plain";
             }
-            makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
+            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, this.request, this.response, null, null, null, null);
         } else if (modelFormField.isSortField()) {
             renderSortField (writer, context, modelFormField, titleText);        
         } else if (modelFormField.isRowSubmit()) {
