@@ -539,6 +539,18 @@
         <value xml:lang="th">สร้างการจัดแบ่งประเภทของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组分类</value>
     </property>
+    <property key="MarketingSegmentGroupClassificationCreatePermissionError">
+        <value xml:lang="en">Error on creation Segment Group Classification</value>
+        <value xml:lang="it">Errore durante la creazione di una nuova classificazione gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupClassificationDeletePermissionError">
+        <value xml:lang="en">Error on delete Segment Group Classification</value>
+        <value xml:lang="it">Errore durante la cancellazione di una classificazione gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupClassificationUpdatePermissionError">
+        <value xml:lang="en">Error on update Segment Group Classification</value>
+        <value xml:lang="it">Errore durante l'aggiornamento di una classificazione gruppo segmento</value>
+    </property>
     <property key="MarketingSegmentGroupCreate">
         <value xml:lang="en">Create New Segment Group</value>
         <value xml:lang="es">Nuevo segmento</value>
@@ -547,6 +559,14 @@
         <value xml:lang="ro">Creare Nou Grup Segment</value>
         <value xml:lang="th">สร้างส่วนของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组</value>
+    </property>
+    <property key="MarketingSegmentGroupCreatePermissionError">
+        <value xml:lang="en">Error on creation Segment Group</value>
+        <value xml:lang="it">Errore durante la creazione di un nuovo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupDeletePermissionError">
+        <value xml:lang="en">Error on delete Segment Group</value>
+        <value xml:lang="it">Errore durante la cancellazione di un gruppo segmento</value>
     </property>
     <property key="MarketingSegmentGroupDescription">
         <value xml:lang="de">Beschreibung</value>
@@ -567,6 +587,22 @@
         <value xml:lang="th">สร้างส่วนของโครงสร้างกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组地理</value>
     </property>
+    <property key="MarketingSegmentGroupGeoCreatePermissionError">
+        <value xml:lang="en">Error on creation Segment Group Geo</value>
+        <value xml:lang="it">Errore durante la creazione di una nuova geo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoDeletePermissionError">
+        <value xml:lang="en">Error on delete Segment Group Geo</value>
+        <value xml:lang="it">Errore durante la cancellazione di un geo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupGeoUpdatePermissionError">
+        <value xml:lang="en">Error on update Segment Group Geo</value>
+        <value xml:lang="it">Errore durante l'aggiornamento di un nuovo geo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupMgrViewPermissionError">
+        <value xml:lang="en">Segment Group View Permission Error</value>
+        <value xml:lang="it">Errore permesso di visualizzare i gruppi segmento</value>
+    </property>
     <property key="MarketingSegmentGroupNoSegmentGroupFoundWithId">
         <value xml:lang="en">No SegmentGroup found with ID:</value>
         <value xml:lang="es">No se encontraron segmentos con el ID:</value>
@@ -575,6 +611,10 @@
         <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
         <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
         <value xml:lang="zh">没有找到分区组，标识：</value>
+    </property>
+    <property key="MarketingSegmentGroupPartyClassificationGroupId">
+        <value xml:lang="en">Segment GroupParty ClassificationGroup Id</value>
+        <value xml:lang="it">Soggetto gruppo segmento classificazione</value>
     </property>
     <property key="MarketingSegmentGroupProductStoreId">
         <value xml:lang="de">Produktgeschäfts-ID</value>
@@ -594,6 +634,18 @@
         <value xml:lang="ro">Creare Nou Rol Grup Segment</value>
         <value xml:lang="th">สร้างสถานะของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组角色</value>
+    </property>
+    <property key="MarketingSegmentGroupRoleCreatePermissionError">
+        <value xml:lang="en">Error on creation Segment Group Role</value>
+        <value xml:lang="it">Errore durante la creazione di un nuovo ruolo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupRoleDeletePermissionError">
+        <value xml:lang="en">Error on delete Segment Group Role</value>
+        <value xml:lang="it">Errore durante la cancellazione di un nuovo ruolo gruppo segmento</value>
+    </property>
+    <property key="MarketingSegmentGroupRoleUpdatePermissionError">
+        <value xml:lang="en">Error on update Segment Group Role</value>
+        <value xml:lang="it">Errore durante l'aggiornamento di un nuovo ruolo gruppo segmento</value>
     </property>
     <property key="MarketingSegmentGroupSegmentGroup">
         <value xml:lang="en">Segment</value>
@@ -669,6 +721,10 @@
         <value xml:lang="ro">Tip Grup Segment</value>
         <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
         <value xml:lang="zh">分区组类型标识</value>
+    </property>
+    <property key="MarketingSegmentGroupUpdatePermissionError">
+        <value xml:lang="en">Error on update Segment Group</value>
+        <value xml:lang="it">Errore durante l'aggiornamento di un gruppo segmento</value>
     </property>
     <property key="MarketingServiceError">
         <value xml:lang="en">There was a problem processing your request.  Please try again.  If the problem persists, please contact us.</value>

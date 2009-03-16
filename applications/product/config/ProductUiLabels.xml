@@ -624,6 +624,14 @@
         <value xml:lang="it">Quantità Annullata</value>
         <value xml:lang="th">ยกเลิกจำนวน</value>
     </property>
+    <property key="FormFieldTitle_canclAutmExtTime">
+        <value xml:lang="en">The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</value>
+        <value xml:lang="it">Il periodo di tempo (prima della fine di thruedate) dopo che l'estensione automatica della sottoscrizione eseguita.</value>
+    </property>
+    <property key="FormFieldTitle_canclAutmExtTimeUomId">
+        <value xml:lang="en">The subscription will be extended at the end of the subscription period with a new order</value>
+        <value xml:lang="it">La sottoscrizione sarà estessa all fine del periodo della sottoscrizione con un nuovo ordine</value>
+    </property>
     <property key="FormFieldTitle_carrierId">
         <value xml:lang="de">Transportunternehmen ID</value>
         <value xml:lang="en">carrier Id</value>

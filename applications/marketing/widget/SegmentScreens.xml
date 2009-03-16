@@ -65,7 +65,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -182,7 +182,7 @@ under the License.
                                 <include-form name="listSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -224,7 +224,7 @@ under the License.
                                 <include-form name="listSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -266,7 +266,7 @@ under the License.
                                 <include-form name="listSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

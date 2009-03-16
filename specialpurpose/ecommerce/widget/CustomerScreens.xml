@@ -393,7 +393,7 @@ under the License.
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/digitalproductedit.ftl"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <container><label style="head2" text="Sorry, digital product upload is not enabled."></label></container>
+                                <container><label style="head2" text="${uiLabelMap.EcommerceSorryDigitalProductUploadNotEnabled}"></label></container>
                             </fail-widgets>
                         </section>
                     </decorator-section>

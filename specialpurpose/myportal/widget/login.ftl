@@ -52,7 +52,7 @@ under the License.
         <br/>
         <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
         <br/>
-        <a href="<@ofbizUrl>newRegisterLogin</@ofbizUrl>">${uiLabelMap.NewRegistration}</a>
+        <a href="<@ofbizUrl>newRegisterLogin</@ofbizUrl>">${uiLabelMap.MyPortalNewRegistration}</a>
       </form>
     </div>
   </div>

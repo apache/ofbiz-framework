@@ -275,7 +275,7 @@ under the License.
         <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
         <field name="thruDate"><date-time/></field>
@@ -299,7 +299,7 @@ under the License.
         <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
         <field name="thruDate"><date-time/></field>

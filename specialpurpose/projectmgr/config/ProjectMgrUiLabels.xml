@@ -281,6 +281,10 @@
         <value xml:lang="th">แก้ไขโปรเจค</value>
         <value xml:lang="zh">编辑项目</value>
     </property>
+    <property key="PageTitleEditProjectOrder">
+        <value xml:lang="en">Edit Project Order</value>
+        <value xml:lang="it">Aggiorna progetto ordine</value>
+    </property>
     <property key="PageTitleEditSkill">
         <value xml:lang="en">Edit Requirement</value>
         <value xml:lang="fr">Modifier le besoin</value>
@@ -752,6 +756,10 @@
         <value xml:lang="th">แผนผังคุมการกำหนดงาน</value>
         <value xml:lang="zh">甘特图</value>
     </property>
+    <property key="ProjectMgrListOrder">
+        <value xml:lang="en">List Order</value>
+        <value xml:lang="it">Lista Ordini</value>
+    </property>
     <property key="ProjectMgrMon">
         <value xml:lang="en">Mon</value>
         <value xml:lang="fr">lun</value>
@@ -1013,6 +1021,10 @@
         <value xml:lang="it">Rilascia</value>
         <value xml:lang="th">การยกเว้น</value>
         <value xml:lang="zh">发布</value>
+    </property>
+    <property key="ProjectMgrRemoveLinkFromProject">
+        <value xml:lang="en">Remove Link From The Project</value>
+        <value xml:lang="it">Rimuovi legame dal progetto</value>
     </property>
     <property key="ProjectMgrRequestWorkEffortList">
         <value xml:lang="en">Cust Request WorkEffort List</value>

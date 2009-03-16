@@ -797,6 +797,22 @@
         <value xml:lang="th">คำอธิบายประกอบ</value>
         <value xml:lang="zh">说明</value>
     </property>
+    <property key="ContentType.description.BLOG_ROOT">
+        <value xml:lang="en">Blog Root</value>
+        <value xml:lang="it">Blog principale</value>
+    </property>
+    <property key="ContentType.description.DECORATOR">
+        <value xml:lang="en">Decorator</value>
+        <value xml:lang="it">Decoratore</value>
+    </property>
+    <property key="ContentType.description.FAQ_ROOT">
+        <value xml:lang="en">FAQ Root</value>
+        <value xml:lang="it">FAQ principale</value>
+    </property>
+    <property key="ContentType.description.MENU_CONTAINER">
+        <value xml:lang="en">Menu Container</value>
+        <value xml:lang="it">Contenitore menu</value>
+    </property>
     <property key="ContentType.description.COMPDOC_INSTANCE">
         <value xml:lang="de">Zusammengesetzte Dokumenteninstanz</value>
         <value xml:lang="en">Composite Document Instance</value>
