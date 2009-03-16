@@ -169,7 +169,7 @@ under the License.
         <auto-fields-service service-name="updateSurveyQuestion" map-name="surveyQuestion"/>
 
         <field name="surveyId"><hidden/></field>
-        <field name="surveyQuestionSeqId" title="Question #"><display/></field>
+        <field name="surveyQuestionSeqId" title="${uiLabelMap.ContentSurveyQuestionNumber}"><display/></field>
 
         <!-- <field name="surveyQuestionTypeId" title="Question Type"><display description="${surveyQuestionType.description}"/></field> -->
         <field name="surveyQuestionTypeId">

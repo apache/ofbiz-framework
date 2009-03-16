@@ -87,4 +87,8 @@
         <value xml:lang="en">Work List</value>
         <value xml:lang="it">Lista lavoro</value>
     </property>
+    <property key="SharkXPDLRepository">
+        <value xml:lang="en">XPDL Repository</value>
+        <value xml:lang="it">Repository XPDL</value>
+    </property>
 </resource>

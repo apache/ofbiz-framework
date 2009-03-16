@@ -118,7 +118,7 @@
             </condition>
             <link target="EditProjectTasks?projectId=${projectId}"/>
         </menu-item>    
-        <menu-item name="orders" title="${uiLabelMap.Orders}">
+        <menu-item name="orders" title="${uiLabelMap.OrderOrders}">
             <condition>
                 <and>
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>

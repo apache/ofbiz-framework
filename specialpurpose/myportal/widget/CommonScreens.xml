@@ -179,7 +179,7 @@ under the License.
                                 <set field="partyId" from-field="parameters.partyId"/>
                             </actions>
                             <widgets>
-                                <label style="h2" text="${uiLabelMap.RegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
+                                <label style="h2" text="${uiLabelMap.MyPortalRegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}">
                                     <include-form name="ViewPartyPerson" location="component://myportal/widget/MyPortalForms.xml"/>
                                 </screenlet> 
@@ -188,7 +188,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.NewRegistration}"/>
+                                            <label text="${uiLabelMap.MyPortalNewRegistration}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">

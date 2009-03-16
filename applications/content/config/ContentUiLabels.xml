@@ -1318,6 +1318,10 @@
         <value xml:lang="th">คำถาม</value>
         <value xml:lang="zh">问题</value>
     </property>
+    <property key="ContentSurveyQuestionNumber">
+        <value xml:lang="en">Question #</value>
+        <value xml:lang="it">Domanda #</value>
+    </property>
     <property key="ContentSurveyQuestions">
         <value xml:lang="ar">أسئلة</value>
         <value xml:lang="de">Fragen</value>

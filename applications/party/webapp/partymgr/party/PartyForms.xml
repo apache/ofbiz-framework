@@ -933,6 +933,6 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="submit" title=" "><submit/></field>
+        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
 </forms>

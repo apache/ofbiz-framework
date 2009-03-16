@@ -123,6 +123,10 @@
         <value xml:lang="th">รหัสประเภทผลการติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通事件类型标识</value>
     </property>
+    <property key="FormFieldTitle_communicationPartyId">
+        <value xml:lang="en">Communication Party Id</value>
+        <value xml:lang="it">Soggetto comuicazione</value>
+    </property>
     <property key="FormFieldTitle_contactListId">
         <value xml:lang="de">Kontaktliste ID</value>
         <value xml:lang="en">Contact List Id</value>

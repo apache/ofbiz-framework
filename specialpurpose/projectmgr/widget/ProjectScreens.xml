@@ -320,7 +320,7 @@ under the License.
                         <screenlet title="${uiLabelMap.OrderFindOrder}">
                             <include-form name="FindOrders" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
-                        <screenlet title="List Order">
+                        <screenlet title="${uiLabelMap.ProjectMgrListOrder}">
                             <include-form name="ListOrderInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -643,7 +643,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <screenlet title="List Order">
+                <screenlet title="${uiLabelMap.ProjectMgrListOrder}">
                     <include-form name="ListOrderInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                 </screenlet>
             </widgets>

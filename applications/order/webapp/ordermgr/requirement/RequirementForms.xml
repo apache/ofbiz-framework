@@ -97,7 +97,7 @@ under the License.
         <field name="ordersLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonOrders}" target="ListRequirementOrders?requirementId=${requirementId}"/>
         </field>
-        <field name="deleteLink" widget-style="buttontext" title=" ">
+        <field name="deleteLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement?requirementId=${requirementId}"/>
         </field>
     </form>
