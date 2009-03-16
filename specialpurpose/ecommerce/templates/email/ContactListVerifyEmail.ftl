@@ -20,14 +20,14 @@ under the License.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${title}</title>
+    <title>${title!}</title>
     <#-- this needs to be fully qualified to appear in email; the server must also be available -->
     <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
 </head>
 <body>
 
 <#-- custom logo or text can be inserted here -->
-<h1>${title}</h1>
+<h1>${title!}</h1>
 <#if note?exists><p class="tabletext">${note}</p></#if>
 
 <p class="tabletext">Hello ${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}!</p>
