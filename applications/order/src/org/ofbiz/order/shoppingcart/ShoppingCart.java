@@ -3446,6 +3446,7 @@ public class ShoppingCart implements Serializable {
 
                 orderItem.set("shipBeforeDate", item.getShipBeforeDate());
                 orderItem.set("shipAfterDate", item.getShipAfterDate());
+                orderItem.set("estimatedShipDate", item.getEstimatedShipDate());
 
                 String fromInventoryItemId = (String) item.getAttribute("fromInventoryItemId");
                 if (fromInventoryItemId != null) {
@@ -4257,8 +4258,8 @@ public class ShoppingCart implements Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public LinkedHashMap shipItemInfo = new LinkedHashMap();
-        public List shipTaxAdj = new LinkedList();
+        public Map<Object, Object> shipItemInfo = FastMap.newInstance();
+        public List<GenericValue> shipTaxAdj = FastList.newInstance();
         public String orderTypeId = null;
         private String internalContactMechId = null;
         public String shipmentMethodTypeId = null;
@@ -4337,6 +4338,36 @@ public class ShoppingCart implements Serializable {
             
             values.add(shipGroup);
 
+            //set estimated ship dates
+            FastList estimatedShipDates = FastList.newInstance();
+            for (Map.Entry<Object, Object> entry : shipItemInfo.entrySet()) {
+                ShoppingCartItem item = (ShoppingCartItem) entry.getKey();
+                Timestamp estimatedShipDate = item.getEstimatedShipDate();
+                if (estimatedShipDate != null) {
+                    estimatedShipDates.add(estimatedShipDate);
+                }
+            }
+            if (estimatedShipDates.size() > 0) {
+                Collections.sort(estimatedShipDates);
+                Timestamp estimatedShipDate  = (Timestamp) estimatedShipDates.getLast();
+                shipGroup.set("estimatedShipDate", estimatedShipDate);
+            }
+    
+            //set estimated delivery dates
+            FastList estimatedDeliveryDates = FastList.newInstance();
+            for (Map.Entry <Object, Object> entry : shipItemInfo.entrySet()) {
+                ShoppingCartItem item = (ShoppingCartItem) entry.getKey();
+                Timestamp estimatedDeliveryDate = item.getDesiredDeliveryDate();
+                if (estimatedDeliveryDate != null) {
+                    estimatedDeliveryDates.add(estimatedDeliveryDate);
+                }
+            }
+            if (UtilValidate.isNotEmpty(estimatedDeliveryDates)) {
+                Collections.sort(estimatedDeliveryDates);
+                Timestamp estimatedDeliveryDate = (Timestamp) estimatedDeliveryDates.getLast();
+                shipGroup.set("estimatedDeliveryDate", estimatedDeliveryDate);
+            }
+    
             // create the shipping estimate adjustments
             if (shipEstimate.compareTo(BigDecimal.ZERO) != 0) {
                 GenericValue shipAdj = delegator.makeValue("OrderAdjustment");

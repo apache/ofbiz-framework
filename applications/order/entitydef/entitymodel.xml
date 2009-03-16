@@ -805,6 +805,8 @@ under the License.
       <field name="isGift" type="indicator"></field>
       <field name="shipAfterDate" type="date-time"></field>
       <field name="shipByDate" type="date-time"></field>
+      <field name="estimatedShipDate" type="date-time"></field>
+      <field name="estimatedDeliveryDate" type="date-time"></field>
       <prim-key field="orderId"/>
       <prim-key field="shipGroupSeqId"/>
       <relation type="one" fk-name="ORDER_ITSG_ORDH" rel-entity-name="OrderHeader">
