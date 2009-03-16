@@ -270,10 +270,7 @@ public class UtilMisc {
     /**
      * Assuming theMap not null; if null will throw a NullPointerException 
      */
-    public static <K> void addToBigDecimalInMap(Map<K, Object> theMap, K mapKey, BigDecimal addNumber) {
-        if (addNumber == null || ZERO_BD.equals(addNumber)) {
-            return;
-        }
+    public static <K> BigDecimal addToBigDecimalInMap(Map<K, Object> theMap, K mapKey, BigDecimal addNumber) {
         Object currentNumberObj = theMap.get(mapKey);
         BigDecimal currentNumber = null;
         if (currentNumberObj == null) {
@@ -288,8 +285,12 @@ public class UtilMisc {
             throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
         }
         
+        if (addNumber == null || ZERO_BD.equals(addNumber)) {
+            return currentNumber;
+        }
         currentNumber = currentNumber.add(addNumber);
         theMap.put(mapKey, currentNumber);
+        return currentNumber;
     }
 
     public static <T> T removeFirst(List<T> lst) {

@@ -31,10 +31,13 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
+import org.w3c.dom.Element;
 
 public class WidgetWorker {
 
@@ -42,12 +45,22 @@ public class WidgetWorker {
 
     public WidgetWorker () {}
 
-    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<ModelFormField.Parameter> parameterList, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<WidgetWorker.Parameter> parameterList, 
+            String prefix, boolean fullPath, boolean secure, boolean encode, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String localRequestName = UtilHttp.encodeAmpersands(target);
         Appendable localWriter = new StringWriter();
         
         if ("intra-app".equals(targetType)) {
-            appendOfbizUrl(localWriter, "/" + localRequestName, request, response);
+            if (request != null && response != null) {
+                ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
+                RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
+                externalWriter.append(rh.makeLink(request, response, "/" + localRequestName, fullPath, secure, encode));
+            } else if (prefix != null) {
+                externalWriter.append(prefix);
+                externalWriter.append(localRequestName);
+            } else {
+                externalWriter.append(localRequestName);
+            }
         } else if ("inter-app".equals(targetType)) {
             String fullTarget = localRequestName;
             localWriter.append(fullTarget);
@@ -78,7 +91,7 @@ public class WidgetWorker {
                 needsAmp = false;
             }
             
-            for (ModelFormField.Parameter parameter: parameterList) {
+            for (WidgetWorker.Parameter parameter: parameterList) {
                 if (needsAmp) {
                     externalWriter.append("&amp;");
                 } else {
@@ -98,13 +111,6 @@ public class WidgetWorker {
         }
     }
 
-    public static void appendOfbizUrl(Appendable writer, String location, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-        // make and append the link
-        writer.append(rh.makeLink(request, response, location));
-    }
-
     public static void appendContentUrl(Appendable writer, String location, HttpServletRequest request) throws IOException {
         StringBuffer buffer = new StringBuffer();
         ContentUrlTag.appendContentPrefix(request, buffer);
@@ -113,10 +119,10 @@ public class WidgetWorker {
     }
 
     public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, 
-            List<ModelFormField.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField, 
+            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField, 
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if ("hidden-form".equals(linkType)) {
-            if ("multi".equals(modelFormField.getModelForm().getType())) {
+            if (modelFormField != null && "multi".equals(modelFormField.getModelForm().getType())) {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
@@ -137,7 +143,7 @@ public class WidgetWorker {
         
     }
     
-    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<ModelFormField.Parameter> parameterList, 
+    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList, 
             String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow) 
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
@@ -151,7 +157,7 @@ public class WidgetWorker {
 
             writer.append(" href=\"");
 
-            buildHyperlinkUrl(writer, target, targetType, parameterList, request, response, context);
+            buildHyperlinkUrl(writer, target, targetType, parameterList, null, false, false, true, request, response, context);
 
             writer.append("\"");
             
@@ -217,10 +223,11 @@ public class WidgetWorker {
         }
     }
     
-    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<ModelFormField.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<WidgetWorker.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         writer.append("<form method=\"post\"");
         writer.append(" action=\"");
-        WidgetWorker.buildHyperlinkUrl(writer, target, targetType, null, request, response, context);
+        // note that this passes null for the parameterList on purpose so they won't be put into the URL
+        WidgetWorker.buildHyperlinkUrl(writer, target, targetType, null, null, false, false, true, request, response, context);
         writer.append("\"");
 
         if (UtilValidate.isNotEmpty(targetWindow)) {
@@ -235,7 +242,7 @@ public class WidgetWorker {
         writer.append(makeLinkHiddenFormName(context, modelFormField));
         writer.append("\">");
 
-        for (ModelFormField.Parameter parameter: parameterList) {
+        for (WidgetWorker.Parameter parameter: parameterList) {
             writer.append("<input name=\"");
             writer.append(parameter.getName());
             writer.append("\" value=\"");
@@ -258,6 +265,39 @@ public class WidgetWorker {
             return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue() + modelForm.getItemIndexSeparator() + modelFormField.getName();
         } else {
             return formName + modelForm.getItemIndexSeparator() + modelFormField.getName();
+        }
+    }
+
+    public static class Parameter {
+        protected String name;
+        protected FlexibleStringExpander value;
+        protected FlexibleMapAccessor<Object> fromField;
+
+        public Parameter(Element element) {
+            this.name = element.getAttribute("param-name");
+            this.value = UtilValidate.isNotEmpty(element.getAttribute("value")) ? FlexibleStringExpander.getInstance(element.getAttribute("value")) : null;
+            this.fromField = UtilValidate.isNotEmpty(element.getAttribute("from-field")) ? FlexibleMapAccessor.getInstance(element.getAttribute("from-field")) : null;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getValue(Map<String, Object> context) {
+            if (this.value != null) {
+                return this.value.expandString(context);
+            } else if (this.fromField != null) {
+                Object contextVal = this.fromField.get(context);
+                return contextVal.toString();
+            } else {
+                // as a last chance try finding a context field with the key of the name field
+                Object obj = context.get(this.name);
+                if (obj != null) {
+                    return obj.toString();
+                } else {
+                    return null;
+                }
+            }
         }
     }
 }

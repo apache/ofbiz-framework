@@ -820,6 +820,7 @@ under the License.
     <xs:element name="link" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
                 <xs:element minOccurs="0" ref="image"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.link"/>
@@ -833,6 +834,14 @@ under the License.
         <xs:attribute type="xs:string" name="name"/>
         <xs:attribute type="xs:string" name="target-window"/>
         <xs:attribute type="xs:string" name="prefix"/>
+        <xs:attribute name="link-type" default="anchor">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="anchor"/>
+                    <xs:enumeration value="hidden-form"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="url-mode" default="intra-app">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -868,6 +877,17 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="parameter">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.parameter"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.parameter">
+        <xs:attribute type="xs:string" name="param-name" use="required"/>
+        <xs:attribute type="xs:string" name="from-field"/>
+        <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>
+    
     <xs:element name="screenlet" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>

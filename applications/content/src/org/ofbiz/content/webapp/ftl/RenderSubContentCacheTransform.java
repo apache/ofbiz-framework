@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +42,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.widget.WidgetWorker;
 
 import freemarker.core.Environment;
@@ -264,7 +266,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
               
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
                 out.write("<a href=\"");
-                WidgetWorker.appendOfbizUrl(out, fullRequest, request, response);
+                ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
+                RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
+                out.append(rh.makeLink(request, response, "/" + fullRequest, false, false, true));
                 out.write("\">Edit</a>");
                 out.write("</div>");
             }

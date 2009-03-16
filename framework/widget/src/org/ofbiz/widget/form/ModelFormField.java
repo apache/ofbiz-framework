@@ -61,6 +61,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
 import org.w3c.dom.Element;
 
@@ -2200,39 +2201,6 @@ public class ModelFormField {
         }
     }
     
-    public static class Parameter {
-        protected String name;
-        protected FlexibleStringExpander value;
-        protected FlexibleMapAccessor<Object> fromField;
-
-        public Parameter(Element element) {
-            this.name = element.getAttribute("param-name");
-            this.value = UtilValidate.isNotEmpty(element.getAttribute("value")) ? FlexibleStringExpander.getInstance(element.getAttribute("value")) : null;
-            this.fromField = UtilValidate.isNotEmpty(element.getAttribute("from-field")) ? FlexibleMapAccessor.getInstance(element.getAttribute("from-field")) : null;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getValue(Map<String, Object> context) {
-            if (this.value != null) {
-                return this.value.expandString(context);
-            } else if (this.fromField != null) {
-                Object contextVal = this.fromField.get(context);
-                return contextVal.toString();
-            } else {
-                // as a last chance try finding a context field with the key of the name field
-                Object obj = context.get(this.name);
-                if (obj != null) {
-                    return obj.toString();
-                } else {
-                    return null;
-                }
-            }
-        }
-    }
-
     public static class HyperlinkField extends FieldInfo {
         public static String DEFAULT_TARGET_TYPE = "intra-app";
 
@@ -2243,7 +2211,7 @@ public class ModelFormField {
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
-        protected List<Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
         protected HyperlinkField() {
             super();
@@ -2270,7 +2238,7 @@ public class ModelFormField {
             
             List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
             for (Element parameterElement: parameterElementList) {
-                this.parameterList.add(new Parameter(parameterElement));
+                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
         }
 
@@ -2307,7 +2275,7 @@ public class ModelFormField {
             return this.target.expandString(context);
         }
         
-        public List<Parameter> getParameterList() {
+        public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
         }
         
@@ -2352,7 +2320,7 @@ public class ModelFormField {
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
-        protected List<Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
         protected ModelFormField modelFormField;
 
         public SubHyperlink(Element element, ModelFormField modelFormField) {
@@ -2366,16 +2334,12 @@ public class ModelFormField {
             
             List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
             for (Element parameterElement: parameterElementList) {
-                this.parameterList.add(new Parameter(parameterElement));
+                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
             
             this.modelFormField = modelFormField;
         }
 
-        public String getLinkType() {
-            return this.linkType;
-        }
-        
         public String getLinkStyle() {
             return this.linkStyle;
         }
@@ -2409,7 +2373,11 @@ public class ModelFormField {
             }
         }
         
-        public List<Parameter> getParameterList() {
+        public String getLinkType() {
+            return this.linkType;
+        }
+        
+        public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
         }
 
