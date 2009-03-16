@@ -92,6 +92,7 @@ under the License.
         <implements service="interfaceWorkEffort"/>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/>
         <attribute name="templateId" type="String" mode="IN" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
