@@ -22,16 +22,19 @@
     <property key="CaptchaMissingError">
         <value xml:lang="en">Verify code captcha is missing or wrong</value>
         <value xml:lang="fr">Vérifier le code captcha, il est absent ou erroné</value>
+        <value xml:lang="it">Verifica il codice captcha, è mancante o errato</value>
         <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
     </property>
     <property key="FirstName_Missing">
         <value xml:lang="en">Your firstName is missing</value>
         <value xml:lang="fr">Votre prénom est absent</value>
+        <value xml:lang="it">Nome mancante</value>
         <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
     </property>
     <property key="LastName_Missing">
         <value xml:lang="en">Your lastname is missing</value>
         <value xml:lang="fr">Votre nom est absent</value>
+        <value xml:lang="it">Cognome mancante</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
     </property>
     <property key="MyPortalAppBar">
@@ -43,13 +46,13 @@
     <property key="MyPortalCommunicationEventId">
         <value xml:lang="en">Communication Event id:</value>
         <value xml:lang="fr">Réf. d'évènement de comm.</value>
-        <value xml:lang="it">Evenuto comunicazioni:</value>
+        <value xml:lang="it">Evento comunicazione:</value>
         <value xml:lang="th">เหตุการณ์ที่ทำการติดต่อ</value>
     </property>
     <property key="MyPortalCommunications">
         <value xml:lang="en">My Communications</value>
         <value xml:lang="fr">Mes communications</value>
-        <value xml:lang="it">Proprie comunicazioni</value>
+        <value xml:lang="it">Mie comunicazioni</value>
         <value xml:lang="th">การติดต่อฉัน</value>
     </property>
     <property key="MyPortalCompanyComms">
@@ -73,7 +76,7 @@
     <property key="MyPortalCustRequests">
         <value xml:lang="en">My customer requests</value>
         <value xml:lang="fr">Mes demandes utilisateur</value>
-        <value xml:lang="it">Proprie richieste cliente</value>
+        <value xml:lang="it">Mie richieste cliente</value>
         <value xml:lang="th">ลูกค้าเรียกร้อง</value>
     </property>
     <property key="MyPortalDashboard">
@@ -91,16 +94,16 @@
     <property key="MyPortalInformation">
         <value xml:lang="en">My Information</value>
         <value xml:lang="fr">Mes informations </value>
-        <value xml:lang="it">Proprie informazioni</value>
+        <value xml:lang="it">Mie informazioni</value>
         <value xml:lang="th">ข้อมูลของฉัน</value>
     </property>
     <property key="MyPortalMyTasks">
         <value xml:lang="en">myTasks</value>
-        <value xml:lang="it">Propri compiti</value>
+        <value xml:lang="it">Miei compiti</value>
     </property>
     <property key="MyPortalMyTime">
         <value xml:lang="en">myTime</value>
-        <value xml:lang="it">Propri tempo</value>
+        <value xml:lang="it">Mio tempo</value>
     </property>
     <property key="MyPortalNewMessage">
         <value xml:lang="en">New Message</value>
@@ -111,33 +114,33 @@
     <property key="MyPortalNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
         <value xml:lang="fr">Aucun accès privilégié n'a été paramétré.</value>
-        <value xml:lang="it">Nessun accesso privilegiato è stato configurato.</value>
+        <value xml:lang="it">Non è stato configurato nessun accesso privilegiato.</value>
         <value xml:lang="th">ไม่สามารถเข้าไปติดตั้งระบบ</value>
     </property>
     <property key="MyPortalNoAccess2">
         <value xml:lang="en">You do not have access to any functions in the MyPortal subsystem, please contact your system admin</value>
         <value xml:lang="fr">Vous n'avez accès à aucune fonction dans l'application "Mon portail", contactez votre administrateur système SVP.</value>
-        <value xml:lang="it">Tu non hai l'accesso a queste funzioni nel sottosistam mia pagina, perfavore contattare il tuo amministratore di sistema</value>
+        <value xml:lang="it">Non hai l'accesso alle funzioni nel sottosistam Mia pagina, per favore contatta l'amministratore del sistema</value>
         <value xml:lang="th">ท่านไม่เข้าถึงฟังก์ชันการทำงานส่วนอื่นๆใน MyPortal ได้,
             กรุณาติดต่อผู้ดูแลระบบของท่าน</value>
     </property>
     <property key="MyPortalNoAccess3">
         <value xml:lang="en">At least MyPortal_CUSTOMER or MyPortal_EMPLOYEE permission is required</value>
         <value xml:lang="fr">Au moins une autorisation MyPortal_CUSTOMER ou MyPortal_EMPLOYEE est nécessaire</value>
-        <value xml:lang="it">Al minimo il permesso MyPortal_CUSTOMER o MyPortal_EMPLOYEE è richiesto</value>
+        <value xml:lang="it">E' richiesto almeno il permesso MyPortal_CUSTOMER o MyPortal_EMPLOYEE</value>
         <value xml:lang="th">อย่างน้อยที่สุด MyPortal_CUSTOMER หรือ MyPortal_EMPLOYEE
             ถูกกำหนดการใข้สิทธิ์ </value>
     </property>
     <property key="MyPortalNoAccess4">
         <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a demo.</value>
         <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee'pour une démonstration.</value>
-        <value xml:lang="it">Usare l'utente demo come 'DemoCustomer' e 'DemoEmployee' per una dimostrazione.</value>
+        <value xml:lang="it">Usare l'utente 'DemoCustomer' o 'DemoEmployee' per una dimostrazione.</value>
         <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
     </property>
     <property key="MyPortalNoAccess">
         <value xml:lang="en">You do not have access to this information</value>
         <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
-        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
+        <value xml:lang="it">Non hai l'accesso a queste informazioni</value>
         <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
     </property>
     <property key="MyPortalOpenCustomerRequests">
@@ -177,31 +180,31 @@
     <property key="MyPortalSendMailEveryCust">
         <value xml:lang="en">Send Email To Every Customer Request Change</value>
         <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>
-        <value xml:lang="it">Invia email ad ogni cliente per le modifiche sulla richiesta</value>
+        <value xml:lang="it">Invia email ad ogni modifica della richiesta cliente</value>
         <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
     </property>
     <property key="MyPortalTaskActEndDate">
         <value xml:lang="en">Task Act End</value>
         <value xml:lang="fr">Fin réelle de de la tâche</value>
-        <value xml:lang="it">Attuale data fine compito</value>
+        <value xml:lang="it">Fine compito effettiva</value>
         <value xml:lang="th">เสร็จสิ้นการทำ</value>
     </property>
     <property key="MyPortalTaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
         <value xml:lang="fr">Début réel de de la tâche</value>
-        <value xml:lang="it">Attuale data inizio compito</value>
+        <value xml:lang="it">Inizio compito effettivo</value>
         <value xml:lang="th">เรื่มต้นการทำ</value>
     </property>
     <property key="MyPortalTaskPlanEndDate">
         <value xml:lang="en">Task Plan End</value>
         <value xml:lang="fr">Fin prévue de la tâche</value>
-        <value xml:lang="it">Datta fine pianificata compito</value>
+        <value xml:lang="it">Fine compito pianificata</value>
         <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
     </property>
     <property key="MyPortalTaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
         <value xml:lang="fr">Début prévu de la tâche</value>
-        <value xml:lang="it">Data inizio pianificata compito</value>
+        <value xml:lang="it">Inizio compito pianificato</value>
         <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
     </property>
     <property key="MyPortalTaskStatus">
@@ -213,18 +216,19 @@
     <property key="MyPortalTasks">
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes Tâches</value>
-        <value xml:lang="it">Propri compiti</value>
+        <value xml:lang="it">Miei compiti</value>
         <value xml:lang="th">งานของฉัน</value>
     </property>
     <property key="MyPortalTimeSheets">
         <value xml:lang="en">My Time Sheets</value>
         <value xml:lang="fr">Mes feuilles d'activité</value>
-        <value xml:lang="it">Proprie timbrature</value>
+        <value xml:lang="it">Mie timbrature</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
     </property>
     <property key="NewRegistration">
         <value xml:lang="en">New Registration </value>
         <value xml:lang="fr">Nouvel enregistrement</value>
+        <value xml:lang="it">Nuovo utente</value>
         <value xml:lang="th">ลงทะเบียน </value>
     </property>
     <property key="PageTitleMyPortal">
@@ -242,26 +246,31 @@
     <property key="PicCaptcha">
         <value xml:lang="en">Code Captcha</value>
         <value xml:lang="fr">Code captcha</value>
+        <value xml:lang="it">Codice captcha</value>
         <value xml:lang="th">รหัสตรวจสอบ</value>
     </property>
     <property key="RegisterComplete">
         <value xml:lang="en">Register of new person is complete...Please </value>
         <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
+        <value xml:lang="it">Creazione nuovo utente completata...prego </value>
         <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
     </property>
     <property key="RegisterForCustomer">
         <value xml:lang="en">Register for customer</value>
         <value xml:lang="fr">Enregistrement pour le client</value>
+        <value xml:lang="it">Registrazione per cliente</value>
         <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
     </property>
     <property key="UserLogin">
         <value xml:lang="en">User Login</value>
         <value xml:lang="fr">Identifiant de connexion</value>
+        <value xml:lang="it">Login utente</value>
         <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
     </property>
     <property key="VerifyCaptcha">
         <value xml:lang="en">Verify captcha code</value>
         <value xml:lang="fr">Vérifier le code captcha</value>
+        <value xml:lang="it">Verifica codice captcha</value>
         <value xml:lang="th">ใส่รหัสตามรูป</value>
     </property>
 </resource>
