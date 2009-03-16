@@ -265,7 +265,7 @@ under the License.
         <field name="PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="VerifyCaptchaTitle" title="${uiLabelMap.VerifyCaptcha}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="picOfcaptcha" title="${uiLabelMap.PicCaptcha}TEST:${parameters.ID_KEY}"><image value="/tempfiles/captcha/${parameters.fileName}"></image></field>
+        <field name="picOfcaptcha" title="${uiLabelMap.PicCaptcha}"><image value="${parameters.fileName}"></image></field>
         <field name="reload" title=" "><hyperlink target="newRegisterLogin" description="${uiLabelMap.MyPortalReloadImage}"/></field>
         <field name="captcha" title="${uiLabelMap.VerifyCaptcha}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="23" maxlength="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" title-area-style="group-label"><submit button-type="button"/></field>

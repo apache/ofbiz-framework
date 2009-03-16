@@ -33,6 +33,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 
 public class Captcha {
 
@@ -144,23 +146,18 @@ public class Captcha {
     public static void writeImage(BufferedImage image, HttpServletRequest request)
     {
         try {
+            String FILE_PATH = File.separator + "runtime" + File.separator + "tempfiles" + File.separator + "captcha" + File.separator;
+            String URL_FILE_PATH = "/tempfiles/captcha/";
             CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
-            CAPTCHA_FILE_PATH += File.separator + "runtime" + File.separator + "tempfiles";
-            CAPTCHA_FILE_PATH += File.separator + "captcha" + File.separator;
+            CAPTCHA_FILE_PATH += FILE_PATH;
             File test = new File(CAPTCHA_FILE_PATH);
             if (!test.exists()) {
                 test.mkdir();
             }
-            CAPTCHA_FILE_NAME =  UtilHttp.getSessionId(request).substring(0,6);
-            CAPTCHA_FILE_NAME += UtilHttp.getSessionId(request).substring(UtilHttp.getSessionId(request).length()-11,UtilHttp.getSessionId(request).indexOf("."))+"_";
-        	Date date = new Date();
-        	CAPTCHA_FILE_NAME += date.toString()+".jpg";
-            CAPTCHA_FILE_PATH += CAPTCHA_FILE_NAME;
-            request.setAttribute("fileName", CAPTCHA_FILE_NAME);
+        	CAPTCHA_FILE_NAME = UtilDateTime.nowAsString().concat(".jpg");
+            request.setAttribute("fileName", URL_FILE_PATH + CAPTCHA_FILE_NAME);
             request.setAttribute("ID_KEY", ID_KEY);
-            System.out.println("\n\nPath =  "+CAPTCHA_FILE_PATH+"\n");
-            System.out.println("Captcha Key =  "+ID_KEY+"\n\n");
-            ImageIO.write(image, "jpg", new File( CAPTCHA_FILE_PATH ));
+            ImageIO.write(image, "jpg", new File( CAPTCHA_FILE_PATH + CAPTCHA_FILE_NAME));
         } catch (IOException e) {
             return;
         }
