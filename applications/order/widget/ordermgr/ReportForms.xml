@@ -152,9 +152,9 @@ under the License.
     
     <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="" title="${uiLabelMap.CommonTotal}"><display/></field>
+        <field name="total" title="${uiLabelMap.CommonTotal}"><display/></field>
         <field name="totalQuantityOrdered"><display/></field>
-        <field name="totalQuantityOpen"><display/></field>                
+        <field name="totalQuantityOpen"><display/></field>
         <field name="totalCostPrice"><display/></field>
         <field name="totalListPrice"><display/></field>
         <field name="totalRetailPrice"><display/></field>

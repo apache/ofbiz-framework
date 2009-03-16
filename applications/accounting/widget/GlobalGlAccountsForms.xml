@@ -164,7 +164,7 @@ under the License.
 
     <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="backToAdmin" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.AccountingBackToAdmin}" target="AdminMain?organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
