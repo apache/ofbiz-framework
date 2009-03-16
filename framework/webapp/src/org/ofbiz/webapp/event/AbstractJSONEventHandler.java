@@ -45,7 +45,7 @@ public abstract class AbstractJSONEventHandler implements EventHandler {
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
                 // call into the java handler for parameters parsing and invocation
-        String respCode = service.invoke(null, requestMap, request, response);
+        String respCode = service.invoke(event, requestMap, request, response);
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
             
