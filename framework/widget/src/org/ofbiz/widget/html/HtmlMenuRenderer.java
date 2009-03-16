@@ -19,6 +19,7 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.menu.ModelMenuItem;
@@ -103,7 +106,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is NOT null(2)", "");
             this.request.setAttribute("servletContext", ctx);
         }
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         if (delegator == null) {
                 //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, delegator is null(6)", "");
         }
@@ -360,13 +363,50 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException {
-        ModelMenuItem menuItem = link.getLinkMenuItem();
         String target = link.getTarget(context);
+        ModelMenuItem menuItem = link.getLinkMenuItem();
         if (menuItem.getDisabled()) {
             target = null;
         }
+        
         if (UtilValidate.isNotEmpty(target)) {
-            // open tag
+            HttpServletResponse response = (HttpServletResponse) context.get("response");
+            HttpServletRequest request = (HttpServletRequest) context.get("request");
+
+            String targetWindow = link.getTargetWindow(context);
+            String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
+
+            if ("hidden-form".equals(link.getLinkType())) {
+                writer.append("<form method=\"post\"");
+                writer.append(" action=\"");
+                // note that this passes null for the parameterList on purpose so they won't be put into the URL
+                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), null, link.getPrefix(context), 
+                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+                writer.append("\"");
+
+                if (UtilValidate.isNotEmpty(targetWindow)) {
+                    writer.append(" target=\"");
+                    writer.append(targetWindow);
+                    writer.append("\"");
+                }
+
+                writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+
+                writer.append(" name=\"");
+                writer.append(uniqueItemName);
+                writer.append("\">");
+
+                for (WidgetWorker.Parameter parameter: link.getParameterList()) {
+                    writer.append("<input name=\"");
+                    writer.append(parameter.getName());
+                    writer.append("\" value=\"");
+                    writer.append(parameter.getValue(context));
+                    writer.append("\" type=\"hidden\"/>");
+                }
+                
+                writer.append("</form>");
+            }
+            
             writer.append("<a");
             String id = link.getId(context);
             if (UtilValidate.isNotEmpty(id)) {
@@ -375,31 +415,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append("\"");
             }
             
-            /*
-             boolean isSelected = menuItem.isSelected(context);
-             
-             String style = null;
-             
-             if (isSelected) {
-             style = menuItem.getSelectedStyle();
-             } else {
-             style = link.getStyle(context);
-             if (UtilValidate.isEmpty(style)) 
-             style = menuItem.getTitleStyle();
-             if (UtilValidate.isEmpty(style)) 
-             style = menuItem.getWidgetStyle();
-             }
-             
-             if (menuItem.getDisabled()) {
-             style = menuItem.getDisabledTitleStyle();
-             }
-             
-             if (UtilValidate.isNotEmpty(style)) {
-             writer.append(" class=\"");
-             writer.append(style);
-             writer.append("\"");
-             }
-             */
             String style = link.getStyle(context);
             if (UtilValidate.isNotEmpty(style)) {
                 writer.append(" class=\"");
@@ -412,63 +427,62 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(name);
                 writer.append("\"");
             }
-            String targetWindow = link.getTargetWindow(context);
             if (UtilValidate.isNotEmpty(targetWindow)) {
                 writer.append(" target=\"");
                 writer.append(targetWindow);
                 writer.append("\"");
             }
+
             writer.append(" href=\"");
-            String urlMode = link.getUrlMode();
-            String prefix = link.getPrefix(context);
-            boolean fullPath = link.getFullPath();
-            boolean secure = link.getSecure();
-            boolean encode = link.getEncode();
-            HttpServletResponse res = (HttpServletResponse) context.get("response");
-            HttpServletRequest req = (HttpServletRequest) context.get("request");
-            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
-                if (req != null && res != null) {
-                    ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                    String urlString = rh.makeLink(req, res, target, fullPath, secure, encode);
-                    writer.append(urlString);
-                } else if (prefix != null) {
-                    writer.append(prefix + target);
-                } else {
-                    writer.append(target);
-                }
-            } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
-                StringBuffer newURL = new StringBuffer();
-                ContentUrlTag.appendContentPrefix(req, newURL);
-                newURL.append(target);
-                writer.append(newURL.toString());
-            } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
-                String externalLoginKey = (String) req.getAttribute("externalLoginKey");
-                if (UtilValidate.isNotEmpty(externalLoginKey)) {
-                    if (target.contains("?")) {
-                        target += "&externalLoginKey=" + externalLoginKey;
-                    } else {
-                        target += "?externalLoginKey=" + externalLoginKey;
-                    }
-                    writer.append(target);
-                }
+            if ("hidden-form".equals(link.getLinkType())) {
+                writer.append("javascript:document.");
+                writer.append(uniqueItemName);
+                writer.append(".submit()");
             } else {
-                writer.append(target);
+                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context), 
+                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             }
             writer.append("\">");
         }
         
         // the text
         Image img = link.getImage();
-        if (img == null)
+        if (img == null) {
             writer.append(link.getText(context));
-        else
+        } else {
             renderImage(writer, context, img);
+        }
         
         if (UtilValidate.isNotEmpty(target)) {
             // close tag
             writer.append("</a>");
         }
+        
+        /* NOTE DEJ20090316: This was here as a comment and not sure what it is for or if it is useful... can probably be safely removed in the future if still not used/needed
+        boolean isSelected = menuItem.isSelected(context);
+        
+        String style = null;
+        
+        if (isSelected) {
+        style = menuItem.getSelectedStyle();
+        } else {
+        style = link.getStyle(context);
+        if (UtilValidate.isEmpty(style)) 
+        style = menuItem.getTitleStyle();
+        if (UtilValidate.isEmpty(style)) 
+        style = menuItem.getWidgetStyle();
+        }
+        
+        if (menuItem.getDisabled()) {
+        style = menuItem.getDisabledTitleStyle();
+        }
+        
+        if (UtilValidate.isNotEmpty(style)) {
+        writer.append(" class=\"");
+        writer.append(style);
+        writer.append("\"");
+        }
+        */
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelMenuItem.Image image) throws IOException {

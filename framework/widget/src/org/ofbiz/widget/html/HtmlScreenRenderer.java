@@ -19,8 +19,10 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.WidgetDataResourceWorker;
+import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.menu.MenuStringRenderer;
@@ -449,7 +452,45 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     }
 
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
-        // open tag
+        HttpServletResponse response = (HttpServletResponse) context.get("response");
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+
+        String targetWindow = link.getTargetWindow(context);
+        String target = link.getTarget(context);
+        
+        String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
+
+        if ("hidden-form".equals(link.getLinkType())) {
+            writer.append("<form method=\"post\"");
+            writer.append(" action=\"");
+            // note that this passes null for the parameterList on purpose so they won't be put into the URL
+            WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), null, link.getPrefix(context), 
+                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+            writer.append("\"");
+
+            if (UtilValidate.isNotEmpty(targetWindow)) {
+                writer.append(" target=\"");
+                writer.append(targetWindow);
+                writer.append("\"");
+            }
+
+            writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+
+            writer.append(" name=\"");
+            writer.append(uniqueItemName);
+            writer.append("\">");
+
+            for (WidgetWorker.Parameter parameter: link.getParameterList()) {
+                writer.append("<input name=\"");
+                writer.append(parameter.getName());
+                writer.append("\" value=\"");
+                writer.append(parameter.getValue(context));
+                writer.append("\" type=\"hidden\"/>");
+            }
+            
+            writer.append("</form>");
+        }
+        
         writer.append("<a");
         String id = link.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
@@ -469,64 +510,32 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append(name);
             writer.append("\"");
         }
-        String targetWindow = link.getTargetWindow(context);
         if (UtilValidate.isNotEmpty(targetWindow)) {
             writer.append(" target=\"");
             writer.append(targetWindow);
             writer.append("\"");
         }
-        String target = link.getTarget(context);
         if (UtilValidate.isNotEmpty(target)) {
             writer.append(" href=\"");
-            String urlMode = link.getUrlMode();
-            String prefix = link.getPrefix(context);
-            boolean fullPath = link.getFullPath();
-            boolean secure = link.getSecure();
-            boolean encode = link.getEncode();
-            HttpServletResponse response = (HttpServletResponse) context.get("response");
-            HttpServletRequest request = (HttpServletRequest) context.get("request");
-            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
-                if (request != null && response != null) {
-                    ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                    String urlString = rh.makeLink(request, response, target, fullPath, secure, encode);
-                    writer.append(urlString);
-                } else if (prefix != null) {
-                    writer.append(prefix + target);
-                } else {
-                    writer.append(target);
-                }
-            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
-                if (request != null && response != null) {
-                    StringBuffer newURL = new StringBuffer();
-                    ContentUrlTag.appendContentPrefix(request, newURL);
-                    newURL.append(target);
-                    writer.append(newURL.toString());
-                }
-            } else if ("inter-app".equalsIgnoreCase(urlMode) && request != null) {
-                String externalLoginKey = (String) request.getAttribute("externalLoginKey");
-                if (UtilValidate.isNotEmpty(externalLoginKey)) {
-                    if (target.contains("?")) {
-                        target += "&externalLoginKey=" + externalLoginKey;
-                    } else {
-                        target += "?externalLoginKey=" + externalLoginKey;
-                    }
-                    writer.append(target);
-                }
+            if ("hidden-form".equals(link.getLinkType())) {
+                writer.append("javascript:document.");
+                writer.append(uniqueItemName);
+                writer.append(".submit()");
             } else {
-                writer.append(target);
+                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context), 
+                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             }
-
             writer.append("\"");
         }
         writer.append(">");
         
         // the text
         ModelScreenWidget.Image img = link.getImage();
-        if (img == null)
+        if (img == null) {
             writer.append(link.getText(context));
-        else
+        } else {
             renderImage(writer, context, img);
+        }
         
         // close tag
         writer.append("</a>");

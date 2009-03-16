@@ -26,6 +26,8 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -33,6 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -512,7 +515,6 @@ public class ModelMenuItem {
     }
 
     public static class Link {
-
         protected ModelMenuItem linkMenuItem;
         protected FlexibleStringExpander textExdr;
         protected FlexibleStringExpander idExdr;
@@ -526,9 +528,10 @@ public class ModelMenuItem {
         protected boolean fullPath = false;
         protected boolean secure = false;
         protected boolean encode = false;
+        protected String linkType;
+        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
         public Link(Element linkElement, ModelMenuItem parentMenuItem) {
-
             this.linkMenuItem = parentMenuItem;
             setText(linkElement.getAttribute("text"));
             setId(linkElement.getAttribute("id"));
@@ -545,10 +548,15 @@ public class ModelMenuItem {
             if (imageElement != null) {
                 this.image = new Image(imageElement);
             }
+            
+            this.linkType = linkElement.getAttribute("link-type");
+            List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
+            for (Element parameterElement: parameterElementList) {
+                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+            }
         }
 
         public Link(ModelMenuItem parentMenuItem) {
-
             this.linkMenuItem = parentMenuItem;
             setText("");
             setId("");
@@ -630,6 +638,14 @@ public class ModelMenuItem {
 
         public Image getImage() {
             return this.image;
+        }
+
+        public String getLinkType() {
+            return this.linkType;
+        }
+        
+        public List<WidgetWorker.Parameter> getParameterList() {
+            return this.parameterList;
         }
 
         public void setText(String val) {
