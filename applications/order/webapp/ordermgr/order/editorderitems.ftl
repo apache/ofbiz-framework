@@ -53,6 +53,10 @@ float: right;
             <span class="alert">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</span>
         <#else>
             <form name="updateItemInfo" method="post" action="<@ofbizUrl>updateOrderItems?${paramString}</@ofbizUrl>">
+            <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER')>  
+              <input type="hidden" name="supplierPartyId" value="${partyId}"/>
+              <input type="hidden" name="orderTypeId" value="PURCHASE_ORDER"/>
+            </#if> 
             <table class="basic-table order-items" cellspacing="0">
                 <tr class="header-row">
                     <td width="30%">${uiLabelMap.ProductProduct}</td>

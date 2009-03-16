@@ -1129,5 +1129,130 @@ under the License.
         <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
         <field-to-result field="parameters.paymentMethodId" result-name="paymentMethodId"/>
     </simple-method>
+ 
+    <simple-method method-name="setUnitPriceAsLastPrice" short-description="Set unitPrice as lastPrice on create purchase order, edit purchase order items and on receive inventory against a purchase order">
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.facilityId"/></not>
+                    <not><if-empty field="parameters.orderId"/></not>
+                </and>
+            </condition>
+            <then>
+                <entity-and list="orderSuppliers" entity-name="OrderHeaderItemAndRoles">
+                    <field-map field-name="orderId" from-field="parameters.orderId"/>
+                    <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
+                    <field-map field-name="orderTypeId" value="PURCHASE_ORDER"/>
+                </entity-and>
+                <first-from-list list="orderSuppliers" entry="orderSupplier"/>
+                <entity-and list="supplierProducts" entity-name="SupplierProduct">
+                    <field-map from-field="parameters.productId" field-name="productId"/>       
+                    <field-map from-field="orderSupplier.partyId" field-name="partyId"/>
+                    <field-map from-field="nullField" field-name="availableThruDate"/>
+                </entity-and>
+                <iterate entry="supplierProduct" list="supplierProducts">
+                    <now-timestamp field="nowTimestamp"/> 
+                    <if>
+                        <condition>
+                            <if-compare-field field="parameters.unitCost" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
+                        </condition>
+                        <then>
+                            <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                            <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
+                            <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
+                            <set from-field="parameters.unitCost" field="newSupplierProduct.lastPrice" type="BigDecimal"/>
+                            <create-value value-field="newSupplierProduct"/>
+                            <set from-field="nowTimestamp" field="supplierProduct.availableThruDate"/>
+                            <store-value value-field="supplierProduct"/> 
+                        </then>
+                    </if>         
+                </iterate>
+            </then>
+            <else>
+                <if>
+                    <condition>
+                        <and>
+                          <if-empty field="parameters.orderItems"/>
+                          <not><if-empty field="parameters.orderId"/></not>  
+                        </and>
+                    </condition>
+                    <then>
+                        <entity-and entity-name="OrderItem" list="orderItems">
+                            <field-map field-name="orderId" from-field="parameters.orderId"/>
+                        </entity-and>
+                        <iterate entry="orderItem" list="orderItems">
+                            <iterate-map key="orderItemSeqId" value="unitPrice" map="parameters.itemPriceMap">
+                                <if>
+                                    <condition>
+                                        <if-compare-field field="orderItem.orderItemSeqId" operator="equals" to-field="orderItemSeqId"/>
+                                    </condition>
+                                    <then>
+                                        <iterate-map key="orderItemSeqId" value="Y" map="parameters.overridePriceMap">
+                                            <if>
+                                                <condition>
+                                                    <if-compare-field field="orderItem.orderItemSeqId"  operator="equals" to-field="orderItemSeqId"/>
+                                                </condition>
+                                                <then>
+                                                    <set field="orderItem.unitPrice" from-field="unitPrice" type="BigDecimal"/>
+                                                    <entity-and list="supplierProducts" entity-name="SupplierProduct">
+                                                        <field-map from-field="orderItem.productId" field-name="productId"/>       
+                                                        <field-map from-field="parameters.supplierPartyId" field-name="partyId"/>
+                                                        <field-map from-field="nullField" field-name="availableThruDate"/>
+                                                    </entity-and>
+                                                    <iterate entry="supplierProduct" list="supplierProducts">
+                                                        <now-timestamp field="nowTimestamp"/> 
+                                                        <if>
+                                                            <condition>
+                                                                <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
+                                                            </condition>
+                                                            <then>
+                                                                <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                                                                <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
+                                                                <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
+                                                                <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice"/>
+                                                                <create-value value-field="newSupplierProduct"/>
+                                                                <set from-field="nowTimestamp" field="supplierProduct.availableThruDate"/>
+                                                                <store-value value-field="supplierProduct"/> 
+                                                            </then>
+                                                        </if>         
+                                                    </iterate>
+                                                </then>
+                                            </if>
+                                        </iterate-map>
+                                    </then>
+                                </if>
+                            </iterate-map>
+                        </iterate>
+                    </then>
+                    <else>
+                        <iterate entry="orderItem" list="parameters.orderItems">
+                            <entity-and list="supplierProducts" entity-name="SupplierProduct">
+                                <field-map from-field="orderItem.productId" field-name="productId"/>       
+                                <field-map from-field="parameters.supplierPartyId" field-name="partyId"/>
+                                <field-map from-field="nullField" field-name="availableThruDate"/>
+                            </entity-and>
+                            <iterate entry="supplierProduct" list="supplierProducts">
+                                <now-timestamp field="nowTimestamp"/> 
+                                <if>
+                                    <condition>
+                                        <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
+                                    </condition>
+                                    <then>
+                                        <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                                        <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
+                                        <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
+                                        <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice" type="BigDecimal"/>
+                                        <create-value value-field="newSupplierProduct"/>
+                                        <set from-field="nowTimestamp" field="supplierProduct.availableThruDate"/>
+                                        <store-value value-field="supplierProduct"/> 
+                                    </then>
+                                </if>         
+                            </iterate>
+                        </iterate>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </simple-method>
     
 </simple-methods>
