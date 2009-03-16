@@ -3388,7 +3388,9 @@ public class OrderServices {
         Map itemReasonMap = (Map) context.get("itemReasonMap");
         Map itemCommentMap = (Map) context.get("itemCommentMap");
         Map itemAttributesMap = (Map) context.get("itemAttributesMap");
-
+        Map<String,String> itemEstimatedShipDateMap  = (Map) context.get("itemShipDateMap");
+        Map<String, String> itemEstimatedDeliveryDateMap = (Map) context.get("itemDeliveryDateMap");
+    
         // obtain a shopping cart object for updating
         ShoppingCart cart = null;
         try {
@@ -3497,7 +3499,29 @@ public class OrderServices {
                 Debug.logInfo("Unable to locate shopping cart item for seqId #" + itemSeqId, module);
             }
         }
-
+        // Create Estimated Delivery dates          
+        for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
+            String itemSeqId =  entry.getKey();
+            String estimatedDeliveryDate = entry.getValue();
+            Timestamp shipDate = Timestamp.valueOf(estimatedDeliveryDate);
+            if (estimatedDeliveryDate != null) {
+                ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                cartItem.setDesiredDeliveryDate(shipDate);
+            }
+        }
+    
+        // Create Estimated ship dates
+        for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
+            String itemSeqId =  entry.getKey();
+            String estimatedShipDate =  entry.getValue();
+            Timestamp deliveryDate = Timestamp.valueOf(estimatedShipDate);
+            if (estimatedShipDate != null) {
+                ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                cartItem.setEstimatedShipDate(deliveryDate);
+            }
+    
+        }
+    
         // update the group amounts
         Iterator gai = itemQtyMap.keySet().iterator();
         while (gai.hasNext()) {

@@ -131,7 +131,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     private Locale locale = null;
     private Timestamp shipBeforeDate = null;
     private Timestamp shipAfterDate = null;
-
+    private Timestamp EstimatedShipDate = null;
+    
     private Map contactMechIdsMap = FastMap.newInstance();
     private List orderItemPriceInfos = null;
     private List itemAdjustments = new LinkedList();
@@ -1445,6 +1446,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     public Timestamp getShipAfterDate() {
         return this.shipAfterDate;
     }
+    
+    /** Sets the date to EstimatedShipDate */
+    public void setEstimatedShipDate(Timestamp date) {
+        this.EstimatedShipDate = date;
+    }  
+
+    /** Returns the date to EstimatedShipDate */
+    public Timestamp getEstimatedShipDate() {
+        return this.EstimatedShipDate;
+    }    
 
     /** Sets the item type. */
     public void setItemType(String itemType) {

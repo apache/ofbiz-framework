@@ -186,6 +186,12 @@ float: right;
   	                      </select>
                             <span class="label">${uiLabelMap.CommonComments}</span>
                             <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>                       
+                            <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>
+                            <input type="text" name="isdm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedShipDate?if_exists}" size="25" maxlength="30"/>
+                            <a href="javascript:call_cal(document.updateItemInfo.isdm_${orderItem.orderItemSeqId},'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                            <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>
+                            <input type="text" name="iddm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedDeliveryDate?if_exists}" size="25" maxlength="30"/>
+                            <a href="javascript:call_cal(document.updateItemInfo.iddm_${orderItem.orderItemSeqId},'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                         </tr>
                       </#if>                      
                       <#-- now show adjustment details per line item -->

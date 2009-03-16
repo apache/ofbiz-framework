@@ -352,6 +352,8 @@ under the License.
                        <input type="hidden" name="shipmentTypeId" value="PURCHASE_SHIPMENT"/>
                        <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED"/>
                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}"/>
+                       <input type="hidden" name="estimatedShipDate" value="${shipGroup.estimatedShipDate?if_exists}"/>
+                       <input type="hidden" name="estimatedArrivalDate" value="${shipGroup.estimatedDeliveryDate?if_exists}"/>
                        <select name="destinationFacilityId">
                          <#list facilities as facility>
                            <option value="${facility.facilityId}">${facility.facilityName}</option>
