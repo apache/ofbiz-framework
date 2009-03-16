@@ -2150,7 +2150,7 @@ public class ModelFormField {
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
         }
 
@@ -2346,21 +2346,36 @@ public class ModelFormField {
 
     public static class SubHyperlink {
         protected FlexibleStringExpander useWhen;
+        protected String linkType;
         protected String linkStyle;
         protected String targetType;
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
+        protected List<Parameter> parameterList = FastList.newInstance();
+        protected ModelFormField modelFormField;
 
-        public SubHyperlink(Element element) {
+        public SubHyperlink(Element element, ModelFormField modelFormField) {
             this.setDescription(element.getAttribute("description"));
             this.setTarget(element.getAttribute("target"));
             this.setUseWhen(element.getAttribute("use-when"));
+            this.linkType = element.getAttribute("link-type");
             this.linkStyle = element.getAttribute("link-style");
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+            
+            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
+            for (Element parameterElement: parameterElementList) {
+                this.parameterList.add(new Parameter(parameterElement));
+            }
+            
+            this.modelFormField = modelFormField;
         }
 
+        public String getLinkType() {
+            return this.linkType;
+        }
+        
         public String getLinkStyle() {
             return this.linkStyle;
         }
@@ -2393,6 +2408,10 @@ public class ModelFormField {
                 return "";
             }
         }
+        
+        public List<Parameter> getParameterList() {
+            return this.parameterList;
+        }
 
         public String getUseWhen(Map<String, Object> context) {
             if (this.useWhen != null) {
@@ -2400,6 +2419,10 @@ public class ModelFormField {
             } else {
                 return "";
             }
+        }
+        
+        public ModelFormField getModelFormField() {
+            return this.modelFormField;
         }
 
         public boolean shouldUse(Map<String, Object> context) {
@@ -2603,7 +2626,7 @@ public class ModelFormField {
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
         }
 
@@ -2934,7 +2957,7 @@ public class ModelFormField {
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
             
             Element autoCompleteElement = UtilXml.firstChildElement(element, "auto-complete");
@@ -3337,7 +3360,7 @@ public class ModelFormField {
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
         }
 
@@ -3470,7 +3493,7 @@ public class ModelFormField {
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
         }
 

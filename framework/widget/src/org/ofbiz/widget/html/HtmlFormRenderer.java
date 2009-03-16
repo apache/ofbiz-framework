@@ -336,25 +336,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
     	this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-        if ("hidden-form".equals(hyperlinkField.getLinkType())) {
-            if ("multi".equals(modelFormField.getModelForm().getType())) {
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
-
-                // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
-                Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
-                Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
-                if (postMultiFormWriter == null) {
-                    postMultiFormWriter = new StringWriter();
-                    wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
-                }
-                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
-            } else {
-                WidgetWorker.makeHiddenFormLinkForm(writer, hyperlinkField.getTarget(context), hyperlinkField.getTargetType(), hyperlinkField.getTargetWindow(context), hyperlinkField.getParameterList(), modelFormField, this.request, this.response, context);
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context), modelFormField.getEvent(), modelFormField.getAction(context), modelFormField, this.request, this.response, context);
-            }
-        } else {
-            WidgetWorker.makeHyperlinkString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), this.request, this.response, context, hyperlinkField.getTargetWindow(context), modelFormField.getEvent(), modelFormField.getAction(context));
-        }
+        
+        WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), 
+                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), modelFormField, 
+                this.request, this.response, context);
+        
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
     }
@@ -365,7 +351,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
-            WidgetWorker.makeHyperlinkString(writer, subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context), null, subHyperlink.getDescription(context), this.request, this.response, context, subHyperlink.getTargetWindow(context), null, null);
+            WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context), 
+                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getModelFormField(), 
+                    this.request, this.response, context);
         }
     }
 
@@ -2878,7 +2866,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                 targetType="plain";
             }
-            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, this.request, this.response, null, null, null, null);
+            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, modelFormField, this.request, this.response, null, null);
         } else if (modelFormField.isSortField()) {
             renderSortField (writer, context, modelFormField, titleText);        
         } else if (modelFormField.isRowSubmit()) {

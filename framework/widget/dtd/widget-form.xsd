@@ -1382,12 +1382,23 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="sub-hyperlink">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.sub-hyperlink"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.sub-hyperlink">
         <xs:attribute type="xs:string" name="use-when"/>
         <xs:attribute type="xs:string" name="link-style"/>
+        <xs:attribute name="link-type" default="anchor">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="anchor"/>
+                    <xs:enumeration value="hidden-form"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="target-type" default="intra-app">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
