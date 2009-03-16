@@ -29,5 +29,4 @@ public class JSONSimpleEventHandler extends AbstractJSONEventHandler{
         this.service = new SimpleEventHandler();
         this.service.init(context);
     }
-
 }
