@@ -4305,7 +4305,7 @@
         <value xml:lang="en">The Email Address cannot be verified.  This Email Address does not exists.</value>
         <value xml:lang="es">La dirección de correo electrónico no se puede verificar. Esta dirección no existe.</value>
         <value xml:lang="fr">L'adresse courriel ne peut pas être vérifiée. Cette adresse courriel n'existe pas</value>
-        <value xml:lang="it">L'inidizzo email non può essere verificato.  Questo indirizzo email non esiste.</value>
+        <value xml:lang="it">L'indirizzo email non può essere verificato. Questo indirizzo email non esiste.</value>
         <value xml:lang="nl">Verificatie e-mailadres mislukt. Dit e-mailadres bestaat niet.</value>
         <value xml:lang="th">ไม่สามารถตรวจสอบที่อยู่อีเมล์ได้. ที่อยู่อีเมล์นี้ไม่มีอยู่ในนี้</value>
     </property>
