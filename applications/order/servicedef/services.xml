@@ -138,6 +138,7 @@ under the License.
         <attribute name="orderItemAssociations" type="List" mode="IN" optional="true"/>
         <attribute name="orderInternalNotes" type="List" mode="IN" optional="true"/>
         <attribute name="orderNotes" type="List" mode="IN" optional="true"/>
+        <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -295,6 +296,8 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="updateApprovedOrderItems">
         <description>Update the quantities/prices for an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="itemDescriptionMap" type="Map" mode="IN" string-map-prefix="idm_" optional="true"/>
         <attribute name="itemQtyMap" type="Map" mode="IN" string-map-prefix="iqm_" optional="false"/>
         <attribute name="itemPriceMap" type="Map" mode="IN" string-map-prefix="ipm_" optional="false"/>
@@ -926,4 +929,18 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="OUT" optional="false"/>
     </service>
+ 
+   <service name="setUnitPriceAsLastPrice" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="setUnitPriceAsLastPrice" auth="false">
+        <description>Sets unit price as last price for product</description>
+        <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItems" type="List" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="unitCost" mode="IN" type="String" optional="true"/>
+        <attribute name="itemPriceMap" type="Map" mode="IN" string-map-prefix="ipm_" optional="true"/>
+        <attribute name="overridePriceMap" type="Map" mode="IN" string-map-prefix="opm_" optional="true"/>
+   </service>
 </services>

@@ -565,6 +565,8 @@ public class CheckOutHelper {
             return null;
         }
         String orderId = this.cart.getOrderId();
+        String supplierPartyId = (String) this.cart.getAttribute("supplierPartyId");
+
         this.cart.clearAllItemStatus();
 
         BigDecimal grandTotal = this.cart.getGrandTotal();
@@ -579,6 +581,7 @@ public class CheckOutHelper {
         if (affiliateId != null) context.put("affiliateId", affiliateId);
 
         context.put("orderId", orderId);
+        context.put("supplierPartyId", supplierPartyId);
         context.put("grandTotal", grandTotal);
         context.put("userLogin", userLogin);
         context.put("visitId", visitId);
