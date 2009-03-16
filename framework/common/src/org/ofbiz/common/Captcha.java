@@ -155,7 +155,7 @@ public class Captcha {
                 test.mkdir();
             }
         	CAPTCHA_FILE_NAME = UtilDateTime.nowAsString().concat(".jpg");
-            request.setAttribute("fileName", URL_FILE_PATH + CAPTCHA_FILE_NAME);
+            request.setAttribute("captchaFileName", URL_FILE_PATH + CAPTCHA_FILE_NAME);
             request.setAttribute("ID_KEY", ID_KEY);
             ImageIO.write(image, "jpg", new File( CAPTCHA_FILE_PATH + CAPTCHA_FILE_NAME));
         } catch (IOException e) {
