@@ -670,6 +670,10 @@
         <value xml:lang="th">เพิ่มความคิดเห็นถึง</value>
         <value xml:lang="zh">把论坛添加到</value>
     </property>
+    <property key="ContentForumDescriptionThread">
+        <value xml:lang="en">Thread description</value>
+        <value xml:lang="it">Descrizione discussione</value>
+    </property>
     <property key="ContentForumGroupCreate">
         <value xml:lang="ar">إستحداث مجموعة منتدى جديد</value>
         <value xml:lang="de">Neue Forumsgruppe erstellen</value>

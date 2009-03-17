@@ -2609,23 +2609,51 @@
         <value xml:lang="it">Formato priorità non è corretto</value>
         <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
     </property>
-    <property key="WorkEffortPriorityHigh">
-        <value xml:lang="en">High</value>
-        <value xml:lang="fr">Haute</value>
-        <value xml:lang="it">Alta</value>
-        <value xml:lang="nl">High</value>
-        <value xml:lang="ro">Inalta</value>
-        <value xml:lang="th">สูง</value>
-        <value xml:lang="zh">高</value>
+    <property key="WorkEffortPriorityOne">
+        <value xml:lang="en">1 (High)</value>
+        <value xml:lang="fr">1 (Haute)</value>
+        <value xml:lang="it">1 (Alta)</value>
+        <value xml:lang="nl">1 (High)</value>
+        <value xml:lang="ro">1 (Inalta)</value>
+        <value xml:lang="th">1 (สูง)</value>
+        <value xml:lang="zh">1 (高)</value>
     </property>
-    <property key="WorkEffortPriorityLow">
-        <value xml:lang="en">Low</value>
-        <value xml:lang="fr">Basse</value>
-        <value xml:lang="it">Bassa</value>
-        <value xml:lang="nl">Low</value>
-        <value xml:lang="ro">Joasa</value>
-        <value xml:lang="th">ต่ำ</value>
-        <value xml:lang="zh">低</value>
+    <property key="WorkEffortPriorityTwo">
+        <value xml:lang="en">2</value>
+        <value xml:lang="it">2</value>
+    </property>
+    <property key="WorkEffortPriorityThree">
+        <value xml:lang="en">3</value>
+        <value xml:lang="it">3</value>
+    </property>
+    <property key="WorkEffortPriorityFour">
+        <value xml:lang="en">4</value>
+        <value xml:lang="it">4</value>
+    </property>
+    <property key="WorkEffortPriorityFive">
+        <value xml:lang="en">5</value>
+        <value xml:lang="it">5</value>
+    </property>
+    <property key="WorkEffortPrioritySix">
+        <value xml:lang="en">6</value>
+        <value xml:lang="it">6</value>
+    </property>
+    <property key="WorkEffortPrioritySeventh">
+        <value xml:lang="en">7</value>
+        <value xml:lang="it">7</value>
+    </property>
+    <property key="WorkEffortPriorityEight">
+        <value xml:lang="en">8</value>
+        <value xml:lang="it">8</value>
+    </property>
+    <property key="WorkEffortPriorityNine">
+        <value xml:lang="en">9 (Low)</value>
+        <value xml:lang="fr">9 (Basse)</value>
+        <value xml:lang="it">9 (Bassa)</value>
+        <value xml:lang="nl">9 (Low)</value>
+        <value xml:lang="ro">9 (Joasa)</value>
+        <value xml:lang="th">9 (ต่ำ)</value>
+        <value xml:lang="zh">9 (低)</value>
     </property>
     <property key="WorkEffortPrivatePublic">
         <value xml:lang="en">Private/Public</value>

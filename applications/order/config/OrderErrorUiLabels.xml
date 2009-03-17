@@ -2811,6 +2811,14 @@
         <value xml:lang="th">เพิ่ม ${totalQuantity} รายการลงตระกร้า</value>
         <value xml:lang="zh">把 ${totalQuantity} 明细添加到购物车。</value>
     </property>
+    <property key="cart.addToCart.rental.endDate">
+        <value xml:lang="en">Problems parsing Reservation end string.</value>
+        <value xml:lang="it">Problema durante il parsing della stringa reservation end</value>
+    </property>
+    <property key="cart.addToCart.rental.startDate">
+        <value xml:lang="en">Problems parsing Reservation start string.</value>
+        <value xml:lang="it">Problema durante il parsing della stringa reservation start</value>
+    </property>
     <property key="cart.agreement_not_specified_to_add_from">
         <value xml:lang="de">Kein Vertrag angegeben, aus dem hinzugefügt werden kann.</value>
         <value xml:lang="en">No agreement specified to add from.</value>
@@ -2828,6 +2836,10 @@
         <value xml:lang="en">Amount must be a positive number</value>
         <value xml:lang="fr">La quantité doit être un nombre positif</value>
         <value xml:lang="it">Importo deve essere un numero positivo</value>
+    </property>
+    <property key="cart.cart_is_in_read_only_mode">
+        <value xml:lang="en">Cart is in read only mode</value>
+        <value xml:lang="it">Carrello è in modalità sola lettura</value>
     </property>
     <property key="cart.category_not_specified_to_add_from">
         <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>

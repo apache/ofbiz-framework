@@ -638,6 +638,10 @@
         <value xml:lang="th">พบรายการการเลือกลักษณะสินค้าว่าง</value>
         <value xml:lang="zh">找到了空的可选择特征列表。</value>
     </property>
+    <property key="productservices.entity_error_quick_add_variant_data">
+        <value xml:lang="en">Entity error quick add variant data</value>
+        <value xml:lang="it">Errore durante la lettura dei dati per l'aggiunta variante veloce.</value>
+    </property>
     <property key="productservices.error_finding_associated_variant_with_ID_error">
         <value xml:lang="de">Fehler bei zugeordneter Variante mit ID ${productIdTo}, Fehler war: ${errMessage}.</value>
         <value xml:lang="en">Error finding associated variant with ID ${productIdTo}, error was: ${errMessage}.</value>
@@ -748,6 +752,10 @@
         <value xml:lang="th">ปัญหาการอ่านเอนทิตีสินค้า: ${errMessage}.</value>
         <value xml:lang="zh">读取产品实体时出现问题：${errMessage}。</value>
     </property>
+    <property key="productservices.product_not_found_with_ID">
+        <value xml:lang="en">Product not found with ID</value>
+        <value xml:lang="it">Prodotto non trovato per codice</value>
+    </property>>
     <property key="productutilservices.did_not_find_any_valid_variants_for_virtual_ID">
         <value xml:lang="de">Keine gültigen Varianten gefunden für virtuelles Produkt mit der ID [${productId}], keinen Merge durchgeführt...</value>
         <value xml:lang="en">Did not find any valid variants for virtual ID [${productId}], not doing merge...</value>
@@ -846,6 +854,10 @@
         <value xml:lang="ru">Найдено более одного правильного варианта для витруального кода [${productId}], слияние не выполнено...</value>
         <value xml:lang="th">พบมากกว่าหนึ่งการเปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
         <value xml:lang="zh">找到了一个以上虚拟产品标识为 [${productId}]有效变型，没有做合并...</value>
+    </property>
+    <property key="productworker.null_product_entity_not_valid">
+        <value xml:lang="en">Null Product entity not valid</value>
+        <value xml:lang="it">Entità Product nulla non valida</value>
     </property>
     <property key="variantevents.entity_error_quick_add_variant_data">
         <value xml:lang="de">Entitätenfehler beim raschen Hinzufügen Variantendaten: ${errMessage}.</value>

@@ -164,14 +164,13 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
+    <!-- UNUSED FORM
     <form name="ListSurveyQuestions" type="list" target="updateSurveyQuestion" title="" list-name="surveyQuestionList" list-entry-name="surveyQuestion"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateSurveyQuestion" map-name="surveyQuestion"/>
 
         <field name="surveyId"><hidden/></field>
         <field name="surveyQuestionSeqId" title="${uiLabelMap.ContentSurveyQuestionNumber}"><display/></field>
-
-        <!-- <field name="surveyQuestionTypeId" title="Question Type"><display description="${surveyQuestionType.description}"/></field> -->
         <field name="surveyQuestionTypeId">
             <drop-down allow-empty="false">
                <entity-options entity-name="SurveyQuestionType" description="${description}"/>
@@ -180,6 +179,8 @@ under the License.
                 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    -->
+    
     <form name="CreateSurveyQuestion" type="single" target="createSurveyQuestion" title="" default-map-name="surveyQuestion"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="surveyQuestion!=null" target="updateSurveyQuestion"/>

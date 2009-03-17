@@ -70,6 +70,10 @@
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
         <value xml:lang="zh">费用总账账户类型标识</value>
     </property>
+    <property key="FormFieldTitle_creationDate">
+        <value xml:lang="en">Creation Date</value>
+        <value xml:lang="it">Data creazione</value>
+    </property>
     <property key="FormFieldTitle_defaultYearsOffset">
         <value xml:lang="de">Kontenart für Kosten</value>
         <value xml:lang="en">Default Years Offset</value>

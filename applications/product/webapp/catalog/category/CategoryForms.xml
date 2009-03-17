@@ -173,7 +173,7 @@ under the License.
         <field use-when="productCategoryLink == null" name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequence}"><text maxlength="5" size="5"/></field>
-        <field name="imageUrl" tooltip="example: /images/categories/linkOne/100.jpg"><text size="60" maxlength="255"/></field>        
+        <field name="imageUrl" tooltip="${uiLabelMap.ProductImageUrlTooltip}"><text size="60" maxlength="255"/></field>
         <field name="linkTypeEnumId" title="${uiLabelMap.ProductLinkTypeEnumId}">
             <drop-down allow-empty = "false">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -186,7 +186,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="detailSubScreen" tooltip="example: component://ecommerce/widget/CatalogScreens.xml#categorydetail"><text size="60" maxlength="255"/></field>
+        <field name="detailSubScreen" tooltip="${uiLabelMap.ProductDetailSubScreenTooltip}"><text size="60" maxlength="255"/></field>
         <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="clearFormButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="productCategoryLink!=null"><hyperlink target="EditProductCategoryLinks?productCategoryId=${productCategoryId}" target-type="intra-app" description="${uiLabelMap.CommonClear}"/></field>

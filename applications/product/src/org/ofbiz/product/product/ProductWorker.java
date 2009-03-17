@@ -65,7 +65,7 @@ public class ProductWorker {
     }
 
     public static boolean shippingApplies(GenericValue product) {
-        String errMsg = null;
+        String errMsg = "";
         if (product != null) {
             String productTypeId = product.getString("productTypeId");
             if ("SERVICE".equals(productTypeId) || (ProductWorker.isDigital(product) && !ProductWorker.isPhysical(product))) {
@@ -80,10 +80,8 @@ public class ProductWorker {
                 return chargeShipping.booleanValue();
             }
         } else {
-            // todo: Hier noch Uebersetzungen einfuegen?
-            //errMsg = UtilProperties.getMessage(resource,"productworker.null_product_entity_not_valid", UtilHttp.getLocale(request));
             throw new IllegalArgumentException(errMsg);
-        }                
+        }
     }
 
     public static boolean isBillableToAddress(GenericValue product, GenericValue postalAddress) {
@@ -137,8 +135,8 @@ public class ProductWorker {
     }
 
     public static boolean taxApplies(GenericValue product) {
-        String errMsg = null;
-        if (product != null) {        
+        String errMsg = "";
+        if (product != null) {
             Boolean taxable = product.getBoolean("taxable");
     
             if (taxable == null) {
@@ -147,11 +145,9 @@ public class ProductWorker {
                 return taxable.booleanValue();
             }
         } else {
-            // todo: Hier noch Uebersetzungen einfuegen?
-            //errMsg = UtilProperties.getMessage(resource,"productworker.null_product_entity_not_valid", UtilHttp.getLocale(request));
             throw new IllegalArgumentException(errMsg);
         }
-    }    
+    }
     
     /** @deprecated */
     public static void getProduct(PageContext pageContext, String attributeName, String productId) {

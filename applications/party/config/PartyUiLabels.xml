@@ -974,6 +974,10 @@
         <value xml:lang="en">Rate Default Amount</value>
         <value xml:lang="it">Importo percentuale di default</value>
     </property>
+    <property key="FormFieldTitle_requirePasswordChange">
+        <value xml:lang="en">Require Password Change</value>
+        <value xml:lang="it">Richiesto cambio password</value>
+    </property>
     <property key="FormFieldTitle_residenceStatusEnumId">
         <value xml:lang="de">Wohnsitzstatus Aufzählung ID</value>
         <value xml:lang="en">Residence Status Enum Id</value>
