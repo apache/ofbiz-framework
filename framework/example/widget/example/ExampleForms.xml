@@ -128,6 +128,7 @@ under the License.
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        <field name="longDescription" title="${uiLabelMap.ExampleLongDescription}"/>
         <field name="anotherText">
             <drop-down allow-empty="true">
                 <option key="Explicit Option" description="${uiLabelMap.ExampleExplicitOption}"/>

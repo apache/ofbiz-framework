@@ -150,7 +150,7 @@ under the License.
         <#if hasCreatePermission == 'Y'>
             <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew} ${entityName}</a>
         <#else>
-            <h2>${uiLabelMap.WebtoolsMesseage17} ${entityName} ${plainTableName} ${uiLabelMap.WebtoolsMesseage18}.</h2>
+            <h2>${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}.</h2>
         </#if>
       </div>
     </div>

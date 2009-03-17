@@ -23,7 +23,7 @@ under the License.
     <form name="EditExampleExt" extends="EditExample"
         extends-resource="component://example/widget/example/ExampleForms.xml">
         <!-- NOTE: add new fields for the EditExample form here -->
-        <field name="exampleText"><display description="This example text means we are in the extended form."/></field>
+        <field name="exampleText"><display description="${uiLabelMap.ExampleTextDescription}"/></field>
         <!-- In order for these to be at the bottom of the form, we need to hide the buttons from the
             original form, and then create new ones. We could use the sort-order element, but that
             doesn't work well when we want to allow changes in the original form. -->

@@ -57,7 +57,7 @@ under the License.
             </#list>
         </table>
     <#else>
-        <h3>${uiLabelMap.WebtoolsMesseage17} ${entityName} ${plainTableName} ${uiLabelMap.WebtoolsMesseage18}.</h3>
+        <h3>${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}.</h3>
     </#if>
   </div>
 </div>

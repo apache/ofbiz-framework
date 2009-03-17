@@ -4731,6 +4731,22 @@
         <value xml:lang="zh">人员</value>
         <value xml:lang="zh_CN">人</value>
     </property>
+    <property key="CommonPortalCategoryPage">
+        <value xml:lang="en">Category of portlet pages for application</value>
+        <value xml:lang="it">Categoria di pagine portale per applicazione</value>
+    </property>
+    <property key="CommonPortalEditPage">
+        <value xml:lang="en">Edit portal page</value>
+        <value xml:lang="it">Aggiorna pagina portale</value>
+    </property>
+    <property key="CommonPortalNewPage">
+        <value xml:lang="en">Add a new portal Page</value>
+        <value xml:lang="it">Aggiungi una nuova pagina portale</value>
+    </property>
+    <property key="CommonPortalPagesForApplication">
+        <value xml:lang="en">Portal pages for application</value>
+        <value xml:lang="it">Pagine porale per applicazione</value>
+    </property>
     <property key="CommonPostedBy">
         <value xml:lang="ar">مرسلة من</value>
         <value xml:lang="de">Übermittelt von</value>
@@ -7758,6 +7774,14 @@
         <value xml:lang="th">สร้างวันที่</value>
         <value xml:lang="zh">创建日期</value>
     </property>
+    <property key="FormFieldTitle_createdTxStamp">
+        <value xml:lang="en">Created Tx Stamp</value>
+        <value xml:lang="it">Data/ora creazione</value>
+    </property>
+    <property key="FormFieldTitle_createdByUserLoginId">
+        <value xml:lang="en">Created By User Login Id</value>
+        <value xml:lang="it">Creato dall'utente</value>
+    </property>
     <property key="FormFieldTitle_currencyUomId">
         <value xml:lang="ar">العملة</value>
         <value xml:lang="de">Währung</value>
@@ -7771,6 +7795,10 @@
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
+    </property>
+    <property key="FormFieldTitle_currentRecurrenceCount">
+        <value xml:lang="en">Current Recurrence Count</value>
+        <value xml:lang="it">Conteggio attuale ricorrenze</value>
     </property>
     <property key="FormFieldTitle_currentStatusId">
         <value xml:lang="de">Aktuelle Status ID</value>
@@ -7893,6 +7921,10 @@
         <value xml:lang="th">วันสุดท้ายของการปรับปรุง</value>
         <value xml:lang="zh">上次修改日期</value>
     </property>
+    <property key="FormFieldTitle_lastUpdatedTxStamp">
+        <value xml:lang="en">Last Updated Tx Stamp</value>
+        <value xml:lang="it">Ultimo aggiornamento data/ora</value>
+    </property>    
     <property key="FormFieldTitle_lineTotal">
         <value xml:lang="ar">مجموع السطر</value>
         <value xml:lang="de">Zeilentotal</value>
@@ -7906,6 +7938,14 @@
         <value xml:lang="ru">Сумма по строке</value>
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">行小计</value>
+    </property>
+    <property key="FormFieldTitle_maxRecurrenceCount">
+        <value xml:lang="en">Max Recurrence Count</value>
+        <value xml:lang="it">Conteggio massimo ricorrenze</value>
+    </property>
+    <property key="FormFieldTitle_modifiedByUserLoginId">
+        <value xml:lang="en">Modified By User Login Id</value>
+        <value xml:lang="it">Modificato dall'utente</value>
     </property>
     <property key="FormFieldTitle_price">
         <value xml:lang="ar">السعر</value>

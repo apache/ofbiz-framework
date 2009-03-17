@@ -62,7 +62,7 @@ under the License.
         <table class="basic-table dark-grid" cellspacing="0">
           <tr class="header-row">
             <td>${uiLabelMap.WebtoolsWorkflowActivityId}</td>
-            <td>${uiLabelMap.Priority}</td>
+            <td>${uiLabelMap.WebtoolsPriority}</td>
             <td>${uiLabelMap.WebtoolsWorkflowCurrentStatus}</td>
             <td>${uiLabelMap.CommonActualStartDate}</td>
             <td>${uiLabelMap.WebtoolsWorkflowActualCompleteDate}</td>

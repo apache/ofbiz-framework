@@ -25,7 +25,6 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="FormWidgetExamples"/>
-                <set field="titleProperty" value="PageTitleFormWidgetExamples"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -35,36 +34,36 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
+                                <container style="h1"><label>${uiLabelMap.PageTitleFormWidgetExamples}</label></container>
                                 <container style="screenlet-body">
-                                    <container style="button-bar"><label style="h2">Date/Time fields</label></container>
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleDateTimeFields}</label></container>
                                     <container style="screenlet-body">
-                                        <label style="h3">Source Code</label>
-                                        <label> - see the form definition with name &quot;DateTimeFieldsExampleForm&quot; in the file: </label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;DateTimeFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                         <include-form name="DateTimeFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                     </container>
                                 </container>
                                 <container style="screenlet-body">
-                                    <container style="button-bar"><label style="h2">Drop down fields</label></container>
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleDropDownFields}</label></container>
                                     <container style="screenlet-body">
-                                        <label style="h3">Source Code</label>
-                                        <label> - see the form definition with name &quot;DropDownFieldsExampleForm&quot; in the file: </label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;DropDownFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                     </container>
                                     <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <container style="button-bar"><label style="h2">Fields groups</label></container>
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleGroupFields}</label></container>
                                     <container style="screenlet-body">
-                                        <label style="h3">Source Code</label>
-                                        <label> - see the form definition with name &quot;FieldGroupExampleForm&quot; in the file: </label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;FieldGroupExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                         <include-form name="FieldGroupExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                     </container>
                                 </container>
                                 <container style="screenlet-body">
-                                    <container style="button-bar"><label style="h2">Print button</label></container>
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExamplePrintButton}</label></container>
                                     <container style="screenlet-body">
                                         <label>${uiLabelMap.ExampleFopFonts}</label>
                                     </container>

@@ -19,6 +19,18 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FormFieldTitle_date1">
+        <value xml:lang="en">date1</value>
+        <value xml:lang="it">data 1</value>
+    </property>
+    <property key="FormFieldTitle_date2">
+        <value xml:lang="en">date2</value>
+        <value xml:lang="it">data 2</value>
+    </property>
+    <property key="FormFieldTitle_entityGroupId">
+        <value xml:lang="en">Entity Group Id</value>
+        <value xml:lang="it">Gruppo entità</value>
+    </property>
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="en">Entity Sync Id</value>
         <value xml:lang="fr">Réf. de synchro. d'entités</value>
@@ -26,6 +38,14 @@
         <value xml:lang="ro">Cod Entitate Sincr.</value>
         <value xml:lang="th">รหัสสิ่งที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="zh">实体同步标识</value>
+    </property>
+    <property key="FormFieldTitle_eomodeldFullPath">
+        <value xml:lang="en">EoModel Full Path</value>
+        <value xml:lang="it">Path completo EoModel</value>
+    </property>
+    <property key="FormFieldTitle_exprAssocType">
+        <value xml:lang="en">Expr Assoc Type</value>
+        <value xml:lang="it">Tipo associazione espressione</value>
     </property>
     <property key="FormFieldTitle_forPullOnly">
         <value xml:lang="en">For Pull Only</value>
@@ -42,6 +62,14 @@
         <value xml:lang="ro">Numai pentru Incarcare</value>
         <value xml:lang="th">สำหรับการผลักเท่านั้น</value>
         <value xml:lang="zh">仅用于推送</value>
+    </property>
+    <property key="FormFieldTitle_integer1">
+        <value xml:lang="en">integer1</value>
+        <value xml:lang="it">intero 1</value>
+    </property>
+    <property key="FormFieldTitle_integer2">
+        <value xml:lang="en">integer2</value>
+        <value xml:lang="it">intero 2</value>
     </property>
     <property key="FormFieldTitle_keepRemoveInfoHours">
         <value xml:lang="en">Keep Remove Info Hours</value>
@@ -98,6 +126,14 @@
         <value xml:lang="ro">Stat Executie</value>
         <value xml:lang="th">ดำเนินการรหัสสถานะ</value>
         <value xml:lang="zh">运行状态标识</value>
+    </property>
+    <property key="FormFieldTitle_string1">
+        <value xml:lang="en">string1</value>
+        <value xml:lang="it">stringa 1</value>
+    </property>
+    <property key="FormFieldTitle_string2">
+        <value xml:lang="en">string2</value>
+        <value xml:lang="it">stringa 2</value>
     </property>
     <property key="FormFieldTitle_syncEndBufferMillis">
         <value xml:lang="en">Sync End Buffer Millis</value>
@@ -890,6 +926,10 @@
         <value xml:lang="it">ENTITA'</value>
         <value xml:lang="th">ENTITY</value>
         <value xml:lang="zh">实体</value>
+    </property>
+    <property key="WebtoolsEntityCretePermissionError">
+        <value xml:lang="en">You do not have permission to create a entity</value>
+        <value xml:lang="it">Tu non hai il permesso di creare un'entità</value>
     </property>
     <property key="WebtoolsEntityCurrentValue">
         <value xml:lang="en">Entity Current Value</value>
@@ -1755,6 +1795,10 @@
         <value xml:lang="ro">Memorie</value>
         <value xml:lang="th">หน่วยความจำ</value>
         <value xml:lang="zh">内存</value>
+    </property>
+    <property key="WebtoolsMinervaConnectionObjects">
+        <value xml:lang="en">Minerva Connection Objects</value>
+        <value xml:lang="it">Oggetti connessione Minerva</value>
     </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="en">Misc. Setup Tools</value>
