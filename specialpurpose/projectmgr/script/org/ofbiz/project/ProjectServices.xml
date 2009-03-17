@@ -518,12 +518,12 @@
             <field-to-result field="parameters.projectId" result-name="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
         </if-empty>
-        <if-not-empty field="parameters.workEffortName">
-            <set field="newProject.workEffortName" from-field="parameters.workEffortName"/>
-            <else>
-                <set field="newProject.workEffortName" from-field="project.workEffortName"/>
-            </else>
-        </if-not-empty>
+        <if-empty field="parameters.workEffortName">
+            <set field="parameters.workEffortName" from-field="project.workEffortName"/>
+        </if-empty>
+        <if-empty field="parameters.description">
+            <set field="parameters.description" from-field="project.description"/>
+        </if-empty>
         <if-not-empty field="toTemplate">
             <set field="parameters.workEffortTypeId" value="PROJECT_TEMPLATE"/>
             <else>
@@ -532,7 +532,6 @@
         </if-not-empty>
         <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>
         <clear-field field="parameters.workEffortId"/>
-        <set field="parameters.workEffortName" from-field="project.workEffortName"/>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <set field="newProjectId" from-field="newEntity.workEffortId"/>
         
