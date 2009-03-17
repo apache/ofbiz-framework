@@ -124,21 +124,21 @@ public class ShoppingCartHelper {
         pProductId = parentProductId;
         // price sanity check
         if (productId == null && price != null && price.compareTo(BigDecimal.ZERO) < 0) {
-            String errMsg = UtilProperties.getMessage(resource, "cart.price_not_positive_number", this.cart.getLocale());
+            String errMsg = UtilProperties.getMessage(resource_error, "cart.price_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         // quantity sanity check
         if (quantity.compareTo(BigDecimal.ONE) < 0) {
-            String errMsg = UtilProperties.getMessage(resource, "cart.quantity_not_positive_number", this.cart.getLocale());
+            String errMsg = UtilProperties.getMessage(resource_error, "cart.quantity_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         // amount sanity check
         if (amount != null && amount.compareTo(BigDecimal.ZERO) < 0) {
-            String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
+            String errMsg = UtilProperties.getMessage(resource_error, "cart.amount_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -248,7 +248,7 @@ public class ShoppingCartHelper {
             }
         } catch (CartItemModifyException e) {
             if (cart.getOrderType().equals("PURCHASE_ORDER")) {
-                String errMsg = UtilProperties.getMessage(resource, "cart.product_not_valid_for_supplier", this.cart.getLocale());
+                String errMsg = UtilProperties.getMessage(resource_error, "cart.product_not_valid_for_supplier", this.cart.getLocale());
                 errMsg = errMsg + " (" + e.getMessage() + ")";
                 result = ServiceUtil.returnError(errMsg);
             } else {
@@ -271,7 +271,7 @@ public class ShoppingCartHelper {
         String errMsg = null;
 
         if (orderId == null || orderId.length() <= 0) {
-            errMsg = UtilProperties.getMessage(resource,"cart.order_not_specified_to_add_from", this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"cart.order_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -530,7 +530,7 @@ public class ShoppingCartHelper {
         String errMsg = null;
 
         if (categoryId == null || categoryId.length() <= 0) {
-            errMsg = UtilProperties.getMessage(resource,"cart.category_not_specified_to_add_from", this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"cart.category_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -543,14 +543,14 @@ public class ShoppingCartHelper {
             Debug.logWarning(e.toString(), module);
             Map messageMap = UtilMisc.toMap("categoryId", categoryId);
             messageMap.put("message", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         if (prodCatMemberCol == null) {
             Map messageMap = UtilMisc.toMap("categoryId", categoryId);
-            errMsg = UtilProperties.getMessage(resource,"cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource_error,"cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -639,7 +639,7 @@ public class ShoppingCartHelper {
         BigDecimal oldPrice = BigDecimal.ONE.negate();
 
         if (this.cart.isReadOnlyCart()) {
-            String errMsg = UtilProperties.getMessage(resource, "cart.cart_is_in_read_only_mode", this.cart.getLocale());
+            String errMsg = UtilProperties.getMessage(resource_error, "cart.cart_is_in_read_only_mode", this.cart.getLocale());
             errorMsgs.add(errMsg);
             result = ServiceUtil.returnError(errorMsgs);
             return result;
@@ -714,7 +714,7 @@ public class ShoppingCartHelper {
                         if (item != null && quantString.length() > 0) {
                             BigDecimal amount = new BigDecimal(quantString);
                             if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                                String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
+                                String errMsg = UtilProperties.getMessage(resource_error, "cart.amount_not_positive_number", this.cart.getLocale());
                                 errorMsgs.add(errMsg);
                                 result = ServiceUtil.returnError(errorMsgs);
                                 return result;
@@ -728,7 +728,7 @@ public class ShoppingCartHelper {
                     } else {
                         quantity = new BigDecimal(nf.parse(quantString).doubleValue());
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {
-                            String errMsg = UtilProperties.getMessage(resource, "cart.quantity_not_positive_number", this.cart.getLocale());
+                            String errMsg = UtilProperties.getMessage(resource_error, "cart.quantity_not_positive_number", this.cart.getLocale());
                             errorMsgs.add(errMsg);
                             result = ServiceUtil.returnError(errorMsgs);
                             return result;
@@ -764,7 +764,7 @@ public class ShoppingCartHelper {
                                                     item.setName(item.getProduct().getString("internalName"));
                                                 } else {
                                                     // in this case, the user wanted to purchase a quantity which is not available (probably below minimum)
-                                                    String errMsg = UtilProperties.getMessage(resource, "cart.product_not_valid_for_supplier", this.cart.getLocale());
+                                                    String errMsg = UtilProperties.getMessage(resource_error, "cart.product_not_valid_for_supplier", this.cart.getLocale());
                                                     errMsg = errMsg + " (" + item.getProductId() + ", " + quantity + ", " + cart.getCurrency() + ")";
                                                     errorMsgs.add(errMsg);
                                                 }

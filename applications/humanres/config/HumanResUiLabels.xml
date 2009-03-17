@@ -296,12 +296,24 @@
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลถึง</value>
         <value xml:lang="zh">历史薪水去向（角色）</value>
     </property>
+    <property key="FormFieldTitle_perfRatingTypeId">
+        <value xml:lang="en">Perf Rating Type Id</value>
+        <value xml:lang="it">Tipo percentuale prestazioni</value>
+    </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
         <value xml:lang="fr">Réf. d'évaluation des performances</value>
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
         <value xml:lang="zh">绩效评定编号</value>
+    </property>
+    <property key="FormFieldTitle_perfReviewItemSeqId">
+        <value xml:lang="en">Perf Review Item Seq Id</value>
+        <value xml:lang="it">Riga rassegna prestazioni</value>
+    </property>
+    <property key="FormFieldTitle_perfReviewItemTypeId">
+        <value xml:lang="en">Perf Review Item Type Id</value>
+        <value xml:lang="it">Tipo riga rassegna prestazioni</value>
     </property>
     <property key="FormFieldTitle_position">
         <value xml:lang="en">Position</value>

@@ -192,7 +192,7 @@ under the License.
         <field name="forumId"><hidden value="${parameters.forumId}"/></field>
         <field name="rsp.contentId" parameter-name="contentId"><hidden/></field>
         <field name="rsp.contentName" parameter-name="contentName"><hidden/></field>
-        <field name="rsp.description" parameter-name="description"><text/></field>
+        <field name="rsp.description" title="${uiLabelMap.ContentForumDescriptionThread}" parameter-name="description"><text/></field>
         <field name="rsp.contentTypeId" parameter-name="contentTypeId"><hidden/></field>
         <field name="rsp.ownerContentId" parameter-name="ownerContentId"><hidden/></field>
         <field name="rsp.caFromDate" parameter-name="fromDate"><hidden/></field>
@@ -200,7 +200,7 @@ under the License.
         <field name="rsp.caContentIdTo" parameter-name="caContentIdTo"><hidden/></field>
         <field name="rsp.caContentAssocTypeId" parameter-name="caContentAssocTypeId"><hidden/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
-        <field name="textData"><textarea rows="8"/></field>
+        <field name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}"><textarea rows="8"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 </forms>

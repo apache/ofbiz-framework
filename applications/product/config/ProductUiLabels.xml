@@ -9033,6 +9033,10 @@
         <value xml:lang="th">สำหรับหน้าจอในไฟล์อื่น ๆ ใช้เหมือนบางสิ่ง</value>
         <value xml:lang="zh">为其它文件中的屏幕使用类似于</value>
     </property>
+    <property key="ProductDetailSubScreenTooltip">
+        <value xml:lang="en">example: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
+        <value xml:lang="it">esempio: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
+    </property>
     <property key="ProductDifferentCurrencies">
         <value xml:lang="en">Items with different currencies</value>
         <value xml:lang="fr">Articles utilisant différentes devises</value>
@@ -10875,6 +10879,10 @@
         <value xml:lang="ru">Значение для</value>
         <value xml:lang="th">ถ้าไม่ระบุค่าเริ่มต้นถึง</value>
         <value xml:lang="zh">如果没有指定缺省值到</value>
+    </property>
+    <property key="ProductImageUrlTooltip">
+        <value xml:lang="en">example: /images/categories/linkOne/100.jpg</value>
+        <value xml:lang="it">esempio: /images/categories/linkOne/100.jpg</value>
     </property>
     <property key="ProductInInventory">
         <value xml:lang="de">Am Lager</value>

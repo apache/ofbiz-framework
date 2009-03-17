@@ -668,8 +668,8 @@ under the License.
         <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
-        <field name="dummy1" position="1"><display/></field>
-        <field name="dummy2" position="2"><display/></field>
+        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1"><display/></field>
+        <field name="dummy2" title="${uiLabelMap.CommonEmptyHeader}" position="2"><display/></field>
         <field name="deleteEmail" widget-style="smallSubmit" position="3"><submit/></field>
     </form>
     <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="communicationEvent">

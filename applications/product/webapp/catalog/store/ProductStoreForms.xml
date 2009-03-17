@@ -836,10 +836,10 @@
         <field name="shipmentMethodTypeId">
             <display description="${estimate.shipmentMethodTypeId} (${estimate.carrierPartyId})"/>
         </field>
-        <field name="geoIdFrom">
+        <field name="geoIdFrom" title="${uiLabelMap.ProductFromGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
-        <field name="geoIdTo">
+        <field name="geoIdTo" title="${uiLabelMap.ProductToGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
         <field name="partyId"><display/></field>
