@@ -114,28 +114,28 @@ under the License.
               </#if>
               <select name="priority" size="1">
                 <#if priority?exists>          
-                  <option SELECTED value="${priority}">${priority}</option>       
+                  <option SELECTED value="${priority}">${priority}</option>
                   <option></option>
-                  <option value=1>1 (${uiLabelMap.WorkEffortPriorityHigh})</option>
-                  <option value=2>2</option>
-                  <option value=3>3</option>
-                  <option value=4>4</option>
-                  <option value=5>5</option>
-                  <option value=6>6</option>
-                  <option value=7>7</option>
-                  <option value=8>8</option>
-                  <option value=9>9 (${uiLabelMap.WorkEffortPriorityLow})</option>
+                  <option value=1>${uiLabelMap.WorkEffortPriorityOne}</option>
+                  <option value=2>${uiLabelMap.WorkEffortPriorityTwo}</option>
+                  <option value=3>${uiLabelMap.WorkEffortPriorityThree}</option>
+                  <option value=4>${uiLabelMap.WorkEffortPriorityFour}</option>
+                  <option value=5>${uiLabelMap.WorkEffortPriorityFive}</option>
+                  <option value=6>${uiLabelMap.WorkEffortPrioritySix}</option>
+                  <option value=7>${uiLabelMap.WorkEffortPrioritySeventh}</option>
+                  <option value=8>${uiLabelMap.WorkEffortPriorityEight}</option>
+                  <option value=9>${uiLabelMap.WorkEffortPriorityNine}</option>
                 <#else>
                   <option></option>
-                  <option value=1>1 (${uiLabelMap.WorkEffortPriorityHigh})</option>
-                  <option value=2>2</option>
-                  <option value=3>3</option>
-                  <option value=4>4</option>
-                  <option value=5>5</option>
-                  <option value=6>6</option>
-                  <option value=7>7</option>
-                  <option value=8>8</option>
-                  <option value=9>9 (${uiLabelMap.WorkEffortPriorityLow})</option>
+                  <option value=1>${uiLabelMap.WorkEffortPriorityOne}</option>
+                  <option value=2>${uiLabelMap.WorkEffortPriorityTwo}</option>
+                  <option value=3>${uiLabelMap.WorkEffortPriorityThree}</option>
+                  <option value=4>${uiLabelMap.WorkEffortPriorityFour}</option>
+                  <option value=5>${uiLabelMap.WorkEffortPriorityFive}</option>
+                  <option value=6>${uiLabelMap.WorkEffortPrioritySix}</option>
+                  <option value=7>${uiLabelMap.WorkEffortPrioritySeventh}</option>
+                  <option value=8>${uiLabelMap.WorkEffortPriorityEight}</option>
+                  <option value=9>${uiLabelMap.WorkEffortPriorityNine}</option>
                 </#if>
               </select>
             </td>

@@ -309,13 +309,17 @@
         <value xml:lang="it">Errore Ricavando externalId da orderId</value>
         <value xml:lang="th">ผิดพลาดการเรียกข้อมูลรหัสภายในคืนมาจากรหัสรายการสั่งซื้อ</value>
     </property>
+    <property key="ordersImportFromEbay.errorRetrievingOrderFromOrderId">
+        <value xml:lang="en">Error Retrieving Order From Order Id</value>
+        <value xml:lang="it">Errore nella ricerca dell'ordine attraverso il numero ordine</value>
+    </property>
     <property key="ordersImportFromEbay.exceptionDuringBuildingCompleteSaleRequest">
         <value xml:lang="en">Exception during building CompleteSaleRequest</value>
         <value xml:lang="fr">Exception durant la construction de confirmation de la demande de vente</value>
         <value xml:lang="it">Eccezione durante la costruzione di CompleteSaleRequest</value>
         <value xml:lang="th">ข้อยกเว้นระหว่างการสร้างคำร้องการขายเสร็จสมบูรณ์</value>
     </property>
-    <property key="ordersImportFromEbay.exceptionDuringBuildingGetEbayDetailsReques">
+    <property key="ordersImportFromEbay.exceptionDuringBuildingGetEbayDetailsRequest">
         <value xml:lang="en">Exception during building get eBay details request</value>
         <value xml:lang="fr">Exception durant la construction de réception de demande de détails Ebay</value>
         <value xml:lang="it">Eccezione durante la creazione della richiesta get eBay details</value>
@@ -405,6 +409,10 @@
         <value xml:lang="it">Errore durante l'autenticazione su eBay</value>
         <value xml:lang="th">ผิดพลาดระหว่างเครื่องหมายที่รับรองว่าเป็นของแท้ถึงอีเบย์</value>
     </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingAddTransactionConfirmationItemRequestToEbay">
+        <value xml:lang="en">Exception during building AddTransactionConfirmationItemRequestToEbay</value>
+        <value xml:lang="it">Eccezione durante la costruzione della richiesta AddTransactionConfirmationItemRequestToEbay ad eBay</value>
+    </property>
     <property key="productsExportToEbay.exceptionDuringBuildingDataItemsToEbay">
         <value xml:lang="en">Exception occurred during building data items to eBay</value>
         <value xml:lang="fr">Une exception s'est produite durant la construction des données d'articles vers Ebay</value>
@@ -416,6 +424,10 @@
         <value xml:lang="fr">Une exception s'est produite durant la construction de réception de demande des catégories</value>
         <value xml:lang="it">Eccezione accaduta durante la creazione della richiesta di ottenimento delle categorie</value>
         <value xml:lang="th">ข้อยกเว้นเกิดขึ้นระหว่างการสร้างคำร้องหมวดหมู่</value>
+    </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingRequestSetTaxTableToEbay">
+        <value xml:lang="en">Exception during building request SetTaxTableToEbay</value>
+        <value xml:lang="it">Eccezione durante la costruzione della richiesta SetTaxTableToEbay ad eBay</value>
     </property>
     <property key="productsExportToEbay.exceptionInExportToEbay">
         <value xml:lang="en">Exception in exportToEbay</value>
