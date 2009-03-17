@@ -27,12 +27,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.form.ModelForm;
@@ -121,7 +123,8 @@ public class WidgetWorker {
     public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, 
             List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField, 
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        if ("hidden-form".equals(linkType)) {
+        String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
+        if ("hidden-form".equals(realLinkType)) {
             if (modelFormField != null && "multi".equals(modelFormField.getModelForm().getType())) {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
 
@@ -298,6 +301,27 @@ public class WidgetWorker {
                     return null;
                 }
             }
+        }
+    }
+    
+    public static String determineAutoLinkType(String linkType, String target, String targetType, HttpServletRequest request) {
+        Debug.logInfo("determineAutoLinkType: linkType=" + linkType + ", target=[" + target + "], targetType=" + targetType, module);
+        if ("auto".equals(linkType)) {
+            if ("intra-app".equals(targetType)) {
+                String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target; 
+                ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
+                RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
+                ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().requestMapMap.get(requestUri);
+                if (requestMap != null && requestMap.event != null) {
+                    return "hidden-form";
+                } else {
+                    return "anchor";
+                }
+            } else {
+                return "anchor";
+            }
+        } else {
+            return linkType;
         }
     }
 }

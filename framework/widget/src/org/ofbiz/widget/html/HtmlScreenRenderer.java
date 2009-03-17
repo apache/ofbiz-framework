@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,8 +33,8 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -460,7 +459,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         
         String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
-        if ("hidden-form".equals(link.getLinkType())) {
+        String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
+        if ("hidden-form".equals(linkType)) {
             writer.append("<form method=\"post\"");
             writer.append(" action=\"");
             // note that this passes null for the parameterList on purpose so they won't be put into the URL
@@ -517,7 +517,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
         if (UtilValidate.isNotEmpty(target)) {
             writer.append(" href=\"");
-            if ("hidden-form".equals(link.getLinkType())) {
+            if ("hidden-form".equals(linkType)) {
                 writer.append("javascript:document.");
                 writer.append(uniqueItemName);
                 writer.append(".submit()");

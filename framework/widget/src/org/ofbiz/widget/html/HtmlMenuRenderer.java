@@ -376,7 +376,8 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             String targetWindow = link.getTargetWindow(context);
             String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
 
-            if ("hidden-form".equals(link.getLinkType())) {
+            String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
+            if ("hidden-form".equals(linkType)) {
                 writer.append("<form method=\"post\"");
                 writer.append(" action=\"");
                 // note that this passes null for the parameterList on purpose so they won't be put into the URL
@@ -434,7 +435,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
 
             writer.append(" href=\"");
-            if ("hidden-form".equals(link.getLinkType())) {
+            if ("hidden-form".equals(linkType)) {
                 writer.append("javascript:document.");
                 writer.append(uniqueItemName);
                 writer.append(".submit()");
