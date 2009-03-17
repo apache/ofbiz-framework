@@ -189,10 +189,10 @@ float: right;
                             <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER')>
                               <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>
                               <input type="text" name="isdm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedShipDate?if_exists}" size="25" maxlength="30"/>
-                              <a href="javascript:call_cal(document.updateItemInfo.isdm_${orderItem.orderItemSeqId},'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                              <a href="javascript:call_cal(document.updateItemInfo.isdm_${orderItem.orderItemSeqId},'${todayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                               <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>
                               <input type="text" name="iddm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedDeliveryDate?if_exists}" size="25" maxlength="30"/>
-                              <a href="javascript:call_cal(document.updateItemInfo.iddm_${orderItem.orderItemSeqId},'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                              <a href="javascript:call_cal(document.updateItemInfo.iddm_${orderItem.orderItemSeqId},'${todayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                             </#if>
                         </tr>
                       </#if>                      

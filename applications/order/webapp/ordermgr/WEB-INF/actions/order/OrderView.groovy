@@ -49,7 +49,7 @@ context.assignPartyId = assignPartyId;
 context.assignRoleTypeId = assignRoleTypeId;
 context.fromDate = fromDate;
 context.delegate = delegate;
-context.toDayDate = new java.sql.Date(System.currentTimeMillis()).toString();
+context.todayDate = new java.sql.Date(System.currentTimeMillis()).toString();
 
 
 orderHeader = null;
