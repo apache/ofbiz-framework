@@ -40,13 +40,13 @@
     <property key="ExampleType.description.CONTRIVED">
         <value xml:lang="en">Contrived</value>
         <value xml:lang="fr">Arrangé</value>
-        <value xml:lang="it">Contrived</value>
+        <value xml:lang="it">Inventato</value>
         <value xml:lang="th">เป็นไปตามที่วางแผนไว้</value>
     </property>
     <property key="ExampleType.description.INSPIRED">
         <value xml:lang="en">Inspired</value>
         <value xml:lang="fr">Inspiré</value>
-        <value xml:lang="it">Inspirato</value>
+        <value xml:lang="it">Ispirato</value>
         <value xml:lang="th">ยอดเยี่ยม</value>
     </property>
     <property key="ExampleType.description.MADE_UP">

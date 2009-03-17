@@ -61,10 +61,10 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="Portal pages for application: ${parameters.parentPortalPageId}">
+                        <screenlet title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}">
                             <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
-                        <screenlet title="Add a new portal Page">
+                        <screenlet title="${uiLabelMap.CommonPortalNewPage}">
                             <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
                         <section>
@@ -84,7 +84,7 @@ under the License.
                                 </entity-condition>
                             </actions>
                             <widgets>
-                                <screenlet title="Edit portal page: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
                                     <link target="addPortalPageColumn?portalPageId=${portalPage.portalPageId}&amp;parentPortalPageId=${portalPage.parentPortalPageId}" text="${uiLabelMap.CommonAddColumn}" style="buttontext"/>
                                     <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
                                 </screenlet>
@@ -123,8 +123,8 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
-                        <screenlet title="Category of portlet pages for application: ${parameters.parentPortalPageId}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonPortalCategoryPage}: ${parameters.parentPortalPageId}">
                             <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
                         <platform-specific><html><html-template location="component://common/webcommon/portal/listPortalPortlets.ftl"/></html></platform-specific>

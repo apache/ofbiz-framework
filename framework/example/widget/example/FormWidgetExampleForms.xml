@@ -29,16 +29,16 @@ under the License.
         <!-- ***   field1  *** -->
         <!-- ***************** -->
         <field name="field1"
-               title="Field1: date and time selection field"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDateField1Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <date-time/>
         </field>
         <!-- ***************** -->
         <!-- ***   field9  *** -->
         <!-- ***************** -->
         <field name="field9"
-               title="Field9: date and time selection field with default value"
-               tooltip="Same as above, uses the $ {bsh:...} notation to call an util method to get the now timestamp}">
+               title="${uiLabelMap.ExampleDateField9Title}"
+               tooltip="${uiLabelMap.ExampleDateField9Tooltip}">
             <!-- tooltip="Same as above, uses the ${'${'bsh:...} notation to call an util method to get the now timestamp}"-->
             <!-- tooltip="Same as above, uses the \${bsh:...} notation to call an util method to get the now timestamp}"-->
             <date-time default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
@@ -47,40 +47,40 @@ under the License.
         <!-- ***   field10  *** -->
         <!-- ***************** -->
         <field name="field10"
-               title="Field10: date and time selection field with default value"
-               tooltip="Same as above, uses the nowTimestamp variable (always available in the form context) to set the default value to now">
+               title="${uiLabelMap.ExampleDateField10Title}"
+               tooltip="${uiLabelMap.ExampleDateField10Tooltip}">
             <date-time default-value="${nowTimestamp}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field2  *** -->
         <!-- ***************** -->
         <field name="field2"
-               title="Field2: date selection field"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDateField2Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <date-time type="date"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field3  *** -->
         <!-- ***************** -->
         <field name="field3"
-               title="Field3: time selection field"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDateField3Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <date-time type="time"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field4  *** -->
         <!-- ***************** -->
         <field name="field4"
-               title="Field4: advanced date time selection"
-               tooltip="Use the input-method (time-dropdown) and clock (24) attributes to create drop down boxes for hour and minute selections">
+               title="${uiLabelMap.ExampleDateField4Title}"
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
             <date-time input-method="time-dropdown" clock="24"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field5  *** -->
         <!-- ***************** -->
         <field name="field5"
-               title="Field5: advanced date time selection (AM/PM)"
-               tooltip="Use the input-method (time-dropdown) and clock (12) attributes to create drop down boxes for hour and minute selections">
+               title="${uiLabelMap.ExampleDateField5Title}"
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
             <date-time input-method="time-dropdown" clock="12"/>
         </field>
         <!-- ***************** -->
@@ -88,8 +88,8 @@ under the License.
         <!-- ***************** -->
         <field name="field6"
                entry-name="exampleDateField"
-               title="Field6: date and time simple display"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDateField6Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <display/>
         </field>
         <!-- ***************** -->
@@ -97,8 +97,8 @@ under the License.
         <!-- ***************** -->
         <field name="field7"
                entry-name="exampleDateField"
-               title="Field7: date and time display with custom format"
-               tooltip="This is an example of MM/dd/yyyy format">
+               title="${uiLabelMap.ExampleDateField7Title}"
+               tooltip="${uiLabelMap.ExampleDateField7Tooltip}">
             <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
         </field>
         <!-- ***************** -->
@@ -106,20 +106,22 @@ under the License.
         <!-- ***************** -->
         <field name="field8"
                entry-name="exampleDateField"
-               title="Field8: date and time display with custom format"
-               tooltip="This is an example of MMMM, dd, yyyy format">
+               title="${uiLabelMap.ExampleDateField8Title}"
+               tooltip="${uiLabelMap.ExampleDateField8Tooltip}">
             <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM, dd, yyyy&quot;);}"/>
         </field>
     </form>
 
     <form name="DropDownFieldsExampleForm" type="single" title="">
-        <field name="dropDownFields1" title="drop-down"><display description="First of all you have to define a drop-down element inside of the field element that you want to render as a drop down field." also-hidden="false"/></field>
+        <field name="dropDownFields1" title="${uiLabelMap.ExampleDropDown}">
+            <display description="${uiLabelMap.ExampleDropDownTooltip}" also-hidden="false"/>
+        </field>
         <!-- ***************** -->
         <!-- ***   field1  *** -->
         <!-- ***************** -->
         <field name="field1"
-               title="Field1: optional"
-               tooltip="This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.">
+               title="${uiLabelMap.ExampleDropDownField1Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField1Tooltip}">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -129,8 +131,8 @@ under the License.
         <!-- ***   field2  *** -->
         <!-- ***************** -->
         <field name="field2"
-               title="Field2: mandatory"
-               tooltip="The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.">
+               title="${uiLabelMap.ExampleDropDownField2Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField2Tooltip}">
             <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -140,8 +142,8 @@ under the License.
         <!-- ***   field5  *** -->
         <!-- ***************** -->
         <field name="field5"
-               title="Field5: selection of a default value from the list"
-               tooltip="How to use the no-current-selected-key to select a default value from the options">
+               title="${uiLabelMap.ExampleDropDownField5Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField5Tooltip}">
             <drop-down no-current-selected-key="N">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -151,25 +153,25 @@ under the License.
         <!-- ***   field8  *** -->
         <!-- ***************** -->
         <field name="field8"
-               title="Field8: Javascript event"
+               title="${uiLabelMap.ExampleDropDownField8Title}"
                event="onChange"
                action="return alert('You have changed the value in the select box');"
-               tooltip="How to use the event and action attributes (in the field element) to trigger a Javascript action (in this example a popup message when the option is changed).">
+               tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
 
-        <field name="entityOptionsFields1" title="entity-options"><display description="All these fields retrieve the list of values from another entity by using the entity-options element." also-hidden="false"/></field>
-        <field name="entityOptionsFields2" title=""><display description="entity-options will look up options for the field in the given entity." also-hidden="false"/></field>
-        <field name="entityOptionsFields3" title=""><display description="The complete syntax is... TODO" also-hidden="false"/></field>
+        <field name="entityOptionsFields1" title="${uiLabelMap.ExampleDropDownEntityOptions}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip1}" also-hidden="false"/></field>
+        <field name="entityOptionsFields2" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip2}" also-hidden="false"/></field>
+        <field name="entityOptionsFields3" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip3}" also-hidden="false"/></field>
         <!-- ***************** -->
         <!-- ***   field3  *** -->
         <!-- ***************** -->
         <field name="field3"
-               title="Field3: sort in descending order"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDropDownField3Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 key-field-name="exampleTypeId"
@@ -182,8 +184,8 @@ under the License.
         <!-- ***   field4  *** -->
         <!-- ***************** -->
         <field name="field4"
-               title="Field4: combined description"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDropDownField4Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 key-field-name="exampleTypeId"
@@ -196,8 +198,8 @@ under the License.
         <!-- ***   field6  *** -->
         <!-- ***************** -->
         <field name="exampleTypeId"
-               title="Field6 (exampleTypeId): shortest notation"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDropDownField6Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 description="${description}"/>
@@ -207,8 +209,8 @@ under the License.
         <!-- ***   field7  *** -->
         <!-- ***************** -->
         <field name="field7"
-               title="Field7: additional constraint"
-               tooltip="TODO">
+               title="${uiLabelMap.ExampleDropDownField7Title}"
+               tooltip="${uiLabelMap.ExampleToDo}">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 key-field-name="exampleTypeId"
@@ -224,36 +226,36 @@ under the License.
     
     <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
     <form name="FOPFontsExampleForm" type="single" target="printExampleFOPFonts">
-            <field name="printButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+            <field name="printButton" title="${uiLabelMap.ExamplePrintButton}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <form name="FieldGroupExampleForm" type="single" title="">
-        <field name="Field1"><text/></field>
-        <field name="Field2"><text/></field>
-        <field name="Field3"><text/></field>
-        <field name="Field4"><text/></field>
-        <field name="Field5"><text/></field>
-        <field name="Field6"><text/></field>
-        <field name="Field7"><text/></field>
-        <field name="Field8"><text/></field>
-        <field name="Field9"><text/></field>
-        <field name="Field10"><text/></field>
+        <field name="field1" title="${uiLabelMap.ExampleField} 1"><text/></field>
+        <field name="field2" title="${uiLabelMap.ExampleField} 2"><text/></field>
+        <field name="field3" title="${uiLabelMap.ExampleField} 3"><text/></field>
+        <field name="field4" title="${uiLabelMap.ExampleField} 4"><text/></field>
+        <field name="field5" title="${uiLabelMap.ExampleField} 5"><text/></field>
+        <field name="field6" title="${uiLabelMap.ExampleField} 6"><text/></field>
+        <field name="field7" title="${uiLabelMap.ExampleField} 7"><text/></field>
+        <field name="field8" title="${uiLabelMap.ExampleField} 8"><text/></field>
+        <field name="field9" title="${uiLabelMap.ExampleField} 9"><text/></field>
+        <field name="field10" title="${uiLabelMap.ExampleField} 10"><text/></field>
 
         <sort-order>
-            <field-group title="Group 1" collapsible="true" initially-collapsed="true">
-                <sort-field name="Field1"/>
-                <sort-field name="Field2"/>
-                <sort-field name="Field3"/>
-                <sort-field name="Field4"/>
-                <sort-field name="Field5"/>
+            <field-group title="${uiLabelMap.ExampleGroupField} 1" collapsible="true" initially-collapsed="true">
+                <sort-field name="field1"/>
+                <sort-field name="field2"/>
+                <sort-field name="field3"/>
+                <sort-field name="field4"/>
+                <sort-field name="field5"/>
             </field-group>
 
-            <field-group title="Group 2" collapsible="true">
-                <sort-field name="Field6"/>
-                <sort-field name="Field7"/>
-                <sort-field name="Field8"/>
-                <sort-field name="Field9"/>
-                <sort-field name="Field10"/>
+            <field-group title="${uiLabelMap.ExampleGroupField} 2" collapsible="true">
+                <sort-field name="field6"/>
+                <sort-field name="field7"/>
+                <sort-field name="field8"/>
+                <sort-field name="field9"/>
+                <sort-field name="field10"/>
             </field-group>
         </sort-order>
 

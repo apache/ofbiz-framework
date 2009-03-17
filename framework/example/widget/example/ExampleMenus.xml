@@ -24,9 +24,9 @@ under the License.
         <menu-item name="Example" title="${uiLabelMap.ExampleExample}"><link target="FindExample"/></menu-item>
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}"><link target="FormWidgetExamples"/></menu-item>
-        <menu-item name="AjaxExample" title="Ajax Examples"><link target="authview/findExampleAjax"/></menu-item>
+        <menu-item name="AjaxExample" title="${uiLabelMap.ExampleAjaxExamples}"><link target="authview/findExampleAjax"/></menu-item>
         <menu-item name="portalPage" parent-portal-page-value="${parameters.parentPortalPageId}"/>
-        <menu-item name="Dashboard" title="Dashboard" align-style="opposed"><link target="ManagePortalPages?portalPageId=${currentPortalPage.portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/></menu-item>
+        <menu-item name="Dashboard" title="${uiLabelMap.ExampleDashboard}" align-style="opposed"><link target="ManagePortalPages?portalPageId=${currentPortalPage.portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}"/></menu-item>
     </menu>
 
     <menu name="EditExample" default-selected-style="selected" type="simple"

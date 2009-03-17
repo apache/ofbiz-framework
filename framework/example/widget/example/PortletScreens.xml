@@ -28,7 +28,7 @@ under the License.
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
-                <label text="Hi, this is a first example of portlet"/>
+                <label text="${uiLabelMap.ExamplePortletFirst}"/>
                 <label text="...${SpecificTitle}"/>
             </widgets>
         </section>
@@ -37,7 +37,7 @@ under the License.
     <screen name="ExamplePortlet2">
         <section>
             <widgets>
-                <label text="Hi, this is a second example of portlet"/>
+                <label text="${uiLabelMap.ExamplePortletSecond}"/>
             </widgets>
         </section>
     </screen>
@@ -49,13 +49,13 @@ under the License.
             </actions>
             <widgets>
                 <container style="leftclear">
-                    <label style="h1" text="Hi, this is a third example of portlet with editable parameters."/>
+                    <label style="h1" text="${uiLabelMap.ExamplePortletThird}"/>
                 </container>
                 <container style="leftclear">
-                    <label style="h2" text="SpecificTitle: ${SpecificTitle}"/>
+                    <label style="h2" text="${uiLabelMap.ExamplePortletSpecificTitle}: ${SpecificTitle}"/>
                 </container>
                 <container style="leftclear">
-                    <label style="h2" text="SpecificSubTitle: ${SpecificSubTitle}"/>
+                    <label style="h2" text="${uiLabelMap.ExamplePortletSpecificSubTitle}: ${SpecificSubTitle}"/>
                 </container>
             </widgets>
         </section>
