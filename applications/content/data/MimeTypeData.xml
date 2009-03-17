@@ -83,18 +83,19 @@ under the License.
     <MimeType mimeTypeId="multipart/signed" description="Signed Multipart"/>
 
     <!-- text mime types -->
-    <MimeType mimeTypeId="text/plain" description="Plain Text"/>
-    <MimeType mimeTypeId="text/enriched" description="Enriched Text"/>
-    <MimeType mimeTypeId="text/richtext" description="Rich Text"/>
-    <MimeType mimeTypeId="text/rtf" description="RTF Rich Text"/>
-    <MimeType mimeTypeId="text/tab-separated-values" description="Tab Separated Value Text"/>
     <MimeType mimeTypeId="text/css" description="CSS Text"/>
     <MimeType mimeTypeId="text/csv" description="Comma Separated Value Text"/>
+    <MimeType mimeTypeId="text/enriched" description="Enriched Text"/>
     <MimeType mimeTypeId="text/html" description="HTML Text"/>
+    <MimeType mimeTypeId="text/plain" description="Plain Text"/>
+    <MimeType mimeTypeId="text/rtf" description="RTF Rich Text"/>
+    <MimeType mimeTypeId="text/richtext" description="Rich Text"/>
     <MimeType mimeTypeId="text/sgml" description="SGML Text"/>
+    <MimeType mimeTypeId="text/tab-separated-values" description="Tab Separated Value Text"/>
     <MimeType mimeTypeId="text/x-diff" description="diff for patching files"/>
     <MimeType mimeTypeId="text/xml" description="XML Text"/>
-
+    <MimeType mimeTypeId="text/x-vcard" description="electronic business card"/>
+          
     <!-- video mime types -->
     <MimeType mimeTypeId="video/avi" description="AVI Video"/>
     <MimeType mimeTypeId="video/mpeg" description="MPEG/MPG Video"/>
@@ -140,7 +141,8 @@ under the License.
     <FileExtension fileExtensionId="wmv" mimeTypeId="video/x-ms-wmv"/>
     <FileExtension fileExtensionId="wmx" mimeTypeId="video/x-ms-wmx"/>
     <FileExtension fileExtensionId="zip" mimeTypeId="application/zip"/>
-
+    <FileExtension fileExtensionId="vcf" mimeTypeId="text/x-vcard"/>
+          
     <!-- Registered MIME Types:
     MEDIA TYPES
 
