@@ -18,17 +18,23 @@ under the License.
 -->
 
 <div class="screenlet-title-bar">
-     <div class="boxhead-right">
-        <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.OrderOrderItems}</a>
-    </div>
-    <div class="boxhead-left">
-        &nbsp;${uiLabelMap.CommonCreate}
-        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
-            ${uiLabelMap.OrderPurchaseOrder}
-        <#else>
-            ${uiLabelMap.OrderSalesOrder}
-        </#if>
-    </div>
+    <#if orderHeader?has_content>
+        <div class="boxhead-left">
+            ${uiLabelMap.PageTitleLookupBulkAddProduct}
+        </div>
+    <#else>
+        <div class="boxhead-right">
+            <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.OrderOrderItems}</a>
+        </div>
+        <div class="boxhead-left">
+            &nbsp;${uiLabelMap.CommonCreate}
+            <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+                ${uiLabelMap.OrderPurchaseOrder}
+            <#else>
+                ${uiLabelMap.OrderSalesOrder}
+            </#if>
+        </div>
+    </#if>
     <div class="boxhead-fill">&nbsp;</div>
 </div>
 

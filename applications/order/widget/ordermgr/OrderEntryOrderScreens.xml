@@ -279,4 +279,30 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupBulkAddSupplierProductsInApprovedOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLookupBulkAddSupplierProduct"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="screenlet">
+                                    <platform-specific>
+                                        <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
+                                    </platform-specific>
+                                    <container style="screenlet-body">
+                                        <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="LookupBulkAddSupplierProductsInApprovedOrder"></include-form>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
