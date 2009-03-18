@@ -1744,7 +1744,7 @@
     </property>
     <property key="WebtoolsMaintainTimestamps">
         <value xml:lang="en">Maintain Timestamps?</value>
-        <value xml:lang="fr">Maintenir les Timestamps ?</value>
+        <value xml:lang="fr">Maintenir les estampilles temporelles ?</value>
         <value xml:lang="it">Mantieni Timestamps?</value>
         <value xml:lang="ro">Mentii Timestamps?</value>
         <value xml:lang="th">ดูแลรักษาตารางเวลา?</value>

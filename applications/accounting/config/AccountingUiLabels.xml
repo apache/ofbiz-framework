@@ -5453,6 +5453,7 @@
     </property>
     <property key="AccountingPaymentAmount">
         <value xml:lang="en">Payment Amount</value>
+        <value xml:lang="fr">Montant du paiement</value>
         <value xml:lang="it">Importo pagamento</value>
     </property>
     <property key="AccountingPaymentApplRemoved">
