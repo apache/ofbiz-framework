@@ -18,16 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.minilang.operation.MapProcessor;
@@ -47,8 +46,9 @@ public class SimpleMapProcessor {
     }
 
     public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
-        if (loader == null)
+        if (loader == null) {
             loader = Thread.currentThread().getContextClassLoader();
+        }
 
         Map<String, MapProcessor> mapProcessors = getProcessors(xmlResource, name, loader);
         MapProcessor processor = mapProcessors.get(name);
@@ -57,8 +57,9 @@ public class SimpleMapProcessor {
             throw new MiniLangException("Could not find SimpleMapProcessor named " + name + " in XML document resource: " + xmlResource);
         }
 
-        if (processor != null)
+        if (processor != null) {
             processor.exec(inMap, results, messages, locale, loader);
+        }
     }
 
     public static void runSimpleMapProcessor(URL xmlURL, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
@@ -72,8 +73,9 @@ public class SimpleMapProcessor {
             throw new MiniLangException("Could not find SimpleMapProcessor named " + name + " in XML document: " + xmlURL.toString());
         }
 
-        if (processor != null)
+        if (processor != null) {
             processor.exec(inMap, results, messages, locale, loader);
+        }
     }
 
     protected static Map<String, MapProcessor> getProcessors(String xmlResource, String name, ClassLoader loader) throws MiniLangException {
@@ -83,7 +85,12 @@ public class SimpleMapProcessor {
             synchronized (SimpleMapProcessor.class) {
                 simpleMapProcessors = simpleMapProcessorsResourceCache.get(xmlResource);
                 if (simpleMapProcessors == null) {
-                    URL xmlURL = UtilURL.fromResource(xmlResource, loader);
+                    URL xmlURL = null;
+                    try {
+                        xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
+                    } catch (MalformedURLException e) {
+                        throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
+                    }
 
                     if (xmlURL == null) {
                         throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource);
@@ -140,7 +147,6 @@ public class SimpleMapProcessor {
         Element rootElement = document.getDocumentElement();
         for (Element simpleMapProcessorElement: UtilXml.childElementList(rootElement, "simple-map-processor")) {
             MapProcessor processor = new MapProcessor(simpleMapProcessorElement);
-
             mapProcessors.put(simpleMapProcessorElement.getAttribute("name"), processor);
         }
 
