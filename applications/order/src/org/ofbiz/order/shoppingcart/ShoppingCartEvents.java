@@ -1661,6 +1661,7 @@ public class ShoppingCartEvents {
         String workEffortId = request.getParameter("workEffortId");
         String shipBeforeDateStr = request.getParameter("shipBeforeDate");
         String shipAfterDateStr = request.getParameter("shipAfterDate");
+        String cancelBackOrderDateStr = request.getParameter("cancelBackOrderDate");
         String orderId = request.getParameter("orderId");
         String orderName = request.getParameter("orderName");
         String correspondingPoId = request.getParameter("correspondingPoId");
@@ -1712,6 +1713,10 @@ public class ShoppingCartEvents {
             if (UtilValidate.isNotEmpty(shipAfterDateStr)) {
                 if (shipAfterDateStr.length() == 10) shipAfterDateStr += " 00:00:00.000";
                 cart.setDefaultShipAfterDate(java.sql.Timestamp.valueOf(shipAfterDateStr));
+            }
+            if (UtilValidate.isNotEmpty(cancelBackOrderDateStr)) {
+                if (cancelBackOrderDateStr.length() == 10) cancelBackOrderDateStr += " 00:00:00.000";
+                cart.setCancelBackOrderDate(java.sql.Timestamp.valueOf(cancelBackOrderDateStr));
             }
         } catch (IllegalArgumentException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());

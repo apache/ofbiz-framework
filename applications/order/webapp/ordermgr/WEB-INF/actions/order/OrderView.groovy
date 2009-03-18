@@ -412,3 +412,8 @@ if (orderHeader) {
    postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
    context.postalContactMechList = postalContactMechList;
 }
+
+if (orderItems) {
+    orderItem = EntityUtil.getFirst(orderItems);
+    context.orderItem = orderItem;
+}

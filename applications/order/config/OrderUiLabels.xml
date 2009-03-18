@@ -51,6 +51,9 @@
         <value xml:lang="th">ใบเสร็จถึงรหัสกลุ่มลูกค้า</value>
         <value xml:lang="zh">账单记入客户会员标识</value>
     </property>
+    <property key="FormFieldTitle_cancelBackOrderDate">
+        <value xml:lang="en">Cancel Back Order Date</value>
+    </property>    
     <property key="FormFieldTitle_carrierRoleTypeId">
         <value xml:lang="de">Spediteur Rollentyp ID</value>
         <value xml:lang="en">Carrier Role Type Id</value>

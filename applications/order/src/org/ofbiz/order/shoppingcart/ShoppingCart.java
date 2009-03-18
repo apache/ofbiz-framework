@@ -164,6 +164,7 @@ public class ShoppingCart implements Serializable {
     protected String currencyUom = null;
     protected boolean holdOrder = false;
     protected Timestamp orderDate = null;
+    protected Timestamp cancelBackOrderDate = null;
 
     /** don't allow empty constructor */
     protected ShoppingCart() {}
@@ -195,6 +196,7 @@ public class ShoppingCart implements Serializable {
         this.viewCartOnAdd = cart.viewCartOnAdd();
         this.defaultShipAfterDate = cart.getDefaultShipAfterDate();
         this.defaultShipBeforeDate = cart.getDefaultShipBeforeDate();
+        this.cancelBackOrderDate = cart.getCancelBackOrderDate();
         
         this.terminalId = cart.getTerminalId();
         this.transactionId = cart.getTransactionId();
@@ -517,7 +519,7 @@ public class ShoppingCart implements Serializable {
             //GenericValue productSupplier = null;
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
-                 return this.addItem(0, ShoppingCartItem.makePurchaseOrderItem(new Integer(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate));
+                 return this.addItem(0, ShoppingCartItem.makePurchaseOrderItem(new Integer(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate));
             } else {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
@@ -1119,6 +1121,14 @@ public class ShoppingCart implements Serializable {
    public void setDefaultShipAfterDate(Timestamp defaultShipAfterDate) {
        this.defaultShipAfterDate = defaultShipAfterDate;
    }
+   
+    public void setCancelBackOrderDate(Timestamp cancelBackOrderDate) {
+        this.cancelBackOrderDate = cancelBackOrderDate;    
+    }
+	   	   
+    public Timestamp getCancelBackOrderDate() {
+        return this.cancelBackOrderDate;
+    }
    
    public Timestamp getDefaultShipAfterDate() {
        return this.defaultShipAfterDate;
@@ -3447,6 +3457,7 @@ public class ShoppingCart implements Serializable {
                 orderItem.set("shipBeforeDate", item.getShipBeforeDate());
                 orderItem.set("shipAfterDate", item.getShipAfterDate());
                 orderItem.set("estimatedShipDate", item.getEstimatedShipDate());
+                orderItem.set("cancelBackOrderDate", item.getCancelBackOrderDate());
 
                 String fromInventoryItemId = (String) item.getAttribute("fromInventoryItemId");
                 if (fromInventoryItemId != null) {
