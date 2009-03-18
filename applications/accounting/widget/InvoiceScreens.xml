@@ -237,30 +237,42 @@ under the License.
                                     <container><link target="editInvoice?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
                                     <include-form name="invoiceHeader" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
-                                    <container><link target="invoiceRoles?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
-                                    <include-form name="invoiceRoles" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
-                                    <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.PartyTerms}">
-                                    <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                    <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
+                                        <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
                                         navigation-form-name="ListInvoiceApplications">
-                                    <container><link target="editInvoiceApplications?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
-                                    <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
+                                        <container><link target="editInvoiceApplications?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
+                                        <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
+                                        <container><link target="invoiceRoles?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
+                                        <include-form name="invoiceRoles" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.PartyTerms}">
+                                        <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                        <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="leftclear"/>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
                                     <container><link target="listInvoiceItems?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
                                     <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="timeEntries"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
                                    <container><link target="editInvoiceTimeEntries?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
                                    <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
                                     <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
@@ -269,26 +281,38 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingInvoiceHeader}">
                                     <include-form name="invoiceHeader" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
-                                    <include-form name="invoiceRoles" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
-                                    <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.PartyTerms}">
-                                    <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                    <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
+                                        <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
                                         navigation-form-name="ListInvoiceApplications">
-                                    <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
+                                        <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
+                                        <include-form name="invoiceRoles" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.PartyTerms}">
+                                        <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                        <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="leftclear"/>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
                                     <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
-                                   <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="timeEntries"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
+                                            <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
                                     <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
