@@ -17,6 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<script language="JavaScript" type="text/javascript">
+  function quicklookup(element) {
+    window.location='<@ofbizUrl>LookupBulkAddSupplierProductsInApprovedOrder</@ofbizUrl>?orderId='+element.value;
+  }
+</script>
+
 <#if orderHeader?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -26,7 +32,8 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-        <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm">
+        <form method="post" action="<@ofbizUrl>appendItemToOrder</@ofbizUrl>" name="appendItemForm">
+            <input type="hidden" size="25" name="orderId" value="${orderId?if_exists}"/>
             <#if catalogCol?size == 1>
                 <input type="hidden" name="prodCatalogId" value="${catalogCol.first}"/>
             </#if>
@@ -49,6 +56,9 @@ under the License.
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
+                      <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
+                          <a href="javascript:quicklookup(document.appendItemForm.orderId)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
+                      </#if>
                       <a href="javascript:call_fieldlookup2(document.appendItemForm.productId,'LookupProduct');">
                         <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                       </a>

@@ -557,6 +557,14 @@ under the License.
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
+	
+    <request-map uri="bulkAddProductsInApprovedOrder">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProductsInApprovedOrder"/>
+        <response name="success" type="request-redirect"  value="orderview"><redirect-parameter name="orderId"/></response>  
+        <response name="error" type="request" value="orderview"/>
+    </request-map>	
+	
     <request-map uri="category">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="category"/>
@@ -1457,6 +1465,7 @@ under the License.
     <request-map uri="LookupCustomerName"><security auth="true" https="true"/><response name="success" type="view" value="LookupCustomerName"/></request-map>
     <request-map uri="LookupProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupSupplierProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupSupplierProduct"/></request-map>
+    <request-map uri="LookupBulkAddSupplierProductsInApprovedOrder"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddSupplierProductsInApprovedOrder"/></request-map>	
     <request-map uri="LookupProductAndPrice"><security https="true" auth="true"/><response name="success" type="view" value="LookupProductAndPrice"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupUserLoginAndPartyDetails"><security https="true" auth="true"/><response name="success" type="view" value="LookupUserLoginAndPartyDetails"/></request-map>
@@ -1488,7 +1497,6 @@ under the License.
     </request-map>
     
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
-   
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the 
@@ -1517,7 +1525,6 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
 
     <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderListView"/>
@@ -1639,6 +1646,7 @@ under the License.
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupSupplierProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupSupplierProduct"/>
+    <view-map name="LookupBulkAddSupplierProductsInApprovedOrder" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#LookupBulkAddSupplierProductsInApprovedOrder"/>	
     <view-map name="LookupProductAndPrice" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductAndPrice"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>    

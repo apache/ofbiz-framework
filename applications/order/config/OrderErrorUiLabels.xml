@@ -3713,6 +3713,9 @@
         <value xml:lang="th">ไม่ปรากฏถึงค่าโปรโมชันของขวัญ</value>
         <value xml:lang="zh">不是一个有效的促销礼品</value>
     </property>
+    <property key="shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string">
+        <value xml:lang="en">Problem in parsing item desired delivery date string</value>
+    </property>    
     <property key="shoppingCartHelper.no_items_found_to_add">
         <value xml:lang="en">No items found to add</value>
         <value xml:lang="es">No hay ítems encontrados para agregar</value>

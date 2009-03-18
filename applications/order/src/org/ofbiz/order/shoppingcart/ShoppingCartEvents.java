@@ -26,6 +26,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javolution.util.FastMap;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1744,5 +1746,109 @@ public class ShoppingCartEvents {
         
         request.setAttribute("totalPrice", org.ofbiz.base.util.UtilFormatOut.formatCurrency(configWrapper.getTotalPrice(), currencyUomId, UtilHttp.getLocale(request)));
         return "success";
-    }    
+    }
+    
+    public static String bulkAddProductsInApprovedOrder(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        Locale locale = UtilHttp.getLocale(request);
+        String productId = null;
+        String productCategoryId = null;
+        String quantityStr = null;
+        String itemDesiredDeliveryDateStr = null; 
+        BigDecimal quantity = BigDecimal.ZERO;
+        String itemType = null;
+        String itemDescription = "";
+        String orderId = null;
+        String shipGroupSeqId = null;
+     
+        Map paramMap = UtilHttp.getParameterMap(request);          
+        String itemGroupNumber = request.getParameter("itemGroupNumber");
+        int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+        if (rowCount < 1) {
+            Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
+        } else {
+            for (int i = 0; i < rowCount; i++) {
+                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;      
+                if (paramMap.containsKey("productId" + thisSuffix)) {
+                    productId = (String) paramMap.remove("productId" + thisSuffix);
+                }
+                if (paramMap.containsKey("quantity" + thisSuffix)) {
+                    quantityStr = (String) paramMap.remove("quantity" + thisSuffix);
+                }
+                if ((quantityStr == null) || (quantityStr.equals(""))) {    
+                    quantityStr = "0";  
+                }
+                try {
+                    quantity = new BigDecimal(quantityStr);
+                } catch (Exception e) {
+                    Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
+                    quantity = BigDecimal.ZERO;
+                }
+                String selectedAmountStr = "0.00";
+                if (paramMap.containsKey("amount" + thisSuffix)) {
+                    selectedAmountStr = (String) paramMap.remove("amount" + thisSuffix);
+                }
+                BigDecimal amount = null;
+                if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
+                    try {
+                        amount = new BigDecimal(selectedAmountStr);
+                    } catch (Exception e) {
+                        Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
+                        amount = null;
+                    }
+                }
+                if (paramMap.containsKey("itemDesiredDeliveryDate" + thisSuffix)) {
+                    itemDesiredDeliveryDateStr = (String) paramMap.remove("itemDesiredDeliveryDate" + thisSuffix);
+                }
+                Timestamp itemDesiredDeliveryDate = null;
+                if (UtilValidate.isNotEmpty(itemDesiredDeliveryDateStr)) {
+                    try {
+                        itemDesiredDeliveryDate = Timestamp.valueOf(itemDesiredDeliveryDateStr);
+                    } catch (Exception e) {
+                        Debug.logWarning(e,"Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, module);
+                        itemDesiredDeliveryDate = null;
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
+                    }
+                }    
+                if (paramMap.containsKey("itemType" + thisSuffix)) {
+                    itemType = (String) paramMap.remove("itemType" + thisSuffix);
+                }
+                if (paramMap.containsKey("itemDescription" + thisSuffix)) {
+                    itemDescription = (String) paramMap.remove("itemDescription" + thisSuffix);
+                }
+                if (paramMap.containsKey("orderId" + thisSuffix)) {
+                    orderId = (String) paramMap.remove("orderId" + thisSuffix);
+                }
+                if (paramMap.containsKey("shipGroupSeqId" + thisSuffix)) {
+                    shipGroupSeqId = (String) paramMap.remove("shipGroupSeqId" + thisSuffix);
+                }
+                if (quantity.compareTo(BigDecimal.ZERO) > 0) {
+                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
+                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
+                    HttpSession session = request.getSession();
+                    GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+                    Map appendOrderItemMap = FastMap.newInstance();
+                    appendOrderItemMap.put("productId", productId);
+                    appendOrderItemMap.put("quantity", quantity);
+                    appendOrderItemMap.put("orderId", orderId);
+                    appendOrderItemMap.put("userLogin", userLogin);
+                    appendOrderItemMap.put("amount", amount);
+                    appendOrderItemMap.put("itemDesiredDeliveryDate", itemDesiredDeliveryDate);
+                    appendOrderItemMap.put("shipGroupSeqId", shipGroupSeqId);
+                    try {
+                        Map result = dispatcher.runSync("appendOrderItem", appendOrderItemMap);
+                        request.setAttribute("shoppingCart", (ShoppingCart) result.get("shoppingCart"));
+                        ShoppingCartEvents.destroyCart(request, response);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "Failed to execute service appendOrderItem", module);
+                        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                        return "error";
+                    }
+                }
+            }
+        }
+        request.setAttribute("orderId", orderId);
+        return  "success";
+    }
 }

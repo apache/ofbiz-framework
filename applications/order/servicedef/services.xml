@@ -326,7 +326,7 @@ under the License.
     </service>
     <service name="appendOrderItem" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderServices" invoke="addItemToApprovedOrder">
-        <description>Append an itemto an existing order</description>
+        <description>Append an item to an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
