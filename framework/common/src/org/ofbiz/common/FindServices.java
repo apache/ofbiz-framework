@@ -546,7 +546,7 @@ public class FindServices {
         List fieldList =  (List) context.get("fieldList");
         Set fieldSet = null;        
         if (fieldList != null) {
-        	fieldSet = new HashSet(fieldList);
+            fieldSet = new HashSet(fieldList);
         }
         GenericDelegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values

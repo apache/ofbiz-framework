@@ -24,25 +24,25 @@ ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUAL
 categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false);
 
 portalPortlets = [];
-	categories.each { category ->
-	pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"));
-	listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false);
+    categories.each { category ->
+    pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"));
+    listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false);
 
-	inMap = [:];
+    inMap = [:];
     listPortalPortlets.each { listPortalPortlet ->
-		if (listPortalPortlet.securityServiceName && listPortalPortlet.securityMainAction) {
-			inMap.mainAction = listPortalPortlet.securityMainAction;
-			inMap.userLogin = context.userLogin;
-			result = dispatcher.runSync(listPortalPortlet.securityServiceName, inMap)
-			hasPermission = result.hasPermission;
-		} else {
-			hasPermission = true;
-		}
+        if (listPortalPortlet.securityServiceName && listPortalPortlet.securityMainAction) {
+            inMap.mainAction = listPortalPortlet.securityMainAction;
+            inMap.userLogin = context.userLogin;
+            result = dispatcher.runSync(listPortalPortlet.securityServiceName, inMap)
+            hasPermission = result.hasPermission;
+        } else {
+            hasPermission = true;
+        }
     
-		if (hasPermission) {
-			portalPortlets.add(listPortalPortlet);
-		}
-	}
+        if (hasPermission) {
+            portalPortlets.add(listPortalPortlet);
+        }
+    }
 }
 
 context.portletCat = delegator.findAll("PortletCategory");

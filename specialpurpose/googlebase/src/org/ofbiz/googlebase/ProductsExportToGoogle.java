@@ -307,190 +307,190 @@ public class ProductsExportToGoogle {
     }
     
     private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml) {
-    	Locale locale = (Locale)context.get("locale");
-    	List newProductsInGoogle = FastList.newInstance();
-    	List productsRemovedFromGoogle = FastList.newInstance();
-    	try {
-    		GenericDelegator delegator = dctx.getDelegator();
-    		LocalDispatcher dispatcher = dctx.getDispatcher();
-    		List selectResult = (List)context.get("selectResult");
-    		String webSiteUrl = (String)context.get("webSiteUrl");
-    		String imageUrl = (String)context.get("imageUrl");
-    		String actionType = (String)context.get("actionType");
-    		String statusId = (String)context.get("statusId");
-    		String trackingCodeId = (String)context.get("trackingCodeId");
-    		String countryCode = (String)context.get("countryCode");
-    		String webSiteMountPoint = (String)context.get("webSiteMountPoint");
+        Locale locale = (Locale)context.get("locale");
+        List newProductsInGoogle = FastList.newInstance();
+        List productsRemovedFromGoogle = FastList.newInstance();
+        try {
+            GenericDelegator delegator = dctx.getDelegator();
+            LocalDispatcher dispatcher = dctx.getDispatcher();
+            List selectResult = (List)context.get("selectResult");
+            String webSiteUrl = (String)context.get("webSiteUrl");
+            String imageUrl = (String)context.get("imageUrl");
+            String actionType = (String)context.get("actionType");
+            String statusId = (String)context.get("statusId");
+            String trackingCodeId = (String)context.get("trackingCodeId");
+            String countryCode = (String)context.get("countryCode");
+            String webSiteMountPoint = (String)context.get("webSiteMountPoint");
 
-    		if (!webSiteUrl.startsWith("http://") && !webSiteUrl.startsWith("https://")) {
-    			webSiteUrl = "http://" + webSiteUrl;
-    		}
-    		if (webSiteUrl.endsWith("/")) {
-    			webSiteUrl = webSiteUrl.substring(0, webSiteUrl.length() - 1);
-    		}
+            if (!webSiteUrl.startsWith("http://") && !webSiteUrl.startsWith("https://")) {
+                webSiteUrl = "http://" + webSiteUrl;
+            }
+            if (webSiteUrl.endsWith("/")) {
+                webSiteUrl = webSiteUrl.substring(0, webSiteUrl.length() - 1);
+            }
 
-    		if (webSiteMountPoint.endsWith("/")) {
-    			webSiteMountPoint = webSiteMountPoint.substring(0, webSiteMountPoint.length() - 1);
-    		}
-    		if (webSiteMountPoint.startsWith("/")) {
-    			webSiteMountPoint = webSiteMountPoint.substring(1, webSiteMountPoint.length());
-    		}
+            if (webSiteMountPoint.endsWith("/")) {
+                webSiteMountPoint = webSiteMountPoint.substring(0, webSiteMountPoint.length() - 1);
+            }
+            if (webSiteMountPoint.startsWith("/")) {
+                webSiteMountPoint = webSiteMountPoint.substring(1, webSiteMountPoint.length());
+            }
 
-    		String productCurrency = null;
-    		if ("US".equals(countryCode)) {
-    			productCurrency = "USD";
-    		} else if ("GB".equals(countryCode)) {
-    			productCurrency = "GBP";
-    		} else if ("DE".equals(countryCode)) {
-    			productCurrency = "EUR";
-    		} else {
-    			Debug.logError("Exception during building data items to Google, Country Code must be either US, UK or DE: "+countryCode, module);
-    			return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
-    		}
-    		// Get the list of products to be exported to Google Base
-    		List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
+            String productCurrency = null;
+            if ("US".equals(countryCode)) {
+                productCurrency = "USD";
+            } else if ("GB".equals(countryCode)) {
+                productCurrency = "GBP";
+            } else if ("DE".equals(countryCode)) {
+                productCurrency = "EUR";
+            } else {
+                Debug.logError("Exception during building data items to Google, Country Code must be either US, UK or DE: "+countryCode, module);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
+            }
+            // Get the list of products to be exported to Google Base
+            List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
 
-    		// Get the tracking code
-    		if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {
-    			trackingCodeId = "";
-    		} else {
-    			trackingCodeId = "?atc=" + trackingCodeId;
-    		}
+            // Get the tracking code
+            if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {
+                trackingCodeId = "";
+            } else {
+                trackingCodeId = "?atc=" + trackingCodeId;
+            }
 
-    		Document feedDocument = UtilXml.makeEmptyXmlDocument("feed");
-    		Element feedElem = feedDocument.getDocumentElement();
-    		feedElem.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
-    		feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
-    		feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
-    		feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
-    		feedElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
+            Document feedDocument = UtilXml.makeEmptyXmlDocument("feed");
+            Element feedElem = feedDocument.getDocumentElement();
+            feedElem.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
+            feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
+            feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
+            feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
+            feedElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
 
-    		// Iterate the product list getting all the relevant data
-    		Iterator productsListItr = productsList.iterator();
-    		int index = 0;
-    		String itemActionType = null;
-    		GenericValue googleProduct;
-    		while (productsListItr.hasNext()) {
-    			itemActionType = actionType;
-    			GenericValue prod = (GenericValue)productsListItr.next();
-    			String price = getProductPrice(dispatcher, prod);
-    			if (price == null) {
-    				Debug.logInfo("Price not found for product [" + prod.getString("productId")+ "]; product will not be exported.", module);
-    				continue;
-    			}
-    			// TODO: improve this (i.e. get the relative path from the properies file)
-    			String link = webSiteUrl + "/"+webSiteMountPoint+"/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
-    			String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
-    			String description = UtilFormatOut.encodeXmlValue(prod.getString("description"));
-    			String imageLink = "";
-    			if (UtilValidate.isNotEmpty(prod.getString("largeImageUrl"))) {
-    				imageLink = webSiteUrl + prod.getString("largeImageUrl");
-    			} else if (UtilValidate.isNotEmpty(prod.getString("mediumImageUrl"))) {
-    				imageLink = webSiteUrl + prod.getString("mediumImageUrl");
-    			} else if (UtilValidate.isNotEmpty(prod.getString("smallImageUrl"))) {
-    				imageLink = webSiteUrl + prod.getString("smallImageUrl");
-    			}
+            // Iterate the product list getting all the relevant data
+            Iterator productsListItr = productsList.iterator();
+            int index = 0;
+            String itemActionType = null;
+            GenericValue googleProduct;
+            while (productsListItr.hasNext()) {
+                itemActionType = actionType;
+                GenericValue prod = (GenericValue)productsListItr.next();
+                String price = getProductPrice(dispatcher, prod);
+                if (price == null) {
+                    Debug.logInfo("Price not found for product [" + prod.getString("productId")+ "]; product will not be exported.", module);
+                    continue;
+                }
+                // TODO: improve this (i.e. get the relative path from the properies file)
+                String link = webSiteUrl + "/"+webSiteMountPoint+"/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
+                String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
+                String description = UtilFormatOut.encodeXmlValue(prod.getString("description"));
+                String imageLink = "";
+                if (UtilValidate.isNotEmpty(prod.getString("largeImageUrl"))) {
+                    imageLink = webSiteUrl + prod.getString("largeImageUrl");
+                } else if (UtilValidate.isNotEmpty(prod.getString("mediumImageUrl"))) {
+                    imageLink = webSiteUrl + prod.getString("mediumImageUrl");
+                } else if (UtilValidate.isNotEmpty(prod.getString("smallImageUrl"))) {
+                    imageLink = webSiteUrl + prod.getString("smallImageUrl");
+                }
 
-    			String googleProductId = null;
-    			if (!"insert".equals(actionType)) {
-    				try {
-    					googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID"));
-    					if (UtilValidate.isNotEmpty(googleProduct)) {
-    						googleProductId = googleProduct.getString("idValue");
-    					}
-    				} catch (GenericEntityException gee) {
-    					Debug.logError("Unable to obtain GoodIdentification entity value of the Google id for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
-    				}
-    			}
-    			if ("update".equals(actionType) && UtilValidate.isEmpty(googleProductId)) {
-    				itemActionType = "insert";
-    			}
-    			Element entryElem = UtilXml.addChildElement(feedElem, "entry", feedDocument);
-    			Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
-    			batchElem.setAttribute("type", itemActionType);
+                String googleProductId = null;
+                if (!"insert".equals(actionType)) {
+                    try {
+                        googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID"));
+                        if (UtilValidate.isNotEmpty(googleProduct)) {
+                            googleProductId = googleProduct.getString("idValue");
+                        }
+                    } catch (GenericEntityException gee) {
+                        Debug.logError("Unable to obtain GoodIdentification entity value of the Google id for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
+                    }
+                }
+                if ("update".equals(actionType) && UtilValidate.isEmpty(googleProductId)) {
+                    itemActionType = "insert";
+                }
+                Element entryElem = UtilXml.addChildElement(feedElem, "entry", feedDocument);
+                Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
+                batchElem.setAttribute("type", itemActionType);
 
-    			// status is draft or deactivate
-    			if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
-    				Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
-    				UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
+                // status is draft or deactivate
+                if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
+                    Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
+                    UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
 
-    				// status is deactivate
-    				if ("deactivate".equals(statusId)) {
-    					UtilXml.addChildElement(appControlElem, "gm:disapproved", feedDocument);
-    				}
-    			}
+                    // status is deactivate
+                    if ("deactivate".equals(statusId)) {
+                        UtilXml.addChildElement(appControlElem, "gm:disapproved", feedDocument);
+                    }
+                }
 
-    			UtilXml.addChildElementValue(entryElem, "title", title, feedDocument);
+                UtilXml.addChildElementValue(entryElem, "title", title, feedDocument);
 
-    			Element contentElem = UtilXml.addChildElementValue(entryElem, "content", description, feedDocument);
-    			contentElem.setAttribute("type", "xhtml");
+                Element contentElem = UtilXml.addChildElementValue(entryElem, "content", description, feedDocument);
+                contentElem.setAttribute("type", "xhtml");
 
-    			if (UtilValidate.isNotEmpty(googleProductId)) {
-    				UtilXml.addChildElementValue(entryElem, "id", googleProductId, feedDocument);
-    			} else {
-    				UtilXml.addChildElementValue(entryElem, "id", link, feedDocument);
-    			}
+                if (UtilValidate.isNotEmpty(googleProductId)) {
+                    UtilXml.addChildElementValue(entryElem, "id", googleProductId, feedDocument);
+                } else {
+                    UtilXml.addChildElementValue(entryElem, "id", link, feedDocument);
+                }
 
-    			Element linkElem = UtilXml.addChildElement(entryElem, "link", feedDocument);
-    			linkElem.setAttribute("rel", "alternate");
-    			linkElem.setAttribute("type", "text/html");
-    			linkElem.setAttribute("href", link);
+                Element linkElem = UtilXml.addChildElement(entryElem, "link", feedDocument);
+                linkElem.setAttribute("rel", "alternate");
+                linkElem.setAttribute("type", "text/html");
+                linkElem.setAttribute("href", link);
 
-    			UtilXml.addChildElementValue(entryElem, "g:item_type", "products", feedDocument);
-    			UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
+                UtilXml.addChildElementValue(entryElem, "g:item_type", "products", feedDocument);
+                UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
 
-    			// Might be nicer to load this from the product but for now we'll set it based on the country destination
-    			UtilXml.addChildElementValue(entryElem, "g:currency", productCurrency, feedDocument);
+                // Might be nicer to load this from the product but for now we'll set it based on the country destination
+                UtilXml.addChildElementValue(entryElem, "g:currency", productCurrency, feedDocument);
 
-    			// Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
-    			UtilXml.addChildElementValue(entryElem, "g:target_country", countryCode, feedDocument);
+                // Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
+                UtilXml.addChildElementValue(entryElem, "g:target_country", countryCode, feedDocument);
 
-    			UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
+                UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
 
-    			try {
-    				googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
-    				if (UtilValidate.isNotEmpty(googleProduct)) {
-    					UtilXml.addChildElementValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument);
-    				}
-    			} catch (GenericEntityException gee) {
-    				Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
-    			}
+                try {
+                    googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
+                    if (UtilValidate.isNotEmpty(googleProduct)) {
+                        UtilXml.addChildElementValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument);
+                    }
+                } catch (GenericEntityException gee) {
+                    Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
+                }
 
-    			UtilXml.addChildElementValue(entryElem, "g:condition", "new", feedDocument);
-    			// This is a US specific requirement for product feeds
-    			//                     UtilXml.addChildElementValue(entryElem, "g:mpn", "", feedDocument);
+                UtilXml.addChildElementValue(entryElem, "g:condition", "new", feedDocument);
+                // This is a US specific requirement for product feeds
+                //                     UtilXml.addChildElementValue(entryElem, "g:mpn", "", feedDocument);
 
-    			// if the product has an image it will be published on Google Product Search
-    			if (UtilValidate.isNotEmpty(imageLink)) {
-    				UtilXml.addChildElementValue(entryElem, "g:image_link", imageLink, feedDocument);
-    			}
-    			// if the product is exported to google for the first time, we add it to the list
-    			if ("insert".equals(itemActionType)) {
-    				newProductsInGoogle.add(prod.getString("productId"));
-    				productsRemovedFromGoogle.add(null);
-    			} else if ("delete".equals(itemActionType)) {
-    				newProductsInGoogle.add(null);
-    				productsRemovedFromGoogle.add(prod.getString("productId"));
-    			} else {
-    				newProductsInGoogle.add(null);
-    				productsRemovedFromGoogle.add(null);
-    			}
-    			index++;
-    		}
+                // if the product has an image it will be published on Google Product Search
+                if (UtilValidate.isNotEmpty(imageLink)) {
+                    UtilXml.addChildElementValue(entryElem, "g:image_link", imageLink, feedDocument);
+                }
+                // if the product is exported to google for the first time, we add it to the list
+                if ("insert".equals(itemActionType)) {
+                    newProductsInGoogle.add(prod.getString("productId"));
+                    productsRemovedFromGoogle.add(null);
+                } else if ("delete".equals(itemActionType)) {
+                    newProductsInGoogle.add(null);
+                    productsRemovedFromGoogle.add(prod.getString("productId"));
+                } else {
+                    newProductsInGoogle.add(null);
+                    productsRemovedFromGoogle.add(null);
+                }
+                index++;
+            }
 
-    		dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
-    	} catch (IOException e) {
-    		return ServiceUtil.returnError("IO Error creating XML document for Google :" + e.getMessage());
-    	} catch (GenericEntityException e) {
-    		return ServiceUtil.returnError("Unable to read from product entity: "  + e.toString());
-    	}
+            dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
+        } catch (IOException e) {
+            return ServiceUtil.returnError("IO Error creating XML document for Google :" + e.getMessage());
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Unable to read from product entity: "  + e.toString());
+        }
 
 
-    	Map result = ServiceUtil.returnSuccess();
-    	result.put("newProductsInGoogle", newProductsInGoogle);
-    	result.put("productsRemovedFromGoogle", productsRemovedFromGoogle);
-    	Debug.log("======returning with result: " + result);
-    	return result;
+        Map result = ServiceUtil.returnSuccess();
+        result.put("newProductsInGoogle", newProductsInGoogle);
+        result.put("productsRemovedFromGoogle", productsRemovedFromGoogle);
+        Debug.log("======returning with result: " + result);
+        return result;
     }
 
     private static String getProductPrice(LocalDispatcher dispatcher, GenericValue product) {

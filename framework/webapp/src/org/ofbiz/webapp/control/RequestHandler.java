@@ -111,7 +111,7 @@ public class RequestHandler {
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
 
-        // workaraound if we are in the root webapp
+        // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
 
         // Grab data from request object to process
@@ -127,13 +127,13 @@ public class RequestHandler {
         String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
         
         String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
-		ConfigXMLReader.RequestMap requestMap = null;
-		if (defaultRequestUri != null) {
-			requestMap = controllerConfig.requestMapMap.get(defaultRequestUri);
-		}
+        ConfigXMLReader.RequestMap requestMap = null;
+        if (defaultRequestUri != null) {
+            requestMap = controllerConfig.requestMapMap.get(defaultRequestUri);
+        }
         // check for default request
         if (requestMap == null) {
-        	requestMap = controllerConfig.requestMapMap.get(controllerConfig.defaultRequest);
+            requestMap = controllerConfig.requestMapMap.get(controllerConfig.defaultRequest);
         }
         // still not found so stop
         if (requestMap == null) {
@@ -786,11 +786,11 @@ public class RequestHandler {
      * @return
      */
     public String makeQueryString(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
-    	if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
+        if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
             return "?" + queryString;
-    	} else {
+        } else {
             StringBuilder queryString = new StringBuilder();
             queryString.append("?");
             for (Map.Entry<String, String> entry: requestResponse.redirectParameterMap.entrySet()) {
@@ -812,7 +812,7 @@ public class RequestHandler {
                 }
             }
             return queryString.toString();
-    	}
+        }
     }
 
     public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url, ConfigXMLReader.RequestResponse requestResponse) {

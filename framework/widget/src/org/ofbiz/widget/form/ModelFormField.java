@@ -2280,7 +2280,7 @@ public class ModelFormField {
         }
         
         public String getImage() {
-        	return this.image;
+            return this.image;
         }
 
         /**
