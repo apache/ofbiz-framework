@@ -132,6 +132,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private Timestamp shipBeforeDate = null;
     private Timestamp shipAfterDate = null;
     private Timestamp EstimatedShipDate = null;
+    private Timestamp cancelBackOrderDate = null;
     
     private Map contactMechIdsMap = FastMap.newInstance();
     private List orderItemPriceInfos = null;
@@ -162,12 +163,13 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param supplierProduct GenericValue of SupplierProduct entity, containing product description and prices
      * @param shipBeforeDate Request that the shipment be made before this date
      * @param shipAfterDate Request that the shipment be made after this date
+     * @param cancelBackOrderDate The date which if crossed causes order cancellation
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, 
-            LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate) 
+            LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp cancelBackOrderDate) 
                 throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
@@ -229,10 +231,11 @@ public class ShoppingCartItem implements java.io.Serializable {
             newItem.setSelectedAmount(selectedAmount);
         }
         
-        // set the ship before/after dates.  this needs to happen before setQuantity because setQuantity causes the ship group's dates to be
+        // set the ship before/after/dates and cancel back order date.  this needs to happen before setQuantity because setQuantity causes the ship group's dates to be
         // checked versus the cart item's
         newItem.setShipBeforeDate(shipBeforeDate != null ? shipBeforeDate : cart.getDefaultShipBeforeDate());
         newItem.setShipAfterDate(shipAfterDate != null ? shipAfterDate : cart.getDefaultShipAfterDate());
+        newItem.setCancelBackOrderDate(cancelBackOrderDate != null ? cancelBackOrderDate : cart.getCancelBackOrderDate());
 
         try {
             newItem.setQuantity(quantity, dispatcher, cart, true);
@@ -1445,6 +1448,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns the date to ship after */
     public Timestamp getShipAfterDate() {
         return this.shipAfterDate;
+    }
+    
+    /** Sets the cancel back order date */
+    public void setCancelBackOrderDate(Timestamp date) {
+        this.cancelBackOrderDate = date;
+    }
+    
+    /** Returns the cancel back order date */
+    public Timestamp getCancelBackOrderDate() {
+        return this.cancelBackOrderDate;
     }
     
     /** Sets the date to EstimatedShipDate */

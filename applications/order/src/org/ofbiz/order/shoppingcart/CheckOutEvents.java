@@ -361,6 +361,8 @@ public class CheckOutEvents {
         String internalCode = request.getParameter("internalCode");
         String shipBeforeDate = request.getParameter("shipBeforeDate");
         String shipAfterDate = request.getParameter("shipAfterDate");
+        String cancelBackOrderDate = request.getParameter("cancelBackOrderDate");
+        
         List singleUsePayments = new ArrayList();
 
         // get a request map of parameters
@@ -660,6 +662,7 @@ public class CheckOutEvents {
         String appendPayment = null;
         String shipBeforeDate = null;
         String shipAfterDate = null;
+        String cancelBackOrderDate = null;
 
         String mode = request.getParameter("finalizeMode");
         Debug.logInfo("FinalizeMode: " + mode, module);
@@ -776,7 +779,9 @@ public class CheckOutEvents {
                     internalCode = request.getParameter("internalCode"); // FIXME
                     shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
                     shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
-                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
+                    cancelBackOrderDate = request.getParameter("cancelBackOrderDate");
+                    
+                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
             }

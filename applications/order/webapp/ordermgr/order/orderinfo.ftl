@@ -138,6 +138,14 @@ under the License.
                   </#if>
               </td>
             </tr>
+            <#if orderItem.cancelBackOrderDate?exists>
+              <tr><td colspan="3"><hr/></td></tr>
+              <tr>
+                <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</td>
+                <td width="5%">&nbsp;</td>
+                <td valign="top" width="80%">${orderItem.cancelBackOrderDate?if_exists}</td>
+              </tr>
+            </#if>
             <#if distributorId?exists>
             <tr><td colspan="3"><hr/></td></tr>
             <tr>

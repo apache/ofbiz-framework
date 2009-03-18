@@ -194,6 +194,24 @@ under the License.
           </a>
         </td>
       </tr>
+      
+      <#if cart.getOrderType() == "PURCHASE_ORDER">
+        <tr>
+          <td>&nbsp;</td>
+          <td align='right' valign='top'>
+            <div class='tableheadtext'>
+              ${uiLabelMap.FormFieldTitle_cancelBackOrderDate}
+            </div>
+          </td>
+          <td>&nbsp;</td>
+          <td><input type="text" name="cancelBackOrderDate" size="20" maxlength="30"/>
+            <a href="javascript:call_cal(document.agreementForm.cancelBackOrderDate,'');">
+              <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
+            </a>
+          </td>
+        </tr>
+      </#if>
+      
     </table>
   </div>
 </div>

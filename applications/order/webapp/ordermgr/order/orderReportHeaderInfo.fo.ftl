@@ -18,8 +18,8 @@ under the License.
 -->
 <#escape x as x?xml>
                   <fo:table>
-                    <fo:table-column column-width="1.5in"/>
-                    <fo:table-column column-width="1.5in"/>
+                    <fo:table-column column-width="2.0in"/>
+                    <fo:table-column column-width="2.0in"/>
                     <fo:table-body>
                     <fo:table-row>
                       <fo:table-cell>
@@ -43,6 +43,14 @@ under the License.
                       <fo:table-cell><fo:block>${uiLabelMap.OrderCurrentStatus}</fo:block></fo:table-cell>
                       <fo:table-cell><fo:block font-weight="bold">${currentStatus.get("description",locale)}</fo:block></fo:table-cell>
                     </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
+                    <#if orderItem.cancelBackOrderDate?exists>
+                      <fo:table-row>
+                        <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</fo:block></fo:table-cell>
+                        <#assign dateFormat = Static["java.text.DateFormat"].LONG>
+                        <#assign cancelBackOrderDate = Static["java.text.DateFormat"].getDateInstance(dateFormat,locale).format(orderItem.get("cancelBackOrderDate"))>
+                        <fo:table-cell><#if cancelBackOrderDate?has_content><fo:block>${cancelBackOrderDate}</fo:block></#if></fo:table-cell> 
+                      </fo:table-row>
+                    </#if>
+                    </fo:table-body>
+                  </fo:table>
 </#escape>
