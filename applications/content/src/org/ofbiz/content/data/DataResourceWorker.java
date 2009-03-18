@@ -685,20 +685,20 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     }
                     // render the screen
                     ModelScreen modelScreen = null;
-                	ScreenStringRenderer renderer = screens.getScreenStringRenderer();
-                	String combinedName = dataResource.getString("objectInfo");
+                    ScreenStringRenderer renderer = screens.getScreenStringRenderer();
+                    String combinedName = dataResource.getString("objectInfo");
                     if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) { 
-                    	modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
+                        modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
                     } else { // stored in  a single file, long or short text
-                    	Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
-                    	Map modelScreenMap = ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId"));
-                    	if (UtilValidate.isNotEmpty(modelScreenMap)) {
-                    		Map.Entry entry = (Map.Entry) (modelScreenMap.entrySet().iterator().next()); // get first entry, only one screen allowed per file
-                    		modelScreen = (ModelScreen) entry.getValue();
-                    	}
+                        Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
+                        Map modelScreenMap = ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId"));
+                        if (UtilValidate.isNotEmpty(modelScreenMap)) {
+                            Map.Entry entry = (Map.Entry) (modelScreenMap.entrySet().iterator().next()); // get first entry, only one screen allowed per file
+                            modelScreen = (ModelScreen) entry.getValue();
+                        }
                     }
                     if (UtilValidate.isNotEmpty(modelScreen)) {
-                    	modelScreen.renderScreenString(out, context, renderer);
+                        modelScreen.renderScreenString(out, context, renderer);
                     } else {
                         throw new GeneralException("The dataResource file [" + dataResourceId + "] could not be found");
                     }

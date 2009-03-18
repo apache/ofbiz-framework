@@ -22,9 +22,9 @@
 if (userLogin) {
     userLoginParty = userLogin.getRelatedOneCache("Party");
     if (userLoginParty) {
-    	userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
-    	if (userLoginPartyPrimaryEmails) {
-    		context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0);
-    	}
+        userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
+        if (userLoginPartyPrimaryEmails) {
+            context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0);
+        }
     }
 }

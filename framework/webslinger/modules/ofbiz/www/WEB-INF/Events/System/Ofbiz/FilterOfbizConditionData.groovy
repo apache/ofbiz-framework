@@ -23,24 +23,24 @@ import org.ofbiz.entity.condition.EntityOperator
 
 def buildCondition
 def getValue = { item ->
-	if (item instanceof Map) return buildCondition(item)
-	return item
+    if (item instanceof Map) return buildCondition(item)
+    return item
 }
 buildCondition = { item ->
-	switch (item.name) {
-		case "EntityConditionList":
-			def conditions = []
-			for (conditionDef in item.list) {
-				conditions.add(buildCondition(conditionDef))
-			}
-			return new EntityConditionList(conditions, EntityOperator.lookup(item.operator))
-		case "EntityExpr":
-			return new EntityExpr(getValue(item.left), EntityOperator.lookup(item.operator), getValue(item.right))
-		case "Include":
-			return webslinger.event(item.path)
-		default:
-			throw new InternalError(item.toString())
-	}
+    switch (item.name) {
+        case "EntityConditionList":
+            def conditions = []
+            for (conditionDef in item.list) {
+                conditions.add(buildCondition(conditionDef))
+            }
+            return new EntityConditionList(conditions, EntityOperator.lookup(item.operator))
+        case "EntityExpr":
+            return new EntityExpr(getValue(item.left), EntityOperator.lookup(item.operator), getValue(item.right))
+        case "Include":
+            return webslinger.event(item.path)
+        default:
+            throw new InternalError(item.toString())
+    }
 }
 
 return buildCondition(webslinger.payload)

@@ -351,7 +351,7 @@ public class ModelMenuItem {
     }
 
     public String getParentPortalPageId(Map<String, Object> context) {
-    	return this.parentPortalPageId.expandString(context);
+        return this.parentPortalPageId.expandString(context);
     }
 
     public String getWidgetStyle() {

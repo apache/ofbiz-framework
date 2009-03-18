@@ -1690,7 +1690,7 @@ public class ShoppingCartEvents {
             try {
                 thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             } catch (GenericEntityException e) {
-            	Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), module);
             }
             if (thisOrder == null) {
                 cart.setOrderId(orderId);

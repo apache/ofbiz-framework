@@ -22,19 +22,19 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 // only execute when a user is logged in
 if (parameters.userLogin) {
-	if (!parameters.parentPortalPageId) {
-		portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : parameters.portalPageId]);
-		if (portalPage) {
-	        parameters.parentPortalPageId = portalPage.parentPortalPageId;
-	        if (!parameters.parentPortalPageId) {
-	        	if(portalPage.originalPortalPageId) {
-	        		parameters.parentPortalPageId = portalPage.originalPortalPageId;
-	        	} else {
+    if (!parameters.parentPortalPageId) {
+        portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : parameters.portalPageId]);
+        if (portalPage) {
+            parameters.parentPortalPageId = portalPage.parentPortalPageId;
+            if (!parameters.parentPortalPageId) {
+                if(portalPage.originalPortalPageId) {
+                    parameters.parentPortalPageId = portalPage.originalPortalPageId;
+                } else {
                     parameters.parentPortalPageId = portalPage.portalPageId;
-	        	}
-	        }
-		}
-	}
+                }
+            }
+        }
+    }
     userLoginSecurityGroupId = null;
     condSec = EntityCondition.makeCondition([
                   EntityCondition.makeCondition("groupId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
@@ -58,7 +58,7 @@ if (parameters.userLogin) {
     if (portalMainPages) {
         parentPortalPageId = portalMainPages.get(0).portalPageId;
     } else {
-    	parentPortalPageId = parameters.parentPortalPageId
+        parentPortalPageId = parameters.parentPortalPageId
     }
     // get user and system pages
     ppCond = 
