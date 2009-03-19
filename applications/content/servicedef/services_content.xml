@@ -24,7 +24,7 @@
 
     <!-- create content services -->
     <service name="createContent" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContent">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContent">
         <description>Create a Content</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -51,7 +51,7 @@
     </service>
 
     <service name="createTextAndUploadedContent" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="createTextAndUploadedContent">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createTextAndUploadedContent">
         <description>Creates text content and optional uploaded sub-content</description>
         <implements service="createTextContent"/>
         <implements service="uploadFileInterface" optional="true"/>
@@ -68,7 +68,7 @@
     </service>
 
     <service name="createContentFromDataResource" engine="simple"
-             location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentFromDataResource">
+             location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentFromDataResource">
         <description>Creates content record from data resource and allows all content fields to be set</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="createContent" optional="true"/>
@@ -77,7 +77,7 @@
     </service>
 
     <service name="attachUploadToDataResource" engine="simple" transaction-timeout="300"
-             location="org/ofbiz/content/data/DataServices.xml" invoke="attachUploadToDataResource">
+             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="attachUploadToDataResource">
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
@@ -107,7 +107,7 @@
     </service>
 
     <service name="copyContentAndElectronicTextandAssoc" default-entity-name="Content" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml" invoke="copyContentAndElectronicTextandAssoc" auth="true" >
+        location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="copyContentAndElectronicTextandAssoc" auth="true" >
         <description>Copy a Content, e;ectronic text and assocs</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -115,7 +115,7 @@
 
     <!-- update content services -->
     <service name="updateContent" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContent">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateContent">
         <description>Update a Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="updateContentAssoc" optional="true"/>
@@ -140,7 +140,7 @@
     </service>
 
     <service name="removeContent" default-entity-name="Content" engine="simple"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContent" auth="true">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeContent" auth="true">
         <description>Remove Content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -220,7 +220,7 @@
     </service>
 
     <service name="assocContent" engine="simple" default-entity-name="ContentAssoc"  auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="assocContent">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="assocContent">
         <description>Check for permission to perform operation on Content</description>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
@@ -236,7 +236,7 @@
     </service>
 
     <service name="createContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAssoc">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAssoc">
         <description>Create a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
@@ -254,7 +254,7 @@
         <!-- end of deprecated fields -->
     </service>
     <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentAssoc">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateContentAssoc">
         <description>Update a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -270,7 +270,7 @@
         <!-- end of deprecated fields -->
     </service>
     <service name="removeContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssoc">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssoc">
         <description>Remove ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -285,7 +285,7 @@
 
     <!-- content status services -->
     <service name="setContentStatus" engine="simple" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="setContentStatus">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="setContentStatus">
         <description>Set the Content Status</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -295,7 +295,7 @@
 
     <!-- ContentRole services -->
     <service name="createContentRole" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentRole">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentRole">
         <description>Create a ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -303,14 +303,14 @@
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateContentRole" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentRole">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateContentRole">
         <description>Update a ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deactivateAllContentRoles" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="deactivateAllContentRoles">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
@@ -318,7 +318,7 @@
         <attribute mode="IN" name="partyId" optional="false" type="String"/>
     </service>
     <service name="removeContentRole" engine="simple"  default-entity-name="ContentRole" auth="true"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentRole">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeContentRole">
         <description>Remove ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="ContentRole" include="pk" mode="IN" optional="false"/>
