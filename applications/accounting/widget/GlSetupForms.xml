@@ -344,7 +344,7 @@ under the License.
             <display-entity entity-name="GlAccount" description="[${glAccountId}] ${accountCode} ${accountName}"/>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">            
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault" link-type="hidden-form">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault">
                 <parameter param-name="glAccountTypeId"/><parameter param-name="glAccountId"/><parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
@@ -384,7 +384,7 @@ under the License.
         <field name="overrideGlAccountId"><display/></field>
         <field name="activeGlDescription"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeSalInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="removeSalInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="invoiceItemTypeId"/>
             </hyperlink>
         </field>
@@ -434,7 +434,7 @@ under the License.
         <field name="overrideGlAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
         <field name="activeGlDescription"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePurInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="removePurInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="invoiceItemTypeId"/>
             </hyperlink>
         </field>
@@ -483,7 +483,7 @@ under the License.
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePaymentTypeGlAssignment" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="removePaymentTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="paymentTypeId"/>
             </hyperlink>
         </field>
@@ -531,7 +531,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="defaultGlAccountId"><display description="${defaultGlAccountId} : ${description}"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePaymentMethodTypeGlAssignment" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="removePaymentMethodTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="paymentMethodTypeId"/>
             </hyperlink>
         </field>
@@ -585,7 +585,7 @@ under the License.
           <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
         </field>
         <field name="close" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="closeFinancialTimePeriod" description="${uiLabelMap.CommonClose}" link-type="hidden-form">
+            <hyperlink target="closeFinancialTimePeriod" description="${uiLabelMap.CommonClose}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="customTimePeriodId"/>
             </hyperlink>
         </field>
@@ -634,12 +634,12 @@ under the License.
         <auto-fields-entity entity-name="GlJournal" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glJournalId" widget-style="buttontext">
-            <hyperlink target="SetupGlJournals" description="${glJournalId}" link-type="hidden-form">
+            <hyperlink target="SetupGlJournals" description="${glJournalId}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="glJournalId"/>
             </hyperlink>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteGlJournal" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteGlJournal" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="glJournalId"/>
             </hyperlink>
         </field>
@@ -659,7 +659,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductGlAccount" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteProductGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="productId"/><parameter param-name="glAccountTypeId"/>
             </hyperlink>
         </field>
@@ -704,7 +704,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteFinAccountTypeGlAccount" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteFinAccountTypeGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="finAccountTypeId"/>
             </hyperlink>
         </field>
@@ -744,7 +744,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductCategoryGlAccount" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteProductCategoryGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="productCategoryId"/><parameter param-name="glAccountTypeId"/>
             </hyperlink>
         </field>
@@ -789,7 +789,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteVarianceReasonGlAccount" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteVarianceReasonGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="varianceReasonId"/>
             </hyperlink>
         </field>
@@ -830,7 +830,7 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteCreditCardTypeGlAccount" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="deleteCreditCardTypeGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="cardType"/>
             </hyperlink>
         </field>
@@ -880,7 +880,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteOrganizationTaxAuthorityGlAccount" description="${uiLabelMap.CommonDelete}" link-type="hidden-form">
+            <hyperlink target="deleteOrganizationTaxAuthorityGlAccount" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="taxAuthGeoId"/><parameter param-name="taxAuthPartyId"/>
             </hyperlink>
         </field>
@@ -922,7 +922,7 @@ under the License.
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyGlAccount" description="${uiLabelMap.CommonDelete}" link-type="hidden-form">
+            <hyperlink target="deletePartyGlAccount" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="partyId"/><parameter param-name="glAccountId"/><parameter param-name="roleTypeId"/><parameter param-name="glAccountTypeId"/>
             </hyperlink>
         </field>
