@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="createSalesForecast" engine="simple" auth="true" default-entity-name="SalesForecast"
-            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecast">
+            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecast">
        <description>Creates a Sales Forecast for the userLogin. Requires ORDERMGR_4C_CREATE permission. 
             This will save the forecast into the history as well. Note that this service does not compute 
             the forecast. That must be done in a higher level service.</description>
@@ -36,7 +36,7 @@ under the License.
     </service>
 
     <service name="updateSalesForecast" engine="simple" auth="true" default-entity-name="SalesForecast"
-            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecast">
+            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecast">
        <description>Updates a Sales Forecast and marks it as modified by the userLogin. Requires ORDERMGR_4C_UPDATE
             permission. This will save the current forecast into the history before overwritting it.
             Note that this service does not compute the forecast. That must be done in a higher level service.</description>
@@ -50,20 +50,20 @@ under the License.
     
      <!-- Sales Forecast Detail -->
     <service name="createSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
-            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecastDetail">
+            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecastDetail">
         <description>Creates a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="salesForecastDetailId" mode="OUT"/>
     </service>
     <service name="updateSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
-            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecastDetail">
+            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecastDetail">
         <description>Updates a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteSalesForecastDetail" engine="simple" default-entity-name="SalesForecastDetail"
-            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="deleteSalesForecastDetail">
+            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="deleteSalesForecastDetail">
         <description>Delete a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
