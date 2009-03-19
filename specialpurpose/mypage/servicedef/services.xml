@@ -23,7 +23,7 @@ under the License.
     <description>Project Manager service definitions.</description>
 
     <service name="sendEmailToCustomer" engine="simple"  auth="true" default-entity-name="CustRequest"
-        location="org/ofbiz/mypage/MyPageServices.xml" invoke="sendEmailToCustomer">
+        location="component://mypage/script/org/ofbiz/mypage/MyPageServices.xml" invoke="sendEmailToCustomer">
         <description>Send email to customer when customer request is Completed or Created. </description>
         <attribute name="custRequestId" type="String" mode="IN"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
