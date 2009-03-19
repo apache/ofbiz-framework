@@ -66,65 +66,65 @@ under the License.
     </service>
 
     <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceRule" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceRule" auth="true">
         <description>Create an ProductPriceRule</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="ruleName" optional="false"/>
     </service>
     <service name="updateProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceRule" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceRule" auth="true">
         <description>Update an ProductPriceRule</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceRule" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceRule" auth="true">
         <description>Delete an ProductPriceRule</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
         <description>Create an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPriceCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
         <description>Update an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceCond" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceCond" auth="true">
         <description>Delete an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceAction" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceAction" auth="true">
         <description>Create an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPriceActionSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceAction" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceAction" auth="true">
         <description>Update an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceAction" auth="true">
+                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceAction" auth="true">
         <description>Delete an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Promotion Services -->
     <service name="createProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromo" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromo" auth="true">
         <description>Create a ProductPromo</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -137,7 +137,7 @@ under the License.
         <override name="promoText" allow-html="safe"/>
     </service>
     <service name="updateProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromo" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromo" auth="true">
         <description>Update a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -149,13 +149,13 @@ under the License.
         <override name="promoText" allow-html="safe"/>
     </service>
     <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromo" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromo" auth="true">
         <description>Delete a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoAction" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoAction" auth="true">
         <description>Create a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -163,37 +163,37 @@ under the License.
         <override name="productPromoActionEnumId" optional="false"/>
     </service>
     <service name="updateProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoAction" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoAction" auth="true">
         <description>Update a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoAction" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoAction" auth="true">
         <description>Delete a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCategory" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCategory" auth="true">
         <description>Create a ProductPromoCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCategory" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCategory" auth="true">
         <description>Update a ProductPromoCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCategory" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCategory" auth="true">
         <description>Delete a ProductPromoCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCode" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCode" auth="true">
         <description>Create a ProductPromoCode</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -204,7 +204,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="updateProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCode" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCode" auth="true">
         <description>Update a ProductPromoCode</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -215,7 +215,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="deleteProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCode" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCode" auth="true">
         <description>Delete a ProductPromoCode</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -227,13 +227,13 @@ under the License.
     </service>
 
     <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeEmail" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeEmail" auth="true">
         <description>Create a ProductPromoCodeEmail</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeEmail" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeEmail" auth="true">
         <description>Delete a ProductPromoCodeEmail</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -245,13 +245,13 @@ under the License.
     </service>
 
     <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeParty" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeParty" auth="true">
         <description>Create a ProductPromoCodeParty</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeParty" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeParty" auth="true">
         <description>Delete a ProductPromoCodeParty</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -269,57 +269,57 @@ under the License.
     </service>
 
     <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
         <description>Create a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPromoCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
         <description>Update a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCond" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCond" auth="true">
         <description>Delete a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoProduct" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoProduct" auth="true">
         <description>Create a ProductPromoProduct</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoProduct" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoProduct" auth="true">
         <description>Update a ProductPromoProduct</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoProduct" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoProduct" auth="true">
         <description>Delete a ProductPromoProduct</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoRule" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoRule" auth="true">
         <description>Create a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="productPromoRuleId" mode="OUT"/>
     </service>
     <service name="updateProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoRule" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoRule" auth="true">
         <description>Update a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoRule" auth="true">
+                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoRule" auth="true">
         <description>Delete a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
