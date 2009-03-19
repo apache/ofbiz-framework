@@ -23,7 +23,7 @@ under the License.
     <version>1.0</version>
     
     <service name="FindProducts" engine="simple"
-             location="org/ofbiz/webpos/WebPosServices.xml" invoke="FindProducts">
+             location="component://webpos/script/org/ofbiz/webpos/WebPosServices.xml" invoke="FindProducts">
         <description>Find products by name/description</description>
         <attribute type="String" mode="IN" name="searchBy" optional="false"/>
         <attribute type="String" mode="IN" name="productToSearch" optional="true"/>
@@ -32,7 +32,7 @@ under the License.
     </service>
     
     <service name="FindProductsByIdentification" engine="simple"
-             location="org/ofbiz/webpos/WebPosServices.xml" invoke="FindProductsByIdentification">
+             location="component://webpos/script/org/ofbiz/webpos/WebPosServices.xml" invoke="FindProductsByIdentification">
         <description>Find products by good identification</description>
         <attribute type="String" mode="IN" name="productGoodIdentification" optional="true"/>
         <attribute type="java.util.List" mode="OUT" name="productsList" optional="true"/>
