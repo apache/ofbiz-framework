@@ -25,31 +25,31 @@ under the License.
     <version>1.0</version>
 
     <service name="createCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="createCostComponent" auth="true">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="createCostComponent" auth="true">
         <description>Create a CostComponent</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <!--<override name="costComponentTypeId" optional="false"/>-->
     </service>
     <service name="updateCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="updateCostComponent" auth="true">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="updateCostComponent" auth="true">
         <description>Update a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="deleteCostComponent" auth="true">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="deleteCostComponent" auth="true">
         <description>Delete a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="recreateCostComponent" default-entity-name="CostComponent" engine="simple" 
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="recreateCostComponent" auth="true">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="recreateCostComponent" auth="true">
         <description>Create a CostComponent and cancel the existing ones</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
     </service>
     <service name="cancelCostComponents" engine="simple" 
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="cancelCostComponents" auth="true">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="cancelCostComponents" auth="true">
         <description>Cancels CostComponent</description>
         <attribute mode="IN" name="costComponentId" optional="true" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>
@@ -57,7 +57,7 @@ under the License.
         <attribute mode="IN" name="costComponentTypeId" optional="true" type="String"/>
     </service>
     <service name="getProductCost" engine="simple" auth="true"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="getProductCost">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="getProductCost">
         <description>Gets the product's costs from CostComponent entries</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
@@ -65,7 +65,7 @@ under the License.
         <attribute mode="OUT" name="productCost" type="BigDecimal" optional="false"/>
     </service>
     <service name="getTaskCost" engine="simple" auth="true"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="getTaskCost">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="getTaskCost">
         <description>Gets the production run task's costs</description>
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
@@ -74,7 +74,7 @@ under the License.
         <attribute mode="OUT" name="taskCost" type="BigDecimal" optional="false"/>
     </service>
     <service name="calculateProductCosts" engine="simple" auth="true"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductCosts">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductCosts">
         <description>Calculates the product's costs. If the product does not have cost component defined, will use the BOM to calculate the cost.</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
@@ -82,13 +82,13 @@ under the License.
         <attribute mode="OUT" name="totalCost" type="BigDecimal"/>
     </service>
     <service name="calculateAllProductsCosts" engine="simple" auth="true" transaction-timeout="7200"
-                location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateAllProductsCosts">
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="calculateAllProductsCosts">
         <description>Calculates estimated costs for all the products</description>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
     </service>
     <service name="calculateProductAverageCost" engine="simple" auth="true"
-            location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductAverageCost">
+            location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductAverageCost">
         <description>Calculate inventory average cost for a product</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
