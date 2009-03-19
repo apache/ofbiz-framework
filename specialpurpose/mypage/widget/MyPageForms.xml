@@ -98,7 +98,15 @@ under the License.
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.MyPageToComplete}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
+                <sub-hyperlink description="${uiLabelMap.MyPageToComplete}" target="setCommunicationEventRoleStatus">
+				<parameter param-name="communicationEventId"/>
+				<parameter param-name="partyId"/>
+				<parameter param-name="roleTypeId"/>
+				<parameter param-name="statusID" value="COM_ROLE_COMPLETED"/>
+				<parameter param-name="donePage" from-field="parameters.donePage"/>
+				<parameter param-name="VIEWSIZE" from-field="parameters.VIEWSIZE"/>
+				<parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
+			</sub-hyperlink>
             </display-entity>
         </field>
         <field name="createdStamp" entry-name="entryDate"/>
