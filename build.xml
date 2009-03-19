@@ -346,8 +346,8 @@ under the License.
         </java>
     </target>
     <target name="load-admin-user-login"
-        description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
-        <fail message="userLoginId parameter is required to create a new admin user.">
+        description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password. Example command for the userLogin 'admin': ./ant load-admin-user-login -DuserLoginId=admin">
+        <fail message="userLoginId parameter is required. To add the parameter to the command for user admin: -DuserLoginId=admin">
             <condition>
                 <not><isset property="userLoginId"/></not>
             </condition>
