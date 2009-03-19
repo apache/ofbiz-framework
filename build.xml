@@ -278,13 +278,13 @@ under the License.
     <!-- Start OFBiz                                                        -->
     <!-- ================================================================== -->
 
-    <target name="run">
+    <target name="run" description="This will start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
         </java>
     </target>
-    <target name="run-pos">
+    <target name="run-pos" description="Start the POS (Point of sale) system">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -368,7 +368,7 @@ under the License.
         <antcall target="load-admin-user-login"/>
     </target>
 
-    <target name="run-debug" depends="build">
+    <target name="run-debug" depends="build" description="Starts OFBiz in debugging mode">
         <java jar="ofbiz.jar"  fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -378,29 +378,29 @@ under the License.
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
         </java>
     </target>
-    <target name="run-tests" depends="build">
+    <target name="run-tests" depends="build" description="Run OFBiz default tests">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <arg value="test"/>
         </java>
     </target>
-    <target name="save-runtime-data">
+    <target name="save-runtime-data" description="Save OFBiz runtime data into a zipfile in the directory /runtime/data.zip">
         <delete file="runtime/data.zip"/>
         <zip zipfile="runtime/data.zip" compress="no">
             <fileset dir="runtime/data"/>
         </zip>
     </target>
-    <target name="restore-runtime-data">
+    <target name="restore-runtime-data" description="Restore the OFBiz runtime data">
         <delete dir="runtime/data"/>
         <mkdir dir="runtime/data"/>
         <unzip src="runtime/data.zip" dest="runtime/data"/>
     </target>
 
-    <target name="check-separated-tests-already-setup">
+    <target name="check-separated-tests-already-setup" description="?">
         <available file="runtime/test-list-build.xml" property="separated-tests-already-setup"/>
     </target>
-    <target name="setup-separated-test-run" depends="check-separated-tests-already-setup" unless="separated-tests-already-setup">
+    <target name="setup-separated-test-run" depends="check-separated-tests-already-setup" unless="separated-tests-already-setup" description="?">
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -414,7 +414,7 @@ under the License.
             <arg value="-ant"/>
         </java>
     </target>
-    <target name="run-single-test">
+    <target name="run-single-test" description="Run a single test">
         <antcall target="restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -429,7 +429,7 @@ under the License.
             <fileset dir="runtime/logs/test-results" includes="*.xml"/>
         </move>
     </target>
-    <target name="run-single-test-suite">
+    <target name="run-single-test-suite" description="Run a single test suite">
         <antcall target="restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -439,7 +439,7 @@ under the License.
             <arg value="-suitename=${test.suiteName}"/>
         </java>
     </target>
-    <target name="run-test-list" depends="setup-separated-test-run">
+    <target name="run-test-list" depends="setup-separated-test-run" description="?">
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
