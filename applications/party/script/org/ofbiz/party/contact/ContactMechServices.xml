@@ -209,7 +209,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createEmailAddress" short-description="Create an email address contact mechanism">
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -220,7 +220,7 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="updateEmailAddress" short-description="Update an email address contact mechanism">
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>

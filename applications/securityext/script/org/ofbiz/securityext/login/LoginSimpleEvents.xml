@@ -23,10 +23,10 @@ under the License.
     <!-- UserLogin events -->
     <simple-method method-name="updatePassword" short-description="Update Password">
         <if-has-permission permission="PARTYMGR" action="_CREATE">
-            <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
+            <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
                 processor-name="adminUpdatePassword" in-map-name="parameters" out-map-name="context"/>
         <else>
-             <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
+             <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
                 processor-name="updatePassword" in-map-name="parameters" out-map-name="context"/>
         </else>
         </if-has-permission>

@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="acceptAssignment" short-description="Create Work Effort">
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="assignmentMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="wfAcceptAssignment" in-map-name="context">
@@ -29,14 +29,14 @@ under the License.
     </simple-method>
 
     <simple-method method-name="acceptRoleAssignment" short-description="Accept a ROLE Assignment">
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="assignmentMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="wfAcceptRoleAssignment" in-map-name="context">
             <default-message>Work Effort successfully created.</default-message></call-service>
     </simple-method>
     <simple-method method-name="createWorkEffort" short-description="Creates WorkEffort">
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="createWorkEffortMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffort" in-map-name="context">
@@ -45,10 +45,10 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="createWorkEffortAndAssoc" short-description="Creates WorkEffort">
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="createWorkEffortMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="createWorkEffortAssocMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffortAndAssoc" in-map-name="context">
@@ -57,7 +57,7 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="createWorkEffortNote" short-description="Creates WorkEffortNote">
-        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+        <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="createWorkEffortNoteMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffortNote" in-map-name="context">

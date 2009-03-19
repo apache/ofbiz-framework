@@ -62,7 +62,7 @@ under the License.
     <simple-method method-name="eventEditBOM" short-description="Add, update, delete components in BOM">
         <if-compare value="UPDATE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="updateProductAssoc" map="parameters" to-map="context"/>
-            <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
+            <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc" 
                                 in-map-name="parameters" out-map-name="context"/>
             <check-errors/>
@@ -71,7 +71,7 @@ under the License.
         </if-compare>
         <if-compare value="CREATE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="createBOMAssoc" map="parameters" to-map="context"/>
-            <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
+            <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc" 
                                 in-map-name="parameters" out-map-name="context"/>
             <check-errors/>
@@ -87,7 +87,7 @@ under the License.
         </if-compare>
         <if-compare value="DELETE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="deleteProductAssoc" map="parameters" to-map="context"/>
-            <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
+            <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareDeleteProductAssoc" 
                                 in-map-name="parameters" out-map-name="context"/>
             <check-errors/>
