@@ -360,7 +360,15 @@
         <field name="thruDate"><date-time/></field>
         <field name="agreementDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteAgreementEmploymentAppl?agreementId=${agreementId}&amp;partyIdTo=${partyIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}&amp;agreementItemSeqId=${agreementItemSeqId}" description="${uiLabelMap.CommonDelete}" also-hidden="true"/>
+            <hyperlink target="deleteAgreementEmploymentAppl">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="agreementItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
