@@ -179,6 +179,24 @@ under the License.
               </td>
             </tr>
             </#if>
+            <#if "SALES_ORDER" == orderHeader.orderTypeId>
+              <form action="setOrderReservationPriority" method="post" name="setOrderReservationPriority">
+                <input type = "hidden" name="orderId" value="${orderId}"/> 
+                <tr><td colspan="3"><hr/></td></tr>
+                <tr>
+                  <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_priority}</td>
+                  <td width="5%">&nbsp;</td>
+                  <td valign="top" width="80%">
+                    <select name="priority">
+                      <option value="1">${uiLabelMap.OrderPriorityHigh}</option>
+                      <option value="2"selected>${uiLabelMap.OrderPriorityNormal}</option> 
+                      <option value="3">${uiLabelMap.OrderPriorityLow}</option>
+                    </select>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
+                  </td>
+                </tr>
+              </form>
+            </#if>
         </table>
     </div>
 </div>
