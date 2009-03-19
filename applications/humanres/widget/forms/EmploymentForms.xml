@@ -374,7 +374,7 @@
         <field name="thruDate"><date-time/></field>
         <field name="agreementDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteAgreementEmploymentAppl"  also-hidden="false"/>
+            <hyperlink target="deleteAgreementEmploymentAppl"  also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="partyIdTo"/>
                 <parameter param-name="partyIdFrom"/>

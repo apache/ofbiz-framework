@@ -288,7 +288,7 @@ under the License.
         </field>
         <field name="lastPrice" widget-area-style="align-text"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeAgreementItemSupplierProduct">
+            <hyperlink target="removeAgreementItemSupplierProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">            
                 <parameter param-name="minimumOrderQuantity"/>
                 <parameter param-name="currencyUomId"/>
                 <parameter param-name="availableFromDate"/>
