@@ -26,21 +26,21 @@ under the License.
 
     <!-- MarketingCampaign Services -->
     <service name="createMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaign" auth="true">
         <description>Create a MarketingCampaign record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaign" auth="true">
         <description>Update a MarketingCampaign record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaign" auth="true">
         <description>Remove a MarketingCampaign record</description>
         <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -49,24 +49,24 @@ under the License.
         
     <!-- MarketingCampaignPrice Services -->
     <service name="addPriceRuleToMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPriceRuleToMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPriceRuleToMarketingCampaign" auth="true">
         <description>Add PriceRule to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="removePriceRuleFromMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removePriceRuleFromMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removePriceRuleFromMarketingCampaign" auth="true">
         <description>Remove PriceRule from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
     <!-- MarketingCampaignPromo Services -->
     <service name="addPromoToMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPromoToMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPromoToMarketingCampaign" auth="true">
         <description>Add Promo to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="removePromoFromMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removePromoFromMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removePromoFromMarketingCampaign" auth="true">
         <description>Remove Promo from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -80,36 +80,36 @@ under the License.
 
     <!-- MarketingCampaignRole Services -->
     <service name="addRoleToMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addRoleToMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addRoleToMarketingCampaign" auth="true">
         <description>Add Role to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="removeRoleFromMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removeRoleFromMarketingCampaign" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removeRoleFromMarketingCampaign" auth="true">
         <description>Remove Role from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaignRole" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaignRole" auth="true">
         <description>Add Role to Campaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaignRole" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaignRole" auth="true">
         <description>Update Role to Campaign Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaignRole" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaignRole" auth="true">
         <description>Remove Role from Campaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
     <!-- ContactList Services -->
     <service name="createContactList" default-entity-name="ContactList" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactList" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactList" auth="true">
         <description>Create a ContactList record</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -117,13 +117,13 @@ under the License.
         <override name="contactListName" optional="false"/>
     </service>
     <service name="updateContactList" default-entity-name="ContactList" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactList" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactList" auth="true">
         <description>Update a ContactList record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeContactList" default-entity-name="ContactList" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="removeContactList" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="removeContactList" auth="true">
         <description>Remove a ContactList record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -131,7 +131,7 @@ under the License.
         
     <!-- ContactListParty Services -->
     <service name="createContactListParty" default-entity-name="ContactListParty" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactListParty" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactListParty" auth="true">
         <description>Add Party to ContactList</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -139,25 +139,25 @@ under the License.
         <override name="statusId" optional="false"/>
     </service>
     <service name="updateContactListParty" default-entity-name="ContactListParty" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactListParty" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactListParty" auth="true">
         <description>Update Party to ContactList Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyEmailContactListParty" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
         <description>Update ContactList Party Contact Mech</description>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>        
     </service>    
     <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="simple"
-            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="deleteContactListParty" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="deleteContactListParty" auth="true">
         <description>Remove Party from ContactList</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createContactListPartyStatus" default-entity-name="ContactListPartyStatus" engine="simple"
-        location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactListPartyStatus" auth="true">
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactListPartyStatus" auth="true">
         <description>Create ContactListParty Status</description>
         <auto-attributes include="pk" mode="IN" optional="false">
             <exclude field-name="statusDate"/>
@@ -168,7 +168,7 @@ under the License.
         <override name="statusId" optional="false"/>
     </service>
     <service name="sendContactListPartyVerifyEmail" engine="simple" max-retry="3"
-        location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyVerifyEmail" auth="true">
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyVerifyEmail" auth="true">
         <description>Send ContactListParty Verify Email</description>
         <auto-attributes entity-name="ContactListParty" include="pk" mode="IN" optional="false"/>
     </service>
@@ -176,115 +176,115 @@ under the License.
     
     <!-- TrackingCode Services -->
     <service name="createTrackingCode" default-entity-name="TrackingCode" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCode" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCode" auth="true">
         <description>Create a TrackingCode record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="trackingCodeTypeId" optional="false"/>
     </service>
     <service name="updateTrackingCode" default-entity-name="TrackingCode" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCode" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCode" auth="true">
         <description>Update a TrackingCode record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTrackingCode" default-entity-name="TrackingCode" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCode" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCode" auth="true">
         <description>Update a TrackingCode record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
         
     <!-- TrackingCodeType Services -->
     <service name="createTrackingCodeType" default-entity-name="TrackingCodeType" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeType" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeType" auth="true">
         <description>Create a TrackingCodeType record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTrackingCodeType" default-entity-name="TrackingCodeType" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeType" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeType" auth="true">
         <description>Update a TrackingCodeType record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTrackingCodeType" default-entity-name="TrackingCodeType" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeType" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeType" auth="true">
         <description>Update a TrackingCodeType record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
     <!-- SegmentGroup Services -->
     <service name="createSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroup" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroup" auth="true">
         <description>Create a SegmentGroup record</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroup" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroup" auth="true">
         <description>Update a SegmentGroup record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroup" auth="true">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroup" auth="true">
         <description>Update a SegmentGroup record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SegmentGroupClassification -->
     <service name="createSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupClassification">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupClassification">
         <description>create SegmentGroupClassification</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupClassification">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupClassification">
         <description>update SegmentGroupClassification</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupClassification">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupClassification">
         <description>delete SegmentGroupClassification</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
    <!-- SegmentGroupGeo -->
     <service name="createSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupGeo">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupGeo">
         <description>create SegmentGroupGeo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupGeo">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupGeo">
         <description>update SegmentGroupGeo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupGeo">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupGeo">
         <description>delete SegmentGroupGeo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
    <!-- SegmentGroupRole -->
     <service name="createSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupRole">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupRole">
         <description>create SegmentGroupRole</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupRole">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupRole">
         <description>update SegmentGroupRole</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-            location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupRole">
+            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupRole">
         <description>delete SegmentGroupRole</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
 <!--         <attribute name="partyId" mode="OUT" optional="false"></attribute> -->
@@ -292,21 +292,21 @@ under the License.
 
     <!-- SegmentGroup Related Find Service -->
     <service name="findPartiesInSegmentGroup" engine="simple"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findPartiesInSegmentGroup">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findPartiesInSegmentGroup">
         <description>Find Parties In a SegmentGroup</description>
         <attribute name="segmentGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="findSegmentGroupsOfParty" engine="simple"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findSegmentGroupsOfParty">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findSegmentGroupsOfParty">
         <description>Find SegmentGroups Of a Party (that a Party is In)</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="segmentGroupIdList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="arePartiesRelatedThroughSegmentGroup" engine="simple"
-        location="org/ofbiz/marketing/segment/SegmentServices.xml" invoke="arePartiesRelatedThroughSegmentGroup">
+        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="arePartiesRelatedThroughSegmentGroup">
         <description>Determine: are Parties Related Through SegmentGroup?</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
@@ -317,14 +317,14 @@ under the License.
 
     <!-- Tracking Code Order return  -->
     <service name="createTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrder">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrder">
         <description>Create a TrackingCodeOrder record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrder">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrder">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -333,28 +333,28 @@ under the License.
     
     <!-- Tracking Code Order return  -->
     <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturn">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturn">
         <description>Create a TrackingCodeOrderReturn  record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrderReturn">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrderReturn">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeOrderReturn">
+            location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeOrderReturn">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
     <service name="createTrackingCodeOrderReturns"  engine="simple"
-                location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturns">
+                location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturns">
         <description>Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <attribute type="String" mode="IN" name="returnId" optional="false"/>
