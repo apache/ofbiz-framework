@@ -273,14 +273,30 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="currencyUomId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="EditAgreementItemSupplierProduct?minimumOrderQuantity=${minimumOrderQuantity}&amp;currencyUomId=${currencyUomId}&amp;availableFromDate=${availableFromDate}&amp;partyId=${partyId}&amp;productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${productId}" target="EditAgreementItemSupplierProduct">
+                <parameter param-name="minimumOrderQuantity"/>
+                <parameter param-name="currencyUomId"/>
+                <parameter param-name="availableFromDate"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="lastPrice" widget-area-style="align-text"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeAgreementItemSupplierProduct?minimumOrderQuantity=${minimumOrderQuantity}&amp;currencyUomId=${currencyUomId}&amp;availableFromDate=${availableFromDate}&amp;partyId=${partyId}&amp;productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeAgreementItemSupplierProduct">
+                <parameter param-name="minimumOrderQuantity"/>
+                <parameter param-name="currencyUomId"/>
+                <parameter param-name="availableFromDate"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
 

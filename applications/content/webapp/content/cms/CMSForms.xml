@@ -44,7 +44,15 @@ under the License.
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditAddContent?MASTER_contentId=${contentId}&amp;MASTER_drDataResourceId=${drDataResourceId}&amp;MASTER_caContentIdTo=${caContentIdTo}&amp;MASTER_caContentAssocTypeId=${caContentAssocTypeId}&amp;MASTER_caFromDate=${caFromDate}"/> 
 <!--
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent?caContentIdTo=${caContentIdTo}&amp;caFromDate=${caFromDate}&amp;contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;caContentId=${contentId}&amp;contentIdStart=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
+                <parameter param-name="caContentIdTo"/>
+                <parameter param-name="caFromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="caContentId"/>
+                <parameter param-name="contentIdStart"/>
+                <parameter param-name="caContentAssocTypeId"/>
+            </hyperlink> 
 -->
         </field>
         <field name="caContentIdTo"><display/></field>
