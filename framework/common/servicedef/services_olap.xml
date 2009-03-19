@@ -29,7 +29,7 @@ under the License.
         <attribute name="thruDate" type="Date" mode="IN" optional="false"/>
     </service>
     <service name="loadCurrencyDimension" auth="true" engine="simple"
-        location="org/ofbiz/common/olap/CommonDimensionServices.xml" invoke="loadCurrencyDimension">
+        location="component://common/script/org/ofbiz/common/olap/CommonDimensionServices.xml" invoke="loadCurrencyDimension">
         <description>Loads data in the CurrencyDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
     </service>
 
