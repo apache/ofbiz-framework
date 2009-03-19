@@ -23,9 +23,9 @@ under the License.
     <simple-method method-name="createAffiliate" short-description="Create Affiliate" login-required="false">
 
        <!-- Create the UserLogin Record -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilParty" in-map-name="parameters" out-map-name="ul_context"/>
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilUser" in-map-name="parameters" out-map-name="ul_context"/>
         <check-errors/>
         <call-service service-name="createUserLogin" in-map-name="ul_context"/>
@@ -37,21 +37,21 @@ under the License.
         <set-current-user-login value-field="newUserLogin"/>
 
         <!-- Create the Party/PartyGroup -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilParty" in-map-name="parameters" out-map-name="pg_context"/>
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilGroup" in-map-name="parameters" out-map-name="pg_context"/>
         <check-errors/>
         <call-service service-name="createPartyGroup" in-map-name="pg_context"/>
 
         <!-- Create the Contact Person -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilContact" in-map-name="parameters" out-map-name="ct_context"/>
         <check-errors/>
         <call-service service-name="createPerson" in-map-name="ct_context"/>
 
         <!-- Create the Postal Address -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilPostal" in-map-name="parameters" out-map-name="pa_context"/>
         <check-errors/>
         <call-service service-name="createPostalAddress" in-map-name="pa_context">
@@ -59,13 +59,13 @@ under the License.
         </call-service>
 
         <!-- Create the Postal Address Purpose -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilPostalPurpose" in-map-name="parameters" out-map-name="pr_context"/>
         <check-errors/>
         <call-service service-name="createPartyContactMechPurpose" in-map-name="pr_context"/>
 
         <!-- Create the Phone ContactMech -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilPhone" in-map-name="parameters" out-map-name="ph_context"/>
         <check-errors/>
         <call-service service-name="createTelecomNumber" in-map-name="ph_context">
@@ -73,13 +73,13 @@ under the License.
         </call-service>
 
         <!-- Create the Phone ContactMech Purpose -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="phr_context"/>
         <check-errors/>
         <call-service service-name="createPartyContactMechPurpose" in-map-name="phr_context"/>
 
         <!-- Create the Fax ContactMech -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilFax" in-map-name="parameters" out-map-name="fax_context"/>
         <check-errors/>
 
@@ -90,7 +90,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create the Fax ContactMech Purpose -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilFaxPurpose" in-map-name="parameters" out-map-name="faxp_context"/>
         <check-errors/>
         <if-not-empty field="faxp_context.contactNumber">
@@ -98,7 +98,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create the Email ContactMech -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilEmail" in-map-name="parameters" out-map-name="em_context"/>
         <check-errors/>
         <call-service service-name="createEmailAddress" in-map-name="em_context">
@@ -106,21 +106,21 @@ under the License.
         </call-service>
 
         <!-- Create the Email ContactMech Purpose -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="emp_context"/>
         <check-errors/>
         <call-service service-name="createPartyContactMechPurpose" in-map-name="emp_context"/>
 
         <!-- Create the URL ContactMech -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilURL" in-map-name="parameters" out-map-name="url_context"/>
         <check-errors/>
         <call-service service-name="createContactMech" in-map-name="url_context"/>
 
         <!-- Create the Affiliate Record -->
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilParty" in-map-name="parameters" out-map-name="af_context"/>
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffil" in-map-name="parameters" out-map-name="af_context"/>
         <check-errors/>
         <call-service service-name="createAffiliate" in-map-name="af_context">

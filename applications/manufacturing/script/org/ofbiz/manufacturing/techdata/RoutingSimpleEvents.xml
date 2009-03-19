@@ -26,7 +26,7 @@ under the License.
             <make-value value-field="lookupPKMap" entity-name="WorkEffort"/>
             <set field="lookupPKMap.workEffortId" from-field="parameters.workEffortIdTo"/>
             <find-by-primary-key entity-name="WorkEffort" map="lookupPKMap" value-field="lookedUpValue"/>
-            <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
+            <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="copyRoutingTask" in-map-name="lookedUpValue" out-map-name="context"/>
             <call-service service-name="createWorkEffort" in-map-name="context">
                 <default-message resource="ManufacturingUiLabels" property="ManufacturingRoutingTaskCopiedSuccessfully"/>
@@ -36,7 +36,7 @@ under the License.
         <if-empty field="parameters.fromDate">
             <now-timestamp field="parameters.fromDate"/>
         </if-empty>    
-        <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
+        <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context1"/>
         <check-errors/>
         <set value="Y" field="context1.create"/>
@@ -49,7 +49,7 @@ under the License.
             </add-error>
             <check-errors/>
         </if-compare>  
-        <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
+        <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context2"/>
         <check-errors/>
         <call-service service-name="createWorkEffortAssoc" in-map-name="context2">
@@ -58,7 +58,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateRoutingTaskAssoc" short-description="check if there is no pb with date and SeqId and call service updateWorkEffortAssoc">
-        <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
+        <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context1"/>
          <check-errors/>
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
@@ -70,7 +70,7 @@ under the License.
             </add-error>
             <check-errors/>
         </if-compare> 
-        <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
+        <call-map-processor xml-resource="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context2"/>
         <check-errors/>
         <call-service service-name="updateWorkEffortAssoc" in-map-name="context2">

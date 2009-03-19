@@ -92,11 +92,11 @@ under the License.
         <log level="always" message="in createLayoutText."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context"/>
 
         <log level="always" message="context: ${context}"/>
@@ -151,11 +151,11 @@ under the License.
         <log level="always" message="in updateLayoutText."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context"/>
 
         <log level="always" message="context: ${context}"/>
@@ -189,11 +189,11 @@ under the License.
         <log level="always" message="formInput: ${formInput}"/>
         <log level="always" message="byteWrap: ${byteWrap}"/>
 
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentIn" in-map-name="formInput" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="dataResourceIn" in-map-name="formInput" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentAssocIn" in-map-name="formInput" out-map-name="context"/>
 
         <log level="always" message="context: ${context}"/>
@@ -247,11 +247,11 @@ under the License.
         <log level="always" message="in createLayoutUrl"/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context"/>
 
         <log level="always" message="context: ${context}"/>
@@ -305,11 +305,11 @@ under the License.
         <log level="always" message="in updateLayoutUrl."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context"/>
-        <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml"
+        <call-map-processor xml-resource="component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml"
                             processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context"/>
 
         <log level="always" message="context: ${context}"/>

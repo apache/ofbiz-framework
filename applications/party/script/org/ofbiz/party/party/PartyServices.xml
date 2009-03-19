@@ -924,9 +924,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUpdatePerson" short-description="Create and update a person" login-required="false">
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <log level="info" message="========= Inside create update person ============="/> 
+        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
         <check-errors/>
+        <log level="info" message="==================map-processor successfully ran ================${personMap}========================"/>
         <set field="partyId" from-field="parameters.partyId"/>
         <set-service-fields service-name="createPerson" map="personMap" to-map="personContext"/>
         <if-empty field="partyId">

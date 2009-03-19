@@ -35,7 +35,7 @@ under the License.
 
     <!-- Person events -->
     <simple-method method-name="createPerson" short-description="Create Person">
-        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createPerson" in-map-name="context">
@@ -45,7 +45,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePerson" short-description="Update Person">
         <set field="context.partyId" from-field="parameters.partyId" />
-        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updatePerson" in-map-name="context">
@@ -55,7 +55,7 @@ under the License.
 
     <!-- PartyGroup events -->
     <simple-method method-name="createPartyGroup" short-description="Create Party Group">
-        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createPartyGroup" in-map-name="context">
@@ -65,7 +65,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePartyGroup" short-description="Update Party Group">
         <set field="context.partyId" from-field="parameters.partyId" />
-        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updatePartyGroup" in-map-name="context">
