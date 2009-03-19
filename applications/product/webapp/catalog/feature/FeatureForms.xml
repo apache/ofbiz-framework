@@ -224,7 +224,7 @@
         </field>
         <field name="sequenceNum"><text size="3"/></field>
         <field name="removeFeatureGroupAppl" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="RemoveProductFeatureGroupAppl" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink target="RemoveProductFeatureGroupAppl" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productFeatureGroupId"/>
                 <parameter param-name="productFeatureId"/>
                 <parameter param-name="fromDate"/>
