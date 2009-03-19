@@ -183,7 +183,14 @@
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deletePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deletePartyBenefit" description="${uiLabelMap.CommonDelete}">
+				<parameter param-name="benefitTypeId"/>
+				<parameter param-name="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom"/>
+				<parameter param-name="partyIdTo"/>
+				<parameter param-name="fromDate"/>
+			</hyperlink>
         </field>
     </form>
     <form name="AddPartyBenefit" type="single" target="createPartyBenefit" 
@@ -323,7 +330,14 @@
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deleteUnemploymentClaim" description="${uiLabelMap.CommonDelete}">
+				<parameter param-name="unemploymentClaimId"/>
+				<parameter param-name="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom"/>
+				<parameter param-name="partyIdTo"/>
+				<parameter param-name="fromDate"/>
+			</hyperlink>
         </field> 
     </form>                                      
     <form name="AddUnemploymentClaim" type="single" target="createUnemploymentClaim" title="" default-map-name="unemploymentClaim"
