@@ -26,7 +26,7 @@ under the License.
 
     <!-- Billing Account Services -->
     <service name="createBillingAccount" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccount">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccount">
         <description>Create a Billing Account</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="CREATE"/>
         <attribute name="accountLimit" type="BigDecimal" mode="IN" optional="true"/>
@@ -40,7 +40,7 @@ under the License.
         <attribute name="billingAccountId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateBillingAccount" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccount">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccount">
         <description>Update a Billing Account</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="UPDATE"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
@@ -52,7 +52,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="createBillingAccountRole" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountRole">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountRole">
         <description>Create a Billing Account Role</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="CREATE"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
@@ -62,7 +62,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="updateBillingAccountRole" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountRole">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountRole">
         <description>Update a Billing Account Role</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="UPDATE"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
@@ -72,13 +72,13 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
     <service name="removeBillingAccountRole" engine="simple" default-entity-name="BillingAccountRole"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountRole">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountRole">
         <description>Remove a Billing Account Role</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createBillingAccountTerm" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountTerm">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountTerm">
         <description>Create a Billing Account Term</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="CREATE"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
@@ -88,7 +88,7 @@ under the License.
         <attribute name="billingAccountTermId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateBillingAccountTerm" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountTerm">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountTerm">
         <description>Update a Billing Account Term</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="UPDATE"/>
         <attribute name="billingAccountTermId" type="String" mode="IN" optional="false"/>
@@ -98,7 +98,7 @@ under the License.
         <attribute name="uomId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="removeBillingAccountTerm" engine="simple"
-            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountTerm">
+            location="component://accounting/script/org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountTerm">
         <description>Remove a Billing Account Term</description>
         <permission-service service-name="acctgBillingAcctCheck" main-action="DELETE"/>
         <attribute name="billingAccountTermId" type="String" mode="IN" optional="false"/>
