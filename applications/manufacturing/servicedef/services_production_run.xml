@@ -132,7 +132,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="issueProductionRunTask" engine="simple"
-                location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTask" auth="false">
+                location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTask" auth="false">
         <description>
             Issues the Inventory for a Production Run Task.
             Note that this skips the normal inventory reservation process.
@@ -143,7 +143,7 @@ under the License.
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueProductionRunTaskComponent" engine="simple"
-                location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTaskComponent" auth="false">
+                location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTaskComponent" auth="false">
         <description>
             Issues the Inventory for a Production Run Task Component. For more info see the issueProductionRunTask service.
             If fromDate is passed, then the WorkEffortGoodStandard record with pk composed of (workEffortId|productId|fromDate)
@@ -168,7 +168,7 @@ under the License.
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueInventoryItemToWorkEffort" engine="simple"
-                location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueInventoryItemToWorkEffort" auth="false">
+                location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueInventoryItemToWorkEffort" auth="false">
         <description>
             Issue one InventoryItem (or part of it) to a WorkEffort.
             Note that this skips the normal inventory reservation process.
