@@ -6271,15 +6271,6 @@
         <value xml:lang="zh">公开便笺 (已打印)</value>
         <value xml:lang="zh_CN">公开注释 (可打印)</value>
     </property>
-    <property key="OrderPriorityHigh">
-        <value xml:lang="en">High</value>
-    </property>
-    <property key="OrderPriorityLow">
-        <value xml:lang="en">Low</value>
-    </property>
-    <property key="OrderPriorityNormal">
-        <value xml:lang="en">Normal</value>
-    </property>    
     <property key="OrderProcessOrder">
         <value xml:lang="de">Auftrag verarbeiten</value>
         <value xml:lang="en">Process Order</value>

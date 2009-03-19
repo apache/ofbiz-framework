@@ -188,9 +188,9 @@ under the License.
                   <td width="5%">&nbsp;</td>
                   <td valign="top" width="80%">
                     <select name="priority">
-                      <option value="1">${uiLabelMap.OrderPriorityHigh}</option>
-                      <option value="2"selected>${uiLabelMap.OrderPriorityNormal}</option> 
-                      <option value="3">${uiLabelMap.OrderPriorityLow}</option>
+                      <option value="1">${uiLabelMap.CommonHigh}</option>
+                      <option value="2"selected>${uiLabelMap.CommonNormal}</option> 
+                      <option value="3">${uiLabelMap.CommonLow}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
                   </td>
