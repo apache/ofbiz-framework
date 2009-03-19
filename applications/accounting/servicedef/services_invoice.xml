@@ -26,7 +26,7 @@ under the License.
 
     
     <service name="getNextInvoiceId" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getNextInvoiceId">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getNextInvoiceId">
         <description>Get the Next Invoice ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
@@ -34,7 +34,7 @@ under the License.
     
     <!-- Invoice services -->
     <service name="createInvoice" engine="simple" default-entity-name="Invoice"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoice">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoice">
         <description>Create Invoice Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
@@ -45,14 +45,14 @@ under the License.
         <override name="partyId" mode = "IN" optional="false"/>
     </service>
     <service name="copyInvoice" engine="simple" default-entity-name="Invoice"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoice">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoice">
         <description>Create Invoice Record/items from an existing invoice</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="invoiceIdToCopyFrom" type="String" mode="IN" optional="false"/>
     </service>
     <service name="getInvoice" engine="simple" default-entity-name="Invoice"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoice">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoice">
         <description>Retrieve an existing Invoice/Items</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -60,14 +60,14 @@ under the License.
         <attribute name="invoiceItems" type="List" mode="OUT"/><!-- list of invoiceItem GenericValues -->
     </service>
     <service name="updateInvoice" engine="simple" default-entity-name="Invoice"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoice">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoice">
         <description>Update an existing Invoice Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="setInvoiceStatus" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="setInvoiceStatus">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="setInvoiceStatus">
         <description>Set the Invoice  Status</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
@@ -77,7 +77,7 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="copyInvoiceToTemplate" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoiceToTemplate">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoiceToTemplate">
         <description>Save a Invoice data to a template .</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <attribute name="invoiceId" type="String" mode="INOUT" optional="false"/>
@@ -93,7 +93,7 @@ under the License.
     we will continue to have null taxableFlags for awhile yet, which is why the mantadory taxableFlag of this method was taken out.
     -->
     <service name="createInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItem">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItem">
         <description>Create a new Invoice Item Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -101,34 +101,34 @@ under the License.
         <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally assign by the system -->
     </service>
     <service name="updateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItem">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItem">
         <description>Update existing Invoice Item Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="removeInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceItem">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceItem">
         <description>Remove an existing Invoice Item Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
     <service name="createInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceRole">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceRole">
         <description>Create a new Invoice Role Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="removeInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceRole">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceRole">
         <description>Remove an existing Invoice Role Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createInvoiceTerm" engine="simple" default-entity-name="InvoiceTerm"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceTerm">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceTerm">
         <description>Create Invoice (Item) Term Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -179,7 +179,7 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="sampleInvoiceAffiliateCommission" engine="simple"
-        location="org/ofbiz/accounting/invoice/SampleCommissionServices.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/SampleCommissionServices.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
         <description>
             A sample/example service to calculate an affiliate commission (direct relationship to customer) and create 
             and invoice for it on behalf of the affiliate, ie an invoice from the affiliate to the company that can 
@@ -240,7 +240,7 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="sendInvoicePerEmail" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="sendInvoicePerEmail">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="sendInvoicePerEmail">
         <description>Send an invoice per email</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="sendFrom" type="String" mode="IN" optional="false"/>
@@ -256,7 +256,7 @@ under the License.
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createInvoiceContactMech" engine="simple"
-            location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceContactMech">
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceContactMech">
         <description>Create a ContactMech for an invoice</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="InvoiceContactMech" include="pk" mode="IN" optional="false"/>
@@ -276,7 +276,7 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
     <service name="updateInvoiceItemType" engine="simple" default-entity-name="InvoiceItemType"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
         <description>Update Invoice Item Type Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>

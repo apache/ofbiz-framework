@@ -67,19 +67,19 @@ under the License.
     
     <!-- TaxAuthority -->
     <service name="createTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthority">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthority">
         <description>Create TaxAuthority</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthority">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthority">
         <description>Update TaxAuthority</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthority">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthority">
         <description>Delete TaxAuthority</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -87,20 +87,20 @@ under the License.
 
     <!-- TaxAuthorityAssoc -->
     <service name="createTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityAssoc">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityAssoc">
         <description>Create TaxAuthorityAssoc</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityAssoc">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityAssoc">
         <description>Update TaxAuthorityAssoc</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityAssoc">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityAssoc">
         <description>Delete TaxAuthorityAssoc</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -108,19 +108,19 @@ under the License.
 
     <!-- TaxAuthorityCategory -->
     <service name="createTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityCategory">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityCategory">
         <description>Create TaxAuthorityCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityCategory">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityCategory">
         <description>Update TaxAuthorityCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
         <description>Delete TaxAuthorityCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -128,19 +128,19 @@ under the License.
 
     <!-- TaxAuthorityGlAccount -->
     <service name="createTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityGlAccount">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityGlAccount">
         <description>Create TaxAuthorityGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityGlAccount">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityGlAccount">
         <description>Update TaxAuthorityGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityGlAccount">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityGlAccount">
         <description>Delete TaxAuthorityGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -148,19 +148,19 @@ under the License.
     
     <!-- TaxAuthorityRateProduct -->
     <service name="createTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityRateProduct">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityRateProduct">
         <description>Create TaxAuthorityRateProduct</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityRateProduct">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityRateProduct">
         <description>Update TaxAuthorityRateProduct</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityRateProduct">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityRateProduct">
         <description>Delete TaxAuthorityRateProduct</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -168,27 +168,27 @@ under the License.
     
     <!-- PartyTaxAuthInfo -->
     <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
         <description>Create PartyTaxAuthInfo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
         <description>Update PartyTaxAuthInfo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deletePartyTaxAuthInfo">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deletePartyTaxAuthInfo">
         <description>Delete PartyTaxAuthInfo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
+        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
         <description>Create Customer PartyTaxAuthInfo</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

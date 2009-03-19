@@ -26,7 +26,7 @@ under the License.
     
     <!-- Fixed Asset  -->
     <service name="createFixedAsset" default-entity-name="FixedAsset" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAsset" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAsset" auth="true">
         <description>Create a Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
@@ -34,7 +34,7 @@ under the License.
         <override name="fixedAssetTypeId" optional="false"/>
     </service>
     <service name="updateFixedAsset" default-entity-name="FixedAsset" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAsset" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAsset" auth="true">
         <description>Update a Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -44,7 +44,7 @@ under the License.
 
     <!-- Product to Fixed Asset maintenance -->
     <service name="addFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="addFixedAssetProduct" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="addFixedAssetProduct" auth="true">
         <description>Add Product To Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -53,7 +53,7 @@ under the License.
     </service>
     
     <service name="updateFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetProduct" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetProduct" auth="true">
         <description>Update the Product to Fixed Asset information</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -61,7 +61,7 @@ under the License.
     </service>
     
     <service name="removeFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetProduct" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetProduct" auth="true">
         <description>Remove Product From Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -69,7 +69,7 @@ under the License.
 
     <!-- TO BE REMOVED : Fixed Asset calendar 
     <service name="updateFixedAssetCalendar" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetCalendar" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetCalendar" auth="true">
         <description>Update the Capacity available of Calendar of a Fixed Asset information</description>
         <attribute name="fixedAssetId" type="Id" mode="IN" optional="false"/>
         <attribute name="exceptionDateStartTime" type="Timestamp" mode="IN" optional="false"/>
@@ -80,21 +80,21 @@ under the License.
     
     <!-- FixedAssetStdCost  -->
     <service name="createFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetStdCost" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetStdCost" auth="true">
         <description>Create a Fixed Asset Standard Cost</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetStdCost" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetStdCost" auth="true">
         <description>Update a Fixed Asset Standard Cost</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
         <description>Cancel a Fixed Asset Standard Cost</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -103,28 +103,28 @@ under the License.
 
     <!-- FixedAssetIdent -->
     <service name="createFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetIdent" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetIdent" auth="true">
         <description>Create a Fixed Asset Identification</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetIdent" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetIdent" auth="true">
         <description>Update a Fixed Asset Identification</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetIdent" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetIdent" auth="true">
         <description>Remove a Fixed Asset Identification</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- Equipment Registration Create/Update/Delete-->
     <service name="createFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetRegistration" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetRegistration" auth="true">
         <description>Create a Fixed Asset Registration</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -132,21 +132,21 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetRegistration" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetRegistration" auth="true">
         <description>Update a Fixed Asset Registration</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetRegistration" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetRegistration" auth="true">
         <description>Delete a Fixed Asset Registration</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- FixedAsset Maintenance Create/Update/Delete-->
     <service name="createFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
         <description>Create a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -157,7 +157,7 @@ under the License.
         <override name="maintHistSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
     </service>
     <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
         <description>Update a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -165,13 +165,13 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="deleteFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaint" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaint" auth="true">
         <description>Remove a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createMaintsFromTimeInterval" engine="simple" use-transaction="false"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
         <description>Create Fixed Asset Maintenances from ProductMaint time intervals. Currently works
         with day, month, and year interval types. This service is intended to be run as a regularly
         scheduled job.</description>
@@ -179,33 +179,33 @@ under the License.
     </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
     <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
         <description>Create a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
         <description>Update a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMeter" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMeter" auth="true">
         <description>Remove a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="migrateFixedAssetMaintMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
         <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
     </service>
     <!-- FixedAsset Maintenance Order Create/Update/Delete-->
     <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
         <description>Create a Fixed Asset Maintenance Order</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
@@ -215,7 +215,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaintOrder" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaintOrder" auth="true">
         <description>Remove a Fixed Asset Maintenance Order</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -223,7 +223,7 @@ under the License.
     
     <!-- =========Party Fixed Asset Assignment Services========= -->
     <service name="createPartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createPartyFixedAssetAssignment" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createPartyFixedAssetAssignment" auth="true">
         <description>Add Party to a Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -232,7 +232,7 @@ under the License.
     </service>
     
     <service name="updatePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updatePartyFixedAssetAssignment" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updatePartyFixedAssetAssignment" auth="true">
         <description>Update Party to Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -240,7 +240,7 @@ under the License.
     </service>
     
     <service name="deletePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deletePartyFixedAssetAssignment" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deletePartyFixedAssetAssignment" auth="true">
         <description>Delete Party to Fixed Asset</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -265,19 +265,19 @@ under the License.
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
         <description>Straight line depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="doubleDecliningBalanceDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
         <description>Double declining balance depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calculateFixedAssetDepreciation" engine="simple" default-entity-name="FixedAssetDepMethod"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
         <description>Select the depreciation method according to the entry in FixedAssetDepMethod</description>
         <attribute name="fixedAssetId" type="String" mode="IN"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>

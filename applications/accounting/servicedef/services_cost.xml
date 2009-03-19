@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="createCostComponentCalc" default-entity-name="CostComponentCalc" engine="simple"
-                location="org/ofbiz/accounting/cost/CostServices.xml" invoke="createCostComponentCalc" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="createCostComponentCalc" auth="true">
         <description>Create a CostComponentCalc</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -33,7 +33,7 @@ under the License.
     </service>
 
     <service name="updateCostComponentCalc" default-entity-name="CostComponentCalc" engine="simple"
-                location="org/ofbiz/accounting/cost/CostServices.xml" invoke="updateCostComponentCalc" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="updateCostComponentCalc" auth="true">
         <description>Update a CostComponentCalc</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -41,7 +41,7 @@ under the License.
     </service>
 
     <service name="removeCostComponentCalc" default-entity-name="CostComponentCalc" engine="simple"
-                location="org/ofbiz/accounting/cost/CostServices.xml" invoke="removeCostComponentCalc" auth="true">
+                location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="removeCostComponentCalc" auth="true">
         <description>Remove a CostComponentCalc</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -49,7 +49,7 @@ under the License.
     </service>
 
     <service name="createWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple" 
-        location="org/ofbiz/accounting/cost/CostServices.xml" invoke="createWorkEffortCostCalc" auth="true"> 
+        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="createWorkEffortCostCalc" auth="true"> 
         <description>Create a WorkEffortCostCalc entry</description> 
         <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -58,7 +58,7 @@ under the License.
     </service>
 
     <service name="removeWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple" 
-        location="org/ofbiz/accounting/cost/CostServices.xml" invoke="removeWorkEffortCostCalc" auth="true"> 
+        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="removeWorkEffortCostCalc" auth="true"> 
         <description>Remove a WorkEffortCostCalc entry</description> 
         <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
