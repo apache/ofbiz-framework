@@ -135,12 +135,12 @@ under the License.
         <attribute name="originalReturnQuantity" type="BigDecimal" mode="IN" optional="true"/>
         <override name="returnAdjustmentId" optional="false"/>        
     </service>
-    <service name="removeReturnAdjustment" engine="simple" location="org/ofbiz/order/order/OrderReturnServices.xml"
+    <service name="removeReturnAdjustment" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml"
                  invoke="removeReturnAdjustment">
         <description>Simple remove service</description>
         <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>        
     </service>
-    <service name="createReturnAndItemOrAdjustment" engine="simple" location="org/ofbiz/order/order/OrderReturnServices.xml"
+    <service name="createReturnAndItemOrAdjustment" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml"
                  invoke="createReturnAndItemOrAdjustment">
         <description>If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="nonpk" entity-name="ReturnHeader" optional="true"/>

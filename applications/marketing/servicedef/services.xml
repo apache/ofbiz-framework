@@ -459,7 +459,7 @@ under the License.
         <attribute name="extension" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="convertLeadToContact" engine="simple" location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="convertLeadToContact">
+    <service name="convertLeadToContact" engine="simple" location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="convertLeadToContact">
         <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
         <attribute name="partyGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="partyGroupId" type="String" mode="OUT" optional="false"/>

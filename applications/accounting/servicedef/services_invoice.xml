@@ -282,7 +282,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <!-- Auto generate Invoice for fixed period -->
-    <service name="autoGenerateInvoiceFromExistingInvoice" engine="simple" location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="autoGenerateInvoiceFromExistingInvoice">
+    <service name="autoGenerateInvoiceFromExistingInvoice" engine="simple" location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="autoGenerateInvoiceFromExistingInvoice">
         <description>Scheduled service to generate Invoice from an existing Invoice</description>
         <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
     </service>

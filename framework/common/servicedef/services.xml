@@ -335,7 +335,7 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
-    <service name="getFileUploadProgressStatus" engine="simple" location="org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
+    <service name="getFileUploadProgressStatus" engine="simple" location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
         <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
