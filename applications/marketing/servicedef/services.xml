@@ -362,7 +362,7 @@ under the License.
 
     <!-- marketing permission service -->
     <service name="marketingPermissionService" engine="simple"
-             location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+             location="component://marketing/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MARKETING"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -370,7 +370,7 @@ under the License.
     
     <!-- opportunity service -->
     <service name="createOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="createOpportunity">
+        location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="createOpportunity">
         <description>Create an opportunity</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true">
@@ -378,7 +378,7 @@ under the License.
         </auto-attributes>
     </service> 
     <service name="updateOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="updateOpportunity">
+        location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="updateOpportunity">
         <description>Update an opportnity</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -386,7 +386,7 @@ under the License.
  
     <!-- lead services -->
     <service name="createLead" engine="simple"
-        location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
+        location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
         <description>Create a Lead Person or Group</description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>
@@ -410,7 +410,7 @@ under the License.
         <attribute name="extension" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createContact" engine="simple"
-        location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
+        location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
         <description>Create a Contact Person</description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>
@@ -428,7 +428,7 @@ under the License.
         <attribute name="extension" type="String" mode="IN" optional="true"/>
     </service>
     <service name="mergeContacts" engine="simple" 
-        location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
+        location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
         <description>This service merges the contact details of two parties, partyId merges into partyIdTo</description>
         <attribute name="addrContactMechIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="phoneContactMechIdTo" type="String" mode="IN" optional="true"/>
@@ -444,7 +444,7 @@ under the License.
     </service>
     <!-- Account services  -->
     <service name="createAccount" engine="simple"
-        location="org/ofbiz/sfa/account/AccountServices.xml" invoke="createAccount">
+        location="component://marketing/script/org/ofbiz/sfa/account/AccountServices.xml" invoke="createAccount">
         <description>Create an Account Group</description>
         <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
             <exclude field-name="partyId"/>
