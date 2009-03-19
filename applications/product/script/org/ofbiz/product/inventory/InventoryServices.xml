@@ -814,6 +814,7 @@ under the License.
                     </condition-list>
                 </condition-list>
             </condition-list>
+            <order-by field-name="priority"/>
             <order-by field-name="currentPromisedDate"/>
             <order-by field-name="reservedDatetime"/>
             <order-by field-name="sequenceId"/>
@@ -875,6 +876,9 @@ under the License.
                     <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
                 </if-compare>
             </if-not-empty>
+            <entity-one entity-name="OrderHeader" value-field="orderHeader">
+                <field-map field-name="orderId" from-field="oisgir.orderId"/>
+            </entity-one>            
             
             <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
             <clear-field field="resMap"/>
@@ -888,6 +892,7 @@ under the License.
             <set field="resMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
             <set field="resMap.sequenceId" from-field="oisgir.sequenceId"/>
             <set field="resMap.facilityId" from-field="parameters.facilityId"/>
+            <set field="resMap.priority" from-field="orderHeader.priority"/>
             <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${parameters.facilityId}]"/>
             <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
         </iterate>
@@ -1249,5 +1254,43 @@ under the License.
             </if-compare>
         </if-not-empty>
     </simple-method>    
-    
+    <simple-method method-name="setOrderReservationPriority" short-description="Sets priority of an order for Inventory Reservation, orders with HIGH priority would be served first.">
+        <set field="orderId" from-field="parameters.orderId"/>       
+        <entity-one entity-name="OrderHeader" value-field="orderHeader">
+            <field-map field-name="orderId" from-field="orderId"/>
+        </entity-one>
+        <set field="priority" from-field="parameters.priority"/>
+        <if-empty field="priority">
+            <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+                <field-map field-name="orderId" from-field="orderId"/>
+            </entity-and>
+            <iterate entry="oisgir" list="oisgirs">
+                <set field="oisgir.priority" default-value="2"/>
+                <store-value value-field="oisgir"/>       
+            </iterate> 
+            <set field="orderHeader.priority" default-value="2"/>
+            <store-value value-field="orderHeader"/>        
+        <else>
+            <set field="orderHeader.priority" from-field="priority"/>
+            <store-value value-field="orderHeader"/>
+            <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+                <field-map field-name="orderId" from-field="orderId"/>
+            </entity-and> 
+            <iterate entry="oisgir" list="oisgirs">
+                <set field="oisgir.priority" from-field="priority"/>
+                <store-value value-field="oisgir"/>
+                <clear-field field="oisgir"/>
+            </iterate>
+            <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="oisgirais">
+                <condition-expr field-name="orderId" operator="equals" from-field="orderId"/>
+            </entity-condition>
+            <iterate entry="oisgir" list="oisgirais">
+                <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
+                <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
+                <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
+                <clear-field field="reassignInventoryReservationsCtx"/>
+            </iterate>        
+        </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>

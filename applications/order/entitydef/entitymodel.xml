@@ -337,6 +337,7 @@ under the License.
       <field name="externalId" type="id"></field>
       <field name="salesChannelEnumId" type="id"></field>
       <field name="orderDate" type="date-time"></field>
+      <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="entryDate" type="date-time"></field>
       <field name="visitId" type="id"></field>
       <field name="statusId" type="id"></field>
@@ -888,6 +889,7 @@ under the License.
       <field name="createdDatetime" type="date-time"></field>
       <field name="promisedDatetime" type="date-time"></field>
       <field name="currentPromisedDate" type="date-time"></field>
+      <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="sequenceId" type="numeric"></field> 
       <field name="oldPickStartDate" col-name="PICK_START_DATE" type="date-time"></field> <!-- this is no longer used and is here for migration or whatever if needed -->
       <prim-key field="orderId"/>

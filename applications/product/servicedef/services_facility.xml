@@ -262,6 +262,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
+        <attribute name="priority" type="String" mode="IN"  optional="true"/>   
     </service>
     <service name="balanceOrderItemsWithNegativeReservations" engine="simple" 
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
@@ -319,6 +320,7 @@ under the License.
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="priority" type="String" mode="IN"  optional="true"/>    
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
@@ -345,6 +347,7 @@ under the License.
         <auto-attributes mode="IN" entity-name="OrderItemShipGrpInvRes" include="nonpk" optional="true">
             <exclude field-name="createdDatetime"/>
         </auto-attributes>
+        <attribute name="priority" type="String" mode="IN"  optional="true"/>
         <override name="quantity" optional="false"/>
     </service>
     <service name="cancelOrderInventoryReservation" engine="simple"
@@ -872,5 +875,11 @@ under the License.
         <description>Delete an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority" 
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml"  auth="true">
+        <description>set order priority</description>
+        <attribute name="priority" mode="IN" type="String" optional="true"/>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 </services>
