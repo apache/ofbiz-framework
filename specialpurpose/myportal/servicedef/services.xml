@@ -23,7 +23,7 @@ under the License.
     <description>Project Manager service definitions.</description>
 
     <service name="sendEmailToCustomer" engine="simple"  auth="true" default-entity-name="CustRequest"
-        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="sendEmailToCustomer">
+        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="sendEmailToCustomer">
         <description>Send email to customer when customer request is Completed or Created. </description>
         <attribute name="custRequestId" type="String" mode="IN"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -32,11 +32,11 @@ under the License.
     
     <!-- check access in permission service -->
     <service name="portalPermissionIsEmployee" engine="simple"
-        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsEmployee">
+        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsEmployee">
         <implements service="permissionInterface"/>
     </service>
     <service name="portalPermissionIsCustomer" engine="simple"
-        location="org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsCustomer">
+        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsCustomer">
         <implements service="permissionInterface"/>
     </service>
 </services>
