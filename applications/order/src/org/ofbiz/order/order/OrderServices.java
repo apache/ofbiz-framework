@@ -3503,21 +3503,21 @@ public class OrderServices {
         for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
             String itemSeqId =  entry.getKey();
             String estimatedDeliveryDate = entry.getValue();
-            Timestamp shipDate = Timestamp.valueOf(estimatedDeliveryDate);
-            if (estimatedDeliveryDate != null) {
+            if (UtilValidate.isNotEmpty(estimatedDeliveryDate)) {
+                Timestamp deliveryDate = Timestamp.valueOf(estimatedDeliveryDate);
                 ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                cartItem.setDesiredDeliveryDate(shipDate);
+                cartItem.setDesiredDeliveryDate(deliveryDate);
             }
         }
     
         // Create Estimated ship dates
         for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
             String itemSeqId =  entry.getKey();
-            String estimatedShipDate =  entry.getValue();
-            Timestamp deliveryDate = Timestamp.valueOf(estimatedShipDate);
-            if (estimatedShipDate != null) {
+            String estimatedShipDate = entry.getValue();
+            if (UtilValidate.isNotEmpty(estimatedShipDate)) {
+                Timestamp shipDate = Timestamp.valueOf(estimatedShipDate);
                 ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                cartItem.setEstimatedShipDate(deliveryDate);
+                cartItem.setEstimatedShipDate(shipDate);
             }
     
         }
