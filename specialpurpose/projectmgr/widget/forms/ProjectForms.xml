@@ -454,22 +454,6 @@
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"></display-entity></field>
     </form>
-    <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
-            <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}">
-                <sub-hyperlink target="EditProject?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
-            </display-entity>
-        </field>
-        <field name="skillTypeId" title="${uiLabelMap.ProjectMgrSkillType}"><display-entity entity-name="SkillType" description="${description}"/></field>
-        <field name="estimatedNumPeople" title="${uiLabelMap.ProjectMgrEstimatedNumPeople}"><text/></field>
-        <field name="estimatedDuration" title="${uiLabelMap.ProjectMgrEstimatedDuration}"><text/></field>
-        <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectSkillStandard?workEffortId=${workEffortId}&amp;skillTypeId=${skillTypeId}"/>
-        </field>
-    </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>

@@ -121,26 +121,6 @@
         <event type="service" invoke="deletePartyRole"/>
         <response name="success" type="view" value="FindResource"/>
     </request-map>
-    <request-map uri="ChildWorkEfforts">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ChildWorkEfforts"/>
-    </request-map>
-    <request-map uri="EditProjectAndAssoc">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditProjectAndAssoc"/>
-    </request-map>
-    <request-map uri="createProjectAndAssoc">
-        <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
-        <response name="success" type="view" value="FindProject"/>
-        <response name="error" type="view" value="FindProject"/>
-    </request-map>
-    <request-map uri="updateProjectAndAssoc">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortAndAssoc"/>
-        <response name="success" type="view" value="FindProject"/>
-        <response name="error" type="view" value="FindProject"/>
-    </request-map>    
     <request-map uri="EditProjectTasks">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProjectTasks"/>
@@ -268,13 +248,6 @@
         <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>    
     
-    <!-- TO BE REMOVED
-    <request-map uri="EditTaskAndAssoc">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditTaskAndAssoc"/>
-    </request-map>
-    -->
-    
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
@@ -295,26 +268,6 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MyTasks"/>
     </request-map>
-    
-    <!-- TO BE REMOVED
-    <request-map uri="EditTaskList">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditTaskList"/>
-        <response name="error" type="view" value="EditTaskList"/>
-    </request-map>
-    <request-map uri="createTaskList">
-        <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
-        <response name="success" type="view" value="EditTaskList"/>
-        <response name="error" type="view" value="EditTaskList"/>
-    </request-map>    
-    <request-map uri="deleteTaskList">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="Dependencies"/>
-        <response name="error" type="view" value="Dependencies"/>
-    </request-map>
-    -->
     
     <request-map uri="EditTaskListAndAssoc">
         <security https="true" auth="true"/>
@@ -355,28 +308,6 @@
         <event type="service" invoke="updateWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
-    </request-map>
-    <request-map uri="EditProjectSkills">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditProjectSkills"/>
-    </request-map>
-    <request-map uri="createProjectSkillStandard">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortSkillStandard"/>
-        <response name="success" type="view" value="EditProjectSkills"/>
-        <response name="error" type="view" value="EditProjectSkills"/>
-    </request-map>
-    <request-map uri="updateProjectSkillStandard">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortSkillStandard"/>
-        <response name="success" type="view" value="EditProjectSkills"/>
-        <response name="error" type="view" value="EditProjectSkills"/>
-    </request-map>
-    <request-map uri="deleteProjectSkillStandard">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortSkillStandard"/>
-        <response name="success" type="view" value="EditProjectSkills"/>
-        <response name="error" type="view" value="EditProjectSkills"/>
     </request-map>
     <request-map uri="EditTaskSkills">
         <security https="true" auth="true"/>
@@ -867,39 +798,16 @@
     <view-map name="projectBilling" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#projectBilling"/>
     <view-map name="ListResourceBillingHours" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#ListBillingHours"/>
     <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
-    <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
-    <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
     <view-map name="EditProjectTasks" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectTasks"/>
     <view-map name="EditProjectOrders" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectOrders"/>
     <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="FindTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTask"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
-    
-    <!--
-    <view-map name="AddProjectTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#AddProjectTask"/>
-    -->
-      
-    <!-- TO DO
-    <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
-    <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
-    -->
-     
     <view-map name="Dependencies" type="screen" page="component://projectmgr/widget/TaskScreens.xml#Dependencies"/>
-    
-    <!-- TO DO
-    <view-map name="EditTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskList"/>
-    -->
-     
     <view-map name="EditTaskPartyAssigns" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskPartyAssigns"/>
     <view-map name="EditTaskListAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskListAndAssoc"/>
-    
-    <!-- TO DO
-    <view-map name="ChildTaskWorkEfforts" type="screen" page="component://projectmgr/widget/TaskScreens.xml#ChildTaskWorkEfforts"/>
-    -->
-    
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectParties"/> 
     <view-map name="FindPhase" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindPhase"/>
-    <view-map name="EditProjectSkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectSkills"/>
     <view-map name="EditTaskSkills" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskSkills"/>
     <view-map name="projectView" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ProjectView"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
