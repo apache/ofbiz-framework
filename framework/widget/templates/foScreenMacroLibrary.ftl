@@ -1,0 +1,53 @@
+<#--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<#assign foStyles = {
+    "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
+    "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
+    "tableheadverysmall":"column-width=\"0.3in\"",
+    "tableheadsmall":"column-width=\"0.5in\"",
+    "tableheadmedium":"column-width=\"1.5in\"",
+    "tableheadwide":"column-width=\"3in\"",
+    "head1":"font-size=\"12\" font-weight=\"bold\"",
+    "head2":"font-weight=\"bold\"",
+    "head3":"font-weight=\"bold\" font-style=\"italic\"",
+    "error":"color=\"red\""}/>
+
+<#macro renderSectionBegin></#macro>
+<#macro renderSectionEnd>
+</#macro>
+<#macro renderContainerBegin containerId style autoUpdateLink autoUpdateInterval><fo:block <#if style?has_content>${foStyles[style]}</#if>></#macro>
+<#macro renderContainerEnd></fo:block></#macro>
+<#macro renderContentBegin></#macro>
+<#macro renderContentBody></#macro>
+<#macro renderContentEnd></#macro>
+<#macro renderSubContentBegin></#macro>
+<#macro renderSubContentBody></#macro>
+<#macro renderSubContentEnd></#macro>
+
+<#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
+<#macro renderLabel text id style><#if text?exists>${text}</#if></#macro>
+<#macro renderLink></#macro>
+<#macro renderImage></#macro>
+
+<#macro renderContentFrame></#macro>
+<#macro renderScreenletBegin id></#macro>
+<#macro renderScreenletSubWidget></#macro>
+<#macro renderScreenletEnd></#macro>
+
