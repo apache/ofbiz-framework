@@ -294,7 +294,7 @@
             </condition>
             <link target="EditTaskPartyAssigns?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
+        <menu-item name="taskskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
             <condition>
                 <and>
                     <not><if-empty field="workEffort"/></not>

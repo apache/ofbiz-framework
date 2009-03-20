@@ -21,11 +21,10 @@ import java.util.*;
 import java.lang.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastMap;
 
-if (parameters.get("workEffortId") != null) {
-    workEffortId = parameters.get("workEffortId");
+if (parameters.workEffortId) {
+    workEffortId = parameters.workEffortId;
     projects = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("workEffortId", workEffortId));
     if (UtilValidate.isNotEmpty(projects)) {
         context.put("projectId", projects.get(0).getString("projectId"));
