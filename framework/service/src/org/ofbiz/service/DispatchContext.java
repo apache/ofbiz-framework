@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ public class DispatchContext implements Serializable {
     protected Map<String, Object> attributes;
     protected String name;
 
-    /** 
+    /**
      * Creates new DispatchContext
      * @param localReaders a collection of reader URLs
      * @param loader the classloader to use for dispatched services
@@ -71,7 +71,7 @@ public class DispatchContext implements Serializable {
         this.localReaders = localReaders;
         this.loader = loader;
         this.dispatcher = dispatcher;
-        this.attributes = FastMap.newInstance();                
+        this.attributes = FastMap.newInstance();
     }
 
     public void loadReaders() {
@@ -79,7 +79,7 @@ public class DispatchContext implements Serializable {
         this.getGlobalServiceMap();
     }
 
-    /** 
+    /**
      * Returns the service attribute for the given name, or null if there is no attribute by that name.
      * @param name a String specifying the name of the attribute
      * @return an Object containing the value of the attribute, or null if there is no attribute by that name.
@@ -90,7 +90,7 @@ public class DispatchContext implements Serializable {
         return null;
     }
 
-    /** 
+    /**
      * Binds an object to a given attribute name in this context.
      * @param name a String specifying the name of the attribute
      * @param object an Object representing the attribute to be bound.
@@ -99,7 +99,7 @@ public class DispatchContext implements Serializable {
         attributes.put(name, object);
     }
 
-    /** 
+    /**
      * Gets the classloader of this context
      * @return ClassLoader of the context
      */
@@ -107,7 +107,7 @@ public class DispatchContext implements Serializable {
         return this.loader;
     }
 
-    /** 
+    /**
      * Gets the collection of readers associated with this context
      * @return Collection of reader URLs
      */
@@ -115,50 +115,50 @@ public class DispatchContext implements Serializable {
         return localReaders;
     }
 
-    /** 
+    /**
      * Gets the name of the local dispatcher
      * @return String name of the LocalDispatcher object
      */
     public String getName() {
         return name;
     }
-    
+ 
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
      * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
      * @param serviceName The name of the service to obtain parameters for
-     * @param mode The mode to use for building the new map (i.e. can be IN or OUT) 
-     * @param context The initial set of values to pull from     
+     * @param mode The mode to use for building the new map (i.e. can be IN or OUT)
+     * @param context The initial set of values to pull from
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {        
+    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         ModelService model = this.getModelService(serviceName);
         return makeValidContext(model, mode, context);
-        
+ 
     }
-    
+ 
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
      * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
      * @param model The ModelService object of the service to obtain parameters for
      * @param mode The mode to use for building the new map (i.e. can be IN or OUT)
-     * @param context The initial set of values to pull from     
+     * @param context The initial set of values to pull from
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
     public Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> newContext;
-        
+ 
         int modeInt = 0;
         if (mode.equalsIgnoreCase("in")) {
             modeInt = 1;
         } else if (mode.equalsIgnoreCase("out")) {
             modeInt = 2;
-        }        
+        }
 
         if (model == null) {
-            throw new GenericServiceException("Model service is null! Should never happen.");        
+            throw new GenericServiceException("Model service is null! Should never happen.");
         } else {
             switch (modeInt) {
                 case 2:
@@ -171,10 +171,10 @@ public class DispatchContext implements Serializable {
                     throw new GenericServiceException("Invalid mode, should be either IN or OUT");
             }
             return newContext;
-        }        
+        }
     }
 
-    /** 
+    /**
      * Gets the ModelService instance that corresponds to given the name
      * @param serviceName Name of the service
      * @return GenericServiceModel that corresponds to the serviceName
@@ -185,26 +185,26 @@ public class DispatchContext implements Serializable {
         if (retVal == null) {
             retVal = getGlobalModelService(serviceName);
         }
-        
+ 
         if (retVal == null) {
             throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
         }
-        
+ 
         //Debug.logTiming("Got ModelService for name [" + serviceName + "] in [" + (System.currentTimeMillis() - timeStart) + "] milliseconds", module);
-        return retVal;                
+        return retVal;
     }
-    
+ 
     private ModelService getLocalModelService(String serviceName) throws GenericServiceException {
         Map<String, ModelService> serviceMap = this.getLocalServiceMap();
-        
+ 
         ModelService retVal = null;
         if (serviceMap != null) {
-            retVal = serviceMap.get(serviceName); 
+            retVal = serviceMap.get(serviceName);
             if (retVal != null && !retVal.inheritedParameters()) {
-                retVal.interfaceUpdate(this);     
+                retVal.interfaceUpdate(this);
             }
         }
-        
+ 
         return retVal;
     }
 
@@ -218,11 +218,11 @@ public class DispatchContext implements Serializable {
                 retVal.interfaceUpdate(this);
             }
         }
-        
+ 
         return retVal;
     }
 
-    /** 
+    /**
      * Gets the LocalDispatcher used with this context
      * @return LocalDispatcher that was used to create this context
      */
@@ -230,7 +230,7 @@ public class DispatchContext implements Serializable {
         return this.dispatcher;
     }
 
-    /** 
+    /**
      * Sets the LocalDispatcher used with this context
      * @param dispatcher The LocalDispatcher to re-assign to this context
      */
@@ -238,7 +238,7 @@ public class DispatchContext implements Serializable {
         this.dispatcher = dispatcher;
     }
 
-    /** 
+    /**
      * Gets the GenericDelegator associated with this context/dispatcher
      * @return GenericDelegator associated with this context
      */
@@ -246,7 +246,7 @@ public class DispatchContext implements Serializable {
         return dispatcher.getDelegator();
     }
 
-    /** 
+    /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher
      */
@@ -276,10 +276,10 @@ public class DispatchContext implements Serializable {
                 }
             }
         }
-        
+ 
         return serviceMap;
     }
-    
+ 
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
         if (serviceMap == null) {
@@ -306,7 +306,7 @@ public class DispatchContext implements Serializable {
                             serviceMap.putAll(servicesMap);
                         }
                     }
-                    
+ 
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
                     for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
                         Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);

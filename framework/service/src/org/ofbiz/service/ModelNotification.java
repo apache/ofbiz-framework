@@ -95,7 +95,7 @@ public class ModelNotification {
         notifyContext.put("partyId", partyId);
 
         notifyContext.put("bodyScreenUri", screen);
-        
+ 
         return notifyContext;
     }
 

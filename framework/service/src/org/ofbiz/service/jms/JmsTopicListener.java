@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -84,7 +84,7 @@ public class JmsTopicListener extends AbstractJmsListener {
                     TopicSubscriber subscriber = session.createSubscriber(topic);
                     subscriber.setMessageListener(this);
                     con.start();
-                    this.setConnected(true);                    
+                    this.setConnected(true);
                     if (Debug.infoOn()) Debug.logInfo("Listening to topic [" + topicName + "] on [" + jndiServer + "]...", module);
                 } else {
                     throw new GenericServiceException("Topic lookup failed.");

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,14 +38,14 @@ import org.w3c.dom.Element;
  * GroupModel.java
  */
 public class GroupModel {
-    
+ 
     public static final String module = GroupModel.class.getName();
-    
-    private String groupName, sendMode;    
+ 
+    private String groupName, sendMode;
     private List<GroupServiceModel> services;
     private boolean optional = false;
     private int lastServiceRan;
-    
+ 
     /**
      * Constructor using DOM Element
      * @param group DOM element for the group
@@ -74,7 +74,7 @@ public class GroupModel {
 
         if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
-    
+ 
     /**
      * Basic Constructor
      * @param groupName Name of the group
@@ -87,7 +87,7 @@ public class GroupModel {
         this.sendMode = sendMode;
         this.services = services;
     }
-    
+ 
     /**
      * Getter for group name
      * @return String
@@ -95,7 +95,7 @@ public class GroupModel {
     public String getGroupName() {
         return this.groupName;
     }
-    
+ 
     /**
      * Getter for send mode
      * @return String
@@ -103,7 +103,7 @@ public class GroupModel {
     public String getSendMode() {
         return this.sendMode;
     }
-    
+ 
     /**
      * Returns a list of services in this group
      * @return List
@@ -111,7 +111,7 @@ public class GroupModel {
     public List<GroupServiceModel> getServices() {
         return this.services;
     }
-    
+ 
     /**
      * Invokes the group of services in order defined
      * @param dispatcher ServiceDispatcher used for invocation
@@ -124,20 +124,20 @@ public class GroupModel {
         if (this.getSendMode().equals("all")) {
             return runAll(dispatcher, localName, context);
         } else if (this.getSendMode().equals("round-robin")) {
-            return runIndex(dispatcher, localName, context, (++lastServiceRan % services.size()));   
+            return runIndex(dispatcher, localName, context, (++lastServiceRan % services.size()));
         } else if (this.getSendMode().equals("random")) {
-            int randomIndex = (int) (Math.random() * (double) (services.size())); 
+            int randomIndex = (int) (Math.random() * (double) (services.size()));
             return runIndex(dispatcher, localName, context, randomIndex);
         } else if (this.getSendMode().equals("first-available")) {
-            return runOne(dispatcher, localName, context);  
+            return runOne(dispatcher, localName, context);
         } else if (this.getSendMode().equals("none")) {
-            return FastMap.newInstance();                                 
-        } else { 
+            return FastMap.newInstance();
+        } else {
             throw new GenericServiceException("This mode is not currently supported");
         }
     }
-    
-    /**     
+ 
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString() {
@@ -145,11 +145,11 @@ public class GroupModel {
         str.append(getGroupName());
         str.append("::");
         str.append(getSendMode());
-        str.append("::");        
+        str.append("::");
         str.append(getServices());
         return str.toString();
     }
-    
+ 
     private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
         Map<String, Object> result = FastMap.newInstance();
@@ -157,13 +157,13 @@ public class GroupModel {
             if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
-            
+ 
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
                 Debug.logError("Grouped service [" + model.getName() + "] failed.", module);
                 return thisResult;
             }
-            
+ 
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
@@ -172,14 +172,14 @@ public class GroupModel {
         }
         return result;
     }
-    
+ 
     private Map<String, Object> runIndex(ServiceDispatcher dispatcher, String localName, Map<String, Object> context, int index) throws GenericServiceException {
         GroupServiceModel model = services.get(index);
         return model.invoke(dispatcher, localName, context);
-    } 
-    
-    private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {      
-        Map<String, Object> result = null;        
+    }
+ 
+    private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
+        Map<String, Object> result = null;
         for (GroupServiceModel model: services) {
             try {
                 result = model.invoke(dispatcher, localName, context);
@@ -191,5 +191,5 @@ public class GroupModel {
             throw new GenericServiceException("All services failed to run; none available.");
         }
         return result;
-    }            
+    }
 }

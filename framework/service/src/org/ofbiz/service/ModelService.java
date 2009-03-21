@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -106,7 +106,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The name of this service */
     public String name;
-    
+ 
     /** The location of the definition this service */
     public String definitionLocation;
 
@@ -130,7 +130,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The loader which loaded this definition */
     public String fromLoader;
-    
+ 
     /** Does this service require authorization */
     public boolean auth;
 
@@ -160,7 +160,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Permission service main-action */
     public String permissionMainAction;
-    
+ 
     /** Permission service resource-description */
     public String permissionResourceDesc;
 
@@ -172,7 +172,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Semaphore sleep time (in milliseconds) */
     public int semaphoreSleep;
-    
+ 
     /** Set of services this service implements */
     public Set<ModelServiceIface> implServices = new LinkedHashSet<ModelServiceIface>();
 
@@ -187,7 +187,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Internal Service Group */
     public GroupModel internalGroup = null;
-    
+ 
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
     protected Map<String, ModelParam> contextInfo = FastMap.newInstance();
 
@@ -546,14 +546,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), module);
             throw e;
         }
-        
+ 
         // required and type validation complete, do allow-html validation
         if ("IN".equals(mode)) {
             List<String> errorMessageList = FastList.newInstance();
             for (ModelParam modelParam: this.contextInfo.values()) {
-                if (context.get(modelParam.name) != null && 
-                        ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) && 
-                        !"any".equals(modelParam.allowHtml) && 
+                if (context.get(modelParam.name) != null &&
+                        ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) &&
+                        !"any".equals(modelParam.allowHtml) &&
                         ("INOUT".equals(modelParam.mode) || "IN".equals(modelParam.mode))) {
                     // the param is a String, allow-html is none or safe, and we are looking at an IN parameter during input parameter validation
                     String value = (String) context.get(modelParam.name);
@@ -601,7 +601,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 missingMsgs.add(msg);
             }
-            
+ 
             List<String> missingCopy = FastList.newInstance();
             missingCopy.addAll(missing);
             throw new ServiceValidationException(missingMsgs, model, missingCopy, null, mode);
@@ -687,7 +687,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         try {
             validatorClass = ObjectType.loadClass(vali.getClassName());
         } catch (ClassNotFoundException e) {
-            Debug.logWarning(e, module);            
+            Debug.logWarning(e, module);
         }
 
         if (validatorClass == null) {
@@ -840,7 +840,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 locale = Locale.getDefault();
             }
         }
-        
+ 
         if (timeZone == null) {
             // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
             if (source.containsKey("timeZone")) {
@@ -850,7 +850,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 timeZone = TimeZone.getDefault();
             }
         }
-        
+ 
         for (ModelParam param: contextParamList) {
             //boolean internalParam = param.internal;
 
@@ -950,7 +950,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 } else if (thisService != null) {
                     ctx.put("resourceDescription", thisService.name);
                 }
-                
+ 
                 LocalDispatcher dispatcher = dctx.getDispatcher();
                 Map<String, Object> resp;
                 try {
@@ -1059,7 +1059,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(modelParam.mode)) continue;
-            
+ 
             inList.add(modelParam);
         }
         return inList;
@@ -1108,7 +1108,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                                 ModelParam newParamClone = new ModelParam(newParam);
                                 if (optional) {
                                     // default option is to make this optional, however the service can override and
-                                    // force the clone to use the parents setting. 
+                                    // force the clone to use the parents setting.
                                     newParamClone.optional = true;
                                 }
                                 this.addParam(newParamClone);

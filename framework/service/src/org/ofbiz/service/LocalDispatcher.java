@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ public interface LocalDispatcher {
     public void disableEcas();
 
     /**
-     * Reenables running of Service Engine Condition Actions (SECAs).  
+     * Reenables running of Service Engine Condition Actions (SECAs).
      * @throws GenericServiceException
      */
     public void enableEcas();
@@ -96,7 +96,7 @@ public interface LocalDispatcher {
      */
     public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
     public void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    
+ 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
      * @param serviceName Name of the service to run.

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,12 +29,12 @@ import org.ofbiz.entity.GenericDelegator;
 public class WebAppDispatcher extends GenericDispatcher {
 
     public static final String module = WebAppDispatcher.class.getName();
-     
+ 
     public WebAppDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs) {
         this(name, delegator, readerURLs, null);
     }
 
-    public WebAppDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader) {           
+    public WebAppDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader) {
         if (loader == null) {
             try {
                 loader = Thread.currentThread().getContextClassLoader();
@@ -42,7 +42,7 @@ public class WebAppDispatcher extends GenericDispatcher {
                 loader = this.getClass().getClassLoader();
             }
         }
-        
+ 
         DispatchContext dc = new DispatchContext(name, readerURLs, loader, null);
         init(name, delegator, dc);
     }

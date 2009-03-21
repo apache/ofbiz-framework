@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -67,7 +67,7 @@ public class JavaMailContainer implements Container {
      *
      */
     public void init(String[] args, String configFile) throws ContainerException {
-        this.configFile = configFile;       
+        this.configFile = configFile;
         this.stores = new LinkedHashMap<Store, Session>();
         this.pollTimer = new Timer();
     }
@@ -84,7 +84,7 @@ public class JavaMailContainer implements Container {
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
-        
+ 
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.timerDelay = (long) ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);

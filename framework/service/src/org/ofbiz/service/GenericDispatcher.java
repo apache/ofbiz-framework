@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,9 +32,9 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
     public static final String module = GenericDispatcher.class.getName();
 
-    protected static boolean ecasDisabled = false; 
+    protected static boolean ecasDisabled = false;
     protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
-    
+ 
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
         return getLocalDispatcher(dispatcherName, delegator, null, null);
     }
@@ -42,7 +42,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader) {
         return getLocalDispatcher(dispatcherName, delegator, loader, null);
     }
-    
+ 
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
             dispatcherName = "default";
@@ -57,15 +57,15 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                 if (dispatcher == null) {
                     if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
                     //Debug.logInfo(new Exception(), "Showing stack where new dispatcher is being created...", module);
-                    
+ 
                     if (delegator == null && serviceDispatcher != null) {
                         delegator = serviceDispatcher.getDelegator();
                     }
-                    
+ 
                     if (loader == null) {
                         loader = GenericDispatcher.class.getClassLoader();
                     }
-                    
+ 
                     ServiceDispatcher sd = serviceDispatcher != null? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
                     LocalDispatcher thisDispatcher = null;
                     if (sd != null) {
@@ -95,7 +95,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         } catch (SecurityException e) {
             loader = GenericDispatcher.class.getClassLoader();
         }
-        return new GenericDispatcher(name, delegator, loader, sd);        
+        return new GenericDispatcher(name, delegator, loader, sd);
     }
 
     protected GenericDispatcher() {}
@@ -221,7 +221,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runAsync(serviceName, ServiceUtil.makeContext(context), requester, persist);
     }
-   
+ 
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map, org.ofbiz.service.GenericRequester)
      */
@@ -232,7 +232,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public void runAsync(String serviceName, GenericRequester requester, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runAsync(serviceName, ServiceUtil.makeContext(context), requester);
     }
-    
+ 
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map, boolean)
      */
@@ -244,7 +244,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public void runAsync(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runAsync(serviceName, ServiceUtil.makeContext(context), persist);
     }
-   
+ 
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map)
      */
@@ -270,6 +270,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
      */
     public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         return runAsyncWait(serviceName, context, true);
-    }  
+    }
 }
 

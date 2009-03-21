@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,7 +38,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ServiceEngineTestServices {
 
     public static final String module = ServiceEngineTestServices.class.getName();
-    
+ 
     public static Map<String, Object> testServiceDeadLockRetry(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -63,10 +63,10 @@ public class ServiceEngineTestServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     public static Map<String, Object> testServiceDeadLockRetryThreadA(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -75,7 +75,7 @@ public class ServiceEngineTestServices {
             GenericValue testingTypeA = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_A");
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
-            
+ 
             // wait at least long enough for the other method to have locked resource B
             Debug.logInfo("In testServiceDeadLockRetryThreadA just updated SVCLRT_A, beginning wait", module);
             UtilMisc.staticWait(100);
@@ -109,7 +109,7 @@ public class ServiceEngineTestServices {
             GenericValue testingTypeB = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_B");
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
-            
+ 
             // wait at least long enough for the other method to have locked resource B
             Debug.logInfo("In testServiceDeadLockRetryThreadB just updated SVCLRT_B, beginning wait", module);
             UtilMisc.staticWait(100);
@@ -137,7 +137,7 @@ public class ServiceEngineTestServices {
     }
 
     // ==================================================
-    
+ 
     public static Map<String, Object> testServiceLockWaitTimeoutRetry(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -162,7 +162,7 @@ public class ServiceEngineTestServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
     public static Map<String, Object> testServiceLockWaitTimeoutRetryGrabber(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -175,7 +175,7 @@ public class ServiceEngineTestServices {
             testingType.store();
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryGrabber just updated SVCLWTRT, beginning wait", module);
-            
+ 
             // wait at least long enough for the other method to have locked resource wait time out
             // (tx timeout 6s on this the Grabber and 2s on the Waiter): wait 4 seconds because timeout on this
             UtilMisc.staticWait(4 * 1000);
@@ -197,14 +197,14 @@ public class ServiceEngineTestServices {
         try {
             // wait for a small amount of time to make sure the grabber does it's thing first
             UtilMisc.staticWait(100);
-            
+ 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryWaiter about to update SVCLWTRT, wait starts here", module);
-            
+ 
             // TRY grab entity SVCLWTRT by looking up and changing, should get a lock wait timeout exception because of the Grabber thread
             GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRT");
             testingType.set("description", "New description for SVCLWTRT from Waiter service, this is the value that should be there.");
             testingType.store();
-            
+ 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryWaiter successfully updated SVCLWTRT", module);
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running lock wait timeout test Waiter thread: " + e.toString();
@@ -220,19 +220,19 @@ public class ServiceEngineTestServices {
     }
 
     // ==================================================
-    
+ 
     /**
      * NOTE that this is a funny case where the auto-retry in the service engine for the call to
      * testServiceLockWaitTimeoutRetryCantRecoverWaiter would NOT be able to recover because it would try again
-     * given the new transaction and all, but the lock for the waiting thread would still be there... so it will fail 
+     * given the new transaction and all, but the lock for the waiting thread would still be there... so it will fail
      * repeatedly.
-     * 
+     *
      * TODO: there's got to be some way to do this, but how?!? :(
-     * 
-     * NOTE: maybe this will work: create a list that the service engine maintains of services it will run after the 
+     *
+     * NOTE: maybe this will work: create a list that the service engine maintains of services it will run after the
      * current service run is complete, and AFTER it has committed or rolled back its transaction; if a service finds
      * it has a lock wait timeout, add itself to the list for its parent service (somehow...) and off we go!
-     * 
+     *
      * @param dctx
      * @param context
      * @return
@@ -252,7 +252,7 @@ public class ServiceEngineTestServices {
             if (ServiceUtil.isError(waiterResult)) {
                 return ServiceUtil.returnError("Error running testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, null, waiterResult);
             }
-            
+ 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) successfully finished running sub-service in own transaction", module);
         } catch (GenericServiceException e) {
             String errMsg = "Error running deadlock test services: " + e.toString();
@@ -262,7 +262,7 @@ public class ServiceEngineTestServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
     public static Map<String, Object> testServiceLockWaitTimeoutRetryCantRecoverWaiter(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -275,7 +275,7 @@ public class ServiceEngineTestServices {
             GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRTCR");
             testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock Waiter, this is the value that should be there.");
             testingType.store();
-            
+ 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecoverWaiter successfully updated SVCLWTRTCR", module);
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running lock wait timeout test Waiter thread: " + e.toString();
@@ -285,9 +285,9 @@ public class ServiceEngineTestServices {
 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     // ==================================================
-    
+ 
     public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -299,7 +299,7 @@ public class ServiceEngineTestServices {
             String errMsg = "This is the expected error running sub-service with own tx after the parent has set rollback only, logging and ignoring: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
     public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -310,9 +310,9 @@ public class ServiceEngineTestServices {
             GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVC_SRBO");
             testingType.set("description", "New description for SVC_SRBO; this should be reset on the rollback, if this is in the db then the test failed");
             testingType.store();
-            
+ 
             TransactionUtil.setRollbackOnly("Intentionally setting rollback only for testing purposes", null);
-            
+ 
             Map<String, Object> resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
             if (ServiceUtil.isError(resultMap)) {
                 return ServiceUtil.returnError("Error running sub-service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, null, resultMap);
@@ -322,17 +322,17 @@ public class ServiceEngineTestServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
-    }    
+    }
     public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map<String, ? extends Object> context) {
         // this service doesn't actually have to do anything, the problem was in just pausing and resuming the transaciton with setRollbackOnly
         return ServiceUtil.returnSuccess();
     }
-    
-    
+ 
+ 
     // ==================================================
-    
+ 
     public static Map<String, Object> testServiceEcaGlobalEventExec(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -343,7 +343,7 @@ public class ServiceEngineTestServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should commit
         return ServiceUtil.returnSuccess();
     }

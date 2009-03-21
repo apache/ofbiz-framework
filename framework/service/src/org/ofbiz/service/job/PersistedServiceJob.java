@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -284,7 +284,7 @@ public class PersistedServiceJob extends GenericServiceJob {
 
             // check the runAsUser
             if (!UtilValidate.isEmpty(jobObj.get("runAsUser"))) {
-                context.put("userLogin", ServiceUtil.getUserLogin(dctx, context, jobObj.getString("runAsUser")));                
+                context.put("userLogin", ServiceUtil.getUserLogin(dctx, context, jobObj.getString("runAsUser")));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "PersistedServiceJob.getContext(): Entity Exception", module);

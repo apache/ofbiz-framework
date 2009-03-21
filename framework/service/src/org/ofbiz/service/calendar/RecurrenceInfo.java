@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ import org.ofbiz.entity.GenericValue;
  * Recurrence Info Object
  */
 public class RecurrenceInfo {
-    
+ 
     public static final String module = RecurrenceInfo.class.getName();
 
     protected GenericValue info;
@@ -203,11 +203,11 @@ public class RecurrenceInfo {
         if (getCurrentCount() == 0 || fromTime == 0 || fromTime == startDate.getTime()) {
             return first();
         }
-            
+ 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Date List Size: " + (rDateList == null ? 0 : rDateList.size()), module);
             Debug.logVerbose("Rule List Size: " + (rRulesList == null ? 0 : rRulesList.size()), module);
-        }            
+        }
 
         // Check the rules and date list
         if (rDateList == null && rRulesList == null) {
@@ -232,18 +232,18 @@ public class RecurrenceInfo {
         }
         return nextRuleTime;
     }
-    
+ 
     /** Checks the current recurrence validity at the moment. */
     public boolean isValidCurrent() {
         return isValidCurrent(RecurrenceUtil.now());
     }
-    
+ 
     /** Checks the current recurrence validity for checkTime. */
     public boolean isValidCurrent(long checkTime) {
         if (checkTime == 0 || (rDateList == null && rRulesList == null)) {
             return false;
         }
-        
+ 
         boolean found = false;
         Iterator<RecurrenceRule> rulesIterator = getRecurrenceRuleIterator();
         while (rulesIterator.hasNext()) {
@@ -256,7 +256,7 @@ public class RecurrenceInfo {
                 return false;
             }
         }
-        
+ 
         return found;
     }
 
@@ -295,7 +295,7 @@ public class RecurrenceInfo {
     public String primaryKey() {
         return info.getString("recurrenceInfoId");
     }
-    
+ 
     public static RecurrenceInfo makeInfo(GenericDelegator delegator, long startTime, int frequency,
             int interval, int count) throws RecurrenceInfoException {
         return makeInfo(delegator, startTime, frequency, interval, count, 0);

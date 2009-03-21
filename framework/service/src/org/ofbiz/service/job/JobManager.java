@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -141,9 +141,9 @@ public class JobManager {
                         Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
                         return null;
                     }
-                    
+ 
                     List<Job> localPoll = FastList.newInstance();
-                    
+ 
                     // first update the jobs w/ this instance running information
                     delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
 
@@ -169,7 +169,7 @@ public class JobManager {
                     } else {
                         pollDone = true;
                     }
-                    
+ 
                     // nothing should go wrong at this point, so add to the general list
                     poll.addAll(localPoll);
                 } catch (Throwable t) {
@@ -224,7 +224,7 @@ public class JobManager {
                             Timestamp now = UtilDateTime.nowTimestamp();
                             // only re-schedule if there is no new recurrences since last run
                             Debug.log("Scheduling Job : " + job, module);
-    
+ 
                             String pJobId = job.getString("parentJobId");
                             if (pJobId == null) {
                                 pJobId = job.getString("jobId");
@@ -237,17 +237,17 @@ public class JobManager {
                             newJob.set("startDateTime", null);
                             newJob.set("runByInstanceId", null);
                             delegator.createSetNextSeqId(newJob);
-    
+ 
                             // set the cancel time on the old job to the same as the re-schedule time
                             job.set("statusId", "SERVICE_CRASHED");
                             job.set("cancelDateTime", now);
                             delegator.store(job);
-                            
+ 
                             rescheduled++;
                         }
                     }
                 }
-    
+ 
                 if (Debug.infoOn()) Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);

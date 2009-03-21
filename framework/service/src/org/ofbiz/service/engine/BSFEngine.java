@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,21 +38,21 @@ import org.apache.bsf.BSFManager;
  * BSF Service Engine
  */
 public class BSFEngine extends GenericAsyncEngine {
-    
+ 
     public static final String module = BSFEngine.class.getName();
     public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BSFScripts", 0, 0);
-            
+ 
     public BSFEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
-    
+ 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runSync(localName, modelService, context);
     }
-    
+ 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -63,7 +63,7 @@ public class BSFEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Service did not return expected result");
         return UtilGenerics.checkMap(result);
     }
-    
+ 
     // Invoke the BSF Script.
     private Object serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
@@ -71,7 +71,7 @@ public class BSFEngine extends GenericAsyncEngine {
 
         // get the DispatchContext from the localName and ServiceDispatcher
         DispatchContext dctx = dispatcher.getLocalContext(localName);
-        
+ 
         // get the classloader to use
         ClassLoader cl = null;
 
@@ -89,15 +89,15 @@ public class BSFEngine extends GenericAsyncEngine {
 
         mgr.registerBean("dctx", dctx);
         mgr.registerBean("context", context);
-        
+ 
         // pre-load the engine to make sure we were called right
-        org.apache.bsf.BSFEngine bsfEngine = null;        
+        org.apache.bsf.BSFEngine bsfEngine = null;
         try {
             bsfEngine = mgr.loadScriptingEngine(modelService.engineName);
         } catch (BSFException e) {
             throw new GenericServiceException("Problems loading org.apache.bsf.BSFEngine: " + modelService.engineName, e);
         }
-        
+ 
         // source the script into a string
         String script = scriptCache.get(localName + "_" + location);
 
@@ -123,15 +123,15 @@ public class BSFEngine extends GenericAsyncEngine {
                     scriptCache.put(localName + "_" + location, script);
                 }
             }
-        }               
-        
+        }
+ 
         // now invoke the script
         try {
             bsfEngine.exec(location, 0, 0, script);
         } catch (BSFException e) {
             throw new GenericServiceException("Script invocation error", e);
         }
-        
-        return mgr.lookupBean("response");                                            
+ 
+        return mgr.lookupBean("response");
     }
 }

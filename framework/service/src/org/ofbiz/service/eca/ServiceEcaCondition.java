@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  * ServiceEcaCondition
  */
 public class ServiceEcaCondition implements java.io.Serializable {
-    
+ 
     public static final String module = ServiceEcaCondition.class.getName();
 
     protected String conditionService = null;
@@ -94,7 +94,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             buf.append(":").append(operator).append(":");
             if (UtilValidate.isNotEmpty(rhsMapName)) buf.append(rhsMapName).append(".");
             buf.append(rhsValueName);
-            
+ 
             if (moreDetail) {
                 if (UtilValidate.isNotEmpty(compareType)) {
                     buf.append("-");
@@ -224,10 +224,10 @@ public class ServiceEcaCondition implements java.io.Serializable {
             if (!UtilValidate.areEqual(this.operator, other.operator)) return false;
             if (!UtilValidate.areEqual(this.compareType, other.compareType)) return false;
             if (!UtilValidate.areEqual(this.format, other.format)) return false;
-            
+ 
             if (this.isConstant != other.isConstant) return false;
             if (this.isService != other.isService) return false;
-            
+ 
             return true;
         } else {
             return false;

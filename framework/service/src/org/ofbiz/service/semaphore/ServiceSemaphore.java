@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * ServiceSemaphore
  */
-public class ServiceSemaphore {   
+public class ServiceSemaphore {
     // TODO: add something to make sure semaphores are cleaned up on failures and when the thread somehow goes away without cleaning it up
     // TODO: write service engine test cases to make sure semaphore both blocking and timing out (use config to set sleep and wait to low values so it times out quickly)
 
@@ -48,7 +48,7 @@ public class ServiceSemaphore {
         if (mode == SEMAPHORE_MODE_NONE) return;
 
         lockTime = UtilDateTime.nowTimestamp();
-        
+ 
         if (this.checkLockNeedToWait()) {
             waitOrFail();
         }
@@ -60,7 +60,7 @@ public class ServiceSemaphore {
         // remove the lock file
         dbWrite(lock, true);
     }
-    
+ 
     private void waitOrFail() throws SemaphoreWaitException, SemaphoreFailException {
         if (SEMAPHORE_MODE_FAIL == mode) {
             // fail
@@ -74,7 +74,7 @@ public class ServiceSemaphore {
             while (wait < maxWaitCount) {
                 wait++;
                 try {
-                    Thread.sleep(sleep);               
+                    Thread.sleep(sleep);
                 } catch (InterruptedException e) {
                     Debug.logInfo(e, "Sleep interrupted: ServiceSemaphone.waitOrFail()", module);
                 }
@@ -113,7 +113,7 @@ public class ServiceSemaphore {
 
             // use the special method below so we can reuse the unqiue tx functions
             dbWrite(semaphore, false);
-            
+ 
             // we own the lock, no waiting
             return false;
         } else {
@@ -129,7 +129,7 @@ public class ServiceSemaphore {
 
         try {
             // prepare the suspended transaction
-            parent = TransactionUtil.suspend();            
+            parent = TransactionUtil.suspend();
             beganTx = TransactionUtil.begin();
             if (!beganTx) {
                 throw new SemaphoreFailException("Cannot obtain unique transaction for semaphore logging");
@@ -166,7 +166,7 @@ public class ServiceSemaphore {
             }
         } catch (GenericTransactionException e) {
             Debug.logError(e, module);
-        } finally {            
+        } finally {
             if (parent != null) {
                 try {
                     TransactionUtil.resume(parent);
