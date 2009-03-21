@@ -57,12 +57,12 @@ public class SimpleMethodTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
-        
+ 
         LocalDispatcher dispatcher = modelTestSuite.getDispatcher();
 
         try {
 
-            Map serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(), 
+            Map serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
                     UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault()));
 
             // do something with the errorMessage

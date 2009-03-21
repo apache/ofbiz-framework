@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -134,7 +134,7 @@ public class TestRunContainer implements Container {
             // run the tests
             suite.run(results);
             test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
-            xml.endTestSuite(test);            
+            xml.endTestSuite(test);
 
             // dispay the results
             Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
@@ -174,7 +174,7 @@ public class TestRunContainer implements Container {
         return true;
     }
 
-    public void stop() throws ContainerException {        
+    public void stop() throws ContainerException {
     }
 
     class JunitXmlListener extends XMLJUnitResultFormatter {
@@ -182,7 +182,7 @@ public class TestRunContainer implements Container {
         Map<String, Long> startTimes = FastMap.newInstance();
 
         public JunitXmlListener(OutputStream out) {
-            this.setOutput(out);            
+            this.setOutput(out);
         }
 
         public void startTestSuite(JUnitTest suite) {

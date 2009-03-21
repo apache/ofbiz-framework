@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,33 +37,33 @@ import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Element;
 
 /**
- * Use this class in a JUnit test runner to bootstrap the Test Suite runner. 
+ * Use this class in a JUnit test runner to bootstrap the Test Suite runner.
  */
 public class ModelTestSuite {
 
     public static final String module = ModelTestSuite.class.getName();
-    
+ 
     protected String suiteName;
     protected String delegatorName;
     protected String dispatcherName;
-    
+ 
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
 
     protected List<Test> testList = FastList.newInstance();
-    
+ 
     public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
 
         this.delegatorName = mainElement.getAttribute("delegator-name");
         if (UtilValidate.isEmpty(this.delegatorName)) this.delegatorName = "test";
-        
+ 
         this.dispatcherName = mainElement.getAttribute("dispatcher-name");
         if (UtilValidate.isEmpty(this.dispatcherName)) this.dispatcherName = "test-dispatcher";
-        
+ 
         this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
-        
+ 
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
             String caseName = testCaseElement.getAttribute("case-name");
             String nodeName = testCaseElement.getNodeName();
@@ -118,19 +118,19 @@ public class ModelTestSuite {
         }
 
     }
-    
+ 
     String getSuiteName() {
         return this.suiteName;
     }
-    
+ 
     GenericDelegator getDelegator() {
         return this.delegator;
     }
-    
+ 
     LocalDispatcher getDispatcher() {
         return this.dispatcher;
     }
-    
+ 
     List<Test> getTestList() {
         return testList;
     }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,14 +33,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Use this class in a JUnit test runner to prepare the TestSuite. 
+ * Use this class in a JUnit test runner to prepare the TestSuite.
  */
 public class JunitSuiteWrapper {
 
     public static final String module = JunitSuiteWrapper.class.getName();
-    
+ 
     protected List<ModelTestSuite> modelTestSuiteList = FastList.newInstance();
-    
+ 
     public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
@@ -90,7 +90,7 @@ public class JunitSuiteWrapper {
 
         return testSuites;
     }
-    
+ 
     public List<Test> getAllTestList() {
         List<Test> allTestList = FastList.newInstance();
 
@@ -99,7 +99,7 @@ public class JunitSuiteWrapper {
                 allTestList.add(tst);
             }
         }
-        
+ 
         return allTestList;
     }
 }
